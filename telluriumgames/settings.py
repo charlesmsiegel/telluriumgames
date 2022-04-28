@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     "game",
     "locations",
     "objects",
-    # "tinymce",
-    # "polymorphic",
+    "tinymce",
+    "polymorphic",
     "channels",
 ]
 
