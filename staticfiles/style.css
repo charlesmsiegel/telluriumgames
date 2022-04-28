@@ -1,0 +1,27 @@
+.vampire_heading {
+    font-family: "Delavan", serif;
+}
+.werewolf_heading {
+    font-family: "Balthazar", serif;
+}
+.mage_heading {
+    font-family: "Abbess", serif;
+}
+.changeling_heading {
+    font-family: "Kells", serif;
+}
+.wraith_heading {
+    font-family: "MatrixTall", serif;
+}
+.inlineforms {
+    display: inline;
+}
+.headerimg {
+    height: 30px;
+}
+.margin {
+    margin: 30px;
+}
+.dots {
+    font-family: "Arial", sans-serif;
+}
