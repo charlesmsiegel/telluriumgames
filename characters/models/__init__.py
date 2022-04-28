@@ -1,4 +1,4 @@
-import .wod
-import .cod
-import .tc
-import .exalted
+from . import wod
+from . import cod
+from . import tc
+from . import exalted
