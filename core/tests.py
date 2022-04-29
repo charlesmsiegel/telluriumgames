@@ -96,3 +96,84 @@ class TestHomeView(TestCase):
     def test_includes_storypath_nexus(self):
         """Tests site contains Storypath Nexus logo"""
         self.fail("Test not implemented")
+
+
+class NewUserTest(FunctionalTest):
+    """Test creating a new user with interface"""
+
+    def test_create_account(self):
+        # User arrives on front page
+        self.browser.get(self.live_server_url)
+
+        # User sees login/signup links
+        links = self.browser.find_elements_by_tag_name("a")
+        links = [
+            (self.clean_url(link.get_attribute("href")), link.text) for link in links
+        ]
+
+        self.assertIn(("accounts/login/", "Log In"), links)
+        self.assertIn(("accounts/signup/", "Sign Up"), links)
+
+        # User clicks signup
+        self.client.get("/accounts/signup/")
+        self.assertTemplateUsed(
+            self.client.get("/accounts/signup/"), "accounts/signup.html"
+        )
+
+        # User creates credentials
+        #     First attempt at credentials fails
+        self.browser.get(self.live_server_url + "/accounts/signup/")
+        namebox = self.browser.find_element_by_id("id_username")
+        namebox.send_keys("test_user")
+        pw1 = self.browser.find_element_by_id("id_password1")
+        pw1.send_keys("pw123456")
+        pw2 = self.browser.find_element_by_id("id_password2")
+        pw2.send_keys("pw123454")
+        submit_button = self.browser.find_element_by_id("signup_button")
+        submit_button.click()
+
+        username = "test_user"
+        password = "pw123456"
+
+        pw1 = self.browser.find_element_by_id("id_password1")
+        pw1.send_keys(password)
+        pw2 = self.browser.find_element_by_id("id_password2")
+        pw2.send_keys(password)
+        submit_button = self.browser.find_element_by_id("signup_button")
+        submit_button.click()
+
+        self.assertEqual(User.objects.count(), 1)
+
+        # User inputs credentials
+        self.browser.get(self.live_server_url + "/accounts/login/")
+        namebox = self.browser.find_element_by_id("id_username")
+        namebox.send_keys(username)
+        pw1 = self.browser.find_element_by_id("id_password")
+        pw1.send_keys(password)
+        submit_button = self.browser.find_element_by_id("login_button_id")
+        submit_button.click()
+
+        # User is forwarded to account page
+        # Account page has user name on it
+        links = self.browser.find_elements_by_tag_name("a")
+        links = [
+            (self.clean_url(link.get_attribute("href")), link.text) for link in links
+        ]
+        self.assertIn("test_user", self.browser.title)
+
+
+class TestHomepage(FunctionalTest):
+    """Test seeing the appropriate content on Homepage"""
+
+    def test_homepage_structure(self):
+        self.browser.get(self.live_server_url)
+
+        self.assertIn("World of Darkness", self.browser.title)
+
+        links = self.browser.find_elements_by_tag_name("a")
+        links = [
+            (self.clean_url(link.get_attribute("href")), link.text) for link in links
+        ]
+
+        self.assertIn(("accounts/login/", "Log In"), links)
+        self.assertIn(("accounts/signup/", "Sign Up"), links)
