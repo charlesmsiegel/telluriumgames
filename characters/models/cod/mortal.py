@@ -1,7 +1,9 @@
 import random
+from tokenize import Special
 from attr import attributes
 from django.db import models
 from ..character import Character
+from characters.fields import ListField
 
 from characters.utils import weighted_choice
 
@@ -60,9 +62,11 @@ class Mortal(Character):
     subterfuge = models.IntegerField(default=0)
 
     # skill specialties: pick three specialties (no requirements other than "has skill"!!!)
+    specialties = models.ManyToManyField("Specialty", blank=True)
     # Add 1 die to rolls when relevant
 
     # merits: 7 dots
+    merits = models.ManyToManyField("Merit", through="MeritRating")
 
     willpower = models.IntegerField(default=1)
     integrity = models.IntegerField(default=7)
@@ -196,10 +200,61 @@ class Mortal(Character):
                 setattr(self, skill_choice, getattr(self, skill_choice) + 1)
 
     def random_specialties(self, num_specs=3):
-        pass
+        all_skills = {}
+        all_skills.update(self.get_physical_skills())
+        all_skills.update(self.get_social_skills())
+        all_skills.update(self.get_mental_skills())
+        all_skills = {k: v - 1 for k, v in all_skills.items()}
+        while self.specialties.count() < num_specs:
+            skill_to_specialize = weighted_choice(all_skills)
+            spec = (
+                Specialty.objects.filter(skill=skill_to_specialize[:3])
+                .order_by("?")
+                .first()
+            )
+            if spec not in self.specialties.all():
+                self.specialties.add(spec)
+
+    def total_merits(self):
+        merits = MeritRating.objects.filter(character=self)
+        return sum([x.rating for x in merits])
 
     def random_merits(self, merit_dots=7):
-        pass
+        while self.total_merits() < merit_dots:
+            all_merits = Merit.objects.all()
+            merits_that_are_cheap_enough = [
+                x
+                for x in all_merits
+                if len(
+                    [
+                        r
+                        for r in x.allowed_ratings
+                        if r <= merit_dots - self.total_merits()
+                    ]
+                )
+                != 0
+            ]
+            merits_not_possessed = [
+                x
+                for x in merits_that_are_cheap_enough
+                if (x.name not in [x.name for x in self.merits.all()] or x.needs_detail)
+            ]
+            allowed_merits = [x for x in merits_not_possessed if x.check_prereqs(self)]
+            chosen = random.choice(allowed_merits)
+            rating = random.choice(
+                [
+                    x
+                    for x in chosen.allowed_ratings
+                    if x <= merit_dots - self.total_merits()
+                ]
+            )
+            if chosen.needs_detail:
+                detail = f"Detail {self.merits.count()}"
+            else:
+                detail = None
+            MeritRating.objects.create(
+                character=self, merit=chosen, rating=rating, detail=detail
+            )
 
     def assign_advantages(self):
         self.willpower = self.resolve + self.composure
@@ -267,3 +322,27 @@ class Specialty(models.Model):
         max_length=3, choices=zip(ability_keys, abilities), default="aca"
     )
     specialty = models.CharField(max_length=100)
+
+
+class Merit(models.Model):
+    name = models.CharField(max_length=100)
+    needs_detail = models.BooleanField(default=False)
+    style = models.BooleanField(default=False)
+    allowed_ratings = ListField(default=[])
+    attribute_and_skill_prereqs = ListField(default=[])
+    merit_prereqs = ListField(default=[])
+    list_of_details = ListField(default=[])
+
+    def check_prereqs(self, character):
+        for prereq in self.attribute_and_skill_prereqs:
+            if getattr(character, prereq[0]) < prereq[1]:
+                return False
+        # TODO: merit prereqs?
+        return True
+
+
+class MeritRating(models.Model):
+    character = models.ForeignKey("Mortal", null=False, blank=False)
+    merit = models.ForeignKey("Merit", null=False, blank=False)
+    rating = models.IntegerField(default=0)
+    detail = models.CharField(max_length=100)
