@@ -176,7 +176,7 @@ class TestHomepage(FunctionalTest):
     def test_homepage_structure(self):
         self.browser.get(self.live_server_url)
 
-        self.assertIn("World of Darkness", self.browser.title)
+        self.assertIn("Tellurium Games", self.browser.title)
 
         links = self.browser.find_elements_by_tag_name("a")
         links = [
