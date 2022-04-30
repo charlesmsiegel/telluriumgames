@@ -1,7 +1,9 @@
 {% extends "core/base.html" %}
-{% block title %}{{ user.username }}{% endblock title %}
+{% block title %}
+    {{ user.username }}
+{% endblock title %}
 {% block content %}
-    <div style="text-align: center;">
+    <div class="centertext">
         <div class="container">
             <div class="row">
                 <h2 class="col-sm">My Characters</h2>
@@ -21,7 +23,7 @@
         </div>
     </div>
     {% if user.profile.storyteller %}
-        <div style="text-align: center;">
+        <div class="centertext">
             <div class="container">
                 <div class="row">
                     <h2 class="col-sm">To Approve</h2>
