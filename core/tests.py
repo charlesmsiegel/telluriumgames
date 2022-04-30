@@ -83,19 +83,27 @@ class TestHomeView(TestCase):
 
     def test_includes_patreon(self):
         """Tests site contains link to Patreon"""
-        self.fail("Test not implemented")
+        response = self.client.get("/")
+        self.assertContains(response, "Patron")
+        self.assertContains(response, "https://www.patreon.com/bePatron?u=62722820")
 
     def test_includes_storytellers_vault(self):
         """Tests site contains Stoyteller's Vault logo"""
-        self.fail("Test not implemented")
+        response = self.client.get("/")
+        self.assertContains(response, "Storyteller's Vault")
+        self.assertContains(response, "stv.png")
 
     def test_includes_dark_pack(self):
         """Tests site contains Dark Pack Logo"""
-        self.fail("Test not implemented")
+        response = self.client.get("/")
+        self.assertContains(response, "Dark Pack")
+        self.assertContains(response, "dark_pack.png")
 
     def test_includes_storypath_nexus(self):
         """Tests site contains Storypath Nexus logo"""
-        self.fail("Test not implemented")
+        response = self.client.get("/")
+        self.assertContains(response, "Storypath Nexus")
+        self.assertContains(response, "spn.jpg")
 
 
 class NewUserTest(FunctionalTest):
