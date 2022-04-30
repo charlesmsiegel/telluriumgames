@@ -4,6 +4,8 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, View
 
 from accounts.models import Profile
+from characters.models import Character
+
 # from characters.models import Character
 
 
@@ -22,12 +24,20 @@ class ProfileView(View):
     def get(self, request):
         if request.user.is_authenticated:
             profile = Profile.objects.get(user=request.user)
+            if profile.storyteller:
+                to_approve = Character.objects.filter(status__in=["Un", "Sub"])
+                xp_requests = []
+            else:
+                to_approve = []
+                xp_requests = []
             return render(
                 request,
                 "accounts/index.html",
                 {
                     "user": request.user,
                     "username": request.user.username,
+                    "to_approve": to_approve,
+                    "xp_requests": xp_requests,
                 },
             )
         return redirect("/accounts/login/")

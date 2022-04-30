@@ -6,8 +6,9 @@ from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.support.ui import Select
 
+from characters.models import Character
+
 MAX_WAIT = 10
-# Create your tests here.
 # Create your tests here.
 class FunctionalTest(LiveServerTestCase):
     """Base case for Functional Tests"""
