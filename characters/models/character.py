@@ -1,5 +1,8 @@
+import random
+
 from django.db import models
 from django.shortcuts import reverse
+from django.utils.timezone import now
 from polymorphic.models import PolymorphicModel
 
 

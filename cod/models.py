@@ -2,13 +2,26 @@ import random
 from tokenize import Special
 from attr import attributes
 from django.db import models
-from ..character import Character
 from characters.fields import ListField
+from polymorphic.models import PolymorphicModel
+from django.shortcuts import reverse
 
 from core.utils import weighted_choice
 
 # Create your models here.
-class Mortal(Character):
+class Mortal(PolymorphicModel):
+    player = models.ForeignKey(
+        "auth.User", on_delete=models.CASCADE, related_name="characters"
+    )
+    name = models.CharField(max_length=100, unique=True)
+    concept = models.CharField(max_length=300)
+    status_keys = ["Un", "Sub", "App", "Ret", "Dec"]
+    statuses = ["Unfinished", "Submitted", "Approved", "Retired", "Deceased"]
+    status = models.CharField(
+        max_length=3, choices=zip(status_keys, statuses), default="Un"
+    )
+    minor = models.BooleanField(default=False)
+
     type = "mortal"
     short_term_aspiration_1 = models.CharField(max_length=100, blank=True, null=True)
     short_term_aspiration_2 = models.CharField(max_length=100, blank=True, null=True)
@@ -84,6 +97,23 @@ class Mortal(Character):
     # What is the worst thing your character can imagine someone else doing?
     # What has your character forgotten?
     # What is the most traumatic thing that has ever happened to your character?
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("character", args=[str(self.id)])
+
+    def has_name(self):
+        if self.name != "":
+            return True
+        return False
+
+    def has_concept(self):
+        if self.concept != "":
+            return True
+        return False
+
 
     def get_mental_attributes(self):
         return {
