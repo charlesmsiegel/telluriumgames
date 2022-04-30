@@ -2,7 +2,7 @@ import random
 from tokenize import Special
 from attr import attributes
 from django.db import models
-from characters.fields import ListField
+from cod.fields import ListField
 from polymorphic.models import PolymorphicModel
 from django.shortcuts import reverse
 

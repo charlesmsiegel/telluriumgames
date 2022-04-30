@@ -6,7 +6,7 @@ from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.support.ui import Select
 
-from characters.models import Character
+from cod.models import Mortal
 
 MAX_WAIT = 10
 # Create your tests here.

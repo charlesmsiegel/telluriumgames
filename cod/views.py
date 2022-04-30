@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View, DetailView
 
-from characters.models import Character
+from cod.models import Mortal
 
 
 # Create your views here.
@@ -30,7 +30,7 @@ class IndexView(View):
         return render(request, "characters/index.html", context)
 
     def get_context(self):
-        chars = Character.objects.all().order_by("name")
+        chars = Mortal.objects.all().order_by("name")
         context = {}
         context["chars"] = chars
         return context
@@ -39,7 +39,7 @@ class IndexView(View):
 class CharacterDetailView(DetailView):
     """Class that manages Views for mages"""
 
-    model = Character
+    model = Mortal
     template_name = "characters/character/detail.html"
 
 
@@ -56,7 +56,7 @@ class CharacterDetailView(View):
     }
 
     def get(self, request, *args, **kwargs):
-        char = Character.objects.get(pk=kwargs["pk"])
+        char = Mortal.objects.get(pk=kwargs["pk"])
         if char.type in self.create_views:
             return self.create_views[char.type].as_view()(request, *args, **kwargs)
         return redirect("characters_index")

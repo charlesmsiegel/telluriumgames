@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from characters.templatetags.dots import dots
+from cod.templatetags.dots import dots
 from collections import Counter
 
 # Create your tests here.

@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, View
 
 from accounts.models import Profile
-from characters.models import Character
+from cod.models import Mortal
 
 # from characters.models import Character
 
@@ -25,7 +25,7 @@ class ProfileView(View):
         if request.user.is_authenticated:
             profile = Profile.objects.get(user=request.user)
             if profile.storyteller:
-                to_approve = Character.objects.filter(status__in=["Un", "Sub"])
+                to_approve = Mortal.objects.filter(status__in=["Un", "Sub"])
                 xp_requests = []
             else:
                 to_approve = []

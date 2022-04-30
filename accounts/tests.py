@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 
-from characters.models import Character
+from cod.models import Mortal
 
 # Create your tests here.
 class TestSignUpView(TestCase):
@@ -27,10 +27,10 @@ class TestProfileView(TestCase):
         )
         self.storyteller.profile.storyteller = True
         self.storyteller.profile.save()
-        self.char1 = Character.objects.create(
+        self.char1 = Mortal.objects.create(
             name="Test Character 1", player=self.user1
         )
-        self.char2 = Character.objects.create(
+        self.char2 = Mortal.objects.create(
             name="Test Character 2", player=self.user2
         )
 
@@ -50,7 +50,7 @@ class TestProfileView(TestCase):
         # Check that character appears on user page
         self.assertContains(response, "Test Character 1")
         self.assertNotContains(response, "Test Character 2")
-        self.assertContains(response, f"/characters/{self.char1.id}/")
+        self.assertContains(response, f"/cod/characters/{self.char1.id}/")
 
     def test_approval_list(self):
         self.client.login(username="Test Storyteller", password="testpass")
