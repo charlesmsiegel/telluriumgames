@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ExaltedConfig(AppConfig):
+class CharactersConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'exalted'
+    name = 'characters'
