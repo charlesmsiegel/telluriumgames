@@ -2,7 +2,6 @@ import random
 from tokenize import Special
 from attr import attributes
 from django.db import models
-from cod.fields import ListField
 from polymorphic.models import PolymorphicModel
 from django.shortcuts import reverse
 
@@ -218,15 +217,15 @@ class Mortal(PolymorphicModel):
     def random_skills(self, primary=11, secondary=7, tertiary=4):
         skill_types = [primary, secondary, tertiary]
         random.shuffle(skill_types)
-        while self.physical_skill_sum() < skill_types[0] + 3:
+        while self.physical_skill_sum() < skill_types[0]:
             skill_choice = weighted_choice(self.get_physical_skills())
             if getattr(self, skill_choice) <= 4:
                 setattr(self, skill_choice, getattr(self, skill_choice) + 1)
-        while self.social_skill_sum() < skill_types[1] + 3:
+        while self.social_skill_sum() < skill_types[1]:
             skill_choice = weighted_choice(self.get_social_skills())
             if getattr(self, skill_choice) <= 4:
                 setattr(self, skill_choice, getattr(self, skill_choice) + 1)
-        while self.mental_skill_sum() < skill_types[2] + 3:
+        while self.mental_skill_sum() < skill_types[2]:
             skill_choice = weighted_choice(self.get_mental_skills())
             if getattr(self, skill_choice) <= 4:
                 setattr(self, skill_choice, getattr(self, skill_choice) + 1)

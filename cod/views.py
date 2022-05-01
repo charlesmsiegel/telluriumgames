@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View, DetailView
 
-from cod.models import Mortal
+from cod.models import Mortal, MeritRating
 
 
 # Create your views here.
@@ -10,7 +10,7 @@ class IndexView(View):
 
     def get(self, request):
         context = self.get_context()
-        return render(request, "characters/index.html", context)
+        return render(request, "cod/characters/index.html", context)
 
     def post(self, request):
         context = self.get_context()
@@ -27,7 +27,7 @@ class IndexView(View):
         #         name=request.POST["character_name"], player=request.user
         #     )
         #     return redirect(character.get_absolute_url())
-        return render(request, "characters/index.html", context)
+        return render(request, "cod/characters/index.html", context)
 
     def get_context(self):
         chars = Mortal.objects.all().order_by("name")
@@ -36,27 +36,25 @@ class IndexView(View):
         return context
 
 
-class CharacterDetailView(DetailView):
-    """Class that manages Views for mages"""
-
-    model = Mortal
-    template_name = "characters/character/detail.html"
+class MortalDetailView(View):
+    def get(self, request, *args, **kwargs):
+        char = Mortal.objects.get(pk=kwargs["pk"])
+        context = {
+            "object": char,
+            "merits": MeritRating.objects.filter(character=char)
+        }
+        return render(request, "cod/characters/mortal/detail.html", context,)
 
 
 class CharacterDetailView(View):
     """Class that manages Views for characters"""
 
     create_views = {
-        "character": CharacterDetailView,
-        # "vampire": VampireView,
-        # "werewolf": WerewolfView,
-        # "mage": MageDetailView,
-        # "changeling": ChangelingView,
-        # "wraith": WraithView,
+        "mortal": MortalDetailView,
     }
 
     def get(self, request, *args, **kwargs):
         char = Mortal.objects.get(pk=kwargs["pk"])
         if char.type in self.create_views:
             return self.create_views[char.type].as_view()(request, *args, **kwargs)
-        return redirect("characters_index")
+        return redirect("cod:characters_index")
