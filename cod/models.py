@@ -373,7 +373,9 @@ class Merit(models.Model):
         for prereq in self.attribute_and_skill_prereqs:
             if getattr(character, prereq[0]) < prereq[1]:
                 return False
-        # TODO: merit prereqs?
+        for prereq in self.merit_prereqs:
+            if MeritRating.objects.filter(character=character, merit__name=prereq[0], rating__gte=prereq[1]).count() == 0:
+                return False
         return True
 
 
