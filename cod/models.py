@@ -276,9 +276,9 @@ class Mortal(PolymorphicModel):
                 if (x.name not in [x.name for x in self.merits.all()] or x.needs_detail)
             ]
             allowed_merits = [x for x in merits_not_possessed if x.check_prereqs(self)]
-            if "Anonymity" in [x.name for x in self.merits.al()]:
+            if "Anonymity" in [x.name for x in self.merits.all()]:
                 merits_not_possessed = [x for x in merits_not_possessed if x.name != "Fame"]
-            if "Fame" in [x.name for x in self.merits.al()]:
+            if "Fame" in [x.name for x in self.merits.all()]:
                 merits_not_possessed = [x for x in merits_not_possessed if x.name != "Anonymity"]
             chosen = random.choice(allowed_merits)
             rating = int(random.choice(
