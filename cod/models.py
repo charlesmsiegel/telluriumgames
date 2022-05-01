@@ -387,7 +387,14 @@ class Merit(models.Model):
     def check_prereqs(self, character):
         if self.attribute_and_skill_prereqs is not None:
             for prereq in self.attribute_and_skill_prereqs:
-                if getattr(character, prereq[0]) < prereq[1]:
+                if prereq[0] == "skill":
+                    tmp = {}
+                    tmp.update(character.get_physical_skills())
+                    tmp.update(character.get_mental_skills())
+                    tmp.update(character.get_social_skills())
+                    if sum([x >= prereq[1] for x in tmp.values()]) == 0:
+                        return False
+                elif getattr(character, prereq[0]) < prereq[1]:
                     return False
         if self.merit_prereqs is not None:
             for prereq in self.merit_prereqs:
