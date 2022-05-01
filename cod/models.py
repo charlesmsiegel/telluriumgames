@@ -279,6 +279,7 @@ class Mortal(PolymorphicModel):
                 ]
             )
             if chosen.needs_detail:
+                # TODO: include option from list_of_details
                 detail = f"Detail {self.merits.count()}"
             else:
                 detail = None
@@ -292,6 +293,10 @@ class Mortal(PolymorphicModel):
         self.health = self.size + self.stamina
         self.initiative_modifier = self.dexterity + self.composure
         self.defense = min([self.wits, self.dexterity]) + self.athletics
+
+    def apply_merits(self):
+        # TODO: Apply all the merits
+        pass
 
 
 class Specialty(models.Model):
@@ -362,6 +367,7 @@ class Merit(models.Model):
     attribute_and_skill_prereqs = ListField(default=[])
     merit_prereqs = ListField(default=[])
     list_of_details = ListField(default=[])
+    # TODO: add type of merit: Physical, Social, Mental, Supernatural so that can filter out supernatural for Night-Folk
 
     def check_prereqs(self, character):
         for prereq in self.attribute_and_skill_prereqs:
