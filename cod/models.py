@@ -295,8 +295,9 @@ class Mortal(PolymorphicModel):
         self.defense = min([self.wits, self.dexterity]) + self.athletics
 
     def apply_merits(self):
-        # TODO: Apply all the merits
-        pass
+        for merit in MeritRating.objects.filter(character=self):
+            # TODO: Apply all the merits
+            pass
 
 
 class Specialty(models.Model):
@@ -367,7 +368,7 @@ class Merit(models.Model):
     attribute_and_skill_prereqs = ListField(default=[])
     merit_prereqs = ListField(default=[])
     list_of_details = ListField(default=[])
-    # TODO: add type of merit: Physical, Social, Mental, Supernatural so that can filter out supernatural for Night-Folk
+    merit_type = models.CharField(max_length=100)
 
     def check_prereqs(self, character):
         for prereq in self.attribute_and_skill_prereqs:
