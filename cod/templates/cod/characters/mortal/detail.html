@@ -409,6 +409,9 @@
                     </div>
                     <div class="col-sm">
                         {{ merit.merit.name }}
+                        {% if merit.merit.needs_detail %}
+                            ({{ merit.detail }})
+                        {% endif %}
                     </div>
                     <div class="col-sm dots">
                         {{ merit.rating| dots:merit.merit.get_max_rating }}
