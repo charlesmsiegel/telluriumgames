@@ -113,6 +113,10 @@ class Mortal(PolymorphicModel):
             return True
         return False
 
+    def random_basis(self):
+        self.vice = "Vice"
+        self.virtue = "Virtue"
+        self.concept = "Concept"
 
     def get_mental_attributes(self):
         return {
@@ -190,6 +194,7 @@ class Mortal(PolymorphicModel):
         return sum(self.get_social_skills().values())
 
     def random_creation(self):
+        self.random_basis()
         self.random_attributes()
         self.random_skills()
         self.random_specialties()
@@ -271,6 +276,10 @@ class Mortal(PolymorphicModel):
                 if (x.name not in [x.name for x in self.merits.all()] or x.needs_detail)
             ]
             allowed_merits = [x for x in merits_not_possessed if x.check_prereqs(self)]
+            if "Anonymity" in [x.name for x in self.merits.al()]:
+                merits_not_possessed = [x for x in merits_not_possessed if x.name != "Fame"]
+            if "Fame" in [x.name for x in self.merits.al()]:
+                merits_not_possessed = [x for x in merits_not_possessed if x.name != "Anonymity"]
             chosen = random.choice(allowed_merits)
             rating = int(random.choice(
                 [
@@ -312,6 +321,14 @@ class Mortal(PolymorphicModel):
                 self.health -= 1
             if merit.merit.name == "Fleet of Foot":
                 self.speed += merit.rating
+            if merit.merit.name == "Vice-Ridden":
+                self.vice += ", Vice 2"
+            if merit.merit.name == "Virtuous":
+                self.virtue += ", Virtue 2"
+            if merit.merit.name == "Defensive Combat (Brawl)":
+                self.defense = self.defense - self.athletics + self.brawl
+            if merit.merit.name == "Defensive Combat (Weaponry)":
+                self.defense = self.defense - self.athletics + self.weaponry
 
 
 class Specialty(models.Model):
@@ -387,15 +404,20 @@ class Merit(models.Model):
     def check_prereqs(self, character):
         if self.attribute_and_skill_prereqs is not None:
             for prereq in self.attribute_and_skill_prereqs:
-                if prereq[0] == "skill":
-                    tmp = {}
-                    tmp.update(character.get_physical_skills())
-                    tmp.update(character.get_mental_skills())
-                    tmp.update(character.get_social_skills())
-                    if sum([x >= prereq[1] for x in tmp.values()]) == 0:
+                if prereq[1] == "specialty":
+                    specs = character.specialties.all()
+                    if prereq[0][:3] not in [x.skill for x in specs]:
                         return False
-                elif getattr(character, prereq[0]) < prereq[1]:
-                    return False
+                else:
+                    if prereq[0] == "skill":
+                        tmp = {}
+                        tmp.update(character.get_physical_skills())
+                        tmp.update(character.get_mental_skills())
+                        tmp.update(character.get_social_skills())
+                        if sum([x >= prereq[1] for x in tmp.values()]) == 0:
+                            return False
+                    elif getattr(character, prereq[0]) < prereq[1]:
+                        return False
         if self.merit_prereqs is not None:
             for prereq in self.merit_prereqs:
                 if MeritRating.objects.filter(character=character, merit__name=prereq[0], rating__gte=prereq[1]).count() == 0:
