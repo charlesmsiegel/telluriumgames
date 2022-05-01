@@ -289,12 +289,7 @@ class Mortal(PolymorphicModel):
                 ]
             ))
             if chosen.needs_detail:
-                already_used_details = [x.detail for x in MeritRating.objects.filter(merit=chosen, character=self)]
-                possible_details = [x for x in chosen.list_of_details if x not in already_used_details]
-                if len(possible_details) > 0:
-                    detail = random.choice(possible_details)
-                else:
-                    detail = f"Detail {self.merits.count()}"
+                detail = chosen.choose_detail(self)
             else:
                 detail = None
             MeritRating.objects.create(
@@ -310,7 +305,6 @@ class Mortal(PolymorphicModel):
 
     def apply_merits(self):
         for merit in MeritRating.objects.filter(character=self):
-            # TODO: Apply all the merits
             if merit.merit.name == "Giant":
                 self.size += 1
                 self.health += 1
@@ -326,9 +320,9 @@ class Mortal(PolymorphicModel):
             if merit.merit.name == "Virtuous":
                 self.virtue += ", Virtue 2"
             if merit.merit.name == "Defensive Combat (Brawl)":
-                self.defense = self.defense - self.athletics + self.brawl
+                self.defense += self.brawl - self.athletics
             if merit.merit.name == "Defensive Combat (Weaponry)":
-                self.defense = self.defense - self.athletics + self.weaponry
+                self.defense += self.weaponry - self.athletics
 
 
 class Specialty(models.Model):
@@ -427,6 +421,17 @@ class Merit(models.Model):
     def get_max_rating(self):
         return max(self.allowed_ratings)
 
+    def choose_detail(self, character):
+        already_used_details = [x.detail for x in MeritRating.objects.filter(merit=self, character=character)]
+        if self.list_of_details == ['specialty']:
+            possible_details = [x.specialty for x in character.specialties.all() if x.specialty not in already_used_details]
+        else:
+            possible_details = [x for x in self.list_of_details if x not in already_used_details]
+        if len(possible_details) > 0:
+            detail = random.choice(possible_details)
+        else:
+            detail = f"Detail {character.merits.count()}"
+        return detail
 
 class MeritRating(models.Model):
     character = models.ForeignKey("Mortal", null=False, blank=False, on_delete=models.CASCADE)
