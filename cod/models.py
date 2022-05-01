@@ -394,6 +394,9 @@ class Merit(models.Model):
                 if MeritRating.objects.filter(character=character, merit__name=prereq[0], rating__gte=prereq[1]).count() == 0:
                     return False
         return True
+    
+    def get_max_rating(self):
+        return max(self.allowed_ratings)
 
 
 class MeritRating(models.Model):
