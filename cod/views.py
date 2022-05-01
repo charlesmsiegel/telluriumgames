@@ -41,7 +41,7 @@ class MortalDetailView(View):
         char = Mortal.objects.get(pk=kwargs["pk"])
         context = {
             "object": char,
-            "merits": MeritRating.objects.filter(character=char)
+            "merits": MeritRating.objects.filter(character=char).order_by('merit__name')
         }
         return render(request, "cod/characters/mortal/detail.html", context,)
 
