@@ -196,6 +196,7 @@ class Mortal(PolymorphicModel):
         self.random_specialties()
         self.random_merits()
         self.assign_advantages()
+        self.apply_merits()
 
     def random_attributes(self, primary=5, secondary=4, tertiary=3):
         attribute_types = [primary, secondary, tertiary]
@@ -297,7 +298,16 @@ class Mortal(PolymorphicModel):
     def apply_merits(self):
         for merit in MeritRating.objects.filter(character=self):
             # TODO: Apply all the merits
-            pass
+            if merit.merit.name == "Giant":
+                self.size += 1
+                self.health += 1
+            if merit.merit.name == "Fast Reflexes":
+                self.initiative_modifier += merit.rating
+            if merit.merit.name == "Small-Framed":
+                self.size -= 1
+                self.health -= 1
+            if merit.merit.name == "Fleet of Foot":
+                self.speed += merit.rating
 
 
 class Specialty(models.Model):
