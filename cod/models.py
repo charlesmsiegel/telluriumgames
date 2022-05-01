@@ -182,13 +182,13 @@ class Mortal(PolymorphicModel):
         }
 
     def mental_skill_sum(self):
-        sum(self.get_mental_skills().values())
+        return sum(self.get_mental_skills().values())
 
     def physical_skill_sum(self):
-        sum(self.get_physical_skills().values())
+        return sum(self.get_physical_skills().values())
 
     def social_skill_sum(self):
-        sum(self.get_social_skills().values())
+        return sum(self.get_social_skills().values())
 
     def random_creation(self):
         self.random_attributes()
@@ -197,6 +197,7 @@ class Mortal(PolymorphicModel):
         self.random_merits()
         self.assign_advantages()
         self.apply_merits()
+        self.save()
 
     def random_attributes(self, primary=5, secondary=4, tertiary=3):
         attribute_types = [primary, secondary, tertiary]
@@ -260,7 +261,7 @@ class Mortal(PolymorphicModel):
                     [
                         r
                         for r in x.allowed_ratings
-                        if r <= merit_dots - self.total_merits()
+                        if int(r) <= merit_dots - self.total_merits()
                     ]
                 )
                 != 0
@@ -272,16 +273,20 @@ class Mortal(PolymorphicModel):
             ]
             allowed_merits = [x for x in merits_not_possessed if x.check_prereqs(self)]
             chosen = random.choice(allowed_merits)
-            rating = random.choice(
+            rating = int(random.choice(
                 [
                     x
                     for x in chosen.allowed_ratings
                     if x <= merit_dots - self.total_merits()
                 ]
-            )
+            ))
             if chosen.needs_detail:
-                # TODO: include option from list_of_details
-                detail = f"Detail {self.merits.count()}"
+                already_used_details = [x.detail for x in MeritRating.objects.filter(merit=chosen, character=self)]
+                possible_details = [x for x in chosen.list_of_details if x not in already_used_details]
+                if len(possible_details) > 0:
+                    detail = random.choice(possible_details)
+                else:
+                    detail = f"Detail {self.merits.count()}"
             else:
                 detail = None
             MeritRating.objects.create(
@@ -311,7 +316,7 @@ class Mortal(PolymorphicModel):
 
 
 class Specialty(models.Model):
-    ability_keys = [
+    skill_keys = [
         "aca",
         "com",
         "cra",
@@ -337,7 +342,7 @@ class Specialty(models.Model):
         "str",
         "sub",
     ]
-    abilities = [
+    skill = [
         "academics",
         "computer",
         "crafts",
@@ -364,8 +369,8 @@ class Specialty(models.Model):
         "subterfuge",
     ]
 
-    ability = models.CharField(
-        max_length=3, choices=zip(ability_keys, abilities), default="aca"
+    skill = models.CharField(
+        max_length=3, choices=zip(skill_keys, skill), default="aca"
     )
     specialty = models.CharField(max_length=100)
 
@@ -374,19 +379,21 @@ class Merit(models.Model):
     name = models.CharField(max_length=100)
     needs_detail = models.BooleanField(default=False)
     style = models.BooleanField(default=False)
-    allowed_ratings = ListField(default=[])
-    attribute_and_skill_prereqs = ListField(default=[])
-    merit_prereqs = ListField(default=[])
-    list_of_details = ListField(default=[])
+    allowed_ratings = models.JSONField()
+    attribute_and_skill_prereqs = models.JSONField(null=True)
+    merit_prereqs = models.JSONField(null=True)
+    list_of_details = models.JSONField(null=True)
     merit_type = models.CharField(max_length=100)
 
     def check_prereqs(self, character):
-        for prereq in self.attribute_and_skill_prereqs:
-            if getattr(character, prereq[0]) < prereq[1]:
-                return False
-        for prereq in self.merit_prereqs:
-            if MeritRating.objects.filter(character=character, merit__name=prereq[0], rating__gte=prereq[1]).count() == 0:
-                return False
+        if self.attribute_and_skill_prereqs is not None:
+            for prereq in self.attribute_and_skill_prereqs:
+                if getattr(character, prereq[0]) < prereq[1]:
+                    return False
+        if self.merit_prereqs is not None:
+            for prereq in self.merit_prereqs:
+                if MeritRating.objects.filter(character=character, merit__name=prereq[0], rating__gte=prereq[1]).count() == 0:
+                    return False
         return True
 
 
@@ -394,4 +401,4 @@ class MeritRating(models.Model):
     character = models.ForeignKey("Mortal", null=False, blank=False, on_delete=models.CASCADE)
     merit = models.ForeignKey("Merit", null=False, blank=False, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
-    detail = models.CharField(max_length=100)
+    detail = models.CharField(max_length=100, null=True, blank=True)
