@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Tricks{% endblock %}
+
+<body>
+    {% block content %}
+    <div style="text-align: center">
+        <div class="row">
+            <div class="col-sm">
+                <h2>Tricks</h2>
+            </div>
+        </div>
+        {% for trick in object_list %}
+        <div class="row">
+            <a class="col-sm" href="/characters/trick/{{trick.id}}">
+                {{ trick.name| safe }}
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+{% endblock %}

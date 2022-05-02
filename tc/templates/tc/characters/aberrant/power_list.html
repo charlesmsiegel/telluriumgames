@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Powers{% endblock %}
+
+<body>
+    {% block content %}
+    <div style="text-align: center">
+        <div class="row">
+            <div class="col-sm">
+                <h2>Powers</h2>
+            </div>
+        </div>
+        {% for power in object_list %}
+        <div class="row">
+            <a class="col-sm" href="/characters/power/{{power.id}}">
+                {{ power.name| safe }}
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+{% endblock %}

@@ -1,0 +1,84 @@
+        {% extends 'core/base.html' %}
+
+        {% block title %}{{object.name| safe}}{% endblock %}
+        <!-- TODO: Prereqs -->
+        <body>
+            {% block content %}
+            {% load dots %}
+            <!-- <div style="text-align: center"> -->
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">Name</div>
+                    <div class="col-sm">{{object.name| safe}}</div>
+                    <div class="col-sm"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">Ratings</div>
+                    <div class="col-sm">{{ object.ratings|slice:"1:-1" }}</div>
+                    <div class="col-sm"></div>
+                </div>
+                {% if object.prereq_quantum > 0 %}
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">Minimum Quantum</div>
+                    <div class="col-sm">{{ object.prereq_quantum }}</div>
+                    <div class="col-sm"></div>
+                </div>
+                {% else %} {% if object.prereq_quantum == -1%}
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">Minimum Quantum</div>
+                    <div class="col-sm">Dots</div>
+                    <div class="col-sm"></div>
+                </div>
+                {% endif %}
+                {% endif %}
+                {% if object.prereq_attributes.count > 0 %}
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">Cost</div>
+                    <div class="col-sm">{{ object.cost }}</div>
+                    <div class="col-sm"></div>
+                </div>
+                {% endif %}
+                {% if object.prereq_skills.count > 0 %}
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">Cost</div>
+                    <div class="col-sm">{{ object.cost }}</div>
+                    <div class="col-sm"></div>
+                </div>
+                {% endif %}
+                {% if object.prereq_path_rating.count > 0 %}
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">Cost</div>
+                    <div class="col-sm">{{ object.cost }}</div>
+                    <div class="col-sm"></div>
+                </div>
+                {% endif %}
+                {% if object.prereq_edges.count > 0 %}
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">Cost</div>
+                    <div class="col-sm">{{ object.cost }}</div>
+                    <div class="col-sm"></div>
+                </div>
+                {% endif %}
+                {% if object.prereq_megaatt.count > 0 %}
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">Cost</div>
+                    <div class="col-sm">{{ object.cost }}</div>
+                    <div class="col-sm"></div>
+                </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">{{ object.description| safe }}</div>
+                    <div class="col-sm"></div>
+                </div>
+            <!-- </div> -->
+            {% endblock %}
+        </body>

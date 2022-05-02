@@ -1,0 +1,294 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{character.name}}{% endblock %}
+
+<body>
+    {% block content %}
+    {% load dots %}
+    <div style="text-align: center">
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">Name</div>
+            <div class="col-sm">{{ character.name }}</div>
+            <div class="col-sm"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">Player</div>
+            <div class="col-sm">{{ user.username }}</div>
+            <div class="col-sm"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">Concept</div>
+            <div class="col-sm">{{ character.concept }}</div>
+            <div class="col-sm"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Origin Path</div>
+            <a class="col-sm" href="/characters/path/{{origin_path.path.id}}/">{{ origin_path.path.name| safe }}</a>
+            <div class="col-sm">{{ origin_path.path_connection.name }}</div>
+            <div class="col-sm">{{ origin_path.rating }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Role Path</div>
+            <a class="col-sm" href="/characters/path/{{role_path.path.id}}/">{{ role_path.path.name| safe }}</a>
+            <div class="col-sm">{{ role_path.path_connection.name }}</div>
+            <div class="col-sm">{{ role_path.rating }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Society Path</div>
+            <a class="col-sm" href="/characters/path/{{society_path.path.id}}/">{{ society_path.path.name| safe }}</a>
+            <div class="col-sm">{{ society_path.path_connection.name }}</div>
+            <div class="col-sm">{{ society_path.rating }}</div>
+        </div>
+        {% for path in additional_paths %}
+            <div class="row">
+                <div class="col-sm"></div>
+                <a class="col-sm" href="/characters/path/{{path.path.id}}/">{{ path.path.name }}</a>
+                <div class="col-sm">{{ path.path_connection.name }}</div>
+                <div class="col-sm">{{ path.rating }}</div>
+            </div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">Moment of Inspiration</div>
+            <div class="col-sm">{{ character.moment_of_inspiration }}</div>
+            <div class="col-sm"></div>
+        </div>
+        <div class="row">
+            <h3 class="col-sm">Aspirations</h3>
+        </div>
+        <div class="row">
+            <div class="col-sm">{{ character.short_term_aspiration_1 }}</div>
+            <div class="col-sm">{{ character.short_term_aspiration_2 }}</div>
+            <div class="col-sm">{{ character.long_term_aspiration }}</div>
+        </div>
+        <div class="row">
+            <h3 class="col-sm">Skills</h3>
+        </div>
+        <div class="row">
+            <div class="col-sm">Aim</div>
+            <div class="col-sm">{{ aim.specialty }}</div>
+            <div class="col-sm dots">{{ aim.rating| dots }}</div>
+            <div class="col-sm">Integrity</div>
+            <div class="col-sm">{{ integrity.specialty }}</div>
+            <div class="col-sm dots">{{ integrity.rating| dots }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Athletics</div>
+            <div class="col-sm">{{ athletics.specialty }}</div>
+            <div class="col-sm dots">{{ athletics.rating| dots }}</div>
+            <div class="col-sm">Larceny</div>
+            <div class="col-sm">{{ larceny.specialty }}</div>
+            <div class="col-sm dots">{{ larceny.rating| dots }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Close Combat</div>
+            <div class="col-sm">{{ close_combat.specialty }}</div>
+            <div class="col-sm dots">{{ close_combat.rating| dots }}</div>
+            <div class="col-sm">Medicine</div>
+            <div class="col-sm">{{ medicine.specialty }}</div>
+            <div class="col-sm dots">{{ medicine.rating| dots }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Command</div>
+            <div class="col-sm">{{ command.specialty }}</div>
+            <div class="col-sm dots">{{ command.rating| dots }}</div>
+            <div class="col-sm">Persuasion</div>
+            <div class="col-sm">{{ persuasion.specialty }}</div>
+            <div class="col-sm dots">{{ persuasion.rating| dots }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Culture</div>
+            <div class="col-sm">{{ culture.specialty }}</div>
+            <div class="col-sm dots">{{ culture.rating| dots }}</div>
+            <div class="col-sm">Pilot</div>
+            <div class="col-sm">{{ pilot.specialty }}</div>
+            <div class="col-sm dots">{{ pilot.rating| dots }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Empathy</div>
+            <div class="col-sm">{{ empathy.specialty }}</div>
+            <div class="col-sm dots">{{ empathy.rating| dots }}</div>
+            <div class="col-sm">Science</div>
+            <div class="col-sm">{{ science.specialty }}</div>
+            <div class="col-sm dots">{{ science.rating| dots }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Enigmas</div>
+            <div class="col-sm">{{ enigmas.specialty }}</div>
+            <div class="col-sm dots">{{ enigmas.rating| dots }}</div>
+            <div class="col-sm">Survival</div>
+            <div class="col-sm">{{ survival.specialty }}</div>
+            <div class="col-sm dots">{{ survival.rating| dots }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Humanities</div>
+            <div class="col-sm">{{ humanities.specialty }}</div>
+            <div class="col-sm dots">{{ humanities.rating| dots }}</div>
+            <div class="col-sm">Technology</div>
+            <div class="col-sm">{{ technology.specialty }}</div>
+            <div class="col-sm dots">{{ technology.rating| dots }}</div>
+        </div>
+        <div class="row">
+            <h3 class="col-sm">Attributes</h3>
+        </div>
+        <div class="row">
+            {% if character.favored_approach == "FOR" %}
+            <div class="col-sm">☑</div>
+            {% else %}
+            <div class="col-sm">☐</div>
+            {% endif %}
+            <div class="col-sm">Force</div>
+            <div class="col-sm">Intellect</div>
+            <div class="col-sm dots">{{ intellect.rating| dots }}</div>
+            <div class="col-sm">Might</div>
+            <div class="col-sm dots">{{ might.rating| dots }}</div>
+            <div class="col-sm">Presence</div>
+            <div class="col-sm dots">{{ presence.rating| dots }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm"></div>
+            <div class="col-sm">Mega Intellect</div>
+            <div class="col-sm dots">{{ mega_intellect.rating| dots }}</div>
+            <div class="col-sm">Mega Might</div>
+            <div class="col-sm dots">{{ mega_might.rating| dots }}</div>
+            <div class="col-sm">Mega Presence</div>
+            <div class="col-sm dots">{{ mega_presence.rating| dots }}</div>
+        </div>
+        <div class="row">
+            {% if character.favored_approach == "FIN" %}
+            <div class="col-sm">☑</div>
+            {% else %}
+            <div class="col-sm">☐</div>
+            {% endif %}
+            <div class="col-sm">Finesse</div>
+            <div class="col-sm">Cunning</div>
+            <div class="col-sm dots">{{ cunning.rating| dots }}</div>
+            <div class="col-sm">Dexterity</div>
+            <div class="col-sm dots">{{ dexterity.rating| dots }}</div>
+            <div class="col-sm">Manipulation</div>
+            <div class="col-sm dots">{{ manipulation.rating| dots }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm"></div>
+            <div class="col-sm">Mega Cunning</div>
+            <div class="col-sm dots">{{ mega_cunning.rating| dots }}</div>
+            <div class="col-sm">Mega Dexterity</div>
+            <div class="col-sm dots">{{ mega_dexterity.rating| dots }}</div>
+            <div class="col-sm">Mega Manipulation</div>
+            <div class="col-sm dots">{{ mega_manipulation.rating| dots }}</div>
+        </div>
+        <div class="row">
+            {% if character.favored_approach == "RES" %}
+            <div class="col-sm">☑</div>
+            {% else %}
+            <div class="col-sm">☐</div>
+            {% endif %}
+            <div class="col-sm">Resilience</div>
+            <div class="col-sm">Resolve</div>
+            <div class="col-sm dots">{{ resolve.rating| dots }}</div>
+            <div class="col-sm">Stamina</div>
+            <div class="col-sm dots">{{ stamina.rating| dots }}</div>
+            <div class="col-sm">Composure</div>
+            <div class="col-sm dots">{{ composure.rating| dots }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm"></div>
+            <div class="col-sm">Mega Resolve</div>
+            <div class="col-sm dots">{{ mega_resolve.rating| dots }}</div>
+            <div class="col-sm">Mega Stamina</div>
+            <div class="col-sm dots">{{ mega_stamina.rating| dots }}</div>
+            <div class="col-sm">Mega Composure</div>
+            <div class="col-sm dots">{{ mega_composure.rating| dots }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Quantum</div>
+            <div class="col-sm dots">{{ character.quantum| dots:10 }}</div>
+            <div class="col-sm">Quantum Points:</div>
+            <div class="col-sm">{{ character.quantum_points }}</div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">Transcendence</div>
+            <div class="col-sm dots">{{ character.transcendence| dots:10 }}</div>
+            <div class="col-sm">Flux:</div>
+            <div class="col-sm dots">{{ character.flux| dots }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm"><h3>Tricks</h3>
+                {% for trick in tricks %}
+                    <br><a href="/characters/trick/{{trick.id}}">{{trick.name}}</a>
+                {% endfor %}
+            </div>
+            <div class="col-sm"><h3>Edges</h3>
+            {% for edge in edges %}
+                <br><a href="/characters/edge/{{edge.edge.id}}">{{ edge }}</a>
+            {% endfor %}
+            {% for edge in enhancededges %}
+                <br><a href="/characters/enhancededge/{{edge.id}}">{{ edge }}</a>
+            {% endfor %}
+            </div>
+            <div class="col-sm"><h3>Mega Edges</h3>
+            {% for edge in megaedges %}
+                <br><a class="col-sm" href="/characters/megaedge/{{ edge.megaedge.id }}">{{ edge }}</a>
+            {% endfor %}
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm"><h3>Transformations</h3>
+                {% for transformation in transformations %}
+                    <br><a href="/characters/transformation/{{transformation.id}}">{{ transformation }}</a>
+                {% endfor %}
+            </div>
+            <div class="col-sm"><h3>Injury Conditions</h3><br>
+            {% for mod in health_levels %}
+            {{ mod }}
+            {% endfor %}
+            <br>
+            {% for mod in health_levels %}
+            &nbsp;☐
+            {% endfor %}
+            <!-- Bruised {{ character.bruised_levels }}, Injured {{ character.injured_levels }}, Maimed {{ character.maimed_levels }}</div> -->
+            </div>
+        </div>
+
+        <div class="row">
+            <h3 class="col-sm">Quantum Powers</h3>
+        </div>
+        {% for power in powers %}
+            <div class="row">
+                <div class="col-sm"></div>
+                <a class="col-sm" href="/characters/power/{{ power.power.id }}/">{{ power.power.name }}</a>
+                <div class="col-sm dots">{{ power.rating| dots }}</div>
+                <div class="col-sm"></div>
+            </div>
+                {% for tag in tags%}
+                    {% if tag.power == power %}
+                    <div class="row">
+                        <div class="col-sm"></div>
+                        <div class="col-sm"></div>
+                        <a class="col-sm" href="/characters/tag/{{ tag.tag.id }}">{{ tag.tag.name }}: {{ tag.rating }}</a>
+                        <div class="col-sm"></div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+        {% endfor %}
+
+        <div class="row">
+            <div class="col-sm">Defense</div>
+            <div class="col-sm">{{ character.defense }}</div>
+            <div class="col-sm">XP</div>
+            <div class="col-sm">{{ character.xp }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">{{ character.xp_spending }}</div>
+        </div>
+    </div>
+</body>
+{% endblock %}

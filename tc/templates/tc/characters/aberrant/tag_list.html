@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Tags{% endblock %}
+
+<body>
+    {% block content %}
+    <div style="text-align: center">
+        <div class="row">
+            <div class="col-sm">
+                <h2>Tags</h2>
+            </div>
+        </div>
+        {% for tag in object_list %}
+        <div class="row">
+            <a class="col-sm" href="/characters/tag/{{tag.id}}">
+                {{ tag.name| safe }}
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+{% endblock %}

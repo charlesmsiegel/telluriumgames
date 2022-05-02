@@ -1,0 +1,61 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Characters{% endblock %}
+
+<body>
+    {% block content %}
+    <div style="text-align: center">
+        <div class="row" style="border: 1px solid gray;">
+            <div class="col-sm" style="border: 1px solid gray;">
+                <h2>Characters</h2>
+            </div>
+        </div>
+        {% for char in chars %}
+        {% if not char.minor and char.name != 'Storyteller' %}
+        <div class="row" style="border: 1px solid gray;">
+            <a class="col-sm" href="/characters/{{ char.id }}/" style="border: 1px solid gray;">
+                {{ char.name| safe }}
+            </a>
+            <div class="col-sm" style="border: 1px solid gray;">{{ char.player.username }}</div>
+            <div class="col-sm" style="border: 1px solid gray;">{{ char.get_status_display }}</div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        <!-- <form action="create/" method="GET">
+            {% csrf_token %}
+            <div class="col-sm"><input type="submit" name="creator" value="Create Character"></div>
+        </form> -->
+
+        <form action="random/" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                    Name: <input name="character_name" type="text" placeholder="">
+                </div>
+                <div class="col-sm">
+                    XP: <input name="xp" type="text" placeholder="">
+                </div>
+                <div class="col-sm"><input type="submit" name="creator" value="Random Character"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+            </div>
+        </form>
+
+        <div class="row">
+            <a class="col-sm" href="edges/">Edges</a>
+            <a class="col-sm" href="enhancededges/">Enhanced Edges</a>
+            <a class="col-sm" href="megaedges/">Mega Edges</a>
+            <a class="col-sm" href="paths/">Paths</a>
+        </div>
+        <div class="row">
+            <a class="col-sm" href="powers/">Powers</a>
+            <a class="col-sm" href="tags/">Tags</a>
+            <a class="col-sm" href="transformations/">Transformations</a>
+            <a class="col-sm" href="tricks/">Tricks</a>
+        </div>
+
+    </div>
+</body>
+{% endblock %}

@@ -1,0 +1,28 @@
+        {% extends 'core/base.html' %}
+
+        {% block title %}{{object.name| safe}}{% endblock %}
+        
+        <body>
+            {% block content %}
+            {% load dots %}
+            <!-- <div style="text-align: center"> -->
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">Name</div>
+                    <div class="col-sm">{{object.name| safe}}</div>
+                    <div class="col-sm"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">Skill</div>
+                    <div class="col-sm">{{ object.skill.name| safe }}</div>
+                    <div class="col-sm"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">{{ object.description| safe }}</div>
+                    <div class="col-sm"></div>
+                </div>
+            <!-- </div> -->
+            {% endblock %}
+        </body>

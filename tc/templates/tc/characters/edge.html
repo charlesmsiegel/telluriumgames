@@ -1,0 +1,72 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{object.name| safe}}{% endblock %}
+<!-- TODO: Prereqs -->
+<body>
+    {% block content %}
+    {% load dots %}
+    <!-- <div style="text-align: center"> -->
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">Name</div>
+            <div class="col-sm">{{object.name| safe}}</div>
+            <div class="col-sm"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">Ratings</div>
+            <div class="col-sm">{{ object.ratings|slice:"1:-1" }}</div>
+            <div class="col-sm"></div>
+        </div>
+        {% if object.prereq_attributes.count > 0 %}
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">Attribute Prerequisites</div>
+            <div class="col-sm">
+                {% for attprereq in object.prereq_attributes.all %}
+                    {{ attprereq }}, 
+                {% endfor %}
+            </div>
+            <div class="col-sm"></div>
+        </div>
+        {% endif %}
+        {% if object.prereq_skills.count > 0 %}
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">Skill Prerequisites</div>
+            <div class="col-sm">
+                {% for attprereq in object.prereq_skills.all %}
+                    {{ attprereq }}, 
+                {% endfor %}
+            </div>
+            <div class="col-sm"></div>
+        </div>
+        {% endif %}
+        {% if object.prereq_path_rating > 0 %}
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">Minimum Path Rating</div>
+            <div class="col-sm">{{ object.prereq_path_rating }}</div>
+            <div class="col-sm"></div>
+        </div>
+        {% endif %}
+        {% if object.prereq_edges.count > 0 %}
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">Edge Prerequisites</div>
+            <div class="col-sm">
+                {% for attprereq in object.prereq_edges.all %}
+                    {{ attprereq }}, 
+                {% endfor %}
+            </div>
+            <div class="col-sm"></div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">{{ object.description| safe }}</div>
+            <div class="col-sm"></div>
+        </div>
+    <!-- </div> -->
+    {% endblock %}
+</body>
