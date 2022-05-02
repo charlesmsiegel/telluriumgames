@@ -402,6 +402,17 @@ class Merit(models.Model):
                     specs = character.specialties.all()
                     if prereq[0][:3] not in [x.skill for x in specs]:
                         return False
+                elif prereq[0] == "specialty":
+                    tmp = {}
+                    tmp.update(character.get_physical_skills())
+                    tmp.update(character.get_mental_skills())
+                    tmp.update(character.get_social_skills())
+                    high_enough_skills = [key for key, value in tmp.items() if value >= prereq[1]]
+                    if len(high_enough_skills) == 0:
+                        return False
+                    specs = character.specialties.all()
+                    if len([x.skill for x in specs if x.skill in [y[:3] for y in high_enough_skills]]) == 0:
+                        return False
                 else:
                     if prereq[0] == "skill":
                         tmp = {}
@@ -423,12 +434,37 @@ class Merit(models.Model):
 
     def choose_detail(self, character):
         already_used_details = [x.detail for x in MeritRating.objects.filter(merit=self, character=character)]
-        if self.list_of_details == ['specialty']:
+        if self.name == "Area of Expertise":
             possible_details = [x.specialty for x in character.specialties.all() if x.specialty not in already_used_details]
+        elif self.name == "Interdisciplinary Specialty":
+            possible_details = [x for x in character.specialties.all() if x.specialty not in already_used_details]
+            possible_details = [x.specialty for x in possible_details if getattr(character, x.get_skill_display()) >= 3]
+        elif self.name == "Investigative Aide":
+            tmp = {}
+            tmp.update(character.get_physical_skills())
+            tmp.update(character.get_mental_skills())
+            tmp.update(character.get_social_skills())
+            possible_details = [key for key, value in tmp.items() if value >= 3]
+        elif self.name == "Hobbyist Clique":
+            tmp = {}
+            tmp.update(character.get_physical_skills())
+            tmp.update(character.get_mental_skills())
+            tmp.update(character.get_social_skills())
+            possible_details = [key for key, value in tmp.items() if value >= 2]
+        elif self.name == "Hobbyist Clique":
+            tmp = {}
+            tmp.update(character.get_physical_skills())
+            tmp.update(character.get_mental_skills())
+            tmp.update(character.get_social_skills())
+            possible_details = [key for key, value in tmp.items() if value >= 2]
         else:
-            possible_details = [x for x in self.list_of_details if x not in already_used_details]
+            possible_details = self.list_of_details
+        possible_details = [x for x in possible_details if x not in already_used_details]
         if len(possible_details) > 0:
             detail = random.choice(possible_details)
+        elif self.name == "Mentor":
+            mentor_list = random.choices(self.list_of_details, k=3)
+            detail = ", ".join(mentor_list)
         else:
             detail = f"Detail {character.merits.count()}"
         return detail
