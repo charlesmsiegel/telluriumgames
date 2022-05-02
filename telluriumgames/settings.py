@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "cod",
     "core",
     "tc",
+    "wod",
     # "game",
     # "locations",
     # "objects",
