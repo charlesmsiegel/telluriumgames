@@ -7,8 +7,7 @@ from django.utils.timezone import now
 from polymorphic.models import PolymorphicModel
 
 from accounts.models import Profile
-from characters.fields import ListField
-from characters.models.characters import (
+from wod.models.characters import (
     HumanCharacter,
     Language,
     Material,
@@ -755,7 +754,7 @@ class Practice(models.Model):
     """Class for Practices as part of Focus"""
 
     name = models.CharField(max_length=100)
-    abilities = ListField(default=[])
+    abilities = models.JSONField(null=True)
     instruments = models.ManyToManyField("Instrument")
 
     def __str__(self):
@@ -787,7 +786,7 @@ class MageFaction(models.Model):
     name = models.CharField(max_length=100)
     paradigms = models.ManyToManyField("Paradigm", blank=True)
     practices = models.ManyToManyField("Practice", blank=True)
-    affinities = ListField(default=[], blank=True, null=True)
+    affinities = models.JSONField(null=True, blank=True)
     languages = models.ManyToManyField(Language, blank=True)
     materials = models.ManyToManyField(Material, blank=True)
     media = models.ManyToManyField(Medium, blank=True)
