@@ -384,7 +384,7 @@
                     Specialties
                 </h3>
             </div>
-            {% for specialty in object.specialties.all %}
+            {% for specialty in specialties %}
                 <div class="row">
                     <div class="col-sm">
                     </div>
@@ -392,7 +392,7 @@
                         {{ specialty.specialty }}
                     </div>
                     <div class="col-sm">
-                        {{ specialty.get_skill_display }}
+                        {{ specialty.display_skill }}
                     </div>
                     <div class="col-sm">
                     </div>

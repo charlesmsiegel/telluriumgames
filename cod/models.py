@@ -303,6 +303,8 @@ class Mortal(PolymorphicModel):
         self.initiative_modifier = self.dexterity + self.composure
         self.defense = min([self.wits, self.dexterity]) + self.athletics
 
+    # TODO: Tone down bias towards 5 dots of Skills (in fact, make 4 and 5 less likely)
+    # TODO: Tweak Professional Training to avoid scientists without science
     def apply_merits(self):
         for merit in MeritRating.objects.filter(character=self):
             if merit.merit.name == "Giant":
@@ -352,7 +354,7 @@ class Specialty(models.Model):
         "str",
         "sub",
     ]
-    skill = [
+    skill_name = [
         "academics",
         "computer",
         "crafts",
@@ -380,9 +382,12 @@ class Specialty(models.Model):
     ]
 
     skill = models.CharField(
-        max_length=3, choices=zip(skill_keys, skill), default="aca"
+        max_length=3, choices=zip(skill_keys, skill_name), default="aca"
     )
     specialty = models.CharField(max_length=100)
+    
+    def display_skill(self):
+        return self.skill_name[self.skill_keys.index(self.skill)].replace("_", " ").title()
 
 
 class Merit(models.Model):
