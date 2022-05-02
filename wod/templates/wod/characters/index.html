@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+{% block title %}
+    Characters
+{% endblock title %}
+<body>
+    {% block content %}
+        <div class="centertext">
+            <div class="row border">
+                <div class="col-sm border">
+                    <h2>Characters</h2>
+                </div>
+            </div>
+            {% for char in chars %}
+                {% if not char.minor and char.name != 'Storyteller' %}
+                    <div class="row border">
+                        <a class="col-sm border" href="/characters/{{ char.id }}/">{{ char.name }}</a>
+                        <div class="col-sm border">{{ char.player.username }}</div>
+                        <div class="col-sm border">{{ char.get_status_display }}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </body>
+{% endblock content %}
