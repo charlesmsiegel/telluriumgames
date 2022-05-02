@@ -1,5 +1,31 @@
 from django.contrib import admin
-from tc.models import *
+from tc.models import (
+    Aberrant,
+    Trick,
+    Edge,
+    EnhancedEdge,
+    MegaAttribute,
+    MegaEdge,
+    Path,
+    PathConnection,
+    PathConnectionRating,
+    Tag,
+    Power,
+    Transformation,
+    AttributeRating,
+    MegaAttributeRating,
+    SkillRating,
+    Attribute,
+    Skill,
+    EdgeRating,
+    MegaEdgeRating,
+    PowerRating,
+    TagRating,
+    AttributePrereq,
+    MegaAttributePrereq,
+    SkillPrereq,
+    EdgePrereq
+)
 
 # Register your models here.
 admin.site.register(Aberrant)
