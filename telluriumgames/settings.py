@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # "characters",
     "cod",
     "core",
+    "tc",
     # "game",
     # "locations",
     # "objects",
