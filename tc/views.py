@@ -1,11 +1,9 @@
-from ast import Pow
-from urllib import request
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 from django.views.generic.list import ListView
 
-from characters.models import *
-from tc.forms import CharacterForm
+from tc.models import *
+from tc.forms import AberrantForm
 
 
 # Create your views here.
@@ -21,15 +19,15 @@ class IndexView(View):
         return render(request, "characters/index.html", context)
 
     def get_context(self):
-        chars = Character.objects.all().order_by("name")
+        chars = Aberrant.objects.all().order_by("name")
         context = {}
         context["chars"] = chars
         return context
 
 
 class AberrantCreateView(CreateView):
-    model = Character
-    form_class = CharacterForm
+    model = Aberrant
+    form_class = AberrantForm
     template_name = "characters/create.html"
 
 
@@ -39,7 +37,7 @@ class AberrantDetailView(View):
         return render(request, "characters/detail.html", context)
 
     def get_context(self, pk):
-        char = Character.objects.get(id=pk)
+        char = Aberrant.objects.get(id=pk)
         context = {"character": char}
         attribute_ratings = AttributeRating.objects.filter(character=char)
         for attribute in attribute_ratings:
@@ -74,7 +72,11 @@ class AberrantDetailView(View):
         context["additional_paths"] = additional_paths
 
         edges = EdgeRating.objects.filter(character=char).order_by("edge")
-        edges = [x for x in edges if x.edge.name not in [x.name for x in MegaEdge.objects.all()]]
+        edges = [
+            x
+            for x in edges
+            if x.edge.name not in [x.name for x in MegaEdge.objects.all()]
+        ]
         context["edges"] = edges
 
         context["enhancededges"] = list(char.enhanced_edges.all())
@@ -144,14 +146,14 @@ class PowerDetailView(DetailView):
 
 
 class AberrantUpdate(UpdateView):
-    model = Character
+    model = Aberrant
     fields = "__all__"
     template_name = "characters/update.html"
 
 
 class RandomCreateView(View):
     def post(self, request):
-        char = Character.objects.create(player=request.user)
+        char = Aberrant.objects.create(player=request.user)
         char.random(name=request.POST["character_name"], xp=int(request.POST["xp"]))
         char.save()
         return redirect(f"/characters/{char.id}")
@@ -159,14 +161,19 @@ class RandomCreateView(View):
     def get(self, request):
         return redirect("/characters/")
 
+
 from django.db.models import Q
+
+
 class EdgeListView(ListView):
     model = Edge
 
     def get_queryset(self, *args, **kwargs):
         qs = super(EdgeListView, self).get_queryset(*args, **kwargs)
         # edges = EdgeRating.objects.filter(character=char).order_by("edge")
-        qs = [x.name for x in qs if x.name not in [x.name for x in MegaEdge.objects.all()]]
+        qs = [
+            x.name for x in qs if x.name not in [x.name for x in MegaEdge.objects.all()]
+        ]
         qs = Edge.objects.filter(name__in=qs)
         # qs = qs.filter(~Q(name__in=MegaEdge.objects.all()))
         return qs
