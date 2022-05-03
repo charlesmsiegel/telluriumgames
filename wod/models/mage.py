@@ -874,7 +874,7 @@ class Cabal(models.Model):
                     user.save()
                     user
                 mage = Mage.objects.create(
-                    name=f"TempName {i}", cabal=self, player=user
+                    name=f"TempName {i}", cabal=self, player=user.wod_profile
                 )
                 mage.random()
                 mage.save()

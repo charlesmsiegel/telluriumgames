@@ -5,6 +5,8 @@ from django.views.generic import CreateView, View
 
 from accounts.models import CoDProfile, WoDProfile, TCProfile
 from cod.models import Mortal
+from wod.models import Character
+from tc.models import Aberrant
 
 # from characters.models import Character
 
@@ -24,13 +26,17 @@ class ProfileView(View):
     def get(self, request):
         if request.user.is_authenticated:
             cod_profile = CoDProfile.objects.get(user=request.user)
+            wod_profile = WoDProfile.objects.get(user=request.user)
+            tc_profile = TCProfile.objects.get(user=request.user)
             # TODO: Handle other Profiles
+            to_approve = []
+            xp_requests = []
             if cod_profile.storyteller:
-                to_approve = Mortal.objects.filter(status__in=["Un", "Sub"])
-                xp_requests = []
-            else:
-                to_approve = []
-                xp_requests = []
+                to_approve.extend(Mortal.objects.filter(status__in=["Un", "Sub"]))
+            if wod_profile.storyteller:
+                to_approve.extend(Character.objects.filter(status__in=["Un", "Sub"]))
+            if tc_profile.storyteller:
+                to_approve.extend(Aberrant.objects.filter(status__in=["Un", "Sub"]))
             return render(
                 request,
                 "accounts/index.html",
