@@ -14,7 +14,7 @@
                 {% if not char.minor and char.name != 'Storyteller' %}
                     <div class="row border">
                         <a class="col-sm border" href="/wod/characters/{{ char.id }}/">{{ char.name }}</a>
-                        <div class="col-sm border">{{ char.player.username }}</div>
+                        <div class="col-sm border">{{ char.player.user.username }}</div>
                         <div class="col-sm border">{{ char.get_status_display }}</div>
                     </div>
                 {% endif %}

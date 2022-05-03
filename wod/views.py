@@ -34,6 +34,7 @@ class IndexView(View):
         chars = Character.objects.all().order_by("name")
         context = {}
         context["chars"] = chars
+        return context
 
 
 class MageCreateView(CreateView):

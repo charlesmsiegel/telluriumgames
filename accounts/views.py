@@ -31,6 +31,11 @@ class ProfileView(View):
             # TODO: Handle other Profiles
             to_approve = []
             xp_requests = []
+            characters = []
+            characters.extend(Mortal.objects.filter(player=cod_profile))
+            characters.extend(Character.objects.filter(player=wod_profile))
+            characters.extend(Aberrant.objects.filter(player=tc_profile))
+            characters.sort(key=lambda x: x.name)
             if cod_profile.storyteller:
                 to_approve.extend(Mortal.objects.filter(status__in=["Un", "Sub"]))
             if wod_profile.storyteller:
@@ -45,6 +50,7 @@ class ProfileView(View):
                     "username": request.user.username,
                     "to_approve": to_approve,
                     "xp_requests": xp_requests,
+                    "characters": characters,
                 },
             )
         return redirect("/accounts/login/")

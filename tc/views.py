@@ -12,11 +12,11 @@ class IndexView(View):
 
     def get(self, request):
         context = self.get_context()
-        return render(request, "characters/index.html", context)
+        return render(request, "tc/characters/index.html", context)
 
     def post(self, request):
         context = self.get_context()
-        return render(request, "characters/index.html", context)
+        return render(request, "tc/characters/index.html", context)
 
     def get_context(self):
         chars = Aberrant.objects.all().order_by("name")
@@ -28,13 +28,13 @@ class IndexView(View):
 class AberrantCreateView(CreateView):
     model = Aberrant
     form_class = AberrantForm
-    template_name = "characters/create.html"
+    template_name = "tc/characters/aberrant/create.html"
 
 
 class AberrantDetailView(View):
     def get(self, request, pk):
         context = self.get_context(pk)
-        return render(request, "characters/detail.html", context)
+        return render(request, "tc/characters/aberrant/detail.html", context)
 
     def get_context(self, pk):
         char = Aberrant.objects.get(id=pk)
@@ -107,48 +107,48 @@ class AberrantDetailView(View):
 
 class TrickDetailView(DetailView):
     model = Trick
-    template_name = "characters/trick.html"
+    template_name = "tc/characters/trick.html"
 
 
 class EdgeDetailView(DetailView):
     model = Edge
-    template_name = "characters/edge.html"
+    template_name = "tc/characters/edge.html"
 
 
 class EnhancedEdgeDetailView(DetailView):
     model = EnhancedEdge
-    template_name = "characters/enhancededge.html"
+    template_name = "tc/characters/enhancededge.html"
 
 
 class MegaEdgeDetailView(DetailView):
     model = MegaEdge
-    template_name = "characters/megaedge.html"
+    template_name = "tc/characters/aberrant/megaedge.html"
 
 
 class PathDetailView(DetailView):
     model = Path
-    template_name = "characters/path.html"
+    template_name = "tc/characters/path.html"
 
 
 class TagDetailView(DetailView):
     model = Tag
-    template_name = "characters/tag.html"
+    template_name = "tc/characters/aberrant/tag.html"
 
 
 class TransformationDetailView(DetailView):
     model = Transformation
-    template_name = "characters/transformation.html"
+    template_name = "tc/characters/aberrant/transformation.html"
 
 
 class PowerDetailView(DetailView):
     model = Power
-    template_name = "characters/power.html"
+    template_name = "tc/characters/aberrant/power.html"
 
 
 class AberrantUpdate(UpdateView):
     model = Aberrant
     fields = "__all__"
-    template_name = "characters/update.html"
+    template_name = "tc/characters/aberrant/update.html"
 
 
 class RandomCreateView(View):
@@ -156,10 +156,10 @@ class RandomCreateView(View):
         char = Aberrant.objects.create(player=request.user)
         char.random(name=request.POST["character_name"], xp=int(request.POST["xp"]))
         char.save()
-        return redirect(f"/characters/{char.id}")
+        return redirect(f"tc/characters/{char.id}")
 
     def get(self, request):
-        return redirect("/characters/")
+        return redirect("tc/characters/")
 
 
 from django.db.models import Q

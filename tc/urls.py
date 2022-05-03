@@ -23,5 +23,5 @@ urlpatterns = [
     path("transformation/<pk>/", views.TransformationDetailView.as_view(), name="transformation"),
     path("trick/<pk>/", views.TrickDetailView.as_view(), name="trick"),
     path("random/", views.RandomCreateView.as_view(), name="random"),
-    path("<pk>/", views.AberrantDetailView.as_view(), name="character"),
+    path("characters/<pk>/", views.AberrantDetailView.as_view(), name="character"),
 ]

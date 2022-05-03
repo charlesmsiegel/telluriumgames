@@ -2,6 +2,7 @@ import math
 import random
 from django.db import models
 from accounts.models import TCProfile
+from django.shortcuts import reverse
 
 # Create your models here.
 class Attribute(models.Model):
@@ -255,6 +256,9 @@ class Aberrant(models.Model):
 
     class Meta:
         ordering = ('name',)
+
+    def get_absolute_url(self):
+        return reverse("tc:character", args=[str(self.id)])
 
     def setup(self):
         for att in Attribute.objects.all():
@@ -824,7 +828,7 @@ class Aberrant(models.Model):
         if len(sublist) == 0:
             return False
         skill = random.choice(sublist)
-        specialties = skill.skill.specialties[1:-1].replace("'", "").replace("\"", "").split(",")
+        specialties = skill.skill.specialties
         if len(specialties) == 0:
             specialties = ["Something"]
         skill.specialty = random.choice(specialties)
@@ -1150,4 +1154,4 @@ class EdgePrereq(models.Model):
 
 
 def ratings_to_list(s):
-    return s[1:-1].split(",")
+    return s
