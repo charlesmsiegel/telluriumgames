@@ -1,6 +1,7 @@
 import math
 import random
 from django.db import models
+from accounts.models import TCProfile
 
 # Create your models here.
 class Attribute(models.Model):
@@ -107,7 +108,7 @@ class PathConnection(models.Model):
 
 class PathConnectionRating(models.Model):
     character = models.ForeignKey(
-        "Character", on_delete=models.CASCADE, blank=True, null=True
+        "Aberrant", on_delete=models.CASCADE, blank=True, null=True
     )
     path = models.ForeignKey("Path", null=True, blank=True, on_delete=models.CASCADE)
     path_connection = models.ForeignKey(
@@ -198,7 +199,7 @@ class Transformation(models.Model):
 class Aberrant(models.Model):
     name = models.CharField(max_length=100, default="")
     player = models.ForeignKey(
-        "auth.User",
+        TCProfile,
         on_delete=models.CASCADE,
         related_name="characters",
         blank=True,

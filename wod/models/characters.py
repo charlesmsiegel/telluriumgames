@@ -4,6 +4,8 @@ from django.db import models
 from django.shortcuts import reverse
 from django.utils.timezone import now
 from polymorphic.models import PolymorphicModel
+from core.models import Language
+from accounts.models import WoDProfile
 
 
 # Create your models here.
@@ -11,7 +13,7 @@ class Character(PolymorphicModel):
     """Base Character class"""
 
     player = models.ForeignKey(
-        "auth.User", on_delete=models.CASCADE, related_name="characters"
+        WoDProfile, on_delete=models.CASCADE, related_name="characters"
     )
     name = models.CharField(max_length=100, unique=True)
     concept = models.CharField(max_length=300)
@@ -114,7 +116,7 @@ class HumanCharacter(Character):
     current_health_levels = models.CharField(default="", max_length=100, blank=True)
 
     merits_and_flaws = models.ManyToManyField("MeritFlaw", blank=True)
-    languages = models.ManyToManyField("Language", blank=True)
+    languages = models.ManyToManyField(Language, blank=True)
 
     age = models.IntegerField(default=18)
     apparent_age = models.IntegerField(default=18)

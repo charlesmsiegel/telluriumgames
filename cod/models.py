@@ -5,12 +5,13 @@ from django.db import models
 from polymorphic.models import PolymorphicModel
 from django.shortcuts import reverse
 
+from accounts.models import CoDProfile
 from core.utils import weighted_choice
 
 # Create your models here.
 class Mortal(PolymorphicModel):
     player = models.ForeignKey(
-        "auth.User", on_delete=models.CASCADE, related_name="characters"
+        CoDProfile, on_delete=models.CASCADE, related_name="characters"
     )
     name = models.CharField(max_length=100, unique=True)
     concept = models.CharField(max_length=300)

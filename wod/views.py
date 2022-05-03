@@ -6,7 +6,34 @@ from wod.models import Character, Mage, MageFaction
 
 
 # Create your views here.
+class IndexView(View):
+    """Class that manages the Index view"""
 
+    def get(self, request):
+        context = self.get_context()
+        return render(request, "cod/characters/index.html", context)
+
+    def post(self, request):
+        context = self.get_context()
+        # character_class_dict = {
+        #     # "vampire": Vampire,
+        #     # "werewolf": Werewolf,
+        #     "mage": Mage,
+        #     # "wraith": Wraith,
+        #     # "changeling": Changeling,
+        # }
+        # if request.POST["character_type"] in character_class_dict:
+        #     char_cl = character_class_dict[request.POST["character_type"]]
+        #     character = char_cl.objects.create(
+        #         name=request.POST["character_name"], player=request.user
+        #     )
+        #     return redirect(character.get_absolute_url())
+        return render(request, "wod/characters/index.html", context)
+
+    def get_context(self):
+        chars = Character.objects.all().order_by("name")
+        context = {}
+        context["chars"] = chars
 
 
 class MageCreateView(CreateView):

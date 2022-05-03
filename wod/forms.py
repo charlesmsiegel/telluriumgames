@@ -2,7 +2,7 @@ from django import forms
 from django.urls import reverse_lazy
 
 # from characters.fields import ListTextWidget
-from characters.models import Mage, MageFaction
+from wod.models.mage import Mage, MageFaction
 
 
 # Create your Forms here

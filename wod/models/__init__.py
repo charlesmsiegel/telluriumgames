@@ -1,4 +1,4 @@
-from .characters import Character, HumanCharacter, Language, Material, Medium, MeritFlaw
+from .characters import Character, HumanCharacter, MeritFlaw
 from .mage import (
     Cabal,
     Instrument,
@@ -15,7 +15,6 @@ __all__ = [
     "Character",
     "HumanCharacter",
     "MeritFlaw",
-    "Language",
     "Mage",
     "Practice",
     "Instrument",
@@ -25,6 +24,4 @@ __all__ = [
     "Rote",
     "ResRating",
     "Cabal",
-    "Material",
-    "Medium",
 ]

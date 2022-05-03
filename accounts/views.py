@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, View
 
-from accounts.models import Profile
+from accounts.models import CoDProfile, WoDProfile, TCProfile
 from cod.models import Mortal
 
 # from characters.models import Character
@@ -23,8 +23,9 @@ class ProfileView(View):
 
     def get(self, request):
         if request.user.is_authenticated:
-            profile = Profile.objects.get(user=request.user)
-            if profile.storyteller:
+            cod_profile = CoDProfile.objects.get(user=request.user)
+            # TODO: Handle other Profiles
+            if cod_profile.storyteller:
                 to_approve = Mortal.objects.filter(status__in=["Un", "Sub"])
                 xp_requests = []
             else:

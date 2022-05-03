@@ -6,14 +6,12 @@ from django.shortcuts import reverse
 from django.utils.timezone import now
 from polymorphic.models import PolymorphicModel
 
-from accounts.models import Profile
+from accounts.models import WoDProfile
 from wod.models.characters import (
     HumanCharacter,
-    Language,
-    Material,
-    Medium,
     MeritFlaw,
 )
+from core.models import Language, Material, Medium
 
 
 # Create your models here.
@@ -863,9 +861,9 @@ class Cabal(models.Model):
             self.save()
         else:
             for i in range(number_of_members):
-                if Profile.objects.filter(storyteller=True).count() != 0:
+                if WoDProfile.objects.filter(storyteller=True).count() != 0:
                     user = (
-                        Profile.objects.filter(storyteller=True)
+                        WoDProfile.objects.filter(storyteller=True)
                         .order_by("?")
                         .first()
                         .user
