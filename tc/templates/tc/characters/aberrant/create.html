@@ -1,232 +1,448 @@
-{% extends 'core/base.html' %}
-
-{% block title %}Characters{% endblock %}
-
+{% extends "core/base.html" %}
+{% block title %}
+    Characters
+{% endblock title %}
 <body>
     {% block content %}
-    <div style="text-align: center">
-        <div class="row" style="border: 1px solid gray;">
-            <form method="post">{% csrf_token %}
-                <div class="row">
-                    <div class="col-sm">Name</div>
-                    <div class="col-sm">{{ form.name }}</div>
-                    <div class="col-sm">Origin Path</div>
-                    <div class="col-sm">{{ form.origin_path }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Player</div>
-                    <div class="col-sm">{{ user.username }}</div>
-                    <div class="col-sm">Role Path</div>
-                    <div class="col-sm">{{ form.role_path }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Concept</div>
-                    <div class="col-sm">{{ form.concept }}</div>
-                    <div class="col-sm">Society Path</div>
-                    <div class="col-sm">{{ form.society_path}} </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Additional Paths</div>
-                    <div class="col-sm">{{ form.additional_paths }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Moment of Inspiration</div>
-                    <div class="col-sm">{{ form.moment_of_inspiration }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Skills</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Aim</div>
-                    <div class="col-sm">{{ form.aim_specialty }}</div>
-                    <div class="col-sm">{{ form.aim }}</div>
-                    <div class="col-sm">Integrity</div>
-                    <div class="col-sm">{{ form.integrity_specialty }}</div>
-                    <div class="col-sm">{{ form.integrity }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Athletics</div>
-                    <div class="col-sm">{{ form.athletics_specialty }}</div>
-                    <div class="col-sm">{{ form.athletics }}</div>
-                    <div class="col-sm">Larceny</div>
-                    <div class="col-sm">{{ form.larceny_specialty }}</div>
-                    <div class="col-sm">{{ form.larceny }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Close Combat</div>
-                    <div class="col-sm">{{ form.close_combat_specialty }}</div>
-                    <div class="col-sm">{{ form.close_combat }}</div>
-                    <div class="col-sm">Medicine</div>
-                    <div class="col-sm">{{ form.medicine_specialty }}</div>
-                    <div class="col-sm">{{ form.medicine }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Command</div>
-                    <div class="col-sm">{{ form.command_specialty }}</div>
-                    <div class="col-sm">{{ form.command }}</div>
-                    <div class="col-sm">Persuasion</div>
-                    <div class="col-sm">{{ form.persuasion_specialty }}</div>
-                    <div class="col-sm">{{ form.persuasion }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Culture</div>
-                    <div class="col-sm">{{ form.culture_specialty }}</div>
-                    <div class="col-sm">{{ form.culture }}</div>
-                    <div class="col-sm">Pilot</div>
-                    <div class="col-sm">{{ form.pilot_specialty }}</div>
-                    <div class="col-sm">{{ form.pilot }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Empathy</div>
-                    <div class="col-sm">{{ form.empathy_specialty }}</div>
-                    <div class="col-sm">{{ form.empathy }}</div>
-                    <div class="col-sm">Science</div>
-                    <div class="col-sm">{{ form.science_specialty }}</div>
-                    <div class="col-sm">{{ form.science }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Enigmas</div>
-                    <div class="col-sm">{{ form.enigmas_specialty }}</div>
-                    <div class="col-sm">{{ form.enigmas }}</div>
-                    <div class="col-sm">Survival</div>
-                    <div class="col-sm">{{ form.survival_specialty }}</div>
-                    <div class="col-sm">{{ form.survival }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Humanities</div>
-                    <div class="col-sm">{{ form.humanities_specialty }}</div>
-                    <div class="col-sm">{{ form.humanities }}</div>
-                    <div class="col-sm">Technology</div>
-                    <div class="col-sm">{{ form.technology_specialty }}</div>
-                    <div class="col-sm">{{ form.technology }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Attributes</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">CHECKBOX</div>
-                    <div class="col-sm">Force</div>
-                    <div class="col-sm">Intellect</div>
-                    <div class="col-sm">{{ form.intellect }}</div>
-                    <div class="col-sm">Might</div>
-                    <div class="col-sm">{{ form.might }}</div>
-                    <div class="col-sm">Presence</div>
-                    <div class="col-sm">{{ form.presence }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm"></div>
-                    <div class="col-sm"></div>
-                    <div class="col-sm">Mega Intellect</div>
-                    <div class="col-sm">{{ form.mega_intellect }}</div>
-                    <div class="col-sm">Mega Might</div>
-                    <div class="col-sm">{{ form.mega_might }}</div>
-                    <div class="col-sm">Mega Presence</div>
-                    <div class="col-sm">{{ form.mega_presence }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">CHECKBOX</div>
-                    <div class="col-sm">Finesse</div>
-                    <div class="col-sm">Cunning</div>
-                    <div class="col-sm">{{ form.cunning }}</div>
-                    <div class="col-sm">Dexterity</div>
-                    <div class="col-sm">{{ form.dexterity }}</div>
-                    <div class="col-sm">Manipulation</div>
-                    <div class="col-sm">{{ form.manipulation }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm"></div>
-                    <div class="col-sm"></div>
-                    <div class="col-sm">Mega Cunning</div>
-                    <div class="col-sm">{{ form.mega_cunning }}</div>
-                    <div class="col-sm">Mega Dexterity</div>
-                    <div class="col-sm">{{ form.mega_dexterity }}</div>
-                    <div class="col-sm">Mega Manipulation</div>
-                    <div class="col-sm">{{ form.mega_manipulation }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">CHECKBOX</div>
-                    <div class="col-sm">Resilience</div>
-                    <div class="col-sm">Resolve</div>
-                    <div class="col-sm">{{ form.resolve }}</div>
-                    <div class="col-sm">Stamina</div>
-                    <div class="col-sm">{{ form.stamina }}</div>
-                    <div class="col-sm">Composure</div>
-                    <div class="col-sm">{{ form.composure }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm"></div>
-                    <div class="col-sm"></div>
-                    <div class="col-sm">Mega Resolve</div>
-                    <div class="col-sm">{{ form.mega_resolve }}</div>
-                    <div class="col-sm">Mega Stamina</div>
-                    <div class="col-sm">{{ form.mega_stamina }}</div>
-                    <div class="col-sm">Mega Composure</div>
-                    <div class="col-sm">{{ form.mega_composure }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Quantum</div>
-                    <div class="col-sm">Path Contacts</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">{{ form.quantum }}</div>
-                    <div class="col-sm">{{ form.path_contacts }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Quantum Points: {{ form.quantum_points }}</div>
-                    <div class="col-sm">{{ form.path_connections }}</div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-sm">Transcendence</div>
-                    <div class="col-sm">Aspirations</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">{{ form.transcendence }}</div>
-                    <div class="col-sm">{{ form.short_term_aspiration_1 }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Flux: {{ form.flux }}</div>
-                    <div class="col-sm">{{ form.short_term_aspiration_2 }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">Transformations: {{ form.transformations }}</div>
-                    <div class="col-sm">{{ form.long_term_aspiration }}</div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm">Edges</div>
-                    <div class="col-sm">Injury Conditions</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">{{ form.edges }}</div>
-                    <div class="col-sm">Bruised {{ form.bruised_levels }}, Injured {{ form.injured_levels }}, Maimed {{ form.maimed_levels }}</div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm">Mega Edges</div>
-                    <div class="col-sm">Tricks and Specialties</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">{{ forms.megaedges }}</div>
-                    <div class="col-sm">{{ forms.tricks }}</div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm">Quantum Powers</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">{{ form.powers }}</div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-sm">Defense: {{ form.defense }}</div>
-                    <div class="col-sm">Armor: ARMORSTUFF</div>
-                </div>
-                
-
-                <input type="submit" value="Save">
-            </form>
+        <div class="centertext">
+            <div class="row border">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm">Name</div>
+                        <div class="col-sm">{{ form.name }}</div>
+                        <div class="col-sm">Origin Path</div>
+                        <div class="col-sm">{{ form.origin_path }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">Player</div>
+                        <div class="col-sm">{{ user.username }}</div>
+                        <div class="col-sm">Role Path</div>
+                        <div class="col-sm">{{ form.role_path }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">Concept</div>
+                        <div class="col-sm">{{ form.concept }}</div>
+                        <div class="col-sm">Society Path</div>
+                        <div class="col-sm">{{ form.society_path }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">Additional Paths</div>
+                        <div class="col-sm">{{ form.additional_paths }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">Moment of Inspiration</div>
+                        <div class="col-sm">{{ form.moment_of_inspiration }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">Skills</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">Aim</div>
+                        <div class="col-sm">{{ form.aim_specialty }}</div>
+                        <div class="col-sm">{{ form.aim }}</div>
+                        <div class="col-sm">Integrity</div>
+                        <div class="col-sm">{{ form.integrity_specialty }}</div>
+                        <div class="col-sm">{{ form.integrity }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">Athletics</div>
+                        <div class="col-sm">{{ form.athletics_specialty }}</div>
+                        <div class="col-sm">{{ form.athletics }}</div>
+                        <div class="col-sm">
+                            Larceny
+                        </div>
+                        <div class="col-sm">
+                            {{ form.larceny_specialty }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.larceny }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            Close Combat
+                        </div>
+                        <div class="col-sm">
+                            {{ form.close_combat_specialty }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.close_combat }}
+                        </div>
+                        <div class="col-sm">
+                            Medicine
+                        </div>
+                        <div class="col-sm">
+                            {{ form.medicine_specialty }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.medicine }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            Command
+                        </div>
+                        <div class="col-sm">
+                            {{ form.command_specialty }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.command }}
+                        </div>
+                        <div class="col-sm">
+                            Persuasion
+                        </div>
+                        <div class="col-sm">
+                            {{ form.persuasion_specialty }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.persuasion }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            Culture
+                        </div>
+                        <div class="col-sm">
+                            {{ form.culture_specialty }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.culture }}
+                        </div>
+                        <div class="col-sm">
+                            Pilot
+                        </div>
+                        <div class="col-sm">
+                            {{ form.pilot_specialty }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.pilot }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            Empathy
+                        </div>
+                        <div class="col-sm">
+                            {{ form.empathy_specialty }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.empathy }}
+                        </div>
+                        <div class="col-sm">
+                            Science
+                        </div>
+                        <div class="col-sm">
+                            {{ form.science_specialty }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.science }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            Enigmas
+                        </div>
+                        <div class="col-sm">
+                            {{ form.enigmas_specialty }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.enigmas }}
+                        </div>
+                        <div class="col-sm">
+                            Survival
+                        </div>
+                        <div class="col-sm">
+                            {{ form.survival_specialty }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.survival }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            Humanities
+                        </div>
+                        <div class="col-sm">
+                            {{ form.humanities_specialty }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.humanities }}
+                        </div>
+                        <div class="col-sm">
+                            Technology
+                        </div>
+                        <div class="col-sm">
+                            {{ form.technology_specialty }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.technology }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            Attributes
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            CHECKBOX
+                        </div>
+                        <div class="col-sm">
+                            Force
+                        </div>
+                        <div class="col-sm">
+                            Intellect
+                        </div>
+                        <div class="col-sm">
+                            {{ form.intellect }}
+                        </div>
+                        <div class="col-sm">
+                            Might
+                        </div>
+                        <div class="col-sm">
+                            {{ form.might }}
+                        </div>
+                        <div class="col-sm">
+                            Presence
+                        </div>
+                        <div class="col-sm">
+                            {{ form.presence }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                        </div>
+                        <div class="col-sm">
+                        </div>
+                        <div class="col-sm">
+                            Mega Intellect
+                        </div>
+                        <div class="col-sm">
+                            {{ form.mega_intellect }}
+                        </div>
+                        <div class="col-sm">
+                            Mega Might
+                        </div>
+                        <div class="col-sm">
+                            {{ form.mega_might }}
+                        </div>
+                        <div class="col-sm">
+                            Mega Presence
+                        </div>
+                        <div class="col-sm">
+                            {{ form.mega_presence }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            CHECKBOX
+                        </div>
+                        <div class="col-sm">
+                            Finesse
+                        </div>
+                        <div class="col-sm">
+                            Cunning
+                        </div>
+                        <div class="col-sm">
+                            {{ form.cunning }}
+                        </div>
+                        <div class="col-sm">
+                            Dexterity
+                        </div>
+                        <div class="col-sm">
+                            {{ form.dexterity }}
+                        </div>
+                        <div class="col-sm">
+                            Manipulation
+                        </div>
+                        <div class="col-sm">
+                            {{ form.manipulation }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                        </div>
+                        <div class="col-sm">
+                        </div>
+                        <div class="col-sm">
+                            Mega Cunning
+                        </div>
+                        <div class="col-sm">
+                            {{ form.mega_cunning }}
+                        </div>
+                        <div class="col-sm">
+                            Mega Dexterity
+                        </div>
+                        <div class="col-sm">
+                            {{ form.mega_dexterity }}
+                        </div>
+                        <div class="col-sm">
+                            Mega Manipulation
+                        </div>
+                        <div class="col-sm">
+                            {{ form.mega_manipulation }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            CHECKBOX
+                        </div>
+                        <div class="col-sm">
+                            Resilience
+                        </div>
+                        <div class="col-sm">
+                            Resolve
+                        </div>
+                        <div class="col-sm">
+                            {{ form.resolve }}
+                        </div>
+                        <div class="col-sm">
+                            Stamina
+                        </div>
+                        <div class="col-sm">
+                            {{ form.stamina }}
+                        </div>
+                        <div class="col-sm">
+                            Composure
+                        </div>
+                        <div class="col-sm">
+                            {{ form.composure }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                        </div>
+                        <div class="col-sm">
+                        </div>
+                        <div class="col-sm">
+                            Mega Resolve
+                        </div>
+                        <div class="col-sm">
+                            {{ form.mega_resolve }}
+                        </div>
+                        <div class="col-sm">
+                            Mega Stamina
+                        </div>
+                        <div class="col-sm">
+                            {{ form.mega_stamina }}
+                        </div>
+                        <div class="col-sm">
+                            Mega Composure
+                        </div>
+                        <div class="col-sm">
+                            {{ form.mega_composure }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            Quantum
+                        </div>
+                        <div class="col-sm">
+                            Path Contacts
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            {{ form.quantum }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.path_contacts }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            Quantum Points: {{ form.quantum_points }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.path_connections }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            Transcendence
+                        </div>
+                        <div class="col-sm">
+                            Aspirations
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            {{ form.transcendence }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.short_term_aspiration_1 }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            Flux: {{ form.flux }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.short_term_aspiration_2 }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            Transformations: {{ form.transformations }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.long_term_aspiration }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            Edges
+                        </div>
+                        <div class="col-sm">
+                            Injury Conditions
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            {{ form.edges }}
+                        </div>
+                        <div class="col-sm">
+                            Bruised {{ form.bruised_levels }}, Injured {{ form.injured_levels }}, Maimed {{ form.maimed_levels }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            Mega Edges
+                        </div>
+                        <div class="col-sm">
+                            Tricks and Specialties
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            {{ forms.megaedges }}
+                        </div>
+                        <div class="col-sm">
+                            {{ forms.tricks }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            Quantum Powers
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            {{ form.powers }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            Defense: {{ form.defense }}
+                        </div>
+                        <div class="col-sm">
+                            Armor: ARMORSTUFF
+                        </div>
+                    </div>
+                    <input type="submit" value="Save"/>
+                </form>
+            </div>
         </div>
-    </div>
+    {% endblock content %}
 </body>
-{% endblock %}
