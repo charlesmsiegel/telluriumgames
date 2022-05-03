@@ -321,7 +321,7 @@ class TestHumanCharacter(TestCase):
 
 def mage_setup(player):
     for i in range(5):
-        Mage.objects.create(name=f"Character {i}", player=player)
+        Mage.objects.create(name=f"Character {i}", player=player.wod_profile)
 
     for i in range(15):
         Instrument.objects.create(name=f"Instrument {i}")
@@ -370,7 +370,7 @@ class TestMage(TestCase):
     def setUp(self):
         self.player = User.objects.create_user(username="Player")
         self.character = Mage.objects.create(name="Test Character", player=self.player.wod_profile)
-        mage_setup(self.player.wod_profile)
+        mage_setup(self.player)
 
     def test_background_number(self):
         self.assertEqual(self.character.background_points, 7)
@@ -413,12 +413,12 @@ class TestMage(TestCase):
         technocracy = MageFaction.objects.create(name="Technocratic Union")
         itx = MageFaction.objects.create(name="Iteration X", parent=technocracy)
         tech_character = Mage.objects.create(
-            name="TechCharacter", player=player, affiliation=technocracy, faction=itx
+            name="TechCharacter", player=player.wod_profile, affiliation=technocracy, faction=itx
         )
         traditions = MageFaction.objects.create(name="Traditions")
         ooh = MageFaction.objects.create(name="Order of Hermes", parent=traditions)
         trad_character = Mage.objects.create(
-            name="TradCharacter", player=player, affiliation=traditions, faction=ooh
+            name="TradCharacter", player=player.wod_profile, affiliation=traditions, faction=ooh
         )
         tech_character.secret_weapons = 3
         trad_character.secret_weapons = 3
@@ -437,14 +437,14 @@ class TestMage(TestCase):
         batini = MageFaction.objects.create(name="Ahl-i-Batin", parent=disparates)
         batini_character = Mage.objects.create(
             name="BatiniCharacter",
-            player=player,
+            player=player.wod_profile,
             faction=batini,
             affiliation=disparates,
         )
         traditions = MageFaction.objects.create(name="Traditions")
         cult = MageFaction.objects.create(name="Cult of Ecstasy", parent=traditions)
         cult_character = Mage.objects.create(
-            name="CultCharacter", player=player, faction=cult, affiliation=traditions
+            name="CultCharacter", player=player.wod_profile, faction=cult, affiliation=traditions
         )
         batini_character.entropy = 3
         cult_character.entropy = 3
@@ -461,7 +461,7 @@ class TestMage(TestCase):
         batini = MageFaction.objects.create(name="Ahl-i-Batin", parent=disparates)
         batini_character = Mage.objects.create(
             name="BatiniCharacter",
-            player=player,
+            player=player.wod_profile,
             faction=batini,
             affiliation=disparates,
         )
@@ -469,7 +469,7 @@ class TestMage(TestCase):
         akashic = MageFaction.objects.create(name="Akashayana", parent=traditions)
         akashic_character = Mage.objects.create(
             name="AkashicCharacter",
-            player=player,
+            player=player.wod_profile,
             faction=akashic,
             affiliation=traditions,
         )
@@ -484,7 +484,7 @@ class TestMage(TestCase):
     def test_do_dot_requirements(self):
         player = User.objects.create_user(username="AkashicPlayer")
         akashic = MageFaction.objects.create(name="Akashayana")
-        char = Mage.objects.create(player=player, faction=akashic)
+        char = Mage.objects.create(player=player.wod_profile, faction=akashic)
         char.do = 3
         self.assertFalse(char.consistency_check())
         char.do = 1
@@ -818,7 +818,7 @@ class TestMageView(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.mage = Mage.objects.create(
-            name="Test Mage", player=User.objects.get(username="Test User")
+            name="Test Mage", player=User.objects.get(username="Test User").wod_profile
         )
 
     def test_mage_status_code(self):
@@ -846,7 +846,7 @@ class TestMageUpdateView(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.mage = Mage.objects.create(
-            name="Test Mage", player=User.objects.get(username="Test User")
+            name="Test Mage", player=User.objects.get(username="Test User").wod_profile
         )
 
     def test_correct_template(self):
@@ -886,7 +886,7 @@ class TestCabal(TestCase):
 
     def setUp(self):
         self.player = User.objects.create_user(username="Player")
-        mage_setup(self.player.wod_profile)
+        mage_setup(self.player)
 
     def test_cabal_creation(self):
         cabal = Cabal.objects.create(name="Cabal 1")
@@ -984,7 +984,7 @@ class TestIndexView(TestCase):
             player = User.objects.get(username=f"Player {i}")
             for j in range(3):
                 Mage.objects.create(
-                    name=f"Mage {5*j+i}", player=player, status=Mage.status_keys[i]
+                    name=f"Mage {5*j+i}", player=player.wod_profile, status=Mage.status_keys[i]
                 )
         response = self.client.post("/wod/characters/")
         for i in range(15):

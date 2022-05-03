@@ -17,8 +17,8 @@
         <h1>{{ character.name }}</h1>
       </div>
     </div>
-    <form method="POST" id="mageForm" data-factions-url="{% url 'ajax_load_factions' %}"
-      data-subfactions-url="{% url 'ajax_load_subfactions' %}" novalidate>
+    <form method="POST" id="mageForm" data-factions-url="{% url 'wod:ajax_load_factions' %}"
+      data-subfactions-url="{% url 'wod:ajax_load_subfactions' %}" novalidate>
       {% csrf_token %}
       {{ form.non_field_errors}}
       <div class="row">
