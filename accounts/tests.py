@@ -50,7 +50,7 @@ class TestProfileView(TestCase):
         # Check that character appears on user page
         self.assertContains(response, "Test Character 1")
         self.assertNotContains(response, "Test Character 2")
-        self.assertContains(response, f"/wod/characters/{self.char1.id}/")
+        self.assertContains(response, f"/cod/characters/{self.char1.id}/")
 
     def test_approval_list(self):
         self.client.login(username="Test Storyteller", password="testpass")
