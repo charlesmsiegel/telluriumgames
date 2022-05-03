@@ -11,7 +11,7 @@ class IndexView(View):
 
     def get(self, request):
         context = self.get_context()
-        return render(request, "cod/characters/index.html", context)
+        return render(request, "wod/characters/index.html", context)
 
     def post(self, request):
         context = self.get_context()
@@ -41,14 +41,14 @@ class MageCreateView(CreateView):
 
     model = Mage
     form_class = MageForm
-    template_name = "characters/mage/create.html"
+    template_name = "wod/characters/mage/create.html"
 
 
 class MageDetailView(DetailView):
     """Class that manages Views for mages"""
 
     model = Mage
-    template_name = "characters/mage/detail.html"
+    template_name = "wod/characters/mage/detail.html"
 
 
 class MageUpdate(UpdateView):
@@ -56,7 +56,7 @@ class MageUpdate(UpdateView):
 
     model = Mage
     fields = "__all__"
-    template_name = "characters/mage/update.html"
+    template_name = "wod/characters/mage/update.html"
 
 
 def load_factions(request):
@@ -64,7 +64,7 @@ def load_factions(request):
     factions = MageFaction.objects.filter(parent=affiliation_id).order_by("name")
     return render(
         request,
-        "characters/mage/load_faction_dropdown_list.html",
+        "wod/characters/mage/load_faction_dropdown_list.html",
         {"factions": factions},
     )
 
@@ -74,7 +74,7 @@ def load_subfactions(request):
     subfactions = MageFaction.objects.filter(parent=faction_id).order_by("name")
     return render(
         request,
-        "characters/mage/load_subfaction_dropdown_list.html",
+        "wod/characters/mage/load_subfaction_dropdown_list.html",
         {"subfactions": subfactions},
     )
 

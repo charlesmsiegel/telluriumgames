@@ -13,10 +13,10 @@ class CoDProfile(models.Model):
 
 
 @receiver(post_save, sender=User)
-def update_profile_signal(sender, instance, created, **kwargs):
+def update_codprofile_signal(sender, instance, created, **kwargs):
     if created:
         CoDProfile.objects.create(user=instance)
-    instance.profile.save()
+    instance.cod_profile.save()
 
 class WoDProfile(models.Model):
     """Class extending the User model to add additional fields."""
@@ -26,10 +26,10 @@ class WoDProfile(models.Model):
 
 
 @receiver(post_save, sender=User)
-def update_profile_signal(sender, instance, created, **kwargs):
+def update_wodprofile_signal(sender, instance, created, **kwargs):
     if created:
         WoDProfile.objects.create(user=instance)
-    instance.profile.save()
+    instance.wod_profile.save()
 
 class TCProfile(models.Model):
     """Class extending the User model to add additional fields."""
@@ -39,7 +39,7 @@ class TCProfile(models.Model):
 
 
 @receiver(post_save, sender=User)
-def update_profile_signal(sender, instance, created, **kwargs):
+def update_tcprofile_signal(sender, instance, created, **kwargs):
     if created:
         TCProfile.objects.create(user=instance)
-    instance.profile.save()
+    instance.tc_profile.save()

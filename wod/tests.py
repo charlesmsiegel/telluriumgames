@@ -10,7 +10,6 @@ from wod.models import (
     Character,
     HumanCharacter,
     Instrument,
-    Language,
     Mage,
     MageFaction,
     MeritFlaw,
@@ -19,6 +18,7 @@ from wod.models import (
     Resonance,
     Rote,
 )
+from core.models import Language
 from wod.templatetags.dots import dots
 
 
@@ -61,7 +61,7 @@ class TestCharacter(TestCase):
 
     def test_absolute_url(self):
         self.assertEqual(
-            self.character.get_absolute_url(), f"/characters/{self.character.id}/"
+            self.character.get_absolute_url(), f"/wod/characters/{self.character.id}/"
         )
 
 
@@ -823,21 +823,21 @@ class TestMageView(TestCase):
 
     def test_mage_status_code(self):
         """Tests that the page exists"""
-        response = self.client.get(f"/characters/{self.mage.id}/")
+        response = self.client.get(f"/wod/characters/{self.mage.id}/")
         self.assertEqual(response.status_code, 200)
 
     def test_mage_template(self):
         """Tests that the correct template is loaded"""
-        response = self.client.get(f"/characters/{self.mage.id}/")
-        self.assertTemplateUsed(response, "characters/mage/detail.html")
+        response = self.client.get(f"/wod/characters/{self.mage.id}/")
+        self.assertTemplateUsed(response, "wod/characters/mage/detail.html")
 
 
 class TestMageCreateView(TestCase):
     """Manages Tests for the MageCreateView and Template"""
 
     def test_correct_template(self):
-        response = self.client.get("/characters/mage/create/")
-        self.assertTemplateUsed(response, "characters/mage/create.html")
+        response = self.client.get("/wod/characters/mage/create/")
+        self.assertTemplateUsed(response, "wod/characters/mage/create.html")
 
 
 class TestMageUpdateView(TestCase):
@@ -850,8 +850,8 @@ class TestMageUpdateView(TestCase):
         )
 
     def test_correct_template(self):
-        response = self.client.get(f"/characters/mage/{self.mage.id}/update/")
-        self.assertTemplateUsed(response, "characters/mage/update.html")
+        response = self.client.get(f"/wod/characters/mage/{self.mage.id}/update/")
+        self.assertTemplateUsed(response, "wod/characters/mage/update.html")
 
 
 class TestSingleDetailView(TestCase):
@@ -862,15 +862,15 @@ class TestSingleDetailView(TestCase):
         self.mage = Mage.objects.create(name="mage_character_test", player=self.player)
 
     def test_correct_templates(self):
-        response = self.client.get(f"/characters/{self.mage.id}/")
-        self.assertTemplateUsed(response, "characters/mage/detail.html")
+        response = self.client.get(f"/wod/characters/{self.mage.id}/")
+        self.assertTemplateUsed(response, "wod/characters/mage/detail.html")
 
     def test_redirect(self):
         human = HumanCharacter.objects.create(
             name="test_human_character", player=self.player
         )
-        response = self.client.get(f"/characters/{human.id}/", follow=True)
-        self.assertTemplateUsed(response, "characters/index.html")
+        response = self.client.get(f"/wod/characters/{human.id}/", follow=True)
+        self.assertTemplateUsed(response, "wod/characters/index.html")
 
 
 class TestFilters(TestCase):
@@ -972,12 +972,12 @@ class TestIndexView(TestCase):
             User.objects.create_user(username=f"Player {i}")
 
     def test_index_status_code(self):
-        response = self.client.get("/characters/")
+        response = self.client.get("/wod/characters/")
         self.assertEqual(response.status_code, 200)
 
     def test_index_template(self):
-        response = self.client.get("/characters/")
-        self.assertTemplateUsed(response, "characters/index.html")
+        response = self.client.get("/wod/characters/")
+        self.assertTemplateUsed(response, "wod/characters/index.html")
 
     def test_index_post(self):
         for i in range(5):
@@ -986,7 +986,7 @@ class TestIndexView(TestCase):
                 Mage.objects.create(
                     name=f"Mage {5*j+i}", player=player, status=Mage.status_keys[i]
                 )
-        response = self.client.post("/characters/")
+        response = self.client.post("/wod/characters/")
         for i in range(15):
             self.assertContains(response, f"Mage {i}")
         for i in range(5):
