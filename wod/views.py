@@ -94,4 +94,4 @@ class CharacterDetailView(View):
         char = Character.objects.get(pk=kwargs["pk"])
         if char.type in self.create_views:
             return self.create_views[char.type].as_view()(request, *args, **kwargs)
-        return redirect("characters_index")
+        return redirect("wod:characters_index")
