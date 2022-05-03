@@ -29,7 +29,7 @@ class Character(PolymorphicModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("character", args=[str(self.id)])
+        return reverse("wod:character", args=[str(self.id)])
 
     def has_name(self):
         if self.name != "":

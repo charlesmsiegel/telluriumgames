@@ -25,13 +25,13 @@ class TestProfileView(TestCase):
         self.storyteller = User.objects.create_user(
             "Test Storyteller", "test@st.com", "testpass"
         )
-        self.storyteller.profile.storyteller = True
-        self.storyteller.profile.save()
+        self.storyteller.cod_profile.storyteller = True
+        self.storyteller.cod_profile.save()
         self.char1 = Mortal.objects.create(
-            name="Test Character 1", player=self.user1
+            name="Test Character 1", player=self.user1.cod_profile
         )
         self.char2 = Mortal.objects.create(
-            name="Test Character 2", player=self.user2
+            name="Test Character 2", player=self.user2.cod_profile
         )
 
     def test_template_logged_out(self):

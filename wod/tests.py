@@ -71,7 +71,7 @@ class TestHumanCharacter(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="Test")
         self.character = HumanCharacter.objects.create(
-            name="Testchar", player=self.user
+            name="Testchar", player=self.user.wod_profile
         )
 
     def test_has_attributes(self):
