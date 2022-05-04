@@ -1,9 +1,9 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
-from wod.forms import MageForm
+from wod.forms import MageForm, LocationForm
 from wod.models.characters import Character, Mage, MageFaction
-
+from wod.models.locations.mage import City, Location, Node
 
 # Create your views here.
 class IndexView(View):
@@ -96,3 +96,91 @@ class CharacterDetailView(View):
         if char.type in self.create_views:
             return self.create_views[char.type].as_view()(request, *args, **kwargs)
         return redirect("wod:characters_index")
+
+
+def recurse_records(nested_dict, count=0, nested_list=None):
+    if nested_list is None:
+        nested_list = []
+    for key in nested_dict.keys():
+        nested_list.append((range(count), key))
+        nested_list = recurse_records(
+            nested_dict[key], count=count + 1, nested_list=nested_list
+        )
+    return nested_list
+
+
+def location_index(request):
+    locations = Location.objects.all()
+    loc_form = LocationForm()
+    context = {}
+    context["locations"] = locations
+    context["location_form"] = loc_form
+
+    hierarchy = {}
+    for loc in locations:
+        hierarchy[loc] = {}
+
+    for_removal = []
+    for key, value in hierarchy.items():
+        if key.parent in hierarchy:
+            hierarchy[key.parent].update({key: value})
+            for_removal.append(key)
+    for key in for_removal:
+        hierarchy.pop(key)
+
+    context["location_pairs"] = recurse_records(hierarchy)
+    seen = set()
+    seen_add = seen.add
+    context["location_pairs"] = [
+        x for x in context["location_pairs"] if not (x in seen or seen_add(x))
+    ]
+
+    if request.method == "POST":
+        location_form = LocationForm(request.POST)
+        parent = None
+        if request.POST["parent"]:
+            parent = get_object_or_404(Location, pk=location_form.data["parent"])
+        new_loc = Location.objects.create(
+            name=location_form.data["name"],
+            parent=parent,
+            description=location_form.data["description"],
+        )
+        return redirect(new_loc.get_absolute_url())
+    return render(request, "wod/locations/index.html", context)
+
+
+class LocationDetailView(DetailView):
+    """Class that manages Views for Location"""
+
+    model = Location
+    template_name = "wod/locations/location.html"
+
+
+class CityDetailView(DetailView):
+    """Class that manages Views for City"""
+
+    model = City
+    template_name = "wod/locations/city.html"
+
+
+class NodeDetailView(DetailView):
+    """Class that manages Views for Node"""
+
+    model = Node
+    template_name = "wod/locations/mage/node.html"
+
+
+class GenericLocationDetailView(View):
+    """Class that manages Views for locations"""
+
+    create_views = {
+        "location": LocationDetailView,
+        "city": CityDetailView,
+        "node": NodeDetailView,
+    }
+
+    def get(self, request, *args, **kwargs):
+        location = Location.objects.get(pk=kwargs["pk"])
+        if location.type in self.create_views:
+            return self.create_views[location.type].as_view()(request, *args, **kwargs)
+        return redirect("location_index")

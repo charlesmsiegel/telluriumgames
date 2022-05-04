@@ -12,6 +12,7 @@ from wod.models.characters import (
     Resonance,
     ResRating,
 )
+from wod.models.locations import City, Location, Node
 
 
 # Register your models here.
@@ -97,3 +98,8 @@ class CabalAdmin(admin.ModelAdmin):
     """ Class controlling the display of Cabal in admin site """
 
     list_display = ("name", "leader")
+
+
+admin.site.register(Location)
+admin.site.register(City)
+admin.site.register(Node)

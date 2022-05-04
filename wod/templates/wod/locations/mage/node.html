@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ loc_name }}{% endblock %}
+<body>
+{% block content %}
+    <h1>{{ location.name }}</h1>
+
+    Parent: {{ location.parent }}<br><br>
+
+    {{ location.description }}<br><br>
+
+    <table>
+        <tr>
+            <td> Gauntlet </td>
+            <td> {{ location.gauntlet }}</td>
+            <td> Shroud </td>
+            <td> {{ location.shroud }}</td>
+        </tr>
+        <tr>
+            <td>Quintessence per week</td>
+            <td>{{ location.quintessence_per_week }}</td>
+            <td>Tass per week</td>
+            <td>{{ location.tass_per_week }}</td>
+        </tr>
+    </table>
+
+    <br><br>
+
+    <table>
+    {% for resonance in location.resratings_set.all %}
+        <tr>
+            <td>resonance.resonance.name</td>
+            <td>resonance.rating</td>
+        </tr>
+    {% endfor %}
+    </table>
+</body>
+{% endblock %}

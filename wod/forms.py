@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 
 # from characters.fields import ListTextWidget
 from wod.models.characters.mage import Mage, MageFaction
+from wod.models.locations.mage import Location
 
 
 # Create your Forms here
@@ -51,3 +52,13 @@ class MageForm(forms.ModelForm):
                 )
             except (ValueError, TypeError):
                 pass
+
+
+class LocationForm(forms.ModelForm):
+    """Class for Location Form"""
+
+    class Meta:
+        """Meta class for Location Form"""
+
+        model = Location
+        fields = ["name", "parent", "description"]
