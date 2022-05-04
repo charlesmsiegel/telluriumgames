@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from wod.forms import MageForm
-from wod.models import Character, Mage, MageFaction
+from wod.models.characters import Character, Mage, MageFaction
 
 
 # Create your views here.
