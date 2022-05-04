@@ -7,6 +7,7 @@ from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.support.ui import Select
 
 from cod.models import Mortal
+# from game.models import Scene, Story
 
 MAX_WAIT = 10
 # Create your tests here.
@@ -186,3 +187,99 @@ class TestHomepage(FunctionalTest):
 
         self.assertIn(("accounts/login/", "Log In"), links)
         self.assertIn(("accounts/signup/", "Sign Up"), links)
+
+# class CharacterCreationTest(FunctionalTest):
+#     """Manages tests for the Character Creation page"""
+
+#     def test_char_gen_navigation(self):
+#         self.fail()
+
+
+# class GamePagesTest(FunctionalTest):
+#     """Manages tests for the Game Pages"""
+
+#     def setUp(self) -> None:
+#         super().setUp()
+#         self.client.get("/accounts/signup/")
+
+#         self.browser.get(self.live_server_url + "/accounts/signup/")
+
+#         username = "test_user"
+#         password = "pw123456"
+
+#         namebox = self.browser.find_element_by_id("id_username")
+#         namebox.send_keys(username)
+#         pw1 = self.browser.find_element_by_id("id_password1")
+#         pw1.send_keys(password)
+#         pw2 = self.browser.find_element_by_id("id_password2")
+#         pw2.send_keys(password)
+#         submit_button = self.browser.find_element_by_id("signup_button")
+#         submit_button.click()
+#         namebox = self.browser.find_element_by_id("id_username")
+#         namebox.send_keys(username)
+#         pw1 = self.browser.find_element_by_id("id_password")
+#         pw1.send_keys(password)
+#         submit_button = self.browser.find_element_by_id("login_button_id")
+#         submit_button.click()
+
+#         self.player = User.objects.first()
+#         self.character = Character.objects.create(name="Character", player=self.player)
+#         self.story = Story.objects.create(name="Story")
+#         self.scene = Scene.objects.create(name="Scene", story=self.story)
+
+#     def test_create_story_page(self):
+#         self.fail()
+
+#     def test_create_scene_page(self):
+#         self.fail()
+
+#     def test_add_character_to_scene(self):
+#         self.fail()
+
+#     def test_make_post(self):
+#         self.scene.characters.add(self.character)
+
+#         self.browser.get(self.live_server_url + "/game/scene/Scene/")
+
+#         character_pulldown = self.browser.find_element_by_id("id_character")
+#         select = Select(character_pulldown)
+#         select.select_by_index(1)
+
+#         display = self.browser.find_element_by_id("id_display_name")
+#         display.send_keys("Char")
+#         message = self.browser.find_element_by_id("id_message")
+#         message.send_keys("Test Post")
+
+#         inputs = self.browser.find_elements_by_tag_name("input")
+#         [x for x in inputs if x.get_property("value") == "Post"][0].click()
+#         self.assertIn("<b>Char</b>: Test Post", self.browser.page_source)
+
+
+# class CharacterPage(FunctionalTest):
+#     """Manages tests for the Character Page"""
+
+#     def test_view_character(self):
+#         self.fail()
+
+
+# class UserAccountPageTest(FunctionalTest):
+#     """Manages tests for the User Account Page"""
+
+#     def test_account_page_view(self):
+#         self.fail()
+
+#     def test_todo_list(self):
+#         self.fail()
+
+#     def test_storyteller_giving_xp(self):
+#         self.fail()
+
+
+# class LocationPageTest(FunctionalTest):
+#     """Manages tests for the Location Page"""
+
+#     def test_location_creation(self):
+#         self.fail()
+
+#     def test_treelike_display(self):
+#         self.fail()
