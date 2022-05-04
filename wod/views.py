@@ -183,4 +183,4 @@ class GenericLocationDetailView(View):
         location = Location.objects.get(pk=kwargs["pk"])
         if location.type in self.create_views:
             return self.create_views[location.type].as_view()(request, *args, **kwargs)
-        return redirect("location_index")
+        return redirect("wod:location_index")

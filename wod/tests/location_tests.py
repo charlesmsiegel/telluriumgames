@@ -106,7 +106,7 @@ class TestLocationIndexView(TestCase):
     """Manage Tests for Location"""
 
     def test_correct_template(self):
-        response = self.client.get("/locations/")
+        response = self.client.get("/wod/locations/")
         self.assertTemplateUsed(response, "wod/locations/index.html")
 
     def test_gets_list_of_locations(self):
@@ -114,7 +114,7 @@ class TestLocationIndexView(TestCase):
             Location.objects.create(name=f"Location {i}")
             City.objects.create(name=f"City {i}")
             Node.objects.create(name=f"Node {i}")
-        response = self.client.get("/locations/")
+        response = self.client.get("/wod/locations/")
         for i in range(5):
             self.assertContains(response, f"Location {i}")
             self.assertContains(response, f"City {i}")
@@ -126,7 +126,7 @@ class TestNodeView(TestCase):
 
     def test_correct_template(self):
         location = Node.objects.create(name="Node")
-        response = self.client.get(f"/locations/{location.id}/")
+        response = self.client.get(f"/wod/locations/{location.id}/")
         self.assertTemplateUsed(response, "wod/locations/mage/node.html")
 
 
@@ -139,7 +139,7 @@ class TestLocationView(TestCase):
 
     def test_correct_template(self):
         location = Location.objects.create(name="Location")
-        response = self.client.get(f"/locations/{location.id}/")
+        response = self.client.get(f"/wod/locations/{location.id}/")
         self.assertTemplateUsed(response, "wod/locations/location.html")
 
     def test_location_str(self):
