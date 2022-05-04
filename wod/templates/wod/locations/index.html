@@ -1,45 +1,52 @@
 {% extends 'core/base.html' %}
 {% block title %}Locations{% endblock %}
 <body>
-{% block content %}
-    <div style="text-align: center">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm"><h2>Locations</h2></div>
-            </div>
-            {% for loc in chronicle.location_set.all %}
+    {% block content %}
+        <div style="text-align: center">
+            <div class="container">
                 <div class="row">
-                    <div class="col-sm"></div>
-                    <div class="col-sm"></div>
-                    <div class="col-sm"></div>
-                    <a class="col-sm" href="{% url 'wod:location' loc.id %}">{{ loc.name }}</a>
-                    <div class="col-sm"></div>
-                    <div class="col-sm"></div>
-                    <div class="col-sm"></div>
-                </div>
-            {% endfor %}
-            <form action="" method="POST">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-sm"></div>
-                    <div class="col-sm">{{ location_form.name }}</div>
-                    <div class="col-sm">{{ location_form.parent }}</div>
-                    <div class="col-sm">{{ location_form.description }}</div>
                     <div class="col-sm">
-                        <input type="submit" name="creator" value="Create Location">
+                        <h2>Locations</h2>
                     </div>
-                    <div class="col-sm"></div>
                 </div>
-            </form>
-{#            {% for num, loc in location_pairs %}#}
-{#                <div class="row">#}
-{#                    {% for _ in num %}#}
-{#                        <div class="col"></div>#}
-{#                    {% endfor %}#}
-{#                    <div class="col">{{ loc }}</div>#}
-{#                </div>#}
-{#            {% endfor %}#}
+                {% for loc in chronicle.location_set.all %}
+                    <div class="row">
+                        <div class="col-sm"></div>
+                        <div class="col-sm"></div>
+                        <div class="col-sm"></div>
+                        <a class="col-sm" href="{% url 'wod:location' loc.id %}">{{ loc.name }}</a>
+                        <div class="col-sm"></div>
+                        <div class="col-sm"></div>
+                        <div class="col-sm"></div>
+                    </div>
+                {% endfor %}
+                {% for loc in locations %}
+                <div class="row">
+                    <a class="col-sm" href="{% url 'wod:location' loc.id %}">{{ loc.name }}</a>
+                </div>
+                {% endfor %}
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm"></div>
+                        <div class="col-sm">{{ location_form.name }}</div>
+                        <div class="col-sm">{{ location_form.parent }}</div>
+                        <div class="col-sm">{{ location_form.description }}</div>
+                        <div class="col-sm">
+                            <input type="submit" name="creator" value="Create Location">
+                        </div>
+                        <div class="col-sm"></div>
+                    </div>
+                </form>
+                {#            {% for num, loc in location_pairs %}#}
+                {#                <div class="row">#}
+                {#                    {% for _ in num %}#}
+                {#                        <div class="col"></div>#}
+                {#                    {% endfor %}#}
+                {#                    <div class="col">{{ loc }}</div>#}
+                {#                </div>#}
+                {#            {% endfor %}#}
+            </div>
         </div>
-    </div>
-{% endblock %}
+    {% endblock %}
 </body>

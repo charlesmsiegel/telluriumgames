@@ -47,7 +47,7 @@ class Node(Location):
     """Class for nodes"""
 
     resonance = models.ManyToManyField(Resonance, through="NodeResRating")
-    merits_and_flaws = models.ManyToManyField("NodeMeritFlaw", related_name="nodes")
+    merits_and_flaws = models.ManyToManyField("NodeMeritFlaw", related_name="nodes", null=True, blank=True)
     rank = models.IntegerField(default=1)
     size = models.IntegerField(default=0)
     quintessence_per_week = models.IntegerField(default=1)
@@ -131,8 +131,7 @@ class Node(Location):
             f"{name} is a {self.rank}-point Node roughly the size of"
             f" a {self.size_names[self.size + 2]}.\nIt produces "
             f"{self.quintessence_per_week} quintessence and "
-            f"{self.tass_per_week} tass per week.\nThe node appears "
-            f"as {self.description}, and its quintessence takes the "
+            f"{self.tass_per_week} tass per week.\n, and its quintessence takes the "
             f"form of {self.quintessence_form}. Its tass has "
             f"the form {self.tass_form}.\n"
         )
@@ -231,3 +230,6 @@ class NodeResRating(models.Model):
         Resonance, on_delete=models.CASCADE, related_name="nodes"
     )
     rating = models.IntegerField(default=1)
+    
+    def __str__(self):
+        return f"{self.resonance.name} ({self.rating})"
