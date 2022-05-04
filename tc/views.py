@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 from django.views.generic.list import ListView
+from django.db.models import Q
 
 from tc.models import *
 from tc.forms import AberrantForm
@@ -162,14 +163,11 @@ class RandomCreateView(View):
         return redirect("tc/characters/")
 
 
-from django.db.models import Q
-
-
 class EdgeListView(ListView):
     model = Edge
 
     def get_queryset(self, *args, **kwargs):
-        qs = super(EdgeListView, self).get_queryset(*args, **kwargs)
+        qs = super().get_queryset(*args, **kwargs)
         # edges = EdgeRating.objects.filter(character=char).order_by("edge")
         qs = [
             x.name for x in qs if x.name not in [x.name for x in MegaEdge.objects.all()]

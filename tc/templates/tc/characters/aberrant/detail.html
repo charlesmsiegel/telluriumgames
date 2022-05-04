@@ -26,26 +26,26 @@
             </div>
             <div class="row">
                 <div class="col-sm">Origin Path</div>
-                <a class="col-sm" href="/characters/path/{{ origin_path.path.id }}/">{{ origin_path.path.name| safe }}</a>
+                <a class="col-sm" href={% url "tc:path" origin_path.path.id %}>{{ origin_path.path.name| safe }}</a>
                 <div class="col-sm">{{ origin_path.path_connection.name }}</div>
                 <div class="col-sm">{{ origin_path.rating }}</div>
             </div>
             <div class="row">
                 <div class="col-sm">Role Path</div>
-                <a class="col-sm" href="/characters/path/{{ role_path.path.id }}/">{{ role_path.path.name| safe }}</a>
+                <a class="col-sm" href="{% url 'tc:path' role_path.path.id %}/">{{ role_path.path.name| safe }}</a>
                 <div class="col-sm">{{ role_path.path_connection.name }}</div>
                 <div class="col-sm">{{ role_path.rating }}</div>
             </div>
             <div class="row">
                 <div class="col-sm">Society Path</div>
-                <a class="col-sm" href="/characters/path/{{ society_path.path.id }}/">{{ society_path.path.name| safe }}</a>
+                <a class="col-sm" href="{% url 'tc:path' society_path.path.id %}/">{{ society_path.path.name| safe }}</a>
                 <div class="col-sm">{{ society_path.path_connection.name }}</div>
                 <div class="col-sm">{{ society_path.rating }}</div>
             </div>
             {% for path in additional_paths %}
                 <div class="row">
                     <div class="col-sm"></div>
-                    <a class="col-sm" href="/characters/path/{{ path.path.id }}/">{{ path.path.name }}</a>
+                    <a class="col-sm" href="{% url 'tc:path' path.path.id %}/">{{ path.path.name }}</a>
                     <div class="col-sm">
                         {{ path.path_connection.name }}
                     </div>
@@ -455,7 +455,7 @@
                     </h3>
                     {% for trick in tricks %}
                         <br/>
-                        <a href="/characters/trick/{{ trick.id }}">{{ trick.name }}</a>
+                        <a href="{% url 'tc:trick' trick.id %}">{{ trick.name }}</a>
                     {% endfor %}
                 </div>
                 <div class="col-sm">
@@ -464,11 +464,11 @@
                     </h3>
                     {% for edge in edges %}
                         <br/>
-                        <a href="/characters/edge/{{ edge.edge.id }}">{{ edge }}</a>
+                        <a href="{% url 'tc:edge' edge.edge.id %}">{{ edge }}</a>
                     {% endfor %}
                     {% for edge in enhancededges %}
                         <br/>
-                        <a href="/characters/enhancededge/{{ edge.id }}">{{ edge }}</a>
+                        <a href="{% url 'tc:enhanced_edge' edge.edge.id %}">{{ edge }}</a>
                     {% endfor %}
                 </div>
                 <div class="col-sm">
@@ -477,7 +477,7 @@
                     </h3>
                     {% for edge in megaedges %}
                         <br/>
-                        <a class="col-sm" href="/characters/megaedge/{{ edge.megaedge.id }}">{{ edge }}</a>
+                        <a class="col-sm" href="{% url 'tc:megaedge' edge.megaedge.id %}">{{ edge }}</a>
                     {% endfor %}
                 </div>
             </div>
@@ -488,7 +488,7 @@
                     </h3>
                     {% for transformation in transformations %}
                         <br/>
-                        <a href="/characters/transformation/{{ transformation.id }}">{{ transformation }}</a>
+                        <a href="{% url 'tc:transformation' transformation.id %}">{{ transformation }}</a>
                     {% endfor %}
                 </div>
                 <div class="col-sm">
@@ -511,11 +511,11 @@
                 <div class="row">
                     <div class="col-sm">
                     </div>
-                    <a class="col-sm" href="/characters/power/{{ power.power.id }}/">{{ power.power.name }}</a>
+                    <a class="col-sm" href="{% url 'tc:power' power.power.id %}">{{ power.power.name }}</a>
                     <div class="col-sm dots">
                         {{ power.rating| dots }}
                     </div>
-                    <div class="col-sm">
+                        <div class="col-sm">
                     </div>
                 </div>
                 {% for tag in tags %}
