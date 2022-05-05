@@ -4,6 +4,7 @@ from django.views.generic import CreateView, DetailView, UpdateView, View
 from wod.forms import MageForm, LocationForm
 from wod.models.characters import Character, Mage, MageFaction
 from wod.models.locations.mage import City, Location, Node
+from wod.models.objects.mage import Wonder, Grimoire
 
 # Create your views here.
 class IndexView(View):
@@ -184,3 +185,28 @@ class GenericLocationDetailView(View):
         if location.type in self.create_views:
             return self.create_views[location.type].as_view()(request, *args, **kwargs)
         return redirect("wod:location_index")
+
+class WonderDetailView(DetailView):
+    """Class that manages Views for wonders"""
+
+    model = Wonder
+    template_name = "objects/wonders/detail.html"
+
+
+class GrimoireDetailView(DetailView):
+    """Class that manages Views for grimoires"""
+
+    model = Grimoire
+    template_name = "objects/grimoires/detail.html"
+
+
+class GenericWonderDetailView(View):
+    """Class that manages Views for wonders"""
+
+    create_views = {"wonder": WonderDetailView, "grimoire": GrimoireDetailView}
+
+    def get(self, request, *args, **kwargs):
+        wonder = Wonder.objects.get(pk=kwargs["pk"])
+        if wonder.type in self.create_views:
+            return self.create_views[wonder.type].as_view()(request, *args, **kwargs)
+        return redirect("wonders_index")

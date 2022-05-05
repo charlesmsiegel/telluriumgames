@@ -13,6 +13,7 @@ from wod.models.characters import (
     ResRating,
 )
 from wod.models.locations import City, Location, Node
+from wod.models.objects.mage import Grimoire, Library, Wonder
 
 
 # Register your models here.
@@ -103,3 +104,19 @@ class CabalAdmin(admin.ModelAdmin):
 admin.site.register(Location)
 admin.site.register(City)
 admin.site.register(Node)
+
+@admin.register(Wonder)
+class WonderAdmin(admin.ModelAdmin):
+    """Class for Wonder admin."""
+
+    list_display = ("name", "rank", "background_cost", "quintessence_max")
+
+
+@admin.register(Grimoire)
+class GrimoireAdmin(admin.ModelAdmin):
+    """Class for Grimoire admin."""
+
+    list_display = ("name", "rank", "primer", "medium")
+
+
+admin.site.register(Library)
