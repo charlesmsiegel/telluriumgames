@@ -190,14 +190,14 @@ class WonderDetailView(DetailView):
     """Class that manages Views for wonders"""
 
     model = Wonder
-    template_name = "objects/wonders/detail.html"
+    template_name = "wod/objects/mage/wonder.html"
 
 
 class GrimoireDetailView(DetailView):
     """Class that manages Views for grimoires"""
 
     model = Grimoire
-    template_name = "objects/grimoires/detail.html"
+    template_name = "wod/objects/mage/grimoire.html"
 
 
 class GenericWonderDetailView(View):

@@ -54,8 +54,8 @@ class Grimoire(Wonder):
         Material, on_delete=models.CASCADE, null=True, blank=True, related_name="inside_of"
     )
     date_written = models.IntegerField(default=2021, null=True, blank=True)
-    spheres = models.JSONField()
-    abilities = models.JSONField()
+    spheres = models.JSONField(null=True)
+    abilities = models.JSONField(null=True)
     language = models.ForeignKey(
         Language, on_delete=models.CASCADE, null=True, blank=True
     )

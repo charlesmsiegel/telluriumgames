@@ -3,18 +3,17 @@ from unittest.mock import Mock
 
 from django.test import TestCase
 
-from characters.models import (
+from wod.models.characters import (
     Instrument,
-    Language,
     Mage,
     MageFaction,
-    Material,
-    Medium,
     Paradigm,
     Practice,
     Rote,
 )
-from objects.models import Grimoire, Library, Wonder
+from core.models import Language, Material, Medium
+
+from wod.models.objects.mage import Grimoire, Library, Wonder
 
 
 # Create your tests here.
@@ -217,8 +216,8 @@ class TestWonderView(TestCase):
             quintessence_max=15,
             description="Test Description",
         )
-        response = self.client.get(f"/objects/{wonder.id}/")
-        self.assertTemplateUsed(response, "objects/wonders/detail.html")
+        response = self.client.get(f"/wod/wonder/{wonder.id}/")
+        self.assertTemplateUsed(response, "wod/objects/mage/wonder.html")
 
 
 class TestGrimoireView(TestCase):
@@ -234,5 +233,5 @@ class TestGrimoireView(TestCase):
             description="Test Description",
             faction=faction,
         )
-        response = self.client.get(f"/objects/{wonder.id}/")
-        self.assertTemplateUsed(response, "objects/grimoires/detail.html")
+        response = self.client.get(f"/wod/wonder/{wonder.id}/")
+        self.assertTemplateUsed(response, "wod/objects/mage/grimoire.html")

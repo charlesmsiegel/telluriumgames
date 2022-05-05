@@ -752,7 +752,7 @@ class Practice(models.Model):
     """Class for Practices as part of Focus"""
 
     name = models.CharField(max_length=100)
-    abilities = models.JSONField(null=True)
+    abilities = models.JSONField(default=list, null=True)
     instruments = models.ManyToManyField("Instrument")
 
     def __str__(self):
