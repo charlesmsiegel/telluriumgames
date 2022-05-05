@@ -988,7 +988,6 @@ class Cabal(models.Model):
                     user = User.objects.create_user(username="New User")
                     user.wod_profile.storyteller = True
                     user.save()
-                    user
                 mage = Mage.objects.create(
                     name=f"TempName {i}", cabal=self, player=user.wod_profile
                 )
