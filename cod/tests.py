@@ -13,7 +13,7 @@ class TestDots(TestCase):
         self.assertEqual(len(output_5), 5)
         self.assertEqual(len(output_10), 10)
         self.assertEqual(len(output_10_2), 10)
-        
+
     def test_correct_ratio(self):
         self.assertEqual(Counter(dots(3))["●"], 3)
         self.assertEqual(Counter(dots(3))["○"], 2)

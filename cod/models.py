@@ -280,17 +280,23 @@ class Mortal(PolymorphicModel):
             ]
             allowed_merits = [x for x in merits_not_possessed if x.check_prereqs(self)]
             if "Anonymity" in [x.name for x in self.merits.all()]:
-                merits_not_possessed = [x for x in merits_not_possessed if x.name != "Fame"]
-            if "Fame" in [x.name for x in self.merits.all()]:
-                merits_not_possessed = [x for x in merits_not_possessed if x.name != "Anonymity"]
-            chosen = random.choice(allowed_merits)
-            rating = int(random.choice(
-                [
-                    x
-                    for x in chosen.allowed_ratings
-                    if x <= merit_dots - self.total_merits()
+                merits_not_possessed = [
+                    x for x in merits_not_possessed if x.name != "Fame"
                 ]
-            ))
+            if "Fame" in [x.name for x in self.merits.all()]:
+                merits_not_possessed = [
+                    x for x in merits_not_possessed if x.name != "Anonymity"
+                ]
+            chosen = random.choice(allowed_merits)
+            rating = int(
+                random.choice(
+                    [
+                        x
+                        for x in chosen.allowed_ratings
+                        if x <= merit_dots - self.total_merits()
+                    ]
+                )
+            )
             if chosen.needs_detail:
                 detail = chosen.choose_detail(self)
             else:
@@ -388,9 +394,11 @@ class Specialty(models.Model):
         max_length=3, choices=zip(skill_keys, skill_name), default="aca"
     )
     specialty = models.CharField(max_length=100)
-    
+
     def display_skill(self):
-        return self.skill_name[self.skill_keys.index(self.skill)].replace("_", " ").title()
+        return (
+            self.skill_name[self.skill_keys.index(self.skill)].replace("_", " ").title()
+        )
 
 
 class Merit(models.Model):
@@ -415,11 +423,22 @@ class Merit(models.Model):
                     tmp.update(character.get_physical_skills())
                     tmp.update(character.get_mental_skills())
                     tmp.update(character.get_social_skills())
-                    high_enough_skills = [key for key, value in tmp.items() if value >= prereq[1]]
+                    high_enough_skills = [
+                        key for key, value in tmp.items() if value >= prereq[1]
+                    ]
                     if len(high_enough_skills) == 0:
                         return False
                     specs = character.specialties.all()
-                    if len([x.skill for x in specs if x.skill in [y[:3] for y in high_enough_skills]]) == 0:
+                    if (
+                        len(
+                            [
+                                x.skill
+                                for x in specs
+                                if x.skill in [y[:3] for y in high_enough_skills]
+                            ]
+                        )
+                        == 0
+                    ):
                         return False
                 else:
                     if prereq[0] == "skill":
@@ -433,20 +452,42 @@ class Merit(models.Model):
                         return False
         if self.merit_prereqs is not None:
             for prereq in self.merit_prereqs:
-                if MeritRating.objects.filter(character=character, merit__name=prereq[0], rating__gte=prereq[1]).count() == 0:
+                if (
+                    MeritRating.objects.filter(
+                        character=character,
+                        merit__name=prereq[0],
+                        rating__gte=prereq[1],
+                    ).count()
+                    == 0
+                ):
                     return False
         return True
-    
+
     def get_max_rating(self):
         return max(self.allowed_ratings)
 
     def choose_detail(self, character):
-        already_used_details = [x.detail for x in MeritRating.objects.filter(merit=self, character=character)]
+        already_used_details = [
+            x.detail
+            for x in MeritRating.objects.filter(merit=self, character=character)
+        ]
         if self.name == "Area of Expertise":
-            possible_details = [x.specialty for x in character.specialties.all() if x.specialty not in already_used_details]
+            possible_details = [
+                x.specialty
+                for x in character.specialties.all()
+                if x.specialty not in already_used_details
+            ]
         elif self.name == "Interdisciplinary Specialty":
-            possible_details = [x for x in character.specialties.all() if x.specialty not in already_used_details]
-            possible_details = [x.specialty for x in possible_details if getattr(character, x.get_skill_display()) >= 3]
+            possible_details = [
+                x
+                for x in character.specialties.all()
+                if x.specialty not in already_used_details
+            ]
+            possible_details = [
+                x.specialty
+                for x in possible_details
+                if getattr(character, x.get_skill_display()) >= 3
+            ]
         elif self.name == "Investigative Aide":
             tmp = {}
             tmp.update(character.get_physical_skills())
@@ -467,7 +508,9 @@ class Merit(models.Model):
             possible_details = [key for key, value in tmp.items() if value >= 2]
         else:
             possible_details = self.list_of_details
-        possible_details = [x for x in possible_details if x not in already_used_details]
+        possible_details = [
+            x for x in possible_details if x not in already_used_details
+        ]
         if len(possible_details) > 0:
             detail = random.choice(possible_details)
         elif self.name == "Mentor":
@@ -477,8 +520,13 @@ class Merit(models.Model):
             detail = f"Detail {character.merits.count()}"
         return detail
 
+
 class MeritRating(models.Model):
-    character = models.ForeignKey("Mortal", null=False, blank=False, on_delete=models.CASCADE)
-    merit = models.ForeignKey("Merit", null=False, blank=False, on_delete=models.CASCADE)
+    character = models.ForeignKey(
+        "Mortal", null=False, blank=False, on_delete=models.CASCADE
+    )
+    merit = models.ForeignKey(
+        "Merit", null=False, blank=False, on_delete=models.CASCADE
+    )
     rating = models.IntegerField(default=0)
     detail = models.CharField(max_length=100, null=True, blank=True)
