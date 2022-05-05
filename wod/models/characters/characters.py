@@ -1,11 +1,11 @@
 import random
 
+from accounts.models import WoDProfile
+from core.models import Language
 from django.db import models
 from django.shortcuts import reverse
 from django.utils.timezone import now
 from polymorphic.models import PolymorphicModel
-from core.models import Language
-from accounts.models import WoDProfile
 
 
 # Create your models here.

@@ -1,6 +1,5 @@
 from django import forms
 from django.urls import reverse_lazy
-
 # from characters.fields import ListTextWidget
 from wod.models.characters.mage import Mage, MageFaction
 from wod.models.locations.mage import Location

@@ -1,24 +1,13 @@
 from unittest import mock
 from unittest.mock import Mock
 
+from core.models import Language
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.utils.timezone import now
-
-from wod.models.characters import (
-    Cabal,
-    Character,
-    HumanCharacter,
-    Instrument,
-    Mage,
-    MageFaction,
-    MeritFlaw,
-    Paradigm,
-    Practice,
-    Resonance,
-    Rote,
-)
-from core.models import Language
+from wod.models.characters import (Cabal, Character, HumanCharacter,
+                                   Instrument, Mage, MageFaction, MeritFlaw,
+                                   Paradigm, Practice, Resonance, Rote)
 from wod.templatetags.dots import dots
 
 

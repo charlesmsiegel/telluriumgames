@@ -1,5 +1,5 @@
+from cod.models import Merit, Mortal, Specialty
 from django.contrib import admin
-from cod.models import Mortal, Specialty, Merit
 
 # Register your models here.
 admin.site.register(Mortal)

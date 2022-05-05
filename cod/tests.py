@@ -1,7 +1,8 @@
-from django.test import TestCase
+from collections import Counter
 
 from cod.templatetags.dots import dots
-from collections import Counter
+from django.test import TestCase
+
 
 # Create your tests here.
 class TestDots(TestCase):

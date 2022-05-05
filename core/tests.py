@@ -1,12 +1,11 @@
 import time
 
+from cod.models import Mortal
 from django.contrib.auth.models import User
 from django.test import LiveServerTestCase, TestCase
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.support.ui import Select
-
-from cod.models import Mortal
 
 # from game.models import Scene, Story
 

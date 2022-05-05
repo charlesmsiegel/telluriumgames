@@ -1,10 +1,9 @@
+from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 from django.views.generic.list import ListView
-from django.db.models import Q
-
-from tc.models import *
 from tc.forms import AberrantForm
+from tc.models import *
 
 
 # Create your views here.

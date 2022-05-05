@@ -1,10 +1,10 @@
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
-
-from wod.forms import MageForm, LocationForm
+from wod.forms import LocationForm, MageForm
 from wod.models.characters import Character, Mage, MageFaction
 from wod.models.locations.mage import City, Location, Node
-from wod.models.objects.mage import Wonder, Grimoire
+from wod.models.objects.mage import Grimoire, Wonder
+
 
 # Create your views here.
 class IndexView(View):

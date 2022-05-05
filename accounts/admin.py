@@ -1,6 +1,5 @@
+from accounts.models import CoDProfile, TCProfile, WoDProfile
 from django.contrib import admin
-
-from accounts.models import CoDProfile, WoDProfile, TCProfile
 
 
 # Register your models here.

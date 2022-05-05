@@ -1,12 +1,11 @@
+from accounts.models import CoDProfile, TCProfile, WoDProfile
+from cod.models import Mortal
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, View
-
-from accounts.models import CoDProfile, WoDProfile, TCProfile
-from cod.models import Mortal
-from wod.models.characters import Character
 from tc.models import Aberrant
+from wod.models.characters import Character
 
 # from characters.models import Character
 

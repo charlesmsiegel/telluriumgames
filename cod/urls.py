@@ -1,6 +1,5 @@
-from django.urls import path
-
 from cod import views
+from django.urls import path
 
 # Create your URLs here
 urlpatterns = [

@@ -1,12 +1,14 @@
 import random
 from tokenize import Special
+
 from attr import attributes
-from django.db import models
-from polymorphic.models import PolymorphicModel
-from django.shortcuts import reverse
 
 from accounts.models import CoDProfile
 from core.utils import weighted_choice
+from django.db import models
+from django.shortcuts import reverse
+from polymorphic.models import PolymorphicModel
+
 
 # Create your models here.
 class Mortal(PolymorphicModel):

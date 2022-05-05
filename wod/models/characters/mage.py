@@ -1,17 +1,13 @@
 import random
 
+from accounts.models import WoDProfile
+from core.models import Language, Material, Medium
 from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import reverse
 from django.utils.timezone import now
 from polymorphic.models import PolymorphicModel
-
-from accounts.models import WoDProfile
-from wod.models.characters import (
-    HumanCharacter,
-    MeritFlaw,
-)
-from core.models import Language, Material, Medium
+from wod.models.characters import HumanCharacter, MeritFlaw
 
 
 # Create your models here.

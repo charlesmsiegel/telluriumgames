@@ -3,19 +3,12 @@ import math
 import random
 from typing import List
 
+from core.models import Language, Material, Medium
 from django.db import models
 from django.db.models import Q
 from polymorphic.models import PolymorphicModel
-
-from wod.models.characters.mage import (
-    Instrument,
-    Mage,
-    MageFaction,
-    Paradigm,
-    Practice,
-    Rote,
-)
-from core.models import Language, Medium, Material
+from wod.models.characters.mage import (Instrument, Mage, MageFaction,
+                                        Paradigm, Practice, Rote)
 
 
 # Create your models here.

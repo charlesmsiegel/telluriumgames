@@ -1,8 +1,10 @@
 import math
 import random
+
+from accounts.models import TCProfile
 from django.db import models
 from django.shortcuts import reverse
-from accounts.models import TCProfile
+
 
 # Create your models here.
 class Attribute(models.Model):
