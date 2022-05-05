@@ -47,7 +47,7 @@ class Node(Location):
     """Class for nodes"""
 
     resonance = models.ManyToManyField(Resonance, through="NodeResRating")
-    merits_and_flaws = models.ManyToManyField("NodeMeritFlaw", related_name="nodes", null=True, blank=True)
+    merits_and_flaws = models.ManyToManyField("NodeMeritFlaw", related_name="nodes", blank=True)
     rank = models.IntegerField(default=1)
     size = models.IntegerField(default=0)
     quintessence_per_week = models.IntegerField(default=1)

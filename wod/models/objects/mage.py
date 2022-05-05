@@ -7,7 +7,7 @@ from django.db import models
 from django.db.models import Q
 from polymorphic.models import PolymorphicModel
 
-from wod.models.characters import (
+from wod.models.characters.mage import (
     Instrument,
     Mage,
     MageFaction,
@@ -15,7 +15,7 @@ from wod.models.characters import (
     Practice,
     Rote,
 )
-from core.models import Language
+from core.models import Language, Medium, Material
 
 
 # Create your models here.
@@ -37,18 +37,22 @@ class Grimoire(Wonder):
     """Class for the Grimoire model."""
 
     faction = models.ForeignKey(
-        "characters.MageFaction", on_delete=models.CASCADE, null=True, blank=True
+        MageFaction, on_delete=models.CASCADE, null=True, blank=True
     )
     medium = models.ForeignKey(
-        "characters.Medium", on_delete=models.CASCADE, null=True, blank=True
+        Medium, on_delete=models.CASCADE, null=True, blank=True
     )
     primer = models.BooleanField(default=False)
     paradigms = models.ManyToManyField(Paradigm, blank=True)
     practices = models.ManyToManyField(Practice, blank=True)
     instruments = models.ManyToManyField(Instrument, blank=True)
     length = models.IntegerField(null=True, blank=True)
-    cover_material = models.TextField(null=True, blank=True)
-    inner_material = models.TextField(null=True, blank=True)
+    cover_material = models.ForeignKey(
+        Material, on_delete=models.CASCADE, null=True, blank=True, related_name="cover_of"
+    )
+    inner_material = models.ForeignKey(
+        Material, on_delete=models.CASCADE, null=True, blank=True, related_name="inside_of"
+    )
     date_written = models.IntegerField(default=2021, null=True, blank=True)
     spheres = models.JSONField()
     abilities = models.JSONField()
