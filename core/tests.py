@@ -7,6 +7,7 @@ from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.support.ui import Select
 
 from cod.models import Mortal
+
 # from game.models import Scene, Story
 
 MAX_WAIT = 10
@@ -187,6 +188,7 @@ class TestHomepage(FunctionalTest):
 
         self.assertIn(("accounts/login/", "Log In"), links)
         self.assertIn(("accounts/signup/", "Sign Up"), links)
+
 
 # class CharacterCreationTest(FunctionalTest):
 #     """Manages tests for the Character Creation page"""
