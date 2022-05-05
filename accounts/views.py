@@ -28,7 +28,6 @@ class ProfileView(View):
             cod_profile = CoDProfile.objects.get(user=request.user)
             wod_profile = WoDProfile.objects.get(user=request.user)
             tc_profile = TCProfile.objects.get(user=request.user)
-            # TODO: Handle other Profiles
             to_approve = []
             xp_requests = []
             characters = []

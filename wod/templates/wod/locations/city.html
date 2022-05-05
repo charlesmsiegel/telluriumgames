@@ -1,14 +1,16 @@
-{% extends 'core/base.html' %}
-{% block title %}{{ loc_name }}{% endblock %}
+{% extends "core/base.html" %}
+{% block title %}
+    {{ loc_name }}
+{% endblock title %}
 <body>
     {% block content %}
         <h1>{{ location.name }}</h1>
         Parent: {{ location.parent }}
-        <br>
-        <br>
+        <br />
+        <br />
         {{ location.description }}
-        <br>
-        <br>
+        <br />
+        <br />
         <table>
             <tr>
                 <td>Gauntlet</td>
@@ -18,4 +20,4 @@
             </tr>
         </table>
     </body>
-{% endblock %}
+{% endblock content %}

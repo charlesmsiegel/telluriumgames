@@ -1,8 +1,10 @@
-{% extends 'core/base.html' %}
-{% block title %}Locations{% endblock %}
+{% extends "core/base.html" %}
+{% block title %}
+    Locations
+{% endblock title %}
 <body>
     {% block content %}
-        <div style="text-align: center">
+        <div class="centertext">
             <div class="container">
                 <div class="row">
                     <div class="col-sm">
@@ -25,7 +27,7 @@
                         <a class="col-sm" href="{% url 'wod:location' loc.id %}">{{ loc.name }}</a>
                     </div>
                 {% endfor %}
-                <form action="" method="POST">
+                <form action="" method="post">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-sm"></div>
@@ -33,20 +35,12 @@
                         <div class="col-sm">{{ location_form.parent }}</div>
                         <div class="col-sm">{{ location_form.description }}</div>
                         <div class="col-sm">
-                            <input type="submit" name="creator" value="Create Location">
+                            <input type="submit" name="creator" value="Create Location"/>
                         </div>
                         <div class="col-sm"></div>
                     </div>
                 </form>
-                {#            {% for num, loc in location_pairs %}#}
-                {#                <div class="row">#}
-                {#                    {% for _ in num %}#}
-                {#                        <div class="col"></div>#}
-                {#                    {% endfor %}#}
-                {#                    <div class="col">{{ loc }}</div>#}
-                {#                </div>#}
-                {#            {% endfor %}#}
             </div>
         </div>
-    {% endblock %}
+    {% endblock content %}
 </body>
