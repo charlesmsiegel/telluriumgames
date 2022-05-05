@@ -47,7 +47,9 @@ class Node(Location):
     """Class for nodes"""
 
     resonance = models.ManyToManyField(Resonance, through="NodeResRating")
-    merits_and_flaws = models.ManyToManyField("NodeMeritFlaw", related_name="nodes", blank=True)
+    merits_and_flaws = models.ManyToManyField(
+        "NodeMeritFlaw", related_name="nodes", blank=True
+    )
     rank = models.IntegerField(default=1)
     size = models.IntegerField(default=0)
     quintessence_per_week = models.IntegerField(default=1)
@@ -210,7 +212,9 @@ class Node(Location):
                     node=self, resonance=new_res, rating=1
                 )
             else:
-                new_resonance = NodeResRating.objects.filter(node=self, resonance=new_res)
+                new_resonance = NodeResRating.objects.filter(
+                    node=self, resonance=new_res
+                )
                 new_resonance.rating += 1
                 new_resonance.save()
 
@@ -230,6 +234,6 @@ class NodeResRating(models.Model):
         Resonance, on_delete=models.CASCADE, related_name="nodes"
     )
     rating = models.IntegerField(default=1)
-    
+
     def __str__(self):
         return f"{self.resonance.name} ({self.rating})"

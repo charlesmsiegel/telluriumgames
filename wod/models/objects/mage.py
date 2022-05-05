@@ -39,19 +39,25 @@ class Grimoire(Wonder):
     faction = models.ForeignKey(
         MageFaction, on_delete=models.CASCADE, null=True, blank=True
     )
-    medium = models.ForeignKey(
-        Medium, on_delete=models.CASCADE, null=True, blank=True
-    )
+    medium = models.ForeignKey(Medium, on_delete=models.CASCADE, null=True, blank=True)
     primer = models.BooleanField(default=False)
     paradigms = models.ManyToManyField(Paradigm, blank=True)
     practices = models.ManyToManyField(Practice, blank=True)
     instruments = models.ManyToManyField(Instrument, blank=True)
     length = models.IntegerField(null=True, blank=True)
     cover_material = models.ForeignKey(
-        Material, on_delete=models.CASCADE, null=True, blank=True, related_name="cover_of"
+        Material,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="cover_of",
     )
     inner_material = models.ForeignKey(
-        Material, on_delete=models.CASCADE, null=True, blank=True, related_name="inside_of"
+        Material,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="inside_of",
     )
     date_written = models.IntegerField(default=2021, null=True, blank=True)
     spheres = models.JSONField(null=True)

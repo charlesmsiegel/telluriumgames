@@ -1,22 +1,18 @@
 {% extends 'core/base.html' %}
-
 {% block title %}Enhanced Edges{% endblock %}
-
 <body>
     {% block content %}
-    <div style="text-align: center">
-        <div class="row">
-            <div class="col-sm">
-                <h2>Enhanced Edges</h2>
+        <div style="text-align: center">
+            <div class="row">
+                <div class="col-sm">
+                    <h2>Enhanced Edges</h2>
+                </div>
             </div>
+            {% for ee in object_list %}
+                <div class="row">
+                    <a class="col-sm" href="/characters/enhancededge/{{ ee.id }}">{{ ee.name| safe }}</a>
+                </div>
+            {% endfor %}
         </div>
-        {% for ee in object_list %}
-        <div class="row">
-            <a class="col-sm" href="/characters/enhancededge/{{ee.id}}">
-                {{ ee.name| safe }}
-            </a>
-        </div>
-        {% endfor %}
-    </div>
-</body>
+    </body>
 {% endblock %}

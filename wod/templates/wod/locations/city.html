@@ -1,21 +1,21 @@
 {% extends 'core/base.html' %}
-
 {% block title %}{{ loc_name }}{% endblock %}
 <body>
-{% block content %}
-    <h1>{{ location.name }}</h1>
-
-    Parent: {{ location.parent }}<br><br>
-
-    {{ location.description }}<br><br>
-
-    <table>
-        <tr>
-            <td> Gauntlet </td>
-            <td> {{ location.gauntlet }}</td>
-            <td> Shroud </td>
-            <td> {{ location.shroud }}</td>
-        </tr>
-    </table>
-</body>
+    {% block content %}
+        <h1>{{ location.name }}</h1>
+        Parent: {{ location.parent }}
+        <br>
+        <br>
+        {{ location.description }}
+        <br>
+        <br>
+        <table>
+            <tr>
+                <td>Gauntlet</td>
+                <td>{{ location.gauntlet }}</td>
+                <td>Shroud</td>
+                <td>{{ location.shroud }}</td>
+            </tr>
+        </table>
+    </body>
 {% endblock %}

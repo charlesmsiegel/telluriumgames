@@ -24,7 +24,7 @@ from tc.models import (
     AttributePrereq,
     MegaAttributePrereq,
     SkillPrereq,
-    EdgePrereq
+    EdgePrereq,
 )
 
 # Register your models here.

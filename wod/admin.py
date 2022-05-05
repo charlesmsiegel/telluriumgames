@@ -105,6 +105,7 @@ admin.site.register(Location)
 admin.site.register(City)
 admin.site.register(Node)
 
+
 @admin.register(Wonder)
 class WonderAdmin(admin.ModelAdmin):
     """Class for Wonder admin."""

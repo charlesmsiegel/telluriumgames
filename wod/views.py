@@ -186,6 +186,7 @@ class GenericLocationDetailView(View):
             return self.create_views[location.type].as_view()(request, *args, **kwargs)
         return redirect("wod:location_index")
 
+
 class WonderDetailView(DetailView):
     """Class that manages Views for wonders"""
 

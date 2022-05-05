@@ -21,9 +21,9 @@
                     </div>
                 {% endfor %}
                 {% for loc in locations %}
-                <div class="row">
-                    <a class="col-sm" href="{% url 'wod:location' loc.id %}">{{ loc.name }}</a>
-                </div>
+                    <div class="row">
+                        <a class="col-sm" href="{% url 'wod:location' loc.id %}">{{ loc.name }}</a>
+                    </div>
                 {% endfor %}
                 <form action="" method="POST">
                     {% csrf_token %}

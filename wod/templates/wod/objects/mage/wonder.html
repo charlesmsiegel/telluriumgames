@@ -1,8 +1,7 @@
 {% extends 'core/base.html' %}
-
 {% block title %}{{ object.name }}{% endblock %}
 <body>
-{% block content %}
-    <h1>{{ object.name }}</h1>
-</body>
+    {% block content %}
+        <h1>{{ object.name }}</h1>
+    </body>
 {% endblock %}

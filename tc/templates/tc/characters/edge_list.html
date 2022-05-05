@@ -1,22 +1,18 @@
 {% extends 'core/base.html' %}
-
 {% block title %}Edges{% endblock %}
-
 <body>
     {% block content %}
-    <div style="text-align: center">
-        <div class="row">
-            <div class="col-sm">
-                <h2>Edges</h2>
+        <div style="text-align: center">
+            <div class="row">
+                <div class="col-sm">
+                    <h2>Edges</h2>
+                </div>
             </div>
+            {% for edge in object_list %}
+                <div class="row">
+                    <a class="col-sm" href="/characters/edge/{{ edge.id }}">{{ edge.name| safe }}</a>
+                </div>
+            {% endfor %}
         </div>
-        {% for edge in object_list %}
-        <div class="row">
-            <a class="col-sm" href="/characters/edge/{{edge.id}}">
-                {{ edge.name| safe }}
-            </a>
-        </div>
-        {% endfor %}
-    </div>
-</body>
+    </body>
 {% endblock %}

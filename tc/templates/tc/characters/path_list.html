@@ -1,22 +1,18 @@
 {% extends 'core/base.html' %}
-
 {% block title %}Paths{% endblock %}
-
 <body>
     {% block content %}
-    <div style="text-align: center">
-        <div class="row">
-            <div class="col-sm">
-                <h2>Paths</h2>
+        <div style="text-align: center">
+            <div class="row">
+                <div class="col-sm">
+                    <h2>Paths</h2>
+                </div>
             </div>
+            {% for path in object_list %}
+                <div class="row">
+                    <a class="col-sm" href="/characters/path/{{ path.id }}">{{ path.name | safe }}</a>
+                </div>
+            {% endfor %}
         </div>
-        {% for path in object_list %}
-        <div class="row">
-            <a class="col-sm" href="/characters/path/{{path.id}}">
-                {{ path.name | safe}}
-            </a>
-        </div>
-        {% endfor %}
-    </div>
-</body>
+    </body>
 {% endblock %}

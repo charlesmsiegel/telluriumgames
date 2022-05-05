@@ -48,7 +48,9 @@ class TestCharacter(TestCase):
         self.assertEqual(self.character.get_status_display(), "Deceased")
 
     def test_is_minor(self):
-        minor_character = Character(player=self.player.wod_profile, name="Test", minor=True)
+        minor_character = Character(
+            player=self.player.wod_profile, name="Test", minor=True
+        )
         self.assertTrue(minor_character.minor)
         self.assertFalse(self.character.minor)
 
@@ -369,7 +371,9 @@ class TestMage(TestCase):
 
     def setUp(self):
         self.player = User.objects.create_user(username="Player")
-        self.character = Mage.objects.create(name="Test Character", player=self.player.wod_profile)
+        self.character = Mage.objects.create(
+            name="Test Character", player=self.player.wod_profile
+        )
         mage_setup(self.player)
 
     def test_background_number(self):
@@ -413,12 +417,18 @@ class TestMage(TestCase):
         technocracy = MageFaction.objects.create(name="Technocratic Union")
         itx = MageFaction.objects.create(name="Iteration X", parent=technocracy)
         tech_character = Mage.objects.create(
-            name="TechCharacter", player=player.wod_profile, affiliation=technocracy, faction=itx
+            name="TechCharacter",
+            player=player.wod_profile,
+            affiliation=technocracy,
+            faction=itx,
         )
         traditions = MageFaction.objects.create(name="Traditions")
         ooh = MageFaction.objects.create(name="Order of Hermes", parent=traditions)
         trad_character = Mage.objects.create(
-            name="TradCharacter", player=player.wod_profile, affiliation=traditions, faction=ooh
+            name="TradCharacter",
+            player=player.wod_profile,
+            affiliation=traditions,
+            faction=ooh,
         )
         tech_character.secret_weapons = 3
         trad_character.secret_weapons = 3
@@ -444,7 +454,10 @@ class TestMage(TestCase):
         traditions = MageFaction.objects.create(name="Traditions")
         cult = MageFaction.objects.create(name="Cult of Ecstasy", parent=traditions)
         cult_character = Mage.objects.create(
-            name="CultCharacter", player=player.wod_profile, faction=cult, affiliation=traditions
+            name="CultCharacter",
+            player=player.wod_profile,
+            faction=cult,
+            affiliation=traditions,
         )
         batini_character.entropy = 3
         cult_character.entropy = 3
@@ -651,7 +664,9 @@ class TestMage(TestCase):
         self.assertGreaterEqual(self.character.willpower, 5)
 
     def test_random_faction(self):
-        mage = Mage.objects.create(name="Random Character", player=self.player.wod_profile)
+        mage = Mage.objects.create(
+            name="Random Character", player=self.player.wod_profile
+        )
         mage.random_faction()
         self.assertTrue(mage.consistency_check())
         self.assertIsNotNone(mage.faction)
@@ -676,12 +691,16 @@ class TestMage(TestCase):
         self.assertEqual(tmp.total_spheres(), 5)
 
     def test_random_abilities(self):
-        character = Mage.objects.create(name="Character", player=self.player.wod_profile)
+        character = Mage.objects.create(
+            name="Character", player=self.player.wod_profile
+        )
         character.random_abilities(13, 9, 5)
         self.assertTrue(character.check_starting_abilities())
         for ability in character.abilities():
             self.assertLessEqual(getattr(character, ability), 3)
-        character2 = Mage.objects.create(name="Character2", player=self.player.wod_profile)
+        character2 = Mage.objects.create(
+            name="Character2", player=self.player.wod_profile
+        )
         character2.random_abilities(17, 13, 9)
         self.assertFalse(character2.check_starting_abilities())
         for ability in character2.abilities():
@@ -699,7 +718,9 @@ class TestMage(TestCase):
         self.assertEqual(self.character.total_backgrounds(), 7)
 
     def test_freebies(self):
-        mage = Mage.objects.create(name="Random Character", player=self.player.wod_profile)
+        mage = Mage.objects.create(
+            name="Random Character", player=self.player.wod_profile
+        )
         mage.random_arete()
         self.assertEqual(mage.freebies, 15 - 4 * (mage.arete - 1))
         mage.freebies = 15
@@ -716,7 +737,9 @@ class TestMage(TestCase):
         self.assertEqual(mage.freebies, 0)
 
     def test_xp(self):
-        mage = Mage.objects.create(name="Random Character", player=self.player.wod_profile)
+        mage = Mage.objects.create(
+            name="Random Character", player=self.player.wod_profile
+        )
         mage.random()
         self.assertEqual(mage.xp, 0)
         mage.xp = 50
@@ -759,7 +782,9 @@ class TestMage(TestCase):
         self.assertTrue(self.character.has_mage_history())
 
     def test_random_faction_assigns_subfaction(self):
-        mage = Mage.objects.create(name="Random Character", player=self.player.wod_profile)
+        mage = Mage.objects.create(
+            name="Random Character", player=self.player.wod_profile
+        )
         mocker = Mock()
         mocker.side_effect = [0.01]
         with mock.patch("random.random", mocker):
@@ -767,7 +792,9 @@ class TestMage(TestCase):
         self.assertIsNotNone(mage.subfaction)
 
     def test_random_freebies_chooses_a_flaw(self):
-        mage = Mage.objects.create(name="Random Character", player=self.player.wod_profile)
+        mage = Mage.objects.create(
+            name="Random Character", player=self.player.wod_profile
+        )
         mocker = Mock()
         mocker.side_effect = ["Flaw 1", "Merit 2"]
         mage.freebies = 1
@@ -776,7 +803,9 @@ class TestMage(TestCase):
         self.assertNotEqual(mage.merits_and_flaws.filter(cost__lt=0).count(), 0)
 
     def test_random_freebies_chooses_quintessence(self):
-        mage = Mage.objects.create(name="Random Character", player=self.player.wod_profile)
+        mage = Mage.objects.create(
+            name="Random Character", player=self.player.wod_profile
+        )
         mocker = Mock()
         mocker.side_effect = ["quintessence"]
         mage.freebies = 1
@@ -785,7 +814,9 @@ class TestMage(TestCase):
         self.assertEqual(mage.quintessence, 4)
 
     def test_spending_xp_is_logged(self):
-        mage = Mage.objects.create(name="Random Character", player=self.player.wod_profile)
+        mage = Mage.objects.create(
+            name="Random Character", player=self.player.wod_profile
+        )
         mage.xp = 50
         mage.spend_xp("Strength")
         self.assertEqual(mage.spent_xp, "strength 2")
@@ -793,7 +824,9 @@ class TestMage(TestCase):
         self.assertEqual(mage.spent_xp, "strength 2, alertness 1")
 
     def test_focus_multiple(self):
-        mage = Mage.objects.create(name="Random Character", player=self.player.wod_profile)
+        mage = Mage.objects.create(
+            name="Random Character", player=self.player.wod_profile
+        )
         mocker = Mock()
         mocker.side_effect = [0.01, 1, 0.01, 1]
         with mock.patch("random.random", mocker):
@@ -802,7 +835,9 @@ class TestMage(TestCase):
         self.assertGreaterEqual(mage.practices.count(), 2)
 
     def test_rejecting_too_many_flaws(self):
-        mage = Mage.objects.create(name="Random Character", player=self.player.wod_profile)
+        mage = Mage.objects.create(
+            name="Random Character", player=self.player.wod_profile
+        )
         mocker = Mock()
         mocker.side_effect = ["Flaw 4", "Flaw 3", "arete", "arete", "awareness"]
         mage.freebies = 1
@@ -859,7 +894,9 @@ class TestSingleDetailView(TestCase):
 
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="test_player")
-        self.mage = Mage.objects.create(name="mage_character_test", player=self.player.wod_profile)
+        self.mage = Mage.objects.create(
+            name="mage_character_test", player=self.player.wod_profile
+        )
 
     def test_correct_templates(self):
         response = self.client.get(f"/wod/characters/{self.mage.id}/")
@@ -984,7 +1021,9 @@ class TestIndexView(TestCase):
             player = User.objects.get(username=f"Player {i}")
             for j in range(3):
                 Mage.objects.create(
-                    name=f"Mage {5*j+i}", player=player.wod_profile, status=Mage.status_keys[i]
+                    name=f"Mage {5*j+i}",
+                    player=player.wod_profile,
+                    status=Mage.status_keys[i],
                 )
         response = self.client.post("/wod/characters/")
         for i in range(15):

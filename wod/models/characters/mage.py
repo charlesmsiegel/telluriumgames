@@ -61,15 +61,27 @@ class Mage(HumanCharacter):
     prime = models.IntegerField(default=0)
     mind = models.IntegerField(default=0)
     entropy = models.IntegerField(default=0)
-    correspondence_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    forces_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
+    correspondence_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    forces_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
     time_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
     life_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    spirit_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    matter_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    prime_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
+    spirit_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    matter_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    prime_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
     mind_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    entropy_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
+    entropy_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
 
     corr_name = models.CharField(
         max_length=3,
@@ -154,70 +166,178 @@ class Mage(HumanCharacter):
     pharmacopeia = models.IntegerField(default=0)
 
     # # Talents
-    alertness_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
+    alertness_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
     art_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    athletics_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    awareness_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    brawl_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    empathy_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    expression_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    intimidation_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    leadership_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    streetwise_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    subterfuge_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
+    athletics_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    awareness_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    brawl_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    empathy_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    expression_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    intimidation_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    leadership_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    streetwise_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    subterfuge_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
     # # Skills
-    crafts_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    drive_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    etiquette_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    firearms_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    martial_arts_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    meditation_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    melee_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    research_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    stealth_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    survival_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    technology_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
+    crafts_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    drive_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    etiquette_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    firearms_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    martial_arts_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    meditation_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    melee_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    research_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    stealth_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    survival_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    technology_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
     # # Knowledges
-    academics_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    computer_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    cosmology_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    enigmas_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    esoterica_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    investigation_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
+    academics_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    computer_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    cosmology_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    enigmas_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    esoterica_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    investigation_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
     law_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    medicine_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    occult_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    politics_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    science_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
+    medicine_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    occult_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    politics_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    science_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
 
     # Secondary Traits
-    animal_kinship_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    blatancy_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    carousing_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
+    animal_kinship_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    blatancy_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    carousing_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
     do_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    flying_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    high_ritual_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    lucid_dreaming_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    search_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    seduction_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
+    flying_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    high_ritual_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    lucid_dreaming_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    search_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    seduction_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
 
-    acrobatics_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    archery_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    biotech_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    energy_weapons_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    hypertech_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    jetpack_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    riding_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    torture_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
+    acrobatics_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    archery_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    biotech_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    energy_weapons_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    hypertech_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    jetpack_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    riding_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    torture_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
 
-    area_knowledge_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    belief_systems_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    cryptography_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    demolitions_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    finance_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
+    area_knowledge_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    belief_systems_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    cryptography_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    demolitions_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    finance_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
     lore_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    media_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
-    pharmacopeia_specialty = models.CharField(max_length=100, default="", blank=True, null=True)
+    media_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
+    pharmacopeia_specialty = models.CharField(
+        max_length=100, default="", blank=True, null=True
+    )
 
     sphere_key = ["Cor", "Ent", "For", "Lif", "Mat", "Min", "Pri", "Spi", "Tim"]
     spheres = [
