@@ -111,11 +111,8 @@ class TestHomeView(TestCase):
 class NewUserTest(FunctionalTest):
     """Test creating a new user with interface"""
 
-    def test_create_account(self):
-        # User arrives on front page
+    def test_homepage_has_login(self):
         self.browser.get(self.live_server_url)
-
-        # User sees login/signup links
         links = self.browser.find_elements_by_tag_name("a")
         links = [
             (self.clean_url(link.get_attribute("href")), link.text) for link in links
@@ -124,14 +121,7 @@ class NewUserTest(FunctionalTest):
         self.assertIn(("accounts/login/", "Log In"), links)
         self.assertIn(("accounts/signup/", "Sign Up"), links)
 
-        # User clicks signup
-        self.client.get("/accounts/signup/")
-        self.assertTemplateUsed(
-            self.client.get("/accounts/signup/"), "accounts/signup.html"
-        )
-
-        # User creates credentials
-        #     First attempt at credentials fails
+    def credential_creation_fail(self):
         self.browser.get(self.live_server_url + "/accounts/signup/")
         namebox = self.browser.find_element_by_id("id_username")
         namebox.send_keys("test_user")
@@ -142,9 +132,10 @@ class NewUserTest(FunctionalTest):
         submit_button = self.browser.find_element_by_id("signup_button")
         submit_button.click()
 
-        username = "test_user"
-        password = "pw123456"
-
+    def credential_creation_succeed(self, username, password):
+        self.browser.get(self.live_server_url + "/accounts/signup/")
+        namebox = self.browser.find_element_by_id("id_username")
+        namebox.send_keys(username)
         pw1 = self.browser.find_element_by_id("id_password1")
         pw1.send_keys(password)
         pw2 = self.browser.find_element_by_id("id_password2")
@@ -152,6 +143,23 @@ class NewUserTest(FunctionalTest):
         submit_button = self.browser.find_element_by_id("signup_button")
         submit_button.click()
 
+    def test_create_account(self):
+        # User arrives on front page
+        self.browser.get(self.live_server_url)
+
+        # User clicks signup
+        self.client.get("/accounts/signup/")
+        self.assertTemplateUsed(
+            self.client.get("/accounts/signup/"), "accounts/signup.html"
+        )
+
+        # User creates credentials
+        self.credential_creation_fail()
+        
+        username = "test_user"
+        password = "pw123456"
+        
+        self.credential_creation_succeed(username, password)
         self.assertEqual(User.objects.count(), 1)
 
         # User inputs credentials

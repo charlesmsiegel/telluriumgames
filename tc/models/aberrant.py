@@ -4,68 +4,21 @@ import random
 from accounts.models import TCProfile
 from django.db import models
 from django.shortcuts import reverse
+from tc.models.talent import (
+    Edge,
+    PathConnectionRating,
+    Attribute,
+    Skill,
+    EnhancedEdge,
+    Path,
+    Trick,
+    PathConnection,
+)
 
 
 # Create your models here.
-class Attribute(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-
 class MegaAttribute(models.Model):
     name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-
-class Skill(models.Model):
-    name = models.CharField(max_length=100)
-    specialties = models.JSONField(null=True)
-
-    def __str__(self):
-        return self.name
-
-
-class Trick(models.Model):
-    name = models.CharField(max_length=100)
-    skill = models.ForeignKey(Skill, on_delete=models.CASCADE, blank=True, null=True)
-    description = models.TextField(default="")
-
-    class Meta:
-        ordering = ("name",)
-
-    def __str__(self):
-        return self.name
-
-
-class Edge(models.Model):
-    name = models.CharField(max_length=100)
-    ratings = models.JSONField(null=True)
-    description = models.TextField(default="")
-    prereq_attributes = models.ManyToManyField("AttributePrereq", blank=True)
-    prereq_skills = models.ManyToManyField("SkillPrereq", blank=True)
-    prereq_path_rating = models.IntegerField(default=0)
-    prereq_edges = models.ManyToManyField(
-        "EdgePrereq", blank=True, related_name="prereq_to"
-    )
-
-    class Meta:
-        ordering = ("name",)
-
-    def __str__(self):
-        return self.name
-
-
-class EnhancedEdge(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField(default="")
-    prereq_edges = models.ManyToManyField("EdgePrereq", blank=True)
-
-    class Meta:
-        ordering = ("name",)
 
     def __str__(self):
         return self.name
@@ -82,47 +35,6 @@ class MegaEdge(Edge):
 
     def __str__(self):
         return self.name
-
-
-class Path(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField(default="")
-    skills = models.ManyToManyField(Skill, blank=True)
-    edges = models.ManyToManyField(Edge, blank=True)
-    type = models.CharField(
-        max_length=3, choices=[("ORI", "Origin"), ("ROL", "Role"), ("SOC", "Society"),]
-    )
-
-    class Meta:
-        ordering = ("name",)
-
-    def __str__(self):
-        return self.name
-
-
-class PathConnection(models.Model):
-    name = models.CharField(max_length=100)
-    path = models.ForeignKey("Path", null=True, blank=True, on_delete=models.CASCADE)
-
-    class Meta:
-        ordering = ("name",)
-
-    def __str__(self):
-        return self.name
-
-
-class PathConnectionRating(models.Model):
-    character = models.ForeignKey(
-        "Aberrant", on_delete=models.CASCADE, blank=True, null=True
-    )
-    path = models.ForeignKey("Path", null=True, blank=True, on_delete=models.CASCADE)
-    path_connection = models.ForeignKey(
-        "PathConnection", on_delete=models.CASCADE, blank=True, null=True
-    )
-    rating = models.IntegerField(default=0)
-
-    def __str__(self):
-        return f"{self.character.name}, {self.path_connection}: {self.rating}"
 
 
 class Tag(models.Model):
@@ -465,10 +377,7 @@ class Aberrant(models.Model):
         cost_options.extend(["quantum"] * 5)
         cost_options.extend(["quantum power"] * 15)
         while self.xp > 10:
-            if random.random() < 0.15:
-                transcendence = True
-            else:
-                transcendence = False
+            transcendence = random.random() < 0.15
             choice = random.choice(cost_options)
             chance = random.random()
             cost = costs[choice]
@@ -696,8 +605,7 @@ class Aberrant(models.Model):
             attribute.rating += 1
             attribute.save()
             return True
-        else:
-            return False
+        return False
 
     def add_random_edge(self, sublist=None):
         if sublist is None:
@@ -745,9 +653,7 @@ class Aberrant(models.Model):
         for edge in prereq_satisfied:
             # print(edge.ratings)
             # print(ratings_to_list(edge.ratings))
-            ratings = self.rating_prob_fix(
-                list(map(int, ratings_to_list(edge.ratings)))
-            )
+            ratings = self.rating_prob_fix(edge.ratings)
             # print(ratings)
             if edge in current_edges:
                 ratings = [
@@ -763,8 +669,7 @@ class Aberrant(models.Model):
                 edge_rating = EdgeRating.objects.get(character=self, edge=edge)
                 diff -= edge_rating.rating
             return diff, choice
-        else:
-            return False
+        return False
 
     def apply_edge(self, edge, rating):
         if edge in self.edges.all():
@@ -794,11 +699,10 @@ class Aberrant(models.Model):
         possible = [x for x in possible if x not in self.enhanced_edges.all()]
         if len(possible) == 0:
             return False
-        else:
-            ee = random.choice(possible)
-            self.enhanced_edges.add(ee)
-            self.save()
-            return True
+        ee = random.choice(possible)
+        self.enhanced_edges.add(ee)
+        self.save()
+        return True
 
     def random_change_approach(self):
         approaches = ["FOR", "FIN", "RES"]
@@ -887,8 +791,7 @@ class Aberrant(models.Model):
             attribute.rating += 1
             attribute.save()
             return True
-        else:
-            return False
+        return False
 
     def add_transcendance(self):
         self.transcendence += 1
@@ -938,9 +841,7 @@ class Aberrant(models.Model):
         rating_pairs = []
         current_edges = EdgeRating.objects.filter(character=self)
         for edge in prereq_satisfied:
-            ratings = self.rating_prob_fix(
-                list(map(int, ratings_to_list(edge.ratings)))
-            )
+            ratings = self.rating_prob_fix(edge.ratings)
             if edge in current_edges:
                 ratings = [
                     x for x in ratings if x > current_edges.get(edge=edge).rating
@@ -981,9 +882,7 @@ class Aberrant(models.Model):
         all_tags = [x for x in all_tags if power.power in x.permitted_powers.all()]
 
         all_tag_ratings = [
-            (x, r)
-            for x in all_tags
-            for r in self.rating_prob_fix(list(map(int, ratings_to_list(x.ratings))))
+            (x, r) for x in all_tags for r in self.rating_prob_fix(x.ratings)
         ]
 
         valid_pairs = []
@@ -1020,8 +919,8 @@ class Aberrant(models.Model):
         all_powers = list(Power.objects.filter(quantum_minimum__lte=self.quantum))
         all_powers_had = list(PowerRating.objects.filter(character=self))
         for power in all_powers_had:
-            for i in range(power.rating):
-                for j in range(len(all_powers)):
+            for _ in range(power.rating):
+                for __ in range(len(all_powers)):
                     all_powers.append(power.power)
 
         new_power = random.choice(all_powers)
@@ -1034,9 +933,8 @@ class Aberrant(models.Model):
             powerrating.rating += 1
             powerrating.save()
             return True
-        else:
-            PowerRating.objects.create(character=self, power=new_power, rating=1)
-            return True
+        PowerRating.objects.create(character=self, power=new_power, rating=1)
+        return True
 
     def rating_prob_fix(self, ratings):
         total = abs(math.prod(ratings))
@@ -1180,7 +1078,3 @@ class EdgePrereq(models.Model):
 
     def __str__(self):
         return f"{self.edge}: {self.rating}"
-
-
-def ratings_to_list(s):
-    return s

@@ -1,9 +1,10 @@
 from random import choice, randint
 
 
-def weighted_choice(dictionary):
+def weighted_choice(dictionary, ceiling=3):
+    d = {k: min(v, ceiling) for k, v in dictionary.items()}
     l = []
-    for key, value in dictionary.items():
+    for key, value in d.items():
         for _ in range(value + 1):
             l.append(key)
     return choice(l)

@@ -187,6 +187,13 @@ class Mortal(PolymorphicModel):
             "subterfuge": self.subterfuge,
         }
 
+    def get_skills(self):
+        tmp = {}
+        tmp.update(self.get_physical_skills())
+        tmp.update(self.get_mental_skills())
+        tmp.update(self.get_social_skills())
+        return tmp
+
     def mental_skill_sum(self):
         return sum(self.get_mental_skills().values())
 
@@ -260,33 +267,7 @@ class Mortal(PolymorphicModel):
 
     def random_merits(self, merit_dots=7):
         while self.total_merits() < merit_dots:
-            all_merits = Merit.objects.all()
-            merits_that_are_cheap_enough = [
-                x
-                for x in all_merits
-                if len(
-                    [
-                        r
-                        for r in x.allowed_ratings
-                        if int(r) <= merit_dots - self.total_merits()
-                    ]
-                )
-                != 0
-            ]
-            merits_not_possessed = [
-                x
-                for x in merits_that_are_cheap_enough
-                if (x.name not in [x.name for x in self.merits.all()] or x.needs_detail)
-            ]
-            allowed_merits = [x for x in merits_not_possessed if x.check_prereqs(self)]
-            if "Anonymity" in [x.name for x in self.merits.all()]:
-                merits_not_possessed = [
-                    x for x in merits_not_possessed if x.name != "Fame"
-                ]
-            if "Fame" in [x.name for x in self.merits.all()]:
-                merits_not_possessed = [
-                    x for x in merits_not_possessed if x.name != "Anonymity"
-                ]
+            allowed_merits = self.filter_merits(merit_dots - self.total_merits())
             chosen = random.choice(allowed_merits)
             rating = int(
                 random.choice(
@@ -305,6 +286,27 @@ class Mortal(PolymorphicModel):
                 character=self, merit=chosen, rating=rating, detail=detail
             )
 
+    def filter_merits(self, dots):
+        all_merits = Merit.objects.all()
+        merits_that_are_cheap_enough = [
+            x
+            for x in all_merits
+            if len([r for r in x.allowed_ratings if int(r) <= dots]) != 0
+        ]
+        merits_not_possessed = [
+            x
+            for x in merits_that_are_cheap_enough
+            if (x.name not in [x.name for x in self.merits.all()] or x.needs_detail)
+        ]
+        if "Anonymity" in [x.name for x in self.merits.all()]:
+            merits_not_possessed = [x for x in merits_not_possessed if x.name != "Fame"]
+        if "Fame" in [x.name for x in self.merits.all()]:
+            merits_not_possessed = [
+                x for x in merits_not_possessed if x.name != "Anonymity"
+            ]
+        allowed_merits = [x for x in merits_not_possessed if x.check_prereqs(self)]
+        return allowed_merits
+
     def assign_advantages(self):
         self.willpower = self.resolve + self.composure
         self.speed = self.strength + self.dexterity + 5
@@ -312,7 +314,6 @@ class Mortal(PolymorphicModel):
         self.initiative_modifier = self.dexterity + self.composure
         self.defense = min([self.wits, self.dexterity]) + self.athletics
 
-    # TODO: Tone down bias towards 5 dots of Skills (in fact, make 4 and 5 less likely)
     # TODO: Tweak Professional Training to avoid scientists without science
     def apply_merits(self):
         for merit in MeritRating.objects.filter(character=self):
@@ -419,10 +420,7 @@ class Merit(models.Model):
                     if prereq[0][:3] not in [x.skill for x in specs]:
                         return False
                 elif prereq[0] == "specialty":
-                    tmp = {}
-                    tmp.update(character.get_physical_skills())
-                    tmp.update(character.get_mental_skills())
-                    tmp.update(character.get_social_skills())
+                    tmp = character.get_skills()
                     high_enough_skills = [
                         key for key, value in tmp.items() if value >= prereq[1]
                     ]
@@ -442,10 +440,7 @@ class Merit(models.Model):
                         return False
                 else:
                     if prereq[0] == "skill":
-                        tmp = {}
-                        tmp.update(character.get_physical_skills())
-                        tmp.update(character.get_mental_skills())
-                        tmp.update(character.get_social_skills())
+                        tmp = character.get_skills()
                         if sum([x >= prereq[1] for x in tmp.values()]) == 0:
                             return False
                     elif getattr(character, prereq[0]) < prereq[1]:
@@ -489,22 +484,13 @@ class Merit(models.Model):
                 if getattr(character, x.get_skill_display()) >= 3
             ]
         elif self.name == "Investigative Aide":
-            tmp = {}
-            tmp.update(character.get_physical_skills())
-            tmp.update(character.get_mental_skills())
-            tmp.update(character.get_social_skills())
+            tmp = character.get_skills()
             possible_details = [key for key, value in tmp.items() if value >= 3]
         elif self.name == "Hobbyist Clique":
-            tmp = {}
-            tmp.update(character.get_physical_skills())
-            tmp.update(character.get_mental_skills())
-            tmp.update(character.get_social_skills())
+            tmp = character.get_skills()
             possible_details = [key for key, value in tmp.items() if value >= 2]
         elif self.name == "Hobbyist Clique":
-            tmp = {}
-            tmp.update(character.get_physical_skills())
-            tmp.update(character.get_mental_skills())
-            tmp.update(character.get_social_skills())
+            tmp = character.get_skills()
             possible_details = [key for key, value in tmp.items() if value >= 2]
         else:
             possible_details = self.list_of_details
