@@ -100,6 +100,10 @@ class Mortal(PolymorphicModel):
     # What has your character forgotten?
     # What is the most traumatic thing that has ever happened to your character?
 
+    class Meta:
+        verbose_name = "Mortal"
+        verbose_name_plural = "Mortals"
+
     def __str__(self):
         return self.name
 
@@ -396,13 +400,19 @@ class Specialty(models.Model):
     )
     specialty = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name = "Specialty"
+        verbose_name_plural = "Specialties"
+
     def display_skill(self):
         return (
             self.skill_name[self.skill_keys.index(self.skill)].replace("_", " ").title()
         )
-        
+
     def __str__(self):
-        return f"{self.specialty} ({self.get_skill_display().replace('_', ' ').title()})"
+        return (
+            f"{self.specialty} ({self.get_skill_display().replace('_', ' ').title()})"
+        )
 
 
 class Merit(models.Model):
@@ -414,6 +424,10 @@ class Merit(models.Model):
     merit_prereqs = models.JSONField(null=True)
     list_of_details = models.JSONField(null=True)
     merit_type = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "Merit"
+        verbose_name_plural = "Merits"
 
     def __str__(self):
         return f"{self.name}"

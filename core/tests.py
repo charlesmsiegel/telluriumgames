@@ -155,10 +155,10 @@ class NewUserTest(FunctionalTest):
 
         # User creates credentials
         self.credential_creation_fail()
-        
+
         username = "test_user"
         password = "pw123456"
-        
+
         self.credential_creation_succeed(username, password)
         self.assertEqual(User.objects.count(), 1)
 
