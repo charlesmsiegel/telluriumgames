@@ -1031,6 +1031,9 @@ class PowerRating(models.Model):
     rating = models.IntegerField(default=0)
     options = models.ManyToManyField(Option, blank=True)
 
+    def __str__(self):
+        return f"{self.character.name}: {self.power} {self.rating}"
+
 
 class TagRating(models.Model):
     tag = models.ForeignKey(Tag, blank=True, null=True, on_delete=models.CASCADE)

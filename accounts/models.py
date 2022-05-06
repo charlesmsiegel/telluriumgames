@@ -8,8 +8,13 @@ from django.dispatch import receiver
 class CoDProfile(models.Model):
     """Class extending the User model to add additional fields."""
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="cod_profile")
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name="cod_profile"
+    )
     storyteller = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user}"
 
 
 @receiver(post_save, sender=User)
@@ -18,11 +23,17 @@ def update_codprofile_signal(sender, instance, created, **kwargs):
         CoDProfile.objects.create(user=instance)
     instance.cod_profile.save()
 
+
 class WoDProfile(models.Model):
     """Class extending the User model to add additional fields."""
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="wod_profile")
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name="wod_profile"
+    )
     storyteller = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user}"
 
 
 @receiver(post_save, sender=User)
@@ -31,11 +42,17 @@ def update_wodprofile_signal(sender, instance, created, **kwargs):
         WoDProfile.objects.create(user=instance)
     instance.wod_profile.save()
 
+
 class TCProfile(models.Model):
     """Class extending the User model to add additional fields."""
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="tc_profile")
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name="tc_profile"
+    )
     storyteller = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user}"
 
 
 @receiver(post_save, sender=User)

@@ -18,6 +18,8 @@ class Medium(models.Model):
     )
     length_modifier = models.IntegerField(default=1, blank=True, null=True)
 
+    def __str__(self):
+        return f"{self.name}"
 
 class Material(models.Model):
     """Class managing Material data"""

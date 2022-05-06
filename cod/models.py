@@ -400,6 +400,9 @@ class Specialty(models.Model):
         return (
             self.skill_name[self.skill_keys.index(self.skill)].replace("_", " ").title()
         )
+        
+    def __str__(self):
+        return f"{self.specialty} ({self.get_skill_display().replace('_', ' ').title()})"
 
 
 class Merit(models.Model):
@@ -411,6 +414,9 @@ class Merit(models.Model):
     merit_prereqs = models.JSONField(null=True)
     list_of_details = models.JSONField(null=True)
     merit_type = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.name}"
 
     def check_prereqs(self, character):
         if self.attribute_and_skill_prereqs is not None:
