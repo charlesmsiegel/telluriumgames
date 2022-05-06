@@ -454,7 +454,7 @@
                         Tricks
                     </h3>
                     {% for trick in tricks %}
-                        <br/>
+                        <br />
                         <a href="{% url 'tc:trick' trick.id %}">{{ trick.name }}</a>
                     {% endfor %}
                 </div>
@@ -463,11 +463,11 @@
                         Edges
                     </h3>
                     {% for edge in edges %}
-                        <br/>
+                        <br />
                         <a href="{% url 'tc:edge' edge.edge.id %}">{{ edge }}</a>
                     {% endfor %}
                     {% for edge in enhancededges %}
-                        <br/>
+                        <br />
                         <a href="{% url 'tc:enhanced_edge' edge.edge.id %}">{{ edge }}</a>
                     {% endfor %}
                 </div>
@@ -476,7 +476,7 @@
                         Mega Edges
                     </h3>
                     {% for edge in megaedges %}
-                        <br/>
+                        <br />
                         <a class="col-sm" href="{% url 'tc:megaedge' edge.megaedge.id %}">{{ edge }}</a>
                     {% endfor %}
                 </div>
@@ -487,7 +487,7 @@
                         Transformations
                     </h3>
                     {% for transformation in transformations %}
-                        <br/>
+                        <br />
                         <a href="{% url 'tc:transformation' transformation.id %}">{{ transformation }}</a>
                     {% endfor %}
                 </div>
@@ -495,9 +495,9 @@
                     <h3>
                         Injury Conditions
                     </h3>
-                    <br/>
+                    <br />
                     {% for mod in health_levels %}{{ mod }}{% endfor %}
-                    <br/>
+                    <br />
                     {% for mod in health_levels %}&nbsp;☐{% endfor %}
                     <!-- Bruised {{ character.bruised_levels }}, Injured {{ character.injured_levels }}, Maimed {{ character.maimed_levels }}</div> -->
                 </div>
@@ -515,7 +515,7 @@
                     <div class="col-sm dots">
                         {{ power.rating| dots }}
                     </div>
-                        <div class="col-sm">
+                    <div class="col-sm">
                     </div>
                 </div>
                 {% for tag in tags %}
