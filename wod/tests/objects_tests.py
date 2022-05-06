@@ -3,8 +3,14 @@ from unittest.mock import Mock
 
 from core.models import Language, Material, Medium
 from django.test import TestCase
-from wod.models.characters import (Instrument, Mage, MageFaction, Paradigm,
-                                   Practice, Rote)
+from wod.models.characters import (
+    Instrument,
+    Mage,
+    MageFaction,
+    Paradigm,
+    Practice,
+    Rote,
+)
 from wod.models.objects.mage import Grimoire, Library, Wonder
 
 
@@ -224,6 +230,8 @@ class TestGrimoireView(TestCase):
             quintessence_max=15,
             description="Test Description",
             faction=faction,
+            spheres=["life"],
+            abilities=["firearms"],
         )
         response = self.client.get(f"/wod/wonder/{wonder.id}/")
         self.assertTemplateUsed(response, "wod/objects/mage/grimoire.html")

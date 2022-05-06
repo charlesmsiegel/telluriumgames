@@ -7,8 +7,14 @@ from core.models import Language, Material, Medium
 from django.db import models
 from django.db.models import Q
 from polymorphic.models import PolymorphicModel
-from wod.models.characters.mage import (Instrument, Mage, MageFaction,
-                                        Paradigm, Practice, Rote)
+from wod.models.characters.mage import (
+    Instrument,
+    Mage,
+    MageFaction,
+    Paradigm,
+    Practice,
+    Rote,
+)
 
 
 # Create your models here.
@@ -105,7 +111,10 @@ class Grimoire(Wonder):
 
     def random_material(self, material):
         if material is None:
-            return self.faction.materials.order_by("?").first()
+            if self.faction.materials.count() > 0:
+                return self.faction.materials.order_by("?").first()
+            else:
+                return Material.objects.order_by("?").first()
         return material
 
     def random_focus(self, paradigms, practices, instruments):
@@ -113,7 +122,10 @@ class Grimoire(Wonder):
             paradigms = []
             options = []
             if self.faction is not None:
-                options.extend(self.faction.paradigms.all())
+                current = self.faction
+                while current is not None:
+                    options.extend(current.paradigms.all())
+                    current = current.parent
             options *= 4
             options.extend(Paradigm.objects.all())
             paradigms.append(random.choice(options))
@@ -127,7 +139,10 @@ class Grimoire(Wonder):
             for para in paradigms:
                 options.extend(para.practices.all())
             if self.faction is not None:
-                options.extend(self.faction.practices.all())
+                current = self.faction
+                while current is not None:
+                    options.extend(current.practices.all())
+                    current = current.parent
             options *= 4
             options.extend(Practice.objects.all())
             practices.append(random.choice(options))
@@ -165,7 +180,7 @@ class Grimoire(Wonder):
 
     def random_language(self, language):
         if language is None:
-            if self.faction:
+            if self.faction.languages.count() > 0:
                 return self.faction.languages.order_by("?").first()
             return Language.objects.order_by("?").first()
         return language
@@ -289,9 +304,9 @@ class Grimoire(Wonder):
         paradigms, practices, instruments = self.random_focus(
             paradigms, practices, instruments
         )
-        self.paradigms.set(paradigms)
-        self.practices.set(practices)
-        self.instruments.set(instruments)
+        self.paradigms.add(*paradigms)
+        self.practices.add(*practices)
+        self.instruments.add(*instruments)
         self.date_written = self.random_time_written(year_written)
         self.abilities = self.random_abilities(abilities)
         self.language = self.random_language(language)

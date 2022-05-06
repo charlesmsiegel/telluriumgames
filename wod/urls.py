@@ -18,4 +18,5 @@ urlpatterns = [
     path("locations/", views.location_index, name="location_index"),
     path("locations/<pk>/", views.GenericLocationDetailView.as_view(), name="location"),
     path("wonder/<pk>/", views.GenericWonderDetailView.as_view(), name="wonder"),
+    path("objects/", views.ObjectIndexView.as_view(), name="object_index"),
 ]

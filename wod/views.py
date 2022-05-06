@@ -194,11 +194,36 @@ class WonderDetailView(DetailView):
     template_name = "wod/objects/mage/wonder.html"
 
 
-class GrimoireDetailView(DetailView):
+class GrimoireDetailView(View):
     """Class that manages Views for grimoires"""
 
-    model = Grimoire
-    template_name = "wod/objects/mage/grimoire.html"
+    def get(self, request, *args, **kwargs):
+        context = self.get_context(*args, **kwargs)
+        return render(request, "wod/objects/mage/grimoire.html", context)
+
+    def get_context(self, *args, **kwargs):
+        g = Grimoire.objects.get(pk=kwargs["pk"])
+        faction_list = [g.faction]
+        while faction_list[-1].parent is not None:
+            faction_list.append(faction_list[-1].parent)
+        faction_list = faction_list[::-1]
+        faction_list = [str(x) for x in faction_list]
+        faction = "/".join(faction_list)
+        spheres = ", ".join([x.replace("_", " ").title() for x in g.spheres])
+        abilities = ", ".join([x.replace("_", " ").title() for x in g.abilities])
+        paradigms = ", ".join([str(x) for x in g.paradigms.all()])
+        practices = ", ".join([str(x) for x in g.practices.all()])
+        instruments = ", ".join([str(x) for x in g.instruments.all()])
+        d = {
+            "object": g,
+            "spheres": spheres,
+            "abilities": abilities,
+            "faction": faction,
+            "paradigms": paradigms,
+            "practices": practices,
+            "instruments": instruments,
+        }
+        return d
 
 
 class GenericWonderDetailView(View):
@@ -211,3 +236,11 @@ class GenericWonderDetailView(View):
         if wonder.type in self.create_views:
             return self.create_views[wonder.type].as_view()(request, *args, **kwargs)
         return redirect("wonders_index")
+
+
+class ObjectIndexView(View):
+    def get(self, request, *args, **kwargs):
+        return render(
+            request, "wod/objects/index.html", {"objects": Wonder.objects.all()}
+        )
+

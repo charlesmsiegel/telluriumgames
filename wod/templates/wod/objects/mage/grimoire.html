@@ -6,4 +6,58 @@
     {% block content %}
         <h1>{{ object.name }}</h1>
     </body>
+    <div class="row">
+        <div class="col-sm">Rank</div>
+        <div class="col-sm">{{ object.rank }}</div>
+        <div class="col-sm">Background Cost</div>
+        <div class="col-sm">{{ object.background_cost }}</div>
+        <div class="col-sm">Maximum Quintessence</div>
+        <div class="col-sm">{{ object.quintessence_max }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm">Created By</div>
+        <div class="col-sm">{{ faction }}</div>
+        <div class="col-sm">Prime</div>
+        <div class="col-sm">{{ object.primer }}</div>
+        <div class="col-sm">Focus</div>
+        <div class="col-sm">
+            <b>Paradigms:</b> {{ paradigms }}
+        <br />
+        <b>Pracitcs:</b> {{ practices }}
+    <br />
+    <b>Instruments:</b> {{ instruments }}
+</div>
+</div>
+<div class="row">
+    <div class="col-sm">Medium</div>
+    <div class="col-sm">{{ object.medium }}</div>
+    <div class="col-sm">Cover Material</div>
+    <div class="col-sm">{{ object.cover_material }}</div>
+    <div class="col-sm">Inner Material</div>
+    <div class="col-sm">{{ object.inner_material }}</div>
+</div>
+<div class="row">
+    <div class="col-sm">Length</div>
+    <div class="col-sm">{{ object.length }}</div>
+    <div class="col-sm">Date Written</div>
+    <div class="col-sm">{{ object.date_written }}</div>
+    <div class="col-sm">Language</div>
+    <div class="col-sm">{{ object.language }}</div>
+</div>
+<div class="row">
+    <div class="col-sm">Abilities</div>
+    <div class="col-sm">{{ abilities }}</div>
+    <div class="col-sm">
+        Spheres
+    </div>
+    <div class="col-sm">
+        {{ spheres }}
+    </div>
+    <div class="col-sm">
+        Rotes
+    </div>
+    <div class="col-sm">
+        {{ object.rotes }}
+    </div>
+</div>
 {% endblock content %}
