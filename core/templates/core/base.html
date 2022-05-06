@@ -79,8 +79,8 @@
                             <a class="dropdown-item" href="{% url 'wod:characters_index' %}">Characters</a>
                             <a class="dropdown-item" href="{% url 'wod:location_index' %}">Locations</a>
                             <a class="dropdown-item" href="{% url 'wod:object_index' %}">Objects</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            {% comment %} <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a> {% endcomment %}
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -95,10 +95,10 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'cod:characters_index' %}">Characters</a>
-                            <a class="dropdown-item" href="#">Locations</a>
+                            {% comment %} <a class="dropdown-item" href="#">Locations</a>
                             <a class="dropdown-item" href="#">Objects</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="#">Something else here</a> {% endcomment %}
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -112,12 +112,12 @@
                             Exalted
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Characters</a>
+                            {% comment %} <a class="dropdown-item" href="#">Characters</a>
                             <a class="dropdown-item" href="#">Locations</a>
                             <a class="dropdown-item" href="#">Objects</a>
                             <div class="dropdown-divider">
                             </div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="#">Something else here</a> {% endcomment %}
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -132,11 +132,11 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'tc:characters_index' %}">Characters</a>
-                            <a class="dropdown-item" href="#">Locations</a>
+                            {% comment %} <a class="dropdown-item" href="#">Locations</a>
                             <a class="dropdown-item" href="#">Objects</a>
                             <div class="dropdown-divider">
                             </div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="#">Something else here</a> {% endcomment %}
                         </div>
                     </li>
                 </ul>
