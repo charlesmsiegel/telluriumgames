@@ -204,7 +204,7 @@ class Grimoire(Wonder):
                 if self.faction.parent is not None:
                     if self.faction.parent.name == "Technocratic Union":
                         full_list.extend(
-                            "data", "dimensional_science", "primal_utility"
+                            ["data", "dimensional_science", "primal_utility"]
                         )
                 if self.faction.name == "Virtual Adepts":
                     full_list.append("data")
