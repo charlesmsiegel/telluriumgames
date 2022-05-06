@@ -184,6 +184,7 @@ class HumanCharacter(Character):
                 population=tuple(attribute_dict.keys()),
                 weights=tuple(attribute_dict.values()),
             )
+            # TODO: Fix this code so that mages don't end up with Wits 7
         self.save()
 
     def physical(self):
