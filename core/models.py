@@ -8,6 +8,9 @@ class Language(models.Model):
     name = models.CharField(max_length=100)
     frequency = models.IntegerField(default=0)
 
+    def __str__(self):
+        return f"{self.name}"
+
 
 class Medium(models.Model):
     """Class managing Medium data"""
@@ -21,7 +24,11 @@ class Medium(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+
 class Material(models.Model):
     """Class managing Material data"""
 
     name = models.TextField(default="")
+
+    def __str__(self):
+        return f"{self.name}"
