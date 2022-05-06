@@ -97,7 +97,10 @@ class Grimoire(Wonder):
 
     def random_medium(self, medium):
         if medium is None:
-            return self.faction.media.order_by("?").first()
+            if self.faction.media.count() != 0:
+                return self.faction.media.order_by("?").first()
+            else:
+                return Medium.objects.order_by("?").first()
         return medium
 
     def random_material(self, material):
@@ -279,6 +282,7 @@ class Grimoire(Wonder):
         self.primer = self.random_primer(primer)
         self.faction = self.random_faction(faction)
         self.medium = self.random_medium(medium)
+        self.save()
         self.cover_material = self.random_material(cover_material)
         self.inner_material = self.random_material(inner_material)
         self.length = self.random_length(length)
