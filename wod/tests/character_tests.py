@@ -5,9 +5,19 @@ from core.models import Language
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.utils.timezone import now
-from wod.models.characters import (Cabal, Character, HumanCharacter,
-                                   Instrument, Mage, MageFaction, MeritFlaw,
-                                   Paradigm, Practice, Resonance, Rote)
+from wod.models.characters import (
+    Cabal,
+    Character,
+    HumanCharacter,
+    Instrument,
+    Mage,
+    MageFaction,
+    MeritFlaw,
+    Paradigm,
+    Practice,
+    Resonance,
+    Rote,
+)
 from wod.templatetags.dots import dots
 
 
@@ -179,7 +189,13 @@ class TestHumanCharacter(TestCase):
 
     def test_random_attributes(self):
         self.character.random_attributes(7, 5, 3)
-        self.assertEqual(self.character.attribute_triple(), [10, 8, 6])
+        triple = [
+            self.character.mental_attribute_sum(),
+            self.character.physical_attribute_sum(),
+            self.character.social_attribute_sum(),
+        ]
+        triple.sort(key=lambda x: -x)
+        self.assertEqual(triple, [10, 8, 6])
 
     def test_background_points(self):
         self.assertEqual(self.character.background_points, 5)
@@ -194,57 +210,25 @@ class TestHumanCharacter(TestCase):
         self.character.strength = 1
         self.character.dexterity = 2
         self.character.stamina = 3
-        self.assertEqual(self.character.physical(), 6)
+        self.assertEqual(self.character.physical_attribute_sum(), 6)
         self.character.stamina = 2
-        self.assertEqual(self.character.physical(), 5)
+        self.assertEqual(self.character.physical_attribute_sum(), 5)
 
     def test_mental(self):
         self.character.perception = 1
         self.character.intelligence = 2
         self.character.wits = 3
-        self.assertEqual(self.character.mental(), 6)
+        self.assertEqual(self.character.mental_attribute_sum(), 6)
         self.character.wits = 2
-        self.assertEqual(self.character.mental(), 5)
+        self.assertEqual(self.character.mental_attribute_sum(), 5)
 
     def test_social(self):
         self.character.charisma = 1
         self.character.manipulation = 2
         self.character.appearance = 3
-        self.assertEqual(self.character.social(), 6)
+        self.assertEqual(self.character.social_attribute_sum(), 6)
         self.character.appearance = 2
-        self.assertEqual(self.character.social(), 5)
-
-    def test_attribute_triple(self):
-        self.character.strength = 1
-        self.character.dexterity = 2
-        self.character.stamina = 3
-        self.character.perception = 4
-        self.character.intelligence = 5
-        self.character.wits = 1
-        self.character.charisma = 3
-        self.character.manipulation = 2
-        self.character.appearance = 2
-        self.assertEqual(self.character.attribute_triple(), [10, 7, 6])
-        self.character.strength = 2
-        self.character.dexterity = 3
-        self.character.stamina = 4
-        self.character.perception = 5
-        self.character.intelligence = 6
-        self.character.wits = 7
-        self.character.charisma = 8
-        self.character.manipulation = 9
-        self.character.appearance = 10
-        self.assertEqual(self.character.attribute_triple(), [27, 18, 9])
-        self.character.strength = 5
-        self.character.dexterity = 4
-        self.character.stamina = 3
-        self.character.perception = 2
-        self.character.intelligence = 4
-        self.character.wits = 3
-        self.character.charisma = 2
-        self.character.manipulation = 1
-        self.character.appearance = 1
-        self.assertEqual(self.character.attribute_triple(), [12, 9, 4])
+        self.assertEqual(self.character.social_attribute_sum(), 5)
 
     def test_mark_character_approval(self):
         self.assertEqual(self.character.status, "Un")

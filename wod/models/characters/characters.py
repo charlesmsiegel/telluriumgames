@@ -2,6 +2,7 @@ import random
 
 from accounts.models import WoDProfile
 from core.models import Language
+from core.utils import weighted_choice
 from django.db import models
 from django.shortcuts import reverse
 from django.utils.timezone import now
@@ -143,64 +144,52 @@ class HumanCharacter(Character):
     freebies = 15
     type = "humancharacter"
 
-    def random_attributes(self, primary=7, secondary=5, tertiary=3):
-        attribute_dict = {
+    def get_mental_attributes(self):
+        return {
+            "intelligence": self.intelligence,
+            "wits": self.wits,
+            "perception": self.perception,
+        }
+
+    def get_physical_attributes(self):
+        return {
             "strength": self.strength,
             "dexterity": self.dexterity,
             "stamina": self.stamina,
-            "perception": self.perception,
-            "intelligence": self.intelligence,
-            "wits": self.wits,
+        }
+
+    def get_social_attributes(self):
+        return {
             "charisma": self.charisma,
             "manipulation": self.manipulation,
             "appearance": self.appearance,
         }
-        chosen_attribute = random.choices(
-            population=tuple(attribute_dict.keys()),
-            weights=tuple(attribute_dict.values()),
-        )
-        while self.attribute_triple() != [primary + 3, secondary + 3, tertiary + 3]:
-            phys = self.physical()
-            men = self.mental()
-            soc = self.social()
-            if chosen_attribute[0] in ["strength", "dexterity", "stamina"]:
-                phys += 1
-            elif chosen_attribute[0] in ["perception", "intelligence", "wits"]:
-                men += 1
-            elif chosen_attribute[0] in ["charisma", "manipulation", "appearance"]:
-                soc += 1
-            tmp = [phys, men, soc]
-            tmp.sort()
-            tmp.reverse()
-            if (
-                tmp[2] <= tertiary + 3
-                and tmp[1] <= secondary + 3
-                and tmp[0] <= primary + 3
-            ):
-                attribute = getattr(self, chosen_attribute[0])
-                attribute += 1
-                setattr(self, chosen_attribute[0], attribute)
-            chosen_attribute = random.choices(
-                population=tuple(attribute_dict.keys()),
-                weights=tuple(attribute_dict.values()),
-            )
-            # TODO: Fix this code so that mages don't end up with Wits 7
+
+    def physical_attribute_sum(self):
+        return sum(self.get_physical_attributes().values())
+
+    def mental_attribute_sum(self):
+        return sum(self.get_mental_attributes().values())
+
+    def social_attribute_sum(self):
+        return sum(self.get_social_attributes().values())
+
+    def random_attributes(self, primary=7, secondary=5, tertiary=3):
+        attribute_types = [primary, secondary, tertiary]
+        random.shuffle(attribute_types)
+        while self.physical_attribute_sum() < attribute_types[0] + 3:
+            attribute_choice = weighted_choice(self.get_physical_attributes())
+            if getattr(self, attribute_choice) <= 4:
+                setattr(self, attribute_choice, getattr(self, attribute_choice) + 1)
+        while self.social_attribute_sum() < attribute_types[1] + 3:
+            attribute_choice = weighted_choice(self.get_social_attributes())
+            if getattr(self, attribute_choice) <= 4:
+                setattr(self, attribute_choice, getattr(self, attribute_choice) + 1)
+        while self.mental_attribute_sum() < attribute_types[2] + 3:
+            attribute_choice = weighted_choice(self.get_mental_attributes())
+            if getattr(self, attribute_choice) <= 4:
+                setattr(self, attribute_choice, getattr(self, attribute_choice) + 1)
         self.save()
-
-    def physical(self):
-        return self.strength + self.dexterity + self.stamina
-
-    def mental(self):
-        return self.perception + self.intelligence + self.wits
-
-    def social(self):
-        return self.charisma + self.manipulation + self.appearance
-
-    def attribute_triple(self):
-        triple = [self.physical(), self.mental(), self.social()]
-        triple.sort()
-        triple.reverse()
-        return triple
 
     def get_wound_penalty(self):
         health_levels = len(self.current_health_levels)
