@@ -2,13 +2,13 @@ import random
 
 from accounts.models import WoDProfile
 from core.models import Language, Material, Medium
+from core.utils import add_dot, weighted_choice
 from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import reverse
 from django.utils.timezone import now
 from polymorphic.models import PolymorphicModel
 from wod.models.characters import HumanCharacter, MeritFlaw
-from core.utils import weighted_choice, add_dot
 
 
 # Create your models here.
@@ -463,7 +463,7 @@ class Mage(HumanCharacter):
 
     def total_skills(self):
         return sum(self.get_skills().values())
-        
+
     def get_knowledges(self):
         return {
             "academics": self.academics,
@@ -510,7 +510,7 @@ class Mage(HumanCharacter):
 
     def random_affinity(self):
         affinity_choice = random.choice(self.sphere_key)
-        self.set_affinity(affinity_choice)        
+        self.set_affinity(affinity_choice)
 
     def random_faction(self):
         self.affiliation = MageFaction.objects.filter(parent=None).order_by("?").first()
@@ -729,10 +729,9 @@ class Mage(HumanCharacter):
             )
             option = random.choice(filtered_options)
             self.freebies -= self.freebie_cost(option)
-            if option in self.attributes() + list(self.abilities().keys()) + self.backgrounds() + spheres + [
-                "arete",
-                "willpower",
-            ]:
+            if option in self.attributes() + list(
+                self.abilities().keys()
+            ) + self.backgrounds() + spheres + ["arete", "willpower",]:
                 setattr(self, option, getattr(self, option) + 1)
             elif option == "quintessence":
                 self.quintessence += 4
