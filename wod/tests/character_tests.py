@@ -682,7 +682,10 @@ class TestMage(TestCase):
     def test_random_arete_and_spheres(self):
         self.character.random_arete()
         self.character.random_affinity()
-        self.character.random_spheres(5)
+        affinity = self.character.spheres[
+            self.character.sphere_key.index(self.character.affinity_sphere)
+        ].lower()
+        self.character.random_spheres(6)
         self.assertEqual(self.character.total_spheres(), 6)
 
     def test_random_backgrounds(self):

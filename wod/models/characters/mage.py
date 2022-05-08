@@ -8,6 +8,7 @@ from django.shortcuts import reverse
 from django.utils.timezone import now
 from polymorphic.models import PolymorphicModel
 from wod.models.characters import HumanCharacter, MeritFlaw
+from core.utils import weighted_choice, add_dot
 
 
 # Create your models here.
@@ -408,102 +409,93 @@ class Mage(HumanCharacter):
     type = "mage"
 
     def total_spheres(self):
-        return (
-            self.correspondence
-            + self.time
-            + self.spirit
-            + self.matter
-            + self.forces
-            + self.life
-            + self.prime
-            + self.mind
-            + self.entropy
-        )
+        return sum(self.get_spheres().values())
 
-    @staticmethod
-    def talents():
-        return [
-            "alertness",
-            "awareness",
-            "art",
-            "athletics",
-            "brawl",
-            "empathy",
-            "intimidation",
-            "leadership",
-            "expression",
-            "streetwise",
-            "subterfuge",
-            "animal_kinship",
-            "blatancy",
-            "carousing",
-            "do",
-            "flying",
-            "high_ritual",
-            "lucid_dreaming",
-            "search",
-            "seduction",
-        ]
+    def get_talents(self):
+        return {
+            "alertness": self.alertness,
+            "awareness": self.awareness,
+            "art": self.art,
+            "athletics": self.athletics,
+            "brawl": self.brawl,
+            "empathy": self.empathy,
+            "intimidation": self.intimidation,
+            "leadership": self.leadership,
+            "expression": self.expression,
+            "streetwise": self.streetwise,
+            "subterfuge": self.subterfuge,
+            "animal_kinship": self.animal_kinship,
+            "blatancy": self.blatancy,
+            "carousing": self.carousing,
+            "do": self.do,
+            "flying": self.flying,
+            "high_ritual": self.high_ritual,
+            "lucid_dreaming": self.lucid_dreaming,
+            "search": self.search,
+            "seduction": self.seduction,
+        }
 
     def total_talents(self):
-        return sum([getattr(self, x) for x in self.talents()])
+        return sum(self.get_talents().values())
 
-    @staticmethod
-    def skills():
-        return [
-            "crafts",
-            "drive",
-            "etiquette",
-            "firearms",
-            "martial_arts",
-            "meditation",
-            "melee",
-            "research",
-            "stealth",
-            "survival",
-            "technology",
-            "acrobatics",
-            "archery",
-            "biotech",
-            "energy_weapons",
-            "hypertech",
-            "jetpack",
-            "riding",
-            "torture",
-        ]
+    def get_skills(self):
+        return {
+            "crafts": self.crafts,
+            "drive": self.drive,
+            "etiquette": self.etiquette,
+            "firearms": self.firearms,
+            "martial_arts": self.martial_arts,
+            "meditation": self.meditation,
+            "melee": self.melee,
+            "research": self.research,
+            "stealth": self.stealth,
+            "survival": self.survival,
+            "technology": self.technology,
+            "acrobatics": self.acrobatics,
+            "archery": self.archery,
+            "biotech": self.biotech,
+            "energy_weapons": self.energy_weapons,
+            "hypertech": self.hypertech,
+            "jetpack": self.jetpack,
+            "riding": self.riding,
+            "torture": self.torture,
+        }
 
     def total_skills(self):
-        return sum([getattr(self, x) for x in self.skills()])
-
-    @staticmethod
-    def knowledges():
-        return [
-            "academics",
-            "computer",
-            "cosmology",
-            "enigmas",
-            "esoterica",
-            "investigation",
-            "law",
-            "medicine",
-            "occult",
-            "politics",
-            "science",
-            "area_knowledge",
-            "belief_systems",
-            "cryptography",
-            "demolitions",
-            "finance",
-            "lore",
-            "media",
-            "pharmacopeia",
-        ]
+        return sum(self.get_skills().values())
+        
+    def get_knowledges(self):
+        return {
+            "academics": self.academics,
+            "computer": self.computer,
+            "cosmology": self.cosmology,
+            "enigmas": self.enigmas,
+            "esoterica": self.esoterica,
+            "investigation": self.investigation,
+            "law": self.law,
+            "medicine": self.medicine,
+            "occult": self.occult,
+            "politics": self.politics,
+            "science": self.science,
+            "area_knowledge": self.area_knowledge,
+            "belief_systems": self.belief_systems,
+            "cryptography": self.cryptography,
+            "demolitions": self.demolitions,
+            "finance": self.finance,
+            "lore": self.lore,
+            "media": self.media,
+            "pharmacopeia": self.pharmacopeia,
+        }
 
     def total_knowledges(self):
-        return sum([getattr(self, x) for x in self.knowledges()])
+        return sum(self.get_knowledges().values())
 
     def abilities(self):
-        return self.talents() + self.skills() + self.knowledges()
+        tmp = {}
+        tmp.update(self.get_talents())
+        tmp.update(self.get_skills())
+        tmp.update(self.get_knowledges())
+        return tmp
 
     def random_arete(self, maximum=3):
         self.arete = random.randint(1, maximum)
@@ -514,11 +506,11 @@ class Mage(HumanCharacter):
         affinity_sphere_name = self.spheres[
             self.sphere_key.index(self.affinity_sphere)
         ].lower()
-        setattr(self, affinity_sphere_name, 1)
+        add_dot(self, affinity_sphere_name, self.arete)
 
     def random_affinity(self):
         affinity_choice = random.choice(self.sphere_key)
-        self.set_affinity(affinity_choice)
+        self.set_affinity(affinity_choice)        
 
     def random_faction(self):
         self.affiliation = MageFaction.objects.filter(parent=None).order_by("?").first()
@@ -575,17 +567,23 @@ class Mage(HumanCharacter):
         options = ["DYN", "PAT", "PRI", "QUE"]
         self.essence = random.choice(options)
 
+    def get_spheres(self):
+        return {
+            "correspondence": self.correspondence,
+            "entropy": self.entropy,
+            "forces": self.forces,
+            "life": self.life,
+            "matter": self.matter,
+            "mind": self.mind,
+            "prime": self.prime,
+            "spirit": self.spirit,
+            "time": self.time,
+        }
+
     def random_spheres(self, sphere_total):
-        spheres = [x.lower() for x in self.spheres]
-        for _ in range(sphere_total):
-            option_list = [
-                x
-                for x in spheres
-                for _ in range(getattr(self, x) + 1)
-                if getattr(self, x) < self.arete
-            ]
-            chosen_sphere = random.choice(option_list)
-            setattr(self, chosen_sphere, getattr(self, chosen_sphere) + 1)
+        while self.total_spheres() < sphere_total:
+            chosen_sphere = weighted_choice(self.get_spheres())
+            add_dot(self, chosen_sphere, self.arete)
 
     def add_resonance_dot(self, resonance):
         if resonance in self.resonance.all():
@@ -619,38 +617,14 @@ class Mage(HumanCharacter):
         options = [primary, secondary, tertiary]
         random.shuffle(options)
         while self.total_talents() < options[0]:
-            talents_with_multiplicity = [
-                [talent] * (getattr(self, talent) + 1)
-                for talent in self.talents()
-                if getattr(self, talent) < 3
-            ]
-            talents = []
-            for talent in talents_with_multiplicity:
-                talents.extend(talent)
-            talent = random.choice(talents)
-            setattr(self, talent, getattr(self, talent) + 1)
+            ability = weighted_choice(self.get_talents())
+            add_dot(self, ability, 3)
         while self.total_skills() < options[1]:
-            skills_with_multiplicity = [
-                [skill] * (getattr(self, skill) + 1)
-                for skill in self.skills()
-                if getattr(self, skill) < 3
-            ]
-            skills = []
-            for skill in skills_with_multiplicity:
-                skills.extend(skill)
-            skill = random.choice(skills)
-            setattr(self, skill, getattr(self, skill) + 1)
+            ability = weighted_choice(self.get_skills())
+            add_dot(self, ability, 3)
         while self.total_knowledges() < options[2]:
-            knowledges_with_multiplicity = [
-                [knowledge] * (getattr(self, knowledge) + 1)
-                for knowledge in self.knowledges()
-                if getattr(self, knowledge) < 3
-            ]
-            knowledges = []
-            for knowledge in knowledges_with_multiplicity:
-                knowledges.extend(knowledge)
-            knowledge = random.choice(knowledges)
-            setattr(self, knowledge, getattr(self, knowledge) + 1)
+            ability = weighted_choice(self.get_knowledges())
+            add_dot(self, ability, 3)
 
     def check_starting_abilities(self):
         counts = [self.total_talents(), self.total_skills(), self.total_knowledges()]
@@ -730,7 +704,7 @@ class Mage(HumanCharacter):
         spheres = [x.lower() for x in self.spheres]
         options = (
             self.attributes()
-            + self.abilities()
+            + list(self.abilities().keys())
             + self.backgrounds()
             + spheres
             + ["arete", "willpower", "quintessence"]
@@ -755,7 +729,7 @@ class Mage(HumanCharacter):
             )
             option = random.choice(filtered_options)
             self.freebies -= self.freebie_cost(option)
-            if option in self.attributes() + self.abilities() + self.backgrounds() + spheres + [
+            if option in self.attributes() + list(self.abilities().keys()) + self.backgrounds() + spheres + [
                 "arete",
                 "willpower",
             ]:

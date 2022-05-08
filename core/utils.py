@@ -25,3 +25,9 @@ def cod_dice(number_of_dice, again_minimum=10):
         roll.extend(new_dice)
         num_agains = sum([x >= again_minimum for x in new_dice])
     return roll, sum([x >= 8 for x in roll])
+
+
+def add_dot(character, trait, maximum):
+    if getattr(character, trait) < maximum:
+        setattr(character, trait, getattr(character, trait) + 1)
+        character.save()

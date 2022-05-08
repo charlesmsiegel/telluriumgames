@@ -2,7 +2,7 @@ import random
 
 from accounts.models import WoDProfile
 from core.models import Language
-from core.utils import weighted_choice
+from core.utils import weighted_choice, add_dot
 from django.db import models
 from django.shortcuts import reverse
 from django.utils.timezone import now
@@ -179,17 +179,13 @@ class HumanCharacter(Character):
         random.shuffle(attribute_types)
         while self.physical_attribute_sum() < attribute_types[0] + 3:
             attribute_choice = weighted_choice(self.get_physical_attributes())
-            if getattr(self, attribute_choice) <= 4:
-                setattr(self, attribute_choice, getattr(self, attribute_choice) + 1)
+            add_dot(self, attribute_choice, 5)
         while self.social_attribute_sum() < attribute_types[1] + 3:
             attribute_choice = weighted_choice(self.get_social_attributes())
-            if getattr(self, attribute_choice) <= 4:
-                setattr(self, attribute_choice, getattr(self, attribute_choice) + 1)
+            add_dot(self, attribute_choice, 5)
         while self.mental_attribute_sum() < attribute_types[2] + 3:
             attribute_choice = weighted_choice(self.get_mental_attributes())
-            if getattr(self, attribute_choice) <= 4:
-                setattr(self, attribute_choice, getattr(self, attribute_choice) + 1)
-        self.save()
+            add_dot(self, attribute_choice, 5)
 
     def get_wound_penalty(self):
         health_levels = len(self.current_health_levels)

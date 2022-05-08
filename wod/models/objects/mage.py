@@ -3,10 +3,13 @@ import math
 import random
 from typing import List
 
+from collections import defaultdict
+
 from core.models import Language, Material, Medium
 from django.db import models
 from django.db.models import Q
 from polymorphic.models import PolymorphicModel
+from core.utils import weighted_choice
 from wod.models.characters.mage import (
     Instrument,
     Mage,
@@ -186,16 +189,75 @@ class Grimoire(Wonder):
         return language
 
     def random_abilities(self, abilities):
+        all_abilities = [
+            "alertness",
+            "awareness",
+            "art",
+            "athletics",
+            "brawl",
+            "empathy",
+            "intimidation",
+            "leadership",
+            "expression",
+            "streetwise",
+            "subterfuge",
+            "animal_kinship",
+            "blatancy",
+            "carousing",
+            "do",
+            "flying",
+            "high_ritual",
+            "lucid_dreaming",
+            "search",
+            "seduction",
+            "crafts",
+            "drive",
+            "etiquette",
+            "firearms",
+            "martial_arts",
+            "meditation",
+            "melee",
+            "research",
+            "stealth",
+            "survival",
+            "technology",
+            "acrobatics",
+            "archery",
+            "biotech",
+            "energy_weapons",
+            "hypertech",
+            "jetpack",
+            "riding",
+            "torture",
+            "academics",
+            "computer",
+            "cosmology",
+            "enigmas",
+            "esoterica",
+            "investigation",
+            "law",
+            "medicine",
+            "occult",
+            "politics",
+            "science",
+            "area_knowledge",
+            "belief_systems",
+            "cryptography",
+            "demolitions",
+            "finance",
+            "lore",
+            "media",
+            "pharmacopeia",
+        ]
         if abilities is None:
             abilities = []
-            all_abilities = Mage.talents() + Mage.skills() + Mage.knowledges()
             if self.practices.count() > 0:
                 for practice in self.practices.all():
                     all_abilities.extend(practice.abilities)
             ability = random.choice(all_abilities)
             abilities.append(ability)
             while random.random() < 0.1:
-                all_abilities = [x for x in all_abilities if x != ability]
+                all_abilities = [x for x in all_abilities if x not in abilities]
                 ability = random.choice(all_abilities)
                 abilities.append(ability)
             return abilities
