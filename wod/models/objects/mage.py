@@ -2,7 +2,7 @@ import datetime
 import math
 import random
 from collections import defaultdict
-from typing import List
+from copy import deepcopy
 
 from core.models import Language, Material, Medium
 from core.utils import weighted_choice
@@ -285,7 +285,7 @@ class Grimoire(Wonder):
     def random_abilities(self, abilities):
         if abilities is None:
             abilities = []
-            all_abilities = [x for x in ALL_ABILITIES]
+            all_abilities = deepcopy(ALL_ABILITIES)
             if self.practices.count() > 0:
                 for practice in self.practices.all():
                     all_abilities.extend(practice.abilities)
