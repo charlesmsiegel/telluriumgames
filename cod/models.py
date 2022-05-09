@@ -30,11 +30,8 @@ class Mortal(PolymorphicModel):
     long_term_aspiration = models.CharField(max_length=100, blank=True, null=True)
 
     virtue = models.CharField(max_length=100, blank=True, null=True)
-    # example virtues: competitive, generous, just, loyal
     vice = models.CharField(max_length=100, blank=True, null=True)
-    # example vices: ambitious, arrogant, competitive, greedy
 
-    # attributes: physical, social, and mental, 5/4/3
     intelligence = models.IntegerField(default=1)
     wits = models.IntegerField(default=1)
     resolve = models.IntegerField(default=1)
@@ -47,7 +44,6 @@ class Mortal(PolymorphicModel):
     manipulation = models.IntegerField(default=1)
     composure = models.IntegerField(default=1)
 
-    # skills: physical, social, menta, start at zero, 11/7/4
     # Attribute -1 for physical or social at 0, -3 for mental
     academics = models.IntegerField(default=0)
     computer = models.IntegerField(default=0)
@@ -120,9 +116,18 @@ class Mortal(PolymorphicModel):
             return True
         return False
 
+    def random_vice(self):
+        vices = ["Ambitious", "Arrogant", "Competitive", "Greedy"]
+        return random.choice(vices)
+
+    
+    def random_virtue(self):
+        virtues = ["Competitive", "Generous", "Just", "Loyal"]
+        return random.choice(virtues)
+
     def random_basis(self):
-        self.vice = "Vice"
-        self.virtue = "Virtue"
+        self.vice = self.random_vice()
+        self.virtue = self.random_virtue()
         self.concept = "Concept"
 
     def get_mental_attributes(self):
@@ -318,7 +323,6 @@ class Mortal(PolymorphicModel):
         self.initiative_modifier = self.dexterity + self.composure
         self.defense = min([self.wits, self.dexterity]) + self.athletics
 
-    # TODO: Tweak Professional Training to avoid scientists without science
     def apply_merits(self):
         for merit in MeritRating.objects.filter(character=self):
             if merit.merit.name == "Giant":
@@ -332,9 +336,9 @@ class Mortal(PolymorphicModel):
             if merit.merit.name == "Fleet of Foot":
                 self.speed += merit.rating
             if merit.merit.name == "Vice-Ridden":
-                self.vice += ", Vice 2"
+                self.vice += f", {self.random_vice()}"
             if merit.merit.name == "Virtuous":
-                self.virtue += ", Virtue 2"
+                self.virtue += f", {self.random_virtue()}"
             if merit.merit.name == "Defensive Combat (Brawl)":
                 self.defense += self.brawl - self.athletics
             if merit.merit.name == "Defensive Combat (Weaponry)":
@@ -512,6 +516,11 @@ class Merit(models.Model):
         elif self.name == "Hobbyist Clique":
             tmp = character.get_skills()
             possible_details = [key for key, value in tmp.items() if value >= 2]
+        elif self.name == "Professional Training":
+            possible_details = [(x, x.split("(")[-1][:-1].split(", ")) for x in self.list_of_details]
+            possible_details = [(x[0], [y.lower().replace(" ", "_") for y in x[1]]) for x in possible_details]
+            all_skills = character.get_skills()
+            possible_details = [x[0] for x in possible_details if all_skills[x[1][0]] > 0 and all_skills[x[1][1]] > 0]
         else:
             possible_details = self.list_of_details
         possible_details = [
