@@ -42,6 +42,18 @@ class Character(PolymorphicModel):
             return True
         return False
 
+    def mark_complete(self):
+        self.status = "Sub"
+
+    def mark_approved(self):
+        self.status = "App"
+
+    def mark_retired(self):
+        self.status = "Ret"
+
+    def mark_deceased(self):
+        self.status = "Dec"
+
 
 class HumanCharacter(Character):
     """Human Character class"""
@@ -198,18 +210,6 @@ class HumanCharacter(Character):
         if health_levels <= 6:
             return -5
         return -1000
-
-    def mark_complete(self):
-        self.status = "Sub"
-
-    def mark_approved(self):
-        self.status = "App"
-
-    def mark_retired(self):
-        self.status = "Ret"
-
-    def mark_deceased(self):
-        self.status = "Dec"
 
     def has_archetypes(self):
         if self.nature != "" and self.demeanor != "":

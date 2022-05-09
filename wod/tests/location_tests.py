@@ -101,6 +101,11 @@ class TestNode(TestCase):
         points -= node.tass_per_week
         self.assertEqual(points, 0)
 
+    def test_increase_resonance(self):
+        self.fail()
+        
+    def test_resonance_postprocessing(self):
+        self.fail()
 
 class TestLocationIndexView(TestCase):
     """Manage Tests for Location"""

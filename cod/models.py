@@ -211,7 +211,7 @@ class Mortal(PolymorphicModel):
     def social_skill_sum(self):
         return sum(self.get_social_skills().values())
 
-    def random_creation(self):
+    def random(self):
         self.random_basis()
         self.random_attributes()
         self.random_skills()

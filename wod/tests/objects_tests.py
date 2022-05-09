@@ -3,8 +3,14 @@ from unittest.mock import Mock
 
 from core.models import Language, Material, Medium
 from django.test import TestCase
-from wod.models.characters import (Instrument, Mage, MageFaction, Paradigm,
-                                   Practice, Rote)
+from wod.models.characters import (
+    Instrument,
+    Mage,
+    MageFaction,
+    Paradigm,
+    Practice,
+    Rote,
+)
 from wod.models.objects.mage import Grimoire, Library, Wonder
 
 
@@ -65,6 +71,15 @@ class GrimoireTest(TestCase):
         self.assertGreater(len(paradigms), 0)
         self.assertGreater(len(practices), 0)
         self.assertGreater(len(instruments), 0)
+
+    def test_random_paradigms(self):
+        self.fail()
+
+    def test_random_practices(self):
+        self.fail()
+
+    def test_random_instruments(self):
+        self.fail()
 
     def test_random_abilities(self):
         practice = Practice.objects.create(
@@ -129,7 +144,7 @@ class GrimoireTest(TestCase):
             grimoire_3.random_length(None)
         self.assertTrue(grimoire_4.random_length(None) is not None)
 
-    def test_time_written(self):
+    def test_random_time_written(self):
         faction = MageFaction.objects.create(name="Test Faction", founded=1466)
         grimoire = Grimoire.objects.create(faction=faction)
         self.assertIsNotNone(grimoire.random_time_written(None))
@@ -153,6 +168,9 @@ class GrimoireTest(TestCase):
         Rote.objects.create(name="Test Rote 5", matter=5, prime=3)
         rotes = grimoire.random_rotes(None)
         self.assertGreater(len(rotes), 0)
+
+    def test_random(self):
+        self.fail()
 
 
 class TestLibrary(TestCase):

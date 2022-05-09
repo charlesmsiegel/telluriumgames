@@ -6,9 +6,19 @@ from core.models import Language
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.utils.timezone import now
-from wod.models.characters import (Cabal, Character, HumanCharacter,
-                                   Instrument, Mage, MageFaction, MeritFlaw,
-                                   Paradigm, Practice, Resonance, Rote)
+from wod.models.characters import (
+    Cabal,
+    Character,
+    HumanCharacter,
+    Instrument,
+    Mage,
+    MageFaction,
+    MeritFlaw,
+    Paradigm,
+    Practice,
+    Resonance,
+    Rote,
+)
 from wod.templatetags.dots import dots
 
 
@@ -55,6 +65,17 @@ class TestCharacter(TestCase):
         self.assertEqual(
             self.character.get_absolute_url(), f"/wod/characters/{self.character.id}/"
         )
+
+    def test_mark_character_approval(self):
+        self.assertEqual(self.character.status, "Un")
+        self.character.mark_complete()
+        self.assertEqual(self.character.status, "Sub")
+        self.character.mark_approved()
+        self.assertEqual(self.character.status, "App")
+        self.character.mark_retired()
+        self.assertEqual(self.character.status, "Ret")
+        self.character.mark_deceased()
+        self.assertEqual(self.character.status, "Dec")
 
 
 class TestHumanCharacter(TestCase):
@@ -165,7 +186,7 @@ class TestHumanCharacter(TestCase):
         self.character.demeanor = "TRI"
         self.assertTrue(self.character.has_archetypes())
 
-    def test_physical(self):
+    def test_physical_attribute_sum(self):
         self.character.strength = 1
         self.character.dexterity = 2
         self.character.stamina = 3
@@ -173,7 +194,7 @@ class TestHumanCharacter(TestCase):
         self.character.stamina = 2
         self.assertEqual(self.character.physical_attribute_sum(), 5)
 
-    def test_mental(self):
+    def test_mental_attribute_sum(self):
         self.character.perception = 1
         self.character.intelligence = 2
         self.character.wits = 3
@@ -181,24 +202,13 @@ class TestHumanCharacter(TestCase):
         self.character.wits = 2
         self.assertEqual(self.character.mental_attribute_sum(), 5)
 
-    def test_social(self):
+    def test_social_attribute_sum(self):
         self.character.charisma = 1
         self.character.manipulation = 2
         self.character.appearance = 3
         self.assertEqual(self.character.social_attribute_sum(), 6)
         self.character.appearance = 2
         self.assertEqual(self.character.social_attribute_sum(), 5)
-
-    def test_mark_character_approval(self):
-        self.assertEqual(self.character.status, "Un")
-        self.character.mark_complete()
-        self.assertEqual(self.character.status, "Sub")
-        self.character.mark_approved()
-        self.assertEqual(self.character.status, "App")
-        self.character.mark_retired()
-        self.assertEqual(self.character.status, "Ret")
-        self.character.mark_deceased()
-        self.assertEqual(self.character.status, "Dec")
 
     def test_add_damage(self):
         self.assertEqual(self.character.get_wound_penalty(), 0)
@@ -251,6 +261,15 @@ class TestHumanCharacter(TestCase):
         self.assertEqual(self.character.notes, "")
         self.character.notes = "This is a note."
         self.assertNotEqual(self.character.notes, "")
+
+    def test_get_mental_attributes(self):
+        self.fail()
+
+    def test_get_physical_attributes(self):
+        self.fail()
+
+    def test_get_social_attributes(self):
+        self.fail()
 
 
 def mage_setup(player):
@@ -725,6 +744,54 @@ class TestMage(TestCase):
             mage.random_freebies()
         self.assertNotEqual(mage.merits_and_flaws.filter(cost__lt=0).count(), 0)
         self.assertEqual(mage.merits_and_flaws.filter(cost__lt=0).count(), 2)
+
+    def test_get_talents(self):
+        self.fail()
+
+    def test_get_skills(self):
+        self.fail()
+
+    def test_get_knowledges(self):
+        self.fail()
+
+    def test_abilities(self):
+        self.fail()
+
+    def test_backgrounds(self):
+        self.fail()
+
+    def test_get_spheres(self):
+        self.fail()
+
+    def test_add_resonance_dot(self):
+        self.fail()
+
+    def test_total_resonance(self):
+        self.fail()
+
+    def test_learn_rote(self):
+        self.fail()
+
+    def test_check_starting_abilities(self):
+        self.fail()
+
+    def test_total_flaws(self):
+        self.fail()
+
+    def test_freebie_cost(self):
+        self.fail()
+
+    def test_random_freebies(self):
+        self.fail()
+
+    def test_xp_cost(self):
+        self.fail()
+
+    def test_random(self):
+        self.fail()
+
+    def test_spend_xp(self):
+        self.fail()
 
 
 class TestMageView(TestCase):
