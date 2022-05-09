@@ -49,6 +49,15 @@ class TestAberrant(TestCase):
 
     def test_rating_prob_fix(self):
         self.fail()
+        
+    def test_power_suite(self):
+        self.fail()
+
+    def test_reduced_cost_tag_can_be_bought_multiple_times(self):
+        self.fail()
+
+    def test_mega_edge_negative_one_is_dots(self):
+        self.fail()
 
 
 class TestRandomAberrant(TestCase):
@@ -97,3 +106,8 @@ class TestRandomAberrant(TestCase):
     def test_add_random_power(self):
         self.fail()
 
+    def test_random_edges_and_tags_favor_lower_values(self):
+        self.fail()
+
+    def test_random_power_prefers_higher_rank_to_more_powers(self):
+        self.fail()

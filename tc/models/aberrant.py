@@ -21,7 +21,7 @@ class MegaEdge(Edge):
     prereq_megaatt = models.ManyToManyField("MegaAttributePrereq", blank=True)
     prereq_quantum = models.IntegerField(
         default=0
-    )  # TODO: Ensure that MegaEdges with Dots works: if -1 then DOTS
+    )
 
     class Meta:
         ordering = ("name",)
@@ -43,13 +43,6 @@ class Tag(models.Model):
         return self.name
 
 
-# TODO Power Suites which consist of powers and sets of tags?
-# TODO Increase chance of multiple dots in a single quantum power (increase
-#               odds of favoring things that already exist)
-# TODO: Reduced Cost tag can be bought multiple times up to Cost for Power
-# TODO: Sort lists alphabetically for display
-# TODO: Make low ratings more probable than high ratings for edges and tags,
-#           maybe for each rating r duplicate it GCD(ratings)/r times?
 class Power(models.Model):
     name = models.CharField(max_length=100)
     quantum_minimum = models.IntegerField(default=0)
