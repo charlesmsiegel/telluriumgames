@@ -9,8 +9,14 @@ from core.utils import weighted_choice
 from django.db import models
 from django.db.models import Q
 from polymorphic.models import PolymorphicModel
-from wod.models.characters.mage import (Instrument, Mage, MageFaction,
-                                        Paradigm, Practice, Rote)
+from wod.models.characters.mage import (
+    Instrument,
+    Mage,
+    MageFaction,
+    Paradigm,
+    Practice,
+    Rote,
+)
 
 
 # Create your models here.
@@ -111,27 +117,30 @@ class Grimoire(Wonder):
             return Material.objects.order_by("?").first()
         return material
 
-    def random_focus(self, paradigms, practices, instruments):
-        if self.faction is not None:
-            factions = [self.faction]
-            while factions[-1].parent is not None:
-                factions.append(factions[-1].parent)
-        else:
-            factions = []
-
+    def random_paradigms(self, paradigms, factions=None):
         if paradigms is None:
             paradigms = []
+            if factions is None:
+                factions = []
             all_paradigms = {k: 1 for k in Paradigm.objects.all()}
             for faction in factions:
                 for paradigm in faction.paradigms.all():
                     all_paradigms[paradigm] += 4
-            while (random.random() < 0.1 and len(all_paradigms.keys()) > 0) or len(paradigms) == 0:
+            while (random.random() < 0.1 and len(all_paradigms.keys()) > 0) or len(
+                paradigms
+            ) == 0:
                 choice = weighted_choice(all_paradigms)
                 del all_paradigms[choice]
                 paradigms.append(choice)
-            
+        return paradigms
+
+    def random_practices(self, practices, factions=None, paradigms=None):
         if practices is None:
             practices = []
+            if factions is None:
+                factions = []
+            if paradigms is None:
+                paradigms = []
             all_practices = {k: 1 for k in Practice.objects.all()}
             for paradigm in paradigms:
                 for practice in paradigm.practices.all():
@@ -139,21 +148,43 @@ class Grimoire(Wonder):
             for faction in factions:
                 for practice in faction.practices.all():
                     all_practices[practice] += 4
-            while (random.random() < 0.25 and len(all_practices.keys()) > 0) or len(practices) == 0:
+            while (random.random() < 0.25 and len(all_practices.keys()) > 0) or len(
+                practices
+            ) == 0:
                 choice = weighted_choice(all_practices)
                 del all_practices[choice]
                 practices.append(choice)
+        return practices
 
+    def random_instruments(self, instruments, practices=None):
         if instruments is None:
+            if practices is None:
+                practices = []
             instruments = []
             all_instruments = {k: 1 for k in Instrument.objects.all()}
             for practice in practices:
                 for instrument in practice.instruments.all():
                     all_instruments[instrument] += 4
-            while (random.random() < 0.3 and len(all_practices.keys()) > 0) or len(instruments) == 0:
+            while (random.random() < 0.3 and len(all_instruments.keys()) > 0) or len(
+                instruments
+            ) == 0:
                 choice = weighted_choice(all_instruments)
                 del all_instruments[choice]
                 instruments.append(choice)
+        return instruments
+
+    def random_focus(self, paradigms, practices, instruments):
+        if self.faction is not None:
+            factions = [self.faction]
+            while factions[-1].parent is not None:
+                factions.append(factions[-1].parent)
+        else:
+            factions = []
+        paradigms = self.random_paradigms(paradigms, factions=factions)
+        practices = self.random_practices(
+            practices, factions=factions, paradigms=paradigms
+        )
+        instruments = self.random_instruments(instruments, practices=practices)
         return paradigms, practices, instruments
 
     def random_length(self, length):
