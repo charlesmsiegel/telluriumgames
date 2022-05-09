@@ -4,9 +4,16 @@ import random
 from accounts.models import TCProfile
 from django.db import models
 from django.shortcuts import reverse
-from tc.models.talent import (Attribute, Edge, EnhancedEdge, Path,
-                              PathConnection, PathConnectionRating, Skill,
-                              Trick)
+from tc.models.talent import (
+    Attribute,
+    Edge,
+    EnhancedEdge,
+    Path,
+    PathConnection,
+    PathConnectionRating,
+    Skill,
+    Trick,
+)
 
 
 # Create your models here.
@@ -44,7 +51,7 @@ class Tag(models.Model):
 
 
 # TODO Power Suites which consist of powers and sets of tags?
-# TODO Increase chance of multiple dots in a single quantum power (increase 
+# TODO Increase chance of multiple dots in a single quantum power (increase
 #               odds of favoring things that already exist)
 # TODO: Reduced Cost tag can be bought multiple times up to Cost for Power
 # TODO: Sort lists alphabetically for display
@@ -716,8 +723,7 @@ class Aberrant(models.Model):
             skill.rating += 1
             skill.save()
             return True
-        else:
-            return False
+        return False
 
     def add_random_skill_trick(self, sublist=None):
         if sublist is None:
