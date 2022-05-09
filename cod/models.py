@@ -120,7 +120,6 @@ class Mortal(PolymorphicModel):
         vices = ["Ambitious", "Arrogant", "Competitive", "Greedy"]
         return random.choice(vices)
 
-    
     def random_virtue(self):
         virtues = ["Competitive", "Generous", "Just", "Loyal"]
         return random.choice(virtues)
@@ -517,10 +516,19 @@ class Merit(models.Model):
             tmp = character.get_skills()
             possible_details = [key for key, value in tmp.items() if value >= 2]
         elif self.name == "Professional Training":
-            possible_details = [(x, x.split("(")[-1][:-1].split(", ")) for x in self.list_of_details]
-            possible_details = [(x[0], [y.lower().replace(" ", "_") for y in x[1]]) for x in possible_details]
+            possible_details = [
+                (x, x.split("(")[-1][:-1].split(", ")) for x in self.list_of_details
+            ]
+            possible_details = [
+                (x[0], [y.lower().replace(" ", "_") for y in x[1]])
+                for x in possible_details
+            ]
             all_skills = character.get_skills()
-            possible_details = [x[0] for x in possible_details if all_skills[x[1][0]] > 0 and all_skills[x[1][1]] > 0]
+            possible_details = [
+                x[0]
+                for x in possible_details
+                if all_skills[x[1][0]] > 0 and all_skills[x[1][1]] > 0
+            ]
         else:
             possible_details = self.list_of_details
         possible_details = [

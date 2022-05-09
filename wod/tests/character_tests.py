@@ -5,19 +5,9 @@ from core.models import Language
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.utils.timezone import now
-from wod.models.characters import (
-    Cabal,
-    Character,
-    HumanCharacter,
-    Instrument,
-    Mage,
-    MageFaction,
-    MeritFlaw,
-    Paradigm,
-    Practice,
-    Resonance,
-    Rote,
-)
+from wod.models.characters import (Cabal, Character, HumanCharacter,
+                                   Instrument, Mage, MageFaction, MeritFlaw,
+                                   Paradigm, Practice, Resonance, Rote)
 from wod.templatetags.dots import dots
 
 
@@ -682,9 +672,9 @@ class TestMage(TestCase):
     def test_random_arete_and_spheres(self):
         self.character.random_arete()
         self.character.random_affinity()
-        affinity = self.character.spheres[
-            self.character.sphere_key.index(self.character.affinity_sphere)
-        ].lower()
+        # affinity = self.character.spheres[
+        #     self.character.sphere_key.index(self.character.affinity_sphere)
+        # ].lower()
         self.character.random_spheres(6)
         self.assertEqual(self.character.total_spheres(), 6)
 

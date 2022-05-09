@@ -243,4 +243,3 @@ class ObjectIndexView(View):
         return render(
             request, "wod/objects/index.html", {"objects": Wonder.objects.all()}
         )
-

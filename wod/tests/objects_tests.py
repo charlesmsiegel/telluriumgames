@@ -3,14 +3,8 @@ from unittest.mock import Mock
 
 from core.models import Language, Material, Medium
 from django.test import TestCase
-from wod.models.characters import (
-    Instrument,
-    Mage,
-    MageFaction,
-    Paradigm,
-    Practice,
-    Rote,
-)
+from wod.models.characters import (Instrument, Mage, MageFaction, Paradigm,
+                                   Practice, Rote)
 from wod.models.objects.mage import Grimoire, Library, Wonder
 
 

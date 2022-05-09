@@ -1,5 +1,6 @@
+from core.models import Language, Material, Medium
 from django.contrib import admin
-from core.models import Medium, Material, Language
+
 
 # Register your models here.
 @admin.register(Language)

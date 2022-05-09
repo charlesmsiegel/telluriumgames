@@ -1,6 +1,7 @@
 from cod.models import Merit, Mortal, Specialty
 from django.contrib import admin
 
+
 # Register your models here.
 @admin.register(Mortal)
 class MortalProfileAdmin(admin.ModelAdmin):

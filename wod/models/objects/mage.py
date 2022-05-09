@@ -1,23 +1,16 @@
 import datetime
 import math
 import random
+from collections import defaultdict
 from typing import List
 
-from collections import defaultdict
-
 from core.models import Language, Material, Medium
+from core.utils import weighted_choice
 from django.db import models
 from django.db.models import Q
 from polymorphic.models import PolymorphicModel
-from core.utils import weighted_choice
-from wod.models.characters.mage import (
-    Instrument,
-    Mage,
-    MageFaction,
-    Paradigm,
-    Practice,
-    Rote,
-)
+from wod.models.characters.mage import (Instrument, Mage, MageFaction,
+                                        Paradigm, Practice, Rote)
 
 
 # Create your models here.
@@ -108,16 +101,14 @@ class Grimoire(Wonder):
         if medium is None:
             if self.faction.media.count() != 0:
                 return self.faction.media.order_by("?").first()
-            else:
-                return Medium.objects.order_by("?").first()
+            return Medium.objects.order_by("?").first()
         return medium
 
     def random_material(self, material):
         if material is None:
             if self.faction.materials.count() > 0:
                 return self.faction.materials.order_by("?").first()
-            else:
-                return Material.objects.order_by("?").first()
+            return Material.objects.order_by("?").first()
         return material
 
     def random_focus(self, paradigms, practices, instruments):
