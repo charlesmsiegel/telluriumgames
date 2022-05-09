@@ -20,6 +20,80 @@ from wod.models.characters.mage import (
 
 
 # Create your models here.
+ALL_ABILITIES = [
+    "alertness",
+    "awareness",
+    "art",
+    "athletics",
+    "brawl",
+    "empathy",
+    "intimidation",
+    "leadership",
+    "expression",
+    "streetwise",
+    "subterfuge",
+    "animal_kinship",
+    "blatancy",
+    "carousing",
+    "do",
+    "flying",
+    "high_ritual",
+    "lucid_dreaming",
+    "search",
+    "seduction",
+    "crafts",
+    "drive",
+    "etiquette",
+    "firearms",
+    "martial_arts",
+    "meditation",
+    "melee",
+    "research",
+    "stealth",
+    "survival",
+    "technology",
+    "acrobatics",
+    "archery",
+    "biotech",
+    "energy_weapons",
+    "hypertech",
+    "jetpack",
+    "riding",
+    "torture",
+    "academics",
+    "computer",
+    "cosmology",
+    "enigmas",
+    "esoterica",
+    "investigation",
+    "law",
+    "medicine",
+    "occult",
+    "politics",
+    "science",
+    "area_knowledge",
+    "belief_systems",
+    "cryptography",
+    "demolitions",
+    "finance",
+    "lore",
+    "media",
+    "pharmacopeia",
+]
+
+ALL_SPHERES = [
+    "correspondence",
+    "time",
+    "spirit",
+    "mind",
+    "entropy",
+    "prime",
+    "forces",
+    "matter",
+    "life",
+]
+
+
 class Wonder(PolymorphicModel):
     """Class for the Wonder model."""
 
@@ -209,68 +283,9 @@ class Grimoire(Wonder):
         return language
 
     def random_abilities(self, abilities):
-        all_abilities = [
-            "alertness",
-            "awareness",
-            "art",
-            "athletics",
-            "brawl",
-            "empathy",
-            "intimidation",
-            "leadership",
-            "expression",
-            "streetwise",
-            "subterfuge",
-            "animal_kinship",
-            "blatancy",
-            "carousing",
-            "do",
-            "flying",
-            "high_ritual",
-            "lucid_dreaming",
-            "search",
-            "seduction",
-            "crafts",
-            "drive",
-            "etiquette",
-            "firearms",
-            "martial_arts",
-            "meditation",
-            "melee",
-            "research",
-            "stealth",
-            "survival",
-            "technology",
-            "acrobatics",
-            "archery",
-            "biotech",
-            "energy_weapons",
-            "hypertech",
-            "jetpack",
-            "riding",
-            "torture",
-            "academics",
-            "computer",
-            "cosmology",
-            "enigmas",
-            "esoterica",
-            "investigation",
-            "law",
-            "medicine",
-            "occult",
-            "politics",
-            "science",
-            "area_knowledge",
-            "belief_systems",
-            "cryptography",
-            "demolitions",
-            "finance",
-            "lore",
-            "media",
-            "pharmacopeia",
-        ]
         if abilities is None:
             abilities = []
+            all_abilities = [x for x in ALL_ABILITIES]
             if self.practices.count() > 0:
                 for practice in self.practices.all():
                     all_abilities.extend(practice.abilities)
@@ -335,18 +350,7 @@ class Grimoire(Wonder):
                 q_objects |= Q(**{key: value})
             rotes = all_rotes.filter(q_objects)
 
-            spheres = [
-                "correspondence",
-                "time",
-                "spirit",
-                "mind",
-                "entropy",
-                "prime",
-                "forces",
-                "matter",
-                "life",
-            ]
-            kwargs = {f"{sphere}__lte": self.rank for sphere in spheres}
+            kwargs = {f"{sphere}__lte": self.rank for sphere in ALL_SPHERES}
             for key, value in kwargs.items():
                 rotes = rotes.filter(Q(**{key: value}))
             num_rotes = 1
@@ -379,7 +383,6 @@ class Grimoire(Wonder):
         self.primer = self.random_primer(primer)
         self.faction = self.random_faction(faction)
         self.medium = self.random_medium(medium)
-        self.save()
         self.cover_material = self.random_material(cover_material)
         self.inner_material = self.random_material(inner_material)
         self.length = self.random_length(length)

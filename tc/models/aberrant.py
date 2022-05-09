@@ -4,16 +4,9 @@ import random
 from accounts.models import TCProfile
 from django.db import models
 from django.shortcuts import reverse
-from tc.models.talent import (
-    Attribute,
-    Edge,
-    EnhancedEdge,
-    Path,
-    PathConnection,
-    PathConnectionRating,
-    Skill,
-    Trick,
-)
+from tc.models.talent import (Attribute, Edge, EnhancedEdge, Path,
+                              PathConnection, PathConnectionRating, Skill,
+                              Trick)
 
 
 # Create your models here.

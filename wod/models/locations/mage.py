@@ -175,18 +175,25 @@ class Node(Location):
         self.resonance_postprocessing()
         self.description = self.basic_description()
 
+    def increase_resonance(self, trait_name):
+        if trait_name in [x.name for x in self.resonance.all()]:
+            resonance = Resonance.objects.get(name=trait_name)
+            rating = NodeResRating.objects.get(node=self, resonance=resonance)
+            if rating.rating < 5:
+                rating.rating += 1
+                rating.save()
+        else:
+            new_res = NodeResRating(node=self, resonance=trait_name, rating=1)
+            new_res.save()
+
     def resonance_postprocessing(self):
         if "Corrupted" in [x.name for x in self.merits_and_flaws.all()]:
             if "Corrupted" in [x.name for x in Resonance.objects.all()]:
                 res = Resonance.objects.get(name="Corrupted")
             else:
                 res = Resonance.objects.create(name="Corrupted")
-            if "Corrupted" in [x.name for x in self.resratings_set.all()]:
-                rating = NodeResRating.objects.get(node=self, resonance=res)
-                rating.rating += 2
-                rating.save()
-            else:
-                NodeResRating.objects.create(node=self, resonance=res, rating=2)
+            self.increase_resonance(trait_name="Corrupted")
+            self.increase_resonance(trait_name="Corrupted")
         if "Sphere Attuned" in [x.name for x in self.merits_and_flaws.all()]:
             spheres = [
                 "Correspondence",
@@ -206,16 +213,7 @@ class Node(Location):
             sphere_name = sphere.replace(" ", "_").lower()
             res = [x for x in Resonance.objects.all() if getattr(x, sphere_name)]
             new_res = random.choice(res)
-            if new_res not in self.resonance.all():
-                new_res = NodeResRating.objects.create(
-                    node=self, resonance=new_res, rating=1
-                )
-            else:
-                new_resonance = NodeResRating.objects.filter(
-                    node=self, resonance=new_res
-                )
-                new_resonance.rating += 1
-                new_resonance.save()
+            self.increase_resonance(trait_name=new_res.name)
 
 
 class NodeMeritFlaw(models.Model):

@@ -1,3 +1,4 @@
+from itertools import product
 from unittest import mock
 from unittest.mock import Mock
 
@@ -128,44 +129,12 @@ class TestHumanCharacter(TestCase):
             "BEN",
             "CON",
             "CRU",
-            "HAC",
-            "IDE",
-            "INN",
-            "KID",
-            "LON",
-            "MAC",
-            "MAD",
-            "MAR",
-            "MON",
-            "PRO",
-            "ROG",
-            "SEN",
-            "SUR",
-            "TRA",
-            "TRI",
-            "VIS",
         ]
         values = [
             "Activist",
             "Benefactor",
             "Contrary",
             "Crusader",
-            "Hacker",
-            "Idealist",
-            "Innovator",
-            "Kid",
-            "Loner",
-            "Machine",
-            "Mad Scientist",
-            "Martyr",
-            "Monster",
-            "Prophet",
-            "Rogue",
-            "Sensualist",
-            "Survivor",
-            "Traditionalist",
-            "Trickster",
-            "Visionary",
         ]
         for key, value in zip(keys, values):
             self.character.nature = key
@@ -302,21 +271,7 @@ def mage_setup(player):
         paradigm.save()
 
     trad = MageFaction.objects.create(name="Traditions")
-    tech = MageFaction.objects.create(name="Technocracy")
     MageFaction.objects.create(name="Akashayana", parent=trad)
-    MageFaction.objects.create(name="Cult of Ecstasy", parent=trad)
-    MageFaction.objects.create(name="Dreamspeakers", parent=trad)
-    MageFaction.objects.create(name="Celestial Chorus", parent=trad)
-    MageFaction.objects.create(name="Order of Hermes", parent=trad)
-    MageFaction.objects.create(name="Euthanatos", parent=trad)
-    MageFaction.objects.create(name="Society of Ether", parent=trad)
-    MageFaction.objects.create(name="Verbena", parent=trad)
-    MageFaction.objects.create(name="Virtual Adepts", parent=trad)
-    MageFaction.objects.create(name="Iteration X", parent=tech)
-    MageFaction.objects.create(name="Progenitors", parent=tech)
-    MageFaction.objects.create(name="New World Order", parent=tech)
-    MageFaction.objects.create(name="Syndicate", parent=tech)
-    MageFaction.objects.create(name="Void Engineers", parent=tech)
 
     for faction in MageFaction.objects.exclude(parent=None):
         faction.paradigms.set(Paradigm.objects.all())
@@ -521,66 +476,25 @@ class TestMage(TestCase):
         itx = MageFaction.objects.create(name="Iteration X", parent=technocracy)
         criamon = MageFaction.objects.create(name="House Criamon", parent=ooh)
         tmm = MageFaction.objects.create(name="Time-Motion Managers", parent=itx)
-        char1 = Mage.objects.create(
-            name="TCharacter 1",
-            player=self.player.wod_profile,
-            affiliation=technocracy,
-            faction=itx,
-            subfaction=tmm,
-        )
-        char2 = Mage.objects.create(
-            name="TCharacter 2",
-            player=self.player.wod_profile,
-            affiliation=technocracy,
-            faction=itx,
-            subfaction=criamon,
-        )
-        char8 = Mage.objects.create(
-            name="TCharacter 8",
-            player=self.player.wod_profile,
-            affiliation=technocracy,
-            faction=ooh,
-            subfaction=tmm,
-        )
-        char3 = Mage.objects.create(
-            name="TCharacter 3",
-            player=self.player.wod_profile,
-            affiliation=technocracy,
-            faction=ooh,
-            subfaction=criamon,
-        )
-        char7 = Mage.objects.create(
-            name="TCharacter 7",
-            player=self.player.wod_profile,
-            affiliation=traditions,
-            faction=itx,
-            subfaction=tmm,
-        )
-        char6 = Mage.objects.create(
-            name="TCharacter 6",
-            player=self.player.wod_profile,
-            affiliation=traditions,
-            faction=itx,
-            subfaction=criamon,
-        )
-        char5 = Mage.objects.create(
-            name="TCharacter 5",
-            player=self.player.wod_profile,
-            affiliation=traditions,
-            faction=ooh,
-            subfaction=tmm,
-        )
-        char4 = Mage.objects.create(
-            name="TCharacter 4",
-            player=self.player.wod_profile,
-            affiliation=traditions,
-            faction=ooh,
-            subfaction=criamon,
-        )
-        self.assertTrue(char1.consistency_check())
-        self.assertTrue(char4.consistency_check())
-        for char in [char2, char3, char5, char6, char7, char8]:
-            self.assertFalse(char.consistency_check())
+
+        counter = 0
+        chars = {}
+        for aff, fact, sub in product(
+            [traditions, technocracy], [ooh, itx], [criamon, tmm]
+        ):
+            chars[counter] = Mage.objects.create(
+                name=f"TCharacter {counter}",
+                player=self.player.wod_profile,
+                affiliation=aff,
+                faction=fact,
+                subfaction=sub,
+            )
+            counter += 1
+
+        for i in [0, 7]:
+            self.assertTrue(chars[i].consistency_check())
+        for i in [1, 2, 3, 4, 5, 6]:
+            self.assertFalse(chars[i].consistency_check())
 
     def test_resonance(self):
         resonance = Resonance.objects.create(name="Resonance1")
