@@ -44,10 +44,12 @@ class Tag(models.Model):
 
 
 # TODO Power Suites which consist of powers and sets of tags?
-# TODO Increase chance of multiple dots in a single quantum power (increase odds of favoring things that already exist)
+# TODO Increase chance of multiple dots in a single quantum power (increase 
+#               odds of favoring things that already exist)
 # TODO: Reduced Cost tag can be bought multiple times up to Cost for Power
 # TODO: Sort lists alphabetically for display
-# TODO: Make low ratings more probable than high ratings for edges and tags, maybe for each rating r duplicate it GCD(ratings)/r times?
+# TODO: Make low ratings more probable than high ratings for edges and tags,
+#           maybe for each rating r duplicate it GCD(ratings)/r times?
 class Power(models.Model):
     name = models.CharField(max_length=100)
     quantum_minimum = models.IntegerField(default=0)
@@ -215,7 +217,7 @@ class Aberrant(models.Model):
             while total_diff > 0:
                 # print(total_diff)
                 result = self.add_random_edge(sublist=list(path.path.edges.all()))
-                if result != False:
+                if result:
                     diff, (edge, rating) = result
                     diff = int(diff)
                     if diff <= total_diff:
@@ -321,7 +323,7 @@ class Aberrant(models.Model):
             result = self.add_random_edge(
                 sublist=Edge.objects.filter(name__in=["Fame", "Alternate Identity"])
             )
-            if result != False:
+            if result:
                 diff, (edge, rating) = result
                 diff = int(diff)
                 if diff <= total_diff:
@@ -400,7 +402,7 @@ class Aberrant(models.Model):
                     self.xp_spending = self.xp_spending + f"Attribute ({cost}), "
             elif choice == "edge":
                 result = self.add_random_edge()
-                if result != False:
+                if result:
                     diff, (edge, rating) = result
                     diff = int(diff)
                     cost *= diff
@@ -415,7 +417,7 @@ class Aberrant(models.Model):
                 ):
                     path_edges.extend(list(pathconnrating.path.edges.all()))
                 result = self.add_random_edge(sublist=path_edges)
-                if result != False:
+                if result:
                     diff, (edge, rating) = result
                     diff = int(diff)
                     cost *= diff
@@ -468,7 +470,7 @@ class Aberrant(models.Model):
                         self.add_transcendance()
             elif choice == "power tag":
                 result = self.add_random_power_tag()
-                if result != False:
+                if result:
                     diff, (power, tag, rating) = result
                     diff = int(diff)
                     cost *= diff
