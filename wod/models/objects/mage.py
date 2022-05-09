@@ -112,50 +112,48 @@ class Grimoire(Wonder):
         return material
 
     def random_focus(self, paradigms, practices, instruments):
+        if self.faction is not None:
+            factions = [self.faction]
+            while factions[-1].parent is not None:
+                factions.append(factions[-1].parent)
+        else:
+            factions = []
+
         if paradigms is None:
             paradigms = []
-            options = []
-            if self.faction is not None:
-                current = self.faction
-                while current is not None:
-                    options.extend(current.paradigms.all())
-                    current = current.parent
-            options *= 4
-            options.extend(Paradigm.objects.all())
-            paradigms.append(random.choice(options))
-            while random.random() < 0.1 and len(options) > 0:
-                options = [x for x in options if x not in paradigms]
-                if len(options) != 0:
-                    paradigms.append(random.choice(options))
+            all_paradigms = {k: 1 for k in Paradigm.objects.all()}
+            for faction in factions:
+                for paradigm in faction.paradigms.all():
+                    all_paradigms[paradigm] += 4
+            while (random.random() < 0.1 and len(all_paradigms.keys()) > 0) or len(paradigms) == 0:
+                choice = weighted_choice(all_paradigms)
+                del all_paradigms[choice]
+                paradigms.append(choice)
+            
         if practices is None:
             practices = []
-            options = []
-            for para in paradigms:
-                options.extend(para.practices.all())
-            if self.faction is not None:
-                current = self.faction
-                while current is not None:
-                    options.extend(current.practices.all())
-                    current = current.parent
-            options *= 4
-            options.extend(Practice.objects.all())
-            practices.append(random.choice(options))
-            while random.random() < 0.25 and len(options) > 0:
-                options = [x for x in options if x not in practices]
-                if len(options) != 0:
-                    practices.append(random.choice(options))
+            all_practices = {k: 1 for k in Practice.objects.all()}
+            for paradigm in paradigms:
+                for practice in paradigm.practices.all():
+                    all_practices[practice] += 4
+            for faction in factions:
+                for practice in faction.practices.all():
+                    all_practices[practice] += 4
+            while (random.random() < 0.25 and len(all_practices.keys()) > 0) or len(practices) == 0:
+                choice = weighted_choice(all_practices)
+                del all_practices[choice]
+                practices.append(choice)
+
         if instruments is None:
             instruments = []
-            options = []
+            all_instruments = {k: 1 for k in Instrument.objects.all()}
             for practice in practices:
-                options.extend(practice.instruments.all())
-            options *= 4
-            options.extend(Instrument.objects.all())
-            instruments.append(random.choice(options))
-            while random.random() < 0.3 and len(options) > 0:
-                options = [x for x in options if x not in instruments]
-                if len(options) != 0:
-                    instruments.append(random.choice(options))
+                for instrument in practice.instruments.all():
+                    all_instruments[instrument] += 4
+            while (random.random() < 0.3 and len(all_practices.keys()) > 0) or len(instruments) == 0:
+                choice = weighted_choice(all_instruments)
+                del all_instruments[choice]
+                instruments.append(choice)
         return paradigms, practices, instruments
 
     def random_length(self, length):
