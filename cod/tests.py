@@ -26,22 +26,61 @@ class TestDots(TestCase):
 
 
 class TestMerit(TestCase):
-    def test_prereq_checking(self):
+    def test_prereq_skill_specialty(self):
+        player = User.objects.create(username="Test User")
+        character = Mortal.objects.create(name="Test", player=player.cod_profile)
         occult_specialty = Merit.objects.create(
             name="Occult Specialty Requirement",
             attribute_and_skill_prereqs=[("occult", "specialty")],
             allowed_ratings=[1],
         )
+        specialty_in_occult = Specialty.objects.create(skill="occ", specialty="Spec")
+        self.assertFalse(occult_specialty.check_prereqs(character))
+        character.specialties.add(specialty_in_occult)
+        self.assertTrue(occult_specialty.check_prereqs(character))
+        
+    def test_prereq_specialty_minimum_value(self):
+        player = User.objects.create(username="Test User")
+        character = Mortal.objects.create(name="Test", player=player.cod_profile)
         any_specialty_2 = Merit.objects.create(
             name="Occult Specialty Requirement",
             attribute_and_skill_prereqs=[("specialty", 2)],
             allowed_ratings=[1],
         )
+        specialty_in_occult = Specialty.objects.create(skill="occ", specialty="Spec")
+        character.specialties.add(specialty_in_occult)
+        self.assertFalse(any_specialty_2.check_prereqs(character))
+        character.occult = 2
+        self.assertTrue(any_specialty_2.check_prereqs(character))
+
+        
+    def test_prereq_skill_minimum_value(self):
+        player = User.objects.create(username="Test User")
+        character = Mortal.objects.create(name="Test", player=player.cod_profile)
         occult_3 = Merit.objects.create(
             name="Occult Specialty Requirement",
             attribute_and_skill_prereqs=[("occult", 3)],
             allowed_ratings=[1],
         )
+        self.assertFalse(occult_3.check_prereqs(character))
+        character.occult = 3
+        self.assertTrue(occult_3.check_prereqs(character))
+        
+    def test_any_skill_minimum_value(self):
+        player = User.objects.create(username="Test User")
+        character = Mortal.objects.create(name="Test", player=player.cod_profile)
+        occult_3 = Merit.objects.create(
+            name="Occult Specialty Requirement",
+            attribute_and_skill_prereqs=[("skill", 3)],
+            allowed_ratings=[1],
+        )
+        self.assertFalse(occult_3.check_prereqs(character))
+        character.occult = 3
+        self.assertTrue(occult_3.check_prereqs(character))
+        
+    def test_merit_prereq(self):
+        player = User.objects.create(username="Test User")
+        character = Mortal.objects.create(name="Test", player=player.cod_profile)
         prereq_merit = Merit.objects.create(
             name="Prereq for other", allowed_ratings=[1]
         )
@@ -50,24 +89,10 @@ class TestMerit(TestCase):
             merit_prereqs=[("Prereq for other", 1)],
             allowed_ratings=[1],
         )
-        player = User.objects.create(username="Test User")
-        character = Mortal.objects.create(name="Test", player=player.cod_profile)
-        specialty_in_occult = Specialty.objects.create(skill="occ", specialty="Spec")
-        self.assertFalse(occult_specialty.check_prereqs(character))
-        character.specialties.add(specialty_in_occult)
-        self.assertTrue(occult_specialty.check_prereqs(character))
-
-        self.assertFalse(any_specialty_2.check_prereqs(character))
-        character.occult = 2
-        self.assertTrue(any_specialty_2.check_prereqs(character))
-
-        self.assertFalse(occult_3.check_prereqs(character))
-        character.occult = 3
-        self.assertTrue(occult_3.check_prereqs(character))
-
         self.assertFalse(prereq_merit_tester.check_prereqs(character))
         MeritRating.objects.create(character=character, merit=prereq_merit, rating=1)
         self.assertTrue(prereq_merit_tester.check_prereqs(character))
+
 
     def test_get_max_rating(self):
         occult_specialty = Merit.objects.create(
