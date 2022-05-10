@@ -436,7 +436,7 @@ class Merit(models.Model):
         return f"{self.name}"
 
     def check_prereqs(self, character):
-        if self.attribute_and_skill_prereqs is not []:
+        if self.attribute_and_skill_prereqs != []:
             for prereq in self.attribute_and_skill_prereqs:
                 if prereq[1] == "specialty":
                     specs = character.specialties.all()
@@ -468,7 +468,7 @@ class Merit(models.Model):
                             return False
                     elif getattr(character, prereq[0]) < prereq[1]:
                         return False
-        if self.merit_prereqs is not []:
+        if self.merit_prereqs != []:
             for prereq in self.merit_prereqs:
                 if (
                     MeritRating.objects.filter(
