@@ -3,11 +3,25 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 from django.views.generic.list import ListView
 from tc.forms import AberrantForm
-from tc.models import (Aberrant, AttributeRating, Edge, EdgeRating,
-                       EnhancedEdge, MegaAttributeRating, MegaEdge,
-                       MegaEdgeRating, Path, PathConnectionRating, Power,
-                       PowerRating, SkillRating, Tag, TagRating,
-                       Transformation, Trick)
+from tc.models import (
+    Aberrant,
+    AttributeRating,
+    Edge,
+    EdgeRating,
+    EnhancedEdge,
+    MegaAttributeRating,
+    MegaEdge,
+    MegaEdgeRating,
+    Path,
+    PathConnectionRating,
+    Power,
+    PowerRating,
+    SkillRating,
+    Tag,
+    TagRating,
+    Transformation,
+    Trick,
+)
 
 
 # Create your views here.

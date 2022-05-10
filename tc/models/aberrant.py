@@ -4,9 +4,16 @@ import random
 from accounts.models import TCProfile
 from django.db import models
 from django.shortcuts import reverse
-from tc.models.talent import (Attribute, Edge, EnhancedEdge, Path,
-                              PathConnection, PathConnectionRating, Skill,
-                              Trick)
+from tc.models.talent import (
+    Attribute,
+    Edge,
+    EnhancedEdge,
+    Path,
+    PathConnection,
+    PathConnectionRating,
+    Skill,
+    Trick,
+)
 
 
 # Create your models here.
@@ -19,9 +26,7 @@ class MegaAttribute(models.Model):
 
 class MegaEdge(Edge):
     prereq_megaatt = models.ManyToManyField("MegaAttributePrereq", blank=True)
-    prereq_quantum = models.IntegerField(
-        default=0
-    )
+    prereq_quantum = models.IntegerField(default=0)
 
     class Meta:
         ordering = ("name",)

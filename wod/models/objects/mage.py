@@ -18,7 +18,6 @@ from wod.models.characters.mage import (
     Rote,
 )
 
-
 # Create your models here.
 ALL_ABILITIES = [
     "alertness",

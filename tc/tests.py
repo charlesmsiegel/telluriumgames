@@ -1,5 +1,6 @@
 from django.test import TestCase
 
+
 # Create your tests here.
 class TestAberrant(TestCase):
     def test_has_attributes(self):
@@ -49,7 +50,7 @@ class TestAberrant(TestCase):
 
     def test_rating_prob_fix(self):
         self.fail()
-        
+
     def test_power_suite(self):
         self.fail()
 

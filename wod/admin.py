@@ -1,7 +1,16 @@
 from django.contrib import admin
-from wod.models.characters import (Cabal, Character, HumanCharacter,
-                                   Instrument, Mage, MageFaction, Paradigm,
-                                   Practice, Resonance, ResRating)
+from wod.models.characters import (
+    Cabal,
+    Character,
+    HumanCharacter,
+    Instrument,
+    Mage,
+    MageFaction,
+    Paradigm,
+    Practice,
+    Resonance,
+    ResRating,
+)
 from wod.models.locations import City, Location, Node
 from wod.models.objects.mage import Grimoire, Library, Wonder
 

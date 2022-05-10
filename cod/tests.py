@@ -1,8 +1,8 @@
 from collections import Counter
-from django.contrib.auth.models import User
 
+from cod.models import Merit, MeritRating, Mortal, Specialty
 from cod.templatetags.dots import dots
-from cod.models import MeritRating, Mortal, Merit, Specialty
+from django.contrib.auth.models import User
 from django.test import TestCase
 
 
