@@ -439,47 +439,64 @@ class Merit(models.Model):
         if self.attribute_and_skill_prereqs != []:
             for prereq in self.attribute_and_skill_prereqs:
                 if prereq[1] == "specialty":
-                    specs = character.specialties.all()
-                    if prereq[0][:3] not in [x.skill for x in specs]:
+                    if self.specialty_prereq_check(character, prereq):
                         return False
                 elif prereq[0] == "specialty":
-                    tmp = character.get_skills()
-                    high_enough_skills = [
-                        key for key, value in tmp.items() if value >= prereq[1]
-                    ]
-                    if len(high_enough_skills) == 0:
-                        return False
-                    specs = character.specialties.all()
-                    if (
-                        len(
-                            [
-                                x.skill
-                                for x in specs
-                                if x.skill in [y[:3] for y in high_enough_skills]
-                            ]
-                        )
-                        == 0
-                    ):
+                    if self.specialty_min_skill_prereq_check(character, prereq):
                         return False
                 else:
                     if prereq[0] == "skill":
-                        tmp = character.get_skills()
-                        if sum([x >= prereq[1] for x in tmp.values()]) == 0:
+                        if self.minimum_any_skill_prereq_check(character, prereq):
                             return False
-                    elif getattr(character, prereq[0]) < prereq[1]:
+                    elif self.minimum_skill_prereq_check(character, prereq):
                         return False
         if self.merit_prereqs != []:
             for prereq in self.merit_prereqs:
-                if (
-                    MeritRating.objects.filter(
-                        character=character,
-                        merit__name=prereq[0],
-                        rating__gte=prereq[1],
-                    ).count()
-                    == 0
-                ):
+                if self.merit_prereq_check(character, prereq):
                     return False
         return True
+
+    def specialty_prereq_check(self, character, prereq):
+        """Returns True on a failed prereq"""
+        specs = character.specialties.all()
+        return prereq[0][:3] not in [x.skill for x in specs]
+
+    def specialty_min_skill_prereq_check(self, character, prereq):
+        """Returns True on a failed prereq"""
+        tmp = character.get_skills()
+        high_enough_skills = [key for key, value in tmp.items() if value >= prereq[1]]
+        if len(high_enough_skills) == 0:
+            return True
+        specs = character.specialties.all()
+        return (
+            len(
+                [
+                    x.skill
+                    for x in specs
+                    if x.skill in [y[:3] for y in high_enough_skills]
+                ]
+            )
+            == 0
+        )
+
+    def minimum_skill_prereq_check(self, character, prereq):
+        """Returns True on a failed prereq"""
+        return getattr(character, prereq[0]) < prereq[1]
+
+    def minimum_any_skill_prereq_check(self, character, prereq):
+        """Returns True on a failed prereq"""
+        tmp = character.get_skills()
+        skills_that_pass = [x >= prereq[1] for x in tmp.values()]
+        return not any(skills_that_pass)
+
+    def merit_prereq_check(self, character, prereq):
+        """Returns True on a failed prereq"""
+        return (
+            MeritRating.objects.filter(
+                character=character, merit__name=prereq[0], rating__gte=prereq[1],
+            ).count()
+            == 0
+        )
 
     def get_max_rating(self):
         return max(self.allowed_ratings)
