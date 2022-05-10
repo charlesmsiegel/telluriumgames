@@ -111,8 +111,8 @@ class TestNode(TestCase):
         node = Node.objects.create(name="TestNode")
         merit1 = NodeMeritFlaw.objects.create(name="Corrupted", value=0)
         merit2 = NodeMeritFlaw.objects.create(name="Sphere Attuned", value=0)
-        corrupted = Resonance.objects.create(name="Corrupted")
-        sphere = Resonance.objects.create(
+        Resonance.objects.create(name="Corrupted")
+        Resonance.objects.create(
             name="Sphered",
             correspondence=True,
             entropy=True,
