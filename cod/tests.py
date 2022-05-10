@@ -120,61 +120,302 @@ class TestMerit(TestCase):
 
 class TestMortalMechanics(TestCase):
     def setUp(self):
-        pass
+        self.player = User.objects.create(username="Test User")
+        self.character = Mortal.objects.create(name="", player=self.player.cod_profile)
+        self.merit1 = Merit.objects.create(name="Merit 1", allowed_ratings=[1])
+        self.merit2 = Merit.objects.create(name="Merit 2", allowed_ratings=[2])
+        self.merit3 = Merit.objects.create(name="Merit 3", allowed_ratings=[3])
 
     def test_has_name(self):
-        self.fail()
+        self.assertFalse(self.character.has_name())
+        self.character.name = "Test Character"
+        self.character.save()
+        self.assertTrue(self.character.has_name())
 
     def test_has_concept(self):
-        self.fail()
+        self.assertFalse(self.character.has_concept())
+        self.character.concept = "Character Concept"
+        self.character.save()
+        self.assertTrue(self.character.has_concept())
 
     def test_get_mental_attributes(self):
-        self.fail()
+        self.character.intelligence = 1
+        self.character.resolve = 2
+        self.character.wits = 3
+        self.character.save()
+        self.assertEqual(
+            {"intelligence": 1, "resolve": 2, "wits": 3},
+            self.character.get_mental_attributes(),
+        )
 
     def test_get_physical_attributes(self):
-        self.fail()
+        self.character.strength = 3
+        self.character.dexterity = 2
+        self.character.stamina = 1
+        self.character.save()
+        self.assertEqual(
+            {"stamina": 1, "dexterity": 2, "strength": 3},
+            self.character.get_physical_attributes(),
+        )
 
     def test_get_social_attributes(self):
-        self.fail()
+        self.character.composure = 3
+        self.character.presence = 2
+        self.character.manipulation = 1
+        self.character.save()
+        self.assertEqual(
+            {"manipulation": 1, "presence": 2, "composure": 3},
+            self.character.get_social_attributes(),
+        )
 
     def test_physical_attribute_sum(self):
-        self.fail()
+        self.character.strength = 3
+        self.character.dexterity = 2
+        self.character.stamina = 1
+        self.character.save()
+        self.assertEqual(self.character.physical_attribute_sum(), 6)
+        self.character.stamina = 2
+        self.assertEqual(self.character.physical_attribute_sum(), 7)
+        self.character.strength = 1
+        self.assertEqual(self.character.physical_attribute_sum(), 5)
 
     def test_mental_attribute_sum(self):
-        self.fail()
+        self.character.intelligence = 1
+        self.character.resolve = 2
+        self.character.wits = 3
+        self.character.save()
+        self.assertEqual(self.character.mental_attribute_sum(), 6)
+        self.character.intelligence = 2
+        self.assertEqual(self.character.mental_attribute_sum(), 7)
+        self.character.wits = 1
+        self.assertEqual(self.character.mental_attribute_sum(), 5)
 
     def test_social_attribute_sum(self):
-        self.fail()
+        self.character.composure = 3
+        self.character.presence = 2
+        self.character.manipulation = 1
+        self.character.save()
+        self.assertEqual(self.character.social_attribute_sum(), 6)
+        self.character.manipulation = 2
+        self.assertEqual(self.character.social_attribute_sum(), 7)
+        self.character.composure = 1
+        self.assertEqual(self.character.social_attribute_sum(), 5)
 
     def test_get_mental_skills(self):
-        self.fail()
+        self.character.academics = 0
+        self.character.computer = 1
+        self.character.crafts = 2
+        self.character.investigation = 3
+        self.character.medicine = 4
+        self.character.occult = 5
+        self.character.politics = 0
+        self.character.science = 3
+        self.character.save()
+        self.assertEqual(
+            {
+                "academics": 0,
+                "computer": 1,
+                "crafts": 2,
+                "investigation": 3,
+                "medicine": 4,
+                "occult": 5,
+                "politics": 0,
+                "science": 3,
+            },
+            self.character.get_mental_skills(),
+        )
 
     def test_get_physical_skills(self):
-        self.fail()
+        self.character.athletics = 0
+        self.character.brawl = 1
+        self.character.drive = 2
+        self.character.firearms = 3
+        self.character.larceny = 4
+        self.character.stealth = 5
+        self.character.survival = 0
+        self.character.weaponry = 3
+        self.character.save()
+        self.assertEqual(
+            {
+                "athletics": 0,
+                "brawl": 1,
+                "drive": 2,
+                "firearms": 3,
+                "larceny": 4,
+                "stealth": 5,
+                "survival": 0,
+                "weaponry": 3,
+            },
+            self.character.get_physical_skills(),
+        )
 
     def test_get_social_skills(self):
-        self.fail()
+        self.character.animal_ken = 0
+        self.character.empathy = 1
+        self.character.expression = 2
+        self.character.intimidation = 3
+        self.character.persuasion = 4
+        self.character.socialize = 5
+        self.character.streetwise = 0
+        self.character.subterfuge = 3
+        self.character.save()
+        self.assertEqual(
+            {
+                "animal_ken": 0,
+                "empathy": 1,
+                "expression": 2,
+                "intimidation": 3,
+                "persuasion": 4,
+                "socialize": 5,
+                "streetwise": 0,
+                "subterfuge": 3,
+            },
+            self.character.get_social_skills(),
+        )
 
     def test_get_skills(self):
-        self.fail()
+        self.character.academics = 0
+        self.character.computer = 1
+        self.character.crafts = 2
+        self.character.investigation = 3
+        self.character.medicine = 4
+        self.character.occult = 5
+        self.character.politics = 0
+        self.character.science = 3
+        self.character.athletics = 0
+        self.character.brawl = 1
+        self.character.drive = 2
+        self.character.firearms = 3
+        self.character.larceny = 4
+        self.character.stealth = 5
+        self.character.survival = 0
+        self.character.weaponry = 3
+        self.character.animal_ken = 0
+        self.character.empathy = 1
+        self.character.expression = 2
+        self.character.intimidation = 3
+        self.character.persuasion = 4
+        self.character.socialize = 5
+        self.character.streetwise = 0
+        self.character.subterfuge = 3
+        self.assertEqual(
+            {
+                "academics": 0,
+                "computer": 1,
+                "crafts": 2,
+                "investigation": 3,
+                "medicine": 4,
+                "occult": 5,
+                "politics": 0,
+                "science": 3,
+                "athletics": 0,
+                "brawl": 1,
+                "drive": 2,
+                "firearms": 3,
+                "larceny": 4,
+                "stealth": 5,
+                "survival": 0,
+                "weaponry": 3,
+                "animal_ken": 0,
+                "empathy": 1,
+                "expression": 2,
+                "intimidation": 3,
+                "persuasion": 4,
+                "socialize": 5,
+                "streetwise": 0,
+                "subterfuge": 3,
+            },
+            self.character.get_skills(),
+        )
 
     def test_mental_skill_sum(self):
-        self.fail()
+        self.character.academics = 0
+        self.character.computer = 1
+        self.character.crafts = 2
+        self.character.investigation = 3
+        self.character.medicine = 4
+        self.character.occult = 5
+        self.character.politics = 0
+        self.character.science = 3
+        self.assertEqual(self.character.mental_skill_sum(), 18)
+        self.character.politics = 3
+        self.assertEqual(self.character.mental_skill_sum(), 21)
 
     def test_physical_skill_sum(self):
-        self.fail()
+        self.character.athletics = 0
+        self.character.brawl = 1
+        self.character.drive = 2
+        self.character.firearms = 3
+        self.character.larceny = 4
+        self.character.stealth = 5
+        self.character.survival = 0
+        self.character.weaponry = 3
+        self.assertEqual(self.character.physical_skill_sum(), 18)
+        self.character.survival = 3
+        self.assertEqual(self.character.physical_skill_sum(), 21)
 
     def test_social_skill_sum(self):
-        self.fail()
+        self.character.animal_ken = 0
+        self.character.empathy = 1
+        self.character.expression = 2
+        self.character.intimidation = 3
+        self.character.persuasion = 4
+        self.character.socialize = 5
+        self.character.streetwise = 0
+        self.character.subterfuge = 3
+        self.assertEqual(self.character.social_skill_sum(), 18)
+        self.character.streetwise = 3
+        self.assertEqual(self.character.social_skill_sum(), 21)
 
     def test_total_merits(self):
-        self.fail()
+        MeritRating.objects.create(character=self.character, merit=self.merit1, rating=1)
+        self.assertEqual(self.character.total_merits(), 1)
+        MeritRating.objects.create(character=self.character, merit=self.merit1, rating=2)
+        self.assertEqual(self.character.total_merits(), 3)
+        MeritRating.objects.create(character=self.character, merit=self.merit1, rating=3)
+        self.assertEqual(self.character.total_merits(), 6)
 
     def test_filter_merits(self):
         self.fail()
 
     def test_assign_advantages(self):
-        self.fail()
+        self.character.resolve = 2
+        self.character.composure = 1
+        self.character.assign_advantages()
+        self.assertEqual(self.character.willpower, 3)
+        self.character.composure = 3
+        self.character.assign_advantages()
+        self.assertEqual(self.character.willpower, 5)
+        self.character.size = 5
+        self.character.stamina = 1
+        self.character.assign_advantages()
+        self.assertEqual(self.character.health, 6)
+        self.character.stamina = 2
+        self.character.assign_advantages()
+        self.assertEqual(self.character.health, 7)
+        self.character.strength = 1
+        self.character.dexterity = 1
+        self.character.assign_advantages()
+        self.assertEqual(self.character.speed, 7)
+        self.character.strength = 2
+        self.character.dexterity = 2
+        self.character.assign_advantages()
+        self.assertEqual(self.character.speed, 9)
+        self.character.dexterity = 2
+        self.character.composure = 2
+        self.character.assign_advantages()
+        self.assertEqual(self.character.initiative_modifier, 4)
+        self.character.dexterity = 5
+        self.character.composure = 2
+        self.character.assign_advantages()
+        self.assertEqual(self.character.initiative_modifier, 7)
+        self.character.wits = 1
+        self.character.dexterity = 3
+        self.character.assign_advantages()
+        self.assertEqual(self.character.defense, 1)
+        self.character.athletics = 5
+        self.character.assign_advantages()
+        self.assertEqual(self.character.defense, 6)
 
     def test_apply_merits(self):
         self.fail()
@@ -182,28 +423,65 @@ class TestMortalMechanics(TestCase):
 
 class TestMortalRandom(TestCase):
     def setUp(self):
-        pass
-
-    def test_random_name(self):
-        self.fail()
+        self.player = User.objects.create(username="Test User")
+        self.character = Mortal.objects.create(
+            name="Test Name", player=self.player.cod_profile
+        )
 
     def test_random_vice(self):
-        self.fail()
+        self.assertIn(
+            self.character.random_vice(),
+            ["Ambitious", "Arrogant", "Competitive", "Greedy"],
+        )
 
     def test_random_virtue(self):
-        self.fail()
+        self.assertIn(
+            self.character.random_virtue(), ["Competitive", "Generous", "Just", "Loyal"]
+        )
 
     def test_random_basis(self):
-        self.fail()
-
-    def test_random(self):
-        self.fail()
+        self.character.random_basis()
+        self.assertIn(
+            self.character.vice, ["Ambitious", "Arrogant", "Competitive", "Greedy"]
+        )
+        self.assertIn(
+            self.character.virtue, ["Competitive", "Generous", "Just", "Loyal"]
+        )
+        self.assertEqual(self.character.concept, "Concept")
 
     def test_random_attributes(self):
-        self.fail()
+        self.character.random_attributes()
+        self.character.save()
+        triple = [
+            self.character.physical_attribute_sum(),
+            self.character.social_attribute_sum(),
+            self.character.mental_attribute_sum(),
+        ]
+        triple.sort()
+        self.assertEqual(triple, [6, 7, 8])
+        for key, value in self.character.get_physical_attributes().items():
+            self.assertLessEqual(value, 5)
+        for key, value in self.character.get_social_attributes().items():
+            self.assertLessEqual(value, 5)
+        for key, value in self.character.get_mental_attributes().items():
+            self.assertLessEqual(value, 5)
 
     def test_random_skills(self):
-        self.fail()
+        self.character.random_skills()
+        self.character.save()
+        triple = [
+            self.character.physical_skill_sum(),
+            self.character.social_skill_sum(),
+            self.character.mental_skill_sum(),
+        ]
+        triple.sort()
+        self.assertEqual(triple, [4, 7, 11])
+        for key, value in self.character.get_physical_skills().items():
+            self.assertLessEqual(value, 5)
+        for key, value in self.character.get_social_skills().items():
+            self.assertLessEqual(value, 5)
+        for key, value in self.character.get_mental_skills().items():
+            self.assertLessEqual(value, 5)
 
     def test_random_specialties(self):
         self.fail()
