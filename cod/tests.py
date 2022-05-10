@@ -465,11 +465,11 @@ class TestMortalRandom(TestCase):
         ]
         triple.sort()
         self.assertEqual(triple, [6, 7, 8])
-        for key, value in self.character.get_physical_attributes().items():
+        for _, value in self.character.get_physical_attributes().items():
             self.assertLessEqual(value, 5)
-        for key, value in self.character.get_social_attributes().items():
+        for _, value in self.character.get_social_attributes().items():
             self.assertLessEqual(value, 5)
-        for key, value in self.character.get_mental_attributes().items():
+        for _, value in self.character.get_mental_attributes().items():
             self.assertLessEqual(value, 5)
 
     def test_random_skills(self):
@@ -482,11 +482,11 @@ class TestMortalRandom(TestCase):
         ]
         triple.sort()
         self.assertEqual(triple, [4, 7, 11])
-        for key, value in self.character.get_physical_skills().items():
+        for _, value in self.character.get_physical_skills().items():
             self.assertLessEqual(value, 5)
-        for key, value in self.character.get_social_skills().items():
+        for _, value in self.character.get_social_skills().items():
             self.assertLessEqual(value, 5)
-        for key, value in self.character.get_mental_skills().items():
+        for _, value in self.character.get_mental_skills().items():
             self.assertLessEqual(value, 5)
 
     def test_random_specialties(self):
