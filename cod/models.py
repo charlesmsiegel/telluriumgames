@@ -517,11 +517,14 @@ class Merit(models.Model):
                 character
             )
         elif self.name == "Investigative Aide":
-            possible_details = [key for key, value in character.get_skills().items() if value >= 3]
+            tmp = character.get_skills()
+            possible_details = [key for key, value in tmp.items() if value >= 3]
         elif self.name == "Hobbyist Clique":
-            possible_details = [key for key, value in character.get_skills().items() if value >= 2]
+            tmp = character.get_skills()
+            possible_details = [key for key, value in tmp.items() if value >= 2]
         elif self.name == "Hobbyist Clique":
-            possible_details = [key for key, value in character.get_skills().items() if value >= 2]
+            tmp = character.get_skills()
+            possible_details = [key for key, value in tmp.items() if value >= 2]
         elif self.name == "Professional Training":
             possible_details = self.parse_and_filter_professional_training_details(
                 character
@@ -540,10 +543,7 @@ class Merit(models.Model):
         return detail
 
     def parse_and_filter_interdisciplinary_specialty(self, character):
-        possible_details = [
-            x
-            for x in character.specialties.all()
-        ]
+        possible_details = [x for x in character.specialties.all()]
         possible_details = [
             x.specialty
             for x in possible_details
