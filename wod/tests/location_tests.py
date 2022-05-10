@@ -102,10 +102,25 @@ class TestNode(TestCase):
         self.assertEqual(points, 0)
 
     def test_increase_resonance(self):
-        self.fail()
+        node = Node.objects.create(name="TestNode")
+        self.assertEqual(node.total_resonance(), 0)
+        node.increase_resonance("TestRes")
+        self.assertEqual(node.total_resonance(), 1)
+        self.assertIn("TestRes", [x.name for x in node.resonance.all()])
         
     def test_resonance_postprocessing(self):
-        self.fail()
+        node = Node.objects.create(name="TestNode")
+        merit1 = NodeMeritFlaw.objects.create(name="Corrupted", value=0)
+        merit2 = NodeMeritFlaw.objects.create(name="Sphere Attuned", value=0)
+        corrupted = Resonance.objects.create(name="Corrupted")
+        sphere = Resonance.objects.create(name="Sphered", correspondence=True, entropy=True, forces=True, matter=True, life=True, time=True, prime=True, spirit=True, mind=True)
+        node.merits_and_flaws.add(merit1)
+        node.merits_and_flaws.add(merit2)
+        node.save()
+        node.resonance_postprocessing()
+        self.assertEqual(node.total_resonance(), 3)
+        self.assertIn("Corrupted", [x.name for x in node.resonance.all()])
+        self.assertIn("Sphered", [x.name for x in node.resonance.all()])
 
 class TestLocationIndexView(TestCase):
     """Manage Tests for Location"""

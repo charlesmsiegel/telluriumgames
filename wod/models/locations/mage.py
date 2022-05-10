@@ -182,8 +182,13 @@ class Node(Location):
             if rating.rating < 5:
                 rating.rating += 1
                 rating.save()
+        elif trait_name in [x.name for x in Resonance.objects.all()]:
+            resonance = Resonance.objects.get(name=trait_name)
+            new_res = NodeResRating(node=self, resonance=resonance, rating=1)
+            new_res.save()
         else:
-            new_res = NodeResRating(node=self, resonance=trait_name, rating=1)
+            resonance = Resonance.objects.create(name=trait_name)
+            new_res = NodeResRating(node=self, resonance=resonance, rating=1)
             new_res.save()
 
     def resonance_postprocessing(self):
