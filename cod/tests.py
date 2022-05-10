@@ -513,7 +513,12 @@ class TestMortalRandom(TestCase):
             self.assertLessEqual(value, 5)
 
     def test_random_specialties(self):
-        self.fail()
+        self.character.random_skills()
+        for key in Specialty.skill_keys:
+            for i in range(3):
+                Specialty.objects.create(skill=key, specialty=f"{key} Spec {i+1}")
+        self.character.random_specialties(num_specs=3)
+        self.assertEqual(self.character.specialties.count(), 3)
 
     def test_random_merits(self):
         self.fail()
