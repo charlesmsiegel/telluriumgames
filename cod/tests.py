@@ -38,7 +38,7 @@ class TestMerit(TestCase):
         self.assertFalse(occult_specialty.check_prereqs(character))
         character.specialties.add(specialty_in_occult)
         self.assertTrue(occult_specialty.check_prereqs(character))
-        
+
     def test_prereq_specialty_minimum_value(self):
         player = User.objects.create(username="Test User")
         character = Mortal.objects.create(name="Test", player=player.cod_profile)
@@ -53,7 +53,6 @@ class TestMerit(TestCase):
         character.occult = 2
         self.assertTrue(any_specialty_2.check_prereqs(character))
 
-        
     def test_prereq_skill_minimum_value(self):
         player = User.objects.create(username="Test User")
         character = Mortal.objects.create(name="Test", player=player.cod_profile)
@@ -65,7 +64,7 @@ class TestMerit(TestCase):
         self.assertFalse(occult_3.check_prereqs(character))
         character.occult = 3
         self.assertTrue(occult_3.check_prereqs(character))
-        
+
     def test_any_skill_minimum_value(self):
         player = User.objects.create(username="Test User")
         character = Mortal.objects.create(name="Test", player=player.cod_profile)
@@ -77,7 +76,7 @@ class TestMerit(TestCase):
         self.assertFalse(occult_3.check_prereqs(character))
         character.occult = 3
         self.assertTrue(occult_3.check_prereqs(character))
-        
+
     def test_merit_prereq(self):
         player = User.objects.create(username="Test User")
         character = Mortal.objects.create(name="Test", player=player.cod_profile)
@@ -92,7 +91,6 @@ class TestMerit(TestCase):
         self.assertFalse(prereq_merit_tester.check_prereqs(character))
         MeritRating.objects.create(character=character, merit=prereq_merit, rating=1)
         self.assertTrue(prereq_merit_tester.check_prereqs(character))
-
 
     def test_get_max_rating(self):
         occult_specialty = Merit.objects.create(
