@@ -72,15 +72,6 @@ class GrimoireTest(TestCase):
         self.assertGreater(len(practices), 0)
         self.assertGreater(len(instruments), 0)
 
-    def test_random_paradigms(self):
-        self.fail()
-
-    def test_random_practices(self):
-        self.fail()
-
-    def test_random_instruments(self):
-        self.fail()
-
     def test_random_abilities(self):
         practice = Practice.objects.create(
             name="Test Practice", abilities=["awareness", "alertness", "science"]
@@ -168,9 +159,6 @@ class GrimoireTest(TestCase):
         Rote.objects.create(name="Test Rote 5", matter=5, prime=3)
         rotes = grimoire.random_rotes(None)
         self.assertGreater(len(rotes), 0)
-
-    def test_random(self):
-        self.fail()
 
 
 class TestLibrary(TestCase):

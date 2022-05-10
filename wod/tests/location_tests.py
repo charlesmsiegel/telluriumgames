@@ -1,8 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 from wod.models.characters.mage import Mage, Resonance
-from wod.models.locations.mage import (City, Location, Node, NodeMeritFlaw,
-                                       NodeResRating)
+from wod.models.locations.mage import City, Location, Node, NodeMeritFlaw, NodeResRating
 
 
 # Create your tests here.
@@ -107,13 +106,27 @@ class TestNode(TestCase):
         node.increase_resonance("TestRes")
         self.assertEqual(node.total_resonance(), 1)
         self.assertIn("TestRes", [x.name for x in node.resonance.all()])
-        
+
     def test_resonance_postprocessing(self):
         node = Node.objects.create(name="TestNode")
         merit1 = NodeMeritFlaw.objects.create(name="Corrupted", value=0)
         merit2 = NodeMeritFlaw.objects.create(name="Sphere Attuned", value=0)
         corrupted = Resonance.objects.create(name="Corrupted")
-        sphere = Resonance.objects.create(name="Sphered", correspondence=True, entropy=True, forces=True, matter=True, life=True, time=True, prime=True, spirit=True, mind=True)
+        sphere = Resonance.objects.create(
+            name="Sphered",
+            correspondence=True,
+            entropy=True,
+            forces=True,
+            matter=True,
+            life=True,
+            time=True,
+            prime=True,
+            spirit=True,
+            mind=True,
+            data=True,
+            primal_utility=True,
+            dimensional_science=True,
+        )
         node.merits_and_flaws.add(merit1)
         node.merits_and_flaws.add(merit2)
         node.save()
@@ -121,6 +134,7 @@ class TestNode(TestCase):
         self.assertEqual(node.total_resonance(), 3)
         self.assertIn("Corrupted", [x.name for x in node.resonance.all()])
         self.assertIn("Sphered", [x.name for x in node.resonance.all()])
+
 
 class TestLocationIndexView(TestCase):
     """Manage Tests for Location"""
