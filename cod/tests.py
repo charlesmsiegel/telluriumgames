@@ -368,11 +368,17 @@ class TestMortalMechanics(TestCase):
         self.assertEqual(self.character.social_skill_sum(), 21)
 
     def test_total_merits(self):
-        MeritRating.objects.create(character=self.character, merit=self.merit1, rating=1)
+        MeritRating.objects.create(
+            character=self.character, merit=self.merit1, rating=1
+        )
         self.assertEqual(self.character.total_merits(), 1)
-        MeritRating.objects.create(character=self.character, merit=self.merit1, rating=2)
+        MeritRating.objects.create(
+            character=self.character, merit=self.merit1, rating=2
+        )
         self.assertEqual(self.character.total_merits(), 3)
-        MeritRating.objects.create(character=self.character, merit=self.merit1, rating=3)
+        MeritRating.objects.create(
+            character=self.character, merit=self.merit1, rating=3
+        )
         self.assertEqual(self.character.total_merits(), 6)
 
     def test_filter_merits(self):
