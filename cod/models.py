@@ -422,11 +422,11 @@ class Merit(models.Model):
     name = models.CharField(max_length=100)
     needs_detail = models.BooleanField(default=False)
     style = models.BooleanField(default=False)
-    allowed_ratings = models.JSONField()
-    attribute_and_skill_prereqs = models.JSONField(null=True)
-    merit_prereqs = models.JSONField(null=True)
-    list_of_details = models.JSONField(null=True)
-    merit_type = models.CharField(max_length=100)
+    allowed_ratings = models.JSONField(default=list)
+    attribute_and_skill_prereqs = models.JSONField(null=True, default=list)
+    merit_prereqs = models.JSONField(null=True, default=list)
+    list_of_details = models.JSONField(null=True, default=list)
+    merit_type = models.CharField(max_length=100, default="")
 
     class Meta:
         verbose_name = "Merit"
@@ -436,7 +436,7 @@ class Merit(models.Model):
         return f"{self.name}"
 
     def check_prereqs(self, character):
-        if self.attribute_and_skill_prereqs is not None:
+        if self.attribute_and_skill_prereqs is not []:
             for prereq in self.attribute_and_skill_prereqs:
                 if prereq[1] == "specialty":
                     specs = character.specialties.all()
@@ -468,7 +468,7 @@ class Merit(models.Model):
                             return False
                     elif getattr(character, prereq[0]) < prereq[1]:
                         return False
-        if self.merit_prereqs is not None:
+        if self.merit_prereqs is not []:
             for prereq in self.merit_prereqs:
                 if (
                     MeritRating.objects.filter(

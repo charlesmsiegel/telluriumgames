@@ -1,6 +1,8 @@
 from collections import Counter
+from django.contrib.auth.models import User
 
 from cod.templatetags.dots import dots
+from cod.models import MeritRating, Mortal, Merit, Specialty
 from django.test import TestCase
 
 
@@ -25,16 +27,101 @@ class TestDots(TestCase):
 
 class TestMerit(TestCase):
     def test_prereq_checking(self):
-        self.fail()
+        occult_specialty = Merit.objects.create(
+            name="Occult Specialty Requirement",
+            attribute_and_skill_prereqs=[("occult", "specialty")],
+            allowed_ratings=[1],
+        )
+        any_specialty_2 = Merit.objects.create(
+            name="Occult Specialty Requirement",
+            attribute_and_skill_prereqs=[("specialty", 2)],
+            allowed_ratings=[1],
+        )
+        occult_3 = Merit.objects.create(
+            name="Occult Specialty Requirement",
+            attribute_and_skill_prereqs=[("occult", 3)],
+            allowed_ratings=[1],
+        )
+        prereq_merit = Merit.objects.create(
+            name="Prereq for other", allowed_ratings=[1]
+        )
+        prereq_merit_tester = Merit.objects.create(
+            name="Occult Specialty Requirement",
+            merit_prereqs=[("Prereq for other", 1)],
+            allowed_ratings=[1],
+        )
+        player = User.objects.create(username="Test User")
+        character = Mortal.objects.create(name="Test", player=player.cod_profile)
+        specialty_in_occult = Specialty.objects.create(skill="occ", specialty="Spec")
+        self.assertFalse(occult_specialty.check_prereqs(character))
+        character.specialties.add(specialty_in_occult)
+        self.assertTrue(occult_specialty.check_prereqs(character))
+
+        self.assertFalse(any_specialty_2.check_prereqs(character))
+        character.occult = 2
+        self.assertTrue(any_specialty_2.check_prereqs(character))
+
+        self.assertFalse(occult_3.check_prereqs(character))
+        character.occult = 3
+        self.assertTrue(occult_3.check_prereqs(character))
+
+        self.assertFalse(prereq_merit_tester.check_prereqs(character))
+        MeritRating.objects.create(character=character, merit=prereq_merit, rating=1)
+        self.assertTrue(prereq_merit_tester.check_prereqs(character))
 
     def test_get_max_rating(self):
-        self.fail()
+        occult_specialty = Merit.objects.create(
+            name="Occult Specialty Requirement",
+            attribute_and_skill_prereqs=[("occult", "specialty")],
+            allowed_ratings=[1, 3, 4],
+        )
+        self.assertEqual(occult_specialty.get_max_rating(), 4)
 
     def test_choose_detail(self):
-        self.fail()
+        player = User.objects.create(username="Test User")
+        character = Mortal.objects.create(name="Test", player=player.cod_profile)
+        spec = Specialty.objects.create(skill="occ", specialty="Spec")
+        character.specialties.add(spec)
+        area_of_expertise = Merit.objects.create(
+            name="Area of Expertise", allowed_ratings=[1]
+        )
+        self.assertEqual(area_of_expertise.choose_detail(character), "Spec")
+        interdisciplinary_specialty = Merit.objects.create(
+            name="Interdisciplinary Specialty", allowed_ratings=[1]
+        )
+        self.assertNotEqual(
+            interdisciplinary_specialty.choose_detail(character), "Spec"
+        )
+        character.occult = 3
+        self.assertEqual(interdisciplinary_specialty.choose_detail(character), "Spec")
+        investigative_aide = Merit.objects.create(
+            name="Investigative Aide", allowed_ratings=[1]
+        )
+        self.assertEqual(investigative_aide.choose_detail(character), "occult")
+        hobbyist_clique = Merit.objects.create(
+            name="Hobbyist Clique", allowed_ratings=[1]
+        )
+        self.assertEqual(hobbyist_clique.choose_detail(character), "occult")
+        professional_training = Merit.objects.create(
+            name="Professional Training",
+            allowed_ratings=[1],
+            list_of_details=["Test (Occult, Science)"],
+        )
+        self.assertNotEqual(professional_training.choose_detail(character), "Spec")
+        character.science = 1
+        self.assertEqual(
+            professional_training.choose_detail(character), "Test (Occult, Science)"
+        )
+        other_merit = Merit.objects.create(
+            name="Other", allowed_ratings=[1], list_of_details=["Test Detail 1"]
+        )
+        self.assertEqual(other_merit.choose_detail(character), "Test Detail 1")
 
 
 class TestMortalMechanics(TestCase):
+    def setUp(self):
+        pass
+
     def test_has_name(self):
         self.fail()
 
@@ -94,6 +181,9 @@ class TestMortalMechanics(TestCase):
 
 
 class TestMortalRandom(TestCase):
+    def setUp(self):
+        pass
+
     def test_random_name(self):
         self.fail()
 
