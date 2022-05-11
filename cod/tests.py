@@ -435,10 +435,14 @@ class TestMortalMechanics(TestCase):
             name="Fame", allowed_ratings=[1, 2, 3], merit_type="Social",
         )
 
-        rating = MeritRating.objects.create(character=self.character, merit=anonymity, rating=1)
+        rating = MeritRating.objects.create(
+            character=self.character, merit=anonymity, rating=1
+        )
         self.assertNotIn(fame, self.character.filter_merits(5))
         rating.delete()
-        rating = MeritRating.objects.create(character=self.character, merit=fame, rating=1)
+        rating = MeritRating.objects.create(
+            character=self.character, merit=fame, rating=1
+        )
         self.assertNotIn(anonymity, self.character.filter_merits(5))
 
     def test_assign_advantages(self):
@@ -479,16 +483,6 @@ class TestMortalMechanics(TestCase):
         self.character.athletics = 5
         self.character.assign_advantages()
         self.assertEqual(self.character.defense, 6)
-
-    def test_apply_merits(self):
-        self.fail("Giant")
-        self.fail("Fast Reflexes")
-        self.fail("Small-Framed")
-        self.fail("Fleet of Foot")
-        self.fail("Vice-Ridden")
-        self.fail("Virtuous")
-        self.fail("Defensive Combat (Brawl)")
-        self.fail("Defensive Combat (Weaponry)")
 
 
 class TestMortalRandom(TestCase):
