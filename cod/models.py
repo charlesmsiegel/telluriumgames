@@ -4,7 +4,7 @@ from tokenize import Special
 from attr import attributes
 
 from accounts.models import CoDProfile
-from core.utils import weighted_choice
+from core.utils import weighted_choice, add_dot
 from django.db import models
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
@@ -226,32 +226,26 @@ class Mortal(PolymorphicModel):
         random.shuffle(attribute_types)
         while self.physical_attribute_sum() < attribute_types[0] + 3:
             attribute_choice = weighted_choice(self.get_physical_attributes())
-            if getattr(self, attribute_choice) <= 4:
-                setattr(self, attribute_choice, getattr(self, attribute_choice) + 1)
+            add_dot(self, attribute_choice, 5)
         while self.social_attribute_sum() < attribute_types[1] + 3:
             attribute_choice = weighted_choice(self.get_social_attributes())
-            if getattr(self, attribute_choice) <= 4:
-                setattr(self, attribute_choice, getattr(self, attribute_choice) + 1)
+            add_dot(self, attribute_choice, 5)
         while self.mental_attribute_sum() < attribute_types[2] + 3:
             attribute_choice = weighted_choice(self.get_mental_attributes())
-            if getattr(self, attribute_choice) <= 4:
-                setattr(self, attribute_choice, getattr(self, attribute_choice) + 1)
+            add_dot(self, attribute_choice, 5)
 
     def random_skills(self, primary=11, secondary=7, tertiary=4):
         skill_types = [primary, secondary, tertiary]
         random.shuffle(skill_types)
         while self.physical_skill_sum() < skill_types[0]:
             skill_choice = weighted_choice(self.get_physical_skills())
-            if getattr(self, skill_choice) <= 4:
-                setattr(self, skill_choice, getattr(self, skill_choice) + 1)
+            add_dot(self, skill_choice, 5)
         while self.social_skill_sum() < skill_types[1]:
             skill_choice = weighted_choice(self.get_social_skills())
-            if getattr(self, skill_choice) <= 4:
-                setattr(self, skill_choice, getattr(self, skill_choice) + 1)
+            add_dot(self, skill_choice, 5)
         while self.mental_skill_sum() < skill_types[2]:
             skill_choice = weighted_choice(self.get_mental_skills())
-            if getattr(self, skill_choice) <= 4:
-                setattr(self, skill_choice, getattr(self, skill_choice) + 1)
+            add_dot(self, skill_choice, 5)
 
     def random_specialties(self, num_specs=3):
         all_skills = {}
