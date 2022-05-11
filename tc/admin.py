@@ -1,9 +1,7 @@
 from django.contrib import admin
 from tc.models import (
     Aberrant,
-    Attribute,
     AttributePrereq,
-    AttributeRating,
     Edge,
     EdgePrereq,
     EdgeRating,
@@ -39,10 +37,8 @@ admin.site.register(PathConnectionRating)
 admin.site.register(Tag)
 admin.site.register(Power)
 admin.site.register(Transformation)
-admin.site.register(AttributeRating)
 admin.site.register(MegaAttributeRating)
 admin.site.register(SkillRating)
-admin.site.register(Attribute)
 admin.site.register(MegaAttribute)
 admin.site.register(Skill)
 admin.site.register(EdgeRating)

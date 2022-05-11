@@ -1,10 +1,9 @@
-from .talent import Attribute, Skill, Trick, Edge, EnhancedEdge, Path, PathConnection
+from .talent import Skill, Trick, Edge, EnhancedEdge, Path, PathConnection
 
 from .aberrant import (
     MegaAttribute,
     Aberrant,
     AttributePrereq,
-    AttributeRating,
     EdgePrereq,
     EdgeRating,
     PathConnectionRating,

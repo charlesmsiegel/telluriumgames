@@ -5,7 +5,6 @@ from django.views.generic.list import ListView
 from tc.forms import AberrantForm
 from tc.models import (
     Aberrant,
-    AttributeRating,
     Edge,
     EdgeRating,
     EnhancedEdge,
@@ -57,9 +56,6 @@ class AberrantDetailView(View):
     def get_context(self, pk):
         char = Aberrant.objects.get(id=pk)
         context = {"character": char}
-        attribute_ratings = AttributeRating.objects.filter(character=char)
-        for attribute in attribute_ratings:
-            context[attribute.attribute.name.lower()] = attribute
         megaattribute_ratings = MegaAttributeRating.objects.filter(character=char)
         for attribute in megaattribute_ratings:
             context[

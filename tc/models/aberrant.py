@@ -2,10 +2,10 @@ import math
 import random
 
 from accounts.models import TCProfile
+from core.utils import weighted_choice, add_dot
 from django.db import models
 from django.shortcuts import reverse
 from tc.models.talent import (
-    Attribute,
     Edge,
     EnhancedEdge,
     Path,
@@ -128,10 +128,17 @@ class Aberrant(models.Model):
         related_name="characters_on_path",
         through=PathConnectionRating,
     )
-
-    attributes = models.ManyToManyField(
-        Attribute, through="AttributeRating", blank=True
-    )
+    
+    intellect = models.IntegerField(default=1)
+    cunning = models.IntegerField(default=1)
+    resolve = models.IntegerField(default=1)
+    might = models.IntegerField(default=1)
+    dexterity = models.IntegerField(default=1)
+    stamina = models.IntegerField(default=1)
+    presence = models.IntegerField(default=1)
+    manipulation = models.IntegerField(default=1)
+    composure = models.IntegerField(default=1)
+    
     favored_approach = models.CharField(
         max_length=3,
         choices=[("FOR", "Force"), ("FIN", "Finesse"), ("RES", "Resilience"),],
@@ -174,10 +181,6 @@ class Aberrant(models.Model):
         return reverse("tc:character", args=[str(self.id)])
 
     def setup(self):
-        for att in Attribute.objects.all():
-            AttributeRating.objects.create(
-                attribute=att, character=self, rating=1,
-            )
         for matt in MegaAttribute.objects.all():
             MegaAttributeRating.objects.create(
                 megaattribute=matt, character=self, rating=0
@@ -213,7 +216,6 @@ class Aberrant(models.Model):
                     count += 1
             total_diff = 2
             while total_diff > 0:
-                # print(total_diff)
                 result = self.add_random_edge(sublist=list(path.path.edges.all()))
                 if result:
                     diff, (edge, rating) = result
@@ -235,87 +237,107 @@ class Aberrant(models.Model):
         for skill in SkillRating.objects.filter(character=self, rating__gte=3):
             self.add_random_skill_specialty(sublist=[skill])
 
-    def random_attributes(self):
-        types = ["physical", "mental", "social"]
-        random.shuffle(types)
-        point_dict = {
-            types[0]: 6,
-            types[1]: 4,
-            types[2]: 2,
+    def get_physical_attributes(self):
+        return {
+            "might": self.might,
+            "dexterity": self.dexterity,
+            "stamina": self.stamina,
         }
-        physical = [
-            AttributeRating.objects.get(attribute__name="Might", character=self),
-            AttributeRating.objects.get(attribute__name="Dexterity", character=self),
-            AttributeRating.objects.get(attribute__name="Stamina", character=self),
-        ]
-        mental = [
-            AttributeRating.objects.get(attribute__name="Intellect", character=self),
-            AttributeRating.objects.get(attribute__name="Cunning", character=self),
-            AttributeRating.objects.get(attribute__name="Resolve", character=self),
-        ]
-        social = [
-            AttributeRating.objects.get(attribute__name="Presence", character=self),
-            AttributeRating.objects.get(attribute__name="Manipulation", character=self),
-            AttributeRating.objects.get(attribute__name="Composure", character=self),
-        ]
-        force = [
-            AttributeRating.objects.get(attribute__name="Intellect", character=self),
-            AttributeRating.objects.get(attribute__name="Might", character=self),
-            AttributeRating.objects.get(attribute__name="Presence", character=self),
-        ]
-        finesse = [
-            AttributeRating.objects.get(attribute__name="Cunning", character=self),
-            AttributeRating.objects.get(attribute__name="Dexterity", character=self),
-            AttributeRating.objects.get(attribute__name="Manipulation", character=self),
-        ]
-        resilience = [
-            AttributeRating.objects.get(attribute__name="Resolve", character=self),
-            AttributeRating.objects.get(attribute__name="Stamina", character=self),
-            AttributeRating.objects.get(attribute__name="Composure", character=self),
-        ]
-        while sum([x.rating for x in physical]) < point_dict["physical"] + 3:
-            self.add_random_attribute(sublist=physical)
-        while sum([x.rating for x in mental]) < point_dict["mental"] + 3:
-            self.add_random_attribute(sublist=mental)
-        while sum([x.rating for x in social]) < point_dict["social"] + 3:
-            self.add_random_attribute(sublist=social)
 
-        approach = random.choice([force, finesse, resilience])
-        for att in approach:
-            if att.rating < 5:
-                self.add_random_attribute(sublist=[att])
-            else:
-                for arena in [physical, social, mental]:
-                    if att in arena:
-                        self.add_random_attribute(
-                            sublist=[x for x in arena if att != x]
-                        )
+    def get_mental_attributes(self):
+        return {
+            "intellect": self.intellect,
+            "cunning": self.cunning,
+            "resolve": self.resolve,
+        }
+
+    def get_social_attributes(self):
+        return {
+            "presence": self.presence,
+            "manipulation": self.manipulation,
+            "composure": self.composure,
+        }
+
+    def get_force_attributes(self):
+        return {
+            "might": self.might,
+            "intellect": self.intellect,
+            "presence": self.presence,
+        }
+
+    def get_finesse_attributes(self):
+        return {
+            "cunning": self.cunning,
+            "dexterity": self.dexterity,
+            "manipulation": self.manipulation,
+        }
+
+    def get_resilience_attributes(self):
+        return {
+            "resolve": self.resolve,
+            "composure": self.composure,
+            "stamina": self.stamina,
+        }
+
+    def random_attributes(self, primary=6, secondary=4, tertiary=2):
+        """
+        def random_attributes(self, primary=5, secondary=4, tertiary=3):
+            
+        
+        """
+        attribute_types = [primary, secondary, tertiary]
+        random.shuffle(attribute_types)
+        while self.physical_attribute_sum() < attribute_types[0] + 3:
+            attribute_choice = weighted_choice(self.get_physical_attributes())
+            add_dot(self, attribute_choice, 5)
+        while self.social_attribute_sum() < attribute_types[1] + 3:
+            attribute_choice = weighted_choice(self.get_social_attributes())
+            add_dot(self, attribute_choice, 5)
+        while self.mental_attribute_sum() < attribute_types[2] + 3:
+            attribute_choice = weighted_choice(self.get_mental_attributes())
+            add_dot(self, attribute_choice, 5)
+
+        approaches = {
+            "force": self.get_force_attributes(),
+            "finesse": self.get_finesse_attributes(),
+            "resilience": self.get_resilience_attributes(),
+        }
+
+        approach = random.choice(approaches.keys())
+
+        for key in approaches[approach]:
+            add_dot(self, approaches[approach][key], 5)
+
+        while self.physical_attribute_sum() < attribute_types[0] + 4:
+            attribute_choice = weighted_choice(self.get_physical_attributes())
+            add_dot(self, attribute_choice, 5)
+        while self.social_attribute_sum() < attribute_types[1] + 4:
+            attribute_choice = weighted_choice(self.get_social_attributes())
+            add_dot(self, attribute_choice, 5)
+        while self.mental_attribute_sum() < attribute_types[2] + 4:
+            attribute_choice = weighted_choice(self.get_mental_attributes())
+            add_dot(self, attribute_choice, 5)
+
 
     def apply_template(self, xp=150):
-        force = [
-            AttributeRating.objects.get(attribute__name="Intellect", character=self),
-            AttributeRating.objects.get(attribute__name="Might", character=self),
-            AttributeRating.objects.get(attribute__name="Presence", character=self),
-        ]
-        finesse = [
-            AttributeRating.objects.get(attribute__name="Cunning", character=self),
-            AttributeRating.objects.get(attribute__name="Dexterity", character=self),
-            AttributeRating.objects.get(attribute__name="Manipulation", character=self),
-        ]
-        resilience = [
-            AttributeRating.objects.get(attribute__name="Resolve", character=self),
-            AttributeRating.objects.get(attribute__name="Stamina", character=self),
-            AttributeRating.objects.get(attribute__name="Composure", character=self),
-        ]
-        approach = []
-        if self.favored_approach == "FOR":
-            approach = force
-        elif self.favored_approach == "FIN":
-            approach = finesse
-        elif self.favored_approach == "RES":
-            approach = resilience
-        self.add_random_attribute(sublist=approach)
-
+        approaches = {
+            "FOR": self.get_force_attributes(),
+            "FIN": self.get_finesse_attributes(),
+            "RES": self.get_resilience_attributes(),
+        }
+        
+        totals = {
+            "FOR": self.force_attributes_sum,
+            "FIN": self.finesse_attributes_sum,
+            "RES": self.resilience_attributes_sum,
+        }
+        
+        goal = totals[self.favored_approach]() + 1
+        
+        while totals[self.favored_approach]() < goal:
+            chosen_attribute = weighted_choice(approaches[self.favored_approach])
+            add_dot(self, chosen_attribute, 5)
+        
         total_diff = 1
         while total_diff > 0:
             result = self.add_random_edge(
@@ -332,10 +354,9 @@ class Aberrant(models.Model):
 
     def final_touches(self):
         self.spend_xp()
-        stamina = AttributeRating.objects.get(character=self, attribute__name="Stamina")
-        if stamina.rating >= 3:
+        if self.stamina >= 3:
             self.injured_levels += 1
-        if stamina.rating >= 5:
+        if self.stamina >= 5:
             self.bruised_levels += 1
         self.defense = 1
 
@@ -587,19 +608,6 @@ class Aberrant(models.Model):
                 new_list.append(x)
         return new_list
 
-    def add_random_attribute(self, sublist=None):
-        if sublist is None:
-            sublist = list(AttributeRating.objects.filter(character=self, rating__lt=5))
-        else:
-            sublist = [x for x in sublist if x.rating < 5]
-        sublist = self.weight_rating_list(sublist)
-        if len(sublist) > 0:
-            attribute = random.choice(sublist)
-            attribute.rating += 1
-            attribute.save()
-            return True
-        return False
-
     def add_random_edge(self, sublist=None):
         if sublist is None:
             sublist = list(Edge.objects.all())
@@ -617,10 +625,7 @@ class Aberrant(models.Model):
             path_prereq = edge.prereq_path_rating
             satisfied = True
             for att_prereq in attribute_prereqs:
-                x = AttributeRating.objects.get(
-                    character=self, attribute=att_prereq.attribute
-                )
-                satisfied = satisfied and (x.rating >= att_prereq.rating)
+                satisfied = satisfied and (getattr(self, att_prereq.attribute) >= att_prereq.rating)
             for skill_prereq in skill_prereqs:
                 x = SkillRating.objects.get(character=self, skill=skill_prereq.skill)
                 satisfied = satisfied and (x.rating >= skill_prereq.rating)
@@ -644,10 +649,7 @@ class Aberrant(models.Model):
         rating_pairs = []
         current_edges = EdgeRating.objects.filter(character=self)
         for edge in prereq_satisfied:
-            # print(edge.ratings)
-            # print(ratings_to_list(edge.ratings))
             ratings = self.rating_prob_fix(edge.ratings)
-            # print(ratings)
             if edge in current_edges:
                 ratings = [
                     x for x in ratings if x > current_edges.get(edge=edge).rating
@@ -802,10 +804,7 @@ class Aberrant(models.Model):
             prereq_quantum = edge.prereq_quantum
             satisfied = True
             for att_prereq in attribute_prereqs:
-                x = AttributeRating.objects.get(
-                    character=self, attribute=att_prereq.attribute
-                )
-                satisfied = satisfied and (x.rating >= att_prereq.rating)
+                satisfied = satisfied and (getattr(self, att_prereq.attribute) >= att_prereq.rating)
             for skill_prereq in skill_prereqs:
                 x = SkillRating.objects.get(character=self, skill=skill_prereq.skill)
                 satisfied = satisfied and (x.rating >= skill_prereq.rating)
@@ -945,19 +944,6 @@ class Aberrant(models.Model):
 
 
 # RATINGS
-class AttributeRating(models.Model):
-    attribute = models.ForeignKey(
-        Attribute, on_delete=models.CASCADE, blank=True, null=True
-    )
-    character = models.ForeignKey(
-        Aberrant, on_delete=models.CASCADE, blank=True, null=True
-    )
-    rating = models.IntegerField(default=1)
-
-    def __str__(self):
-        return f"{self.character}: {self.attribute}: {self.rating}"
-
-
 class MegaAttributeRating(models.Model):
     megaattribute = models.ForeignKey(
         MegaAttribute, on_delete=models.CASCADE, blank=True, null=True
@@ -1040,9 +1026,7 @@ class TagRating(models.Model):
 
 # PREREQS
 class AttributePrereq(models.Model):
-    attribute = models.ForeignKey(
-        Attribute, on_delete=models.CASCADE, blank=True, null=True
-    )
+    attribute = models.CharField(max_length=100)
     rating = models.IntegerField(default=0)
 
     def __str__(self):
