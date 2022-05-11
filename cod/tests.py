@@ -1,4 +1,5 @@
 from collections import Counter
+from locale import MON_1
 
 from cod.models import Merit, MeritRating, Mortal, Specialty
 from cod.templatetags.dots import dots
@@ -405,10 +406,40 @@ class TestMortalMechanics(TestCase):
         self.assertEqual(self.character.total_merits(), 6)
 
     def test_filter_merits(self):
-        self.fail("Filter for cost")
-        self.fail("Filter for had, no details")
-        self.fail("Permit the same thing with different details")
-        self.fail("Filter for Anonymity/Fame Exclusivity")
+        Merit.objects.all().delete()
+        for i in range(1, 6):
+            for j in range(3):
+                Merit.objects.create(
+                    name=f"Merit {5*j+i-1}", allowed_ratings=[i, i + 1]
+                )
+
+        self.assertEqual(len(self.character.filter_merits(3)), 9)
+
+        MeritRating.objects.create(
+            character=self.character, merit=Merit.objects.get(name="Merit 0"), rating=1
+        )
+        self.assertEqual(len(self.character.filter_merits(5)), 14)
+
+        m = Merit.objects.create(
+            name="Variable Merit", allowed_ratings=[1], needs_detail=True
+        )
+        MeritRating.objects.create(
+            character=self.character, merit=m, rating=1, detail="D1"
+        )
+        self.assertIn(m, self.character.filter_merits(5))
+
+        anonymity = Merit.objects.create(
+            name="Anonymity", allowed_ratings=[1, 2, 3, 4, 5], merit_type="Social",
+        )
+        fame = Merit.objects.create(
+            name="Fame", allowed_ratings=[1, 2, 3], merit_type="Social",
+        )
+
+        rating = MeritRating.objects.create(character=self.character, merit=anonymity, rating=1)
+        self.assertNotIn(fame, self.character.filter_merits(5))
+        rating.delete()
+        rating = MeritRating.objects.create(character=self.character, merit=fame, rating=1)
+        self.assertNotIn(anonymity, self.character.filter_merits(5))
 
     def test_assign_advantages(self):
         self.character.resolve = 2
