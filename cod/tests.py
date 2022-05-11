@@ -405,7 +405,10 @@ class TestMortalMechanics(TestCase):
         self.assertEqual(self.character.total_merits(), 6)
 
     def test_filter_merits(self):
-        self.fail()
+        self.fail("Filter for cost")
+        self.fail("Filter for had, no details")
+        self.fail("Permit the same thing with different details")
+        self.fail("Filter for Anonymity/Fame Exclusivity")
 
     def test_assign_advantages(self):
         self.character.resolve = 2
@@ -447,7 +450,14 @@ class TestMortalMechanics(TestCase):
         self.assertEqual(self.character.defense, 6)
 
     def test_apply_merits(self):
-        self.fail()
+        self.fail("Giant")
+        self.fail("Fast Reflexes")
+        self.fail("Small-Framed")
+        self.fail("Fleet of Foot")
+        self.fail("Vice-Ridden")
+        self.fail("Virtuous")
+        self.fail("Defensive Combat (Brawl)")
+        self.fail("Defensive Combat (Weaponry)")
 
 
 class TestMortalRandom(TestCase):
@@ -521,4 +531,29 @@ class TestMortalRandom(TestCase):
         self.assertEqual(self.character.specialties.count(), 3)
 
     def test_random_merits(self):
-        self.fail()
+        for i in range(5):
+            for j in range(3):
+                Merit.objects.create(name=f"Merit {5*j+i}", allowed_ratings=[i])
+
+        self.character.random_merits()
+        self.assertEqual(self.character.total_merits(), 7)
+        self.character.merits.set([])
+        self.assertEqual(self.character.total_merits(), 0)
+        MeritRating.objects.create(
+            character=self.character, merit=Merit.objects.get(name="Merit 3"), rating=3
+        )
+        self.assertEqual(self.character.total_merits(), 3)
+        self.character.random_merits()
+        self.assertEqual(self.character.total_merits(), 7)
+        self.character.merits.set([])
+        self.assertEqual(self.character.total_merits(), 0)
+        MeritRating.objects.create(
+            character=self.character, merit=Merit.objects.get(name="Merit 3"), rating=3
+        )
+        self.assertEqual(self.character.total_merits(), 3)
+        MeritRating.objects.create(
+            character=self.character, merit=Merit.objects.get(name="Merit 8"), rating=3
+        )
+        self.assertEqual(self.character.total_merits(), 6)
+        self.character.random_merits()
+        self.assertEqual(self.character.total_merits(), 7)
