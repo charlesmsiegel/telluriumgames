@@ -17,13 +17,6 @@ from tc.models.talent import (
 
 
 # Create your models here.
-class MegaAttribute(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-
 class MegaEdge(Edge):
     prereq_megaatt = models.ManyToManyField("MegaAttributePrereq", blank=True)
     prereq_quantum = models.IntegerField(default=0)
@@ -128,7 +121,7 @@ class Aberrant(models.Model):
         related_name="characters_on_path",
         through=PathConnectionRating,
     )
-    
+
     intellect = models.IntegerField(default=1)
     cunning = models.IntegerField(default=1)
     resolve = models.IntegerField(default=1)
@@ -138,16 +131,40 @@ class Aberrant(models.Model):
     presence = models.IntegerField(default=1)
     manipulation = models.IntegerField(default=1)
     composure = models.IntegerField(default=1)
-    
+
     favored_approach = models.CharField(
         max_length=3,
         choices=[("FOR", "Force"), ("FIN", "Finesse"), ("RES", "Resilience"),],
         default="FOR",
     )
-    megaattributes = models.ManyToManyField(
-        MegaAttribute, through="MegaAttributeRating", blank=True
-    )
-    skills = models.ManyToManyField(Skill, through="SkillRating", blank=True)
+
+    mega_intellect = models.IntegerField(default=0)
+    mega_cunning = models.IntegerField(default=0)
+    mega_resolve = models.IntegerField(default=0)
+    mega_might = models.IntegerField(default=0)
+    mega_dexterity = models.IntegerField(default=0)
+    mega_stamina = models.IntegerField(default=0)
+    mega_presence = models.IntegerField(default=0)
+    mega_manipulation = models.IntegerField(default=0)
+    mega_composure = models.IntegerField(default=0)
+
+    aim = models.IntegerField(default=0)
+    athletics = models.IntegerField(default=0)
+    close_combat = models.IntegerField(default=0)
+    command = models.IntegerField(default=0)
+    culture = models.IntegerField(default=0)
+    empathy = models.IntegerField(default=0)
+    enigmas = models.IntegerField(default=0)
+    humanities = models.IntegerField(default=0)
+    integrity = models.IntegerField(default=0)
+    larceny = models.IntegerField(default=0)
+    medicine = models.IntegerField(default=0)
+    persuasion = models.IntegerField(default=0)
+    pilot = models.IntegerField(default=0)
+    science = models.IntegerField(default=0)
+    survival = models.IntegerField(default=0)
+    technology = models.IntegerField(default=0)
+
     edges = models.ManyToManyField(
         Edge, related_name="edges_of", through="EdgeRating", blank=True
     )
@@ -179,16 +196,6 @@ class Aberrant(models.Model):
 
     def get_absolute_url(self):
         return reverse("tc:character", args=[str(self.id)])
-
-    def setup(self):
-        for matt in MegaAttribute.objects.all():
-            MegaAttributeRating.objects.create(
-                megaattribute=matt, character=self, rating=0
-            )
-        for skill in Skill.objects.all():
-            SkillRating.objects.create(
-                skill=skill, character=self, rating=0,
-            )
 
     def random_concept(self, name=None):
         if name is None:
@@ -279,12 +286,48 @@ class Aberrant(models.Model):
             "stamina": self.stamina,
         }
 
+    def physical_attribute_sum(self):
+        return sum(self.get_physical_attributes().values())
+
+    def mental_attribute_sum(self):
+        return sum(self.get_mental_attributes().values())
+
+    def social_attribute_sum(self):
+        return sum(self.get_social_attributes().values())
+
+    def force_attribute_sum(self):
+        return sum(self.get_force_attributes().values())
+
+    def finesse_attribute_sum(self):
+        return sum(self.get_finesse_attributes().values())
+
+    def resilience_attribute_sum(self):
+        return sum(self.get_resilience_attributes().values())
+
+    def get_skills(self):
+        return {
+            "aim": self.aim,
+            "athletics": self.athletics,
+            "close_combat": self.close_combat,
+            "command": self.command,
+            "culture": self.culture,
+            "empathy": self.empathy,
+            "enigmas": self.enigmas,
+            "humanities": self.humanities,
+            "integrity": self.integrity,
+            "larceny": self.larceny,
+            "medicine": self.medicine,
+            "persuasion": self.persuasion,
+            "pilot": self.pilot,
+            "science": self.science,
+            "survival": self.survival,
+            "technology": self.technology,
+        }
+
+    def total_skills(self):
+        return sum(self.get_skills().values())
+
     def random_attributes(self, primary=6, secondary=4, tertiary=2):
-        """
-        def random_attributes(self, primary=5, secondary=4, tertiary=3):
-            
-        
-        """
         attribute_types = [primary, secondary, tertiary]
         random.shuffle(attribute_types)
         while self.physical_attribute_sum() < attribute_types[0] + 3:
@@ -318,26 +361,25 @@ class Aberrant(models.Model):
             attribute_choice = weighted_choice(self.get_mental_attributes())
             add_dot(self, attribute_choice, 5)
 
-
     def apply_template(self, xp=150):
         approaches = {
             "FOR": self.get_force_attributes(),
             "FIN": self.get_finesse_attributes(),
             "RES": self.get_resilience_attributes(),
         }
-        
+
         totals = {
             "FOR": self.force_attributes_sum,
             "FIN": self.finesse_attributes_sum,
             "RES": self.resilience_attributes_sum,
         }
-        
+
         goal = totals[self.favored_approach]() + 1
-        
+
         while totals[self.favored_approach]() < goal:
             chosen_attribute = weighted_choice(approaches[self.favored_approach])
             add_dot(self, chosen_attribute, 5)
-        
+
         total_diff = 1
         while total_diff > 0:
             result = self.add_random_edge(
@@ -544,36 +586,28 @@ class Aberrant(models.Model):
         mega_man_edges = [Edge.objects.get(name=x) for x in mega_man_edges]
         mega_com_edges = ["Always Prepared", "Covert", "Danger Sense", "Iron Will"]
         mega_com_edges = [Edge.objects.get(name=x) for x in mega_com_edges]
-        megaint = MegaAttributeRating.objects.get(
-            character=self, megaattribute__name="Mega-Intellect"
-        ).rating
+        megaint = self.mega_intellect
         while megaint > 0:
             diff, (edge, rating) = self.add_random_edge(sublist=mega_int_edges)
             diff = int(diff)
             if diff <= megaint:
                 megaint -= diff
                 self.apply_edge(edge, rating)
-        megacun = MegaAttributeRating.objects.get(
-            character=self, megaattribute__name="Mega-Cunning"
-        ).rating
+        megacun = self.mega_cunning
         while megacun > 0:
             diff, (edge, rating) = self.add_random_edge(sublist=mega_cun_edges)
             diff = int(diff)
             if diff <= megacun:
                 megacun -= diff
                 self.apply_edge(edge, rating)
-        megaman = MegaAttributeRating.objects.get(
-            character=self, megaattribute__name="Mega-Manipulation"
-        ).rating
+        megaman = self.mega_manipulation
         while megaman > 0:
             diff, (edge, rating) = self.add_random_edge(sublist=mega_man_edges)
             diff = int(diff)
             if diff <= megaman:
                 megaman -= diff
                 self.apply_edge(edge, rating)
-        megacom = MegaAttributeRating.objects.get(
-            character=self, megaattribute__name="Mega-Composure"
-        ).rating
+        megacom = self.mega_composure
         while megacom > 0:
             if (
                 megacom >= 2
@@ -625,7 +659,9 @@ class Aberrant(models.Model):
             path_prereq = edge.prereq_path_rating
             satisfied = True
             for att_prereq in attribute_prereqs:
-                satisfied = satisfied and (getattr(self, att_prereq.attribute) >= att_prereq.rating)
+                satisfied = satisfied and (
+                    getattr(self, att_prereq.attribute) >= att_prereq.rating
+                )
             for skill_prereq in skill_prereqs:
                 x = SkillRating.objects.get(character=self, skill=skill_prereq.skill)
                 satisfied = satisfied and (x.rating >= skill_prereq.rating)
@@ -771,19 +807,12 @@ class Aberrant(models.Model):
             )
 
     def add_random_mega_attribute(self, sublist=None):
-        if sublist is None:
-            sublist = list(
-                MegaAttributeRating.objects.filter(
-                    character=self, rating__lt=self.quantum
-                )
-            )
-        else:
-            sublist = [x for x in sublist if x.rating < 5]
-        sublist = self.weight_rating_list(sublist)
-        if len(sublist) > 0:
-            attribute = random.choice(sublist)
-            attribute.rating += 1
-            attribute.save()
+        mega_attributes = self.get_mega_attributes()
+
+        mega_attribute = weighted_choice(mega_attributes)
+        current_value = mega_attributes[mega_attribute]
+        add_dot(self, mega_attribute, self.quantum)
+        if self.get_mega_attributes()[mega_attribute] > current_value:
             return True
         return False
 
@@ -804,7 +833,9 @@ class Aberrant(models.Model):
             prereq_quantum = edge.prereq_quantum
             satisfied = True
             for att_prereq in attribute_prereqs:
-                satisfied = satisfied and (getattr(self, att_prereq.attribute) >= att_prereq.rating)
+                satisfied = satisfied and (
+                    getattr(self, att_prereq.attribute) >= att_prereq.rating
+                )
             for skill_prereq in skill_prereqs:
                 x = SkillRating.objects.get(character=self, skill=skill_prereq.skill)
                 satisfied = satisfied and (x.rating >= skill_prereq.rating)
@@ -815,10 +846,9 @@ class Aberrant(models.Model):
                 else:
                     satisfied = satisfied and False
             for mega_att_prereq in mega_attribute_prereqs:
-                x = MegaAttributeRating.objects.get(
-                    character=self, megaattribute=mega_att_prereq.megaattribute
+                satisfied = satisfied and (
+                    getattr(self, mega_att_prereq.attribute) >= mega_att_prereq.rating
                 )
-                satisfied = satisfied and (x.rating >= mega_att_prereq.rating)
             paths = PathConnectionRating.objects.filter(character=self)
             paths = [x.path for x in paths]
             if path_prereq > 0:
@@ -944,19 +974,6 @@ class Aberrant(models.Model):
 
 
 # RATINGS
-class MegaAttributeRating(models.Model):
-    megaattribute = models.ForeignKey(
-        MegaAttribute, on_delete=models.CASCADE, blank=True, null=True
-    )
-    character = models.ForeignKey(
-        Aberrant, on_delete=models.CASCADE, blank=True, null=True
-    )
-    rating = models.IntegerField(default=0)
-
-    def __str__(self):
-        return f"{self.character}: {self.megaattribute}: {self.rating}"
-
-
 class SkillRating(models.Model):
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE, blank=True, null=True)
     character = models.ForeignKey(
@@ -1034,9 +1051,7 @@ class AttributePrereq(models.Model):
 
 
 class MegaAttributePrereq(models.Model):
-    megaattribute = models.ForeignKey(
-        MegaAttribute, on_delete=models.CASCADE, blank=True, null=True
-    )
+    megaattribute = models.CharField(max_length=100)
     rating = models.IntegerField(default=0)
 
     def __str__(self):

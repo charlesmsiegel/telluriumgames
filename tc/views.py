@@ -8,7 +8,6 @@ from tc.models import (
     Edge,
     EdgeRating,
     EnhancedEdge,
-    MegaAttributeRating,
     MegaEdge,
     MegaEdgeRating,
     Path,
@@ -56,11 +55,6 @@ class AberrantDetailView(View):
     def get_context(self, pk):
         char = Aberrant.objects.get(id=pk)
         context = {"character": char}
-        megaattribute_ratings = MegaAttributeRating.objects.filter(character=char)
-        for attribute in megaattribute_ratings:
-            context[
-                attribute.megaattribute.name.lower().replace("-", "_").replace(" ", "_")
-            ] = attribute
         skill_ratings = SkillRating.objects.filter(character=char)
         for skill in skill_ratings:
             context[

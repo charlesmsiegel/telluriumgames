@@ -1,5 +1,4 @@
 from collections import Counter
-from locale import MON_1
 
 from cod.models import Merit, MeritRating, Mortal, Specialty
 from cod.templatetags.dots import dots

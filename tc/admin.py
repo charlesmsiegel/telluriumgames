@@ -6,9 +6,7 @@ from tc.models import (
     EdgePrereq,
     EdgeRating,
     EnhancedEdge,
-    MegaAttribute,
     MegaAttributePrereq,
-    MegaAttributeRating,
     MegaEdge,
     MegaEdgeRating,
     Path,
@@ -37,9 +35,7 @@ admin.site.register(PathConnectionRating)
 admin.site.register(Tag)
 admin.site.register(Power)
 admin.site.register(Transformation)
-admin.site.register(MegaAttributeRating)
 admin.site.register(SkillRating)
-admin.site.register(MegaAttribute)
 admin.site.register(Skill)
 admin.site.register(EdgeRating)
 admin.site.register(MegaEdgeRating)
