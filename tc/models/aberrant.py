@@ -1,20 +1,21 @@
 import math
 import random
 
+from django.db import models
 from numpy import add_newdoc_ufunc
 
-from core.utils import weighted_choice, add_dot
-from django.db import models
+from core.utils import add_dot, weighted_choice
 from tc.models.talent import (
-    Human,
     Edge,
+    EdgeRating,
     EnhancedEdge,
+    Human,
     Path,
     PathConnection,
     PathConnectionRating,
     Trick,
-    EdgeRating,
 )
+
 
 # Create your models here.
 class MegaEdge(Edge):
@@ -396,7 +397,7 @@ class Aberrant(Human):
     #     self.xp -= cost
     #     if transformation is not None:
     #         self.transformations.add(transformation)
-    #         self.save()        
+    #         self.save()
 
     # def apply_edge(self, edge, rating):
     #     if edge in self.edges.all():

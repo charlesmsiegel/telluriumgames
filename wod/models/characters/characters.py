@@ -1,12 +1,13 @@
 import random
 
-from accounts.models import WoDProfile
-from core.models import Language
-from core.utils import add_dot, weighted_choice
 from django.db import models
 from django.shortcuts import reverse
 from django.utils.timezone import now
 from polymorphic.models import PolymorphicModel
+
+from accounts.models import WoDProfile
+from core.models import Language
+from core.utils import add_dot, weighted_choice
 
 
 # Create your models here.

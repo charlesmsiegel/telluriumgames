@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from wod.models.characters import (
     Cabal,
     Character,

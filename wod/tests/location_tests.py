@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
+
 from wod.models.characters.mage import Mage, Resonance
 from wod.models.locations.mage import City, Location, Node, NodeMeritFlaw, NodeResRating
 

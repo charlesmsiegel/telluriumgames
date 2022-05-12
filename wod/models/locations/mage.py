@@ -3,6 +3,7 @@ import random
 from django.db import models
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
+
 from wod.models.characters import Mage, Resonance
 
 

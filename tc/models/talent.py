@@ -1,10 +1,12 @@
 import math
-from django.db import models
-from polymorphic.models import PolymorphicModel
-from accounts.models import TCProfile
-from django.shortcuts import reverse
-from core.utils import weighted_choice, add_dot
 import random
+
+from django.db import models
+from django.shortcuts import reverse
+from polymorphic.models import PolymorphicModel
+
+from accounts.models import TCProfile
+from core.utils import add_dot, weighted_choice
 
 
 # Create your models here.
@@ -118,7 +120,7 @@ class Trick(models.Model):
 
 class Edge(PolymorphicModel):
     type = "edge"
-    
+
     name = models.CharField(max_length=100)
     ratings = models.JSONField(null=True, default=list)
     description = models.TextField(default="")
@@ -302,7 +304,7 @@ class Human(PolymorphicModel):
             while self.total_skills() < total_skills + 3:
                 skill_choice = weighted_choice(skill_dict)
                 add_dot(self, skill_choice, 5)
-        
+
         # 6 more dots total
         while self.total_skills() < 15:
             choice = weighted_choice(self.get_skills())
@@ -312,19 +314,25 @@ class Human(PolymorphicModel):
         skill = weighted_choice(self.get_skills())
         trick = random.choice(list(Trick.objects.filter(skill=skill[:3])))
         self.tricks.add(trick)
-        
+
         # Specialties for high skills
         for skill in [k for k, v in self.get_skills().items() if v >= 3]:
-            self.add_specialty(Specialty.objects.filter(skill=skill[:3]).order_by("?").first())
-        
+            self.add_specialty(
+                Specialty.objects.filter(skill=skill[:3]).order_by("?").first()
+            )
+
         # Tricks for high skills
         high_skills = {k: v for k, v in self.get_skills().items() if v >= 3}
         for skill, rating in high_skills.items():
             for _ in range(rating - 2):
-                viable_tricks = [x for x in Trick.objects.filter(skill=skill[:3]) if x not in self.tricks.all()]
+                viable_tricks = [
+                    x
+                    for x in Trick.objects.filter(skill=skill[:3])
+                    if x not in self.tricks.all()
+                ]
                 trick = random.choice(viable_tricks)
                 self.tricks.add(trick)
-        
+
     def get_physical_attributes(self):
         return {
             "might": self.might,
@@ -461,7 +469,7 @@ class Human(PolymorphicModel):
 
     def total_attributes(self):
         return sum(self.get_attributes().values())
-    
+
     def total_edges(self):
         return sum([x.rating for x in EdgeRating.objects.filter(character=self)])
 
@@ -500,7 +508,9 @@ class Human(PolymorphicModel):
                     satisfied = satisfied and (getattr(self, prereq[0]) >= prereq[1])
                 elif prereq[0] in self.get_skills().keys():
                     satisfied = satisfied and (getattr(self, prereq[0]) >= prereq[1])
-                elif prereq[0] in [x.name for x in Edge.objects.all() if x.type=="edge"]:
+                elif prereq[0] in [
+                    x.name for x in Edge.objects.all() if x.type == "edge"
+                ]:
                     edge_prereq = Edge.objects.get(name=prereq[0])
                     if edge_prereq in self.edges.all():
                         x = EdgeRating.objects.get(character=self, edge=edge_prereq)
@@ -508,7 +518,13 @@ class Human(PolymorphicModel):
                     else:
                         satisfied = False
                 elif prereq[0] == "path":
-                    satisfied = satisfied and any([x.rating > prereq[1] for x in PathConnectionRating.objects.filter(character=self) if edge in x.path.edges.all()])
+                    satisfied = satisfied and any(
+                        [
+                            x.rating > prereq[1]
+                            for x in PathConnectionRating.objects.filter(character=self)
+                            if edge in x.path.edges.all()
+                        ]
+                    )
                 else:
                     satisfied = False
             if satisfied:
@@ -518,26 +534,35 @@ class Human(PolymorphicModel):
             ratings = self.rating_prob_fix(edge.ratings)
             for r in ratings:
                 rating_pairs.append([edge, r])
-        
+
         candidates = []
         for pair in rating_pairs:
             if pair[0] in [x.edge for x in EdgeRating.objects.filter(character=self)]:
-                if pair[1] > EdgeRating.objects.get(character=self, edge=pair[0]).rating:
+                if (
+                    pair[1]
+                    > EdgeRating.objects.get(character=self, edge=pair[0]).rating
+                ):
                     candidates.append(pair)
             else:
                 candidates.append(pair)
-        
+
         if max_rating_diff is not None:
             new_candidates = []
             for pair in candidates:
-                if pair[0] in [x.edge for x in EdgeRating.objects.filter(character=self)]:
-                    if pair[1] <= EdgeRating.objects.get(character=self, edge=pair[0]) + max_rating_diff:
+                if pair[0] in [
+                    x.edge for x in EdgeRating.objects.filter(character=self)
+                ]:
+                    if (
+                        pair[1]
+                        <= EdgeRating.objects.get(character=self, edge=pair[0])
+                        + max_rating_diff
+                    ):
                         new_candidates.append(pair)
                 else:
                     if pair[1] <= max_rating_diff:
                         new_candidates.append(pair)
             candidates = new_candidates
-            
+
         if len(candidates) != 0:
             choice = random.choice(candidates)
             edge = choice[0]
@@ -566,6 +591,7 @@ class Human(PolymorphicModel):
 
     def __str__(self):
         return self.name
+
 
 class EdgeRating(models.Model):
     edge = models.ForeignKey(Edge, on_delete=models.CASCADE, blank=True, null=True)

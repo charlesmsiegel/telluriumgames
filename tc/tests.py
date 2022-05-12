@@ -1,7 +1,18 @@
 from html.entities import codepoint2name
-from django.test import TestCase
+
 from django.contrib.auth.models import User
-from tc.models import Aberrant, Human, Specialty, Trick, Edge, Path, PathConnection, PathConnectionRating
+from django.test import TestCase
+
+from tc.models import (
+    Aberrant,
+    Edge,
+    Human,
+    Path,
+    PathConnection,
+    PathConnectionRating,
+    Specialty,
+    Trick,
+)
 
 
 # Create your tests here.
@@ -280,17 +291,35 @@ class TestRandomAberrant(TestCase):
                 Specialty.objects.create(skill=skill[:3], specialty=f"Specialty {i}")
                 Trick.objects.create(skill=skill[:3], name=f"Trick {i}")
 
-        path1 = Path.objects.create(name="Test Origin", type="ORI", skills=["aim", "athletics", "close_combat", "command"])
-        path2 = Path.objects.create(name="Test Role", type="ROL", skills=["culture", "empathy", "enigmas", "humanities"])
-        path3 = Path.objects.create(name="Test Society", type="SOC", skills=["integrity", "larceny", "medicine", "persuasion"])
+        path1 = Path.objects.create(
+            name="Test Origin",
+            type="ORI",
+            skills=["aim", "athletics", "close_combat", "command"],
+        )
+        path2 = Path.objects.create(
+            name="Test Role",
+            type="ROL",
+            skills=["culture", "empathy", "enigmas", "humanities"],
+        )
+        path3 = Path.objects.create(
+            name="Test Society",
+            type="SOC",
+            skills=["integrity", "larceny", "medicine", "persuasion"],
+        )
 
         conn1 = PathConnection.objects.create(name="Connection 1", path=path1)
         conn2 = PathConnection.objects.create(name="Connection 2", path=path2)
         conn3 = PathConnection.objects.create(name="Connection 3", path=path3)
-        
-        PathConnectionRating.objects.create(character=self.character, path=path1, path_connection=conn1, rating=1)
-        PathConnectionRating.objects.create(character=self.character, path=path2, path_connection=conn2, rating=1)
-        PathConnectionRating.objects.create(character=self.character, path=path3, path_connection=conn3, rating=1)
+
+        PathConnectionRating.objects.create(
+            character=self.character, path=path1, path_connection=conn1, rating=1
+        )
+        PathConnectionRating.objects.create(
+            character=self.character, path=path2, path_connection=conn2, rating=1
+        )
+        PathConnectionRating.objects.create(
+            character=self.character, path=path3, path_connection=conn3, rating=1
+        )
 
     def test_random_concept(self):
         self.assertEqual(self.character.concept, "")

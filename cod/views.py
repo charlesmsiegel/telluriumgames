@@ -1,6 +1,7 @@
-from cod.models import MeritRating, Mortal
 from django.shortcuts import redirect, render
 from django.views.generic import DetailView, View
+
+from cod.models import MeritRating, Mortal
 
 
 # Create your views here.

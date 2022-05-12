@@ -1,8 +1,9 @@
 from unittest import mock
 from unittest.mock import Mock
 
-from core.models import Language, Material, Medium
 from django.test import TestCase
+
+from core.models import Language, Material, Medium
 from wod.models.characters import (
     Instrument,
     Mage,

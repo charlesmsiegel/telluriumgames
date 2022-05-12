@@ -1,9 +1,10 @@
 from collections import Counter
 
-from cod.models import Merit, MeritRating, Mortal, Specialty
-from cod.templatetags.dots import dots
 from django.contrib.auth.models import User
 from django.test import TestCase
+
+from cod.models import Merit, MeritRating, Mortal, Specialty
+from cod.templatetags.dots import dots
 
 
 # Create your tests here.

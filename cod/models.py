@@ -2,12 +2,12 @@ import random
 from tokenize import Special
 
 from attr import attributes
-
-from accounts.models import CoDProfile
-from core.utils import weighted_choice, add_dot
 from django.db import models
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
+
+from accounts.models import CoDProfile
+from core.utils import add_dot, weighted_choice
 
 
 # Create your models here.

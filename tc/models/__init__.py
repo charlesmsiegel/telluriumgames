@@ -1,27 +1,18 @@
-from .talent import (
-    Trick,
-    Edge,
-    EnhancedEdge,
-    Path,
-    PathConnection,
-    Human,
-    Specialty,
-)
-
 from .aberrant import (
     Aberrant,
     AttributePrereq,
     EdgePrereq,
     EdgeRating,
-    PathConnectionRating,
     MegaAttributePrereq,
     MegaEdge,
     MegaEdgeRating,
+    Option,
+    PathConnectionRating,
     Power,
     PowerRating,
-    Option,
     SkillPrereq,
     Tag,
     TagRating,
     Transformation,
 )
+from .talent import Edge, EnhancedEdge, Human, Path, PathConnection, Specialty, Trick

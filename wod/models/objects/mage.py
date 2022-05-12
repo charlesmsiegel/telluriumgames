@@ -4,11 +4,12 @@ import random
 from collections import defaultdict
 from copy import deepcopy
 
-from core.models import Language, Material, Medium
-from core.utils import weighted_choice
 from django.db import models
 from django.db.models import Q
 from polymorphic.models import PolymorphicModel
+
+from core.models import Language, Material, Medium
+from core.utils import weighted_choice
 from wod.models.characters.mage import (
     Instrument,
     Mage,
