@@ -13,6 +13,7 @@ from tc.models import (
     Specialty,
     Trick,
 )
+from tc.models.talent import EnhancedEdge
 
 
 # Create your tests here.
@@ -20,6 +21,21 @@ class TestTalent(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
         self.character = Human.objects.create(name="", player=self.player.tc_profile)
+        Edge.objects.create(name="Edge 1")
+        path_edge = Edge.objects.create(name="Path Edge")
+        EnhancedEdge.objects.create(name="Enhanced Edge")
+        path1 = Path.objects.create(
+            name="Test Origin",
+            type="ORI",
+            skills=["aim", "athletics", "close_combat", "command"],
+        )
+        path1.edges.add(path_edge)
+        conn1 = PathConnection.objects.create(name="Connection 1", path=path1)
+        PathConnectionRating.objects.create(
+            character=self.character, path=path1, path_connection=conn1, rating=1
+        )
+        Trick.objects.create(name="Trick")
+        Specialty.objects.create(specialty="Specialty")
 
     def test_has_attributes(self):
         for att in [
@@ -181,16 +197,19 @@ class TestTalent(TestCase):
     # def test_spend_xp(self):
     #     self.fail()
 
-    # def test_pay_cost(self):
-    #     self.fail("Check Attribute Cost")
-    #     self.fail("Check Edge Cost")
-    #     self.fail("Check Path Edge Cost")
-    #     self.fail("Check Enhanced Edge Cost")
-    #     self.fail("Check Approach Change Cost")
-    #     self.fail("Check Skill Cost")
-    #     self.fail("Check Skill Trick Cost")
-    #     self.fail("Check Specialty Cost")
-    #     self.fail("Check Path Dot Cost")
+    def test_xp_costs(self):
+        self.assertEqual(self.character.xp_cost("might", 1), 10)
+        self.assertEqual(self.character.xp_cost("Edge 1", 1), 3)
+        self.assertEqual(self.character.xp_cost("Edge 1", 2), 6)
+        self.assertEqual(self.character.xp_cost("Path Edge", 1), 2)
+        self.assertEqual(self.character.xp_cost("Path Edge", 3), 6)
+        self.assertEqual(self.character.xp_cost("Enhanced Edge", 1), 6)
+        self.assertEqual(self.character.xp_cost("Change Approach", 1), 15)
+        self.assertEqual(self.character.xp_cost("science", 1), 5)
+        self.assertEqual(self.character.xp_cost("science", 2), 10)
+        self.assertEqual(self.character.xp_cost("Trick", 1), 3)
+        self.assertEqual(self.character.xp_cost("Specialty", 1), 3)
+        self.assertEqual(self.character.xp_cost("Test Origin", 1), 18)
 
     # def test_apply_edge(self):
     #     self.fail("Add Edge at Rating")

@@ -456,6 +456,7 @@ class Human(PolymorphicModel):
         self.defense = 1
 
     def add_random_edge(self, sublist=None, max_rating_diff=None):
+        # TODO: This is complex, break into subfunctions
         if sublist is None:
             sublist = [x for x in Edge.objects.all() if x.type == "edge"]
             path_edges = []
@@ -552,6 +553,28 @@ class Human(PolymorphicModel):
 
     def __str__(self):
         return self.name
+    
+    def xp_cost(self, trait, num_dots):
+        if trait in self.get_attributes().keys():
+            return 10 * num_dots
+        elif trait in self.get_skills().keys():
+            return 5 * num_dots
+        elif trait in [y.name for x in PathConnectionRating.objects.filter(character=self) for y in x.path.edges.all()]:
+            return 2 * num_dots
+        elif trait in [x.name for x in Edge.objects.all()]:
+            return 3 * num_dots
+        elif trait in [x.name for x in EnhancedEdge.objects.all()]:
+            return 6
+        elif trait == "Change Approach":
+            return 15
+        elif trait in [x.name for x in Trick.objects.all()]:
+            return 3
+        elif trait in [x.specialty for x in Specialty.objects.all()]:
+            return 3
+        elif trait in [x.name for x in Path.objects.all()]:
+            return 18
+        else:
+            raise Exception(f"Trait {trait} Not Recognized")
 
 
 class EdgeRating(models.Model):
