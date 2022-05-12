@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from tc.models import Aberrant, Human
+from tc.models import Aberrant, Human, Specialty, Trick, Edge
 
 
 # Create your tests here.
@@ -138,19 +138,33 @@ class TestTalent(TestCase):
         self.assertEqual(self.character.total_skills(), 48)
 
     def test_specialties(self):
-        self.fail("Can't have two specialties on same skill")
-        self.fail("Specialties automatic on skills >= 3 with starting_specs")
-        self.fail("Specialties NOT free when not at start")
+        spec1 = Specialty.objects.create(skill="sci", specialty="Physica")
+        spec2 = Specialty.objects.create(skill="sci", specialty="Biology")
+        self.assertEqual(self.character.specialties.count(), 0)
+        self.character.add_specialty(spec1)
+        self.assertEqual(self.character.specialties.count(), 1)
+        self.character.add_specialty(spec2)
+        self.assertEqual(self.character.specialties.count(), 1)
 
     def test_tricks(self):
-        self.fail("Start with 1 trick")
-        self.fail("Gain a trick at Skill 3, 4, 5 at chargen")
-        self.fail("May have multiple tricks at same skill")
+        trick1 = Trick.objects.create(skill="sci", name="Trick 1")
+        trick2 = Trick.objects.create(skill="sci", name="Trick 2")
+        self.assertEqual(self.character.tricks.count(), 0)
+        self.character.add_trick(trick1)
+        self.assertEqual(self.character.tricks.count(), 1)
+        self.character.add_trick(trick2)
+        self.assertEqual(self.character.tricks.count(), 2)
 
     def test_final_touches(self):
-        self.fail("Extra Attribute")
-        self.fail("Check Health")
-        self.fail("Check Defense")
+        att_total = self.character.total_attributes()
+        edge_total = self.character.total_edges()
+        for i in range(1, 5):
+            for j in range(3):
+                Edge.objects.create(name=f"Edge {5*j + i - 1}", ratings=[i])
+        self.character.final_touches()
+        self.assertEqual(att_total + 1, self.character.total_attributes())
+        self.assertEqual(edge_total + 4, self.character.total_edges())
+        self.assertEqual(self.character.defense, 1)
 
     def test_spend_xp(self):
         self.fail()
@@ -301,6 +315,9 @@ class TestRandomAberrant(TestCase):
         self.assertEqual(self.character.total_skills(), 6)
         self.fail("Check for skill specialties")
         self.fail("Check for skill tricks")
+        self.fail("Start with 1 trick")
+        self.fail("Gain a trick at Skill 3, 4, 5 at chargen")
+
 
     def test_add_random_skill_trick(self):
         self.fail()

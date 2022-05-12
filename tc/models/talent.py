@@ -1,3 +1,4 @@
+import math
 from django.db import models
 from polymorphic.models import PolymorphicModel
 from accounts.models import TCProfile
@@ -115,16 +116,13 @@ class Trick(models.Model):
         return self.name
 
 
-class Edge(models.Model):
+class Edge(PolymorphicModel):
+    type = "edge"
+    
     name = models.CharField(max_length=100)
     ratings = models.JSONField(null=True, default=list)
     description = models.TextField(default="")
-    prereq_attributes = models.ManyToManyField("AttributePrereq", blank=True)
-    prereq_skills = models.ManyToManyField("SkillPrereq", blank=True)
-    prereq_path_rating = models.IntegerField(default=0)
-    prereq_edges = models.ManyToManyField(
-        "EdgePrereq", blank=True, related_name="prereq_to"
-    )
+    prereqs = models.JSONField(default=list)
 
     class Meta:
         ordering = ("name",)
@@ -439,3 +437,130 @@ class Human(PolymorphicModel):
             attribute_choice = weighted_choice(self.get_mental_attributes())
             add_dot(self, attribute_choice, 5)
 
+    def add_specialty(self, specialty):
+        skill = specialty.skill
+        if self.specialties.filter(skill=skill).count() == 0:
+            self.specialties.add(specialty)
+            self.save()
+
+    def add_trick(self, trick):
+        self.tricks.add(trick)
+        self.save()
+
+    def total_attributes(self):
+        return sum(self.get_attributes().values())
+    
+    def total_edges(self):
+        return sum([x.rating for x in EdgeRating.objects.filter(character=self)])
+
+    def final_touches(self):
+        total_attributes = self.total_attributes()
+        while self.total_attributes() < total_attributes + 1:
+            att_choice = weighted_choice(self.get_attributes())
+            add_dot(self, att_choice, 5)
+        total_edges = self.total_edges()
+        max_rating_diff = 4
+        while self.total_edges() < total_edges + 4:
+            output = self.add_random_edge(max_rating_diff=max_rating_diff)
+            if output is False:
+                pass
+            else:
+                diff, edge = output
+                max_rating_diff -= diff
+        if self.stamina >= 3:
+            self.injured_levels += 1
+        if self.stamina >= 5:
+            self.bruised_levels += 1
+        self.defense = 1
+
+    def add_random_edge(self, sublist=None, max_rating_diff=None):
+        if sublist is None:
+            sublist = [x for x in Edge.objects.all() if x.type == "edge"]
+            path_edges = []
+            for path in PathConnectionRating.objects.filter(character=self):
+                path_edges.extend(list(path.path.edges.all()))
+            sublist = [x for x in sublist if x not in path_edges]
+        prereq_satisfied = []
+        for edge in sublist:
+            satisfied = True
+            for prereq in edge.prereqs:
+                if prereq[0] in self.get_attributes().keys():
+                    satisfied = satisfied and (getattr(self, prereq[0]) >= prereq[1])
+                elif prereq[0] in self.get_skills().keys():
+                    satisfied = satisfied and (getattr(self, prereq[0]) >= prereq[1])
+                elif prereq[0] in [x.name for x in Edge.objects.all() if x.type=="edge"]:
+                    edge_prereq = Edge.objects.get(name=prereq[0])
+                    if edge_prereq in self.edges.all():
+                        x = EdgeRating.objects.get(character=self, edge=edge_prereq)
+                        satisfied = satisfied and (x.rating >= prereq[1])
+                    else:
+                        satisfied = False
+                elif prereq[0] == "path":
+                    satisfied = satisfied and any([x.rating > prereq[1] for x in PathConnectionRating.objects.filter(character=self) if edge in x.path.edges.all()])
+                else:
+                    satisfied = False
+            if satisfied:
+                prereq_satisfied.append(edge)
+        rating_pairs = []
+        for edge in prereq_satisfied:
+            ratings = self.rating_prob_fix(edge.ratings)
+            for r in ratings:
+                rating_pairs.append([edge, r])
+        
+        candidates = []
+        for pair in rating_pairs:
+            if pair[0] in [x.edge for x in EdgeRating.objects.filter(character=self)]:
+                if pair[1] > EdgeRating.objects.get(character=self, edge=pair[0]).rating:
+                    candidates.append(pair)
+            else:
+                candidates.append(pair)
+        
+        if max_rating_diff is not None:
+            new_candidates = []
+            for pair in candidates:
+                if pair[0] in [x.edge for x in EdgeRating.objects.filter(character=self)]:
+                    if pair[1] <= EdgeRating.objects.get(character=self, edge=pair[0]) + max_rating_diff:
+                        new_candidates.append(pair)
+                else:
+                    if pair[1] <= max_rating_diff:
+                        new_candidates.append(pair)
+            candidates = new_candidates
+            
+        if len(candidates) != 0:
+            choice = random.choice(candidates)
+            edge = choice[0]
+            rating = choice[1]
+            if edge in self.edges.all():
+                current_rating = EdgeRating.objects.get(character=self, edge=edge)
+                current_rating.rating = rating
+                current_rating.save()
+                return rating - current_rating, edge
+            else:
+                EdgeRating.objects.create(character=self, edge=edge, rating=rating)
+                return rating, edge
+        return False
+
+    def rating_prob_fix(self, ratings):
+        total = abs(math.prod(ratings))
+        new_ratings = []
+        for r in ratings:
+            if r != 0:
+                num = abs(int(total / r))
+            else:
+                num = abs(int(total))
+            for _ in range(num):
+                new_ratings.append(r)
+        return new_ratings
+
+    def __str__(self):
+        return self.name
+
+class EdgeRating(models.Model):
+    edge = models.ForeignKey(Edge, on_delete=models.CASCADE, blank=True, null=True)
+    character = models.ForeignKey(
+        Human, on_delete=models.CASCADE, blank=True, null=True
+    )
+    rating = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.edge.name}: {self.rating}"
