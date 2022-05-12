@@ -633,65 +633,6 @@ class Aberrant(Human):
             return True
         return False
 
-    def add_random_edge(self, sublist=None):
-        if sublist is None:
-            sublist = list(Edge.objects.all())
-            mega_edges = MegaEdge.objects.all()
-            sublist = [x for x in sublist if x not in mega_edges]
-            path_edges = []
-            for path in PathConnectionRating.objects.filter(character=self):
-                path_edges.extend(list(path.path.edges.all()))
-            sublist = [x for x in sublist if x not in path_edges]
-        prereq_satisfied = []
-        for edge in sublist:
-            attribute_prereqs = edge.prereq_attributes.all()
-            skill_prereqs = edge.prereq_skills.all()
-            edge_prereqs = edge.prereq_edges.all()
-            path_prereq = edge.prereq_path_rating
-            satisfied = True
-            for att_prereq in attribute_prereqs:
-                satisfied = satisfied and (
-                    getattr(self, att_prereq.attribute) >= att_prereq.rating
-                )
-            for skill_prereq in skill_prereqs:
-                satisfied = satisfied and (getattr(self, skill_prereq.skill) >= skill_prereq.rating)
-            for edge_prereq in edge_prereqs:
-                if edge_prereq.edge in self.edges.all():
-                    x = EdgeRating.objects.get(character=self, edge=edge_prereq.edge)
-                    satisfied = satisfied and (x.rating >= edge_prereq.rating)
-                else:
-                    satisfied = satisfied and False
-            paths = PathConnectionRating.objects.filter(character=self)
-            if path_prereq > 0:
-                satisfied = satisfied and any(
-                    [
-                        x.rating > path_prereq
-                        for x in paths
-                        if edge in x.path.edges.all()
-                    ]
-                )
-            if satisfied:
-                prereq_satisfied.append(edge)
-        rating_pairs = []
-        current_edges = EdgeRating.objects.filter(character=self)
-        for edge in prereq_satisfied:
-            ratings = self.rating_prob_fix(edge.ratings)
-            if edge in current_edges:
-                ratings = [
-                    x for x in ratings if x > current_edges.get(edge=edge).rating
-                ]
-            for r in ratings:
-                rating_pairs.append((edge, r))
-        if len(rating_pairs) != 0:
-            choice = random.choice(rating_pairs)
-            diff = choice[-1]
-            diff = int(diff)
-            if edge in self.edges.all():
-                edge_rating = EdgeRating.objects.get(character=self, edge=edge)
-                diff -= edge_rating.rating
-            return diff, choice
-        return False
-
     def add_random_power(self):
         all_powers = list(Power.objects.filter(quantum_minimum__lte=self.quantum))
         all_powers_had = list(PowerRating.objects.filter(character=self))
