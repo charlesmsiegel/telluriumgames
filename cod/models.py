@@ -537,10 +537,9 @@ class Merit(models.Model):
         return detail
 
     def parse_and_filter_interdisciplinary_specialty(self, character):
-        possible_details = [x for x in character.specialties.all()]
         possible_details = [
             x.specialty
-            for x in possible_details
+            for x in character.specialties.all()
             if getattr(character, x.get_skill_display()) >= 3
         ]
         return possible_details

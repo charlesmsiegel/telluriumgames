@@ -8,10 +8,9 @@ from polymorphic.models import PolymorphicModel
 from accounts.models import TCProfile
 from core.utils import add_dot, weighted_choice
 
-
 # Create your models here.
-class Specialty(models.Model):
-    skill_keys = [
+SKILL_PAIRS = zip(
+    [
         "aim",
         "ath",
         "clo",
@@ -28,8 +27,8 @@ class Specialty(models.Model):
         "sci",
         "sur",
         "tec",
-    ]
-    skill_name = [
+    ],
+    [
         "aim",
         "athletics",
         "close_combat",
@@ -46,11 +45,12 @@ class Specialty(models.Model):
         "science",
         "survival",
         "technology",
-    ]
+    ],
+)
 
-    skill = models.CharField(
-        max_length=3, choices=zip(skill_keys, skill_name), default="aim"
-    )
+
+class Specialty(models.Model):
+    skill = models.CharField(max_length=3, choices=SKILL_PAIRS, default="aim")
     specialty = models.CharField(max_length=100)
 
     class Meta:
@@ -70,46 +70,8 @@ class Specialty(models.Model):
 
 class Trick(models.Model):
     name = models.CharField(max_length=100)
-    skill_keys = [
-        "aim",
-        "ath",
-        "clo",
-        "com",
-        "cul",
-        "emp",
-        "eni",
-        "hum",
-        "int",
-        "lar",
-        "med",
-        "per",
-        "pil",
-        "sci",
-        "sur",
-        "tec",
-    ]
-    skill_name = [
-        "aim",
-        "athletics",
-        "close_combat",
-        "command",
-        "culture",
-        "empathy",
-        "enigmas",
-        "humanities",
-        "integrity",
-        "larceny",
-        "medicine",
-        "persuasion",
-        "pilot",
-        "science",
-        "survival",
-        "technology",
-    ]
 
-    skill = models.CharField(
-        max_length=3, choices=zip(skill_keys, skill_name), default="aim"
-    )
+    skill = models.CharField(max_length=3, choices=SKILL_PAIRS, default="aim")
 
     class Meta:
         ordering = ("name",)
@@ -485,7 +447,7 @@ class Human(PolymorphicModel):
             if output is False:
                 pass
             else:
-                diff, edge = output
+                diff, _ = output
                 max_rating_diff -= diff
         if self.stamina >= 3:
             self.injured_levels += 1
@@ -572,9 +534,8 @@ class Human(PolymorphicModel):
                 current_rating.rating = rating
                 current_rating.save()
                 return rating - current_rating, edge
-            else:
-                EdgeRating.objects.create(character=self, edge=edge, rating=rating)
-                return rating, edge
+            EdgeRating.objects.create(character=self, edge=edge, rating=rating)
+            return rating, edge
         return False
 
     def rating_prob_fix(self, ratings):
