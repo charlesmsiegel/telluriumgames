@@ -270,7 +270,7 @@ class Human(PolymorphicModel):
             self.name = "Test 1"
         else:
             self.name = name
-        self.concept = "Nova Character"
+        self.concept = "Character"
 
     def random_aspirations(self):
         self.short_term_aspiration_1 = "Short Term 1"
@@ -278,10 +278,23 @@ class Human(PolymorphicModel):
         self.long_term_aspiration = "Long Term"
         self.save()
 
-    def random_paths(self):
-        self.add_random_path_dot(sublist=list(Path.objects.filter(type="ORI")))
-        self.add_random_path_dot(sublist=list(Path.objects.filter(type="ROL")))
-        self.add_random_path_dot(sublist=list(Path.objects.filter(type="SOC")))
+    # def random_paths(self):
+    #     self.add_random_path_dot(sublist=list(Path.objects.filter(type="ORI")))
+    #     self.add_random_path_dot(sublist=list(Path.objects.filter(type="ROL")))
+    #     self.add_random_path_dot(sublist=list(Path.objects.filter(type="SOC")))
+    #     for path in PathConnectionRating.objects.filter(character=self):
+    #         total_diff = 2
+    #         while total_diff > 0:
+    #             result = self.add_random_edge(sublist=list(path.path.edges.all()))
+    #             if result:
+    #                 diff, (edge, rating) = result
+    #                 diff = int(diff)
+    #                 if diff <= total_diff:
+    #                     self.apply_edge(edge, rating)
+    #                     total_diff -= diff
+
+    def random_skills(self):
+        # 3 dots of Path skills
         for path in PathConnectionRating.objects.filter(character=self):
             skills = path.path.skills
             skill_dict = {k: v for k, v in self.get_skills().items() if k in skills}
@@ -289,30 +302,29 @@ class Human(PolymorphicModel):
             while self.total_skills() < total_skills + 3:
                 skill_choice = weighted_choice(skill_dict)
                 add_dot(self, skill_choice, 5)
+        
+        # 6 more dots total
+        while self.total_skills() < 15:
+            choice = weighted_choice(self.get_skills())
+            add_dot(self, choice, 5)
 
-            total_diff = 2
-            while total_diff > 0:
-                result = self.add_random_edge(sublist=list(path.path.edges.all()))
-                if result:
-                    diff, (edge, rating) = result
-                    diff = int(diff)
-                    if diff <= total_diff:
-                        self.apply_edge(edge, rating)
-                        total_diff -= diff
-
-    def random_skills(self):
-        count = 0
-        while count < 6:
-            if self.add_random_skill():
-                count += 1
+        # Free Trick
+        skill = weighted_choice(self.get_skills())
+        trick = random.choice(list(Trick.objects.filter(skill=skill[:3])))
+        self.tricks.add(trick)
+        
+        # Specialties for high skills
+        for skill in [k for k, v in self.get_skills().items() if v >= 3]:
+            self.add_specialty(Specialty.objects.filter(skill=skill[:3]).order_by("?").first())
+        
+        # Tricks for high skills
         high_skills = {k: v for k, v in self.get_skills().items() if v >= 3}
         for skill, rating in high_skills.items():
             for _ in range(rating - 2):
-                self.add_random_skill_trick(sublist=[skill])
-        self.add_random_skill_trick()
-        for skill in [k for k, v in self.get_skills().items() if v >= 3]:
-            self.add_random_skill_specialty(sublist=[skill])
-
+                viable_tricks = [x for x in Trick.objects.filter(skill=skill[:3]) if x not in self.tricks.all()]
+                trick = random.choice(viable_tricks)
+                self.tricks.add(trick)
+        
     def get_physical_attributes(self):
         return {
             "might": self.might,
@@ -443,9 +455,9 @@ class Human(PolymorphicModel):
             self.specialties.add(specialty)
             self.save()
 
-    def add_trick(self, trick):
-        self.tricks.add(trick)
-        self.save()
+    # def add_trick(self, trick):
+    #     self.tricks.add(trick)
+    #     self.save()
 
     def total_attributes(self):
         return sum(self.get_attributes().values())
