@@ -13,7 +13,7 @@ from tc.models import (
     Specialty,
     Trick,
 )
-from tc.models.talent import EnhancedEdge
+from tc.models.talent import EdgeRating, EnhancedEdge
 
 
 # Create your tests here.
@@ -211,11 +211,29 @@ class TestTalent(TestCase):
         self.assertEqual(self.character.xp_cost("Specialty", 1), 3)
         self.assertEqual(self.character.xp_cost("Test Origin", 1), 18)
 
-    # def test_apply_edge(self):
-    #     self.fail("Add Edge at Rating")
-    #     self.fail("Check Edge prereqs")
-    #     self.fail("Increase rating of edge")
-    #     self.fail("Do not add duplicate Edge")
+    def test_apply_edge(self):
+        edge = Edge.objects.create(name="Test Edge", ratings=[1, 2, 4])
+        self.assertNotIn(edge, self.character.edges.all())
+        self.character.add_edge(edge, 2)
+        self.assertIn(edge, self.character.edges.all())
+        self.assertEqual(
+            EdgeRating.objects.get(character=self.character, edge=edge).rating, 2
+        )
+
+        prereq_edge = Edge.objects.create(
+            name="Prereq Edge", ratings=[1], prereqs=[("might", 2)]
+        )
+        self.assertFalse(prereq_edge.check_prereqs(self.character))
+        self.character.might = 3
+        self.assertTrue(prereq_edge.check_prereqs(self.character))
+
+        self.character.add_edge(edge, 4)
+        self.assertEqual(
+            EdgeRating.objects.filter(character=self.character, edge=edge).count(), 1
+        )
+        self.assertEqual(
+            EdgeRating.objects.get(character=self.character, edge=edge).rating, 4
+        )
 
 
 class TestAberrant(TestCase):
@@ -306,7 +324,7 @@ class TestRandomAberrant(TestCase):
         self.player = User.objects.create(username="Test User")
         self.character = Aberrant.objects.create(name="", player=self.player.tc_profile)
         for skill in self.character.get_skills().keys():
-            for i in range(3):
+            for i in range(5):
                 Specialty.objects.create(skill=skill[:3], specialty=f"Specialty {i}")
                 Trick.objects.create(skill=skill[:3], name=f"Trick {i}")
 

@@ -94,6 +94,32 @@ class Edge(PolymorphicModel):
     def __str__(self):
         return self.name
 
+    def check_prereqs(self, character):
+        satisfied = True
+        for prereq in self.prereqs:
+            if prereq[0] in character.get_attributes().keys():
+                satisfied = satisfied and (getattr(character, prereq[0]) >= prereq[1])
+            elif prereq[0] in character.get_skills().keys():
+                satisfied = satisfied and (getattr(character, prereq[0]) >= prereq[1])
+            elif prereq[0] in [x.name for x in Edge.objects.all() if x.type == "edge"]:
+                edge_prereq = Edge.objects.get(name=prereq[0])
+                if edge_prereq in character.edges.all():
+                    x = EdgeRating.objects.get(character=character, edge=edge_prereq)
+                    satisfied = satisfied and (x.rating >= prereq[1])
+                else:
+                    satisfied = False
+            elif prereq[0] == "path":
+                satisfied = satisfied and any(
+                    [
+                        x.rating > prereq[1]
+                        for x in PathConnectionRating.objects.filter(
+                            character=character
+                        )
+                        if self in x.path.edges.all()
+                    ]
+                )
+        return satisfied
+
 
 class EnhancedEdge(models.Model):
     name = models.CharField(max_length=100)
@@ -455,6 +481,14 @@ class Human(PolymorphicModel):
             self.bruised_levels += 1
         self.defense = 1
 
+    def add_edge(self, edge, rating):
+        if edge not in self.edges.all():
+            EdgeRating.objects.create(character=self, edge=edge, rating=rating)
+        else:
+            edge_rating = EdgeRating.objects.get(character=self, edge=edge)
+            edge_rating.rating = rating
+            edge_rating.save()
+
     def add_random_edge(self, sublist=None, max_rating_diff=None):
         # TODO: This is complex, break into subfunctions
         if sublist is None:
@@ -463,35 +497,7 @@ class Human(PolymorphicModel):
             for path in PathConnectionRating.objects.filter(character=self):
                 path_edges.extend(list(path.path.edges.all()))
             sublist = [x for x in sublist if x not in path_edges]
-        prereq_satisfied = []
-        for edge in sublist:
-            satisfied = True
-            for prereq in edge.prereqs:
-                if prereq[0] in self.get_attributes().keys():
-                    satisfied = satisfied and (getattr(self, prereq[0]) >= prereq[1])
-                elif prereq[0] in self.get_skills().keys():
-                    satisfied = satisfied and (getattr(self, prereq[0]) >= prereq[1])
-                elif prereq[0] in [
-                    x.name for x in Edge.objects.all() if x.type == "edge"
-                ]:
-                    edge_prereq = Edge.objects.get(name=prereq[0])
-                    if edge_prereq in self.edges.all():
-                        x = EdgeRating.objects.get(character=self, edge=edge_prereq)
-                        satisfied = satisfied and (x.rating >= prereq[1])
-                    else:
-                        satisfied = False
-                elif prereq[0] == "path":
-                    satisfied = satisfied and any(
-                        [
-                            x.rating > prereq[1]
-                            for x in PathConnectionRating.objects.filter(character=self)
-                            if edge in x.path.edges.all()
-                        ]
-                    )
-                else:
-                    satisfied = False
-            if satisfied:
-                prereq_satisfied.append(edge)
+        prereq_satisfied = [edge for edge in sublist if edge.check_prereqs(self)]
         rating_pairs = []
         for edge in prereq_satisfied:
             ratings = self.rating_prob_fix(edge.ratings)
@@ -532,10 +538,9 @@ class Human(PolymorphicModel):
             rating = choice[1]
             if edge in self.edges.all():
                 current_rating = EdgeRating.objects.get(character=self, edge=edge)
-                current_rating.rating = rating
-                current_rating.save()
-                return rating - current_rating, edge
-            EdgeRating.objects.create(character=self, edge=edge, rating=rating)
+                self.add_edge(edge, rating)
+                return rating - current_rating.rating, edge
+            self.add_edge(edge, rating)
             return rating, edge
         return False
 
@@ -553,13 +558,17 @@ class Human(PolymorphicModel):
 
     def __str__(self):
         return self.name
-    
+
     def xp_cost(self, trait, num_dots):
         if trait in self.get_attributes().keys():
             return 10 * num_dots
         elif trait in self.get_skills().keys():
             return 5 * num_dots
-        elif trait in [y.name for x in PathConnectionRating.objects.filter(character=self) for y in x.path.edges.all()]:
+        elif trait in [
+            y.name
+            for x in PathConnectionRating.objects.filter(character=self)
+            for y in x.path.edges.all()
+        ]:
             return 2 * num_dots
         elif trait in [x.name for x in Edge.objects.all()]:
             return 3 * num_dots
