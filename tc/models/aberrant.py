@@ -1,6 +1,8 @@
 import math
 import random
 
+from numpy import add_newdoc_ufunc
+
 from core.utils import weighted_choice, add_dot
 from django.db import models
 from tc.models.talent import (
@@ -392,14 +394,7 @@ class Aberrant(Human):
         self.xp -= cost
         if transformation is not None:
             self.transformations.add(transformation)
-            self.save()
-
-    def weight_rating_list(self, rating_list):
-        new_list = []
-        for x in rating_list:
-            for _ in range(x.rating + 1):
-                new_list.append(x)
-        return new_list
+            self.save()        
 
     def add_random_edge(self, sublist=None):
         if sublist is None:
@@ -501,24 +496,27 @@ class Aberrant(Human):
 
     def add_random_skill(self, sublist=None):
         if sublist is None:
-            sublist = [k for k, v in self.get_skills() if v < 5]
+            sublist = [k for k, v in self.get_skills().items() if v < 5]
         else:
-            sublist = [x for x in sublist if x.rating < 5]
-        sublist = self.weight_rating_list(sublist)
+            sublist = [x for x in sublist if getattr(self, x) < 5]
+        new_list = []
+        for x in sublist:
+            for _ in range(getattr(self, x) + 1):
+                new_list.append(x)
+        sublist = new_list
         if len(sublist) > 0:
             skill = random.choice(sublist)
-            skill.rating += 1
-            skill.save()
+            add_dot(self, skill, 5)
             return True
         return False
 
     def add_random_skill_trick(self, sublist=None):
         if sublist is None:
-            sublist = [k for k, v in self.get_skills() if v > 0]
+            sublist = [k for k, v in self.get_skills().items() if v > 0]
         sublist = [
             x
             for x in sublist
-            if Trick.objects.filter(skill=x.skill).count() > x.tricks.count()
+            if Trick.objects.filter(skill=x).count() > self.tricks.filter(skill=x).count()
         ]
         if len(sublist) == 0:
             return False

@@ -242,6 +242,9 @@ class Human(PolymorphicModel):
     survival = models.IntegerField(default=0)
     technology = models.IntegerField(default=0)
 
+    specialties = models.ManyToManyField(Specialty, blank=True)
+    tricks = models.ManyToManyField(Trick, blank=True)
+
     edges = models.ManyToManyField(
         Edge, related_name="edges_of", through="EdgeRating", blank=True
     )
@@ -304,10 +307,10 @@ class Human(PolymorphicModel):
         while count < 6:
             if self.add_random_skill():
                 count += 1
-        high_skills = {k for k, v in self.get_skills().items() if v >= 3}
-        for skill_rating in high_skills:
-            for _ in range(skill_rating.rating - 2):
-                self.add_random_skill_trick(sublist=[skill_rating])
+        high_skills = {k: v for k, v in self.get_skills().items() if v >= 3}
+        for skill, rating in high_skills.items():
+            for _ in range(rating - 2):
+                self.add_random_skill_trick(sublist=[skill])
         self.add_random_skill_trick()
         for skill in [k for k, v in self.get_skills().items() if v >= 3]:
             self.add_random_skill_specialty(sublist=[skill])
@@ -332,6 +335,13 @@ class Human(PolymorphicModel):
             "manipulation": self.manipulation,
             "composure": self.composure,
         }
+
+    def get_attributes(self):
+        tmp = {}
+        tmp.update(self.get_physical_attributes())
+        tmp.update(self.get_social_attributes())
+        tmp.update(self.get_mental_attributes())
+        return tmp
 
     def get_force_attributes(self):
         return {
@@ -414,10 +424,10 @@ class Human(PolymorphicModel):
             "resilience": self.get_resilience_attributes(),
         }
 
-        approach = random.choice(approaches.keys())
+        approach = random.choice(list(approaches.keys()))
 
         for key in approaches[approach]:
-            add_dot(self, approaches[approach][key], 5)
+            add_dot(self, key, 5)
 
         while self.physical_attribute_sum() < attribute_types[0] + 4:
             attribute_choice = weighted_choice(self.get_physical_attributes())

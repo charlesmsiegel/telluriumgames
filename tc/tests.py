@@ -114,49 +114,63 @@ class TestTalent(TestCase):
         self.character.science = 4
         self.character.survival = 3
         self.character.technology = 2
-        self.assertEqual(self.character.get_skills(), {
-            "aim": 1,
-            "athletics": 2,
-            "close_combat": 3,
-            "command": 4,
-            "culture": 5,
-            "empathy": 4,
-            "enigmas": 3,
-            "humanities": 2,
-            "integrity": 1,
-            "larceny": 2,
-            "medicine": 3,
-            "persuasion": 4,
-            "pilot": 5,
-            "science": 4,
-            "survival": 3,
-            "technology": 2,
-        })
+        self.assertEqual(
+            self.character.get_skills(),
+            {
+                "aim": 1,
+                "athletics": 2,
+                "close_combat": 3,
+                "command": 4,
+                "culture": 5,
+                "empathy": 4,
+                "enigmas": 3,
+                "humanities": 2,
+                "integrity": 1,
+                "larceny": 2,
+                "medicine": 3,
+                "persuasion": 4,
+                "pilot": 5,
+                "science": 4,
+                "survival": 3,
+                "technology": 2,
+            },
+        )
         self.assertEqual(self.character.total_skills(), 48)
 
     def test_specialties(self):
-        self.fail()
+        self.fail("Can't have two specialties on same skill")
+        self.fail("Specialties automatic on skills >= 3 with starting_specs")
+        self.fail("Specialties NOT free when not at start")
 
     def test_tricks(self):
-        self.fail()
+        self.fail("Start with 1 trick")
+        self.fail("Gain a trick at Skill 3, 4, 5 at chargen")
+        self.fail("May have multiple tricks at same skill")
 
     def test_final_touches(self):
-        self.fail()
+        self.fail("Extra Attribute")
+        self.fail("Check Health")
+        self.fail("Check Defense")
 
     def test_spend_xp(self):
         self.fail()
 
     def test_pay_cost(self):
-        self.fail()
-
-    def test_weight_rating_list(self):
-        self.fail()
+        self.fail("Check Attribute Cost")
+        self.fail("Check Edge Cost")
+        self.fail("Check Path Edge Cost")
+        self.fail("Check Enhanced Edge Cost")
+        self.fail("Check Approach Change Cost")
+        self.fail("Check Skill Cost")
+        self.fail("Check Skill Trick Cost")
+        self.fail("Check Specialty Cost")
+        self.fail("Check Path Dot Cost")
 
     def test_apply_edge(self):
-        self.fail()
-
-    def test_rating_prob_fix(self):
-        self.fail()
+        self.fail("Add Edge at Rating")
+        self.fail("Check Edge prereqs")
+        self.fail("Increase rating of edge")
+        self.fail("Do not add duplicate Edge")
 
 
 class TestAberrant(TestCase):
@@ -182,34 +196,55 @@ class TestAberrant(TestCase):
             )
 
     def test_apply_template(self):
-        self.fail()
+        self.fail("Quantum of 1")
+        self.fail("One dot in favored approach")
+        self.fail("Either 1 dot of Fame or 1 dot of Alternate Identity Edge")
+        self.fail("150 XP")
+        self.fail("Check spend_xp?")
 
     def test_final_touches(self):
-        self.fail()
+        self.fail("Check that character doesn't take final_touches trait bonuses like in Human/Talent")
 
     def test_spend_xp(self):
         self.fail()
 
     def test_mega_attribute_cleanup(self):
-        self.fail()
-
-    def test_compute_quantum_points(self):
-        self.fail()
+        self.fail("Mega Intellect Edges")
+        self.fail("Mega Cunning Edges")
+        self.fail("Mega Manipulation Edges")
+        self.fail("Mega Composure Edges")
 
     def test_pay_cost(self):
-        self.fail()
+        self.fail("Mega Attribute Cost")
+        self.fail("Mega Attribute Cost With Transcendence")
+        self.fail("Mega Edge Cost")
+        self.fail("Mega Edge Cost With Transcendence")
+        self.fail("Power Tag Cost")
+        self.fail("Quantum <= 5 Cost")
+        self.fail("Quantum > 5 Cost")
+        self.fail("Quantum Power Cost")
+        self.fail("Quantum Power Cost With Transcendence")
+        self.fail("Remove Tag Cost")
 
     def test_add_transcendance(self):
-        self.fail()
+        self.fail("Check Transcendence Increase")
+        self.fail("Check Addition of Transformations")
 
     def test_apply_mega_edge(self):
-        self.fail()
+        self.fail("Add Edge at Rating")
+        self.fail("Check Mega Edge Prereqs")
+        self.fail("Increase rating of edge")
+        self.fail("Do not add duplicate Edge")
 
     def test_apply_power_tag(self):
-        self.fail()
+        self.fail("Check Adding a Tag")
+        self.fail("Check can be added to an appropriate power")
+        self.fail("Check can't be added to incorrect power")
+        self.fail("Check only permitted ratings happen")
 
     def test_add_quantum(self):
-        self.fail()
+        self.fail("Add quantum dot")
+        self.fail("Fail to Add quantum dot above 5 at chargen")
 
     def test_power_suite(self):
         self.fail()
@@ -222,17 +257,32 @@ class TestAberrant(TestCase):
 
 
 class TestRandomAberrant(TestCase):
+    def setUp(self):
+        self.player = User.objects.create(username="Test User")
+        self.character = Aberrant.objects.create(name="", player=self.player.tc_profile)
+
     def test_random_concept(self):
-        self.fail()
+        self.assertEqual(self.character.concept, "")
+        self.character.random_concept()
+        self.assertNotEqual(self.character.concept, "")
 
     def test_random_aspirations(self):
-        self.fail()
-
-    def test_random(self):
-        self.fail()
+        self.assertEqual(self.character.short_term_aspiration_1, "")
+        self.assertEqual(self.character.short_term_aspiration_2, "")
+        self.assertEqual(self.character.long_term_aspiration, "")
+        self.character.random_aspirations()
+        self.assertNotEqual(self.character.short_term_aspiration_1, "")
+        self.assertNotEqual(self.character.short_term_aspiration_2, "")
+        self.assertNotEqual(self.character.long_term_aspiration, "")
 
     def test_add_random_attribute(self):
-        self.fail()
+        for v in self.character.get_attributes().values():
+            self.assertEqual(v, 1)
+        self.assertEqual(len(self.character.get_attributes().keys()), 9)
+        self.character.random_attributes()
+        triple = [self.character.physical_attribute_sum(), self.character.social_attribute_sum(), self.character.mental_attribute_sum()]
+        triple.sort()
+        self.assertEqual(triple, [6, 8 ,10])
 
     def test_add_random_edge(self):
         self.fail()
@@ -243,8 +293,14 @@ class TestRandomAberrant(TestCase):
     def test_random_change_approach(self):
         self.fail()
 
-    def test_add_random_skill(self):
-        self.fail()
+    def test_add_random_skills(self):
+        for v in self.character.get_skills().values():
+            self.assertEqual(v, 0)
+        self.assertEqual(len(self.character.get_skills().keys()), 16)
+        self.character.random_skills()
+        self.assertEqual(self.character.total_skills(), 6)
+        self.fail("Check for skill specialties")
+        self.fail("Check for skill tricks")
 
     def test_add_random_skill_trick(self):
         self.fail()
