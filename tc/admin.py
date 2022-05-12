@@ -14,9 +14,7 @@ from tc.models import (
     PathConnectionRating,
     Power,
     PowerRating,
-    Skill,
     SkillPrereq,
-    SkillRating,
     Tag,
     TagRating,
     Transformation,
@@ -35,8 +33,6 @@ admin.site.register(PathConnectionRating)
 admin.site.register(Tag)
 admin.site.register(Power)
 admin.site.register(Transformation)
-admin.site.register(SkillRating)
-admin.site.register(Skill)
 admin.site.register(EdgeRating)
 admin.site.register(MegaEdgeRating)
 admin.site.register(PowerRating)

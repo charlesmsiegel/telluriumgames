@@ -14,7 +14,6 @@ from tc.models import (
     PathConnectionRating,
     Power,
     PowerRating,
-    SkillRating,
     Tag,
     TagRating,
     Transformation,
@@ -55,12 +54,6 @@ class AberrantDetailView(View):
     def get_context(self, pk):
         char = Aberrant.objects.get(id=pk)
         context = {"character": char}
-        skill_ratings = SkillRating.objects.filter(character=char)
-        for skill in skill_ratings:
-            context[
-                skill.skill.name.lower().replace("-", "_").replace(" ", "_")
-            ] = skill
-
         origin_path = PathConnectionRating.objects.filter(
             character=char, path__type="ORI"
         ).first()
@@ -97,7 +90,7 @@ class AberrantDetailView(View):
         context["tags"] = tags
         context["transformations"] = char.transformations.all()
         tricks = []
-        for skill in skill_ratings:
+        for skill in char.get_skills().keys():
             tricks.extend(skill.tricks.all())
         context["tricks"] = tricks
         context["tricks"].sort(key=lambda x: x.name)

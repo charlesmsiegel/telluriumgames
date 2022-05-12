@@ -1,4 +1,12 @@
-from .talent import Skill, Trick, Edge, EnhancedEdge, Path, PathConnection
+from .talent import (
+    Trick,
+    Edge,
+    EnhancedEdge,
+    Path,
+    PathConnection,
+    Human,
+    Specialty,
+)
 
 from .aberrant import (
     Aberrant,
@@ -13,7 +21,6 @@ from .aberrant import (
     PowerRating,
     Option,
     SkillPrereq,
-    SkillRating,
     Tag,
     TagRating,
     Transformation,

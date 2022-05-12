@@ -1,20 +1,17 @@
 import math
 import random
 
-from accounts.models import TCProfile
 from core.utils import weighted_choice, add_dot
 from django.db import models
-from django.shortcuts import reverse
 from tc.models.talent import (
+    Human,
     Edge,
     EnhancedEdge,
     Path,
     PathConnection,
     PathConnectionRating,
-    Skill,
     Trick,
 )
-
 
 # Create your models here.
 class MegaEdge(Edge):
@@ -100,43 +97,8 @@ class Transformation(models.Model):
         return self.name
 
 
-class Aberrant(models.Model):
-    name = models.CharField(max_length=100, default="")
-    player = models.ForeignKey(
-        TCProfile,
-        on_delete=models.CASCADE,
-        related_name="characters",
-        blank=True,
-        null=True,
-    )
-    concept = models.CharField(max_length=100, default="")
-
-    short_term_aspiration_1 = models.TextField(default="")
-    short_term_aspiration_2 = models.TextField(default="")
-    long_term_aspiration = models.TextField(default="")
-
-    paths = models.ManyToManyField(
-        "PathConnection",
-        blank=True,
-        related_name="characters_on_path",
-        through=PathConnectionRating,
-    )
-
-    intellect = models.IntegerField(default=1)
-    cunning = models.IntegerField(default=1)
-    resolve = models.IntegerField(default=1)
-    might = models.IntegerField(default=1)
-    dexterity = models.IntegerField(default=1)
-    stamina = models.IntegerField(default=1)
-    presence = models.IntegerField(default=1)
-    manipulation = models.IntegerField(default=1)
-    composure = models.IntegerField(default=1)
-
-    favored_approach = models.CharField(
-        max_length=3,
-        choices=[("FOR", "Force"), ("FIN", "Finesse"), ("RES", "Resilience"),],
-        default="FOR",
-    )
+class Aberrant(Human):
+    type = "Aberrant"
 
     mega_intellect = models.IntegerField(default=0)
     mega_cunning = models.IntegerField(default=0)
@@ -148,36 +110,6 @@ class Aberrant(models.Model):
     mega_manipulation = models.IntegerField(default=0)
     mega_composure = models.IntegerField(default=0)
 
-    aim = models.IntegerField(default=0)
-    athletics = models.IntegerField(default=0)
-    close_combat = models.IntegerField(default=0)
-    command = models.IntegerField(default=0)
-    culture = models.IntegerField(default=0)
-    empathy = models.IntegerField(default=0)
-    enigmas = models.IntegerField(default=0)
-    humanities = models.IntegerField(default=0)
-    integrity = models.IntegerField(default=0)
-    larceny = models.IntegerField(default=0)
-    medicine = models.IntegerField(default=0)
-    persuasion = models.IntegerField(default=0)
-    pilot = models.IntegerField(default=0)
-    science = models.IntegerField(default=0)
-    survival = models.IntegerField(default=0)
-    technology = models.IntegerField(default=0)
-
-    edges = models.ManyToManyField(
-        Edge, related_name="edges_of", through="EdgeRating", blank=True
-    )
-    enhanced_edges = models.ManyToManyField(
-        EnhancedEdge, related_name="edges_of", blank=True
-    )
-
-    moment_of_inspiration = models.TextField(default="")
-    defense = models.IntegerField(default=1)
-    bruised_levels = models.IntegerField(default=2)
-    injured_levels = models.IntegerField(default=2)
-    maimed_levels = models.IntegerField(default=1)
-
     quantum = models.IntegerField(default=1)
     quantum_points = models.IntegerField(default=10)
     transcendence = models.IntegerField(default=0)
@@ -187,179 +119,6 @@ class Aberrant(models.Model):
         "MegaEdge", related_name="megaedges_of", through="MegaEdgeRating", blank=True
     )
     powers = models.ManyToManyField(Power, through="PowerRating", blank=True)
-
-    xp = models.IntegerField(default=0)
-    xp_spending = models.TextField(default="")
-
-    class Meta:
-        ordering = ("name",)
-
-    def get_absolute_url(self):
-        return reverse("tc:character", args=[str(self.id)])
-
-    def random_concept(self, name=None):
-        if name is None:
-            self.name = "Test 1"
-        else:
-            self.name = name
-        self.concept = "Nova Character"
-
-    def random_aspirations(self):
-        self.short_term_aspiration_1 = "Short Term 1"
-        self.short_term_aspiration_2 = "Short Term 2"
-        self.long_term_aspiration = "Long Term"
-        self.save()
-
-    def random_paths(self):
-        self.add_random_path_dot(sublist=list(Path.objects.filter(type="ORI")))
-        self.add_random_path_dot(sublist=list(Path.objects.filter(type="ROL")))
-        self.add_random_path_dot(sublist=list(Path.objects.filter(type="SOC")))
-        for path in PathConnectionRating.objects.filter(character=self):
-            skills = list(path.path.skills.all())
-            skills = list(SkillRating.objects.filter(character=self, skill__in=skills))
-            count = 0
-            while count < 3:
-                if self.add_random_skill(sublist=skills):
-                    count += 1
-            total_diff = 2
-            while total_diff > 0:
-                result = self.add_random_edge(sublist=list(path.path.edges.all()))
-                if result:
-                    diff, (edge, rating) = result
-                    diff = int(diff)
-                    if diff <= total_diff:
-                        self.apply_edge(edge, rating)
-                        total_diff -= diff
-
-    def random_skills(self):
-        count = 0
-        while count < 6:
-            if self.add_random_skill():
-                count += 1
-        high_skills = SkillRating.objects.filter(character=self, rating__gte=3)
-        for skill_rating in high_skills:
-            for _ in range(skill_rating.rating - 2):
-                self.add_random_skill_trick(sublist=[skill_rating])
-        self.add_random_skill_trick()
-        for skill in SkillRating.objects.filter(character=self, rating__gte=3):
-            self.add_random_skill_specialty(sublist=[skill])
-
-    def get_physical_attributes(self):
-        return {
-            "might": self.might,
-            "dexterity": self.dexterity,
-            "stamina": self.stamina,
-        }
-
-    def get_mental_attributes(self):
-        return {
-            "intellect": self.intellect,
-            "cunning": self.cunning,
-            "resolve": self.resolve,
-        }
-
-    def get_social_attributes(self):
-        return {
-            "presence": self.presence,
-            "manipulation": self.manipulation,
-            "composure": self.composure,
-        }
-
-    def get_force_attributes(self):
-        return {
-            "might": self.might,
-            "intellect": self.intellect,
-            "presence": self.presence,
-        }
-
-    def get_finesse_attributes(self):
-        return {
-            "cunning": self.cunning,
-            "dexterity": self.dexterity,
-            "manipulation": self.manipulation,
-        }
-
-    def get_resilience_attributes(self):
-        return {
-            "resolve": self.resolve,
-            "composure": self.composure,
-            "stamina": self.stamina,
-        }
-
-    def physical_attribute_sum(self):
-        return sum(self.get_physical_attributes().values())
-
-    def mental_attribute_sum(self):
-        return sum(self.get_mental_attributes().values())
-
-    def social_attribute_sum(self):
-        return sum(self.get_social_attributes().values())
-
-    def force_attribute_sum(self):
-        return sum(self.get_force_attributes().values())
-
-    def finesse_attribute_sum(self):
-        return sum(self.get_finesse_attributes().values())
-
-    def resilience_attribute_sum(self):
-        return sum(self.get_resilience_attributes().values())
-
-    def get_skills(self):
-        return {
-            "aim": self.aim,
-            "athletics": self.athletics,
-            "close_combat": self.close_combat,
-            "command": self.command,
-            "culture": self.culture,
-            "empathy": self.empathy,
-            "enigmas": self.enigmas,
-            "humanities": self.humanities,
-            "integrity": self.integrity,
-            "larceny": self.larceny,
-            "medicine": self.medicine,
-            "persuasion": self.persuasion,
-            "pilot": self.pilot,
-            "science": self.science,
-            "survival": self.survival,
-            "technology": self.technology,
-        }
-
-    def total_skills(self):
-        return sum(self.get_skills().values())
-
-    def random_attributes(self, primary=6, secondary=4, tertiary=2):
-        attribute_types = [primary, secondary, tertiary]
-        random.shuffle(attribute_types)
-        while self.physical_attribute_sum() < attribute_types[0] + 3:
-            attribute_choice = weighted_choice(self.get_physical_attributes())
-            add_dot(self, attribute_choice, 5)
-        while self.social_attribute_sum() < attribute_types[1] + 3:
-            attribute_choice = weighted_choice(self.get_social_attributes())
-            add_dot(self, attribute_choice, 5)
-        while self.mental_attribute_sum() < attribute_types[2] + 3:
-            attribute_choice = weighted_choice(self.get_mental_attributes())
-            add_dot(self, attribute_choice, 5)
-
-        approaches = {
-            "force": self.get_force_attributes(),
-            "finesse": self.get_finesse_attributes(),
-            "resilience": self.get_resilience_attributes(),
-        }
-
-        approach = random.choice(approaches.keys())
-
-        for key in approaches[approach]:
-            add_dot(self, approaches[approach][key], 5)
-
-        while self.physical_attribute_sum() < attribute_types[0] + 4:
-            attribute_choice = weighted_choice(self.get_physical_attributes())
-            add_dot(self, attribute_choice, 5)
-        while self.social_attribute_sum() < attribute_types[1] + 4:
-            attribute_choice = weighted_choice(self.get_social_attributes())
-            add_dot(self, attribute_choice, 5)
-        while self.mental_attribute_sum() < attribute_types[2] + 4:
-            attribute_choice = weighted_choice(self.get_mental_attributes())
-            add_dot(self, attribute_choice, 5)
 
     def apply_template(self, xp=150):
         approaches = {
@@ -663,8 +422,7 @@ class Aberrant(models.Model):
                     getattr(self, att_prereq.attribute) >= att_prereq.rating
                 )
             for skill_prereq in skill_prereqs:
-                x = SkillRating.objects.get(character=self, skill=skill_prereq.skill)
-                satisfied = satisfied and (x.rating >= skill_prereq.rating)
+                satisfied = satisfied and (getattr(self, skill_prereq.skill) >= skill_prereq.rating)
             for edge_prereq in edge_prereqs:
                 if edge_prereq.edge in self.edges.all():
                     x = EdgeRating.objects.get(character=self, edge=edge_prereq.edge)
@@ -743,7 +501,7 @@ class Aberrant(models.Model):
 
     def add_random_skill(self, sublist=None):
         if sublist is None:
-            sublist = list(SkillRating.objects.filter(character=self, rating__lt=5))
+            sublist = [k for k, v in self.get_skills() if v < 5]
         else:
             sublist = [x for x in sublist if x.rating < 5]
         sublist = self.weight_rating_list(sublist)
@@ -756,7 +514,7 @@ class Aberrant(models.Model):
 
     def add_random_skill_trick(self, sublist=None):
         if sublist is None:
-            sublist = SkillRating.objects.filter(character=self, rating__gt=0)
+            sublist = [k for k, v in self.get_skills() if v > 0]
         sublist = [
             x
             for x in sublist
@@ -774,9 +532,8 @@ class Aberrant(models.Model):
 
     def add_random_skill_specialty(self, sublist=None):
         if sublist is None:
-            sublist = list(
-                SkillRating.objects.filter(character=self, rating__gte=3, specialty="")
-            )
+            sublist = [k for k, v in self.get_skills() if k >= 3]
+            # TODO: filter out skills that have specialties
         if len(sublist) == 0:
             return False
         skill = random.choice(sublist)
@@ -837,8 +594,7 @@ class Aberrant(models.Model):
                     getattr(self, att_prereq.attribute) >= att_prereq.rating
                 )
             for skill_prereq in skill_prereqs:
-                x = SkillRating.objects.get(character=self, skill=skill_prereq.skill)
-                satisfied = satisfied and (x.rating >= skill_prereq.rating)
+                satisfied = satisfied and (getattr(self, skill_prereq.skill) >= skill_prereq.rating)
             for edge_prereq in edge_prereqs:
                 if edge_prereq.edge in self.edges.all():
                     x = EdgeRating.objects.get(character=self, edge=edge_prereq.edge)
@@ -974,29 +730,10 @@ class Aberrant(models.Model):
 
 
 # RATINGS
-class SkillRating(models.Model):
-    skill = models.ForeignKey(Skill, on_delete=models.CASCADE, blank=True, null=True)
-    character = models.ForeignKey(
-        Aberrant, on_delete=models.CASCADE, blank=True, null=True
-    )
-    rating = models.IntegerField(default=1)
-    tricks = models.ManyToManyField(Trick, blank=True)
-    specialty = models.CharField(max_length=100)
-
-    def __str__(self):
-        s = f"{self.character}: {self.skill}: {self.rating}"
-        if self.specialty != "":
-            s += f" ({self.specialty})"
-        if self.tricks.count() > 0:
-            tricks = ", ".join([x.name for x in list(self.tricks.all())])
-            s += f" {tricks}"
-        return s
-
-
 class EdgeRating(models.Model):
     edge = models.ForeignKey(Edge, on_delete=models.CASCADE, blank=True, null=True)
     character = models.ForeignKey(
-        Aberrant, on_delete=models.CASCADE, blank=True, null=True
+        Human, on_delete=models.CASCADE, blank=True, null=True
     )
     rating = models.IntegerField(default=0)
 
@@ -1059,7 +796,7 @@ class MegaAttributePrereq(models.Model):
 
 
 class SkillPrereq(models.Model):
-    skill = models.ForeignKey(Skill, on_delete=models.CASCADE, blank=True, null=True)
+    skill = models.CharField(max_length=100)
     rating = models.IntegerField(default=0)
 
     def __str__(self):

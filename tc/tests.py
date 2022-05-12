@@ -1,14 +1,13 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from tc.models import Aberrant
+from tc.models import Aberrant, Human
 
 
 # Create your tests here.
 class TestTalent(TestCase):
-    # TODO: Create Talent class and replace the Aberrant here with it
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Aberrant.objects.create(name="", player=self.player.tc_profile)
+        self.character = Human.objects.create(name="", player=self.player.tc_profile)
 
     def test_has_attributes(self):
         for att in [
