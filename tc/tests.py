@@ -17,12 +17,12 @@ from tc.models.talent import EdgeRating, EnhancedEdge
 
 
 # Create your tests here.
-class TestTalent(TestCase):
+class TestHuman(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
         self.character = Human.objects.create(name="", player=self.player.tc_profile)
-        Edge.objects.create(name="Edge 1")
-        path_edge = Edge.objects.create(name="Path Edge")
+        Edge.objects.create(name="Edge", ratings=[1, 3])
+        path_edge = Edge.objects.create(name="Path Edge", ratings=[1, 3])
         EnhancedEdge.objects.create(name="Enhanced Edge")
         path1 = Path.objects.create(
             name="Test Origin",
@@ -166,13 +166,13 @@ class TestTalent(TestCase):
         self.assertEqual(self.character.total_skills(), 48)
 
     def test_specialties(self):
-        spec1 = Specialty.objects.create(skill="sci", specialty="Physica")
+        spec1 = Specialty.objects.create(skill="sci", specialty="Physics")
         spec2 = Specialty.objects.create(skill="sci", specialty="Biology")
         self.assertEqual(self.character.specialties.count(), 0)
-        self.character.add_specialty(spec1)
+        self.character.specialties.add(spec1)
         self.assertEqual(self.character.specialties.count(), 1)
-        self.character.add_specialty(spec2)
-        self.assertEqual(self.character.specialties.count(), 1)
+        self.character.specialties.add(spec2)
+        self.assertEqual(self.character.specialties.count(), 2)
 
     def test_tricks(self):
         trick1 = Trick.objects.create(skill="sci", name="Trick 1")
@@ -194,22 +194,20 @@ class TestTalent(TestCase):
         self.assertEqual(edge_total + 4, self.character.total_edges())
         self.assertEqual(self.character.defense, 1)
 
-    # def test_spend_xp(self):
-    #     self.fail()
-
     def test_xp_costs(self):
-        self.assertEqual(self.character.xp_cost("might", 1), 10)
-        self.assertEqual(self.character.xp_cost("Edge 1", 1), 3)
-        self.assertEqual(self.character.xp_cost("Edge 1", 2), 6)
-        self.assertEqual(self.character.xp_cost("Path Edge", 1), 2)
-        self.assertEqual(self.character.xp_cost("Path Edge", 3), 6)
-        self.assertEqual(self.character.xp_cost("Enhanced Edge", 1), 6)
-        self.assertEqual(self.character.xp_cost("Change Approach", 1), 15)
-        self.assertEqual(self.character.xp_cost("science", 1), 5)
-        self.assertEqual(self.character.xp_cost("science", 2), 10)
-        self.assertEqual(self.character.xp_cost("Trick", 1), 3)
-        self.assertEqual(self.character.xp_cost("Specialty", 1), 3)
-        self.assertEqual(self.character.xp_cost("Test Origin", 1), 18)
+        self.assertEqual(self.character.xp_cost("might"), 10)
+        self.assertEqual(self.character.xp_cost("Edge"), 3)
+        EdgeRating.objects.create(character=self.character, edge=Edge.objects.get(name="Edge"), rating=1)
+        self.assertEqual(self.character.xp_cost("Edge"), 6)
+        self.assertEqual(self.character.xp_cost("Path Edge"), 2)
+        EdgeRating.objects.create(character=self.character, edge=Edge.objects.get(name="Path Edge"), rating=1)
+        self.assertEqual(self.character.xp_cost("Path Edge"), 4)
+        self.assertEqual(self.character.xp_cost("Enhanced Edge"), 6)
+        self.assertEqual(self.character.xp_cost("Change Approach FIN"), 15)
+        self.assertEqual(self.character.xp_cost("science"), 5)
+        self.assertEqual(self.character.xp_cost("Trick"), 3)
+        self.assertEqual(self.character.xp_cost("Specialty"), 3)
+        self.assertEqual(self.character.xp_cost("Test Origin"), 18)
 
     def test_apply_edge(self):
         edge = Edge.objects.create(name="Test Edge", ratings=[1, 2, 4])
@@ -234,6 +232,37 @@ class TestTalent(TestCase):
         self.assertEqual(
             EdgeRating.objects.get(character=self.character, edge=edge).rating, 4
         )
+
+    def test_spend_xp(self):
+        self.character.xp = 81
+        self.character.might = 1
+        self.character.spend_xp("might")
+        self.assertEqual(self.character.might, 2)
+        self.assertEqual(self.character.xp, 71)
+        self.character.spend_xp("Edge")
+        self.assertEqual(EdgeRating.objects.get(character=self.character, edge=Edge.objects.get(name="Edge")).rating, 1)
+        self.assertEqual(self.character.xp, 68)
+        self.character.spend_xp("Edge")
+        self.assertEqual(EdgeRating.objects.get(character=self.character, edge=Edge.objects.get(name="Edge")).rating, 3)
+        self.assertEqual(self.character.xp, 62)
+        self.character.spend_xp("Path Edge")
+        self.assertEqual(EdgeRating.objects.get(character=self.character, edge=Edge.objects.get(name="Path Edge")).rating, 1)
+        self.assertEqual(self.character.xp, 60)
+        self.character.spend_xp("Enhanced Edge")
+        self.assertEqual(self.character.xp, 54)
+        self.character.spend_xp("Change Approach FIN")
+        self.assertEqual(self.character.xp, 39)
+        self.character.spend_xp("science")
+        self.assertEqual(self.character.xp, 34)
+        self.character.spend_xp("science")
+        self.character.spend_xp("science")
+        self.assertEqual(self.character.xp, 24)
+        self.character.spend_xp("Trick")
+        self.assertEqual(self.character.xp, 21)
+        self.character.spend_xp("Specialty")
+        self.assertEqual(self.character.xp, 18)
+        self.character.spend_xp("Test Origin")
+        self.assertEqual(self.character.xp, 0)
 
 
 class TestAberrant(TestCase):

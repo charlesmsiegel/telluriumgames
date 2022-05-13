@@ -1,5 +1,6 @@
 import math
 import random
+from tokenize import Special
 
 from django.db import models
 from django.shortcuts import reverse
@@ -305,7 +306,7 @@ class Human(PolymorphicModel):
 
         # Specialties for high skills
         for skill in [k for k, v in self.get_skills().items() if v >= 3]:
-            self.add_specialty(
+            self.specialties.add(
                 Specialty.objects.filter(skill=skill[:3]).order_by("?").first()
             )
 
@@ -445,16 +446,6 @@ class Human(PolymorphicModel):
             attribute_choice = weighted_choice(self.get_mental_attributes())
             add_dot(self, attribute_choice, 5)
 
-    def add_specialty(self, specialty):
-        skill = specialty.skill
-        if self.specialties.filter(skill=skill).count() == 0:
-            self.specialties.add(specialty)
-            self.save()
-
-    # def add_trick(self, trick):
-    #     self.tricks.add(trick)
-    #     self.save()
-
     def total_attributes(self):
         return sum(self.get_attributes().values())
 
@@ -523,7 +514,7 @@ class Human(PolymorphicModel):
                 ]:
                     if (
                         pair[1]
-                        <= EdgeRating.objects.get(character=self, edge=pair[0])
+                        <= EdgeRating.objects.get(character=self, edge=pair[0]).rating
                         + max_rating_diff
                     ):
                         new_candidates.append(pair)
@@ -559,22 +550,35 @@ class Human(PolymorphicModel):
     def __str__(self):
         return self.name
 
-    def xp_cost(self, trait, num_dots):
+    def xp_cost(self, trait):
         if trait in self.get_attributes().keys():
-            return 10 * num_dots
+            return 10
         elif trait in self.get_skills().keys():
-            return 5 * num_dots
+            return 5
         elif trait in [
             y.name
             for x in PathConnectionRating.objects.filter(character=self)
             for y in x.path.edges.all()
         ]:
-            return 2 * num_dots
+            
+            edge = Edge.objects.get(name=trait)
+            if edge in self.edges.all():
+                current_rating = EdgeRating.objects.get(character=self, edge=edge).rating
+            else:
+                current_rating = 0
+            new_rating = min([x for x in edge.ratings if x > current_rating])
+            return 2 * (new_rating - current_rating)
         elif trait in [x.name for x in Edge.objects.all()]:
-            return 3 * num_dots
+            edge = Edge.objects.get(name=trait)
+            if edge in self.edges.all():
+                current_rating = EdgeRating.objects.get(character=self, edge=edge).rating
+            else:
+                current_rating = 0
+            new_rating = min([x for x in edge.ratings if x > current_rating])
+            return 3 * (new_rating - current_rating)
         elif trait in [x.name for x in EnhancedEdge.objects.all()]:
             return 6
-        elif trait == "Change Approach":
+        elif trait in ["Change Approach FIN", "Change Approach FOR", "Change Approach RES"]:
             return 15
         elif trait in [x.name for x in Trick.objects.all()]:
             return 3
@@ -584,6 +588,67 @@ class Human(PolymorphicModel):
             return 18
         else:
             raise Exception(f"Trait {trait} Not Recognized")
+
+    def spend_xp(self, trait):
+        cost = self.xp_cost(trait)
+        if self.xp >= cost:
+            if trait in self.get_attributes().keys():
+                if add_dot(self, trait, 5):
+                    self.xp -= cost
+            elif trait in self.get_skills().keys():
+                if add_dot(self, trait, 5):
+                    self.xp -= cost
+            elif trait in [
+                y.name
+                for x in PathConnectionRating.objects.filter(character=self)
+                for y in x.path.edges.all()
+            ]:
+                edge = Edge.objects.get(name=trait)
+                if edge in self.edges.all():
+                    current_rating = EdgeRating.objects.get(character=self, edge=edge).rating
+                else:
+                    current_rating = 0
+                new_rating = min([x for x in edge.ratings if x > current_rating])
+                self.add_edge(Edge.objects.get(name=trait), new_rating)
+                self.xp -= cost
+            elif trait in [x.name for x in Edge.objects.all()]:
+                edge = Edge.objects.get(name=trait)
+                if edge in self.edges.all():
+                    current_rating = EdgeRating.objects.get(character=self, edge=edge).rating
+                else:
+                    current_rating = 0
+                new_rating = min([x for x in edge.ratings if x > current_rating])
+                self.add_edge(Edge.objects.get(name=trait), new_rating)
+                self.xp -= cost
+            elif trait in [x.name for x in EnhancedEdge.objects.all()]:
+                if trait not in [x.name for x in self.enhanced_edges.all()]:
+                    self.enhanced_edges.add(EnhancedEdge.objects.get(name=trait))
+                    self.xp -= cost
+            elif trait in ["Change Approach FIN", "Change Approach FOR", "Change Approach RES"]:
+                new_approach = trait.split(" ")[-1]
+                if self.favored_approach != new_approach:
+                    self.favored_approach = new_approach
+                    self.xp -= cost
+            elif trait in [x.name for x in Trick.objects.all()]:
+                if trait not in [x.name for x in self.tricks.all()]:
+                    self.tricks.add(Trick.objects.get(name=trait))
+                    self.xp -= cost
+            elif trait in [x.specialty for x in Specialty.objects.all()]:
+                if trait not in [x.name for x in self.specialties.all()]:
+                    self.specialties.add(Specialty.objects.get(specialty=trait))
+                    self.xp -= cost
+            elif trait in [x.name for x in Path.objects.all()]:
+                if trait not in [x.name for x in self.paths.all()]:
+                    PathConnectionRating.objects.create(character=self, path=Path.objects.get(name=trait), path_connection=None, rating=1)
+                    self.xp -= cost
+                else:
+                    x = PathConnectionRating.objects.get(path=Path.objects.get(name=trait), character=self)
+                    if x.rating < 5:
+                        x.rating += 1
+                        x.save()
+                        self.xp -= cost
+            else:
+                raise Exception(f"Trait {trait} Not Recognized")
 
 
 class EdgeRating(models.Model):

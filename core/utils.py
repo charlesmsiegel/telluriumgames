@@ -31,3 +31,5 @@ def add_dot(character, trait, maximum):
     if getattr(character, trait) < maximum:
         setattr(character, trait, getattr(character, trait) + 1)
         character.save()
+        return True
+    return False
