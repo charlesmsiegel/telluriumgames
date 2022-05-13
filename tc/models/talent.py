@@ -560,10 +560,12 @@ class Human(PolymorphicModel):
             for x in PathConnectionRating.objects.filter(character=self)
             for y in x.path.edges.all()
         ]:
-            
+
             edge = Edge.objects.get(name=trait)
             if edge in self.edges.all():
-                current_rating = EdgeRating.objects.get(character=self, edge=edge).rating
+                current_rating = EdgeRating.objects.get(
+                    character=self, edge=edge
+                ).rating
             else:
                 current_rating = 0
             new_rating = min([x for x in edge.ratings if x > current_rating])
@@ -571,14 +573,20 @@ class Human(PolymorphicModel):
         elif trait in [x.name for x in Edge.objects.all()]:
             edge = Edge.objects.get(name=trait)
             if edge in self.edges.all():
-                current_rating = EdgeRating.objects.get(character=self, edge=edge).rating
+                current_rating = EdgeRating.objects.get(
+                    character=self, edge=edge
+                ).rating
             else:
                 current_rating = 0
             new_rating = min([x for x in edge.ratings if x > current_rating])
             return 3 * (new_rating - current_rating)
         elif trait in [x.name for x in EnhancedEdge.objects.all()]:
             return 6
-        elif trait in ["Change Approach FIN", "Change Approach FOR", "Change Approach RES"]:
+        elif trait in [
+            "Change Approach FIN",
+            "Change Approach FOR",
+            "Change Approach RES",
+        ]:
             return 15
         elif trait in [x.name for x in Trick.objects.all()]:
             return 3
@@ -605,7 +613,9 @@ class Human(PolymorphicModel):
             ]:
                 edge = Edge.objects.get(name=trait)
                 if edge in self.edges.all():
-                    current_rating = EdgeRating.objects.get(character=self, edge=edge).rating
+                    current_rating = EdgeRating.objects.get(
+                        character=self, edge=edge
+                    ).rating
                 else:
                     current_rating = 0
                 new_rating = min([x for x in edge.ratings if x > current_rating])
@@ -614,7 +624,9 @@ class Human(PolymorphicModel):
             elif trait in [x.name for x in Edge.objects.all()]:
                 edge = Edge.objects.get(name=trait)
                 if edge in self.edges.all():
-                    current_rating = EdgeRating.objects.get(character=self, edge=edge).rating
+                    current_rating = EdgeRating.objects.get(
+                        character=self, edge=edge
+                    ).rating
                 else:
                     current_rating = 0
                 new_rating = min([x for x in edge.ratings if x > current_rating])
@@ -624,7 +636,11 @@ class Human(PolymorphicModel):
                 if trait not in [x.name for x in self.enhanced_edges.all()]:
                     self.enhanced_edges.add(EnhancedEdge.objects.get(name=trait))
                     self.xp -= cost
-            elif trait in ["Change Approach FIN", "Change Approach FOR", "Change Approach RES"]:
+            elif trait in [
+                "Change Approach FIN",
+                "Change Approach FOR",
+                "Change Approach RES",
+            ]:
                 new_approach = trait.split(" ")[-1]
                 if self.favored_approach != new_approach:
                     self.favored_approach = new_approach
@@ -639,10 +655,17 @@ class Human(PolymorphicModel):
                     self.xp -= cost
             elif trait in [x.name for x in Path.objects.all()]:
                 if trait not in [x.name for x in self.paths.all()]:
-                    PathConnectionRating.objects.create(character=self, path=Path.objects.get(name=trait), path_connection=None, rating=1)
+                    PathConnectionRating.objects.create(
+                        character=self,
+                        path=Path.objects.get(name=trait),
+                        path_connection=None,
+                        rating=1,
+                    )
                     self.xp -= cost
                 else:
-                    x = PathConnectionRating.objects.get(path=Path.objects.get(name=trait), character=self)
+                    x = PathConnectionRating.objects.get(
+                        path=Path.objects.get(name=trait), character=self
+                    )
                     if x.rating < 5:
                         x.rating += 1
                         x.save()

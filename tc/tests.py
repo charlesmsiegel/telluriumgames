@@ -197,10 +197,14 @@ class TestHuman(TestCase):
     def test_xp_costs(self):
         self.assertEqual(self.character.xp_cost("might"), 10)
         self.assertEqual(self.character.xp_cost("Edge"), 3)
-        EdgeRating.objects.create(character=self.character, edge=Edge.objects.get(name="Edge"), rating=1)
+        EdgeRating.objects.create(
+            character=self.character, edge=Edge.objects.get(name="Edge"), rating=1
+        )
         self.assertEqual(self.character.xp_cost("Edge"), 6)
         self.assertEqual(self.character.xp_cost("Path Edge"), 2)
-        EdgeRating.objects.create(character=self.character, edge=Edge.objects.get(name="Path Edge"), rating=1)
+        EdgeRating.objects.create(
+            character=self.character, edge=Edge.objects.get(name="Path Edge"), rating=1
+        )
         self.assertEqual(self.character.xp_cost("Path Edge"), 4)
         self.assertEqual(self.character.xp_cost("Enhanced Edge"), 6)
         self.assertEqual(self.character.xp_cost("Change Approach FIN"), 15)
@@ -240,13 +244,28 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.might, 2)
         self.assertEqual(self.character.xp, 71)
         self.character.spend_xp("Edge")
-        self.assertEqual(EdgeRating.objects.get(character=self.character, edge=Edge.objects.get(name="Edge")).rating, 1)
+        self.assertEqual(
+            EdgeRating.objects.get(
+                character=self.character, edge=Edge.objects.get(name="Edge")
+            ).rating,
+            1,
+        )
         self.assertEqual(self.character.xp, 68)
         self.character.spend_xp("Edge")
-        self.assertEqual(EdgeRating.objects.get(character=self.character, edge=Edge.objects.get(name="Edge")).rating, 3)
+        self.assertEqual(
+            EdgeRating.objects.get(
+                character=self.character, edge=Edge.objects.get(name="Edge")
+            ).rating,
+            3,
+        )
         self.assertEqual(self.character.xp, 62)
         self.character.spend_xp("Path Edge")
-        self.assertEqual(EdgeRating.objects.get(character=self.character, edge=Edge.objects.get(name="Path Edge")).rating, 1)
+        self.assertEqual(
+            EdgeRating.objects.get(
+                character=self.character, edge=Edge.objects.get(name="Path Edge")
+            ).rating,
+            1,
+        )
         self.assertEqual(self.character.xp, 60)
         self.character.spend_xp("Enhanced Edge")
         self.assertEqual(self.character.xp, 54)
@@ -287,65 +306,67 @@ class TestAberrant(TestCase):
                 msg=f"obj lacking an attribute. {self.character=}, {att=}",
             )
 
-    # def test_apply_template(self):
-    #     self.fail("Quantum of 1")
-    #     self.fail("One dot in favored approach")
-    #     self.fail("Either 1 dot of Fame or 1 dot of Alternate Identity Edge")
-    #     self.fail("150 XP")
-    #     self.fail("Check spend_xp?")
+    def test_apply_template(self):
+        self.fail("Quantum of 1")
+        self.fail("One dot in favored approach")
+        self.fail("Either 1 dot of Fame or 1 dot of Alternate Identity Edge")
+        self.fail("150 XP")
+        self.fail("Check spend_xp?")
 
-    # def test_final_touches(self):
-    #     self.fail("Check that character doesn't take final_touches trait bonuses like in Human/Talent")
+    def test_final_touches(self):
+        self.fail(
+            "Check that character doesn't take final_touches trait bonuses like in Human/Talent"
+        )
 
-    # def test_spend_xp(self):
-    #     self.fail()
+    def test_spend_xp(self):
+        self.fail()
 
-    # def test_mega_attribute_cleanup(self):
-    #     self.fail("Mega Intellect Edges")
-    #     self.fail("Mega Cunning Edges")
-    #     self.fail("Mega Manipulation Edges")
-    #     self.fail("Mega Composure Edges")
+    def test_mega_attribute_cleanup(self):
+        self.fail("Mega Intellect Edges")
+        self.fail("Mega Cunning Edges")
+        self.fail("Mega Manipulation Edges")
+        self.fail("Mega Composure Edges")
 
-    # def test_pay_cost(self):
-    #     self.fail("Mega Attribute Cost")
-    #     self.fail("Mega Attribute Cost With Transcendence")
-    #     self.fail("Mega Edge Cost")
-    #     self.fail("Mega Edge Cost With Transcendence")
-    #     self.fail("Power Tag Cost")
-    #     self.fail("Quantum <= 5 Cost")
-    #     self.fail("Quantum > 5 Cost")
-    #     self.fail("Quantum Power Cost")
-    #     self.fail("Quantum Power Cost With Transcendence")
-    #     self.fail("Remove Tag Cost")
+    def test_pay_cost(self):
+        self.fail("Mega Attribute Cost")
+        self.fail("Mega Attribute Cost With Transcendence")
+        self.fail("Mega Edge Cost")
+        self.fail("Mega Edge Cost With Transcendence")
+        self.fail("Power Tag Cost")
+        self.fail("Quantum <= 5 Cost")
+        self.fail("Quantum > 5 Cost")
+        self.fail("Quantum Power Cost")
+        self.fail("Quantum Power Cost With Transcendence")
+        self.fail("Remove Tag Cost")
 
-    # def test_add_transcendance(self):
-    #     self.fail("Check Transcendence Increase")
-    #     self.fail("Check Addition of Transformations")
+    def test_add_transcendance(self):
+        self.fail("Check Transcendence Increase")
+        self.fail("Check Addition of Transformations")
 
-    # def test_apply_mega_edge(self):
-    #     self.fail("Add Edge at Rating")
-    #     self.fail("Check Mega Edge Prereqs")
-    #     self.fail("Increase rating of edge")
-    #     self.fail("Do not add duplicate Edge")
+    def test_apply_mega_edge(self):
+        self.fail("Add Edge at Rating")
+        self.fail("Check Mega Edge Prereqs")
+        self.fail("Increase rating of edge")
+        self.fail("Do not add duplicate Edge")
 
-    # def test_apply_power_tag(self):
-    #     self.fail("Check Adding a Tag")
-    #     self.fail("Check can be added to an appropriate power")
-    #     self.fail("Check can't be added to incorrect power")
-    #     self.fail("Check only permitted ratings happen")
+    def test_apply_power_tag(self):
+        self.fail("Check Adding a Tag")
+        self.fail("Check can be added to an appropriate power")
+        self.fail("Check can't be added to incorrect power")
+        self.fail("Check only permitted ratings happen")
 
-    # def test_add_quantum(self):
-    #     self.fail("Add quantum dot")
-    #     self.fail("Fail to Add quantum dot above 5 at chargen")
+    def test_add_quantum(self):
+        self.fail("Add quantum dot")
+        self.fail("Fail to Add quantum dot above 5 at chargen")
 
-    # def test_power_suite(self):
-    #     self.fail()
+    def test_power_suite(self):
+        self.fail()
 
-    # def test_reduced_cost_tag_can_be_bought_multiple_times(self):
-    #     self.fail()
+    def test_reduced_cost_tag_can_be_bought_multiple_times(self):
+        self.fail()
 
-    # def test_mega_edge_negative_one_is_dots(self):
-    #     self.fail()
+    def test_mega_edge_negative_one_is_dots(self):
+        self.fail()
 
 
 class TestRandomAberrant(TestCase):
@@ -414,14 +435,14 @@ class TestRandomAberrant(TestCase):
         triple.sort()
         self.assertEqual(triple, [6, 8, 10])
 
-    # def test_add_random_edge(self):
-    #     self.fail()
+    def test_add_random_edge(self):
+        self.fail()
 
-    # def test_add_random_enhanced_edge(self):
-    #     self.fail()
+    def test_add_random_enhanced_edge(self):
+        self.fail()
 
-    # def test_random_change_approach(self):
-    #     self.fail()
+    def test_random_change_approach(self):
+        self.fail()
 
     def test_add_random_skills(self):
         for v in self.character.get_skills().values():
@@ -448,29 +469,29 @@ class TestRandomAberrant(TestCase):
             total += value - 2
         self.assertEqual(self.character.tricks.count(), total + 1)
 
-    # def test_add_random_skill_trick(self):
-    #     self.fail()
+    def test_add_random_skill_trick(self):
+        self.fail()
 
-    # def test_add_random_skill_specialty(self):
-    #     self.fail()
+    def test_add_random_skill_specialty(self):
+        self.fail()
 
-    # def test_add_random_path_dot(self):
-    #     self.fail()
+    def test_add_random_path_dot(self):
+        self.fail()
 
-    # def test_add_random_mega_attribute(self):
-    #     self.fail()
+    def test_add_random_mega_attribute(self):
+        self.fail()
 
-    # def test_add_random_mega_edge(self):
-    #     self.fail()
+    def test_add_random_mega_edge(self):
+        self.fail()
 
-    # def test_add_random_power_tag(self):
-    #     self.fail()
+    def test_add_random_power_tag(self):
+        self.fail()
 
-    # def test_add_random_power(self):
-    #     self.fail()
+    def test_add_random_power(self):
+        self.fail()
 
-    # def test_random_edges_and_tags_favor_lower_values(self):
-    #     self.fail()
+    def test_random_edges_and_tags_favor_lower_values(self):
+        self.fail()
 
-    # def test_random_power_prefers_higher_rank_to_more_powers(self):
-    #     self.fail()
+    def test_random_power_prefers_higher_rank_to_more_powers(self):
+        self.fail()
