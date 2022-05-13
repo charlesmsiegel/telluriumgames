@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from cod.models import Mortal
+from cod.models.character.mortal import Mortal
 
 
 # Create your tests here.

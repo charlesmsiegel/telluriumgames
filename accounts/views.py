@@ -4,9 +4,10 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, View
 
 from accounts.models import CoDProfile, TCProfile, WoDProfile
-from cod.models import Mortal
-from tc.models import Aberrant
-from wod.models.characters import Character
+
+# from cod.models.character.mortal import Mortal
+# from tc.models import Aberrant
+# from wod.models.characters import Character
 
 # from characters.models import Character
 
@@ -31,16 +32,16 @@ class ProfileView(View):
             to_approve = []
             xp_requests = []
             characters = []
-            characters.extend(Mortal.objects.filter(player=cod_profile))
-            characters.extend(Character.objects.filter(player=wod_profile))
-            characters.extend(Aberrant.objects.filter(player=tc_profile))
-            characters.sort(key=lambda x: x.name)
-            if cod_profile.storyteller:
-                to_approve.extend(Mortal.objects.filter(status__in=["Un", "Sub"]))
-            if wod_profile.storyteller:
-                to_approve.extend(Character.objects.filter(status__in=["Un", "Sub"]))
-            if tc_profile.storyteller:
-                to_approve.extend(Aberrant.objects.filter(status__in=["Un", "Sub"]))
+            # characters.extend(Mortal.objects.filter(player=cod_profile))
+            # characters.extend(Character.objects.filter(player=wod_profile))
+            # characters.extend(Aberrant.objects.filter(player=tc_profile))
+            # characters.sort(key=lambda x: x.name)
+            # if cod_profile.storyteller:
+            #     to_approve.extend(Mortal.objects.filter(status__in=["Un", "Sub"]))
+            # if wod_profile.storyteller:
+            #     to_approve.extend(Character.objects.filter(status__in=["Un", "Sub"]))
+            # if tc_profile.storyteller:
+            #     to_approve.extend(Aberrant.objects.filter(status__in=["Un", "Sub"]))
             return render(
                 request,
                 "accounts/index.html",
