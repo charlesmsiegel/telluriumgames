@@ -71,6 +71,13 @@ class Mortal(PolymorphicModel):
     initiative_modifier = models.IntegerField(default=1)
     defense = models.IntegerField(default=1)
 
+    class Meta:
+        verbose_name = "Mortal"
+        verbose_name_plural = "Mortals"
+
+    def __str__(self):
+        return self.name
+
     def add_name(self, name):
         self.name = name
         return True
@@ -396,10 +403,27 @@ class Merit(models.Model):
     name = models.CharField(max_length=100)
     ratings = models.JSONField(default=list)
 
+    class Meta:
+        verbose_name = "Merit"
+        verbose_name_plural = "Merits"
+
+    def __str__(self):
+        return f"{self.name}"
+
 
 class Specialty(models.Model):
     name = models.CharField(max_length=100)
     skill = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "Specialty"
+        verbose_name_plural = "Specialties"
+
+    def display_skill(self):
+        return self.skill.replace("_", " ").title()
+
+    def __str__(self):
+        return f"{self.specialty} ({self.get_skill_display().title()})"
 
 
 class MeritRating(models.Model):
