@@ -44,10 +44,10 @@ class TestMortal(TestCase):
         test_virtues = ["Virtue 1", "Virtue 2", "Virtue 3"]
         self.character.virtue = "Virtue 1"
         self.assertEqual(
-            self.character.filter_virtues(test_virtues), {"Virtue 2": 1, "Virtue 3": 1}
+            self.character.filter_virtues(virtue_list=test_virtues), {"Virtue 2": 1, "Virtue 3": 1}
         )
         self.character.virtue = "Virtue 1, Virtue 2"
-        self.assertEqual(self.character.filter_virtues(test_virtues), {"Virtue 3": 1})
+        self.assertEqual(self.character.filter_virtues(virtue_list=test_virtues), {"Virtue 3": 1})
 
     def test_has_virtue(self):
         self.character.virtue = ""
@@ -67,10 +67,10 @@ class TestMortal(TestCase):
         test_vices = ["Vice 1", "Vice 2", "Vice 3"]
         self.character.vice = "Vice 1"
         self.assertEqual(
-            self.character.filter_vices(test_vices), {"Vice 2": 1, "Vice 3": 1}
+            self.character.filter_vices(vice_list=test_vices), {"Vice 2": 1, "Vice 3": 1}
         )
         self.character.vice = "Vice 1, Vice 2"
-        self.assertEqual(self.character.filter_vices(test_vices), {"Vice 3": 1})
+        self.assertEqual(self.character.filter_vices(vice_list=test_vices), {"Vice 3": 1})
 
     def test_has_vice(self):
         self.character.vice = ""
@@ -349,12 +349,12 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.merit_rating("Merit 1"), 4)
 
     def test_filter_merits(self):
-        m1 = Merit.object.create(name="Merit 1", ratings=[1, 2])
-        m2 = Merit.object.create(name="Merit 2", ratings=[2, 3])
-        m3 = Merit.object.create(name="Merit 3", ratings=[3, 4])
-        m4 = Merit.object.create(name="Merit 4", ratings=[1, 4])
-        m5 = Merit.object.create(name="Merit 5", ratings=[2, 4])
-        m6 = Merit.object.create(name="Merit 6", ratings=[3, 4])
+        m1 = Merit.objects.create(name="Merit 1", ratings=[1, 2])
+        m2 = Merit.objects.create(name="Merit 2", ratings=[2, 3])
+        m3 = Merit.objects.create(name="Merit 3", ratings=[3, 4])
+        m4 = Merit.objects.create(name="Merit 4", ratings=[1, 4])
+        m5 = Merit.objects.create(name="Merit 5", ratings=[2, 4])
+        m6 = Merit.objects.create(name="Merit 6", ratings=[3, 4])
         merit_list = self.character.filter_merits(
             dots=3
         )  # Gives all merits with cost <= dots that character could add
@@ -371,9 +371,9 @@ class TestMortal(TestCase):
         )
 
     def test_has_merits(self):
-        m1 = Merit.object.create(name="Merit 1", ratings=[1, 2])
-        m2 = Merit.object.create(name="Merit 2", ratings=[2, 3])
-        m3 = Merit.object.create(name="Merit 3", ratings=[3, 4])
+        m1 = Merit.objects.create(name="Merit 1", ratings=[1, 2])
+        m2 = Merit.objects.create(name="Merit 2", ratings=[2, 3])
+        m3 = Merit.objects.create(name="Merit 3", ratings=[3, 4])
         self.assertFalse(self.character.has_merits())
         self.character.add_merit(m1)
         self.assertFalse(self.character.has_merits())
