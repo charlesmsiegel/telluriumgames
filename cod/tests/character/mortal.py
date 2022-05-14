@@ -126,9 +126,9 @@ class TestMortal(TestCase):
 
     def test_has_attributes(self):
         triple = [
-            self.character.get_physical_attributes(),
-            self.character.get_mental_attributes(),
-            self.character.get_social_attributes(),
+            self.character.total_physical_attributes(),
+            self.character.total_mental_attributes(),
+            self.character.total_social_attributes(),
         ]
         triple.sort()
         self.assertNotEqual(triple, [6, 7, 8])
@@ -142,17 +142,17 @@ class TestMortal(TestCase):
         self.character.manipulation = 2
         self.character.composure = 2
         triple = [
-            self.character.get_physical_attributes(),
-            self.character.get_mental_attributes(),
-            self.character.get_social_attributes(),
+            self.character.total_physical_attributes(),
+            self.character.total_mental_attributes(),
+            self.character.total_social_attributes(),
         ]
         triple.sort()
         self.assertEqual(triple, [6, 7, 8])
         self.character.composure = 3
         triple = [
-            self.character.get_physical_attributes(),
-            self.character.get_mental_attributes(),
-            self.character.get_social_attributes(),
+            self.character.total_physical_attributes(),
+            self.character.total_mental_attributes(),
+            self.character.total_social_attributes(),
         ]
         triple.sort()
         self.assertNotEqual(triple, [6, 7, 8])
@@ -233,9 +233,9 @@ class TestMortal(TestCase):
 
     def test_has_skills(self):
         triple = [
-            self.character.get_physical_skills(),
-            self.character.get_mental_skills(),
-            self.character.get_social_skills(),
+            self.character.total_physical_skills(),
+            self.character.total_mental_skills(),
+            self.character.total_social_skills(),
         ]
         triple.sort()
         self.assertNotEqual(triple, [4, 7, 11])
@@ -264,17 +264,17 @@ class TestMortal(TestCase):
         self.character.streetwise = 0
         self.character.subterfuge = 0
         triple = [
-            self.character.get_physical_skills(),
-            self.character.get_mental_skills(),
-            self.character.get_social_skills(),
+            self.character.total_physical_skills(),
+            self.character.total_mental_skills(),
+            self.character.total_social_skills(),
         ]
         triple.sort()
         self.assertEqual(triple, [4, 7, 11])
         self.character.subterfuge = 1
         triple = [
-            self.character.get_physical_skills(),
-            self.character.get_mental_skills(),
-            self.character.get_social_skills(),
+            self.character.total_physical_skills(),
+            self.character.total_mental_skills(),
+            self.character.total_social_skills(),
         ]
         triple.sort()
         self.assertNotEqual(triple, [4, 7, 11])
