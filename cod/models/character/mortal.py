@@ -248,7 +248,13 @@ class Mortal(PolymorphicModel):
         return sum(self.get_social_skills().values())
 
     def has_skills(self):
-        pass
+        triple = [
+            self.total_physical_skills(),
+            self.total_mental_skills(),
+            self.total_social_skills(),
+        ]
+        triple.sort()
+        return triple == [4, 7, 11]
 
     def total_skills(self):
         return (
