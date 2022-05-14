@@ -299,9 +299,9 @@ class TestMortal(TestCase):
         self.assertEqual(len(self.character.filter_specialties(skill="firearms")), 1)
 
     def test_has_specialties(self):
-        Specialty.objects.create(name="Literature", skill="academics")
-        Specialty.objects.create(name="Dogs", skill="animal_ken")
-        Specialty.objects.create(name="Poetry", skill="expression")
+        s1 = Specialty.objects.create(name="Literature", skill="academics")
+        s2 = Specialty.objects.create(name="Dogs", skill="animal_ken")
+        s3 = Specialty.objects.create(name="Poetry", skill="expression")
         Specialty.objects.create(name="Reading People", skill="empathy")
         Specialty.objects.create(name="Directions", skill="streetwise")
         self.character.academics = 1
@@ -329,10 +329,11 @@ class TestMortal(TestCase):
         self.character.streetwise = 0
         self.character.subterfuge = 0
         self.assertFalse(self.character.has_specialties())
-        for skill in self.character.filter_skills(min=3).keys():
-            s = Specialty.objects.filter(skill=skill).order_by("?").first()
-            self.character.add_specialty(s)
-            self.assertFalse(self.character.has_specialties())
+        self.character.add_specialty(s1)
+        self.assertFalse(self.character.has_specialties())
+        self.character.add_specialty(s2)
+        self.assertFalse(self.character.has_specialties())
+        self.character.add_specialty(s3)
         self.assertTrue(self.character.has_specialties())
 
     def test_add_merit(self):
