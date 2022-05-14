@@ -368,6 +368,44 @@ class TestMortal(TestCase):
         self.character.add_merit(m3)
         self.assertTrue(self.character.has_merits())
 
+    def test_assign_advantages(self):
+        self.character.resolve = 2
+        self.character.composure = 1
+        self.character.assign_advantages()
+        self.assertEqual(self.character.willpower, 3)
+        self.character.composure = 3
+        self.character.assign_advantages()
+        self.assertEqual(self.character.willpower, 5)
+        self.character.size = 5
+        self.character.stamina = 1
+        self.character.assign_advantages()
+        self.assertEqual(self.character.health, 6)
+        self.character.stamina = 2
+        self.character.assign_advantages()
+        self.assertEqual(self.character.health, 7)
+        self.character.strength = 1
+        self.character.dexterity = 1
+        self.character.assign_advantages()
+        self.assertEqual(self.character.speed, 7)
+        self.character.strength = 2
+        self.character.dexterity = 2
+        self.character.assign_advantages()
+        self.assertEqual(self.character.speed, 9)
+        self.character.dexterity = 2
+        self.character.composure = 2
+        self.character.assign_advantages()
+        self.assertEqual(self.character.initiative_modifier, 4)
+        self.character.dexterity = 5
+        self.character.composure = 2
+        self.character.assign_advantages()
+        self.assertEqual(self.character.initiative_modifier, 7)
+        self.character.wits = 1
+        self.character.dexterity = 3
+        self.character.assign_advantages()
+        self.assertEqual(self.character.defense, 1)
+        self.character.athletics = 5
+        self.character.assign_advantages()
+        self.assertEqual(self.character.defense, 6)
 
 class TestRandomMortal(TestCase):
     def setUp(self):
