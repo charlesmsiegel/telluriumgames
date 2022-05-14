@@ -149,6 +149,13 @@ class Mortal(PolymorphicModel):
         self.add_short_term_aspiration_1("Short Term Aspiration 1")
         self.add_short_term_aspiration_2("Short Term Aspiration 2")
         self.add_long_term_aspiration("Long Term Aspiration")
+        
+    def has_aspirations(self):
+        tmp = True
+        tmp = tmp and (self.short_term_aspiration_1 != "")
+        tmp = tmp and (self.short_term_aspiration_2 != "")
+        tmp = tmp and (self.long_term_aspiration != "")
+        return tmp
 
     def add_short_term_aspiration_1(self, aspiration):
         self.short_term_aspiration_1 = aspiration
@@ -382,6 +389,8 @@ class Mortal(PolymorphicModel):
         return True
 
     def merit_rating(self, name):
+        if name not in [x.name for x in Merit.objects.all()]:
+            return 0
         merit = Merit.objects.get(name=name)
         if merit not in self.merits.all():
             return 0
@@ -420,11 +429,24 @@ class Mortal(PolymorphicModel):
             dots = 7 - self.total_merits()
 
     def assign_advantages(self):
+        if self.merit_rating("Vice-Ridden") > 0:
+            self.add_vice("New Vice")
+        if self.merit_rating("Virtuous") > 0:
+            self.add_vice("New Virtue")
+        if self.merit_rating("Giant") > 0:
+            self.size += 1
+        if self.merit_rating("Small-Framed") > 0:
+            self.size -= 1
         self.willpower = self.resolve + self.composure
-        self.speed = self.strength + self.dexterity + 5
+        self.speed = self.strength + self.dexterity + 5 + self.merit_rating("Fleet of Foot")
         self.health = self.size + self.stamina
-        self.initiative_modifier = self.dexterity + self.composure
-        self.defense = min([self.wits, self.dexterity]) + self.athletics
+        self.initiative_modifier = self.dexterity + self.composure + self.merit_rating("Fast Reflexes")
+        if self.merit_rating("Defensive Combat (Brawl)") > 0:
+            self.defense = min([self.wits, self.dexterity]) + self.brawl
+        elif self.merit_rating("Defensive Combat (Weaponry)") > 0:
+            self.defense = min([self.wits, self.dexterity]) + self.weaponry
+        else:
+            self.defense = min([self.wits, self.dexterity]) + self.athletics
 
 
 class Merit(models.Model):
