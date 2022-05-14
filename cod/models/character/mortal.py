@@ -64,12 +64,14 @@ class Mortal(PolymorphicModel):
 
     def add_name(self, name):
         self.name = name
+        return True
         
     def has_name(self):
         pass
 
     def add_concept(self, concept):
         self.concept = concept
+        return True
 
     def has_concept(self):
         return self.concept != ""
