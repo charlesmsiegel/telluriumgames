@@ -1,4 +1,5 @@
 import random
+from django.shortcuts import reverse
 
 from django.db import models
 from polymorphic.models import PolymorphicModel
@@ -20,9 +21,9 @@ class Mortal(PolymorphicModel):
     virtue = models.CharField(max_length=100)
     vice = models.CharField(max_length=100)
 
-    short_term_aspiration_1 = models.CharField(max_length=100, blank=True, null=True)
-    short_term_aspiration_2 = models.CharField(max_length=100, blank=True, null=True)
-    long_term_aspiration = models.CharField(max_length=100, blank=True, null=True)
+    short_term_aspiration_1 = models.CharField(max_length=100, default="")
+    short_term_aspiration_2 = models.CharField(max_length=100, default="")
+    long_term_aspiration = models.CharField(max_length=100, default="")
 
     intelligence = models.IntegerField(default=1)
     wits = models.IntegerField(default=1)
@@ -81,6 +82,9 @@ class Mortal(PolymorphicModel):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("cod:character", args=[str(self.id)])
 
     def add_name(self, name):
         self.name = name
@@ -151,11 +155,13 @@ class Mortal(PolymorphicModel):
         self.add_long_term_aspiration("Long Term Aspiration")
         
     def has_aspirations(self):
-        tmp = True
-        tmp = tmp and (self.short_term_aspiration_1 != "")
-        tmp = tmp and (self.short_term_aspiration_2 != "")
-        tmp = tmp and (self.long_term_aspiration != "")
-        return tmp
+        if self.short_term_aspiration_1 == "":
+            return False
+        if self.short_term_aspiration_2 == "":
+            return False
+        if self.long_term_aspiration == "":
+            return False
+        return True
 
     def add_short_term_aspiration_1(self, aspiration):
         self.short_term_aspiration_1 = aspiration
@@ -387,6 +393,12 @@ class Mortal(PolymorphicModel):
         rating = merit.ratings[0]
         MeritRating.objects.create(character=self, merit=merit, rating=rating)
         return True
+    
+    def remove_merit(self, merit):
+        if merit in self.merits.all():
+            MeritRating.objects.get(character=self, merit=merit).delete()
+            return True
+        return False
 
     def merit_rating(self, name):
         if name not in [x.name for x in Merit.objects.all()]:
@@ -432,7 +444,7 @@ class Mortal(PolymorphicModel):
         if self.merit_rating("Vice-Ridden") > 0:
             self.add_vice("New Vice")
         if self.merit_rating("Virtuous") > 0:
-            self.add_vice("New Virtue")
+            self.add_virtue("New Virtue")
         if self.merit_rating("Giant") > 0:
             self.size += 1
         if self.merit_rating("Small-Framed") > 0:
@@ -447,6 +459,15 @@ class Mortal(PolymorphicModel):
             self.defense = min([self.wits, self.dexterity]) + self.weaponry
         else:
             self.defense = min([self.wits, self.dexterity]) + self.athletics
+
+    def random(self):
+        self.random_basis()
+        self.random_attributes()
+        self.random_skills()
+        self.random_specialties()
+        self.random_merits()
+        self.assign_advantages()
+        self.save()
 
 
 class Merit(models.Model):

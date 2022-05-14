@@ -491,7 +491,7 @@ class TestMortal(TestCase):
         self.character.assign_advantages()
         self.assertEqual(self.character.defense, 6)
         self.character.remove_merit(defensive_combat_brawl)
-        self.character.remove_merit(defensive_combat_weaponry)
+        self.character.add_merit(defensive_combat_weaponry)
         self.character.assign_advantages()
         self.assertEqual(self.character.defense, 7)
 
