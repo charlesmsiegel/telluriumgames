@@ -393,6 +393,9 @@ class TestRandomMortal(TestCase):
         for skill in self.character.get_skills().keys():
             for i in range(3):
                 Specialty.objects.create(name=f"{skill} spec {i}", skill=skill)
+        for i in range(10):
+            for j in range(1, 6):
+                Merit.objects.create(name=f"Merit {10*j + i}", ratings=[j])
 
     def test_random_virtue(self):
         self.assertFalse(self.character.has_virtue())
@@ -440,7 +443,7 @@ class TestRandomMortal(TestCase):
 
     def test_random_merit(self):
         num = self.character.total_merits()
-        self.character.random_merit()
+        self.character.random_merit(dots=7)
         self.assertGreater(self.character.total_merits(), num)
 
     def test_random_merits(self):
