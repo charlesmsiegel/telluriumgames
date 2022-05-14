@@ -183,8 +183,18 @@ class Mortal(PolymorphicModel):
         choice = weighted_choice(self.filter_attributes(max=4))
         add_dot(self, choice, 5)
 
-    def random_attributes(self):
-        pass
+    def random_attributes(self, primary=5, secondary=4, tertiary=3):
+        attribute_types = [primary, secondary, tertiary]
+        random.shuffle(attribute_types)
+        while self.total_physical_attributes() < attribute_types[0] + 3:
+            attribute_choice = weighted_choice(self.get_physical_attributes())
+            add_dot(self, attribute_choice, 5)
+        while self.total_social_attributes() < attribute_types[1] + 3:
+            attribute_choice = weighted_choice(self.get_social_attributes())
+            add_dot(self, attribute_choice, 5)
+        while self.total_mental_attributes() < attribute_types[2] + 3:
+            attribute_choice = weighted_choice(self.get_mental_attributes())
+            add_dot(self, attribute_choice, 5)
 
     def get_mental_skills(self):
         return {
@@ -254,8 +264,18 @@ class Mortal(PolymorphicModel):
     def random_skill(self):
         pass
 
-    def random_skills(self):
-        pass
+    def random_skills(self, primary=11, secondary=7, tertiary=4):
+        skill_types = [primary, secondary, tertiary]
+        random.shuffle(skill_types)
+        while self.total_physical_skills() < skill_types[0]:
+            skill_choice = weighted_choice(self.get_physical_skills())
+            add_dot(self, skill_choice, 5)
+        while self.total_social_skills() < skill_types[1]:
+            skill_choice = weighted_choice(self.get_social_skills())
+            add_dot(self, skill_choice, 5)
+        while self.total_mental_skills() < skill_types[2]:
+            skill_choice = weighted_choice(self.get_mental_skills())
+            add_dot(self, skill_choice, 5)
 
     def has_specialties(self):
         return self.specialties.count() == 3
