@@ -390,6 +390,9 @@ class TestRandomMortal(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
         self.character = Mortal.objects.create(name="", player=self.player.cod_profile)
+        for skill in self.character.get_skills().keys():
+            for i in range(3):
+                Specialty.objects.create(name=f"{skill} spec {i}", skill=skill)
 
     def test_random_virtue(self):
         self.assertFalse(self.character.has_virtue())
@@ -422,11 +425,15 @@ class TestRandomMortal(TestCase):
         self.assertTrue(self.character.has_skills())
 
     def test_random_specialty(self):
+        self.character.occult = 1
         num = self.character.specialties.count()
         self.character.random_specialty()
         self.assertEqual(self.character.specialties.count(), num + 1)
 
     def test_random_skill_specialties(self):
+        self.character.occult = 1
+        self.character.science = 1
+        self.character.athletics = 1
         self.assertFalse(self.character.has_specialties())
         self.character.random_specialties()
         self.assertTrue(self.character.has_specialties())
