@@ -421,6 +421,16 @@ class TestRandomMortal(TestCase):
             for j in range(1, 6):
                 Merit.objects.create(name=f"Merit {10*j + i}", ratings=[j])
 
+    def test_random_basis(self):
+        self.character.random_basis()
+        self.assertIn(
+            self.character.vice, ["Ambitious", "Arrogant", "Competitive", "Greedy"]
+        )
+        self.assertIn(
+            self.character.virtue, ["Competitive", "Generous", "Just", "Loyal"]
+        )
+        self.assertEqual(self.character.concept, "Concept")
+
     def test_random_virtue(self):
         self.assertFalse(self.character.has_virtue())
         self.character.random_virtue()
