@@ -65,7 +65,7 @@ class Mortal(PolymorphicModel):
     def add_name(self, name):
         self.name = name
         return True
-        
+
     def has_name(self):
         pass
 
@@ -152,11 +152,15 @@ class Mortal(PolymorphicModel):
         return sum(self.get_mental_attributes().values())
 
     def total_attributes(self):
-        return self.total_physical_attributes() + self.total_social_attributes() + self.total_mental_attributes()
+        return (
+            self.total_physical_attributes()
+            + self.total_social_attributes()
+            + self.total_mental_attributes()
+        )
 
     def has_attributes(self):
         pass
-    
+
     def get_attributes(self):
         tmp = {}
         tmp.update(self.get_physical_attributes())
@@ -222,7 +226,11 @@ class Mortal(PolymorphicModel):
         pass
 
     def total_skills(self):
-        return self.total_physical_skills() + self.total_mental_skills() + self.total_social_skills()
+        return (
+            self.total_physical_skills()
+            + self.total_mental_skills()
+            + self.total_social_skills()
+        )
 
     def filter_skills(self, min=0, max=5):
         return {k: v for k, v in self.get_skills().items() if min <= v <= max}
@@ -243,8 +251,17 @@ class Mortal(PolymorphicModel):
     def has_specialties(self):
         pass
 
-    def filter_specialties(self):
-        return []
+    def filter_specialties(self, skill=None):
+        if skill is None:
+            return [
+                x for x in Specialty.objects.all() if x not in self.specialties.all()
+            ]
+        else:
+            return [
+                x
+                for x in Specialty.objects.filter(skill=skill)
+                if x not in self.specialties.all()
+            ]
 
     def add_specialty(self, specialty):
         if specialty not in self.specialties.all():
