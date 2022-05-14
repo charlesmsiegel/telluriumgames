@@ -419,6 +419,10 @@ class TestMortal(TestCase):
         self.character.assign_advantages()
         self.assertEqual(self.character.size, 6)
         self.assertEqual(self.character.health, 8)
+        small_framed = Merit.objects.create(name="Small-Framed", ratings=[1])
+        self.assertFalse(self.character.add_merit(small_framed))
+        self.assertEqual(self.character.merits.count(), 1)
+        
 
     def test_fast_reflexes_merit(self):
         fast_reflexes = Merit.objects.create(name="Fast Reflexes", ratings=[1, 2, 3])
@@ -444,6 +448,9 @@ class TestMortal(TestCase):
         self.character.assign_advantages()
         self.assertEqual(self.character.size, 4)
         self.assertEqual(self.character.health, 6)
+        giant = Merit.objects.create(name="Giant", ratings=[1])
+        self.assertFalse(self.character.add_merit(giant))
+        self.assertEqual(self.character.merits.count(), 1)
 
     def test_fleet_of_foot_merit(self):
         fleet_of_foot = Merit.objects.create(name="Fleet of Foot", ratings=[1, 2, 3])
@@ -498,6 +505,21 @@ class TestMortal(TestCase):
         self.character.add_merit(defensive_combat_weaponry)
         self.character.assign_advantages()
         self.assertEqual(self.character.defense, 7)
+
+    def test_anonymity_and_fame(self):
+        fame = Merit.objects.create(name="Fame", ratings=[1])
+        anonymity = Merit.objects.create(name="Anonymity", ratings=[1])
+        self.assertEqual(self.character.merits.count(), 0)
+        self.assertTrue(self.character.add_merit(fame))
+        self.assertEqual(self.character.merits.count(), 1)
+        self.assertFalse(self.character.add_merit(anonymity))
+        self.assertEqual(self.character.merits.count(), 1)
+        self.assertTrue(self.character.remove_merit(fame))
+        self.assertEqual(self.character.merits.count(), 0)
+        self.assertTrue(self.character.add_merit(anonymity))
+        self.assertEqual(self.character.merits.count(), 1)
+        self.assertFalse(self.character.add_merit(fame))
+        self.assertEqual(self.character.merits.count(), 1)
 
     def test_get_absolute_url(self):
         self.assertEqual(
@@ -614,3 +636,65 @@ class TestRandomMortal(TestCase):
         self.assertTrue(character.has_skills())
         self.assertTrue(character.has_specialties())
         self.assertTrue(character.has_merits())
+
+
+class TestMerit(TestCase):
+    def setUp(self):
+        self.player = User.objects.create(username="Test User")
+        self.character = Mortal.objects.create(name="Test", player=self.player.cod_profile)
+    
+    def test_prereq_skill_specialty(self):
+        occult_specialty = Merit.objects.create(
+            name="Occult Specialty Requirement",
+            prereqs=[("occult", "specialty")],
+            ratings=[1],
+        )
+        specialty_in_occult = Specialty.objects.create(skill="occult", specialty="Spec")
+        self.assertFalse(occult_specialty.check_prereqs(self.character))
+        self.character.add_specialty(specialty_in_occult)
+        self.assertTrue(occult_specialty.check_prereqs(self.character))
+        
+    def test_prereq_minimum_skill_specialty(self):
+        any_specialty_2 = Merit.objects.create(
+            name="Occult Specialty Requirement",
+            prereqs=[("specialty", 2)],
+            ratings=[1],
+        )
+        specialty_in_occult = Specialty.objects.create(skill="occult", specialty="Spec")
+        self.character.add_specialty(specialty_in_occult)
+        self.assertFalse(any_specialty_2.check_prereqs(self.character))
+        self.character.occult = 2
+        self.assertTrue(any_specialty_2.check_prereqs(self.character))
+        
+    def test_prereq_skill_minimum_value(self):
+        occult_3 = Merit.objects.create(
+            name="Occult Specialty Requirement",
+            prereqs=[("occult", 3)],
+            ratings=[1],
+        )
+        self.assertFalse(occult_3.check_prereqs(self.character))
+        self.character.occult = 3
+        self.assertTrue(occult_3.check_prereqs(self.character))
+        
+    def test_prereq_any_skill_minimum_value(self):
+        occult_3 = Merit.objects.create(
+            name="Occult Specialty Requirement",
+            prereqs=[("skill", 3)],
+            ratings=[1],
+        )
+        self.assertFalse(occult_3.check_prereqs(self.character))
+        self.character.occult = 3
+        self.assertTrue(occult_3.check_prereqs(self.character))
+        
+    def test_merit_prereq(self):
+        prereq_merit = Merit.objects.create(
+            name="Prereq for other", ratings=[1]
+        )
+        prereq_merit_tester = Merit.objects.create(
+            name="Occult Specialty Requirement",
+            prereqs=[("Prereq for other", 1)],
+            ratings=[1],
+        )
+        self.assertFalse(prereq_merit_tester.check_prereqs(self.character))
+        self.character.add_merit(prereq_merit)
+        self.assertTrue(prereq_merit_tester.check_prereqs(self.character))
