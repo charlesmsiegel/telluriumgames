@@ -19,7 +19,7 @@ class Mortal(PolymorphicModel):
 
     virtue = models.CharField(max_length=100)
     vice = models.CharField(max_length=100)
-    
+
     short_term_aspiration_1 = models.CharField(max_length=100, blank=True, null=True)
     short_term_aspiration_2 = models.CharField(max_length=100, blank=True, null=True)
     long_term_aspiration = models.CharField(max_length=100, blank=True, null=True)
@@ -144,7 +144,7 @@ class Mortal(PolymorphicModel):
         self.random_vice()
         self.random_virtue()
         self.random_aspirations()
-        
+
     def random_aspirations(self):
         self.add_short_term_aspiration_1("Short Term Aspiration 1")
         self.add_short_term_aspiration_2("Short Term Aspiration 2")
