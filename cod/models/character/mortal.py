@@ -116,8 +116,8 @@ class Mortal(PolymorphicModel):
             return True
         return False
 
-    def add_attribute(self, attribute):
-        add_dot(self, attribute, 5)
+    def add_attribute(self, attribute, max=5):
+        return add_dot(self, attribute, max)
 
     def get_mental_attributes(self):
         return {
@@ -141,16 +141,16 @@ class Mortal(PolymorphicModel):
         }
 
     def total_physical_attributes(self):
-        return 0
+        return sum(self.get_physical_attributes().values())
 
     def total_social_attributes(self):
-        return 0
+        return sum(self.get_social_attributes().values())
 
     def total_mental_attributes(self):
-        return 0
+        return sum(self.get_mental_attributes().values())
 
     def total_attributes(self):
-        return 0
+        return self.total_physical_attributes() + self.total_social_attributes() + self.total_mental_attributes()
 
     def has_attributes(self):
         pass
@@ -201,19 +201,19 @@ class Mortal(PolymorphicModel):
         }
 
     def total_physical_skills(self):
-        return 0
+        return sum(self.get_physical_skills().values())
 
     def total_mental_skills(self):
-        return 0
+        return sum(self.get_mental_skills().values())
 
     def total_social_skills(self):
-        return 0
+        return sum(self.get_social_skills().values())
 
     def has_skills(self):
         pass
 
     def total_skills(self):
-        return 0
+        return self.total_physical_skills() + self.total_mental_skills() + self.total_social_skills()
 
     def filter_skills(self, min=0, max=5):
         return dict()
