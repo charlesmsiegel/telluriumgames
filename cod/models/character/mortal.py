@@ -61,6 +61,14 @@ class Mortal(PolymorphicModel):
     merits = models.ManyToManyField("Merit", through="MeritRating")
 
     specialties = models.ManyToManyField("Specialty", blank=True)
+    
+    willpower = models.IntegerField(default=1)
+    integrity = models.IntegerField(default=7)
+    size = models.IntegerField(default=5)
+    speed = models.IntegerField(default=1)
+    health = models.IntegerField(default=1)
+    initiative_modifier = models.IntegerField(default=1)
+    defense = models.IntegerField(default=1)
 
     def add_name(self, name):
         self.name = name
@@ -325,6 +333,12 @@ class Mortal(PolymorphicModel):
     def random_merits(self):
         pass
 
+    def assign_advantages(self):
+        self.willpower = self.resolve + self.composure
+        self.speed = self.strength + self.dexterity + 5
+        self.health = self.size + self.stamina
+        self.initiative_modifier = self.dexterity + self.composure
+        self.defense = min([self.wits, self.dexterity]) + self.athletics
 
 class Merit(models.Model):
     name = models.CharField(max_length=100)
