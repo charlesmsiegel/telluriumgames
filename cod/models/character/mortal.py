@@ -307,10 +307,10 @@ class Mortal(PolymorphicModel):
             return MeritRating.objects.get(character=self, merit=merit).rating
 
     def total_merits(self):
-        return 0
+        return sum([x.rating for x in MeritRating.objects.filter(character=self)])
 
     def has_merits(self):
-        pass
+        return self.total_merits() == 7
 
     def filter_merits(self, dots=None):
         all_merits = Merit.objects.all()
