@@ -60,7 +60,7 @@ class TestMortal(TestCase):
         self.assertTrue(self.character.add_vice("Vice 1"))
         self.assertEqual(self.character.vice, "Vice 1")
         self.assertTrue(self.character.add_vice("Vice 2"))
-        self.assertEqual(self.character.vice, "Vice 2")
+        self.assertEqual(self.character.vice, "Vice 1, Vice 2")
         self.assertFalse(self.character.add_vice("Vice 1"))
 
     def test_filter_vice(self):
