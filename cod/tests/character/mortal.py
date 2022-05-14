@@ -412,6 +412,7 @@ class TestMortal(TestCase):
     def test_giant_merit(self):
         giant = Merit.objects.create(name="Giant", ratings=[1])
         self.character.stamina = 2
+        self.character.assign_advantages()
         self.assertEqual(self.character.size, 5)
         self.assertEqual(self.character.health, 7)
         self.character.add_merit(giant)
@@ -423,6 +424,7 @@ class TestMortal(TestCase):
         fast_reflexes = Merit.objects.create(name="Fast Reflexes", ratings=[1, 2, 3])
         self.character.dexterity = 2
         self.character.composure = 3
+        self.character.assign_advantages()
         self.assertEqual(self.character.initiative_modifier, 5)
         self.character.add_merit(fast_reflexes)
         self.character.assign_advantages()
@@ -447,13 +449,14 @@ class TestMortal(TestCase):
         fleet_of_foot = Merit.objects.create(name="Fleet of Foot", ratings=[1, 2, 3])
         self.character.strength = 1
         self.character.dexterity = 2
+        self.character.assign_advantages()
         self.assertEqual(self.character.speed, 8)
         self.character.add_merit(fleet_of_foot)
         self.character.assign_advantages()
-        self.assertEqual(self.character.speed, 10)
+        self.assertEqual(self.character.speed, 9)
         self.character.add_merit(fleet_of_foot)
         self.character.assign_advantages()
-        self.assertEqual(self.character.speed, 11)
+        self.assertEqual(self.character.speed, 10)
         self.character.add_merit(fleet_of_foot)
         self.character.assign_advantages()
         self.assertEqual(self.character.speed, 11)
@@ -461,7 +464,7 @@ class TestMortal(TestCase):
     def test_vice_ridden_merit(self):
         vice_ridden = Merit.objects.create(name="Vice-Ridden", ratings=[1])
         self.character.add_vice("Vice 1")
-        self.assertEqual(len(self.character.vice.split(", ")), 1)
+        self.assertNotIn(", ", self.character.vice)
         self.character.add_merit(vice_ridden)
         self.character.assign_advantages()
         self.assertEqual(len(self.character.vice.split(", ")), 2)
@@ -469,7 +472,7 @@ class TestMortal(TestCase):
     def test_virtuous_merit(self):
         virtuous = Merit.objects.create(name="Virtuous", ratings=[1])
         self.character.add_virtue("Virtue 1")
-        self.assertEqual(len(self.character.virtue.split(", ")), 1)
+        self.assertNotIn(", ", self.character.virtue)
         self.character.add_merit(virtuous)
         self.character.assign_advantages()
         self.assertEqual(len(self.character.virtue.split(", ")), 2)
@@ -482,14 +485,15 @@ class TestMortal(TestCase):
         self.character.athletics = 3
         self.character.brawl = 4
         self.character.weaponry = 5
+        self.character.assign_advantages()
         self.assertEqual(self.character.defense, 5)
         self.character.add_merit(defensive_combat_brawl)
         self.character.assign_advantages()
-        self.assertEqual(self.character.defense, 7)
+        self.assertEqual(self.character.defense, 6)
         self.character.remove_merit(defensive_combat_brawl)
         self.character.remove_merit(defensive_combat_weaponry)
         self.character.assign_advantages()
-        self.assertEqual(self.character.defense, 8)
+        self.assertEqual(self.character.defense, 7)
 
     def test_get_absolute_url(self):
         self.assertEqual(
@@ -586,7 +590,7 @@ class TestRandomMortal(TestCase):
         self.assertTrue(self.character.has_aspirations())
 
     def test_random(self):
-        character = Mortal.objects.create(player=self.player)
+        character = Mortal.objects.create(player=self.player.cod_profile)
         self.assertFalse(character.has_name())
         self.assertFalse(character.has_concept())
         self.assertFalse(character.has_virtue())
