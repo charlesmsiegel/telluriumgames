@@ -154,9 +154,16 @@ class Mortal(PolymorphicModel):
 
     def has_attributes(self):
         pass
+    
+    def get_attributes(self):
+        tmp = {}
+        tmp.update(self.get_physical_attributes())
+        tmp.update(self.get_mental_attributes())
+        tmp.update(self.get_social_attributes())
+        return tmp
 
-    def filter_attributes(self, max=5):
-        pass
+    def filter_attributes(self, min=0, max=5):
+        return {k: v for k, v in self.get_attributes().items() if min <= v <= max}
 
     def random_attribute(self):
         pass
@@ -216,7 +223,14 @@ class Mortal(PolymorphicModel):
         return self.total_physical_skills() + self.total_mental_skills() + self.total_social_skills()
 
     def filter_skills(self, min=0, max=5):
-        return dict()
+        return {k: v for k, v in self.get_skills().items() if min <= v <= max}
+
+    def get_skills(self):
+        tmp = {}
+        tmp.update(self.get_physical_skills())
+        tmp.update(self.get_mental_skills())
+        tmp.update(self.get_social_skills())
+        return tmp
 
     def random_skill(self):
         pass
