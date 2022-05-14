@@ -431,6 +431,13 @@ class TestRandomMortal(TestCase):
             self.character.virtue, ["Competitive", "Generous", "Just", "Loyal"]
         )
         self.assertEqual(self.character.concept, "Concept")
+        self.assertEqual(
+            self.character.short_term_aspiration_1, "Short Term Aspiration 1"
+        )
+        self.assertEqual(
+            self.character.short_term_aspiration_2, "Short Term Aspiration 2"
+        )
+        self.assertEqual(self.character.long_term_aspiration, "Long Term Aspiration")
 
     def test_random_virtue(self):
         self.assertFalse(self.character.has_virtue())
