@@ -44,10 +44,10 @@ class TestMortal(TestCase):
         test_virtues = ["Virtue 1", "Virtue 2", "Virtue 3"]
         self.character.virtue = "Virtue 1"
         self.assertEqual(
-            self.character.filter_virtues(virtue_list=test_virtues), {"Virtue 2": 1, "Virtue 3": 1}
+            self.character.filter_virtues(virtue_list=test_virtues), ["Virtue 2", "Virtue 3"]
         )
         self.character.virtue = "Virtue 1, Virtue 2"
-        self.assertEqual(self.character.filter_virtues(virtue_list=test_virtues), {"Virtue 3": 1})
+        self.assertEqual(self.character.filter_virtues(virtue_list=test_virtues), ["Virtue 3"])
 
     def test_has_virtue(self):
         self.character.virtue = ""
@@ -67,10 +67,10 @@ class TestMortal(TestCase):
         test_vices = ["Vice 1", "Vice 2", "Vice 3"]
         self.character.vice = "Vice 1"
         self.assertEqual(
-            self.character.filter_vices(vice_list=test_vices), {"Vice 2": 1, "Vice 3": 1}
+            self.character.filter_vices(vice_list=test_vices), ["Vice 2", "Vice 3"]
         )
         self.character.vice = "Vice 1, Vice 2"
-        self.assertEqual(self.character.filter_vices(vice_list=test_vices), {"Vice 3": 1})
+        self.assertEqual(self.character.filter_vices(vice_list=test_vices), ["Vice 3"])
 
     def test_has_vice(self):
         self.character.vice = ""
