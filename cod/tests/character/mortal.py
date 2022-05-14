@@ -423,6 +423,7 @@ class TestRandomMortal(TestCase):
 
     def test_random_basis(self):
         self.character.random_basis()
+        self.assertEqual(self.character.name, "Test Name")
         self.assertIn(
             self.character.vice, ["Ambitious", "Arrogant", "Competitive", "Greedy"]
         )

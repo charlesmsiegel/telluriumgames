@@ -134,6 +134,12 @@ class Mortal(PolymorphicModel):
             return True
         return False
 
+    def random_basis(self):
+        self.add_name("Test Name")
+        self.add_concept("Concept")
+        self.random_vice()
+        self.random_virtue()
+
     def add_attribute(self, attribute, maximum=5):
         return add_dot(self, attribute, maximum)
 
