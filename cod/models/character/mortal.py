@@ -489,6 +489,7 @@ class Mortal(PolymorphicModel):
 class Merit(models.Model):
     name = models.CharField(max_length=100)
     ratings = models.JSONField(default=list)
+    prereqs = models.JSONField(default=list)
 
     class Meta:
         verbose_name = "Merit"
@@ -496,6 +497,9 @@ class Merit(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+    
+    def check_prereqs(self, character):
+        pass
 
 
 class Specialty(models.Model):
