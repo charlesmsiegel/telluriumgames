@@ -247,7 +247,10 @@ class Mortal(PolymorphicModel):
         return []
 
     def add_specialty(self, specialty):
-        pass
+        if specialty not in self.specialties.all():
+            self.specialties.add(specialty)
+            return True
+        return False
 
     def random_specialties(self):
         pass
