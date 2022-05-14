@@ -312,10 +312,23 @@ class Mortal(PolymorphicModel):
         return False
 
     def random_specialties(self):
-        pass
+        for _ in range(3):
+            self.random_specialty()
 
     def random_specialty(self):
-        pass
+        added = False
+        while not added:
+            skill_choice = weighted_choice(self.filter_skills(min=1))
+            possible_specialties = self.filter_specialties(skill=skill_choice)
+            if len(possible_specialties) != 0:
+                choice = random.choice(possible_specialties)
+                self.add_specialty(choice)
+                added = True
+            all_possibilities = []
+            for skill in self.filter_skills(min=1).keys():
+                all_possibilities.extend(self.filter_specialties(skill=skill))
+            if len(all_possibilities) == 0:
+                break
 
     def add_merit(self, merit):
         if merit in self.merits.all():
