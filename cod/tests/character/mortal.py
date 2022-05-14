@@ -231,7 +231,9 @@ class TestMortal(TestCase):
         )
         self.character.occult = 4
         self.assertEqual(self.character.filter_skills(minimum=3), {"occult": 4})
-        self.assertEqual(self.character.filter_skills(minimum=3, maximum=5), {"occult": 4})
+        self.assertEqual(
+            self.character.filter_skills(minimum=3, maximum=5), {"occult": 4}
+        )
         self.assertEqual(self.character.filter_skills(minimum=5, maximum=6), {})
 
     def test_has_skills(self):
@@ -406,6 +408,7 @@ class TestMortal(TestCase):
         self.character.athletics = 5
         self.character.assign_advantages()
         self.assertEqual(self.character.defense, 6)
+
 
 class TestRandomMortal(TestCase):
     def setUp(self):
