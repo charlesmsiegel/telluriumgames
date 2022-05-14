@@ -274,7 +274,8 @@ class Mortal(PolymorphicModel):
         return tmp
 
     def random_skill(self):
-        pass
+        choice = weighted_choice(self.filter_skills(max=4))
+        add_dot(self, choice, 5)
 
     def random_skills(self, primary=11, secondary=7, tertiary=4):
         skill_types = [primary, secondary, tertiary]
