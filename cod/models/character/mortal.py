@@ -288,7 +288,19 @@ class Mortal(PolymorphicModel):
         pass
 
     def filter_merits(self, dots=None):
-        return []
+        all_merits = Merit.objects.all()
+        pairs = [(m, r) for m in all_merits for r in m.ratings]
+        pairs = [p for p in pairs if p[1] <= dots]
+        output = []
+        for merit, rating in pairs:
+            if merit in self.merits.all():
+                r = MeritRating.objects.get(character=self, merit=merit).rating
+                if rating > r:
+                    output.append(merit)
+            else:
+                output.append(merit)
+        output = list(set(output))
+        return output
 
     def random_merit(self):
         pass
