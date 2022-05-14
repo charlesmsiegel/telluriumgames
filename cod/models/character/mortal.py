@@ -75,7 +75,7 @@ class Mortal(PolymorphicModel):
         return True
 
     def has_name(self):
-        pass
+        return self.name != ""
 
     def add_concept(self, concept):
         self.concept = concept
