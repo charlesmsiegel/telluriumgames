@@ -1,4 +1,5 @@
 import random
+
 from django.db import models
 from polymorphic.models import PolymorphicModel
 
@@ -61,7 +62,7 @@ class Mortal(PolymorphicModel):
     merits = models.ManyToManyField("Merit", through="MeritRating")
 
     specialties = models.ManyToManyField("Specialty", blank=True)
-    
+
     willpower = models.IntegerField(default=1)
     integrity = models.IntegerField(default=7)
     size = models.IntegerField(default=5)
@@ -391,6 +392,7 @@ class Mortal(PolymorphicModel):
         self.health = self.size + self.stamina
         self.initiative_modifier = self.dexterity + self.composure
         self.defense = min([self.wits, self.dexterity]) + self.athletics
+
 
 class Merit(models.Model):
     name = models.CharField(max_length=100)
