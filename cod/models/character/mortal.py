@@ -1,7 +1,7 @@
 import random
-from django.shortcuts import reverse
 
 from django.db import models
+from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
 
 from accounts.models import CoDProfile
@@ -153,7 +153,7 @@ class Mortal(PolymorphicModel):
         self.add_short_term_aspiration_1("Short Term Aspiration 1")
         self.add_short_term_aspiration_2("Short Term Aspiration 2")
         self.add_long_term_aspiration("Long Term Aspiration")
-        
+
     def has_aspirations(self):
         if self.short_term_aspiration_1 == "":
             return False
@@ -393,7 +393,7 @@ class Mortal(PolymorphicModel):
         rating = merit.ratings[0]
         MeritRating.objects.create(character=self, merit=merit, rating=rating)
         return True
-    
+
     def remove_merit(self, merit):
         if merit in self.merits.all():
             MeritRating.objects.get(character=self, merit=merit).delete()
@@ -450,9 +450,13 @@ class Mortal(PolymorphicModel):
         if self.merit_rating("Small-Framed") > 0:
             self.size -= 1
         self.willpower = self.resolve + self.composure
-        self.speed = self.strength + self.dexterity + 5 + self.merit_rating("Fleet of Foot")
+        self.speed = (
+            self.strength + self.dexterity + 5 + self.merit_rating("Fleet of Foot")
+        )
         self.health = self.size + self.stamina
-        self.initiative_modifier = self.dexterity + self.composure + self.merit_rating("Fast Reflexes")
+        self.initiative_modifier = (
+            self.dexterity + self.composure + self.merit_rating("Fast Reflexes")
+        )
         if self.merit_rating("Defensive Combat (Brawl)") > 0:
             self.defense = min([self.wits, self.dexterity]) + self.brawl
         elif self.merit_rating("Defensive Combat (Weaponry)") > 0:

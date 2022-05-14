@@ -408,7 +408,7 @@ class TestMortal(TestCase):
         self.character.athletics = 5
         self.character.assign_advantages()
         self.assertEqual(self.character.defense, 6)
-        
+
     def test_giant_merit(self):
         giant = Merit.objects.create(name="Giant", ratings=[1])
         self.character.stamina = 2
@@ -435,7 +435,7 @@ class TestMortal(TestCase):
         self.character.add_merit(fast_reflexes)
         self.character.assign_advantages()
         self.assertEqual(self.character.initiative_modifier, 8)
-        
+
     def test_small_framed_merit(self):
         small_framed = Merit.objects.create(name="Small-Framed", ratings=[1])
         self.character.stamina = 2
@@ -444,7 +444,7 @@ class TestMortal(TestCase):
         self.character.assign_advantages()
         self.assertEqual(self.character.size, 4)
         self.assertEqual(self.character.health, 6)
-        
+
     def test_fleet_of_foot_merit(self):
         fleet_of_foot = Merit.objects.create(name="Fleet of Foot", ratings=[1, 2, 3])
         self.character.strength = 1
@@ -468,7 +468,7 @@ class TestMortal(TestCase):
         self.character.add_merit(vice_ridden)
         self.character.assign_advantages()
         self.assertEqual(len(self.character.vice.split(", ")), 2)
-        
+
     def test_virtuous_merit(self):
         virtuous = Merit.objects.create(name="Virtuous", ratings=[1])
         self.character.add_virtue("Virtue 1")
@@ -476,10 +476,14 @@ class TestMortal(TestCase):
         self.character.add_merit(virtuous)
         self.character.assign_advantages()
         self.assertEqual(len(self.character.virtue.split(", ")), 2)
-        
+
     def test_defensive_combat_merit(self):
-        defensive_combat_brawl = Merit.objects.create(name="Defensive Combat (Brawl)", ratings=[1])
-        defensive_combat_weaponry = Merit.objects.create(name="Defensive Combat (Weaponry)", ratings=[1])
+        defensive_combat_brawl = Merit.objects.create(
+            name="Defensive Combat (Brawl)", ratings=[1]
+        )
+        defensive_combat_weaponry = Merit.objects.create(
+            name="Defensive Combat (Weaponry)", ratings=[1]
+        )
         self.character.wits = 2
         self.character.dexterity = 2
         self.character.athletics = 3
