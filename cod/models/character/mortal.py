@@ -256,7 +256,27 @@ class Mortal(PolymorphicModel):
         pass
 
     def add_merit(self, merit):
-        pass
+        if merit in self.merits.all():
+            merit_rating = MeritRating.objects.get(character=self, merit=merit)
+            current_rating = merit_rating.rating
+            values = [x for x in merit.ratings if x > current_rating]
+            if len(values) != 0:
+                merit_rating.rating = min(values)
+                merit_rating.save()
+                return True
+            else:
+                return False
+        else:
+            rating = merit.ratings[0]
+            MeritRating.objects.create(character=self, merit=merit, rating=rating)
+            return True
+
+    def merit_rating(self, name):
+        merit = Merit.objects.get(name=name)
+        if merit not in self.merits.all():
+            return 0
+        else:
+            return MeritRating.objects.get(character=self, merit=merit).rating
 
     def total_merits(self):
         return 0
@@ -291,3 +311,4 @@ class MeritRating(models.Model):
     merit = models.ForeignKey(
         "Merit", null=False, blank=False, on_delete=models.CASCADE
     )
+    rating = models.IntegerField(default=0)
