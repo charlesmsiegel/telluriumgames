@@ -242,30 +242,7 @@ class TestMortal(TestCase):
         ]
         triple.sort()
         self.assertNotEqual(triple, [4, 7, 11])
-        self.character.academics = 1
-        self.character.computer = 1
-        self.character.crafts = 1
-        self.character.investigation = 1
-        self.character.medicine = 0
-        self.character.politics = 0
-        self.character.occult = 0
-        self.character.science = 0
-        self.character.athletics = 2
-        self.character.brawl = 2
-        self.character.drive = 2
-        self.character.firearms = 1
-        self.character.larceny = 0
-        self.character.stealth = 0
-        self.character.survival = 0
-        self.character.weaponry = 0
-        self.character.animal_ken = 3
-        self.character.empathy = 3
-        self.character.expression = 3
-        self.character.intimidation = 2
-        self.character.persuasion = 0
-        self.character.socialize = 0
-        self.character.streetwise = 0
-        self.character.subterfuge = 0
+        self.set_skills()
         triple = [
             self.character.total_physical_skills(),
             self.character.total_mental_skills(),
@@ -301,12 +278,7 @@ class TestMortal(TestCase):
         self.assertEqual(len(self.character.filter_specialties()), 3)
         self.assertEqual(len(self.character.filter_specialties(skill="firearms")), 1)
 
-    def test_has_specialties(self):
-        s1 = Specialty.objects.create(name="Literature", skill="academics")
-        s2 = Specialty.objects.create(name="Dogs", skill="animal_ken")
-        s3 = Specialty.objects.create(name="Poetry", skill="expression")
-        Specialty.objects.create(name="Reading People", skill="empathy")
-        Specialty.objects.create(name="Directions", skill="streetwise")
+    def set_skills(self):
         self.character.academics = 1
         self.character.computer = 1
         self.character.crafts = 1
@@ -331,6 +303,14 @@ class TestMortal(TestCase):
         self.character.socialize = 0
         self.character.streetwise = 0
         self.character.subterfuge = 0
+
+    def test_has_specialties(self):
+        s1 = Specialty.objects.create(name="Literature", skill="academics")
+        s2 = Specialty.objects.create(name="Dogs", skill="animal_ken")
+        s3 = Specialty.objects.create(name="Poetry", skill="expression")
+        Specialty.objects.create(name="Reading People", skill="empathy")
+        Specialty.objects.create(name="Directions", skill="streetwise")
+        self.set_skills()
         self.assertFalse(self.character.has_specialties())
         self.character.add_specialty(s1)
         self.assertFalse(self.character.has_specialties())
