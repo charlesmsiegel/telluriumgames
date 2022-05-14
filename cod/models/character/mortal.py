@@ -257,7 +257,7 @@ class Mortal(PolymorphicModel):
         pass
 
     def has_specialties(self):
-        pass
+        return self.specialties.count() == 3
 
     def filter_specialties(self, skill=None):
         if skill is None:
