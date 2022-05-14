@@ -140,8 +140,17 @@ class Mortal(PolymorphicModel):
             "composure": self.composure,
         }
 
+    def total_physical_attributes(self):
+        return 0
+
+    def total_social_attributes(self):
+        return 0
+
+    def total_mental_attributes(self):
+        return 0
+
     def total_attributes(self):
-        pass
+        return 0
 
     def has_attributes(self):
         pass
@@ -191,14 +200,23 @@ class Mortal(PolymorphicModel):
             "subterfuge": self.subterfuge,
         }
 
+    def total_physical_skills(self):
+        return 0
+
+    def total_mental_skills(self):
+        return 0
+
+    def total_social_skills(self):
+        return 0
+
     def has_skills(self):
         pass
 
     def total_skills(self):
-        pass
+        return 0
 
     def filter_skills(self, min=0, max=5):
-        pass
+        return dict()
 
     def random_skill(self):
         pass
@@ -210,7 +228,7 @@ class Mortal(PolymorphicModel):
         pass
 
     def filter_specialties(self):
-        pass
+        return []
 
     def add_specialty(self, specialty):
         pass
@@ -225,13 +243,13 @@ class Mortal(PolymorphicModel):
         pass
 
     def total_merits(self):
-        pass
+        return 0
 
     def has_merits(self):
         pass
 
     def filter_merits(self, dots=None):
-        pass
+        return []
 
     def random_merit(self):
         pass
