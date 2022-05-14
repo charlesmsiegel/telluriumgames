@@ -361,11 +361,11 @@ class TestMortal(TestCase):
         merit_set = set(merit_list)
         correct_set = {m1, m2, m3, m4, m5, m6}
         self.assertEqual(merit_set, correct_set)
-        self.character.add_mert(m3)
+        self.character.add_merit(m3)
         self.assertEqual(
             set(self.character.filter_merits(dots=3)), {m1, m2, m4, m5, m6}
         )
-        self.character.add_mert(m2)
+        self.character.add_merit(m2)
         self.assertEqual(
             set(self.character.filter_merits(dots=3)), {m1, m2, m4, m5, m6}
         )
