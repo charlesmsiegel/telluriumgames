@@ -374,11 +374,16 @@ class Mortal(PolymorphicModel):
         output = list(set(output))
         return output
 
-    def random_merit(self):
-        pass
+    def random_merit(self, dots=7):
+        merit_candidates = self.filter_merits(dots=dots)
+        choice = random.choice(merit_candidates)
+        self.add_merit(choice)
 
     def random_merits(self):
-        pass
+        dots = 7
+        while not self.has_merits():
+            self.random_merit(dots=dots)
+            dots = 7 - self.total_merits()
 
     def assign_advantages(self):
         self.willpower = self.resolve + self.composure
