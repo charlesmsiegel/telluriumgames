@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.contrib.auth.models import User
 from django.test import TestCase
 
@@ -649,7 +650,7 @@ class TestMerit(TestCase):
             prereqs=[("occult", "specialty")],
             ratings=[1],
         )
-        specialty_in_occult = Specialty.objects.create(skill="occult", specialty="Spec")
+        specialty_in_occult = Specialty.objects.create(skill="occult", name="Spec")
         self.assertFalse(occult_specialty.check_prereqs(self.character))
         self.character.add_specialty(specialty_in_occult)
         self.assertTrue(occult_specialty.check_prereqs(self.character))
@@ -660,7 +661,7 @@ class TestMerit(TestCase):
             prereqs=[("specialty", 2)],
             ratings=[1],
         )
-        specialty_in_occult = Specialty.objects.create(skill="occult", specialty="Spec")
+        specialty_in_occult = Specialty.objects.create(skill="occult", name="Spec")
         self.character.add_specialty(specialty_in_occult)
         self.assertFalse(any_specialty_2.check_prereqs(self.character))
         self.character.occult = 2
