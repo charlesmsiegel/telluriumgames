@@ -184,7 +184,9 @@ class Mortal(PolymorphicModel):
         return tmp
 
     def filter_attributes(self, minimum=0, maximum=5):
-        return {k: v for k, v in self.get_attributes().items() if minimum <= v <= maximum}
+        return {
+            k: v for k, v in self.get_attributes().items() if minimum <= v <= maximum
+        }
 
     def random_attribute(self):
         choice = weighted_choice(self.filter_attributes(maximum=4))
@@ -299,12 +301,11 @@ class Mortal(PolymorphicModel):
             return [
                 x for x in Specialty.objects.all() if x not in self.specialties.all()
             ]
-        else:
-            return [
-                x
-                for x in Specialty.objects.filter(skill=skill)
-                if x not in self.specialties.all()
-            ]
+        return [
+            x
+            for x in Specialty.objects.filter(skill=skill)
+            if x not in self.specialties.all()
+        ]
 
     def add_specialty(self, specialty):
         if specialty not in self.specialties.all():
@@ -340,19 +341,16 @@ class Mortal(PolymorphicModel):
                 merit_rating.rating = min(values)
                 merit_rating.save()
                 return True
-            else:
-                return False
-        else:
-            rating = merit.ratings[0]
-            MeritRating.objects.create(character=self, merit=merit, rating=rating)
-            return True
+            return False
+        rating = merit.ratings[0]
+        MeritRating.objects.create(character=self, merit=merit, rating=rating)
+        return True
 
     def merit_rating(self, name):
         merit = Merit.objects.get(name=name)
         if merit not in self.merits.all():
             return 0
-        else:
-            return MeritRating.objects.get(character=self, merit=merit).rating
+        return MeritRating.objects.get(character=self, merit=merit).rating
 
     def total_merits(self):
         return sum([x.rating for x in MeritRating.objects.filter(character=self)])
