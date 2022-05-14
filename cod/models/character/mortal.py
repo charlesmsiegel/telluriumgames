@@ -381,6 +381,18 @@ class Mortal(PolymorphicModel):
                 break
 
     def add_merit(self, merit):
+        if merit.name == "Giant":
+            if "Small-Framed" in [x.name for x in self.merits.all()]:
+                return False
+        elif merit.name == "Small-Framed":
+            if "Giant" in [x.name for x in self.merits.all()]:
+                return False
+        elif merit.name == "Fame":
+            if "Anonymity" in [x.name for x in self.merits.all()]:
+                return False
+        elif merit.name == "Anonymity":
+            if "Fame" in [x.name for x in self.merits.all()]:
+                return False
         if merit in self.merits.all():
             merit_rating = MeritRating.objects.get(character=self, merit=merit)
             current_rating = merit_rating.rating
