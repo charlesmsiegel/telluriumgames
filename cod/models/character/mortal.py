@@ -167,7 +167,13 @@ class Mortal(PolymorphicModel):
         )
 
     def has_attributes(self):
-        pass
+        triple = [
+            self.total_physical_attributes(),
+            self.total_mental_attributes(),
+            self.total_social_attributes(),
+        ]
+        triple.sort()
+        return triple == [6, 7, 8]
 
     def get_attributes(self):
         tmp = {}
