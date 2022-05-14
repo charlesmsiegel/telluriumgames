@@ -19,6 +19,10 @@ class Mortal(PolymorphicModel):
 
     virtue = models.CharField(max_length=100)
     vice = models.CharField(max_length=100)
+    
+    short_term_aspiration_1 = models.CharField(max_length=100, blank=True, null=True)
+    short_term_aspiration_2 = models.CharField(max_length=100, blank=True, null=True)
+    long_term_aspiration = models.CharField(max_length=100, blank=True, null=True)
 
     intelligence = models.IntegerField(default=1)
     wits = models.IntegerField(default=1)
@@ -121,7 +125,7 @@ class Mortal(PolymorphicModel):
         return [x for x in vice_list if x not in vices]
 
     def random_vice(self):
-        vices = ["Competitive", "Generous", "Just", "Loyal"]
+        vices = ["Ambitious", "Arrogant", "Competitive", "Greedy"]
         vices = self.filter_vices(vices)
         self.add_vice(random.choice(vices))
 
@@ -139,6 +143,24 @@ class Mortal(PolymorphicModel):
         self.add_concept("Concept")
         self.random_vice()
         self.random_virtue()
+        self.random_aspirations()
+        
+    def random_aspirations(self):
+        self.add_short_term_aspiration_1("Short Term Aspiration 1")
+        self.add_short_term_aspiration_2("Short Term Aspiration 2")
+        self.add_long_term_aspiration("Long Term Aspiration")
+
+    def add_short_term_aspiration_1(self, aspiration):
+        self.short_term_aspiration_1 = aspiration
+        return True
+
+    def add_short_term_aspiration_2(self, aspiration):
+        self.short_term_aspiration_2 = aspiration
+        return True
+
+    def add_long_term_aspiration(self, aspiration):
+        self.long_term_aspiration = aspiration
+        return True
 
     def add_attribute(self, attribute, maximum=5):
         return add_dot(self, attribute, maximum)
