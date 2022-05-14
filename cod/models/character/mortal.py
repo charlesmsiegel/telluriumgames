@@ -127,8 +127,8 @@ class Mortal(PolymorphicModel):
             return True
         return False
 
-    def add_attribute(self, attribute, max=5):
-        return add_dot(self, attribute, max)
+    def add_attribute(self, attribute, maximum=5):
+        return add_dot(self, attribute, maximum)
 
     def get_mental_attributes(self):
         return {
@@ -183,11 +183,11 @@ class Mortal(PolymorphicModel):
         tmp.update(self.get_social_attributes())
         return tmp
 
-    def filter_attributes(self, min=0, max=5):
-        return {k: v for k, v in self.get_attributes().items() if min <= v <= max}
+    def filter_attributes(self, minimum=0, maximum=5):
+        return {k: v for k, v in self.get_attributes().items() if minimum <= v <= maximum}
 
     def random_attribute(self):
-        choice = weighted_choice(self.filter_attributes(max=4))
+        choice = weighted_choice(self.filter_attributes(maximum=4))
         add_dot(self, choice, 5)
 
     def random_attributes(self, primary=5, secondary=4, tertiary=3):
@@ -264,8 +264,8 @@ class Mortal(PolymorphicModel):
             + self.total_social_skills()
         )
 
-    def filter_skills(self, min=0, max=5):
-        return {k: v for k, v in self.get_skills().items() if min <= v <= max}
+    def filter_skills(self, minimum=0, maximum=5):
+        return {k: v for k, v in self.get_skills().items() if minimum <= v <= maximum}
 
     def get_skills(self):
         tmp = {}
@@ -275,7 +275,7 @@ class Mortal(PolymorphicModel):
         return tmp
 
     def random_skill(self):
-        choice = weighted_choice(self.filter_skills(max=4))
+        choice = weighted_choice(self.filter_skills(maximum=4))
         add_dot(self, choice, 5)
 
     def random_skills(self, primary=11, secondary=7, tertiary=4):
@@ -319,14 +319,14 @@ class Mortal(PolymorphicModel):
     def random_specialty(self):
         added = False
         while not added:
-            skill_choice = weighted_choice(self.filter_skills(min=1))
+            skill_choice = weighted_choice(self.filter_skills(minimum=1))
             possible_specialties = self.filter_specialties(skill=skill_choice)
             if len(possible_specialties) != 0:
                 choice = random.choice(possible_specialties)
                 self.add_specialty(choice)
                 added = True
             all_possibilities = []
-            for skill in self.filter_skills(min=1).keys():
+            for skill in self.filter_skills(minimum=1).keys():
                 all_possibilities.extend(self.filter_specialties(skill=skill))
             if len(all_possibilities) == 0:
                 break

@@ -86,15 +86,15 @@ class TestMortal(TestCase):
         self.assertTrue(self.character.add_attribute("strength"))
         self.assertEqual(self.character.strength, 2)
         self.character.strength = 5
-        self.assertFalse(self.character.add_attribute("strength", max=5))
+        self.assertFalse(self.character.add_attribute("strength", maximum=5))
         self.assertEqual(self.character.strength, 5)
-        self.assertTrue(self.character.add_attribute("strength", max=6))
+        self.assertTrue(self.character.add_attribute("strength", maximum=6))
         self.assertEqual(self.character.strength, 6)
 
     def test_filter_attributes(self):
         self.character.strength = 5
         self.assertEqual(
-            self.character.filter_attributes(max=4),
+            self.character.filter_attributes(maximum=4),
             {
                 "dexterity": 1,
                 "stamina": 1,
@@ -107,7 +107,7 @@ class TestMortal(TestCase):
             },
         )
         self.assertEqual(
-            self.character.filter_attributes(max=5),
+            self.character.filter_attributes(maximum=5),
             {
                 "strength": 5,
                 "dexterity": 1,
@@ -121,11 +121,11 @@ class TestMortal(TestCase):
             },
         )
         self.character.strength = 4
-        self.assertEqual(self.character.filter_attributes(min=3), {"strength": 4})
+        self.assertEqual(self.character.filter_attributes(minimum=3), {"strength": 4})
         self.assertEqual(
-            self.character.filter_attributes(min=3, max=5), {"strength": 4}
+            self.character.filter_attributes(minimum=3, maximum=5), {"strength": 4}
         )
-        self.assertEqual(self.character.filter_attributes(min=5, max=6), {})
+        self.assertEqual(self.character.filter_attributes(minimum=5, maximum=6), {})
 
     def test_has_attributes(self):
         triple = [
@@ -165,15 +165,15 @@ class TestMortal(TestCase):
         self.assertTrue(self.character.add_attribute("occult"))
         self.assertEqual(self.character.occult, 1)
         self.character.occult = 5
-        self.assertFalse(self.character.add_attribute("occult", max=5))
+        self.assertFalse(self.character.add_attribute("occult", maximum=5))
         self.assertEqual(self.character.occult, 5)
-        self.assertTrue(self.character.add_attribute("occult", max=6))
+        self.assertTrue(self.character.add_attribute("occult", maximum=6))
         self.assertEqual(self.character.occult, 6)
 
     def test_filter_skills(self):
         self.character.occult = 5
         self.assertEqual(
-            self.character.filter_skills(max=4),
+            self.character.filter_skills(maximum=4),
             {
                 "academics": 0,
                 "computer": 0,
@@ -201,7 +201,7 @@ class TestMortal(TestCase):
             },
         )
         self.assertEqual(
-            self.character.filter_skills(max=6),
+            self.character.filter_skills(maximum=6),
             {
                 "academics": 0,
                 "computer": 0,
@@ -230,9 +230,9 @@ class TestMortal(TestCase):
             },
         )
         self.character.occult = 4
-        self.assertEqual(self.character.filter_skills(min=3), {"occult": 4})
-        self.assertEqual(self.character.filter_skills(min=3, max=5), {"occult": 4})
-        self.assertEqual(self.character.filter_skills(min=5, max=6), {})
+        self.assertEqual(self.character.filter_skills(minimum=3), {"occult": 4})
+        self.assertEqual(self.character.filter_skills(minimum=3, maximum=5), {"occult": 4})
+        self.assertEqual(self.character.filter_skills(minimum=5, maximum=6), {})
 
     def test_has_skills(self):
         triple = [
