@@ -3,7 +3,7 @@ from django.db import models
 from polymorphic.models import PolymorphicModel
 
 from accounts.models import CoDProfile
-from core.utils import add_dot
+from core.utils import add_dot, weighted_choice
 
 
 # Create your models here.
@@ -180,7 +180,8 @@ class Mortal(PolymorphicModel):
         return {k: v for k, v in self.get_attributes().items() if min <= v <= max}
 
     def random_attribute(self):
-        pass
+        choice = weighted_choice(self.filter_attributes(max=4))
+        add_dot(self, choice, 5)
 
     def random_attributes(self):
         pass
