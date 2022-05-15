@@ -771,3 +771,69 @@ class TestMerit(TestCase):
             possible_details=["Detail 1", "Detail 2"],
         )
         self.assertEqual(len(merit.filter_details(self.character)), 2)
+
+
+class TestIndexView(TestCase):
+    def setUp(self) -> None:
+        for i in range(5):
+            User.objects.create_user(username=f"Player {i}")
+
+    def test_index_status_code(self):
+        response = self.client.get("/cod/characters/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_index_template(self):
+        response = self.client.get("/cod/characters/")
+        self.assertTemplateUsed(response, "cod/characters/index.html")
+
+    def test_index_post(self):
+        for i in range(5):
+            player = User.objects.get(username=f"Player {i}")
+            for j in range(3):
+                Mortal.objects.create(
+                    name=f"Character {5*j+i}",
+                    player=player.cod_profile,
+                    status=Mortal.status_keys[i],
+                )
+        response = self.client.post("/cod/characters/")
+        for i in range(15):
+            self.assertContains(response, f"Character {i}")
+        for i in range(5):
+            self.assertContains(response, f"Player {i}")
+        for status in Mortal.statuses:
+            self.assertContains(response, status)
+
+
+class TestMortalDetailView(TestCase):
+    def setUp(self) -> None:
+        User.objects.create_user("Test User", "test@user.com", "testpass")
+        self.character = Mortal.objects.create(
+            name="Test Character",
+            player=User.objects.get(username="Test User").cod_profile,
+        )
+
+    def test_mortal_detail_view_status_code(self):
+        response = self.client.get(f"/cod/characters/{self.character.id}/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_mortal_detail_view_template(self):
+        response = self.client.get(f"/cod/characters/{self.character.id}/")
+        self.assertTemplateUsed(response, "cod/characters/mortal/detail.html")
+
+
+class CharacterDetailView(TestCase):
+    def setUp(self) -> None:
+        User.objects.create_user("Test User", "test@user.com", "testpass")
+        self.character = Mortal.objects.create(
+            name="Test Character",
+            player=User.objects.get(username="Test User").cod_profile,
+        )
+
+    def test_character_detail_view_status_code(self):
+        response = self.client.get(f"/cod/characters/{self.character.id}/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_character_detail_view_templates(self):
+        response = self.client.get(f"/cod/characters/{self.character.id}/")
+        self.assertTemplateUsed(response, "cod/characters/mortal/detail.html")
+        # Will add other character templates here

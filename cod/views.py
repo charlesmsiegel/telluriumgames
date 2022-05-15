@@ -31,7 +31,7 @@ class MortalDetailView(View):
             "merits": MeritRating.objects.filter(character=char).order_by(
                 "merit__name"
             ),
-            "specialties": char.specialties.all().order_by("specialty"),
+            "specialties": char.specialties.all().order_by("name"),
         }
         return render(request, "cod/characters/mortal/detail.html", context,)
 
