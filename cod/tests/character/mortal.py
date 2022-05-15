@@ -335,15 +335,26 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.merit_rating("Merit 1"), 4)
         self.assertFalse(self.character.add_merit(m))
         self.assertEqual(self.character.merit_rating("Merit 1"), 4)
-        m2 = Merit.objects.create(name="Merit with Details", requires_detail=True, possible_details=["Detail 1", "Detail 2"], ratings=[1, 2])
+        m2 = Merit.objects.create(
+            name="Merit with Details",
+            requires_detail=True,
+            possible_details=["Detail 1", "Detail 2"],
+            ratings=[1, 2],
+        )
         with self.assertRaises(Exception):
             self.character.add_merit(m2)
         self.assertTrue(self.character.add_merit(m2, detail="Detail 1"))
-        self.assertEqual(self.character.merit_rating("Merit with Details", detail="Detail 1"), 1)
+        self.assertEqual(
+            self.character.merit_rating("Merit with Details", detail="Detail 1"), 1
+        )
         self.assertTrue(self.character.add_merit(m2, detail="Detail 2"))
-        self.assertEqual(self.character.merit_rating("Merit with Details", detail="Detail 2"), 1)
+        self.assertEqual(
+            self.character.merit_rating("Merit with Details", detail="Detail 2"), 1
+        )
         self.assertTrue(self.character.add_merit(m2, detail="Detail 1"))
-        self.assertEqual(self.character.merit_rating("Merit with Details", detail="Detail 1"), 2)
+        self.assertEqual(
+            self.character.merit_rating("Merit with Details", detail="Detail 1"), 2
+        )
 
     def test_filter_merits(self):
         m1 = Merit.objects.create(name="Merit 1", ratings=[1, 2])
@@ -706,4 +717,45 @@ class TestMerit(TestCase):
         self.assertTrue(prereq_merit_tester.check_prereqs(self.character))
 
     def test_filter_details(self):
-        self.fail()
+        area_of_expertise = Merit.objects.create(
+            name="Area of Expertise", ratings=[1], requires_detail=True
+        )
+        self.assertEqual(len(area_of_expertise.filter_details(self.character)), 0)
+        spec = Specialty.objects.create(name="Occult Specailty", skill="occult")
+        self.character.add_specialty(spec)
+        self.assertEqual(len(area_of_expertise.filter_details(self.character)), 1)
+
+        interdisciplinary_specialty = Merit.objects.create(
+            name="Interdisciplinary Specialty", ratings=[1], requires_detail=True
+        )
+        self.assertEqual(
+            len(interdisciplinary_specialty.filter_details(self.character)), 0
+        )
+        self.character.occult = 3
+        self.assertEqual(
+            len(interdisciplinary_specialty.filter_details(self.character)), 1
+        )
+
+        investigative_aide = Merit.objects.create(
+            name="Investigative Aide", ratings=[1], requires_detail=True
+        )
+        self.assertEqual(len(investigative_aide.filter_details(self.character)), 1)
+        self.character.science = 3
+        self.assertEqual(len(investigative_aide.filter_details(self.character)), 2)
+
+        hobbyist_clique = Merit.objects.create(
+            name="Hobbyist Clique", ratings=[1], requires_detail=True
+        )
+        self.assertEqual(len(hobbyist_clique.filter_details(self.character)), 2)
+        self.character.athletics = 2
+        self.assertEqual(len(hobbyist_clique.filter_details(self.character)), 3)
+
+        protessional_training = Merit.objects.create(
+            name="Professional Training",
+            ratings=[1],
+            requires_detail=True,
+            possible_details=["Prof 1 (occult, science)", "Prof 2 (athletics, art)"],
+        )
+        self.assertEqual(len(protessional_training.filter_details(self.character)), 1)
+        self.character.art = 1
+        self.assertEqual(len(protessional_training.filter_details(self.character)), 2)
