@@ -99,6 +99,8 @@ class Mortal(PolymorphicModel):
     )
     breaking_point_5 = models.CharField(max_length=300, default="Most traumatic thing")
 
+    xp = models.IntegerField(default=0)
+
     class Meta:
         verbose_name = "Mortal"
         verbose_name_plural = "Mortals"
@@ -261,7 +263,7 @@ class Mortal(PolymorphicModel):
 
     def random_attribute(self):
         choice = weighted_choice(self.filter_attributes(maximum=4))
-        add_dot(self, choice, 5)
+        return add_dot(self, choice, 5)
 
     def random_attributes(self, primary=5, secondary=4, tertiary=3):
         attribute_types = [primary, secondary, tertiary]
@@ -349,7 +351,7 @@ class Mortal(PolymorphicModel):
 
     def random_skill(self):
         choice = weighted_choice(self.filter_skills(maximum=4))
-        add_dot(self, choice, 5)
+        return add_dot(self, choice, 5)
 
     def random_skills(self, primary=11, secondary=7, tertiary=4):
         skill_types = [primary, secondary, tertiary]
@@ -492,7 +494,7 @@ class Mortal(PolymorphicModel):
             detail = None
         else:
             detail = random.choice(possible_details)
-        self.add_merit(choice, detail=detail)
+        return self.add_merit(choice, detail=detail)
 
     def random_merits(self):
         dots = 7
@@ -524,6 +526,51 @@ class Mortal(PolymorphicModel):
         else:
             self.defense = min([self.wits, self.dexterity]) + self.athletics
 
+    def xp_cost(self, trait_type):
+        if trait_type == "attribute":
+            return 4
+        elif trait_type == 'merit':
+            return 1
+        elif trait_type == "specialty":
+            return 1
+        elif trait_type == "skill":
+            return 2
+        elif trait_type == "integrity":
+            return 2
+
+    def random_xp_spend(self):
+        frequencies = {
+            "attribute": 1,
+            "merit": 1,
+            "specialty": 1,
+            "skill": 1,
+            "integrity": 1
+        }
+        counter = 0
+        while self.xp > 10 and counter < 10:
+            counter += 1
+            choice = weighted_choice(frequencies)
+            if choice == "attribute":
+                if self.xp_cost(choice) <= self.xp:
+                    if self.random_attribute():
+                        self.xp -= self.xp_cost(choice)
+            elif choice == 'merit':
+                if self.xp_cost(choice) <= self.xp:
+                    if self.random_merit(dots=self.xp):
+                        self.xp -= self.xp_cost(choice)
+            elif choice == "specialty":
+                if self.xp_cost(choice) <= self.xp:
+                    if self.random_specialty():
+                        self.xp -= self.xp_cost(choice)
+            elif choice == "skill":
+                if self.xp_cost(choice) <= self.xp:
+                    if self.random_skill():
+                        self.xp -= self.xp_cost(choice)
+            elif choice == "integrity":
+                if self.xp_cost(choice) <= self.xp:
+                    if add_dot(self, "integrity", 10):
+                        self.xp -= self.xp_cost(choice)
+
     def random(self):
         self.random_basis()
         self.random_attributes()
@@ -531,6 +578,7 @@ class Mortal(PolymorphicModel):
         self.random_specialties()
         self.random_merits()
         self.assign_advantages()
+        self.random_xp_spend()
         self.save()
 
 

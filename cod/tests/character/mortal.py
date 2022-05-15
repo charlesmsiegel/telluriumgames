@@ -541,7 +541,11 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.merits.count(), 1)
 
     def test_xp_cost(self):
-        self.fail()
+        self.assertEqual(self.character.xp_cost("attribute"), 4)
+        self.assertEqual(self.character.xp_cost("merit"), 1)
+        self.assertEqual(self.character.xp_cost("specialty"), 1)
+        self.assertEqual(self.character.xp_cost("skill"), 2)
+        self.assertEqual(self.character.xp_cost("integrity"), 2)
 
     def test_get_absolute_url(self):
         self.assertEqual(
@@ -638,7 +642,9 @@ class TestRandomMortal(TestCase):
         self.assertTrue(self.character.has_aspirations())
 
     def test_random_xp_spend(self):
-        self.fail()
+        self.character.xp = 15
+        self.character.random_xp_spend()
+        self.assertLess(self.character.xp, 15)
 
     def test_random(self):
         character = Mortal.objects.create(player=self.player.cod_profile)
