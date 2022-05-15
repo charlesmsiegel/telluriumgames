@@ -498,6 +498,9 @@ class Merit(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+    def get_max_rating(self):
+        return max(self.ratings)
+
     def check_prereqs(self, character):
         for prereq in self.prereqs:
             if prereq[0] in character.get_attributes().keys():
