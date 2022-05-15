@@ -1,5 +1,3 @@
-from unicodedata import name
-
 from django.contrib.auth.models import User
 from django.test import TestCase
 
@@ -542,6 +540,9 @@ class TestMortal(TestCase):
         self.assertFalse(self.character.add_merit(fame))
         self.assertEqual(self.character.merits.count(), 1)
 
+    def test_xp_cost(self):
+        self.fail()
+
     def test_get_absolute_url(self):
         self.assertEqual(
             self.character.get_absolute_url(), f"/cod/characters/{self.character.id}/"
@@ -635,6 +636,9 @@ class TestRandomMortal(TestCase):
         self.assertFalse(self.character.has_aspirations())
         self.character.random_aspirations()
         self.assertTrue(self.character.has_aspirations())
+
+    def test_random_xp_spend(self):
+        self.fail()
 
     def test_random(self):
         character = Mortal.objects.create(player=self.player.cod_profile)
