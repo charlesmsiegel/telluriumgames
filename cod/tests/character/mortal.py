@@ -754,8 +754,11 @@ class TestMerit(TestCase):
             name="Professional Training",
             ratings=[1],
             requires_detail=True,
-            possible_details=["Prof 1 (occult, science)", "Prof 2 (athletics, art)"],
+            possible_details=["Prof 1 (Occult, Science)", "Prof 2 (Athletics, Empathy)", "Prof 3 (Animal Ken, Firearms)"],
         )
         self.assertEqual(len(protessional_training.filter_details(self.character)), 1)
-        self.character.art = 1
+        self.character.empathy = 1
         self.assertEqual(len(protessional_training.filter_details(self.character)), 2)
+
+        merit = Merit.objects.create(name="Merit with no weird detail", ratings=[1], requires_detail=True, possible_details=["Detail 1", "Detail 2"])
+        self.assertEqual(len(merit.filter_details(self.character)), 2)
