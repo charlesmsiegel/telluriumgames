@@ -485,7 +485,12 @@ class Mortal(PolymorphicModel):
     def random_merit(self, dots=7):
         merit_candidates = self.filter_merits(dots=dots)
         choice = random.choice(merit_candidates)
-        self.add_merit(choice)
+        possible_details = choice.filter_details(self)
+        if len(possible_details) == 0:
+            detail=None
+        else:
+            detail = random.choice(possible_details)
+        self.add_merit(choice, detail=detail)
 
     def random_merits(self):
         dots = 7
@@ -533,6 +538,7 @@ class Merit(models.Model):
     prereqs = models.JSONField(default=list)
     requires_detail = models.BooleanField(default=False)
     possible_details = models.JSONField(default=list)
+    merit_type = models.CharField(max_length=100, default="")
 
     class Meta:
         verbose_name = "Merit"
@@ -580,6 +586,23 @@ class Merit(models.Model):
                     return False
         return True
 
+    def filter_details(self, character):
+        possible_details = self.possible_details
+        if self.name == "Area of Expertise":
+            possible_details = [x.name for x in character.specialties.all()]
+        elif self.name == "Interdisciplinary Specialty":
+            possible_details = [x.name for x in character.specialties.all() if x.skill in character.filter_skills(minimum=3).keys()]
+        elif self.name == "Investigative Aide":
+            possible_details = list(character.filter_skills(minimum=3).keys())
+        elif self.name == "Hobbyist Clique":
+            possible_details = list(character.filter_skills(minimum=2).keys())
+        elif self.name == "Professional Training":
+            pairs = [(x, x.split("(")[-1][:-1].split(", ")) for x in possible_details]
+            pairs = [(x[0], [y.lower().replace(" ", "_") for y in x[1]]) for x in pairs]
+            all_skills = character.get_skills()
+            possible_details = [x[0] for x in pairs if all_skills[x[1][0]] > 0 and all_skills[x[1][1]] > 0]
+        return possible_details
+
 
 class Specialty(models.Model):
     name = models.CharField(max_length=100)
@@ -593,7 +616,7 @@ class Specialty(models.Model):
         return self.skill.replace("_", " ").title()
 
     def __str__(self):
-        return f"{self.specialty} ({self.get_skill_display().title()})"
+        return f"{self.name} ({self.display_skill()})"
 
 
 class MeritRating(models.Model):
