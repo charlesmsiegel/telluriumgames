@@ -335,6 +335,15 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.merit_rating("Merit 1"), 4)
         self.assertFalse(self.character.add_merit(m))
         self.assertEqual(self.character.merit_rating("Merit 1"), 4)
+        m2 = Merit.objects.create(name="Merit with Detials", has_detail=True, possible_details=["Detail 1", "Detail 2"], ratings=[1, 2])
+        with self.assertRaises(Exception):
+            self.character.add_merit(m2)
+        self.assertTrue(self.character.add_merit(m2, detail="Detail 1"))
+        self.assertEqual(self.character.merit_rating(m2, 1, detail="Detail 1"))
+        self.assertTrue(self.character.add_merit(m2, detail="Detail 2"))
+        self.assertEqual(self.character.merit_rating(m2, 1, detail="Detail 2"))
+        self.assertTrue(self.character.add_merit(m2, detail="Detail 1"))
+        self.assertEqual(self.character.merit_rating(m2, 2, detail="Detail 1"))
 
     def test_filter_merits(self):
         m1 = Merit.objects.create(name="Merit 1", ratings=[1, 2])
@@ -695,3 +704,6 @@ class TestMerit(TestCase):
         self.assertFalse(prereq_merit_tester.check_prereqs(self.character))
         self.character.add_merit(prereq_merit)
         self.assertTrue(prereq_merit_tester.check_prereqs(self.character))
+
+    def test_filter_details(self):
+        self.fail()
