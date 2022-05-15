@@ -19,7 +19,7 @@
                     </div>
                 {% endif %}
             {% endfor %}
-            <form action="{% url 'tc:random' %}" method="post">
+            {% comment %} <form action="{% url 'tc:random' %}" method="post">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-sm"></div>
@@ -50,7 +50,7 @@
                 <a class="col-sm" href="{% url 'tc:tags_index' %}">Tags</a>
                 <a class="col-sm" href="{% url 'tc:transformations_index' %}">Transformations</a>
                 <a class="col-sm" href="{% url 'tc:tricks_index' %}">Tricks</a>
-            </div>
+            </div> {% endcomment %}
         </div>
     </body>
 {% endblock content %}
