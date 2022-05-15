@@ -1,0 +1,56 @@
+{% extends "core/base.html" %}
+{% block title %}
+    Characters
+{% endblock title %}
+<body>
+    {% block content %}
+        <div class="centertext">
+            <div class="row border">
+                <div class="col-sm border">
+                    <h2>Characters</h2>
+                </div>
+            </div>
+            {% for char in chars %}
+                {% if not char.minor and char.name != 'Storyteller' %}
+                    <div class="row border">
+                        <a class="col-sm border" href="{% url 'tc:character' char.id %}">{{ char.name| safe }}</a>
+                        <div class="col-sm border">{{ char.player.username }}</div>
+                        <div class="col-sm border">{{ char.get_status_display }}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <form action="{% url 'tc:random' %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm"></div>
+                    <div class="col-sm">
+                        Name:
+                        <input name="character_name" type="text" placeholder=""/>
+                    </div>
+                    <div class="col-sm">
+                        XP:
+                        <input name="xp" type="text" placeholder=""/>
+                    </div>
+                    <div class="col-sm">
+                        <input type="submit" name="creator" value="Random Character"/>
+                    </div>
+                    <div class="col-sm"></div>
+                    <div class="col-sm"></div>
+                </div>
+            </form>
+            <div class="row">
+                <a class="col-sm" href="{% url 'tc:edges_index' %}">Edges</a>
+                <a class="col-sm" href="{% url 'tc:enhanced_edges_index' %}">Enhanced Edges</a>
+                <a class="col-sm" href="{% url 'tc:mega_edges_index' %}">Mega Edges</a>
+                <a class="col-sm" href="{% url 'tc:paths_index' %}">Paths</a>
+            </div>
+            <div class="row">
+                <a class="col-sm" href="{% url 'tc:powers_index' %}">Powers</a>
+                <a class="col-sm" href="{% url 'tc:tags_index' %}">Tags</a>
+                <a class="col-sm" href="{% url 'tc:transformations_index' %}">Transformations</a>
+                <a class="col-sm" href="{% url 'tc:tricks_index' %}">Tricks</a>
+            </div>
+        </div>
+    </body>
+{% endblock content %}

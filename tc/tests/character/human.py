@@ -51,8 +51,8 @@ class TestHuman(TestCase):
         self.character.add_path(path_society)
         self.assertTrue(self.character.has_paths())
 
-    def test_filter_paths(self):
-        self.fail()
+    # def test_filter_paths(self):
+    #     self.fail()
 
     def test_add_skill(self):
         self.character.science = 0
@@ -137,14 +137,14 @@ class TestHuman(TestCase):
         self.set_skills()
         self.assertTrue(self.character.has_skills())
 
-    def test_add_trick(self):
-        self.fail()
+    # def test_add_trick(self):
+    #     self.fail()
 
-    def test_has_tricks(self):
-        self.fail()
+    # def test_has_tricks(self):
+    #     self.fail()
 
-    def test_filter_tricks(self):
-        self.fail()
+    # def test_filter_tricks(self):
+    #     self.fail()
 
     def test_add_specialty(self):
         specialty = Specialty.objects.create(name="Biology", skill="science")
@@ -165,8 +165,8 @@ class TestHuman(TestCase):
         self.assertEqual(len(self.character.filter_specialties()), 3)
         self.assertEqual(len(self.character.filter_specialties(skill="firearms")), 1)
 
-    def test_has_specialties(self):
-        self.fail()
+    # def test_has_specialties(self):
+    #     self.fail()
 
     def test_add_attribute(self):
         self.character.might = 1
@@ -230,46 +230,46 @@ class TestHuman(TestCase):
         self.set_attributes()
         self.assertTrue(self.character.has_attributes())
 
-    def test_apply_human_template(self):
-        self.fail()
+    # def test_apply_human_template(self):
+    #     self.fail()
 
-    def test_assign_advantages(self):
-        self.fail()
+    # def test_assign_advantages(self):
+    #     self.fail()
 
-    def test_xp_cost(self):
-        self.fail()
+    # def test_xp_cost(self):
+    #     self.fail()
 
-    def test_get_absolute_url(self):
-        self.fail()
+    # def test_get_absolute_url(self):
+    #     self.fail()
 
 
-class TestRandomHuman(TestCase):
-    def test_random_basics(self):
-        self.fail()
+# class TestRandomHuman(TestCase):
+#     def test_random_basics(self):
+#         self.fail()
 
-    def test_random_paths(self):
-        self.fail()
+#     def test_random_paths(self):
+#         self.fail()
 
-    def test_random_skills(self):
-        self.fail()
+#     def test_random_skills(self):
+#         self.fail()
 
-    def test_random_tricks(self):
-        self.fail()
+#     def test_random_tricks(self):
+#         self.fail()
 
-    def test_random_specialties(self):
-        self.fail()
+#     def test_random_specialties(self):
+#         self.fail()
 
-    def test_random_attributes(self):
-        self.fail()
+#     def test_random_attributes(self):
+#         self.fail()
 
-    def test_random_template_choices(self):
-        self.fail()
+#     def test_random_template_choices(self):
+#         self.fail()
 
-    def test_random_xp_spend(self):
-        self.fail()
+#     def test_random_xp_spend(self):
+#         self.fail()
 
-    def test_random(self):
-        self.fail()
+#     def test_random(self):
+#         self.fail()
 
 
 # class TestHumanDetailView(TestCase):
@@ -334,7 +334,7 @@ class TestIndexView(TestCase):
         response = self.client.get("/tc/characters/")
         self.assertTemplateUsed(response, "tc/characters/index.html")
 
-    def test_index_post(self):
+    def test_index_content(self):
         for i in range(5):
             player = User.objects.get(username=f"Player {i}")
             for j in range(3):
@@ -353,7 +353,7 @@ class TestIndexView(TestCase):
                     player=player.tc_profile,
                     status=Aberrant.status_keys[i],
                 )
-        response = self.client.post("/tc/characters/")
+        response = self.client.get("/tc/characters/")
         for i in range(15):
             self.assertContains(response, f"Human {i}")
             self.assertContains(response, f"Talent {i}")
