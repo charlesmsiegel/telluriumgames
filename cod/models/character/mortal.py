@@ -85,10 +85,18 @@ class Mortal(PolymorphicModel):
     initiative_modifier = models.IntegerField(default=1)
     defense = models.IntegerField(default=1)
 
-    breaking_point_1 = models.CharField(max_length=300, default="Worst thing you've ever done")
-    breaking_point_2 = models.CharField(max_length=300, default="Worst thing you can imagine doing")
-    breaking_point_3 = models.CharField(max_length=300, default="Worst thing you can imagine someone doing")
-    breaking_point_4 = models.CharField(max_length=300, default="Thing you've forgotten")
+    breaking_point_1 = models.CharField(
+        max_length=300, default="Worst thing you've ever done"
+    )
+    breaking_point_2 = models.CharField(
+        max_length=300, default="Worst thing you can imagine doing"
+    )
+    breaking_point_3 = models.CharField(
+        max_length=300, default="Worst thing you can imagine someone doing"
+    )
+    breaking_point_4 = models.CharField(
+        max_length=300, default="Thing you've forgotten"
+    )
     breaking_point_5 = models.CharField(max_length=300, default="Most traumatic thing")
 
     class Meta:
@@ -395,7 +403,9 @@ class Mortal(PolymorphicModel):
             if len(all_possibilities) == 0:
                 break
 
-    def add_merit(self, merit):
+    def add_merit(self, merit, detail=None):
+        if merit.requires_detail and detail is None:
+            raise Exception("Merit requires detail")
         if merit.name == "Giant":
             if "Small-Framed" in [x.name for x in self.merits.all()]:
                 return False
@@ -409,16 +419,22 @@ class Mortal(PolymorphicModel):
             if "Fame" in [x.name for x in self.merits.all()]:
                 return False
         if merit in self.merits.all():
-            merit_rating = MeritRating.objects.get(character=self, merit=merit)
-            current_rating = merit_rating.rating
-            values = [x for x in merit.ratings if x > current_rating]
-            if len(values) != 0:
-                merit_rating.rating = min(values)
-                merit_rating.save()
-                return True
-            return False
+            if detail in [
+                x.detail
+                for x in MeritRating.objects.filter(character=self, merit=merit)
+            ]:
+                merit_rating = MeritRating.objects.get(character=self, merit=merit, detail=detail)
+                current_rating = merit_rating.rating
+                values = [x for x in merit.ratings if x > current_rating]
+                if len(values) != 0:
+                    merit_rating.rating = min(values)
+                    merit_rating.save()
+                    return True
+                return False
         rating = merit.ratings[0]
-        MeritRating.objects.create(character=self, merit=merit, rating=rating)
+        MeritRating.objects.create(
+            character=self, merit=merit, rating=rating, detail=detail
+        )
         return True
 
     def remove_merit(self, merit):
@@ -427,11 +443,21 @@ class Mortal(PolymorphicModel):
             return True
         return False
 
-    def merit_rating(self, name):
+    def merit_rating(self, name, detail=None):
         if name not in [x.name for x in Merit.objects.all()]:
             return 0
         merit = Merit.objects.get(name=name)
         if merit not in self.merits.all():
+            return 0
+        if merit.requires_detail:
+            details = [
+                x.detail
+                for x in MeritRating.objects.filter(character=self, merit=merit)
+            ]
+            if detail in details:
+                return MeritRating.objects.get(
+                    character=self, merit=merit, detail=detail
+                ).rating
             return 0
         return MeritRating.objects.get(character=self, merit=merit).rating
 
@@ -505,6 +531,8 @@ class Merit(models.Model):
     name = models.CharField(max_length=100)
     ratings = models.JSONField(default=list)
     prereqs = models.JSONField(default=list)
+    requires_detail = models.BooleanField(default=False)
+    possible_details = models.JSONField(default=list)
 
     class Meta:
         verbose_name = "Merit"
@@ -576,3 +604,4 @@ class MeritRating(models.Model):
         "Merit", null=False, blank=False, on_delete=models.CASCADE
     )
     rating = models.IntegerField(default=0)
+    detail = models.CharField(max_length=100, null=True, blank=True)
