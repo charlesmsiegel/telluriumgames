@@ -76,9 +76,9 @@
                             World of Darkness
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{% url 'wod:characters_index' %}">Characters</a>
-                            <a class="dropdown-item" href="{% url 'wod:location_index' %}">Locations</a>
-                            <a class="dropdown-item" href="{% url 'wod:object_index' %}">Objects</a>
+                            {% comment %} <a class="dropdown-item" href="{% url 'wod:characters_index' %}">Characters</a> {% endcomment %}
+                            {% comment %} <a class="dropdown-item" href="{% url 'wod:location_index' %}">Locations</a> {% endcomment %}
+                            {% comment %} <a class="dropdown-item" href="{% url 'wod:object_index' %}">Objects</a> {% endcomment %}
                             {% comment %} <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a> {% endcomment %}
                         </div>
@@ -131,7 +131,7 @@
                             Trinity Continuum
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{% url 'tc:characters_index' %}">Characters</a>
+                            {% comment %} <a class="dropdown-item" href="{% url 'tc:characters_index' %}">Characters</a> {% endcomment %}
                             {% comment %} <a class="dropdown-item" href="#">Locations</a>
                             <a class="dropdown-item" href="#">Objects</a>
                             <div class="dropdown-divider">

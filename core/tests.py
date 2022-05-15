@@ -1,4 +1,5 @@
 import time
+from collections import Counter
 
 from django.contrib.auth.models import User
 from django.test import LiveServerTestCase, TestCase
@@ -7,6 +8,7 @@ from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.support.ui import Select
 
 from cod.models.character.mortal import Mortal
+from core.templatetags.dots import dots
 
 # from game.models import Scene, Story
 
@@ -196,6 +198,24 @@ class TestHomepage(FunctionalTest):
 
         self.assertIn(("accounts/login/", "Log In"), links)
         self.assertIn(("accounts/signup/", "Sign Up"), links)
+
+
+class TestDots(TestCase):
+    def test_length(self):
+        output_5 = dots(4)
+        output_10 = dots(4, maximum=10)
+        output_10_2 = dots(6)
+        self.assertEqual(len(output_5), 5)
+        self.assertEqual(len(output_10), 10)
+        self.assertEqual(len(output_10_2), 10)
+
+    def test_correct_ratio(self):
+        self.assertEqual(Counter(dots(3))["●"], 3)
+        self.assertEqual(Counter(dots(3))["○"], 2)
+        self.assertEqual(Counter(dots(3, maximum=10))["●"], 3)
+        self.assertEqual(Counter(dots(3, maximum=10))["○"], 7)
+        self.assertEqual(Counter(dots(6))["●"], 6)
+        self.assertEqual(Counter(dots(6))["○"], 4)
 
 
 # class CharacterCreationTest(FunctionalTest):
