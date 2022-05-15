@@ -423,7 +423,9 @@ class Mortal(PolymorphicModel):
                 x.detail
                 for x in MeritRating.objects.filter(character=self, merit=merit)
             ]:
-                merit_rating = MeritRating.objects.get(character=self, merit=merit, detail=detail)
+                merit_rating = MeritRating.objects.get(
+                    character=self, merit=merit, detail=detail
+                )
                 current_rating = merit_rating.rating
                 values = [x for x in merit.ratings if x > current_rating]
                 if len(values) != 0:
@@ -487,7 +489,7 @@ class Mortal(PolymorphicModel):
         choice = random.choice(merit_candidates)
         possible_details = choice.filter_details(self)
         if len(possible_details) == 0:
-            detail=None
+            detail = None
         else:
             detail = random.choice(possible_details)
         self.add_merit(choice, detail=detail)
@@ -591,7 +593,11 @@ class Merit(models.Model):
         if self.name == "Area of Expertise":
             possible_details = [x.name for x in character.specialties.all()]
         elif self.name == "Interdisciplinary Specialty":
-            possible_details = [x.name for x in character.specialties.all() if x.skill in character.filter_skills(minimum=3).keys()]
+            possible_details = [
+                x.name
+                for x in character.specialties.all()
+                if x.skill in character.filter_skills(minimum=3).keys()
+            ]
         elif self.name == "Investigative Aide":
             possible_details = list(character.filter_skills(minimum=3).keys())
         elif self.name == "Hobbyist Clique":
@@ -600,7 +606,11 @@ class Merit(models.Model):
             pairs = [(x, x.split("(")[-1][:-1].split(", ")) for x in possible_details]
             pairs = [(x[0], [y.lower().replace(" ", "_") for y in x[1]]) for x in pairs]
             all_skills = character.get_skills()
-            possible_details = [x[0] for x in pairs if all_skills[x[1][0]] > 0 and all_skills[x[1][1]] > 0]
+            possible_details = [
+                x[0]
+                for x in pairs
+                if all_skills[x[1][0]] > 0 and all_skills[x[1][1]] > 0
+            ]
         return possible_details
 
 
