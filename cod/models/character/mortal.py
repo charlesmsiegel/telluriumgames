@@ -16,6 +16,13 @@ class Mortal(PolymorphicModel):
         CoDProfile, on_delete=models.CASCADE, related_name="characters"
     )
 
+    status_keys = ["Un", "Sub", "App", "Ret", "Dec"]
+    statuses = ["Unfinished", "Submitted", "Approved", "Retired", "Deceased"]
+    status = models.CharField(
+        max_length=3, choices=zip(status_keys, statuses), default="Un"
+    )
+    minor = models.BooleanField(default=False)
+
     concept = models.CharField(max_length=300)
 
     virtue = models.CharField(max_length=100)
@@ -37,6 +44,7 @@ class Mortal(PolymorphicModel):
     manipulation = models.IntegerField(default=1)
     composure = models.IntegerField(default=1)
 
+    # Attribute -1 for physical or social at 0, -3 for mental
     academics = models.IntegerField(default=0)
     computer = models.IntegerField(default=0)
     crafts = models.IntegerField(default=0)
@@ -66,6 +74,7 @@ class Mortal(PolymorphicModel):
 
     merits = models.ManyToManyField("Merit", through="MeritRating")
 
+    # Add 1 die to rolls when relevant - specialy
     specialties = models.ManyToManyField("Specialty", blank=True)
 
     willpower = models.IntegerField(default=1)
@@ -75,6 +84,12 @@ class Mortal(PolymorphicModel):
     health = models.IntegerField(default=1)
     initiative_modifier = models.IntegerField(default=1)
     defense = models.IntegerField(default=1)
+
+    breaking_point_1 = models.CharField(max_length=300, default="Worst thing you've ever done")
+    breaking_point_2 = models.CharField(max_length=300, default="Worst thing you can imagine doing")
+    breaking_point_3 = models.CharField(max_length=300, default="Worst thing you can imagine someone doing")
+    breaking_point_4 = models.CharField(max_length=300, default="Thing you've forgotten")
+    breaking_point_5 = models.CharField(max_length=300, default="Most traumatic thing")
 
     class Meta:
         verbose_name = "Mortal"
