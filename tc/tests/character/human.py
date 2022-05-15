@@ -1,7 +1,9 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from tc.models.character import Aberrant, Human, Path, Specialty, Talent
+from tc.models.character.human import Human, Path, Specialty
+from tc.models.character.talent import Talent
+from tc.models.character.aberrant import Aberrant
 
 
 # Create your tests here.
@@ -112,6 +114,24 @@ class TestHuman(TestCase):
         )
         self.assertEqual(self.character.filter_skills(minimum=5, maximum=6), {})
 
+    def set_skills(self):
+        self.character.aim = 0
+        self.character.athletics = 0
+        self.character.close_combat = 0
+        self.character.command = 0
+        self.character.culture = 0
+        self.character.empathy = 0
+        self.character.enigmas = 0
+        self.character.humanities = 0
+        self.character.integrity = 0
+        self.character.larceny = 0
+        self.character.medicine = 0
+        self.character.persuasion = 0
+        self.character.pilot = 0
+        self.character.science = 0
+        self.character.survival = 0
+        self.character.technology = 0
+
     def test_has_skills(self):
         self.assertFalse(self.character.has_skills())
         self.set_skills()
@@ -194,9 +214,20 @@ class TestHuman(TestCase):
         )
         self.assertEqual(self.character.filter_attributes(minimum=5, maximum=6), {})
 
+    def set_attributes(self):
+        self.character.might = 5
+        self.character.dexterity = 1
+        self.character.stamina = 1
+        self.character.intellect = 1
+        self.character.cunning = 1
+        self.character.resolve = 1
+        self.character.presence = 1
+        self.character.manipulation = 1
+        self.character.composure = 1
+
     def test_has_attributes(self):
         self.assertFalse(self.character.has_attributes())
-        self.set_sttributes()
+        self.set_attributes()
         self.assertTrue(self.character.has_attributes())
 
     def test_apply_human_template(self):
@@ -241,51 +272,53 @@ class TestRandomHuman(TestCase):
         self.fail()
 
 
-class TestHumanDetailView(TestCase):
-    def setUp(self) -> None:
-        User.objects.create_user("Test User", "test@user.com", "testpass")
-        self.character = Human.objects.create(
-            name="Test Character",
-            player=User.objects.get(username="Test User").tc_profile,
-        )
+# class TestHumanDetailView(TestCase):
+#     def setUp(self) -> None:
+#         User.objects.create_user("Test User", "test@user.com", "testpass")
+#         self.character = Human.objects.create(
+#             name="Test Character",
+#             player=User.objects.get(username="Test User").tc_profile,
+#         )
 
-    def test_mortal_detail_view_status_code(self):
-        response = self.client.get(f"/tc/characters/{self.character.id}/")
-        self.assertEqual(response.status_code, 200)
+#     def test_mortal_detail_view_status_code(self):
+#         response = self.client.get(f"/tc/characters/{self.character.id}/")
+#         self.assertEqual(response.status_code, 200)
 
-    def test_mortal_detail_view_template(self):
-        response = self.client.get(f"/tc/characters/{self.character.id}/")
-        self.assertTemplateUsed(response, "tc/characters/human/detail.html")
+#     def test_mortal_detail_view_template(self):
+#         response = self.client.get(f"/tc/characters/{self.character.id}/")
+#         self.assertTemplateUsed(response, "tc/characters/human/detail.html")
 
 
-class CharacterDetailView(TestCase):
-    def setUp(self) -> None:
-        User.objects.create_user("Test User", "test@user.com", "testpass")
-        self.human = Human.objects.create(
-            name="Test Human", player=User.objects.get(username="Test User").tc_profile,
-        )
-        self.talent = Talent.objects.create(
-            name="Test Talent",
-            player=User.objects.get(username="Test User").tc_profile,
-        )
-        self.aberrant = Aberrant.objects.create(
-            name="Test Aberrant",
-            player=User.objects.get(username="Test User").tc_profile,
-        )
+# class CharacterDetailView(TestCase):
+#     def setUp(self) -> None:
+#         User.objects.create_user("Test User", "test@user.com", "testpass")
+#         self.human = Human.objects.create(
+#             name="Test Human", player=User.objects.get(username="Test User").tc_profile,
+#         )
+#         self.talent = Talent.objects.create(
+#             name="Test Talent",
+#             player=User.objects.get(username="Test User").tc_profile,
+#         )
+#         self.aberrant = Aberrant.objects.create(
+#             name="Test Aberrant",
+#             player=User.objects.get(username="Test User").tc_profile,
+#         )
 
-    def test_character_detail_view_status_code(self):
-        response = self.client.get(f"/tc/characters/{self.human.id}/")
-        response = self.client.get(f"/tc/characters/{self.talent.id}/")
-        response = self.client.get(f"/tc/characters/{self.aberrant.id}/")
-        self.assertEqual(response.status_code, 200)
+#     def test_character_detail_view_status_code(self):
+#         response = self.client.get(f"/tc/characters/{self.human.id}/")
+#         self.assertEqual(response.status_code, 200)
+#         response = self.client.get(f"/tc/characters/{self.talent.id}/")
+#         self.assertEqual(response.status_code, 200)
+#         response = self.client.get(f"/tc/characters/{self.aberrant.id}/")
+#         self.assertEqual(response.status_code, 200)
 
-    def test_character_detail_view_templates(self):
-        response = self.client.get(f"/tc/characters/{self.human.id}/")
-        self.assertTemplateUsed(response, "cod/characters/human/detail.html")
-        response = self.client.get(f"/tc/characters/{self.talent.id}/")
-        self.assertTemplateUsed(response, "cod/characters/talent/detail.html")
-        response = self.client.get(f"/tc/characters/{self.aberrant.id}/")
-        self.assertTemplateUsed(response, "cod/characters/aberrant/detail.html")
+#     def test_character_detail_view_templates(self):
+#         response = self.client.get(f"/tc/characters/{self.human.id}/")
+#         self.assertTemplateUsed(response, "cod/characters/human/detail.html")
+#         response = self.client.get(f"/tc/characters/{self.talent.id}/")
+#         self.assertTemplateUsed(response, "cod/characters/talent/detail.html")
+#         response = self.client.get(f"/tc/characters/{self.aberrant.id}/")
+#         self.assertTemplateUsed(response, "cod/characters/aberrant/detail.html")
 
 
 class TestIndexView(TestCase):
