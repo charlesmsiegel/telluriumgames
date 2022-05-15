@@ -497,7 +497,7 @@ class Merit(models.Model):
 
     def __str__(self):
         return f"{self.name}"
-    
+
     def check_prereqs(self, character):
         for prereq in self.prereqs:
             if prereq[0] in character.get_attributes().keys():
@@ -517,18 +517,22 @@ class Merit(models.Model):
                 possible_skills = character.filter_skills(minimum=prereq[1]).keys()
                 applicable_specialties = []
                 for skill in possible_skills:
-                    applicable_specialties.extend(character.specialties.filter(skill=skill))
+                    applicable_specialties.extend(
+                        character.specialties.filter(skill=skill)
+                    )
                 if len(applicable_specialties) == 0:
                     return False
             elif prereq[0] in [x.name for x in Merit.objects.all()]:
                 m = Merit.objects.get(name=prereq[0])
                 if m in character.merits.all():
-                    if MeritRating.objects.get(character=character, merit=m).rating < prereq[1]:
+                    if (
+                        MeritRating.objects.get(character=character, merit=m).rating
+                        < prereq[1]
+                    ):
                         return False
                 else:
                     return False
         return True
-
 
 
 class Specialty(models.Model):
