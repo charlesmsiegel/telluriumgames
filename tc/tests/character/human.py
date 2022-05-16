@@ -34,6 +34,12 @@ class TestHuman(TestCase):
         self.character.concept = "Test"
         self.assertTrue(self.character.has_concept())
 
+    def test_has_aspirations(self):
+        self.fail()
+        
+    def has_basics(self):
+        self.fail()
+
     def test_add_path(self):
         self.assertEqual(self.character.paths.count(), 0)
         path = Path.objects.create(name="Path")
@@ -54,6 +60,9 @@ class TestHuman(TestCase):
     def test_add_edge(self):
         self.fail()
         
+    def test_total_edges(self):
+        self.fail()    
+    
     def test_filter_edges(self):
         self.fail()
         
@@ -137,6 +146,12 @@ class TestHuman(TestCase):
         self.character.science = 0
         self.character.survival = 0
         self.character.technology = 0
+
+    def test_get_skills(self):
+        self.fail()
+        
+    def test_total_skills(self):
+        self.fail()
 
     def test_has_skills(self):
         self.assertFalse(self.character.has_skills())
@@ -247,7 +262,16 @@ class TestHuman(TestCase):
         self.set_attributes()
         self.assertTrue(self.character.has_attributes())
 
-    def test_apply_human_template(self):
+    def test_get_attributes(self):
+        self.fail()
+        
+    def test_total_attributes(self):
+        self.fail()
+
+    def test_has_attributes(self):
+        self.fail()
+
+    def test_has_template(self):
         self.fail()
 
     def test_assign_advantages(self):
