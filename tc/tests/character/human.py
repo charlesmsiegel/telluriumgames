@@ -131,27 +131,65 @@ class TestHuman(TestCase):
 
     def set_skills(self):
         self.character.aim = 0
-        self.character.athletics = 0
-        self.character.close_combat = 0
-        self.character.command = 0
-        self.character.culture = 0
-        self.character.empathy = 0
-        self.character.enigmas = 0
-        self.character.humanities = 0
-        self.character.integrity = 0
-        self.character.larceny = 0
+        self.character.athletics = 1
+        self.character.close_combat = 2
+        self.character.command = 3
+        self.character.culture = 4
+        self.character.empathy = 5
+        self.character.enigmas = 4
+        self.character.humanities = 3
+        self.character.integrity = 2
+        self.character.larceny = 1
         self.character.medicine = 0
-        self.character.persuasion = 0
-        self.character.pilot = 0
-        self.character.science = 0
-        self.character.survival = 0
-        self.character.technology = 0
+        self.character.persuasion = 1
+        self.character.pilot = 2
+        self.character.science = 3
+        self.character.survival = 4
+        self.character.technology = 5
 
     def test_get_skills(self):
-        self.fail()
+        self.assertEqual(self.character.get_attributes, {
+            "aim": 0,
+            "athletics": 0,
+            "close_combat": 0,
+            "command": 0,
+            "culture": 0,
+            "empathy": 0,
+            "enigmas": 0,
+            "humanities": 0,
+            "integrity": 0,
+            "larceny": 0,
+            "medicine": 0,
+            "persuasion": 0,
+            "pilot": 0,
+            "science": 0,
+            "survival": 0,
+            "technology": 0,
+        })
+        self.set_skills()
+        self.assertEqual(self.character.get_attributes, {
+            "aim": 0,
+            "athletics": 1,
+            "close_combat": 2,
+            "command": 3,
+            "culture": 4,
+            "empathy": 5,
+            "enigmas": 4,
+            "humanities": 3,
+            "integrity": 2,
+            "larceny": 1,
+            "medicine": 0,
+            "persuasion": 1,
+            "pilot": 2,
+            "science": 3,
+            "survival": 4,
+            "technology": 5,
+        })
         
     def test_total_skills(self):
-        self.fail()
+        self.assertEqual(self.character.total_skills(), 0)
+        self.set_skills()
+        self.assertEqual(self.character.total_skills(), 40)
 
     def test_has_skills(self):
         self.assertFalse(self.character.has_skills())
@@ -165,8 +203,25 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.tricks.count(), 1)
 
     def test_has_tricks(self):
-        # One trick in each skill at 3, 4 and 5
-        self.fail()
+        science_spec1 = Specialty.objects.create(name="SciSpec", skill="science")
+        larceny_spec1 = Specialty.objects.create(name="LarSpec", skill="larceny")
+        larceny_spec2 = Specialty.objects.create(name="LarSpec2", skill="larceny")
+        command_spec1 = Specialty.objects.create(name="ComSpec", skill="command")
+        command_spec2 = Specialty.objects.create(name="ComSpec2", skill="command")
+        command_spec3 = Specialty.objects.create(name="ComSpec3", skill="command")
+        self.character.science = 3
+        self.character.larceny = 4
+        self.character.command = 5
+        self.assertFalse(self.character.has_tricks())
+        self.assertTrue(self.character.add_specialty(science_spec1))
+        self.assertTrue(self.character.add_specialty(larceny_spec1))
+        self.assertTrue(self.character.add_specialty(command_spec1))        
+        self.assertFalse(self.character.has_tricks())        
+        self.assertTrue(self.character.add_specialty(larceny_spec2))
+        self.assertTrue(self.character.add_specialty(command_spec2))        
+        self.assertFalse(self.character.has_tricks())        
+        self.assertTrue(self.character.add_specialty(command_spec3))        
+        self.assertTrue(self.character.has_tricks())        
 
     def test_filter_tricks(self):
         trick = Trick.objects.create(name="Science Trick 1", skill="science")
@@ -257,14 +312,14 @@ class TestHuman(TestCase):
 
     def set_attributes(self):
         self.character.might = 5
-        self.character.dexterity = 1
-        self.character.stamina = 1
-        self.character.intellect = 1
+        self.character.dexterity = 4
+        self.character.stamina = 3
+        self.character.intellect = 2
         self.character.cunning = 1
-        self.character.resolve = 1
-        self.character.presence = 1
-        self.character.manipulation = 1
-        self.character.composure = 1
+        self.character.resolve = 2
+        self.character.presence = 3
+        self.character.manipulation = 4
+        self.character.composure = 5
 
     def test_has_attributes(self):
         self.assertFalse(self.character.has_attributes())
@@ -272,13 +327,34 @@ class TestHuman(TestCase):
         self.assertTrue(self.character.has_attributes())
 
     def test_get_attributes(self):
-        self.fail()
+        self.assertEqual(self.character.get_attributes, {
+            "might": 1,
+            "dexterity": 1,
+            "stamina": 1,
+            "intellect": 1,
+            "cunning": 1,
+            "resolve": 1,
+            "presence": 1,
+            "manipulation": 1,
+            "composure": 1,
+        })
+        self.set_attributes()
+        self.assertEqual(self.character.get_attributes, {
+            "might": 5,
+            "dexterity": 4,
+            "stamina": 3,
+            "intellect": 2,
+            "cunning": 1,
+            "resolve": 2,
+            "presence": 3,
+            "manipulation": 4,
+            "composure": 5,
+        })
         
     def test_total_attributes(self):
-        self.fail()
-
-    def test_has_attributes(self):
-        self.fail()
+        self.assertEqual(self.character.total_attributes(), 9)
+        self.set_attributes()
+        self.assertEqual(self.character.total_attributes(), 29)
 
     def test_has_template(self):
         self.fail()
