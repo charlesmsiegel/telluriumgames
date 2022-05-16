@@ -197,8 +197,17 @@ class TestHuman(TestCase):
         self.assertEqual(len(self.character.filter_specialties(skill="technology")), 1)
 
     def test_has_specialties(self):
-        # One Specialty in each skill >= 3
-        self.fail()
+        science_spec = Specialty.objects.create(name="SciSpec", skill="science")
+        larceny_spec = Specialty.objects.create(name="LarSpec", skill="larceny")
+        command_spec = Specialty.objects.create(name="ComSpec", skill="command")
+        self.character.science = 3
+        self.character.larceny = 4
+        self.character.command = 5
+        self.assertFalse(self.character.has_specialties())
+        self.assertTrue(self.character.add_specialty(science_spec))
+        self.assertTrue(self.character.add_specialty(larceny_spec))
+        self.assertTrue(self.character.add_specialty(command_spec))        
+        self.assertTrue(self.character.has_specialties())        
 
     def test_add_attribute(self):
         self.character.might = 1
