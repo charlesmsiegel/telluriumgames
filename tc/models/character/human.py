@@ -76,6 +76,15 @@ class Human(PolymorphicModel):
     def has_concept(self):
         return self.concept != ""
 
+    def add_aspiration(self, aspiration, type="short", number=1):
+        if type == "short":
+            if number == 1:
+                self.short_term_aspiration_1 = aspiration
+            else:
+                self.short_term_aspiration_2 = aspiration
+        else:
+            self.long_term_aspiration = aspiration
+
     def has_aspirations(self):
         pass
 

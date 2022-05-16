@@ -35,10 +35,20 @@ class TestHuman(TestCase):
         self.assertTrue(self.character.has_concept())
 
     def test_has_aspirations(self):
-        self.fail()
+        self.assertFalse(self.character.has_aspirations())
+        self.character.short_term_aspiration_1 = "Test 1"
+        self.character.short_term_aspiration_2 = "Test 2"
+        self.character.long_term_aspiration = "Test 3"
+        self.assertTrue(self.character.has_aspirations())
 
     def has_basics(self):
-        self.fail()
+        self.assertFalse(self.character.has_basics())
+        self.character.add_name("Test Name")
+        self.character.add_concept("Test Concept")
+        self.character.add_aspiration("Test Asp 1", type="short", number=1)
+        self.character.add_aspiration("Test Asp 2", type="short", number=2)
+        self.character.add_aspiration("Test Asp 3", type="long")
+        self.assertTrue(self.character.has_basics())
 
     def test_add_path(self):
         self.assertEqual(self.character.paths.count(), 0)
@@ -58,10 +68,17 @@ class TestHuman(TestCase):
         self.assertTrue(self.character.has_paths())
 
     def test_add_edge(self):
-        self.fail()
+        e = Edge.object.create(name="Edge", ratings=[2])
+        self.assertEqual(self.character.total_edges(), 0)
+        self.assertTrue(self.character.add_edge(e))
+        self.assertEqual(self.character.total_edges(), 2)
+        self.assertFalse(self.character.add_edge(e))
 
     def test_total_edges(self):
-        self.fail()
+        e1 = Edge.object.create(name="Edge", ratings=[1, 2])
+        e2 = Edge.object.create(name="Edge", ratings=[2, 3])
+        e3 = Edge.object.create(name="Edge", ratings=[4])
+        e4 = Edge.object.create(name="Edge", ratings=[2])
 
     def test_filter_edges(self):
         self.fail()
