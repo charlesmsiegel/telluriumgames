@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.views.generic import View
 
+from tc.models.character.aberrant import Aberrant
 from tc.models.character.human import Human
 from tc.models.character.talent import Talent
-from tc.models.character.aberrant import Aberrant
+
 
 # Create your views here.
 class IndexView(View):
@@ -19,16 +20,16 @@ class IndexView(View):
         context["chars"] = chars
         return context
 
+
 class HumanDetailView(View):
     def get(self, request, pk):
         context = self.get_context(pk)
         return render(request, "tc/characters/human/detail.html", context)
-    
+
     def get_context(self, pk):
         char = Human.objects.get(id=pk)
-        return {
-            "character": char
-        }
+        return {"character": char}
+
 
 class TalentDetailView(View):
     def get(self, request, pk):
@@ -37,9 +38,8 @@ class TalentDetailView(View):
 
     def get_context(self, pk):
         char = Talent.objects.get(id=pk)
-        return {
-            "character": char
-        }
+        return {"character": char}
+
 
 class AberrantDetailView(View):
     def get(self, request, pk):
@@ -48,9 +48,8 @@ class AberrantDetailView(View):
 
     def get_context(self, pk):
         char = Aberrant.objects.get(id=pk)
-        return {
-            "character": char
-        }
+        return {"character": char}
+
 
 class CharacterDetailView(View):
     create_views = {

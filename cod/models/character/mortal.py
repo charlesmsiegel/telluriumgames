@@ -529,7 +529,7 @@ class Mortal(PolymorphicModel):
     def xp_cost(self, trait_type):
         if trait_type == "attribute":
             return 4
-        elif trait_type == 'merit':
+        elif trait_type == "merit":
             return 1
         elif trait_type == "specialty":
             return 1
@@ -544,7 +544,7 @@ class Mortal(PolymorphicModel):
             "merit": 1,
             "specialty": 1,
             "skill": 1,
-            "integrity": 1
+            "integrity": 1,
         }
         counter = 0
         while self.xp > 10 and counter < 10:
@@ -554,7 +554,7 @@ class Mortal(PolymorphicModel):
                 if self.xp_cost(choice) <= self.xp:
                     if self.random_attribute():
                         self.xp -= self.xp_cost(choice)
-            elif choice == 'merit':
+            elif choice == "merit":
                 if self.xp_cost(choice) <= self.xp:
                     if self.random_merit(dots=self.xp):
                         self.xp -= self.xp_cost(choice)

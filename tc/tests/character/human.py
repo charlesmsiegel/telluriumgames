@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from tc.models.character.human import Human, Path, Specialty, Trick, Edge
-from tc.models.character.talent import Talent
 from tc.models.character.aberrant import Aberrant
+from tc.models.character.human import Edge, Human, Path, Specialty, Trick
+from tc.models.character.talent import Talent
 
 
 # Create your tests here.
@@ -36,7 +36,7 @@ class TestHuman(TestCase):
 
     def test_has_aspirations(self):
         self.fail()
-        
+
     def has_basics(self):
         self.fail()
 
@@ -59,13 +59,13 @@ class TestHuman(TestCase):
 
     def test_add_edge(self):
         self.fail()
-        
+
     def test_total_edges(self):
-        self.fail()    
-    
+        self.fail()
+
     def test_filter_edges(self):
         self.fail()
-        
+
     def test_has_edges(self):
         self.fail()
 
@@ -148,44 +148,50 @@ class TestHuman(TestCase):
         self.character.technology = 5
 
     def test_get_skills(self):
-        self.assertEqual(self.character.get_attributes, {
-            "aim": 0,
-            "athletics": 0,
-            "close_combat": 0,
-            "command": 0,
-            "culture": 0,
-            "empathy": 0,
-            "enigmas": 0,
-            "humanities": 0,
-            "integrity": 0,
-            "larceny": 0,
-            "medicine": 0,
-            "persuasion": 0,
-            "pilot": 0,
-            "science": 0,
-            "survival": 0,
-            "technology": 0,
-        })
+        self.assertEqual(
+            self.character.get_attributes,
+            {
+                "aim": 0,
+                "athletics": 0,
+                "close_combat": 0,
+                "command": 0,
+                "culture": 0,
+                "empathy": 0,
+                "enigmas": 0,
+                "humanities": 0,
+                "integrity": 0,
+                "larceny": 0,
+                "medicine": 0,
+                "persuasion": 0,
+                "pilot": 0,
+                "science": 0,
+                "survival": 0,
+                "technology": 0,
+            },
+        )
         self.set_skills()
-        self.assertEqual(self.character.get_attributes, {
-            "aim": 0,
-            "athletics": 1,
-            "close_combat": 2,
-            "command": 3,
-            "culture": 4,
-            "empathy": 5,
-            "enigmas": 4,
-            "humanities": 3,
-            "integrity": 2,
-            "larceny": 1,
-            "medicine": 0,
-            "persuasion": 1,
-            "pilot": 2,
-            "science": 3,
-            "survival": 4,
-            "technology": 5,
-        })
-        
+        self.assertEqual(
+            self.character.get_attributes,
+            {
+                "aim": 0,
+                "athletics": 1,
+                "close_combat": 2,
+                "command": 3,
+                "culture": 4,
+                "empathy": 5,
+                "enigmas": 4,
+                "humanities": 3,
+                "integrity": 2,
+                "larceny": 1,
+                "medicine": 0,
+                "persuasion": 1,
+                "pilot": 2,
+                "science": 3,
+                "survival": 4,
+                "technology": 5,
+            },
+        )
+
     def test_total_skills(self):
         self.assertEqual(self.character.total_skills(), 0)
         self.set_skills()
@@ -215,13 +221,13 @@ class TestHuman(TestCase):
         self.assertFalse(self.character.has_tricks())
         self.assertTrue(self.character.add_specialty(science_spec1))
         self.assertTrue(self.character.add_specialty(larceny_spec1))
-        self.assertTrue(self.character.add_specialty(command_spec1))        
-        self.assertFalse(self.character.has_tricks())        
+        self.assertTrue(self.character.add_specialty(command_spec1))
+        self.assertFalse(self.character.has_tricks())
         self.assertTrue(self.character.add_specialty(larceny_spec2))
-        self.assertTrue(self.character.add_specialty(command_spec2))        
-        self.assertFalse(self.character.has_tricks())        
-        self.assertTrue(self.character.add_specialty(command_spec3))        
-        self.assertTrue(self.character.has_tricks())        
+        self.assertTrue(self.character.add_specialty(command_spec2))
+        self.assertFalse(self.character.has_tricks())
+        self.assertTrue(self.character.add_specialty(command_spec3))
+        self.assertTrue(self.character.has_tricks())
 
     def test_filter_tricks(self):
         trick = Trick.objects.create(name="Science Trick 1", skill="science")
@@ -261,8 +267,8 @@ class TestHuman(TestCase):
         self.assertFalse(self.character.has_specialties())
         self.assertTrue(self.character.add_specialty(science_spec))
         self.assertTrue(self.character.add_specialty(larceny_spec))
-        self.assertTrue(self.character.add_specialty(command_spec))        
-        self.assertTrue(self.character.has_specialties())        
+        self.assertTrue(self.character.add_specialty(command_spec))
+        self.assertTrue(self.character.has_specialties())
 
     def test_add_attribute(self):
         self.character.might = 1
@@ -327,30 +333,36 @@ class TestHuman(TestCase):
         self.assertTrue(self.character.has_attributes())
 
     def test_get_attributes(self):
-        self.assertEqual(self.character.get_attributes, {
-            "might": 1,
-            "dexterity": 1,
-            "stamina": 1,
-            "intellect": 1,
-            "cunning": 1,
-            "resolve": 1,
-            "presence": 1,
-            "manipulation": 1,
-            "composure": 1,
-        })
+        self.assertEqual(
+            self.character.get_attributes,
+            {
+                "might": 1,
+                "dexterity": 1,
+                "stamina": 1,
+                "intellect": 1,
+                "cunning": 1,
+                "resolve": 1,
+                "presence": 1,
+                "manipulation": 1,
+                "composure": 1,
+            },
+        )
         self.set_attributes()
-        self.assertEqual(self.character.get_attributes, {
-            "might": 5,
-            "dexterity": 4,
-            "stamina": 3,
-            "intellect": 2,
-            "cunning": 1,
-            "resolve": 2,
-            "presence": 3,
-            "manipulation": 4,
-            "composure": 5,
-        })
-        
+        self.assertEqual(
+            self.character.get_attributes,
+            {
+                "might": 5,
+                "dexterity": 4,
+                "stamina": 3,
+                "intellect": 2,
+                "cunning": 1,
+                "resolve": 2,
+                "presence": 3,
+                "manipulation": 4,
+                "composure": 5,
+            },
+        )
+
     def test_total_attributes(self):
         self.assertEqual(self.character.total_attributes(), 9)
         self.set_attributes()
@@ -393,7 +405,9 @@ class TestRandomHuman(TestCase):
             for t in ["origin", "role", "society"]:
                 p = Path.objects.create(name="Path", type=t)
                 for j in range(4):
-                    p.abilities.append(list(self.character.get_skills().keys())[4*i + j])
+                    p.abilities.append(
+                        list(self.character.get_skills().keys())[4 * i + j]
+                    )
                     p.edges.add(Edge.objects.get(name=f"Edge {4*i+j}"))
                 p.save()
 
@@ -401,7 +415,7 @@ class TestRandomHuman(TestCase):
         self.assertFalse(self.character.has_aspirations())
         self.character.random_aspirations()
         self.assertTrue(self.character.has_aspirations())
-                
+
     def test_random_basics(self):
         self.assertFalse(self.character.has_basics())
         self.character.random_basics()
@@ -476,7 +490,7 @@ class TestRandomHuman(TestCase):
         num = self.character.total_edges()
         self.character.random_edge()
         self.assertEqual(self.character.total_edges(), num + 1)
-        
+
     def test_random_edges(self):
         self.assertFalse(self.character.has_edges())
         self.character.random_edges()

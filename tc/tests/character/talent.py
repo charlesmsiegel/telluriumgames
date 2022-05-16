@@ -3,7 +3,6 @@ from django.test import TestCase
 
 from tc.models.character.talent import Talent
 
-
 # Create your tests here.
 # class TestTalent(TestCase):
 #     def test_add_moment_of_inspiration(self):
