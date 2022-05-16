@@ -143,7 +143,11 @@ class Human(PolymorphicModel):
         ]
     
     def has_specialties(self):
-        pass
+        for skill in self.filter_skills(minimum=3).keys():
+            if self.specialties.filter(skill=skill).count() == 0:
+                return False
+        return True
+
     
     def random_specialty(self, skill=None):
         pass
@@ -189,7 +193,7 @@ class Human(PolymorphicModel):
         }
     
     def total_attributes(self):
-        return 0
+        return sum(self.get_attributes().values())
     
     def random_attribute(self):
         pass
