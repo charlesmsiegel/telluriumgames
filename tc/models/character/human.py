@@ -428,3 +428,6 @@ class EdgeRating(models.Model):
     )
     edge = models.ForeignKey(Edge, null=False, blank=False, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.edge.name}: {self.rating}"
