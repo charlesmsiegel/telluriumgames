@@ -435,9 +435,7 @@ class TestRandomHuman(TestCase):
             for t in ["origin", "role", "society"]:
                 p = Path.objects.create(name="Path", type=t)
                 for j in range(4):
-                    p.abilities.append(
-                        list(self.character.get_skills().keys())[4 * i + j]
-                    )
+                    p.skills.append(list(self.character.get_skills().keys())[4 * i + j])
                     p.edges.add(Edge.objects.get(name=f"Edge {4*i+j}"))
                 p.save()
 
