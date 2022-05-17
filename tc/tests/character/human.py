@@ -482,7 +482,7 @@ class TestRandomHuman(TestCase):
         self.assertEqual(self.character.tricks.count(), num + 1)
         self.character.science = 4
         self.character.random_trick(skill="science")
-        self.assertEqual(self.character.tricks.count(), num + 4)
+        self.assertEqual(self.character.tricks.count(), num + 2)
 
     def test_random_tricks(self):
         self.character.science = 3
