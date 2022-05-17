@@ -63,6 +63,9 @@ class Human(PolymorphicModel):
     tricks = models.ManyToManyField("Trick", blank=True)
     edges = models.ManyToManyField("Edge", blank=True, through="EdgeRating")
 
+    class Meta:
+        ordering = ("name",)
+
     def __str__(self):
         return self.name
 
@@ -326,7 +329,24 @@ class Human(PolymorphicModel):
         pass
 
     def xp_cost(self, trait_type):
-        pass
+        if trait_type == "attribute":
+            return 10
+        elif trait_type == "edge":
+            return 3
+        elif trait_type == "path edge":
+            return 2
+        elif trait_type == "enhanced edge":
+            return 6
+        elif trait_type == "skill":
+            return 5
+        elif trait_type == "skill trick":
+            return 3
+        elif trait_type == "skill specialty":
+            return 3
+        elif trait_type == "path":
+            return 18
+        elif trait_type == "favored approach":
+            return 15
 
     def random_xp_spend(self):
         pass
@@ -351,23 +371,55 @@ class Path(models.Model):
         choices=[("origin", "origin"), ("role", "role"), ("society", "society")],
         blank=True,
     )
-    abilities = models.JSONField(default=list)
+    skills = models.JSONField(default=list)
     edges = models.ManyToManyField("Edge", blank=True)
+
+    class Meta:
+        ordering = ("name",)
+
+    def __str__(self):
+        return self.name
 
 
 class Specialty(models.Model):
     name = models.CharField(max_length=100)
     skill = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name = "Specialty"
+        verbose_name_plural = "Specialties"
+
+    def display_skill(self):
+        return (
+            self.skill_name[self.skill_keys.index(self.skill)].replace("_", " ").title()
+        )
+
+    def __str__(self):
+        return (
+            f"{self.specialty} ({self.get_skill_display().replace('_', ' ').title()})"
+        )
+
 
 class Trick(models.Model):
     name = models.CharField(max_length=100)
     skill = models.CharField(max_length=100)
 
+    class Meta:
+        ordering = ("name",)
+
+    def __str__(self):
+        return self.name
+
 
 class Edge(models.Model):
     name = models.CharField(max_length=100)
     ratings = models.JSONField(default=list)
+
+    class Meta:
+        ordering = ("name",)
+
+    def __str__(self):
+        return self.name
 
 
 class EdgeRating(models.Model):
