@@ -1,3 +1,4 @@
+import random
 from django.db import models
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
@@ -183,7 +184,22 @@ class Human(PolymorphicModel):
         ]
 
     def random_trick(self, skill=None):
-        pass
+        if skill is not None:
+            rating = self.get_skills()[skill]
+            if rating >= 3 and rating - 2 > self.tricks.filter(skill=skill).count():
+                skill_choice = skill
+            else:
+                return False
+        else:
+            skills_geq_3 = self.filter_skills(minimum=3)
+            possible_skills = []
+            for skill in skills_geq_3.keys():
+                if skills_geq_3[skill] - 2 > self.tricks.filter(skill=skill).count():
+                    possible_skills.append(skill)
+            skill_choice = weighted_choice({k: v for k, v in skills_geq_3.items() if k in possible_skills})
+        possible_tricks = self.filter_tricks(skill=skill_choice)
+        trick = random.choice(possible_tricks)
+        return self.add_trick(trick)
 
     def random_tricks(self):
         pass
