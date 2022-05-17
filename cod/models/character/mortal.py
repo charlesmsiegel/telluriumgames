@@ -538,6 +538,8 @@ class Mortal(PolymorphicModel):
         elif trait_type == "integrity":
             return 2
 
+    # TODO: XP Spend function (with tests)
+
     def random_xp_spend(self):
         frequencies = {
             "attribute": 1,
