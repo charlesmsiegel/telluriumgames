@@ -55,6 +55,7 @@ class Human(PolymorphicModel):
 
     specialties = models.ManyToManyField("Specialty", blank=True)
     tricks = models.ManyToManyField("Trick", blank=True)
+    edges = models.ManyToManyField("Edge", blank=True, through="EdgeRating")
 
     def __str__(self):
         return self.name
@@ -219,10 +220,20 @@ class Human(PolymorphicModel):
         pass
 
     def add_edge(self, edge):
-        pass
+        if edge in self.edges.all():
+            edge_rating = EdgeRating.objects.get(character=self, edge=edge)
+            current_rating = edge_rating.rating
+            values = [x for x in edge.ratings if x > current_rating]
+            if len(values) != 0:
+                edge_rating.rating = min(values)
+                edge_rating.save()
+                return True
+            return False
+        EdgeRating.objects.create(character=self, edge=edge, rating=min(edge.ratings))
+        return True
 
     def total_edges(self):
-        return 0
+        return sum([x.rating for x in EdgeRating.objects.filter(character=self)])
 
     def has_edges(self):
         pass
@@ -272,3 +283,14 @@ class Trick(models.Model):
 
 class Edge(models.Model):
     name = models.CharField(max_length=100)
+    ratings = models.JSONField(default=list)
+
+
+class EdgeRating(models.Model):
+    character = models.ForeignKey(
+        Human, null=False, blank=False, on_delete=models.CASCADE
+    )
+    edge = models.ForeignKey(
+        Edge, null=False, blank=False, on_delete=models.CASCADE
+    )
+    rating = models.IntegerField(default=0)
