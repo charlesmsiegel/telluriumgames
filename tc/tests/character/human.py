@@ -179,7 +179,7 @@ class TestHuman(TestCase):
 
     def test_get_skills(self):
         self.assertEqual(
-            self.character.get_attributes,
+            self.character.get_skills(),
             {
                 "aim": 0,
                 "athletics": 0,
@@ -201,7 +201,7 @@ class TestHuman(TestCase):
         )
         self.set_skills()
         self.assertEqual(
-            self.character.get_attributes,
+            self.character.get_skills(),
             {
                 "aim": 0,
                 "athletics": 1,
@@ -364,7 +364,7 @@ class TestHuman(TestCase):
 
     def test_get_attributes(self):
         self.assertEqual(
-            self.character.get_attributes,
+            self.character.get_attributes(),
             {
                 "might": 1,
                 "dexterity": 1,
@@ -379,7 +379,7 @@ class TestHuman(TestCase):
         )
         self.set_attributes()
         self.assertEqual(
-            self.character.get_attributes,
+            self.character.get_attributes(),
             {
                 "might": 5,
                 "dexterity": 4,
