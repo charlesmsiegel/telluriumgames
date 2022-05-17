@@ -1,4 +1,5 @@
 import random
+
 from django.db import models
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
@@ -174,13 +175,9 @@ class Human(PolymorphicModel):
 
     def filter_tricks(self, skill=None):
         if skill is None:
-            return [
-                x for x in Trick.objects.all() if x not in self.tricks.all()
-            ]
+            return [x for x in Trick.objects.all() if x not in self.tricks.all()]
         return [
-            x
-            for x in Trick.objects.filter(skill=skill)
-            if x not in self.tricks.all()
+            x for x in Trick.objects.filter(skill=skill) if x not in self.tricks.all()
         ]
 
     def random_trick(self, skill=None):
@@ -196,7 +193,9 @@ class Human(PolymorphicModel):
             for skill in skills_geq_3.keys():
                 if skills_geq_3[skill] - 2 > self.tricks.filter(skill=skill).count():
                     possible_skills.append(skill)
-            skill_choice = weighted_choice({k: v for k, v in skills_geq_3.items() if k in possible_skills})
+            skill_choice = weighted_choice(
+                {k: v for k, v in skills_geq_3.items() if k in possible_skills}
+            )
         possible_tricks = self.filter_tricks(skill=skill_choice)
         trick = random.choice(possible_tricks)
         return self.add_trick(trick)
@@ -317,7 +316,5 @@ class EdgeRating(models.Model):
     character = models.ForeignKey(
         Human, null=False, blank=False, on_delete=models.CASCADE
     )
-    edge = models.ForeignKey(
-        Edge, null=False, blank=False, on_delete=models.CASCADE
-    )
+    edge = models.ForeignKey(Edge, null=False, blank=False, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
