@@ -26,6 +26,10 @@ class Human(PolymorphicModel):
 
     concept = models.CharField(max_length=100)
 
+    short_term_aspiration_1 = models.CharField(max_length=100, default="")
+    short_term_aspiration_2 = models.CharField(max_length=100, default="")
+    long_term_aspiration = models.CharField(max_length=100, default="")
+
     paths = models.ManyToManyField("Path", blank=True)
 
     intellect = models.IntegerField(default=1)
@@ -89,16 +93,24 @@ class Human(PolymorphicModel):
             self.long_term_aspiration = aspiration
 
     def has_aspirations(self):
-        pass
+        return (
+            self.short_term_aspiration_1 != ""
+            and self.short_term_aspiration_2 != ""
+            and self.long_term_aspiration != ""
+        )
 
     def random_aspirations(self):
-        pass
+        self.add_aspiration("Test Short 1", type="short", number=1)
+        self.add_aspiration("Test Short 2", type="short", number=2)
+        self.add_aspiration("Test Long", type="long", number=1)
 
     def random_basics(self):
-        pass
+        self.add_name("Random Name")
+        self.add_concept("Random Concept")
+        self.random_aspirations()
 
     def has_basics(self):
-        pass
+        return self.has_name() and self.has_concept() and self.has_aspirations()
 
     def has_skills(self):
         pass
@@ -129,8 +141,18 @@ class Human(PolymorphicModel):
     def total_skills(self):
         return sum(self.get_skills().values())
 
-    def random_skill(self):
-        pass
+    def random_skill(self, skill_list=None):
+        if skill_list is None:
+            choice = weighted_choice(self.filter_skills(maximum=4))
+        else:
+            choice = weighted_choice(
+                {
+                    k: v
+                    for k, v in self.filter_skills(maximum=4).items()
+                    if k in skill_list
+                }
+            )
+        return add_dot(self, choice, 5)
 
     def random_skills(self):
         pass
@@ -159,10 +181,30 @@ class Human(PolymorphicModel):
         return True
 
     def random_specialty(self, skill=None):
-        pass
+        added = False
+        while not added:
+            skill_choice = weighted_choice(
+                {
+                    k: v
+                    for k, v in self.filter_skills(minimum=3).items()
+                    # if self.specialties.filter(skill=k).count() == 0
+                }
+            )
+            possible_specialties = self.filter_specialties(skill=skill_choice)
+            if len(possible_specialties) != 0:
+                choice = random.choice(possible_specialties)
+                self.add_specialty(choice)
+                added = True
+            all_possibilities = []
+            for skill in self.filter_skills(minimum=1).keys():
+                all_possibilities.extend(self.filter_specialties(skill=skill))
+            if len(all_possibilities) == 0:
+                break
 
     def random_specialties(self):
-        pass
+        for skill in self.filter_skills(minimum=3).keys():
+            if self.specialties.filter(skill=skill).count() == 0:
+                self.random_specialty(skill=skill)
 
     def add_trick(self, trick):
         if trick not in self.tricks.all():
