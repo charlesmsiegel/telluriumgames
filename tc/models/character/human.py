@@ -2,6 +2,7 @@ import random
 
 from django.db import models
 from django.shortcuts import reverse
+from django.template import Origin
 from polymorphic.models import PolymorphicModel
 
 from accounts.models import TCProfile
@@ -30,7 +31,7 @@ class Human(PolymorphicModel):
     short_term_aspiration_2 = models.CharField(max_length=100, default="")
     long_term_aspiration = models.CharField(max_length=100, default="")
 
-    paths = models.ManyToManyField("Path", blank=True)
+    paths = models.ManyToManyField("Path", blank=True, through="PathRating")
 
     intellect = models.IntegerField(default=1)
     cunning = models.IntegerField(default=1)
@@ -282,17 +283,86 @@ class Human(PolymorphicModel):
     def total_attributes(self):
         return sum(self.get_attributes().values())
 
-    def random_attribute(self):
-        pass
+    def get_physical_attributes(self):
+        return {
+            "might": self.might,
+            "dexterity": self.dexterity,
+            "stamina": self.stamina,
+        }
+
+    def get_mental_attributes(self):
+        return {
+            "intellect": self.intellect,
+            "cunning": self.cunning,
+            "resolve": self.resolve,
+        }
+
+    def get_social_attributes(self):
+        return {
+            "presence": self.presence,
+            "manipulation": self.manipulation,
+            "composure": self.composure,
+        }
+
+    def get_force_attributes(self):
+        return {
+            "might": self.might,
+            "intellect": self.intellect,
+            "presence": self.presence,
+        }
+
+    def get_finesse_attributes(self):
+        return {
+            "cunning": self.cunning,
+            "dexterity": self.dexterity,
+            "manipulation": self.manipulation,
+        }
+
+    def get_resilience_attributes(self):
+        return {
+            "resolve": self.resolve,
+            "composure": self.composure,
+            "stamina": self.stamina,
+        }
+
+    def physical_attribute_sum(self):
+        return sum(self.get_physical_attributes().values())
+
+    def mental_attribute_sum(self):
+        return sum(self.get_mental_attributes().values())
+
+    def social_attribute_sum(self):
+        return sum(self.get_social_attributes().values())
+
+    def force_attribute_sum(self):
+        return sum(self.get_force_attributes().values())
+
+    def finesse_attribute_sum(self):
+        return sum(self.get_finesse_attributes().values())
+
+    def resilience_attribute_sum(self):
+        return sum(self.get_resilience_attributes().values())
+
+    def random_attribute(self, attribute_set=None):
+        if attribute_set is None:
+            attribute_set = self.get_attributes()
+        add_dot(self, weighted_choice(attribute_set), 5)
 
     def random_attributes(self):
         pass
 
     def add_path(self, path):
-        pass
+        p, created = PathRating.objects.get_or_create(character=self, path=path)
+        if p.rating < 5:
+            p.rating += 1
+            return True
+        return False
 
     def has_paths(self):
-        pass
+        origin = self.paths.filter(type="origin").count() > 0
+        role = self.paths.filter(type="role").count() > 0
+        society = self.paths.filter(type="society").count() > 0
+        return origin and role and society
 
     def random_path(self):
         pass
@@ -431,3 +501,14 @@ class EdgeRating(models.Model):
 
     def __str__(self):
         return f"{self.edge.name}: {self.rating}"
+
+
+class PathRating(models.Model):
+    character = models.ForeignKey(
+        Human, null=False, blank=False, on_delete=models.CASCADE
+    )
+    path = models.ForeignKey(Path, null=False, blank=False, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.path.name}: {self.rating}"

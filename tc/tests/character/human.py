@@ -94,7 +94,7 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.total_edges(), 11)
 
     def test_filter_edges(self):
-        self.fail()
+        self.fail("Filter edges, make sure to handle prereqs here")
 
     def test_has_edges(self):
         self.fail()
@@ -398,8 +398,64 @@ class TestHuman(TestCase):
         self.set_attributes()
         self.assertEqual(self.character.total_attributes(), 29)
 
+    def test_attribute_getters_and_sums(self):
+        self.character.intellect = 1
+        self.character.cunning = 2
+        self.character.resolve = 3
+        self.character.might = 4
+        self.character.dexterity = 5
+        self.character.stamina = 3
+        self.character.presence = 2
+        self.character.manipulation = 4
+        self.character.composure = 1
+
+        self.assertEqual(
+            self.character.get_physical_attributes(),
+            {"might": 4, "dexterity": 5, "stamina": 3},
+        )
+        self.assertEqual(self.character.physical_attribute_sum(), 12)
+
+        self.assertEqual(
+            self.character.get_mental_attributes(),
+            {"intellect": 1, "cunning": 2, "resolve": 3},
+        )
+        self.assertEqual(self.character.mental_attribute_sum(), 6)
+
+        self.assertEqual(
+            self.character.get_social_attributes(),
+            {"presence": 2, "manipulation": 4, "composure": 1},
+        )
+        self.assertEqual(self.character.social_attribute_sum(), 7)
+
+        self.assertEqual(
+            self.character.get_force_attributes(),
+            {"intellect": 1, "might": 4, "presence": 2},
+        )
+        self.assertEqual(self.character.force_attribute_sum(), 7)
+
+        self.assertEqual(
+            self.character.get_finesse_attributes(),
+            {"cunning": 2, "dexterity": 5, "manipulation": 4},
+        )
+        self.assertEqual(self.character.finesse_attribute_sum(), 11)
+
+        self.assertEqual(
+            self.character.get_resilience_attributes(),
+            {"resolve": 3, "stamina": 3, "composure": 1},
+        )
+        self.assertEqual(self.character.resilience_attribute_sum(), 7)
+
     def test_has_template(self):
-        self.fail()
+        att_total = self.character.total_attributes()
+        edge_total = self.character.total_edges()
+        for i in range(1, 5):
+            for j in range(3):
+                Edge.objects.create(name=f"Edge {5*j + i - 1}", ratings=[i])
+        self.character.apply_random_template()
+        self.assertEqual(att_total + 1, self.character.total_attributes())
+        self.assertEqual(edge_total + 4, self.character.total_edges())
+        self.assertEqual(self.character.defense, 1)
+        self.fail("Need to set up Health levels check")
 
     def test_assign_advantages(self):
         self.fail()
@@ -414,6 +470,9 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.xp_cost("skill specialty"), 3)
         self.assertEqual(self.character.xp_cost("path"), 18)
         self.assertEqual(self.character.xp_cost("favored approach"), 15)
+
+    def test_spend_xp(self):
+        self.fail()
 
     def test_get_absolute_url(self):
         self.assertEqual(
