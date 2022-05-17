@@ -213,7 +213,11 @@ class Human(PolymorphicModel):
         return False
 
     def has_tricks(self):
-        pass
+        skills = self.filter_skills(minimum=3)
+        for skill in skills.keys():
+            if skills[skill] - 2 != self.tricks.filter(skill=skill).count():
+                return False
+        return True
 
     def filter_tricks(self, skill=None):
         if skill is None:
@@ -243,7 +247,10 @@ class Human(PolymorphicModel):
         return self.add_trick(trick)
 
     def random_tricks(self):
-        pass
+        skills = self.filter_skills(minimum=3)
+        for skill in skills.keys():
+            for _ in range(skills[skill] - 2 - self.tricks.filter(skill=skill).count()):
+                self.random_trick(skill=skill)
 
     def add_attribute(self, attribute, maximum=5):
         return add_dot(self, attribute, maximum)
@@ -325,7 +332,16 @@ class Human(PolymorphicModel):
         pass
 
     def random(self):
-        pass
+        self.random_basics()
+        self.random_paths()
+        self.random_skills()
+        self.random_specialties()
+        self.random_tricks()
+        self.random_attributes()
+        self.random_edges()
+        self.apply_random_template()
+        self.random_xp_spend()
+        self.save()
 
 
 class Path(models.Model):
