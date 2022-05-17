@@ -163,13 +163,24 @@ class Human(PolymorphicModel):
         pass
 
     def add_trick(self, trick):
-        pass
+        if trick not in self.tricks.all():
+            self.tricks.add(trick)
+            return True
+        return False
 
     def has_tricks(self):
         pass
 
     def filter_tricks(self, skill=None):
-        return []
+        if skill is None:
+            return [
+                x for x in Trick.objects.all() if x not in self.tricks.all()
+            ]
+        return [
+            x
+            for x in Trick.objects.filter(skill=skill)
+            if x not in self.tricks.all()
+        ]
 
     def random_trick(self, skill=None):
         pass
