@@ -43,6 +43,12 @@ class Human(PolymorphicModel):
     manipulation = models.IntegerField(default=1)
     composure = models.IntegerField(default=1)
 
+    approach = models.CharField(
+        max_length=3,
+        default="RES",
+        choices=[("RES", "Resistance"), ("FOR", "Force"), ("FIN", "Finesse")],
+    )
+
     aim = models.IntegerField(default=0)
     athletics = models.IntegerField(default=0)
     close_combat = models.IntegerField(default=0)
@@ -63,14 +69,14 @@ class Human(PolymorphicModel):
     specialties = models.ManyToManyField("Specialty", blank=True)
     tricks = models.ManyToManyField("Trick", blank=True)
     edges = models.ManyToManyField("Edge", blank=True, through="EdgeRating")
+    enhanced_edges = models.ManyToManyField("EnhancedEdge", blank=True)
 
     bruised_levels = models.IntegerField(default=1)
     injured_levels = models.IntegerField(default=1)
     maimed_levels = models.IntegerField(default=1)
 
     defense = models.IntegerField(default=1)
-    defense = models.IntegerField(default=1)
-    defense = models.IntegerField(default=1)
+    xp = models.IntegerField(default=0)
 
     class Meta:
         ordering = ("name",)
@@ -164,6 +170,9 @@ class Human(PolymorphicModel):
     def filter_skills(self, minimum=0, maximum=5):
         return {k: v for k, v in self.get_skills().items() if minimum <= v <= maximum}
 
+    def add_skill(self, skill, maximum=5):
+        return add_dot(self, skill, maximum)
+
     def total_skills(self, path=None):
         if path is None:
             return sum(self.get_skills().values())
@@ -183,7 +192,17 @@ class Human(PolymorphicModel):
         return add_dot(self, choice, 5)
 
     def random_skills(self):
-        pass
+        p1 = PathRating.objects.filter(character=self, path__type="origin").first()
+        p2 = PathRating.objects.filter(character=self, path__type="role").first()
+        p3 = PathRating.objects.filter(character=self, path__type="society").first()
+        while self.total_skills(path=p1.path) < 3:
+            self.random_skill(skill_list=p1.path.skills)
+        while self.total_skills(path=p2.path) < 3:
+            self.random_skill(skill_list=p2.path.skills)
+        while self.total_skills(path=p3.path) < 3:
+            self.random_skill(skill_list=p3.path.skills)
+        while self.total_skills() < 15:
+            self.random_skill()
 
     def add_specialty(self, specialty):
         if specialty not in self.specialties.all():
@@ -286,14 +305,21 @@ class Human(PolymorphicModel):
     def add_attribute(self, attribute, maximum=5):
         return add_dot(self, attribute, maximum)
 
-    def has_attributes(self):
+    def has_attributes(self, template=False):
         totals = [
             self.physical_attribute_sum(),
             self.mental_attribute_sum(),
             self.social_attribute_sum(),
         ]
         totals.sort()
-        return totals == [6, 8, 10]
+        if not template:
+            return totals == [6, 8, 10]
+        else:
+            return (
+                (totals == [7, 8, 10])
+                or (totals == [6, 9, 10])
+                or (totals == [6, 8, 11])
+            )
 
     def filter_attributes(self, minimum=0, maximum=5):
         return {
@@ -418,6 +444,7 @@ class Human(PolymorphicModel):
         p, created = PathRating.objects.get_or_create(character=self, path=path)
         if p.rating < 5:
             p.rating += 1
+            p.save()
             return True
         return False
 
@@ -443,9 +470,21 @@ class Human(PolymorphicModel):
         self.random_path(type="society")
 
     def path_rating(self, path):
+        if type(path) != Path:
+            path = Path.objects.get(name=path)
         if path not in self.paths.all():
             return 0
         return PathRating.objects.get(character=self, path=path).rating
+
+    def total_path_rating(self):
+        return sum([self.path_rating(x) for x in Path.objects.all()])
+
+    def edge_rating(self, edge):
+        if type(edge) != Edge:
+            edge = Edge.objects.get(name=edge)
+        if edge not in self.edges.all():
+            return 0
+        return EdgeRating.objects.get(character=self, edge=edge).rating
 
     def add_edge(self, edge):
         if edge in self.edges.all():
@@ -493,6 +532,14 @@ class Human(PolymorphicModel):
                     possible_edges.append(edge)
         return possible_edges
 
+    def filter_enhanced_edges(self):
+        all_ees = EnhancedEdge.objects.all()
+        possible_ee = []
+        for ee in all_ees:
+            if ee.check_prereqs(self) and ee not in self.enhanced_edges.all():
+                possible_ee.append(ee)
+        return possible_ee
+
     def has_edges(self, start=False):
         output = True
         p1 = self.paths.filter(type="origin").first()
@@ -512,8 +559,20 @@ class Human(PolymorphicModel):
         if sublist is None:
             sublist = Edge.objects.all()
         options = [x for x in sublist if x in self.filter_edges(dots=dots)]
-        choice = random.choice(options)
-        self.add_edge(choice)
+        if len(options) != 0:
+            choice = random.choice(options)
+            self.add_edge(choice)
+
+    def random_edges(self):
+        p1 = self.paths.filter(type="origin").first()
+        p2 = self.paths.filter(type="role").first()
+        p3 = self.paths.filter(type="society").first()
+        while self.total_edges() < 2:
+            self.random_edge(dots=2 - self.total_edges(), sublist=list(p1.edges.all()))
+        while self.total_edges() < 4:
+            self.random_edge(dots=4 - self.total_edges(), sublist=list(p2.edges.all()))
+        while self.total_edges() < 6:
+            self.random_edge(dots=6 - self.total_edges(), sublist=list(p3.edges.all()))
 
     def has_template(self):
         attribute_flag = self.total_attributes() == 25
@@ -560,6 +619,14 @@ class Human(PolymorphicModel):
         elif trait_type == "favored approach":
             return 15
 
+    def get_path_edges(self, dots=100):
+        path_edge_list = []
+        for p in self.paths.all():
+            path_edge_list.extend(
+                [x.name for x in p.edges.all() if self.edge_rating(x) <= dots]
+            )
+        return path_edge_list
+
     def spend_xp(self, trait):
         if trait in self.get_attributes().keys():
             cost = self.xp_cost("attribute")
@@ -568,29 +635,106 @@ class Human(PolymorphicModel):
                     self.xp -= cost
                     return True
             return False
-        # elif "path edges":
-        #     pass
-        # elif "edge":
-        #     pass
-        # elif "enhanced edge":
-        #     pass
+        elif trait in self.get_path_edges(dots=self.xp // self.xp_cost("path edge")):
+            e = Edge.objects.get(name=trait)
+            new_rating = min([x for x in e.ratings if x >= self.edge_rating(e)])
+            cost = self.xp_cost("path edge") * (new_rating - self.edge_rating(e))
+            if self.xp >= cost:
+                if self.add_edge(e):
+                    self.xp -= cost
+                    return True
+            return False
+        elif trait in [
+            x.name for x in self.filter_edges(dots=self.xp // self.xp_cost("edge"))
+        ]:
+            e = Edge.objects.get(name=trait)
+            new_rating = min([x for x in e.ratings if x > self.edge_rating(e)])
+            cost = self.xp_cost("edge") * (new_rating - self.edge_rating(e))
+            if self.xp >= cost:
+                if self.add_edge(e):
+                    self.xp -= cost
+                    return True
+            return False
+        elif trait in [x.name for x in EnhancedEdge.objects.all()]:
+            ee = EnhancedEdge.objects.get(name=trait)
+            if ee not in self.enhanced_edges.all():
+                cost = self.xp_cost("enhanced edge")
+                if self.xp >= cost:
+                    self.enhanced_edges.add(ee)
+                    self.xp -= cost
+                    return True
+            return False
         elif trait in self.get_skills().keys():
             cost = self.xp_cost("skill")
             if self.xp >= cost:
                 if self.add_skill(trait):
                     self.xp -= cost
                     return True
-        # elif "skill trick":
-        #     pass
-        # elif "skill specialty":
-        #     pass
-        # elif "path":
-        #     pass
-        # elif "favored approach":
-        #     pass
+            return False
+        elif trait in [x.name for x in self.filter_tricks()]:
+            cost = self.xp_cost("skill trick")
+            if self.xp >= cost:
+                if self.add_trick(Trick.objects.get(name=trait)):
+                    self.xp -= cost
+                    return True
+            return False
+        elif trait in [x.name for x in self.filter_specialties()]:
+            cost = self.xp_cost("skill specialty")
+            if self.xp >= cost:
+                if self.add_specialty(Specialty.objects.get(name=trait)):
+                    self.xp -= cost
+                    return True
+            return False
+        elif trait in [x.name for x in Path.objects.all() if self.path_rating(x) < 5]:
+            cost = self.xp_cost("path")
+            if self.xp >= cost:
+                if self.add_path(Path.objects.get(name=trait)):
+                    self.xp -= cost
+                    return True
+            return False
+        elif trait in ["Favor FIN", "Favor FOR", "Favor RES"]:
+            cost = self.xp_cost("favored approach")
+            if self.xp >= cost and self.approach != trait.split(" ")[-1]:
+                self.approach = trait.split(" ")[-1]
+                self.xp -= cost
+                return True
+            return False
+        self.save()
 
     def random_xp_spend(self):
-        pass
+        while self.xp > 10:
+            options = {
+                "attributes": 1,
+                "edges": 1,
+                "enhanced_edges": 1,
+                "skills": 1,
+                "tricks": 1,
+                "specialties": 1,
+                "paths": 1,
+                "approach": 1,
+            }
+            trait_type = weighted_choice(options)
+            if trait_type == "attributes":
+                trait = weighted_choice(self.filter_attributes(maximum=4))
+            elif trait_type == "edges":
+                trait = random.choice(self.filter_edges()).name
+            elif trait_type == "enhanced_edges":
+                trait = random.choice(self.filter_enhanced_edges()).name
+            elif trait_type == "skills":
+                trait = weighted_choice(self.filter_skills(maximum=4))
+            elif trait_type == "tricks":
+                trait = random.choice(self.filter_tricks()).name
+            elif trait_type == "specialties":
+                trait = random.choice(self.filter_specialties()).name
+            elif trait_type == "paths":
+                trait = weighted_choice(
+                    {p.name: self.path_rating(p) for p in Path.objects.all()}
+                )
+            elif trait_type == "approach":
+                trait = random.choice(["Favor FIN", "Favor FOR", "Favor RES"])
+            else:
+                trait = None
+            self.spend_xp(trait)
 
     def random(self):
         self.random_basics()
@@ -606,7 +750,7 @@ class Human(PolymorphicModel):
 
 
 class Path(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     type = models.CharField(
         max_length=100,
         choices=[("origin", "origin"), ("role", "role"), ("society", "society")],
@@ -623,7 +767,7 @@ class Path(models.Model):
 
 
 class Specialty(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     skill = models.CharField(max_length=100)
 
     class Meta:
@@ -631,18 +775,14 @@ class Specialty(models.Model):
         verbose_name_plural = "Specialties"
 
     def display_skill(self):
-        return (
-            self.skill_name[self.skill_keys.index(self.skill)].replace("_", " ").title()
-        )
+        return self.skill.replace("_", " ").title()
 
     def __str__(self):
-        return (
-            f"{self.specialty} ({self.get_skill_display().replace('_', ' ').title()})"
-        )
+        return f"{self.name} ({self.display_skill()})"
 
 
 class Trick(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     skill = models.CharField(max_length=100)
 
     class Meta:
@@ -655,7 +795,7 @@ class Trick(models.Model):
 class Edge(PolymorphicModel):
     type = "edge"
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
     prereqs = models.JSONField(default=list)
 
@@ -691,8 +831,32 @@ class Edge(PolymorphicModel):
 
 
 class EnhancedEdge(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     prereqs = models.JSONField(default=list)
+
+    def check_prereqs(self, character):
+        satisfied = True
+        for prereq in self.prereqs:
+            if prereq[0] in character.get_attributes().keys():
+                satisfied = satisfied and (getattr(character, prereq[0]) >= prereq[1])
+            elif prereq[0] in character.get_skills().keys():
+                satisfied = satisfied and (getattr(character, prereq[0]) >= prereq[1])
+            elif prereq[0] in [x.name for x in Edge.objects.all() if x.type == "edge"]:
+                edge_prereq = Edge.objects.get(name=prereq[0])
+                if edge_prereq in character.edges.all():
+                    x = EdgeRating.objects.get(character=character, edge=edge_prereq)
+                    satisfied = satisfied and (x.rating >= prereq[1])
+                else:
+                    satisfied = False
+            elif prereq[0] == "path":
+                satisfied = satisfied and any(
+                    [
+                        x.rating > prereq[1]
+                        for x in PathRating.objects.filter(character=character)
+                        if self in x.path.edges.all()
+                    ]
+                )
+        return satisfied
 
 
 class EdgeRating(models.Model):

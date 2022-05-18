@@ -2,7 +2,15 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from tc.models.character.aberrant import Aberrant
-from tc.models.character.human import Edge, EnhancedEdge, Human, Path, Specialty, Trick
+from tc.models.character.human import (
+    Edge,
+    EnhancedEdge,
+    Human,
+    Path,
+    PathRating,
+    Specialty,
+    Trick,
+)
 from tc.models.character.talent import Talent
 
 
@@ -75,10 +83,10 @@ class TestHuman(TestCase):
         self.assertFalse(self.character.add_edge(e))
 
     def test_total_edges(self):
-        e1 = Edge.objects.create(name="Edge", ratings=[1, 2])
-        e2 = Edge.objects.create(name="Edge", ratings=[2, 3])
-        e3 = Edge.objects.create(name="Edge", ratings=[4])
-        e4 = Edge.objects.create(name="Edge", ratings=[2])
+        e1 = Edge.objects.create(name="Edge 1", ratings=[1, 2])
+        e2 = Edge.objects.create(name="Edge 2", ratings=[2, 3])
+        e3 = Edge.objects.create(name="Edge 3", ratings=[4])
+        e4 = Edge.objects.create(name="Edge 4", ratings=[2])
         self.assertEqual(self.character.total_edges(), 0)
         self.character.add_edge(e1)
         self.assertEqual(self.character.total_edges(), 1)
@@ -329,7 +337,7 @@ class TestHuman(TestCase):
 
     def test_filter_tricks(self):
         trick = Trick.objects.create(name="Science Trick 1", skill="science")
-        Trick.objects.create(name="Science Trick 1", skill="science")
+        Trick.objects.create(name="Science Trick 2", skill="science")
         Trick.objects.create(name="Command Trick", skill="command")
         Trick.objects.create(name="Technology Trick", skill="technology")
         self.character.add_trick(trick)
@@ -551,17 +559,19 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.xp_cost("favored approach"), 15)
 
     def test_spend_xp(self):
-        Edge.objects.create(name="Edge 1", ratings=[1, 2])
-        Edge.objects.create(name="Edge 2", ratings=[3])
-        pe = Edge.objects.create(name="Path Edge", ratings=[2])
+        Edge.objects.create(name="XP Edge 1", ratings=[1, 2])
+        Edge.objects.create(name="XP Edge 2", ratings=[3])
+        pe = Edge.objects.create(name="XP Path Edge", ratings=[2])
 
-        Trick.objects.create(name="Trick", skill="science")
-        Specialty.objects.create(name="Specialty", skill="science")
+        Trick.objects.create(name="XP Trick", skill="science")
+        Specialty.objects.create(name="XP Specialty", skill="science")
 
-        ee = EnhancedEdge.objects.create(name="Enhanced Edge", prereqs=[("Edge 1", 2)])
+        ee = EnhancedEdge.objects.create(
+            name="XP Enhanced Edge", prereqs=[("XP Edge 1", 2)]
+        )
 
         p = Path.objects.create(
-            name="Path", skills=["science", "technology", "command", "close_combat"]
+            name="XP Path", skills=["science", "technology", "command", "close_combat"]
         )
         p.edges.add(pe)
         p.save()
@@ -574,33 +584,33 @@ class TestHuman(TestCase):
         self.assertTrue(self.character.spend_xp("might"))
         self.assertEqual(self.character.xp, 990)
         self.assertEqual(self.character.might, 2)
-        self.assertTrue(self.character.spend_xp("Edge 1"))
+        self.assertTrue(self.character.spend_xp("XP Edge 1"))
         self.assertEqual(self.character.xp, 987)
-        self.assertEqual(self.character.edge_rating("Edge 1"), 1)
-        self.assertTrue(self.character.spend_xp("Edge 2"))
+        self.assertEqual(self.character.edge_rating("XP Edge 1"), 1)
+        self.assertTrue(self.character.spend_xp("XP Edge 2"))
         self.assertEqual(self.character.xp, 978)
-        self.assertEqual(self.character.edge_rating("Edge 2"), 3)
-        self.assertTrue(self.character.spend_xp("Edge 1"))
+        self.assertEqual(self.character.edge_rating("XP Edge 2"), 3)
+        self.assertTrue(self.character.spend_xp("XP Edge 1"))
         self.assertEqual(self.character.xp, 975)
-        self.assertEqual(self.character.edge_rating("Edge 1"), 2)
-        self.assertTrue(self.character.spend_xp("Path Edge"))
+        self.assertEqual(self.character.edge_rating("XP Edge 1"), 2)
+        self.assertTrue(self.character.spend_xp("XP Path Edge"))
         self.assertEqual(self.character.xp, 971)
-        self.assertEqual(self.character.edge_rating("Path Edge"), 2)
-        self.assertTrue(self.character.spend_xp("Enhanced Edge"))
+        self.assertEqual(self.character.edge_rating("XP Path Edge"), 2)
+        self.assertTrue(self.character.spend_xp("XP Enhanced Edge"))
         self.assertEqual(self.character.xp, 965)
         self.assertEqual(self.character.enhanced_edges.first(), ee)
         self.assertTrue(self.character.spend_xp("science"))
         self.assertEqual(self.character.xp, 960)
-        self.assertEqual(self.character.science, 2)
-        self.assertTrue(self.character.spend_xp("Trick"))
+        self.assertEqual(self.character.science, 1)
+        self.assertTrue(self.character.spend_xp("XP Trick"))
         self.assertEqual(self.character.xp, 957)
         self.assertEqual(self.character.tricks.count(), 1)
-        self.assertTrue(self.character.spend_xp("Specialty"))
+        self.assertTrue(self.character.spend_xp("XP Specialty"))
         self.assertEqual(self.character.xp, 954)
         self.assertEqual(self.character.specialties.count(), 1)
-        self.assertTrue(self.character.spend_xp("Path"))
+        self.assertTrue(self.character.spend_xp("XP Path"))
         self.assertEqual(self.character.xp, 936)
-        self.assertEqual(self.character.path_rating("Path"), 2)
+        self.assertEqual(self.character.path_rating("XP Path"), 2)
         self.assertTrue(self.character.spend_xp("Favor FIN"))
         self.assertEqual(self.character.xp, 921)
         self.assertEqual(self.character.approach, "FIN")
@@ -617,19 +627,24 @@ class TestRandomHuman(TestCase):
         self.character = Human.objects.create(name="", player=self.player.tc_profile)
         for skill in self.character.get_skills().keys():
             for i in range(5):
-                Specialty.objects.create(name=f"Specialty {i}", skill=skill)
-                Trick.objects.create(name=f"Specialty {i}", skill=skill)
-        for i in range(4):
-            for t in ["origin", "role", "society"]:
-                p = Path.objects.create(name="Path", type=t)
+                Specialty.objects.create(name=f"{skill} Specialty {i}", skill=skill)
+                Trick.objects.create(name=f"{skill} Trick {i}", skill=skill)
+        for t in ["origin", "role", "society"]:
+            p = Path.objects.create(name=f"{t} Path", type=t)
+            for i in range(4):
                 for j in range(4):
                     p.skills.append(list(self.character.get_skills().keys())[4 * i + j])
                     p.edges.add(
                         Edge.objects.create(
-                            name=f"Edge {4*j+i}", ratings=[i + 1, i + 2]
+                            name=f"{t} Edge {4*j+i}", ratings=[i + 1, i + 2]
                         )
                     )
                 p.save()
+
+        for edge in Edge.objects.all():
+            EnhancedEdge.objects.create(
+                name=f"Enhanced {edge.name}", prereqs=[(edge.name, max(edge.ratings))]
+            )
 
     def test_random_aspirations(self):
         self.assertFalse(self.character.has_aspirations())
@@ -644,9 +659,9 @@ class TestRandomHuman(TestCase):
     def test_random_path(self):
         num = self.character.paths.count()
         self.character.random_path()
-        self.assertEqual(self.character.paths.count(), num + 1)
+        self.assertEqual(self.character.total_path_rating(), num + 1)
         self.character.random_path(type="origin")
-        self.assertEqual(self.character.paths.count(), num + 2)
+        self.assertEqual(self.character.total_path_rating(), num + 2)
 
     def test_random_paths(self):
         self.assertFalse(self.character.has_paths())
@@ -659,6 +674,7 @@ class TestRandomHuman(TestCase):
         self.assertEqual(self.character.total_skills(), num + 1)
 
     def test_random_skills(self):
+        self.character.random_paths()
         self.assertFalse(self.character.has_skills())
         self.character.random_skills()
         self.assertTrue(self.character.has_skills())
@@ -731,16 +747,15 @@ class TestRandomHuman(TestCase):
         self.assertFalse(character.has_aspirations())
         self.assertFalse(character.has_attributes())
         self.assertFalse(character.has_skills())
-        self.assertFalse(character.has_specialties())
-        self.assertFalse(character.has_tricks())
         self.assertFalse(character.has_basics())
         self.assertFalse(character.has_template())
+        character.xp = 0
         character.random()
         self.assertTrue(character.has_name())
         self.assertTrue(character.has_concept())
         self.assertTrue(character.has_paths())
         self.assertTrue(character.has_aspirations())
-        self.assertTrue(character.has_attributes())
+        self.assertTrue(character.has_attributes(template=True))
         self.assertTrue(character.has_skills())
         self.assertTrue(character.has_specialties())
         self.assertTrue(character.has_tricks())
