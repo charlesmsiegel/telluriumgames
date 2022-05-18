@@ -121,7 +121,7 @@ class TestHuman(TestCase):
         for i in range(3):
             p = Path.objects.create(name=f"{types[i].title} Path", type=types[i])
             for j in range(4):
-                e = Edge.objects.create(name=f"Path {i} Edge {j}", rating=[1, 2])
+                e = Edge.objects.create(name=f"Path {i} Edge {j}", ratings=[1, 2])
                 p.edges.add(e)
                 p.save()
             self.character.add_path(p)
@@ -520,17 +520,17 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.xp_cost("favored approach"), 15)
 
     def test_spend_xp(self):
-        Edge.objects.create(name="Edge 1", rating=[1, 2])
-        Edge.objects.create(name="Edge 2", rating=[3])
-        pe = Edge.objects.create(name="Path Edge", rating=[2])
+        Edge.objects.create(name="Edge 1", ratings=[1, 2])
+        Edge.objects.create(name="Edge 2", ratings=[3])
+        pe = Edge.objects.create(name="Path Edge", ratings=[2])
 
         Trick.objects.create(name="Trick", skill="science")
         Specialty.objects.create(name="Specialty", skill="science")
 
-        ee = EnhancedEdge.objects.create(name="Enhanced Edge", prereq=[("Edge 1", 2)])
+        ee = EnhancedEdge.objects.create(name="Enhanced Edge", prereqs=[("Edge 1", 2)])
 
         p = Path.objects.create(
-            "Path", skills=["science", "technology", "command", "close_combat"]
+            name="Path", skills=["science", "technology", "command", "close_combat"]
         )
         p.edges.add(pe)
         p.save()

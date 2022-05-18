@@ -3,7 +3,6 @@ from django.test import TestCase
 
 from tc.models.character.aberrant import Aberrant
 
-
 # Create your tests here.
 # class TestAberrant(TestCase):
 #     def setUp(self):

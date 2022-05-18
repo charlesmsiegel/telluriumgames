@@ -383,6 +383,12 @@ class Human(PolymorphicModel):
     def total_edges(self):
         return sum([x.rating for x in EdgeRating.objects.filter(character=self)])
 
+    def total_path_edges(self):
+        pass
+
+    def filter_edges(self):
+        return []
+
     def has_edges(self):
         pass
 
@@ -417,6 +423,9 @@ class Human(PolymorphicModel):
             return 18
         elif trait_type == "favored approach":
             return 15
+
+    def spend_xp(self, trait):
+        pass
 
     def random_xp_spend(self):
         pass
@@ -484,12 +493,18 @@ class Trick(models.Model):
 class Edge(models.Model):
     name = models.CharField(max_length=100)
     ratings = models.JSONField(default=list)
+    prereqs = models.JSONField(default=list)
 
     class Meta:
         ordering = ("name",)
 
     def __str__(self):
         return self.name
+
+
+class EnhancedEdge(models.Model):
+    name = models.CharField(max_length=100)
+    prereqs = models.JSONField(default=list)
 
 
 class EdgeRating(models.Model):
