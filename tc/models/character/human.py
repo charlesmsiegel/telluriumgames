@@ -598,21 +598,21 @@ class Human(PolymorphicModel):
     def xp_cost(self, trait_type):
         if trait_type == "attribute":
             return 10
-        elif trait_type == "edge":
+        if trait_type == "edge":
             return 3
-        elif trait_type == "path edge":
+        if trait_type == "path edge":
             return 2
-        elif trait_type == "enhanced edge":
+        if trait_type == "enhanced edge":
             return 6
-        elif trait_type == "skill":
+        if trait_type == "skill":
             return 5
-        elif trait_type == "skill trick":
+        if trait_type == "skill trick":
             return 3
-        elif trait_type == "skill specialty":
+        if trait_type == "skill specialty":
             return 3
-        elif trait_type == "path":
+        if trait_type == "path":
             return 18
-        elif trait_type == "favored approach":
+        if trait_type == "favored approach":
             return 15
         return 10000
 
@@ -810,11 +810,9 @@ class Edge(PolymorphicModel):
                     satisfied = False
             elif prereq[0] == "path":
                 satisfied = satisfied and any(
-                    [
-                        x.rating > prereq[1]
-                        for x in PathRating.objects.filter(character=character)
-                        if self in x.path.edges.all()
-                    ]
+                    x.rating > prereq[1]
+                    for x in PathRating.objects.filter(character=character)
+                    if self in x.path.edges.all()
                 )
         return satisfied
 
@@ -837,14 +835,6 @@ class EnhancedEdge(models.Model):
                     satisfied = satisfied and (x.rating >= prereq[1])
                 else:
                     satisfied = False
-            elif prereq[0] == "path":
-                satisfied = satisfied and any(
-                    [
-                        x.rating > prereq[1]
-                        for x in PathRating.objects.filter(character=character)
-                        if self in x.path.edges.all()
-                    ]
-                )
         return satisfied
 
 

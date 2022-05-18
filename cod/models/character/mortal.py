@@ -529,17 +529,15 @@ class Mortal(PolymorphicModel):
     def xp_cost(self, trait_type):
         if trait_type == "attribute":
             return 4
-        elif trait_type == "merit":
+        if trait_type == "merit":
             return 1
-        elif trait_type == "specialty":
+        if trait_type == "specialty":
             return 1
-        elif trait_type == "skill":
+        if trait_type == "skill":
             return 2
-        elif trait_type == "integrity":
+        if trait_type == "integrity":
             return 2
         return 10000
-
-    # TODO: XP Spend function (with tests)
 
     def random_xp_spend(self):
         frequencies = {
