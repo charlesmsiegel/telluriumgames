@@ -427,8 +427,25 @@ class Human(PolymorphicModel):
         society = self.paths.filter(type="society").count() > 0
         return origin and role and society
 
-    def random_path(self):
-        pass
+    def random_path(self, type=None):
+        if type is None:
+            paths = Path.objects.all()
+        else:
+            paths = Path.objects.filter(type=type)
+        paths = [x for x in paths if self.path_rating(x) != 5]
+        d = {p: self.path_rating(p) for p in paths}
+        choice = weighted_choice(d)
+        self.add_path(choice)
+
+    def random_paths(self):
+        self.random_path(type="origin")
+        self.random_path(type="role")
+        self.random_path(type="society")
+
+    def path_rating(self, path):
+        if path not in self.paths.all():
+            return 0
+        return PathRating.objects.get(character=self, path=path).rating
 
     def add_edge(self, edge):
         if edge in self.edges.all():

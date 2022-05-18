@@ -650,7 +650,7 @@ class TestRandomHuman(TestCase):
 
     def test_random_paths(self):
         self.assertFalse(self.character.has_paths())
-        self.character.random_path()
+        self.character.random_paths()
         self.assertTrue(self.character.has_paths())
 
     def test_random_skill(self):
