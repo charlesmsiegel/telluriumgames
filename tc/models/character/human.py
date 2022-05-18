@@ -419,10 +419,13 @@ class Human(PolymorphicModel):
     def total_edges(self):
         return sum([x.rating for x in EdgeRating.objects.filter(character=self)])
 
-    def total_path_edges(self):
+    def total_path_edges(self, path=None):
         list_of_path_edges = []
-        for p in self.paths.all():
-            list_of_path_edges.extend(list(p.edges.all()))
+        if path is None:
+            for p in self.paths.all():
+                list_of_path_edges.extend(list(p.edges.all()))
+        else:
+            list_of_path_edges.extend(list(path.edges.all()))
         list_of_path_edges = list(set(list_of_path_edges))
         path_edges_possessed = [x for x in list_of_path_edges if x in self.edges.all()]
         total = 0
@@ -446,8 +449,20 @@ class Human(PolymorphicModel):
                     possible_edges.append(edge)
         return possible_edges
 
-    def has_edges(self):
-        pass
+    def has_edges(self, start=False):
+        output = True
+        p1 = self.paths.filter(type="origin").first()
+        p2 = self.paths.filter(type="role").first()
+        p3 = self.paths.filter(type="society").first()
+        output = output and self.total_path_edges() >= 6
+        output = output and self.total_path_edges(path=p1) >= 2
+        output = output and self.total_path_edges(path=p2) >= 2
+        output = output and self.total_path_edges(path=p3) >= 2
+        if start:
+            output = output and self.total_path_edges() == 6
+        else:
+            output = output and self.total_edges() == 10
+        return output
 
     def random_edge(self, dots=100, sublist=None):
         if sublist is None:

@@ -126,13 +126,19 @@ class TestHuman(TestCase):
 
         self.assertFalse(self.character.has_edges())
         p1 = self.character.paths.filter(type="origin").first()
+        self.character.add_edge(p1.edges.first())
+        self.character.add_edge(p1.edges.first())
         p2 = self.character.paths.filter(type="role").first()
+        self.character.add_edge(p2.edges.first())
+        self.character.add_edge(p2.edges.first())
         p3 = self.character.paths.filter(type="society").first()
+        self.character.add_edge(p3.edges.first())
+        self.character.add_edge(p3.edges.first())
         self.assertEqual(self.character.total_path_edges(), 6)
         self.assertGreaterEqual(self.character.total_path_edges(path=p1), 2)
         self.assertGreaterEqual(self.character.total_path_edges(path=p2), 2)
         self.assertGreaterEqual(self.character.total_path_edges(path=p3), 2)
-        self.assertTrue(self.character.has_edges())
+        self.assertTrue(self.character.has_edges(start=True))
 
     def test_add_skill(self):
         self.character.science = 0
