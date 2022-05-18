@@ -561,7 +561,33 @@ class Human(PolymorphicModel):
             return 15
 
     def spend_xp(self, trait):
-        pass
+        if trait in self.get_attributes().keys():
+            cost = self.xp_cost("attribute")
+            if self.xp >= cost:
+                if self.add_attribute(trait):
+                    self.xp -= cost
+                    return True
+            return False
+        # elif "path edges":
+        #     pass
+        # elif "edge":
+        #     pass
+        # elif "enhanced edge":
+        #     pass
+        elif trait in self.get_skills().keys():
+            cost = self.xp_cost("skill")
+            if self.xp >= cost:
+                if self.add_skill(trait):
+                    self.xp -= cost
+                    return True
+        # elif "skill trick":
+        #     pass
+        # elif "skill specialty":
+        #     pass
+        # elif "path":
+        #     pass
+        # elif "favored approach":
+        #     pass
 
     def random_xp_spend(self):
         pass
