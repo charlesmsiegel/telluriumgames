@@ -94,9 +94,7 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.total_edges(), 11)
 
     def test_filter_edges(self):
-        e1 = Edge.objects.create(
-            name="Edge 0", ratings=[1, 2], prereqs=[("strength", 2)]
-        )
+        e1 = Edge.objects.create(name="Edge 0", ratings=[1, 2], prereqs=[("might", 2)])
         e2 = Edge.objects.create(
             name="Edge 1", ratings=[1, 2], prereqs=[("science", 2)]
         )
@@ -106,15 +104,15 @@ class TestHuman(TestCase):
         self.character.add_edge(e3)
         self.assertEqual(len(self.character.filter_edges()), 1)
         self.assertEqual(len(self.character.filter_edges(dots=1)), 1)
-        self.character.strength = 2
+        self.character.might = 2
         self.assertEqual(len(self.character.filter_edges()), 2)
         self.character.science = 2
         self.assertEqual(len(self.character.filter_edges()), 3)
         self.character.add_edge(e2)
         self.assertEqual(len(self.character.filter_edges()), 3)
-        self.character.add_edge(e2)
+        self.character.add_edge(e3)
         self.assertEqual(len(self.character.filter_edges()), 3)
-        self.assertNotIn(e2, self.character.filter_edges())
+        self.assertNotIn(e3, self.character.filter_edges())
 
     def test_has_edges(self):
         types = ["origin", "role", "society"]

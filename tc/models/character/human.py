@@ -2,7 +2,6 @@ import random
 
 from django.db import models
 from django.shortcuts import reverse
-from django.template import Origin
 from polymorphic.models import PolymorphicModel
 
 from accounts.models import TCProfile
@@ -386,8 +385,21 @@ class Human(PolymorphicModel):
     def total_path_edges(self):
         pass
 
-    def filter_edges(self):
-        return []
+    def filter_edges(self, dots=100):
+        all_edges = Edge.objects.all()
+        possible_edges = []
+        for edge in all_edges:
+            if edge in self.edges.all():
+                er = EdgeRating.objects.get(character=self, edge=edge)
+                if len(
+                    [x for x in edge.ratings if x > er.rating and x - er.rating <= dots]
+                ):
+                    if edge.check_prereqs(self):
+                        possible_edges.append(edge)
+            else:
+                if edge.check_prereqs(self) and min(edge.ratings) <= dots:
+                    possible_edges.append(edge)
+        return possible_edges
 
     def has_edges(self):
         pass
@@ -490,7 +502,9 @@ class Trick(models.Model):
         return self.name
 
 
-class Edge(models.Model):
+class Edge(PolymorphicModel):
+    type = "edge"
+
     name = models.CharField(max_length=100)
     ratings = models.JSONField(default=list)
     prereqs = models.JSONField(default=list)
@@ -500,6 +514,30 @@ class Edge(models.Model):
 
     def __str__(self):
         return self.name
+
+    def check_prereqs(self, character):
+        satisfied = True
+        for prereq in self.prereqs:
+            if prereq[0] in character.get_attributes().keys():
+                satisfied = satisfied and (getattr(character, prereq[0]) >= prereq[1])
+            elif prereq[0] in character.get_skills().keys():
+                satisfied = satisfied and (getattr(character, prereq[0]) >= prereq[1])
+            elif prereq[0] in [x.name for x in Edge.objects.all() if x.type == "edge"]:
+                edge_prereq = Edge.objects.get(name=prereq[0])
+                if edge_prereq in character.edges.all():
+                    x = EdgeRating.objects.get(character=character, edge=edge_prereq)
+                    satisfied = satisfied and (x.rating >= prereq[1])
+                else:
+                    satisfied = False
+            elif prereq[0] == "path":
+                satisfied = satisfied and any(
+                    [
+                        x.rating > prereq[1]
+                        for x in PathRating.objects.filter(character=character)
+                        if self in x.path.edges.all()
+                    ]
+                )
+        return satisfied
 
 
 class EnhancedEdge(models.Model):
