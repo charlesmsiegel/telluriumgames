@@ -64,6 +64,14 @@ class Human(PolymorphicModel):
     tricks = models.ManyToManyField("Trick", blank=True)
     edges = models.ManyToManyField("Edge", blank=True, through="EdgeRating")
 
+    bruised_levels = models.IntegerField(default=1)
+    injured_levels = models.IntegerField(default=1)
+    maimed_levels = models.IntegerField(default=1)
+
+    defense = models.IntegerField(default=1)
+    defense = models.IntegerField(default=1)
+    defense = models.IntegerField(default=1)
+
     class Meta:
         ordering = ("name",)
 
@@ -187,13 +195,16 @@ class Human(PolymorphicModel):
     def random_specialty(self, skill=None):
         added = False
         while not added:
-            skill_choice = weighted_choice(
-                {
-                    k: v
-                    for k, v in self.filter_skills(minimum=3).items()
-                    # if self.specialties.filter(skill=k).count() == 0
-                }
-            )
+            if skill is None:
+                skill_choice = weighted_choice(
+                    {
+                        k: v
+                        for k, v in self.filter_skills(minimum=3).items()
+                        # if self.specialties.filter(skill=k).count() == 0
+                    }
+                )
+            else:
+                skill_choice = skill
             possible_specialties = self.filter_specialties(skill=skill_choice)
             if len(possible_specialties) != 0:
                 choice = random.choice(possible_specialties)
@@ -475,9 +486,9 @@ class Human(PolymorphicModel):
         attribute_flag = self.total_attributes() == 25
         edges_flag = self.total_edges() == 10
         if self.stamina >= 3:
-            self.injured = 2
+            self.injured_levels = 2
         if self.stamina == 5:
-            self.bruised = 2
+            self.bruised_levels = 2
         return attribute_flag and edges_flag
 
     def apply_random_template(self):
@@ -491,6 +502,10 @@ class Human(PolymorphicModel):
             diff = new_total - total_edges
             dots_remaining -= diff
             total_edges = new_total
+        if self.stamina >= 3:
+            self.injured_levels = 2
+        if self.stamina == 5:
+            self.bruised_levels = 2
 
     def xp_cost(self, trait_type):
         if trait_type == "attribute":

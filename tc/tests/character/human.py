@@ -498,17 +498,17 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.resilience_attribute_sum(), 7)
 
     def test_has_template(self):
+        self.character.stamina = 5
         att_total = self.character.total_attributes()
         edge_total = self.character.total_edges()
         for i in range(1, 5):
             for j in range(3):
                 Edge.objects.create(name=f"Edge {5*j + i - 1}", ratings=[i])
-        self.character.stamina = 4
         self.character.apply_random_template()
         self.assertEqual(att_total + 1, self.character.total_attributes())
         self.assertEqual(edge_total + 4, self.character.total_edges())
         self.assertEqual(self.character.defense, 1)
-        self.assertEqual(self.character.bruised_levels, 1)
+        self.assertEqual(self.character.bruised_levels, 2)
         self.assertEqual(self.character.injured_levels, 2)
         self.assertEqual(self.character.maimed_levels, 1)
 
@@ -681,7 +681,7 @@ class TestRandomHuman(TestCase):
 
     def test_random_edge(self):
         num = self.character.total_edges()
-        self.character.random_edge()
+        self.character.random_edge(dots=1)
         self.assertEqual(self.character.total_edges(), num + 1)
 
     def test_random_template_choices(self):
