@@ -643,9 +643,9 @@ class TestRandomHuman(TestCase):
 
     def test_random_path(self):
         num = self.character.paths.count()
-        self.character.random_skill()
+        self.character.random_path()
         self.assertEqual(self.character.paths.count(), num + 1)
-        self.character.random_skill(type="origin")
+        self.character.random_path(type="origin")
         self.assertEqual(self.character.paths.count(), num + 2)
 
     def test_random_paths(self):
