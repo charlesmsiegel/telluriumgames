@@ -1,5 +1,6 @@
 import random
 
+from attr import attr
 from django.db import models
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
@@ -353,8 +354,38 @@ class Human(PolymorphicModel):
             attribute_set = self.get_attributes()
         add_dot(self, weighted_choice(attribute_set), 5)
 
-    def random_attributes(self):
-        pass
+    def random_attributes(self, primary=6, secondary=4, tertiary=2):
+        attribute_types = [primary, secondary, tertiary]
+        random.shuffle(attribute_types)
+        while self.physical_attribute_sum() < attribute_types[0] + 3:
+            attribute_choice = weighted_choice(self.get_physical_attributes())
+            add_dot(self, attribute_choice, 5)
+        while self.social_attribute_sum() < attribute_types[1] + 3:
+            attribute_choice = weighted_choice(self.get_social_attributes())
+            add_dot(self, attribute_choice, 5)
+        while self.mental_attribute_sum() < attribute_types[2] + 3:
+            attribute_choice = weighted_choice(self.get_mental_attributes())
+            add_dot(self, attribute_choice, 5)
+
+        approaches = {
+            "force": self.get_force_attributes(),
+            "finesse": self.get_finesse_attributes(),
+            "resilience": self.get_resilience_attributes(),
+        }
+
+        approach = random.choice(list(approaches.keys()))
+        for key in approaches[approach]:
+            add_dot(self, key, 5)
+
+        while self.physical_attribute_sum() < attribute_types[0] + 4:
+            attribute_choice = weighted_choice(self.get_physical_attributes())
+            add_dot(self, attribute_choice, 5)
+        while self.social_attribute_sum() < attribute_types[1] + 4:
+            attribute_choice = weighted_choice(self.get_social_attributes())
+            add_dot(self, attribute_choice, 5)
+        while self.mental_attribute_sum() < attribute_types[2] + 4:
+            attribute_choice = weighted_choice(self.get_mental_attributes())
+            add_dot(self, attribute_choice, 5)
 
     def add_path(self, path):
         p, created = PathRating.objects.get_or_create(character=self, path=path)
@@ -389,7 +420,15 @@ class Human(PolymorphicModel):
         return sum([x.rating for x in EdgeRating.objects.filter(character=self)])
 
     def total_path_edges(self):
-        pass
+        list_of_path_edges = []
+        for p in self.paths.all():
+            list_of_path_edges.extend(list(p.edges.all()))
+        list_of_path_edges = list(set(list_of_path_edges))
+        path_edges_possessed = [x for x in list_of_path_edges if x in self.edges.all()]
+        total = 0
+        for edge in path_edges_possessed:
+            total += EdgeRating.objects.get(character=self, edge=edge).rating
+        return total
 
     def filter_edges(self, dots=100):
         all_edges = Edge.objects.all()
@@ -410,17 +449,33 @@ class Human(PolymorphicModel):
     def has_edges(self):
         pass
 
-    def random_edge(self):
-        pass
-
-    def random_edges(self):
-        pass
+    def random_edge(self, dots=100, sublist=None):
+        if sublist is None:
+            sublist = Edge.objects.all()
+        options = [x for x in sublist if x in self.filter_edges(dots=dots)]
+        choice = random.choice(options)
+        self.add_edge(choice)
 
     def has_template(self):
-        pass
+        attribute_flag = self.total_attributes() == 25
+        edges_flag = self.total_edges() == 10
+        if self.stamina >= 3:
+            self.injured = 2
+        if self.stamina == 5:
+            self.bruised = 2
+        return attribute_flag and edges_flag
 
     def apply_random_template(self):
-        pass
+        attributes = self.filter_attributes(maximum=4)
+        self.add_attribute(weighted_choice(attributes))
+        total_edges = self.total_edges()
+        dots_remaining = 4
+        while dots_remaining > 0:
+            self.random_edge(dots=dots_remaining)
+            new_total = self.total_edges()
+            diff = new_total - total_edges
+            dots_remaining -= diff
+            total_edges = new_total
 
     def xp_cost(self, trait_type):
         if trait_type == "attribute":

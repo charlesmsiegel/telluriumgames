@@ -586,14 +586,16 @@ class TestRandomHuman(TestCase):
             for i in range(5):
                 Specialty.objects.create(name=f"Specialty {i}", skill=skill)
                 Trick.objects.create(name=f"Specialty {i}", skill=skill)
-        for i in range(16):
-            Edge.objects.create(name=f"Edge {i}")
         for i in range(4):
             for t in ["origin", "role", "society"]:
                 p = Path.objects.create(name="Path", type=t)
                 for j in range(4):
                     p.skills.append(list(self.character.get_skills().keys())[4 * i + j])
-                    p.edges.add(Edge.objects.get(name=f"Edge {4*i+j}"))
+                    p.edges.add(
+                        Edge.objects.create(
+                            name=f"Edge {4*j+i}", ratings=[i + 1, i + 2]
+                        )
+                    )
                 p.save()
 
     def test_random_aspirations(self):
@@ -676,17 +678,12 @@ class TestRandomHuman(TestCase):
         self.character.random_edge()
         self.assertEqual(self.character.total_edges(), num + 1)
 
-    def test_random_edges(self):
-        self.assertFalse(self.character.has_edges())
-        self.character.random_edges()
-        self.assertTrue(self.character.has_edges())
-
     def test_random_template_choices(self):
         attributes = self.character.total_attributes()
-        esges = self.character.total_edges()
+        edges = self.character.total_edges()
         self.character.apply_random_template()
         self.assertEqual(self.character.total_attributes(), attributes + 1)
-        self.assertEqual(self.character.total_edges(), esges + 1)
+        self.assertEqual(self.character.total_edges(), edges + 4)
 
     def test_random_xp_spend(self):
         self.character.xp = 15
