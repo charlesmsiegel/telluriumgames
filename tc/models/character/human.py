@@ -259,7 +259,13 @@ class Human(PolymorphicModel):
         return add_dot(self, attribute, maximum)
 
     def has_attributes(self):
-        pass
+        totals = [
+            self.physical_attribute_sum(),
+            self.mental_attribute_sum(),
+            self.social_attribute_sum(),
+        ]
+        totals.sort()
+        return totals == [6, 8, 10]
 
     def filter_attributes(self, minimum=0, maximum=5):
         return {
