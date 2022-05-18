@@ -537,6 +537,7 @@ class Mortal(PolymorphicModel):
             return 2
         elif trait_type == "integrity":
             return 2
+        return 10000
 
     # TODO: XP Spend function (with tests)
 
@@ -549,7 +550,7 @@ class Mortal(PolymorphicModel):
             "integrity": 1,
         }
         counter = 0
-        while self.xp > 10 and counter < 10:
+        while counter < 10 < self.xp:
             counter += 1
             choice = weighted_choice(frequencies)
             if choice == "attribute":

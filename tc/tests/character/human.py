@@ -102,12 +102,12 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.total_edges(), 11)
 
     def test_filter_edges(self):
-        e1 = Edge.objects.create(name="Edge 0", ratings=[1, 2], prereqs=[("might", 2)])
+        Edge.objects.create(name="Edge 0", ratings=[1, 2], prereqs=[("might", 2)])
         e2 = Edge.objects.create(
             name="Edge 1", ratings=[1, 2], prereqs=[("science", 2)]
         )
         e3 = Edge.objects.create(name="Edge 2", ratings=[1, 2])
-        e4 = Edge.objects.create(name="Edge 3", ratings=[1, 2], prereqs=[("Edge 2", 2)])
+        Edge.objects.create(name="Edge 3", ratings=[1, 2], prereqs=[("Edge 2", 2)])
         self.assertEqual(len(self.character.filter_edges()), 1)
         self.character.add_edge(e3)
         self.assertEqual(len(self.character.filter_edges()), 1)
@@ -660,7 +660,7 @@ class TestRandomHuman(TestCase):
         num = self.character.paths.count()
         self.character.random_path()
         self.assertEqual(self.character.total_path_rating(), num + 1)
-        self.character.random_path(type="origin")
+        self.character.random_path(path_type="origin")
         self.assertEqual(self.character.total_path_rating(), num + 2)
 
     def test_random_paths(self):

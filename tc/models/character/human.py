@@ -101,8 +101,8 @@ class Human(PolymorphicModel):
     def has_concept(self):
         return self.concept != ""
 
-    def add_aspiration(self, aspiration, type="short", number=1):
-        if type == "short":
+    def add_aspiration(self, aspiration, aspiration_type="short", number=1):
+        if aspiration_type == "short":
             if number == 1:
                 self.short_term_aspiration_1 = aspiration
             else:
@@ -118,9 +118,9 @@ class Human(PolymorphicModel):
         )
 
     def random_aspirations(self):
-        self.add_aspiration("Test Short 1", type="short", number=1)
-        self.add_aspiration("Test Short 2", type="short", number=2)
-        self.add_aspiration("Test Long", type="long", number=1)
+        self.add_aspiration("Test Short 1", aspiration_type="short", number=1)
+        self.add_aspiration("Test Short 2", aspiration_type="short", number=2)
+        self.add_aspiration("Test Long", aspiration_type="long", number=1)
 
     def random_basics(self):
         self.add_name("Random Name")
@@ -231,13 +231,7 @@ class Human(PolymorphicModel):
         added = False
         while not added:
             if skill is None:
-                skill_choice = weighted_choice(
-                    {
-                        k: v
-                        for k, v in self.filter_skills(minimum=3).items()
-                        # if self.specialties.filter(skill=k).count() == 0
-                    }
-                )
+                skill_choice = weighted_choice(self.filter_skills(minimum=3))
             else:
                 skill_choice = skill
             possible_specialties = self.filter_specialties(skill=skill_choice)
@@ -246,8 +240,8 @@ class Human(PolymorphicModel):
                 self.add_specialty(choice)
                 added = True
             all_possibilities = []
-            for skill in self.filter_skills(minimum=1).keys():
-                all_possibilities.extend(self.filter_specialties(skill=skill))
+            for ski in self.filter_skills(minimum=1).keys():
+                all_possibilities.extend(self.filter_specialties(skill=ski))
             if len(all_possibilities) == 0:
                 break
 
@@ -286,9 +280,9 @@ class Human(PolymorphicModel):
         else:
             skills_geq_3 = self.filter_skills(minimum=3)
             possible_skills = []
-            for skill in skills_geq_3.keys():
-                if skills_geq_3[skill] - 2 > self.tricks.filter(skill=skill).count():
-                    possible_skills.append(skill)
+            for ski in skills_geq_3.keys():
+                if skills_geq_3[ski] - 2 > self.tricks.filter(skill=ski).count():
+                    possible_skills.append(ski)
             skill_choice = weighted_choice(
                 {k: v for k, v in skills_geq_3.items() if k in possible_skills}
             )
@@ -314,12 +308,7 @@ class Human(PolymorphicModel):
         totals.sort()
         if not template:
             return totals == [6, 8, 10]
-        else:
-            return (
-                (totals == [7, 8, 10])
-                or (totals == [6, 9, 10])
-                or (totals == [6, 8, 11])
-            )
+        return totals in [[7, 8, 10], [6, 9, 10], [6, 8, 11]]
 
     def filter_attributes(self, minimum=0, maximum=5):
         return {
@@ -441,7 +430,7 @@ class Human(PolymorphicModel):
             add_dot(self, attribute_choice, 5)
 
     def add_path(self, path):
-        p, created = PathRating.objects.get_or_create(character=self, path=path)
+        p, _ = PathRating.objects.get_or_create(character=self, path=path)
         if p.rating < 5:
             p.rating += 1
             p.save()
@@ -454,23 +443,23 @@ class Human(PolymorphicModel):
         society = self.paths.filter(type="society").count() > 0
         return origin and role and society
 
-    def random_path(self, type=None):
-        if type is None:
+    def random_path(self, path_type=None):
+        if path_type is None:
             paths = Path.objects.all()
         else:
-            paths = Path.objects.filter(type=type)
+            paths = Path.objects.filter(type=path_type)
         paths = [x for x in paths if self.path_rating(x) != 5]
         d = {p: self.path_rating(p) for p in paths}
         choice = weighted_choice(d)
         self.add_path(choice)
 
     def random_paths(self):
-        self.random_path(type="origin")
-        self.random_path(type="role")
-        self.random_path(type="society")
+        self.random_path(path_type="origin")
+        self.random_path(path_type="role")
+        self.random_path(path_type="society")
 
     def path_rating(self, path):
-        if type(path) != Path:
+        if not isinstance(path, Path):
             path = Path.objects.get(name=path)
         if path not in self.paths.all():
             return 0
@@ -480,7 +469,7 @@ class Human(PolymorphicModel):
         return sum([self.path_rating(x) for x in Path.objects.all()])
 
     def edge_rating(self, edge):
-        if type(edge) != Edge:
+        if not isinstance(edge, Edge):
             edge = Edge.objects.get(name=edge)
         if edge not in self.edges.all():
             return 0
@@ -522,8 +511,15 @@ class Human(PolymorphicModel):
         for edge in all_edges:
             if edge in self.edges.all():
                 er = EdgeRating.objects.get(character=self, edge=edge)
-                if len(
-                    [x for x in edge.ratings if x > er.rating and x - er.rating <= dots]
+                if (
+                    len(
+                        [
+                            x
+                            for x in edge.ratings
+                            if x > er.rating and x - er.rating <= dots
+                        ]
+                    )
+                    != 0
                 ):
                     if edge.check_prereqs(self):
                         possible_edges.append(edge)
@@ -618,6 +614,7 @@ class Human(PolymorphicModel):
             return 18
         elif trait_type == "favored approach":
             return 15
+        return 10000
 
     def get_path_edges(self, dots=100):
         path_edge_list = []
@@ -628,13 +625,12 @@ class Human(PolymorphicModel):
         return path_edge_list
 
     def spend_xp(self, trait):
-        if trait in self.get_attributes().keys():
+        if trait in self.get_attributes():
             cost = self.xp_cost("attribute")
             if self.xp >= cost:
                 if self.add_attribute(trait):
                     self.xp -= cost
                     return True
-            return False
         elif trait in self.get_path_edges(dots=self.xp // self.xp_cost("path edge")):
             e = Edge.objects.get(name=trait)
             new_rating = min([x for x in e.ratings if x >= self.edge_rating(e)])
@@ -643,7 +639,6 @@ class Human(PolymorphicModel):
                 if self.add_edge(e):
                     self.xp -= cost
                     return True
-            return False
         elif trait in [
             x.name for x in self.filter_edges(dots=self.xp // self.xp_cost("edge"))
         ]:
@@ -654,7 +649,6 @@ class Human(PolymorphicModel):
                 if self.add_edge(e):
                     self.xp -= cost
                     return True
-            return False
         elif trait in [x.name for x in EnhancedEdge.objects.all()]:
             ee = EnhancedEdge.objects.get(name=trait)
             if ee not in self.enhanced_edges.all():
@@ -663,43 +657,38 @@ class Human(PolymorphicModel):
                     self.enhanced_edges.add(ee)
                     self.xp -= cost
                     return True
-            return False
-        elif trait in self.get_skills().keys():
+        elif trait in self.get_skills():
             cost = self.xp_cost("skill")
             if self.xp >= cost:
                 if self.add_skill(trait):
                     self.xp -= cost
                     return True
-            return False
         elif trait in [x.name for x in self.filter_tricks()]:
             cost = self.xp_cost("skill trick")
             if self.xp >= cost:
                 if self.add_trick(Trick.objects.get(name=trait)):
                     self.xp -= cost
                     return True
-            return False
         elif trait in [x.name for x in self.filter_specialties()]:
             cost = self.xp_cost("skill specialty")
             if self.xp >= cost:
                 if self.add_specialty(Specialty.objects.get(name=trait)):
                     self.xp -= cost
                     return True
-            return False
         elif trait in [x.name for x in Path.objects.all() if self.path_rating(x) < 5]:
             cost = self.xp_cost("path")
             if self.xp >= cost:
                 if self.add_path(Path.objects.get(name=trait)):
                     self.xp -= cost
                     return True
-            return False
         elif trait in ["Favor FIN", "Favor FOR", "Favor RES"]:
             cost = self.xp_cost("favored approach")
             if self.xp >= cost and self.approach != trait.split(" ")[-1]:
                 self.approach = trait.split(" ")[-1]
                 self.xp -= cost
                 return True
-            return False
         self.save()
+        return False
 
     def random_xp_spend(self):
         while self.xp > 10:
