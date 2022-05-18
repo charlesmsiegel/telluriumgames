@@ -218,6 +218,24 @@ class TestHuman(TestCase):
         self.character.survival = 4
         self.character.technology = 5
 
+    def set_starting_skills(self):
+        self.character.aim = 0
+        self.character.athletics = 0
+        self.character.close_combat = 0
+        self.character.command = 0
+        self.character.culture = 0
+        self.character.empathy = 0
+        self.character.enigmas = 0
+        self.character.humanities = 1
+        self.character.integrity = 1
+        self.character.larceny = 1
+        self.character.medicine = 1
+        self.character.persuasion = 1
+        self.character.pilot = 1
+        self.character.science = 3
+        self.character.survival = 3
+        self.character.technology = 3
+
     def test_get_skills(self):
         self.assertEqual(
             self.character.get_skills(),
@@ -269,8 +287,17 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.total_skills(), 40)
 
     def test_has_skills(self):
+        self.character.add_path(
+            Path.objects.create(name="TestPath 1", type="origin", skills=["technology"])
+        )
+        self.character.add_path(
+            Path.objects.create(name="TestPath 2", type="role", skills=["survival"])
+        )
+        self.character.add_path(
+            Path.objects.create(name="TestPath 3", type="society", skills=["science"])
+        )
         self.assertFalse(self.character.has_skills())
-        self.set_skills()
+        self.set_starting_skills()
         self.assertTrue(self.character.has_skills())
 
     def test_add_trick(self):
@@ -280,24 +307,24 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.tricks.count(), 1)
 
     def test_has_tricks(self):
-        science_spec1 = Specialty.objects.create(name="SciSpec", skill="science")
-        larceny_spec1 = Specialty.objects.create(name="LarSpec", skill="larceny")
-        larceny_spec2 = Specialty.objects.create(name="LarSpec2", skill="larceny")
-        command_spec1 = Specialty.objects.create(name="ComSpec", skill="command")
-        command_spec2 = Specialty.objects.create(name="ComSpec2", skill="command")
-        command_spec3 = Specialty.objects.create(name="ComSpec3", skill="command")
+        science_spec1 = Trick.objects.create(name="SciSpec", skill="science")
+        larceny_spec1 = Trick.objects.create(name="LarSpec", skill="larceny")
+        larceny_spec2 = Trick.objects.create(name="LarSpec2", skill="larceny")
+        command_spec1 = Trick.objects.create(name="ComSpec", skill="command")
+        command_spec2 = Trick.objects.create(name="ComSpec2", skill="command")
+        command_spec3 = Trick.objects.create(name="ComSpec3", skill="command")
         self.character.science = 3
         self.character.larceny = 4
         self.character.command = 5
         self.assertFalse(self.character.has_tricks())
-        self.assertTrue(self.character.add_specialty(science_spec1))
-        self.assertTrue(self.character.add_specialty(larceny_spec1))
-        self.assertTrue(self.character.add_specialty(command_spec1))
+        self.assertTrue(self.character.add_trick(science_spec1))
+        self.assertTrue(self.character.add_trick(larceny_spec1))
+        self.assertTrue(self.character.add_trick(command_spec1))
         self.assertFalse(self.character.has_tricks())
-        self.assertTrue(self.character.add_specialty(larceny_spec2))
-        self.assertTrue(self.character.add_specialty(command_spec2))
+        self.assertTrue(self.character.add_trick(larceny_spec2))
+        self.assertTrue(self.character.add_trick(command_spec2))
         self.assertFalse(self.character.has_tricks())
-        self.assertTrue(self.character.add_specialty(command_spec3))
+        self.assertTrue(self.character.add_trick(command_spec3))
         self.assertTrue(self.character.has_tricks())
 
     def test_filter_tricks(self):

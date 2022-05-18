@@ -125,7 +125,21 @@ class Human(PolymorphicModel):
         return self.has_name() and self.has_concept() and self.has_aspirations()
 
     def has_skills(self):
-        pass
+        if PathRating.objects.filter(character=self, path__type="origin").count() == 0:
+            return False
+        if PathRating.objects.filter(character=self, path__type="role").count() == 0:
+            return False
+        if PathRating.objects.filter(character=self, path__type="society").count() == 0:
+            return False
+        p1 = PathRating.objects.filter(character=self, path__type="origin").first()
+        p2 = PathRating.objects.filter(character=self, path__type="role").first()
+        p3 = PathRating.objects.filter(character=self, path__type="society").first()
+        return (
+            self.total_skills(path=p1.path) >= 3
+            and self.total_skills(path=p2.path) >= 3
+            and self.total_skills(path=p3.path) >= 3
+            and self.total_skills() == 15
+        )
 
     def get_skills(self):
         return {
@@ -150,8 +164,10 @@ class Human(PolymorphicModel):
     def filter_skills(self, minimum=0, maximum=5):
         return {k: v for k, v in self.get_skills().items() if minimum <= v <= maximum}
 
-    def total_skills(self):
-        return sum(self.get_skills().values())
+    def total_skills(self, path=None):
+        if path is None:
+            return sum(self.get_skills().values())
+        return sum([v for k, v in self.get_skills().items() if k in path.skills])
 
     def random_skill(self, skill_list=None):
         if skill_list is None:
