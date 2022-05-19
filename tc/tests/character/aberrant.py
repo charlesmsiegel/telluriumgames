@@ -1,19 +1,44 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from tc.models.character.aberrant import Aberrant
+from tc.models.character.aberrant import Aberrant, MegaEdge
+
 
 # Create your tests here.
 class TestAberrant(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
         self.character = Aberrant.objects.create(name="", player=self.player.tc_profile)
+        for i in range(1, 5):
+            for j in range(5):
+                MegaEdge.objects.create(name=f"MegaEdge {5*i+j}", ratings=[i, i + 1])
+        MegaEdge.objects.create(
+            name="MegaEdge with Prereq", ratings=[2, 4], prereqs=("MegaEdge 5", 2)
+        )
 
     def test_add_megaedge(self):
-        self.fail("Add Edge at Rating")
-        self.fail("Check Mega Edge Prereqs")
-        self.fail("Increase rating of edge")
-        self.fail("Do not add duplicate Edge")
+        self.assertEqual(self.character.total_megaedges(), 0)
+        self.assertEqual(self.character.megaedges.count(), 0)
+        self.assertTrue(
+            self.character.add_megaedge(MegaEdge.objects.get(name="MegaEdge 5"))
+        )
+        self.assertEqual(self.character.total_megaedges(), 1)
+        self.assertEqual(self.character.megaedges.count(), 1)
+        self.assertFalse(
+            MegaEdge.objects.get(name="MegaEdge with Prereq").check_prereqs(
+                self.character
+            )
+        )
+        self.assertTrue(
+            self.character.add_megaedge(MegaEdge.objects.get(name="MegaEdge 5"))
+        )
+        self.assertEqual(self.character.total_megaedges(), 1)
+        self.assertEqual(self.character.megaedges.count(), 2)
+        self.assertTrue(
+            MegaEdge.objects.get(name="MegaEdge with Prereq").check_prereqs(
+                self.character
+            )
+        )
 
     def test_filter_megaedges(self):
         self.fail()
@@ -78,7 +103,7 @@ class TestAberrant(TestCase):
         self.assertTrue(self.character.add_quantum(start=False))
         self.assertEqual(self.character.quantum, 6)
         self.assertEqual(self.character.quantum_points, 40)
-        
+
     def test_add_transformation(self):
         self.fail()
 
@@ -116,7 +141,9 @@ class TestAberrant(TestCase):
         self.assertEqual(self.character.xp_cost("quantum>5"), 32)
         self.assertEqual(self.character.xp_cost("quantum power"), 12)
         self.assertEqual(self.character.xp_cost("remove tag"), 12)
-        self.assertEqual(self.character.xp_cost("mega attribute", transcendence=True), 6)
+        self.assertEqual(
+            self.character.xp_cost("mega attribute", transcendence=True), 6
+        )
         self.assertEqual(self.character.xp_cost("mega edge", transcendence=True), 6)
         self.assertEqual(self.character.xp_cost("quantum power", transcendence=True), 6)
 

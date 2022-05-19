@@ -708,7 +708,9 @@ class Human(PolymorphicModel):
             elif trait_type == "edges":
                 trait = random.choice(self.filter_edges()).name
             elif trait_type == "enhanced_edges":
-                trait = random.choice(self.filter_enhanced_edges()).name
+                ees = self.filter_enhanced_edges()
+                if len(ees) > 0:
+                    trait = random.choice(ees).name
             elif trait_type == "skills":
                 trait = weighted_choice(self.filter_skills(maximum=4))
             elif trait_type == "tricks":
