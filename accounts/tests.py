@@ -58,12 +58,3 @@ class TestProfileView(TestCase):
         response = self.client.get("/accounts/")
         self.assertContains(response, "Test Character 2")
         self.assertContains(response, "To Approve")
-
-    # def test_temporary_trait_tracking(self):
-    #     self.fail()
-
-    # def test_only_see_correct_scenes(self):
-    #     self.fail()
-
-    # def test_only_st_and_player_sees_xp_request(self):
-    #     self.fail()
