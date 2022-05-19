@@ -711,6 +711,8 @@ class Human(PolymorphicModel):
                 ees = self.filter_enhanced_edges()
                 if len(ees) > 0:
                     trait = random.choice(ees).name
+                else:
+                    trait = None
             elif trait_type == "skills":
                 trait = weighted_choice(self.filter_skills(maximum=4))
             elif trait_type == "tricks":
@@ -749,6 +751,7 @@ class Path(models.Model):
     )
     skills = models.JSONField(default=list)
     edges = models.ManyToManyField("Edge", blank=True)
+    gift_keywords = models.JSONField(default=list)
 
     class Meta:
         ordering = ("name",)
