@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from tc.models.character.human import Edge, EnhancedEdge, Path, Specialty, Trick
-from tc.models.character.talent import Gift, Talent
+from tc.models.character.talent import Gift, MomentOfInspiration, Talent
 
 
 # Create your tests here.
@@ -12,14 +12,19 @@ class TestTalent(TestCase):
         self.character = Talent.objects.create(name="", player=self.player.tc_profile)
 
     def test_add_moment_of_inspiration(self):
+        m = MomentOfInspiration.objects.create(
+            name="Got Inspired", attributes=["might"]
+        )
         self.assertFalse(self.character.has_moment_of_inspiration())
-        self.assertTrue(self.character.add_moment_of_inspiration("Got Inspired"))
+        self.assertTrue(self.character.add_moment_of_inspiration(m))
         self.assertTrue(self.character.has_moment_of_inspiration())
 
     def test_has_moment_of_inspiration(self):
-        self.character.moment_of_inspiration = ""
+        m = MomentOfInspiration.objects.create(
+            name="Got Inspired", attributes=["might"]
+        )
         self.assertFalse(self.character.has_moment_of_inspiration())
-        self.character.moment_of_inspiration = "Inspired!"
+        self.character.moment_of_inspiration = m
         self.assertTrue(self.character.has_moment_of_inspiration())
 
     def test_add_facet(self):
@@ -106,13 +111,13 @@ class TestTalent(TestCase):
         g1 = Gift.objects.create(name="Gift 1", keywords=["science"])
         self.character.add_gift(g1)
         self.assertFalse(self.character.has_gifts())
-        g2 = Gift.objects.create(name="Gift 1", keywords=["larcey"])
+        g2 = Gift.objects.create(name="Gift 2", keywords=["larceny"])
         self.character.add_gift(g2)
         self.assertFalse(self.character.has_gifts())
-        g3 = Gift.objects.create(name="Gift 1", keywords=["command"])
+        g3 = Gift.objects.create(name="Gift 3", keywords=["command"])
         self.character.add_gift(g3)
         self.assertFalse(self.character.has_gifts())
-        g4 = Gift.objects.create(name="Gift 1", keywords=["science"])
+        g4 = Gift.objects.create(name="Gift 4", keywords=["science"])
         self.character.add_gift(g4)
         self.assertTrue(self.character.has_gifts())
 
@@ -239,6 +244,7 @@ class TestRandomTalent(TestCase):
             for i in range(5):
                 Specialty.objects.create(name=f"{skill} Specialty {i}", skill=skill)
                 Trick.objects.create(name=f"{skill} Trick {i}", skill=skill)
+                Gift.objects.create(name=f"{skill} Gift {i}", keywords=[skill])
         for t in ["origin", "role", "society"]:
             for k in range(3):
                 p = Path.objects.create(name=f"{t} Path {k}", type=t)
@@ -256,6 +262,15 @@ class TestRandomTalent(TestCase):
                             )
                         )
                     p.save()
+        MomentOfInspiration.objects.create(
+            name="MOI 1", attributes=["might", "dexterity", "stamina"]
+        )
+        MomentOfInspiration.objects.create(
+            name="MOI 2", attributes=["intellect", "cunning", "resolve"]
+        )
+        MomentOfInspiration.objects.create(
+            name="MOI 3", attributes=["presence", "manipulation", "composure"]
+        )
 
     def test_random_facets(self):
         self.assertFalse(self.character.has_facets())
@@ -263,11 +278,17 @@ class TestRandomTalent(TestCase):
         self.assertTrue(self.character.has_facets())
 
     def test_random_gifts(self):
+        self.character.random_paths()
+        for skill in self.character.get_skills():
+            self.character.add_skill(skill)
         self.assertFalse(self.character.has_gifts())
         self.character.random_gifts()
         self.assertTrue(self.character.has_gifts())
 
     def test_random_template_choices(self):
+        self.character.random_paths()
+        for skill in self.character.get_skills():
+            self.character.add_skill(skill)
         self.assertFalse(self.character.has_template())
         self.character.apply_random_template()
         self.assertTrue(self.character.has_template())
@@ -276,6 +297,11 @@ class TestRandomTalent(TestCase):
         self.character.xp = 15
         self.character.random_xp_spend()
         self.assertLess(self.character.xp, 15)
+
+    def test_random_moment_of_inspiration(self):
+        self.assertFalse(self.character.has_moment_of_inspiration())
+        self.character.random_moment_of_inspiration()
+        self.assertTrue(self.character.has_moment_of_inspiration())
 
     def test_random(self):
         character = Talent.objects.create(player=self.player.tc_profile)
