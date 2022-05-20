@@ -286,6 +286,7 @@ class TestRandomTalent(TestCase):
         self.assertTrue(self.character.has_gifts())
 
     def test_random_template_choices(self):
+        self.character.random_attributes()
         self.character.random_paths()
         for skill in self.character.get_skills():
             self.character.add_skill(skill)

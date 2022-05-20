@@ -126,9 +126,10 @@ class Talent(Human):
 
     def apply_random_template(self):
         self.random_moment_of_inspiration()
-        num = self.total_attributes()
-        while self.total_attributes == num:
-            add_dot(self, random.choice(self.moment_of_inspiration.attributes), 5)
+        while not add_dot(
+            self, random.choice(self.moment_of_inspiration.attributes), 5
+        ):
+            pass
         self.random_gifts()
         self.random_facets()
 
