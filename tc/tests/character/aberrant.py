@@ -121,16 +121,6 @@ class TestAberrant(TestCase):
         self.fail("Check spend_xp?")
 
     def test_xp_cost(self):
-        self.assertEqual(self.character.xp_cost("attribute"), 10)
-        self.assertEqual(self.character.xp_cost("edge"), 3)
-        self.assertEqual(self.character.xp_cost("path edge"), 2)
-        self.assertEqual(self.character.xp_cost("enhanced edge"), 6)
-        self.assertEqual(self.character.xp_cost("skill"), 5)
-        self.assertEqual(self.character.xp_cost("skill trick"), 3)
-        self.assertEqual(self.character.xp_cost("skill specialty"), 3)
-        self.assertEqual(self.character.xp_cost("path"), 18)
-        self.assertEqual(self.character.xp_cost("favored approach"), 15)
-
         self.assertEqual(self.character.xp_cost("mega attribute"), 12)
         self.assertEqual(self.character.xp_cost("mega edge"), 12)
         self.assertEqual(self.character.xp_cost("power tag"), 12)
