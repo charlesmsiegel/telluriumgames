@@ -108,6 +108,9 @@ class TestTalent(TestCase):
         p3 = Path.objects.create(
             name="Path 3", type="society", gift_keywords=["science", "command"]
         )
+        self.character.add_path(p1)
+        self.character.add_path(p2)
+        self.character.add_path(p3)
         g1 = Gift.objects.create(name="Gift 1", keywords=["science"])
         self.character.add_gift(g1)
         self.assertFalse(self.character.has_gifts())
@@ -122,14 +125,26 @@ class TestTalent(TestCase):
         self.assertTrue(self.character.has_gifts())
 
     def test_filter_gifts(self):
-        # Filter by keyword the gifts a character doesn't have
-        # Filter by Path using its keywords
-        self.fail()
-        # Gifts are name, keyword, prereqs
-        # aptitude in skill or attribute require 1 dot
-        # perhaps keyword should just be Constant or Momentary, and aptitude should be managed via prereq?
-        # aptitude is tied to path
-        # Eh, just use keywords
+        g = Gift.objects.create(name="Gift 1", keywords=["science"], prereqs=[])
+        Gift.objects.create(name="Gift 2", keywords=[], prereqs=[("might", 3)])
+        Gift.objects.create(name="Gift 3", keywords=["dexterity"], prereqs=[])
+        Gift.objects.create(name="Gift 4", keywords=["luck"], prereqs=[])
+        Gift.objects.create(name="Gift 5", keywords=[], prereqs=[])
+        Gift.objects.create(name="Gift 6", keywords=["dexterity", "science"], prereqs=[])
+        
+        p = Path.objects.create(name="Path", gift_keywords=["science"])
+        
+        self.assertEqual(len(self.character.filter_gifts(keyword=None, path=None)), 2)
+        self.character.add_skill("science")
+        self.assertEqual(len(self.character.filter_gifts(keyword=None, path=None)), 4)
+        self.assertEqual(len(self.character.filter_gifts(keyword=None, path=p)), 2)
+        self.assertEqual(len(self.character.filter_gifts(keyword="science", path=None)), 2)
+        self.assertEqual(len(self.character.filter_gifts(keyword="luck", path=None)), 1)
+        self.character.add_gift(g)
+        self.assertEqual(len(self.character.filter_gifts(keyword=None, path=None)), 3)
+        self.assertEqual(len(self.character.filter_gifts(keyword=None, path=p)), 1)
+        self.assertEqual(len(self.character.filter_gifts(keyword="science", path=None)), 1)
+        self.assertEqual(len(self.character.filter_gifts(keyword="luck", path=None)), 1)
 
     def test_xp_cost(self):
         self.assertEqual(self.character.xp_cost("attribute"), 10)
@@ -158,10 +173,13 @@ class TestTalent(TestCase):
         )
 
         p = Path.objects.create(
-            name="XP Path", skills=["science", "technology", "command", "close_combat"]
+            name="XP Path", skills=["science", "technology", "command", "close_combat"], gift_keywords=["science"]
         )
         p.edges.add(pe)
         p.save()
+
+        Gift.objects.create(name="Test Path Gift", keywords=['science'])
+        Gift.objects.create(name="Test Gift", keywords=['athletics'])
 
         self.character.approach = "RES"
 
@@ -201,26 +219,65 @@ class TestTalent(TestCase):
         self.assertTrue(self.character.spend_xp("Favor FIN"))
         self.assertEqual(self.character.xp, 921)
         self.assertEqual(self.character.approach, "FIN")
-        # Buy path gift
-        # buy regular gift
-        # buy a facet
+        self.assertTrue(self.character.spend_xp("Test Path Gift"))
+        self.assertEqual(self.character.xp, 917)
+        self.assertEqual(self.character.total_gifts(), 1)
+        self.assertTrue(self.character.spend_xp("Test Gift"))
+        self.assertEqual(self.character.xp, 912)
+        self.assertEqual(self.character.total_gifts(), 2)
+        num = self.character.reflective
+        self.assertTrue(self.character.spend_xp("Reflective"))
+        self.assertEqual(self.character.xp, 902)
+        self.assertEqual(self.character.reflective, num + 1)
 
 
 class TestRandomTalent(TestCase):
     def test_random_facets(self):
-        self.fail()
+        self.assertFalse(self.character.has_facets())
+        self.character.random_facets()
+        self.assertTrue(self.character.has_facets())
 
     def test_random_gifts(self):
-        self.fail()
+        self.assertFalse(self.character.has_gifts())
+        self.character.random_gifts()
+        self.assertTrue(self.character.has_gifts())
 
     def test_random_template_choices(self):
-        self.fail()
+        self.assertFalse(self.character.has_template())
+        self.character.apply_random_template()
+        self.assertTrue(self.character.has_template())
 
     def test_random_xp_spend(self):
-        self.fail()
+        self.character.xp = 15
+        self.character.random_xp_spend()
+        self.assertLess(self.character.xp, 15)
 
     def test_random(self):
-        self.fail()
+        character = Talent.objects.create(player=self.player.tc_profile)
+        self.assertFalse(character.has_name())
+        self.assertFalse(character.has_concept())
+        self.assertFalse(character.has_paths())
+        self.assertFalse(character.has_aspirations())
+        self.assertFalse(character.has_attributes())
+        self.assertFalse(character.has_skills())
+        self.assertFalse(character.has_basics())
+        self.assertFalse(character.has_gifts())
+        self.assertFalse(character.has_facets())
+        self.assertFalse(character.has_template())
+        character.xp = 0
+        character.random()
+        self.assertTrue(character.has_name())
+        self.assertTrue(character.has_concept())
+        self.assertTrue(character.has_paths())
+        self.assertTrue(character.has_aspirations())
+        self.assertTrue(character.has_attributes(template=True))
+        self.assertTrue(character.has_skills())
+        self.assertTrue(character.has_specialties())
+        self.assertTrue(character.has_tricks())
+        self.assertTrue(character.has_basics())
+        self.assertTrue(character.has_gifts())
+        self.assertTrue(character.has_facets())
+        self.assertTrue(character.has_template())
 
 
 class TestTalentDetailView(TestCase):
