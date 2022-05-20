@@ -1,7 +1,6 @@
-from email.policy import default
-
 from django.db import models
 
+from core.utils import add_dot
 from tc.models.character.human import Human
 
 
@@ -10,20 +9,32 @@ class Talent(Human):
     type = "talent"
     inspiration = models.IntegerField(default=1)
 
+    intuitive = models.IntegerField(default=0)
+    reflective = models.IntegerField(default=0)
+    destructive = models.IntegerField(default=0)
+
     def has_moment_of_inspiration(self):
-        pass
+        return self.add_moment_of_inspiration != ""
 
     def add_moment_of_inspiration(self, inspiration):
-        pass
-
-    def add_inspiration(self):
-        pass
+        self.has_moment_of_inspiration = inspiration
+        return True
 
     def add_facet(self, facet):
-        pass
+        facet = facet.lower()
+        if add_dot(self, facet, 5):
+            if getattr(self, facet) == 3:
+                add_dot(self, "inspiration", 10)
+            if getattr(self, facet) == 5:
+                add_dot(self, "inspiration", 10)
+            return True
+        return False
 
     def has_facets(self):
-        pass
+        return self.total_facets() == 3
+
+    def total_facets(self):
+        return self.intuitive + self.reflective + self.destructive
 
     def random_facets(self):
         pass
