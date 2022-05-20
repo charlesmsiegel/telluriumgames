@@ -22,14 +22,6 @@ class TestTalent(TestCase):
         self.character.moment_of_inspiration = "Inspired!"
         self.assertTrue(self.character.has_moment_of_inspiration())
 
-    def test_add_inspiration(self):
-        self.assertEqual(self.character.inspiration, 1)
-        self.assertTrue(self.character.add_inspiration())
-        self.assertEqual(self.character.inspiration, 2)
-        self.character.inspiration = 10
-        self.assertFalse(self.character.add_inspiration())
-        self.assertEqual(self.character.inspiration, 10)
-
     def test_add_facet(self):
         self.assertEqual(self.character.inspiration, 1)
         self.assertTrue(self.character.add_facet("Intuitive"))
