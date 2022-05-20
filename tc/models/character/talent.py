@@ -1,6 +1,6 @@
 from django.db import models
 
-from core.utils import add_dot
+from core.utils import add_dot, weighted_choice
 from tc.models.character.human import Human
 
 
@@ -37,7 +37,15 @@ class Talent(Human):
         return self.intuitive + self.reflective + self.destructive
 
     def random_facets(self):
-        pass
+        while self.total_facets() < 3:
+            d = {
+                "intuitive": self.intuitive,
+                "reflective": self.reflective,
+                "destructive": self.destructive,
+            }
+            d = {k: v for k, v in d.items() if v < 5}
+            choice = weighted_choice(d)
+            self.add_facet(choice)
 
     def add_gift(self, gift):
         pass
