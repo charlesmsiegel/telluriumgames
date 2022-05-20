@@ -28,6 +28,12 @@ class Aberrant(Human):
 
     def update_quantum_points(self):
         pass
+        
+        # self.fail("Quantum of 1")
+        # self.fail("One dot in favored approach")
+        # self.fail("Either 1 dot of Fame or 1 dot of Alternate Identity Edge")
+        # self.fail("150 XP")
+        # self.fail("Check spend_xp?")
 
 
 class MegaEdge(Edge):
