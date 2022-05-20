@@ -101,13 +101,14 @@ class Talent(Human):
     def filter_gifts(self, keyword=None, path=None):
         gifts = Gift.objects.all()
         gifts = [x for x in gifts if x.check_prereqs(self)]
+        gifts = [x for x in gifts if x not in self.gifts.all()]
         if keyword is not None:
             gifts = [x for x in gifts if keyword in x.keywords]
         if path is not None:
             gifts = [
                 x
                 for x in gifts
-                if set(x.keywords).intersection(set(path.gift_keywords)) != {}
+                if set(x.keywords).intersection(set(path.gift_keywords)) != set()
             ]
         return gifts
 
@@ -158,7 +159,7 @@ class Talent(Human):
                 if self.add_gift(Gift.objects.get(name=trait)):
                     self.xp -= cost
                     return True
-        elif trait in self.filter_gifts():
+        elif trait in [x.name for x in self.filter_gifts()]:
             cost = self.xp_cost("gift")
             if self.xp >= cost:
                 if self.add_gift(Gift.objects.get(name=trait)):
@@ -199,6 +200,10 @@ class Gift(models.Model):
         if (
             sum([getattr(character, k) for k in self.keywords if hasattr(character, k)])
             == 0
+            and len(
+                [getattr(character, k) for k in self.keywords if hasattr(character, k)]
+            )
+            != 0
         ):
             satisfied = False
         return satisfied

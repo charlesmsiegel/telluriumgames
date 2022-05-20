@@ -133,16 +133,16 @@ class TestTalent(TestCase):
 
         p = Path.objects.create(name="Path", gift_keywords=["science"])
 
-        self.assertEqual(len(self.character.filter_gifts(keyword=None, path=None)), 2)
-        self.character.add_skill("science")
         self.assertEqual(len(self.character.filter_gifts(keyword=None, path=None)), 4)
+        self.character.add_skill("science")
+        self.assertEqual(len(self.character.filter_gifts(keyword=None, path=None)), 5)
         self.assertEqual(len(self.character.filter_gifts(keyword=None, path=p)), 2)
         self.assertEqual(
             len(self.character.filter_gifts(keyword="science", path=None)), 2
         )
         self.assertEqual(len(self.character.filter_gifts(keyword="luck", path=None)), 1)
         self.character.add_gift(g)
-        self.assertEqual(len(self.character.filter_gifts(keyword=None, path=None)), 3)
+        self.assertEqual(len(self.character.filter_gifts(keyword=None, path=None)), 4)
         self.assertEqual(len(self.character.filter_gifts(keyword=None, path=p)), 1)
         self.assertEqual(
             len(self.character.filter_gifts(keyword="science", path=None)), 1
@@ -227,6 +227,7 @@ class TestTalent(TestCase):
         self.assertTrue(self.character.spend_xp("Test Path Gift"))
         self.assertEqual(self.character.xp, 917)
         self.assertEqual(self.character.total_gifts(), 1)
+        self.character.add_skill("athletics")
         self.assertTrue(self.character.spend_xp("Test Gift"))
         self.assertEqual(self.character.xp, 912)
         self.assertEqual(self.character.total_gifts(), 2)
