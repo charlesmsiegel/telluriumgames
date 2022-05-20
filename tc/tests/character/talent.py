@@ -130,20 +130,26 @@ class TestTalent(TestCase):
         Gift.objects.create(name="Gift 3", keywords=["dexterity"], prereqs=[])
         Gift.objects.create(name="Gift 4", keywords=["luck"], prereqs=[])
         Gift.objects.create(name="Gift 5", keywords=[], prereqs=[])
-        Gift.objects.create(name="Gift 6", keywords=["dexterity", "science"], prereqs=[])
-        
+        Gift.objects.create(
+            name="Gift 6", keywords=["dexterity", "science"], prereqs=[]
+        )
+
         p = Path.objects.create(name="Path", gift_keywords=["science"])
-        
+
         self.assertEqual(len(self.character.filter_gifts(keyword=None, path=None)), 2)
         self.character.add_skill("science")
         self.assertEqual(len(self.character.filter_gifts(keyword=None, path=None)), 4)
         self.assertEqual(len(self.character.filter_gifts(keyword=None, path=p)), 2)
-        self.assertEqual(len(self.character.filter_gifts(keyword="science", path=None)), 2)
+        self.assertEqual(
+            len(self.character.filter_gifts(keyword="science", path=None)), 2
+        )
         self.assertEqual(len(self.character.filter_gifts(keyword="luck", path=None)), 1)
         self.character.add_gift(g)
         self.assertEqual(len(self.character.filter_gifts(keyword=None, path=None)), 3)
         self.assertEqual(len(self.character.filter_gifts(keyword=None, path=p)), 1)
-        self.assertEqual(len(self.character.filter_gifts(keyword="science", path=None)), 1)
+        self.assertEqual(
+            len(self.character.filter_gifts(keyword="science", path=None)), 1
+        )
         self.assertEqual(len(self.character.filter_gifts(keyword="luck", path=None)), 1)
 
     def test_xp_cost(self):
@@ -173,13 +179,15 @@ class TestTalent(TestCase):
         )
 
         p = Path.objects.create(
-            name="XP Path", skills=["science", "technology", "command", "close_combat"], gift_keywords=["science"]
+            name="XP Path",
+            skills=["science", "technology", "command", "close_combat"],
+            gift_keywords=["science"],
         )
         p.edges.add(pe)
         p.save()
 
-        Gift.objects.create(name="Test Path Gift", keywords=['science'])
-        Gift.objects.create(name="Test Gift", keywords=['athletics'])
+        Gift.objects.create(name="Test Path Gift", keywords=["science"])
+        Gift.objects.create(name="Test Gift", keywords=["athletics"])
 
         self.character.approach = "RES"
 
@@ -232,6 +240,31 @@ class TestTalent(TestCase):
 
 
 class TestRandomTalent(TestCase):
+    def setUp(self):
+        self.player = User.objects.create(username="Test User")
+        self.character = Talent.objects.create(name="", player=self.player.tc_profile)
+        for skill in self.character.get_skills().keys():
+            for i in range(5):
+                Specialty.objects.create(name=f"{skill} Specialty {i}", skill=skill)
+                Trick.objects.create(name=f"{skill} Trick {i}", skill=skill)
+        for t in ["origin", "role", "society"]:
+            for k in range(3):
+                p = Path.objects.create(name=f"{t} Path {k}", type=t)
+                for i in range(4):
+                    for j in range(4):
+                        p.skills.append(
+                            list(self.character.get_skills().keys())[4 * i + j]
+                        )
+                        p.gift_keywords.append(
+                            list(self.character.get_skills().keys())[4 * i + j]
+                        )
+                        p.edges.add(
+                            Edge.objects.create(
+                                name=f"{t} Edge {4*j+i}, {k}", ratings=[i + 1, i + 2]
+                            )
+                        )
+                    p.save()
+
     def test_random_facets(self):
         self.assertFalse(self.character.has_facets())
         self.character.random_facets()
