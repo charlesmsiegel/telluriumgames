@@ -66,7 +66,7 @@ class TestAberrant(TestCase):
     def test_add_power(self):
         self.fail()
 
-    def test_filter_tag(self):
+    def test_filter_tags(self):
         self.fail()
 
     def test_add_tag(self):
@@ -74,9 +74,6 @@ class TestAberrant(TestCase):
         self.fail("Check can be added to an appropriate power")
         self.fail("Check can't be added to incorrect power")
         self.fail("Check only permitted ratings happen")
-
-    def test_filter_tag(self):
-        self.fail()
 
     def test_remove_tag(self):
         self.fail()

@@ -149,7 +149,7 @@ class Talent(Human):
     def spend_xp(self, trait):
         if super().spend_xp(trait):
             return True
-        elif trait in [
+        if trait in [
             gift.name
             for path in self.paths.all()
             for gift in self.filter_gifts(path=path)
