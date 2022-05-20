@@ -25,6 +25,9 @@ class Talent(Human):
     def has_facets(self):
         pass
 
+    def random_facets(self):
+        pass
+
     def add_gift(self, gift):
         pass
 
@@ -32,6 +35,18 @@ class Talent(Human):
         pass
 
     def has_gifts(self):
+        pass
+
+    def random_gifts(self):
+        pass
+
+    def filter_gifts(self, keyword=None, path=None):
+        return []
+
+    def has_template(self):
+        pass
+
+    def apply_random_template(self):
         pass
 
 
