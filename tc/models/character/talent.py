@@ -68,6 +68,18 @@ class Talent(Human):
     def apply_random_template(self):
         pass
 
+    def xp_cost(self, trait_type):
+        cost = super().xp_cost(trait_type)
+        if cost != 10000:
+            return cost
+        if trait_type == "path gift":
+            return 4
+        if trait_type == "gift":
+            return 5
+        if trait_type == "facet":
+            return 10
+        return 10000
+
 
 class Gift(models.Model):
     name = models.CharField(max_length=100)
