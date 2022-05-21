@@ -178,6 +178,7 @@ class Human(PolymorphicModel):
         return sum([v for k, v in self.get_skills().items() if k in path.skills])
 
     def random_skill(self, skill_list=None):
+        # TODO: Figure out why this sometimes fails to add a dot (context: skill_list=None as part of test_random_skill)
         if skill_list is None:
             choice = weighted_choice(self.filter_skills(maximum=4))
         else:
