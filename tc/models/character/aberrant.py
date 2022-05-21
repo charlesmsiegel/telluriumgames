@@ -1,5 +1,6 @@
 from attr import attr, attrib
 from django.db import models
+from numpy import character
 
 from core.utils import add_dot, weighted_choice
 from tc.models.character.human import Edge, Human
@@ -19,7 +20,7 @@ class Aberrant(Human):
     mega_manipulation = models.IntegerField(default=0)
     mega_composure = models.IntegerField(default=0)
 
-    powers = models.ManyToManyField("Power", blank=True)
+    powers = models.ManyToManyField("Power", blank=True, through="PowerRating")
     mega_edges = models.ManyToManyField(
         "MegaEdge", blank=True, through="MegaEdgeRating"
     )
@@ -117,7 +118,12 @@ class Aberrant(Human):
         pass
 
     def add_power(self, power):
-        pass
+        p, _ = PowerRating.objects.get_or_create(character=self, power=power)
+        if self.quantum >= power.quantum_minimum:
+            p.rating += 1
+            p.save()
+            return True
+        return False
 
     def total_powers(self):
         return sum([x.rating for x in PowerRating.objects.filter(character=self)])
@@ -129,7 +135,19 @@ class Aberrant(Human):
         return []
 
     def add_tag(self, power, tag):
-        pass
+        if power not in self.powers.all():
+            return False
+        if power not in tag.permitted_powers.all():
+            return False
+        p = PowerRating.objects.get(character=self, power=power)
+        t, _ = TagRating.objects.get_or_create(power_rating=p, tag=tag)
+        r = t.rating
+        if r == max(tag.ratings):
+            return False
+        new_rating = min([x for x in tag.ratings if x > r])
+        t.rating = new_rating
+        t.save()
+        return True
 
     def random_tag(self, power):
         pass
@@ -170,13 +188,12 @@ class Aberrant(Human):
     def update_quantum_points(self):
         self.quantum_points = 10 + 5 * self.quantum
 
+    def apply_random_template(self):
         # self.fail("Quantum of 1")
         # self.fail("One dot in favored approach")
         # self.fail("Either 1 dot of Fame or 1 dot of Alternate Identity Edge")
         # self.fail("150 XP")
         # self.fail("Check spend_xp?")
-
-    def apply_random_template(self):
         pass
 
     # TODO: Random XP Spend extension
@@ -218,6 +235,9 @@ class Power(models.Model):
     name = models.CharField(max_length=100, unique=True)
     quantum_minimum = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.name
+
 
 class PowerRating(models.Model):
     character = models.ForeignKey(
@@ -232,6 +252,9 @@ class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
     permitted_powers = models.ManyToManyField(Power, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class TagRating(models.Model):

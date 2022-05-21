@@ -189,7 +189,7 @@ class TestAberrant(TestCase):
         self.assertEqual(self.character.total_powers(), 0)
         self.assertTrue(self.character.add_power(p))
         self.assertEqual(self.character.total_powers(), 1)
-        p = Power.objects.create(name="Test Power 1", quantum_minimum=3)
+        p = Power.objects.create(name="Test Power 2", quantum_minimum=3)
         self.assertFalse(self.character.add_power(p))
         self.assertEqual(self.character.total_powers(), 1)
         self.character.quantum = 3
@@ -218,7 +218,7 @@ class TestAberrant(TestCase):
 
     def test_add_tag(self):
         p = Power.objects.create(name="Test Power")
-        self.character.add_power(p)
+        self.assertTrue(self.character.add_power(p))
         t1 = Tag.objects.create(name="Tag 1", ratings=[1, 2])
         t1.permitted_powers.add(p)
         t1.save()
