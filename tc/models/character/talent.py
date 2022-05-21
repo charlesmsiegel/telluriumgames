@@ -174,6 +174,8 @@ class Talent(Human):
         self.save()
         return False
 
+    # TODO: Random XP Spend extension
+
 
 class Gift(models.Model):
     name = models.CharField(max_length=100, unique=True)

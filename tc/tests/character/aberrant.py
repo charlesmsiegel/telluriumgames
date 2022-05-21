@@ -1,7 +1,10 @@
+from pickletools import TAKEN_FROM_ARGUMENT1
+
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from tc.models.character.aberrant import Aberrant, MegaEdge, Transformation
+from tc.models.character.aberrant import Aberrant, MegaEdge, Power, Tag, Transformation
+from tc.models.character.human import Edge, Path, Specialty, Trick
 
 
 # Create your tests here.
@@ -13,16 +16,16 @@ class TestAberrant(TestCase):
             for j in range(5):
                 MegaEdge.objects.create(name=f"MegaEdge {5*i+j}", ratings=[i, i + 1])
         MegaEdge.objects.create(
-            name="MegaEdge with Prereq", ratings=[2, 4], prereqs=("MegaEdge 5", 2)
+            name="MegaEdge with Prereq", ratings=[2, 4], prereqs=[("MegaEdge 5", 2)]
         )
 
-    def test_add_megaedge(self):
-        self.assertEqual(self.character.total_megaedges(), 0)
+    def test_add_mega_edge(self):
+        self.assertEqual(self.character.total_mega_edges(), 0)
         self.assertEqual(self.character.megaedges.count(), 0)
         self.assertTrue(
             self.character.add_megaedge(MegaEdge.objects.get(name="MegaEdge 5"))
         )
-        self.assertEqual(self.character.total_megaedges(), 1)
+        self.assertEqual(self.character.total_mega_edges(), 1)
         self.assertEqual(self.character.megaedges.count(), 1)
         self.assertFalse(
             MegaEdge.objects.get(name="MegaEdge with Prereq").check_prereqs(
@@ -32,7 +35,7 @@ class TestAberrant(TestCase):
         self.assertTrue(
             self.character.add_megaedge(MegaEdge.objects.get(name="MegaEdge 5"))
         )
-        self.assertEqual(self.character.total_megaedges(), 1)
+        self.assertEqual(self.character.total_mega_edges(), 1)
         self.assertEqual(self.character.megaedges.count(), 2)
         self.assertTrue(
             MegaEdge.objects.get(name="MegaEdge with Prereq").check_prereqs(
@@ -40,14 +43,18 @@ class TestAberrant(TestCase):
             )
         )
 
-    def test_filter_megaedges(self):
-        MegaEdge.objects.create(name="MegaEdge 0", ratings=[1, 2], prereqs=[("mega_might", 2)])
+    def test_filter_mega_edges(self):
+        MegaEdge.objects.create(
+            name="MegaEdge 0", ratings=[1, 2], prereqs=[("mega_might", 2)]
+        )
         e2 = MegaEdge.objects.create(
             name="MegaEdge 1", ratings=[1, 2], prereqs=[("science", 2)]
         )
         e3 = MegaEdge.objects.create(name="MegaEdge 2", ratings=[1, 2])
-        MegaEdge.objects.create(name="MegaEdge 3", ratings=[1, 2], prereqs=[("MegaEdge 2", 2)])
-        
+        MegaEdge.objects.create(
+            name="MegaEdge 3", ratings=[1, 2], prereqs=[("MegaEdge 2", 2)]
+        )
+
         self.assertEqual(len(self.character.filter_mega_edges()), 1)
         self.character.add_edge(e3)
         self.assertEqual(len(self.character.filter_mega_edges()), 1)
@@ -61,7 +68,9 @@ class TestAberrant(TestCase):
         self.character.add_edge(e3)
         self.assertEqual(len(self.character.filter_mega_edges()), 3)
         self.assertNotIn(e3, self.character.filter_mega_edges())
-        m4 = MegaEdge.objects.create(name="MegaEdge 4", ratings=[1, 2, 3, 4, 5], prereqs=[("quantum", "dots")])
+        m4 = MegaEdge.objects.create(
+            name="MegaEdge 4", ratings=[1, 2, 3, 4, 5], prereqs=[("quantum", "dots")]
+        )
         self.character.quantum = 1
         self.assertIn(m4, self.character.filter_mega_edges())
         self.test_add_megaedge(m4)
@@ -69,7 +78,7 @@ class TestAberrant(TestCase):
         self.character.quantum = 2
         self.assertIn(m4, self.character.filter_mega_edges())
 
-    def test_add_megaattribute(self):
+    def test_add_mega_attribute(self):
         self.assertEqual(self.character.mega_might, 0)
         self.assertTrue(self.character.add_mega_attribute("might"))
         self.assertEqual(self.character.mega_might, 1)
@@ -127,7 +136,7 @@ class TestAberrant(TestCase):
             },
         )
 
-    def test_filter_megaattribute(self):
+    def test_filter_mega_attribute(self):
         self.set_attributes()
         self.character.quantum = 2
         self.assertEqual(
@@ -170,36 +179,79 @@ class TestAberrant(TestCase):
             },
         )
 
-    def test_mega_attribute_bonuses(self):
-        self.fail("Mega Intellect Edges")
-        self.fail("Mega Cunning Edges")
-        self.fail("Mega Manipulation Edges")
-        self.fail("Mega Composure Edges")
-
-    def test_add_power_suite(self):
-        self.fail()
-
     def test_add_power(self):
-        self.fail()
+        p = Power.objects.create(name="Test Power 1", quantum_minimum=0)
+        self.assertEqual(self.character.total_powers(), 0)
+        self.assertTrue(self.character.add_power(p))
+        self.assertEqual(self.character.total_powers(), 1)
+        p = Power.objects.create(name="Test Power 1", quantum_minimum=3)
+        self.assertFalse(self.character.add_power(p))
+        self.assertEqual(self.character.total_powers(), 1)
+        self.character.quantum = 3
+        self.assertTrue(self.character.add_power(p))
+        self.assertEqual(self.character.total_powers(), 2)
+        self.assertTrue(self.character.add_power(p))
+        self.assertEqual(self.character.total_powers(), 3)
 
     def test_filter_tags(self):
-        self.fail()
+        p = Power.objects.create(name="Test Power")
+        self.character.add_power(p)
+        t1 = Tag.objects.create(name="Tag 1", ratings=[1, 2])
+        t1.permitted_powers.add(p)
+        t1.save()
+        t2 = Tag.objects.create(name="Tag 2", ratings=[1, 2])
+        t2.permitted_powers.add(p)
+        t2.save()
+        t3 = Tag.objects.create(name="Tag 3", ratings=[1, 2])
+        t3.permitted_powers.add(p)
+        t3.save()
+        t4 = Tag.objects.create(name="Tag 4", ratings=[1, 2])
+        self.assertEqual(len(self.character.filter_tags(p)), 3)
+        self.character.add_tag(p, t1)
+        self.character.add_tag(p, t1)
+        self.assertEqual(len(self.character.filter_tags(p)), 2)
 
     def test_add_tag(self):
-        self.fail("Check Adding a Tag")
-        self.fail("Check can be added to an appropriate power")
-        self.fail("Check can't be added to incorrect power")
-        self.fail("Check only permitted ratings happen")
-        self.fail("Reduced Cost can be bought more than once?")
+        p = Power.objects.create(name="Test Power")
+        self.character.add_power(p)
+        t1 = Tag.objects.create(name="Tag 1", ratings=[1, 2])
+        t1.permitted_powers.add(p)
+        t1.save()
+        t2 = Tag.objects.create(name="Tag 2", ratings=[1, 2])
+        t2.permitted_powers.add(p)
+        t2.save()
+        t3 = Tag.objects.create(name="Tag 3", ratings=[1, 2])
+        t3.permitted_powers.add(p)
+        t3.save()
+        t4 = Tag.objects.create(name="Tag 4", ratings=[1, 2])
+        self.assertFalse(self.character.add_tag(p, t4))
+        self.assertTrue(self.character.add_tag(p, t1))
+        self.assertEqual(self.character.tag_rating(p, t1), 1)
+        self.assertTrue(self.character.add_tag(p, t1))
+        self.assertEqual(self.character.tag_rating(p, t1), 2)
+        self.assertFalse(self.character.add_tag(p, t1))
 
     def test_remove_tag(self):
-        self.fail()
+        p = Power.objects.create(name="Test Power")
+        self.character.add_power(p)
+        t1 = Tag.objects.create(name="Tag 1", ratings=[1, 2])
+        t1.permitted_powers.add(p)
+        t1.save()
+        self.character.add_tag(p, t1)
+        self.assertEqual(self.character.tag_rating(p, t1), 1)
+        self.assertTrue(self.character.remove_tag(p, t1))
+        self.assertEqual(self.character.tag_rating(p, t1), 0)
+        self.assertEqual(len(self.character.get_tags(p)), 0)
 
     def test_add_transcendance(self):
         for i in range(3):
-            for level in ['low', 'med', 'high']:
-                Transformation.objects.create(name=f"{level.title()} Transformation {i}", level=level)
-        low_level = Transformation.objects.create(name="Low Transformation 5", level=level)
+            for level in ["low", "med", "high"]:
+                Transformation.objects.create(
+                    name=f"{level.title()} Transformation {i}", level=level
+                )
+        low_level = Transformation.objects.create(
+            name="Low Transformation 5", level=level
+        )
         self.assertEqual(self.character.transcendence, 0)
         self.assertTrue(self.character.add_transcendence())
         self.assertEqual(self.character.transcendence, 1)
@@ -212,23 +264,23 @@ class TestAberrant(TestCase):
         self.assertEqual(self.character.transformations.count(), 1)
         self.assertTrue(self.character.add_transcendence())
         self.assertEqual(self.character.transcendence, 5)
-        self.assertEqual(self.character.transformations.filter(level='low').count(), 2)
+        self.assertEqual(self.character.transformations.filter(level="low").count(), 2)
         self.assertEqual(self.character.transformations.count(), 2)
         self.assertTrue(self.character.add_transcendence())
         self.assertEqual(self.character.transcendence, 6)
-        self.assertEqual(self.character.transformations.filter(level='med').count(), 1)
+        self.assertEqual(self.character.transformations.filter(level="med").count(), 1)
         self.assertEqual(self.character.transformations.count(), 3)
         self.assertTrue(self.character.add_transcendence())
         self.assertEqual(self.character.transcendence, 7)
-        self.assertEqual(self.character.transformations.filter(level='med').count(), 2)
+        self.assertEqual(self.character.transformations.filter(level="med").count(), 2)
         self.assertEqual(self.character.transformations.count(), 4)
         self.assertTrue(self.character.add_transcendence())
         self.assertEqual(self.character.transcendence, 8)
-        self.assertEqual(self.character.transformations.filter(level='high').count(), 1)
+        self.assertEqual(self.character.transformations.filter(level="high").count(), 1)
         self.assertEqual(self.character.transformations.count(), 5)
         self.assertTrue(self.character.add_transcendence())
         self.assertEqual(self.character.transcendence, 9)
-        self.assertEqual(self.character.transformations.filter(level='high').count(), 2)
+        self.assertEqual(self.character.transformations.filter(level="high").count(), 2)
         self.assertEqual(self.character.transformations.count(), 6)
         self.assertTrue(self.character.add_transcendence())
         self.assertEqual(self.character.transcendence, 10)
@@ -259,26 +311,62 @@ class TestAberrant(TestCase):
         self.assertEqual(self.character.quantum, 7)
         self.assertIn(t, self.character.transformations.all())
 
-
     def test_add_transformation(self):
-        # Can't have more than 2 * quantum transformations
-        # Come in Low, Med, High
-        self.fail()
+        for i in range(10):
+            for level in ["low", "med", "high"]:
+                Transformation.objects.create(
+                    name=f"{level.title()} Transformation {i}", level=level
+                )
 
-    def test_has_transformation(self):
-        self.fail()
+        self.character.quantum = 3
+        all_transformations = list(Transformation.objects.order_by("?"))
+        for i in range(6):
+            self.assertTrue(self.character.add_transformation(all_transformations[i]))
+        self.assertEqual(self.character.transformations.count(), 6)
+        for i in range(6, 10):
+            self.assertFalse(self.character.add_transformation(all_transformations[i]))
+        self.assertEqual(self.character.transformations.count(), 6)
+        self.character.quantum = 5
+        for i in range(6, 10):
+            self.assertFalse(self.character.add_transformation(all_transformations[i]))
+        self.assertEqual(self.character.transformations.count(), 10)
 
     def test_filter_transformation(self):
-        self.fail()
-
-    def test_assign_advantages(self):
-        self.fail()
+        transformation_dict = {"low": [], "med": [], "high": []}
+        for i in range(10):
+            for level in ["low", "med", "high"]:
+                transformation_dict[level].append(
+                    Transformation.objects.create(
+                        name=f"{level.title()} Transformation {i}", level=level
+                    )
+                )
+        self.character.quantum = 3
+        self.character.add_transformation(transformation_dict["low"][0])
+        self.character.add_transformation(transformation_dict["low"][1])
+        self.character.add_transformation(transformation_dict["med"][0])
+        self.assertEqual(len(self.character.filter_transformations()), 27)
+        self.assertEqual(len(self.character.filter_transformations(level="low")), 8)
+        self.assertEqual(len(self.character.filter_transformations(level="med")), 9)
+        self.assertEqual(len(self.character.filter_transformations(level="high")), 10)
 
     def test_has_template(self):
+        self.character.approach = "RES"
+        self.character.might = 3
+        self.character.dexterity = 3
+        self.character.stamina = 4
+        self.character.intellect = 3
+        self.character.cunning = 2
+        self.character.resolve = 3
+        self.character.presence = 2
+        self.character.manipulation = 2
+        self.character.composure = 2
+        e = Edge.objects.create(name="Fame", ratings=[1])
         self.assertFalse(self.character.has_template())
         self.character.quantum = 1
-        self.fail("One dot in favored approach")
-        self.fail("Either 1 dot of Fame or 1 dot of Alternate Identity Edge")
+        self.assertFalse(self.character.has_template())
+        self.character.resolve = 4
+        self.assertFalse(self.character.has_template())
+        self.character.add_edge(e)
         self.character.xp = 150
         self.assertTrue(self.character.has_template())
 
@@ -295,38 +383,167 @@ class TestAberrant(TestCase):
         )
         self.assertEqual(self.character.xp_cost("mega edge", transcendence=True), 6)
         self.assertEqual(self.character.xp_cost("quantum power", transcendence=True), 6)
+        # TODO: Add Transformation price decrease
 
     def test_spend_xp(self):
-        self.fail()
+        MegaEdge.objects.create(name="MegaEdge 1", ratings=[1, 2, 3])
+        Power.objects.create(name="Power 1")
+
+        self.character.might = 4
+        self.character.quantum = 4
+        self.character.xp = 1000
+        self.assertTrue(self.character.spend_xp("mega might"))
+        self.assertEqual(self.character.xp, 988)
+        self.assertEqual(self.character.total_mega_attributes(), 1)
+        self.assertTrue(self.character.spend_xp("MegaEdge 1"))
+        self.assertEqual(self.character.xp, 976)
+        self.assertEqual(self.character.total_mega_edges(), 1)
+        self.assertTrue(self.character.spend_xp("Power 1"))
+        self.assertEqual(self.character.xp, 964)
+        self.assertEqual(self.character.total_powers(), 1)
+        self.assertTrue(self.character.spend_xp("Power Tag 1", power="Power 1"))
+        self.assertEqual(self.character.xp, 952)
+        self.assertEqual(
+            len(self.character.get_tags(Power.objects.get(name="Power 1"))), 1
+        )
+        self.assertTrue(self.character.spend_xp("quantum"))
+        self.assertEqual(self.character.xp, 936)
+        self.assertEqual(self.character.quantum, 5)
+        self.assertTrue(self.character.spend_xp("quantum"))
+        self.assertEqual(self.character.xp, 904)
+        self.assertEqual(self.character.quantum, 6)
+        self.assertTrue(
+            self.character.spend_xp("Power Tag 1", power="Power 1", remove=True)
+        )
+        self.assertEqual(self.character.xp, 892)
+        self.assertEqual(
+            len(self.character.get_tags(Power.objects.get(name="Power 1"))), 0
+        )
+        self.assertTrue(self.character.spend_xp("mega might", transcendence=True))
+        self.assertEqual(self.character.xp, 886)
+        self.assertEqual(self.character.total_mega_attributes(), 2)
+        self.assertTrue(self.character.spend_xp("MegaEdge 1", transcendence=True))
+        self.assertEqual(self.character.xp, 880)
+        self.assertEqual(self.character.total_mega_edges(), 2)
+        self.assertTrue(self.character.spend_xp("Power 1", transcendence=True))
+        self.assertEqual(self.character.xp, 874)
+        self.assertEqual(self.character.total_powers(), 2)
+        # TODO: Test transformations to decrease cost
 
 
 class TestRandomAberrant(TestCase):
-    def test_random_mega_attribute(self):
-        self.fail()
+    def setUp(self):
+        self.player = User.objects.create(username="Test User")
+        self.character = Aberrant.objects.create(name="", player=self.player.tc_profile)
+        for skill in self.character.get_skills().keys():
+            for i in range(5):
+                Specialty.objects.create(name=f"{skill} Specialty {i}", skill=skill)
+                Trick.objects.create(name=f"{skill} Trick {i}", skill=skill)
+        for t in ["origin", "role", "society"]:
+            for k in range(3):
+                p = Path.objects.create(name=f"{t} Path {k}", type=t)
+                for i in range(4):
+                    for j in range(4):
+                        p.skills.append(
+                            list(self.character.get_skills().keys())[4 * i + j]
+                        )
+                        p.gift_keywords.append(
+                            list(self.character.get_skills().keys())[4 * i + j]
+                        )
+                        p.edges.add(
+                            Edge.objects.create(
+                                name=f"{t} Edge {4*j+i}, {k}", ratings=[i + 1, i + 2]
+                            )
+                        )
+                    p.save()
+        for i in range(10):
+            for level in ["low", "med", "high"]:
+                Transformation.objects.create(
+                    name=f"{level.title()} Transformation {i}", level=level
+                )
 
-    def test_random_mega_edge(self):
-        self.fail()
+        p1 = Power.objects.create(name="Power Test 1", quantum_minimum=0)
+        p2 = Power.objects.create(name="Power Test 2", quantum_minimum=2)
+        p3 = Power.objects.create(name="Power Test 3", quantum_minimum=3)
+        p4 = Power.objects.create(name="Power Test 4", quantum_minimum=1)
 
-    def test_random_power_tag(self):
-        self.fail()
+        p = [p1, p2, p3, p4]
 
-    def test_random_power(self):
-        self.fail()
+        for i, ratings in enumerate([[1, 2], [2, 4], [2], [1]]):
+            t = Tag.objects.create(name=f"Tag {i}", ratings=ratings)
+            for j in ratings:
+                t.permitted_powers.add(p[j - 1])
 
-    def test_random_template_choices(self):
-        self.fail()
+        for i in range(4):
+            for j in range(4):
+                if i != j:
+                    MegaEdge.objects.create(name=f"MegaEdge{4*i+j}", ratings=[i, j])
+                else:
+                    MegaEdge.objects.create(name=f"MegaEdge{4*i+j}", ratings=[i])
 
-    def test_random_xp_spend(self):
-        self.fail()
 
-    def test_random_edges_and_tags_favor_lower_values(self):
-        self.fail()
+def test_random_mega_attribute(self):
+    num = self.character.total_mega_attributes()
+    self.character.random_mega_attribute()
+    self.assertEqual(self.character.total_mega_attributes(), num + 1)
 
-    def test_random_power_prefers_higher_rank_to_more_powers(self):
-        self.fail()
 
-    def test_random(self):
-        self.fail()
+def test_random_mega_edge(self):
+    num = self.character.total_mega_edges()
+    self.character.random_mega_edge(dots=1)
+    self.assertEqual(self.character.total_mega_edges(), num + 1)
+
+
+def test_random_power_tag(self):
+    self.character.random_power()
+    p = self.character.powers.first()
+    self.assertEqual(len(self.character.get_tags(p)), 0)
+    self.character.random_tag(p)
+    self.assertEqual(len(self.character.get_tags(p)), 1)
+
+
+def test_random_power(self):
+    num = self.character.total_powers()
+    self.character.random_power()
+    self.assertEqual(self.character.total_powers(), num + 1)
+
+
+def test_random_template_choices(self):
+    self.character.random_attributes()
+    self.character.random_paths()
+    self.assertFalse(self.character.has_template())
+    self.character.apply_random_template()
+    self.assertTrue(self.character.has_template())
+
+
+def test_random_xp_spend(self):
+    self.character.xp = 15
+    self.character.random_xp_spend()
+    self.assertLess(self.character.xp, 15)
+
+
+def test_random(self):
+    character = Aberrant.objects.create(player=self.player.tc_profile)
+    self.assertFalse(character.has_name())
+    self.assertFalse(character.has_concept())
+    self.assertFalse(character.has_paths())
+    self.assertFalse(character.has_aspirations())
+    self.assertFalse(character.has_attributes())
+    self.assertFalse(character.has_skills())
+    self.assertFalse(character.has_basics())
+    self.assertFalse(character.has_template())
+    character.xp = 0
+    character.random()
+    self.assertTrue(character.has_name())
+    self.assertTrue(character.has_concept())
+    self.assertTrue(character.has_paths())
+    self.assertTrue(character.has_aspirations())
+    self.assertTrue(character.has_attributes(template=True))
+    self.assertTrue(character.has_skills())
+    self.assertTrue(character.has_specialties())
+    self.assertTrue(character.has_tricks())
+    self.assertTrue(character.has_basics())
+    self.assertTrue(character.has_template())
 
 
 class TestAberrantDetailView(TestCase):
