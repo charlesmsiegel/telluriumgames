@@ -1,6 +1,5 @@
 import random
 
-from attr import attr
 from django.db import models
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
