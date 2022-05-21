@@ -1,6 +1,6 @@
-from attr import attr, attrib
+import random
+
 from django.db import models
-from numpy import character
 
 from core.utils import add_dot, weighted_choice
 from tc.models.character.human import Edge, Human
@@ -162,24 +162,65 @@ class Aberrant(Human):
         return t.rating
 
     def filter_tags(self, power):
-        return []
+        if power not in self.powers.all():
+            return []
+        tags = [x for x in Tag.objects.all() if power in x.permitted_powers.all()]
+        p = PowerRating.objects.get(character=self, power=power)
+        output = []
+        for tag in tags:
+            if tag not in p.tags.all():
+                output.append(tag)
+            else:
+                if TagRating.objects.get(power_rating=p, tag=tag).rating != max(
+                    tag.ratings
+                ):
+                    output.append(tag)
+        return output
 
     def add_transformation(self, transformation):
-        pass
+        if transformation not in self.transformations.all():
+            self.transformations.add(transformation)
+            return True
+        return False
 
-    def filter_transformations(self):
-        return []
+    def random_transformation(self, level=None):
+        transforms = self.filter_transformations(level=level)
+        t = random.choice(transforms)
+        return self.add_transformation(t)
 
-    def add_transcendence(self, transformation=False):
-        return add_dot(self, "transcendence", 10)
+    def filter_transformations(self, level=None):
+        transforms = Transformation.objects.all()
+        if level is not None:
+            transforms = [x for x in transforms if x.level == level]
+        return [x for x in transforms if x not in self.transformations.all()]
 
-    def add_quantum(self, start=True, transformation=None):
+    def add_transcendence(self, transformation=None):
+        if transformation is None:
+            out = add_dot(self, "transcendence", 10)
+            if out:
+                if self.transcendence in [4, 5]:
+                    self.random_transformation(level="low")
+                if self.transcendence in [6, 7]:
+                    self.random_transformation(level="low")
+                if self.transcendence in [8, 9]:
+                    self.random_transformation(level="high")
+                return True
+            return False
+        else:
+            if add_dot(self, "transcendence", 10):
+                self.add_transformation(transformation)
+                return True
+            return False
+
+    def add_quantum(
+        self, start=True, transformation=None, transcendence_transformation=None
+    ):
         if start:
             output = add_dot(self, "quantum", 5)
         else:
             output = add_dot(self, "quantum", 10)
         if self.quantum >= 4 and output:
-            self.add_transcendence()
+            self.add_transcendence(transformation=transcendence_transformation)
         if transformation is not None:
             self.transformations.add(transformation)
         self.update_quantum_points()
@@ -189,14 +230,49 @@ class Aberrant(Human):
         self.quantum_points = 10 + 5 * self.quantum
 
     def apply_random_template(self):
-        # self.fail("Quantum of 1")
-        # self.fail("One dot in favored approach")
-        # self.fail("Either 1 dot of Fame or 1 dot of Alternate Identity Edge")
-        # self.fail("150 XP")
-        # self.fail("Check spend_xp?")
-        pass
+        self.quantum = 1
+
+        approaches = {
+            "FOR": self.get_force_attributes(),
+            "FIN": self.get_finesse_attributes(),
+            "RES": self.get_resilience_attributes(),
+        }
+
+        while not self.add_attribute(weighted_choice(approaches[self.approach]), 5):
+            pass
+
+        if random.random() < 0.5:
+            e = Edge.objects.get(name="Fame")
+        else:
+            e = Edge.objects.get(name="Alternate Identity")
+        self.add_edge(e)
+        self.xp = 150
 
     # TODO: Random XP Spend extension
+
+    def xp_cost(self, trait_type, transcendence=False):
+        cost = super().xp_cost(trait_type)
+        if cost != 10000:
+            return cost
+        if trait_type == "mega attribute":
+            if transcendence:
+                return 6
+            return 12
+        if trait_type == "mega edge":
+            if transcendence:
+                return 6
+            return 12
+        if trait_type == "power tag":
+            return 12
+        if trait_type == "quantum<=5":
+            return 16
+        if trait_type == "quantum>5":
+            return 32
+        if trait_type == "quantum power":
+            if transcendence:
+                return 6
+            return 12
+        return 10000
 
 
 class MegaEdge(Edge):
