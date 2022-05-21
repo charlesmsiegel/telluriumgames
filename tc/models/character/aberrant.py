@@ -120,7 +120,7 @@ class Aberrant(Human):
         pass
 
     def total_powers(self):
-        return -100
+        return sum([x.rating for x in PowerRating.objects.filter(character=self)])
 
     def random_power(self):
         pass
@@ -155,10 +155,15 @@ class Aberrant(Human):
     def add_transcendence(self, transformation=False):
         return add_dot(self, "transcendence", 10)
 
-    def add_quantum(self):
-        output = add_dot(self, "quantum", 10)
+    def add_quantum(self, start=True, transformation=None):
+        if start:
+            output = add_dot(self, "quantum", 5)
+        else:
+            output = add_dot(self, "quantum", 10)
         if self.quantum >= 4 and output:
             self.add_transcendence()
+        if transformation is not None:
+            self.transformations.add(transformation)
         self.update_quantum_points()
         return output
 

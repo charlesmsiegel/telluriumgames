@@ -304,7 +304,7 @@ class TestAberrant(TestCase):
         self.assertEqual(self.character.transcendence, 2)
         self.assertEqual(self.character.quantum, 5)
         self.assertEqual(self.character.quantum_points, 35)
-        self.assertTrue(self.character.add_quantum())
+        self.assertFalse(self.character.add_quantum())
         self.assertEqual(self.character.quantum, 5)
         self.assertEqual(self.character.quantum_points, 35)
         self.assertTrue(self.character.add_quantum(start=False))
