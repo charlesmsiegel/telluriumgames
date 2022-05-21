@@ -171,9 +171,7 @@ class TestTalent(TestCase):
         Trick.objects.create(name="XP Trick", skill="science")
         Specialty.objects.create(name="XP Specialty", skill="science")
 
-        EnhancedEdge.objects.create(
-            name="XP Enhanced Edge", prereqs=[("XP Edge 1", 2)]
-        )
+        EnhancedEdge.objects.create(name="XP Enhanced Edge", prereqs=[("XP Edge 1", 2)])
 
         p = Path.objects.create(
             name="XP Path",
