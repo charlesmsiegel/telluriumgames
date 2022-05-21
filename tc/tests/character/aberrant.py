@@ -282,6 +282,12 @@ class TestAberrant(TestCase):
 
     def test_add_quantum(self):
         t = Transformation.objects.create(name="Test Transformation", level="med")
+        for i in range(10):
+            for level in ["low", "med", "high"]:
+                Transformation.objects.create(
+                    name=f"{level.title()} Transformation {i}", level=level
+                )
+
         self.character.quantum = 3
         self.character.update_quantum_points()
         self.assertTrue(self.character.add_quantum())
