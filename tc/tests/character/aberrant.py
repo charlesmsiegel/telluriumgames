@@ -1,5 +1,3 @@
-from pickletools import TAKEN_FROM_ARGUMENT1
-
 from django.contrib.auth.models import User
 from django.test import TestCase
 
