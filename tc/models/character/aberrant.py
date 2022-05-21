@@ -98,18 +98,32 @@ class Aberrant(Human):
     def total_mega_edges(self):
         return sum([x.rating for x in MegaEdgeRating.objects.filter(character=self)])
 
-    def filter_mega_edges(self):
+    def filter_mega_edges(self, dots=100):
         mega_edges = MegaEdge.objects.all()
         mega_edges = [x for x in mega_edges if x.check_prereqs(self)]
+        mega_edges = [
+            x for x in mega_edges if len([y for y in x.ratings if y <= dots]) != 0
+        ]
         output = []
         for me in mega_edges:
             if me in self.mega_edges.all():
                 me_rating = MegaEdgeRating.objects.get(character=self, mega_edge=me)
                 if me_rating.rating < max(me.ratings):
-                    output.append(me)
+                    if (
+                        min([x for x in me.ratings if x > me_rating.rating])
+                        - me_rating.rating
+                        <= dots
+                    ):
+                        output.append(me)
             else:
                 output.append(me)
         return output
+
+    def mega_edge_rating(self, m):
+        if m not in self.mega_edges.all():
+            return 0
+        mr = MegaEdgeRating.objects.get(character=self, mega_edge=m)
+        return mr.rating
 
     def random_mega_edge(self, dots=100):
         pass
@@ -295,7 +309,14 @@ class MegaEdge(Edge):
                 else:
                     satisfied = False
             elif prereq[0] == "quantum":
-                satisfied = satisfied and (character.quantum >= prereq[1])
+                if prereq[1] == "dots":
+                    r = character.mega_edge_rating(self)
+                    req = min([x for x in self.ratings if x > r])
+                    satisfied = satisfied and (character.quantum >= req)
+                else:
+                    satisfied = satisfied and (character.quantum >= prereq[1])
+            elif prereq[0] in character.get_mega_attributes().keys():
+                satisfied = satisfied and (getattr(character, prereq[0]) >= prereq[1])
         return satisfied
 
 

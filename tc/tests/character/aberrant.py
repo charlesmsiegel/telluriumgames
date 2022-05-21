@@ -50,35 +50,35 @@ class TestAberrant(TestCase):
 
     def test_filter_mega_edges(self):
         MegaEdge.objects.create(
-            name="MegaEdge 0", ratings=[1, 2], prereqs=[("mega_might", 2)]
+            name="MegaEdge 100", ratings=[1, 2], prereqs=[("mega_might", 2)]
         )
         e2 = MegaEdge.objects.create(
-            name="MegaEdge 1", ratings=[1, 2], prereqs=[("science", 2)]
+            name="MegaEdge 101", ratings=[1, 2], prereqs=[("science", 2)]
         )
-        e3 = MegaEdge.objects.create(name="MegaEdge 2", ratings=[1, 2])
+        e3 = MegaEdge.objects.create(name="MegaEdge 102", ratings=[1, 2])
         MegaEdge.objects.create(
-            name="MegaEdge 3", ratings=[1, 2], prereqs=[("MegaEdge 2", 2)]
+            name="MegaEdge 103", ratings=[1, 2], prereqs=[("MegaEdge 102", 2)]
         )
 
-        self.assertEqual(len(self.character.filter_mega_edges()), 1)
-        self.character.add_edge(e3)
-        self.assertEqual(len(self.character.filter_mega_edges()), 1)
-        self.assertEqual(len(self.character.filter_mega_edges(dots=1)), 1)
-        self.character.might = 2
-        self.assertEqual(len(self.character.filter_mega_edges()), 2)
+        self.assertEqual(len(self.character.filter_mega_edges()), 21)
+        self.character.add_mega_edge(e3)
+        self.assertEqual(len(self.character.filter_mega_edges()), 21)
+        self.assertEqual(len(self.character.filter_mega_edges(dots=1)), 6)
+        self.character.mega_might = 2
+        self.assertEqual(len(self.character.filter_mega_edges()), 22)
         self.character.science = 2
-        self.assertEqual(len(self.character.filter_mega_edges()), 3)
-        self.character.add_edge(e2)
-        self.assertEqual(len(self.character.filter_mega_edges()), 3)
-        self.character.add_edge(e3)
-        self.assertEqual(len(self.character.filter_mega_edges()), 3)
+        self.assertEqual(len(self.character.filter_mega_edges()), 23)
+        self.character.add_mega_edge(e2)
+        self.assertEqual(len(self.character.filter_mega_edges()), 23)
+        self.character.add_mega_edge(e3)
+        self.assertEqual(len(self.character.filter_mega_edges()), 23)
         self.assertNotIn(e3, self.character.filter_mega_edges())
         m4 = MegaEdge.objects.create(
-            name="MegaEdge 4", ratings=[1, 2, 3, 4, 5], prereqs=[("quantum", "dots")]
+            name="MegaEdge 104", ratings=[1, 2, 3, 4, 5], prereqs=[("quantum", "dots")]
         )
         self.character.quantum = 1
         self.assertIn(m4, self.character.filter_mega_edges())
-        self.test_add_megaedge(m4)
+        self.character.add_mega_edge(m4)
         self.assertNotIn(m4, self.character.filter_mega_edges())
         self.character.quantum = 2
         self.assertIn(m4, self.character.filter_mega_edges())
