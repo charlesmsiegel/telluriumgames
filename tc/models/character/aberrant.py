@@ -28,13 +28,23 @@ class Aberrant(Human):
         pass
 
     def get_mega_attributes(self):
-        pass
+        return {
+            "mega_intellect": self.mega_intellect,
+            "mega_cunning": self.mega_cunning,
+            "mega_resolve": self.mega_resolve,
+            "mega_might": self.mega_might,
+            "mega_dexterity": self.mega_dexterity,
+            "mega_stamina": self.mega_stamina,
+            "mega_presence": self.mega_presence,
+            "mega_manipulation": self.mega_manipulation,
+            "mega_composure": self.mega_composure,
+        }
 
     def random_mega_attribute(self):
         pass
 
     def total_mega_attributes(self):
-        return -100
+        return sum(self.get_mega_attributes().values())
 
     def total_mega_edges(self):
         return -100

@@ -125,7 +125,7 @@ class TestAberrant(TestCase):
                 "mega_might": 0,
                 "mega_dexterity": 2,
                 "mega_stamina": 2,
-                "mega_intellect": 1,
+                "mega_intellect": 2,
                 "mega_cunning": 0,
                 "mega_resolve": 0,
                 "mega_presence": 0,
