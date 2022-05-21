@@ -236,18 +236,6 @@ class TestAberrant(TestCase):
         self.assertEqual(self.character.tag_rating(p, t1), 2)
         self.assertFalse(self.character.add_tag(p, t1))
 
-    def test_remove_tag(self):
-        p = Power.objects.create(name="Test Power")
-        self.character.add_power(p)
-        t1 = Tag.objects.create(name="Tag 1", ratings=[1, 2])
-        t1.permitted_powers.add(p)
-        t1.save()
-        self.character.add_tag(p, t1)
-        self.assertEqual(self.character.tag_rating(p, t1), 1)
-        self.assertTrue(self.character.remove_tag(p, t1))
-        self.assertEqual(self.character.tag_rating(p, t1), 0)
-        self.assertEqual(len(self.character.get_tags(p)), 0)
-
     def test_add_transcendance(self):
         for i in range(3):
             for level in ["low", "med", "high"]:
@@ -382,7 +370,6 @@ class TestAberrant(TestCase):
         self.assertEqual(self.character.xp_cost("quantum<=5"), 16)
         self.assertEqual(self.character.xp_cost("quantum>5"), 32)
         self.assertEqual(self.character.xp_cost("quantum power"), 12)
-        self.assertEqual(self.character.xp_cost("remove tag"), 12)
         self.assertEqual(
             self.character.xp_cost("mega attribute", transcendence=True), 6
         )
@@ -417,21 +404,14 @@ class TestAberrant(TestCase):
         self.assertTrue(self.character.spend_xp("quantum"))
         self.assertEqual(self.character.xp, 904)
         self.assertEqual(self.character.quantum, 6)
-        self.assertTrue(
-            self.character.spend_xp("Power Tag 1", power="Power 1", remove=True)
-        )
-        self.assertEqual(self.character.xp, 892)
-        self.assertEqual(
-            len(self.character.get_tags(Power.objects.get(name="Power 1"))), 0
-        )
         self.assertTrue(self.character.spend_xp("mega_might", transcendence=True))
-        self.assertEqual(self.character.xp, 886)
+        self.assertEqual(self.character.xp, 898)
         self.assertEqual(self.character.total_mega_attributes(), 2)
         self.assertTrue(self.character.spend_xp("MegaEdge 1", transcendence=True))
-        self.assertEqual(self.character.xp, 880)
+        self.assertEqual(self.character.xp, 892)
         self.assertEqual(self.character.total_mega_edges(), 2)
         self.assertTrue(self.character.spend_xp("Power 1", transcendence=True))
-        self.assertEqual(self.character.xp, 874)
+        self.assertEqual(self.character.xp, 886)
         self.assertEqual(self.character.total_powers(), 2)
         # TODO: Test transformations to decrease cost
 
