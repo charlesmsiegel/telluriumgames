@@ -327,7 +327,7 @@ class TestAberrant(TestCase):
         self.assertEqual(self.character.transformations.count(), 6)
         self.character.quantum = 5
         for i in range(6, 10):
-            self.assertFalse(self.character.add_transformation(all_transformations[i]))
+            self.assertTrue(self.character.add_transformation(all_transformations[i]))
         self.assertEqual(self.character.transformations.count(), 10)
 
     def test_filter_transformation(self):

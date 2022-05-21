@@ -178,6 +178,8 @@ class Aberrant(Human):
         return output
 
     def add_transformation(self, transformation):
+        if self.transformations.count() == 2 * self.quantum:
+            return False
         if transformation not in self.transformations.all():
             self.transformations.add(transformation)
             return True
@@ -201,7 +203,7 @@ class Aberrant(Human):
                 if self.transcendence in [4, 5]:
                     self.random_transformation(level="low")
                 if self.transcendence in [6, 7]:
-                    self.random_transformation(level="low")
+                    self.random_transformation(level="med")
                 if self.transcendence in [8, 9]:
                     self.random_transformation(level="high")
                 return True
