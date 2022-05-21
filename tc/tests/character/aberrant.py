@@ -1,7 +1,14 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from tc.models.character.aberrant import Aberrant, MegaEdge, Power, Tag, Transformation
+from tc.models.character.aberrant import (
+    Aberrant,
+    MegaEdge,
+    MegaEdgeRating,
+    Power,
+    Tag,
+    Transformation,
+)
 from tc.models.character.human import Edge, Path, Specialty, Trick
 
 
@@ -19,22 +26,22 @@ class TestAberrant(TestCase):
 
     def test_add_mega_edge(self):
         self.assertEqual(self.character.total_mega_edges(), 0)
-        self.assertEqual(self.character.megaedges.count(), 0)
+        self.assertEqual(self.character.mega_edges.count(), 0)
         self.assertTrue(
-            self.character.add_megaedge(MegaEdge.objects.get(name="MegaEdge 5"))
+            self.character.add_mega_edge(MegaEdge.objects.get(name="MegaEdge 5"))
         )
         self.assertEqual(self.character.total_mega_edges(), 1)
-        self.assertEqual(self.character.megaedges.count(), 1)
+        self.assertEqual(self.character.mega_edges.count(), 1)
         self.assertFalse(
             MegaEdge.objects.get(name="MegaEdge with Prereq").check_prereqs(
                 self.character
             )
         )
         self.assertTrue(
-            self.character.add_megaedge(MegaEdge.objects.get(name="MegaEdge 5"))
+            self.character.add_mega_edge(MegaEdge.objects.get(name="MegaEdge 5"))
         )
-        self.assertEqual(self.character.total_mega_edges(), 1)
-        self.assertEqual(self.character.megaedges.count(), 2)
+        self.assertEqual(self.character.total_mega_edges(), 2)
+        self.assertEqual(self.character.mega_edges.count(), 1)
         self.assertTrue(
             MegaEdge.objects.get(name="MegaEdge with Prereq").check_prereqs(
                 self.character
@@ -390,7 +397,7 @@ class TestAberrant(TestCase):
         self.character.might = 4
         self.character.quantum = 4
         self.character.xp = 1000
-        self.assertTrue(self.character.spend_xp("mega might"))
+        self.assertTrue(self.character.spend_xp("mega_might"))
         self.assertEqual(self.character.xp, 988)
         self.assertEqual(self.character.total_mega_attributes(), 1)
         self.assertTrue(self.character.spend_xp("MegaEdge 1"))
@@ -417,7 +424,7 @@ class TestAberrant(TestCase):
         self.assertEqual(
             len(self.character.get_tags(Power.objects.get(name="Power 1"))), 0
         )
-        self.assertTrue(self.character.spend_xp("mega might", transcendence=True))
+        self.assertTrue(self.character.spend_xp("mega_might", transcendence=True))
         self.assertEqual(self.character.xp, 886)
         self.assertEqual(self.character.total_mega_attributes(), 2)
         self.assertTrue(self.character.spend_xp("MegaEdge 1", transcendence=True))
