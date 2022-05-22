@@ -1,6 +1,7 @@
 import random
 
 from django.db import models
+from numpy import isin
 
 from core.utils import add_dot, weighted_choice
 from tc.models.character.human import Edge, Human
@@ -146,6 +147,9 @@ class Aberrant(Human):
         pass
 
     def get_tags(self, power):
+        if power in self.powers.all():
+            p = PowerRating.objects.get(power=power, character=self)
+            return p.tags.all()
         return []
 
     def add_tag(self, power, tag):
@@ -298,6 +302,60 @@ class Aberrant(Human):
                 return 6
             return 12
         return 10000
+
+    def spend_xp(self, trait, power=None, creation=False, transcendence=False):
+        if trait in self.get_mega_attributes().keys():
+            cost = self.xp_cost("mega attribute", transcendence=transcendence)
+            if self.xp >= cost:
+                if self.add_mega_attribute(trait):
+                    self.xp -= cost
+                    return True
+        elif trait in [x.name for x in MegaEdge.objects.all()]:
+            e = MegaEdge.objects.get(name=trait)
+            new_rating = min([x for x in e.ratings if x > self.mega_edge_rating(e)])
+            cost = self.xp_cost("mega edge", transcendence=transcendence) * (
+                new_rating - self.mega_edge_rating(e)
+            )
+            if self.xp >= cost:
+                if self.add_mega_edge(e):
+                    self.xp -= cost
+                    return True
+        elif trait in [x.name for x in Power.objects.all()]:
+            e = Power.objects.get(name=trait)
+            cost = self.xp_cost("quantum power", transcendence=transcendence)
+            if self.xp >= cost:
+                if self.add_power(e):
+                    self.xp -= cost
+                    return True
+        elif trait in [x.name for x in Tag.objects.all()]:
+            if power is None:
+                return False
+            if not isinstance(power, Power):
+                power = Power.objects.get(name=power)
+            if power not in self.powers.all():
+                return False
+            t = Tag.objects.get(name=trait)
+            if power not in t.permitted_powers.all():
+                return False
+            new_rating = min([x for x in t.ratings if x > self.tag_rating(power, t)])
+            cost = self.xp_cost("power tag") * (new_rating - self.tag_rating(power, t))
+            if self.xp >= cost:
+                if self.add_tag(power, t):
+                    self.xp -= cost
+                    return True
+        elif trait == "quantum":
+            if self.quantum <= 4:
+                cost = self.xp_cost("quantum<=5")
+            else:
+                cost = self.xp_cost("quantum>5")
+            if self.xp >= cost:
+                if self.add_quantum(start=creation):
+                    self.xp -= cost
+                    return True
+        elif super().spend_xp(trait):
+            return True
+        self.save()
+        return False
 
 
 class MegaEdge(Edge):

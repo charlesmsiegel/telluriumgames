@@ -6,6 +6,7 @@ from tc.models.character.aberrant import (
     MegaEdge,
     MegaEdgeRating,
     Power,
+    PowerRating,
     Tag,
     Transformation,
 )
@@ -386,7 +387,10 @@ class TestAberrant(TestCase):
 
     def test_spend_xp(self):
         MegaEdge.objects.create(name="MegaEdge 1", ratings=[1, 2, 3])
-        Power.objects.create(name="Power 1")
+        p = Power.objects.create(name="Power 1")
+        t = Tag.objects.create(name="Power Tag 1", ratings=[1, 2])
+        t.permitted_powers.add(p)
+        t.save()
 
         self.character.might = 4
         self.character.quantum = 4
@@ -400,6 +404,7 @@ class TestAberrant(TestCase):
         self.assertTrue(self.character.spend_xp("Power 1"))
         self.assertEqual(self.character.xp, 964)
         self.assertEqual(self.character.total_powers(), 1)
+        self.assertIn(Power.objects.get(name="Power 1"), self.character.powers.all())
         self.assertTrue(self.character.spend_xp("Power Tag 1", power="Power 1"))
         self.assertEqual(self.character.xp, 952)
         self.assertEqual(
