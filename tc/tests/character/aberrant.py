@@ -478,69 +478,62 @@ class TestRandomAberrant(TestCase):
                 else:
                     MegaEdge.objects.create(name=f"MegaEdge{4*i+j}", ratings=[i])
 
+    def test_random_mega_attribute(self):
+        num = self.character.total_mega_attributes()
+        self.character.random_mega_attribute()
+        self.assertEqual(self.character.total_mega_attributes(), num + 1)
 
-def test_random_mega_attribute(self):
-    num = self.character.total_mega_attributes()
-    self.character.random_mega_attribute()
-    self.assertEqual(self.character.total_mega_attributes(), num + 1)
+    def test_random_mega_edge(self):
+        num = self.character.total_mega_edges()
+        self.character.random_mega_edge(dots=1)
+        self.assertEqual(self.character.total_mega_edges(), num + 1)
 
+    def test_random_power_tag(self):
+        self.character.random_power()
+        p = self.character.powers.first()
+        self.assertEqual(len(self.character.get_tags(p)), 0)
+        self.character.random_tag(p)
+        self.assertEqual(len(self.character.get_tags(p)), 1)
 
-def test_random_mega_edge(self):
-    num = self.character.total_mega_edges()
-    self.character.random_mega_edge(dots=1)
-    self.assertEqual(self.character.total_mega_edges(), num + 1)
+    def test_random_power(self):
+        num = self.character.total_powers()
+        self.character.random_power()
+        self.assertEqual(self.character.total_powers(), num + 1)
 
+    def test_random_template_choices(self):
+        self.character.random_attributes()
+        self.character.random_paths()
+        self.assertFalse(self.character.has_template())
+        self.character.apply_random_template()
+        self.assertTrue(self.character.has_template())
 
-def test_random_power_tag(self):
-    self.character.random_power()
-    p = self.character.powers.first()
-    self.assertEqual(len(self.character.get_tags(p)), 0)
-    self.character.random_tag(p)
-    self.assertEqual(len(self.character.get_tags(p)), 1)
+    def test_random_xp_spend(self):
+        self.character.xp = 15
+        self.character.random_xp_spend()
+        self.assertLess(self.character.xp, 15)
 
-
-def test_random_power(self):
-    num = self.character.total_powers()
-    self.character.random_power()
-    self.assertEqual(self.character.total_powers(), num + 1)
-
-
-def test_random_template_choices(self):
-    self.character.random_attributes()
-    self.character.random_paths()
-    self.assertFalse(self.character.has_template())
-    self.character.apply_random_template()
-    self.assertTrue(self.character.has_template())
-
-
-def test_random_xp_spend(self):
-    self.character.xp = 15
-    self.character.random_xp_spend()
-    self.assertLess(self.character.xp, 15)
-
-
-def test_random(self):
-    character = Aberrant.objects.create(player=self.player.tc_profile)
-    self.assertFalse(character.has_name())
-    self.assertFalse(character.has_concept())
-    self.assertFalse(character.has_paths())
-    self.assertFalse(character.has_aspirations())
-    self.assertFalse(character.has_attributes())
-    self.assertFalse(character.has_skills())
-    self.assertFalse(character.has_basics())
-    self.assertFalse(character.has_template())
-    character.xp = 0
-    character.random()
-    self.assertTrue(character.has_name())
-    self.assertTrue(character.has_concept())
-    self.assertTrue(character.has_paths())
-    self.assertTrue(character.has_aspirations())
-    self.assertTrue(character.has_attributes(template=True))
-    self.assertTrue(character.has_skills())
-    self.assertTrue(character.has_specialties())
-    self.assertTrue(character.has_tricks())
-    self.assertTrue(character.has_basics())
-    self.assertTrue(character.has_template())
+    def test_random(self):
+        character = Aberrant.objects.create(player=self.player.tc_profile)
+        self.assertFalse(character.has_name())
+        self.assertFalse(character.has_concept())
+        self.assertFalse(character.has_paths())
+        self.assertFalse(character.has_aspirations())
+        self.assertFalse(character.has_attributes())
+        self.assertFalse(character.has_skills())
+        self.assertFalse(character.has_basics())
+        self.assertFalse(character.has_template())
+        character.xp = 0
+        character.random()
+        self.assertTrue(character.has_name())
+        self.assertTrue(character.has_concept())
+        self.assertTrue(character.has_paths())
+        self.assertTrue(character.has_aspirations())
+        self.assertTrue(character.has_attributes(template=True))
+        self.assertTrue(character.has_skills())
+        self.assertTrue(character.has_specialties())
+        self.assertTrue(character.has_tricks())
+        self.assertTrue(character.has_basics())
+        self.assertTrue(character.has_template())
 
 
 class TestAberrantDetailView(TestCase):
