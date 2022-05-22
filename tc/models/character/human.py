@@ -506,6 +506,7 @@ class Human(PolymorphicModel):
         return total
 
     def filter_edges(self, dots=100):
+        # TODO: Sometimes hangs
         all_edges = Edge.objects.all()
         possible_edges = []
         for edge in all_edges:
