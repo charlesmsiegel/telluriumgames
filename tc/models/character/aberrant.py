@@ -264,6 +264,15 @@ class Aberrant(Human):
         self.add_edge(e)
         self.xp = 150
 
+    def has_template(self):
+        attributes_flag = self.total_attributes() == 25
+        edges_flag = ("Fame" in [x.name for x in self.edges.all()]) or (
+            "Alternate Identity" in [x.name for x in self.edges.all()]
+        )
+        xp_flag = self.xp == 150
+        quantum_flag = self.quantum == 1
+        return attributes_flag and edges_flag and xp_flag and quantum_flag
+
     # TODO: Random XP Spend extension
 
     def xp_cost(self, trait_type, transcendence=False):
@@ -369,3 +378,6 @@ class Transformation(models.Model):
     level = models.CharField(
         max_length=4, choices=[("low", "low"), ("med", "medium"), ("high", "high"),],
     )
+
+    def __str__(self):
+        return f"{self.name} ({self.level})"

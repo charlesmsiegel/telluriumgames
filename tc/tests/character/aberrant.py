@@ -243,7 +243,7 @@ class TestAberrant(TestCase):
                     name=f"{level.title()} Transformation {i}", level=level
                 )
         low_level = Transformation.objects.create(
-            name="Low Transformation 5", level=level
+            name="Low Transformation 5", level="low"
         )
         self.assertEqual(self.character.transcendence, 0)
         self.assertTrue(self.character.add_transcendence())
@@ -259,6 +259,7 @@ class TestAberrant(TestCase):
         self.assertEqual(self.character.transcendence, 5)
         self.assertEqual(self.character.transformations.filter(level="low").count(), 2)
         self.assertEqual(self.character.transformations.count(), 2)
+        self.character.quantum = 3
         self.assertTrue(self.character.add_transcendence())
         self.assertEqual(self.character.transcendence, 6)
         self.assertEqual(self.character.transformations.filter(level="med").count(), 1)
