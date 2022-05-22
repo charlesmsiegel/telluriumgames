@@ -533,6 +533,7 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.resilience_attribute_sum(), 7)
 
     def test_has_template(self):
+        # TOOD: Investigate why this sometimes hangs
         self.character.stamina = 5
         att_total = self.character.total_attributes()
         edge_total = self.character.total_edges()
