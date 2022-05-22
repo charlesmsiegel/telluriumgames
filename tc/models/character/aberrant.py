@@ -1,7 +1,6 @@
 import random
 
 from django.db import models
-from numpy import character, isin
 
 from core.utils import add_dot, weighted_choice
 from tc.models.character.human import Edge, Human
@@ -237,11 +236,10 @@ class Aberrant(Human):
                     self.random_transformation(level="high")
                 return True
             return False
-        else:
-            if add_dot(self, "transcendence", 10):
-                self.add_transformation(transformation)
-                return True
-            return False
+        if add_dot(self, "transcendence", 10):
+            self.add_transformation(transformation)
+            return True
+        return False
 
     def add_quantum(
         self, start=True, transformation=None, transcendence_transformation=None
@@ -315,7 +313,7 @@ class Aberrant(Human):
         return 10000
 
     def spend_xp(self, trait, power=None, creation=False, transcendence=False):
-        if trait in self.get_mega_attributes().keys():
+        if trait in self.get_mega_attributes():
             cost = self.xp_cost("mega attribute", transcendence=transcendence)
             if self.xp >= cost:
                 if self.add_mega_attribute(trait):

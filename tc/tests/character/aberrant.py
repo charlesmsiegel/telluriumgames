@@ -212,7 +212,7 @@ class TestAberrant(TestCase):
         t3 = Tag.objects.create(name="Tag 3", ratings=[1, 2])
         t3.permitted_powers.add(p)
         t3.save()
-        t4 = Tag.objects.create(name="Tag 4", ratings=[1, 2])
+        Tag.objects.create(name="Tag 4", ratings=[1, 2])
         self.assertEqual(len(self.character.filter_tags(p)), 3)
         self.character.add_tag(p, t1)
         self.character.add_tag(p, t1)
