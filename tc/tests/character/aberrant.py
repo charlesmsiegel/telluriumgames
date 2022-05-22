@@ -478,6 +478,9 @@ class TestRandomAberrant(TestCase):
                 else:
                     MegaEdge.objects.create(name=f"MegaEdge{4*i+j}", ratings=[i])
 
+        Edge.objects.create(name="Fame", ratings=[1, 2, 3])
+        Edge.objects.create(name="Alternate Identity", ratings=[1, 2, 3])
+
     def test_random_mega_attribute(self):
         num = self.character.total_mega_attributes()
         self.character.random_mega_attribute()
