@@ -1,7 +1,7 @@
 import random
 
 from django.db import models
-from numpy import isin
+from numpy import character, isin
 
 from core.utils import add_dot, weighted_choice
 from tc.models.character.human import Edge, Human
@@ -127,10 +127,9 @@ class Aberrant(Human):
         return mr.rating
 
     def random_mega_edge(self, dots=100):
-        pass
-
-    def random_mega_edges(self):
-        pass
+        possible_mes = self.filter_mega_edges(dots=dots)
+        me = random.choice(possible_mes)
+        return self.add_mega_edge(me)
 
     def add_power(self, power):
         p, _ = PowerRating.objects.get_or_create(character=self, power=power)
@@ -144,7 +143,14 @@ class Aberrant(Human):
         return sum([x.rating for x in PowerRating.objects.filter(character=self)])
 
     def random_power(self):
-        pass
+        d = {x.name: self.power_rating(x) for x in Power.objects.all()}
+        choice = weighted_choice(d)
+        return self.add_power(Power.objects.get(name=choice))
+
+    def power_rating(self, p):
+        if p not in self.powers.all():
+            return 0
+        return PowerRating.objects.get(character=self, power=p).rating
 
     def get_tags(self, power):
         if power in self.powers.all():
@@ -168,7 +174,10 @@ class Aberrant(Human):
         return True
 
     def random_tag(self, power):
-        pass
+        if power not in self.powers.all():
+            return False
+        possible_tags = self.filter_tags(power)
+        return self.add_tag(power, random.choice(possible_tags))
 
     def tag_rating(self, power, tag):
         if power not in self.powers.all():
@@ -195,9 +204,11 @@ class Aberrant(Human):
                     output.append(tag)
         return output
 
-    def add_transformation(self, transformation):
-        if self.transformations.count() == 2 * self.quantum:
-            return False
+    def add_transformation(self, transformation, transcendence=False):
+        # TODO: write a test to connect the transcedence KWARG to everything else
+        if not transcendence:
+            if self.transformations.count() == 2 * self.quantum:
+                return False
         if transformation not in self.transformations.all():
             self.transformations.add(transformation)
             return True
@@ -268,12 +279,12 @@ class Aberrant(Human):
         self.add_edge(e)
         self.xp = 150
 
-    def has_template(self):
+    def has_template(self, xp=150):
         attributes_flag = self.total_attributes() == 25
         edges_flag = ("Fame" in [x.name for x in self.edges.all()]) or (
             "Alternate Identity" in [x.name for x in self.edges.all()]
         )
-        xp_flag = self.xp == 150
+        xp_flag = self.xp == xp
         quantum_flag = self.quantum == 1
         return attributes_flag and edges_flag and xp_flag and quantum_flag
 

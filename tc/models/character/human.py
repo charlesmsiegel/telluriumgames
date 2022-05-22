@@ -729,7 +729,7 @@ class Human(PolymorphicModel):
                 trait = None
             self.spend_xp(trait)
 
-    def random(self):
+    def random(self, xp=0):
         self.random_basics()
         self.random_paths()
         self.random_skills()
@@ -738,6 +738,7 @@ class Human(PolymorphicModel):
         self.random_attributes()
         self.random_edges()
         self.apply_random_template()
+        self.xp = xp
         self.random_xp_spend()
         self.save()
 

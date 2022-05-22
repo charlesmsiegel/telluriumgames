@@ -88,6 +88,7 @@ class TestAberrant(TestCase):
         self.assertEqual(self.character.mega_might, 0)
         self.assertTrue(self.character.add_mega_attribute("might"))
         self.assertEqual(self.character.mega_might, 1)
+        # TODO: intellect, cnning, manipulation and composure get bonus edges
 
     def set_attributes(self):
         self.character.might = 5
@@ -383,7 +384,7 @@ class TestAberrant(TestCase):
         )
         self.assertEqual(self.character.xp_cost("mega edge", transcendence=True), 6)
         self.assertEqual(self.character.xp_cost("quantum power", transcendence=True), 6)
-        # TODO: Add Transformation price decrease
+        # TODO: Add Transformation price decrease (and note that this is what the 2 * quantum limit is for, not _other_ transformations)
 
     def test_spend_xp(self):
         MegaEdge.objects.create(name="MegaEdge 1", ratings=[1, 2, 3])
@@ -470,9 +471,16 @@ class TestRandomAberrant(TestCase):
             t = Tag.objects.create(name=f"Tag {i}", ratings=ratings)
             for j in ratings:
                 t.permitted_powers.add(p[j - 1])
+                t.save()
 
-        for i in range(4):
-            for j in range(4):
+        for i in range(10):
+            p = Power.objects.create(name=f"Test Power {i}")
+            t = Tag.objects.order_by("?").first()
+            t.permitted_powers.add(p)
+            t.save()
+
+        for i in range(1, 5):
+            for j in range(1, 5):
                 if i != j:
                     MegaEdge.objects.create(name=f"MegaEdge{4*i+j}", ratings=[i, j])
                 else:
@@ -499,6 +507,7 @@ class TestRandomAberrant(TestCase):
         self.assertEqual(len(self.character.get_tags(p)), 1)
 
     def test_random_power(self):
+        # TODO: Solve transient issue
         num = self.character.total_powers()
         self.character.random_power()
         self.assertEqual(self.character.total_powers(), num + 1)
@@ -526,7 +535,7 @@ class TestRandomAberrant(TestCase):
         self.assertFalse(character.has_basics())
         self.assertFalse(character.has_template())
         character.xp = 0
-        character.random()
+        character.random(xp=0)
         self.assertTrue(character.has_name())
         self.assertTrue(character.has_concept())
         self.assertTrue(character.has_paths())
@@ -536,7 +545,7 @@ class TestRandomAberrant(TestCase):
         self.assertTrue(character.has_specialties())
         self.assertTrue(character.has_tricks())
         self.assertTrue(character.has_basics())
-        self.assertTrue(character.has_template())
+        self.assertTrue(character.has_template(xp=0))
 
 
 class TestAberrantDetailView(TestCase):
