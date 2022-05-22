@@ -23,20 +23,15 @@ class TestIndexView(TestCase):
 
 class TestObjectDetailView(TestCase):
     def setUp(self) -> None:
-        self.wonder = Wonder.objects.create(name="Test Wonder",)
+        self.wonder = Wonder.objects.create(
+            name="Test Wonder", rank=3, background_cost=6, quintessence_max=15
+        )
 
     def test_object_detail_view_status_code(self):
         response = self.client.get(f"/wod/objects/{self.wonder.id}/")
         self.assertEqual(response.status_code, 200)
 
     def test_object_detail_view_templates(self):
-        wonder = Wonder.objects.create(
-            name="Test Wonder",
-            rank=3,
-            background_cost=6,
-            quintessence_max=15,
-            description="Test Description",
-        )
-        response = self.client.get(f"/wod/wonder/{wonder.id}/")
+        response = self.client.get(f"/wod/wonder/{self.wonder.id}/")
         self.assertTemplateUsed(response, "wod/objects/mage/wonder.html")
         # TODO: Test all templates here

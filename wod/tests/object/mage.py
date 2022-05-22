@@ -11,8 +11,26 @@ from wod.models.object.mage import Grimoire, Library
 # Create your tests here.
 class TestGrimoire(TestCase):
     def setUp(self):
-        self.grimoire = Grimoire()
+        self.grimoire = Grimoire.objects.create(name="Test Grimoire")
         self.faction = MageFaction.objects.create(name="Test Faction")
+        self.abilities = ["science", "art", "crafts"]
+        self.date_written = 1325
+        self.language = Language.objects.create(name="Test Language")
+        self.length = 100
+        self.paradigms = [
+            Paradigm.objects.create(name=f"Test Paradigm {i}") for i in range(3)
+        ]
+        self.practices = [
+            Practice.objects.create(name=f"Test Practice {i}") for i in range(3)
+        ]
+        self.instruments = [
+            Instrument.objects.create(name=f"Test Instrument {i}") for i in range(3)
+        ]
+        self.cover_material = Material.objects.create(name="Test Cover Material")
+        self.inner_material = Material.objects.create(name="Test Inner Material")
+        self.medium = Medium.objects.create(name="Test Medium")
+        self.rotes = [Rote.objects.create(name=f"Test Rote {i}") for i in range(4)]
+        self.spheres = ["correspondence", "forces", "matter"]
 
     def test_set_rank(self):
         self.assertEqual(self.grimoire.rank, 0)
@@ -130,7 +148,7 @@ class TestGrimoire(TestCase):
         self.assertTrue(self.grimoire.has_spheres())
 
     def test_set_rotes(self):
-        self.assertIsNone(self.grimoire.rotes)
+        self.assertEqual(self.grimoire.rotes.count(), 0)
         self.assertTrue(self.grimoire.set_rotes(self.rotes))
         self.assertEqual(set(self.grimoire.rotes), set(self.rotes))
 
@@ -207,7 +225,7 @@ class TestRandomGrimoire(TestCase):
             "correspondence",
             "forces",
             "life",
-            "forces",
+            "matter",
             "mind",
             "time",
             "spirit",
@@ -226,22 +244,20 @@ class TestRandomGrimoire(TestCase):
             p.save()
         for i in range(10):
             p = Paradigm.objects.create(name=f"Test Paradigm {i}")
-            p.practices.add(Practice.objects.get(name=f"Test Practice{i}"))
-            p.practices.add(Practice.objects.get(name=f"Test Practice{i+10}"))
+            p.practices.add(Practice.objects.get(name=f"Test Practice {i}"))
+            p.practices.add(Practice.objects.get(name=f"Test Practice {i+10}"))
             p.save()
             Material.objects.create(name=f"Test Material {i}")
             Language.objects.create(name=f"Test Language {i}")
         for i in range(5):
             m = MageFaction.objects.create(
-                name=f"Test Faction {i}",
-                languages=[
-                    Language.objects.get(name=f"Test Language {i}"),
-                    Language.objects.get(name=f"Test Language {5+i}"),
-                ],
-                affinities=spheres[i : i + 4],
+                name=f"Test Faction {i}", affinities=spheres[i : i + 4],
             )
-            m.paradigms.add(Paradigm.get.objects(name=f"Test Paradigm {i}"))
-            m.paradigms.add(Paradigm.get.objects(name=f"Test Paradigm {5+i}"))
+            m.languages.add(Language.objects.get(name=f"Test Language {i}"))
+            m.languages.add(Language.objects.get(name=f"Test Language {5+i}"))
+            m.save()
+            m.paradigms.add(Paradigm.objects.get(name=f"Test Paradigm {i}"))
+            m.paradigms.add(Paradigm.objects.get(name=f"Test Paradigm {5+i}"))
             m.save()
             for modifier_type in ["+", "-", "*", "/"]:
                 for modifier in [1, 20]:
@@ -266,17 +282,15 @@ class TestRandomGrimoire(TestCase):
         mocker = Mock()
         mocker.side_effect = [0.0001, 0.00001]
         with mock.patch("random.random", mocker):
-            self.assertEqual(self.grimoire.random_rank(None), 4)
-            self.assertEqual(self.grimoire.random_rank(None), 5)
-            self.assertEqual(self.grimoire.random_rank(2), 2)
+            self.assertEqual(self.grimoire.random_rank(), 4)
+            self.assertEqual(self.grimoire.random_rank(), 5)
 
     def test_random_is_primer(self):
         mocker = Mock()
         mocker.side_effect = [0.01, 0.11]
         with mock.patch("random.random", mocker):
-            self.assertTrue(self.grimoire.random_is_primer(None))
-            self.assertFalse(self.grimoire.random_is_primer(None))
-            self.assertTrue(self.grimoire.random_is_primer(True))
+            self.assertTrue(self.grimoire.random_is_primer())
+            self.assertFalse(self.grimoire.random_is_primer())
 
     def test_random_faction(self):
         self.assertFalse(self.grimoire.has_faction())
@@ -285,7 +299,7 @@ class TestRandomGrimoire(TestCase):
 
     def test_random_focus(self):
         self.assertFalse(self.grimoire.has_focus())
-        self.grimoire.random_focus(None, None, None)
+        self.grimoire.random_focus()
         self.assertTrue(self.grimoire.has_focus())
 
     def test_random_abilities(self):
@@ -398,7 +412,7 @@ class TestLibrary(TestCase):
             "correspondence",
             "forces",
             "life",
-            "forces",
+            "matter",
             "mind",
             "time",
             "spirit",
@@ -417,22 +431,20 @@ class TestLibrary(TestCase):
             p.save()
         for i in range(10):
             p = Paradigm.objects.create(name=f"Test Paradigm {i}")
-            p.practices.add(Practice.objects.get(name=f"Test Practice{i}"))
-            p.practices.add(Practice.objects.get(name=f"Test Practice{i+10}"))
+            p.practices.add(Practice.objects.get(name=f"Test Practice {i}"))
+            p.practices.add(Practice.objects.get(name=f"Test Practice {i+10}"))
             p.save()
             Material.objects.create(name=f"Test Material {i}")
             Language.objects.create(name=f"Test Language {i}")
         for i in range(5):
             m = MageFaction.objects.create(
-                name=f"Test Faction {i}",
-                languages=[
-                    Language.objects.get(name=f"Test Language {i}"),
-                    Language.objects.get(name=f"Test Language {5+i}"),
-                ],
-                affinities=spheres[i : i + 4],
+                name=f"Test Faction {i}", affinities=spheres[i : i + 4],
             )
-            m.paradigms.add(Paradigm.get.objects(name=f"Test Paradigm {i}"))
-            m.paradigms.add(Paradigm.get.objects(name=f"Test Paradigm {5+i}"))
+            m.languages.add(Language.objects.get(name=f"Test Language {i}"))
+            m.languages.add(Language.objects.get(name=f"Test Language {5+i}"))
+            m.save()
+            m.paradigms.add(Paradigm.objects.get(name=f"Test Paradigm {i}"))
+            m.paradigms.add(Paradigm.objects.get(name=f"Test Paradigm {5+i}"))
             m.save()
             for modifier_type in ["+", "-", "*", "/"]:
                 for modifier in [1, 20]:
@@ -462,12 +474,12 @@ class TestLibrary(TestCase):
         self.assertEqual(len(self.library), count + 1)
 
     def test_has_books(self):
-        library = Library.objects.create(name="Test Library", rank=3)
-        self.assertEqual(library.books.count(), 0)
-        library.books.add(Grimoire.objects.create(name="Test Grimoire", rank=1))
-        library.books.add(Grimoire.objects.create(name="Test Grimoire", rank=2))
-        library.books.add(Grimoire.objects.create(name="Test Grimoire", rank=3))
-        self.assertEqual(library.books.count(), 1)
+        self.library.rank = 3
+        self.assertEqual(self.library.books.count(), 0)
+        self.library.books.add(Grimoire.objects.create(name="Test Grimoire 1", rank=1))
+        self.library.books.add(Grimoire.objects.create(name="Test Grimoire 2", rank=2))
+        self.library.books.add(Grimoire.objects.create(name="Test Grimoire 3", rank=3))
+        self.assertEqual(self.library.books.count(), 1)
 
     def test_increase_library_rating(self):
         self.assertEqual(len(self.library), 0)
