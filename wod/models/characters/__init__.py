@@ -1,1 +1,1 @@
-from . import human, mage, changeling, werewolf, wraith, vampire
+from . import changeling, human, mage, vampire, werewolf, wraith

@@ -1,1 +1,1 @@
-from . import mortal, vampire, werewolf, mage, changeling, geist, promethean
+from . import changeling, geist, mage, mortal, promethean, vampire, werewolf
