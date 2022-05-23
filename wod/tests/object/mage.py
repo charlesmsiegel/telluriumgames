@@ -510,5 +510,5 @@ class TestLibraryDetailView(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_library_detail_view_template(self):
-        response = self.client.get("/wod/objects/{self.library.id}/")
+        response = self.client.get(f"/wod/objects/{self.library.id}/")
         self.assertTemplateUsed(response, "wod/objects/library/detail.html")

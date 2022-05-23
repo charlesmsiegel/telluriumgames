@@ -1,1 +1,1 @@
-from . import mage
+from . import human, mage

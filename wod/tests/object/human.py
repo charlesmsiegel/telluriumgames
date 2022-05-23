@@ -4,7 +4,7 @@ from wod.models.object.mage import Wonder
 
 
 # Create your tests here.
-class TestIndexView(TestCase):
+class TestObjectIndexView(TestCase):
     def test_index_status_code(self):
         response = self.client.get("/wod/objects/")
         self.assertEqual(response.status_code, 200)
@@ -17,7 +17,7 @@ class TestIndexView(TestCase):
         for i in range(10):
             Wonder.objects.create(name=f"Wonder {i}",)
         response = self.client.post("/wod/objects/")
-        for i in range(15):
+        for i in range(10):
             self.assertContains(response, f"Wonder {i}")
 
 
@@ -33,5 +33,8 @@ class TestObjectDetailView(TestCase):
 
     def test_object_detail_view_templates(self):
         response = self.client.get(f"/wod/wonder/{self.wonder.id}/")
-        self.assertTemplateUsed(response, "wod/objects/mage/wonder.html")
+        self.assertTemplateUsed(response, "wod/objects/mage/wonder/detail.html")
         # TODO: Test all templates here
+
+
+# TODO: Come up with base object
