@@ -10,19 +10,94 @@ class TestMage(TestCase):
         self.user = User.objects.create_user(username="Test")
         self.character = Mage.objects.create(name="", player=self.user.wod_profile)
 
-    # Spheres
-    # Arete
-    # Quintessence
-    # Focus
-    # Spheres
-    # Affinity Sphere
-    # Arete
-    # Paradox
-    pass
+    def test_get_abilities(self):
+        self.fail()
+
+    def test_get_talents(self):
+        self.fail()
+
+    def test_get_skills(self):
+        self.fail()
+
+    def test_get_knowledges(self):
+        self.fail()
+
+    def test_get_spheres(self):
+        self.fail()
+
+    def test_add_sphere(self):
+        self.fail()
+
+    def test_filter_spheres(self):
+        self.fail()
+
+    def test_has_spheres(self):
+        self.fail()
+
+    def test_set_affinity_sphere(self):
+        self.fail()
+
+    def test_has_affinity_sphere(self):
+        self.fail()
+
+    def test_add_arete(self):
+        self.fail()
+
+    def test_add_quintessence(self):
+        self.fail()
+
+    def test_set_faction(self):
+        self.fail()
+
+    def test_has_faction(self):
+        self.fail()
+
+    def test_set_focus(self):
+        self.fail()
+
+    def test_has_focus(self):
+        self.fail()
+
+    def test_freebie_cost(self):
+        self.fail()
+
+    def test_spend_freebies(self):
+        self.fail()
+
+    def test_xp_cost(self):
+        self.fail()
+
+    def test_spend_xp(self):
+        self.fail()
+
+    def test_random_freebies(self):
+        self.fail()
+
+    def test_random_spend_xp(self):
+        self.fail()
+
+    def test_random(self):
+        self.fail()
 
 
 class TestRandomMage(TestCase):
-    pass
+    def test_random_affinity_sphere(self):
+        self.fail()
+
+    def test_random_faction(self):
+        self.fail()
+
+    def test_random_focus(self):
+        self.fail()
+
+    def test_random_sphere(self):
+        self.fail()
+
+    def test_random_spheres(self):
+        self.fail()
+
+    def test_random_arete(self):
+        self.fail()
 
 
 class TestMageDetailView(TestCase):

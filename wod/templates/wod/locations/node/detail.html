@@ -1,0 +1,49 @@
+{% extends "core/base.html" %}
+{% block title %}
+    {{ object.name }}
+{% endblock title %}
+<body>
+    {% block content %}
+        <div class="centertext">
+            {% if object.parent != None %}
+                <div class="row">
+                    <div class="col-sm">Parent</div>
+                    <a class="col-sm" href="{% url 'wod:location' object.parent.id %}">{{ object.parent.name }}</a>
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-sm">Rank</div>
+                <div class="col-sm">{{ object.rank }}</div>
+                <div class="col-sm">Size</div>
+                <div class="col-sm">{{ object.size }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Gauntlet</div>
+                <div class="col-sm">{{ object.gauntlet }}</div>
+                <div class="col-sm">Shroud</div>
+                <div class="col-sm">{{ object.shroud }}</div>
+                <div class="col-sm">Dimension Barrier</div>
+                <div class="col-sm">{{ object.dimension_barrier }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Quintessence per week</div>
+                <div class="col-sm">{{ object.quintessence_per_week }}</div>
+                <div class="col-sm">{{ object.quintessence_form }}</div>
+                <div class="col-sm">Tass per week</div>
+                <div class="col-sm">{{ object.tass_per_week }}</div>
+                <div class="col-sm">{{ object.tass_form }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">{{ object.basic_description }}</div>
+            </div>
+        </div>
+    {% endblock content %}
+</body>
+{% comment %} <body>
+            {% for resonance in object.resratings_set.all %}
+                <tr>
+                    <td>resonance.resonance.name</td>
+                    <td>resonance.rating</td>
+                </tr>
+            {% endfor %}
+{% endblock %} {% endcomment %}
