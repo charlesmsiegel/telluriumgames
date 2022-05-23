@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from wod.models.characters.human import Character, Human
+from wod.models.characters.mage import Mage
 
 
 # Create your tests here.
@@ -305,4 +306,20 @@ class TestHumanDetailView(TestCase):
     def test_mage_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/{self.human.id}/")
         self.assertTemplateUsed(response, "wod/characters/human/human/detail.html")
-        # TODO: Test all templates here
+
+class TestCharacterDetailViews(TestCase):
+    def setUp(self) -> None:
+        self.player = User.objects.create_user(username="Test")
+        self.character = Character.objects.create(name="Test Character", player=self.player.wod_profile)
+        self.human = Human.objects.create(
+            name="Test Human", player=self.player.wod_profile
+        )
+        self.mage = Mage.objects.create(name="Test Mage", player=self.player.wod_profile)
+        
+    def test_mage_detail_view_templates(self):
+        response = self.client.get(f"/wod/characters/{self.character.id}/")
+        self.assertTemplateUsed(response, "wod/characters/character/detail.html")
+        response = self.client.get(f"/wod/characters/{self.human.id}/")
+        self.assertTemplateUsed(response, "wod/characters/human/detail.html")
+        response = self.client.get(f"/wod/characters/{self.mage.id}/")
+        self.assertTemplateUsed(response, "wod/characters/mage/detail.html")

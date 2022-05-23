@@ -33,6 +33,3 @@ class TestItemDetailView(TestCase):
         response = self.client.get(f"/wod/items/{self.item.id}/")
         self.assertTemplateUsed(response, "wod/items/human/item/detail.html")
         # TODO: Test all templates here
-
-
-# TODO: Come up with base object

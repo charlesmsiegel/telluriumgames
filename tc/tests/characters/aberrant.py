@@ -88,7 +88,7 @@ class TestAberrant(TestCase):
         self.assertEqual(self.character.mega_might, 0)
         self.assertTrue(self.character.add_mega_attribute("might"))
         self.assertEqual(self.character.mega_might, 1)
-        # TODO: intellect, cnning, manipulation and composure get bonus edges
+        # TODO: intellect, cunning, manipulation and composure get bonus edges
 
     def set_attributes(self):
         self.character.might = 5

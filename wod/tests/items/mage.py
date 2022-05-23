@@ -219,7 +219,7 @@ class TestRandomGrimoire(TestCase):
             "lore",
             "media",
             "pharmacopeia",
-        ]  # TODO: List Abilities
+        ]
         spheres = [
             "correspondence",
             "forces",
@@ -406,7 +406,7 @@ class TestLibrary(TestCase):
             "lore",
             "media",
             "pharmacopeia",
-        ]  # TODO: List Abilities
+        ]
         spheres = [
             "correspondence",
             "forces",
