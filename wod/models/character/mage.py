@@ -38,3 +38,19 @@ class Rote(models.Model):
     entropy = models.IntegerField(default=0)
     mind = models.IntegerField(default=0)
     prime = models.IntegerField(default=0)
+
+
+class Resonance(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    correspondence = models.BooleanField(default=False)
+    time = models.BooleanField(default=False)
+    spirit = models.BooleanField(default=False)
+    matter = models.BooleanField(default=False)
+    life = models.BooleanField(default=False)
+    forces = models.BooleanField(default=False)
+    entropy = models.BooleanField(default=False)
+    mind = models.BooleanField(default=False)
+    prime = models.BooleanField(default=False)
+    data = models.BooleanField(default=False)
+    dimensional_science = models.BooleanField(default=False)
+    primal_utility = models.BooleanField(default=False)
