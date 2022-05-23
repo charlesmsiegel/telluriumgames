@@ -10,6 +10,6 @@ urlpatterns = [
     ),
     path("locations/", views.LocationIndexView.as_view(), name="location_index"),
     path("locations/<pk>/", views.GenericLocationDetailView.as_view(), name="location"),
-    path("items/<pk>/", views.GenericItemDetailView.as_view(), name="item"),
     path("items/", views.ItemIndexView.as_view(), name="item_index"),
+    path("items/<pk>/", views.GenericItemDetailView.as_view(), name="item"),
 ]

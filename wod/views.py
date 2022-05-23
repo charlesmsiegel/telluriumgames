@@ -60,17 +60,17 @@ class ItemIndexView(View):
 
 class LocationDetailView(DetailView):
     model = Location
-    template_name = "wod/location/location/detail.html"
+    template_name = "wod/locations/location/detail.html"
 
 
 class CityDetailView(DetailView):
     model = City
-    template_name = "wod/location/city/detail.html"
+    template_name = "wod/locations/city/detail.html"
 
 
 class NodeDetailView(DetailView):
     model = Node
-    template_name = "wod/location/node/detail.html"
+    template_name = "wod/locations/node/detail.html"
 
 
 class GenericLocationDetailView(View):
@@ -84,27 +84,27 @@ class GenericLocationDetailView(View):
         loc = Location.objects.get(pk=kwargs["pk"])
         if loc.type in self.views:
             return self.views[loc.type].as_view()(request, *args, **kwargs)
-        return redirect("wod:location")
+        return redirect("wod:location_index")
 
 
 class ItemDetailView(DetailView):
     model = Item
-    template_name = "wod/characters/item/detail.html"
+    template_name = "wod/items/item/detail.html"
 
 
 class WonderDetailView(DetailView):
     model = Wonder
-    template_name = "wod/characters/wonder/detail.html"
+    template_name = "wod/items/wonder/detail.html"
 
 
 class GrimoireDetailView(DetailView):
     model = Grimoire
-    template_name = "wod/characters/grimoire/detail.html"
+    template_name = "wod/items/grimoire/detail.html"
 
 
 class LibraryDetailView(DetailView):
     model = Library
-    template_name = "wod/characters/library/detail.html"
+    template_name = "wod/items/library/detail.html"
 
 
 class GenericItemDetailView(View):
@@ -119,7 +119,7 @@ class GenericItemDetailView(View):
         item = Item.objects.get(pk=kwargs["pk"])
         if item.type in self.views:
             return self.views[item.type].as_view()(request, *args, **kwargs)
-        return redirect("wod:item")
+        return redirect("wod:item_index")
 
 
 class CharacterDetailView(DetailView):

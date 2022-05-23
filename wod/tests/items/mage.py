@@ -7,7 +7,6 @@ from core.models import Language, Material, Medium
 from wod.models.characters.mage import Instrument, MageFaction, Paradigm, Practice, Rote
 from wod.models.items.mage import Grimoire, Library
 
-
 # Create your tests here.
 class TestGrimoire(TestCase):
     def setUp(self):
