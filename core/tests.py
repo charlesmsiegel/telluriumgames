@@ -7,7 +7,7 @@ from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.support.ui import Select
 
-from cod.models.character.mortal import Mortal
+from cod.models.characters.mortal import Mortal
 from core.templatetags.dots import dots
 
 # from game.models import Scene, Story

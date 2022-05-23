@@ -1,3 +1,3 @@
-from .character import *
-from .location import *
-from .object import *
+from .characters import *
+from .locations import *
+from .items import *

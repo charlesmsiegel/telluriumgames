@@ -1,1 +1,1 @@
-from . import character
+from . import characters, locations, items

@@ -1,9 +1,9 @@
 from django.shortcuts import redirect, render
 from django.views.generic import View
 
-from tc.models.character.aberrant import Aberrant
-from tc.models.character.human import Human
-from tc.models.character.talent import Talent
+from tc.models.characters.aberrant import Aberrant
+from tc.models.characters.human import Human
+from tc.models.characters.talent import Talent
 
 
 # Create your views here.

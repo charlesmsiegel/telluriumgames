@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, View
 
 from accounts.models import CoDProfile, TCProfile, WoDProfile
-from cod.models.character.mortal import Mortal
+from cod.models.characters.mortal import Mortal
 
 # from tc.models import Aberrant
 # from wod.models.characters import Character

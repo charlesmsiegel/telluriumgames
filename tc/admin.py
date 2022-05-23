@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from tc.models.character.aberrant import Aberrant, MegaEdge, Power, Tag, Transformation
-from tc.models.character.human import Edge, EnhancedEdge, Human, Path, Specialty, Trick
-from tc.models.character.talent import Gift, MomentOfInspiration, Talent
+from tc.models.characters.aberrant import Aberrant, MegaEdge, Power, Tag, Transformation
+from tc.models.characters.human import Edge, EnhancedEdge, Human, Path, Specialty, Trick
+from tc.models.characters.talent import Gift, MomentOfInspiration, Talent
 
 # Register your models here.
 admin.site.register(Human)
