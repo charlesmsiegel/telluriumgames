@@ -3,13 +3,13 @@ from polymorphic.models import PolymorphicModel
 
 from core.models import Language, Material, Medium
 from wod.models.characters.mage import Instrument, MageFaction, Paradigm, Practice, Rote
+from wod.models.items.human import Item
 
 
 # Create your models here.
-class Wonder(PolymorphicModel):
+class Wonder(Item):
     type = "wonder"
 
-    name = models.CharField(max_length=100, unique=True)
     rank = models.IntegerField(default=0)
     background_cost = models.IntegerField(default=0)
     quintessence_max = models.IntegerField(default=0)

@@ -27,7 +27,10 @@ class TestRandomMage(TestCase):
 
 class TestMageDetailView(TestCase):
     def setUp(self) -> None:
-        self.mage = Mage.objects.create(name="Test Mage")
+        self.player = User.objects.create_user(username="User1", password="12345")
+        self.mage = Mage.objects.create(
+            name="Test Mage", player=self.player.wod_profile
+        )
 
     def test_mage_detail_view_status_code(self):
         response = self.client.get(f"/wod/characters/{self.mage.id}/")

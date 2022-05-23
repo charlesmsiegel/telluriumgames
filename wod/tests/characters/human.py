@@ -74,8 +74,9 @@ class TestCharacterIndexView(TestCase):
         self.assertTemplateUsed(response, "wod/characters/index.html")
 
     def test_index_content(self):
+        player = User.objects.create_user(username="User1", password="12345")
         for i in range(10):
-            Human.objects.create(name=f"Human {i}",)
+            Human.objects.create(name=f"Human {i}", player=player.wod_profile)
         response = self.client.post("/wod/characters/")
         for i in range(10):
             self.assertContains(response, f"Human {i}")
@@ -83,7 +84,10 @@ class TestCharacterIndexView(TestCase):
 
 class TestHumanDetailView(TestCase):
     def setUp(self) -> None:
-        self.human = Human.objects.create(name="Test Human")
+        self.player = User.objects.create_user(username="Test")
+        self.human = Human.objects.create(
+            name="Test Human", player=self.player.wod_profile
+        )
 
     def test_mage_detail_view_status_code(self):
         response = self.client.get(f"/wod/characters/{self.human.id}/")

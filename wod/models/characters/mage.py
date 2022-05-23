@@ -1,6 +1,7 @@
 from django.db import models
 
 from core.models import Language, Material, Medium
+from wod.models.characters.human import Human
 
 
 # Create your models here.
@@ -54,3 +55,7 @@ class Resonance(models.Model):
     data = models.BooleanField(default=False)
     dimensional_science = models.BooleanField(default=False)
     primal_utility = models.BooleanField(default=False)
+
+
+class Mage(Human):
+    type = "mage"
