@@ -493,12 +493,12 @@ class TestGrimoireDetailView(TestCase):
         self.grimoire = Grimoire.objects.create(name="Test Grimoire")
 
     def test_grimoire_detail_view_status_code(self):
-        response = self.client.get(f"/wod/objects/{self.grimoire.id}/")
+        response = self.client.get(f"/wod/items/{self.grimoire.id}/")
         self.assertEqual(response.status_code, 200)
 
     def test_grimoire_detail_view_template(self):
-        response = self.client.get(f"/wod/objects/{self.grimoire.id}/")
-        self.assertTemplateUsed(response, "wod/objects/grimoire/detail.html")
+        response = self.client.get(f"/wod/items/{self.grimoire.id}/")
+        self.assertTemplateUsed(response, "wod/items/grimoire/detail.html")
 
 
 class TestLibraryDetailView(TestCase):
@@ -506,9 +506,9 @@ class TestLibraryDetailView(TestCase):
         self.library = Library.objects.create(name="Test Library")
 
     def test_library_detail_view_status_code(self):
-        response = self.client.get(f"/wod/objects/{self.library.id}/")
+        response = self.client.get(f"/wod/items/{self.library.id}/")
         self.assertEqual(response.status_code, 200)
 
     def test_library_detail_view_template(self):
-        response = self.client.get(f"/wod/objects/{self.library.id}/")
-        self.assertTemplateUsed(response, "wod/objects/library/detail.html")
+        response = self.client.get(f"/wod/items/{self.library.id}/")
+        self.assertTemplateUsed(response, "wod/items/library/detail.html")
