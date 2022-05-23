@@ -9,6 +9,13 @@ class Location(PolymorphicModel):
     type = "location"
 
     name = models.CharField(max_length=100, unique=True)
+    parent = models.ForeignKey(
+        "Location",
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="children",
+    )
 
 
 class City(Location):

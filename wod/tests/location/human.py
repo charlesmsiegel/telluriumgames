@@ -6,7 +6,17 @@ from wod.models.location.human import City, Location
 
 
 # Create your tests here.
-class CityTests(TestCase):
+class TestLocation(TestCase):
+    def setUp(self) -> None:
+        self.location = Location.objects.create(name="Location 1")
+        self.child = Location.objects.create(name="Location 2", parent=self.location)
+
+    def test_location_parent(self):
+        self.assertEqual(self.child.parent, self.location)
+        self.assertIn(self.child, self.location.children.all())
+
+
+class TestCity(TestCase):
     """Manage Tests for City"""
 
     def test_add_character(self):
@@ -36,7 +46,7 @@ class TestLocationIndexView(TestCase):
 
 class TestLocationDetailView(TestCase):
     def setUp(self) -> None:
-        self.location = Location.objects.create(name="Test Location")
+        self.location = Location.objects.create(name="Location 1")
 
     def test_location_detail_view_status_code(self):
         response = self.client.get(f"/wod/locations/{self.location.id}/")
