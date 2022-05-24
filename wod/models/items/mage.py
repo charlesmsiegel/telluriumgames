@@ -6,7 +6,14 @@ from django.db import models
 
 from core.models import Language, Material, Medium
 from core.utils import weighted_choice
-from wod.models.characters.mage import Instrument, MageFaction, Paradigm, Practice, Rote
+from wod.models.characters.mage import (
+    Instrument,
+    Mage,
+    MageFaction,
+    Paradigm,
+    Practice,
+    Rote,
+)
 from wod.models.items.human import Item
 
 
@@ -63,7 +70,21 @@ class Grimoire(Wonder):
         return self.abilities != []
 
     def random_abilities(self, abilities=None):
-        pass
+        if abilities is None:
+            abilities = []
+            ability_dict = Mage(name="TMP").get_abilities()
+            if self.practices.count() > 0:
+                for practice in self.practices.all():
+                    for ability in practice.abilities:
+                        ability_dict[ability] += 1
+            abilities.append(weighted_choice(ability_dict))
+            while random.random() < 0.1:
+                abilities.append(
+                    weighted_choice(
+                        {k: v for k, v in ability_dict.items() if k not in abilities}
+                    )
+                )
+        self.set_abilities(abilities)
 
     def set_date_written(self, date_written):
         self.date_written = date_written
@@ -125,12 +146,13 @@ class Grimoire(Wonder):
             if self.faction is not None:
                 if self.faction.languages.count() > 0:
                     languages = self.faction.languages.all()
+                    language = weighted_choice({x: x.frequency for x in languages})
                 else:
                     languages = Language.objects.all()
+                    language = weighted_choice({x: x.frequency for x in languages})
             else:
                 languages = Language.objects.all()
-        else:
-            language = weighted_choice({x: x.frequency for x in languages})
+                language = weighted_choice({x: x.frequency for x in languages})
         self.set_language(language)
 
     def set_length(self, length):
@@ -141,7 +163,21 @@ class Grimoire(Wonder):
         return self.length != 0
 
     def random_length(self, length=None):
-        pass
+        if length is None:
+            length = int(200 * (random.random() + random.random()) + 50)
+            if self.is_primer:
+                length += 50
+            if self.medium is not None:
+                if self.medium.length_modifier_type == "/":
+                    length /= self.medium.length_modifier
+                elif self.medium.length_modifier_type == "+":
+                    length += self.medium.length_modifier
+                elif self.medium.length_modifier_type == "*":
+                    length *= self.medium.length_modifier
+                elif self.medium.length_modifier_type == "-":
+                    length -= self.medium.length_modifier
+            length = int(length)
+        self.set_length(length)
 
     def set_materials(self, cover_material, inner_material):
         self.cover_material = cover_material
@@ -223,7 +259,20 @@ class Grimoire(Wonder):
         return self.spheres != []
 
     def random_spheres(self, spheres=None):
-        pass
+        if spheres is None:
+            spheres = []
+            sphere_dict = Mage(name="TMP").get_spheres()
+            if self.faction is not None:
+                for sphere in self.faction.affinities:
+                    sphere_dict[sphere] += 1
+            spheres.append(weighted_choice(sphere_dict))
+            while random.random() < 0.1:
+                spheres.append(
+                    weighted_choice(
+                        {k: v for k, v in sphere_dict.items() if k not in spheres}
+                    )
+                )
+        self.set_spheres(spheres)
 
     def set_is_primer(self, is_primer):
         self.is_primer = is_primer
@@ -233,7 +282,8 @@ class Grimoire(Wonder):
         if is_primer is None:
             if random.random() < 0.1:
                 is_primer = True
-            is_primer = False
+            else:
+                is_primer = False
         self.set_is_primer(is_primer)
 
     def random(

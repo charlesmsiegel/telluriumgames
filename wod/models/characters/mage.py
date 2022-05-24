@@ -53,10 +53,82 @@ class Resonance(models.Model):
     entropy = models.BooleanField(default=False)
     mind = models.BooleanField(default=False)
     prime = models.BooleanField(default=False)
-    data = models.BooleanField(default=False)
-    dimensional_science = models.BooleanField(default=False)
-    primal_utility = models.BooleanField(default=False)
 
 
 class Mage(Human):
     type = "mage"
+
+    def get_abilities(self):
+        return {
+            "alertness": 0,
+            "awareness": 0,
+            "art": 0,
+            "athletics": 0,
+            "brawl": 0,
+            "empathy": 0,
+            "intimidation": 0,
+            "leadership": 0,
+            "expression": 0,
+            "streetwise": 0,
+            "subterfuge": 0,
+            "animal_kinship": 0,
+            "blatancy": 0,
+            "carousing": 0,
+            "do": 0,
+            "flying": 0,
+            "high_ritual": 0,
+            "lucid_dreaming": 0,
+            "search": 0,
+            "seduction": 0,
+            "crafts": 0,
+            "drive": 0,
+            "etiquette": 0,
+            "firearms": 0,
+            "martial_arts": 0,
+            "meditation": 0,
+            "melee": 0,
+            "research": 0,
+            "stealth": 0,
+            "survival": 0,
+            "technology": 0,
+            "acrobatics": 0,
+            "archery": 0,
+            "biotech": 0,
+            "energy_weapons": 0,
+            "hypertech": 0,
+            "jetpack": 0,
+            "riding": 0,
+            "torture": 0,
+            "academics": 0,
+            "computer": 0,
+            "cosmology": 0,
+            "enigmas": 0,
+            "esoterica": 0,
+            "investigation": 0,
+            "law": 0,
+            "medicine": 0,
+            "occult": 0,
+            "politics": 0,
+            "science": 0,
+            "area_knowledge": 0,
+            "belief_systems": 0,
+            "cryptography": 0,
+            "demolitions": 0,
+            "finance": 0,
+            "lore": 0,
+            "media": 0,
+            "pharmacopeia": 0,
+        }
+
+    def get_spheres(self):
+        return {
+            "correspondence": 0,
+            "time": 0,
+            "spirit": 0,
+            "mind": 0,
+            "entropy": 0,
+            "prime": 0,
+            "forces": 0,
+            "matter": 0,
+            "life": 0,
+        }

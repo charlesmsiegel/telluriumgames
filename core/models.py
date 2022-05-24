@@ -17,7 +17,7 @@ class Medium(models.Model):
 
     name = models.TextField(default="")
     length_modifier_type = models.CharField(
-        max_length=200, default="division", blank=True, null=True
+        max_length=1, default="/", blank=True, null=True
     )
     length_modifier = models.IntegerField(default=1, blank=True, null=True)
 

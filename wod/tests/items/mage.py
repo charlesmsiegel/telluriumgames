@@ -248,7 +248,7 @@ class TestRandomGrimoire(TestCase):
             p.practices.add(Practice.objects.get(name=f"Test Practice {i+10}"))
             p.save()
             Material.objects.create(name=f"Test Material {i}")
-            Language.objects.create(name=f"Test Language {i}")
+            Language.objects.create(name=f"Test Language {i}", frequency=i)
         for i in range(5):
             m = MageFaction.objects.create(
                 name=f"Test Faction {i}", affinities=spheres[i : i + 4],
@@ -282,15 +282,19 @@ class TestRandomGrimoire(TestCase):
         mocker = Mock()
         mocker.side_effect = [0.0001, 0.00001]
         with mock.patch("random.random", mocker):
-            self.assertEqual(self.grimoire.random_rank(), 4)
-            self.assertEqual(self.grimoire.random_rank(), 5)
+            self.grimoire.random_rank()
+            self.assertEqual(self.grimoire.rank, 4)
+            self.grimoire.random_rank()
+            self.assertEqual(self.grimoire.rank, 5)
 
     def test_random_is_primer(self):
         mocker = Mock()
         mocker.side_effect = [0.01, 0.11]
         with mock.patch("random.random", mocker):
-            self.assertTrue(self.grimoire.random_is_primer())
-            self.assertFalse(self.grimoire.random_is_primer())
+            self.grimoire.random_is_primer()
+            self.assertTrue(self.grimoire.is_primer)
+            self.grimoire.random_is_primer()
+            self.assertFalse(self.grimoire.is_primer)
 
     def test_random_faction(self):
         self.assertFalse(self.grimoire.has_faction())
