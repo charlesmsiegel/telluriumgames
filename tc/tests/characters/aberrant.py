@@ -14,6 +14,38 @@ from tc.models.characters.human import Edge, Path, Specialty, Trick
 
 
 # Create your tests here.
+class TestPower(TestCase):
+    def test_action_type_choices(self):
+        # choices=[("REF", "Reflexive"), ("ORD", "Ordinary"),]
+        self.fail()
+        
+    def test_dice_pool(self):
+        self.fail()
+        
+    def test_range_choices(self):
+        # choices=[
+        #     ("PER", "Personal"),
+        #     ("CLO", "Close"),
+        #     ("SHO", "Short"),
+        #     ("MED", "Medium"),
+        #     ("LON", "Long"),
+        #     ("EXT", "Extreme"),
+        #     ("VIS", "Visual"),
+        # ],
+        self.fail()
+        
+    def test_duration_choices(self):
+        # choices=[
+        #     ("INST", "Instantaneous"),
+        #     ("CONC", "Concentration"),
+        #     ("MAIN", "Maintained"),
+        #     ("CONT", "Continuous"),
+        # ],
+        self.fail()
+        
+    def test_cost_and_reduced_price_tag(self):
+        self.fail()
+
 class TestAberrant(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
@@ -89,6 +121,10 @@ class TestAberrant(TestCase):
         self.assertTrue(self.character.add_mega_attribute("might"))
         self.assertEqual(self.character.mega_might, 1)
         # TODO: intellect, cunning, manipulation and composure get bonus edges
+        # Intellect gets dots value worth of Iron Will, Lightning Calculator, Photographic Memory, and Speed Reading
+        # Cunning gets all Keen Senses if > 0
+        # Manipulation gets dots equal to value of Animal Ken, Skilled Liar, Striking, and Wealth
+        # Composure gets dots equal to rating in Always Prepared, Covert, Danger Sense, Iron Will, or for 2 points if the nova has Iron Will 3, get Indomitable Enhanced Edge
 
     def set_attributes(self):
         self.character.might = 5
@@ -312,6 +348,9 @@ class TestAberrant(TestCase):
         self.assertEqual(self.character.transcendence, 4)
         self.assertEqual(self.character.quantum, 7)
         self.assertIn(t, self.character.transformations.all())
+
+    def test_add_flux(self):
+        self.fail()
 
     def test_add_transformation(self):
         for i in range(10):

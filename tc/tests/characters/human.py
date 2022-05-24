@@ -15,6 +15,13 @@ from tc.models.characters.talent import Talent
 
 
 # Create your tests here.
+class TestPath(TestCase):
+    def test_has_connection(self):
+        self.fail()
+    
+    def test_set_connect(self):
+        self.fail()
+
 class TestHuman(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
@@ -615,6 +622,10 @@ class TestHuman(TestCase):
         self.assertTrue(self.character.spend_xp("Favor FIN"))
         self.assertEqual(self.character.xp, 921)
         self.assertEqual(self.character.approach, "FIN")
+
+    def test_spent_xp(self):
+        # This will test keeping a record of XP expenditures
+        self.fail()
 
     def test_get_absolute_url(self):
         self.assertEqual(

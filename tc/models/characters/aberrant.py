@@ -286,7 +286,9 @@ class Aberrant(Human):
         quantum_flag = self.quantum == 1
         return attributes_flag and edges_flag and xp_flag and quantum_flag
 
-    # TODO: Random XP Spend extension
+    def random_xp(self):
+        # TODO: Random XP Spend extension
+        pass
 
     def xp_cost(self, trait_type, transcendence=False):
         cost = super().xp_cost(trait_type)
