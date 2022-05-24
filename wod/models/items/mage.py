@@ -1,9 +1,11 @@
+import datetime
 import math
 import random
 
 from django.db import models
 
 from core.models import Language, Material, Medium
+from core.utils import weighted_choice
 from wod.models.characters.mage import Instrument, MageFaction, Paradigm, Practice, Rote
 from wod.models.items.human import Item
 
@@ -70,8 +72,17 @@ class Grimoire(Wonder):
     def has_date_written(self):
         return self.date_written != -5000
 
-    def random_date_written(self):
-        pass
+    def random_date_written(self, date_written=None):
+        if date_written is None:
+            if self.faction is not None:
+                if self.faction.founded is not None:
+                    date_written = random.randint(
+                        self.faction.founded, datetime.datetime.now().year + 1
+                    )
+            date_written = random.randint(
+                datetime.datetime.now().year - 100, datetime.datetime.now().year + 1
+            )
+        self.set_date_written(date_written)
 
     def set_faction(self, faction):
         self.faction = faction
@@ -107,8 +118,18 @@ class Grimoire(Wonder):
     def has_language(self):
         return self.language is not None
 
-    def random_language(self):
-        pass
+    def random_language(self, language=None):
+        if language is None:
+            if self.faction is not None:
+                if self.faction.languages.count() > 0:
+                    languages = self.faction.languages.all()
+                else:
+                    languages = Language.objects.all()
+            else:
+                languages = Language.objects.all()
+        else:
+            language = weighted_choice({x: x.frequency for x in languages})
+        self.set_language(language)
 
     def set_length(self, length):
         self.length = length
@@ -182,8 +203,12 @@ class Grimoire(Wonder):
         self.is_primer = is_primer
         return True
 
-    def random_is_primer(self):
-        pass
+    def random_is_primer(self, is_primer=None):
+        if is_primer is None:
+            if random.random() < 0.1:
+                is_primer = True
+            is_primer = False
+        self.set_is_primer(is_primer)
 
     def random(self, rank=None):
         pass
