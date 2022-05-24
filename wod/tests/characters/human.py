@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from wod.models.characters.human import Character, Human
+from wod.models.characters.human import Character, Human, Archetype
 from wod.models.characters.mage import Mage
 
 
@@ -38,24 +38,118 @@ class TestHuman(TestCase):
     def setUp(self) -> None:
         self.user = User.objects.create_user(username="Test")
         self.character = Human.objects.create(name="", player=self.user.wod_profile)
+        for i in range(10):
+            Archetype.objects.create(name=f"Archetype {i}")
 
     def test_has_archetypes(self):
-        self.fail()
+        self.assertFalse(self.character.has_archetypes())
+        self.character.nature = Archetype.objects.first()
+        self.character.demeanor = Archetype.objects.first()
+        self.assertTrue(self.character.has_archetypes())
 
-    def test_archetypes(self):
-        self.fail()
+    def test_set_archetypes(self):
+        self.assertFalse(self.character.has_archetypes())
+        self.assertTrue(self.character.set_archetypes(Archetype.objects.first(), Archetype.objects.first()))
+        self.assertTrue(self.character.has_archetypes())
+
+    def set_attributes(self):
+        self.character.strength = 5
+        self.character.dexterity = 4
+        self.character.stamina = 3
+        self.character.perception = 2
+        self.character.intelligence = 1
+        self.character.wits = 2
+        self.character.charisma = 3
+        self.character.manipulation = 4
+        self.character.appearance = 5
 
     def test_get_attributes(self):
-        self.fail()
+        self.assertEqual(
+            self.character.get_attributes(),
+            {
+                "strength": 1,
+                "dexterity": 1,
+                "stamina": 1,
+                "perception": 1,
+                "intelligence": 1,
+                "wits": 1,
+                "charisma": 1,
+                "manipulation": 1,
+                "appearance": 1,
+            }
+        )
+        self.set_attributes()
+        self.assertEqual(
+            self.character.get_attributes(),
+            {
+                "strength": 5,
+                "dexterity": 4,
+                "stamina": 3,
+                "perception": 2,
+                "intelligence": 1,
+                "wits": 2,
+                "charisma": 3,
+                "manipulation": 4,
+                "appearance": 5,
+            }
+        )
 
     def test_get_physical_attributes(self):
-        self.fail()
+        self.assertEqual(
+            self.character.get_physical_attributes(),
+            {
+                "strength": 1,
+                "dexterity": 1,
+                "stamina": 1,
+            }
+        )
+        self.set_attributes()
+        self.assertEqual(
+            self.character.get_physical_attributes(),
+            {
+                "strength": 5,
+                "dexterity": 4,
+                "stamina": 3,
+            }
+        )
 
     def test_get_mental_attributes(self):
-        self.fail()
+        self.assertEqual(
+            self.character.get_mental_attributes(),
+            {
+                "perception": 1,
+                "intelligence": 1,
+                "wits": 1,
+            }
+        )
+        self.set_attributes()
+        self.assertEqual(
+            self.character.get_mental_attributes(),
+            {
+                "perception": 2,
+                "intelligence": 1,
+                "wits": 2,
+            }
+        )
 
     def test_get_social_attributes(self):
-        self.fail()
+        self.assertEqual(
+            self.character.get_social_attributes(),
+            {
+                "charisma": 1,
+                "manipulation": 1,
+                "appearance": 1,
+            }
+        )
+        self.set_attributes()
+        self.assertEqual(
+            self.character.get_social_attributes(),
+            {
+                "charisma": 3,
+                "manipulation": 4,
+                "appearance": 5,
+            }
+        )
 
     def test_add_attribute(self):
         self.character.strength = 1
