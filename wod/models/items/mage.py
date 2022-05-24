@@ -1,5 +1,7 @@
+import math
+import random
+
 from django.db import models
-from polymorphic.models import PolymorphicModel
 
 from core.models import Language, Material, Medium
 from wod.models.characters.mage import Instrument, MageFaction, Paradigm, Practice, Rote
@@ -20,19 +22,13 @@ class Grimoire(Wonder):
 
     abilities = models.JSONField(default=list)
     spheres = models.JSONField(default=list)
-    date_written = models.IntegerField(default=2022)
+    date_written = models.IntegerField(default=-5000)
     faction = models.ForeignKey(
         MageFaction, null=True, blank=True, on_delete=models.CASCADE
     )
-    paradigms = models.ForeignKey(
-        Paradigm, null=True, blank=True, on_delete=models.CASCADE
-    )
-    practices = models.ForeignKey(
-        Practice, null=True, blank=True, on_delete=models.CASCADE
-    )
-    instruments = models.ForeignKey(
-        Instrument, null=True, blank=True, on_delete=models.CASCADE
-    )
+    paradigms = models.ManyToManyField(Paradigm, blank=True)
+    practices = models.ManyToManyField(Practice, blank=True)
+    instruments = models.ManyToManyField(Instrument, blank=True)
     is_primer = models.BooleanField(default=False)
     language = models.ForeignKey(
         Language, null=True, blank=True, on_delete=models.CASCADE
@@ -56,46 +52,60 @@ class Grimoire(Wonder):
     rotes = models.ManyToManyField(Rote, blank=True)
 
     def set_abilities(self, abilities):
-        pass
+        if not isinstance(abilities, list):
+            return False
+        self.abilities = abilities
+        return True
 
     def has_abilities(self):
-        pass
+        return self.abilities != []
 
     def random_abilities(self):
         pass
 
     def set_date_written(self, date_written):
-        pass
+        self.date_written = date_written
+        return True
 
     def has_date_written(self):
-        pass
+        return self.date_written != -5000
 
     def random_date_written(self):
         pass
 
     def set_faction(self, faction):
-        pass
+        self.faction = faction
+        return True
 
     def has_faction(self):
-        pass
+        return self.faction is not None
 
     def random_faction(self):
         pass
 
     def set_focus(self, paradigms, practices, instruments):
-        pass
+        self.paradigms.set(paradigms)
+        self.practices.set(practices)
+        self.instruments.set(instruments)
+        self.save()
+        return True
 
     def has_focus(self):
-        pass
+        return (
+            self.paradigms.count() != 0
+            and self.practices.count() != 0
+            and self.instruments.count() != 0
+        )
 
     def random_focus(self):
         pass
 
     def set_language(self, language):
-        pass
+        self.language = language
+        return True
 
     def has_language(self):
-        pass
+        return self.language is not None
 
     def random_language(self):
         pass
@@ -128,13 +138,18 @@ class Grimoire(Wonder):
         pass
 
     def set_rank(self, rank):
-        pass
+        self.rank = rank
+        return True
 
     def has_rank(self):
-        pass
+        return self.rank != 0
 
-    def random_rank(self):
-        pass
+    def random_rank(self, rank=None):
+        if rank is None:
+            roll = 1 / random.random()
+            roll = int(math.log(roll, 10))
+            rank = max(min(roll, 5), 1)
+        self.set_rank(rank)
 
     def set_rotes(self, rotes):
         pass
@@ -146,10 +161,13 @@ class Grimoire(Wonder):
         pass
 
     def set_spheres(self, spheres):
-        pass
+        if not isinstance(spheres, list):
+            return False
+        self.spheres = spheres
+        return True
 
     def has_spheres(self):
-        pass
+        return self.spheres != []
 
     def random_spheres(self):
         pass
@@ -160,19 +178,32 @@ class Grimoire(Wonder):
     def random_is_primer(self):
         pass
 
-    def random(self):
+    def random(self, rank=None):
         pass
 
 
 class Library(Wonder):
     type = "library"
+
     books = models.ManyToManyField(Grimoire, blank=True)
 
     def add_book(self, grimoire):
-        pass
+        self.books.add(grimoire)
+        self.save()
+        return True
 
-    def increase_rank(self):
-        pass
+    def increase_rank(self, book=None):
+        if book is None or book in self.books.all():
+            self.rank += 1
+            self.random_book()
+        else:
+            self.rank += 1
+            self.add_book(book)
 
-    def __len__(self):
-        return 0
+    def random_book(self):
+        book = Grimoire.objects.create(name=f"Random Book {self.num_books() + 1}")
+        book.random(rank=self.rank)
+        return self.add_book(book)
+
+    def num_books(self):
+        return self.books.count()
