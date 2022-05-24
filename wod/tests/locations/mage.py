@@ -70,9 +70,6 @@ class TestNode(TestCase):
             prime=True,
             spirit=True,
             mind=True,
-            data=True,
-            primal_utility=True,
-            dimensional_science=True,
         )
         self.node.merits_and_flaws.add(merit1)
         self.node.merits_and_flaws.add(merit2)

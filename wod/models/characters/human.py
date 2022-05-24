@@ -5,6 +5,10 @@ from accounts.models import WoDProfile
 
 
 # Create your models here.
+class Archetype(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+
 class Character(PolymorphicModel):
     type = "character"
 
@@ -26,7 +30,29 @@ class Character(PolymorphicModel):
     def set_name(self, name):
         pass
 
+
+class Human(Character):
+    type = "human"
+
+    def has_archetypes(self):
+        pass
+
+    def set_archetypes(self, nature, demeanor):
+        pass
+
     def add_attribute(self, attribute):
+        pass
+
+    def get_attributes(self):
+        pass
+
+    def get_physical_attributes(self):
+        pass
+
+    def get_social_attributes(self):
+        pass
+
+    def get_mental_attributes(self):
         pass
 
     def total_physical_attributes(self):
@@ -49,7 +75,3 @@ class Character(PolymorphicModel):
 
     def total_knowledges(self):
         return 0
-
-
-class Human(Character):
-    type = "human"

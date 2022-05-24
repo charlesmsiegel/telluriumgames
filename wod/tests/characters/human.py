@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from wod.models.characters.human import Character, Human, Archetype
+from wod.models.characters.human import Archetype, Character, Human
 from wod.models.characters.mage import Mage
 
 
@@ -49,7 +49,11 @@ class TestHuman(TestCase):
 
     def test_set_archetypes(self):
         self.assertFalse(self.character.has_archetypes())
-        self.assertTrue(self.character.set_archetypes(Archetype.objects.first(), Archetype.objects.first()))
+        self.assertTrue(
+            self.character.set_archetypes(
+                Archetype.objects.first(), Archetype.objects.first()
+            )
+        )
         self.assertTrue(self.character.has_archetypes())
 
     def set_attributes(self):
@@ -76,7 +80,7 @@ class TestHuman(TestCase):
                 "charisma": 1,
                 "manipulation": 1,
                 "appearance": 1,
-            }
+            },
         )
         self.set_attributes()
         self.assertEqual(
@@ -91,64 +95,40 @@ class TestHuman(TestCase):
                 "charisma": 3,
                 "manipulation": 4,
                 "appearance": 5,
-            }
+            },
         )
 
     def test_get_physical_attributes(self):
         self.assertEqual(
             self.character.get_physical_attributes(),
-            {
-                "strength": 1,
-                "dexterity": 1,
-                "stamina": 1,
-            }
+            {"strength": 1, "dexterity": 1, "stamina": 1,},
         )
         self.set_attributes()
         self.assertEqual(
             self.character.get_physical_attributes(),
-            {
-                "strength": 5,
-                "dexterity": 4,
-                "stamina": 3,
-            }
+            {"strength": 5, "dexterity": 4, "stamina": 3,},
         )
 
     def test_get_mental_attributes(self):
         self.assertEqual(
             self.character.get_mental_attributes(),
-            {
-                "perception": 1,
-                "intelligence": 1,
-                "wits": 1,
-            }
+            {"perception": 1, "intelligence": 1, "wits": 1,},
         )
         self.set_attributes()
         self.assertEqual(
             self.character.get_mental_attributes(),
-            {
-                "perception": 2,
-                "intelligence": 1,
-                "wits": 2,
-            }
+            {"perception": 2, "intelligence": 1, "wits": 2,},
         )
 
     def test_get_social_attributes(self):
         self.assertEqual(
             self.character.get_social_attributes(),
-            {
-                "charisma": 1,
-                "manipulation": 1,
-                "appearance": 1,
-            }
+            {"charisma": 1, "manipulation": 1, "appearance": 1,},
         )
         self.set_attributes()
         self.assertEqual(
             self.character.get_social_attributes(),
-            {
-                "charisma": 3,
-                "manipulation": 4,
-                "appearance": 5,
-            }
+            {"charisma": 3, "manipulation": 4, "appearance": 5,},
         )
 
     def test_add_attribute(self):
@@ -415,7 +395,7 @@ class TestCharacterDetailViews(TestCase):
             name="Test Mage", player=self.player.wod_profile
         )
 
-    def test_mage_detail_view_templates(self):
+    def test_character_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/{self.character.id}/")
         self.assertTemplateUsed(response, "wod/characters/character/detail.html")
         response = self.client.get(f"/wod/characters/{self.human.id}/")

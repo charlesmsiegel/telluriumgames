@@ -113,5 +113,4 @@ class TestMageDetailView(TestCase):
 
     def test_mage_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/{self.mage.id}/")
-        self.assertTemplateUsed(response, "wod/characters/mage/mage/detail.html")
-        # TODO: Test all templates here
+        self.assertTemplateUsed(response, "wod/characters/mage/detail.html")
