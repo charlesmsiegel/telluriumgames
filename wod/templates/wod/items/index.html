@@ -10,9 +10,9 @@
                     <h2>Objects</h2>
                 </div>
             </div>
-            {% for obj in objects %}
+            {% for obj in items %}
                 <div class="row border">
-                    <a class="col-sm border" href="{% url 'wod:wonder' obj.id %}">{{ obj.name }}</a>
+                    <a class="col-sm border" href="{% url 'wod:item' obj.id %}">{{ obj.name }}</a>
                 </div>
             {% endfor %}
         </div>

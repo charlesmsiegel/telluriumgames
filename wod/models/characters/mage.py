@@ -26,6 +26,7 @@ class MageFaction(models.Model):
     affinities = models.JSONField(default=list)
     paradigms = models.ManyToManyField(Paradigm, blank=True)
     media = models.ManyToManyField(Medium, blank=True)
+    founded = models.IntegerField(default=-5000)
 
 
 class Rote(models.Model):

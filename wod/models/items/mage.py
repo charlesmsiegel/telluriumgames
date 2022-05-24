@@ -62,7 +62,7 @@ class Grimoire(Wonder):
     def has_abilities(self):
         return self.abilities != []
 
-    def random_abilities(self):
+    def random_abilities(self, abilities=None):
         pass
 
     def set_date_written(self, date_written):
@@ -91,8 +91,10 @@ class Grimoire(Wonder):
     def has_faction(self):
         return self.faction is not None
 
-    def random_faction(self):
-        pass
+    def random_faction(self, faction=None):
+        if faction is None:
+            faction = MageFaction.objects.order_by("?").first()
+        self.set_faction(faction)
 
     def set_focus(self, paradigms, practices, instruments):
         self.paradigms.set(paradigms)
@@ -108,7 +110,7 @@ class Grimoire(Wonder):
             and self.instruments.count() != 0
         )
 
-    def random_focus(self):
+    def random_focus(self, paradigms=None, practices=None, instruments=None):
         pass
 
     def set_language(self, language):
@@ -138,7 +140,7 @@ class Grimoire(Wonder):
     def has_length(self):
         return self.length != 0
 
-    def random_length(self):
+    def random_length(self, length=None):
         pass
 
     def set_materials(self, cover_material, inner_material):
@@ -149,8 +151,24 @@ class Grimoire(Wonder):
     def has_materials(self):
         return self.cover_material is not None and self.inner_material is not None
 
-    def random_material(self):
-        pass
+    def random_material(self, cover_material=None, inner_material=None):
+        if cover_material is None:
+            if self.faction is None:
+                if self.faction.materials.count() > 0:
+                    cover_material = self.faction.materials.order_by("?").first()
+                else:
+                    cover_material = Material.objects.order_by("?").first()
+            else:
+                cover_material = Material.objects.order_by("?").first()
+        if inner_material is None:
+            if self.faction is None:
+                if self.faction.materials.count() > 0:
+                    inner_material = self.faction.materials.order_by("?").first()
+                else:
+                    inner_material = Material.objects.order_by("?").first()
+            else:
+                inner_material = Material.objects.order_by("?").first()
+        self.set_materials(cover_material, inner_material)
 
     def set_medium(self, medium):
         self.medium = medium
@@ -159,8 +177,16 @@ class Grimoire(Wonder):
     def has_medium(self):
         return self.medium is not None
 
-    def random_medium(self):
-        pass
+    def random_medium(self, medium=None):
+        if medium is None:
+            if self.faction is not None:
+                if self.faction.media.count() != 0:
+                    medium = self.faction.media.order_by("?").first()
+                else:
+                    medium = Medium.objects.order_by("?").first()
+            else:
+                medium = Medium.objects.order_by("?").first()
+        self.set_medium(medium)
 
     def set_rank(self, rank):
         self.rank = rank
@@ -184,7 +210,7 @@ class Grimoire(Wonder):
     def has_rotes(self):
         return self.rotes.count() != 0
 
-    def random_rotes(self):
+    def random_rotes(self, rotes=None):
         pass
 
     def set_spheres(self, spheres):
@@ -196,7 +222,7 @@ class Grimoire(Wonder):
     def has_spheres(self):
         return self.spheres != []
 
-    def random_spheres(self):
+    def random_spheres(self, spheres=None):
         pass
 
     def set_is_primer(self, is_primer):
@@ -210,8 +236,40 @@ class Grimoire(Wonder):
             is_primer = False
         self.set_is_primer(is_primer)
 
-    def random(self, rank=None):
-        pass
+    def random(
+        self,
+        rank=None,
+        is_primer=None,
+        faction=None,
+        paradigms=None,
+        practices=None,
+        instruments=None,
+        date_written=None,
+        medium=None,
+        cover_material=None,
+        inner_material=None,
+        length=None,
+        language=None,
+        abilities=None,
+        spheres=None,
+        rotes=None,
+    ):
+        self.random_rank(rank)
+        self.background_cost = 2 * self.rank
+        self.quintessence_max = 5 * self.rank
+        self.random_is_primer(is_primer)
+        self.random_faction(faction)
+        self.random_medium(medium)
+        self.random_material(cover_material)
+        self.random_material(inner_material)
+        self.random_length(length)
+        self.random_focus(paradigms, practices, instruments)
+        self.random_date_written(date_written)
+        self.random_abilities(abilities)
+        self.random_language(language)
+        self.random_spheres(spheres)
+        self.random_rotes(rotes)
+        self.save()
 
 
 class Library(Wonder):

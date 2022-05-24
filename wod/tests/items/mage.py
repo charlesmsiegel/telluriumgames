@@ -118,7 +118,7 @@ class TestGrimoire(TestCase):
         self.assertTrue(self.grimoire.has_medium())
 
     def test_set_length(self):
-        self.assertIsNone(self.grimoire.length)
+        self.assertEqual(self.grimoire.length, 0)
         self.assertTrue(self.grimoire.set_length(self.length))
         self.assertEqual(self.grimoire.length, self.length)
 
@@ -128,9 +128,9 @@ class TestGrimoire(TestCase):
         self.assertTrue(self.grimoire.has_length())
 
     def test_set_date_written(self):
-        self.assertIsNone(self.grimoire.date_written)
+        self.assertEqual(self.grimoire.date_written, -5000)
         self.assertTrue(self.grimoire.set_date_written(self.date_written))
-        self.assertEqual(set(self.grimoire.date_written), self.date_written)
+        self.assertEqual(self.grimoire.date_written, self.date_written)
 
     def test_has_date_written(self):
         self.assertFalse(self.grimoire.has_date_written())
@@ -138,7 +138,7 @@ class TestGrimoire(TestCase):
         self.assertTrue(self.grimoire.has_date_written())
 
     def test_set_spheres(self):
-        self.assertIsNone(self.grimoire.spheres)
+        self.assertEqual(self.grimoire.spheres, [])
         self.assertTrue(self.grimoire.set_spheres(self.spheres))
         self.assertEqual(set(self.grimoire.spheres), set(self.spheres))
 
@@ -344,6 +344,31 @@ class TestRandomGrimoire(TestCase):
         self.grimoire.random_rotes()
         self.assertTrue(self.grimoire.has_rotes())
 
+    def test_random(self):
+        self.assertFalse(self.grimoire.has_rank())
+        self.assertFalse(self.grimoire.has_faction())
+        self.assertFalse(self.grimoire.has_medium())
+        self.assertFalse(self.grimoire.has_materials())
+        self.assertFalse(self.grimoire.has_length())
+        self.assertFalse(self.grimoire.has_focus())
+        self.assertFalse(self.grimoire.has_date_written())
+        self.assertFalse(self.grimoire.has_abilities())
+        self.assertFalse(self.grimoire.has_language())
+        self.assertFalse(self.grimoire.has_spheres())
+        self.assertFalse(self.grimoire.has_rotes())
+        self.grimoire.random()
+        self.assertTrue(self.grimoire.has_rank())
+        self.assertTrue(self.grimoire.has_faction())
+        self.assertTrue(self.grimoire.has_medium())
+        self.assertTrue(self.grimoire.has_materials())
+        self.assertTrue(self.grimoire.has_length())
+        self.assertTrue(self.grimoire.has_focus())
+        self.assertTrue(self.grimoire.has_date_written())
+        self.assertTrue(self.grimoire.has_abilities())
+        self.assertTrue(self.grimoire.has_language())
+        self.assertTrue(self.grimoire.has_spheres())
+        self.assertTrue(self.grimoire.has_rotes())
+
 
 class TestLibrary(TestCase):
     def setUp(self):
@@ -479,7 +504,7 @@ class TestLibrary(TestCase):
         self.library.books.add(Grimoire.objects.create(name="Test Grimoire 1", rank=1))
         self.library.books.add(Grimoire.objects.create(name="Test Grimoire 2", rank=2))
         self.library.books.add(Grimoire.objects.create(name="Test Grimoire 3", rank=3))
-        self.assertEqual(self.library.books.count(), 1)
+        self.assertEqual(self.library.books.count(), 3)
 
     def test_increase_library_rating(self):
         self.assertEqual(self.library.num_books(), 0)
