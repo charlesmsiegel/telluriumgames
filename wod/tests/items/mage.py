@@ -90,7 +90,7 @@ class TestGrimoire(TestCase):
             self.grimoire.set_materials(self.cover_material, self.inner_material)
         )
         self.assertEqual(self.grimoire.cover_material, self.cover_material)
-        self.assertEqual(self.grimoire.inner_materia, self.inner_material)
+        self.assertEqual(self.grimoire.inner_material, self.inner_material)
 
     def test_has_materials(self):
         self.assertFalse(self.grimoire.has_materials())
@@ -110,7 +110,7 @@ class TestGrimoire(TestCase):
     def test_set_medium(self):
         self.assertIsNone(self.grimoire.medium)
         self.assertTrue(self.grimoire.set_medium(self.medium))
-        self.assertEqual(set(self.grimoire.medium), self.medium)
+        self.assertEqual(self.grimoire.medium, self.medium)
 
     def test_has_medium(self):
         self.assertFalse(self.grimoire.has_medium())
@@ -120,7 +120,7 @@ class TestGrimoire(TestCase):
     def test_set_length(self):
         self.assertIsNone(self.grimoire.length)
         self.assertTrue(self.grimoire.set_length(self.length))
-        self.assertEqual(set(self.grimoire.length), self.length)
+        self.assertEqual(self.grimoire.length, self.length)
 
     def test_has_length(self):
         self.assertFalse(self.grimoire.has_length())
@@ -150,7 +150,7 @@ class TestGrimoire(TestCase):
     def test_set_rotes(self):
         self.assertEqual(self.grimoire.rotes.count(), 0)
         self.assertTrue(self.grimoire.set_rotes(self.rotes))
-        self.assertEqual(set(self.grimoire.rotes), set(self.rotes))
+        self.assertEqual(set(self.grimoire.rotes.all()), set(self.rotes))
 
     def test_has_rotes(self):
         self.assertFalse(self.grimoire.has_rotes())
