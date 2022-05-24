@@ -1,6 +1,7 @@
 import datetime
 import math
 import random
+from tkinter import N
 
 from django.db import models
 from django.db.models import Q
@@ -132,8 +133,59 @@ class Grimoire(Wonder):
             and self.instruments.count() != 0
         )
 
+    def random_paradigms(self, paradigms):
+        if paradigms is None:
+            if self.faction is not None:
+                paradigms = self.faction.get_all_paradigms()
+            else:
+                paradigms = Paradigm.objects.all()
+            num_paradigms = 1
+            while (
+                random.random() < 0.1 and num_paradigms < paradigms.distinct().count()
+            ):
+                num_paradigms += 1
+            paradigms = paradigms.order_by("?").distinct()[:num_paradigms]
+        return paradigms
+
+    def random_practices(self, practices, paradigms=None):
+        if practices is None:
+            if self.faction is not None:
+                practices = self.faction.get_all_practices()
+            else:
+                practices = Practice.objects.all()
+            if paradigms is not None:
+                for paradigm in paradigms:
+                    practices |= paradigm.practices.all()
+            num_practices = 1
+            while (
+                random.random() < 0.25 and num_practices < practices.distinct().count()
+            ):
+                num_practices += 1
+            practices = practices.order_by("?").distinct()[:num_practices]
+        return practices
+
+    def random_instruments(self, instruments, practices=None):
+        if instruments is None:
+            if practices is not None:
+                instruments = Instrument.objects.none()
+                for practice in practices:
+                    instruments |= practice.instruments.all()
+            else:
+                instruments = Instrument.objects.all()
+            num_instruments = 1
+            while (
+                random.random() < 0.3
+                and num_instruments < instruments.distinct().count()
+            ):
+                num_instruments += 1
+            instruments.order_by("?").distinct()[:num_instruments]
+        return instruments
+
     def random_focus(self, paradigms=None, practices=None, instruments=None):
-        pass
+        paradigms = self.random_paradigms(paradigms)
+        practices = self.random_practices(practices, paradigms=paradigms)
+        instruments = self.random_instruments(instruments, practices=practices)
+        self.set_focus(paradigms, practices, instruments)
 
     def set_language(self, language):
         self.language = language
