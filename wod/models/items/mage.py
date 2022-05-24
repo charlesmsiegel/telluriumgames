@@ -3,6 +3,7 @@ import math
 import random
 
 from django.db import models
+from django.db.models import Q
 
 from core.models import Language, Material, Medium
 from core.utils import weighted_choice
@@ -247,7 +248,28 @@ class Grimoire(Wonder):
         return self.rotes.count() != 0
 
     def random_rotes(self, rotes=None):
-        pass
+        if rotes is None:
+            rotes = []
+            spheres = []
+            if len(self.spheres) != 0:
+                spheres = self.spheres
+
+            kwargs = {f"{sphere}__gt": 0 for sphere in spheres}
+            q_objects = Q()
+            for key, value in kwargs.items():
+                q_objects |= Q(**{key: value})
+            rotes = Rote.objects.filter(q_objects)
+
+            kwargs = {
+                f"{sphere}__lte": self.rank for sphere in Mage(name="TMP").get_spheres()
+            }
+            for key, value in kwargs.items():
+                rotes = rotes.filter(Q(**{key: value}))
+            num_rotes = 1
+            while random.random() < 0.4 or num_rotes < self.rank:
+                num_rotes += 1
+            rotes = list(rotes.order_by("?")[:num_rotes])
+        self.set_rotes(rotes)
 
     def set_spheres(self, spheres):
         if not isinstance(spheres, list):
