@@ -100,7 +100,7 @@ class TestGrimoire(TestCase):
     def test_set_language(self):
         self.assertIsNone(self.grimoire.language)
         self.assertTrue(self.grimoire.set_language(self.language))
-        self.assertEqual(set(self.grimoire.language), self.language)
+        self.assertEqual(self.grimoire.language, self.language)
 
     def test_has_language(self):
         self.assertFalse(self.grimoire.has_language())
@@ -160,7 +160,7 @@ class TestGrimoire(TestCase):
 
 class TestRandomGrimoire(TestCase):
     def setUp(self):
-        self.grimoire = Grimoire()
+        self.grimoire = Grimoire.objects.create(name="Random Grimoire")
         abilities = [
             "alertness",
             "art",
@@ -469,9 +469,9 @@ class TestLibrary(TestCase):
     def test_add_book(self):
         g = Grimoire.objects.create(name="Book To Add")
         g.random()
-        count = len(self.library)
+        count = self.library.num_books()
         self.assertTrue(self.library.add_book(g))
-        self.assertEqual(len(self.library), count + 1)
+        self.assertEqual(self.library.num_books(), count + 1)
 
     def test_has_books(self):
         self.library.rank = 3
@@ -482,10 +482,10 @@ class TestLibrary(TestCase):
         self.assertEqual(self.library.books.count(), 1)
 
     def test_increase_library_rating(self):
-        self.assertEqual(len(self.library), 0)
+        self.assertEqual(self.library.num_books(), 0)
         self.library.increase_rank()
         self.library.increase_rank()
-        self.assertEqual(len(self.library), 2)
+        self.assertEqual(self.library.num_books(), 2)
 
 
 class TestGrimoireDetailView(TestCase):
