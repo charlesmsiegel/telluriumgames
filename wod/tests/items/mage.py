@@ -58,15 +58,15 @@ class TestGrimoire(TestCase):
         self.assertTrue(self.grimoire.has_faction())
 
     def test_set_focus(self):
-        self.assertIsNone(self.grimoire.paradigms)
-        self.assertIsNone(self.grimoire.practices)
-        self.assertIsNone(self.grimoire.instruments)
+        self.assertEqual(self.grimoire.paradigms.count(), 0)
+        self.assertEqual(self.grimoire.practices.count(), 0)
+        self.assertEqual(self.grimoire.instruments.count(), 0)
         self.assertTrue(
             self.grimoire.set_focus(self.paradigms, self.practices, self.instruments)
         )
         self.assertEqual(set(self.grimoire.paradigms.all()), set(self.paradigms))
         self.assertEqual(set(self.grimoire.practices.all()), set(self.practices))
-        self.assertEqual(set(self.grimoire.instruments.all()), set(self.instrumnets))
+        self.assertEqual(set(self.grimoire.instruments.all()), set(self.instruments))
 
     def test_has_focus(self):
         self.assertFalse(self.grimoire.has_focus())
@@ -74,7 +74,7 @@ class TestGrimoire(TestCase):
         self.assertTrue(self.grimoire.has_focus())
 
     def test_set_abilities(self):
-        self.assertIsNone(self.grimoire.abilities)
+        self.assertEqual(self.grimoire.abilities, [])
         self.assertTrue(self.grimoire.set_abilities(self.abilities))
         self.assertEqual(set(self.grimoire.abilities), set(self.abilities))
 
