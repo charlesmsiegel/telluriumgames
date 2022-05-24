@@ -111,28 +111,32 @@ class Grimoire(Wonder):
         pass
 
     def set_length(self, length):
-        pass
+        self.length = length
+        return True
 
     def has_length(self):
-        pass
+        return self.length != 0
 
     def random_length(self):
         pass
 
     def set_materials(self, cover_material, inner_material):
-        pass
+        self.cover_material = cover_material
+        self.inner_material = inner_material
+        return True
 
     def has_materials(self):
-        pass
+        return self.cover_material is not None and self.inner_material is not None
 
     def random_material(self):
         pass
 
     def set_medium(self, medium):
-        pass
+        self.medium = medium
+        return True
 
     def has_medium(self):
-        pass
+        return self.medium is not None
 
     def random_medium(self):
         pass
@@ -152,10 +156,12 @@ class Grimoire(Wonder):
         self.set_rank(rank)
 
     def set_rotes(self, rotes):
-        pass
+        self.rotes.set(rotes)
+        self.save()
+        return True
 
     def has_rotes(self):
-        pass
+        return self.rotes.count() != 0
 
     def random_rotes(self):
         pass
@@ -173,7 +179,8 @@ class Grimoire(Wonder):
         pass
 
     def set_is_primer(self, is_primer):
-        pass
+        self.is_primer = is_primer
+        return True
 
     def random_is_primer(self):
         pass
