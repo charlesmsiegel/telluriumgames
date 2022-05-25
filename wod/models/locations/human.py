@@ -25,4 +25,5 @@ class City(Location):
     characters = models.ManyToManyField(Character, blank=True)
 
     def add_character(self, character):
-        pass
+        self.characters.add(character)
+        self.save()
