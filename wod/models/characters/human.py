@@ -19,16 +19,18 @@ class Character(PolymorphicModel):
     concept = models.CharField(max_length=100)
 
     def has_concept(self):
-        pass
+        return self.concept != ""
 
     def set_concept(self, concept):
-        pass
+        self.concept = concept
+        return True
 
     def has_name(self):
-        pass
+        return self.name != ""
 
     def set_name(self, name):
-        pass
+        self.name = name
+        return True
 
 
 class Human(Character):
