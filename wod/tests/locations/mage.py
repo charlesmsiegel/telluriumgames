@@ -28,7 +28,7 @@ class TestNode(TestCase):
         self.assertEqual(len(self.node.filter_resonance()), 10)
         for res in Resonance.objects.order_by("?")[:3]:
             self.assertTrue(self.node.add_resonance(res))
-        self.assertEqual(len(self.node.filter_resonance()), 7)
+        self.assertEqual(len(self.node.filter_resonance(maximum=0)), 7)
 
     def test_random_resonance(self):
         self.assertEqual(self.node.total_resonance(), 0)

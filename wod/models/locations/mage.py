@@ -51,14 +51,26 @@ class Node(Location):
             return NodeResonanceRating.objects.get(node=self, resonance=resonance).rating
         return 0
 
-    def filter_resonance(self):
-        return []
+    def filter_resonance(self, minimum=0, maximum=5, sphere=None):
+        all_res = Resonance.objects.all()
+        all_res = [x for x in all_res if minimum <= self.resonance_rating(x) <= maximum]
+        if sphere is not None:
+            all_res = [x for x in all_res if getattr(x, sphere)]
+        return all_res
 
     def total_resonance(self):
         return sum([x.rating for x in NodeResonanceRating.objects.filter(node=self)])
 
-    def random_resonance(self):
-        pass
+    def random_resonance(self, sphere=None):
+        if random.random() < 0.7:
+            possible = self.filter_resonance(minimum=1, maximum=4, sphere=sphere)
+            if len(possible) == 0:
+                possible = self.filter_resonance(minimum=0, maximum=4, sphere=sphere)
+        else:
+            possible = self.filter_resonance(minimum=0, maximum=4, sphere=sphere)
+        if len(possible) == 0:
+            return False
+        return self.add_resonance(random.choice(possible))
 
     def resonance_postprocessing(self):
         pass
