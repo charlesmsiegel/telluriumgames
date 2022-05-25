@@ -379,7 +379,7 @@ class TestHumanDetailView(TestCase):
 
     def test_mage_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/{self.human.id}/")
-        self.assertTemplateUsed(response, "wod/characters/human/human/detail.html")
+        self.assertTemplateUsed(response, "wod/characters/human/detail.html")
 
 
 class TestCharacterDetailViews(TestCase):
