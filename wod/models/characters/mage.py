@@ -81,6 +81,16 @@ class Resonance(models.Model):
 class Mage(Human):
     type = "mage"
 
+    correspondence = models.IntegerField(default=0)
+    time = models.IntegerField(default=0)
+    spirit = models.IntegerField(default=0)
+    mind = models.IntegerField(default=0)
+    entropy = models.IntegerField(default=0)
+    prime = models.IntegerField(default=0)
+    forces = models.IntegerField(default=0)
+    matter = models.IntegerField(default=0)
+    life = models.IntegerField(default=0)
+
     def get_abilities(self):
         return {
             "alertness": 0,
@@ -145,13 +155,13 @@ class Mage(Human):
 
     def get_spheres(self):
         return {
-            "correspondence": 0,
-            "time": 0,
-            "spirit": 0,
-            "mind": 0,
-            "entropy": 0,
-            "prime": 0,
-            "forces": 0,
-            "matter": 0,
-            "life": 0,
+            "correspondence": self.correspondence,
+            "time": self.time,
+            "spirit": self.spirit,
+            "mind": self.mind,
+            "entropy": self.entropy,
+            "prime": self.prime,
+            "forces": self.forces,
+            "matter": self.matter,
+            "life": self.life,
         }
