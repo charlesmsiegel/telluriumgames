@@ -2,7 +2,7 @@ from django.db import models
 import random
 
 from wod.models.locations.human import Location
-from wod.models.characters.mage import Resonance
+from wod.models.characters.mage import Resonance, Mage
 
 
 # Create your models here.
@@ -118,7 +118,13 @@ class Node(Location):
         return self.add_resonance(random.choice(possible))
 
     def resonance_postprocessing(self):
-        pass
+        if "Corrupted" in [x.name for x in self.merits_and_flaws.all()]:
+            res, _ = Resonance.objects.get_or_create(name="Corrupted")
+            self.add_resonance(res)
+            self.add_resonance(res)
+        if "Sphere Attuned" in [x.name for x in self.merits_and_flaws.all()]:
+            sphere = random.choice(list(Mage(name="TMP").get_spheres().keys()))
+            self.random_resonance(sphere=sphere)
 
     def random(self):
         pass
