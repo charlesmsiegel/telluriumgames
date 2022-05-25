@@ -27,16 +27,61 @@ class Node(Location):
         return True
 
     def add_mf(self, mf, rating):
-        pass
+        if rating not in mf.ratings:
+            return False
+        if mf in self.merits_and_flaws.all():
+            current_rating = NodeMeritFlawRating.objects.get(node=self, mf=mf).rating
+            if current_rating > 0 and current_rating < rating:
+                x = NodeMeritFlawRating.objects.get(node=self, mf=mf)
+                x.rating = rating
+                x.save()
+                return True
+            if current_rating < 0 and current_rating > rating:
+                x = NodeMeritFlawRating.objects.get(node=self, mf=mf)
+                x.rating = rating
+                x.save()
+                return True
+            return False
+        NodeMeritFlawRating.objects.create(node=self, mf=mf, rating=rating)
+        return True
 
     def total_mf(self):
-        return 0
+        return sum([x.rating for x in NodeMeritFlawRating.objects.filter(node=self)])
 
-    def filter_mf(self):
-        pass
+    def filter_mf(self, minimum=-10, maximum=10):
+        filtered = []
+        for mf in NodeMeritFlaw.objects.all():
+            for r in mf.ratings:
+                if max(0, minimum) < r <= maximum:
+                    if self.mf_rating(mf) < r:
+                        filtered.append(mf)
+                elif minimum < r < min(0, maximum):
+                    if self.mf_rating(mf) > r:
+                        filtered.append(mf)
+        return list(set(filtered))
 
-    def random_mf(self):
-        pass
+    def mf_rating(self, mf):
+        if mf not in self.merits_and_flaws.all():
+            return 0
+        return NodeMeritFlawRating.objects.get(node=self, mf=mf).rating
+
+    def random_mf(self, minimum=-10, maximum=10):
+        possibility = self.filter_mf(minimum=minimum, maximum=maximum)
+        choice = random.choice(possibility)
+        possible_ratings = choice.ratings
+        possible_ratings = [x for x in possible_ratings if minimum <= x <= maximum]
+        r = 0
+        if self.mf_rating(choice) == 0:
+            r = random.choice(possible_ratings)
+        if self.mf_rating(choice) < 0:
+            possible_ratings = [x for x in possible_ratings if x < self.mf_rating(choice)]
+            r = random.choice(possible_ratings)
+        if self.mf_rating(choice) > 0:
+            possible_ratings = [x for x in possible_ratings if x > self.mf_rating(choice)]
+            r = random.choice(possible_ratings)
+        if r == 0:
+            return False
+        return self.add_mf(choice, r)
 
     def add_resonance(self, resonance):
         r, _ = NodeResonanceRating.objects.get_or_create(resonance=resonance, node=self)
@@ -83,6 +128,8 @@ class NodeMeritFlaw(models.Model):
     name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
 
+    def __str__(self):
+        return self.name
 
 class NodeMeritFlawRating(models.Model):
     node = models.ForeignKey(Node, on_delete=models.CASCADE)

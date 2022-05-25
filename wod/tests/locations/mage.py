@@ -9,7 +9,7 @@ class TestNode(TestCase):
     def setUp(self):
         for i in range(1, 11):
             Resonance.objects.create(name=f"Resonance {i}")
-        for i in range(5):
+        for i in range(1, 6):
             for j in [1, -1]:
                 if j == 1:
                     t = "Merit"
@@ -90,15 +90,15 @@ class TestNode(TestCase):
         self.assertEqual(self.node.total_mf(), num + 3)
 
     def test_filter_mf(self):
-        self.assertEqual(self.node.filter_mf(), 10)
+        self.assertEqual(len(self.node.filter_mf()), 10)
         for mf in NodeMeritFlaw.objects.all():
             if "Merit" in mf.name:
                 self.node.add_mf(mf, mf.ratings[0])
-        self.assertEqual(self.node.filter_mf(), 5)
+        self.assertEqual(len(self.node.filter_mf()), 5)
         for mf in NodeMeritFlaw.objects.all():
             if "Flaw" in mf.name:
                 self.node.add_mf(mf, mf.ratings[0])
-        self.assertEqual(self.node.filter_mf(), 0)
+        self.assertEqual(len(self.node.filter_mf()), 0)
 
     def test_random_mf(self):
         num = self.node.total_mf()
@@ -116,6 +116,7 @@ class TestNode(TestCase):
         self.assertEqual(self.node.points, 0)
         self.node.random()
         self.assertGreaterEqual(self.node.total_resonance(), self.node.rank)
+        self.assertNotEqual(self.node.rank, 0)
         self.assertEqual(self.node.points, 0)
 
 
