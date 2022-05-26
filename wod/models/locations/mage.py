@@ -126,8 +126,16 @@ class Node(Location):
             sphere = random.choice(list(Mage(name="TMP").get_spheres().keys()))
             self.random_resonance(sphere=sphere)
 
+    def has_resonance(self):
+        return self.total_resonance() >= self.rank
+
     def random(self):
-        pass
+        self.random_rank()
+        while not self.has_resonance():
+            self.random_resonance()
+        
+        self.resonance_postprocessing()
+        
 
 
 class NodeMeritFlaw(models.Model):

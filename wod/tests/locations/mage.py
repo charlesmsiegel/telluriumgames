@@ -112,12 +112,84 @@ class TestNode(TestCase):
         self.node.add_mf(NodeMeritFlaw.objects.get(name="Node Flaw 2"), -2)
         self.assertEqual(self.node.total_mf(), 1)
 
+    def test_set_size(self):
+        self.assertEqual(self.node.size, 0)
+        self.assertEqual(self.node.get_size_display(), "average room")
+        self.assertTrue(self.node.set_size(2))
+        self.assertEqual(self.node.size, 2)
+        self.assertEqual(self.node.get_size_display(), "large building")
+        self.assertTrue(self.node.set_size(-2))
+        self.assertEqual(self.node.size, -2)
+        self.assertEqual(self.node.get_size_display(), "houeshold object")
+
+    def test_set_ratio(self):
+        elf.assertEqual(self.node.ratio, 0)
+        self.assertEqual(self.node.get_ratio_display(), "0.5")
+        self.assertTrue(self.node.set_ratio(2))
+        self.assertEqual(self.node.ratio, 2)
+        self.assertEqual(self.node.get_ratio_display(), "0.0")
+        self.assertTrue(self.node.set_ratio(-2))
+        self.assertEqual(self.node.ratio, -2)
+        self.assertEqual(self.node.get_ratio_display(), "1.0")
+
+    def test_weekly_output(self):
+        self.node.set_rank(2)
+        self.assertEqual(self.node.ratio, 0)
+        self.node.update_ouput()
+        self.assertEqual(self.node.quintessence_per_week, 3)
+        self.assertEqual(self.node.tass_per_week, 3)
+        self.assertEqual(self.node.ratio, 1)
+        self.node.update_ouput()
+        self.assertEqual(self.node.quintessence_per_week, 4)
+        self.assertEqual(self.node.tass_per_week, 2)
+
+    def test_has_output_forms(self):
+        self.assertFalse(self.node.has_output_forms())
+        self.node.set_output_forms("Quintessence", "Tass")
+        self.assertTrue(self.node.has_output_forms())
+
+    def test_set_output_forms(self):
+        self.assertFalse(self.node.has_output_forms())
+        self.assertTrue(self.node.set_output_forms("Quintessence", "Tass"))
+        self.assertTrue(self.node.has_output_forms())
+
+    def test_random_size(self):
+        mocker = Mock()
+        mocker.side_effect = [0, 2]
+        with mock.patch("random.choice", mocker):
+            self.node.random_size()
+            self.assertEqual(self.node.size, 0)
+            self.node.random_size()
+            self.assertEqual(self.node.size, 2)
+
+    def test_random_ratio(self):
+        mocker = Mock()
+        mocker.side_effect = [0, 2]
+        with mock.patch("random.choice", mocker):
+            self.node.random_ratio()
+            self.assertEqual(self.node.ratio, 0)
+            self.node.random_ratio()
+            self.assertEqual(self.node.ratio, 2)
+
+    def has_output(self):
+        self.assertFalse(self.node.has_output())
+        self.node.update_output()
+        self.assertTrue(self.node.has_output())
+
+    def test_random_forms(self):
+        self.assertFalse(self.node.has_output.forms())
+        self.node.random_forms()
+        self.assertTrue(self.node.has_output.forms())
+
     def test_random(self):
         self.assertEqual(self.node.points, 0)
         self.node.random()
         self.assertGreaterEqual(self.node.total_resonance(), self.node.rank)
         self.assertNotEqual(self.node.rank, 0)
         self.assertEqual(self.node.points, 0)
+        self.assertTrue(self.node.has_resonance())
+        self.assertTrue(self.node.has_output_forms())
+        self.assertTrue(self.node.has_output())
 
 
 class TestNodeDetailView(TestCase):
