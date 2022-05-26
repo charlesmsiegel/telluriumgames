@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from wod.models.characters.human import Archetype, Character, Human
+from wod.models.characters.human import Archetype, MeritFlaw, Character, Human
 from wod.models.characters.mage import Mage
 
 
@@ -40,6 +40,12 @@ class TestHuman(TestCase):
         self.character = Human.objects.create(name="", player=self.user.wod_profile)
         for i in range(10):
             Archetype.objects.create(name=f"Archetype {i}")
+        for i in range(1, 6):
+            for j in [-1, 1]:
+                if j == 1:
+                    MeritFlaw.objects.create(name=f"Merit {i}", ratings=[i])
+                else:
+                    MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i])
 
     def test_has_archetypes(self):
         self.assertFalse(self.character.has_archetypes())
@@ -286,16 +292,48 @@ class TestHuman(TestCase):
         self.fail()
 
     def test_add_willpower(self):
-        self.fail()
+        self.assertEqual(self.character.willpower, 3)
+        self.assertTrue(self.character.add_willpower())
+        self.assertEqual(self.character.willpower, 4)
 
     def test_add_mf(self):
-        self.fail()
+        m3 = MeritFlaw.objects.get(name="Merit 3")
+        self.assertEqual(self.character.merits_and_flaws.count(), 0)
+        self.assertTrue(self.character.add_mf(m3, 3))
+        self.assertEqual(self.character.merits_and_flaws.count(), 1)
+        self.assertIn(m3, self.character.merits_and_flaws.all())
 
-    def test_has_mfs(self):
-        self.fail()
+    def test_has_max_flaws(self):
+        self.assertFalse(self.character.has_max_flaws())
+        self.character.add_mf(MeritFlaw.objects.get(name="Flaw 3"), -3)
+        self.assertFalse (self.character.has_max_flaws())
+        self.character.add_mf(MeritFlaw.objects.get(name="Flaw 4"), -4)
+        self.assertTrue(self.character.has_max_flaws())
 
     def test_filter_mfs(self):
-        self.fail()
+        self.assertEqual(len(self.character.filter_mfs()), 10)
+        self.character.add_mf(MeritFlaw.objects.get(name="Merit 1"), 1)
+        self.assertEqual(len(self.character.filter_mfs()), 9)
+        self.character.add_mf(MeritFlaw.objects.get(name="Merit 2"), 2)
+        self.assertEqual(len(self.character.filter_mfs()), 8)
+        self.character.add_mf(MeritFlaw.objects.get(name="Flaw 2"), -2)
+        self.assertEqual(len(self.character.filter_mfs()), 7)
+        self.character.add_mf(MeritFlaw.objects.get(name="Flaw 5"), -5)
+        self.assertEqual(len(self.character.filter_mfs()), 3)
+
+    def test_total_merits(self):
+        self.assertEqual(self.character.total_merits(), 0)
+        self.character.add_mf(MeritFlaw.objects.get(name="Merit 3"), 3)
+        self.assertEqual(self.character.total_merits(), 3)
+        self.character.add_mf(MeritFlaw.objects.get(name="Flaw 3"), -3)
+        self.assertEqual(self.character.total_merits(), 3)
+
+    def test_total_flaws(self):
+        self.assertEqual(self.character.total_flaws(), 0)
+        self.character.add_mf(MeritFlaw.objects.get(name="Flaw 3"), -3)
+        self.assertEqual(self.character.total_flaws(), -3)
+        self.character.add_mf(MeritFlaw.objects.get(name="Merit 3"), 3)
+        self.assertEqual(self.character.total_flaws(), -3)
 
     def test_freebie_cost(self):
         self.fail()
