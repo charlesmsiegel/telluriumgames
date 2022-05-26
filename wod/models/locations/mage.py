@@ -6,15 +6,39 @@ from wod.models.characters.mage import Resonance, Mage
 
 
 # Create your models here.
+class SizeChoices(models.IntegerChoices):
+    TINY = -2, "Household Object"
+    SMALL = -1, "Small Room"
+    NORMAL = 0, "Average Room"
+    LARGE = 1, "Small Building"
+    HUGE = 2, "Large Building"
+
+class RatioChoices(models.IntegerChoices):
+    TINY = -2, "0.0"
+    SMALL = -1, "0.25"
+    NORMAL = 0, "0.5"
+    LARGE = 1, "0.75"
+    HUGE = 2, "1.0"
+
+
 class Node(Location):
     type = "node"
 
     rank = models.IntegerField(default=0)
+
+    size = models.IntegerField(default=SizeChoices.NORMAL, choices=SizeChoices.choices)
+    ratio = models.IntegerField(default=RatioChoices.NORMAL, choices=RatioChoices.choices)
+
     points = models.IntegerField(default=0)
     merits_and_flaws = models.ManyToManyField(
         "NodeMeritFlaw", blank=True, through="NodeMeritFlawRating"
     )
     resonance = models.ManyToManyField(Resonance, blank=True, through="NodeResonanceRating")
+
+    quintessence_per_week = models.IntegerField(default=0)
+    tass_per_week = models.IntegerField(default=0)
+    tass_form = models.CharField(default="", max_length=100)
+    quintessence_form = models.CharField(default="", max_length=100)
 
     def random_rank(self, rank=None):
         if rank is None:
@@ -129,12 +153,60 @@ class Node(Location):
     def has_resonance(self):
         return self.total_resonance() >= self.rank
 
+    def has_output_forms(self):
+        return self.quintessence_form != "" and self.tass_form != ""
+
+    def set_output_forms(self, quint_form, tass_form):
+        self.quintessence_form = quint_form
+        self.tass_form = tass_form
+        return True
+
+    def random_forms(self):
+        self.set_output_forms("Quintessence", "Tass")
+
+    def has_output(self):
+        return self.quintessence_per_week != 0 or self.tass_per_week != 0
+
+    def random_ratio(self):
+        choice = random.choice([-2, -1, -1, 0, 0, 0, 1, 1, 2])
+        self.set_ratio(choice)
+        self.points -= self.ratio
+
+    def random_size(self):
+        choice = random.choice([-2, -1, -1, 0, 0, 0, 1, 1, 2])
+        self.set_size(choice)
+        self.points -= self.size
+
+    def set_ratio(self, ratio):
+        self.ratio = ratio
+        return True
+
+    def set_size(self, size):
+        self.size = size
+        return True
+
+    def update_output(self):
+        self.quintessence_per_week = int(self.points * float(self.get_ratio_display()))
+        self.tass_per_week = self.points - self.quintessence_per_week
+        return True
+
     def random(self):
         self.random_rank()
         while not self.has_resonance():
             self.random_resonance()
-        
+        self.random_ratio()
+        self.random_size()
+        self.random_forms()
+        while random.random() < 0.2 and self.points > 1:
+            self.random_resonance()
+        while random.random() < 0.4 and self.points > 1:
+            current = self.total_mf()
+            self.random_mf(maximum=(self.points - 1))
+            new = self.total_mf()
+            self.points -= (new-current)
         self.resonance_postprocessing()
+        self.update_output()
+        self.points = 0
         
 
 

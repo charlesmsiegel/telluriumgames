@@ -1,3 +1,5 @@
+from unittest import mock
+from unittest.mock import Mock
 from django.test import TestCase
 
 from wod.models.characters.mage import Resonance
@@ -114,32 +116,33 @@ class TestNode(TestCase):
 
     def test_set_size(self):
         self.assertEqual(self.node.size, 0)
-        self.assertEqual(self.node.get_size_display(), "average room")
+        self.assertEqual(self.node.get_size_display(), "Average Room")
         self.assertTrue(self.node.set_size(2))
         self.assertEqual(self.node.size, 2)
-        self.assertEqual(self.node.get_size_display(), "large building")
+        self.assertEqual(self.node.get_size_display(), "Large Building")
         self.assertTrue(self.node.set_size(-2))
         self.assertEqual(self.node.size, -2)
-        self.assertEqual(self.node.get_size_display(), "houeshold object")
+        self.assertEqual(self.node.get_size_display(), "Household Object")
 
     def test_set_ratio(self):
-        elf.assertEqual(self.node.ratio, 0)
+        self.assertEqual(self.node.ratio, 0)
         self.assertEqual(self.node.get_ratio_display(), "0.5")
         self.assertTrue(self.node.set_ratio(2))
         self.assertEqual(self.node.ratio, 2)
-        self.assertEqual(self.node.get_ratio_display(), "0.0")
+        self.assertEqual(self.node.get_ratio_display(), "1.0")
         self.assertTrue(self.node.set_ratio(-2))
         self.assertEqual(self.node.ratio, -2)
-        self.assertEqual(self.node.get_ratio_display(), "1.0")
+        self.assertEqual(self.node.get_ratio_display(), "0.0")
 
     def test_weekly_output(self):
         self.node.set_rank(2)
         self.assertEqual(self.node.ratio, 0)
-        self.node.update_ouput()
+        self.node.update_output()
         self.assertEqual(self.node.quintessence_per_week, 3)
         self.assertEqual(self.node.tass_per_week, 3)
+        self.node.set_ratio(1)
         self.assertEqual(self.node.ratio, 1)
-        self.node.update_ouput()
+        self.node.update_output()
         self.assertEqual(self.node.quintessence_per_week, 4)
         self.assertEqual(self.node.tass_per_week, 2)
 
@@ -177,9 +180,9 @@ class TestNode(TestCase):
         self.assertTrue(self.node.has_output())
 
     def test_random_forms(self):
-        self.assertFalse(self.node.has_output.forms())
+        self.assertFalse(self.node.has_output_forms())
         self.node.random_forms()
-        self.assertTrue(self.node.has_output.forms())
+        self.assertTrue(self.node.has_output_forms())
 
     def test_random(self):
         self.assertEqual(self.node.points, 0)
