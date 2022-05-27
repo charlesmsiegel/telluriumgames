@@ -18,9 +18,10 @@ from tc.models.characters.talent import Talent
 class TestPath(TestCase):
     def test_has_connection(self):
         self.fail()
-    
+
     def test_set_connect(self):
         self.fail()
+
 
 class TestHuman(TestCase):
     def setUp(self):

@@ -551,7 +551,7 @@ class TestMortal(TestCase):
         self.assertEqual(
             self.character.get_absolute_url(), f"/cod/characters/{self.character.id}/"
         )
-        
+
     def test_spent_xp(self):
         # This will test keeping a record of XP expenditures
         self.fail()

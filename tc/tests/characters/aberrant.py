@@ -18,10 +18,10 @@ class TestPower(TestCase):
     def test_action_type_choices(self):
         # choices=[("REF", "Reflexive"), ("ORD", "Ordinary"),]
         self.fail()
-        
+
     def test_dice_pool(self):
         self.fail()
-        
+
     def test_range_choices(self):
         # choices=[
         #     ("PER", "Personal"),
@@ -33,7 +33,7 @@ class TestPower(TestCase):
         #     ("VIS", "Visual"),
         # ],
         self.fail()
-        
+
     def test_duration_choices(self):
         # choices=[
         #     ("INST", "Instantaneous"),
@@ -42,9 +42,10 @@ class TestPower(TestCase):
         #     ("CONT", "Continuous"),
         # ],
         self.fail()
-        
+
     def test_cost_and_reduced_price_tag(self):
         self.fail()
+
 
 class TestAberrant(TestCase):
     def setUp(self):

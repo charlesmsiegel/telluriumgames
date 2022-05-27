@@ -1,5 +1,6 @@
 from unittest import mock
 from unittest.mock import Mock
+
 from django.test import TestCase
 
 from wod.models.characters.mage import Resonance

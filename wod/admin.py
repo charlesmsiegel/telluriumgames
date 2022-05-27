@@ -1,11 +1,19 @@
 from django.contrib import admin
 
-from wod.models.characters.human import Character, Human, Archetype
-from wod.models.characters.mage import Instrument, Mage, MageFaction, Paradigm, Practice, Resonance, Instrument, Rote
-from wod.models.locations.human import Location, City
-from wod.models.locations.mage import Node, NodeMeritFlaw
+from wod.models.characters.human import Archetype, Character, Human
+from wod.models.characters.mage import (
+    Instrument,
+    Mage,
+    MageFaction,
+    Paradigm,
+    Practice,
+    Resonance,
+    Rote,
+)
 from wod.models.items.human import Item
-from wod.models.items.mage import Wonder, Grimoire, Library
+from wod.models.items.mage import Grimoire, Library, Wonder
+from wod.models.locations.human import City, Location
+from wod.models.locations.mage import Node, NodeMeritFlaw
 
 # Register your models here.
 # @admin.register(Character)

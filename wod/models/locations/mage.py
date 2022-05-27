@@ -1,8 +1,9 @@
-from django.db import models
 import random
 
+from django.db import models
+
+from wod.models.characters.mage import Mage, Resonance
 from wod.models.locations.human import Location
-from wod.models.characters.mage import Resonance, Mage
 
 
 # Create your models here.
@@ -12,6 +13,7 @@ class SizeChoices(models.IntegerChoices):
     NORMAL = 0, "Average Room"
     LARGE = 1, "Small Building"
     HUGE = 2, "Large Building"
+
 
 class RatioChoices(models.IntegerChoices):
     TINY = -2, "0.0"
@@ -27,13 +29,17 @@ class Node(Location):
     rank = models.IntegerField(default=0)
 
     size = models.IntegerField(default=SizeChoices.NORMAL, choices=SizeChoices.choices)
-    ratio = models.IntegerField(default=RatioChoices.NORMAL, choices=RatioChoices.choices)
+    ratio = models.IntegerField(
+        default=RatioChoices.NORMAL, choices=RatioChoices.choices
+    )
 
     points = models.IntegerField(default=0)
     merits_and_flaws = models.ManyToManyField(
         "NodeMeritFlaw", blank=True, through="NodeMeritFlawRating"
     )
-    resonance = models.ManyToManyField(Resonance, blank=True, through="NodeResonanceRating")
+    resonance = models.ManyToManyField(
+        Resonance, blank=True, through="NodeResonanceRating"
+    )
 
     quintessence_per_week = models.IntegerField(default=0)
     tass_per_week = models.IntegerField(default=0)
@@ -98,10 +104,14 @@ class Node(Location):
         if self.mf_rating(choice) == 0:
             r = random.choice(possible_ratings)
         if self.mf_rating(choice) < 0:
-            possible_ratings = [x for x in possible_ratings if x < self.mf_rating(choice)]
+            possible_ratings = [
+                x for x in possible_ratings if x < self.mf_rating(choice)
+            ]
             r = random.choice(possible_ratings)
         if self.mf_rating(choice) > 0:
-            possible_ratings = [x for x in possible_ratings if x > self.mf_rating(choice)]
+            possible_ratings = [
+                x for x in possible_ratings if x > self.mf_rating(choice)
+            ]
             r = random.choice(possible_ratings)
         if r == 0:
             return False
@@ -117,7 +127,9 @@ class Node(Location):
 
     def resonance_rating(self, resonance):
         if resonance in self.resonance.all():
-            return NodeResonanceRating.objects.get(node=self, resonance=resonance).rating
+            return NodeResonanceRating.objects.get(
+                node=self, resonance=resonance
+            ).rating
         return 0
 
     def filter_resonance(self, minimum=0, maximum=5, sphere=None):
@@ -203,11 +215,10 @@ class Node(Location):
             current = self.total_mf()
             self.random_mf(maximum=(self.points - 1))
             new = self.total_mf()
-            self.points -= (new-current)
+            self.points -= new - current
         self.resonance_postprocessing()
         self.update_output()
         self.points = 0
-        
 
 
 class NodeMeritFlaw(models.Model):
@@ -217,10 +228,12 @@ class NodeMeritFlaw(models.Model):
     def __str__(self):
         return self.name
 
+
 class NodeMeritFlawRating(models.Model):
     node = models.ForeignKey(Node, on_delete=models.CASCADE)
     mf = models.ForeignKey(NodeMeritFlaw, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
+
 
 class NodeResonanceRating(models.Model):
     node = models.ForeignKey(Node, on_delete=models.CASCADE)

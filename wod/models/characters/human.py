@@ -9,14 +9,17 @@ from core.utils import add_dot, weighted_choice
 class Archetype(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
+
 class MeritFlaw(models.Model):
     name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
+
 
 class MeritFlawRating(models.Model):
     character = models.ForeignKey("Human", on_delete=models.CASCADE)
     mf = models.ForeignKey(MeritFlaw, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
+
 
 class Character(PolymorphicModel):
     type = "character"
@@ -26,7 +29,7 @@ class Character(PolymorphicModel):
         WoDProfile, on_delete=models.CASCADE, related_name="characters"
     )
     concept = models.CharField(max_length=100)
-    
+
     def has_concept(self):
         return self.concept != ""
 
@@ -45,8 +48,20 @@ class Character(PolymorphicModel):
 class Human(Character):
     type = "human"
 
-    nature = models.ForeignKey(Archetype, on_delete=models.CASCADE, blank=True, null=True, related_name="nature_of")
-    demeanor = models.ForeignKey(Archetype, on_delete=models.CASCADE, blank=True, null=True, related_name="demeanor_of")
+    nature = models.ForeignKey(
+        Archetype,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="nature_of",
+    )
+    demeanor = models.ForeignKey(
+        Archetype,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="demeanor_of",
+    )
 
     strength = models.IntegerField(default=1)
     dexterity = models.IntegerField(default=1)
@@ -60,7 +75,9 @@ class Human(Character):
 
     willpower = models.IntegerField(default=3)
 
-    merits_and_flaws = models.ManyToManyField(MeritFlaw, blank=True, through=MeritFlawRating)
+    merits_and_flaws = models.ManyToManyField(
+        MeritFlaw, blank=True, through=MeritFlawRating
+    )
 
     def has_archetypes(self):
         return self.nature is not None and self.demeanor is not None
@@ -84,21 +101,21 @@ class Human(Character):
         return {
             "strength": self.strength,
             "dexterity": self.dexterity,
-            "stamina": self.stamina
+            "stamina": self.stamina,
         }
 
     def get_social_attributes(self):
         return {
             "charisma": self.charisma,
             "manipulation": self.manipulation,
-            "appearance": self.appearance
+            "appearance": self.appearance,
         }
 
     def get_mental_attributes(self):
         return {
             "perception": self.perception,
             "intelligence": self.intelligence,
-            "wits": self.wits
+            "wits": self.wits,
         }
 
     def total_physical_attributes(self):
@@ -111,7 +128,9 @@ class Human(Character):
         return sum(self.get_mental_attributes().values())
 
     def filter_attributes(self, minimum=0, maximum=5):
-        return {k: v for k, v in self.get_attributes().items() if minimum <= v <= maximum}
+        return {
+            k: v for k, v in self.get_attributes().items() if minimum <= v <= maximum
+        }
 
     def total_talents(self):
         return 0
@@ -158,7 +177,19 @@ class Human(Character):
         return self.total_flaws() <= -7
 
     def total_flaws(self):
-        return sum([x.rating for x in MeritFlawRating.objects.filter(character=self) if x.rating < 0])
+        return sum(
+            [
+                x.rating
+                for x in MeritFlawRating.objects.filter(character=self)
+                if x.rating < 0
+            ]
+        )
 
     def total_merits(self):
-        return sum([x.rating for x in MeritFlawRating.objects.filter(character=self) if x.rating > 0])
+        return sum(
+            [
+                x.rating
+                for x in MeritFlawRating.objects.filter(character=self)
+                if x.rating > 0
+            ]
+        )

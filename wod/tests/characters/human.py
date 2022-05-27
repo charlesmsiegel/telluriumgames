@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from wod.models.characters.human import Archetype, MeritFlaw, Character, Human
+from wod.models.characters.human import Archetype, Character, Human, MeritFlaw
 from wod.models.characters.mage import Mage
 
 
@@ -306,7 +306,7 @@ class TestHuman(TestCase):
     def test_has_max_flaws(self):
         self.assertFalse(self.character.has_max_flaws())
         self.character.add_mf(MeritFlaw.objects.get(name="Flaw 3"), -3)
-        self.assertFalse (self.character.has_max_flaws())
+        self.assertFalse(self.character.has_max_flaws())
         self.character.add_mf(MeritFlaw.objects.get(name="Flaw 4"), -4)
         self.assertTrue(self.character.has_max_flaws())
 
