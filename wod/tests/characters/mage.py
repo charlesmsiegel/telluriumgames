@@ -1,14 +1,54 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from wod.models.characters.mage import Mage
+from wod.models.characters.human import MeritFlaw
+from wod.models.characters.mage import (
+    Cabal,
+    Instrument,
+    Mage,
+    MageFaction,
+    Paradigm,
+    Practice,
+)
 
 
 # Create your tests here.
+def mage_setup(player):
+    for i in range(5):
+        Mage.objects.create(name=f"Character {i}", player=player.wod_profile)
+
+    for i in range(15):
+        Instrument.objects.create(name=f"Instrument {i}")
+
+    for i in range(5):
+        practice = Practice.objects.create(name=f"Practice {i}")
+        practice.instruments.set(Instrument.objects.all())
+        practice.save()
+
+    for i in range(3):
+        paradigm = Paradigm.objects.create(name=f"Paradigm {i}")
+        paradigm.practices.set(Practice.objects.all())
+        paradigm.save()
+
+    trad = MageFaction.objects.create(name="Traditions")
+    MageFaction.objects.create(name="Akashayana", parent=trad)
+
+    for faction in MageFaction.objects.exclude(parent=None):
+        faction.paradigms.set(Paradigm.objects.all())
+        faction.practices.set(Practice.objects.all())
+        faction.save()
+        MageFaction.objects.create(name=f"sub-{faction.name}", parent=faction)
+
+    for i in range(5):
+        MeritFlaw.objects.create(name=f"Merit {i}", cost=i)
+        MeritFlaw.objects.create(name=f"Flaw {i}", cost=-i)
+
+
 class TestMage(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="Test")
         self.character = Mage.objects.create(name="", player=self.user.wod_profile)
+        mage_setup(self.player)
 
     def test_get_abilities(self):
         self.fail()
@@ -74,7 +114,12 @@ class TestMage(TestCase):
         self.assertTrue(self.character.add_sphere("forces"))
 
     def test_filter_spheres(self):
-        self.fail()
+        self.character.arete = 3
+        self.assertEqual(len(self.character.filter_spheres()), 9)
+        self.set_spheres()
+        self.assertEqual(len(self.character.filter_spheres()), 4)
+        self.assertEqual(len(self.character.filter_spheres(minimum=2)), 2)
+        self.assertEqual(len(self.character.filter_spheres(maximum=1)), 2)
 
     def test_has_spheres(self):
         self.assertFalse(self.character.has_spheres())
@@ -101,6 +146,33 @@ class TestMage(TestCase):
         self.assertFalse(self.character.has_affinity_sphere())
         self.character.affinity_sphere = "forces"
         self.assertTrue(self.character.has_affinity_sphere())
+        self.assertEqual(self.character.forces, 1)
+
+    def test_sphere_names(self):
+        spheres = [
+            "correspondence",
+            "forces",
+            "time",
+            "life",
+            "spirit",
+            "matter",
+            "prime",
+            "mind",
+            "entropy",
+        ]
+        for sphere in spheres:
+            self.assertTrue(hasattr(self.character, f"{sphere}"))
+        self.assertEqual(self.character.get_corr_name_display(), "Correspondence")
+        self.assertEqual(self.character.get_spirit_name_display(), "Spirit")
+        self.assertEqual(self.character.get_prime_name_display(), "Prime")
+        self.character.corr_name = "DAT"
+        self.character.prime_name = "PU"
+        self.character.spirit_name = "DS"
+        self.assertEqual(self.character.get_corr_name_display(), "Data")
+        self.assertEqual(
+            self.character.get_spirit_name_display(), "Dimensional Science"
+        )
+        self.assertEqual(self.character.get_prime_name_display(), "Primal Utility")
 
     def test_add_arete(self):
         self.assertEqual(self.character.arete, 1)
@@ -108,6 +180,15 @@ class TestMage(TestCase):
         self.assertEqual(self.character.arete, 2)
         self.character.arete = 10
         self.assertFalse(self.character.add_arete())
+
+    def test_total_spheres(self):
+        self.character.forces = 2
+        self.assertEqual(self.character.total_spheres(), 2)
+        self.character.matter = 3
+        self.assertEqual(self.character.total_spheres(), 5)
+        self.character.matter = 2
+        self.character.life = 1
+        self.assertEqual(self.character.total_spheres(), 5)
 
     def test_set_faction(self):
         self.fail()
@@ -119,6 +200,12 @@ class TestMage(TestCase):
         self.fail()
 
     def test_has_focus(self):
+        self.fail()
+
+    def test_set_essence(self):
+        self.fail()
+
+    def test_has_essence(self):
         self.fail()
 
     def test_freebie_cost(self):
@@ -133,14 +220,14 @@ class TestMage(TestCase):
     def test_spend_xp(self):
         self.fail()
 
-    def test_random_freebies(self):
-        self.fail()
-
-    def test_random_spend_xp(self):
-        self.fail()
-
-    def test_random(self):
-        self.fail()
+    def test_has_mage_history(self):
+        self.assertFalse(self.character.has_mage_history())
+        self.character.awakening = "Young"
+        self.character.seekings = "Several"
+        self.character.quiets = "None"
+        self.character.age_of_awakening = 13
+        self.character.avatar_description = "The Random Graph"
+        self.assertTrue(self.character.has_mage_history())
 
 
 class TestRandomMage(TestCase):
@@ -183,6 +270,90 @@ class TestRandomMage(TestCase):
         self.character.xp = 15
         self.character.random_xp_spend()
         self.assertLess(self.character.xp, 15)
+
+    def test_random_freebies(self):
+        self.assertEqual(self.character.freebies, 15)
+        self.character.random_freebies
+        self.assertEqual(self.character.freebies, 0)
+
+    def test_random_essence(self):
+        self.fail()
+
+    def test_random(self):
+        self.fail()
+
+
+class TestCabal(TestCase):
+    def setUp(self):
+        self.player = User.objects.create_user(username="Player")
+        mage_setup(self.player)
+
+    def test_cabal_creation(self):
+        cabal = Cabal.objects.create(name="Cabal 1")
+        cabal.members.set(Mage.objects.all())
+        cabal.leader = Mage.objects.first()
+        cabal.save()
+        self.assertEqual(cabal.members.count(), 5)
+        self.assertIsNotNone(cabal.leader)
+
+    def test_random_cabal(self):
+        cabal = Cabal.objects.create(name="Cabal 1")
+        cabal.random(5, new_characters=False)
+        self.assertEqual(cabal.members.count(), 5)
+        for mage in Mage.objects.all():
+            self.assertIn(mage, cabal.members.all())
+        cabal = Cabal.objects.create(name="Cabal 2")
+        cabal.random(5, new_characters=True)
+        self.assertEqual(cabal.members.count(), 5)
+
+    def test_exception(self):
+        cabal = Cabal.objects.create(name="Cabal 10")
+        with self.assertRaises(ValueError):
+            cabal.random(10, new_characters=False)
+
+    def test_str(self):
+        cabal = Cabal.objects.create(name="Cabal 1")
+        self.assertEqual(str(cabal), "Cabal 1")
+
+
+class TestMageFaction(TestCase):
+    def test_affinities(self):
+        faction = MageFaction.objects.create(name="Faction 1", parent=None)
+        faction.affinities = ["forces", "correspondence"]
+        self.assertEqual(len(faction.affinities), 2)
+        faction.affinities = faction.affinities + ["life"]
+        self.assertEqual(len(faction.affinities), 3)
+        faction.affinities.append("prime")
+        self.assertEqual(len(faction.affinities), 4)
+        faction.affinities.pop()
+        self.assertEqual(len(faction.affinities), 3)
+
+    def test_str(self):
+        faction = MageFaction.objects.create(name="Faction 1", parent=None)
+        self.assertEqual(str(faction), "Faction 1")
+
+
+class TestPractice(TestCase):
+    def test_abilities(self):
+        practice = Practice.objects.create(name="Practice 1")
+        practice.abilities = ["martial_arts", "awareness"]
+        self.assertEqual(len(practice.abilities), 2)
+
+    def test_str(self):
+        practice = Practice.objects.create(name="Practice 1")
+        self.assertEqual(str(practice), "Practice 1")
+
+
+class TestInstrument(TestCase):
+    def test_str(self):
+        instrument = Instrument.objects.create(name="Instrument 1")
+        self.assertEqual(str(instrument), "Instrument 1")
+
+
+class TestParadigm(TestCase):
+    def test_str(self):
+        paradigm = Paradigm.objects.create(name="Paradigm 1")
+        self.assertEqual(str(paradigm), "Paradigm 1")
 
 
 class TestMageDetailView(TestCase):

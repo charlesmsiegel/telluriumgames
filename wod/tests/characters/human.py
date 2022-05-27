@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
+from django.utils.timezone import now
 
 from wod.models.characters.human import Archetype, Character, Human, MeritFlaw
 from wod.models.characters.mage import Mage
@@ -32,6 +33,11 @@ class TestCharacter(TestCase):
         self.assertEqual(self.character.concept, "")
         self.assertTrue(self.character.set_concept("Test"))
         self.assertNotEqual(self.character.concept, "")
+
+    def test_absolute_url(self):
+        self.assertEqual(
+            self.character.get_absolute_url(), f"/wod/characters/{self.character.id}/"
+        )
 
 
 class TestHuman(TestCase):
@@ -216,6 +222,30 @@ class TestHuman(TestCase):
         triple.sort()
         self.assertNotEqual(triple, [6, 8, 10])
 
+    def test_total_physical_attribute(self):
+        self.character.strength = 1
+        self.character.dexterity = 2
+        self.character.stamina = 3
+        self.assertEqual(self.character.total_physical_attributes(), 6)
+        self.character.stamina = 2
+        self.assertEqual(self.character.total_physical_attributes(), 5)
+
+    def test_total_mental_attribute(self):
+        self.character.perception = 1
+        self.character.intelligence = 2
+        self.character.wits = 3
+        self.assertEqual(self.character.total_mental_attributes(), 6)
+        self.character.wits = 2
+        self.assertEqual(self.character.total_mental_attributes(), 5)
+
+    def test_total_social_attribute(self):
+        self.character.charisma = 1
+        self.character.manipulation = 2
+        self.character.appearance = 3
+        self.assertEqual(self.character.total_social_attributes(), 6)
+        self.character.appearance = 2
+        self.assertEqual(self.character.total_social_attributes(), 5)
+
     def test_get_abilities(self):
         self.fail()
 
@@ -347,6 +377,35 @@ class TestHuman(TestCase):
     def test_spend_xp(self):
         self.fail()
 
+    def test_spent_xp(self):
+        self.fail()
+
+    def test_has_finishing_touches(self):
+        self.assertFalse(self.character.has_finishing_touches())
+        self.character.age = 18
+        self.character.date_of_birth = now()
+        self.character.hair = "Black"
+        self.character.eyes = "Brown"
+        self.character.ethnicity = "White"
+        self.character.nationality = "American"
+        self.character.height = "5'11\""
+        self.character.weight = "150 lbs"
+        self.character.sex = "Male"
+        self.character.description = "Hardcore Asshole"
+        self.assertTrue(self.character.has_finishing_touches())
+
+    def test_has_history(self):
+        self.assertFalse(self.character.has_history())
+        self.character.childhood = "Was a kid, it sucked."
+        self.character.history = "Got older."
+        self.character.goals = "Get older still."
+        self.assertTrue(self.character.has_history())
+
+    def test_notes_field(self):
+        self.assertEqual(self.character.notes, "")
+        self.character.notes = "This is a note."
+        self.assertNotEqual(self.character.notes, "")
+
 
 class TestRandomHuman(TestCase):
     def test_random_name(self):
@@ -356,10 +415,14 @@ class TestRandomHuman(TestCase):
         self.fail()
 
     def test_random_archetypes(self):
-        self.fail()
+        self.assertFalse(self.character.has_archetypes())
+        self.character.random_archetypes()
+        self.assertTrue(self.character.has_archetypes())
 
     def test_random_attribute(self):
-        self.fail()
+        num = self.character.total_attributes()
+        self.character.random_attribute()
+        self.assertEqual(self.character.total_attributes(), num + 1)
 
     def test_random_attributes(self):
         self.fail()
