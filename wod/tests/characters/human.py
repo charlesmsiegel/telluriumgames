@@ -406,6 +406,15 @@ class TestHuman(TestCase):
         self.character.notes = "This is a note."
         self.assertNotEqual(self.character.notes, "")
 
+    def test_add_resonance_dot(self):
+        self.fail()
+
+    def test_total_resonance(self):
+        self.fail()
+
+    def test_learn_rote(self):
+        self.fail()
+
 
 class TestRandomHuman(TestCase):
     def test_random_name(self):
@@ -443,6 +452,12 @@ class TestRandomHuman(TestCase):
         self.fail()
 
     def test_random_spend_xp(self):
+        self.fail()
+
+    def test_random_resonance_dot(self):
+        self.fial()
+
+    def test_random_rotes(self):
         self.fail()
 
     def test_random(self):
