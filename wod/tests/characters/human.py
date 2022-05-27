@@ -230,12 +230,12 @@ class TestHuman(TestCase):
 
     def test_add_ability(self):
         self.character.occult = 0
-        self.assertTrue(self.character.add_attribute("occult"))
+        self.assertTrue(self.character.add_ability("occult"))
         self.assertEqual(self.character.occult, 1)
         self.character.occult = 5
-        self.assertFalse(self.character.add_attribute("occult", maximum=5))
+        self.assertFalse(self.character.add_ability("occult", maximum=5))
         self.assertEqual(self.character.occult, 5)
-        self.assertTrue(self.character.add_attribute("occult", maximum=6))
+        self.assertTrue(self.character.add_ability("occult", maximum=6))
         self.assertEqual(self.character.occult, 6)
 
     def test_filter_abilities(self):

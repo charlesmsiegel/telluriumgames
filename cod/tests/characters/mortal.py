@@ -553,8 +553,23 @@ class TestMortal(TestCase):
         )
 
     def test_spent_xp(self):
-        # This will test keeping a record of XP expenditures
-        self.fail()
+        self.character.xp = 100
+        self.assertEqual(self.character.spent_xp, "")
+        self.assertEqual(self.character.strength, 1)
+        self.character.spend_xp("strength")
+        self.assertEqual(self.character.strength, 2)
+        self.assertEqual(self.character.spent_xp, "Strength 2 (4 XP)")
+        self.character.spend_xp("strength")
+        self.assertEqual(self.character.strength, 3)
+        self.assertEqual(
+            self.character.spent_xp, "Strength 2 (4 XP), Strength 3 (4 XP)"
+        )
+        self.character.spend_xp("occult")
+        self.assertEqual(self.character.occult, 1)
+        self.assertEqual(
+            self.character.spent_xp,
+            "Strength 2 (4 XP), Strength 3 (4 XP), Occult 1 (2)",
+        )
 
 
 class TestRandomMortal(TestCase):
