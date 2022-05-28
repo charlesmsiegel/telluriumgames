@@ -529,6 +529,10 @@ class TestRandomAberrant(TestCase):
         Edge.objects.create(name="Fame", ratings=[1, 2, 3])
         Edge.objects.create(name="Alternate Identity", ratings=[1, 2, 3])
 
+        t = Tag.objects.create(name="Universal Tag", ratings=[1, 2, 3, 4, 5])
+        t.permitted_powers.set(Power.objects.all())
+        t.save()
+
     def test_random_mega_attribute(self):
         num = self.character.total_mega_attributes()
         self.character.random_mega_attribute()

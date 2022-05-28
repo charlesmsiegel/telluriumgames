@@ -100,6 +100,7 @@ class Mortal(PolymorphicModel):
     breaking_point_5 = models.CharField(max_length=300, default="Most traumatic thing")
 
     xp = models.IntegerField(default=0)
+    spent_xp = models.TextField(default="")
 
     class Meta:
         verbose_name = "Mortal"
@@ -571,6 +572,9 @@ class Mortal(PolymorphicModel):
                 if self.xp_cost(choice) <= self.xp:
                     if add_dot(self, "integrity", 10):
                         self.xp -= self.xp_cost(choice)
+
+    def spend_xp(self, trait):
+        pass
 
     def random(self):
         self.random_basis()
