@@ -567,6 +567,7 @@ class TestRandomMage(TestCase):
 
     def test_random_sphere(self):
         self.character.arete = 3
+        self.character.affinity_sphere = "forces"
         num = self.character.total_spheres()
         self.character.random_sphere()
         self.assertEqual(self.character.total_spheres(), num + 1)

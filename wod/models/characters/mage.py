@@ -119,6 +119,17 @@ class Mage(Human):
         related_name="subfactions",
     )
 
+    essence = models.CharField(
+        default="",
+        max_length=100,
+        choices=[
+            ("dynamic", "Dynamic"),
+            ("pattern", "Pattern"),
+            ("primordial", "Primordial"),
+            ("questing", "Questing"),
+        ],
+    )
+
     awareness = models.IntegerField(default=0)
     art = models.IntegerField(default=0)
     leadership = models.IntegerField(default=0)
@@ -325,11 +336,63 @@ class Mage(Human):
             and self.instruments.count() >= 7
         )
 
-    def set_focus(self):
-        pass
+    def set_focus(self, paradigms, practices, instruments):
+        self.paradigms.set(paradigms)
+        self.practices.set(practices)
+        self.instruments.set(instruments)
+        return True
 
     def random_focus(self):
-        pass
+        paradigms = {x: 1 for x in Paradigm.objects.all()}
+        practices = {x: 1 for x in Practice.objects.all()}
+        instruments = {x: 1 for x in Instrument.objects.all()}
+        if self.affiliation:
+            for paradigm in self.affiliation.paradigms.all():
+                paradigms[paradigm] += 1
+            for practice in self.affiliation.practices.all():
+                practices[practice] += 1
+        if self.faction:
+            for paradigm in self.faction.paradigms.all():
+                paradigms[paradigm] += 1
+            for practice in self.faction.practices.all():
+                practices[practice] += 1
+        if self.subfaction:
+            for paradigm in self.subfaction.paradigms.all():
+                paradigms[paradigm] += 1
+            for practice in self.subfaction.practices.all():
+                practices[practice] += 1
+        self.paradigms.add(weighted_choice(paradigms))
+        while random.random() < 0.1:
+            self.paradigms.add(
+                weighted_choice(
+                    {
+                        k: v
+                        for k, v in paradigms.items()
+                        if k not in self.paradigms.all()
+                    }
+                )
+            )
+        for paradigm in self.paradigms.all():
+            for practice in paradigm.practices.all():
+                practices[practice] += 1
+
+        self.practices.add(weighted_choice(practices))
+        while random.random() < 0.1:
+            self.practices.add(
+                weighted_choice(
+                    {
+                        k: v
+                        for k, v in practices.items()
+                        if k not in self.practices.all()
+                    }
+                )
+            )
+
+        for practice in self.practices.all():
+            for instrument in practice.instruments.all():
+                instruments[instrument] += 1
+        while self.instruments.count() < 7:
+            self.instruments.add(weighted_choice(instruments))
 
     def add_sphere(self, sphere):
         return add_dot(self, sphere, self.arete)
@@ -385,13 +448,16 @@ class Mage(Human):
         self.freebies -= (self.arete - 1) * 4
 
     def has_essence(self):
-        pass
+        return self.essence != ""
 
     def set_essence(self, essence):
-        pass
+        self.essence = essence
+        return True
 
     def random_essence(self):
-        pass
+        options = ["Dynamic", "Pattern", "Primordial", "Questing"]
+        choice = random.choice(options)
+        self.set_essence(choice)
 
     def has_mage_history(self):
         return (
