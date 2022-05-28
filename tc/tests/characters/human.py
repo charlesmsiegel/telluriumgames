@@ -7,7 +7,7 @@ from tc.models.characters.human import (
     EnhancedEdge,
     Human,
     Path,
-    PathRating,
+    PathConnection,
     Specialty,
     Trick,
 )
