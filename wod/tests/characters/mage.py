@@ -487,44 +487,44 @@ class TestMage(TestCase):
         self.assertEqual(self.character.willpower, 5)
         self.assertEqual(self.character.background_points, 7)
 
-    # def test_set_faction(self):
-    #     self.fail()
+    def test_set_faction(self):
+        self.fail()
 
-    # def test_has_faction(self):
-    #     self.fail()
+    def test_has_faction(self):
+        self.fail()
 
-    # def test_set_focus(self):
-    #     self.fail()
+    def test_set_focus(self):
+        self.fail()
 
-    # def test_has_focus(self):
-    #     self.fail()
+    def test_has_focus(self):
+        self.fail()
 
-    # def test_set_essence(self):
-    #     self.fail()
+    def test_set_essence(self):
+        self.fail()
 
-    # def test_has_essence(self):
-    #     self.fail()
+    def test_has_essence(self):
+        self.fail()
 
-    # def test_freebie_cost(self):
-    #     self.fail()
+    def test_freebie_cost(self):
+        self.fail()
 
-    # def test_spend_freebies(self):
-    #     self.fail()
+    def test_spend_freebies(self):
+        self.fail()
 
-    # def test_xp_cost(self):
-    #     self.fail()
+    def test_xp_cost(self):
+        self.fail()
 
-    # def test_spend_xp(self):
-    #     self.fail()
+    def test_spend_xp(self):
+        self.fail()
 
-    # def test_add_resonance_dot(self):
-    #     self.fail()
+    def test_add_resonance_dot(self):
+        self.fail()
 
-    # def test_total_resonance(self):
-    #     self.fail()
+    def test_total_resonance(self):
+        self.fail()
 
-    # def test_learn_rote(self):
-    #     self.fail()
+    def test_learn_rote(self):
+        self.fail()
 
     def test_has_mage_history(self):
         self.assertFalse(self.character.has_mage_history())
@@ -599,8 +599,8 @@ class TestRandomMage(TestCase):
         self.character.random_essence()
         self.assertTrue(self.character.has_essence())
 
-    # def test_random(self):
-    #     self.fail()
+    def test_random(self):
+        self.fail()
 
 
 class TestCabal(TestCase):

@@ -391,8 +391,8 @@ class TestHuman(TestCase):
         self.assertTrue(self.character.add_ability("occult", maximum=6))
         self.assertEqual(self.character.occult, 6)
 
-    # def test_filter_abilities(self):
-    #     self.fail()
+    def test_filter_abilities(self):
+        self.fail()
 
     def set_abilities(self):
         self.character.alertness = 3
@@ -431,27 +431,27 @@ class TestHuman(TestCase):
         triple.sort()
         self.assertNotEqual(triple, [5, 9, 13])
 
-    # def test_add_specialty(self):
-    #     # TODO: Include Well-Skilled Craftman rule, M20 page 279, to allow multiple specialties for some abilities
-    #     self.fail()
+    def test_add_specialty(self):
+        # TODO: Include Well-Skilled Craftman rule, M20 page 279, to allow multiple specialties for some abilities
+        self.fail()
 
-    # def test_filter_specialties(self):
-    #     self.fail()
+    def test_filter_specialties(self):
+        self.fail()
 
-    # def test_has_specialties(self):
-    #     self.fail()
+    def test_has_specialties(self):
+        self.fail()
 
-    # def test_get_backgrounds(self):
-    #     self.fail()
+    def test_get_backgrounds(self):
+        self.fail()
 
-    # def test_add_background(self):
-    #     self.fail()
+    def test_add_background(self):
+        self.fail()
 
-    # def test_filter_backgrounds(self):
-    #     self.fail()
+    def test_filter_backgrounds(self):
+        self.fail()
 
-    # def test_has_backgrounds(self):
-    #     self.fail()
+    def test_has_backgrounds(self):
+        self.fail()
 
     def test_add_willpower(self):
         self.assertEqual(self.character.willpower, 3)
@@ -497,20 +497,20 @@ class TestHuman(TestCase):
         self.character.add_mf(MeritFlaw.objects.get(name="Merit 3"), 3)
         self.assertEqual(self.character.total_flaws(), -3)
 
-    # def test_freebie_cost(self):
-    #     self.fail()
+    def test_freebie_cost(self):
+        self.fail()
 
-    # def test_spend_freebies(self):
-    #     self.fail()
+    def test_spend_freebies(self):
+        self.fail()
 
-    # def test_xp_cost(self):
-    #     self.fail()
+    def test_xp_cost(self):
+        self.fail()
 
-    # def test_spend_xp(self):
-    #     self.fail()
+    def test_spend_xp(self):
+        self.fail()
 
-    # def test_spent_xp(self):
-    #     self.fail()
+    def test_spent_xp(self):
+        self.fail()
 
     def test_has_finishing_touches(self):
         self.assertFalse(self.character.has_finishing_touches())
@@ -551,11 +551,11 @@ class TestRandomHuman(TestCase):
         for i in range(10):
             Archetype.objects.create(name=f"Archetype {i}")
 
-    # def test_random_name(self):
-    #     self.fail()
+    def test_random_name(self):
+        self.fail()
 
-    # def test_random_concept(self):
-    #     self.fail()
+    def test_random_concept(self):
+        self.fail()
 
     def test_random_archetypes(self):
         self.assertFalse(self.character.has_archetypes())
@@ -594,26 +594,26 @@ class TestRandomHuman(TestCase):
         for _, value in self.character.get_abilities().items():
             self.assertLessEqual(value, 3)
 
-    # def test_random_specialty(self):
-    #     self.fail()
+    def test_random_specialty(self):
+        self.fail()
 
-    # def test_random_specialties(self):
-    #     self.fail()
+    def test_random_specialties(self):
+        self.fail()
 
-    # def test_random_freebies(self):
-    #     self.fail()
+    def test_random_freebies(self):
+        self.fail()
 
-    # def test_random_spend_xp(self):
-    #     self.fail()
+    def test_random_spend_xp(self):
+        self.fail()
 
-    # def test_random_resonance_dot(self):
-    #     self.fail()
+    def test_random_resonance_dot(self):
+        self.fail()
 
-    # def test_random_rotes(self):
-    #     self.fail()
+    def test_random_rotes(self):
+        self.fail()
 
-    # def test_random(self):
-    #     self.fail()
+    def test_random(self):
+        self.fail()
 
 
 class TestCharacterIndexView(TestCase):
