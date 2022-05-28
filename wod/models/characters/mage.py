@@ -216,6 +216,10 @@ class Mage(Human):
 
     background_points = 7
 
+    def __init__(self, *args, **kwargs):
+        kwargs["willpower"] = kwargs.get("willpower") or 5
+        super().__init__(*args, **kwargs)
+
     def get_talents(self):
         tmp = super().get_talents()
         tmp.update(

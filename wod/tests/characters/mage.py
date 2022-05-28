@@ -199,7 +199,7 @@ class TestMage(TestCase):
 
     def test_get_talents(self):
         self.assertEqual(
-            self.character.get_abilities(),
+            self.character.get_talents(),
             {
                 "alertness": 0,
                 "awareness": 0,
@@ -225,7 +225,7 @@ class TestMage(TestCase):
         )
         self.set_abilities()
         self.assertEqual(
-            self.character.get_abilities(),
+            self.character.get_talents(),
             {
                 "alertness": 1,
                 "awareness": 0,
@@ -252,7 +252,7 @@ class TestMage(TestCase):
 
     def test_get_skills(self):
         self.assertEqual(
-            self.character.get_abilities(),
+            self.character.get_skills(),
             {
                 "crafts": 0,
                 "drive": 0,
@@ -277,7 +277,7 @@ class TestMage(TestCase):
         )
         self.set_abilities()
         self.assertEqual(
-            self.character.get_abilities(),
+            self.character.get_skills(),
             {
                 "crafts": 0,
                 "drive": 0,
@@ -303,7 +303,7 @@ class TestMage(TestCase):
 
     def test_get_knowledges(self):
         self.assertEqual(
-            self.character.get_abilities(),
+            self.character.get_knowledges(),
             {
                 "academics": 0,
                 "computer": 0,
@@ -328,7 +328,7 @@ class TestMage(TestCase):
         )
         self.set_abilities()
         self.assertEqual(
-            self.character.get_abilities(),
+            self.character.get_knowledges(),
             {
                 "academics": 0,
                 "computer": 0,
