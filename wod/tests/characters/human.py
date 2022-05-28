@@ -392,7 +392,11 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.occult, 6)
 
     def test_filter_abilities(self):
-        self.fail()
+        self.assertEqual(len(self.character.filter_abilities(minimum=1, maximum=3)), 0)
+        self.assertEqual(len(self.character.filter_abilities(minimum=0, maximum=3)), 19)
+        self.set_abilities()
+        self.assertEqual(len(self.character.filter_abilities(minimum=1, maximum=3)), 10)
+        self.assertEqual(len(self.character.filter_abilities(minimum=1, maximum=2)), 2)
 
     def set_abilities(self):
         self.character.alertness = 3
