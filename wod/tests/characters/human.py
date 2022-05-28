@@ -253,17 +253,133 @@ class TestHuman(TestCase):
         self.character.appearance = 2
         self.assertEqual(self.character.total_social_attributes(), 5)
 
-    # def test_get_abilities(self):
-    #     self.fail()
+    def test_get_abilities(self):
+        self.assertEqual(
+            self.character.get_abilities(),
+            {
+                "alertness": 0,
+                "athletics": 0,
+                "brawl": 0,
+                "empathy": 0,
+                "expression": 0,
+                "intimidation": 0,
+                "streetwise": 0,
+                "subterfuge": 0,
+                "crafts": 0,
+                "drive": 0,
+                "etiquette": 0,
+                "firearms": 0,
+                "melee": 0,
+                "stealth": 0,
+                "academics": 0,
+                "computer": 0,
+                "investigation": 0,
+                "medicine": 0,
+                "science": 0,
+            },
+        )
+        self.set_abilities()
+        self.assertEqual(
+            self.character.get_abilities(),
+            {
+                "alertness": 3,
+                "athletics": 3,
+                "brawl": 3,
+                "empathy": 3,
+                "expression": 1,
+                "intimidation": 0,
+                "streetwise": 0,
+                "subterfuge": 0,
+                "crafts": 3,
+                "drive": 3,
+                "etiquette": 3,
+                "firearms": 0,
+                "melee": 0,
+                "stealth": 0,
+                "academics": 3,
+                "computer": 2,
+                "investigation": 0,
+                "medicine": 0,
+                "science": 0,
+            },
+        )
 
-    # def test_get_talents(self):
-    #     self.fail()
+    def test_get_talents(self):
+        self.assertEqual(
+            self.character.get_talents(),
+            {
+                "alertness": 0,
+                "athletics": 0,
+                "brawl": 0,
+                "empathy": 0,
+                "expression": 0,
+                "intimidation": 0,
+                "streetwise": 0,
+                "subterfuge": 0,
+            },
+        )
+        self.set_abilities()
+        self.assertEqual(
+            self.character.get_talents(),
+            {
+                "alertness": 3,
+                "athletics": 3,
+                "brawl": 3,
+                "empathy": 3,
+                "expression": 1,
+                "intimidation": 0,
+                "streetwise": 0,
+                "subterfuge": 0,
+            },
+        )
 
-    # def test_get_skills(self):
-    #     self.fail()
+    def test_get_skills(self):
+        self.assertEqual(
+            self.character.get_skills(),
+            {
+                "crafts": 0,
+                "drive": 0,
+                "etiquette": 0,
+                "firearms": 0,
+                "melee": 0,
+                "stealth": 0,
+            },
+        )
+        self.set_abilities()
+        self.assertEqual(
+            self.character.get_skills(),
+            {
+                "crafts": 3,
+                "drive": 3,
+                "etiquette": 3,
+                "firearms": 0,
+                "melee": 0,
+                "stealth": 0,
+            },
+        )
 
-    # def test_get_knowledges(self):
-    #     self.fail()
+    def test_get_knowledges(self):
+        self.assertEqual(
+            self.character.get_knowledges(),
+            {
+                "academics": 0,
+                "computer": 0,
+                "investigation": 0,
+                "medicine": 0,
+                "science": 0,
+            },
+        )
+        self.set_abilities()
+        self.assertEqual(
+            self.character.get_knowledges(),
+            {
+                "academics": 3,
+                "computer": 2,
+                "investigation": 0,
+                "medicine": 0,
+                "science": 0,
+            },
+        )
 
     def test_add_ability(self):
         self.character.occult = 0
@@ -278,33 +394,42 @@ class TestHuman(TestCase):
     # def test_filter_abilities(self):
     #     self.fail()
 
-    # def set_skills(self):
-    #     pass
+    def set_abilities(self):
+        self.character.alertness = 3
+        self.character.athletics = 3
+        self.character.brawl = 3
+        self.character.empathy = 3
+        self.character.expression = 1
+        self.character.crafts = 3
+        self.character.drive = 3
+        self.character.etiquette = 3
+        self.character.academics = 3
+        self.character.computer = 2
 
-    # def test_has_abilities(self):
-    #     triple = [
-    #         self.character.total_talents(),
-    #         self.character.total_skills(),
-    #         self.character.total_knowledges(),
-    #     ]
-    #     triple.sort()
-    #     self.assertNotEqual(triple, [5, 9, 13])
-    #     self.set_skills()
-    #     triple = [
-    #         self.character.total_talents(),
-    #         self.character.total_skills(),
-    #         self.character.total_knowledges(),
-    #     ]
-    #     triple.sort()
-    #     self.assertEqual(triple, [5, 9, 13])
-    #     self.character.subterfuge = 1
-    #     triple = [
-    #         self.character.total_talents(),
-    #         self.character.total_skills(),
-    #         self.character.total_knowledges(),
-    #     ]
-    #     triple.sort()
-    #     self.assertNotEqual(triple, [5, 9, 13])
+    def test_has_abilities(self):
+        triple = [
+            self.character.total_talents(),
+            self.character.total_skills(),
+            self.character.total_knowledges(),
+        ]
+        triple.sort()
+        self.assertNotEqual(triple, [5, 9, 13])
+        self.set_abilities()
+        triple = [
+            self.character.total_talents(),
+            self.character.total_skills(),
+            self.character.total_knowledges(),
+        ]
+        triple.sort()
+        self.assertEqual(triple, [5, 9, 13])
+        self.character.subterfuge = 1
+        triple = [
+            self.character.total_talents(),
+            self.character.total_skills(),
+            self.character.total_knowledges(),
+        ]
+        triple.sort()
+        self.assertNotEqual(triple, [5, 9, 13])
 
     # def test_add_specialty(self):
     #     # TODO: Include Well-Skilled Craftman rule, M20 page 279, to allow multiple specialties for some abilities
