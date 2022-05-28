@@ -119,6 +119,46 @@ class Mage(Human):
         related_name="subfactions",
     )
 
+    awareness = models.IntegerField(default=0)
+    art = models.IntegerField(default=0)
+    leadership = models.IntegerField(default=0)
+    animal_kinship = models.IntegerField(default=0)
+    blatancy = models.IntegerField(default=0)
+    carousing = models.IntegerField(default=0)
+    do = models.IntegerField(default=0)
+    flying = models.IntegerField(default=0)
+    high_ritual = models.IntegerField(default=0)
+    lucid_dreaming = models.IntegerField(default=0)
+    search = models.IntegerField(default=0)
+    seduction = models.IntegerField(default=0)
+    martial_arts = models.IntegerField(default=0)
+    meditation = models.IntegerField(default=0)
+    research = models.IntegerField(default=0)
+    survival = models.IntegerField(default=0)
+    technology = models.IntegerField(default=0)
+    acrobatics = models.IntegerField(default=0)
+    archery = models.IntegerField(default=0)
+    biotech = models.IntegerField(default=0)
+    energy_weapons = models.IntegerField(default=0)
+    hypertech = models.IntegerField(default=0)
+    jetpack = models.IntegerField(default=0)
+    riding = models.IntegerField(default=0)
+    torture = models.IntegerField(default=0)
+    cosmology = models.IntegerField(default=0)
+    enigmas = models.IntegerField(default=0)
+    esoterica = models.IntegerField(default=0)
+    law = models.IntegerField(default=0)
+    occult = models.IntegerField(default=0)
+    politics = models.IntegerField(default=0)
+    area_knowledge = models.IntegerField(default=0)
+    belief_systems = models.IntegerField(default=0)
+    cryptography = models.IntegerField(default=0)
+    demolitions = models.IntegerField(default=0)
+    finance = models.IntegerField(default=0)
+    lore = models.IntegerField(default=0)
+    media = models.IntegerField(default=0)
+    pharmacopeia = models.IntegerField(default=0)
+
     correspondence = models.IntegerField(default=0)
     time = models.IntegerField(default=0)
     spirit = models.IntegerField(default=0)
@@ -177,55 +217,67 @@ class Mage(Human):
     background_points = 7
 
     def get_talents(self):
-        return {
-            "awareness": self.awareness,
-            "art": self.art,
-            "leadership": self.leadership,
-            "animal_kinship": self.animal_kinship,
-            "blatancy": self.blatancy,
-            "carousing": self.carousing,
-            "do": self.do,
-            "flying": self.flying,
-            "high_ritual": self.high_ritual,
-            "lucid_dreaming": self.lucid_dreaming,
-            "search": self.search,
-            "seduction": self.seduction,
-        }
+        tmp = super().get_talents()
+        tmp.update(
+            {
+                "awareness": self.awareness,
+                "art": self.art,
+                "leadership": self.leadership,
+                "animal_kinship": self.animal_kinship,
+                "blatancy": self.blatancy,
+                "carousing": self.carousing,
+                "do": self.do,
+                "flying": self.flying,
+                "high_ritual": self.high_ritual,
+                "lucid_dreaming": self.lucid_dreaming,
+                "search": self.search,
+                "seduction": self.seduction,
+            }
+        )
+        return tmp
 
     def get_skills(self):
-        return {
-            "martial_arts": self.martial_arts,
-            "meditation": self.meditation,
-            "research": self.research,
-            "survival": self.survival,
-            "technology": self.technology,
-            "acrobatics": self.acrobatics,
-            "archery": self.archery,
-            "biotech": self.biotech,
-            "energy_weapons": self.energy_weapons,
-            "hypertech": self.hypertech,
-            "jetpack": self.jetpack,
-            "riding": self.riding,
-            "torture": self.torture,
-        }
+        tmp = super().get_skills()
+        tmp.update(
+            {
+                "martial_arts": self.martial_arts,
+                "meditation": self.meditation,
+                "research": self.research,
+                "survival": self.survival,
+                "technology": self.technology,
+                "acrobatics": self.acrobatics,
+                "archery": self.archery,
+                "biotech": self.biotech,
+                "energy_weapons": self.energy_weapons,
+                "hypertech": self.hypertech,
+                "jetpack": self.jetpack,
+                "riding": self.riding,
+                "torture": self.torture,
+            }
+        )
+        return tmp
 
     def get_knowledges(self):
-        return {
-            "cosmology": self.cosmology,
-            "enigmas": self.enigmas,
-            "esoterica": self.esoterica,
-            "law": self.law,
-            "occult": self.occult,
-            "politics": self.politics,
-            "area_knowledge": self.area_knowledge,
-            "belief_systems": self.belief_systems,
-            "cryptography": self.cryptography,
-            "demolitions": self.demolitions,
-            "finance": self.finance,
-            "lore": self.lore,
-            "media": self.media,
-            "pharmacopeia": self.pharmacopeia,
-        }
+        tmp = super().get_knowledges()
+        tmp.update(
+            {
+                "cosmology": self.cosmology,
+                "enigmas": self.enigmas,
+                "esoterica": self.esoterica,
+                "law": self.law,
+                "occult": self.occult,
+                "politics": self.politics,
+                "area_knowledge": self.area_knowledge,
+                "belief_systems": self.belief_systems,
+                "cryptography": self.cryptography,
+                "demolitions": self.demolitions,
+                "finance": self.finance,
+                "lore": self.lore,
+                "media": self.media,
+                "pharmacopeia": self.pharmacopeia,
+            }
+        )
+        return tmp
 
     def get_spheres(self):
         return {

@@ -83,6 +83,28 @@ class Human(Character):
     manipulation = models.IntegerField(default=1)
     appearance = models.IntegerField(default=1)
 
+    alertness = models.IntegerField(default=0)
+    athletics = models.IntegerField(default=0)
+    brawl = models.IntegerField(default=0)
+    empathy = models.IntegerField(default=0)
+    expression = models.IntegerField(default=0)
+    intimidation = models.IntegerField(default=0)
+    streetwise = models.IntegerField(default=0)
+    subterfuge = models.IntegerField(default=0)
+
+    crafts = models.IntegerField(default=0)
+    drive = models.IntegerField(default=0)
+    etiquette = models.IntegerField(default=0)
+    firearms = models.IntegerField(default=0)
+    melee = models.IntegerField(default=0)
+    stealth = models.IntegerField(default=0)
+
+    academics = models.IntegerField(default=0)
+    computer = models.IntegerField(default=0)
+    investigation = models.IntegerField(default=0)
+    medicine = models.IntegerField(default=0)
+    science = models.IntegerField(default=0)
+
     willpower = models.IntegerField(default=3)
 
     merits_and_flaws = models.ManyToManyField(
@@ -218,7 +240,7 @@ class Human(Character):
             "expression": self.expression,
             "intimidation": self.intimidation,
             "streetwise": self.streetwise,
-            "subterfuge": self.subterfuge,           
+            "subterfuge": self.subterfuge,
         }
 
     def get_skills(self):
