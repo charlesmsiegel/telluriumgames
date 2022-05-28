@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
 from accounts.models import WoDProfile
@@ -44,6 +45,12 @@ class Character(PolymorphicModel):
         self.name = name
         return True
 
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("wod:character", kwargs={"pk": self.pk})
+
 
 class Human(Character):
     type = "human"
@@ -79,6 +86,24 @@ class Human(Character):
         MeritFlaw, blank=True, through=MeritFlawRating
     )
 
+    age = models.IntegerField(blank=True, null=True)
+    date_of_birth = models.DateField(blank=True, null=True)
+    hair = models.CharField(blank=True, null=True, max_length=100)
+    eyes = models.CharField(blank=True, null=True, max_length=100)
+    ethnicity = models.CharField(blank=True, null=True, max_length=100)
+    nationality = models.CharField(blank=True, null=True, max_length=100)
+    height = models.CharField(blank=True, null=True, max_length=100)
+    weight = models.CharField(blank=True, null=True, max_length=100)
+    sex = models.CharField(blank=True, null=True, max_length=100)
+    description = models.TextField(blank=True, null=True)
+
+    childhood = models.TextField(default="", blank=True, null=True)
+    history = models.TextField(default="", blank=True, null=True)
+    goals = models.TextField(default="", blank=True, null=True)
+    notes = models.TextField(default="", blank=True, null=True)
+
+    freebies = 15
+
     def has_archetypes(self):
         return self.nature is not None and self.demeanor is not None
 
@@ -86,6 +111,10 @@ class Human(Character):
         self.nature = nature
         self.demeanor = demeanor
         return True
+
+    def random_archetypes(self):
+        self.nature = Archetype.objects.order_by("?").first()
+        self.demeanor = Archetype.objects.order_by("?").first()
 
     def add_attribute(self, attribute, maximum=5):
         return add_dot(self, attribute, maximum)
@@ -127,18 +156,31 @@ class Human(Character):
     def total_mental_attributes(self):
         return sum(self.get_mental_attributes().values())
 
+    def total_attributes(self):
+        return sum(self.get_attributes().values())
+
     def filter_attributes(self, minimum=0, maximum=5):
         return {
             k: v for k, v in self.get_attributes().items() if minimum <= v <= maximum
         }
 
+    def random_attribute(self):
+        choice = weighted_choice(self.filter_attributes(maximum=4))
+        self.add_attribute(choice, 5)
+
+    def add_ability(self, ability, maximum=4):
+        return add_dot(self, ability, maximum)
+
     def total_talents(self):
+        # TODO: List of Talents
         return 0
 
     def total_skills(self):
+        # TODO: List of Skills
         return 0
 
     def total_knowledges(self):
+        # TODO: List of Knowledges
         return 0
 
     def add_willpower(self):
@@ -193,3 +235,23 @@ class Human(Character):
                 if x.rating > 0
             ]
         )
+
+    def has_finishing_touches(self):
+        return (
+            self.age != 0
+            and self.date_of_birth is not None
+            and self.hair != ""
+            and self.eyes != ""
+            and self.ethnicity != ""
+            and self.nationality != ""
+            and self.height != ""
+            and self.weight != ""
+            and self.sex != ""
+            and self.description != ""
+        )
+
+    def has_history(self):
+        return self.childhood != "" and self.history != "" and self.goals != ""
+
+    def random_xp_spend(self):
+        pass

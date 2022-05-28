@@ -1,3 +1,6 @@
+from unittest import mock
+from unittest.mock import Mock
+
 from django.contrib.auth.models import User
 from django.test import TestCase
 
@@ -40,27 +43,314 @@ def mage_setup(player):
         MageFaction.objects.create(name=f"sub-{faction.name}", parent=faction)
 
     for i in range(5):
-        MeritFlaw.objects.create(name=f"Merit {i}", cost=i)
-        MeritFlaw.objects.create(name=f"Flaw {i}", cost=-i)
+        MeritFlaw.objects.create(name=f"Merit {i}", ratings=[i])
+        MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i])
 
 
 class TestMage(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username="Test")
-        self.character = Mage.objects.create(name="", player=self.user.wod_profile)
+        self.player = User.objects.create_user(username="Test")
+        self.character = Mage.objects.create(name="", player=self.player.wod_profile)
         mage_setup(self.player)
 
+    def set_abilities(self):
+        self.character.alertness = 1
+        self.character.art = 2
+        self.character.empathy = 3
+        self.character.streetwise = 2
+        self.character.firearms = 3
+        self.character.melee = 4
+        self.character.stealth = 2
+        self.character.technology = 1
+        self.character.cosmology = 3
+        self.character.law = 2
+        self.character.area_knowledge = 1
+        self.character.belief_systems = 1
+        self.character.cryptography = 1
+
     def test_get_abilities(self):
-        self.fail()
+        self.assertEqual(
+            self.character.get_abilities(),
+            {
+                "alertness": 0,
+                "awareness": 0,
+                "art": 0,
+                "athletics": 0,
+                "brawl": 0,
+                "empathy": 0,
+                "intimidation": 0,
+                "leadership": 0,
+                "expression": 0,
+                "streetwise": 0,
+                "subterfuge": 0,
+                "animal_kinship": 0,
+                "blatancy": 0,
+                "carousing": 0,
+                "do": 0,
+                "flying": 0,
+                "high_ritual": 0,
+                "lucid_dreaming": 0,
+                "search": 0,
+                "seduction": 0,
+                "crafts": 0,
+                "drive": 0,
+                "etiquette": 0,
+                "firearms": 0,
+                "martial_arts": 0,
+                "meditation": 0,
+                "melee": 0,
+                "research": 0,
+                "stealth": 0,
+                "survival": 0,
+                "technology": 0,
+                "acrobatics": 0,
+                "archery": 0,
+                "biotech": 0,
+                "energy_weapons": 0,
+                "hypertech": 0,
+                "jetpack": 0,
+                "riding": 0,
+                "torture": 0,
+                "academics": 0,
+                "computer": 0,
+                "cosmology": 0,
+                "enigmas": 0,
+                "esoterica": 0,
+                "investigation": 0,
+                "law": 0,
+                "medicine": 0,
+                "occult": 0,
+                "politics": 0,
+                "science": 0,
+                "area_knowledge": 0,
+                "belief_systems": 0,
+                "cryptography": 0,
+                "demolitions": 0,
+                "finance": 0,
+                "lore": 0,
+                "media": 0,
+                "pharmacopeia": 0,
+            },
+        )
+        self.set_abilities()
+        self.assertEqual(
+            self.character.get_abilities(),
+            {
+                "alertness": 1,
+                "awareness": 0,
+                "art": 2,
+                "athletics": 0,
+                "brawl": 0,
+                "empathy": 3,
+                "intimidation": 0,
+                "leadership": 0,
+                "expression": 0,
+                "streetwise": 2,
+                "subterfuge": 0,
+                "animal_kinship": 0,
+                "blatancy": 0,
+                "carousing": 0,
+                "do": 0,
+                "flying": 0,
+                "high_ritual": 0,
+                "lucid_dreaming": 0,
+                "search": 0,
+                "seduction": 0,
+                "crafts": 0,
+                "drive": 0,
+                "etiquette": 0,
+                "firearms": 3,
+                "martial_arts": 0,
+                "meditation": 0,
+                "melee": 4,
+                "research": 0,
+                "stealth": 2,
+                "survival": 0,
+                "technology": 1,
+                "acrobatics": 0,
+                "archery": 0,
+                "biotech": 0,
+                "energy_weapons": 0,
+                "hypertech": 0,
+                "jetpack": 0,
+                "riding": 0,
+                "torture": 0,
+                "academics": 0,
+                "computer": 0,
+                "cosmology": 3,
+                "enigmas": 0,
+                "esoterica": 0,
+                "investigation": 0,
+                "law": 2,
+                "medicine": 0,
+                "occult": 0,
+                "politics": 0,
+                "science": 0,
+                "area_knowledge": 1,
+                "belief_systems": 1,
+                "cryptography": 1,
+                "demolitions": 0,
+                "finance": 0,
+                "lore": 0,
+                "media": 0,
+                "pharmacopeia": 0,
+            },
+        )
 
     def test_get_talents(self):
-        self.fail()
+        self.assertEqual(
+            self.character.get_abilities(),
+            {
+                "alertness": 0,
+                "awareness": 0,
+                "art": 0,
+                "athletics": 0,
+                "brawl": 0,
+                "empathy": 0,
+                "intimidation": 0,
+                "leadership": 0,
+                "expression": 0,
+                "streetwise": 0,
+                "subterfuge": 0,
+                "animal_kinship": 0,
+                "blatancy": 0,
+                "carousing": 0,
+                "do": 0,
+                "flying": 0,
+                "high_ritual": 0,
+                "lucid_dreaming": 0,
+                "search": 0,
+                "seduction": 0,
+            },
+        )
+        self.set_abilities()
+        self.assertEqual(
+            self.character.get_abilities(),
+            {
+                "alertness": 1,
+                "awareness": 0,
+                "art": 2,
+                "athletics": 0,
+                "brawl": 0,
+                "empathy": 3,
+                "intimidation": 0,
+                "leadership": 0,
+                "expression": 0,
+                "streetwise": 2,
+                "subterfuge": 0,
+                "animal_kinship": 0,
+                "blatancy": 0,
+                "carousing": 0,
+                "do": 0,
+                "flying": 0,
+                "high_ritual": 0,
+                "lucid_dreaming": 0,
+                "search": 0,
+                "seduction": 0,
+            },
+        )
 
     def test_get_skills(self):
-        self.fail()
+        self.assertEqual(
+            self.character.get_abilities(),
+            {
+                "crafts": 0,
+                "drive": 0,
+                "etiquette": 0,
+                "firearms": 0,
+                "martial_arts": 0,
+                "meditation": 0,
+                "melee": 0,
+                "research": 0,
+                "stealth": 0,
+                "survival": 0,
+                "technology": 0,
+                "acrobatics": 0,
+                "archery": 0,
+                "biotech": 0,
+                "energy_weapons": 0,
+                "hypertech": 0,
+                "jetpack": 0,
+                "riding": 0,
+                "torture": 0,
+            },
+        )
+        self.set_abilities()
+        self.assertEqual(
+            self.character.get_abilities(),
+            {
+                "crafts": 0,
+                "drive": 0,
+                "etiquette": 0,
+                "firearms": 3,
+                "martial_arts": 0,
+                "meditation": 0,
+                "melee": 4,
+                "research": 0,
+                "stealth": 2,
+                "survival": 0,
+                "technology": 1,
+                "acrobatics": 0,
+                "archery": 0,
+                "biotech": 0,
+                "energy_weapons": 0,
+                "hypertech": 0,
+                "jetpack": 0,
+                "riding": 0,
+                "torture": 0,
+            },
+        )
 
     def test_get_knowledges(self):
-        self.fail()
+        self.assertEqual(
+            self.character.get_abilities(),
+            {
+                "academics": 0,
+                "computer": 0,
+                "cosmology": 0,
+                "enigmas": 0,
+                "esoterica": 0,
+                "investigation": 0,
+                "law": 0,
+                "medicine": 0,
+                "occult": 0,
+                "politics": 0,
+                "science": 0,
+                "area_knowledge": 0,
+                "belief_systems": 0,
+                "cryptography": 0,
+                "demolitions": 0,
+                "finance": 0,
+                "lore": 0,
+                "media": 0,
+                "pharmacopeia": 0,
+            },
+        )
+        self.set_abilities()
+        self.assertEqual(
+            self.character.get_abilities(),
+            {
+                "academics": 0,
+                "computer": 0,
+                "cosmology": 3,
+                "enigmas": 0,
+                "esoterica": 0,
+                "investigation": 0,
+                "law": 2,
+                "medicine": 0,
+                "occult": 0,
+                "politics": 0,
+                "science": 0,
+                "area_knowledge": 1,
+                "belief_systems": 1,
+                "cryptography": 1,
+                "demolitions": 0,
+                "finance": 0,
+                "lore": 0,
+                "media": 0,
+                "pharmacopeia": 0,
+            },
+        )
 
     def set_spheres(self):
         self.character.correspondence = 1
@@ -115,38 +405,41 @@ class TestMage(TestCase):
 
     def test_filter_spheres(self):
         self.character.arete = 3
-        self.assertEqual(len(self.character.filter_spheres()), 9)
+        self.assertEqual(len(self.character.filter_spheres().keys()), 9)
         self.set_spheres()
-        self.assertEqual(len(self.character.filter_spheres()), 4)
-        self.assertEqual(len(self.character.filter_spheres(minimum=2)), 2)
-        self.assertEqual(len(self.character.filter_spheres(maximum=1)), 2)
+        self.assertEqual(len(self.character.filter_spheres().keys()), 4)
+        self.assertEqual(len(self.character.filter_spheres(minimum=2).keys()), 2)
+        self.assertEqual(len(self.character.filter_spheres(maximum=1).keys()), 2)
 
     def test_has_spheres(self):
         self.assertFalse(self.character.has_spheres())
         self.character.arete = 3
         self.character.set_affinity_sphere("forces")
         self.assertFalse(self.character.has_spheres())
-        self.acharacter.add_sphere("forces")
+        self.character.add_sphere("forces")
         self.assertFalse(self.character.has_spheres())
-        self.acharacter.add_sphere("forces")
+        self.character.add_sphere("forces")
         self.assertFalse(self.character.has_spheres())
-        self.acharacter.add_sphere("matter")
+        self.character.add_sphere("matter")
         self.assertFalse(self.character.has_spheres())
-        self.acharacter.add_sphere("matter")
+        self.character.add_sphere("matter")
         self.assertFalse(self.character.has_spheres())
-        self.acharacter.add_sphere("matter")
+        self.character.add_sphere("matter")
         self.assertTrue(self.character.has_spheres())
 
     def test_set_affinity_sphere(self):
+        self.character.arete = 1
         self.assertFalse(self.character.has_affinity_sphere())
         self.assertTrue(self.character.set_affinity_sphere("forces"))
         self.assertTrue(self.character.has_affinity_sphere())
+        self.assertEqual(self.character.forces, 1)
 
     def test_has_affinity_sphere(self):
+        self.character.arete = 1
         self.assertFalse(self.character.has_affinity_sphere())
         self.character.affinity_sphere = "forces"
+        self.character.forces = 1
         self.assertTrue(self.character.has_affinity_sphere())
-        self.assertEqual(self.character.forces, 1)
 
     def test_sphere_names(self):
         spheres = [
@@ -165,9 +458,9 @@ class TestMage(TestCase):
         self.assertEqual(self.character.get_corr_name_display(), "Correspondence")
         self.assertEqual(self.character.get_spirit_name_display(), "Spirit")
         self.assertEqual(self.character.get_prime_name_display(), "Prime")
-        self.character.corr_name = "DAT"
-        self.character.prime_name = "PU"
-        self.character.spirit_name = "DS"
+        self.character.corr_name = "data"
+        self.character.prime_name = "primal_utility"
+        self.character.spirit_name = "dimensional_science"
         self.assertEqual(self.character.get_corr_name_display(), "Data")
         self.assertEqual(
             self.character.get_spirit_name_display(), "Dimensional Science"
@@ -175,9 +468,9 @@ class TestMage(TestCase):
         self.assertEqual(self.character.get_prime_name_display(), "Primal Utility")
 
     def test_add_arete(self):
-        self.assertEqual(self.character.arete, 1)
+        self.assertEqual(self.character.arete, 0)
         self.assertTrue(self.character.add_arete())
-        self.assertEqual(self.character.arete, 2)
+        self.assertEqual(self.character.arete, 1)
         self.character.arete = 10
         self.assertFalse(self.character.add_arete())
 
@@ -190,35 +483,48 @@ class TestMage(TestCase):
         self.character.life = 1
         self.assertEqual(self.character.total_spheres(), 5)
 
-    def test_set_faction(self):
-        self.fail()
+    def test_mage_numbers(self):
+        self.assertEqual(self.character.willpower, 5)
+        self.assertEqual(self.character.backgrounds, 7)
 
-    def test_has_faction(self):
-        self.fail()
+    # def test_set_faction(self):
+    #     self.fail()
 
-    def test_set_focus(self):
-        self.fail()
+    # def test_has_faction(self):
+    #     self.fail()
 
-    def test_has_focus(self):
-        self.fail()
+    # def test_set_focus(self):
+    #     self.fail()
 
-    def test_set_essence(self):
-        self.fail()
+    # def test_has_focus(self):
+    #     self.fail()
 
-    def test_has_essence(self):
-        self.fail()
+    # def test_set_essence(self):
+    #     self.fail()
 
-    def test_freebie_cost(self):
-        self.fail()
+    # def test_has_essence(self):
+    #     self.fail()
 
-    def test_spend_freebies(self):
-        self.fail()
+    # def test_freebie_cost(self):
+    #     self.fail()
 
-    def test_xp_cost(self):
-        self.fail()
+    # def test_spend_freebies(self):
+    #     self.fail()
 
-    def test_spend_xp(self):
-        self.fail()
+    # def test_xp_cost(self):
+    #     self.fail()
+
+    # def test_spend_xp(self):
+    #     self.fail()
+
+    # def test_add_resonance_dot(self):
+    #     self.fail()
+
+    # def test_total_resonance(self):
+    #     self.fail()
+
+    # def test_learn_rote(self):
+    #     self.fail()
 
     def test_has_mage_history(self):
         self.assertFalse(self.character.has_mage_history())
@@ -234,6 +540,7 @@ class TestRandomMage(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="Test")
         self.character = Mage.objects.create(name="", player=self.user.wod_profile)
+        mage_setup(self.user)
 
     def test_random_affinity_sphere(self):
         self.assertFalse(self.character.has_affinity_sphere())
@@ -244,6 +551,14 @@ class TestRandomMage(TestCase):
         self.assertFalse(self.character.has_faction())
         self.character.random_faction()
         self.assertTrue(self.character.has_faction())
+        mage = Mage.objects.create(
+            name="Random Character", player=self.player.wod_profile
+        )
+        mocker = Mock()
+        mocker.side_effect = [0.01]
+        with mock.patch("random.random", mocker):
+            mage.random_faction()
+        self.assertIsNotNone(mage.subfaction)
 
     def test_random_focus(self):
         self.assertFalse(self.character.has_focus())
@@ -251,18 +566,20 @@ class TestRandomMage(TestCase):
         self.assertTrue(self.character.has_focus())
 
     def test_random_sphere(self):
+        self.character.arete = 3
         num = self.character.total_spheres()
-        self.random_sphere()
+        self.character.random_sphere()
         self.assertEqual(self.character.total_spheres(), num + 1)
 
     def test_random_spheres(self):
+        self.character.arete = 3
         self.assertFalse(self.character.has_spheres())
-        self.random_spheres()
+        self.character.random_spheres()
         self.assertTrue(self.character.has_spheres())
 
     def test_random_arete(self):
         self.assertEqual(self.character.arete, 0)
-        self.random_arete()
+        self.character.random_arete()
         self.assertNotEqual(self.character.arete, 0)
 
     def test_random_xp_spend(self):
@@ -277,10 +594,12 @@ class TestRandomMage(TestCase):
         self.assertEqual(self.character.freebies, 0)
 
     def test_random_essence(self):
-        self.fail()
+        self.assertFalse(self.character.has_essence())
+        self.character.random_essence()
+        self.assertTrue(self.character.has_essence())
 
-    def test_random(self):
-        self.fail()
+    # def test_random(self):
+    #     self.fail()
 
 
 class TestCabal(TestCase):
