@@ -525,7 +525,7 @@ class TestMage(TestCase):
 
     def test_learn_rote(self):
         self.fail()
-        
+
     def test_has_mage_history(self):
         self.assertFalse(self.character.has_mage_history())
         self.character.awakening = "Young"

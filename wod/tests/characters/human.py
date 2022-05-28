@@ -3,7 +3,13 @@ from django.test import TestCase
 from django.utils.timezone import now
 
 from core.models import Language
-from wod.models.characters.human import Archetype, Character, Human, MeritFlaw
+from wod.models.characters.human import (
+    Archetype,
+    Character,
+    Human,
+    MeritFlaw,
+    Specialty,
+)
 from wod.models.characters.mage import Mage
 
 
@@ -55,7 +61,10 @@ class TestHuman(TestCase):
                     MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i])
         for i in range(10):
             for ability in self.character.get_abilities():
-                Specialty.objects.create(name=f"{ability.replace('_', ' ').title()} Specialty {i}", ability=ability)
+                Specialty.objects.create(
+                    name=f"{ability.replace('_', ' ').title()} Specialty {i}",
+                    ability=ability,
+                )
 
     def test_has_archetypes(self):
         self.assertFalse(self.character.has_archetypes())
@@ -442,7 +451,11 @@ class TestHuman(TestCase):
         # TODO: Include Well-Skilled Craftman rule, M20 page 279, to allow multiple specialties for some abilities
         # Well-Skilled Craftman works for Arts, Athletics, Crafts, Firearms, Martial Arts, Melee, Academics, Esoterica, Lore, Politics, Science
         num = self.character.specialties.count()
-        self.assertTrue(self.character.add_specialty(Specialty.objects.get(name="Athletics Specialty 3")))
+        self.assertTrue(
+            self.character.add_specialty(
+                Specialty.objects.get(name="Athletics Specialty 3")
+            )
+        )
         self.assertEqual(self.character.specialties.count(), num + 1)
 
     def test_filter_specialties(self):
@@ -562,7 +575,10 @@ class TestRandomHuman(TestCase):
             Archetype.objects.create(name=f"Archetype {i}")
         for i in range(10):
             for ability in self.character.get_abilities():
-                Specialty.objects.create(name=f"{ability.replace('_', ' ').title()} Specialty {i}", ability=ability)
+                Specialty.objects.create(
+                    name=f"{ability.replace('_', ' ').title()} Specialty {i}",
+                    ability=ability,
+                )
 
     def test_random_name(self):
         self.assertFalse(self.character.has_name())

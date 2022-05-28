@@ -459,6 +459,9 @@ class Mage(Human):
         choice = random.choice(options)
         self.set_essence(choice)
 
+    def total_resonance(self):
+        pass
+
     def has_mage_history(self):
         return (
             self.awakening != ""

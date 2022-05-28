@@ -14,6 +14,21 @@ class Archetype(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
 
+class Specialty(models.Model):
+    name = models.CharField(max_length=100)
+    ability = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "Specialty"
+        verbose_name_plural = "Specialties"
+
+    def display_skill(self):
+        return self.skill.replace("_", " ").title()
+
+    def __str__(self):
+        return f"{self.name} ({self.display_skill()})"
+
+
 class MeritFlaw(models.Model):
     name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
@@ -41,12 +56,18 @@ class Character(PolymorphicModel):
         self.concept = concept
         return True
 
+    def random_concept(self):
+        pass
+
     def has_name(self):
         return self.name != ""
 
     def set_name(self, name):
         self.name = name
         return True
+
+    def random_name(self):
+        pass
 
     def __str__(self):
         return self.name
@@ -104,6 +125,8 @@ class Human(Character):
     investigation = models.IntegerField(default=0)
     medicine = models.IntegerField(default=0)
     science = models.IntegerField(default=0)
+
+    specialties = models.ManyToManyField(Specialty, blank=True)
 
     willpower = models.IntegerField(default=3)
 
@@ -199,6 +222,9 @@ class Human(Character):
             attribute_choice = weighted_choice(self.get_mental_attributes())
             add_dot(self, attribute_choice, 5)
 
+    def has_attributes(self):
+        pass
+
     def filter_attributes(self, minimum=0, maximum=5):
         return {
             k: v for k, v in self.get_attributes().items() if minimum <= v <= maximum
@@ -283,6 +309,21 @@ class Human(Character):
     def total_abilities(self):
         return sum(self.get_abilities().values())
 
+    def has_abilities(self):
+        pass
+
+    def add_specialty(self, specialty):
+        pass
+
+    def has_specialties(self):
+        pass
+
+    def random_specialty(self, ability):
+        pass
+
+    def random_specialties(self):
+        pass
+
     def add_willpower(self):
         return add_dot(self, "willpower", 10)
 
@@ -354,4 +395,7 @@ class Human(Character):
         return self.childhood != "" and self.history != "" and self.goals != ""
 
     def random_xp_spend(self):
+        pass
+
+    def random(self):
         pass
