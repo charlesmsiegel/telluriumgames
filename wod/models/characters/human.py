@@ -211,18 +211,9 @@ class Human(Character):
     def add_ability(self, ability, maximum=4):
         return add_dot(self, ability, maximum)
 
-    def random_ability(self):
-        ability_types = [13, 9, 5]
-        random.shuffle(ability_types)
-        while self.total_talents() < ability_types[0]:
-            ability_choice = weighted_choice(self.get_talents())
-            self.add_ability(ability_choice, maximum=3)
-        while self.total_skills() < ability_types[1]:
-            ability_choice = weighted_choice(self.get_skills())
-            self.add_ability(ability_choice, maximum=3)
-        while self.total_knowledges() < ability_types[2]:
-            ability_choice = weighted_choice(self.get_knowledges())
-            self.add_ability(ability_choice, maximum=3)
+    def random_ability(self, maximum=4):
+        choice = weighted_choice(self.filter_abilities(maximum=maximum))
+        self.add_ability(choice, 5)
 
     def get_abilities(self):
         tmp = {}
@@ -230,6 +221,11 @@ class Human(Character):
         tmp.update(self.get_skills())
         tmp.update(self.get_knowledges())
         return tmp
+
+    def filter_abilities(self, minimum=0, maximum=5):
+        return {
+            k: v for k, v in self.get_abilities().items() if minimum <= v <= maximum
+        }
 
     def get_talents(self):
         return {
@@ -272,7 +268,17 @@ class Human(Character):
         return sum(self.get_knowledges().values())
 
     def random_abilities(self):
-        pass
+        ability_types = [13, 9, 5]
+        random.shuffle(ability_types)
+        while self.total_talents() < ability_types[0]:
+            ability_choice = weighted_choice(self.get_talents())
+            self.add_ability(ability_choice, maximum=3)
+        while self.total_skills() < ability_types[1]:
+            ability_choice = weighted_choice(self.get_skills())
+            self.add_ability(ability_choice, maximum=3)
+        while self.total_knowledges() < ability_types[2]:
+            ability_choice = weighted_choice(self.get_knowledges())
+            self.add_ability(ability_choice, maximum=3)
 
     def total_abilities(self):
         return sum(self.get_abilities().values())

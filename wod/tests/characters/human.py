@@ -466,7 +466,7 @@ class TestRandomHuman(TestCase):
         ]
         triple.sort(key=lambda x: -x)
         self.assertEqual(triple, [13, 9, 5])
-        for _, value in self.get_abilities().items():
+        for _, value in self.character.get_abilities().items():
             self.assertLessEqual(value, 3)
 
     # def test_random_specialty(self):
