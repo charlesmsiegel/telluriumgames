@@ -30,6 +30,7 @@ class Aberrant(Human):
 
     quantum = models.IntegerField(default=1)
     quantum_points = models.IntegerField(default=5)
+    flux = models.IntegerField(default=0)
 
     def add_mega_attribute(self, attribute):
         if not attribute.startswith("mega_"):
@@ -258,6 +259,12 @@ class Aberrant(Human):
     def update_quantum_points(self):
         self.quantum_points = 10 + 5 * self.quantum
 
+    def add_flux(self):
+        pass
+
+    def power_cost(self, power):
+        pass
+
     def apply_random_template(self):
         self.quantum = 1
 
@@ -411,6 +418,38 @@ class MegaEdgeRating(models.Model):
 class Power(models.Model):
     name = models.CharField(max_length=100, unique=True)
     quantum_minimum = models.IntegerField(default=0)
+    action = models.CharField(
+        max_length=100, choices=[("reflexive", "Reflexive"), ("ordinary", "Ordinary"),]
+    )
+    cost = models.IntegerField(default=0)
+    dice_pool = models.CharField(default="", max_length=100)
+    range = models.CharField(
+        max_length=100,
+        choices=[
+            ("personal", "Personal"),
+            ("close", "Close"),
+            ("short", "Short"),
+            ("medium", "Medium"),
+            ("long", "Long"),
+            ("extreme", "Extreme"),
+            ("visual", "Visual"),
+        ],
+    )
+    duration = models.CharField(
+        max_length=100,
+        choices=[
+            ("instantaneous", "Instantaneous"),
+            ("concentration", "Concentration"),
+            ("maintained", "Maintained"),
+            ("continuous", "Continuous"),
+        ],
+    )
+
+    def set_dicepool(self, dicepool):
+        pass
+
+    def set_action_type(self, action_type):
+        pass
 
     def __str__(self):
         return self.name

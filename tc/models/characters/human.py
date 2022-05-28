@@ -77,6 +77,8 @@ class Human(PolymorphicModel):
     defense = models.IntegerField(default=1)
     xp = models.IntegerField(default=0)
 
+    spent_xp = models.TextField(default="")
+
     class Meta:
         ordering = ("name",)
 
@@ -467,6 +469,12 @@ class Human(PolymorphicModel):
 
     def total_path_rating(self):
         return sum([self.path_rating(x) for x in Path.objects.all()])
+
+    def has_connection(self, path):
+        pass
+
+    def set_connection(self, path, connection):
+        pass
 
     def edge_rating(self, edge):
         if not isinstance(edge, Edge):
@@ -861,7 +869,14 @@ class PathRating(models.Model):
         Human, null=False, blank=False, on_delete=models.CASCADE
     )
     path = models.ForeignKey(Path, null=False, blank=False, on_delete=models.CASCADE)
+    connection = models.ForeignKey(
+        "PathConnection", null=True, blank=True, on_delete=models.CASCADE
+    )
     rating = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.path.name}: {self.rating}"
+
+
+class PathConnection(models.Model):
+    name = models.CharField(max_length=100, unique=True)

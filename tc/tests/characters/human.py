@@ -16,23 +16,22 @@ from tc.models.characters.talent import Talent
 
 # Create your tests here.
 class TestPath(TestCase):
-    def test_has_connection(self):
-        p = Path.objects.create(name="Path")
-        c = PathConnection.objects.create(name="Connection")
-        h = Human.objects.create(name="Test")
-        h.add_path(p)
-        self.assertFalse(h.has_connection(p))
-        h.set_connection(p, c)
-        self.assertTrue(h.has_connection(p))
+    def setUp(self) -> None:
+        self.p = Path.objects.create(name="Path")
+        self.c = PathConnection.objects.create(name="Connection")
+        self.player = User.objects.create(username="Test User")
+        self.h = Human.objects.create(name="Test", player=self.player.tc_profile)
+        self.h.add_path(self.p)
 
-    def test_set_connectiont(self):
-        p = Path.objects.create(name="Path")
-        c = PathConnection.objects.create(name="Connection")
-        h = Human.objects.create(name="Test")
-        h.add_path(p)
-        self.assertFalse(h.has_connection(p))
-        self.assertTrue(h.set_connection(p, c))
-        self.assertTrue(h.has_connection(p))
+    def test_has_connection(self):
+        self.assertFalse(self.h.has_connection(self.p))
+        self.h.set_connection(self.p, self.c)
+        self.assertTrue(self.h.has_connection(self.p))
+
+    def test_set_connection(self):
+        self.assertFalse(self.h.has_connection(self.p))
+        self.assertTrue(self.h.set_connection(self.p, self.c))
+        self.assertTrue(self.h.has_connection(self.p))
 
 
 class TestHuman(TestCase):
@@ -645,14 +644,13 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.spent_xp, "Might 2 (10 XP)")
         self.character.spend_xp("might")
         self.assertEqual(self.character.strength, 3)
-        self.assertEqual(
-            self.character.spent_xp, "Might 2 (10 XP), Might 3 (10 XP)"
-        )
+        self.assertEqual(self.character.spent_xp, "Might 2 (10 XP), Might 3 (10 XP)")
         self.character.spend_xp("science")
         self.assertEqual(self.character.science, 1)
         self.assertEqual(
             self.character.spent_xp,
-            self.character.spent_xp, "Might 2 (10 XP), Might 3 (10 XP), Science 1 (5 XP)"
+            self.character.spent_xp,
+            "Might 2 (10 XP), Might 3 (10 XP), Science 1 (5 XP)",
         )
 
     def test_get_absolute_url(self):
