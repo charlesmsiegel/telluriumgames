@@ -1,3 +1,5 @@
+import random
+
 from django.db import models
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
@@ -163,7 +165,17 @@ class Human(Character):
         return sum(self.get_attributes().values())
 
     def random_attributes(self):
-        pass
+        attribute_types = [7, 5, 3]
+        random.shuffle(attribute_types)
+        while self.total_physical_attributes() < attribute_types[0] + 3:
+            attribute_choice = weighted_choice(self.get_physical_attributes())
+            add_dot(self, attribute_choice, 5)
+        while self.total_social_attributes() < attribute_types[1] + 3:
+            attribute_choice = weighted_choice(self.get_social_attributes())
+            add_dot(self, attribute_choice, 5)
+        while self.total_mental_attributes() < attribute_types[2] + 3:
+            attribute_choice = weighted_choice(self.get_mental_attributes())
+            add_dot(self, attribute_choice, 5)
 
     def filter_attributes(self, minimum=0, maximum=5):
         return {
@@ -178,7 +190,17 @@ class Human(Character):
         return add_dot(self, ability, maximum)
 
     def random_ability(self):
-        pass
+        ability_types = [13, 9, 5]
+        random.shuffle(ability_types)
+        while self.total_talents() < ability_types[0]:
+            ability_choice = weighted_choice(self.get_talents())
+            self.add_ability(ability_choice, maximum=3)
+        while self.total_skills() < ability_types[1]:
+            ability_choice = weighted_choice(self.get_skills())
+            self.add_ability(ability_choice, maximum=3)
+        while self.total_knowledges() < ability_types[2]:
+            ability_choice = weighted_choice(self.get_knowledges())
+            self.add_ability(ability_choice, maximum=3)
 
     def get_abilities(self):
         tmp = {}
@@ -188,13 +210,35 @@ class Human(Character):
         return tmp
 
     def get_talents(self):
-        return {}
+        return {
+            "alertness": self.alertness,
+            "athletics": self.athletics,
+            "brawl": self.brawl,
+            "empathy": self.empathy,
+            "expression": self.expression,
+            "intimidation": self.intimidation,
+            "streetwise": self.streetwise,
+            "subterfuge": self.subterfuge,           
+        }
 
     def get_skills(self):
-        return {}
+        return {
+            "crafts": self.crafts,
+            "drive": self.drive,
+            "etiquette": self.etiquette,
+            "firearms": self.firearms,
+            "melee": self.melee,
+            "stealth": self.stealth,
+        }
 
     def get_knowledges(self):
-        return {}
+        return {
+            "academics": self.academics,
+            "computer": self.computer,
+            "investigation": self.investigation,
+            "medicine": self.medicine,
+            "science": self.science,
+        }
 
     def total_talents(self):
         return sum(self.get_talents().values())
