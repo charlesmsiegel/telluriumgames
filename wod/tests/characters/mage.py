@@ -525,7 +525,7 @@ class TestMage(TestCase):
 
     def test_learn_rote(self):
         self.fail()
-
+        
     def test_has_mage_history(self):
         self.assertFalse(self.character.has_mage_history())
         self.character.awakening = "Young"
@@ -598,6 +598,17 @@ class TestRandomMage(TestCase):
         self.assertFalse(self.character.has_essence())
         self.character.random_essence()
         self.assertTrue(self.character.has_essence())
+
+    def test_random_resonance_dot(self):
+        self.assertEqual(self.character.total_resonance(), 0)
+        self.character.random_resonance()
+        self.assertEqual(self.character.total_resonance(), 1)
+
+    def test_random_rote(self):
+        self.fail()
+
+    def test_random_rotes(self):
+        self.fail()
 
     def test_random(self):
         self.fail()

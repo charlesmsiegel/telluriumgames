@@ -53,6 +53,9 @@ class TestHuman(TestCase):
                     MeritFlaw.objects.create(name=f"Merit {i}", ratings=[i])
                 else:
                     MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i])
+        for i in range(10):
+            for ability in self.character.get_abilities():
+                Specialty.objects.create(name=f"{ability.replace('_', ' ').title()} Specialty {i}", ability=ability)
 
     def test_has_archetypes(self):
         self.assertFalse(self.character.has_archetypes())
@@ -437,7 +440,10 @@ class TestHuman(TestCase):
 
     def test_add_specialty(self):
         # TODO: Include Well-Skilled Craftman rule, M20 page 279, to allow multiple specialties for some abilities
-        self.fail()
+        # Well-Skilled Craftman works for Arts, Athletics, Crafts, Firearms, Martial Arts, Melee, Academics, Esoterica, Lore, Politics, Science
+        num = self.character.specialties.count()
+        self.assertTrue(self.character.add_specialty(Specialty.objects.get(name="Athletics Specialty 3")))
+        self.assertEqual(self.character.specialties.count(), num + 1)
 
     def test_filter_specialties(self):
         self.fail()
@@ -554,12 +560,19 @@ class TestRandomHuman(TestCase):
         self.character = Human.objects.create(name="", player=self.user.wod_profile)
         for i in range(10):
             Archetype.objects.create(name=f"Archetype {i}")
+        for i in range(10):
+            for ability in self.character.get_abilities():
+                Specialty.objects.create(name=f"{ability.replace('_', ' ').title()} Specialty {i}", ability=ability)
 
     def test_random_name(self):
-        self.fail()
+        self.assertFalse(self.character.has_name())
+        self.character.random_name()
+        self.assertTrue(self.character.has_name())
 
     def test_random_concept(self):
-        self.fail()
+        self.assertFalse(self.character.has_concept())
+        self.character.random_concept()
+        self.assertTrue(self.character.has_concept())
 
     def test_random_archetypes(self):
         self.assertFalse(self.character.has_archetypes())
@@ -599,10 +612,22 @@ class TestRandomHuman(TestCase):
             self.assertLessEqual(value, 3)
 
     def test_random_specialty(self):
-        self.fail()
+        self.character.stealth = 3
+        self.assertFalse(self.character.random_specialty("stealth"))
+        self.assertEqual(self.character.specialties.count(), 0)
+        self.character.stealth = 4
+        self.assertTrue(self.character.random_specialty("stealth"))
+        self.assertEqual(self.character.specialties.count(), 1)
+        self.assertFalse(self.character.random_specialty("stealth"))
+        self.assertEqual(self.character.specialties.count(), 1)
 
     def test_random_specialties(self):
-        self.fail()
+        self.character.science = 4
+        self.character.athletics = 4
+        self.character.alertness = 4
+        self.assertFalse(self.character.has_specialties())
+        self.character.random_specialties()
+        self.assertTrue(self.character.has_specialties())
 
     def test_random_freebies(self):
         self.fail()
@@ -610,14 +635,19 @@ class TestRandomHuman(TestCase):
     def test_random_spend_xp(self):
         self.fail()
 
-    def test_random_resonance_dot(self):
-        self.fail()
-
-    def test_random_rotes(self):
-        self.fail()
-
     def test_random(self):
-        self.fail()
+        self.assertFalse(self.character.has_name())
+        self.assertFalse(self.character.has_concept())
+        self.assertFalse(self.character.has_archetypes())
+        self.assertFalse(self.character.has_attributes())
+        self.assertFalse(self.character.has_abilities())
+        # TODO Freebies and XP
+        self.character.random()
+        self.assertTrue(self.character.has_name())
+        self.assertTrue(self.character.has_concept())
+        self.assertTrue(self.character.has_archetypes())
+        self.assertTrue(self.character.has_attributes())
+        self.assertTrue(self.character.has_abilities())
 
 
 class TestCharacterIndexView(TestCase):
