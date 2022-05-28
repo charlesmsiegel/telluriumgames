@@ -3,6 +3,7 @@ from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
 from accounts.models import WoDProfile
+from core.models import Language
 from core.utils import add_dot, weighted_choice
 
 
@@ -85,6 +86,7 @@ class Human(Character):
     merits_and_flaws = models.ManyToManyField(
         MeritFlaw, blank=True, through=MeritFlawRating
     )
+    languages = models.ManyToManyField(Language, blank=True)
 
     age = models.IntegerField(blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
@@ -103,6 +105,7 @@ class Human(Character):
     notes = models.TextField(default="", blank=True, null=True)
 
     freebies = 15
+    background_points = 5
 
     def has_archetypes(self):
         return self.nature is not None and self.demeanor is not None
@@ -159,6 +162,9 @@ class Human(Character):
     def total_attributes(self):
         return sum(self.get_attributes().values())
 
+    def random_attributes(self):
+        pass
+
     def filter_attributes(self, minimum=0, maximum=5):
         return {
             k: v for k, v in self.get_attributes().items() if minimum <= v <= maximum
@@ -171,17 +177,39 @@ class Human(Character):
     def add_ability(self, ability, maximum=4):
         return add_dot(self, ability, maximum)
 
+    def random_ability(self):
+        pass
+
+    def get_abilities(self):
+        tmp = {}
+        tmp.update(self.get_talents())
+        tmp.update(self.get_skills())
+        tmp.update(self.get_knowledges())
+        return tmp
+
+    def get_talents(self):
+        return {}
+
+    def get_skills(self):
+        return {}
+
+    def get_knowledges(self):
+        return {}
+
     def total_talents(self):
-        # TODO: List of Talents
-        return 0
+        return sum(self.get_talents().values())
 
     def total_skills(self):
-        # TODO: List of Skills
-        return 0
+        return sum(self.get_skills().values())
 
     def total_knowledges(self):
-        # TODO: List of Knowledges
-        return 0
+        return sum(self.get_knowledges().values())
+
+    def random_abilities(self):
+        pass
+
+    def total_abilities(self):
+        return sum(self.get_abilities().values())
 
     def add_willpower(self):
         return add_dot(self, "willpower", 10)

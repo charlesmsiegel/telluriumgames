@@ -485,7 +485,7 @@ class TestMage(TestCase):
 
     def test_mage_numbers(self):
         self.assertEqual(self.character.willpower, 5)
-        self.assertEqual(self.character.backgrounds, 7)
+        self.assertEqual(self.character.background_points, 7)
 
     # def test_set_faction(self):
     #     self.fail()
@@ -538,9 +538,9 @@ class TestMage(TestCase):
 
 class TestRandomMage(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username="Test")
-        self.character = Mage.objects.create(name="", player=self.user.wod_profile)
-        mage_setup(self.user)
+        self.player = User.objects.create_user(username="Test")
+        self.character = Mage.objects.create(name="", player=self.player.wod_profile)
+        mage_setup(self.player)
 
     def test_random_affinity_sphere(self):
         self.assertFalse(self.character.has_affinity_sphere())

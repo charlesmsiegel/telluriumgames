@@ -415,7 +415,7 @@ class TestHuman(TestCase):
 
     def test_static_numbers(self):
         self.assertEqual(self.character.willpower, 3)
-        self.assertEqual(self.character.backgrounds, 5)
+        self.assertEqual(self.character.background_points, 5)
         self.assertEqual(self.character.freebies, 15)
 
 
@@ -443,11 +443,11 @@ class TestRandomHuman(TestCase):
         self.assertEqual(self.character.total_attributes(), num + 1)
 
     def test_random_attributes(self):
-        self.character.random_attributes(7, 5, 3)
+        self.character.random_attributes()
         triple = [
-            self.character.mental_attribute_sum(),
-            self.character.physical_attribute_sum(),
-            self.character.social_attribute_sum(),
+            self.character.total_mental_attributes(),
+            self.character.total_physical_attributes(),
+            self.character.total_social_attributes(),
         ]
         triple.sort(key=lambda x: -x)
         self.assertEqual(triple, [10, 8, 6])
@@ -458,7 +458,7 @@ class TestRandomHuman(TestCase):
         self.assertEqual(self.character.total_abilities(), num + 1)
 
     def test_random_abilities(self):
-        self.character.random_abilities(13, 9, 5)
+        self.character.random_abilities()
         triple = [
             self.character.total_talents(),
             self.character.total_skills(),

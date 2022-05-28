@@ -174,6 +174,8 @@ class Mage(Human):
     age_of_awakening = models.IntegerField(default=0)
     avatar_description = models.TextField(default="")
 
+    background_points = 7
+
     def get_abilities(self):
         return {
             "alertness": 0,
@@ -336,6 +338,15 @@ class Mage(Human):
     def random_arete(self):
         self.arete = random.randint(1, 4)
         self.freebies -= (self.arete - 1) * 4
+
+    def has_essence(self):
+        pass
+
+    def set_essence(self, essence):
+        pass
+
+    def random_essence(self):
+        pass
 
     def has_mage_history(self):
         return (
