@@ -15,36 +15,67 @@ from tc.models.characters.human import Edge, Path, Specialty, Trick
 
 # Create your tests here.
 class TestPower(TestCase):
-    def test_action_type_choices(self):
-        # choices=[("REF", "Reflexive"), ("ORD", "Ordinary"),]
-        self.fail()
+    def test_set_action_type(self):
+        p = Power.objects.create(name="Test")
+        self.assertTrue(p.set_action_type("reflexive"))
+        self.assertEqual(p.action_type, "reflexive")
+        self.assertTrue(p.set_action_type("ordinary"))
+        self.assertEqual(p.action_type, "ordinary")
+        
 
     def test_dice_pool(self):
-        self.fail()
+        p = Power.objects.create(name="Test")
+        a = Aberrant.objects.create(name="Test", might=3, dexterity=2, science=1)
+        self.assertTrue(p.set_dicepool("might+science"))
+        self.assertEqual(p.dicepool("might+science"))
+        self.assertEqual(p.dicepool_traits(), ["might", "science"])
+        self.assertEqual(p.num_dice(a), 5)
+        self.assertTrue(p.add_to_dicepool("dexterity"))
+        self.assertEqual(p.dicepool("might+science+dexterity"))
+        self.assertEqual(p.dicepool_traits(), ["might", "science", "dexterity"])
+        a = Aberrant.objects.create(name="Test", might=3, dexterity=2, science=1)
+        self.assertEqual(p.num_dice(a), 6)
 
-    def test_range_choices(self):
-        # choices=[
-        #     ("PER", "Personal"),
-        #     ("CLO", "Close"),
-        #     ("SHO", "Short"),
-        #     ("MED", "Medium"),
-        #     ("LON", "Long"),
-        #     ("EXT", "Extreme"),
-        #     ("VIS", "Visual"),
-        # ],
-        self.fail()
+    def test_set_range(self):
+        p = Power.objects.create(name="Test")
+        self.assertTrue(p.set_action_type("personal"))
+        self.assertEqual(p.action_type, "personal")
+        self.assertTrue(p.set_action_type("close"))
+        self.assertEqual(p.action_type, "close")
+        self.assertTrue(p.set_action_type("short"))
+        self.assertEqual(p.action_type, "short")
+        self.assertTrue(p.set_action_type("medium"))
+        self.assertEqual(p.action_type, "medium")
+        self.assertTrue(p.set_action_type("long"))
+        self.assertEqual(p.action_type, "long")
+        self.assertTrue(p.set_action_type("extreme"))
+        self.assertEqual(p.action_type, "extreme")
+        self.assertTrue(p.set_action_type("visual"))
+        self.assertEqual(p.action_type, "visual")
 
     def test_duration_choices(self):
-        # choices=[
-        #     ("INST", "Instantaneous"),
-        #     ("CONC", "Concentration"),
-        #     ("MAIN", "Maintained"),
-        #     ("CONT", "Continuous"),
-        # ],
-        self.fail()
+        p = Power.objects.create(name="Test")
+        self.assertTrue(p.set_action_type("instantaneous"))
+        self.assertEqual(p.action_type, "instantaneous")
+        self.assertTrue(p.set_action_type("concentration"))
+        self.assertEqual(p.action_type, "concentration")
+        self.assertTrue(p.set_action_type("maintained"))
+        self.assertEqual(p.action_type, "maintained")
+        self.assertTrue(p.set_action_type("continuous"))
+        self.assertEqual(p.action_type, "continuous")
 
     def test_cost_and_reduced_price_tag(self):
-        self.fail()
+        p = Power.objects.create(name="Test", cost=4)
+        a = Aberrant.objects.create(name="Test", might=3, dexterity=2, science=1)
+        t = Tag.objects.create(name="Reduced Cost")
+        self.assertTrue(a.add_power(p))
+        self.assertEqual(a.power_cost(p), 4)
+        self.assertTrue(a.add_tag(p, t))
+        self.assertEqual(a.power_cost(p), 2)
+        self.assertTrue(a.add_tag(p, t))
+        self.assertEqual(a.power_cost(p), 0)
+        self.assertFalse(a.add_tag(p, t))
+        self.assertEqual(a.power_cost(p), 0)
 
 
 class TestAberrant(TestCase):
@@ -351,7 +382,11 @@ class TestAberrant(TestCase):
         self.assertIn(t, self.character.transformations.all())
 
     def test_add_flux(self):
-        self.fail()
+        self.assertEqual(self.character.flux, 0)
+        self.assertTrue(self.character.add_flux())
+        self.assertEqual(self.character.flux, 1)
+        self.assertTrue(self.character.reset_flux())
+        self.assertEqual(self.character.flux, 0)
 
     def test_add_transformation(self):
         for i in range(10):
