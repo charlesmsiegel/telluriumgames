@@ -517,12 +517,12 @@ class TestHuman(TestCase):
 
     def test_get_backgrounds(self):
         self.assertEqual(
-            self.character.get_talents(), {"contacts": 0, "mentor": 0,},
+            self.character.get_backgrounds(), {"contacts": 0, "mentor": 0,},
         )
         self.character.contacts = 3
         self.character.mentor = 2
         self.assertEqual(
-            self.character.get_talents(), {"contacts": 3, "mentor": 2,},
+            self.character.get_backgrounds(), {"contacts": 3, "mentor": 2,},
         )
 
     def test_add_background(self):
