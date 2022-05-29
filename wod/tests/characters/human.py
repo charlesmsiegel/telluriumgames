@@ -646,6 +646,28 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.background_points, 5)
         self.assertEqual(self.character.freebies, 15)
 
+    def test_add_damage(self):
+        self.assertEqual(self.character.get_wound_penalty(), 0)
+        self.character.add_bashing()
+        self.assertEqual(self.character.get_wound_penalty(), 0)
+        self.character.add_aggravated()
+        self.assertEqual(self.character.current_health_levels, "AB")
+        self.assertEqual(self.character.get_wound_penalty(), -1)
+        self.character.add_lethal()
+        self.assertEqual(self.character.current_health_levels, "ALB")
+        self.assertEqual(self.character.get_wound_penalty(), -1)
+        self.character.add_bashing()
+        self.assertEqual(self.character.get_wound_penalty(), -2)
+        self.character.add_bashing()
+        self.assertEqual(self.character.get_wound_penalty(), -2)
+        self.character.add_bashing()
+        self.assertEqual(self.character.get_wound_penalty(), -5)
+        self.character.add_bashing()
+        self.assertEqual(self.character.current_health_levels, "ALBBBBB")
+        self.character.add_bashing()
+        self.assertEqual(self.character.current_health_levels, "ALLBBBB")
+        self.character.add_aggravated()
+        self.assertEqual(self.character.get_wound_penalty(), -1000)
 
 class TestRandomHuman(TestCase):
     def setUp(self) -> None:
@@ -724,6 +746,11 @@ class TestRandomHuman(TestCase):
         self.assertFalse(self.character.has_specialties())
         self.character.random_specialties()
         self.assertTrue(self.character.has_specialties())
+
+    def test_random_backgrounds(self):
+        self.assertFalse(self.character.test_has_backgrounds())
+        self.character.random_backgrounds()
+        self.assertTrue(self.character.test_has_backgrounds())
 
     def test_random_freebies(self):
         self.fail()

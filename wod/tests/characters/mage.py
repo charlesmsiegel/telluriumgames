@@ -1,3 +1,4 @@
+import fractions
 from unittest import mock
 from unittest.mock import Mock
 
@@ -11,7 +12,7 @@ from wod.models.characters.mage import (
     Mage,
     MageFaction,
     Paradigm,
-    Practice,
+    Practice, Resonance, Rote
 )
 
 
@@ -45,6 +46,9 @@ def mage_setup(player):
     for i in range(5):
         MeritFlaw.objects.create(name=f"Merit {i}", ratings=[i])
         MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i])
+        
+    for i in range(1, 11):
+            Resonance.objects.create(name=f"Resonance {i}")
 
 
 class TestMage(TestCase):
@@ -352,6 +356,21 @@ class TestMage(TestCase):
             },
         )
 
+    def test_do_is_akashic_only(self):
+        self.character.awareness = 2
+        self.assertFalse(self.character.add_ability("do"))
+        self.character.faction = MageFaction.objects.get(name="Akashayana")
+        self.assertTrue(self.character.add_ability("do"))
+
+    def test_do_requires_limbds(self):
+        self.character.faction = MageFaction.objects.get(name="Akashayana")
+        self.assertFalse(self.character.add_ability("do"))
+        self.character.awareness = 2
+        self.assertTrue(self.character.add_ability("do"))
+        self.character.cosmology = 3
+        self.assertTrue(self.character.add_ability("do"))
+        self.assertFalse(self.character.add_ability("do"))
+
     def set_spheres(self):
         self.character.correspondence = 1
         self.character.time = 2
@@ -402,6 +421,12 @@ class TestMage(TestCase):
         self.assertFalse(self.character.add_sphere("forces"))
         self.character.arete = 3
         self.assertTrue(self.character.add_sphere("forces"))
+
+    def test_batini_no_entropy(self):
+        self.character.faction = MageFaction.objects.create(name="Ahl-i-Batin")
+        self.character.add_arete()
+        self.assertTrue(self.character.add_sphere("forces"))
+        self.assertFalse(self.character.add_sphere("entropy"))
 
     def test_filter_spheres(self):
         self.character.arete = 3
@@ -487,23 +512,162 @@ class TestMage(TestCase):
         self.assertEqual(self.character.willpower, 5)
         self.assertEqual(self.character.background_points, 7)
 
+    def test_get_backgrounds(self):
+        self.assertEqual(
+            self.character.get_backgrounds(),
+            {
+                "allies": 0,
+                "alternate_identity": 0,
+                "arcane": 0,
+                "avatar": 0,
+                "backup": 0,
+                "blessing": 0,
+                "certification": 0,
+                "chantry": 0,
+                "contacts": 0,
+                "cult": 0,
+                "demesne": 0,
+                "destiny": 0,
+                "dream": 0,
+                "enhancement": 0,
+                "fame": 0,
+                "familiar": 0,
+                "influence": 0,
+                "legend": 0,
+                "library": 0,
+                "mentor": 0,
+                "node": 0,
+                "past_lives": 0,
+                "patron": 0,
+                "rank": 0,
+                "requisitions": 0,
+                "resources": 0,
+                "retainers": 0,
+                "sanctum": 0,
+                "secret_weapons": 0,
+                "spies": 0,
+                "status": 0,
+                "totem": 0,
+                "wonder": 0,
+            },
+        )
+        self.character.allies = 1
+        self.character.avatar = 3
+        self.character.chantry = 3
+        self.character.legend = 2
+        self.character.node = 2
+        self.assertEqual(
+            self.character.get_backgrounds(),
+            {
+                "allies": 1,
+                "alternate_identity": 0,
+                "arcane": 0,
+                "avatar": 3,
+                "backup": 0,
+                "blessing": 0,
+                "certification": 0,
+                "chantry": 3,
+                "contacts": 0,
+                "cult": 0,
+                "demesne": 0,
+                "destiny": 0,
+                "dream": 0,
+                "enhancement": 0,
+                "fame": 0,
+                "familiar": 0,
+                "influence": 0,
+                "legend": 2,
+                "library": 0,
+                "mentor": 0,
+                "node": 2,
+                "past_lives": 0,
+                "patron": 0,
+                "rank": 0,
+                "requisitions": 0,
+                "resources": 0,
+                "retainers": 0,
+                "sanctum": 0,
+                "secret_weapons": 0,
+                "spies": 0,
+                "status": 0,
+                "totem": 0,
+                "wonder": 0,
+            },
+        )
+        
+    def test_total_backgrounds(self):
+        self.character.allies = 3
+        self.character.avatar = 4
+        self.character.resources = 1
+        self.character.sanctum = 2
+        self.assertEqual(self.character.total_backgrounds(), 12)
+        self.character.wonder = 2
+        self.assertEqual(self.character.total_backgrounds(), 14)
+        
+    def test_technocracy_only_backgrounds(self):
+        tech_char = Mage.objects.create(name="Tech", player=self.player.wod_profile)
+        tech_char.affiliation = MageFaction.objects.create(name="Technocratic Union")
+        trad_char = Mage.objects.create(name="Trad", player=self.player.wod_profile)
+        trad_char.affiliation = MageFaction.objects.get(name="Traditions")
+        self.assertTrue(tech_char.add_background("secret_weapon"))
+        self.assertFalse(trad_char.add_background("secret_weapon"))
+        self.assertEqual(tech_char.total_backgrounds(), 1)
+        self.assertEqual(trad_char.total_backgrounds(), 0)
+        self.assertTrue(tech_char.add_background("requisitions"))
+        self.assertFalse(trad_char.add_background("requisitions"))
+        self.assertEqual(tech_char.total_backgrounds(), 2)
+        self.assertEqual(trad_char.total_backgrounds(), 0)
+
     def test_set_faction(self):
-        self.fail()
+        self.assertFalse(self.character.has_focus())
+        affiliation = MageFaction.objects.create(name="Affiliation")
+        faction = MageFaction.objects.create(name="Faction", parent=affiliation)
+        subfaction = MageFaction.objects.create(name="Subfaction", parent=faction)
+        
+        affiliation2 = MageFaction.objects.create(name="Affiliation2")
+        faction2 = MageFaction.objects.create(name="Faction2", parent=affiliation2)
+        subfaction2 = MageFaction.objects.create(name="Subfaction2", parent=faction2)
+        
+        self.assertFalse(self.character.set_faction(affiliation=affiliation, faction=faction, subfaction=subfaction2))
+        self.assertTrue(self.character.set_faction(affiliation=affiliation, faction=faction, subfaction=subfaction))
+        self.assertTrue(self.character.has_faction())
+        self.assertTrue(self.character.set_faction(subfaction=subfaction2))
+        self.assertTrue(self.character.has_faction())
 
     def test_has_faction(self):
-        self.fail()
+        self.assertFalse(self.character.has_focus())
+        affiliation = MageFaction.objects.create(name="Affiliation")
+        faction = MageFaction.objects.create(name="Faction", parent=affiliation)
+        subfaction = MageFaction.objects.create(name="Subfaction", parent=faction)
+        self.character.set_faction(affiliation=affiliation, faction=faction, subfaction=subfaction)
+        self.assertTrue(self.character.has_faction())
 
     def test_set_focus(self):
-        self.fail()
+        paradigms = Paradigm.objects.order_by("?")[:2]
+        practices = Practice.objects.order_by("?")[:2]
+        instruments = Instrument.objects.order_by("?")[:7]
+        self.assertFalse(self.character.has_focus())
+        self.assertFalse(self.character.set_focus(paradigms=paradigms, practices=practices, instruments=instruments[:3]))
+        self.assertTrue(self.character.set_focus(paradigms=paradigms, practices=practices, instruments=instruments))
+        self.assertTrue(self.character.has_focus())
 
     def test_has_focus(self):
-        self.fail()
+        paradigms = Paradigm.objects.order_by("?")[:2]
+        practices = Practice.objects.order_by("?")[:2]
+        instruments = Instrument.objects.order_by("?")[:7]
+        self.assertFalse(self.character.has_focus())
+        self.character.set_focus(paradigms=paradigms, practices=practices, instruments=instruments)
+        self.assertTrue(self.character.has_focus())
 
     def test_set_essence(self):
-        self.fail()
+        self.assertFalse(self.character.has_essence())
+        self.assertTrue(self.character.set_essence("questing"))
+        self.assertTrue(self.character.has_essence())
 
     def test_has_essence(self):
-        self.fail()
+        self.assertFalse(self.character.has_essence())
+        self.character.set_essence("questing")
+        self.assertTrue(self.character.has_essence())
 
     def test_freebie_cost(self):
         self.fail()
@@ -517,21 +681,65 @@ class TestMage(TestCase):
     def test_spend_xp(self):
         self.fail()
 
-    def test_add_resonance_dot(self):
-        self.fail()
+    def test_add_resonance(self):
+        res = Resonance.objects.order_by("?").first()
+        self.assertEqual(self.character.resonance_rating(res), 0)
+        self.assertTrue(self.character.add_resonance(res))
+        self.assertEqual(self.character.resonance_rating(res), 1)
+
+    def test_filter_resonance(self):
+        self.assertEqual(len(self.character.filter_resonance()), 10)
+        for res in Resonance.objects.order_by("?")[:3]:
+            self.assertTrue(self.character.add_resonance(res))
+        self.assertEqual(len(self.character.filter_resonance(maximum=0)), 7)
 
     def test_total_resonance(self):
-        self.fail()
+        for res in Resonance.objects.order_by("?")[:2]:
+            self.character.add_resonance(res)
+            self.character.add_resonance(res)
+        self.assertEqual(self.character.total_resonance(), 4)
+        self.assertNotEqual(self.character.total_resonance(), 5)
+        self.character.add_resonance(res)
+        self.assertEqual(self.character.total_resonance(), 5)
 
-    def test_learn_rote(self):
-        self.fail()
+    def test_add_rote(self):
+        self.character.arete = 3
+        self.character.forces = 3
+        self.character.prime = 2
+        r1 = Rote.objects.create(name="Fireball", forces=3, prime=2)
+        r2 = Rote.objects.create(name="Teleport", correspondence=3)
+        num = self.character.rotes.count()
+        self.assertTrue(self.character.add_rote(r1))
+        self.assertEqual(self.character.rotes.count(), num + 1)
+        self.assertIn(r1, self.character.rotes.all())
+        self.assertFalse(self.character.add_rote(r2))
+        self.character.correspondence = 3
+        self.assertNotIn(r2, self.character.rotes.all())
+        self.assertTrue(self.character.add_rote(r2))
+        self.assertIn(r2, self.character.rotes.all())
+
+    def test_total_rotes(self):
+        self.character.arete = 3
+        self.character.forces = 3
+        self.character.prime = 2
+        self.character.correspondence = 3
+        r1 = Rote.objects.create(name="Fireball", forces=3, prime=2)
+        r2 = Rote.objects.create(name="Teleport", correspondence=3)
+        self.character.add_rote(r1)
+        self.assertEqual(self.character.total_rotes(), 5)
+        self.character.add_rote(r2)
+        self.assertEqual(self.character.total_rotes(), 8)       
 
     def test_has_mage_history(self):
         self.assertFalse(self.character.has_mage_history())
         self.character.awakening = "Young"
+        self.assertFalse(self.character.has_mage_history())
         self.character.seekings = "Several"
+        self.assertFalse(self.character.has_mage_history())
         self.character.quiets = "None"
+        self.assertFalse(self.character.has_mage_history())
         self.character.age_of_awakening = 13
+        self.assertFalse(self.character.has_mage_history())
         self.character.avatar_description = "The Random Graph"
         self.assertTrue(self.character.has_mage_history())
 
@@ -599,7 +807,7 @@ class TestRandomMage(TestCase):
         self.character.random_essence()
         self.assertTrue(self.character.has_essence())
 
-    def test_random_resonance_dot(self):
+    def test_random_resonance(self):
         self.assertEqual(self.character.total_resonance(), 0)
         self.character.random_resonance()
         self.assertEqual(self.character.total_resonance(), 1)
