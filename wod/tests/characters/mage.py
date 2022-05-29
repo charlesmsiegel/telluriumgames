@@ -52,6 +52,17 @@ def mage_setup(player):
     for i in range(1, 11):
         Resonance.objects.create(name=f"Resonance {i}")
 
+    for i in range(1, 6):
+        Rote.objects.create(name=f"Correspondence {i}", correspondence=i)
+        Rote.objects.create(name=f"Time {i}", time=i)
+        Rote.objects.create(name=f"Spirit {i}", spirit=i)
+        Rote.objects.create(name=f"Forces {i}", forces=i)
+        Rote.objects.create(name=f"Matter {i}", matter=i)
+        Rote.objects.create(name=f"Life {i}", life=i)
+        Rote.objects.create(name=f"Entropy {i}", entropy=i)
+        Rote.objects.create(name=f"Prime {i}", prime=i)
+        Rote.objects.create(name=f"Mind {i}", mind=i)
+
 
 class TestMage(TestCase):
     def setUp(self):
@@ -800,6 +811,21 @@ class TestMage(TestCase):
         self.assertTrue(self.character.add_rote(r2))
         self.assertIn(r2, self.character.rotes.all())
 
+    def test_has_rotes(self):
+        self.character.arete = 3
+        self.character.forces = 3
+        self.character.prime = 2
+        self.character.matter = 1
+        self.assertFalse(self.character.has_rotes())
+        self.character.add_rote(Rote.objects.get(name="Forces 3"))
+        self.assertFalse(self.character.has_rotes())
+        self.character.add_rote(Rote.objects.get(name="Matter 1"))
+        self.assertFalse(self.character.has_rotes())
+        self.character.add_rote(Rote.objects.get(name="Prime 1"))
+        self.assertFalse(self.character.has_rotes())
+        self.character.add_rote(Rote.objects.get(name="Forces 1"))
+        self.assertTrue(self.character.has_rotes())
+
     def test_total_rotes(self):
         self.character.arete = 3
         self.character.forces = 3
@@ -811,6 +837,33 @@ class TestMage(TestCase):
         self.assertEqual(self.character.total_rotes(), 5)
         self.character.add_rote(r2)
         self.assertEqual(self.character.total_rotes(), 8)
+
+    def test_filter_rotes(self):
+        self.character.arete = 5
+        self.character.correspondence = 5
+        self.character.time = 5
+        self.character.spirit = 5
+        self.character.forces = 5
+        self.character.matter = 5
+        self.character.life = 5
+        self.character.entropy = 5
+        self.character.prime = 5
+        self.character.mind = 5
+        self.assertEqual(len(self.character.filter_rotes()), 45)
+        self.character.mind = 4
+        self.assertEqual(len(self.character.filter_rotes()), 44)
+        self.character.prime = 1
+        self.assertEqual(len(self.character.filter_rotes()), 40)
+        self.character.correspondence = 1
+        self.character.time = 1
+        self.character.spirit = 1
+        self.character.forces = 2
+        self.character.matter = 0
+        self.character.life = 0
+        self.character.entropy = 0
+        self.character.prime = 0
+        self.character.mind = 0
+        self.assertEqual(len(self.character.filter_rotes()), 5)
 
     def test_has_mage_history(self):
         self.assertFalse(self.character.has_mage_history())
@@ -895,14 +948,57 @@ class TestRandomMage(TestCase):
         self.assertEqual(self.character.total_resonance(), 1)
 
     def test_random_rote(self):
-        self.fail()
+        self.character.arete = 3
+        self.character.forces = 3
+        self.character.prime = 2
+        self.character.matter = 1
+        num = self.character.rotes.count()
+        self.character.random_rote()
+        self.assertEqual(self.character.rotes.count(), num + 1)
 
     def test_random_rotes(self):
-        self.fail()
+        self.character.arete = 3
+        self.character.forces = 3
+        self.character.prime = 2
+        self.character.matter = 1
+        self.assertFalse(self.character.has_rotes())
+        self.character.random_rotes()
+        self.assertTrue(self.character.has_rotes())
 
     def test_random(self):
-        self.fail()
-
+        self.assertFalse(self.character.has_name())
+        self.assertFalse(self.character.has_concept())
+        self.assertFalse(self.character.has_archetypes())
+        self.assertFalse(self.character.has_attributes())
+        self.assertFalse(self.character.has_abilities())
+        self.assertFalse(self.character.has_specialties())
+        self.assertFalse(self.character.has_backgrounds())
+        self.assertFalse(self.character.has_finishing_touches())
+        self.assertFalse(self.character.has_history())
+        self.assertFalse(self.character.has_spheres())
+        self.assertFalse(self.character.has_affinity_sphere())
+        self.assertFalse(self.character.has_faction())
+        self.assertFalse(self.character.has_focus())
+        self.assertFalse(self.character.has_essence())
+        self.assertFalse(self.character.has_rotes())
+        self.assertFalse(self.character.has_mage_history())
+        self.character.random()
+        self.assertTrue(self.character.has_name())
+        self.assertTrue(self.character.has_concept())
+        self.assertTrue(self.character.has_archetypes())
+        self.assertTrue(self.character.has_attributes())
+        self.assertTrue(self.character.has_abilities())
+        self.assertTrue(self.character.has_specialties())
+        self.assertTrue(self.character.has_backgrounds())
+        self.assertTrue(self.character.has_finishing_touches())
+        self.assertTrue(self.character.has_history())
+        self.assertTrue(self.character.has_spheres())
+        self.assertTrue(self.character.has_affinity_sphere())
+        self.assertTrue(self.character.has_faction())
+        self.assertTrue(self.character.has_focus())
+        self.assertTrue(self.character.has_essence())
+        self.assertTrue(self.character.has_rotes())
+        self.assertTrue(self.character.has_mage_history())
 
 class TestCabal(TestCase):
     def setUp(self):
