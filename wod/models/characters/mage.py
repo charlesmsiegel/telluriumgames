@@ -170,6 +170,38 @@ class Mage(Human):
     media = models.IntegerField(default=0)
     pharmacopeia = models.IntegerField(default=0)
 
+    allies = models.IntegerField(default=0)
+    alternate_identity = models.IntegerField(default=0)
+    arcane = models.IntegerField(default=0)
+    avatar = models.IntegerField(default=0)
+    backup = models.IntegerField(default=0)
+    blessing = models.IntegerField(default=0)
+    certification = models.IntegerField(default=0)
+    chantry = models.IntegerField(default=0)
+    cult = models.IntegerField(default=0)
+    demesne = models.IntegerField(default=0)
+    destiny = models.IntegerField(default=0)
+    dream = models.IntegerField(default=0)
+    enhancement = models.IntegerField(default=0)
+    fame = models.IntegerField(default=0)
+    familiar = models.IntegerField(default=0)
+    influence = models.IntegerField(default=0)
+    legend = models.IntegerField(default=0)
+    library = models.IntegerField(default=0)
+    node = models.IntegerField(default=0)
+    past_lives = models.IntegerField(default=0)
+    patron = models.IntegerField(default=0)
+    rank = models.IntegerField(default=0)
+    requisitions = models.IntegerField(default=0)
+    resources = models.IntegerField(default=0)
+    retainers = models.IntegerField(default=0)
+    sanctum = models.IntegerField(default=0)
+    secret_weapons = models.IntegerField(default=0)
+    spies = models.IntegerField(default=0)
+    status = models.IntegerField(default=0)
+    totem = models.IntegerField(default=0)
+    wonder = models.IntegerField(default=0)
+
     correspondence = models.IntegerField(default=0)
     time = models.IntegerField(default=0)
     spirit = models.IntegerField(default=0)
@@ -297,7 +329,43 @@ class Mage(Human):
         return tmp
 
     def get_backgrounds(self):
-        pass
+        tmp = super().get_backgrounds()
+        tmp.update(
+            {
+                "allies": self.allies,
+                "alternate_identity": self.alternate_identity,
+                "arcane": self.arcane,
+                "avatar": self.avatar,
+                "backup": self.backup,
+                "blessing": self.blessing,
+                "certification": self.certification,
+                "chantry": self.chantry,
+                "cult": self.cult,
+                "demesne": self.demesne,
+                "destiny": self.destiny,
+                "dream": self.dream,
+                "enhancement": self.enhancement,
+                "fame": self.fame,
+                "familiar": self.familiar,
+                "influence": self.influence,
+                "legend": self.legend,
+                "library": self.library,
+                "node": self.node,
+                "past_lives": self.past_lives,
+                "patron": self.patron,
+                "rank": self.rank,
+                "requisitions": self.requisitions,
+                "resources": self.resources,
+                "retainers": self.retainers,
+                "sanctum": self.sanctum,
+                "secret_weapons": self.secret_weapons,
+                "spies": self.spies,
+                "status": self.status,
+                "totem": self.totem,
+                "wonder": self.wonder,
+            }
+        )
+        return tmp
 
     def get_spheres(self):
         return {
@@ -555,37 +623,3 @@ class Cabal(models.Model):
 
     def __str__(self):
         return self.name
-
-
-# # Backgrounds
-# Allies
-# Alternate Identity
-# Arcane
-# Avatar
-# Backup
-# Blessing
-# Certification
-# Chantry
-# Cult
-# Demesne
-# Destiny
-# Dream
-# Enhancement
-# Fame
-# Familiar
-# Influence
-# Legend
-# Library
-# Node
-# Past Lives
-# Patron
-# Rank
-# Requisitions
-# Resources
-# Retainers
-# Sanctum
-# Secret Weapons
-# Spies
-# Status
-# Totem
-# Wonder

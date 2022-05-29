@@ -128,6 +128,9 @@ class Human(Character):
 
     specialties = models.ManyToManyField(Specialty, blank=True)
 
+    contacts = models.IntegerField(default=0)
+    mentor = models.IntegerField(default=0)
+
     willpower = models.IntegerField(default=3)
 
     merits_and_flaws = models.ManyToManyField(
@@ -329,11 +332,17 @@ class Human(Character):
     def random_specialties(self):
         pass
 
-    def add_background(self, background):
-        pass
+    def get_backgrounds(self):
+        return {
+            "contacts": self.contacts,
+            "mentor": self.mentor,
+        }
+
+    def add_background(self, background, maximum=5):
+        return add_dot(self, background, maximum)
 
     def total_backgrounds(self):
-        pass
+        return sum(self.get_backgrounds().values())
 
     def filter_backgrounds(self):
         pass
@@ -440,8 +449,3 @@ class Human(Character):
 
     def get_wound_penalty(self):
         pass
-
-
-# # Backgrounds
-# Contacts
-# Mentor
