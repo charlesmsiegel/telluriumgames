@@ -379,7 +379,29 @@ class Human(Character):
         self.add_specialty(random.choice(options))
 
     def random_specialties(self):
-        pass
+        for attribute in self.filter_attributes(minimum=4):
+            self.specialties.add(random.choice(self.filter_specialties(stat=attribute)))
+        for ability in self.filter_abilities(minimum=4):
+            self.specialties.add(random.choice(self.filter_specialties(stat=ability)))
+        for ability in [
+            x
+            for x in self.filter_abilities(minimum=1)
+            if x
+            in [
+                "arts",
+                "athletics",
+                "crafts",
+                "firearms",
+                "martial_arts",
+                "melee",
+                "academics",
+                "esoterica",
+                "lore",
+                "politics",
+                "science",
+            ]
+        ]:
+            self.specialties.add(random.choice(self.filter_specialties(stat=ability)))
 
     def get_backgrounds(self):
         return {
