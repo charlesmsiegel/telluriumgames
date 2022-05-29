@@ -735,6 +735,12 @@ class TestRandomHuman(TestCase):
                     name=f"{attribute.replace('_', ' ').title()} Specialty {i}",
                     stat=attribute,
                 )
+        for i in range(1, 6):
+            for j in [-1, 1]:
+                if j == 1:
+                    MeritFlaw.objects.create(name=f"Merit {i}", ratings=[i])
+                else:
+                    MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i])
 
     def test_random_name(self):
         self.assertFalse(self.character.has_name())
@@ -811,9 +817,9 @@ class TestRandomHuman(TestCase):
         self.character.random_freebies()
         self.assertEqual(self.character.freebies, 0)
 
-    def test_random_spend_xp(self):
+    def test_random_xp(self):
         self.character.xp = 100
-        self.character.random_spend_xp()
+        self.character.random_xp()
         self.assertLess(self.character.xp, 100)
 
     def test_random(self):
@@ -823,7 +829,7 @@ class TestRandomHuman(TestCase):
         self.assertFalse(self.character.has_attributes())
         self.assertFalse(self.character.has_abilities())
         self.assertFalse(self.character.has_backgrounds())
-        self.character.random()
+        self.character.random(freebies=0, xp=0)
         self.assertTrue(self.character.has_name())
         self.assertTrue(self.character.has_concept())
         self.assertTrue(self.character.has_archetypes())
