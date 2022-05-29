@@ -551,9 +551,13 @@ class Human(Character):
             if not self.has_max_flaws():
                 cost = self.freebie_cost("meritflaw")  # rating?
                 mf = MeritFlaw.objects.get(name=trait)
-                rating = random.choice(
-                    [x for x in mf.ratings if abs(x) > abs(self.mf_rating(mf))]
-                )  # TODO: Should this just be the "lowest" value left?
+                abs_ratings = [abs(x) for x in mf.ratings]
+                abs_ratings = [x for x in abs_ratings if x > abs(self.mf_rating(mf))]
+                if len(abs_ratings) == 0:
+                    return False
+                rating = min(abs_ratings)
+                if rating not in mf.ratings:
+                    rating *= -1
                 if cost * (rating - self.mf_rating(mf)) <= self.freebies:
                     if self.add_mf(mf, rating):
                         self.freebies -= cost
@@ -649,8 +653,7 @@ class Human(Character):
             if choice == "willpower":
                 spent = self.spend_freebies(choice)
             if choice == "meritflaw":
-                # TOOD: improve MF trait selection in freebies
-                trait = MeritFlaw.objects.order_by("?").first().name
+                trait = random.choice([x.name for x in self.filter_mfs()])
                 spent = self.spend_freebies(trait)
             if not spent:
                 counter += 1
