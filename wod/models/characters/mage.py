@@ -80,6 +80,25 @@ class Rote(models.Model):
     mind = models.IntegerField(default=0)
     prime = models.IntegerField(default=0)
 
+    def cost(self):
+        return (
+            self.correspondence
+            + self.time
+            + self.spirit
+            + self.forces
+            + self.matter
+            + self.life
+            + self.prime
+            + self.entropy
+            + self.mind
+        )
+
+    def is_learnable(self, mage):
+        for sphere in mage.get_spheres().keys():
+            if getattr(self, sphere) > getattr(mage, sphere):
+                return False
+        return True
+
 
 class Resonance(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -573,13 +592,20 @@ class Mage(Human):
         return self.add_resonance(random.choice(possible))
 
     def add_rote(self, rote):
-        pass
+        if rote.is_learnable(self):
+            self.rotes.add(rote)
+            return True
+        return False
 
     def has_rotes(self):
-        pass
+        return self.rote_points == 0
 
-    def filter_rotes(self):
-        return []
+    def filter_rotes(self, max_cost=100):
+        return [
+            x
+            for x in Rote.objects.all()
+            if x.cost() <= max_cost and x.is_learnable(self)
+        ]
 
     def random_rote(self):
         pass
@@ -588,7 +614,7 @@ class Mage(Human):
         pass
 
     def total_rotes(self):
-        pass
+        return sum([x.cost() for x in self.rotes.all()])
 
     def has_mage_history(self):
         return (
