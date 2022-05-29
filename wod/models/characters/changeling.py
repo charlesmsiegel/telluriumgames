@@ -17,3 +17,14 @@ from django.db import models
 # Law
 # Politics
 # Technology
+
+
+# # Backgrounds
+# Chimera
+# Dreamers
+# Holdings
+# Remembrance
+# Resources
+# Retinue
+# Title
+# Treasure

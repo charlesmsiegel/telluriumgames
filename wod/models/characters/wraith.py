@@ -14,3 +14,14 @@ from django.db import models
 # Occult
 # Politics
 # Technology
+
+# # Backgrounds
+# Allies
+# Artifact
+# Eidolon
+# Haunt
+# Legacy
+# Memoriam
+# Notoriety
+# Relic
+# Status

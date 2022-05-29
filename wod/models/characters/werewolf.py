@@ -17,3 +17,15 @@ from django.db import models
 # Occult
 # Rituals
 # Technology
+
+# # Backgrounds
+# Allies
+# Ancestors
+# Fate
+# Fetish
+# Kinfolk
+# Pure Breed
+# Resources
+# Rites
+# Spirit Heritage
+# Totem

@@ -517,3 +517,36 @@ class Cabal(models.Model):
 
     def __str__(self):
         return self.name
+
+# # Backgrounds
+# Allies
+# Alternate Identity
+# Arcane
+# Avatar
+# Backup
+# Blessing
+# Certification
+# Chantry
+# Cult
+# Demesne
+# Destiny
+# Dream
+# Enhancement
+# Fame
+# Familiar
+# Influence
+# Legend
+# Library
+# Node
+# Past Lives
+# Patron
+# Rank
+# Requisitions
+# Resources
+# Retainers
+# Sanctum
+# Secret Weapons
+# Spies
+# Status
+# Totem
+# Wonder

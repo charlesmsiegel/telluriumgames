@@ -60,10 +60,16 @@ class TestHuman(TestCase):
                 else:
                     MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i])
         for i in range(10):
-            for ability in self.character.get_abilities():
+            for stat in self.character.get_abilities():
                 Specialty.objects.create(
-                    name=f"{ability.replace('_', ' ').title()} Specialty {i}",
-                    ability=ability,
+                    name=f"{stat.replace('_', ' ').title()} Specialty {i}",
+                    stat=stat,
+                )
+        for i in range(10):
+            for stat in self.character.get_attributes():
+                Specialty.objects.create(
+                    name=f"{stat.replace('_', ' ').title()} Specialty {i}",
+                    stat=stat,
                 )
 
     def test_has_archetypes(self):

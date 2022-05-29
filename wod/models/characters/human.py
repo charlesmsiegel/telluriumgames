@@ -16,7 +16,7 @@ class Archetype(models.Model):
 
 class Specialty(models.Model):
     name = models.CharField(max_length=100)
-    ability = models.CharField(max_length=100)
+    stat = models.CharField(max_length=100)
 
     class Meta:
         verbose_name = "Specialty"
@@ -399,3 +399,7 @@ class Human(Character):
 
     def random(self):
         pass
+
+# # Backgrounds
+# Contacts
+# Mentor

@@ -15,3 +15,17 @@ from django.db import models
 # Occult
 # Politics
 # Technology
+
+# # Backgrounds
+# Allies
+# Alternate Identity
+# Black Hand Membership
+# Domain
+# Fame
+# Generation
+# Herd
+# Influence
+# Resources
+# Retainers
+# Rituals
+# Status
