@@ -471,7 +471,10 @@ class Human(PolymorphicModel):
         return sum([self.path_rating(x) for x in Path.objects.all()])
 
     def has_connection(self, path):
-        pass
+        if self.path_rating(path) == 0:
+            return True
+        path_rating = PathRating.objects.get(character=self, path=path)
+        return path_rating.connection is not None
 
     def set_connection(self, path, connection):
         pass
