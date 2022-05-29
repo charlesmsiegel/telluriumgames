@@ -553,7 +553,42 @@ class Human(Character):
             return 1
 
     def spend_xp(self, trait):
-        pass
+        if trait in self.get_attributes():
+            cost = self.xp_cost("attribute") * getattr(self, trait)
+            if cost <= self.xp:
+                if self.add_attribute(trait):
+                    self.xp -= cost
+                    return True
+                return False
+            return False
+        elif trait in self.get_abilities():
+            cost = self.xp_cost("ability") * getattr(self, trait)
+            if cost == 0:
+                cost = 3
+            if cost <= self.xp:
+                if self.add_ability(trait):
+                    self.xp -= cost
+                    return True
+                return False
+            return False
+        elif trait in self.get_backgrounds():
+            cost = self.xp_cost("background") * getattr(self, trait)
+            if cost == 0:
+                cost = 5
+            if cost <= self.xp:
+                if self.add_background(trait):
+                    self.xp -= cost
+                    return True
+                return False
+            return False
+        elif trait == "willpower":
+            cost = self.xp_cost("willpower") * getattr(self, trait)
+            if cost <= self.xp:
+                if self.add_willpower():
+                    self.xp -= cost
+                    return True
+                return False
+            return False
 
     def random_freebies(self):
         pass
