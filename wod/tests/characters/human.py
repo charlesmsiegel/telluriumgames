@@ -595,7 +595,17 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.freebie_cost("meritflaw"), 1)
 
     def test_spend_freebies(self):
-        self.fail()
+        self.assertEqual(self.character.freebies, 15)
+        self.assertTrue(self.character.spend_freebies("strength"))
+        self.assertEqual(self.character.freebies, 10)
+        self.assertTrue(self.character.spend_freebies("occult"))
+        self.assertEqual(self.character.freebies, 8)
+        self.assertTrue(self.character.spend_freebies("mentor"))
+        self.assertEqual(self.character.freebies, 7)
+        self.assertTrue(self.character.spend_freebies("willpower"))
+        self.assertEqual(self.character.freebies, 6)
+        self.assertTrue(self.character.spend_freebies("Merit 1"))
+        self.assertEqual(self.character.freebies, 5)
 
     def test_xp_cost(self):
         self.assertEqual(self.character.xp_cost("attribute"), 4)
@@ -605,7 +615,17 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.xp_cost("new ability"), 3)
 
     def test_spend_xp(self):
-        self.fail()
+        self.character.xp = 100
+        self.assertTrue(self.character.spend_xp("strength"))
+        self.assertEqual(self.character.xp, 96)
+        self.assertTrue(self.character.spend_xp("occult"))
+        self.assertEqual(self.character.xp, 93)
+        self.assertTrue(self.character.spend_xp("occult"))
+        self.assertEqual(self.character.xp, 91)
+        self.assertTrue(self.character.spend_xp("mentor"))
+        self.assertEqual(self.character.xp, 88)
+        self.assertTrue(self.character.spend_xp("willpower"))
+        self.assertEqual(self.character.xp, 85)
 
     def test_spent_xp(self):
         self.character.xp = 100
@@ -776,10 +796,14 @@ class TestRandomHuman(TestCase):
         self.assertTrue(self.character.test_has_backgrounds())
 
     def test_random_freebies(self):
-        self.fail()
+        self.assertEqual(self.character.freebies, 15)
+        self.character.random_freebies()
+        self.assertEqual(self.character.freebies, 0)
 
     def test_random_spend_xp(self):
-        self.fail()
+        self.character.xp = 100
+        self.character.random_spend_xp()
+        self.assertLess(self.character.xp, 100)
 
     def test_random(self):
         self.assertFalse(self.character.has_name())
