@@ -627,10 +627,14 @@ class Mage(Human):
         ]
 
     def random_rote(self):
-        pass
+        options = self.filter_rotes(max_cost=self.rote_points)
+        rote = random.choice(options)
+        self.add_rote(rote)
+        self.rote_points -= rote.cost()
 
     def random_rotes(self):
-        pass
+        while self.rote_points > 0:
+            self.random_rote()
 
     def total_rotes(self):
         return sum([x.cost() for x in self.rotes.all()])
