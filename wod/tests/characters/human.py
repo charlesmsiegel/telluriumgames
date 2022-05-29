@@ -670,6 +670,8 @@ class TestHuman(TestCase):
         self.character.sex = "Male"
         self.assertFalse(self.character.has_finishing_touches())
         self.character.description = "Hardcore Asshole"
+        self.assertFalse(self.character.has_finishing_touches())
+        self.character.apparent_age = 18
         self.assertTrue(self.character.has_finishing_touches())
 
     def test_has_history(self):

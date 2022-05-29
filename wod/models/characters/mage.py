@@ -7,7 +7,7 @@ from django.db import models
 from accounts.models import WoDProfile
 from core.models import Language, Material, Medium
 from core.utils import add_dot, weighted_choice
-from wod.models.characters.human import Human
+from wod.models.characters.human import Character, Human
 
 
 # Create your models here.
@@ -92,6 +92,12 @@ class Resonance(models.Model):
     entropy = models.BooleanField(default=False)
     mind = models.BooleanField(default=False)
     prime = models.BooleanField(default=False)
+
+
+class ResRating(models.Model):
+    mage = models.ForeignKey("Mage", on_delete=models.CASCADE)
+    resonance = models.ForeignKey(Resonance, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0)
 
 
 class Mage(Human):
@@ -257,7 +263,13 @@ class Mage(Human):
     age_of_awakening = models.IntegerField(default=0)
     avatar_description = models.TextField(default="")
 
+    resonance = models.ManyToManyField("Resonance", through="ResRating")
+
+    rote_points = models.IntegerField(default=6)
     rotes = models.ManyToManyField(Rote, blank=True)
+
+    quintessence = models.IntegerField(default=0)
+    paradox = models.IntegerField(default=0)
 
     background_points = 7
 

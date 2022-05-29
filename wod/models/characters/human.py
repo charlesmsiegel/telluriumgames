@@ -57,7 +57,7 @@ class Character(PolymorphicModel):
         return True
 
     def random_concept(self):
-        pass
+        self.set_concept("Random")
 
     def has_name(self):
         return self.name != ""
@@ -67,7 +67,7 @@ class Character(PolymorphicModel):
         return True
 
     def random_name(self):
-        pass
+        self.set_name(f"Random {Character.objects.count() + 1}")
 
     def __str__(self):
         return self.name
@@ -139,6 +139,7 @@ class Human(Character):
     languages = models.ManyToManyField(Language, blank=True)
 
     age = models.IntegerField(blank=True, null=True)
+    apparent_age = models.IntegerField(blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     hair = models.CharField(blank=True, null=True, max_length=100)
     eyes = models.CharField(blank=True, null=True, max_length=100)
@@ -154,7 +155,10 @@ class Human(Character):
     goals = models.TextField(default="", blank=True, null=True)
     notes = models.TextField(default="", blank=True, null=True)
 
+    xp = models.IntegerField(default=0)
     spent_xp = models.TextField(default="")
+
+    current_health_levels = models.CharField(default="", max_length=100, blank=True)
 
     freebies = 15
     background_points = 5
@@ -315,19 +319,33 @@ class Human(Character):
         return sum(self.get_abilities().values())
 
     def has_abilities(self):
-        pass
+        triple = [self.total_talents(), self.total_skills(), self.total_knowledges()]
+        triple.sort()
+        return triple == [5, 9, 13]
 
     def add_specialty(self, specialty):
-        pass
+        if specialty in self.specialties.all():
+            return False
+        self.specialties.add(specialty)
+        return True
 
     def has_specialties(self):
         pass
 
-    def filter_specialties(self):
-        pass
+    def filter_specialties(self, stat=None):
+        if stat is None:
+            return [
+                x for x in Specialty.objects.all() if x not in self.specialties.all()
+            ]
+        return [
+            x
+            for x in Specialty.objects.filter(stat=stat)
+            if x not in self.specialties.all()
+        ]
 
-    def random_specialty(self, ability):
-        pass
+    def random_specialty(self, stat):
+        options = self.filter_specialties(stat=stat)
+        self.add_specialty(random.choice(options))
 
     def random_specialties(self):
         pass
@@ -421,6 +439,7 @@ class Human(Character):
             and self.weight != ""
             and self.sex != ""
             and self.description != ""
+            and self.apparent_age != 0
         )
 
     def has_history(self):
@@ -448,4 +467,45 @@ class Human(Character):
         pass
 
     def get_wound_penalty(self):
-        pass
+        health_levels = len(self.current_health_levels)
+        if health_levels <= 1:
+            return 0
+        if health_levels <= 3:
+            return -1
+        if health_levels <= 5:
+            return -2
+        if health_levels <= 6:
+            return -5
+        return -1000
+
+    def add_bashing(self):
+        if len(self.current_health_levels) < 7:
+            self.current_health_levels += "B"
+        elif "B" in self.current_health_levels:
+            self.current_health_levels = self.current_health_levels.replace("B", "L", 1)
+        self.current_health_levels = "".join(
+            sorted(self.current_health_levels, key=self.sort_damage)
+        )
+
+    @staticmethod
+    def sort_damage(damage_type):
+        if damage_type == "B":
+            return 2
+        if damage_type == "L":
+            return 1
+        # All other damage should be Aggravated
+        return 0
+
+    def add_aggravated(self):
+        if len(self.current_health_levels) < 7:
+            self.current_health_levels += "A"
+        self.current_health_levels = "".join(
+            sorted(self.current_health_levels, key=self.sort_damage)
+        )
+
+    def add_lethal(self):
+        if len(self.current_health_levels) < 7:
+            self.current_health_levels += "L"
+        self.current_health_levels = "".join(
+            sorted(self.current_health_levels, key=self.sort_damage)
+        )
