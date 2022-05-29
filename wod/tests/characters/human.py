@@ -461,13 +461,13 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.specialties.count(), num + 1)
 
     def test_filter_specialties(self):
-        self.assertEqual(self.character.filter_specialties(), 280)
-        self.assertEqual(self.character.filter_specialties(stat="strength"), 10)
-        self.assertEqual(self.character.filter_specialties(stat="occult"), 10)
+        self.assertEqual(len(self.character.filter_specialties()), 280)
+        self.assertEqual(len(self.character.filter_specialties(stat="strength")), 10)
+        self.assertEqual(len(self.character.filter_specialties(stat="athletics")), 10)
         self.character.add_specialty(
             Specialty.objects.get(name="Athletics Specialty 3")
         )
-        self.assertEqual(self.character.filter_specialties(stat="athletics"), 9)
+        self.assertEqual(len(self.character.filter_specialties(stat="athletics")), 9)
 
     def test_has_specialties(self):
         self.character.dexterity = 2
