@@ -360,12 +360,35 @@ class Mage(Human):
         return tmp
 
     def add_ability(self, ability, maximum=4):
-        if self.faction is not None:
-            if self.faction.name != "Akashayana" and ability == "do":
-                return False
-        if self.faction is None and ability == "do":
+        if ability == "do":
+            if self.faction is not None:
+                if self.faction.name != "Akashayana":
+                    return False
+                return add_dot(self, ability, maximum=min(maximum, self.count_limbs()))
             return False
         return add_dot(self, ability, maximum)
+
+    def count_limbs(self):
+        dharmamukti = self.alertness + self.athletics + self.do
+        dhyana = self.awareness + self.enigmas + self.meditation
+        jivahasta = self.esoterica + self.medicine + self.survival
+        karma = self.art + self.crafts + self.etiquette
+        prajna = self.academics + self.belief_systems + self.cosmology
+        shastamarga = self.academics + self.crafts + self.melee
+        sunyakaya = self.medicine + self.stealth + self.subterfuge
+        tricanmarga = self.acrobatics + self.athletics + self.esoterica
+        limbs = [
+            dharmamukti,
+            dhyana,
+            jivahasta,
+            karma,
+            prajna,
+            shastamarga,
+            sunyakaya,
+            tricanmarga,
+        ]
+        limbs = [x for x in limbs if x >= 2]
+        return len(limbs)
 
     def get_backgrounds(self):
         tmp = super().get_backgrounds()
@@ -613,6 +636,7 @@ class Mage(Human):
     def add_rote(self, rote):
         if rote.is_learnable(self):
             self.rotes.add(rote)
+            self.rote_points -= rote.cost()
             return True
         return False
 
@@ -648,26 +672,113 @@ class Mage(Human):
             and self.avatar_description != ""
         )
 
-    def random_xp_spend(self):
-        pass
+    def random_xp(self):
+        frequencies = {
+            "attribute": 1,
+            "ability": 1,
+            "background": 1,
+            "willpower": 1,
+        }
+        counter = 0
+        while counter < 10 and self.xp > 0:
+            choice = weighted_choice(frequencies)
+            if choice == "attribute":
+                trait = weighted_choice(self.get_attributes())
+                spent = self.spend_xp(trait)
+            if choice == "ability":
+                trait = weighted_choice(self.get_abilities())
+                spent = self.spend_xp(trait)
+            if choice == "background":
+                trait = weighted_choice(self.get_backgrounds())
+                spent = self.spend_xp(trait)
+            if choice == "willpower":
+                spent = self.spend_xp(choice)
+            if not spent:
+                counter += 1
+        # TODO: OTHER THINGS
 
     def freebie_cost(self, trait):
-        pass
+        if trait == "attribute":
+            return 5
+        if trait == "ability":
+            return 2
+        if trait == "background":
+            return 1
+        if trait == "willpower":
+            return 1
+        if trait == "meritflaw":
+            return 1
+        # TODO: OTHER THINGS
 
     def spend_freebies(self, trait):
-        pass
+        output = super().spend_freebies(trait)
+        if output in [True, False]:
+            return output
+        # TODO: OTHER THINGS
 
     def spend_xp(self, trait):
-        pass
+        output = super().spend_xp(trait)
+        if output in [True, False]:
+            return output
+        # TODO: OTHER THINGS
 
     def xp_cost(self, trait):
-        pass
+        if trait == "attribute":
+            return 4
+        if trait == "ability":
+            return 2
+        if trait == "new ability":
+            return 3
+        if trait == "background":
+            return 3
+        if trait == "new background":
+            return 5
+        if trait == "willpower":
+            return 1
+        # TODO: OTHER THINGS
 
     def random_freebies(self):
-        pass
+        frequencies = {
+            "attribute": 1,
+            "ability": 1,
+            "background": 1,
+            "willpower": 1,
+            "meritflaw": 1,
+        }
+        counter = 0
+        while counter < 10 and self.freebies > 0:
+            choice = weighted_choice(frequencies)
+            if choice == "attribute":
+                trait = weighted_choice(self.get_attributes())
+                spent = self.spend_freebies(trait)
+            if choice == "ability":
+                trait = weighted_choice(self.get_abilities())
+                spent = self.spend_freebies(trait)
+            if choice == "background":
+                trait = weighted_choice(self.get_backgrounds())
+                spent = self.spend_freebies(trait)
+            if choice == "willpower":
+                spent = self.spend_freebies(choice)
+            if choice == "meritflaw":
+                trait = random.choice([x.name for x in self.filter_mfs()])
+                spent = self.spend_freebies(trait)
+            if not spent:
+                counter += 1
+        # TODO: Other things
 
-    def random(self):
-        pass
+    def random(self, freebies=15, xp=0):
+        self.freebies = freebies
+        self.xp = xp
+        self.random_name()
+        self.random_concept()
+        self.random_archetypes()
+        self.random_attributes()
+        self.random_abilities()
+        self.random_backgrounds()
+        # TODO: Other Things, include Arete rework
+        self.random_freebies()
+        self.random_xp()
+        self.random_specialties()
 
 
 class Cabal(models.Model):

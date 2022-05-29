@@ -5,7 +5,7 @@ from unittest.mock import Mock
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from wod.models.characters.human import MeritFlaw
+from wod.models.characters.human import MeritFlaw, Specialty
 from wod.models.characters.mage import (
     Cabal,
     Instrument,
@@ -21,7 +21,7 @@ from wod.models.characters.mage import (
 # Create your tests here.
 def mage_setup(player):
     for i in range(5):
-        Mage.objects.create(name=f"Character {i}", player=player.wod_profile)
+        m = Mage.objects.create(name=f"Character {i}", player=player.wod_profile)
 
     for i in range(15):
         Instrument.objects.create(name=f"Instrument {i}")
@@ -62,6 +62,22 @@ def mage_setup(player):
         Rote.objects.create(name=f"Entropy {i}", entropy=i)
         Rote.objects.create(name=f"Prime {i}", prime=i)
         Rote.objects.create(name=f"Mind {i}", mind=i)
+
+    for i in range(10):
+        for trait in m.get_attributes():
+            Specialty.objects.create(
+                name=f"{trait.replace('_', ' ').title()} {i}", stat=trait
+            )
+
+        for trait in m.get_abilities():
+            Specialty.objects.create(
+                name=f"{trait.replace('_', ' ').title()} {i}", stat=trait
+            )
+
+        for trait in m.get_spheres():
+            Specialty.objects.create(
+                name=f"{trait.replace('_', ' ').title()} {i}", stat=trait
+            )
 
 
 class TestMage(TestCase):
@@ -929,7 +945,7 @@ class TestRandomMage(TestCase):
     def test_random_xp_spend(self):
         self.character.science = 1
         self.character.xp = 15
-        self.character.random_xp_spend()
+        self.character.random_xp()
         self.assertLess(self.character.xp, 15)
 
     def test_random_freebies(self):
