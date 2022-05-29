@@ -398,6 +398,7 @@ class TestMage(TestCase):
         self.assertTrue(self.character.add_ability("do"))
         self.character.cosmology = 3
         self.assertTrue(self.character.add_ability("do"))
+        self.assertTrue(self.character.add_ability("do"))
         self.assertFalse(self.character.add_ability("do"))
 
     def set_spheres(self):
