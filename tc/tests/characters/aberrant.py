@@ -20,7 +20,7 @@ class TestPower(TestCase):
         self.character = Aberrant.objects.create(
             name="", player=self.player.tc_profile, might=3, dexterity=2, science=1
         )
-        self.power = Power.objects.create(name="Test")
+        self.power = Power.objects.create(name="Test", cost=4)
         self.tag = Tag.objects.create(name="Reduced Cost", ratings=[2, 4, 6, 8, 10])
         self.tag.permitted_powers.add(self.power)
         self.tag.save()

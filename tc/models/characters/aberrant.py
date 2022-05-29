@@ -163,6 +163,8 @@ class Aberrant(Human):
             return False
         if power not in tag.permitted_powers.all():
             return False
+        if self.power_cost(power) == 0 and tag.name == "Reduced Cost":
+            return False
         p = PowerRating.objects.get(character=self, power=power)
         t, _ = TagRating.objects.get_or_create(power_rating=p, tag=tag)
         r = t.rating
@@ -267,10 +269,13 @@ class Aberrant(Human):
         return True
 
     def power_cost(self, power):
-        return max(
-            0,
-            power.cost - self.tag_rating(power, Tag.objects.get(name="Reduced Cost")),
-        )
+        if Tag.objects.filter(name="Reduced Cost").exists():
+            return max(
+                0,
+                power.cost
+                - self.tag_rating(power, Tag.objects.get(name="Reduced Cost")),
+            )
+        return power.cost
 
     def apply_random_template(self):
         self.quantum = 1
