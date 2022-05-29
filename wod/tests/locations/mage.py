@@ -176,6 +176,7 @@ class TestNode(TestCase):
             self.assertEqual(self.node.ratio, 2)
 
     def test_has_output(self):
+        self.node.random_rank()
         self.assertFalse(self.node.has_output())
         self.node.update_output()
         self.assertTrue(self.node.has_output())
