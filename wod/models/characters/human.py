@@ -625,7 +625,38 @@ class Human(Character):
             return False
 
     def random_freebies(self):
-        pass
+        frequencies = {
+            "attribute": 1,
+            "ability": 1,
+            "background": 1,
+            "willpower": 1,
+            "meritflaw": 1,
+        }
+        counter = 0
+        while counter < 10 < self.xp:
+            counter += 1
+            choice = weighted_choice(frequencies)
+            if choice == "attribute":
+                if self.freebie_cost(choice) <= self.freebies:
+                    if self.random_attribute():
+                        self.freebies -= self.freebie_cost(choice)
+            if choice == "ability":
+                if self.freebie_cost(choice) <= self.freebies:
+                    if self.random_ability():
+                        self.freebies -= self.freebie_cost(choice)
+            if choice == "background":
+                if self.freebie_cost(choice) <= self.freebies:
+                    if self.random_background():
+                        self.freebies -= self.freebie_cost(choice)
+            if choice == "willpower":
+                if self.freebie_cost(choice) <= self.freebies:
+                    if self.add_willpower():
+                        self.freebies -= self.freebie_cost(choice)
+            # TODO: random freebies meritflaw
+            # if choice == "meritflaw":
+            #     if self.freebie_cost(choice) <= self.freebies:
+            #         if self.random_mf():
+            #             self.freebies -= self.freebie_cost(choice)
 
     def random_spend_xp(self):
         pass
