@@ -422,8 +422,16 @@ class Mage(Human):
     def has_faction(self):
         return self.faction is not None
 
-    def set_faction(self, affiliation=None, faction=None, subfaction=None):
-        pass
+    def set_faction(self, affiliation, faction, subfaction=None):
+        if faction.parent != affiliation:
+            return False
+        if subfaction is not None:
+            if subfaction.parent != faction:
+                return False
+        self.affiliation = affiliation
+        self.faction = faction
+        self.subfaction = subfaction
+        return True
 
     def random_faction(self):
         self.affiliation = MageFaction.objects.filter(parent=None).order_by("?").first()

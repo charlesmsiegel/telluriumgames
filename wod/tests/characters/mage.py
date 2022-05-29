@@ -642,17 +642,17 @@ class TestMage(TestCase):
         subfaction2 = MageFaction.objects.create(name="Subfaction2", parent=faction2)
 
         self.assertFalse(
-            self.character.set_faction(
-                affiliation=affiliation, faction=faction, subfaction=subfaction2
-            )
+            self.character.set_faction(affiliation, faction, subfaction=subfaction2)
         )
         self.assertTrue(
-            self.character.set_faction(
-                affiliation=affiliation, faction=faction, subfaction=subfaction
-            )
+            self.character.set_faction(affiliation, faction, subfaction=subfaction)
         )
         self.assertTrue(self.character.has_faction())
-        self.assertTrue(self.character.set_faction(subfaction=subfaction2))
+        self.assertTrue(
+            self.character.set_faction(
+                subfaction2.parent.parent, subfaction2.parent, subfaction=subfaction2
+            )
+        )
         self.assertTrue(self.character.has_faction())
 
     def test_has_faction(self):
