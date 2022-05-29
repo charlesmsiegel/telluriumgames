@@ -829,6 +829,8 @@ class TestRandomHuman(TestCase):
         self.assertFalse(self.character.has_attributes())
         self.assertFalse(self.character.has_abilities())
         self.assertFalse(self.character.has_backgrounds())
+        self.assertFalse(self.character.has_finishing_touches())
+        self.assertFalse(self.character.has_history())
         self.character.random(freebies=0, xp=0)
         self.assertTrue(self.character.has_name())
         self.assertTrue(self.character.has_concept())
@@ -836,6 +838,9 @@ class TestRandomHuman(TestCase):
         self.assertTrue(self.character.has_attributes())
         self.assertTrue(self.character.has_abilities())
         self.assertTrue(self.character.has_backgrounds())
+        self.assertTrue(self.character.has_specialties())
+        self.assertTrue(self.character.has_finishing_touches())
+        self.assertTrue(self.character.has_history())
         self.assertEqual(self.character.freebies, 0)
 
 

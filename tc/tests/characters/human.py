@@ -68,7 +68,7 @@ class TestHuman(TestCase):
         self.character.long_term_aspiration = "Test 3"
         self.assertTrue(self.character.has_aspirations())
 
-    def has_basics(self):
+    def test_has_basics(self):
         self.assertFalse(self.character.has_basics())
         self.character.add_name("Test Name")
         self.character.add_concept("Test Concept")

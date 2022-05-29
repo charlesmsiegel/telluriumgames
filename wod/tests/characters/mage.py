@@ -988,7 +988,6 @@ class TestRandomMage(TestCase):
         self.assertFalse(self.character.has_archetypes())
         self.assertFalse(self.character.has_attributes())
         self.assertFalse(self.character.has_abilities())
-        self.assertFalse(self.character.has_specialties())
         self.assertFalse(self.character.has_backgrounds())
         self.assertFalse(self.character.has_finishing_touches())
         self.assertFalse(self.character.has_history())

@@ -435,7 +435,9 @@ class Human(Character):
         }
 
     def has_backgrounds(self):
-        return self.total_backgrounds() == self.background_points
+        if self.total_backgrounds() > self.background_points:
+            self.freebies -= self.total_backgrounds() - self.background_points
+        return self.total_backgrounds() >= self.background_points
 
     def random_background(self):
         choice = weighted_choice(self.get_backgrounds())
@@ -513,8 +515,26 @@ class Human(Character):
             and self.apparent_age is not None
         )
 
+    def random_finishing_touches(self):
+        self.age = 18
+        self.date_of_birth = "2000-01-01"
+        self.hair = "Brown"
+        self.eyes = "Blue"
+        self.ethnicity = "Ethnic Group"
+        self.nationality = "American"
+        self.height = "5'7\""
+        self.weight = "100 lbs"
+        self.sex = "Male"
+        self.description = "Description"
+        self.apparent_age = 18
+
     def has_history(self):
         return self.childhood != "" and self.history != "" and self.goals != ""
+
+    def random_history(self):
+        self.childhood = "Childhood"
+        self.history = "History"
+        self.goals = "Goals"
 
     def freebie_cost(self, trait):
         if trait == "attribute":
@@ -708,6 +728,8 @@ class Human(Character):
         self.random_freebies()
         self.random_xp()
         self.random_specialties()
+        self.random_finishing_touches()
+        self.random_history()
 
     def get_wound_penalty(self):
         health_levels = len(self.current_health_levels)

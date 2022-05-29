@@ -1,5 +1,6 @@
 import random
 from logging import StrFormatStyle
+from multiprocessing.sharedctypes import Value
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -584,13 +585,15 @@ class Mage(Human):
         self.set_affinity_sphere(random.choice(list(self.get_spheres().keys())))
 
     def random_sphere(self):
-        if self.affinity_sphere is None:
-            self.random_affinity_sphere()
         if len(self.filter_spheres(maximum=self.arete - 1).keys()) != 0:
             choice = weighted_choice(self.filter_spheres(maximum=self.arete - 1))
             self.add_sphere(choice)
+        else:
+            raise ValueError(f"All Spheres Maxed out at Arete {self.arete}")
 
     def random_spheres(self):
+        if self.affinity_sphere is None:
+            self.random_affinity_sphere()
         while self.total_spheres() < 6:
             self.random_sphere()
 
@@ -709,7 +712,7 @@ class Mage(Human):
                 trait = weighted_choice(self.get_backgrounds())
                 spent = self.spend_xp(trait)
             if choice == "willpower":
-                spent = self.spend_xp(choice)   
+                spent = self.spend_xp(choice)
             if not spent:
                 counter += 1
         # TODO: OTHER THINGS
@@ -789,10 +792,19 @@ class Mage(Human):
         self.random_name()
         self.random_concept()
         self.random_archetypes()
+        self.random_essence()
+        self.random_faction()
+        self.random_focus()
+        self.random_affinity_sphere()
         self.random_attributes()
         self.random_abilities()
         self.random_backgrounds()
-        # TODO: Other Things, include Arete rework
+        self.random_arete()
+        self.random_spheres()
+        self.random_history()
+        self.random_resonance()
+        self.random_rotes()
+        self.random_finishing_touches()
         self.random_freebies()
         self.random_xp()
         self.random_specialties()
