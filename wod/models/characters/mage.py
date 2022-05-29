@@ -474,6 +474,8 @@ class Mage(Human):
         )
 
     def set_focus(self, paradigms, practices, instruments):
+        if len(instruments) < 7:
+            return False
         self.paradigms.set(paradigms)
         self.practices.set(practices)
         self.instruments.set(instruments)
@@ -530,6 +532,21 @@ class Mage(Human):
                 instruments[instrument] += 1
         while self.instruments.count() < 7:
             self.instruments.add(weighted_choice(instruments))
+
+    def add_background(self, background, maximum=5):
+        if background in ["requisitions", "secret_weapons"]:
+            if self.affiliation is not None:
+                if self.affiliation.name != "Technocratic Union":
+                    return False
+                return add_dot(self, background, maximum)
+            return False
+        return add_dot(self, background, maximum)
+
+    def total_backgrounds(self):
+        # TODO: Chekc that enhancement, sanctum, and totem cost double freebies and XP
+        return (
+            super().total_backgrounds() + self.enhancement + self.sanctum + self.totem
+        )
 
     def add_sphere(self, sphere):
         if self.faction is not None:
@@ -692,7 +709,7 @@ class Mage(Human):
                 trait = weighted_choice(self.get_backgrounds())
                 spent = self.spend_xp(trait)
             if choice == "willpower":
-                spent = self.spend_xp(choice)
+                spent = self.spend_xp(choice)   
             if not spent:
                 counter += 1
         # TODO: OTHER THINGS

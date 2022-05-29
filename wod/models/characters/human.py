@@ -330,6 +330,20 @@ class Human(Character):
         return triple == [5, 9, 13]
 
     def add_specialty(self, specialty):
+        if getattr(self, specialty.stat) < 4 and specialty.stat not in [
+            "arts",
+            "athletics",
+            "crafts",
+            "firearms",
+            "martial_arts",
+            "melee",
+            "academics",
+            "esoterica",
+            "lore",
+            "politics",
+            "science",
+        ]:
+            return False
         if specialty in self.specialties.all():
             return False
         self.specialties.add(specialty)
@@ -376,7 +390,7 @@ class Human(Character):
 
     def random_specialty(self, stat):
         options = self.filter_specialties(stat=stat)
-        self.add_specialty(random.choice(options))
+        return self.add_specialty(random.choice(options))
 
     def random_specialties(self):
         for attribute in self.filter_attributes(minimum=4):
