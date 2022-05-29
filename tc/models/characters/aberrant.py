@@ -269,7 +269,7 @@ class Aberrant(Human):
     def power_cost(self, power):
         return max(
             0,
-            power.cost() - self.tag_rating(power, Tag.objects.get(name="Reduced Cost")),
+            power.cost - self.tag_rating(power, Tag.objects.get(name="Reduced Cost")),
         )
 
     def apply_random_template(self):
