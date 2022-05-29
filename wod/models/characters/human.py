@@ -400,6 +400,7 @@ class Human(Character):
     def random(self):
         pass
 
+
 # # Backgrounds
 # Contacts
 # Mentor
