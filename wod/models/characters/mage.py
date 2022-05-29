@@ -539,16 +539,38 @@ class Mage(Human):
         self.set_essence(choice)
 
     def add_resonance(self, resonance):
-        pass
+        r, _ = ResRating.objects.get_or_create(resonance=resonance, mage=self)
+        if r.rating == 5:
+            return False
+        r.rating += 1
+        r.save()
+        return True
 
     def total_resonance(self):
-        pass
+        return sum([x.rating for x in ResRating.objects.filter(mage=self)])
 
     def resonance_rating(self, resonance):
-        pass
+        if resonance not in self.resonance.all():
+            return 0
+        return ResRating.objects.get(mage=self, resonance=resonance).rating
 
-    def filter_resonance(self):
-        return []
+    def filter_resonance(self, minimum=0, maximum=5):
+        return [
+            x
+            for x in Resonance.objects.all()
+            if minimum <= self.resonance_rating(x) <= maximum
+        ]
+
+    def random_resonance(self):
+        if random.random() < 0.7:
+            possible = self.filter_resonance(minimum=1, maximum=4)
+            if len(possible) == 0:
+                possible = self.filter_resonance(minimum=0, maximum=4)
+        else:
+            possible = self.filter_resonance(minimum=0, maximum=4)
+        if len(possible) == 0:
+            return False
+        return self.add_resonance(random.choice(possible))
 
     def add_rote(self, rote):
         pass
