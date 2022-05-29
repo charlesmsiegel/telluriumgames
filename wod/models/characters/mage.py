@@ -518,6 +518,7 @@ class Cabal(models.Model):
     def __str__(self):
         return self.name
 
+
 # # Backgrounds
 # Allies
 # Alternate Identity
