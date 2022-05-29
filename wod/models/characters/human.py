@@ -450,7 +450,16 @@ class Human(Character):
         return self.childhood != "" and self.history != "" and self.goals != ""
 
     def freebie_cost(self, trait):
-        pass
+        if trait == "attribute":
+            return 5
+        if trait == "ability":
+            return 2
+        if trait == "background":
+            return 1
+        if trait == "willpower":
+            return 1
+        if trait == "meritflaw":
+            return 1
 
     def spend_freebies(self, trait):
         pass
