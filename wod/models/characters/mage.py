@@ -359,6 +359,14 @@ class Mage(Human):
         )
         return tmp
 
+    def add_ability(self, ability, maximum=4):
+        if self.faction is not None:
+            if self.faction.name != "Akashayana" and ability == "do":
+                return False
+        if self.faction is None and ability == "do":
+            return False
+        return add_dot(self, ability, maximum)
+
     def get_backgrounds(self):
         tmp = super().get_backgrounds()
         tmp.update(
