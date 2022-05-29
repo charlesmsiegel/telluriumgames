@@ -336,7 +336,32 @@ class Human(Character):
         return True
 
     def has_specialties(self):
-        pass
+        # TODO: Need Mage version that includes Sphere specialties
+        output = True
+        for attribute in self.filter_attributes(minimum=4):
+            output = output and (self.specialties.filter(stat=attribute).count() > 0)
+        for ability in self.filter_abilities(minimum=4):
+            output = output and (self.specialties.filter(stat=ability).count() > 0)
+        for ability in [
+            x
+            for x in self.filter_abilities(minimum=1)
+            if x
+            in [
+                "arts",
+                "athletics",
+                "crafts",
+                "firearms",
+                "martial_arts",
+                "melee",
+                "academics",
+                "esoterica",
+                "lore",
+                "politics",
+                "science",
+            ]
+        ]:
+            output = output and (self.specialties.filter(stat=ability).count() > 0)
+        return output
 
     def filter_specialties(self, stat=None):
         if stat is None:
@@ -439,17 +464,17 @@ class Human(Character):
 
     def has_finishing_touches(self):
         return (
-            self.age != 0
+            self.age is not None
             and self.date_of_birth is not None
-            and self.hair != ""
-            and self.eyes != ""
-            and self.ethnicity != ""
-            and self.nationality != ""
-            and self.height != ""
-            and self.weight != ""
-            and self.sex != ""
-            and self.description != ""
-            and self.apparent_age != 0
+            and self.hair is not None
+            and self.eyes is not None
+            and self.ethnicity is not None
+            and self.nationality is not None
+            and self.height is not None
+            and self.weight is not None
+            and self.sex is not None
+            and self.description is not None
+            and self.apparent_age is not None
         )
 
     def has_history(self):
