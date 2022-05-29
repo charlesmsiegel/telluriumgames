@@ -707,7 +707,7 @@ class Human(PolymorphicModel):
         self.save()
         return False
 
-    def random_xp_spend(self):
+    def random_spend_xp(self):
         while self.xp > 10:
             options = {
                 "attributes": 1,
@@ -756,7 +756,7 @@ class Human(PolymorphicModel):
         self.random_edges()
         self.apply_random_template()
         self.xp = xp
-        self.random_xp_spend()
+        self.random_spend_xp()
         self.save()
 
 

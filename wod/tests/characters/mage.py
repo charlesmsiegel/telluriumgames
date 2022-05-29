@@ -944,7 +944,7 @@ class TestRandomMage(TestCase):
         self.character.random_arete()
         self.assertNotEqual(self.character.arete, 0)
 
-    def test_random_xp_spend(self):
+    def test_random_spend_xp(self):
         self.character.science = 1
         self.character.xp = 15
         self.character.random_xp()

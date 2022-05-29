@@ -133,6 +133,10 @@ class Talent(Human):
         self.random_gifts()
         self.random_facets()
 
+    def random_spend_xp(self):
+        # TODO: Random XP Spend extension
+        pass
+
     def xp_cost(self, trait_type):
         cost = super().xp_cost(trait_type)
         if cost != 10000:

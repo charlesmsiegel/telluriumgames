@@ -261,9 +261,9 @@ class TestRandomTalent(TestCase):
         self.character.apply_random_template()
         self.assertTrue(self.character.has_template())
 
-    def test_random_xp_spend(self):
+    def test_random_spend_xp(self):
         self.character.xp = 15
-        self.character.random_xp_spend()
+        self.character.random_spend_xp()
         self.assertLess(self.character.xp, 15)
 
     def test_random_moment_of_inspiration(self):

@@ -660,10 +660,10 @@ class TestRandomMortal(TestCase):
         self.character.random_aspirations()
         self.assertTrue(self.character.has_aspirations())
 
-    def test_random_xp_spend(self):
+    def test_random_spend_xp(self):
         self.character.science = 1
         self.character.xp = 15
-        self.character.random_xp_spend()
+        self.character.random_spend_xp()
         self.assertLess(self.character.xp, 15)
 
     def test_random(self):

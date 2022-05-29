@@ -540,7 +540,7 @@ class Mortal(PolymorphicModel):
             return 2
         return 10000
 
-    def random_xp_spend(self):
+    def random_spend_xp(self):
         frequencies = {
             "attribute": 1,
             "merit": 1,
@@ -583,7 +583,7 @@ class Mortal(PolymorphicModel):
         self.random_specialties()
         self.random_merits()
         self.assign_advantages()
-        self.random_xp_spend()
+        self.random_spend_xp()
         self.save()
 
 

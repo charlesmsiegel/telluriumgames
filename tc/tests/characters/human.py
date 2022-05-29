@@ -772,9 +772,9 @@ class TestRandomHuman(TestCase):
         self.assertEqual(self.character.total_attributes(), attributes + 1)
         self.assertEqual(self.character.total_edges(), edges + 4)
 
-    def test_random_xp_spend(self):
+    def test_random_spend_xp(self):
         self.character.xp = 15
-        self.character.random_xp_spend()
+        self.character.random_spend_xp()
         self.assertLess(self.character.xp, 15)
 
     def test_random(self):
