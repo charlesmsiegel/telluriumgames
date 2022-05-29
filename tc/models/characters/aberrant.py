@@ -278,8 +278,9 @@ class Aberrant(Human):
             "RES": self.get_resilience_attributes(),
         }
 
-        while not self.add_attribute(weighted_choice(approaches[self.approach]), 5):
-            pass
+        total = self.total_attributes()
+        while self.total_attributes() < total + 1:
+            self.add_attribute(weighted_choice(approaches[self.approach]), 5)
 
         if random.random() < 0.5:
             e = Edge.objects.get(name="Fame")
