@@ -151,6 +151,8 @@ class Human(Character):
     goals = models.TextField(default="", blank=True, null=True)
     notes = models.TextField(default="", blank=True, null=True)
 
+    spent_xp = models.TextField(default="")
+
     freebies = 15
     background_points = 5
 
@@ -318,10 +320,31 @@ class Human(Character):
     def has_specialties(self):
         pass
 
+    def filter_specialties(self):
+        pass
+
     def random_specialty(self, ability):
         pass
 
     def random_specialties(self):
+        pass
+
+    def add_background(self, background):
+        pass
+
+    def total_backgrounds(self):
+        pass
+
+    def filter_backgrounds(self):
+        pass
+
+    def has_backgrounds(self):
+        pass
+
+    def random_background(self):
+        pass
+
+    def random_backgrounds(self):
         pass
 
     def add_willpower(self):
@@ -394,10 +417,28 @@ class Human(Character):
     def has_history(self):
         return self.childhood != "" and self.history != "" and self.goals != ""
 
-    def random_xp_spend(self):
+    def freebie_cost(self, trait):
+        pass
+
+    def spend_freebies(self, trait):
+        pass
+
+    def xp_cost(self, trait):
+        pass
+
+    def spend_xp(self, trait):
+        pass
+
+    def random_freebies(self):
+        pass
+
+    def random_spend_xp(self):
         pass
 
     def random(self):
+        pass
+
+    def get_wound_penalty(self):
         pass
 
 

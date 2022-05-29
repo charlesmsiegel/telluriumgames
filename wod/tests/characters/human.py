@@ -725,7 +725,13 @@ class TestRandomHuman(TestCase):
             for ability in self.character.get_abilities():
                 Specialty.objects.create(
                     name=f"{ability.replace('_', ' ').title()} Specialty {i}",
-                    ability=ability,
+                    stat=ability,
+                )
+        for i in range(10):
+            for attribute in self.character.get_attributes():
+                Specialty.objects.create(
+                    name=f"{attribute.replace('_', ' ').title()} Specialty {i}",
+                    stat=attribute,
                 )
 
     def test_random_name(self):
@@ -794,9 +800,9 @@ class TestRandomHuman(TestCase):
         self.assertTrue(self.character.has_specialties())
 
     def test_random_backgrounds(self):
-        self.assertFalse(self.character.test_has_backgrounds())
+        self.assertFalse(self.character.has_backgrounds())
         self.character.random_backgrounds()
-        self.assertTrue(self.character.test_has_backgrounds())
+        self.assertTrue(self.character.has_backgrounds())
 
     def test_random_freebies(self):
         self.assertEqual(self.character.freebies, 15)

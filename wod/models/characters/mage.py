@@ -225,6 +225,8 @@ class Mage(Human):
     age_of_awakening = models.IntegerField(default=0)
     avatar_description = models.TextField(default="")
 
+    rotes = models.ManyToManyField(Rote, blank=True)
+
     background_points = 7
 
     def __init__(self, *args, **kwargs):
@@ -294,6 +296,9 @@ class Mage(Human):
         )
         return tmp
 
+    def get_backgrounds(self):
+        pass
+
     def get_spheres(self):
         return {
             "correspondence": self.correspondence,
@@ -310,14 +315,8 @@ class Mage(Human):
     def has_faction(self):
         return self.faction is not None
 
-    def set_faction(self, faction, subfaction=None):
-        self.faction = faction
-        if self.faction.parent is not None:
-            self.affiliation = self.faction.parent
-        if self.subfaction is not None:
-            if self.subfaction.parent == self.faction:
-                self.subfaction = subfaction
-        return True
+    def set_faction(self, affiliation=None, faction=None, subfaction=None):
+        pass
 
     def random_faction(self):
         self.affiliation = MageFaction.objects.filter(parent=None).order_by("?").first()
@@ -459,7 +458,34 @@ class Mage(Human):
         choice = random.choice(options)
         self.set_essence(choice)
 
+    def add_resonance(self, resonance):
+        pass
+
     def total_resonance(self):
+        pass
+
+    def resonance_rating(self, resonance):
+        pass
+
+    def filter_resonance(self):
+        return []
+
+    def add_rote(self, rote):
+        pass
+
+    def has_rotes(self):
+        pass
+
+    def filter_rotes(self):
+        return []
+
+    def random_rote(self):
+        pass
+
+    def random_rotes(self):
+        pass
+
+    def total_rotes(self):
         pass
 
     def has_mage_history(self):
@@ -472,6 +498,18 @@ class Mage(Human):
         )
 
     def random_xp_spend(self):
+        pass
+
+    def freebie_cost(self, trait):
+        pass
+
+    def spend_freebies(self, trait):
+        pass
+
+    def spend_xp(self, trait):
+        pass
+
+    def xp_cost(self, trait):
         pass
 
     def random_freebies(self):

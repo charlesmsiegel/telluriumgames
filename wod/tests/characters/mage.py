@@ -741,7 +741,7 @@ class TestMage(TestCase):
         self.assertEqual(self.character.xp_cost("new background"), 5)
         self.assertEqual(self.character.xp_cost("willpower"), 1)
         self.assertEqual(self.character.xp_cost("new ability"), 3)
-        
+
         self.assertEqual(self.character.xp_cost("sphere"), 8)
         self.assertEqual(self.character.xp_cost("new sphere"), 10)
         self.assertEqual(self.character.xp_cost("arete"), 8)
@@ -999,6 +999,7 @@ class TestRandomMage(TestCase):
         self.assertTrue(self.character.has_essence())
         self.assertTrue(self.character.has_rotes())
         self.assertTrue(self.character.has_mage_history())
+
 
 class TestCabal(TestCase):
     def setUp(self):
