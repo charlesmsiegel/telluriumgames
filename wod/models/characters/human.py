@@ -493,7 +493,50 @@ class Human(Character):
             return 1
 
     def spend_freebies(self, trait):
-        pass
+        if trait in self.get_attributes():
+            cost = self.freebie_cost("attribute")
+            if cost <= self.freebies:
+                if self.add_attribute(trait):
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
+        elif trait in self.get_abilities():
+            cost = self.freebie_cost("ability")
+            if cost <= self.freebies:
+                if self.add_ability(trait):
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
+        elif trait in self.get_backgrounds():
+            cost = self.freebie_cost("background")
+            if cost <= self.freebies:
+                if self.add_background(trait):
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
+        elif trait == "willpower":
+            cost = self.freebie_cost("willpower")
+            if cost <= self.freebies:
+                if self.add_willpower():
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
+        elif trait in [x.name for x in MeritFlaw.objects.all()]:
+            cost = self.freebie_cost("meritflaw")  # rating?
+            mf = MeritFlaw.objects.get(name=trait)
+            rating = random.choice(
+                [x for x in mf.ratings if abs(x) > abs(self.mf_rating(mf))]
+            )
+            if cost * (rating - self.mf_rating(mf)) <= self.freebies:
+                if self.add_mf(mf, rating):
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
 
     def xp_cost(self, trait):
         pass
