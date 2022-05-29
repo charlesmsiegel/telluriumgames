@@ -12,7 +12,9 @@ from wod.models.characters.mage import (
     Mage,
     MageFaction,
     Paradigm,
-    Practice, Resonance, Rote
+    Practice,
+    Resonance,
+    Rote,
 )
 
 
@@ -46,9 +48,9 @@ def mage_setup(player):
     for i in range(5):
         MeritFlaw.objects.create(name=f"Merit {i}", ratings=[i])
         MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i])
-        
+
     for i in range(1, 11):
-            Resonance.objects.create(name=f"Resonance {i}")
+        Resonance.objects.create(name=f"Resonance {i}")
 
 
 class TestMage(TestCase):
@@ -594,7 +596,7 @@ class TestMage(TestCase):
                 "wonder": 0,
             },
         )
-        
+
     def test_total_backgrounds(self):
         self.character.allies = 3
         self.character.avatar = 4
@@ -603,7 +605,7 @@ class TestMage(TestCase):
         self.assertEqual(self.character.total_backgrounds(), 12)
         self.character.wonder = 2
         self.assertEqual(self.character.total_backgrounds(), 14)
-        
+
     def test_technocracy_only_backgrounds(self):
         tech_char = Mage.objects.create(name="Tech", player=self.player.wod_profile)
         tech_char.affiliation = MageFaction.objects.create(name="Technocratic Union")
@@ -623,13 +625,21 @@ class TestMage(TestCase):
         affiliation = MageFaction.objects.create(name="Affiliation")
         faction = MageFaction.objects.create(name="Faction", parent=affiliation)
         subfaction = MageFaction.objects.create(name="Subfaction", parent=faction)
-        
+
         affiliation2 = MageFaction.objects.create(name="Affiliation2")
         faction2 = MageFaction.objects.create(name="Faction2", parent=affiliation2)
         subfaction2 = MageFaction.objects.create(name="Subfaction2", parent=faction2)
-        
-        self.assertFalse(self.character.set_faction(affiliation=affiliation, faction=faction, subfaction=subfaction2))
-        self.assertTrue(self.character.set_faction(affiliation=affiliation, faction=faction, subfaction=subfaction))
+
+        self.assertFalse(
+            self.character.set_faction(
+                affiliation=affiliation, faction=faction, subfaction=subfaction2
+            )
+        )
+        self.assertTrue(
+            self.character.set_faction(
+                affiliation=affiliation, faction=faction, subfaction=subfaction
+            )
+        )
         self.assertTrue(self.character.has_faction())
         self.assertTrue(self.character.set_faction(subfaction=subfaction2))
         self.assertTrue(self.character.has_faction())
@@ -639,7 +649,9 @@ class TestMage(TestCase):
         affiliation = MageFaction.objects.create(name="Affiliation")
         faction = MageFaction.objects.create(name="Faction", parent=affiliation)
         subfaction = MageFaction.objects.create(name="Subfaction", parent=faction)
-        self.character.set_faction(affiliation=affiliation, faction=faction, subfaction=subfaction)
+        self.character.set_faction(
+            affiliation=affiliation, faction=faction, subfaction=subfaction
+        )
         self.assertTrue(self.character.has_faction())
 
     def test_set_focus(self):
@@ -647,8 +659,16 @@ class TestMage(TestCase):
         practices = Practice.objects.order_by("?")[:2]
         instruments = Instrument.objects.order_by("?")[:7]
         self.assertFalse(self.character.has_focus())
-        self.assertFalse(self.character.set_focus(paradigms=paradigms, practices=practices, instruments=instruments[:3]))
-        self.assertTrue(self.character.set_focus(paradigms=paradigms, practices=practices, instruments=instruments))
+        self.assertFalse(
+            self.character.set_focus(
+                paradigms=paradigms, practices=practices, instruments=instruments[:3]
+            )
+        )
+        self.assertTrue(
+            self.character.set_focus(
+                paradigms=paradigms, practices=practices, instruments=instruments
+            )
+        )
         self.assertTrue(self.character.has_focus())
 
     def test_has_focus(self):
@@ -656,7 +676,9 @@ class TestMage(TestCase):
         practices = Practice.objects.order_by("?")[:2]
         instruments = Instrument.objects.order_by("?")[:7]
         self.assertFalse(self.character.has_focus())
-        self.character.set_focus(paradigms=paradigms, practices=practices, instruments=instruments)
+        self.character.set_focus(
+            paradigms=paradigms, practices=practices, instruments=instruments
+        )
         self.assertTrue(self.character.has_focus())
 
     def test_set_essence(self):
@@ -728,7 +750,7 @@ class TestMage(TestCase):
         self.character.add_rote(r1)
         self.assertEqual(self.character.total_rotes(), 5)
         self.character.add_rote(r2)
-        self.assertEqual(self.character.total_rotes(), 8)       
+        self.assertEqual(self.character.total_rotes(), 8)
 
     def test_has_mage_history(self):
         self.assertFalse(self.character.has_mage_history())

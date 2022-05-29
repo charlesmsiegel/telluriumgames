@@ -464,7 +464,9 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.filter_specialties(), 280)
         self.assertEqual(self.character.filter_specialties(stat="strength"), 10)
         self.assertEqual(self.character.filter_specialties(stat="occult"), 10)
-        self.character.add_specialty(Specialty.objects.get(name="Athletics Specialty 3"))
+        self.character.add_specialty(
+            Specialty.objects.get(name="Athletics Specialty 3")
+        )
         self.assertEqual(self.character.filter_specialties(stat="athletics"), 9)
 
     def test_has_specialties(self):
@@ -488,10 +490,30 @@ class TestHuman(TestCase):
         self.character.science = 1
         for attribute, value in self.character.get_attributes().items():
             if value >= 4:
-                self.assertGreaterEqual(self.character.specialties.filter(stat=attribute).count(), 0)
+                self.assertGreaterEqual(
+                    self.character.specialties.filter(stat=attribute).count(), 0
+                )
         for ability, value in self.character.get_abilities().items():
-            if value >= 4 or (ability in ["arts", "athletics", "crafts", "firearms", "martial_arts", "melee", "academics", "esoterica", "lore", "politics", "science"] and value > 0):
-                self.assertGreaterEqual(self.character.specialties.filter(stat=ability).count(), 0)
+            if value >= 4 or (
+                ability
+                in [
+                    "arts",
+                    "athletics",
+                    "crafts",
+                    "firearms",
+                    "martial_arts",
+                    "melee",
+                    "academics",
+                    "esoterica",
+                    "lore",
+                    "politics",
+                    "science",
+                ]
+                and value > 0
+            ):
+                self.assertGreaterEqual(
+                    self.character.specialties.filter(stat=ability).count(), 0
+                )
 
     def test_get_backgrounds(self):
         self.assertEqual(
@@ -668,6 +690,7 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.current_health_levels, "ALLBBBB")
         self.character.add_aggravated()
         self.assertEqual(self.character.get_wound_penalty(), -1000)
+
 
 class TestRandomHuman(TestCase):
     def setUp(self) -> None:
