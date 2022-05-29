@@ -362,17 +362,21 @@ class Human(Character):
     def total_backgrounds(self):
         return sum(self.get_backgrounds().values())
 
-    def filter_backgrounds(self):
-        pass
+    def filter_backgrounds(self, minimum=0, maximum=5):
+        return {
+            k: v for k, v in self.get_backgrounds().items() if minimum <= v <= maximum
+        }
 
     def has_backgrounds(self):
-        pass
+        return self.total_backgrounds() == self.background_points
 
     def random_background(self):
-        pass
+        choice = weighted_choice(self.get_backgrounds())
+        return self.add_background(choice)
 
     def random_backgrounds(self):
-        pass
+        while not self.has_backgrounds():
+            self.random_background()
 
     def add_willpower(self):
         return add_dot(self, "willpower", 10)
