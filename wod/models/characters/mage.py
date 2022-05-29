@@ -493,6 +493,9 @@ class Mage(Human):
             self.instruments.add(weighted_choice(instruments))
 
     def add_sphere(self, sphere):
+        if self.faction is not None:
+            if self.faction.name == "Ahl-i-Batin" and sphere == "entropy":
+                return False
         return add_dot(self, sphere, self.arete)
 
     def filter_spheres(self, minimum=0, maximum=5):
