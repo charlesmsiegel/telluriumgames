@@ -21,7 +21,7 @@ class TestPower(TestCase):
             name="", player=self.player.tc_profile, might=3, dexterity=2, science=1
         )
         self.power = Power.objects.create(name="Test")
-        self.tag = Tag.objects.create(name="Reduced Cost")
+        self.tag = Tag.objects.create(name="Reduced Cost", ratings=[2, 4, 6, 8, 10])
         self.tag.permitted_powers.add(self.power)
         self.tag.save()
 
