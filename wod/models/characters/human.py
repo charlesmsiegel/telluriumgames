@@ -539,7 +539,18 @@ class Human(Character):
             return False
 
     def xp_cost(self, trait):
-        pass
+        if trait == "attribute":
+            return 4
+        if trait == "ability":
+            return 2
+        if trait == "new ability":
+            return 3
+        if trait == "background":
+            return 3
+        if trait == "new background":
+            return 5
+        if trait == "willpower":
+            return 1
 
     def spend_xp(self, trait):
         pass
