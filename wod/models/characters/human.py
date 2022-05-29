@@ -548,15 +548,17 @@ class Human(Character):
                 return False
             return False
         elif trait in [x.name for x in MeritFlaw.objects.all()]:
-            cost = self.freebie_cost("meritflaw")  # rating?
-            mf = MeritFlaw.objects.get(name=trait)
-            rating = random.choice(
-                [x for x in mf.ratings if abs(x) > abs(self.mf_rating(mf))]
-            )  # TODO: Should this just be the "lowest" value left?
-            if cost * (rating - self.mf_rating(mf)) <= self.freebies:
-                if self.add_mf(mf, rating):
-                    self.freebies -= cost
-                    return True
+            if not self.has_max_flaws():
+                cost = self.freebie_cost("meritflaw")  # rating?
+                mf = MeritFlaw.objects.get(name=trait)
+                rating = random.choice(
+                    [x for x in mf.ratings if abs(x) > abs(self.mf_rating(mf))]
+                )  # TODO: Should this just be the "lowest" value left?
+                if cost * (rating - self.mf_rating(mf)) <= self.freebies:
+                    if self.add_mf(mf, rating):
+                        self.freebies -= cost
+                        return True
+                    return False
                 return False
             return False
 
@@ -634,23 +636,24 @@ class Human(Character):
         }
         counter = 0
         while counter < 10 and self.freebies > 0:
-            counter += 1
             choice = weighted_choice(frequencies)
             if choice == "attribute":
                 trait = weighted_choice(self.get_attributes())
-                self.spend_freebies(trait)
+                spent = self.spend_freebies(trait)
             if choice == "ability":
                 trait = weighted_choice(self.get_abilities())
-                self.spend_freebies(trait)
+                spent = self.spend_freebies(trait)
             if choice == "background":
                 trait = weighted_choice(self.get_backgrounds())
-                self.spend_freebies(trait)
+                spent = self.spend_freebies(trait)
             if choice == "willpower":
-                self.spend_freebies(choice)
+                spent = self.spend_freebies(choice)
             if choice == "meritflaw":
                 # TOOD: improve MF trait selection in freebies
                 trait = MeritFlaw.objects.order_by("?").first().name
-                self.spend_freebies(trait)
+                spent = self.spend_freebies(trait)
+            if not spent:
+                counter += 1
 
     def random_xp(self):
         frequencies = {
@@ -661,19 +664,20 @@ class Human(Character):
         }
         counter = 0
         while counter < 10 and self.xp > 0:
-            counter += 1
             choice = weighted_choice(frequencies)
             if choice == "attribute":
                 trait = weighted_choice(self.get_attributes())
-                self.spend_xp(trait)
+                spent = self.spend_xp(trait)
             if choice == "ability":
                 trait = weighted_choice(self.get_abilities())
-                self.spend_xp(trait)
+                spent = self.spend_xp(trait)
             if choice == "background":
                 trait = weighted_choice(self.get_backgrounds())
-                self.spend_xp(trait)
+                spent = self.spend_xp(trait)
             if choice == "willpower":
-                self.spend_xp(choice)
+                spent = self.spend_xp(choice)
+            if not spent:
+                counter += 1
 
     def random(self, freebies=15, xp=0):
         self.freebies = freebies
