@@ -477,7 +477,12 @@ class Human(PolymorphicModel):
         return path_rating.connection is not None
 
     def set_connection(self, path, connection):
-        pass
+        if self.path_rating(path) == 0:
+            return True
+        path_rating = PathRating.objects.get(character=self, path=path)
+        path_rating.connection = connection
+        path_rating.save()
+        return True
 
     def edge_rating(self, edge):
         if not isinstance(edge, Edge):
