@@ -547,7 +547,6 @@ class Mage(Human):
         return add_dot(self, background, maximum)
 
     def total_backgrounds(self):
-        # TODO: Chekc that enhancement, sanctum, and totem cost double freebies and XP
         return (
             super().total_backgrounds() + self.enhancement + self.sanctum + self.totem
         )
@@ -685,6 +684,17 @@ class Mage(Human):
 
     def total_rotes(self):
         return sum([x.cost() for x in self.rotes.all()])
+
+    def has_specialties(self):
+        output = super().has_specialties()
+        for sphere in self.filter_spheres(minimum=4):
+            output = output and (self.specialties.filter(stat=sphere).count() > 0)
+        return output
+
+    def random_specialties(self):
+        super().random_specialties()
+        for sphere in self.filter_spheres(minimum=4):
+            self.specialties.add(random.choice(self.filter_specialties(stat=sphere)))
 
     def has_mage_history(self):
         return (

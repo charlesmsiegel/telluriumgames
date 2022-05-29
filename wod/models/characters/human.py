@@ -350,7 +350,6 @@ class Human(Character):
         return True
 
     def has_specialties(self):
-        # TODO: Need Mage version that includes Sphere specialties
         output = True
         for attribute in self.filter_attributes(minimum=4):
             output = output and (self.specialties.filter(stat=attribute).count() > 0)
@@ -567,6 +566,8 @@ class Human(Character):
             return False
         elif trait in self.get_backgrounds():
             cost = self.freebie_cost("background")
+            if trait in ["enhancement", "sanctum", "totem"]:
+                cost *= 2
             if cost <= self.freebies:
                 if self.add_background(trait):
                     self.freebies -= cost
@@ -647,6 +648,8 @@ class Human(Character):
             cost = self.xp_cost("background") * getattr(self, trait)
             if cost == 0:
                 cost = 5
+            if trait in ["enhancement", "sanctum", "totem"]:
+                cost *= 2
             if cost <= self.xp:
                 if self.add_background(trait):
                     self.xp -= cost
