@@ -552,12 +552,21 @@ class Human(Character):
         if trait == "willpower":
             return 1
 
+    def add_to_spend(self, trait, value, cost):
+        trait = trait.replace("_", " ").title()
+        new_term = f"{trait} {value} ({cost} XP)"
+        spent = self.spent_xp.split(", ")
+        spent.append(new_term)
+        spent = [x for x in spent if len(x) != 0]
+        self.spent_xp = ", ".join(spent)
+
     def spend_xp(self, trait):
         if trait in self.get_attributes():
             cost = self.xp_cost("attribute") * getattr(self, trait)
             if cost <= self.xp:
                 if self.add_attribute(trait):
                     self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
                     return True
                 return False
             return False
@@ -568,6 +577,7 @@ class Human(Character):
             if cost <= self.xp:
                 if self.add_ability(trait):
                     self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
                     return True
                 return False
             return False
@@ -578,6 +588,7 @@ class Human(Character):
             if cost <= self.xp:
                 if self.add_background(trait):
                     self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
                     return True
                 return False
             return False
@@ -586,6 +597,7 @@ class Human(Character):
             if cost <= self.xp:
                 if self.add_willpower():
                     self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
                     return True
                 return False
             return False

@@ -642,11 +642,11 @@ class TestHuman(TestCase):
         self.assertEqual(
             self.character.spent_xp, "Strength 2 (4 XP), Strength 3 (8 XP)"
         )
-        self.character.spend_xp("occult")
-        self.assertEqual(self.character.occult, 1)
+        self.character.spend_xp("science")
+        self.assertEqual(self.character.science, 1)
         self.assertEqual(
             self.character.spent_xp,
-            "Strength 2 (4 XP), Strength 3 (8 XP), Occult 1 (3)",
+            "Strength 2 (4 XP), Strength 3 (8 XP), Science 1 (3 XP)",
         )
 
     def test_has_finishing_touches(self):
