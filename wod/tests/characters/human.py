@@ -62,14 +62,12 @@ class TestHuman(TestCase):
         for i in range(10):
             for stat in self.character.get_abilities():
                 Specialty.objects.create(
-                    name=f"{stat.replace('_', ' ').title()} Specialty {i}",
-                    stat=stat,
+                    name=f"{stat.replace('_', ' ').title()} Specialty {i}", stat=stat,
                 )
         for i in range(10):
             for stat in self.character.get_attributes():
                 Specialty.objects.create(
-                    name=f"{stat.replace('_', ' ').title()} Specialty {i}",
-                    stat=stat,
+                    name=f"{stat.replace('_', ' ').title()} Specialty {i}", stat=stat,
                 )
 
     def test_has_archetypes(self):
@@ -454,8 +452,6 @@ class TestHuman(TestCase):
         self.assertNotEqual(triple, [5, 9, 13])
 
     def test_add_specialty(self):
-        # TODO: Include Well-Skilled Craftman rule, M20 page 279, to allow multiple specialties for some abilities
-        # Well-Skilled Craftman works for Arts, Athletics, Crafts, Firearms, Martial Arts, Melee, Academics, Esoterica, Lore, Politics, Science
         num = self.character.specialties.count()
         self.assertTrue(
             self.character.add_specialty(
@@ -465,22 +461,65 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.specialties.count(), num + 1)
 
     def test_filter_specialties(self):
-        self.fail()
+        self.assertEqual(self.character.filter_specialties(), 280)
+        self.assertEqual(self.character.filter_specialties(stat="strength"), 10)
+        self.assertEqual(self.character.filter_specialties(stat="occult"), 10)
+        self.character.add_specialty(Specialty.objects.get(name="Athletics Specialty 3"))
+        self.assertEqual(self.character.filter_specialties(stat="athletics"), 9)
 
     def test_has_specialties(self):
-        self.fail()
+        self.character.dexterity = 2
+        self.character.stamina = 3
+        self.character.perception = 4
+        self.character.intelligence = 5
+        self.character.wits = 4
+        self.character.charisma = 3
+        self.character.manipulation = 2
+        self.character.appearance = 4
+        self.character.alertness = 1
+        self.character.athletics = 2
+        self.character.brawl = 4
+        self.character.crafts = 1
+        self.character.drive = 2
+        self.character.etiquette = 5
+        self.character.firearms = 3
+        self.character.stealth = 4
+        self.character.medicine = 2
+        self.character.science = 1
+        for attribute, value in self.character.get_attributes().items():
+            if value >= 4:
+                self.assertGreaterEqual(self.character.specialties.filter(stat=attribute).count(), 0)
+        for ability, value in self.character.get_abilities().items():
+            if value >= 4 or (ability in ["arts", "athletics", "crafts", "firearms", "martial_arts", "melee", "academics", "esoterica", "lore", "politics", "science"] and value > 0):
+                self.assertGreaterEqual(self.character.specialties.filter(stat=ability).count(), 0)
 
     def test_get_backgrounds(self):
-        self.fail()
+        self.assertEqual(
+            self.character.get_talents(), {"contacts": 0, "mentor": 0,},
+        )
+        self.character.contacts = 3
+        self.character.mentor = 2
+        self.assertEqual(
+            self.character.get_talents(), {"contacts": 3, "mentor": 2,},
+        )
 
     def test_add_background(self):
-        self.fail()
+        total = self.character.total_backgrounds()
+        self.assertTrue(self.character.add_background("contacts"))
+        self.assertEqual(self.character.total_backgrounds(), total + 1)
 
     def test_filter_backgrounds(self):
-        self.fail()
+        self.assertEqual(self.character.filter_backgrounds(), ["contacts", "mentor"])
+        self.character.contacts = 4
+        self.character.mentor = 2
+        self.assertEqual(self.character.filter_backgrounds(minimum=3), ["contacts"])
+        self.assertEqual(self.character.filter_backgrounds(maximum=3), ["mentor"])
 
     def test_has_backgrounds(self):
-        self.fail()
+        self.assertFalse(self.character.has_backgrounds())
+        self.character.contacts = 2
+        self.character.mentor = 3
+        self.assertTrue(self.character.has_backgrounds())
 
     def test_add_willpower(self):
         self.assertEqual(self.character.willpower, 3)
@@ -527,38 +566,73 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.total_flaws(), -3)
 
     def test_freebie_cost(self):
-        self.fail()
+        self.assertEqual(self.character.freebie_cost("attribute"), 5)
+        self.assertEqual(self.character.freebie_cost("ability"), 2)
+        self.assertEqual(self.character.freebie_cost("background"), 1)
+        self.assertEqual(self.character.freebie_cost("willpower"), 1)
+        self.assertEqual(self.character.freebie_cost("meritflaw"), 1)
 
     def test_spend_freebies(self):
         self.fail()
 
     def test_xp_cost(self):
-        self.fail()
+        self.assertEqual(self.character.xp_cost("attribute"), 4)
+        self.assertEqual(self.character.xp_cost("ability"), 2)
+        self.assertEqual(self.character.xp_cost("background"), 3)
+        self.assertEqual(self.character.xp_cost("willpower"), 1)
+        self.assertEqual(self.character.xp_cost("new ability"), 3)
 
     def test_spend_xp(self):
         self.fail()
 
     def test_spent_xp(self):
-        self.fail()
+        self.character.xp = 100
+        self.assertEqual(self.character.spent_xp, "")
+        self.assertEqual(self.character.strength, 1)
+        self.character.spend_xp("strength")
+        self.assertEqual(self.character.strength, 2)
+        self.assertEqual(self.character.spent_xp, "Strength 2 (4 XP)")
+        self.character.spend_xp("strength")
+        self.assertEqual(self.character.strength, 3)
+        self.assertEqual(
+            self.character.spent_xp, "Strength 2 (4 XP), Strength 3 (8 XP)"
+        )
+        self.character.spend_xp("occult")
+        self.assertEqual(self.character.occult, 1)
+        self.assertEqual(
+            self.character.spent_xp,
+            "Strength 2 (4 XP), Strength 3 (8 XP), Occult 1 (3)",
+        )
 
     def test_has_finishing_touches(self):
         self.assertFalse(self.character.has_finishing_touches())
         self.character.age = 18
+        self.assertFalse(self.character.has_finishing_touches())
         self.character.date_of_birth = now()
+        self.assertFalse(self.character.has_finishing_touches())
         self.character.hair = "Black"
+        self.assertFalse(self.character.has_finishing_touches())
         self.character.eyes = "Brown"
+        self.assertFalse(self.character.has_finishing_touches())
         self.character.ethnicity = "White"
+        self.assertFalse(self.character.has_finishing_touches())
         self.character.nationality = "American"
+        self.assertFalse(self.character.has_finishing_touches())
         self.character.height = "5'11\""
+        self.assertFalse(self.character.has_finishing_touches())
         self.character.weight = "150 lbs"
+        self.assertFalse(self.character.has_finishing_touches())
         self.character.sex = "Male"
+        self.assertFalse(self.character.has_finishing_touches())
         self.character.description = "Hardcore Asshole"
         self.assertTrue(self.character.has_finishing_touches())
 
     def test_has_history(self):
         self.assertFalse(self.character.has_history())
         self.character.childhood = "Was a kid, it sucked."
+        self.assertFalse(self.character.has_history())
         self.character.history = "Got older."
+        self.assertFalse(self.character.has_history())
         self.character.goals = "Get older still."
         self.assertTrue(self.character.has_history())
 
@@ -663,13 +737,15 @@ class TestRandomHuman(TestCase):
         self.assertFalse(self.character.has_archetypes())
         self.assertFalse(self.character.has_attributes())
         self.assertFalse(self.character.has_abilities())
-        # TODO Freebies and XP
+        self.assertFalse(self.character.has_backgrounds())
         self.character.random()
         self.assertTrue(self.character.has_name())
         self.assertTrue(self.character.has_concept())
         self.assertTrue(self.character.has_archetypes())
         self.assertTrue(self.character.has_attributes())
         self.assertTrue(self.character.has_abilities())
+        self.assertTrue(self.character.has_backgrounds())
+        self.assertEqual(self.character.freebies, 0)
 
 
 class TestCharacterIndexView(TestCase):
