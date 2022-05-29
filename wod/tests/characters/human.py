@@ -611,6 +611,7 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.xp_cost("attribute"), 4)
         self.assertEqual(self.character.xp_cost("ability"), 2)
         self.assertEqual(self.character.xp_cost("background"), 3)
+        self.assertEqual(self.character.xp_cost("new background"), 5)
         self.assertEqual(self.character.xp_cost("willpower"), 1)
         self.assertEqual(self.character.xp_cost("new ability"), 3)
 
@@ -623,9 +624,11 @@ class TestHuman(TestCase):
         self.assertTrue(self.character.spend_xp("occult"))
         self.assertEqual(self.character.xp, 91)
         self.assertTrue(self.character.spend_xp("mentor"))
-        self.assertEqual(self.character.xp, 88)
+        self.assertEqual(self.character.xp, 86)
+        self.assertTrue(self.character.spend_xp("mentor"))
+        self.assertEqual(self.character.xp, 83)
         self.assertTrue(self.character.spend_xp("willpower"))
-        self.assertEqual(self.character.xp, 85)
+        self.assertEqual(self.character.xp, 80)
 
     def test_spent_xp(self):
         self.character.xp = 100

@@ -692,16 +692,76 @@ class TestMage(TestCase):
         self.assertTrue(self.character.has_essence())
 
     def test_freebie_cost(self):
-        self.fail()
+        self.assertEqual(self.character.freebie_cost("attribute"), 5)
+        self.assertEqual(self.character.freebie_cost("ability"), 2)
+        self.assertEqual(self.character.freebie_cost("background"), 1)
+        self.assertEqual(self.character.freebie_cost("willpower"), 1)
+        self.assertEqual(self.character.freebie_cost("meritflaw"), 1)
+        self.assertEqual(self.character.freebie_cost("sphere"), 7)
+        self.assertEqual(self.character.freebie_cost("arete"), 4)
+        self.assertEqual(self.character.freebie_cost("quintessence"), 1)
 
     def test_spend_freebies(self):
-        self.fail()
+        self.character.arete = 1
+        self.assertEqual(self.character.freebies, 15)
+        self.assertTrue(self.character.spend_freebies("strength"))
+        self.assertEqual(self.character.freebies, 10)
+        self.assertTrue(self.character.spend_freebies("occult"))
+        self.assertEqual(self.character.freebies, 8)
+        self.assertTrue(self.character.spend_freebies("mentor"))
+        self.assertEqual(self.character.freebies, 7)
+        self.assertTrue(self.character.spend_freebies("willpower"))
+        self.assertEqual(self.character.freebies, 6)
+        self.assertTrue(self.character.spend_freebies("Merit 1"))
+        self.assertEqual(self.character.freebies, 5)
+        self.character.freebies = 15
+        self.assertEqual(self.character.freebies, 15)
+        self.assertTrue(self.character.spend_freebies("arete"))
+        self.assertEqual(self.character.freebies, 11)
+        self.assertTrue(self.character.spend_freebies("forces"))
+        self.assertEqual(self.character.freebies, 4)
+        self.assertTrue(self.character.spend_freebies("quintessence"))
+        self.assertEqual(self.character.freebies, 3)
 
     def test_xp_cost(self):
-        self.fail()
+        self.assertEqual(self.character.xp_cost("attribute"), 4)
+        self.assertEqual(self.character.xp_cost("ability"), 2)
+        self.assertEqual(self.character.xp_cost("background"), 3)
+        self.assertEqual(self.character.xp_cost("new background"), 5)
+        self.assertEqual(self.character.xp_cost("willpower"), 1)
+        self.assertEqual(self.character.xp_cost("new ability"), 3)
+        
+        self.assertEqual(self.character.xp_cost("sphere"), 8)
+        self.assertEqual(self.character.xp_cost("new sphere"), 10)
+        self.assertEqual(self.character.xp_cost("arete"), 8)
+        self.assertEqual(self.character.xp_cost("affinity sphere"), 7)
 
     def test_spend_xp(self):
-        self.fail()
+        self.character.arete = 1
+        self.character.xp = 100
+        self.assertTrue(self.character.spend_xp("strength"))
+        self.assertEqual(self.character.xp, 96)
+        self.assertTrue(self.character.spend_xp("occult"))
+        self.assertEqual(self.character.xp, 93)
+        self.assertTrue(self.character.spend_xp("occult"))
+        self.assertEqual(self.character.xp, 91)
+        self.assertTrue(self.character.spend_xp("mentor"))
+        self.assertEqual(self.character.xp, 86)
+        self.assertTrue(self.character.spend_xp("mentor"))
+        self.assertEqual(self.character.xp, 83)
+        self.assertTrue(self.character.spend_xp("willpower"))
+        self.assertEqual(self.character.xp, 80)
+
+        self.character.affinity = "matter"
+
+        self.assertTrue(self.character.spend_xp("arete"))
+        self.assertEqual(self.character.xp, 72)
+        self.assertTrue(self.character.spend_xp("forces"))
+        self.assertEqual(self.character.xp, 62)
+        self.assertTrue(self.character.spend_xp("forces"))
+        self.assertEqual(self.character.xp, 54)
+        self.assertTrue(self.character.spend_xp("matter"))
+        self.assertEqual(self.character.xp, 47)
 
     def test_add_resonance(self):
         res = Resonance.objects.order_by("?").first()
