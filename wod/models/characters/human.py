@@ -232,7 +232,13 @@ class Human(Character):
             add_dot(self, attribute_choice, 5)
 
     def has_attributes(self):
-        pass
+        triple = [
+            self.total_physical_attributes(),
+            self.total_mental_attributes(),
+            self.total_social_attributes(),
+        ]
+        triple.sort()
+        return triple == [6, 8, 10]
 
     def filter_attributes(self, minimum=0, maximum=5):
         return {
