@@ -463,6 +463,12 @@ class Power(models.Model):
     def num_dice(self, char):
         return sum([getattr(char, x) for x in self.dicepool_traits()])
 
+    def add_to_dicepool(self, trait):
+        if self.dicepool != "":
+            self.dicepool += "+"
+        self.dicepool += trait
+        return True
+
     def __str__(self):
         return self.name
 
