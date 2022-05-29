@@ -796,8 +796,8 @@ class TestRandomHuman(TestCase):
         self.character.stealth = 4
         self.assertTrue(self.character.random_specialty("stealth"))
         self.assertEqual(self.character.specialties.count(), 1)
-        self.assertFalse(self.character.random_specialty("stealth"))
-        self.assertEqual(self.character.specialties.count(), 1)
+        self.assertTrue(self.character.random_specialty("stealth"))
+        self.assertEqual(self.character.specialties.count(), 2)
 
     def test_random_specialties(self):
         self.character.science = 4
