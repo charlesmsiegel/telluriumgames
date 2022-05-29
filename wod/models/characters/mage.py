@@ -597,11 +597,12 @@ class Mage(Human):
         while self.total_spheres() < 6:
             self.random_sphere()
 
-    def add_arete(self):
-        if self.arete < 10:
-            self.arete += 1
-            return True
-        return False
+    def add_arete(self, freebies=False):
+        if freebies:
+            cap = 3
+        else:
+            cap = 10
+        return add_dot(self, "arete", cap)
 
     def random_arete(self):
         self.arete = random.randint(1, 4)
@@ -728,13 +729,42 @@ class Mage(Human):
             return 1
         if trait == "meritflaw":
             return 1
-        # TODO: OTHER THINGS
+        if trait == "sphere":
+            return 7
+        if trait == "arete":
+            return 4
+        if trait == "quintessence":
+            return 1
 
     def spend_freebies(self, trait):
         output = super().spend_freebies(trait)
         if output in [True, False]:
             return output
-        # TODO: OTHER THINGS
+        if trait in self.get_spheres():
+            cost = self.freebie_cost("sphere")
+            if cost <= self.freebies:
+                if self.add_sphere(trait):
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
+        if trait == "arete":
+            cost = self.freebie_cost("arete")
+            if cost <= self.freebies:
+                if self.add_arete(trait):
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
+        if trait == "quintessence":
+            cost = self.freebie_cost("quintessence")
+            if cost <= self.freebies:
+                if self.quintessence < 17:
+                    self.quintessence += 4
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
 
     def spend_xp(self, trait):
         output = super().spend_xp(trait)
@@ -755,7 +785,14 @@ class Mage(Human):
             return 5
         if trait == "willpower":
             return 1
-        # TODO: OTHER THINGS
+        if trait == "affinity sphere":
+            return 7
+        if trait == "new sphere":
+            return 10
+        if trait == "sphere":
+            return 8
+        if trait == "arete":
+            return 8
 
     def random_freebies(self):
         frequencies = {
@@ -764,6 +801,9 @@ class Mage(Human):
             "background": 1,
             "willpower": 1,
             "meritflaw": 1,
+            "sphere": 1,
+            "arete": 1,
+            "quintessence": 1,
         }
         counter = 0
         while counter < 10 and self.freebies > 0:
@@ -782,9 +822,15 @@ class Mage(Human):
             if choice == "meritflaw":
                 trait = random.choice([x.name for x in self.filter_mfs()])
                 spent = self.spend_freebies(trait)
+            if choice == "sphere":
+                trait = weighted_choice(self.get_spheres())
+                spent = self.spend_freebies(trait)
+            if choice == "arete":
+                spent = self.spend_freebies(choice)
+            if choice == "quintessence":
+                spent = self.spend_freebies(choice)
             if not spent:
                 counter += 1
-        # TODO: Other things
 
     def random(self, freebies=15, xp=0):
         self.freebies = freebies
