@@ -1105,6 +1105,3 @@ class TestMageDetailView(TestCase):
     def test_mage_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/{self.mage.id}/")
         self.assertTemplateUsed(response, "wod/characters/mage/detail.html")
-
-
-# TODO: Test total backgrounds to handle double-cost backgrounds, also manage freebie cost and xp cost for them
