@@ -33,11 +33,11 @@ class TestPower(TestCase):
 
     def test_dice_pool(self):
         self.assertTrue(self.power.set_dicepool("might+science"))
-        self.assertEqual(self.power.dicepool("might+science"))
+        self.assertEqual(self.power.dicepool, "might+science")
         self.assertEqual(self.power.dicepool_traits(), ["might", "science"])
         self.assertEqual(self.power.num_dice(self.character), 5)
         self.assertTrue(self.power.add_to_dicepool("dexterity"))
-        self.assertEqual(self.power.dicepool("might+science+dexterity"))
+        self.assertEqual(self.power.dicepool, "might+science+dexterity")
         self.assertEqual(
             self.power.dicepool_traits(), ["might", "science", "dexterity"]
         )

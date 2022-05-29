@@ -72,9 +72,9 @@ class TestHuman(TestCase):
         self.assertFalse(self.character.has_basics())
         self.character.add_name("Test Name")
         self.character.add_concept("Test Concept")
-        self.character.add_aspiration("Test Asp 1", type="short", number=1)
-        self.character.add_aspiration("Test Asp 2", type="short", number=2)
-        self.character.add_aspiration("Test Asp 3", type="long")
+        self.character.add_aspiration("Test Asp 1", aspiration_type="short", number=1)
+        self.character.add_aspiration("Test Asp 2", aspiration_type="short", number=2)
+        self.character.add_aspiration("Test Asp 3", aspiration_type="long")
         self.assertTrue(self.character.has_basics())
 
     def test_add_path(self):

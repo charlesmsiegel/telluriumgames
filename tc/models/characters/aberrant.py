@@ -260,7 +260,11 @@ class Aberrant(Human):
         self.quantum_points = 10 + 5 * self.quantum
 
     def add_flux(self):
-        pass
+        return add_dot(self, "flux", maximum=10)
+
+    def reset_flux(self):
+        self.flux = 0
+        return True
 
     def power_cost(self, power):
         pass
@@ -418,11 +422,11 @@ class MegaEdgeRating(models.Model):
 class Power(models.Model):
     name = models.CharField(max_length=100, unique=True)
     quantum_minimum = models.IntegerField(default=0)
-    action = models.CharField(
+    action_type = models.CharField(
         max_length=100, choices=[("reflexive", "Reflexive"), ("ordinary", "Ordinary"),]
     )
     cost = models.IntegerField(default=0)
-    dice_pool = models.CharField(default="", max_length=100)
+    dicepool = models.CharField(default="", max_length=100)
     range = models.CharField(
         max_length=100,
         choices=[
@@ -446,10 +450,18 @@ class Power(models.Model):
     )
 
     def set_dicepool(self, dicepool):
-        pass
+        self.dicepool = dicepool
+        return True
 
     def set_action_type(self, action_type):
-        pass
+        self.action_type = action_type
+        return True
+
+    def dicepool_traits(self):
+        return self.dicepool.split("+")
+
+    def num_dice(self, char):
+        return sum([getattr(char, x) for x in self.dicepool_traits()])
 
     def __str__(self):
         return self.name
