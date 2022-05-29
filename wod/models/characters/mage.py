@@ -81,6 +81,9 @@ class Rote(models.Model):
     mind = models.IntegerField(default=0)
     prime = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.name
+
     def cost(self):
         return (
             self.correspondence
@@ -675,7 +678,6 @@ class Mage(Human):
         options = self.filter_rotes(max_cost=self.rote_points)
         rote = random.choice(options)
         self.add_rote(rote)
-        self.rote_points -= rote.cost()
 
     def random_rotes(self):
         while self.rote_points > 0:
@@ -693,12 +695,21 @@ class Mage(Human):
             and self.avatar_description != ""
         )
 
+    def random_mage_history(self):
+        self.awakening = "A thing that happened"
+        self.seekings = "None"
+        self.quiets = "None"
+        self.age_of_awakening = 15
+        self.avatar_description = "An Avatar"
+
     def random_xp(self):
         frequencies = {
             "attribute": 1,
             "ability": 1,
             "background": 1,
             "willpower": 1,
+            "sphere": 1,
+            "arete": 1,
         }
         counter = 0
         while counter < 10 and self.xp > 0:
@@ -714,9 +725,13 @@ class Mage(Human):
                 spent = self.spend_xp(trait)
             if choice == "willpower":
                 spent = self.spend_xp(choice)
+            if choice == "arete":
+                spent = self.spend_xp(choice)
+            if choice == "sphere":
+                trait = weighted_choice(self.get_spheres())
+                spent = self.spend_xp(trait)
             if not spent:
                 counter += 1
-        # TODO: OTHER THINGS
 
     def freebie_cost(self, trait):
         if trait == "attribute":
@@ -770,7 +785,29 @@ class Mage(Human):
         output = super().spend_xp(trait)
         if output in [True, False]:
             return output
-        # TODO: OTHER THINGS
+        if trait == "arete":
+            cost = self.xp_cost("arete") * getattr(self, trait)
+            if cost <= self.xp:
+                if self.add_arete():
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        elif trait in self.get_spheres():
+            if self.affinity_sphere == trait:
+                cost = self.xp_cost("affinity sphere") * getattr(self, trait)
+            else:
+                cost = self.xp_cost("sphere") * getattr(self, trait)
+            if cost == 0:
+                cost = 10
+            if cost <= self.xp:
+                if self.add_sphere(trait):
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
 
     def xp_cost(self, trait):
         if trait == "attribute":
@@ -841,16 +878,17 @@ class Mage(Human):
         self.random_essence()
         self.random_faction()
         self.random_focus()
-        self.random_affinity_sphere()
         self.random_attributes()
         self.random_abilities()
         self.random_backgrounds()
         self.random_arete()
+        self.random_affinity_sphere()
         self.random_spheres()
         self.random_history()
         self.random_resonance()
         self.random_rotes()
         self.random_finishing_touches()
+        self.random_mage_history()
         self.random_freebies()
         self.random_xp()
         self.random_specialties()

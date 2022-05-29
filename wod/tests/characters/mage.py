@@ -5,7 +5,7 @@ from unittest.mock import Mock
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from wod.models.characters.human import MeritFlaw, Specialty
+from wod.models.characters.human import Archetype, MeritFlaw, Specialty
 from wod.models.characters.mage import (
     Cabal,
     Instrument,
@@ -78,6 +78,9 @@ def mage_setup(player):
             Specialty.objects.create(
                 name=f"{trait.replace('_', ' ').title()} {i}", stat=trait
             )
+
+    for i in range(20):
+        Archetype.objects.create(name=f"Archetype {i}")
 
 
 class TestMage(TestCase):
@@ -766,6 +769,7 @@ class TestMage(TestCase):
 
     def test_spend_xp(self):
         self.character.arete = 1
+        self.character.set_affinity_sphere("matter")
         self.character.xp = 100
         self.assertTrue(self.character.spend_xp("strength"))
         self.assertEqual(self.character.xp, 96)
@@ -778,18 +782,15 @@ class TestMage(TestCase):
         self.assertTrue(self.character.spend_xp("mentor"))
         self.assertEqual(self.character.xp, 83)
         self.assertTrue(self.character.spend_xp("willpower"))
-        self.assertEqual(self.character.xp, 80)
-
-        self.character.affinity = "matter"
-
+        self.assertEqual(self.character.xp, 78)
         self.assertTrue(self.character.spend_xp("arete"))
-        self.assertEqual(self.character.xp, 72)
+        self.assertEqual(self.character.xp, 70)
         self.assertTrue(self.character.spend_xp("forces"))
-        self.assertEqual(self.character.xp, 62)
+        self.assertEqual(self.character.xp, 60)
         self.assertTrue(self.character.spend_xp("forces"))
-        self.assertEqual(self.character.xp, 54)
+        self.assertEqual(self.character.xp, 52)
         self.assertTrue(self.character.spend_xp("matter"))
-        self.assertEqual(self.character.xp, 47)
+        self.assertEqual(self.character.xp, 45)
 
     def test_add_resonance(self):
         res = Resonance.objects.order_by("?").first()
@@ -951,7 +952,7 @@ class TestRandomMage(TestCase):
 
     def test_random_freebies(self):
         self.assertEqual(self.character.freebies, 15)
-        self.character.random_freebies
+        self.character.random_freebies()
         self.assertEqual(self.character.freebies, 0)
 
     def test_random_essence(self):
@@ -998,7 +999,7 @@ class TestRandomMage(TestCase):
         self.assertFalse(self.character.has_essence())
         self.assertFalse(self.character.has_rotes())
         self.assertFalse(self.character.has_mage_history())
-        self.character.random()
+        self.character.random(freebies=0, xp=0)
         self.assertTrue(self.character.has_name())
         self.assertTrue(self.character.has_concept())
         self.assertTrue(self.character.has_archetypes())
