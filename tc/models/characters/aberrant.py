@@ -267,7 +267,10 @@ class Aberrant(Human):
         return True
 
     def power_cost(self, power):
-        pass
+        return max(
+            0,
+            power.cost() - self.tag_rating(power, Tag.objects.get(name="Reduced Cost")),
+        )
 
     def apply_random_template(self):
         self.quantum = 1
