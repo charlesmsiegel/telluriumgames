@@ -588,7 +588,6 @@ class TestRandomAberrant(TestCase):
         self.assertEqual(len(self.character.get_tags(p)), 1)
 
     def test_random_power(self):
-        # TODO: Solve transient issue
         num = self.character.total_powers()
         self.character.random_power()
         self.assertEqual(self.character.total_powers(), num + 1)

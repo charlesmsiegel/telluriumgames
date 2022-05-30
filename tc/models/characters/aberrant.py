@@ -143,7 +143,11 @@ class Aberrant(Human):
         return sum([x.rating for x in PowerRating.objects.filter(character=self)])
 
     def random_power(self):
-        d = {x.name: self.power_rating(x) for x in Power.objects.all()}
+        d = {
+            x.name: self.power_rating(x)
+            for x in Power.objects.all()
+            if x.quantum_minimum <= self.quantum
+        }
         choice = weighted_choice(d)
         return self.add_power(Power.objects.get(name=choice))
 
