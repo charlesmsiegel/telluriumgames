@@ -568,7 +568,7 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.occult, 1)
         self.assertEqual(
             self.character.spent_xp,
-            "Strength 2 (4 XP), Strength 3 (4 XP), Occult 1 (2)",
+            "Strength 2 (4 XP), Strength 3 (4 XP), Occult 1 (2 XP)",
         )
 
 

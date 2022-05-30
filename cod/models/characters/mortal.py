@@ -279,6 +279,9 @@ class Mortal(PolymorphicModel):
             attribute_choice = weighted_choice(self.get_mental_attributes())
             add_dot(self, attribute_choice, 5)
 
+    def add_skill(self, skill, maximum=5):
+        return add_dot(self, skill, maximum)
+
     def get_mental_skills(self):
         return {
             "academics": self.academics,
@@ -573,8 +576,64 @@ class Mortal(PolymorphicModel):
                     if add_dot(self, "integrity", 10):
                         self.xp -= self.xp_cost(choice)
 
+    def add_to_spend(self, trait, value, cost):
+        trait = trait.replace("_", " ").title()
+        new_term = f"{trait} {value} ({cost} XP)"
+        spent = self.spent_xp.split(", ")
+        spent.append(new_term)
+        spent = [x for x in spent if len(x) != 0]
+        self.spent_xp = ", ".join(spent)
+
     def spend_xp(self, trait):
-        pass
+        if trait in self.get_attributes():
+            cost = self.xp_cost("attribute")
+            if cost <= self.xp:
+                if self.add_attribute(trait):
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        elif trait in self.get_skills():
+            cost = self.xp_cost("skill")
+            if cost <= self.xp:
+                if self.add_skill(trait):
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        elif trait in [x.name for x in Merit.objects.all()]:
+            cost = self.xp_cost("merit")
+            if cost <= self.xp:
+                if self.add_merit(trait):
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        elif trait in [x.name for x in Specialty.objects.all()]:
+            cost = self.xp_cost("specialty")
+            if cost <= self.xp:
+                if self.add_specialty(trait):
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        elif trait == "integrity":
+            cost = self.xp_cost("integrity")
+            if cost <= self.xp:
+                if self.add_integrity(trait):
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        return False
+        """
+                    
+        """
 
     def random(self):
         self.random_basis()
