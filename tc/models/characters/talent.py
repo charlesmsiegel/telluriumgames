@@ -3,7 +3,7 @@ import random
 from django.db import models
 
 from core.utils import add_dot, weighted_choice
-from tc.models.characters.human import Edge, EdgeRating, Human
+from tc.models.characters.human import Edge, EdgeRating, Human, Path
 
 
 # Create your models here.
@@ -134,8 +134,49 @@ class Talent(Human):
         self.random_facets()
 
     def random_spend_xp(self):
-        # TODO: Random XP Spend extension
-        pass
+        while self.xp > 10:
+            options = {
+                "attributes": 1,
+                "edges": 1,
+                "enhanced_edges": 1,
+                "skills": 1,
+                "tricks": 1,
+                "specialties": 1,
+                "paths": 1,
+                "approach": 1,
+                "gift": 1,
+                "facet": 1,
+            }
+            trait_type = weighted_choice(options)
+            if trait_type == "attributes":
+                trait = weighted_choice(self.filter_attributes(maximum=4))
+            elif trait_type == "edges":
+                trait = random.choice(self.filter_edges()).name
+            elif trait_type == "enhanced_edges":
+                ees = self.filter_enhanced_edges()
+                if len(ees) > 0:
+                    trait = random.choice(ees).name
+                else:
+                    trait = None
+            elif trait_type == "skills":
+                trait = weighted_choice(self.filter_skills(maximum=4))
+            elif trait_type == "tricks":
+                trait = random.choice(self.filter_tricks()).name
+            elif trait_type == "specialties":
+                trait = random.choice(self.filter_specialties()).name
+            elif trait_type == "paths":
+                trait = weighted_choice(
+                    {p.name: self.path_rating(p) for p in Path.objects.all()}
+                )
+            elif trait_type == "approach":
+                trait = random.choice(["Favor FIN", "Favor FOR", "Favor RES"])
+            elif trait_type == "gift":
+                trait = random.choice(self.filter_gifts()).name
+            elif trait_type == "facet":
+                trait = random.choice(["Intuitive", "Reflective", "Destructive"])
+            else:
+                trait = None
+            self.spend_xp(trait)
 
     def xp_cost(self, trait_type):
         cost = super().xp_cost(trait_type)
@@ -161,23 +202,24 @@ class Talent(Human):
             if self.xp >= cost:
                 if self.add_gift(Gift.objects.get(name=trait)):
                     self.xp -= cost
+                    self.add_to_spend(trait, 1, cost)
                     return True
         elif trait in [x.name for x in self.filter_gifts()]:
             cost = self.xp_cost("gift")
             if self.xp >= cost:
                 if self.add_gift(Gift.objects.get(name=trait)):
                     self.xp -= cost
+                    self.add_to_spend(trait, 1, cost)
                     return True
         elif trait in ["Intuitive", "Reflective", "Destructive"]:
             cost = self.xp_cost("facet")
             if self.xp >= cost:
                 if self.add_facet(trait):
                     self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait.lower()), cost)
                     return True
         self.save()
         return False
-
-    # TODO: Random XP Spend extension
 
 
 class Gift(models.Model):

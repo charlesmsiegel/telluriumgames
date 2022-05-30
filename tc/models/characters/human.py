@@ -647,6 +647,7 @@ class Human(PolymorphicModel):
             if self.xp >= cost:
                 if self.add_attribute(trait):
                     self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
                     return True
         elif trait in self.get_path_edges(dots=self.xp // self.xp_cost("path edge")):
             e = Edge.objects.get(name=trait)
@@ -655,6 +656,7 @@ class Human(PolymorphicModel):
             if self.xp >= cost:
                 if self.add_edge(e):
                     self.xp -= cost
+                    self.add_to_spend(trait, self.edge_rating(e), cost)
                     return True
         elif trait in [
             x.name for x in self.filter_edges(dots=self.xp // self.xp_cost("edge"))
@@ -665,6 +667,7 @@ class Human(PolymorphicModel):
             if self.xp >= cost:
                 if self.add_edge(e):
                     self.xp -= cost
+                    self.add_to_spend(trait, self.edge_rating(e), cost)
                     return True
         elif trait in [x.name for x in EnhancedEdge.objects.all()]:
             ee = EnhancedEdge.objects.get(name=trait)
@@ -673,39 +676,55 @@ class Human(PolymorphicModel):
                 if self.xp >= cost:
                     self.enhanced_edges.add(ee)
                     self.xp -= cost
+                    self.add_to_spend(trait, 1, cost)
                     return True
         elif trait in self.get_skills():
             cost = self.xp_cost("skill")
             if self.xp >= cost:
                 if self.add_skill(trait):
                     self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
                     return True
         elif trait in [x.name for x in self.filter_tricks()]:
             cost = self.xp_cost("skill trick")
             if self.xp >= cost:
                 if self.add_trick(Trick.objects.get(name=trait)):
                     self.xp -= cost
+                    self.add_to_spend(trait, 1, cost)
                     return True
         elif trait in [x.name for x in self.filter_specialties()]:
             cost = self.xp_cost("skill specialty")
             if self.xp >= cost:
                 if self.add_specialty(Specialty.objects.get(name=trait)):
                     self.xp -= cost
+                    self.add_to_spend(trait, 1, cost)
                     return True
         elif trait in [x.name for x in Path.objects.all() if self.path_rating(x) < 5]:
             cost = self.xp_cost("path")
             if self.xp >= cost:
                 if self.add_path(Path.objects.get(name=trait)):
                     self.xp -= cost
+                    self.add_to_spend(
+                        trait, self.path_rating(Path.objects.get(name=trait)), cost
+                    )
                     return True
         elif trait in ["Favor FIN", "Favor FOR", "Favor RES"]:
             cost = self.xp_cost("favored approach")
             if self.xp >= cost and self.approach != trait.split(" ")[-1]:
                 self.approach = trait.split(" ")[-1]
                 self.xp -= cost
+                self.add_to_spend(trait, 1, cost)
                 return True
         self.save()
         return False
+
+    def add_to_spend(self, trait, value, cost):
+        trait = trait.replace("_", " ").title()
+        new_term = f"{trait} {value} ({cost} XP)"
+        spent = self.spent_xp.split(", ")
+        spent.append(new_term)
+        spent = [x for x in spent if len(x) != 0]
+        self.spent_xp = ", ".join(spent)
 
     def random_spend_xp(self):
         while self.xp > 10:

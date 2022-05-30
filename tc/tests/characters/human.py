@@ -643,7 +643,7 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.might, 2)
         self.assertEqual(self.character.spent_xp, "Might 2 (10 XP)")
         self.character.spend_xp("might")
-        self.assertEqual(self.character.strength, 3)
+        self.assertEqual(self.character.might, 3)
         self.assertEqual(self.character.spent_xp, "Might 2 (10 XP), Might 3 (10 XP)")
         self.character.spend_xp("science")
         self.assertEqual(self.character.science, 1)

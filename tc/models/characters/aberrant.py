@@ -3,7 +3,7 @@ import random
 from django.db import models
 
 from core.utils import add_dot, weighted_choice
-from tc.models.characters.human import Edge, Human
+from tc.models.characters.human import Edge, Human, Path
 
 
 # Create your models here.
@@ -307,8 +307,65 @@ class Aberrant(Human):
         return attributes_flag and edges_flag and xp_flag and quantum_flag
 
     def random_spend_xp(self):
-        # TODO: Random XP Spend extension
-        pass
+        while self.xp > 10:
+            options = {
+                "attributes": 1,
+                "edges": 1,
+                "enhanced_edges": 1,
+                "skills": 1,
+                "tricks": 1,
+                "specialties": 1,
+                "paths": 1,
+                "approach": 1,
+                "mega attribute": 1,
+                "mega edge": 1,
+                "quantum power": 1,
+                "power tag": 1,
+                "quantum": 1,
+            }
+            trait_type = weighted_choice(options)
+            p = None
+            if trait_type == "attributes":
+                trait = weighted_choice(self.filter_attributes(maximum=4))
+            elif trait_type == "edges":
+                trait = random.choice(self.filter_edges()).name
+            elif trait_type == "enhanced_edges":
+                ees = self.filter_enhanced_edges()
+                if len(ees) > 0:
+                    trait = random.choice(ees).name
+                else:
+                    trait = None
+            elif trait_type == "skills":
+                trait = weighted_choice(self.filter_skills(maximum=4))
+            elif trait_type == "tricks":
+                trait = random.choice(self.filter_tricks()).name
+            elif trait_type == "specialties":
+                trait = random.choice(self.filter_specialties()).name
+            elif trait_type == "paths":
+                trait = weighted_choice(
+                    {p.name: self.path_rating(p) for p in Path.objects.all()}
+                )
+            elif trait_type == "approach":
+                trait = random.choice(["Favor FIN", "Favor FOR", "Favor RES"])
+            elif trait_type == "mega attribute":
+                trait = weighted_choice(self.filter_mega_attributes())
+            elif trait_type == "mega edge":
+                trait = random.choice(self.filter_mega_edges()).name
+            elif trait_type == "power tag":
+                if self.powers.all().exists():
+                    p = self.powers.order_by("?").first()
+                    trait = self.filter_tags(power=p)
+                else:
+                    trait = None
+            elif trait_type == "quantum":
+                trait = "quantum"
+            elif trait_type == "quantum power":
+                trait = weighted_choice(
+                    {power: self.power_rating(power) for power in Power.objects.all()}
+                ).name
+            else:
+                trait = None
+            self.spend_xp(trait, power=p)
 
     def xp_cost(self, trait_type, transcendence=False):
         cost = super().xp_cost(trait_type)
@@ -340,6 +397,7 @@ class Aberrant(Human):
             if self.xp >= cost:
                 if self.add_mega_attribute(trait):
                     self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
                     return True
         elif trait in [x.name for x in MegaEdge.objects.all()]:
             e = MegaEdge.objects.get(name=trait)
@@ -350,6 +408,7 @@ class Aberrant(Human):
             if self.xp >= cost:
                 if self.add_mega_edge(e):
                     self.xp -= cost
+                    self.add_to_spend(trait, self.mega_edge_rating(e), cost)
                     return True
         elif trait in [x.name for x in Power.objects.all()]:
             e = Power.objects.get(name=trait)
@@ -357,6 +416,7 @@ class Aberrant(Human):
             if self.xp >= cost:
                 if self.add_power(e):
                     self.xp -= cost
+                    self.add_to_spend(trait, self.power_rating(e), cost)
                     return True
         elif trait in [x.name for x in Tag.objects.all()]:
             if power is None:
@@ -373,6 +433,7 @@ class Aberrant(Human):
             if self.xp >= cost:
                 if self.add_tag(power, t):
                     self.xp -= cost
+                    self.add_to_spend(trait, self.tag_rating(power, t), cost)
                     return True
         elif trait == "quantum":
             if self.quantum <= 4:
@@ -382,6 +443,7 @@ class Aberrant(Human):
             if self.xp >= cost:
                 if self.add_quantum(start=creation):
                     self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
                     return True
         elif super().spend_xp(trait):
             return True
@@ -489,6 +551,9 @@ class PowerRating(models.Model):
     power = models.ForeignKey(Power, on_delete=models.CASCADE, blank=True, null=True)
     tags = models.ManyToManyField("Tag", blank=True, through="TagRating")
     rating = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.power.name}: {self.rating}"
 
 
 class Tag(models.Model):
