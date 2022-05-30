@@ -202,8 +202,8 @@ class Node(Location):
         self.tass_per_week = self.points - self.quintessence_per_week
         return True
 
-    def random(self):
-        self.random_rank()
+    def random(self, rank=None):
+        self.random_rank(rank=rank)
         while not self.has_resonance():
             self.random_resonance()
         self.random_ratio()
