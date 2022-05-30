@@ -180,7 +180,6 @@ class Human(PolymorphicModel):
         return sum([v for k, v in self.get_skills().items() if k in path.skills])
 
     def random_skill(self, skill_list=None):
-        # TODO: Figure out why this sometimes fails to add a dot (context: skill_list=None as part of test_random_skill)
         if skill_list is None:
             choice = weighted_choice(self.filter_skills(maximum=4))
         else:
@@ -522,7 +521,6 @@ class Human(PolymorphicModel):
         return total
 
     def filter_edges(self, dots=100):
-        # TODO: Sometimes hangs
         all_edges = Edge.objects.all()
         possible_edges = []
         for edge in all_edges:
@@ -907,3 +905,4 @@ class PathRating(models.Model):
 
 class PathConnection(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.CASCADE)

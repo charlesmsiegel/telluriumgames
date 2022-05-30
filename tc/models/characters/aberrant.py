@@ -211,7 +211,6 @@ class Aberrant(Human):
         return output
 
     def add_transformation(self, transformation, transcendence=False):
-        # TODO: write a test to connect the transcedence KWARG to everything else
         if not transcendence:
             if self.transformations.count() == 2 * self.quantum:
                 return False

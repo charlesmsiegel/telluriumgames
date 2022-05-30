@@ -154,11 +154,6 @@ class TestAberrant(TestCase):
         self.assertEqual(self.character.mega_might, 0)
         self.assertTrue(self.character.add_mega_attribute("might"))
         self.assertEqual(self.character.mega_might, 1)
-        # TODO: intellect, cunning, manipulation and composure get bonus edges
-        # Intellect gets dots value worth of Iron Will, Lightning Calculator, Photographic Memory, and Speed Reading
-        # Cunning gets all Keen Senses if > 0
-        # Manipulation gets dots equal to value of Animal Ken, Skilled Liar, Striking, and Wealth
-        # Composure gets dots equal to rating in Always Prepared, Covert, Danger Sense, Iron Will, or for 2 points if the nova has Iron Will 3, get Indomitable Enhanced Edge
 
     def set_attributes(self):
         self.character.might = 5
@@ -461,7 +456,6 @@ class TestAberrant(TestCase):
         )
         self.assertEqual(self.character.xp_cost("mega edge", transcendence=True), 6)
         self.assertEqual(self.character.xp_cost("quantum power", transcendence=True), 6)
-        # TODO: Add Transformation price decrease (and note that this is what the 2 * quantum limit is for, not _other_ transformations)
 
     def test_spend_xp(self):
         MegaEdge.objects.create(name="MegaEdge 1", ratings=[1, 2, 3])
@@ -503,7 +497,6 @@ class TestAberrant(TestCase):
         self.assertTrue(self.character.spend_xp("Power 1", transcendence=True))
         self.assertEqual(self.character.xp, 886)
         self.assertEqual(self.character.total_powers(), 2)
-        # TODO: Test transformations to decrease cost
 
 
 class TestRandomAberrant(TestCase):
