@@ -98,8 +98,6 @@ class GenericLocationDetailView(View):
 
 class RandomLocationView(View):
     locs = {
-        "location": Location,
-        "city": City,
         "node": Node,
     }
 
@@ -138,6 +136,11 @@ class GrimoireDetailView(View):
         return render(request, "wod/items/grimoire/detail.html", context)
     
     def get_context(self, node):
+        if node.faction.parent is not None:
+            if node.faction.parent.parent is not None:
+                s = f"{node.faction.parent} ({node.faction})"
+            else:
+                s = f"{node.faction}"
         return {
             "object": node,
             "paradigms": "<br>".join([str(x) for x in node.paradigms.all()]),
@@ -147,9 +150,7 @@ class GrimoireDetailView(View):
             "spheres": "<br>".join([x.replace("_", " ").title() for x in node.spheres]),
             "rotes": "<br>".join([str(x) for x in node.rotes.all()]),
             "date_written": node.date_written,
-            "faction": node.faction,
-            # "resonance": NodeResonanceRating.objects.filter(node=node).order_by("resonance__name"),
-            # "merits_and_flaws": NodeMeritFlawRating.objects.filter(node=node).order_by("mf__name"),
+            "faction": s,
         }
 
 
@@ -170,6 +171,24 @@ class GenericItemDetailView(View):
         item = Item.objects.get(pk=kwargs["pk"])
         if item.type in self.views:
             return self.views[item.type].as_view()(request, *args, **kwargs)
+        return redirect("wod:item_index")
+
+class RandomItemView(View):
+    items = {
+        "grimoire": Grimoire,
+    }
+
+    def post(self, request):
+        item = self.items[request.POST['item_type']].objects.create(name=request.POST['item_name'])
+        if request.POST['item_rank'] == None:
+            rank = None
+        else:
+            rank = int(request.POST['item_rank'])
+        item.random(rank=rank)
+        item.save()
+        return redirect(item.get_absolute_url())
+    
+    def get(self, request):
         return redirect("wod:item_index")
 
 
