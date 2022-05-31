@@ -219,3 +219,17 @@ class GenericCharacterDetailView(View):
         if char.type in self.character_views:
             return self.character_views[char.type].as_view()(request, *args, **kwargs)
         return redirect("wod:characters_index")
+
+class RandomCharacterView(View):
+    chars = {
+        "mage": Mage,
+    }
+
+    def post(self, request, *args, **kwargs):
+        char = self.chars[request.POST['char_type']].objects.create(name=request.POST['char_name'], player=request.user.wod_profile)
+        char.random(freebies=int(request.POST['freebies']), xp=int(request.POST['xp']))
+        char.save()
+        return redirect(char.get_absolute_url())
+    
+    def get(self, request):
+        return redirect("wod:characters_index")

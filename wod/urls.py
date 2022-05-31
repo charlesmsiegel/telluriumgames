@@ -5,9 +5,8 @@ from wod import views
 # Create your URLs here
 urlpatterns = [
     path("characters/", views.CharacterIndexView.as_view(), name="characters_index"),
-    path(
-        "characters/<pk>/", views.GenericCharacterDetailView.as_view(), name="character"
-    ),
+    path("characters/random/", views.RandomCharacterView.as_view(), name="random_character",),
+    path("characters/<pk>/", views.GenericCharacterDetailView.as_view(), name="character"),
     path("locations/", views.LocationIndexView.as_view(), name="location_index"),
     path("locations/random/", views.RandomLocationView.as_view(), name="random_location"),
     path("locations/<pk>/", views.GenericLocationDetailView.as_view(), name="location"),
