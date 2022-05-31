@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
 
@@ -10,3 +11,6 @@ class Item(PolymorphicModel):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("wod:item", args=[str(self.id)])
