@@ -907,7 +907,8 @@ class Mage(Human):
         self.random_specialties()
 
     def random_name(self):
-        self.set_name(f"Mage {Character.objects.count() - 1}")
+        if not self.has_name():
+            self.set_name(f"Mage {Character.objects.count() - 1}")
 
 class Cabal(models.Model):
     name = models.CharField(max_length=100, unique=True)
