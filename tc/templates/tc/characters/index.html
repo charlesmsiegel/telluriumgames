@@ -19,38 +19,43 @@
                     </div>
                 {% endif %}
             {% endfor %}
-            {% comment %} <form action="{% url 'tc:random' %}" method="post">
+            <form action="{% url 'tc:random_character' %}" method="post">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-sm"></div>
-                    <div class="col-sm"></div>
                     <div class="col-sm">
-                        Name:
-                        <input name="character_name" type="text" placeholder=""/>
+                        <label>
+                            <select name="char_type">
+                                <option value="human">
+                                    Human
+                                </option>
+                                <option value="talent">
+                                    Talent
+                                </option>
+                                <option value="aberrant">
+                                    Aberrant
+                                </option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="col-sm">Name</div>
+                    <div class="col-sm">
+                        <label>
+                            <input name="char_name" type="text" placeholder=""/>
+                        </label>
+                    </div>
+                    <div class="col-sm">XP</div>
+                    <div class="col-sm">
+                        <label>
+                            <input name="xp" type="numeric" placeholder=""/>
+                        </label>
                     </div>
                     <div class="col-sm">
-                        XP:
-                        <input name="xp" type="text" placeholder=""/>
+                        <input type="submit" name="creator" value="Create Character"/>
                     </div>
-                    <div class="col-sm">
-                        <input type="submit" name="creator" value="Random Character"/>
-                    </div>
-                    <div class="col-sm"></div>
                     <div class="col-sm"></div>
                 </div>
             </form>
-            <div class="row">
-                <a class="col-sm" href="{% url 'tc:edges_index' %}">Edges</a>
-                <a class="col-sm" href="{% url 'tc:enhanced_edges_index' %}">Enhanced Edges</a>
-                <a class="col-sm" href="{% url 'tc:mega_edges_index' %}">Mega Edges</a>
-                <a class="col-sm" href="{% url 'tc:paths_index' %}">Paths</a>
-            </div>
-            <div class="row">
-                <a class="col-sm" href="{% url 'tc:powers_index' %}">Powers</a>
-                <a class="col-sm" href="{% url 'tc:tags_index' %}">Tags</a>
-                <a class="col-sm" href="{% url 'tc:transformations_index' %}">Transformations</a>
-                <a class="col-sm" href="{% url 'tc:tricks_index' %}">Tricks</a>
-            </div> {% endcomment %}
         </div>
     </body>
 {% endblock content %}
