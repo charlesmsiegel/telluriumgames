@@ -6,7 +6,7 @@ from wod.models.characters.mage import Mage
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
 from wod.models.locations.human import City, Location
-from wod.models.locations.mage import Node
+from wod.models.locations.mage import Node, NodeMeritFlawRating, NodeResonanceRating
 
 
 # Create your views here.
@@ -68,9 +68,18 @@ class CityDetailView(DetailView):
     template_name = "wod/locations/city/detail.html"
 
 
-class NodeDetailView(DetailView):
-    model = Node
-    template_name = "wod/locations/node/detail.html"
+class NodeDetailView(View):
+    def get(self, request, *args, **kwargs):
+        node = Node.objects.get(pk=kwargs["pk"])
+        context = self.get_context(node)
+        return render(request, "wod/locations/node/detail.html", context)
+    
+    def get_context(self, node):
+        return {
+            "object": node,
+            "resonance": NodeResonanceRating.objects.filter(node=node).order_by("resonance__name"),
+            "merits_and_flaws": NodeMeritFlawRating.objects.filter(node=node).order_by("mf__name"),
+        }
 
 
 class GenericLocationDetailView(View):
@@ -84,6 +93,27 @@ class GenericLocationDetailView(View):
         loc = Location.objects.get(pk=kwargs["pk"])
         if loc.type in self.views:
             return self.views[loc.type].as_view()(request, *args, **kwargs)
+        return redirect("wod:location_index")
+
+
+class RandomLocationView(View):
+    locs = {
+        "location": Location,
+        "city": City,
+        "node": Node,
+    }
+
+    def post(self, request):
+        location = self.locs[request.POST['location_type']].objects.create(name=request.POST['node_name'])
+        if request.POST['node_rank'] == None:
+            rank = None
+        else:
+            rank = int(request.POST['node_rank'])
+        location.random(rank=rank)
+        location.save()
+        return redirect(location.get_absolute_url())
+    
+    def get(self, request):
         return redirect("wod:location_index")
 
 

@@ -5,42 +5,65 @@
 <body>
     {% block content %}
         <div class="centertext">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <h2>Locations</h2>
-                    </div>
+            <div class="row border">
+                <div class="col-sm border">
+                    <h2>Locations</h2>
                 </div>
-                {% for loc in chronicle.location_set.all %}
-                    <div class="row">
-                        <div class="col-sm"></div>
-                        <div class="col-sm"></div>
-                        <div class="col-sm"></div>
-                        <a class="col-sm" href="{% url 'wod:location' loc.id %}">{{ loc.name }}</a>
-                        <div class="col-sm"></div>
-                        <div class="col-sm"></div>
-                        <div class="col-sm"></div>
-                    </div>
-                {% endfor %}
-                {% for loc in locations %}
-                    <div class="row">
-                        <a class="col-sm" href="{% url 'wod:location' loc.id %}">{{ loc.name }}</a>
-                    </div>
-                {% endfor %}
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-sm"></div>
-                        <div class="col-sm">{{ location_form.name }}</div>
-                        <div class="col-sm">{{ location_form.parent }}</div>
-                        <div class="col-sm">{{ location_form.description }}</div>
-                        <div class="col-sm">
-                            <input type="submit" name="creator" value="Create Location"/>
-                        </div>
-                        <div class="col-sm"></div>
-                    </div>
-                </form>
             </div>
+            {% for loc in locations %}
+                <div class="row border">
+                    <a class="col-sm border" href="{% url 'wod:location' loc.id %}">{{ loc.name }}</a>
+                </div>
+            {% endfor %}
         </div>
+        <form action="{% url 'wod:random_location' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                        <label>
+                        <select name="location_type">
+                            <option value="node">
+                                Node
+                            </option>
+                        </select>
+                    </label>
+                </div>
+                <div class="col-sm">Name</div>
+                <div class="col-sm">
+                    <label>
+                        <input name="node_name" type="text" placeholder=""/>
+                    </label>
+                </div>
+                <div class="col-sm">Rank</div>
+                <div class="col-sm">
+                    <label>
+                        <select name="node_rank">
+                            <option value="None">
+                            </option>
+                            <option value="1">
+                                1
+                            </option>
+                            <option value="2">
+                                2
+                            </option>
+                            <option value="3">
+                                3
+                            </option>
+                            <option value="4">
+                                4
+                            </option>
+                            <option value="5">
+                                5
+                            </option>
+                        </select>
+                    </label>
+                </div>
+                <div class="col-sm">
+                    <input type="submit" name="creator" value="Create Location"/>
+                </div>
+                <div class="col-sm"></div>
+            </div>
+        </form>
     {% endblock content %}
 </body>
