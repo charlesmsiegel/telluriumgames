@@ -497,6 +497,8 @@ class Mortal(PolymorphicModel):
         possible_details = choice.filter_details(self)
         if len(possible_details) == 0:
             detail = None
+            if choice.requires_detail:
+                return False
         else:
             detail = random.choice(possible_details)
         return self.add_merit(choice, detail=detail)
@@ -728,6 +730,8 @@ class Merit(models.Model):
         elif self.name == "Multilingual":
             possible_details = product(Language.objects.all(), Language.objects.all())
             possible_details = [x for x in possible_details if x[0] != x[1]]
+        elif self.name == "Fighting Finesse":
+            possible_details = character.specialties.filter(skill=self.prereq[-1][0])
         return possible_details
 
 
