@@ -131,6 +131,27 @@ class GrimoireDetailView(DetailView):
     model = Grimoire
     template_name = "wod/items/grimoire/detail.html"
 
+class GrimoireDetailView(View):
+    def get(self, request, *args, **kwargs):
+        grimoire = Grimoire.objects.get(pk=kwargs["pk"])
+        context = self.get_context(grimoire)
+        return render(request, "wod/items/grimoire/detail.html", context)
+    
+    def get_context(self, node):
+        return {
+            "object": node,
+            "paradigms": "<br>".join([str(x) for x in node.paradigms.all()]),
+            "practices": "<br>".join([str(x) for x in node.practices.all()]),
+            "instruments": "<br>".join([str(x) for x in node.instruments.all()]),
+            "abilities": "<br>".join([x.replace("_", " ").title() for x in node.abilities]),
+            "spheres": "<br>".join([x.replace("_", " ").title() for x in node.spheres]),
+            "rotes": "<br>".join([str(x) for x in node.rotes.all()]),
+            "date_written": node.date_written,
+            "faction": node.faction,
+            # "resonance": NodeResonanceRating.objects.filter(node=node).order_by("resonance__name"),
+            # "merits_and_flaws": NodeMeritFlawRating.objects.filter(node=node).order_by("mf__name"),
+        }
+
 
 class LibraryDetailView(DetailView):
     model = Library

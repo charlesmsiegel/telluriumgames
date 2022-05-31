@@ -4,29 +4,33 @@
 {% endblock title %}
 <body>
     {% block content %}
-        <h1>{{ object.name }}</h1>
-    </body>
-    <div class="row">
-        <div class="col-sm">Rank</div>
-        <div class="col-sm">{{ object.rank }}</div>
-        <div class="col-sm">Background Cost</div>
-        <div class="col-sm">{{ object.background_cost }}</div>
-        <div class="col-sm">Maximum Quintessence</div>
-        <div class="col-sm">{{ object.quintessence_max }}</div>
-    </div>
-    <div class="row">
-        <div class="col-sm">Created By</div>
-        <div class="col-sm">{{ faction }}</div>
-        <div class="col-sm">Primer</div>
-        <div class="col-sm">{{ object.primer }}</div>
-        <div class="col-sm">Focus</div>
-        <div class="col-sm">
-            <b>Paradigms:</b> {{ paradigms }}
-        <br />
-        <b>Pracitcs:</b> {{ practices }}
-    <br />
-    <b>Instruments:</b> {{ instruments }}
-</div>
+        <div class="centertext">
+            <h1 class="mage_heading">{{ object.name }}</h1>
+            <div class="row">
+                <div class="col-sm">Rank</div>
+                <div class="col-sm">{{ object.rank }}</div>
+                <div class="col-sm">Background Cost</div>
+                <div class="col-sm">{{ object.background_cost }}</div>
+                <div class="col-sm">Maximum Quintessence</div>
+                <div class="col-sm">{{ object.quintessence_max }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Created By</div>
+                <div class="col-sm">{{ faction }}</div>
+                <div class="col-sm">Primer</div>
+                <div class="col-sm">{{ object.is_primer }}</div>
+            </div>
+            <h2 class="mage_heading">Focus</h2>
+            <div class="row">
+                <div class="col-sm"><b>Paradigms</b></div>
+                <div class="col-sm"><b>Practices</b></div>
+                <div class="col-sm"><b>Instruments</b></div>
+            </div>
+            <div class="row">
+                <div class="col-sm">{{ paradigms| safe }}</div>
+                <div class="col-sm">{{ practices| safe }}</div>
+                <div class="col-sm">{{ instruments| safe }}</div>
+            </div>
 </div>
 <div class="row">
     <div class="col-sm">Medium</div>
@@ -40,24 +44,26 @@
     <div class="col-sm">Length</div>
     <div class="col-sm">{{ object.length }}</div>
     <div class="col-sm">Date Written</div>
-    <div class="col-sm">{{ object.date_written }}</div>
+    <div class="col-sm">{{ date_written }}</div>
     <div class="col-sm">Language</div>
     <div class="col-sm">{{ object.language }}</div>
 </div>
 <div class="row">
     <div class="col-sm">Abilities</div>
-    <div class="col-sm">{{ abilities }}</div>
+    <div class="col-sm">{{ abilities| safe }}</div>
     <div class="col-sm">
         Spheres
     </div>
     <div class="col-sm">
-        {{ spheres }}
+        {{ spheres| safe }}
     </div>
     <div class="col-sm">
         Rotes
     </div>
     <div class="col-sm">
-        {{ object.rotes }}
+        {{ rotes| safe }}
     </div>
 </div>
+</div>
+</body>
 {% endblock content %}
