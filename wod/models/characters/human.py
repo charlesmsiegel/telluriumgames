@@ -35,12 +35,18 @@ class Specialty(models.Model):
 class MeritFlaw(models.Model):
     name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
+    
+    def __str__(self):
+        return self.name
 
 
 class MeritFlawRating(models.Model):
     character = models.ForeignKey("Human", on_delete=models.CASCADE)
     mf = models.ForeignKey(MeritFlaw, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return f"{self.mf}: {self.rating}"
 
 
 class Character(PolymorphicModel):

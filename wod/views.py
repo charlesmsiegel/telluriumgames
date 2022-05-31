@@ -1,8 +1,9 @@
+from collections import defaultdict
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView, View
 
-from wod.models.characters.human import Character, Human
-from wod.models.characters.mage import Mage
+from wod.models.characters.human import Character, Human, MeritFlawRating
+from wod.models.characters.mage import Mage, ResRating
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
 from wod.models.locations.human import City, Location
@@ -202,10 +203,29 @@ class HumanDetailView(DetailView):
     template_name = "wod/characters/human/detail.html"
 
 
-class MageDetailView(DetailView):
-    model = Mage
-    template_name = "wod/characters/mage/detail.html"
-
+class MageDetailView(View):
+    def get(self, request, *args, **kwargs):
+        mage = Mage.objects.get(pk=kwargs["pk"])
+        context = self.get_context(mage)
+        return render(request, "wod/characters/mage/detail.html", context)
+    
+    def get_context(self, mage):
+        context = {"object": mage}
+        specialties = {}
+        for attribute in mage.get_attributes():
+            specialties[attribute] = ", ".join([x.name for x in mage.specialties.filter(stat=attribute)])
+        for ability in mage.get_abilities():
+            specialties[ability] = ", ".join([x.name for x in mage.specialties.filter(stat=ability)])
+        for sphere in mage.get_spheres():
+            specialties[sphere] = ", ".join([x.name for x in mage.specialties.filter(stat=sphere)])
+        for key, value in specialties.items():
+            context[f"{key}_spec"] = value
+        
+        context['resonance'] = ResRating.objects.filter(mage=mage).order_by("resonance__name")
+        context["merits_and_flaws"] = MeritFlawRating.objects.order_by("mf__name").filter(character=mage)
+        print(len(mage.merits_and_flaws.all()))
+        print(context['merits_and_flaws'])
+        return context
 
 class GenericCharacterDetailView(View):
     character_views = {
