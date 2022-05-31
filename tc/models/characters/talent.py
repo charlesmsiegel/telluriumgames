@@ -133,13 +133,15 @@ class Talent(Human):
             and self.has_moment_of_inspiration()
             and self.has_facets()
         )
-        
+
     def random_path(self, path_type=None):
         if path_type is None:
             paths = Path.objects.all()
         else:
             paths = Path.objects.filter(type=path_type)
-        paths = [x for x in paths if self.path_rating(x) != 5 and len(x.gift_keywords) != 0]
+        paths = [
+            x for x in paths if self.path_rating(x) != 5 and len(x.gift_keywords) != 0
+        ]
         d = {p: self.path_rating(p) for p in paths}
         choice = weighted_choice(d)
         self.add_path(choice)
@@ -149,7 +151,9 @@ class Talent(Human):
         num = self.total_attributes()
         while self.total_attributes() < num + 1:
             add_dot(self, random.choice(self.moment_of_inspiration.attributes), 5)
-            if set([getattr(self, x) for x in self.moment_of_inspiration.attributes]) == set([5]):
+            if set(
+                [getattr(self, x) for x in self.moment_of_inspiration.attributes]
+            ) == set([5]):
                 add_dot(self, weighted_choice(self.get_attributes()), 5)
         self.random_gifts()
         self.random_facets()

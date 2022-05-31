@@ -468,10 +468,17 @@ class Mage(Human):
         self.faction = (
             MageFaction.objects.filter(parent=self.affiliation).order_by("?").first()
         )
-        if random.random() < 0.25:
-            self.subfaction = (
-                MageFaction.objects.filter(parent=self.faction).order_by("?").first()
-            )
+        if (
+            random.random() < 0.25
+            or self.faction.name == "Order of Hermes"
+            or self.affiliation.name == "Technocratic Union"
+        ):
+            if MageFaction.objects.filter(parent=self.faction).exists():
+                self.subfaction = (
+                    MageFaction.objects.filter(parent=self.faction)
+                    .order_by("?")
+                    .first()
+                )
 
     def has_focus(self):
         return (
@@ -909,6 +916,7 @@ class Mage(Human):
     def random_name(self):
         if not self.has_name():
             self.set_name(f"Mage {Character.objects.count() - 1}")
+
 
 class Cabal(models.Model):
     name = models.CharField(max_length=100, unique=True)

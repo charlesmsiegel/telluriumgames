@@ -74,12 +74,16 @@ class NodeDetailView(View):
         node = Node.objects.get(pk=kwargs["pk"])
         context = self.get_context(node)
         return render(request, "wod/locations/node/detail.html", context)
-    
+
     def get_context(self, node):
         return {
             "object": node,
-            "resonance": NodeResonanceRating.objects.filter(node=node).order_by("resonance__name"),
-            "merits_and_flaws": NodeMeritFlawRating.objects.filter(node=node).order_by("mf__name"),
+            "resonance": NodeResonanceRating.objects.filter(node=node).order_by(
+                "resonance__name"
+            ),
+            "merits_and_flaws": NodeMeritFlawRating.objects.filter(node=node).order_by(
+                "mf__name"
+            ),
         }
 
 
@@ -103,15 +107,17 @@ class RandomLocationView(View):
     }
 
     def post(self, request):
-        location = self.locs[request.POST['location_type']].objects.create(name=request.POST['node_name'])
-        if request.POST['node_rank'] == None:
+        location = self.locs[request.POST["location_type"]].objects.create(
+            name=request.POST["node_name"]
+        )
+        if request.POST["node_rank"] == None:
             rank = None
         else:
-            rank = int(request.POST['node_rank'])
+            rank = int(request.POST["node_rank"])
         location.random(rank=rank)
         location.save()
         return redirect(location.get_absolute_url())
-    
+
     def get(self, request):
         return redirect("wod:location_index")
 
@@ -130,12 +136,13 @@ class GrimoireDetailView(DetailView):
     model = Grimoire
     template_name = "wod/items/grimoire/detail.html"
 
+
 class GrimoireDetailView(View):
     def get(self, request, *args, **kwargs):
         grimoire = Grimoire.objects.get(pk=kwargs["pk"])
         context = self.get_context(grimoire)
         return render(request, "wod/items/grimoire/detail.html", context)
-    
+
     def get_context(self, node):
         if node.faction.parent is not None:
             if node.faction.parent.parent is not None:
@@ -147,7 +154,9 @@ class GrimoireDetailView(View):
             "paradigms": "<br>".join([str(x) for x in node.paradigms.all()]),
             "practices": "<br>".join([str(x) for x in node.practices.all()]),
             "instruments": "<br>".join([str(x) for x in node.instruments.all()]),
-            "abilities": "<br>".join([x.replace("_", " ").title() for x in node.abilities]),
+            "abilities": "<br>".join(
+                [x.replace("_", " ").title() for x in node.abilities]
+            ),
             "spheres": "<br>".join([x.replace("_", " ").title() for x in node.spheres]),
             "rotes": "<br>".join([str(x) for x in node.rotes.all()]),
             "date_written": node.date_written,
@@ -174,21 +183,24 @@ class GenericItemDetailView(View):
             return self.views[item.type].as_view()(request, *args, **kwargs)
         return redirect("wod:item_index")
 
+
 class RandomItemView(View):
     items = {
         "grimoire": Grimoire,
     }
 
     def post(self, request):
-        item = self.items[request.POST['item_type']].objects.create(name=request.POST['item_name'])
-        if request.POST['item_rank'] == None:
+        item = self.items[request.POST["item_type"]].objects.create(
+            name=request.POST["item_name"]
+        )
+        if request.POST["item_rank"] == None:
             rank = None
         else:
-            rank = int(request.POST['item_rank'])
+            rank = int(request.POST["item_rank"])
         item.random(rank=rank)
         item.save()
         return redirect(item.get_absolute_url())
-    
+
     def get(self, request):
         return redirect("wod:item_index")
 
@@ -208,24 +220,35 @@ class MageDetailView(View):
         mage = Mage.objects.get(pk=kwargs["pk"])
         context = self.get_context(mage)
         return render(request, "wod/characters/mage/detail.html", context)
-    
+
     def get_context(self, mage):
         context = {"object": mage}
         specialties = {}
         for attribute in mage.get_attributes():
-            specialties[attribute] = ", ".join([x.name for x in mage.specialties.filter(stat=attribute)])
+            specialties[attribute] = ", ".join(
+                [x.name for x in mage.specialties.filter(stat=attribute)]
+            )
         for ability in mage.get_abilities():
-            specialties[ability] = ", ".join([x.name for x in mage.specialties.filter(stat=ability)])
+            specialties[ability] = ", ".join(
+                [x.name for x in mage.specialties.filter(stat=ability)]
+            )
         for sphere in mage.get_spheres():
-            specialties[sphere] = ", ".join([x.name for x in mage.specialties.filter(stat=sphere)])
+            specialties[sphere] = ", ".join(
+                [x.name for x in mage.specialties.filter(stat=sphere)]
+            )
         for key, value in specialties.items():
             context[f"{key}_spec"] = value
-        
-        context['resonance'] = ResRating.objects.filter(mage=mage).order_by("resonance__name")
-        context["merits_and_flaws"] = MeritFlawRating.objects.order_by("mf__name").filter(character=mage)
+
+        context["resonance"] = ResRating.objects.filter(mage=mage).order_by(
+            "resonance__name"
+        )
+        context["merits_and_flaws"] = MeritFlawRating.objects.order_by(
+            "mf__name"
+        ).filter(character=mage)
         print(len(mage.merits_and_flaws.all()))
-        print(context['merits_and_flaws'])
+        print(context["merits_and_flaws"])
         return context
+
 
 class GenericCharacterDetailView(View):
     character_views = {
@@ -240,16 +263,19 @@ class GenericCharacterDetailView(View):
             return self.character_views[char.type].as_view()(request, *args, **kwargs)
         return redirect("wod:characters_index")
 
+
 class RandomCharacterView(View):
     chars = {
         "mage": Mage,
     }
 
     def post(self, request, *args, **kwargs):
-        char = self.chars[request.POST['char_type']].objects.create(name=request.POST['char_name'], player=request.user.wod_profile)
-        char.random(freebies=int(request.POST['freebies']), xp=int(request.POST['xp']))
+        char = self.chars[request.POST["char_type"]].objects.create(
+            name=request.POST["char_name"], player=request.user.wod_profile
+        )
+        char.random(freebies=int(request.POST["freebies"]), xp=int(request.POST["xp"]))
         char.save()
         return redirect(char.get_absolute_url())
-    
+
     def get(self, request):
         return redirect("wod:characters_index")

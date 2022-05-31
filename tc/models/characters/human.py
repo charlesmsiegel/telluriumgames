@@ -586,13 +586,19 @@ class Human(PolymorphicModel):
         p3 = self.paths.filter(type="society").first()
         failures = 0
         while self.total_edges() < 2 and failures < 20:
-            if not self.random_edge(dots=2 - self.total_edges(), sublist=list(p1.edges.all())):
+            if not self.random_edge(
+                dots=2 - self.total_edges(), sublist=list(p1.edges.all())
+            ):
                 failures += 1
         while self.total_edges() < 4 and failures < 20:
-            if not self.random_edge(dots=4 - self.total_edges(), sublist=list(p2.edges.all())):
+            if not self.random_edge(
+                dots=4 - self.total_edges(), sublist=list(p2.edges.all())
+            ):
                 failures += 1
         while self.total_edges() < 6 and failures < 20:
-            if not self.random_edge(dots=6 - self.total_edges(), sublist=list(p3.edges.all())):
+            if not self.random_edge(
+                dots=6 - self.total_edges(), sublist=list(p3.edges.all())
+            ):
                 failures += 1
 
     def has_template(self):
