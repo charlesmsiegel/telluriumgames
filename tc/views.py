@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import View
 
 from tc.models.characters.aberrant import Aberrant
-from tc.models.characters.human import Human
+from tc.models.characters.human import EdgeRating, Human, PathRating
 from tc.models.characters.talent import Talent
 
 
@@ -28,7 +28,15 @@ class HumanDetailView(View):
 
     def get_context(self, pk):
         char = Human.objects.get(id=pk)
-        return {"character": char}
+        context = {"character": char}
+        context["origin_path"] = PathRating.objects.filter(character=char, path__type="origin").first()
+        context["role_path"] = PathRating.objects.filter(character=char, path__type="role").first()
+        context["society_path"] = PathRating.objects.filter(character=char, path__type="society").first()
+        context['additional_paths'] = [x for x in PathRating.objects.filter(character=char) if x not in [context['origin_path'], context['role_path'], context['society_path']]]
+        for skill in char.get_skills():
+            context[skill + "_spec"] = ", ".join([x.name for x in char.specialties.filter(skill=skill)])
+        context['edges'] = EdgeRating.objects.filter(character=char)
+        return context
 
 
 class TalentDetailView(View):
@@ -38,7 +46,10 @@ class TalentDetailView(View):
 
     def get_context(self, pk):
         char = Talent.objects.get(id=pk)
-        return {"character": char}
+        context = {"character": char}
+        for skill in char.get_skills():
+            context[skill + "_spec"] = ", ".join([x.name for x in char.specialties.filter(skill=skill)])
+        return context
 
 
 class AberrantDetailView(View):
@@ -52,7 +63,7 @@ class AberrantDetailView(View):
 
 
 class CharacterDetailView(View):
-    create_views = {
+    detail_views = {
         "human": HumanDetailView,
         "talent": TalentDetailView,
         "aberrant": AberrantDetailView,
@@ -60,8 +71,8 @@ class CharacterDetailView(View):
 
     def get(self, request, *args, **kwargs):
         char = Human.objects.get(pk=kwargs["pk"])
-        if char.type in self.create_views:
-            return self.create_views[char.type].as_view()(request, *args, **kwargs)
+        if char.type in self.detail_views:
+            return self.detail_views[char.type].as_view()(request, *args, **kwargs)
         return redirect("tc:characters_index")
 
 class RandomCharacterView(View):
