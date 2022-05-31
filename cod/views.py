@@ -48,3 +48,19 @@ class CharacterDetailView(View):
         if char.type in self.create_views:
             return self.create_views[char.type].as_view()(request, *args, **kwargs)
         return redirect("cod:characters_index")
+
+class RandomCharacterView(View):
+    chars = {
+        "mortal": Mortal,
+    }
+
+    def post(self, request, *args, **kwargs):
+        char = self.chars[request.POST["char_type"]].objects.create(
+            name=request.POST["char_name"], player=request.user.cod_profile
+        )
+        char.random(xp=int(request.POST["xp"]))
+        char.save()
+        return redirect(char.get_absolute_url())
+
+    def get(self, request):
+        return redirect("cod:characters_index")

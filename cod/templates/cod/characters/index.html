@@ -20,5 +20,36 @@
                 {% endif %}
             {% endfor %}
         </div>
+        <form action="{% url 'cod:random_character' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                    <label>
+                        <select name="char_type">
+                            <option value="mortal">
+                                Mortal
+                            </option>
+                        </select>
+                    </label>
+                </div>
+                <div class="col-sm">Name</div>
+                <div class="col-sm">
+                    <label>
+                        <input name="char_name" type="text" placeholder=""/>
+                    </label>
+                </div>
+                <div class="col-sm">XP</div>
+                <div class="col-sm">
+                    <label>
+                        <input name="xp" type="numeric" placeholder=""/>
+                    </label>
+                </div>
+                <div class="col-sm">
+                    <input type="submit" name="creator" value="Create Character"/>
+                </div>
+                <div class="col-sm"></div>
+            </div>
+        </form>
     </body>
 {% endblock content %}

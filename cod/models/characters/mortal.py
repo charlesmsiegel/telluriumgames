@@ -555,29 +555,51 @@ class Mortal(PolymorphicModel):
             "integrity": 1,
         }
         counter = 0
-        while counter < 10 < self.xp:
+        while 10 < self.xp and counter < 50:
             counter += 1
             choice = weighted_choice(frequencies)
             if choice == "attribute":
                 if self.xp_cost(choice) <= self.xp:
-                    if self.random_attribute():
-                        self.xp -= self.xp_cost(choice)
+                    trait = weighted_choice(self.filter_attributes(maximum=4))
+                    value = getattr(self, trait) + 1
+                    self.xp -= self.xp_cost(choice)
+                    self.add_to_spend(trait, value, self.xp_cost(choice))
+                    counter -= 1
             elif choice == "merit":
                 if self.xp_cost(choice) <= self.xp:
-                    if self.random_merit(dots=self.xp):
+                    merit_candidates = self.filter_merits(dots=self.xp)
+                    trait = random.choice(merit_candidates)
+                    possible_details = trait.filter_details(self)
+                    if len(possible_details) == 0:
+                        detail = None
+                    else:
+                        detail = random.choice(possible_details)
+                    if detail is None and trait.requires_detail:
+                        pass
+                    else:
+                        self.add_merit(trait, detail=detail)
                         self.xp -= self.xp_cost(choice)
+                        self.add_to_spend(trait.name, MeritRating.objects.get(merit=trait, character=self).rating, self.xp_cost(choice))
+                        counter -= 1
             elif choice == "specialty":
                 if self.xp_cost(choice) <= self.xp:
                     if self.random_specialty():
                         self.xp -= self.xp_cost(choice)
+                        self.add_to_spend(self.specialties.last(), 1, self.xp_cost(choice))
+                        counter -= 1
             elif choice == "skill":
                 if self.xp_cost(choice) <= self.xp:
-                    if self.random_skill():
-                        self.xp -= self.xp_cost(choice)
+                    trait = weighted_choice(self.filter_skills(maximum=4))
+                    value = getattr(self, trait) + 1
+                    self.xp -= self.xp_cost(choice)
+                    self.add_to_spend(trait, value, self.xp_cost(choice))        
+                    counter -= 1
             elif choice == "integrity":
                 if self.xp_cost(choice) <= self.xp:
                     if add_dot(self, "integrity", 10):
                         self.xp -= self.xp_cost(choice)
+                        self.add_to_spend("integrity", self.integrity, self.xp_cost(choice))                    
+                        counter -= 1
 
     def add_to_spend(self, trait, value, cost):
         trait = trait.replace("_", " ").title()
@@ -635,7 +657,8 @@ class Mortal(PolymorphicModel):
             return False
         return False
 
-    def random(self):
+    def random(self, xp=0):
+        self.xp = xp
         self.random_basis()
         self.random_attributes()
         self.random_skills()
