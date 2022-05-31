@@ -464,28 +464,47 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-sm">
+                </div>
+                <div class="col-sm">
+                </div>
+                <div class="col-sm">
+                    Speed
+                </div>
+                <div class="col-sm">
+                    {{ object.speed }}
+                </div>
+                <div class="col-sm">
+                </div>
+                <div class="col-sm">
+                </div>
+            </div>
+
+            
+
+            <div class="row">
                 <h3 class="col-sm">
                     Breaking Points
                 </h3>
             </div>
             <div class="row">
-                <div class="col-sm">
+                <div class="col-sm">{{ object.breaking_point_1 }}
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm">
+                <div class="col-sm">{{ object.breaking_point_2 }}
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm">
+                <div class="col-sm">{{ object.breaking_point_3 }}
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm">
+                <div class="col-sm">{{ object.breaking_point_4 }}
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm">
+                <div class="col-sm">{{ object.breaking_point_5 }}
                 </div>
             </div>
         </div>
@@ -494,10 +513,10 @@
                 XP
             </div>
             <div class="col-sm">
-                {{ character.xp }}
+                {{ object.xp }}
             </div>
             <div class="col-sm">
-                {{ character.xp_spending }}
+                {{ object.spent_xp }}
             </div>
         </div>
     </body>
