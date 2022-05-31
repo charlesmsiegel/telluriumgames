@@ -904,5 +904,5 @@ class PathRating(models.Model):
 
 
 class PathConnection(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100)
     path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.CASCADE)
