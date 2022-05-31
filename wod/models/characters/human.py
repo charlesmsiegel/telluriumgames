@@ -25,11 +25,11 @@ class Specialty(models.Model):
         verbose_name = "Specialty"
         verbose_name_plural = "Specialties"
 
-    def display_skill(self):
-        return self.skill.replace("_", " ").title()
+    def display_stat(self):
+        return self.stat.replace("_", " ").title()
 
     def __str__(self):
-        return f"{self.name} ({self.display_skill()})"
+        return f"{self.name} ({self.display_stat()})"
 
 
 class MeritFlaw(models.Model):
