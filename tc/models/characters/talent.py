@@ -1,4 +1,5 @@
 import random
+from turtle import pos
 
 from django.db import models
 
@@ -93,10 +94,18 @@ class Talent(Human):
         p1 = self.paths.filter(type="origin").first()
         p2 = self.paths.filter(type="role").first()
         p3 = self.paths.filter(type="society").first()
-        self.add_gift(random.choice(self.filter_gifts(path=p1)))
-        self.add_gift(random.choice(self.filter_gifts(path=p2)))
-        self.add_gift(random.choice(self.filter_gifts(path=p3)))
-        self.add_gift(random.choice(self.filter_gifts()))
+        possible_gifts = self.filter_gifts(path=p1)
+        if len(possible_gifts) != 0:
+            self.add_gift(random.choice(possible_gifts))
+        possible_gifts = self.filter_gifts(path=p2)
+        if len(possible_gifts) != 0:
+            self.add_gift(random.choice(possible_gifts))
+        possible_gifts = self.filter_gifts(path=p3)
+        if len(possible_gifts) != 0:
+            self.add_gift(random.choice(possible_gifts))
+        possible_gifts = self.filter_gifts()
+        if len(possible_gifts) != 0:
+            self.add_gift(random.choice(possible_gifts))
 
     def filter_gifts(self, keyword=None, path=None):
         gifts = Gift.objects.all()
@@ -124,12 +133,24 @@ class Talent(Human):
             and self.has_moment_of_inspiration()
             and self.has_facets()
         )
+        
+    def random_path(self, path_type=None):
+        if path_type is None:
+            paths = Path.objects.all()
+        else:
+            paths = Path.objects.filter(type=path_type)
+        paths = [x for x in paths if self.path_rating(x) != 5 and len(x.gift_keywords) != 0]
+        d = {p: self.path_rating(p) for p in paths}
+        choice = weighted_choice(d)
+        self.add_path(choice)
 
     def apply_random_template(self):
         self.random_moment_of_inspiration()
         num = self.total_attributes()
         while self.total_attributes() < num + 1:
             add_dot(self, random.choice(self.moment_of_inspiration.attributes), 5)
+            if set([getattr(self, x) for x in self.moment_of_inspiration.attributes]) == set([5]):
+                add_dot(self, weighted_choice(self.get_attributes()), 5)
         self.random_gifts()
         self.random_facets()
 

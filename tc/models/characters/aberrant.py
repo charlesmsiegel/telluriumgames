@@ -357,7 +357,7 @@ class Aberrant(Human):
             elif trait_type == "power tag":
                 if self.powers.all().exists():
                     p = self.powers.order_by("?").first()
-                    trait = self.filter_tags(power=p)
+                    trait = random.choice(self.filter_tags(power=p))
                 else:
                     trait = None
             elif trait_type == "quantum":

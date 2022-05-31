@@ -116,6 +116,9 @@ class Resonance(models.Model):
     mind = models.BooleanField(default=False)
     prime = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.name.title()
+
 
 class ResRating(models.Model):
     mage = models.ForeignKey("Mage", on_delete=models.CASCADE)
@@ -903,6 +906,8 @@ class Mage(Human):
         self.random_xp()
         self.random_specialties()
 
+    def random_name(self):
+        self.set_name(f"Mage {Character.objects.count() - 1}")
 
 class Cabal(models.Model):
     name = models.CharField(max_length=100, unique=True)

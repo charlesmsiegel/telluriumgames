@@ -13,6 +13,9 @@ from core.utils import add_dot, weighted_choice
 class Archetype(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Specialty(models.Model):
     name = models.CharField(max_length=100)
@@ -67,7 +70,7 @@ class Character(PolymorphicModel):
         return True
 
     def random_name(self):
-        self.set_name(f"Random {Character.objects.count() + 1}")
+        self.set_name(f"Human {Character.objects.count() - 1}")
 
     def __str__(self):
         return self.name

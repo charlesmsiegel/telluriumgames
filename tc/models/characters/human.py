@@ -124,7 +124,8 @@ class Human(PolymorphicModel):
         self.add_aspiration("Test Long", aspiration_type="long", number=1)
 
     def random_basics(self):
-        self.add_name("Random Name")
+        if not self.has_name():
+            self.add_name("Random Name")
         self.add_concept("Random Concept")
         self.random_aspirations()
 
@@ -288,6 +289,8 @@ class Human(PolymorphicModel):
                 {k: v for k, v in skills_geq_3.items() if k in possible_skills}
             )
         possible_tricks = self.filter_tricks(skill=skill_choice)
+        if len(possible_tricks) == 0:
+            return False
         trick = random.choice(possible_tricks)
         return self.add_trick(trick)
 
@@ -522,6 +525,7 @@ class Human(PolymorphicModel):
 
     def filter_edges(self, dots=100):
         all_edges = Edge.objects.all()
+        all_edges = [x for x in all_edges if x.type == "edge"]
         possible_edges = []
         for edge in all_edges:
             if edge in self.edges.all():
@@ -573,17 +577,23 @@ class Human(PolymorphicModel):
         if len(options) != 0:
             choice = random.choice(options)
             self.add_edge(choice)
+            return True
+        return False
 
     def random_edges(self):
         p1 = self.paths.filter(type="origin").first()
         p2 = self.paths.filter(type="role").first()
         p3 = self.paths.filter(type="society").first()
-        while self.total_edges() < 2:
-            self.random_edge(dots=2 - self.total_edges(), sublist=list(p1.edges.all()))
-        while self.total_edges() < 4:
-            self.random_edge(dots=4 - self.total_edges(), sublist=list(p2.edges.all()))
-        while self.total_edges() < 6:
-            self.random_edge(dots=6 - self.total_edges(), sublist=list(p3.edges.all()))
+        failures = 0
+        while self.total_edges() < 2 and failures < 20:
+            if not self.random_edge(dots=2 - self.total_edges(), sublist=list(p1.edges.all())):
+                failures += 1
+        while self.total_edges() < 4 and failures < 20:
+            if not self.random_edge(dots=4 - self.total_edges(), sublist=list(p2.edges.all())):
+                failures += 1
+        while self.total_edges() < 6 and failures < 20:
+            if not self.random_edge(dots=6 - self.total_edges(), sublist=list(p3.edges.all())):
+                failures += 1
 
     def has_template(self):
         attribute_flag = self.total_attributes() == 25
@@ -841,7 +851,7 @@ class Edge(PolymorphicModel):
                 satisfied = satisfied and (getattr(character, prereq[0]) >= prereq[1])
             elif prereq[0] in character.get_skills().keys():
                 satisfied = satisfied and (getattr(character, prereq[0]) >= prereq[1])
-            elif prereq[0] in [x.name for x in Edge.objects.all() if x.type == "edge"]:
+            elif prereq[0] in [x.name for x in Edge.objects.all()]:
                 edge_prereq = Edge.objects.get(name=prereq[0])
                 if edge_prereq in character.edges.all():
                     x = EdgeRating.objects.get(character=character, edge=edge_prereq)

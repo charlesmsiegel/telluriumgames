@@ -731,7 +731,7 @@ class Merit(models.Model):
             possible_details = product(Language.objects.all(), Language.objects.all())
             possible_details = [x for x in possible_details if x[0] != x[1]]
         elif self.name == "Fighting Finesse":
-            possible_details = character.specialties.filter(skill=self.prereq[-1][0])
+            possible_details = character.specialties.filter(skill=self.prereqs[-1][0])
         return possible_details
 
 
