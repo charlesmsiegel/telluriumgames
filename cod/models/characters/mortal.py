@@ -1,4 +1,5 @@
 import random
+from itertools import product
 
 from django.db import models
 from django.shortcuts import reverse
@@ -6,7 +7,7 @@ from polymorphic.models import PolymorphicModel
 
 from accounts.models import CoDProfile
 from core.utils import add_dot, weighted_choice
-
+from core.models import Language
 
 # Create your models here.
 class Mortal(PolymorphicModel):
@@ -411,7 +412,7 @@ class Mortal(PolymorphicModel):
 
     def add_merit(self, merit, detail=None):
         if merit.requires_detail and detail is None:
-            raise Exception("Merit requires detail")
+            raise Exception(f"Merit ({merit.name}) requires detail")
         if merit.name == "Giant":
             if "Small-Framed" in [x.name for x in self.merits.all()]:
                 return False
@@ -653,6 +654,7 @@ class Merit(models.Model):
     requires_detail = models.BooleanField(default=False)
     possible_details = models.JSONField(default=list)
     merit_type = models.CharField(max_length=100, default="")
+    is_style = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Merit"
@@ -723,6 +725,9 @@ class Merit(models.Model):
                 for x in pairs
                 if all_skills[x[1][0]] > 0 and all_skills[x[1][1]] > 0
             ]
+        elif self.name == "Multilingual":
+            possible_details = product(Language.objects.all(), Language.objects.all())
+            possible_details = [x for x in possible_details if x[0] != x[1]]
         return possible_details
 
 
