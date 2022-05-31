@@ -597,7 +597,7 @@ class Mortal(PolymorphicModel):
                     return True
                 return False
             return False
-        elif trait in self.get_skills():
+        if trait in self.get_skills():
             cost = self.xp_cost("skill")
             if cost <= self.xp:
                 if self.add_skill(trait):
@@ -606,7 +606,7 @@ class Mortal(PolymorphicModel):
                     return True
                 return False
             return False
-        elif trait in [x.name for x in Merit.objects.all()]:
+        if trait in [x.name for x in Merit.objects.all()]:
             cost = self.xp_cost("merit")
             if cost <= self.xp:
                 if self.add_merit(trait):
@@ -615,7 +615,7 @@ class Mortal(PolymorphicModel):
                     return True
                 return False
             return False
-        elif trait in [x.name for x in Specialty.objects.all()]:
+        if trait in [x.name for x in Specialty.objects.all()]:
             cost = self.xp_cost("specialty")
             if cost <= self.xp:
                 if self.add_specialty(trait):
@@ -624,7 +624,7 @@ class Mortal(PolymorphicModel):
                     return True
                 return False
             return False
-        elif trait == "integrity":
+        if trait == "integrity":
             cost = self.xp_cost("integrity")
             if cost <= self.xp:
                 if self.add_integrity(trait):
@@ -634,9 +634,6 @@ class Mortal(PolymorphicModel):
                 return False
             return False
         return False
-        """
-                    
-        """
 
     def random(self):
         self.random_basis()

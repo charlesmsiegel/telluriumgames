@@ -1,5 +1,4 @@
 import random
-from turtle import pos
 
 from django.db import models
 
@@ -152,7 +151,7 @@ class Talent(Human):
         while self.total_attributes() < num + 1:
             add_dot(self, random.choice(self.moment_of_inspiration.attributes), 5)
             if set(
-                [getattr(self, x) for x in self.moment_of_inspiration.attributes]
+                getattr(self, x) for x in self.moment_of_inspiration.attributes
             ) == set([5]):
                 add_dot(self, weighted_choice(self.get_attributes()), 5)
         self.random_gifts()

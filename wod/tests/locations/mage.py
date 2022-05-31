@@ -39,12 +39,13 @@ class TestNode(TestCase):
         self.assertEqual(self.node.total_resonance(), 1)
 
     def test_total_resonance(self):
-        for res in Resonance.objects.order_by("?")[:2]:
+        resonance = Resonance.objects.order_by("?")[:2]
+        for res in resonance:
             self.node.add_resonance(res)
             self.node.add_resonance(res)
         self.assertEqual(self.node.total_resonance(), 4)
         self.assertNotEqual(self.node.total_resonance(), 5)
-        self.node.add_resonance(res)
+        self.node.add_resonance(resonance[1])
         self.assertEqual(self.node.total_resonance(), 5)
 
     def test_set_rank(self):

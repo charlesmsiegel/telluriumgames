@@ -1,6 +1,4 @@
 import random
-from logging import StrFormatStyle
-from multiprocessing.sharedctypes import Value
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -770,6 +768,7 @@ class Mage(Human):
             return 4
         if trait == "quintessence":
             return 1
+        return 10000
 
     def spend_freebies(self, trait):
         output = super().spend_freebies(trait)
@@ -800,6 +799,7 @@ class Mage(Human):
                     return True
                 return False
             return False
+        return trait
 
     def spend_xp(self, trait):
         output = super().spend_xp(trait)
@@ -814,7 +814,7 @@ class Mage(Human):
                     return True
                 return False
             return False
-        elif trait in self.get_spheres():
+        if trait in self.get_spheres():
             if self.affinity_sphere == trait:
                 cost = self.xp_cost("affinity sphere") * getattr(self, trait)
             else:
@@ -828,6 +828,7 @@ class Mage(Human):
                     return True
                 return False
             return False
+        return trait
 
     def xp_cost(self, trait):
         if trait == "attribute":
@@ -850,6 +851,7 @@ class Mage(Human):
             return 8
         if trait == "arete":
             return 8
+        return 10000
 
     def random_freebies(self):
         frequencies = {
@@ -928,7 +930,7 @@ class Cabal(models.Model):
     def random(self, num_chars, new_characters=False):
         if not new_characters and Mage.objects.count() < num_chars:
             raise ValueError("Not enough Mages!")
-        elif not new_characters:
+        if not new_characters:
             self.members.set(Mage.objects.order_by("?")[:num_chars])
         else:
             if WoDProfile.objects.filter(storyteller=True).count() > 0:

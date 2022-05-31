@@ -555,6 +555,7 @@ class Human(Character):
             return 1
         if trait == "meritflaw":
             return 1
+        return 10000
 
     def spend_freebies(self, trait):
         if trait in self.get_attributes():
@@ -565,7 +566,7 @@ class Human(Character):
                     return True
                 return False
             return False
-        elif trait in self.get_abilities():
+        if trait in self.get_abilities():
             cost = self.freebie_cost("ability")
             if cost <= self.freebies:
                 if self.add_ability(trait):
@@ -573,7 +574,7 @@ class Human(Character):
                     return True
                 return False
             return False
-        elif trait in self.get_backgrounds():
+        if trait in self.get_backgrounds():
             cost = self.freebie_cost("background")
             if trait in ["enhancement", "sanctum", "totem"]:
                 cost *= 2
@@ -583,7 +584,7 @@ class Human(Character):
                     return True
                 return False
             return False
-        elif trait == "willpower":
+        if trait == "willpower":
             cost = self.freebie_cost("willpower")
             if cost <= self.freebies:
                 if self.add_willpower():
@@ -591,7 +592,7 @@ class Human(Character):
                     return True
                 return False
             return False
-        elif trait in [x.name for x in MeritFlaw.objects.all()]:
+        if trait in [x.name for x in MeritFlaw.objects.all()]:
             if not self.has_max_flaws():
                 cost = self.freebie_cost("meritflaw")  # rating?
                 mf = MeritFlaw.objects.get(name=trait)
@@ -609,6 +610,7 @@ class Human(Character):
                     return False
                 return False
             return False
+        return trait
 
     def xp_cost(self, trait):
         if trait == "attribute":
@@ -623,6 +625,7 @@ class Human(Character):
             return 5
         if trait == "willpower":
             return 1
+        return 10000
 
     def add_to_spend(self, trait, value, cost):
         trait = trait.replace("_", " ").title()
@@ -642,7 +645,7 @@ class Human(Character):
                     return True
                 return False
             return False
-        elif trait in self.get_abilities():
+        if trait in self.get_abilities():
             cost = self.xp_cost("ability") * getattr(self, trait)
             if cost == 0:
                 cost = 3
@@ -653,7 +656,7 @@ class Human(Character):
                     return True
                 return False
             return False
-        elif trait in self.get_backgrounds():
+        if trait in self.get_backgrounds():
             cost = self.xp_cost("background") * getattr(self, trait)
             if cost == 0:
                 cost = 5
@@ -666,7 +669,7 @@ class Human(Character):
                     return True
                 return False
             return False
-        elif trait == "willpower":
+        if trait == "willpower":
             cost = self.xp_cost("willpower") * getattr(self, trait)
             if cost <= self.xp:
                 if self.add_willpower():
@@ -675,6 +678,7 @@ class Human(Character):
                     return True
                 return False
             return False
+        return trait
 
     def random_freebies(self):
         frequencies = {

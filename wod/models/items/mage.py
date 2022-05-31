@@ -354,10 +354,7 @@ class Grimoire(Wonder):
 
     def random_is_primer(self, is_primer=None):
         if is_primer is None:
-            if random.random() < 0.1:
-                is_primer = True
-            else:
-                is_primer = False
+            is_primer = random.random() < 0.1
         self.set_is_primer(is_primer)
 
     def random(

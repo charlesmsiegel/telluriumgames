@@ -61,12 +61,12 @@ class Node(Location):
             return False
         if mf in self.merits_and_flaws.all():
             current_rating = NodeMeritFlawRating.objects.get(node=self, mf=mf).rating
-            if current_rating > 0 and current_rating < rating:
+            if 0 < current_rating < rating:
                 x = NodeMeritFlawRating.objects.get(node=self, mf=mf)
                 x.rating = rating
                 x.save()
                 return True
-            if current_rating < 0 and current_rating > rating:
+            if 0 > current_rating > rating:
                 x = NodeMeritFlawRating.objects.get(node=self, mf=mf)
                 x.rating = rating
                 x.save()

@@ -110,7 +110,7 @@ class RandomLocationView(View):
         location = self.locs[request.POST["location_type"]].objects.create(
             name=request.POST["node_name"]
         )
-        if request.POST["node_rank"] == None:
+        if request.POST["node_rank"] is None:
             rank = None
         else:
             rank = int(request.POST["node_rank"])
@@ -132,34 +132,34 @@ class WonderDetailView(DetailView):
     template_name = "wod/items/wonder/detail.html"
 
 
-class GrimoireDetailView(DetailView):
-    model = Grimoire
-    template_name = "wod/items/grimoire/detail.html"
-
-
 class GrimoireDetailView(View):
     def get(self, request, *args, **kwargs):
         grimoire = Grimoire.objects.get(pk=kwargs["pk"])
         context = self.get_context(grimoire)
         return render(request, "wod/items/grimoire/detail.html", context)
 
-    def get_context(self, node):
-        if node.faction.parent is not None:
-            if node.faction.parent.parent is not None:
-                s = f"{node.faction.parent} ({node.faction})"
+    def get_context(self, grimoire):
+        if grimoire.faction is not None:
+            if grimoire.faction.parent is not None:
+                if grimoire.faction.parent.parent is not None:
+                    s = f"{grimoire.faction.parent} ({grimoire.faction})"
+                else:
+                    s = f"{grimoire.faction}"
             else:
-                s = f"{node.faction}"
+                s = ""
+        else:
+            s = ""
         return {
-            "object": node,
-            "paradigms": "<br>".join([str(x) for x in node.paradigms.all()]),
-            "practices": "<br>".join([str(x) for x in node.practices.all()]),
-            "instruments": "<br>".join([str(x) for x in node.instruments.all()]),
+            "object": grimoire,
+            "paradigms": "<br>".join([str(x) for x in grimoire.paradigms.all()]),
+            "practices": "<br>".join([str(x) for x in grimoire.practices.all()]),
+            "instruments": "<br>".join([str(x) for x in grimoire.instruments.all()]),
             "abilities": "<br>".join(
-                [x.replace("_", " ").title() for x in node.abilities]
+                [x.replace("_", " ").title() for x in grimoire.abilities]
             ),
-            "spheres": "<br>".join([x.replace("_", " ").title() for x in node.spheres]),
-            "rotes": "<br>".join([str(x) for x in node.rotes.all()]),
-            "date_written": node.date_written,
+            "spheres": "<br>".join([x.replace("_", " ").title() for x in grimoire.spheres]),
+            "rotes": "<br>".join([str(x) for x in grimoire.rotes.all()]),
+            "date_written": grimoire.date_written,
             "faction": s,
         }
 
@@ -193,7 +193,7 @@ class RandomItemView(View):
         item = self.items[request.POST["item_type"]].objects.create(
             name=request.POST["item_name"]
         )
-        if request.POST["item_rank"] == None:
+        if request.POST["item_rank"] is None:
             rank = None
         else:
             rank = int(request.POST["item_rank"])
@@ -245,8 +245,6 @@ class MageDetailView(View):
         context["merits_and_flaws"] = MeritFlawRating.objects.order_by(
             "mf__name"
         ).filter(character=mage)
-        print(len(mage.merits_and_flaws.all()))
-        print(context["merits_and_flaws"])
         return context
 
 

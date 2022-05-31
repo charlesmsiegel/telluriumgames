@@ -1,4 +1,3 @@
-import fractions
 from unittest import mock
 from unittest.mock import Mock
 
@@ -805,12 +804,13 @@ class TestMage(TestCase):
         self.assertEqual(len(self.character.filter_resonance(maximum=0)), 7)
 
     def test_total_resonance(self):
-        for res in Resonance.objects.order_by("?")[:2]:
+        resonance = Resonance.objects.order_by("?")[:2]
+        for res in resonance:
             self.character.add_resonance(res)
             self.character.add_resonance(res)
         self.assertEqual(self.character.total_resonance(), 4)
         self.assertNotEqual(self.character.total_resonance(), 5)
-        self.character.add_resonance(res)
+        self.character.add_resonance(resonance[0])
         self.assertEqual(self.character.total_resonance(), 5)
 
     def test_add_rote(self):
