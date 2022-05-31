@@ -178,7 +178,7 @@ class Grimoire(Wonder):
                 and num_instruments < instruments.distinct().count()
             ):
                 num_instruments += 1
-            instruments.order_by("?").distinct()[:num_instruments]
+            instruments = instruments.order_by("?").distinct()[:num_instruments]
         return instruments
 
     def random_focus(self, paradigms=None, practices=None, instruments=None):
