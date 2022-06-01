@@ -273,7 +273,15 @@ class RandomCharacterView(View):
         char = self.chars[request.POST["char_type"]].objects.create(
             name=request.POST["char_name"], player=request.user.wod_profile
         )
-        char.random(freebies=int(request.POST["freebies"]), xp=int(request.POST["xp"]))
+        try:
+            freebies = int(request.POST['freebies'])
+        except:
+            freebies = 15
+        try:
+            xp = int(request.POST['xp'])
+        except:
+            xp = 0
+        char.random(freebies=freebies, xp=xp)
         char.save()
         return redirect(char.get_absolute_url())
 
