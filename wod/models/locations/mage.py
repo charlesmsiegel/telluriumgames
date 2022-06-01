@@ -149,17 +149,26 @@ class Node(Location):
 
     def total_resonance(self):
         return sum([x.rating for x in NodeResonanceRating.objects.filter(node=self)])
-
+    
     def random_resonance(self, sphere=None):
         if random.random() < 0.7:
             possible = self.filter_resonance(minimum=1, maximum=4, sphere=sphere)
-            if len(possible) == 0:
-                possible = self.filter_resonance(minimum=0, maximum=4, sphere=sphere)
-        else:
-            possible = self.filter_resonance(minimum=0, maximum=4, sphere=sphere)
-        if len(possible) == 0:
-            return False
-        return self.add_resonance(random.choice(possible))
+            if len(possible) > 0:
+                choice = random.choice(possible)
+                if self.add_resonance(choice):
+                    return True
+        while True:
+            index = random.randint(1, Resonance.objects.last().id + 1)
+            if Resonance.objects.filter(pk=index).exists():
+                choice = Resonance.objects.get(pk=index)
+                if self.resonance_rating(choice) < 5:
+                    if sphere is None:
+                        if self.add_resonance(choice):
+                            return True
+                    else:
+                        if getattr(choice, sphere):
+                            if self.add_resonance(choice):
+                                return True
 
     def resonance_postprocessing(self):
         if "Corrupted" in [x.name for x in self.merits_and_flaws.all()]:
