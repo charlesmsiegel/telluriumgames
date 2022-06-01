@@ -1,6 +1,7 @@
 import random
 
 from django.db import models
+from django.db.models import Q
 
 from wod.models.characters.mage import Mage, Resonance
 from wod.models.locations.human import Location
@@ -133,10 +134,17 @@ class Node(Location):
         return 0
 
     def filter_resonance(self, minimum=0, maximum=5, sphere=None):
-        all_res = Resonance.objects.all()
+        if minimum > 0:
+            all_res = Resonance.objects.filter(node__name__contains=self.name)
+        else:
+            all_res = Resonance.objects.all()
+        if sphere is None:
+            q = Q()
+        else:
+            q = Q(**{sphere: True})    
+        all_res = all_res.filter(q)
+        
         all_res = [x for x in all_res if minimum <= self.resonance_rating(x) <= maximum]
-        if sphere is not None:
-            all_res = [x for x in all_res if getattr(x, sphere)]
         return all_res
 
     def total_resonance(self):

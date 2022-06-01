@@ -647,11 +647,19 @@ class Mage(Human):
         return ResRating.objects.get(mage=self, resonance=resonance).rating
 
     def filter_resonance(self, minimum=0, maximum=5):
-        return [
-            x
-            for x in Resonance.objects.all()
-            if minimum <= self.resonance_rating(x) <= maximum
-        ]
+        if minimum > 0:
+            all_res = Resonance.objects.filter(mage__name__contains=self.name)
+        else:
+            all_res = Resonance.objects.all()
+        
+        all_res = [x for x in all_res if minimum <= self.resonance_rating(x) <= maximum]
+        return all_res
+        
+        # return [
+        #     x
+        #     for x in Resonance.objects.all()
+        #     if minimum <= self.resonance_rating(x) <= maximum
+        # ]
 
     def random_resonance(self):
         if random.random() < 0.7:
