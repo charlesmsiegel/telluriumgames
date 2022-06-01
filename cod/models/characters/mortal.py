@@ -579,26 +579,34 @@ class Mortal(PolymorphicModel):
                     else:
                         self.add_merit(trait, detail=detail)
                         self.xp -= self.xp_cost(choice)
-                        self.add_to_spend(trait.name, MeritRating.objects.get(merit=trait, character=self).rating, self.xp_cost(choice))
+                        self.add_to_spend(
+                            trait.name,
+                            MeritRating.objects.get(merit=trait, character=self).rating,
+                            self.xp_cost(choice),
+                        )
                         counter -= 1
             elif choice == "specialty":
                 if self.xp_cost(choice) <= self.xp:
                     if self.random_specialty():
                         self.xp -= self.xp_cost(choice)
-                        self.add_to_spend(self.specialties.last(), 1, self.xp_cost(choice))
+                        self.add_to_spend(
+                            self.specialties.last(), 1, self.xp_cost(choice)
+                        )
                         counter -= 1
             elif choice == "skill":
                 if self.xp_cost(choice) <= self.xp:
                     trait = weighted_choice(self.filter_skills(maximum=4))
                     value = getattr(self, trait) + 1
                     self.xp -= self.xp_cost(choice)
-                    self.add_to_spend(trait, value, self.xp_cost(choice))        
+                    self.add_to_spend(trait, value, self.xp_cost(choice))
                     counter -= 1
             elif choice == "integrity":
                 if self.xp_cost(choice) <= self.xp:
                     if add_dot(self, "integrity", 10):
                         self.xp -= self.xp_cost(choice)
-                        self.add_to_spend("integrity", self.integrity, self.xp_cost(choice))                    
+                        self.add_to_spend(
+                            "integrity", self.integrity, self.xp_cost(choice)
+                        )
                         counter -= 1
 
     def add_to_spend(self, trait, value, cost):

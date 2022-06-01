@@ -157,7 +157,9 @@ class GrimoireDetailView(View):
             "abilities": "<br>".join(
                 [x.replace("_", " ").title() for x in grimoire.abilities]
             ),
-            "spheres": "<br>".join([x.replace("_", " ").title() for x in grimoire.spheres]),
+            "spheres": "<br>".join(
+                [x.replace("_", " ").title() for x in grimoire.spheres]
+            ),
             "rotes": "<br>".join([str(x) for x in grimoire.rotes.all()]),
             "date_written": grimoire.date_written,
             "faction": s,

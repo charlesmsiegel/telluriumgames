@@ -49,6 +49,7 @@ class CharacterDetailView(View):
             return self.create_views[char.type].as_view()(request, *args, **kwargs)
         return redirect("cod:characters_index")
 
+
 class RandomCharacterView(View):
     chars = {
         "mortal": Mortal,
