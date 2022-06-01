@@ -860,7 +860,7 @@ class Edge(PolymorphicModel):
                 satisfied = satisfied and (getattr(character, prereq[0]) >= prereq[1])
             elif prereq[0] in character.get_skills().keys():
                 satisfied = satisfied and (getattr(character, prereq[0]) >= prereq[1])
-            elif prereq[0] in [x.name for x in Edge.objects.all()]:
+            elif Edge.objects.filter(name=prereq[0]).exists():
                 edge_prereq = Edge.objects.get(name=prereq[0])
                 if edge_prereq in character.edges.all():
                     x = EdgeRating.objects.get(character=character, edge=edge_prereq)
