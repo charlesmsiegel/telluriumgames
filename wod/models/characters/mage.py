@@ -654,12 +654,6 @@ class Mage(Human):
         
         all_res = [x for x in all_res if minimum <= self.resonance_rating(x) <= maximum]
         return all_res
-        
-        # return [
-        #     x
-        #     for x in Resonance.objects.all()
-        #     if minimum <= self.resonance_rating(x) <= maximum
-        # ]
 
     def random_resonance(self):
         if random.random() < 0.7:
