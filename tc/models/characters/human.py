@@ -571,14 +571,30 @@ class Human(PolymorphicModel):
         return output
 
     def random_edge(self, dots=100, sublist=None):
-        if sublist is None:
-            sublist = Edge.objects.all()
-        options = [x for x in sublist if x in self.filter_edges(dots=dots)]
-        if len(options) != 0:
-            choice = random.choice(options)
-            self.add_edge(choice)
-            return True
-        return False
+        if sublist is not None:
+            choice = random.choice(sublist)
+            return self.add_edge(choice)
+        else:
+            index = random.randint(1, Edge.objects.last().id + 1)
+            if Edge.objects.filter(pk=index).exists():
+                choice = Edge.objects.get(pk=index)
+                num_dots = [x for x in choice.ratings if self.edge_rating(choice) < x <= dots]
+                if choice.type == "edge" and len(num_dots) != 0:
+                    return self.add_edge(choice)
+                return False
+            return False
+        # return False
+            
+        
+        
+        # if sublist is None:
+        #     sublist = Edge.objects.all()
+        # options = [x for x in sublist if x in self.filter_edges(dots=dots)]
+        # if len(options) != 0:
+        #     choice = random.choice(options)
+        #     self.add_edge(choice)
+        #     return True
+        # return False
 
     def random_edges(self):
         p1 = self.paths.filter(type="origin").first()
