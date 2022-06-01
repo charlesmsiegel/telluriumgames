@@ -354,7 +354,8 @@
                         Tricks
                     </h3>
                     {% for trick in character.tricks.all %}
-                        <br />{{ trick.name }}
+                        <br />
+                        {{ trick.name }}
                     {% endfor %}
                 </div>
                 <div class="col-sm">
@@ -363,49 +364,94 @@
                     </h3>
                     {% for edge in edges %}
                         <div class="row">
-                        <div class="col-sm">{{ edge.edge }}</div>
-                        <div class="col-sm dots">{{ edge.rating| dots:edge.edge.get_max_rating }}</div>
+                            <div class="col-sm">
+                                {{ edge.edge }}
+                            </div>
+                            <div class="col-sm dots">
+                                {{ edge.rating| dots:edge.edge.get_max_rating }}
+                            </div>
                         </div>
                     {% endfor %}
                     {% for edge in self.enhanced_edges.all %}
                         <div class="row">
-                        <div class="col-sm">{{ edge }}</div>
-                        <div class="col-sm"></div>
+                            <div class="col-sm">
+                                {{ edge }}
+                            </div>
+                            <div class="col-sm">
+                            </div>
                         </div>
-                        
                     {% endfor %}
                 </div>
             </div>
+            <div class="row">
+                <h3 class="col-sm">
+                    Facets
+                </h3>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Destructive
+                </div>
+                <div class="col-sm dots">
+                    {{ character.destructive|dots }}
+                </div>
+                <div class="col-sm">
+                    Intuitive
+                </div>
+                <div class="col-sm dots">
+                    {{ character.intuitive|dots }}
+                </div>
+                <div class="col-sm">
+                    Reflective
+                </div>
+                <div class="col-sm dots">
+                    {{ character.reflective|dots }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Inspiration</div>
+                <div class="col-sm dots">{{character.inspiration|dots:10}}</div>
+            </div>
+            <div class="row">
+                <h3 class="col-sm">
+                    Gifts
+                </h3>
+            </div>
+            {% for gift in character.gifts.all %}
+                        <div class="row">
+                            <div class="col-sm">
+                                {{ gift.name }}
+                            </div>
+                        </div>
+                    {% endfor %}
             <div class="row">
                 <div class="col-sm">
                     <h3>
                         Injury Conditions
                     </h3>
-                    <br />
-                    {% for mod in health_levels %}{{ mod }}{% endfor %}
-                    <br />
                     {% for mod in health_levels %}&nbsp;☐{% endfor %}
-                    Bruised {{ character.bruised_levels }}, Injured {{ character.injured_levels }}, Maimed {{ character.maimed_levels }}</div>
+                    Bruised {{ character.bruised_levels }}, Injured {{ character.injured_levels }}, Maimed {{ character.maimed_levels }}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm">
-                    Defense
-                </div>
-                <div class="col-sm">
-                    {{ character.defense }}
-                </div>
-                <div class="col-sm">
-                    XP
-                </div>
-                <div class="col-sm">
-                    {{ character.xp }}
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                Defense
             </div>
-            <div class="row">
-                <div class="col-sm">
-                    {{ character.spent_xp }}
-                </div>
+            <div class="col-sm">
+                {{ character.defense }}
             </div>
+            <div class="col-sm">
+                XP
+            </div>
+            <div class="col-sm">
+                {{ character.xp }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                {{ character.spent_xp }}
+            </div>
+        </div>
     {% endblock content %}
 </body>
