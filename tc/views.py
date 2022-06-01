@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic import View
 
-from tc.models.characters.aberrant import Aberrant
+from tc.models.characters.aberrant import Aberrant, MegaEdgeRating, PowerRating
 from tc.models.characters.human import EdgeRating, Human, PathRating
 from tc.models.characters.talent import Talent
 
@@ -72,6 +72,8 @@ class AberrantDetailView(View):
         for skill in char.get_skills():
             context[skill + "_spec"] = ", ".join([x.name for x in char.specialties.filter(skill=skill)])
         context['edges'] = EdgeRating.objects.filter(character=char)
+        context['mega_edges'] = MegaEdgeRating.objects.filter(character=char)
+        context['powers'] = PowerRating.objects.filter(character=char)
         return context
 
 

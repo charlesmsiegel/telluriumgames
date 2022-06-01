@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-sm"></div>
                 <div class="col-sm">Player</div>
-                <div class="col-sm">{{ character.player.username }}</div>
+                <div class="col-sm">{{ character.player.user.username }}</div>
                 <div class="col-sm"></div>
             </div>
             <div class="row">
@@ -27,45 +27,33 @@
             <div class="row">
                 <div class="col-sm">Origin Path</div>
                 <div class="col-sm">{{ origin_path.path.name| safe }}</div>
-                <div class="col-sm">{{ origin_path.path_connection.name }}</div>
-                <div class="col-sm">{{ origin_path.rating }}</div>
+                <div class="col-sm">{{ origin_path.connection.name }}</div>
+                <div class="col-sm dots">{{ origin_path.rating|dots }}</div>
             </div>
             <div class="row">
                 <div class="col-sm">Role Path</div>
                 <div class="col-sm">{{ role_path.path.name| safe }}</div>
-                <div class="col-sm">{{ role_path.path_connection.name }}</div>
-                <div class="col-sm">{{ role_path.rating }}</div>
+                <div class="col-sm">{{ role_path.connection.name }}</div>
+                <div class="col-sm dots">{{ role_path.rating|dots }}</div>
             </div>
             <div class="row">
                 <div class="col-sm">Society Path</div>
                 <div class="col-sm">{{ society_path.path.name| safe }}</div>
-                <div class="col-sm">{{ society_path.path_connection.name }}</div>
-                <div class="col-sm">{{ society_path.rating }}</div>
+                <div class="col-sm">{{ society_path.connection.name }}</div>
+                <div class="col-sm dots">{{ society_path.rating|dots }}</div>
             </div>
             {% for path in additional_paths %}
                 <div class="row">
                     <div class="col-sm"></div>
                     <div class="col-sm">{{ path.path.name }}</div>
                     <div class="col-sm">
-                        {{ path.path_connection.name }}
+                        {{ path.connection.name }}
                     </div>
-                    <div class="col-sm">
-                        {{ path.rating }}
+                    <div class="col-sm dots">
+                        {{ path.rating|dots }}
                     </div>
                 </div>
             {% endfor %}
-            <div class="row">
-                <div class="col-sm">
-                </div>
-                <div class="col-sm">
-                    Moment of Inspiration
-                </div>
-                <div class="col-sm">
-                    {{ character.moment_of_inspiration }}
-                </div>
-                <div class="col-sm">
-                </div>
-            </div>
             <div class="row">
                 <h3 class="col-sm">
                     Aspirations
@@ -92,19 +80,19 @@
                     Aim
                 </div>
                 <div class="col-sm">
-                    {{ aim.specialty }}
+                    {{ aim_spec }}
                 </div>
                 <div class="col-sm dots">
-                    {{ aim.rating| dots }}
+                    {{ character.aim|dots }}
                 </div>
                 <div class="col-sm">
                     Integrity
                 </div>
                 <div class="col-sm">
-                    {{ integrity.specialty }}
+                    {{ integrity_spec }}
                 </div>
                 <div class="col-sm dots">
-                    {{ integrity.rating| dots }}
+                    {{ character.integrity|dots }}
                 </div>
             </div>
             <div class="row">
@@ -112,19 +100,19 @@
                     Athletics
                 </div>
                 <div class="col-sm">
-                    {{ athletics.specialty }}
+                    {{ athletics_spec }}
                 </div>
                 <div class="col-sm dots">
-                    {{ athletics.rating| dots }}
+                    {{ character.athletics| dots }}
                 </div>
                 <div class="col-sm">
                     Larceny
                 </div>
                 <div class="col-sm">
-                    {{ larceny.specialty }}
+                    {{ larceny_spec }}
                 </div>
                 <div class="col-sm dots">
-                    {{ larceny.rating| dots }}
+                    {{ character.larceny| dots }}
                 </div>
             </div>
             <div class="row">
@@ -132,19 +120,19 @@
                     Close Combat
                 </div>
                 <div class="col-sm">
-                    {{ close_combat.specialty }}
+                    {{ close_combat_spec }}
                 </div>
                 <div class="col-sm dots">
-                    {{ close_combat.rating| dots }}
+                    {{ character.close_combat| dots }}
                 </div>
                 <div class="col-sm">
                     Medicine
                 </div>
                 <div class="col-sm">
-                    {{ medicine.specialty }}
+                    {{ medicine_spec }}
                 </div>
                 <div class="col-sm dots">
-                    {{ medicine.rating| dots }}
+                    {{ character.medicine| dots }}
                 </div>
             </div>
             <div class="row">
@@ -152,19 +140,19 @@
                     Command
                 </div>
                 <div class="col-sm">
-                    {{ command.specialty }}
+                    {{ command_spec }}
                 </div>
                 <div class="col-sm dots">
-                    {{ command.rating| dots }}
+                    {{ character.command| dots }}
                 </div>
                 <div class="col-sm">
                     Persuasion
                 </div>
                 <div class="col-sm">
-                    {{ persuasion.specialty }}
+                    {{ persuasion_spec }}
                 </div>
                 <div class="col-sm dots">
-                    {{ persuasion.rating| dots }}
+                    {{ character.persuasion| dots }}
                 </div>
             </div>
             <div class="row">
@@ -172,19 +160,19 @@
                     Culture
                 </div>
                 <div class="col-sm">
-                    {{ culture.specialty }}
+                    {{ culture_spec }}
                 </div>
                 <div class="col-sm dots">
-                    {{ culture.rating| dots }}
+                    {{ character.culture| dots }}
                 </div>
                 <div class="col-sm">
                     Pilot
                 </div>
                 <div class="col-sm">
-                    {{ pilot.specialty }}
+                    {{ pilot_spec }}
                 </div>
                 <div class="col-sm dots">
-                    {{ pilot.rating| dots }}
+                    {{ character.pilot| dots }}
                 </div>
             </div>
             <div class="row">
@@ -192,19 +180,19 @@
                     Empathy
                 </div>
                 <div class="col-sm">
-                    {{ empathy.specialty }}
+                    {{ empathy_spec }}
                 </div>
                 <div class="col-sm dots">
-                    {{ empathy.rating| dots }}
+                    {{ character.empathy| dots }}
                 </div>
                 <div class="col-sm">
                     Science
                 </div>
                 <div class="col-sm">
-                    {{ science.specialty }}
+                    {{ science_spec }}
                 </div>
                 <div class="col-sm dots">
-                    {{ science.rating| dots }}
+                    {{ character.science| dots }}
                 </div>
             </div>
             <div class="row">
@@ -212,19 +200,19 @@
                     Enigmas
                 </div>
                 <div class="col-sm">
-                    {{ enigmas.specialty }}
+                    {{ enigmas_spec }}
                 </div>
                 <div class="col-sm dots">
-                    {{ enigmas.rating| dots }}
+                    {{ character.enigmas| dots }}
                 </div>
                 <div class="col-sm">
                     Survival
                 </div>
                 <div class="col-sm">
-                    {{ survival.specialty }}
+                    {{ survival_spec }}
                 </div>
                 <div class="col-sm dots">
-                    {{ survival.rating| dots }}
+                    {{ character.survival| dots }}
                 </div>
             </div>
             <div class="row">
@@ -232,19 +220,19 @@
                     Humanities
                 </div>
                 <div class="col-sm">
-                    {{ humanities.specialty }}
+                    {{ humanities_spec }}
                 </div>
                 <div class="col-sm dots">
-                    {{ humanities.rating| dots }}
+                    {{ character.humanities| dots }}
                 </div>
                 <div class="col-sm">
                     Technology
                 </div>
                 <div class="col-sm">
-                    {{ technology.specialty }}
+                    {{ technology_spec }}
                 </div>
                 <div class="col-sm dots">
-                    {{ technology.rating| dots }}
+                    {{ character.technology| dots }}
                 </div>
             </div>
             <div class="row">
@@ -253,7 +241,7 @@
                 </h3>
             </div>
             <div class="row">
-                {% if character.favored_approach == "FOR" %}
+                {% if character.approach == "FOR" %}
                     <div class="col-sm">
                         ☑
                     </div>
@@ -293,23 +281,23 @@
                     Mega Intellect
                 </div>
                 <div class="col-sm dots">
-                    {{ mega_intellect.rating| dots }}
+                    {{ character.mega_intellect| dots }}
                 </div>
                 <div class="col-sm">
                     Mega Might
                 </div>
                 <div class="col-sm dots">
-                    {{ mega_might.rating| dots }}
+                    {{ character.mega_might| dots }}
                 </div>
                 <div class="col-sm">
                     Mega Presence
                 </div>
                 <div class="col-sm dots">
-                    {{ mega_presence.rating| dots }}
+                    {{ character.mega_presence| dots }}
                 </div>
             </div>
             <div class="row">
-                {% if character.favored_approach == "FIN" %}
+                {% if character.approach == "FIN" %}
                     <div class="col-sm">
                         ☑
                     </div>
@@ -349,23 +337,23 @@
                     Mega Cunning
                 </div>
                 <div class="col-sm dots">
-                    {{ mega_cunning.rating| dots }}
+                    {{ character.mega_cunning| dots }}
                 </div>
                 <div class="col-sm">
                     Mega Dexterity
                 </div>
                 <div class="col-sm dots">
-                    {{ mega_dexterity.rating| dots }}
+                    {{ character.mega_dexterity| dots }}
                 </div>
                 <div class="col-sm">
                     Mega Manipulation
                 </div>
                 <div class="col-sm dots">
-                    {{ mega_manipulation.rating| dots }}
+                    {{ character.mega_manipulation| dots }}
                 </div>
             </div>
             <div class="row">
-                {% if character.favored_approach == "RES" %}
+                {% if character.approach == "RES" %}
                     <div class="col-sm">
                         ☑
                     </div>
@@ -405,19 +393,19 @@
                     Mega Resolve
                 </div>
                 <div class="col-sm dots">
-                    {{ mega_resolve.rating| dots }}
+                    {{ character.mega_resolve| dots }}
                 </div>
                 <div class="col-sm">
                     Mega Stamina
                 </div>
                 <div class="col-sm dots">
-                    {{ mega_stamina.rating| dots }}
+                    {{ character.mega_stamina| dots }}
                 </div>
                 <div class="col-sm">
                     Mega Composure
                 </div>
                 <div class="col-sm dots">
-                    {{ mega_composure.rating| dots }}
+                    {{ character.mega_composure| dots }}
                 </div>
             </div>
             <div class="row">
@@ -445,7 +433,7 @@
                     Flux:
                 </div>
                 <div class="col-sm dots">
-                    {{ character.flux| dots }}
+                    {{ character.flux| dots:10 }}
                 </div>
             </div>
             <div class="row">
@@ -453,7 +441,7 @@
                     <h3>
                         Tricks
                     </h3>
-                    {% for trick in tricks %}
+                    {% for trick in character.tricks.all %}
                         <br />{{ trick.name }}
                     {% endfor %}
                 </div>
@@ -462,21 +450,28 @@
                         Edges
                     </h3>
                     {% for edge in edges %}
-                        <br />
-                        {{ edge }}
+                        <div class="row">
+                        <div class="col-sm">{{ edge.edge }}</div>
+                        <div class="col-sm dots">{{ edge.rating| dots:edge.edge.get_max_rating }}</div>
+                        </div>
                     {% endfor %}
-                    {% for edge in enhancededges %}
-                        <br />
-                        {{ edge }}
+                    {% for edge in self.enhanced_edges.all %}
+                    <div class="row">
+                        <div class="col-sm">{{ edge }}</div>
+                        <div class="col-sm"></div>
+                    </div>
                     {% endfor %}
                 </div>
+            </div>
                 <div class="col-sm">
                     <h3>
                         Mega Edges
                     </h3>
-                    {% for edge in megaedges %}
-                        <br />
-                        {{ edge }}
+                    {% for edge in mega_edges %}
+                        <div class="row">
+                        <div class="col-sm">{{ edge.mega_edge }}</div>
+                        <div class="col-sm dots">{{ edge.rating| dots:edge.mega_edge.get_max_rating }}</div>
+                        </div>
                     {% endfor %}
                 </div>
             </div>
@@ -485,7 +480,7 @@
                     <h3>
                         Transformations
                     </h3>
-                    {% for transformation in transformations %}
+                    {% for transformation in self.transformations.all %}
                         <br />
                         {{ transformation }}
                     {% endfor %}
@@ -494,11 +489,11 @@
                     <h3>
                         Injury Conditions
                     </h3>
-                    <br />
+                    {% comment %} <br />
                     {% for mod in health_levels %}{{ mod }}{% endfor %}
                     <br />
-                    {% for mod in health_levels %}&nbsp;☐{% endfor %}
-                    <!-- Bruised {{ character.bruised_levels }}, Injured {{ character.injured_levels }}, Maimed {{ character.maimed_levels }}</div> -->
+                    {% for mod in health_levels %}&nbsp;☐{% endfor %} {% endcomment %}
+                    Bruised {{ character.bruised_levels }}, Injured {{ character.injured_levels }}, Maimed {{ character.maimed_levels }}</div>
                 </div>
             </div>
             <div class="row">
@@ -547,7 +542,7 @@
             </div>
             <div class="row">
                 <div class="col-sm">
-                    {{ character.xp_spending }}
+                    {{ character.spent_xp }}
                 </div>
             </div>
     {% endblock content %}
