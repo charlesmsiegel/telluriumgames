@@ -460,9 +460,7 @@ class MegaEdge(Edge):
     def check_prereqs(self, character):
         satisfied = super().check_prereqs(character)
         for prereq in self.prereqs:
-            if prereq[0] in [
-                x.name for x in MegaEdge.objects.all() if x.type == "mega_edge"
-            ]:
+            if MegaEdge.objects.filter(name=prereq[0]).exists():
                 mega_edge_prereq = MegaEdge.objects.get(name=prereq[0])
                 if mega_edge_prereq in character.mega_edges.all():
                     x = MegaEdgeRating.objects.get(

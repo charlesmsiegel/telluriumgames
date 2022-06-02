@@ -92,10 +92,11 @@ class TestAberrant(TestCase):
         )
 
     def test_add_mega_edge(self):
+        megaedge_5 = MegaEdge.objects.get(name="MegaEdge 5")
         self.assertEqual(self.character.total_mega_edges(), 0)
         self.assertEqual(self.character.mega_edges.count(), 0)
         self.assertTrue(
-            self.character.add_mega_edge(MegaEdge.objects.get(name="MegaEdge 5"))
+            self.character.add_mega_edge(megaedge_5)
         )
         self.assertEqual(self.character.total_mega_edges(), 1)
         self.assertEqual(self.character.mega_edges.count(), 1)
@@ -105,10 +106,12 @@ class TestAberrant(TestCase):
             )
         )
         self.assertTrue(
-            self.character.add_mega_edge(MegaEdge.objects.get(name="MegaEdge 5"))
+            self.character.add_mega_edge(megaedge_5)
         )
         self.assertEqual(self.character.total_mega_edges(), 2)
         self.assertEqual(self.character.mega_edges.count(), 1)
+        self.assertIn(megaedge_5, self.character.mega_edges.all())
+        self.assertEqual(2, self.character.mega_edge_rating(megaedge_5))
         self.assertTrue(
             MegaEdge.objects.get(name="MegaEdge with Prereq").check_prereqs(
                 self.character

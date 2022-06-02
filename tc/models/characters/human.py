@@ -866,11 +866,12 @@ class Edge(PolymorphicModel):
                 satisfied = satisfied and (getattr(character, prereq[0]) >= prereq[1])
             elif Edge.objects.filter(name=prereq[0]).exists():
                 edge_prereq = Edge.objects.get(name=prereq[0])
-                if edge_prereq in character.edges.all():
-                    x = EdgeRating.objects.get(character=character, edge=edge_prereq)
-                    satisfied = satisfied and (x.rating >= prereq[1])
-                else:
-                    satisfied = False
+                if edge_prereq.type == "edge":
+                    if edge_prereq in character.edges.all():
+                        x = EdgeRating.objects.get(character=character, edge=edge_prereq)
+                        satisfied = satisfied and (x.rating >= prereq[1])
+                    else:
+                        satisfied = False
             elif prereq[0] == "path":
                 satisfied = satisfied and any(
                     x.rating > prereq[1]
