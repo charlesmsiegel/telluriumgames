@@ -572,7 +572,9 @@ class Human(PolymorphicModel):
 
     def random_edge(self, dots=100, sublist=None):
         if sublist is not None:
+            sublist = [x for x in sublist if len([y for y in x.ratings if self.edge_rating(x) < y <= dots]) != 0]
             choice = random.choice(sublist)
+            num_dots = [x for x in choice.ratings if self.edge_rating(choice) < x <= dots]
             return self.add_edge(choice)
         else:
             index = random.randint(1, Edge.objects.last().id + 1)
@@ -604,7 +606,6 @@ class Human(PolymorphicModel):
                 dots=6 - self.total_edges(), sublist=list(p3.edges.all())
             ):
                 failures += 1
-        print(failures)
 
     def has_template(self):
         attribute_flag = self.total_attributes() == 25
