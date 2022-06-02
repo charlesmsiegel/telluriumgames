@@ -32,3 +32,13 @@ class TestItemDetailView(TestCase):
     def test_object_detail_view_templates(self):
         response = self.client.get(f"/wod/items/{self.item.id}/")
         self.assertTemplateUsed(response, "wod/items/item/detail.html")
+
+class TestItemView(TestCase):
+    def test_random_status_code(self):
+        self.fail()
+        
+    def test_random_template(self):
+        self.fail()
+        
+    def test_input_sanitization(self):
+        self.fail()

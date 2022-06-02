@@ -459,6 +459,7 @@ class TestAberrant(TestCase):
         )
         self.assertEqual(self.character.xp_cost("mega edge", transcendence=True), 6)
         self.assertEqual(self.character.xp_cost("quantum power", transcendence=True), 6)
+        self.fail("Transformations can decrease costs as well, but only 2*quantum times")
 
     def test_spend_xp(self):
         MegaEdge.objects.create(name="MegaEdge 1", ratings=[1, 2, 3])
@@ -500,6 +501,39 @@ class TestAberrant(TestCase):
         self.assertTrue(self.character.spend_xp("Power 1", transcendence=True))
         self.assertEqual(self.character.xp, 886)
         self.assertEqual(self.character.total_powers(), 2)
+        
+    def test_mega_intellect_add(self):
+        self.fail("When adding mega-intellect, got a dot of Iron Will, Lightning Calculator, Photographic Memory, or Speed Reading")
+    
+    def test_mega_cunning_add(self):
+        self.fail("When adding mega-cunning 1, gets Keen Sense for all senses")
+    
+    def test_mega_manipulation_add(self):
+        self.fail("When adding mega-manipulation, gets dot of Animal Ken, Skilled Liar, Striking, or Wealth")
+        
+    def test_mega_composure_add(self):
+        self.fail("When adding mega-composure dot, gets dot in Always Prepared, Covert, Danger Sense, Iron Will, or for 2 points can get Indomitable Enhanced Edge")
+        
+    def test_power_suites(self):
+        self.fail("Implement Power Suits")
+
+    def test_variable_tag(self):
+        self.fail("Implement Variable Tag")
+
+    def test_technique_tag(self):
+        self.fail("Implement Technique Tag")
+        
+    def test_quantum_construct(self):
+        self.fail("Implement Quantum Construct: Each dot of Quantum Construct beyond the first gives the power one of the following tags, which can also be applied separately as regular power tags")
+        
+    def test_tag_rating_limited_by_power_rating(self):
+        self.fail("Set up Multiple tag so that it cannot exceed the power's rating")
+        
+    def test_variable_quantum_minimum(self):
+        self.fail("Implement so that powers can have quantum_minimum be dots-3 or dots+1, etc. so that a character iwth Quantum 4 could have 1 or 5 dots, respectively")
+
+    def test_cloak_power(self):
+        self.fail("Cloak gets (dots-1) 1-point tags on it for free")
 
 
 class TestRandomAberrant(TestCase):

@@ -68,3 +68,13 @@ class TestCityDetailView(TestCase):
     def test_location_detail_view_templates(self):
         response = self.client.get(f"/wod/locations/{self.location.id}/")
         self.assertTemplateUsed(response, "wod/locations/city/detail.html")
+
+class TestRandomLocationView(TestCase):
+    def test_random_status_code(self):
+        self.fail()
+        
+    def test_random_template(self):
+        self.fail()
+        
+    def test_input_sanitization(self):
+        self.fail()
