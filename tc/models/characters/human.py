@@ -151,7 +151,7 @@ class Human(PolymorphicModel):
 
     def get_skills(self):
         return {
-            "aim": 0,
+            "aim": self.aim,
             "athletics": self.athletics,
             "close_combat": self.close_combat,
             "command": self.command,
@@ -604,6 +604,7 @@ class Human(PolymorphicModel):
                 dots=6 - self.total_edges(), sublist=list(p3.edges.all())
             ):
                 failures += 1
+        print(failures)
 
     def has_template(self):
         attribute_flag = self.total_attributes() == 25
@@ -618,13 +619,8 @@ class Human(PolymorphicModel):
         attributes = self.filter_attributes(maximum=4)
         self.add_attribute(weighted_choice(attributes))
         total_edges = self.total_edges()
-        dots_remaining = 4
-        while dots_remaining > 0:
-            self.random_edge(dots=dots_remaining)
-            new_total = self.total_edges()
-            diff = new_total - total_edges
-            dots_remaining -= diff
-            total_edges = new_total
+        while self.total_edges() - total_edges < 4:
+            self.random_edge(dots=4 + total_edges - self.total_edges())
         if self.stamina >= 3:
             self.injured_levels = 2
         if self.stamina == 5:
