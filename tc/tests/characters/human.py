@@ -762,7 +762,8 @@ class TestRandomHuman(TestCase):
 
     def test_random_edge(self):
         num = self.character.total_edges()
-        self.character.random_edge(dots=1)
+        while not self.character.random_edge(dots=1):
+            pass
         self.assertEqual(self.character.total_edges(), num + 1)
 
     def test_random_template_choices(self):
