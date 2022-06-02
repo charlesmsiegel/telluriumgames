@@ -524,16 +524,6 @@ class Human(Character):
             and self.apparent_age is not None
         )
 
-        """
-
-        def random_date(start, end):
-            delta = end - start
-            int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
-            random_second = randrange(int_delta)
-            return start + timedelta(seconds=random_second)
-
-        """
-
     def random_birthdate(self, age):
         earliest_date = date.today() - timedelta(days=(age + 1)*365)
         int_delta = 365*24*60*60
