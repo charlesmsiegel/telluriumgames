@@ -170,7 +170,8 @@ class Mortal(PolymorphicModel):
         return False
 
     def random_basis(self):
-        self.add_name(f"Mortal {Mortal.objects.count() - 1}")
+        if not self.has_name():
+            self.add_name(f"Mortal {Mortal.objects.count() - 1}")
         self.add_concept("Concept")
         self.random_vice()
         self.random_virtue()
