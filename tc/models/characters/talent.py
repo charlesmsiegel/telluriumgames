@@ -197,6 +197,8 @@ class Talent(Human):
             elif trait_type == "gift":
                 if len(self.filter_gifts()) != 0:
                     trait = random.choice(self.filter_gifts()).name
+                else:
+                    trait = None
             elif trait_type == "facet":
                 trait = random.choice(["Intuitive", "Reflective", "Destructive"])
             else:
