@@ -32,7 +32,7 @@ class TestPath(TestCase):
         self.assertFalse(self.h.has_connection(self.p))
         self.assertTrue(self.h.set_connection(self.p, self.c))
         self.assertTrue(self.h.has_connection(self.p))
-        
+
     def test_connection_added_at_first_dot(self):
         self.fail("This may require modifying other tests")
 
@@ -804,13 +804,17 @@ class TestRandomHuman(TestCase):
         self.assertTrue(character.has_basics())
         self.assertTrue(character.has_template())
 
+
 class TestEdge(TestCase):
     def test_prereq_or(self):
-        self.fail("Implemenent prereqs as list of list of tuples which the top level is 'or' and the second level is 'and'")
+        self.fail(
+            "Implemenent prereqs as list of list of tuples which the top level is 'or' and the second level is 'and'"
+        )
 
     def test_prereq_and(self):
-        self.fail("Implemenent prereqs as list of list of tuples which the top level is 'or' and the second level is 'and'")
-
+        self.fail(
+            "Implemenent prereqs as list of list of tuples which the top level is 'or' and the second level is 'and'"
+        )
 
 
 class TestHumanDetailView(TestCase):
@@ -904,12 +908,13 @@ class TestIndexView(TestCase):
         for status in Human.statuses:
             self.assertContains(response, status)
 
+
 class TestRandomView(TestCase):
     def test_random_status_code(self):
         self.fail()
-        
+
     def test_random_template(self):
         self.fail()
-        
+
     def test_input_sanitization(self):
         self.fail()

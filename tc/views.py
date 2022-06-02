@@ -154,7 +154,7 @@ class RandomCharacterView(View):
             name=request.POST["char_name"], player=request.user.tc_profile
         )
         try:
-            xp = int(request.POST['xp'])
+            xp = int(request.POST["xp"])
         except:
             xp = 0
         char.random(xp=xp)

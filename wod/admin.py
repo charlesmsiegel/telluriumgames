@@ -15,6 +15,7 @@ from wod.models.items.mage import Grimoire, Library, Wonder
 from wod.models.locations.human import City, Location
 from wod.models.locations.mage import Node, NodeMeritFlaw
 
+
 # Register your models here.
 @admin.register(Character)
 class CharacterAdmin(admin.ModelAdmin):
@@ -66,6 +67,7 @@ class ResonanceAdmin(admin.ModelAdmin):
         "time",
     )
 
+
 @admin.register(Rote)
 class RoteAdmin(admin.ModelAdmin):
     list_display = (
@@ -80,6 +82,7 @@ class RoteAdmin(admin.ModelAdmin):
         "spirit",
         "time",
     )
+
 
 admin.site.register(Location)
 admin.site.register(City)

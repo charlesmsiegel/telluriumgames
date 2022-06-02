@@ -141,15 +141,15 @@ class Node(Location):
         if sphere is None:
             q = Q()
         else:
-            q = Q(**{sphere: True})    
+            q = Q(**{sphere: True})
         all_res = all_res.filter(q)
-        
+
         all_res = [x for x in all_res if minimum <= self.resonance_rating(x) <= maximum]
         return all_res
 
     def total_resonance(self):
         return sum([x.rating for x in NodeResonanceRating.objects.filter(node=self)])
-    
+
     def random_resonance(self, sphere=None):
         if random.random() < 0.7:
             possible = self.filter_resonance(minimum=1, maximum=4, sphere=sphere)

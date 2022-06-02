@@ -572,15 +572,23 @@ class Human(PolymorphicModel):
 
     def random_edge(self, dots=100, sublist=None):
         if sublist is not None:
-            sublist = [x for x in sublist if len([y for y in x.ratings if self.edge_rating(x) < y <= dots]) != 0]
+            sublist = [
+                x
+                for x in sublist
+                if len([y for y in x.ratings if self.edge_rating(x) < y <= dots]) != 0
+            ]
             choice = random.choice(sublist)
-            num_dots = [x for x in choice.ratings if self.edge_rating(choice) < x <= dots]
+            num_dots = [
+                x for x in choice.ratings if self.edge_rating(choice) < x <= dots
+            ]
             return self.add_edge(choice)
         else:
             index = random.randint(1, Edge.objects.last().id + 1)
             if Edge.objects.filter(pk=index).exists():
                 choice = Edge.objects.get(pk=index)
-                num_dots = [x for x in choice.ratings if self.edge_rating(choice) < x <= dots]
+                num_dots = [
+                    x for x in choice.ratings if self.edge_rating(choice) < x <= dots
+                ]
                 if choice.type == "edge" and len(num_dots) != 0:
                     return self.add_edge(choice)
                 return False
@@ -865,7 +873,9 @@ class Edge(PolymorphicModel):
                 edge_prereq = Edge.objects.get(name=prereq[0])
                 if edge_prereq.type == "edge":
                     if edge_prereq in character.edges.all():
-                        x = EdgeRating.objects.get(character=character, edge=edge_prereq)
+                        x = EdgeRating.objects.get(
+                            character=character, edge=edge_prereq
+                        )
                         satisfied = satisfied and (x.rating >= prereq[1])
                     else:
                         satisfied = False

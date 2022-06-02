@@ -6,8 +6,9 @@ from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
 
 from accounts.models import CoDProfile
-from core.utils import add_dot, weighted_choice
 from core.models import Language
+from core.utils import add_dot, weighted_choice
+
 
 # Create your models here.
 class Mortal(PolymorphicModel):

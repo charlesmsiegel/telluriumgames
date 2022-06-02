@@ -899,12 +899,13 @@ class TestCharacterDetailViews(TestCase):
         response = self.client.get(f"/wod/characters/{self.mage.id}/")
         self.assertTemplateUsed(response, "wod/characters/mage/detail.html")
 
+
 class TestRandomView(TestCase):
     def test_random_status_code(self):
         self.fail()
-        
+
     def test_random_template(self):
         self.fail()
-        
+
     def test_input_sanitization(self):
         self.fail()

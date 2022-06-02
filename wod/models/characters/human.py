@@ -1,5 +1,5 @@
-from datetime import timedelta, date
 import random
+from datetime import date, timedelta
 
 from django.db import models
 from django.urls import reverse
@@ -525,8 +525,8 @@ class Human(Character):
         )
 
     def random_birthdate(self, age):
-        earliest_date = date.today() - timedelta(days=(age + 1)*365)
-        int_delta = 365*24*60*60
+        earliest_date = date.today() - timedelta(days=(age + 1) * 365)
+        int_delta = 365 * 24 * 60 * 60
         random_second = random.randrange(int_delta)
         return earliest_date + timedelta(seconds=random_second)
 
@@ -546,7 +546,7 @@ class Human(Character):
         else:
             self.sex = "Other"
         self.height = "5'7\""
-        self.weight = "100 lbs"        
+        self.weight = "100 lbs"
         self.description = "Description"
         self.apparent_age = 18
 

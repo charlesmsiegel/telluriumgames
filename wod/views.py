@@ -1,4 +1,5 @@
 from collections import defaultdict
+
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView, View
 
@@ -274,11 +275,11 @@ class RandomCharacterView(View):
             name=request.POST["char_name"], player=request.user.wod_profile
         )
         try:
-            freebies = int(request.POST['freebies'])
+            freebies = int(request.POST["freebies"])
         except:
             freebies = 15
         try:
-            xp = int(request.POST['xp'])
+            xp = int(request.POST["xp"])
         except:
             xp = 0
         char.random(freebies=freebies, xp=xp)

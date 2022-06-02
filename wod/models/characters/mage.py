@@ -651,7 +651,7 @@ class Mage(Human):
             all_res = Resonance.objects.filter(mage__name__contains=self.name)
         else:
             all_res = Resonance.objects.all()
-        
+
         all_res = [x for x in all_res if minimum <= self.resonance_rating(x) <= maximum]
         return all_res
 
@@ -669,7 +669,7 @@ class Mage(Human):
                 if self.resonance_rating(choice) < 5:
                     if self.add_resonance(choice):
                         return True
-        
+
     def add_rote(self, rote):
         if rote.is_learnable(self):
             self.rotes.add(rote)

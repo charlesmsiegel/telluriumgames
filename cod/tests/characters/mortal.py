@@ -570,12 +570,16 @@ class TestMortal(TestCase):
             self.character.spent_xp,
             "Strength 2 (4 XP), Strength 3 (4 XP), Occult 1 (2 XP)",
         )
-        
+
     def test_contacts_merit(self):
-        self.fail("Contacts Merit should have details chosen in a weighted way from the sample contacts of their skills")
-        
+        self.fail(
+            "Contacts Merit should have details chosen in a weighted way from the sample contacts of their skills"
+        )
+
     def test_consultant_path(self):
-        self.fail("skills for a given consultant are any 2 of the last 5 skills in teh current model")
+        self.fail(
+            "skills for a given consultant are any 2 of the last 5 skills in teh current model"
+        )
 
 
 class TestRandomMortal(TestCase):
@@ -807,12 +811,16 @@ class TestMerit(TestCase):
             possible_details=["Detail 1", "Detail 2"],
         )
         self.assertEqual(len(merit.filter_details(self.character)), 2)
-        
+
     def test_prereq_or(self):
-        self.fail("Implemenent prereqs as list of list of tuples which the top level is 'or' and the second level is 'and'")
+        self.fail(
+            "Implemenent prereqs as list of list of tuples which the top level is 'or' and the second level is 'and'"
+        )
 
     def test_prereq_and(self):
-        self.fail("Implemenent prereqs as list of list of tuples which the top level is 'or' and the second level is 'and'")
+        self.fail(
+            "Implemenent prereqs as list of list of tuples which the top level is 'or' and the second level is 'and'"
+        )
 
 
 class TestIndexView(TestCase):
@@ -880,12 +888,13 @@ class CharacterDetailView(TestCase):
         self.assertTemplateUsed(response, "cod/characters/mortal/detail.html")
         # Will add other character templates here
 
+
 class TestRandomView(TestCase):
     def test_random_status_code(self):
         self.fail()
-        
+
     def test_random_template(self):
         self.fail()
-        
+
     def test_input_sanitization(self):
         self.fail()
