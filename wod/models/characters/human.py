@@ -1,3 +1,4 @@
+from datetime import timedelta, date
 import random
 
 from django.db import models
@@ -523,16 +524,39 @@ class Human(Character):
             and self.apparent_age is not None
         )
 
+        """
+
+        def random_date(start, end):
+            delta = end - start
+            int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
+            random_second = randrange(int_delta)
+            return start + timedelta(seconds=random_second)
+
+        """
+
+    def random_birthdate(self, age):
+        earliest_date = date.today() - timedelta(days=(age + 1)*365)
+        int_delta = 365*24*60*60
+        random_second = random.randrange(int_delta)
+        return earliest_date + timedelta(seconds=random_second)
+
     def random_finishing_touches(self):
-        self.age = 18
-        self.date_of_birth = "2000-01-01"
+        self.age = random.randint(18, 80)
+        birthday = self.random_birthdate(self.age)
+        self.date_of_birth = birthday
         self.hair = "Brown"
         self.eyes = "Blue"
         self.ethnicity = "Ethnic Group"
         self.nationality = "American"
+        sex = random.random()
+        if sex < 0.495:
+            self.sex = "Male"
+        elif sex < 0.99:
+            self.sex = "Female"
+        else:
+            self.sex = "Other"
         self.height = "5'7\""
-        self.weight = "100 lbs"
-        self.sex = "Male"
+        self.weight = "100 lbs"        
         self.description = "Description"
         self.apparent_age = 18
 
