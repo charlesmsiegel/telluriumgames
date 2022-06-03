@@ -746,42 +746,6 @@ class Merit(models.Model):
             if all(prereqs):
                 return True
         return False
-        
-        
-        # for prereq in self.prereqs:
-        #     if prereq[0] in character.get_attributes().keys():
-        #         if character.get_attributes()[prereq[0]] < prereq[1]:
-        #             return False
-        #     elif prereq[0] in character.get_skills().keys():
-        #         if prereq[1] == "specialty":
-        #             if character.specialties.filter(skill=prereq[0]).count() == 0:
-        #                 return False
-        #         else:
-        #             if character.get_skills()[prereq[0]] < prereq[1]:
-        #                 return False
-        #     elif prereq[0] == "skill":
-        #         if len(character.filter_skills(minimum=prereq[1]).keys()) == 0:
-        #             return False
-        #     elif prereq[0] == "specialty":
-        #         possible_skills = character.filter_skills(minimum=prereq[1]).keys()
-        #         applicable_specialties = []
-        #         for skill in possible_skills:
-        #             applicable_specialties.extend(
-        #                 character.specialties.filter(skill=skill)
-        #             )
-        #         if len(applicable_specialties) == 0:
-        #             return False
-        #     elif prereq[0] in [x.name for x in Merit.objects.all()]:
-        #         m = Merit.objects.get(name=prereq[0])
-        #         if m in character.merits.all():
-        #             if (
-        #                 MeritRating.objects.get(character=character, merit=m).rating
-        #                 < prereq[1]
-        #             ):
-        #                 return False
-        #         else:
-        #             return False
-        # return True
 
     def filter_details(self, character):
         possible_details = self.possible_details
