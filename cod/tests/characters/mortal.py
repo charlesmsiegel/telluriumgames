@@ -707,7 +707,7 @@ class TestMerit(TestCase):
     def test_prereq_skill_specialty(self):
         occult_specialty = Merit.objects.create(
             name="Occult Specialty Requirement",
-            prereqs=[("occult", "specialty")],
+            prereqs=[[("occult", "specialty")]],
             ratings=[1],
         )
         specialty_in_occult = Specialty.objects.create(skill="occult", name="Spec")
@@ -718,7 +718,7 @@ class TestMerit(TestCase):
     def test_prereq_minimum_skill_specialty(self):
         any_specialty_2 = Merit.objects.create(
             name="Occult Specialty Requirement",
-            prereqs=[("specialty", 2)],
+            prereqs=[[("specialty", 2)]],
             ratings=[1],
         )
         specialty_in_occult = Specialty.objects.create(skill="occult", name="Spec")
@@ -729,7 +729,7 @@ class TestMerit(TestCase):
 
     def test_prereq_skill_minimum_value(self):
         occult_3 = Merit.objects.create(
-            name="Occult Specialty Requirement", prereqs=[("occult", 3)], ratings=[1],
+            name="Occult Specialty Requirement", prereqs=[[("occult", 3)]], ratings=[1],
         )
         self.assertFalse(occult_3.check_prereqs(self.character))
         self.character.occult = 3
@@ -737,7 +737,7 @@ class TestMerit(TestCase):
 
     def test_prereq_any_skill_minimum_value(self):
         occult_3 = Merit.objects.create(
-            name="Occult Specialty Requirement", prereqs=[("skill", 3)], ratings=[1],
+            name="Occult Specialty Requirement", prereqs=[[("skill", 3)]], ratings=[1],
         )
         self.assertFalse(occult_3.check_prereqs(self.character))
         self.character.occult = 3
@@ -747,7 +747,7 @@ class TestMerit(TestCase):
         prereq_merit = Merit.objects.create(name="Prereq for other", ratings=[1])
         prereq_merit_tester = Merit.objects.create(
             name="Occult Specialty Requirement",
-            prereqs=[("Prereq for other", 1)],
+            prereqs=[[("Prereq for other", 1)]],
             ratings=[1],
         )
         self.assertFalse(prereq_merit_tester.check_prereqs(self.character))
