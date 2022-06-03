@@ -501,17 +501,25 @@ class TestAberrant(TestCase):
         self.assertEqual(self.character.total_powers(), 2)
 
     def test_mega_intellect_add(self):
-        self.fail(
-            "When adding mega-intellect, got a dot of Iron Will, Lightning Calculator, Photographic Memory, or Speed Reading"
-        )
+        edges = ['Iron Will', 'Lightning Calculator', 'Photographic Memory', 'Speed Reading']
+        for name in edges:
+            Edge.objects.create(name=name, ratings=[1, 2, 3])
+        
+        num = sum([self.character.edge_rating(x) for x in edges])
+        self.character.add_mega_attribute("intellect")
+        self.assertEqual(sum([self.character.edge_rating(x) for x in edges]), num + 1)
 
     def test_mega_cunning_add(self):
         self.fail("When adding mega-cunning 1, gets Keen Sense for all senses")
 
     def test_mega_manipulation_add(self):
-        self.fail(
-            "When adding mega-manipulation, gets dot of Animal Ken, Skilled Liar, Striking, or Wealth"
-        )
+        edges = ['Animal Ken', 'Skilled Liar', 'Striking', 'Wealth']
+        for name in edges:
+            Edge.objects.create(name=name, ratings=[1, 2, 3])
+        
+        num = sum([self.character.edge_rating(x) for x in edges])
+        self.character.add_mega_attribute("manipulation")
+        self.assertEqual(sum([self.character.edge_rating(x) for x in edges]), num + 1)
 
     def test_mega_composure_add(self):
         self.fail(

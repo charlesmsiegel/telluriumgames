@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from cod.models.characters.mortal import Merit, Mortal, Specialty
+from cod.models.characters.mortal import Merit, MeritRating, Mortal, Specialty
 
 
 # Create your tests here.
@@ -572,14 +572,12 @@ class TestMortal(TestCase):
         )
 
     def test_contacts_merit(self):
-        self.fail(
-            "Contacts Merit should have details chosen in a weighted way from the sample contacts of their skills"
-        )
-
-    def test_consultant_path(self):
-        self.fail(
-            "skills for a given consultant are any 2 of the last 5 skills in teh current model"
-        )
+        contacts = Merit.objects.create(name="Contacts", rating=[1, 2, 3, 4, 5])
+        self.character.occult = 3
+        while contacts not in self.character.merits.all():
+            self.character.random_merit()
+        rating = MeritRating.objects.get(character=self.character, merit=contacts)
+        rating.detail.name = "Occult Contact 1"  # TODO: Is this what I want?
 
 
 class TestRandomMortal(TestCase):
