@@ -7,6 +7,11 @@
         {% load dots %}
         <div class="centertext">
             <div class="row">
+                <div class="col-sm tc_core_heading">
+                    <h1 class="tc_core_heading">{{ character.name }}</h1>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm"></div>
                 <div class="col-sm">Name</div>
                 <div class="col-sm">{{ character.name }}</div>
@@ -55,7 +60,7 @@
                 </div>
             {% endfor %}
             <div class="row">
-                <h3 class="col-sm">
+                <h3 class="col-sm tc_core_heading">
                     Aspirations
                 </h3>
             </div>
@@ -71,7 +76,7 @@
                 </div>
             </div>
             <div class="row">
-                <h3 class="col-sm">
+                <h3 class="col-sm tc_core_heading">
                     Skills
                 </h3>
             </div>
@@ -236,7 +241,7 @@
                 </div>
             </div>
             <div class="row">
-                <h3 class="col-sm">
+                <h3 class="col-sm tc_core_heading">
                     Attributes
                 </h3>
             </div>
@@ -338,7 +343,7 @@
             </div>
             <div class="row">
                 <div class="col-sm">
-                    <h3>
+                    <h3 class="tc_core_heading">
                         Tricks
                     </h3>
                     {% for trick in character.tricks.all %}
@@ -346,7 +351,7 @@
                     {% endfor %}
                 </div>
                 <div class="col-sm">
-                    <h3>
+                    <h3 class="tc_core_heading">
                         Edges
                     </h3>
                     {% for edge in edges %}
@@ -366,7 +371,7 @@
             </div>
             <div class="row">
                 <div class="col-sm">
-                    <h3>
+                    <h3 class="tc_core_heading">
                         Injury Conditions
                     </h3>
                     <br />

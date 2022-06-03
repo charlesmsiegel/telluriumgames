@@ -46,3 +46,16 @@
 .cod_heading {
     font-family: "Caslon Antique", serif;
 }
+
+.tc_aberrant_heading {
+    font-family: "Futura PT Bold", serif;
+    font-weight: bold;
+}
+.tc_talent_heading {
+    font-family: "Optima", serif;
+    font-weight: bold;
+}
+.tc_core_heading {
+    font-family: "Optima", serif;
+    font-weight: bold;
+}

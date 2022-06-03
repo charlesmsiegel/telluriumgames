@@ -7,6 +7,11 @@
         {% load dots %}
         <div class="centertext">
             <div class="row">
+                <div class="col-sm tc_talent_heading">
+                    <h1 class="tc_talent_heading">{{ character.name }}</h1>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm"></div>
                 <div class="col-sm">Name</div>
                 <div class="col-sm">{{ character.name }}</div>
@@ -67,7 +72,7 @@
                 </div>
             </div>
             <div class="row">
-                <h3 class="col-sm">
+                <h3 class="col-sm tc_talent_heading">
                     Aspirations
                 </h3>
             </div>
@@ -83,7 +88,7 @@
                 </div>
             </div>
             <div class="row">
-                <h3 class="col-sm">
+                <h3 class="col-sm tc_talent_heading">
                     Skills
                 </h3>
             </div>
@@ -248,7 +253,7 @@
                 </div>
             </div>
             <div class="row">
-                <h3 class="col-sm">
+                <h3 class="col-sm tc_talent_heading">
                     Attributes
                 </h3>
             </div>
@@ -350,7 +355,7 @@
             </div>
             <div class="row">
                 <div class="col-sm">
-                    <h3>
+                    <h3 class="tc_talent_heading">
                         Tricks
                     </h3>
                     {% for trick in character.tricks.all %}
@@ -359,7 +364,7 @@
                     {% endfor %}
                 </div>
                 <div class="col-sm">
-                    <h3>
+                    <h3 class="tc_talent_heading">
                         Edges
                     </h3>
                     {% for edge in edges %}
@@ -384,7 +389,7 @@
                 </div>
             </div>
             <div class="row">
-                <h3 class="col-sm">
+                <h3 class="col-sm tc_talent_heading">
                     Facets
                 </h3>
             </div>
@@ -413,7 +418,7 @@
                 <div class="col-sm dots">{{character.inspiration|dots:10}}</div>
             </div>
             <div class="row">
-                <h3 class="col-sm">
+                <h3 class="col-sm tc_talent_heading">
                     Gifts
                 </h3>
             </div>
@@ -426,7 +431,7 @@
                     {% endfor %}
             <div class="row">
                 <div class="col-sm">
-                    <h3>
+                    <h3 class="tc_talent_heading">
                         Injury Conditions
                     </h3>
                     {% for mod in health_levels %}&nbsp;☐{% endfor %}

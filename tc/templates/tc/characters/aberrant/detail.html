@@ -7,6 +7,11 @@
         {% load dots %}
         <div class="centertext">
             <div class="row">
+                <div class="col-sm tc_aberrant_heading">
+                    <h1>{{ character.name }}</h1>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm"></div>
                 <div class="col-sm">Name</div>
                 <div class="col-sm">{{ character.name }}</div>
@@ -55,7 +60,7 @@
                 </div>
             {% endfor %}
             <div class="row">
-                <h3 class="col-sm">
+                <h3 class="col-sm tc_aberrant_heading">
                     Aspirations
                 </h3>
             </div>
@@ -71,7 +76,7 @@
                 </div>
             </div>
             <div class="row">
-                <h3 class="col-sm">
+                <h3 class="col-sm tc_aberrant_heading">
                     Skills
                 </h3>
             </div>
@@ -236,7 +241,7 @@
                 </div>
             </div>
             <div class="row">
-                <h3 class="col-sm">
+                <h3 class="col-sm tc_aberrant_heading">
                     Attributes
                 </h3>
             </div>
@@ -437,16 +442,16 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm">
-                    <h3>
+                <div class="col-sm tc_aberrant_heading">
+                    <h3 class="tc_aberrant_heading">
                         Tricks
                     </h3>
                     {% for trick in character.tricks.all %}
                         <br />{{ trick.name }}
                     {% endfor %}
                 </div>
-                <div class="col-sm">
-                    <h3>
+                <div class="col-sm tc_aberrant_heading">
+                    <h3 class="tc_aberrant_heading">
                         Edges
                     </h3>
                     {% for edge in edges %}
@@ -463,8 +468,8 @@
                     {% endfor %}
                 </div>
             </div>
-                <div class="col-sm">
-                    <h3>
+                <div class="col-sm tc_aberrant_heading">
+                    <h3 class="tc_aberrant_heading">
                         Mega Edges
                     </h3>
                     {% for edge in mega_edges %}
@@ -476,8 +481,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm">
-                    <h3>
+                <div class="col-sm tc_aberrant_heading">
+                    <h3 class="tc_aberrant_heading">
                         Transformations
                     </h3>
                     {% for transformation in self.transformations.all %}
@@ -485,8 +490,8 @@
                         {{ transformation }}
                     {% endfor %}
                 </div>
-                <div class="col-sm">
-                    <h3>
+                <div class="col-sm tc_aberrant_heading">
+                    <h3 class="tc_aberrant_heading">
                         Injury Conditions
                     </h3>
                     {% comment %} <br />
@@ -497,7 +502,7 @@
                 </div>
             </div>
             <div class="row">
-                <h3 class="col-sm">
+                <h3 class="col-sm tc_aberrant_heading">
                     Quantum Powers
                 </h3>
             </div>
