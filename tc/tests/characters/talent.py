@@ -127,9 +127,7 @@ class TestTalent(TestCase):
         Gift.objects.create(name="Gift 3", keywords=["dexterity"])
         Gift.objects.create(name="Gift 4", keywords=["luck"])
         Gift.objects.create(name="Gift 5")
-        Gift.objects.create(
-            name="Gift 6", keywords=["dexterity", "science"]
-        )
+        Gift.objects.create(name="Gift 6", keywords=["dexterity", "science"])
 
         p = Path.objects.create(name="Path", gift_keywords=["science"])
 
@@ -173,7 +171,9 @@ class TestTalent(TestCase):
         Trick.objects.create(name="XP Trick", skill="science")
         Specialty.objects.create(name="XP Specialty", skill="science")
 
-        EnhancedEdge.objects.create(name="XP Enhanced Edge", prereqs=[[("XP Edge 1", 2)]])
+        EnhancedEdge.objects.create(
+            name="XP Enhanced Edge", prereqs=[[("XP Edge 1", 2)]]
+        )
 
         p = Path.objects.create(
             name="XP Path",

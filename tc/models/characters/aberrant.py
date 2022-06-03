@@ -563,6 +563,7 @@ class Transformation(models.Model):
     def __str__(self):
         return f"{self.name} ({self.level})"
 
+
 def aberrant_prereq_satisfied(prereq, character, obj):
     if prereq[0] in character.get_attributes().keys():
         return getattr(character, prereq[0]) >= prereq[1]
@@ -594,6 +595,7 @@ def aberrant_prereq_satisfied(prereq, character, obj):
     if prereq[0] in character.get_mega_attributes().keys():
         return getattr(character, prereq[0]) >= prereq[1]
     return False
+
 
 def aberrant_check_prereqs(obj, character):
     if len(obj.prereqs) == 0:

@@ -864,7 +864,7 @@ class Edge(PolymorphicModel):
 
     def check_prereqs(self, character):
         return check_prereqs(self, character)
-       
+
 
 class EnhancedEdge(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -905,21 +905,21 @@ class PathConnection(models.Model):
 
 
 def prereq_satisfied(prereq, character, obj):
-        if prereq[0] in character.get_attributes().keys():
-            return getattr(character, prereq[0]) >= prereq[1]
-        if prereq[0] in character.get_skills().keys():
-            return getattr(character, prereq[0]) >= prereq[1]
-        if Edge.objects.filter(name=prereq[0]).exists():
-            edge_prereq = Edge.objects.get(name=prereq[0])
-            if edge_prereq.type == "edge":
-                return character.edge_rating(edge_prereq) >= prereq[1]
-        if prereq[0] == "path":
-            any(
-                x.rating > prereq[1]
-                for x in PathRating.objects.filter(character=character)
-                if obj in x.path.edges.all()
-            )
-        return False
+    if prereq[0] in character.get_attributes().keys():
+        return getattr(character, prereq[0]) >= prereq[1]
+    if prereq[0] in character.get_skills().keys():
+        return getattr(character, prereq[0]) >= prereq[1]
+    if Edge.objects.filter(name=prereq[0]).exists():
+        edge_prereq = Edge.objects.get(name=prereq[0])
+        if edge_prereq.type == "edge":
+            return character.edge_rating(edge_prereq) >= prereq[1]
+    if prereq[0] == "path":
+        any(
+            x.rating > prereq[1]
+            for x in PathRating.objects.filter(character=character)
+            if obj in x.path.edges.all()
+        )
+    return False
 
 
 def check_prereqs(obj, character):

@@ -720,9 +720,7 @@ class Merit(models.Model):
             possible_skills = character.filter_skills(minimum=prereq[1]).keys()
             applicable_specialties = []
             for skill in possible_skills:
-                applicable_specialties.extend(
-                    character.specialties.filter(skill=skill)
-                )
+                applicable_specialties.extend(character.specialties.filter(skill=skill))
             if len(applicable_specialties) == 0:
                 return False
             return True

@@ -140,7 +140,9 @@ class TestAberrant(TestCase):
         self.assertEqual(len(self.character.filter_mega_edges()), 23)
         self.assertNotIn(e3, self.character.filter_mega_edges())
         m4 = MegaEdge.objects.create(
-            name="MegaEdge 104", ratings=[1, 2, 3, 4, 5], prereqs=[[("quantum", "dots")]]
+            name="MegaEdge 104",
+            ratings=[1, 2, 3, 4, 5],
+            prereqs=[[("quantum", "dots")]],
         )
         self.character.quantum = 1
         self.assertIn(m4, self.character.filter_mega_edges())
@@ -501,10 +503,15 @@ class TestAberrant(TestCase):
         self.assertEqual(self.character.total_powers(), 2)
 
     def test_mega_intellect_add(self):
-        edges = ['Iron Will', 'Lightning Calculator', 'Photographic Memory', 'Speed Reading']
+        edges = [
+            "Iron Will",
+            "Lightning Calculator",
+            "Photographic Memory",
+            "Speed Reading",
+        ]
         for name in edges:
             Edge.objects.create(name=name, ratings=[1, 2, 3])
-        
+
         num = sum([self.character.edge_rating(x) for x in edges])
         self.character.add_mega_attribute("intellect")
         self.assertEqual(sum([self.character.edge_rating(x) for x in edges]), num + 1)
@@ -513,10 +520,10 @@ class TestAberrant(TestCase):
         self.fail("When adding mega-cunning 1, gets Keen Sense for all senses")
 
     def test_mega_manipulation_add(self):
-        edges = ['Animal Ken', 'Skilled Liar', 'Striking', 'Wealth']
+        edges = ["Animal Ken", "Skilled Liar", "Striking", "Wealth"]
         for name in edges:
             Edge.objects.create(name=name, ratings=[1, 2, 3])
-        
+
         num = sum([self.character.edge_rating(x) for x in edges])
         self.character.add_mega_attribute("manipulation")
         self.assertEqual(sum([self.character.edge_rating(x) for x in edges]), num + 1)

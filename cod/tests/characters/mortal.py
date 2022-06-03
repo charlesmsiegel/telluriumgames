@@ -811,10 +811,11 @@ class TestMerit(TestCase):
         self.assertEqual(len(merit.filter_details(self.character)), 2)
 
     def test_prereq_or(self):
-        merit = Merit.objects.create(name="Prereq Testing", ratings=[1, 2, 3], prereqs=[
-            [("occult", 2)],
-            [("science", 2)]
-        ])
+        merit = Merit.objects.create(
+            name="Prereq Testing",
+            ratings=[1, 2, 3],
+            prereqs=[[("occult", 2)], [("science", 2)]],
+        )
         self.assertFalse(merit.check_prereqs(self.character))
         self.character.occult = 2
         self.assertTrue(merit.check_prereqs(self.character))
@@ -822,6 +823,7 @@ class TestMerit(TestCase):
         self.assertFalse(merit.check_prereqs(self.character))
         self.character.science = 2
         self.assertTrue(merit.check_prereqs(self.character))
+
 
 class TestIndexView(TestCase):
     def setUp(self) -> None:
