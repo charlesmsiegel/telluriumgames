@@ -1,3 +1,24 @@
+@font-face {
+    font-family: 'Abbess';
+    src: local('Abbess'),
+         url('../static/fonts/abess-regular.ttf') format("truetype");
+  }
+  @font-face {
+    font-family: 'Caslon Antique';
+    src: local('Caslon Antique'),
+         url('../static/fonts/cas_antn.ttf') format("truetype");
+  }
+  @font-face {
+    font-family: 'Futura PT';
+    src: local('Futura PT Bold'),
+         url('../static/fonts/FuturaT-Bold.ttf') format("opentype");
+  }
+  @font-face {
+    font-family: 'Optima';
+    src: local('Optima'),
+         url('../static/fonts/Optima-Bold.ttf') format("opentype");
+  }
+
 .vtm_heading {
     font-family: "Delavan", serif;
 }
@@ -48,7 +69,7 @@
 }
 
 .tc_aberrant_heading {
-    font-family: "Futura PT Bold", serif;
+    font-family: "Futura PT", serif;
     font-weight: bold;
 }
 .tc_talent_heading {
