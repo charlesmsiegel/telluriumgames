@@ -813,11 +813,10 @@ class TestEdge(TestCase):
         )
 
     def test_prereq_or(self):
-        edge = Edge.objects.create(
-            name="Prereq Testing",
-            ratings=[1, 2, 3],
-            prereqs=[[("technology", 2)], [("science", 2)]],
-        )
+        edge = Edge.objects.create(name="Prereq Testing", ratings=[1, 2, 3], prereqs=[
+            [("technology", 2)],
+            [("science", 2)]
+        ])
         self.assertFalse(edge.check_prereqs(self.character))
         self.character.technology = 2
         self.assertTrue(edge.check_prereqs(self.character))
