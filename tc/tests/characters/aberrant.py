@@ -457,9 +457,30 @@ class TestAberrant(TestCase):
         )
         self.assertEqual(self.character.xp_cost("mega edge", transcendence=True), 6)
         self.assertEqual(self.character.xp_cost("quantum power", transcendence=True), 6)
-        self.fail(
-            "Transformations can decrease costs as well, but only 2*quantum times"
+        
+        self.assertEqual(self.character.xp_cost("mega attribute", transformation="low"), 9)
+        self.assertEqual(self.character.xp_cost("mega edge", transformation="low"), 9)
+        self.assertEqual(self.character.xp_cost("power tag", transformation="low"), 9)
+        self.assertEqual(self.character.xp_cost("quantum<=5", transformation="low"), 13)
+        self.assertEqual(self.character.xp_cost("quantum>5", transformation="low"), 29)
+        self.assertEqual(self.character.xp_cost("quantum power", transformation="low"), 9)
+        self.assertEqual(
+            self.character.xp_cost("mega attribute", transcendence=True, transformation="low"), 3
         )
+        self.assertEqual(self.character.xp_cost("mega edge", transcendence=True, transformation="low"), 3)
+        self.assertEqual(self.character.xp_cost("quantum power", transcendence=True, transformation="low"), 3)
+        
+        self.assertEqual(self.character.xp_cost("mega attribute", transformation="medium"), 6)
+        self.assertEqual(self.character.xp_cost("mega edge", transformation="medium"), 6)
+        self.assertEqual(self.character.xp_cost("power tag", transformation="medium"), 6)
+        self.assertEqual(self.character.xp_cost("quantum<=5", transformation="medium"), 10)
+        self.assertEqual(self.character.xp_cost("quantum>5", transformation="medium"), 26)
+        self.assertEqual(self.character.xp_cost("quantum power", transformation="medium"), 6)
+        self.assertEqual(
+            self.character.xp_cost("mega attribute", transcendence=True, transformation="medium"), 0
+        )
+        self.assertEqual(self.character.xp_cost("mega edge", transcendence=True, transformation="medium"), 0)
+        self.assertEqual(self.character.xp_cost("quantum power", transcendence=True, transformation="medium"), 0)
 
     def test_spend_xp(self):
         MegaEdge.objects.create(name="MegaEdge 1", ratings=[1, 2, 3])
@@ -517,7 +538,17 @@ class TestAberrant(TestCase):
         self.assertEqual(sum([self.character.edge_rating(x) for x in edges]), num + 1)
 
     def test_mega_cunning_add(self):
-        self.fail("When adding mega-cunning 1, gets Keen Sense for all senses")
+        keen_sense_sight = Edge.objects.create(name="Keen Sense (Sight)", ratings=[1],)
+        keen_sense_hearing = Edge.objects.create(name="Keen Sense (Hearing)", ratings=[1],)
+        keen_sense_touch = Edge.objects.create(name="Keen Sense (Touch)", ratings=[1],)
+        keen_sense_smell_and_taste = Edge.objects.create(name="Keen Sense (Smell and Taste)", ratings=[1],)
+        keen_senses = [keen_sense_sight, keen_sense_hearing, keen_sense_smell_and_taste, keen_sense_touch]
+        self.character.mega_cunning = 0
+        for sense in keen_senses:
+            self.assertNotIn(sense, self.character.edges.all())
+        self.character.add_mega_attribute("cunning)"
+        for sense in keen_senses:
+            self.assertIn(sense, self.character.edges.all())
 
     def test_mega_manipulation_add(self):
         edges = ["Animal Ken", "Skilled Liar", "Striking", "Wealth"]
@@ -534,7 +565,7 @@ class TestAberrant(TestCase):
         )
 
     def test_power_suites(self):
-        self.fail("Implement Power Suits")
+        self.fail("Implement Power Suites")
 
     def test_variable_tag(self):
         self.fail("Implement Variable Tag")
