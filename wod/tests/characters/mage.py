@@ -1018,7 +1018,9 @@ class TestRandomMage(TestCase):
         self.assertTrue(self.character.has_mage_history())
 
     def test_random_abilities_use_practices(self):
-        self.fail()
+        self.character.random_faction()
+        self.character.random_focus()
+        self.fail("Use Practice(s) for Abilities")
 
 
 class TestCabal(TestCase):
