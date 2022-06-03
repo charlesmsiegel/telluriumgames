@@ -124,12 +124,12 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.total_edges(), 11)
 
     def test_filter_edges(self):
-        Edge.objects.create(name="Edge 0", ratings=[1, 2], prereqs=[("might", 2)])
+        Edge.objects.create(name="Edge 0", ratings=[1, 2], prereqs=[[("might", 2)]])
         e2 = Edge.objects.create(
-            name="Edge 1", ratings=[1, 2], prereqs=[("science", 2)]
+            name="Edge 1", ratings=[1, 2], prereqs=[[("science", 2)]]
         )
         e3 = Edge.objects.create(name="Edge 2", ratings=[1, 2])
-        Edge.objects.create(name="Edge 3", ratings=[1, 2], prereqs=[("Edge 2", 2)])
+        Edge.objects.create(name="Edge 3", ratings=[1, 2], prereqs=[[("Edge 2", 2)]])
         self.assertEqual(len(self.character.filter_edges()), 1)
         self.character.add_edge(e3)
         self.assertEqual(len(self.character.filter_edges()), 1)
@@ -555,7 +555,6 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.resilience_attribute_sum(), 7)
 
     def test_has_template(self):
-        # TOOD: Investigate why this sometimes hangs
         self.character.stamina = 5
         att_total = self.character.total_attributes()
         edge_total = self.character.total_edges()
@@ -590,7 +589,7 @@ class TestHuman(TestCase):
         Specialty.objects.create(name="XP Specialty", skill="science")
 
         ee = EnhancedEdge.objects.create(
-            name="XP Enhanced Edge", prereqs=[("XP Edge 1", 2)]
+            name="XP Enhanced Edge", prereqs=[[("XP Edge 1", 2)]]
         )
 
         p = Path.objects.create(
@@ -684,7 +683,7 @@ class TestRandomHuman(TestCase):
 
         for edge in Edge.objects.all():
             EnhancedEdge.objects.create(
-                name=f"Enhanced {edge.name}", prereqs=[(edge.name, max(edge.ratings))]
+                name=f"Enhanced {edge.name}", prereqs=[[(edge.name, max(edge.ratings))]]
             )
 
     def test_random_aspirations(self):
@@ -806,15 +805,25 @@ class TestRandomHuman(TestCase):
 
 
 class TestEdge(TestCase):
-    def test_prereq_or(self):
-        self.fail(
-            "Implemenent prereqs as list of list of tuples which the top level is 'or' and the second level is 'and'"
+    def setUp(self) -> None:
+        User.objects.create_user("Test User", "test@user.com", "testpass")
+        self.character = Human.objects.create(
+            name="Test Character",
+            player=User.objects.get(username="Test User").tc_profile,
         )
 
-    def test_prereq_and(self):
-        self.fail(
-            "Implemenent prereqs as list of list of tuples which the top level is 'or' and the second level is 'and'"
-        )
+    def test_prereq_or(self):
+        edge = Edge.objects.create(name="Prereq Testing", ratings=[1, 2, 3], prereqs=[
+            [("technology", 2)],
+            [("science", 2)]
+        ])
+        self.assertFalse(edge.check_prereqs(self.character))
+        self.character.technology = 2
+        self.assertTrue(edge.check_prereqs(self.character))
+        self.character.technology = 1
+        self.assertFalse(edge.check_prereqs(self.character))
+        self.character.science = 2
+        self.assertTrue(edge.check_prereqs(self.character))
 
 
 class TestHumanDetailView(TestCase):

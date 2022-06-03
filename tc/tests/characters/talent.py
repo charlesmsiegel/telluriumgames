@@ -88,7 +88,7 @@ class TestTalent(TestCase):
         self.assertTrue(self.character.has_facets())
 
     def test_add_gift(self):
-        g = Gift.objects.create(name="Test Gift", keywords=[], prereqs=[])
+        g = Gift.objects.create(name="Test Gift")
         self.assertEqual(self.character.total_gifts(), 0)
         self.assertTrue(self.character.add_gift(g))
         self.assertEqual(self.character.total_gifts(), 1)
@@ -122,16 +122,18 @@ class TestTalent(TestCase):
         self.assertTrue(self.character.has_gifts())
 
     def test_filter_gifts(self):
-        g = Gift.objects.create(name="Gift 1", keywords=["science"], prereqs=[])
-        Gift.objects.create(name="Gift 2", keywords=[], prereqs=[("might", 3)])
-        Gift.objects.create(name="Gift 3", keywords=["dexterity"], prereqs=[])
-        Gift.objects.create(name="Gift 4", keywords=["luck"], prereqs=[])
-        Gift.objects.create(name="Gift 5", keywords=[], prereqs=[])
+        g = Gift.objects.create(name="Gift 1", keywords=["science"])
+        Gift.objects.create(name="Gift 2", prereqs=[[("might", 3)]])
+        Gift.objects.create(name="Gift 3", keywords=["dexterity"])
+        Gift.objects.create(name="Gift 4", keywords=["luck"])
+        Gift.objects.create(name="Gift 5")
         Gift.objects.create(
-            name="Gift 6", keywords=["dexterity", "science"], prereqs=[]
+            name="Gift 6", keywords=["dexterity", "science"]
         )
 
         p = Path.objects.create(name="Path", gift_keywords=["science"])
+
+        print(self.character.filter_gifts(keyword=None, path=None))
 
         self.assertEqual(len(self.character.filter_gifts(keyword=None, path=None)), 4)
         self.character.add_skill("science")
@@ -171,7 +173,7 @@ class TestTalent(TestCase):
         Trick.objects.create(name="XP Trick", skill="science")
         Specialty.objects.create(name="XP Specialty", skill="science")
 
-        EnhancedEdge.objects.create(name="XP Enhanced Edge", prereqs=[("XP Edge 1", 2)])
+        EnhancedEdge.objects.create(name="XP Enhanced Edge", prereqs=[[("XP Edge 1", 2)]])
 
         p = Path.objects.create(
             name="XP Path",

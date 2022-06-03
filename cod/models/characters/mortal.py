@@ -741,6 +741,8 @@ class Merit(models.Model):
         return False
 
     def check_prereqs(self, character):
+        if len(self.prereqs) == 0:
+            return True
         for prereq_set in self.prereqs:
             prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
             if all(prereqs):

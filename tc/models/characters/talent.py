@@ -3,7 +3,7 @@ import random
 from django.db import models
 
 from core.utils import add_dot, weighted_choice
-from tc.models.characters.human import Edge, EdgeRating, Human, Path
+from tc.models.characters.human import Edge, EdgeRating, Human, Path, check_prereqs
 
 
 # Create your models here.
@@ -258,19 +258,6 @@ class Gift(models.Model):
         return f"{self.name} ({self.keywords})"
 
     def check_prereqs(self, character):
-        satisfied = True
-        for prereq in self.prereqs:
-            if prereq[0] in character.get_attributes().keys():
-                satisfied = satisfied and (getattr(character, prereq[0]) >= prereq[1])
-            elif prereq[0] in character.get_skills().keys():
-                satisfied = satisfied and (getattr(character, prereq[0]) >= prereq[1])
-            elif prereq[0] in [x.name for x in Edge.objects.all() if x.type == "edge"]:
-                edge_prereq = Edge.objects.get(name=prereq[0])
-                if edge_prereq in character.edges.all():
-                    x = EdgeRating.objects.get(character=character, edge=edge_prereq)
-                    satisfied = satisfied and (x.rating >= prereq[1])
-                else:
-                    satisfied = False
         if (
             sum([getattr(character, k) for k in self.keywords if hasattr(character, k)])
             == 0
@@ -279,8 +266,10 @@ class Gift(models.Model):
             )
             != 0
         ):
-            satisfied = False
-        return satisfied
+            keyword_prereq = False
+        else:
+            keyword_prereq = True
+        return check_prereqs(self, character) and keyword_prereq
 
 
 class MomentOfInspiration(models.Model):

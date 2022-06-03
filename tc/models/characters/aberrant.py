@@ -3,7 +3,7 @@ import random
 from django.db import models
 
 from core.utils import add_dot, weighted_choice
-from tc.models.characters.human import Edge, Human, Path
+from tc.models.characters.human import Edge, Human, Path, PathRating
 
 
 # Create your models here.
@@ -458,27 +458,7 @@ class MegaEdge(Edge):
     type = "mega_edge"
 
     def check_prereqs(self, character):
-        satisfied = super().check_prereqs(character)
-        for prereq in self.prereqs:
-            if MegaEdge.objects.filter(name=prereq[0]).exists():
-                mega_edge_prereq = MegaEdge.objects.get(name=prereq[0])
-                if mega_edge_prereq in character.mega_edges.all():
-                    x = MegaEdgeRating.objects.get(
-                        character=character, mega_edge=mega_edge_prereq
-                    )
-                    satisfied = satisfied and (x.rating >= prereq[1])
-                else:
-                    satisfied = False
-            elif prereq[0] == "quantum":
-                if prereq[1] == "dots":
-                    r = character.mega_edge_rating(self)
-                    req = min([x for x in self.ratings if x > r])
-                    satisfied = satisfied and (character.quantum >= req)
-                else:
-                    satisfied = satisfied and (character.quantum >= prereq[1])
-            elif prereq[0] in character.get_mega_attributes().keys():
-                satisfied = satisfied and (getattr(character, prereq[0]) >= prereq[1])
-        return satisfied
+        return aberrant_check_prereqs(self, character)
 
 
 class MegaEdgeRating(models.Model):
@@ -582,3 +562,44 @@ class Transformation(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.level})"
+
+def aberrant_prereq_satisfied(prereq, character, obj):
+    if prereq[0] in character.get_attributes().keys():
+        return getattr(character, prereq[0]) >= prereq[1]
+    if prereq[0] in character.get_skills().keys():
+        return getattr(character, prereq[0]) >= prereq[1]
+    if Edge.objects.filter(name=prereq[0]).exists():
+        edge_prereq = Edge.objects.get(name=prereq[0])
+        if edge_prereq.type == "edge":
+            return character.edge_rating(edge_prereq) >= prereq[1]
+    if MegaEdge.objects.filter(name=prereq[0]).exists():
+        edge_prereq = MegaEdge.objects.get(name=prereq[0])
+        if edge_prereq.type == "mega_edge":
+            return character.mega_edge_rating(edge_prereq) >= prereq[1]
+    if prereq[0] == "path":
+        if obj in Edge.objects.all():
+            any(
+                x.rating > prereq[1]
+                for x in PathRating.objects.filter(character=character)
+                if obj in x.path.edges.all()
+            )
+    if prereq[0] == "quantum":
+        if prereq[1] == "dots":
+            if obj in MegaEdge.objects.all():
+                r = character.mega_edge_rating(obj)
+                req = min([x for x in obj.ratings if x > r])
+                return character.quantum >= req
+            else:
+                return character.quantum >= prereq[1]
+    if prereq[0] in character.get_mega_attributes().keys():
+        return getattr(character, prereq[0]) >= prereq[1]
+    return False
+
+def aberrant_check_prereqs(obj, character):
+    if len(obj.prereqs) == 0:
+        return True
+    for prereq_set in obj.prereqs:
+        prereqs = [aberrant_prereq_satisfied(x, character, obj) for x in prereq_set]
+        if all(prereqs):
+            return True
+    return False
