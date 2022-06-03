@@ -572,12 +572,12 @@ class TestMortal(TestCase):
         )
 
     def test_contacts_merit(self):
-        contacts = Merit.objects.create(name="Contacts", rating=[1, 2, 3, 4, 5])
+        contacts = Merit.objects.create(name="Contacts", ratings=[1, 2, 3, 4, 5])
         self.character.occult = 3
         while contacts not in self.character.merits.all():
             self.character.random_merit()
         rating = MeritRating.objects.get(character=self.character, merit=contacts)
-        rating.detail.name = "Occult Contact 1"  # TODO: Is this what I want?
+        rating.detail = "Occult Contact 1"
 
 
 class TestRandomMortal(TestCase):
@@ -811,15 +811,17 @@ class TestMerit(TestCase):
         self.assertEqual(len(merit.filter_details(self.character)), 2)
 
     def test_prereq_or(self):
-        self.fail(
-            "Implemenent prereqs as list of list of tuples which the top level is 'or' and the second level is 'and'"
-        )
-
-    def test_prereq_and(self):
-        self.fail(
-            "Implemenent prereqs as list of list of tuples which the top level is 'or' and the second level is 'and'"
-        )
-
+        merit = Merit.objects.create(name="Prereq Testing", ratings=[1, 2, 3], prereqs=[
+            [("occult", 2)],
+            [("science", 2)]
+        ])
+        self.assertFalse(merit.check_prereqs(self.character))
+        self.character.occult = 2
+        self.assertTrue(merit.check_prereqs(self.character))
+        self.character.occult = 1
+        self.assertFalse(merit.check_prereqs(self.character))
+        self.character.science = 2
+        self.assertTrue(merit.check_prereqs(self.character))
 
 class TestIndexView(TestCase):
     def setUp(self) -> None:
@@ -885,14 +887,3 @@ class CharacterDetailView(TestCase):
         response = self.client.get(f"/cod/characters/{self.character.id}/")
         self.assertTemplateUsed(response, "cod/characters/mortal/detail.html")
         # Will add other character templates here
-
-
-class TestRandomView(TestCase):
-    def test_random_status_code(self):
-        self.fail()
-
-    def test_random_template(self):
-        self.fail()
-
-    def test_input_sanitization(self):
-        self.fail()
