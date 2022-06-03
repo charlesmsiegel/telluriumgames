@@ -14,12 +14,12 @@
 <div class="centertext">
     <div class="container">
         <div class="row">
-            <div class="col-sm mage_heading">
+            <div class="col-sm mtas_heading">
                 <h1>{{ object.name }}</h1>
             </div>
         </div>
         <div class="row">
-            <h2 class="col-sm mage_heading">Basics</h2>
+            <h2 class="col-sm mtas_heading">Basics</h2>
         </div>
         <div class="row">
             <div class="col-sm">Name</div>
@@ -47,12 +47,12 @@
         </div>
 
         <div class="row">
-            <h2 class="col-sm mage_heading">Attributes</h2>
+            <h2 class="col-sm mtas_heading">Attributes</h2>
         </div>
         <div class="row">
-            <h3 class="col-sm mage_heading">Physical</h3>
-            <h3 class="col-sm mage_heading">Social</h3>
-            <h3 class="col-sm mage_heading">Mental</h3>
+            <h3 class="col-sm mtas_heading">Physical</h3>
+            <h3 class="col-sm mtas_heading">Social</h3>
+            <h3 class="col-sm mtas_heading">Mental</h3>
         </div>
         <div class="row">
             <div class="col-sm">
@@ -106,12 +106,12 @@
             <div class="col-sm dots">{{ object.wits|dots }}</div>
         </div>
         <div class="row">
-            <h2 class="col-sm mage_heading">Abilities</h2>
+            <h2 class="col-sm mtas_heading">Abilities</h2>
         </div>
         <div class="row">
-            <h3 class="col-sm mage_heading">Talents</h3>
-            <h3 class="col-sm mage_heading">Skills</h3>
-            <h3 class="col-sm mage_heading">Knowledges</h3>
+            <h3 class="col-sm mtas_heading">Talents</h3>
+            <h3 class="col-sm mtas_heading">Skills</h3>
+            <h3 class="col-sm mtas_heading">Knowledges</h3>
         </div>
         <div class="row">
             <div class="col-sm">Alertness {% if alertness_spec %}({{ alertness_spec }}){% endif %}</div>
@@ -202,7 +202,7 @@
             <div class="col-sm dots">{{ object.science|dots }}</div>
         </div>
         <div class="row">
-            <h2 class="col-sm mage_heading">Secondary Abilities</h2>
+            <h2 class="col-sm mtas_heading">Secondary Abilities</h2>
         </div>
         <div class="row">
             <div class="col-sm">Animal Kinship {% if animal_kinship_spec %}({{ animal_kinship_spec }}){% endif %}</div>
@@ -279,7 +279,7 @@
         </div>
         {% endifequal %}
         <div class="row">
-            <h2 class="col-sm mage_heading">Advantages</h2>
+            <h2 class="col-sm mtas_heading">Advantages</h2>
         </div>
         <div class="row">
             <div class="col-sm">Willpower</div>
@@ -298,7 +298,7 @@
             <div class="col-sm"></div>
         </div>
         <div class="row">
-            <h2 class="col-sm mage_heading">Backgrounds</h2>
+            <h2 class="col-sm mtas_heading">Backgrounds</h2>
         </div>
         <div class="row">
             <div class="col-sm">Allies</div>
@@ -420,7 +420,7 @@
             {% endif %}
         </div>
         <div class="row">
-            <h2 class="col-sm mage_heading">Spheres</h2>
+            <h2 class="col-sm mtas_heading">Spheres</h2>
         </div>
         <div class="row">
             <div class="col-sm">{{ object.get_corr_name_display }} {% if correspondence_spec %}({{ correspondence_spec }}){% endif %}</div>
@@ -447,7 +447,7 @@
             <div class="col-sm dots">{{ object.time|dots }}</div>
         </div>
         <div class="row">
-            <h2 class="col-sm mage_heading">Rotes</h2>
+            <h2 class="col-sm mtas_heading">Rotes</h2>
         </div>
         <div class="row">
             {% for rote in object.rotes.all %}
@@ -456,7 +456,7 @@
         </div>
 
         <div class="row">
-            <h2 class="col-sm mage_heading">Resonance</h2>
+            <h2 class="col-sm mtas_heading">Resonance</h2>
         </div>
         <div class="row">
             {% for res in resonance %}
@@ -466,7 +466,7 @@
         </div>
 
         <div class="row">
-            <h2 class="col-sm mage_heading">Focus</h2>
+            <h2 class="col-sm mtas_heading">Focus</h2>
         </div>
         <div class="row">
             <div class="col-sm">Paradigm</div>
@@ -494,13 +494,13 @@
         </div>
 
         <div class="row">
-            <h2 class="col-sm mage_heading">Merits and Flaws</h2>
+            <h2 class="col-sm mtas_heading">Merits and Flaws</h2>
         </div>
         <div class="row">
             {% for mf in merits_and_flaws %}<div class="col-sm">{{ mf.mf }} {{ mf.rating }}</div>{% endfor %}
         </div>
         <div class="row">
-            <h2 class="col-sm mage_heading">Languages</h2>
+            <h2 class="col-sm mtas_heading">Languages</h2>
         </div>
         <div class="row">
             {% for lang in object.languages.all %}
@@ -508,7 +508,7 @@
             {% endfor %}
         </div>
         <div class="row">
-            <h2 class="col-sm mage_heading">Appearance</h2>
+            <h2 class="col-sm mtas_heading">Appearance</h2>
         </div>
         <div class="row">
             <div class="col-sm">Date of Birth</div>
@@ -549,7 +549,7 @@
         </div>
 
         <div class="row">
-            <h2 class="col-sm mage_heading">History</h2>
+            <h2 class="col-sm mtas_heading">History</h2>
         </div>
         <div class="row">
             <div class="col-sm">Childhood</div>
@@ -576,7 +576,7 @@
             <div class="col-sm">{{ object.notes }}</div>
         </div>
         <div class="row">
-            <h2 class="col-sm mage_heading">Experience</h2>
+            <h2 class="col-sm mtas_heading">Experience</h2>
         </div>
         <div class="row">
             <div class="col-sm">Rote Points</div>
