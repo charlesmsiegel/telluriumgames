@@ -5,6 +5,7 @@ from django.test import TestCase
 
 from wod.models.characters.mage import Resonance
 from wod.models.locations.mage import Node, NodeMeritFlaw, Chantry
+from wod.models.items.mage import Library
 
 
 # Create your tests here.
@@ -223,7 +224,7 @@ class TestChantry(TestCase):
         self.chantry.random_points()
         self.assertGreaterEqual(self.chantry.points, 101)
         self.assertLessEqual(self.chantry.points, 200)
-        
+
     def test_trait_cost(self):
         self.assertEqual(self.chantry.trait_cost("allies"), 2)
         self.assertEqual(self.chantry.trait_cost("arcane"), 2)
@@ -239,7 +240,7 @@ class TestChantry(TestCase):
         self.assertEqual(self.chantry.trait_cost("enhancement"), 4)
         self.assertEqual(self.chantry.trait_cost("retainers"), 4)
         self.assertEqual(self.chantry.trait_cost("reality zone"), 5)
-        
+
     def test_creation_of_nodes(self):
         self.chantry.node = 0
         self.chantry.create_nodes()
@@ -251,12 +252,42 @@ class TestChantry(TestCase):
         self.assertEqual(self.chantry.total_node(), 12)
         for node in self.chantry.nodes.all():
             self.assertEqual(node.parent, self.chantry)
-        
+
     def test_creation_of_library(self):
-        self.fail()
-        
+        self.chantry.library = 0
+        self.chantry.create_library()
+        self.assertIsNone(self.chantry.library)
+        self.chantry.library = 4
+        self.chantry.create_library()
+        self.assertIsNotNone(self.chantry.library)
+
+    def test_set_library(self):
+        library = Library.objects.create(name="Test Library")
+        self.assertFalse(self.chantry.has_library())
+        self.chantry.set_library(library)
+        self.assertTrue(self.chantry.has_library())
+
+    def test_add_node(self):
+        node = Node.objects.create(name="Test Node")
+        self.assertFalse(self.chantry.has_node())
+        self.chantry.add_node(node)
+        self.assertTrue(self.chantry.has_node())
+
+    def test_points_spent(self):
+        self.assertEqual(self.chantry.points_spent(), 0)
+        self.chantry.retainers = 3
+        self.assertEqual(self.chantry.points_spent(), 12)
+        self.chantry.node = 8
+        self.assertEqual(self.chantry.points_spent(), 36)
+        self.chantry.arcane = 1
+        self.assertEqual(self.chantry.points_spent(), 38)
+
     def test_random(self):
-        self.fail()
+        self.assertFalse(self.chantry.has_library())
+        self.assertFalse(self.chantry.has_node())
+        self.chantry.random()
+        self.assertGreater(self.chantry.points, 0)
+        self.assertEqual(self.chantry.points.self.chantry.points_spent())
 
 
 class TestNodeDetailView(TestCase):
@@ -271,14 +302,15 @@ class TestNodeDetailView(TestCase):
         response = self.client.get(f"/wod/locations/{self.location.id}/")
         self.assertTemplateUsed(response, "wod/locations/node/detail.html")
 
+
 class TestChantryDetailView(TestCase):
     def setUp(self) -> None:
         self.location = Chantry.objects.create(name="Test Chantry")
-        
+
     def test_chantry_detail_view_status_code(self):
         response = self.client.get(f"/wod/locations/{self.location.id}/")
         self.assertEqual(response.status_code, 200)
-        
+
     def test_chantry_detail_view_templates(self):
         response = self.client.get(f"/wod/locations/{self.location.id}/")
         self.assertTemplateUsed(response, "wod/locations/chantry/detail.html")
