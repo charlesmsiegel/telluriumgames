@@ -670,6 +670,43 @@ class Mage(Human):
                     if self.add_resonance(choice):
                         return True
 
+    def random_ability(self, maximum=4):
+        possibilities = self.filter_abilities(maximum=maximum)
+        for practice in self.practices.all():
+            for ability in practice.abilities:
+                if ability in possibilities:
+                    possibilities[ability] += 3
+        choice = weighted_choice(possibilities, ceiling=100)
+        self.add_ability(choice, 5)
+
+    def random_abilities(self):
+        ability_types = [13, 9, 5]
+        random.shuffle(ability_types)
+        while self.total_talents() < ability_types[0]:
+            possibilities = self.get_talents()
+            for practice in self.practices.all():
+                for ability in practice.abilities:
+                    if ability in possibilities:
+                        possibilities[ability] += 3
+            ability_choice = weighted_choice(possibilities, ceiling=100)
+            self.add_ability(ability_choice, maximum=3)
+        while self.total_skills() < ability_types[1]:
+            possibilities = self.get_skills()
+            for practice in self.practices.all():
+                for ability in practice.abilities:
+                    if ability in possibilities:
+                        possibilities[ability] += 3
+            ability_choice = weighted_choice(possibilities, ceiling=100)
+            self.add_ability(ability_choice, maximum=3)
+        while self.total_knowledges() < ability_types[2]:
+            possibilities = self.get_knowledges()
+            for practice in self.practices.all():
+                for ability in practice.abilities:
+                    if ability in possibilities:
+                        possibilities[ability] += 3
+            ability_choice = weighted_choice(possibilities, ceiling=100)
+            self.add_ability(ability_choice, maximum=3)
+
     def add_rote(self, rote):
         if rote.is_learnable(self):
             self.rotes.add(rote)
