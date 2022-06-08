@@ -5,6 +5,7 @@ from django.db.models import Q
 
 from wod.models.characters.mage import Mage, Resonance
 from wod.models.locations.human import Location
+from wod.models.items.mage import Library
 
 
 # Create your models here.
@@ -49,7 +50,7 @@ class Node(Location):
 
     def random_rank(self, rank=None):
         if rank is None:
-            rank = random.randint(1, 6)
+            rank = random.randint(1, 5)
         self.set_rank(rank)
 
     def set_rank(self, rank):
@@ -158,7 +159,7 @@ class Node(Location):
                 if self.add_resonance(choice):
                     return True
         while True:
-            index = random.randint(1, Resonance.objects.last().id + 1)
+            index = random.randint(1, Resonance.objects.last().id)
             if Resonance.objects.filter(pk=index).exists():
                 choice = Resonance.objects.get(pk=index)
                 if self.resonance_rating(choice) < 5:
@@ -256,3 +257,149 @@ class NodeResonanceRating(models.Model):
     node = models.ForeignKey(Node, on_delete=models.CASCADE)
     resonance = models.ForeignKey(Resonance, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
+
+
+class Chantry(Location):
+    type = "chantry"
+
+    rank = models.IntegerField(default=0)
+    points = models.IntegerField(default=0)
+
+    allies = models.IntegerField(default=0)
+    arcane = models.IntegerField(default=0)
+    backup = models.IntegerField(default=0)
+    cult = models.IntegerField(default=0)
+    elders = models.IntegerField(default=0)
+    integrated_effects = models.IntegerField(default=0)
+    retainers = models.IntegerField(default=0)
+    spies = models.IntegerField(default=0)
+    resources = models.IntegerField(default=0)
+    enhancement = models.IntegerField(default=0)
+    requisitions = models.IntegerField(default=0)
+    reality_zone_rating = models.IntegerField(default=0)
+    node_rating = models.IntegerField(default=0)
+    library_rating = models.IntegerField(default=0)
+
+    library = models.ForeignKey(
+        Library, on_delete=models.CASCADE, blank=True, null=True
+    )
+    nodes = models.ManyToManyField(Node, blank=True)
+
+    def trait_cost(self, trait):
+        if trait in [
+            "allies",
+            "arcane",
+            "backup",
+            "cult",
+            "elders",
+            "integrated effects",
+            "library",
+            "retainers",
+            "spies",
+        ]:
+            return 2
+        elif trait in ["node", "resources"]:
+            return 3
+        elif trait in ["enhancement", "requisitions"]:
+            return 4
+        elif trait in ["reality zone"]:
+            return 5
+        return 1000
+
+    def points_spent(self):
+        return (
+            2
+            * (
+                self.allies
+                + self.arcane
+                + self.backup
+                + self.cult
+                + self.elders
+                + self.integrated_effects
+                + self.library_rating
+                + self.retainers
+                + self.spies
+            )
+            + 3 * (self.node_rating + self.resources)
+            + 4 * (self.enhancement + self.requisitions)
+            + 5 * (self.reality_zone_rating)
+        )
+
+    def has_node(self):
+        return self.total_node() == self.node_rating
+
+    def add_node(self, node):
+        self.nodes.add(node)
+        self.save()
+
+    def create_nodes(self):
+        node_ranks = []
+        while sum(node_ranks) < self.node_rating:
+            x = random.randint(1, min(5, self.node_rating - sum(node_ranks)))
+            node_ranks.append(x)
+
+        for i, rank in enumerate(node_ranks):
+            n = Node.objects.create(name=f"{self.name}'s Node {i}")
+            n.random(rank=rank)
+            self.add_node(n)
+
+    def total_node(self):
+        return sum([x.rank for x in self.nodes.all()])
+
+    def has_library(self):
+        return self.library is not None
+
+    def set_library(self, library):
+        self.library = library
+        return True
+
+    def create_library(self):
+        l = Library.objects.create(rank=self.library_rating)
+        while l.num_books() < l.rank:
+            l.random_book()
+        self.set_library(l)
+
+    def random_points(self, rank=None):
+        if rank is None:
+            rank = self.rank
+        if rank == 1:
+            self.points = random.randint(10, 20)
+        if rank == 2:
+            self.points = random.randint(21, 30)
+        if rank == 3:
+            self.points = random.randint(31, 70)
+        if rank == 4:
+            self.points = random.randint(71, 100)
+        if rank == 5:
+            self.points = random.randint(101, 200)
+
+    def random_rank(self, rank=None):
+        if rank is None:
+            rank = random.randint(1, 5)
+        self.set_rank(rank)
+
+    def set_rank(self, rank):
+        self.rank = rank
+        self.random_points(rank=rank)
+        return True
+
+    def random(self, rank=None):
+        self.random_rank(rank=rank)
+        distribution = {
+            "allies": 1,
+            "arcane": 1,
+            "backup": 1,
+            "cult": 1,
+            "elders": 1,
+            "integrated_effects": 1,
+            "retainers": 1,
+            "spies": 1,
+            "resources": 1,
+            "enhancement": 1,
+            "requisitions": 1,
+            "reality_zone": 1,
+            "node": 1,
+            "library": 1,
+        }
+        while self.points > self.points_spent():
+            break

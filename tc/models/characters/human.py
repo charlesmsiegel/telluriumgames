@@ -583,7 +583,7 @@ class Human(PolymorphicModel):
             ]
             return self.add_edge(choice)
         else:
-            index = random.randint(1, Edge.objects.last().id + 1)
+            index = random.randint(1, Edge.objects.last().id)
             if Edge.objects.filter(pk=index).exists():
                 choice = Edge.objects.get(pk=index)
                 num_dots = [

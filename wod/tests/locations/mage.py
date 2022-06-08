@@ -3,9 +3,10 @@ from unittest.mock import Mock
 
 from django.test import TestCase
 
-from wod.models.characters.mage import Resonance
+from wod.models.characters.mage import Resonance, Rote, Instrument, Practice, Paradigm, MageFaction
 from wod.models.locations.mage import Node, NodeMeritFlaw, Chantry
 from wod.models.items.mage import Library
+from core.models import Language, Material, Medium
 
 
 # Create your tests here.
@@ -201,7 +202,132 @@ class TestNode(TestCase):
 
 class TestChantry(TestCase):
     def setUp(self) -> None:
-        self.chantry = Chantry.objects.create("Test Chantry")
+        self.chantry = Chantry.objects.create(name="Test Chantry")
+        for i in range(1, 11):
+            Resonance.objects.create(name=f"Resonance {i}")
+        for i in range(1, 6):
+            for j in [1, -1]:
+                if j == 1:
+                    t = "Merit"
+                else:
+                    t = "Flaw"
+                NodeMeritFlaw.objects.create(name=f"Node {t} {i}", ratings=[i * j])
+        abilities = [
+            "alertness",
+            "art",
+            "athletics",
+            "awareness",
+            "brawl",
+            "empathy",
+            "expression",
+            "intimidation",
+            "leadership",
+            "streetwise",
+            "subterfuge",
+            "crafts",
+            "drive",
+            "etiquette",
+            "firearms",
+            "martial_arts",
+            "meditation",
+            "melee",
+            "research",
+            "stealth",
+            "survival",
+            "technology",
+            "academics",
+            "computer",
+            "cosmology",
+            "enigmas",
+            "esoterica",
+            "investigation",
+            "law",
+            "medicine",
+            "occult",
+            "politics",
+            "science",
+            "animal_kinship",
+            "blatancy",
+            "carousing",
+            "do",
+            "flying",
+            "high_ritual",
+            "lucid_dreaming",
+            "search",
+            "seduction",
+            "acrobatics",
+            "archery",
+            "biotech",
+            "energy_weapons",
+            "hypertech",
+            "jetpack",
+            "riding",
+            "torture",
+            "area_knowledge",
+            "belief_systems",
+            "cryptography",
+            "demolitions",
+            "finance",
+            "lore",
+            "media",
+            "pharmacopeia",
+        ]
+        spheres = [
+            "correspondence",
+            "forces",
+            "life",
+            "matter",
+            "mind",
+            "time",
+            "spirit",
+            "prime",
+            "entropy",
+        ]
+
+        for i in range(40):
+            Instrument.objects.create(name=f"Test Instrument {i}")
+        for i in range(20):
+            p = Practice.objects.create(
+                name=f"Test Practice {i}", abilities=abilities[i : i + 7]
+            )
+            p.instruments.add(Instrument.objects.get(name=f"Test Instrument {i}"))
+            p.instruments.add(Instrument.objects.get(name=f"Test Instrument {20+i}"))
+            p.save()
+        for i in range(10):
+            p = Paradigm.objects.create(name=f"Test Paradigm {i}")
+            p.practices.add(Practice.objects.get(name=f"Test Practice {i}"))
+            p.practices.add(Practice.objects.get(name=f"Test Practice {i+10}"))
+            p.save()
+            Material.objects.create(name=f"Test Material {i}")
+            Language.objects.create(name=f"Test Language {i}")
+        for i in range(5):
+            m = MageFaction.objects.create(
+                name=f"Test Faction {i}", affinities=spheres[i : i + 4],
+            )
+            m.languages.add(Language.objects.get(name=f"Test Language {i}"))
+            m.languages.add(Language.objects.get(name=f"Test Language {5+i}"))
+            m.save()
+            m.paradigms.add(Paradigm.objects.get(name=f"Test Paradigm {i}"))
+            m.paradigms.add(Paradigm.objects.get(name=f"Test Paradigm {5+i}"))
+            m.save()
+            for modifier_type in ["+", "-", "*", "/"]:
+                for modifier in [1, 20]:
+                    med = Medium.objects.create(
+                        name=f"Test {modifier_type} Medium {i, modifier}",
+                        length_modifier_type=modifier_type,
+                        length_modifier=modifier,
+                    )
+                    m.media.add(med)
+                    m.save()
+        for sphere_1 in spheres:
+            for sphere_2 in spheres:
+                if sphere_1 != sphere_2:
+                    for i in range(5):
+                        for j in range(5):
+                            d = {sphere_1: i, sphere_2: j}
+                            Rote.objects.create(
+                                name=f"{sphere_1}/{sphere_2} Test Rote {5*i+j}", **d
+                            )
 
     def test_total_points(self):
         self.chantry.rank = 1
@@ -238,15 +364,15 @@ class TestChantry(TestCase):
         self.assertEqual(self.chantry.trait_cost("node"), 3)
         self.assertEqual(self.chantry.trait_cost("resources"), 3)
         self.assertEqual(self.chantry.trait_cost("enhancement"), 4)
-        self.assertEqual(self.chantry.trait_cost("retainers"), 4)
+        self.assertEqual(self.chantry.trait_cost("requisitions"), 4)
         self.assertEqual(self.chantry.trait_cost("reality zone"), 5)
 
     def test_creation_of_nodes(self):
-        self.chantry.node = 0
+        self.chantry.node_rating = 0
         self.chantry.create_nodes()
         self.assertEqual(self.chantry.nodes.count(), 0)
         self.assertEqual(self.chantry.total_node(), 0)
-        self.chantry.node = 12
+        self.chantry.node_rating = 12
         self.chantry.create_nodes()
         self.assertGreater(self.chantry.nodes.count(), 0)
         self.assertEqual(self.chantry.total_node(), 12)
@@ -254,10 +380,10 @@ class TestChantry(TestCase):
             self.assertEqual(node.parent, self.chantry)
 
     def test_creation_of_library(self):
-        self.chantry.library = 0
+        self.chantry.library_rating = 0
         self.chantry.create_library()
         self.assertIsNone(self.chantry.library)
-        self.chantry.library = 4
+        self.chantry.library_rating = 4
         self.chantry.create_library()
         self.assertIsNotNone(self.chantry.library)
 
@@ -269,6 +395,7 @@ class TestChantry(TestCase):
 
     def test_add_node(self):
         node = Node.objects.create(name="Test Node")
+        self.chantry.node_rating = 3
         self.assertFalse(self.chantry.has_node())
         self.chantry.add_node(node)
         self.assertTrue(self.chantry.has_node())
@@ -282,12 +409,17 @@ class TestChantry(TestCase):
         self.chantry.arcane = 1
         self.assertEqual(self.chantry.points_spent(), 38)
 
+    def test_random_rank(self):
+        self.assertEqual(self.chantry.rank, 0)
+        self.chantry.random_rank()
+        self.assertNotEqual(self.chantry.rank, 0)
+
     def test_random(self):
         self.assertFalse(self.chantry.has_library())
         self.assertFalse(self.chantry.has_node())
         self.chantry.random()
         self.assertGreater(self.chantry.points, 0)
-        self.assertEqual(self.chantry.points.self.chantry.points_spent())
+        self.assertEqual(self.chantry.points, self.chantry.points_spent())
 
 
 class TestNodeDetailView(TestCase):

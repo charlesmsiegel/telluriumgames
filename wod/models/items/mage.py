@@ -100,10 +100,10 @@ class Grimoire(Wonder):
             if self.faction is not None:
                 if self.faction.founded is not None:
                     date_written = random.randint(
-                        self.faction.founded, datetime.datetime.now().year + 1
+                        self.faction.founded, datetime.datetime.now().year
                     )
             date_written = random.randint(
-                datetime.datetime.now().year - 100, datetime.datetime.now().year + 1
+                datetime.datetime.now().year - 100, datetime.datetime.now().year
             )
         self.set_date_written(date_written)
 

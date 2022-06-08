@@ -8,7 +8,7 @@ from wod.models.characters.mage import Mage, ResRating
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
 from wod.models.locations.human import City, Location
-from wod.models.locations.mage import Node, NodeMeritFlawRating, NodeResonanceRating
+from wod.models.locations.mage import Node, NodeMeritFlawRating, NodeResonanceRating, Chantry
 
 
 # Create your views here.
@@ -88,11 +88,24 @@ class NodeDetailView(View):
         }
 
 
+class ChantryDetailView(View):
+    def get(self, request, *args, **kwargs):
+        chantry = Chantry.objects.get(pk=kwargs["pk"])
+        context = self.get_context(chantry)
+        return render(request, "wod/locations/chantry/detail.html", context)
+
+    def get_context(self, chantry):
+        return {
+            "object": chantry,
+        }
+
+
 class GenericLocationDetailView(View):
     views = {
         "location": LocationDetailView,
         "city": CityDetailView,
         "node": NodeDetailView,
+        "chantry": ChantryDetailView,
     }
 
     def get(self, request, *args, **kwargs):

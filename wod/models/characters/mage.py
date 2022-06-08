@@ -7,7 +7,8 @@ from accounts.models import WoDProfile
 from core.models import Language, Material, Medium
 from core.utils import add_dot, weighted_choice
 from wod.models.characters.human import Character, Human
-
+# from wod.models.locations.mage import Node
+# from wod.models.items.mage import Library, Grimoire
 
 # Create your models here.
 class Instrument(models.Model):
@@ -615,7 +616,7 @@ class Mage(Human):
         return add_dot(self, "arete", cap)
 
     def random_arete(self):
-        self.arete = random.randint(1, 4)
+        self.arete = random.randint(1, 3)
         self.freebies -= (self.arete - 1) * 4
 
     def has_essence(self):
@@ -663,7 +664,7 @@ class Mage(Human):
                 if self.add_resonance(choice):
                     return True
         while True:
-            index = random.randint(1, Resonance.objects.last().id + 1)
+            index = random.randint(1, Resonance.objects.last().id)
             if Resonance.objects.filter(pk=index).exists():
                 choice = Resonance.objects.get(pk=index)
                 if self.resonance_rating(choice) < 5:
@@ -933,6 +934,12 @@ class Mage(Human):
                 spent = self.spend_freebies(choice)
             if not spent:
                 counter += 1
+                
+    def has_library(self):
+        pass
+    
+    def has_node(self):
+        pass
 
     def random(self, freebies=15, xp=0):
         self.freebies = freebies
@@ -957,6 +964,23 @@ class Mage(Human):
         self.random_freebies()
         self.random_xp()
         self.random_specialties()
+        # if self.node > 0:
+        #     n = Node.objects.create(name=f"{self.name}'s Node", rank=self.node)
+        #     n.random(rank=self.node)
+        #     self.owned_node = n
+        # if self.library > 0:
+        #     l = Library.objects.create(name=f"{self.name}'s Library")
+        #     for i in range(1, self.library + 1):
+        #         g = Grimoire.objects.create(name=f"{self.name}'s Book {i}")
+        #         g.random(
+        #             rank=i,
+        #             faction=self.faction,
+        #             paradigms=self.paradigms.all(),
+        #             practices=self.practices.all(),
+        #             instruments=self.instruments.all(),
+        #             spheres=[x for x in self.filter_spheres(minimum=1).keys()],
+        #         )
+        #         l.increase_rank(book=g)
 
     def random_name(self):
         if not self.has_name():

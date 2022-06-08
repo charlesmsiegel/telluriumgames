@@ -1,0 +1,57 @@
+{% extends "core/base.html" %}
+{% block title %}
+    {{ object.name }}
+{% endblock title %}
+<body>
+    {% block content %}
+        <div class="centertext">
+            <div class="col-sm mage_heading">
+                <h1>{{ object.name }}</h1>
+            </div>
+            {% if object.parent != None %}
+                <div class="row">
+                    <div class="col-sm">Parent</div>
+                    <a class="col-sm" href="{% url 'wod:location' object.parent.id %}">{{ object.parent.name }}</a>
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-sm">Rank</div>
+                <div class="col-sm">{{ object.rank }}</div>
+                <div class="col-sm">Size</div>
+                <div class="col-sm">{{ object.get_size_display }}</div>
+                <div class="col-sm">Reality Zone</div>
+                <div class="col-sm">{{ object.reality_zone }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Gauntlet</div>
+                <div class="col-sm">{{ object.gauntlet }}</div>
+                <div class="col-sm">Shroud</div>
+                <div class="col-sm">{{ object.shroud }}</div>
+                <div class="col-sm">Dimension Barrier</div>
+                <div class="col-sm">{{ object.dimension_barrier }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Quintessence per week</div>
+                <div class="col-sm">{{ object.quintessence_per_week }}</div>
+                <div class="col-sm">{{ object.quintessence_form }}</div>
+                <div class="col-sm">Tass per week</div>
+                <div class="col-sm">{{ object.tass_per_week }}</div>
+                <div class="col-sm">{{ object.tass_form }}</div>
+            </div>
+            {% if merits_and_flaws.count != 0 %}
+            <div class="col-sm mage_heading">
+                <h2>Merits and Flaws</h2>
+            </div>
+            <div class="row">
+                {% for mf in merits_and_flaws %}<div class="col-sm">{{ mf.mf }} {{ mf.rating }}</div>{% endfor %}
+            </div>
+            {% endif %}
+            <div class="col-sm mage_heading">
+                <h2>Resonance</h2>
+            </div>
+            <div class="row">
+                {% for res in resonance %}<div class="col-sm">{{ res.resonance }}: {{ res.rating }}</div>{% endfor %}
+            </div>
+        </div>
+    {% endblock content %}
+</body>
