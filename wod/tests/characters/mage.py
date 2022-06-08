@@ -982,6 +982,12 @@ class TestRandomMage(TestCase):
         self.assertFalse(self.character.has_rotes())
         self.character.random_rotes()
         self.assertTrue(self.character.has_rotes())
+        
+    def test_created_node_when_has_node(self):
+        self.fail()
+        
+    def test_created_library_when_has_library(self):
+        self.fail()
 
     def test_random(self):
         self.assertFalse(self.character.has_name())
