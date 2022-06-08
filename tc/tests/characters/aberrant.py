@@ -546,7 +546,7 @@ class TestAberrant(TestCase):
         self.character.mega_cunning = 0
         for sense in keen_senses:
             self.assertNotIn(sense, self.character.edges.all())
-        self.character.add_mega_attribute("cunning)"
+        self.character.add_mega_attribute("cunning")
         for sense in keen_senses:
             self.assertIn(sense, self.character.edges.all())
 
