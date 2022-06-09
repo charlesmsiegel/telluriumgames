@@ -8,11 +8,11 @@ from django.db.models import Q
 
 from core.models import Language, Material, Medium
 from core.utils import weighted_choice
-from wod.models.characters.mage.focus import Instrument, Practice, Paradigm
 from wod.models.characters.mage.faction import MageFaction
+from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
 from wod.models.characters.mage.rote import Rote
-from wod.models.items.human import Item
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
+from wod.models.items.human import Item
 
 
 # Create your models here.
@@ -308,9 +308,7 @@ class Grimoire(Wonder):
                 q_objects |= Q(**{key: value})
             rotes = Rote.objects.filter(q_objects)
 
-            kwargs = {
-                f"{sphere}__lte": self.rank for sphere in SPHERE_LIST
-            }
+            kwargs = {f"{sphere}__lte": self.rank for sphere in SPHERE_LIST}
             for key, value in kwargs.items():
                 rotes = rotes.filter(Q(**{key: value}))
             num_rotes = 1
@@ -414,7 +412,7 @@ class Library(Wonder):
 
     def num_books(self):
         return self.books.count()
-    
+
     def random(self):
         while self.num_books() < self.rank:
             self.random_book()

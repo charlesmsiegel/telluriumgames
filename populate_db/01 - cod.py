@@ -1,7 +1,7 @@
 from time import time
 
-from core.models import Language
 from cod.models.characters.mortal import Merit, Specialty
+from core.models import Language
 
 Specialty.objects.create(skill="academics", name="English Literature")
 Specialty.objects.create(skill="academics", name="History")
@@ -363,10 +363,7 @@ Merit.objects.create(
     name="Giant", ratings=[4], merit_type="Physical",
 )
 Merit.objects.create(
-    name="Hardy",
-    ratings=[1, 2, 3],
-    prereqs=[[("stamina", 3)]],
-    merit_type="Physical",
+    name="Hardy", ratings=[1, 2, 3], prereqs=[[("stamina", 3)]], merit_type="Physical",
 )
 Merit.objects.create(
     name="Greyhound",
@@ -455,10 +452,7 @@ Merit.objects.create(
     name="Anonymity", ratings=[1, 2, 3, 4, 5], merit_type="Social",
 )
 Merit.objects.create(
-    name="Barfly",
-    ratings=[2],
-    prereqs=[[("socialize", 2)]],
-    merit_type="Social",
+    name="Barfly", ratings=[2], prereqs=[[("socialize", 2)]], merit_type="Social",
 )
 Merit.objects.create(
     name="Closed Book",
@@ -497,16 +491,10 @@ Merit.objects.create(
     merit_type="Social",
 )
 Merit.objects.create(
-    name="Inspiring",
-    ratings=[3],
-    prereqs=[[("presence", 3)]],
-    merit_type="Social",
+    name="Inspiring", ratings=[3], prereqs=[[("presence", 3)]], merit_type="Social",
 )
 iron_will = Merit.objects.create(
-    name="Iron Will",
-    ratings=[2],
-    prereqs=[[("resolve", 4)]],
-    merit_type="Social",
+    name="Iron Will", ratings=[2], prereqs=[[("resolve", 4)]], merit_type="Social",
 )
 Merit.objects.create(
     name="Mystery Cult Initiation",
@@ -549,10 +537,7 @@ Merit.objects.create(
     merit_type="Social",
 )
 Merit.objects.create(
-    name="Pusher",
-    ratings=[1],
-    prereqs=[[("persuasion", 2)]],
-    merit_type="Social",
+    name="Pusher", ratings=[1], prereqs=[[("persuasion", 2)]], merit_type="Social",
 )
 Merit.objects.create(
     name="Resources", ratings=[1, 2, 3, 4,], merit_type="Social",
@@ -726,10 +711,7 @@ Merit.objects.create(
     merit_type="Fighting",
 )
 Merit.objects.create(
-    name="Choke Hold",
-    ratings=[2],
-    prereqs=[[("brawl", 2)]],
-    merit_type="Fighting",
+    name="Choke Hold", ratings=[2], prereqs=[[("brawl", 2)]], merit_type="Fighting",
 )
 Merit.objects.create(
     name="Close Quarters Combat",
@@ -770,36 +752,21 @@ Merit.objects.create(
     name="Firefight",
     is_style=True,
     ratings=[1, 2, 3],
-    prereqs=[[
-        ("composure", 3),
-        ("dexterity", 3),
-        ("athletics", 2),
-        ("firearms", 2),
-    ]],
+    prereqs=[[("composure", 3), ("dexterity", 3), ("athletics", 2), ("firearms", 2),]],
     merit_type="Fighting",
 )
 Merit.objects.create(
     name="Grappling",
     is_style=True,
     ratings=[1, 2, 3],
-    prereqs=[[
-        ("stamina", 3),
-        ("strength", 2),
-        ("athletics", 2),
-        ("brawl", 2),
-    ]],
+    prereqs=[[("stamina", 3), ("strength", 2), ("athletics", 2), ("brawl", 2),]],
     merit_type="Fighting",
 )
 Merit.objects.create(
     name="Heavy Weapons",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
-    prereqs=[[
-        ("stamina", 3),
-        ("strength", 3),
-        ("athletics", 2),
-        ("weaponry", 2),
-    ]],
+    prereqs=[[("stamina", 3), ("strength", 3), ("athletics", 2), ("weaponry", 2),]],
     merit_type="Fighting",
 )
 Merit.objects.create(
@@ -825,19 +792,16 @@ Merit.objects.create(
     name="Light Weapons",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
-    prereqs=[[
-        ("wits", 3),
-        ("dexterity", 3),
-        ("athletics", 2),
-        ("weaponry", 2),
-    ]],
+    prereqs=[[("wits", 3), ("dexterity", 3), ("athletics", 2), ("weaponry", 2),]],
     merit_type="Fighting",
 )
 Merit.objects.create(
     name="Light Weapons",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
-    prereqs=[[("dexterity", 3), ("athletics", 2), ("weaponry", 2), ("Fighting Finesse", 1)]],
+    prereqs=[
+        [("dexterity", 3), ("athletics", 2), ("weaponry", 2), ("Fighting Finesse", 1)]
+    ],
     merit_type="Fighting",
 )
 Merit.objects.create(
@@ -851,12 +815,7 @@ Merit.objects.create(
     name="Martial Arts",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
-    prereqs=[[
-        ("resolve", 3),
-        ("dexterity", 3),
-        ("athletics", 2),
-        ("brawl", 2),
-    ]],
+    prereqs=[[("resolve", 3), ("dexterity", 3), ("athletics", 2), ("brawl", 2),]],
     merit_type="Fighting",
 )
 Merit.objects.create(
@@ -876,12 +835,7 @@ Merit.objects.create(
     name="Street Fighting",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
-    prereqs=[[
-        ("stamina", 3),
-        ("composure", 3),
-        ("brawl", 2),
-        ("streetwise", 2),
-    ]],
+    prereqs=[[("stamina", 3), ("composure", 3), ("brawl", 2), ("streetwise", 2),]],
     merit_type="Fighting",
 )
 Merit.objects.create(

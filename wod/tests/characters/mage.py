@@ -4,6 +4,7 @@ from unittest.mock import Mock
 from django.contrib.auth.models import User
 from django.test import TestCase
 
+from core.models import Language
 from wod.models.characters.human import Archetype, MeritFlaw, Specialty
 from wod.models.characters.mage import (
     Cabal,
@@ -15,7 +16,6 @@ from wod.models.characters.mage import (
     Resonance,
     Rote,
 )
-from core.models import Language
 from wod.models.locations.mage import NodeMeritFlaw
 
 
@@ -84,7 +84,7 @@ def mage_setup(player):
 
     for i in range(20):
         Archetype.objects.create(name=f"Archetype {i}")
-        
+
     for i in range(1, 11):
         Language.objects.create(name=f"Language {i}", frequency=i)
 
@@ -989,13 +989,13 @@ class TestRandomMage(TestCase):
         self.assertFalse(self.character.has_rotes())
         self.character.random_rotes()
         self.assertTrue(self.character.has_rotes())
-        
+
     def test_created_node_when_has_node(self):
         self.character.node = 3
         self.assertFalse(self.character.has_node())
         self.character.random_node()
         self.assertTrue(self.character.has_node())
-        
+
     def test_created_library_when_has_library(self):
         self.character.library = 3
         self.assertFalse(self.character.has_library())

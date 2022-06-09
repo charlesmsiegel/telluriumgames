@@ -1,4 +1,6 @@
 from time import time
+
+from core.models import Language, Material, Medium
 from wod.models.characters.human import Archetype, MeritFlaw, Specialty
 from wod.models.characters.mage import (
     Instrument,
@@ -8,7 +10,6 @@ from wod.models.characters.mage import (
     Resonance,
     Rote,
 )
-from core.models import Language, Medium, Material
 
 english, _ = Language.objects.get_or_create(name="English", frequency=141264)
 german, _ = Language.objects.get_or_create(name="German", frequency=20058)
@@ -57,12 +58,21 @@ vellum, _ = Material.objects.get_or_create(name="Vellum")
 wood, _ = Material.objects.get_or_create(name="Wood")
 
 book, _ = Medium.objects.get_or_create(name="Book")
-ebook, _ = Medium.objects.get_or_create(name="eBook", length_modifier_type="/", length_modifier=1)
-flash_drive, _ = Medium.objects.get_or_create(name="Flash Drive", length_modifier_type="/", length_modifier=1)
-scrolls, _ = Medium.objects.get_or_create(name="Scrolls", length_modifier_type="/", length_modifier=1)
-software, _ = Medium.objects.get_or_create(name="Software", length_modifier_type="/", length_modifier=1)
-tablets, _ = Medium.objects.get_or_create(name="Tablets", length_modifier_type="/", length_modifier=1)
-
+ebook, _ = Medium.objects.get_or_create(
+    name="eBook", length_modifier_type="/", length_modifier=1
+)
+flash_drive, _ = Medium.objects.get_or_create(
+    name="Flash Drive", length_modifier_type="/", length_modifier=1
+)
+scrolls, _ = Medium.objects.get_or_create(
+    name="Scrolls", length_modifier_type="/", length_modifier=1
+)
+software, _ = Medium.objects.get_or_create(
+    name="Software", length_modifier_type="/", length_modifier=1
+)
+tablets, _ = Medium.objects.get_or_create(
+    name="Tablets", length_modifier_type="/", length_modifier=1
+)
 
 
 Archetype.objects.create(name="Activist")
@@ -186,7 +196,7 @@ Specialty.objects.create(name="Sensing Emotions", stat="empathy")
 Specialty.objects.create(name="Life-Force Fluctuations", stat="empathy")
 Specialty.objects.create(name="Interpersonal Psychology", stat="empathy")
 Specialty.objects.create(name="Seeing Past the Mask", stat="empathy")
-Specialty.objects.create(name="\"I Know What You Need\"", stat="empathy")
+Specialty.objects.create(name='"I Know What You Need"', stat="empathy")
 Specialty.objects.create(name="Passion Plays", stat="expression")
 Specialty.objects.create(name="Eloquence", stat="expression")
 Specialty.objects.create(name="Motivational Speaking", stat="expression")
@@ -424,7 +434,7 @@ Specialty.objects.create(name="Alternative Medicine", stat="medicine")
 Specialty.objects.create(name="Physical Deconstruction", stat="medicine")
 Specialty.objects.create(name="Magickal Healing", stat="medicine")
 Specialty.objects.create(name="Frankensteinian Techniques", stat="medicine")
-Specialty.objects.create(name="\"Live, Dame You - LIVE!\"", stat="medicine")
+Specialty.objects.create(name='"Live, Dame You - LIVE!"', stat="medicine")
 Specialty.objects.create(name="Neopaganism", stat="occult")
 Specialty.objects.create(name="Occult History", stat="occult")
 Specialty.objects.create(name="Conspiracy Theories", stat="occult")
@@ -487,7 +497,7 @@ Specialty.objects.create(name="Befriending", stat="animal_kinship")
 Specialty.objects.create(name="Calming", stat="animal_kinship")
 Specialty.objects.create(name="Bonding", stat="animal_kinship")
 Specialty.objects.create(name="Reading Signs", stat="animal_kinship")
-Specialty.objects.create(name="\"Talk to the Animals\"", stat="animal_kinship")
+Specialty.objects.create(name='"Talk to the Animals"', stat="animal_kinship")
 Specialty.objects.create(name="Training Specific Animals", stat="animal_kinship")
 Specialty.objects.create(name="Religious Appeal", stat="blatancy")
 Specialty.objects.create(name="Political Paranoia", stat="blatancy")
@@ -548,7 +558,7 @@ Specialty.objects.create(name="Appealing to Kinks", stat="seduction")
 Specialty.objects.create(name="False Innocence", stat="seduction")
 Specialty.objects.create(name="Topping From Below", stat="seduction")
 Specialty.objects.create(name="Subtle Moves", stat="seduction")
-Specialty.objects.create(name="\"Let's Be Bad Guys\"", stat="seduction")
+Specialty.objects.create(name='"Let\'s Be Bad Guys"', stat="seduction")
 Specialty.objects.create(name="Crude But Effective", stat="seduction")
 Specialty.objects.create(name="Aerial Arts", stat="acrobatics")
 Specialty.objects.create(name="Martial Arts", stat="acrobatics")
@@ -624,7 +634,7 @@ Specialty.objects.create(name="Classical Devices", stat="torture")
 Specialty.objects.create(name="Sexplay", stat="torture")
 Specialty.objects.create(name="Self-Torment", stat="torture")
 Specialty.objects.create(name="Information Retrieval", stat="torture")
-Specialty.objects.create(name="\"Works of Art\"", stat="torture")
+Specialty.objects.create(name='"Works of Art"', stat="torture")
 Specialty.objects.create(name="Pain - Not Harm", stat="torture")
 Specialty.objects.create(name="History", stat="area_knowledge")
 Specialty.objects.create(name="Geography", stat="area_knowledge")
@@ -664,7 +674,7 @@ Specialty.objects.create(name="Car Bombs", stat="demolitions")
 Specialty.objects.create(name="Improvised Materials", stat="demolitions")
 Specialty.objects.create(name="Magickal Enhancement", stat="demolitions")
 Specialty.objects.create(name="Building Demolition", stat="demolitions")
-Specialty.objects.create(name="\"Watch THIS!\"", stat="demolitions")
+Specialty.objects.create(name='"Watch THIS!"', stat="demolitions")
 Specialty.objects.create(name="Stock Markets", stat="finance")
 Specialty.objects.create(name="Investment Trends", stat="finance")
 Specialty.objects.create(name="International Trading", stat="finance")
@@ -705,7 +715,9 @@ Specialty.objects.create(name="Media Consolidation", stat="media")
 Specialty.objects.create(name="Top-Down Influence", stat="media")
 Specialty.objects.create(name="Entertainment", stat="media")
 Specialty.objects.create(name="Advertising", stat="media")
-Specialty.objects.create(name="Walking the Line Between Truth and Fiction", stat="media")
+Specialty.objects.create(
+    name="Walking the Line Between Truth and Fiction", stat="media"
+)
 Specialty.objects.create(name="Mundane Meds", stat="pharmacopeia")
 Specialty.objects.create(name="Hypermeds", stat="pharmacopeia")
 Specialty.objects.create(name="Street Drugs", stat="pharmacopeia")
@@ -1042,10 +1054,10 @@ black_mass = Practice.objects.create(
         "esoterica",
         "intimidation",
         "occult",
-        "subterfuge", 
-        # "theology", 
+        "subterfuge",
+        # "theology",
         # "vice"
-               ],
+    ],
 )
 black_mass.instruments.add(
     atrocity,
@@ -3208,42 +3220,26 @@ MageFaction.objects.create(name="Neutralization Specialization Corps", parent=ve
 MageFaction.objects.create(name="Border Corps Division", parent=ve)
 MageFaction.objects.create(name="Pan-Dimension Corps", parent=ve)
 
+Resonance.objects.create(name="Acquisitive",)
+Resonance.objects.create(name="Alchemical",)
 Resonance.objects.create(
-    name="Acquisitive",
+    name="All-Seeing", correspondence=True,
+)
+Resonance.objects.create(name="Alluring",)
+Resonance.objects.create(name="Analytic",)
+Resonance.objects.create(
+    name="Ancient", time=True,
 )
 Resonance.objects.create(
-    name="Alchemical",
+    name="Architectural", correspondence=True, matter=True,
 )
 Resonance.objects.create(
-    name="All-Seeing",
-    correspondence=True,
+    name="Breathing", life=True,
 )
 Resonance.objects.create(
-    name="Alluring",
+    name="Bright", forces=True,
 )
-Resonance.objects.create(
-    name="Analytic",
-)
-Resonance.objects.create(
-    name="Ancient",
-    time=True,
-)
-Resonance.objects.create(
-    name="Architectural",
-    correspondence=True,
-    matter=True,
-)
-Resonance.objects.create(
-    name="Breathing",
-    life=True,
-)
-Resonance.objects.create(
-    name="Bright",
-    forces=True,
-)
-Resonance.objects.create(
-    name="Bureaucratic",
-)
+Resonance.objects.create(name="Bureaucratic",)
 Resonance.objects.create(
     name="Calm",
     correspondence=0,
@@ -17612,1106 +17608,13182 @@ Resonance.objects.create(name="cernuous")
 Resonance.objects.create(name="immodest")
 Resonance.objects.create(name="all-around")
 
-Rote.objects.create(name="Balance the Scales", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Blight/Farmer's Favor", correspondence=0, time=3, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Luck's Blessing/Curse", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Luck of the Lotus", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=2, prime=0)
-Rote.objects.create(name="Nanburbu", correspondence=2, time=0, spirit=3, matter=0, life=2, forces=0, entropy=4, mind=0, prime=3)
-Rote.objects.create(name="Threefold Return", correspondence=0, time=4, spirit=0, matter=0, life=0, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Ansu Ishten", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=3, mind=0, prime=0)
-Rote.objects.create(name="Banishing Blessing", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=2, prime=0)
-Rote.objects.create(name="Baptism Rune", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Beginner's Luck", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Bless the Heavenly Flower", correspondence=0, time=0, spirit=4, matter=0, life=4, forces=0, entropy=5, mind=0, prime=0)
-Rote.objects.create(name="Bum a Dollar From the Universe", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Buzzwords", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=2, prime=0)
-Rote.objects.create(name="Caesar's Due", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=2)
-Rote.objects.create(name="Epiphany of the Muse", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Games of Luck", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Luck Be a Lady Tonight", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Masquerade to Adulthood", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Midwife's Blessing", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Nobody Dies in Vegas", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Reflecting Bane", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Shishipat's Favor", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Waiting to Exhale", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=3, mind=0, prime=0)
-Rote.objects.create(name="Weeping for Tammuz", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=0, prime=0)
-Rote.objects.create(name="Wurnan Blessing", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Ace of Diamonds", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=0, prime=1)
-Rote.objects.create(name="Actively Actuarial", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Death Curse", correspondence=0, time=0, spirit=2, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Death Wish", correspondence=2, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Learn-It", correspondence=2, time=2, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=3)
-Rote.objects.create(name="Rival's Curse", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Sha'ir's Sentence", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=3, mind=2, prime=0)
-Rote.objects.create(name="Spoiling", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Statistical Mechanics", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Vext", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Brand (the Rawhide Rote)", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=2, mind=0, prime=2)
-Rote.objects.create(name="Create Virtual Object/Create Daemon", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Digital Disruption", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Doe's Password", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=3, prime=0)
-Rote.objects.create(name="Encode", correspondence=2, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Energy Transformation", correspondence=1, time=0, spirit=0, matter=0, life=4, forces=4, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Feedback", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="FIRP", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=3, entropy=4, mind=5, prime=2)
-Rote.objects.create(name="Fractal Encryption", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=3, mind=0, prime=2)
-Rote.objects.create(name="Hardware Entry", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Information Superhighway", correspondence=2, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Instant Offline", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Online Virus Transmitter Program", correspondence=2, time=0, spirit=0, matter=0, life=2, forces=2, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Overwrite", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=3, mind=0, prime=4)
-Rote.objects.create(name="Parallax", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Restrict Sector", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=3)
-Rote.objects.create(name="TechnoVision", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=1, entropy=1, mind=1, prime=1)
-Rote.objects.create(name="Virtual Talisman Transmogrification", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=2, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Webcrawlers", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Boot Buzzer", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Burn Out", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="FOR NEXT Loop", correspondence=4, time=0, spirit=0, matter=0, life=4, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Red Button", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=3, mind=0, prime=2)
-Rote.objects.create(name="System Crash", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="System Havoc", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="That Rascal Puff", correspondence=2, time=0, spirit=0, matter=0, life=3, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Black Card/Little Black Box", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Captain's Treasure", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=4)
-Rote.objects.create(name="Core Dump", correspondence=2, time=2, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Disk-Doctor", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=1, entropy=3, mind=2, prime=0)
-Rote.objects.create(name="DRM", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=2)
-Rote.objects.create(name="Encrypt", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Graphic Transmission", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Hacker's Glance", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Intel", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Mental Interface", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Remote Access", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Virtual Lockpick", correspondence=1, time=3, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="AI (Artificial Intelligence)", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=5, prime=0)
-Rote.objects.create(name="Audience of Inanna", correspondence=2, time=1, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Personal Assistant Software", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=5, prime=2)
-Rote.objects.create(name="Psychic Interface", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Remote Programming", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Book of Whispers", correspondence=0, time=3, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Crowd Surfing", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Eavesdropper", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="High-Definition", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Monitor Communications", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=1, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Nearest and Dearest", correspondence=2, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Phone Tap", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="PIN Drop", correspondence=2, time=2, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Squaring the Circle", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Surveillance", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Telescreen", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Tracking Device", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Adad", correspondence=2, time=0, spirit=1, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Chaos Butterfly", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=2, mind=0, prime=2)
-Rote.objects.create(name="Contemplation", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Dogon Divination", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Find the Lost", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Istar", correspondence=3, time=0, spirit=3, matter=0, life=0, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Laying on of Hands", correspondence=0, time=2, spirit=0, matter=0, life=1, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Lighting the Path", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Read the Lightning", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Samas", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Search Engine", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=1, mind=0, prime=1)
-Rote.objects.create(name="Silent Promise of the Spring Tortoise", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Sin", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=2, mind=0, prime=1)
-Rote.objects.create(name="Wyrd Visions", correspondence=2, time=2, spirit=0, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Binding Oath", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=5, mind=0, prime=0)
-Rote.objects.create(name="Fate Mark", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Geasa", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=5, mind=0, prime=0)
-Rote.objects.create(name="Major Geas", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=5, mind=5, prime=0)
-Rote.objects.create(name="Minor Geas", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=2, prime=0)
-Rote.objects.create(name="Secret Rune", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=5, mind=0, prime=0)
-Rote.objects.create(name="Sparrow's Fall", correspondence=0, time=4, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=0, prime=2)
-Rote.objects.create(name="All Tomorrow's Parties", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Anunnaku", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=3, mind=0, prime=3)
-Rote.objects.create(name="Biometric Holographic Recreation", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Celestial Prediction", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Chronopathy", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Crime and Consequences", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Divinations", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Don't Cross the Streams", correspondence=2, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Forecasting", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="The Geometry of Trade", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Hepatoscopy", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Jung's Trick", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Long-Range Eyes", correspondence=2, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Manipulate Time Fragment", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Nonlinear Prediction", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Peeping Tom", correspondence=2, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Planned Projection", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Play Back", correspondence=2, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Postcognition", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Psychometry", correspondence=0, time=2, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Quo Vadis? (Whither Goest Thou?)", correspondence=2, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Reading the Umbral Skein", correspondence=0, time=2, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Running Scenarios", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=4, prime=0)
-Rote.objects.create(name="Salmon of Wisdom", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="The Scented Handkerchief", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Songs of Future Days", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Strategic Inefficiency Analysis", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Sugar Magnolias", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Turning the Wheel of Ages", correspondence=0, time=2, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="View the Scattered Lotus Petals", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Area Scan", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Auric Trail", correspondence=1, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Check the Corners", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Correspondence Sensing", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Distant Sight", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Divided Sight", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Filter All-Space", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Geometric Jars", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Heat Seeking", correspondence=2, time=0, spirit=0, matter=0, life=1, forces=1, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Heat Trace", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=1, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Map the True Way", correspondence=2, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Open/Close Window", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Scan Non-Local Universe", correspondence=2, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Scrying", correspondence=2, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Seizing the Forgotten", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Stalking the Void", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Anger in the Land", correspondence=0, time=0, spirit=3, matter=3, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Banish Elemental", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Cycle of the Five Agents", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Time Lock", correspondence=0, time=4, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="No Surrender", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=4, mind=0, prime=2)
-Rote.objects.create(name="Rouse the Dragon", correspondence=0, time=0, spirit=4, matter=5, life=0, forces=5, entropy=0, mind=0, prime=4)
-Rote.objects.create(name="Yao Su Dragon Thunder", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Cuicuilco's Demise", correspondence=0, time=0, spirit=0, matter=4, life=0, forces=5, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Embracing the Earth Mother", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=4, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Pele Wai'ula (Pele's Blood)", correspondence=3, time=0, spirit=0, matter=2, life=0, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Pele's Wrath", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=4, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="TWACI", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Arc", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Call Lightning", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Discharge Static", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Electrical Chaos", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Lightning Gateway", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Pulse of the Electro-Stream", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Akua Kumu Haka (Guided Fireball)", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Awaken Flame", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Balefire", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Ball of Abysmal Flames", correspondence=0, time=4, spirit=0, matter=3, life=0, forces=5, entropy=0, mind=0, prime=4)
-Rote.objects.create(name="Betrayal of the Burning Arrow", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Devouring Gullet of Flame", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=4, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Dragonstorm", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=4, entropy=0, mind=0, prime=4)
-Rote.objects.create(name="Eternal Flame", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Fire Rune", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Friction Curse", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Gabriel's Embrace", correspondence=2, time=0, spirit=0, matter=2, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Hermes' Brand", correspondence=0, time=4, spirit=0, matter=0, life=0, forces=3, entropy=1, mind=0, prime=2)
-Rote.objects.create(name="Ignis", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Inferno", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=5, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Lotus Bloom", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Phlogiston Manipulation", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Phlogiston Flux", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Pop Goes the Weasel", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=2, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Possess Flame", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Proof Against Immolation", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Shih-Huang-Ti's Marvelous Game", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Wildfire", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Wrath of Heaven", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=4, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Fiat Lux", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Filter'd Lantern-Light", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Flash", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Glorious Sword of Heaven", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Laser Enhancement", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Laser Production", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Tsuiho - The Fires of Heaven", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="'Ahiu Nalu (Rogue Wave)", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Calling the Wind Lords", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Cloud Cover", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=5, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Dousing", correspondence=1, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Dowsing", correspondence=2, time=0, spirit=0, matter=1, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Heenalu (Wave Walking)", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Mahu (Steam)", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Sing Down the Rain", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Storm Rune", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=3, mind=0, prime=0)
-Rote.objects.create(name="Tempest in a Teapot", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=5, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Waipuilani (Waterspout)", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Weather Working", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=4, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Body of Light", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Cold Water's Blessing", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Contingent Effect", correspondence=0, time=4, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Counterspell Rune", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Divert Prime Force", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Enchant Life", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Master's Enchantment", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=5)
-Rote.objects.create(name="Parma Magica", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Programmed Event", correspondence=0, time=4, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Watch the Weaving", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Awaken the Sleeping Earth", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Drain Node", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=4)
-Rote.objects.create(name="Glorious is the Temple", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=3)
-Rote.objects.create(name="Leying of the Line", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Locate Quintessence Flow", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Node Raider", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Primal Credit Rating", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=3)
-Rote.objects.create(name="Prime Location", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Sense Node", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Tap Node", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Terminal Sanitization", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=5)
-Rote.objects.create(name="Wellspring", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=4)
-Rote.objects.create(name="Bond of Blood", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="The Burning Lotus", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=4, mind=0, prime=5)
-Rote.objects.create(name="Convert Node to Tass", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Cup of Joe", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Drain Tass", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Economic Warfare", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=4)
-Rote.objects.create(name="Footbind", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=2, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Fount of Paradise", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=5)
-Rote.objects.create(name="The Hand of the Siphoner", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Hymn of Beatific Harmony", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Primal Infusion", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Primal Net", correspondence=0, time=0, spirit=0, matter=2, life=2, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Radiate Prime Energy", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=3)
-Rote.objects.create(name="Recharge Device", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Recharge Gift", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=5)
-Rote.objects.create(name="The Rush", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Sense Quintessence", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Spinning Thread", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Delay Paradox", correspondence=0, time=3, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Flames of Purification", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=4)
-Rote.objects.create(name="Healthy Skepticism", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=2, prime=0)
-Rote.objects.create(name="Holy Stroke", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Matter-Energy Converter", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Paradox Ward", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=5)
-Rote.objects.create(name="Penance for the Sicarii", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=4)
-Rote.objects.create(name="Quintessence Blast", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=5)
-Rote.objects.create(name="Spirit Pilgrimage", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=5)
-Rote.objects.create(name="Balancing the Furies", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Charge the Resonance", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Node Spike", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=3)
-Rote.objects.create(name="Occlude the Seal of Power", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=2, prime=4)
-Rote.objects.create(name="Orgone Accumulator", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Psychic Impression", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Tag", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="The Ball Game", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Blood for the Gods", correspondence=0, time=0, spirit=3, matter=0, life=2, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Blood of the Sacred King", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Cup of Itz", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Heart for Huitzilopochtli", correspondence=0, time=0, spirit=5, matter=0, life=5, forces=0, entropy=0, mind=0, prime=5)
-Rote.objects.create(name="Heart's Blood", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Kaumaha (Sacrifice)", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Lanbs to the Slaughter", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Midnight Oil", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Self-Sacrifice", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Arrest the Flight of Arrows", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Crowdsourced Combat", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=1, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Infidel's Laughter", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Lucky Blow", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Sense the Echo of the Dragon", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Spearcatcher Rune", correspondence=1, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Strategy", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Targeting Computation", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Time-Motion Study", correspondence=1, time=1, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Wearing the Bear Shirt", correspondence=0, time=0, spirit=4, matter=0, life=3, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Wrath of God", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Battle Rune", correspondence=3, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Coordinated Fire", correspondence=1, time=1, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Hail of Bullets", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Legion's Life", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Marching Orders", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Mind of the Ant Hill", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="108 Plum Blossoms", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Arashi-Waza", correspondence=2, time=3, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Bullet Catch", correspondence=0, time=2, spirit=0, matter=0, life=2, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Dragon Fist", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Eight Drunken Hsien", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="The Final Blow", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=4, mind=5, prime=3)
-Rote.objects.create(name="Flying Dragon Kick", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=4, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Focus of the Blow", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=1, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Hands of Death", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Long Fist", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Piercing Cry", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=3, mind=0, prime=0)
-Rote.objects.create(name="Purifying Step", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Repeating Blow", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=1, prime=2)
-Rote.objects.create(name="Righteous Fist", correspondence=0, time=4, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Rolling Hands", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=1, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Screech of the Owl", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=3, prime=0)
-Rote.objects.create(name="Spirit Wounder", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Blade Sense", correspondence=1, time=0, spirit=0, matter=1, life=1, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="The Hero's Challenge", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Iron Snake", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Jabarut (The Darwishim Battle Trance)", correspondence=1, time=3, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Splitting a Cuirass", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Swordbreaker Rune", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Wind-Water Skein", correspondence=3, time=0, spirit=0, matter=3, life=0, forces=2, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Deadaim", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=1, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Death Ray", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=4, mind=0, prime=2)
-Rote.objects.create(name="Emit Beam-Ray", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Golden Gunman", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Grand Salvo", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Holdout Weapon", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Hot-Shotting", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Laserblast", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Magic Bullet", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Ricochet", correspondence=1, time=1, spirit=0, matter=1, life=0, forces=1, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Rudra's Bow", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="The Swift Lock", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Tamping", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Tension", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Trickshot", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=1, entropy=1, mind=1, prime=0)
-Rote.objects.create(name="Bloodsight", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Conclave Wellness Works", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=2, mind=2, prime=0)
-Rote.objects.create(name="Detect Mental Anomalies", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Examine Humors", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Prayer of Healing Revelation", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Accidental Overdose", correspondence=0, time=0, spirit=0, matter=4, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Adaptive Chemistry", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Cinnabar Tears", correspondence=0, time=0, spirit=0, matter=2, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="DMSO", correspondence=0, time=0, spirit=0, matter=3, life=3, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Drug Enhancement", correspondence=0, time=0, spirit=0, matter=2, life=2, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Experience Substance", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Good Eatin'/Cleanse the Clown", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Manufacture Enlightened Drugs", correspondence=0, time=0, spirit=0, matter=3, life=3, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Metabolic Mastery", correspondence=0, time=0, spirit=0, matter=0, life=5, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Persephone's Nectar", correspondence=3, time=0, spirit=0, matter=2, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="The Poison Maiden", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Polysorbate", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=2, prime=1)
-Rote.objects.create(name="Purge", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Purging the System", correspondence=0, time=0, spirit=0, matter=3, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Purify", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Sustenance Pill", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Taking Poison for the Enemy", correspondence=2, time=0, spirit=0, matter=2, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Tolerance", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Witch's Diplomacy", correspondence=0, time=0, spirit=0, matter=2, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Accelerated Aging", correspondence=0, time=3, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Allergic Reaction", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Ana'ana (The Death Prayer)", correspondence=3, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Blight of Aging", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=4, mind=0, prime=3)
-Rote.objects.create(name="Bone Twisting Palm", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=4, mind=0, prime=3)
-Rote.objects.create(name="The Branding Rote", correspondence=0, time=0, spirit=3, matter=0, life=3, forces=0, entropy=0, mind=2, prime=3)
-Rote.objects.create(name="Curseof the Mayfly", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Destructive Genegineering", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=3, mind=0, prime=0)
-Rote.objects.create(name="Fluids of Death", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Fuck Off/Fuck Off and Die", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Gilgul", correspondence=0, time=0, spirit=5, matter=0, life=0, forces=0, entropy=5, mind=5, prime=5)
-Rote.objects.create(name="Heart Murmurs", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Little Good Death", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Rip the Man-Body", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Simulate Inborn Errors of Metabolism", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Spy's Stigmata", correspondence=1, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Witch's Vengeance", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Aphrodite's Blessing", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Chirurgeon", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Distill the Azoth Elixir", correspondence=0, time=0, spirit=0, matter=2, life=5, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Ease of Passage", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Hajjaj", correspondence=3, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Heal Self", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Heal Simple Creature", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Healer Rune", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Healing Figurine", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Healing Slumber", correspondence=0, time=0, spirit=2, matter=0, life=3, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Massage Therapy", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Mukashuan", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Rapid Healing", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Serene Temple", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Stay the God's Hand", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Surpu", correspondence=0, time=0, spirit=2, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Trauma", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Trauma Transmission", correspondence=2, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Adjust Major Anomalies", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Adjust Minor Anomalies", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Help Rune", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=1)
-Rote.objects.create(name="Physiological Rule", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Quietsong", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=1, mind=2, prime=0)
-Rote.objects.create(name="Branding the Heart", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Buzz", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Counter-Irritant", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="The Curse of Consequences", correspondence=0, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Curse of Macha", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Degree Absolute", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=5, prime=0)
-Rote.objects.create(name="Dukhamarana Moksa", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Endless Parchment", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="General Anesthesia", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Knock Out", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=2)
-Rote.objects.create(name="Prolong Pleasure/Pain", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Rubbing of Bones", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Turkey Basting", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Stop-Gap Resurrection", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Waters of the Well of Life", correspondence=0, time=0, spirit=0, matter=0, life=5, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Gift of Prana", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Hua To's Cure", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Alloy", correspondence=0, time=0, spirit=0, matter=4, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Alter State", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Alter Weight", correspondence=0, time=0, spirit=0, matter=5, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Guncotton's Blessing", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="The Incredible Shrunken Machine", correspondence=0, time=0, spirit=0, matter=5, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Matter Association", correspondence=0, time=0, spirit=0, matter=5, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Matter Pattern Disassociation", correspondence=0, time=0, spirit=0, matter=5, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Melt and Reform", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Sculpture", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Semi Auto CAD CAM", correspondence=5, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Tapping the Signal", correspondence=0, time=0, spirit=0, matter=5, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Transephemeration Ray Projector", correspondence=0, time=0, spirit=0, matter=3, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Transformers", correspondence=0, time=0, spirit=0, matter=4, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Analyze Substance", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Evaluation", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Machine God", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=1, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Perfection of the Tools", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Abundance", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Apportation", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Kiss of the Virtuous Maiden", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Pickpocket", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Ripple Through Space", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Spatial Sheath", correspondence=2, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Summon Weapon", correspondence=2, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Dash and a Pinch", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Exotic Matter", correspondence=0, time=0, spirit=0, matter=5, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Exotic Matter - Antimatter", correspondence=0, time=0, spirit=0, matter=5, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Exotic Matter - Primium", correspondence=0, time=0, spirit=0, matter=5, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Industry", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Inscribe Amulet", correspondence=0, time=4, spirit=0, matter=1, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Jury Rig", correspondence=2, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=1, prime=2)
-Rote.objects.create(name="Na Kua's Gift", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=3, entropy=0, mind=3, prime=2)
-Rote.objects.create(name="O'Doul's Ingeniae", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=5)
-Rote.objects.create(name="Psychiatric Compounds", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Spear of my Fathers", correspondence=0, time=0, spirit=3, matter=3, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Spontaneous Material Construction", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Temple Pillars", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=4, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Burn-Out", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Chainbreaker Rune", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Erode Matter", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=0, prime=0)
-Rote.objects.create(name="Sabotage", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Sanitize Evidence", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Slay Machine", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=0, prime=0)
-Rote.objects.create(name="Tulugaak's Harpoon", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Beads on a String", correspondence=2, time=0, spirit=2, matter=2, life=0, forces=0, entropy=2, mind=2, prime=0)
-Rote.objects.create(name="Bottle of Smoke", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=0, prime=2)
-Rote.objects.create(name="Craft Biomechanism", correspondence=0, time=0, spirit=0, matter=5, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Create Fetish", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Create Talen", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Create Talismans and Artifacts", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=4)
-Rote.objects.create(name="Enchant Weapon", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Fits Like a Glove", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Gorningstakkr", correspondence=0, time=0, spirit=0, matter=5, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Memento Mori", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Pretty-Shinies", correspondence=1, time=0, spirit=1, matter=1, life=0, forces=0, entropy=1, mind=1, prime=1)
-Rote.objects.create(name="Talisman Tattoos", correspondence=0, time=0, spirit=0, matter=4, life=3, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Talisman Transmogrification", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Walking Chair", correspondence=0, time=0, spirit=4, matter=4, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Watchdog", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Anitquing", correspondence=0, time=0, spirit=0, matter=4, life=0, forces=0, entropy=2, mind=0, prime=2)
-Rote.objects.create(name="The Aura Adamantium", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Awaken the Inanimae", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Bambolai", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Berate the Demon", correspondence=0, time=0, spirit=3, matter=3, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Caffeine Plus", correspondence=0, time=2, spirit=1, matter=0, life=3, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Like Clockwork", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=0, prime=0)
-Rote.objects.create(name="Maintain Device", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Obsidian Steel", correspondence=0, time=0, spirit=0, matter=4, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Penny Dreadful's Bright New Penny", correspondence=0, time=2, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Perfection of the True Form", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Perpetual Motion", correspondence=0, time=0, spirit=0, matter=5, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Shaman's Craft", correspondence=0, time=0, spirit=3, matter=3, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Vitality", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Back to the Earth", correspondence=0, time=0, spirit=0, matter=4, life=3, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="The Golden Lion", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Luster", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Seeds of Gold", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Simple Transmutation", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Straw into Gold", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Transmutation", correspondence=0, time=0, spirit=0, matter=4, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Checklist", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Confusing Apishtiss", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Degrade Order", correspondence=2, time=3, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Destroy Structures", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Disintegrator", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Ebon Dragon's Tale", correspondence=0, time=0, spirit=0, matter=2, life=3, forces=0, entropy=4, mind=0, prime=2)
-Rote.objects.create(name="Jolt", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Kinetic Push", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Lobotomize", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=5, prime=0)
-Rote.objects.create(name="Mershakushtu Qurdu", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=0, prime=0)
-Rote.objects.create(name="Mutate Ephemera", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=5, mind=0, prime=0)
-Rote.objects.create(name="Night Battle", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=3, entropy=0, mind=4, prime=2)
-Rote.objects.create(name="Shango's Grave", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=5, entropy=3, mind=0, prime=2)
-Rote.objects.create(name="Sneaking Shadow", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Telekinesis", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Unleash Nanotech Destruction", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=0, prime=0)
-Rote.objects.create(name="Unseen Arm", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=5, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Consecration", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Joyride", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Pathfinding", correspondence=0, time=0, spirit=1, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Pixie Lead", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Remebrance", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=2)
-Rote.objects.create(name="Remote Piloting Override", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Teleoperate", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Wayfarer's Reckoning", correspondence=2, time=0, spirit=0, matter=1, life=0, forces=1, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="We'll Get There", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Ala Wai (Short Waters)", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Merlin's Ride", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="The Seven-League Stride", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Shortcut", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Astral Projection", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Internalize Ephemeral Object", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=1, prime=3)
-Rote.objects.create(name="Leap Beyond", correspondence=0, time=0, spirit=5, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Untether", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=5, prime=0)
-Rote.objects.create(name="Amon Maat, \"Hidden Justice\"", correspondence=3, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Dingo's Touch", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Infiltration", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Pass the Key", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Safecracker", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Thief in the Night", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=1, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Chain of Whispers", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Cry of Distress", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Death Song", correspondence=0, time=2, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=1, prime=1)
-Rote.objects.create(name="Dreamcry", correspondence=2, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Dreamline", correspondence=2, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Flower Gesture", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Override Signal", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Pirated Media Blitz", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Point-to-Point Narrow-Band Transmission", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Public Posting", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=2)
-Rote.objects.create(name="Sound/Thought Transfer", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Subliminal Impulse", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Subliminal Transmission", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Telepathy", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Temper Viasilicos", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Thunder's Gauntlet", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=3, prime=2)
-Rote.objects.create(name="Adder's Tongue", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Auspicious Dialogues", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Babel", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Ravensong", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Semiotic Communication", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Speaking in Tongues", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Time's Tongue", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Tower of Babel/Speak in Tongues", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="What Did You Say?", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Breach Alien Gauntlet", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Create Gauntlet", correspondence=0, time=0, spirit=5, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Create Horizon Realm Construct", correspondence=0, time=0, spirit=5, matter=4, life=0, forces=0, entropy=0, mind=0, prime=4)
-Rote.objects.create(name="Corrupt Text", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Craft Tome", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=1, prime=0)
-Rote.objects.create(name="Cypher Wheel", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Neon-Mail", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Unravelling the Text", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=2, mind=0, prime=2)
-Rote.objects.create(name="Unseen Nomenclature", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=2, prime=2)
-Rote.objects.create(name="Writing on the Wall", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Agama Re Sojourn/Agama Te Sojourn", correspondence=0, time=0, spirit=3, matter=0, life=2, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Death's Passage", correspondence=0, time=0, spirit=3, matter=0, life=2, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="The Gate of Culsu", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Going Under the Cloak", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Wings of the Lasa", correspondence=0, time=0, spirit=3, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Liquor's Calling", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Presentation of the Passage Stick", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Sense the Dreamsong", correspondence=1, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Sing the Dreaming Earth", correspondence=0, time=0, spirit=5, matter=0, life=0, forces=0, entropy=0, mind=3, prime=5)
-Rote.objects.create(name="Songline Soaring", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Songline Walking", correspondence=0, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Alley Vanish", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Daedalus Gateway", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="The Endless Pool", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Free Conjunction", correspondence=5, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Heaven's Tumbling Pebbles", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Hermes Portal", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Mercury's Bridge", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Riding the Railroad", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Shuttle", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Voidcast", correspondence=4, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Breach Gauntlet Undetectably", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Breach the Gauntlet", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Break the Dreamshell", correspondence=0, time=0, spirit=5, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Bridge of Blood", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Deep Umbra Travel", correspondence=0, time=0, spirit=5, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Deep Universe Survival", correspondence=0, time=0, spirit=5, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Detect the Dream Gateway", correspondence=1, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Dream Locus", correspondence=0, time=0, spirit=2, matter=1, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Dreamquest", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=2, mind=2, prime=2)
-Rote.objects.create(name="Gateway Transport", correspondence=5, time=0, spirit=5, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Holopuni'au'nei", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Karmic Inversion", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=4)
-Rote.objects.create(name="Leap Sideways", correspondence=3, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Long-Distance Universal Travel", correspondence=0, time=0, spirit=5, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Moving the World Walls", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Reverie", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Schedule of Heaven", correspondence=0, time=1, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Shield of the Soul", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Spirit Cloak", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Spirit Journey", correspondence=2, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Stepping Sideways", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Storm Watch", correspondence=0, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Sucking Gate", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=4, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Trailblazing", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Umbral Visions", correspondence=2, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Universal Travel", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Walking the Open Path", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Aquatic Survival", correspondence=0, time=0, spirit=0, matter=4, life=1, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="The Barrel of Iskander", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=1, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Format Space", correspondence=5, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Liftoff", correspondence=0, time=0, spirit=0, matter=4, life=0, forces=5, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Nitrogen Narcosis", correspondence=0, time=0, spirit=0, matter=2, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="VAR", correspondence=0, time=0, spirit=0, matter=4, life=1, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Body of the Spirit", correspondence=0, time=0, spirit=3, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Daedalus's Wings", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Levitation Walk", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Navigation", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Pilot Skyrigger", correspondence=5, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Rooftop Leap", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Sure Footing", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Thunder Bridge", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Traffic Pulse", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Walking on Water", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Wings of Icarus", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=4, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Calculate Kinematics", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Eagle Eye", correspondence=2, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Find the Sun", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Information Glut", correspondence=2, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Information Overload", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Landscape of the Mind", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Lay of the Land", correspondence=2, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Sense Connection", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Sousveillance", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Whereami?", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Cynical Eye", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Danse Macabre", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Detect Lie", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Dim Mak", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Idealism", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Locate Disorder and Weakness", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Oathbreaker's Lash", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Organize", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Ring of Truth", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="See the Soul's Burn", correspondence=0, time=0, spirit=1, matter=0, life=0, forces=0, entropy=2, mind=1, prime=0)
-Rote.objects.create(name="Sense Corruption", correspondence=0, time=0, spirit=1, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Audio Tap", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=1, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Current Metering", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=1, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Darksight", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=1, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Ear of Dionysus", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=1, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Quantify Energy", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=1, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Tune Psychic Radio", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Alarm System", correspondence=1, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Gene Scan", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Genetics Scan", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Genome Mapping", correspondence=3, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Life Scan", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Life Sense", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Pattern Store", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Scan Life Signs", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Sequencing", correspondence=3, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Assess Affinity", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Fragments of Dream", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Hidden Switch", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Holes in the Desert", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Instant Measurement", correspondence=1, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Monarch's Friend", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Aai-ab \"Washing the Heart\"", correspondence=0, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Cram Session", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Deduction", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Find the Guilty", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Followme", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="I Know Your Cousin", correspondence=3, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Ishin Den Shin", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Lip Reading", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=3, prime=0)
-Rote.objects.create(name="Mind Empowerment", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Mindfulness of Wrong Thought", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="No-Mind", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Pathos", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Read the Soul", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Right-Click", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="True Form", correspondence=0, time=0, spirit=1, matter=0, life=0, forces=0, entropy=1, mind=1, prime=0)
-Rote.objects.create(name="Detect Reality Deviation", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Dialectic", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Find Reality Flaws", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=1, mind=0, prime=1)
-Rote.objects.create(name="Hallmark", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=1)
-Rote.objects.create(name="Inquisitor", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Lore Rune", correspondence=1, time=0, spirit=1, matter=1, life=1, forces=0, entropy=0, mind=1, prime=1)
-Rote.objects.create(name="Patterns of the Long Count", correspondence=0, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Spot the Man", correspondence=1, time=0, spirit=0, matter=1, life=1, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Hersh, \"To Be Patient\"", correspondence=1, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Mirrorshades", correspondence=0, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="See No Evil", correspondence=0, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Spirit Sight", correspondence=0, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Utchatti, \"The Two Divine Eyes\"", correspondence=1, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Cram", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Download Specialization", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Evaluate Fourth Dimensional Fabric", correspondence=0, time=1, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Internal Clock", correspondence=0, time=1, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Perfect Time", correspondence=0, time=1, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Perfect Timing", correspondence=0, time=1, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Sense the Fleeting Moment", correspondence=0, time=1, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Time Sense", correspondence=0, time=1, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Kohl Sight", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Mark of the Beast", correspondence=3, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Smart Drink", correspondence=0, time=1, spirit=1, matter=0, life=2, forces=0, entropy=0, mind=2, prime=1)
-Rote.objects.create(name="Blood from a Stone", correspondence=0, time=0, spirit=4, matter=0, life=3, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Coffin for a Fisher", correspondence=0, time=0, spirit=3, matter=2, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Fetter Ball", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Voice Across the Void", correspondence=2, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Voice of the Jade Ancestors", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Ghost-Burning", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Shadow Sight", correspondence=1, time=0, spirit=1, matter=0, life=0, forces=0, entropy=1, mind=1, prime=0)
-Rote.objects.create(name="Shelter from the Storm", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=1, mind=0, prime=4)
-Rote.objects.create(name="Soothe the Dead", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Soul-Forging", correspondence=0, time=0, spirit=4, matter=3, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Atitsiak", correspondence=0, time=0, spirit=3, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Kispu", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=0, prime=0)
-Rote.objects.create(name="Lichedom", correspondence=0, time=0, spirit=4, matter=4, life=4, forces=0, entropy=4, mind=1, prime=3)
-Rote.objects.create(name="Song of Orpheus", correspondence=0, time=0, spirit=0, matter=2, life=4, forces=0, entropy=0, mind=2, prime=2)
-Rote.objects.create(name="Walk to Too'ga", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Eternal Discipline of the Family", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=2, mind=2, prime=4)
-Rote.objects.create(name="Ghost Rune", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Hear and Obey", correspondence=0, time=0, spirit=5, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Reanimation", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Summon Volva", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Field of Yin", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=5, mind=0, prime=0)
-Rote.objects.create(name="Goanna's Hiding", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Mindscreen", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Passing", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Downvote", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=0, prime=0)
-Rote.objects.create(name="Encrypt Thoughts", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=1, prime=2)
-Rote.objects.create(name="Move Along", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Secure the Scene", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=1, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Shield", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Soul Cloak", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=2, mind=2, prime=2)
-Rote.objects.create(name="At Ease", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Dontcme", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Ghayba (Occultation or \"Unbeingness\")", correspondence=4, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=2, prime=4)
-Rote.objects.create(name="Non-Descript", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Pass for Normal", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=2)
-Rote.objects.create(name="Selective Edit", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Sjonhverfing (\"Deceiving of the Sight\")", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Well, It Is Vegas", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Antinoise", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Being Invisible", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Cloak of Shadows", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Dark Streets", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Dreamer's Shroud from Day", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Energy Shield", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Huli Shjalmr (\"Helmet of Hiding\")", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Return to Darkness", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Shadow Project", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Shinobijutsu", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="The Silent Circle", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Smoke Screen", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Smoke-bomb Trick", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Sulfurous Darkness", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Summon Fog", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Veil of Invisibility", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Ariadne's Thread", correspondence=1, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Chain", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Smoker's Timing", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Perfect Fuse", correspondence=0, time=1, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Synchronize Watches", correspondence=0, time=1, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Co-Location", correspondence=5, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Conference Call", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=4, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Polyappearance", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Simon's Petition", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Accelerate Time", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="An Hour in Hellfire", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Distort Time", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Establish and Exchange Temporal Event Fields", correspondence=0, time=5, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Establish Local Temporal Event Field", correspondence=0, time=4, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="The Frenzy of the Spinning Wheels", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="The Moment that Stretches", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Nick of Time", correspondence=3, time=2, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=0, prime=0)
-Rote.objects.create(name="Quantum Temporal Travel", correspondence=3, time=3, spirit=0, matter=0, life=0, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Serenity of the Stone", correspondence=0, time=5, spirit=0, matter=0, life=3, forces=0, entropy=4, mind=3, prime=5)
-Rote.objects.create(name="Shed the Years", correspondence=0, time=2, spirit=0, matter=0, life=3, forces=0, entropy=4, mind=2, prime=5)
-Rote.objects.create(name="Sidestep Time", correspondence=0, time=5, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Slow Time", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="St. Vitus's Kiss", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Symphony of the Soul", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Time Travel", correspondence=0, time=5, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Time Warp", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Tune In, Turn On, Drop Out", correspondence=0, time=4, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Zen and the Art of Panhandling", correspondence=0, time=5, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Blindside", correspondence=4, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Bubble of Reality", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Daedalean Labyrinth", correspondence=5, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Maze of the Minotaur", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Singularity", correspondence=4, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Spatial Mutations", correspondence=5, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Chiminage Rune", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Dimension Bomb", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Hellfire", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Sharing the Outsider's Gaze", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=4, prime=1)
-Rote.objects.create(name="Spirit Eating", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=3, prime=3)
-Rote.objects.create(name="Spirit Slaying", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Spirit Wounding", correspondence=0, time=0, spirit=4, matter=3, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="The Spirit's Caress", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Spiritual Persuasion", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Binding Song", correspondence=4, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Bottle of Djinn", correspondence=0, time=0, spirit=4, matter=3, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Circle of Binding", correspondence=4, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=4)
-Rote.objects.create(name="Coerce Spirit", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Compel the Unseen", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Drahma Protector", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Ensure the Endless Sleep", correspondence=0, time=0, spirit=2, matter=2, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Exorcism", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Exorcism Song", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Gauntlet Prison", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Halt the Nagloper", correspondence=0, time=2, spirit=0, matter=2, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="The Holy Pentacles", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Imbue Flesh", correspondence=0, time=0, spirit=2, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Lesser Binding of Spirits", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Living Bridge", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Lull the Waking Dreamborn", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Physical Exorcism", correspondence=0, time=0, spirit=4, matter=0, life=3, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Weaver's Retribution", correspondence=3, time=0, spirit=4, matter=0, life=0, forces=3, entropy=0, mind=2, prime=2)
-Rote.objects.create(name="Detect Possession", correspondence=0, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Evaluate Gauntlet/Scan Locality", correspondence=0, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Sense the Demon's Weakness", correspondence=0, time=0, spirit=1, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Sense the Nagloper", correspondence=0, time=2, spirit=0, matter=1, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Shadows in the Mist", correspondence=0, time=0, spirit=1, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Ap-Sobk \"The Last Judgment of Sobk\"", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Call Forth the Forgotten", correspondence=0, time=0, spirit=2, matter=0, life=5, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Call Spirit", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Call the Dreamborn Sibling", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Conjure the Jade Warrior", correspondence=0, time=0, spirit=5, matter=3, life=0, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Dreamborn Rising", correspondence=0, time=0, spirit=2, matter=4, life=4, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Drums of Elemental Fire", correspondence=0, time=0, spirit=2, matter=2, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Enter the Sauna", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Free the Mad Howlers", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Gremlins", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Here Kitty, Kitty", correspondence=3, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Jack in the Green", correspondence=0, time=0, spirit=3, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Loving Scar", correspondence=0, time=0, spirit=2, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Nuzzlings", correspondence=0, time=0, spirit=3, matter=3, life=0, forces=0, entropy=0, mind=0, prime=5)
-Rote.objects.create(name="Protection of the Golden Race", correspondence=0, time=0, spirit=5, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Pygmalion's Paradigm", correspondence=0, time=0, spirit=2, matter=4, life=3, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Satan's Song", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=2, entropy=0, mind=2, prime=3)
-Rote.objects.create(name="Shaking Tent", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Spirit Roster", correspondence=2, time=0, spirit=1, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Summon Paradox Spirit", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Summon the Earthly Gods", correspondence=4, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Visionary Bloodletting", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Zeitgeist", correspondence=0, time=2, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Affix Gauntlet", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Circle Ward", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=1, prime=2)
-Rote.objects.create(name="Counterintelligence", correspondence=1, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Defense Screen vs. Higher Lifeforms", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Defense Screen vs. Lower Lifeforms", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Etheric Shielding", correspondence=0, time=0, spirit=2, matter=2, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Fortify Gauntlet", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Magic Circle", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="The Master's Hand", correspondence=0, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Protection Song", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Psychic Sterilization", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Quahuitl", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Quantum Interference Shielding", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Reconstruct Gauntlet", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Repel the Hungry Dead", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Repel the Kuei", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Safe Little World", correspondence=4, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Salt on the Earth", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=1, mind=0, prime=0)
-Rote.objects.create(name="Secret Labyrinth", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=3, prime=2)
-Rote.objects.create(name="The Seven Golden Swords of the Tiger", correspondence=4, time=0, spirit=3, matter=3, life=0, forces=2, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Spirit Wall", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Spirit Warding", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Telltale", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Time Wards", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Twisted Yarrow Stalks", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=3, prime=0)
-Rote.objects.create(name="Wall of Mirrors", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="War of the Inner Sanctum", correspondence=4, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Ward", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Ward Rune", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Warding Heads", correspondence=0, time=0, spirit=3, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Zisurru", correspondence=2, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Back Door Parole", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=1)
-Rote.objects.create(name="Deceive the Eyes", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Jivitamarana (Death in Life) Yoga", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Love Me, Love Me", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Persona", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Rouge", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Uther's Butchered Visage", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Agrivelopment", correspondence=0, time=0, spirit=0, matter=3, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Alter Simple Creature", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Alter Small Sequence", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Attach Biomechanism", correspondence=0, time=0, spirit=0, matter=5, life=3, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Augment Simple Lifeform", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Brittle Bones", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=4, mind=0, prime=0)
-Rote.objects.create(name="Genetic Pattern Matching", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Graft Alien Bio-Matter Between Aliens", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Graft Alien Bio-Matter to Humans", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Green Thumb", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Higher Lifeform Grafting and Recombination", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Limited Grafting and Recombination", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Lower Lifeform Manipulation", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Major Environmental Alteration", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Minor Environmental Alteration", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Mokupuni Palahalaha Wiki", correspondence=0, time=3, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="Mold Tree", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Personal Compression", correspondence=5, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Phosphoric Marker", correspondence=1, time=0, spirit=0, matter=0, life=3, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Clone", correspondence=0, time=0, spirit=0, matter=0, life=5, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Cloning", correspondence=0, time=0, spirit=0, matter=0, life=5, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Courtesan's Draught/Blessed Heir", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Fatherless Birth", correspondence=0, time=0, spirit=5, matter=0, life=5, forces=0, entropy=5, mind=0, prime=5)
-Rote.objects.create(name="Flesh Toys", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="The Foundling", correspondence=2, time=0, spirit=4, matter=2, life=5, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Genetic Mastery", correspondence=0, time=0, spirit=0, matter=0, life=5, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Oak of Sanguine Root", correspondence=2, time=0, spirit=0, matter=3, life=3, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Spontaneous Generation", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Supporting the Brain", correspondence=0, time=0, spirit=0, matter=2, life=4, forces=0, entropy=0, mind=2, prime=2)
-Rote.objects.create(name="Thorn Wall", correspondence=0, time=3, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Animal Form", correspondence=0, time=0, spirit=0, matter=0, life=5, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Animal Shift", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Avatar Form", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=2, prime=2)
-Rote.objects.create(name="Circe's Enchantment", correspondence=0, time=0, spirit=0, matter=0, life=5, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Deity Form", correspondence=0, time=0, spirit=2, matter=0, life=4, forces=3, entropy=0, mind=0, prime=4)
-Rote.objects.create(name="Dionysus's Gift", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Eagle Form", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Holy Union", correspondence=0, time=0, spirit=4, matter=0, life=0, forces=0, entropy=0, mind=3, prime=3)
-Rote.objects.create(name="Iron Avatar", correspondence=0, time=0, spirit=0, matter=3, life=3, forces=0, entropy=0, mind=2, prime=2)
-Rote.objects.create(name="Jaguar Cloak", correspondence=0, time=0, spirit=2, matter=3, life=5, forces=0, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="LERMUization", correspondence=0, time=0, spirit=5, matter=0, life=5, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Lesser Shapechanging", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Mutate Form", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="The Notorious Vampiric Lawnchair", correspondence=0, time=0, spirit=0, matter=5, life=5, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="One with Beasts", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Perfect Metamorphosis", correspondence=0, time=0, spirit=0, matter=0, life=5, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Qayaq's Fish", correspondence=0, time=0, spirit=0, matter=3, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Rokea'ole", correspondence=0, time=0, spirit=3, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Shapechange Curse", correspondence=0, time=0, spirit=0, matter=0, life=5, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Shapeshifter Prison", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Shapeshifting", correspondence=0, time=0, spirit=0, matter=0, life=5, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Storm of Crows", correspondence=3, time=0, spirit=0, matter=0, life=5, forces=0, entropy=0, mind=1, prime=2)
-Rote.objects.create(name="Vulcan's Hammer", correspondence=0, time=0, spirit=0, matter=3, life=4, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Wasp-Spasm", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=3, entropy=0, mind=0, prime=3)
-Rote.objects.create(name="The Weeping Willow", correspondence=0, time=0, spirit=0, matter=0, life=5, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Wolf Form", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Adaptation", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Adrenal Rush", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Advanced Therapies", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Battery Man", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Better Body", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Biochemical Regulation", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Bio-Luminescence", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Brain Boost", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Chakra Influence", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Crocodile Blood", correspondence=0, time=0, spirit=0, matter=2, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Go Ti Ta", correspondence=0, time=0, spirit=4, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Mele Lapa'au", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Multi-Tasking", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Nanotech Integration", correspondence=0, time=0, spirit=0, matter=2, life=4, forces=0, entropy=0, mind=0, prime=5)
-Rote.objects.create(name="Our Enemies are Delicious", correspondence=0, time=0, spirit=3, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Positronic Brain", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Simple Biochemical Manipulation", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Strength of the Earth", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Survivor's Charm", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Talons", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Thick Skin", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Titan's Power", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Tumo", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Apathy", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=2, prime=0)
-Rote.objects.create(name="Olive Branch", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Pass Calmly", correspondence=2, time=0, spirit=0, matter=0, life=1, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Peace of Buddha", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Peace Rune", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Rat's Rage/Lost Cousin", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Stoicism", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Abh-t-ab, \"Biting the Heart\"", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="The Argument of Princes", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Capiche?", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Hoodoo Man's Heartbeat", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Primal Dread", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Show of Force", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Bewitchment", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Charm Rune", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Exalted Desire", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=2, prime=2)
-Rote.objects.create(name="Kuoha (The Passion Prayer)", correspondence=3, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Lecherous Kiss", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=2, prime=2)
-Rote.objects.create(name="Romance", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Taliesin's Song", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Be Cool", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Branding", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Comp Me", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=0, prime=0)
-Rote.objects.create(name="Cool Glamour", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Empathic Projection", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Gatha", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=2)
-Rote.objects.create(name="The Golden Apple", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Grand Style", correspondence=0, time=0, spirit=0, matter=1, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="High Rhetoric", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Hope's Birth", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Incitation", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Initiation", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=2)
-Rote.objects.create(name="The Look/The Word", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Loving Cup", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Mood Swing/Communion", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Motivational Speaking", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=2)
-Rote.objects.create(name="Petals of Love", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Physiological Emotion Control", correspondence=0, time=0, spirit=0, matter=0, life=4, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Scent of Control", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Shameful Outburst", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Social Science", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Strains of Laughter, Sleep and Sorrow", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Subtle Persuasion", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=2)
-Rote.objects.create(name="Witchwind", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=5, entropy=0, mind=3, prime=2)
-Rote.objects.create(name="Animal Possession", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Animal Riding", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Bug Off", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=0, prime=2)
-Rote.objects.create(name="Horsemaster's Bidding", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Mono Kahea 'Ai (Shark Call)", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Ratstorm", correspondence=2, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Sedna's Blessing", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Sing to the Whales", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Divine Aura", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Fifteen Minutes", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Going Viral", correspondence=4, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="An Uncompromising Commitment to Excellence", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=0, entropy=0, mind=4, prime=3)
-Rote.objects.create(name="Coordination", correspondence=3, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Karoshi", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=1, prime=0)
-Rote.objects.create(name="Workflow", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Delion's Haze", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=0, prime=0)
-Rote.objects.create(name="Destroy Thought", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=5, mind=0, prime=0)
-Rote.objects.create(name="Downward Spiral", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Magdeline's Dynamic Mind", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=3, prime=0)
-Rote.objects.create(name="The Trip", correspondence=2, time=2, spirit=0, matter=0, life=0, forces=0, entropy=1, mind=4, prime=0)
-Rote.objects.create(name="Dream Drama", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Dream Play", correspondence=0, time=2, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=2)
-Rote.objects.create(name="Nightmare Dance", correspondence=0, time=0, spirit=2, matter=0, life=0, forces=0, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Delirium", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Frame Up", correspondence=0, time=0, spirit=0, matter=3, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Holographic Projector", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=3, prime=2)
-Rote.objects.create(name="IFF", correspondence=2, time=0, spirit=0, matter=0, life=0, forces=2, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Imaginary Friend", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=2)
-Rote.objects.create(name="Painting the War Dance", correspondence=0, time=0, spirit=0, matter=2, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Behavior Modification Device", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=4, prime=0)
-Rote.objects.create(name="False Witness", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="High Memory", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=3, prime=0)
-Rote.objects.create(name="Manipulate Memories", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Manipulate Memory", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Move to Clone", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=5, prime=0)
-Rote.objects.create(name="Nostalgia", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Plausible Denial", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Probe Thoughts", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Scan Memories", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Transfer Memories", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Worm", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Alter Paradigm", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=5, mind=5, prime=0)
-Rote.objects.create(name="The Blissful Discipline", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=3, entropy=0, mind=4, prime=2)
-Rote.objects.create(name="Consuming Thought", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=2)
-Rote.objects.create(name="Create Drone", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=5, mind=0, prime=0)
-Rote.objects.create(name="Create Mind", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=5, prime=0)
-Rote.objects.create(name="Deprocessing", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Destructive Paranoia", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=4, prime=2)
-Rote.objects.create(name="Hypernarrative Influence", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Impulse Purchase", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Internal Obligation", correspondence=0, time=4, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=3)
-Rote.objects.create(name="Maikai (The Seaward Pull)", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Manchurian Condidate", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=5, prime=0)
-Rote.objects.create(name="Mind Rune", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Morpheus's Kiss", correspondence=0, time=0, spirit=0, matter=0, life=2, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Nervous Control", correspondence=0, time=0, spirit=0, matter=0, life=3, forces=3, entropy=0, mind=0, prime=0)
-Rote.objects.create(name="Possession", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Processing", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=5, prime=2)
-Rote.objects.create(name="Programming", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Psychic Intrusion", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=2, prime=0)
-Rote.objects.create(name="Purge Thought Crime", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=3)
-Rote.objects.create(name="Random Impulse", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=4, prime=0)
-Rote.objects.create(name="Recant", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=2, mind=2, prime=0)
-Rote.objects.create(name="Re-education Mode", correspondence=0, time=3, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=2)
-Rote.objects.create(name="See the Light", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=3, mind=3, prime=0)
-Rote.objects.create(name="Self-Possession", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Sinner's Redemption", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=5, prime=0)
-Rote.objects.create(name="Social Conditioning", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=2)
-Rote.objects.create(name="Soul Shaping", correspondence=0, time=0, spirit=5, matter=0, life=0, forces=0, entropy=0, mind=4, prime=3)
-Rote.objects.create(name="Temple Gongs", correspondence=0, time=0, spirit=0, matter=4, life=3, forces=4, entropy=0, mind=4, prime=2)
-Rote.objects.create(name="Ultimate Argument", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=3, prime=0)
-Rote.objects.create(name="Welcoming the Jester", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-Rote.objects.create(name="Willful Binding", correspondence=0, time=0, spirit=0, matter=0, life=0, forces=0, entropy=0, mind=4, prime=0)
-
-
+Rote.objects.create(
+    name="Balance the Scales",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Blight/Farmer's Favor",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Luck's Blessing/Curse",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Luck of the Lotus",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Nanburbu",
+    correspondence=2,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Threefold Return",
+    correspondence=0,
+    time=4,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Ansu Ishten",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Banishing Blessing",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Baptism Rune",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Beginner's Luck",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Bless the Heavenly Flower",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=5,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Bum a Dollar From the Universe",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Buzzwords",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Caesar's Due",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Epiphany of the Muse",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Games of Luck",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Luck Be a Lady Tonight",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Masquerade to Adulthood",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Midwife's Blessing",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Nobody Dies in Vegas",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Reflecting Bane",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Shishipat's Favor",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Waiting to Exhale",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Weeping for Tammuz",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Wurnan Blessing",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Ace of Diamonds",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Actively Actuarial",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Death Curse",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Death Wish",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Learn-It",
+    correspondence=2,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Rival's Curse",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sha'ir's Sentence",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=3,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Spoiling",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Statistical Mechanics",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Vext",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Brand (the Rawhide Rote)",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=2,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Create Virtual Object/Create Daemon",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Digital Disruption",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Doe's Password",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Encode",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Energy Transformation",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=4,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Feedback",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="FIRP",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=3,
+    entropy=4,
+    mind=5,
+    prime=2,
+)
+Rote.objects.create(
+    name="Fractal Encryption",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=3,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Hardware Entry",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Information Superhighway",
+    correspondence=2,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Instant Offline",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Online Virus Transmitter Program",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Overwrite",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=3,
+    mind=0,
+    prime=4,
+)
+Rote.objects.create(
+    name="Parallax",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Restrict Sector",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=3,
+)
+Rote.objects.create(
+    name="TechnoVision",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=1,
+    entropy=1,
+    mind=1,
+    prime=1,
+)
+Rote.objects.create(
+    name="Virtual Talisman Transmogrification",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Webcrawlers",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Boot Buzzer",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Burn Out",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="FOR NEXT Loop",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Red Button",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=3,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="System Crash",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="System Havoc",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="That Rascal Puff",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Black Card/Little Black Box",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Captain's Treasure",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=4,
+)
+Rote.objects.create(
+    name="Core Dump",
+    correspondence=2,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Disk-Doctor",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=1,
+    entropy=3,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="DRM",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=2,
+)
+Rote.objects.create(
+    name="Encrypt",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Graphic Transmission",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Hacker's Glance",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Intel",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mental Interface",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Remote Access",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Virtual Lockpick",
+    correspondence=1,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="AI (Artificial Intelligence)",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=5,
+    prime=0,
+)
+Rote.objects.create(
+    name="Audience of Inanna",
+    correspondence=2,
+    time=1,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Personal Assistant Software",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=5,
+    prime=2,
+)
+Rote.objects.create(
+    name="Psychic Interface",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Remote Programming",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Book of Whispers",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Crowd Surfing",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Eavesdropper",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="High-Definition",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Monitor Communications",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=1,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Nearest and Dearest",
+    correspondence=2,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Phone Tap",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="PIN Drop",
+    correspondence=2,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Squaring the Circle",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Surveillance",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Telescreen",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Tracking Device",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Adad",
+    correspondence=2,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Chaos Butterfly",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Contemplation",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Dogon Divination",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Find the Lost",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Istar",
+    correspondence=3,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Laying on of Hands",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Lighting the Path",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Read the Lightning",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Samas",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Search Engine",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Silent Promise of the Spring Tortoise",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sin",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Wyrd Visions",
+    correspondence=2,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Binding Oath",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=5,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Fate Mark",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Geasa",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=5,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Major Geas",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=5,
+    mind=5,
+    prime=0,
+)
+Rote.objects.create(
+    name="Minor Geas",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Secret Rune",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=5,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sparrow's Fall",
+    correspondence=0,
+    time=4,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="All Tomorrow's Parties",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Anunnaku",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Biometric Holographic Recreation",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Celestial Prediction",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Chronopathy",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Crime and Consequences",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Divinations",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Don't Cross the Streams",
+    correspondence=2,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Forecasting",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Geometry of Trade",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Hepatoscopy",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Jung's Trick",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Long-Range Eyes",
+    correspondence=2,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Manipulate Time Fragment",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Nonlinear Prediction",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Peeping Tom",
+    correspondence=2,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Planned Projection",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Play Back",
+    correspondence=2,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Postcognition",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Psychometry",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Quo Vadis? (Whither Goest Thou?)",
+    correspondence=2,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Reading the Umbral Skein",
+    correspondence=0,
+    time=2,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Running Scenarios",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Salmon of Wisdom",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Scented Handkerchief",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Songs of Future Days",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Strategic Inefficiency Analysis",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sugar Magnolias",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Turning the Wheel of Ages",
+    correspondence=0,
+    time=2,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="View the Scattered Lotus Petals",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Area Scan",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Auric Trail",
+    correspondence=1,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Check the Corners",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Correspondence Sensing",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Distant Sight",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Divided Sight",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Filter All-Space",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Geometric Jars",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Heat Seeking",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=1,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Heat Trace",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=1,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Map the True Way",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Open/Close Window",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Scan Non-Local Universe",
+    correspondence=2,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Scrying",
+    correspondence=2,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Seizing the Forgotten",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Stalking the Void",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Anger in the Land",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Banish Elemental",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Cycle of the Five Agents",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Time Lock",
+    correspondence=0,
+    time=4,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="No Surrender",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Rouse the Dragon",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=5,
+    life=0,
+    forces=5,
+    entropy=0,
+    mind=0,
+    prime=4,
+)
+Rote.objects.create(
+    name="Yao Su Dragon Thunder",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Cuicuilco's Demise",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=4,
+    life=0,
+    forces=5,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Embracing the Earth Mother",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=4,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Pele Wai'ula (Pele's Blood)",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Pele's Wrath",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=4,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="TWACI",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Arc",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Call Lightning",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Discharge Static",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Electrical Chaos",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Lightning Gateway",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Pulse of the Electro-Stream",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Akua Kumu Haka (Guided Fireball)",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Awaken Flame",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Balefire",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Ball of Abysmal Flames",
+    correspondence=0,
+    time=4,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=5,
+    entropy=0,
+    mind=0,
+    prime=4,
+)
+Rote.objects.create(
+    name="Betrayal of the Burning Arrow",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Devouring Gullet of Flame",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=4,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Dragonstorm",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=4,
+    entropy=0,
+    mind=0,
+    prime=4,
+)
+Rote.objects.create(
+    name="Eternal Flame",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Fire Rune",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Friction Curse",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Gabriel's Embrace",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Hermes' Brand",
+    correspondence=0,
+    time=4,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=1,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Ignis",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Inferno",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=5,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Lotus Bloom",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Phlogiston Manipulation",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Phlogiston Flux",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Pop Goes the Weasel",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Possess Flame",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Proof Against Immolation",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Shih-Huang-Ti's Marvelous Game",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Wildfire",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Wrath of Heaven",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=4,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Fiat Lux",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Filter'd Lantern-Light",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Flash",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Glorious Sword of Heaven",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Laser Enhancement",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Laser Production",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Tsuiho - The Fires of Heaven",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="'Ahiu Nalu (Rogue Wave)",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Calling the Wind Lords",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Cloud Cover",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=5,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Dousing",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Dowsing",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Heenalu (Wave Walking)",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mahu (Steam)",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Sing Down the Rain",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Storm Rune",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=3,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Tempest in a Teapot",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=5,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Waipuilani (Waterspout)",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Weather Working",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=4,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Body of Light",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Cold Water's Blessing",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Contingent Effect",
+    correspondence=0,
+    time=4,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Counterspell Rune",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Divert Prime Force",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Enchant Life",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Master's Enchantment",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=5,
+)
+Rote.objects.create(
+    name="Parma Magica",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Programmed Event",
+    correspondence=0,
+    time=4,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Watch the Weaving",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Awaken the Sleeping Earth",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Drain Node",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=4,
+)
+Rote.objects.create(
+    name="Glorious is the Temple",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=3,
+)
+Rote.objects.create(
+    name="Leying of the Line",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Locate Quintessence Flow",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Node Raider",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Primal Credit Rating",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Prime Location",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Sense Node",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Tap Node",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Terminal Sanitization",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=5,
+)
+Rote.objects.create(
+    name="Wellspring",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=4,
+)
+Rote.objects.create(
+    name="Bond of Blood",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="The Burning Lotus",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=4,
+    mind=0,
+    prime=5,
+)
+Rote.objects.create(
+    name="Convert Node to Tass",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Cup of Joe",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Drain Tass",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Economic Warfare",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=4,
+)
+Rote.objects.create(
+    name="Footbind",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Fount of Paradise",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=5,
+)
+Rote.objects.create(
+    name="The Hand of the Siphoner",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Hymn of Beatific Harmony",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Primal Infusion",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Primal Net",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Radiate Prime Energy",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Recharge Device",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Recharge Gift",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=5,
+)
+Rote.objects.create(
+    name="The Rush",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Sense Quintessence",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Spinning Thread",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Delay Paradox",
+    correspondence=0,
+    time=3,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Flames of Purification",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=4,
+)
+Rote.objects.create(
+    name="Healthy Skepticism",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Holy Stroke",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Matter-Energy Converter",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Paradox Ward",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=5,
+)
+Rote.objects.create(
+    name="Penance for the Sicarii",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=4,
+)
+Rote.objects.create(
+    name="Quintessence Blast",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=5,
+)
+Rote.objects.create(
+    name="Spirit Pilgrimage",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=5,
+)
+Rote.objects.create(
+    name="Balancing the Furies",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Charge the Resonance",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Node Spike",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=3,
+)
+Rote.objects.create(
+    name="Occlude the Seal of Power",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=4,
+)
+Rote.objects.create(
+    name="Orgone Accumulator",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Psychic Impression",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Tag",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="The Ball Game",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Blood for the Gods",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Blood of the Sacred King",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Cup of Itz",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Heart for Huitzilopochtli",
+    correspondence=0,
+    time=0,
+    spirit=5,
+    matter=0,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=5,
+)
+Rote.objects.create(
+    name="Heart's Blood",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Kaumaha (Sacrifice)",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Lanbs to the Slaughter",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Midnight Oil",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Self-Sacrifice",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Arrest the Flight of Arrows",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Crowdsourced Combat",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=1,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Infidel's Laughter",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Lucky Blow",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sense the Echo of the Dragon",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Spearcatcher Rune",
+    correspondence=1,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Strategy",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Targeting Computation",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Time-Motion Study",
+    correspondence=1,
+    time=1,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Wearing the Bear Shirt",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Wrath of God",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Battle Rune",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Coordinated Fire",
+    correspondence=1,
+    time=1,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Hail of Bullets",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Legion's Life",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Marching Orders",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mind of the Ant Hill",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="108 Plum Blossoms",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Arashi-Waza",
+    correspondence=2,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Bullet Catch",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Dragon Fist",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Eight Drunken Hsien",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Final Blow",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=4,
+    mind=5,
+    prime=3,
+)
+Rote.objects.create(
+    name="Flying Dragon Kick",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=4,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Focus of the Blow",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=1,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Hands of Death",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Long Fist",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Piercing Cry",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Purifying Step",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Repeating Blow",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=1,
+    prime=2,
+)
+Rote.objects.create(
+    name="Righteous Fist",
+    correspondence=0,
+    time=4,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Rolling Hands",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=1,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Screech of the Owl",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Spirit Wounder",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Blade Sense",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Hero's Challenge",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Iron Snake",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Jabarut (The Darwishim Battle Trance)",
+    correspondence=1,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Splitting a Cuirass",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Swordbreaker Rune",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Wind-Water Skein",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Deadaim",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=1,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Death Ray",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Emit Beam-Ray",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Golden Gunman",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Grand Salvo",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Holdout Weapon",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Hot-Shotting",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Laserblast",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Magic Bullet",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Ricochet",
+    correspondence=1,
+    time=1,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=1,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Rudra's Bow",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Swift Lock",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Tamping",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Tension",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Trickshot",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=1,
+    entropy=1,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Bloodsight",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Conclave Wellness Works",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=2,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Detect Mental Anomalies",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Examine Humors",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Prayer of Healing Revelation",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Accidental Overdose",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=4,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Adaptive Chemistry",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Cinnabar Tears",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="DMSO",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Drug Enhancement",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Experience Substance",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Good Eatin'/Cleanse the Clown",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Manufacture Enlightened Drugs",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Metabolic Mastery",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Persephone's Nectar",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Poison Maiden",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Polysorbate",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=1,
+)
+Rote.objects.create(
+    name="Purge",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Purging the System",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Purify",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sustenance Pill",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Taking Poison for the Enemy",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Tolerance",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Witch's Diplomacy",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Accelerated Aging",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Allergic Reaction",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Ana'ana (The Death Prayer)",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Blight of Aging",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Bone Twisting Palm",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="The Branding Rote",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=3,
+)
+Rote.objects.create(
+    name="Curseof the Mayfly",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Destructive Genegineering",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Fluids of Death",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Fuck Off/Fuck Off and Die",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Gilgul",
+    correspondence=0,
+    time=0,
+    spirit=5,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=5,
+    mind=5,
+    prime=5,
+)
+Rote.objects.create(
+    name="Heart Murmurs",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Little Good Death",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Rip the Man-Body",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Simulate Inborn Errors of Metabolism",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Spy's Stigmata",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Witch's Vengeance",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Aphrodite's Blessing",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Chirurgeon",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Distill the Azoth Elixir",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Ease of Passage",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Hajjaj",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Heal Self",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Heal Simple Creature",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Healer Rune",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Healing Figurine",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Healing Slumber",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Massage Therapy",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mukashuan",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Rapid Healing",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Serene Temple",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Stay the God's Hand",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Surpu",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Trauma",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Trauma Transmission",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Adjust Major Anomalies",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Adjust Minor Anomalies",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Help Rune",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=1,
+)
+Rote.objects.create(
+    name="Physiological Rule",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Quietsong",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Branding the Heart",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Buzz",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Counter-Irritant",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Curse of Consequences",
+    correspondence=0,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Curse of Macha",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Degree Absolute",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=5,
+    prime=0,
+)
+Rote.objects.create(
+    name="Dukhamarana Moksa",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Endless Parchment",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="General Anesthesia",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Knock Out",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=2,
+)
+Rote.objects.create(
+    name="Prolong Pleasure/Pain",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Rubbing of Bones",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Turkey Basting",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Stop-Gap Resurrection",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Waters of the Well of Life",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Gift of Prana",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Hua To's Cure",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Alloy",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=4,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Alter State",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Alter Weight",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=5,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Guncotton's Blessing",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Incredible Shrunken Machine",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=5,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Matter Association",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=5,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Matter Pattern Disassociation",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=5,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Melt and Reform",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sculpture",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Semi Auto CAD CAM",
+    correspondence=5,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Tapping the Signal",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=5,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Transephemeration Ray Projector",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Transformers",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=4,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Analyze Substance",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Evaluation",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Machine God",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=1,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Perfection of the Tools",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Abundance",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Apportation",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Kiss of the Virtuous Maiden",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Pickpocket",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Ripple Through Space",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Spatial Sheath",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Summon Weapon",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Dash and a Pinch",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Exotic Matter",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=5,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Exotic Matter - Antimatter",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=5,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Exotic Matter - Primium",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=5,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Industry",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Inscribe Amulet",
+    correspondence=0,
+    time=4,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Jury Rig",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=2,
+)
+Rote.objects.create(
+    name="Na Kua's Gift",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=3,
+    prime=2,
+)
+Rote.objects.create(
+    name="O'Doul's Ingeniae",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=5,
+)
+Rote.objects.create(
+    name="Psychiatric Compounds",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Spear of my Fathers",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Spontaneous Material Construction",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Temple Pillars",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=4,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Burn-Out",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Chainbreaker Rune",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Erode Matter",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sabotage",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sanitize Evidence",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Slay Machine",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Tulugaak's Harpoon",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Beads on a String",
+    correspondence=2,
+    time=0,
+    spirit=2,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Bottle of Smoke",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Craft Biomechanism",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=5,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Create Fetish",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Create Talen",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Create Talismans and Artifacts",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=4,
+)
+Rote.objects.create(
+    name="Enchant Weapon",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Fits Like a Glove",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Gorningstakkr",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=5,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Memento Mori",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Pretty-Shinies",
+    correspondence=1,
+    time=0,
+    spirit=1,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=1,
+    prime=1,
+)
+Rote.objects.create(
+    name="Talisman Tattoos",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=4,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Talisman Transmogrification",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Walking Chair",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=4,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Watchdog",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Anitquing",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=4,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="The Aura Adamantium",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Awaken the Inanimae",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Bambolai",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Berate the Demon",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Caffeine Plus",
+    correspondence=0,
+    time=2,
+    spirit=1,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Like Clockwork",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Maintain Device",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Obsidian Steel",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=4,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Penny Dreadful's Bright New Penny",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Perfection of the True Form",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Perpetual Motion",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=5,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Shaman's Craft",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Vitality",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Back to the Earth",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=4,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="The Golden Lion",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Luster",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Seeds of Gold",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Simple Transmutation",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Straw into Gold",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Transmutation",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=4,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Checklist",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Confusing Apishtiss",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Degrade Order",
+    correspondence=2,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Destroy Structures",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Disintegrator",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Ebon Dragon's Tale",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=3,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Jolt",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Kinetic Push",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Lobotomize",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=5,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mershakushtu Qurdu",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mutate Ephemera",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=5,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Night Battle",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=4,
+    prime=2,
+)
+Rote.objects.create(
+    name="Shango's Grave",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=5,
+    entropy=3,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Sneaking Shadow",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Telekinesis",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Unleash Nanotech Destruction",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Unseen Arm",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=5,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Consecration",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Joyride",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Pathfinding",
+    correspondence=0,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Pixie Lead",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Remebrance",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=2,
+)
+Rote.objects.create(
+    name="Remote Piloting Override",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Teleoperate",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Wayfarer's Reckoning",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=1,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="We'll Get There",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Ala Wai (Short Waters)",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Merlin's Ride",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Seven-League Stride",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Shortcut",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Astral Projection",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Internalize Ephemeral Object",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=3,
+)
+Rote.objects.create(
+    name="Leap Beyond",
+    correspondence=0,
+    time=0,
+    spirit=5,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Untether",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=5,
+    prime=0,
+)
+Rote.objects.create(
+    name='Amon Maat, "Hidden Justice"',
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Dingo's Touch",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Infiltration",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Pass the Key",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Safecracker",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Thief in the Night",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=1,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Chain of Whispers",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Cry of Distress",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Death Song",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=1,
+)
+Rote.objects.create(
+    name="Dreamcry",
+    correspondence=2,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Dreamline",
+    correspondence=2,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Flower Gesture",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Override Signal",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Pirated Media Blitz",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Point-to-Point Narrow-Band Transmission",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Public Posting",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=2,
+)
+Rote.objects.create(
+    name="Sound/Thought Transfer",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Subliminal Impulse",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Subliminal Transmission",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Telepathy",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Temper Viasilicos",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Thunder's Gauntlet",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=3,
+    prime=2,
+)
+Rote.objects.create(
+    name="Adder's Tongue",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Auspicious Dialogues",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Babel",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Ravensong",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Semiotic Communication",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Speaking in Tongues",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Time's Tongue",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Tower of Babel/Speak in Tongues",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="What Did You Say?",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Breach Alien Gauntlet",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Create Gauntlet",
+    correspondence=0,
+    time=0,
+    spirit=5,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Create Horizon Realm Construct",
+    correspondence=0,
+    time=0,
+    spirit=5,
+    matter=4,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=4,
+)
+Rote.objects.create(
+    name="Corrupt Text",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Craft Tome",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Cypher Wheel",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Neon-Mail",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Unravelling the Text",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Unseen Nomenclature",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=2,
+)
+Rote.objects.create(
+    name="Writing on the Wall",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Agama Re Sojourn/Agama Te Sojourn",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Death's Passage",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Gate of Culsu",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Going Under the Cloak",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Wings of the Lasa",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Liquor's Calling",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Presentation of the Passage Stick",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sense the Dreamsong",
+    correspondence=1,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sing the Dreaming Earth",
+    correspondence=0,
+    time=0,
+    spirit=5,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=5,
+)
+Rote.objects.create(
+    name="Songline Soaring",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Songline Walking",
+    correspondence=0,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Alley Vanish",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Daedalus Gateway",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Endless Pool",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Free Conjunction",
+    correspondence=5,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Heaven's Tumbling Pebbles",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Hermes Portal",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mercury's Bridge",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Riding the Railroad",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Shuttle",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Voidcast",
+    correspondence=4,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Breach Gauntlet Undetectably",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Breach the Gauntlet",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Break the Dreamshell",
+    correspondence=0,
+    time=0,
+    spirit=5,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Bridge of Blood",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Deep Umbra Travel",
+    correspondence=0,
+    time=0,
+    spirit=5,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Deep Universe Survival",
+    correspondence=0,
+    time=0,
+    spirit=5,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Detect the Dream Gateway",
+    correspondence=1,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Dream Locus",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Dreamquest",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=2,
+    prime=2,
+)
+Rote.objects.create(
+    name="Gateway Transport",
+    correspondence=5,
+    time=0,
+    spirit=5,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Holopuni'au'nei",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Karmic Inversion",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=4,
+)
+Rote.objects.create(
+    name="Leap Sideways",
+    correspondence=3,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Long-Distance Universal Travel",
+    correspondence=0,
+    time=0,
+    spirit=5,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Moving the World Walls",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Reverie",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Schedule of Heaven",
+    correspondence=0,
+    time=1,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Shield of the Soul",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Spirit Cloak",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Spirit Journey",
+    correspondence=2,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Stepping Sideways",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Storm Watch",
+    correspondence=0,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Sucking Gate",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=4,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Trailblazing",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Umbral Visions",
+    correspondence=2,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Universal Travel",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Walking the Open Path",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Aquatic Survival",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=4,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Barrel of Iskander",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=1,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Format Space",
+    correspondence=5,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Liftoff",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=4,
+    life=0,
+    forces=5,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Nitrogen Narcosis",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="VAR",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=4,
+    life=1,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Body of the Spirit",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Daedalus's Wings",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Levitation Walk",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Navigation",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Pilot Skyrigger",
+    correspondence=5,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Rooftop Leap",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sure Footing",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Thunder Bridge",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Traffic Pulse",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Walking on Water",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Wings of Icarus",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=4,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Calculate Kinematics",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Eagle Eye",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Find the Sun",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Information Glut",
+    correspondence=2,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Information Overload",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Landscape of the Mind",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Lay of the Land",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sense Connection",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sousveillance",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Whereami?",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Cynical Eye",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Danse Macabre",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Detect Lie",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Dim Mak",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Idealism",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Locate Disorder and Weakness",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Oathbreaker's Lash",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Organize",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Ring of Truth",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="See the Soul's Burn",
+    correspondence=0,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sense Corruption",
+    correspondence=0,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Audio Tap",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=1,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Current Metering",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=1,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Darksight",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=1,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Ear of Dionysus",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=1,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Quantify Energy",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=1,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Tune Psychic Radio",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Alarm System",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Gene Scan",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Genetics Scan",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Genome Mapping",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Life Scan",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Life Sense",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Pattern Store",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Scan Life Signs",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sequencing",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Assess Affinity",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Fragments of Dream",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Hidden Switch",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Holes in the Desert",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Instant Measurement",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Monarch's Friend",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name='Aai-ab "Washing the Heart"',
+    correspondence=0,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Cram Session",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Deduction",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Find the Guilty",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Followme",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="I Know Your Cousin",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Ishin Den Shin",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Lip Reading",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mind Empowerment",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mindfulness of Wrong Thought",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="No-Mind",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Pathos",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Read the Soul",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Right-Click",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="True Form",
+    correspondence=0,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Detect Reality Deviation",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Dialectic",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Find Reality Flaws",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Hallmark",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=1,
+)
+Rote.objects.create(
+    name="Inquisitor",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Lore Rune",
+    correspondence=1,
+    time=0,
+    spirit=1,
+    matter=1,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=1,
+)
+Rote.objects.create(
+    name="Patterns of the Long Count",
+    correspondence=0,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Spot the Man",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name='Hersh, "To Be Patient"',
+    correspondence=1,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mirrorshades",
+    correspondence=0,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="See No Evil",
+    correspondence=0,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Spirit Sight",
+    correspondence=0,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name='Utchatti, "The Two Divine Eyes"',
+    correspondence=1,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Cram",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Download Specialization",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Evaluate Fourth Dimensional Fabric",
+    correspondence=0,
+    time=1,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Internal Clock",
+    correspondence=0,
+    time=1,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Perfect Time",
+    correspondence=0,
+    time=1,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Perfect Timing",
+    correspondence=0,
+    time=1,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sense the Fleeting Moment",
+    correspondence=0,
+    time=1,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Time Sense",
+    correspondence=0,
+    time=1,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Kohl Sight",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mark of the Beast",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Smart Drink",
+    correspondence=0,
+    time=1,
+    spirit=1,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=1,
+)
+Rote.objects.create(
+    name="Blood from a Stone",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Coffin for a Fisher",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Fetter Ball",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Voice Across the Void",
+    correspondence=2,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Voice of the Jade Ancestors",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Ghost-Burning",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Shadow Sight",
+    correspondence=1,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Shelter from the Storm",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=4,
+)
+Rote.objects.create(
+    name="Soothe the Dead",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Soul-Forging",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Atitsiak",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Kispu",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Lichedom",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=4,
+    life=4,
+    forces=0,
+    entropy=4,
+    mind=1,
+    prime=3,
+)
+Rote.objects.create(
+    name="Song of Orpheus",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=2,
+)
+Rote.objects.create(
+    name="Walk to Too'ga",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Eternal Discipline of the Family",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=2,
+    prime=4,
+)
+Rote.objects.create(
+    name="Ghost Rune",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Hear and Obey",
+    correspondence=0,
+    time=0,
+    spirit=5,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Reanimation",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Summon Volva",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Field of Yin",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=5,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Goanna's Hiding",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mindscreen",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Passing",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Downvote",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Encrypt Thoughts",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=2,
+)
+Rote.objects.create(
+    name="Move Along",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Secure the Scene",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=1,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Shield",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Soul Cloak",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=2,
+    prime=2,
+)
+Rote.objects.create(
+    name="At Ease",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Dontcme",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name='Ghayba (Occultation or "Unbeingness")',
+    correspondence=4,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=4,
+)
+Rote.objects.create(
+    name="Non-Descript",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Pass for Normal",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=2,
+)
+Rote.objects.create(
+    name="Selective Edit",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name='Sjonhverfing ("Deceiving of the Sight")',
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Well, It Is Vegas",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Antinoise",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Being Invisible",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Cloak of Shadows",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Dark Streets",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Dreamer's Shroud from Day",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Energy Shield",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name='Huli Shjalmr ("Helmet of Hiding")',
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Return to Darkness",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Shadow Project",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Shinobijutsu",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Silent Circle",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Smoke Screen",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Smoke-bomb Trick",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Sulfurous Darkness",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Summon Fog",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Veil of Invisibility",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Ariadne's Thread",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Chain",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Smoker's Timing",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Perfect Fuse",
+    correspondence=0,
+    time=1,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Synchronize Watches",
+    correspondence=0,
+    time=1,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Co-Location",
+    correspondence=5,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Conference Call",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=4,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Polyappearance",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Simon's Petition",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Accelerate Time",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="An Hour in Hellfire",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Distort Time",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Establish and Exchange Temporal Event Fields",
+    correspondence=0,
+    time=5,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Establish Local Temporal Event Field",
+    correspondence=0,
+    time=4,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Frenzy of the Spinning Wheels",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Moment that Stretches",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Nick of Time",
+    correspondence=3,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Quantum Temporal Travel",
+    correspondence=3,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Serenity of the Stone",
+    correspondence=0,
+    time=5,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=4,
+    mind=3,
+    prime=5,
+)
+Rote.objects.create(
+    name="Shed the Years",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=4,
+    mind=2,
+    prime=5,
+)
+Rote.objects.create(
+    name="Sidestep Time",
+    correspondence=0,
+    time=5,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Slow Time",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="St. Vitus's Kiss",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Symphony of the Soul",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Time Travel",
+    correspondence=0,
+    time=5,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Time Warp",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Tune In, Turn On, Drop Out",
+    correspondence=0,
+    time=4,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Zen and the Art of Panhandling",
+    correspondence=0,
+    time=5,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Blindside",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Bubble of Reality",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Daedalean Labyrinth",
+    correspondence=5,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Maze of the Minotaur",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Singularity",
+    correspondence=4,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Spatial Mutations",
+    correspondence=5,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Chiminage Rune",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Dimension Bomb",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Hellfire",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sharing the Outsider's Gaze",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=1,
+)
+Rote.objects.create(
+    name="Spirit Eating",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=3,
+)
+Rote.objects.create(
+    name="Spirit Slaying",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Spirit Wounding",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Spirit's Caress",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Spiritual Persuasion",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Binding Song",
+    correspondence=4,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Bottle of Djinn",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Circle of Binding",
+    correspondence=4,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=4,
+)
+Rote.objects.create(
+    name="Coerce Spirit",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Compel the Unseen",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Drahma Protector",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Ensure the Endless Sleep",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Exorcism",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Exorcism Song",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Gauntlet Prison",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Halt the Nagloper",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=2,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Holy Pentacles",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Imbue Flesh",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Lesser Binding of Spirits",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Living Bridge",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Lull the Waking Dreamborn",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Physical Exorcism",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Weaver's Retribution",
+    correspondence=3,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=2,
+    prime=2,
+)
+Rote.objects.create(
+    name="Detect Possession",
+    correspondence=0,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Evaluate Gauntlet/Scan Locality",
+    correspondence=0,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sense the Demon's Weakness",
+    correspondence=0,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sense the Nagloper",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=1,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Shadows in the Mist",
+    correspondence=0,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name='Ap-Sobk "The Last Judgment of Sobk"',
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Call Forth the Forgotten",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Call Spirit",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Call the Dreamborn Sibling",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Conjure the Jade Warrior",
+    correspondence=0,
+    time=0,
+    spirit=5,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Dreamborn Rising",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=4,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Drums of Elemental Fire",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=2,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Enter the Sauna",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Free the Mad Howlers",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Gremlins",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Here Kitty, Kitty",
+    correspondence=3,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Jack in the Green",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Loving Scar",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Nuzzlings",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=5,
+)
+Rote.objects.create(
+    name="Protection of the Golden Race",
+    correspondence=0,
+    time=0,
+    spirit=5,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Pygmalion's Paradigm",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=4,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Satan's Song",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=2,
+    prime=3,
+)
+Rote.objects.create(
+    name="Shaking Tent",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Spirit Roster",
+    correspondence=2,
+    time=0,
+    spirit=1,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Summon Paradox Spirit",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Summon the Earthly Gods",
+    correspondence=4,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Visionary Bloodletting",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Zeitgeist",
+    correspondence=0,
+    time=2,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Affix Gauntlet",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Circle Ward",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=2,
+)
+Rote.objects.create(
+    name="Counterintelligence",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Defense Screen vs. Higher Lifeforms",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Defense Screen vs. Lower Lifeforms",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Etheric Shielding",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Fortify Gauntlet",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Magic Circle",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="The Master's Hand",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Protection Song",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Psychic Sterilization",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Quahuitl",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Quantum Interference Shielding",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Reconstruct Gauntlet",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Repel the Hungry Dead",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Repel the Kuei",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Safe Little World",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Salt on the Earth",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Secret Labyrinth",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=2,
+)
+Rote.objects.create(
+    name="The Seven Golden Swords of the Tiger",
+    correspondence=4,
+    time=0,
+    spirit=3,
+    matter=3,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Spirit Wall",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Spirit Warding",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Telltale",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Time Wards",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Twisted Yarrow Stalks",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Wall of Mirrors",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="War of the Inner Sanctum",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Ward",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Ward Rune",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Warding Heads",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Zisurru",
+    correspondence=2,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Back Door Parole",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=1,
+)
+Rote.objects.create(
+    name="Deceive the Eyes",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Jivitamarana (Death in Life) Yoga",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Love Me, Love Me",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Persona",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Rouge",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Uther's Butchered Visage",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Agrivelopment",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Alter Simple Creature",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Alter Small Sequence",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Attach Biomechanism",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=5,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Augment Simple Lifeform",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Brittle Bones",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=4,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Genetic Pattern Matching",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Graft Alien Bio-Matter Between Aliens",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Graft Alien Bio-Matter to Humans",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Green Thumb",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Higher Lifeform Grafting and Recombination",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Limited Grafting and Recombination",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Lower Lifeform Manipulation",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Major Environmental Alteration",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Minor Environmental Alteration",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mokupuni Palahalaha Wiki",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="Mold Tree",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Personal Compression",
+    correspondence=5,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Phosphoric Marker",
+    correspondence=1,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Clone",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Cloning",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Courtesan's Draught/Blessed Heir",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Fatherless Birth",
+    correspondence=0,
+    time=0,
+    spirit=5,
+    matter=0,
+    life=5,
+    forces=0,
+    entropy=5,
+    mind=0,
+    prime=5,
+)
+Rote.objects.create(
+    name="Flesh Toys",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="The Foundling",
+    correspondence=2,
+    time=0,
+    spirit=4,
+    matter=2,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Genetic Mastery",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Oak of Sanguine Root",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Spontaneous Generation",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Supporting the Brain",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=2,
+)
+Rote.objects.create(
+    name="Thorn Wall",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Animal Form",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Animal Shift",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Avatar Form",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=2,
+)
+Rote.objects.create(
+    name="Circe's Enchantment",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Deity Form",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=4,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=4,
+)
+Rote.objects.create(
+    name="Dionysus's Gift",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Eagle Form",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Holy Union",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=3,
+)
+Rote.objects.create(
+    name="Iron Avatar",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=2,
+)
+Rote.objects.create(
+    name="Jaguar Cloak",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=3,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="LERMUization",
+    correspondence=0,
+    time=0,
+    spirit=5,
+    matter=0,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Lesser Shapechanging",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mutate Form",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Notorious Vampiric Lawnchair",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=5,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="One with Beasts",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Perfect Metamorphosis",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Qayaq's Fish",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Rokea'ole",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Shapechange Curse",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Shapeshifter Prison",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Shapeshifting",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Storm of Crows",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=2,
+)
+Rote.objects.create(
+    name="Vulcan's Hammer",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=4,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Wasp-Spasm",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=3,
+)
+Rote.objects.create(
+    name="The Weeping Willow",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=5,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Wolf Form",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Adaptation",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Adrenal Rush",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Advanced Therapies",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Battery Man",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Better Body",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Biochemical Regulation",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Bio-Luminescence",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Brain Boost",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Chakra Influence",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Crocodile Blood",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Go Ti Ta",
+    correspondence=0,
+    time=0,
+    spirit=4,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mele Lapa'au",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Multi-Tasking",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Nanotech Integration",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=5,
+)
+Rote.objects.create(
+    name="Our Enemies are Delicious",
+    correspondence=0,
+    time=0,
+    spirit=3,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Positronic Brain",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Simple Biochemical Manipulation",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Strength of the Earth",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Survivor's Charm",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Talons",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Thick Skin",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Titan's Power",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Tumo",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Apathy",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Olive Branch",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Pass Calmly",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=1,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Peace of Buddha",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Peace Rune",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Rat's Rage/Lost Cousin",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Stoicism",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name='Abh-t-ab, "Biting the Heart"',
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Argument of Princes",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Capiche?",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Hoodoo Man's Heartbeat",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Primal Dread",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Show of Force",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Bewitchment",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Charm Rune",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Exalted Desire",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=2,
+)
+Rote.objects.create(
+    name="Kuoha (The Passion Prayer)",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Lecherous Kiss",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=2,
+)
+Rote.objects.create(
+    name="Romance",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Taliesin's Song",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Be Cool",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Branding",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Comp Me",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Cool Glamour",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Empathic Projection",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Gatha",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=2,
+)
+Rote.objects.create(
+    name="The Golden Apple",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Grand Style",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=1,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="High Rhetoric",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Hope's Birth",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Incitation",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Initiation",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=2,
+)
+Rote.objects.create(
+    name="The Look/The Word",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Loving Cup",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mood Swing/Communion",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Motivational Speaking",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=2,
+)
+Rote.objects.create(
+    name="Petals of Love",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Physiological Emotion Control",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=4,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Scent of Control",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Shameful Outburst",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Social Science",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Strains of Laughter, Sleep and Sorrow",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Subtle Persuasion",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=2,
+)
+Rote.objects.create(
+    name="Witchwind",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=5,
+    entropy=0,
+    mind=3,
+    prime=2,
+)
+Rote.objects.create(
+    name="Animal Possession",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Animal Riding",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Bug Off",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=2,
+)
+Rote.objects.create(
+    name="Horsemaster's Bidding",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mono Kahea 'Ai (Shark Call)",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Ratstorm",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sedna's Blessing",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sing to the Whales",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Divine Aura",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Fifteen Minutes",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Going Viral",
+    correspondence=4,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="An Uncompromising Commitment to Excellence",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=3,
+)
+Rote.objects.create(
+    name="Coordination",
+    correspondence=3,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Karoshi",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=1,
+    prime=0,
+)
+Rote.objects.create(
+    name="Workflow",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Delion's Haze",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Destroy Thought",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=5,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Downward Spiral",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Magdeline's Dynamic Mind",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Trip",
+    correspondence=2,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=1,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Dream Drama",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Dream Play",
+    correspondence=0,
+    time=2,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=2,
+)
+Rote.objects.create(
+    name="Nightmare Dance",
+    correspondence=0,
+    time=0,
+    spirit=2,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Delirium",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Frame Up",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=3,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Holographic Projector",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=3,
+    prime=2,
+)
+Rote.objects.create(
+    name="IFF",
+    correspondence=2,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=2,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Imaginary Friend",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=2,
+)
+Rote.objects.create(
+    name="Painting the War Dance",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=2,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Behavior Modification Device",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="False Witness",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="High Memory",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Manipulate Memories",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Manipulate Memory",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Move to Clone",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=5,
+    prime=0,
+)
+Rote.objects.create(
+    name="Nostalgia",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Plausible Denial",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Probe Thoughts",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Scan Memories",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Transfer Memories",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Worm",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Alter Paradigm",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=5,
+    mind=5,
+    prime=0,
+)
+Rote.objects.create(
+    name="The Blissful Discipline",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=3,
+    entropy=0,
+    mind=4,
+    prime=2,
+)
+Rote.objects.create(
+    name="Consuming Thought",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=2,
+)
+Rote.objects.create(
+    name="Create Drone",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=5,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Create Mind",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=5,
+    prime=0,
+)
+Rote.objects.create(
+    name="Deprocessing",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Destructive Paranoia",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=4,
+    prime=2,
+)
+Rote.objects.create(
+    name="Hypernarrative Influence",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Impulse Purchase",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Internal Obligation",
+    correspondence=0,
+    time=4,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=3,
+)
+Rote.objects.create(
+    name="Maikai (The Seaward Pull)",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Manchurian Condidate",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=5,
+    prime=0,
+)
+Rote.objects.create(
+    name="Mind Rune",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Morpheus's Kiss",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=2,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Nervous Control",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=3,
+    forces=3,
+    entropy=0,
+    mind=0,
+    prime=0,
+)
+Rote.objects.create(
+    name="Possession",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Processing",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=5,
+    prime=2,
+)
+Rote.objects.create(
+    name="Programming",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Psychic Intrusion",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Purge Thought Crime",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=3,
+)
+Rote.objects.create(
+    name="Random Impulse",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Recant",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=2,
+    mind=2,
+    prime=0,
+)
+Rote.objects.create(
+    name="Re-education Mode",
+    correspondence=0,
+    time=3,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=2,
+)
+Rote.objects.create(
+    name="See the Light",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=3,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Self-Possession",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Sinner's Redemption",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=5,
+    prime=0,
+)
+Rote.objects.create(
+    name="Social Conditioning",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=2,
+)
+Rote.objects.create(
+    name="Soul Shaping",
+    correspondence=0,
+    time=0,
+    spirit=5,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=3,
+)
+Rote.objects.create(
+    name="Temple Gongs",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=4,
+    life=3,
+    forces=4,
+    entropy=0,
+    mind=4,
+    prime=2,
+)
+Rote.objects.create(
+    name="Ultimate Argument",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=3,
+    prime=0,
+)
+Rote.objects.create(
+    name="Welcoming the Jester",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
+Rote.objects.create(
+    name="Willful Binding",
+    correspondence=0,
+    time=0,
+    spirit=0,
+    matter=0,
+    life=0,
+    forces=0,
+    entropy=0,
+    mind=4,
+    prime=0,
+)
 
 
 from wod.models.locations.mage import NodeMeritFlaw
@@ -18735,4 +30807,3 @@ NodeMeritFlaw.objects.create(name="Former Freehold", ratings=[-2])
 NodeMeritFlaw.objects.create(name="Former Haunt", ratings=[-2])
 NodeMeritFlaw.objects.create(name="Infamous Node", ratings=[-1, -2, -3, -4, -5])
 NodeMeritFlaw.objects.create(name="Isolated Node", ratings=[-2])
-

@@ -3,11 +3,11 @@ import random
 from django.db import models
 from django.db.models import Q
 
+from core.utils import add_dot, weighted_choice
 from wod.models.characters.mage.resonance import Resonance
-from wod.models.locations.human import Location
-from wod.models.items.mage import Library
 from wod.models.characters.mage.utils import SPHERE_LIST
-from core.utils import weighted_choice, add_dot
+from wod.models.items.mage import Library
+from wod.models.locations.human import Location
 
 
 # Create your models here.

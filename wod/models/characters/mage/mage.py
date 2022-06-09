@@ -1,15 +1,19 @@
-from django.contrib.auth.models import User
-from accounts.models import WoDProfile
 import random
+
+from django.contrib.auth.models import User
 from django.db import models
-from wod.models.characters.human import Human, Character
-from .faction import MageFaction
-from .focus import Paradigm, Practice, Instrument
-from .rote import Rote
+
+from accounts.models import WoDProfile
 from core.utils import add_dot, weighted_choice
-from .resonance import Resonance, ResRating
+from wod.models.characters.human import Character, Human
+from wod.models.items.mage import Grimoire, Library
 from wod.models.locations.mage import Node
-from wod.models.items.mage import Library, Grimoire
+
+from .faction import MageFaction
+from .focus import Instrument, Paradigm, Practice
+from .resonance import Resonance, ResRating
+from .rote import Rote
+
 
 # Create your models here.
 class Mage(Human):
@@ -183,8 +187,12 @@ class Mage(Human):
     quintessence = models.IntegerField(default=0)
     paradox = models.IntegerField(default=0)
 
-    library_owned = models.ForeignKey(Library, on_delete=models.CASCADE, null=True, blank=True)
-    node_owned = models.ForeignKey(Node, on_delete=models.CASCADE, null=True, blank=True)
+    library_owned = models.ForeignKey(
+        Library, on_delete=models.CASCADE, null=True, blank=True
+    )
+    node_owned = models.ForeignKey(
+        Node, on_delete=models.CASCADE, null=True, blank=True
+    )
 
     background_points = 7
 
@@ -831,22 +839,24 @@ class Mage(Human):
         return False
 
     def random_library(self):
-        l = Library.objects.create(name=f"{self.name}'s Library", rank=self.library)
-        l.save()
-        self.library_owned = l
-        self.save()
+        if self.library > 0:
+            l = Library.objects.create(name=f"{self.name}'s Library", rank=self.library)
+            l.save()
+            self.library_owned = l
+            self.save()
 
     def has_node(self):
         if self.node_owned is not None:
             return self.node_owned.rank == self.node
         return False
-    
+
     def random_node(self):
-        n = Node.objects.create(name=f"{self.name}'s Node")
-        n.random(rank=self.node)
-        n.save()
-        self.node_owned = n
-        self.save()
+        if self.node > 0:
+            n = Node.objects.create(name=f"{self.name}'s Node")
+            n.random(rank=self.node)
+            n.save()
+            self.node_owned = n
+            self.save()
 
     def random(self, freebies=15, xp=0):
         self.freebies = freebies
@@ -871,25 +881,8 @@ class Mage(Human):
         self.random_freebies()
         self.random_xp()
         self.random_specialties()
-        if self.node > 0:
-            # n = Node.objects.create(name=f"{self.name}'s Node", rank=self.node)
-            # n.random(rank=self.node)
-            # self.owned_node = n
-            self.random_node()
-        if self.library > 0:
-            # l = Library.objects.create(name=f"{self.name}'s Library")
-            # for i in range(1, self.library + 1):
-            #     g = Grimoire.objects.create(name=f"{self.name}'s Book {i}")
-            #     g.random(
-            #         rank=i,
-            #         faction=self.faction,
-            #         paradigms=self.paradigms.all(),
-            #         practices=self.practices.all(),
-            #         instruments=self.instruments.all(),
-            #         spheres=[x for x in self.filter_spheres(minimum=1).keys()],
-            #     )
-            #     l.increase_rank(book=g)
-            self.random_library()
+        self.random_node()
+        self.random_library()
 
     def random_name(self):
         if not self.has_name():

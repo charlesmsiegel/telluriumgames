@@ -1,6 +1,9 @@
 from django.db import models
+
 from core.models import Language, Material, Medium
+
 from .focus import Paradigm, Practice
+
 
 # Create your models here.
 class MageFaction(models.Model):

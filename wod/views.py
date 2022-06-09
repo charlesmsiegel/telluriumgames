@@ -8,7 +8,12 @@ from wod.models.characters.mage import Mage, ResRating
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
 from wod.models.locations.human import City, Location
-from wod.models.locations.mage import Node, NodeMeritFlawRating, NodeResonanceRating, Chantry
+from wod.models.locations.mage import (
+    Chantry,
+    Node,
+    NodeMeritFlawRating,
+    NodeResonanceRating,
+)
 
 
 # Create your views here.

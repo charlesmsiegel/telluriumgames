@@ -3,10 +3,17 @@ from unittest.mock import Mock
 
 from django.test import TestCase
 
-from wod.models.characters.mage import Resonance, Rote, Instrument, Practice, Paradigm, MageFaction
-from wod.models.locations.mage import Node, NodeMeritFlaw, Chantry
-from wod.models.items.mage import Library
 from core.models import Language, Material, Medium
+from wod.models.characters.mage import (
+    Instrument,
+    MageFaction,
+    Paradigm,
+    Practice,
+    Resonance,
+    Rote,
+)
+from wod.models.items.mage import Library
+from wod.models.locations.mage import Chantry, Node, NodeMeritFlaw
 
 
 # Create your tests here.
@@ -388,7 +395,7 @@ class TestChantry(TestCase):
         self.chantry.library_rating = 4
         self.chantry.create_library()
         self.assertTrue(self.chantry.has_library())
-        self.assertEqual(self.chantry.library.num_books(), 4)        
+        self.assertEqual(self.chantry.library.num_books(), 4)
 
     def test_set_library(self):
         library = Library.objects.create(name="Test Library")
