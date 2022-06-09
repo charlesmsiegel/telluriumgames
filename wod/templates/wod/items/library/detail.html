@@ -4,6 +4,19 @@
 {% endblock title %}
 <body>
     {% block content %}
-        <h1>{{ object.name }}</h1>
-    </body>
-{% endblock content %}
+        <div class="centertext">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm mtas_heading">
+                        <h1>{{ object.name }}</h1>
+                    </div>
+                </div>
+                {% for book in object.books.all %}
+                    <div class="row">
+                        <a href={{ book.get_absolute_url }}>{{ book.name }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endblock content %}
+</body>

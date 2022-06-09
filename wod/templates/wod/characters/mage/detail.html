@@ -369,11 +369,19 @@
             <div class="col-sm dots">{{ object.legend|dots }}</div>
         </div>
         <div class="row">
+            {% if object.library_owned is None %}
             <div class="col-sm">Library</div>
+            {% else %}
+            <a class="col-sm" href={{ object.library_owned.get_absolute_url }}>Library</a>
+            {% endif %}
             <div class="col-sm dots">{{ object.library|dots }}</div>
             <div class="col-sm">Mentor</div>
             <div class="col-sm dots">{{ object.mentor|dots }}</div>
+            {% if object.node_owned is None %}
             <div class="col-sm">Node</div>
+            {% else %}
+            <a class="col-sm" href={{ object.node_owned.get_absolute_url }}>Node</a>
+            {% endif %}
             <div class="col-sm dots">{{ object.node|dots }}</div>
         </div>
         <div class="row">

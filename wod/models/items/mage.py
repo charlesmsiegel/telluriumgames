@@ -406,7 +406,7 @@ class Library(Wonder):
             self.add_book(book)
 
     def random_book(self):
-        book = Grimoire.objects.create(name=f"Random Book {self.num_books() + 1}")
+        book = Grimoire.objects.create(name=f"{self.name} Book {self.num_books() + 1}")
         book.random(rank=self.rank)
         return self.add_book(book)
 

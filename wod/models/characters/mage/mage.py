@@ -841,6 +841,7 @@ class Mage(Human):
     def random_library(self):
         if self.library > 0:
             l = Library.objects.create(name=f"{self.name}'s Library", rank=self.library)
+            l.random()
             l.save()
             self.library_owned = l
             self.save()

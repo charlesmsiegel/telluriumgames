@@ -13,7 +13,7 @@ from wod.models.characters.mage import (
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
 from wod.models.locations.human import City, Location
-from wod.models.locations.mage import Node, NodeMeritFlaw
+from wod.models.locations.mage import Node, NodeMeritFlaw, Chantry
 
 
 # Register your models here.
@@ -87,6 +87,7 @@ class RoteAdmin(admin.ModelAdmin):
 admin.site.register(Location)
 admin.site.register(City)
 admin.site.register(Node)
+admin.site.register(Chantry)
 
 
 @admin.register(Wonder)
