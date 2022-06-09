@@ -357,15 +357,15 @@ class TestChantry(TestCase):
         self.assertEqual(self.chantry.trait_cost("backup"), 2)
         self.assertEqual(self.chantry.trait_cost("cult"), 2)
         self.assertEqual(self.chantry.trait_cost("elders"), 2)
-        self.assertEqual(self.chantry.trait_cost("integrated effects"), 2)
-        self.assertEqual(self.chantry.trait_cost("library"), 2)
+        self.assertEqual(self.chantry.trait_cost("integrated_effects"), 2)
+        self.assertEqual(self.chantry.trait_cost("library_rating"), 2)
         self.assertEqual(self.chantry.trait_cost("retainers"), 2)
         self.assertEqual(self.chantry.trait_cost("spies"), 2)
-        self.assertEqual(self.chantry.trait_cost("node"), 3)
+        self.assertEqual(self.chantry.trait_cost("node_rating"), 3)
         self.assertEqual(self.chantry.trait_cost("resources"), 3)
         self.assertEqual(self.chantry.trait_cost("enhancement"), 4)
         self.assertEqual(self.chantry.trait_cost("requisitions"), 4)
-        self.assertEqual(self.chantry.trait_cost("reality zone"), 5)
+        self.assertEqual(self.chantry.trait_cost("reality_zone_rating"), 5)
 
     def test_creation_of_nodes(self):
         self.chantry.node_rating = 0
@@ -381,11 +381,14 @@ class TestChantry(TestCase):
 
     def test_creation_of_library(self):
         self.chantry.library_rating = 0
+        self.assertFalse(self.chantry.has_library())
         self.chantry.create_library()
-        self.assertIsNone(self.chantry.library)
+        self.assertTrue(self.chantry.has_library())
+        self.assertEqual(self.chantry.library.num_books(), 0)
         self.chantry.library_rating = 4
         self.chantry.create_library()
-        self.assertIsNotNone(self.chantry.library)
+        self.assertTrue(self.chantry.has_library())
+        self.assertEqual(self.chantry.library.num_books(), 4)        
 
     def test_set_library(self):
         library = Library.objects.create(name="Test Library")
@@ -394,7 +397,7 @@ class TestChantry(TestCase):
         self.assertTrue(self.chantry.has_library())
 
     def test_add_node(self):
-        node = Node.objects.create(name="Test Node")
+        node = Node.objects.create(name="Test Node", rank=3)
         self.chantry.node_rating = 3
         self.assertFalse(self.chantry.has_node())
         self.chantry.add_node(node)
@@ -402,9 +405,9 @@ class TestChantry(TestCase):
 
     def test_points_spent(self):
         self.assertEqual(self.chantry.points_spent(), 0)
-        self.chantry.retainers = 3
+        self.chantry.requisitions = 3
         self.assertEqual(self.chantry.points_spent(), 12)
-        self.chantry.node = 8
+        self.chantry.node_rating = 8
         self.assertEqual(self.chantry.points_spent(), 36)
         self.chantry.arcane = 1
         self.assertEqual(self.chantry.points_spent(), 38)
@@ -416,10 +419,10 @@ class TestChantry(TestCase):
 
     def test_random(self):
         self.assertFalse(self.chantry.has_library())
-        self.assertFalse(self.chantry.has_node())
+        self.assertTrue(self.chantry.has_node())
         self.chantry.random()
         self.assertGreater(self.chantry.points, 0)
-        self.assertEqual(self.chantry.points, self.chantry.points_spent())
+        self.assertLessEqual(self.chantry.points - self.chantry.points_spent(), 1)
 
 
 class TestNodeDetailView(TestCase):
