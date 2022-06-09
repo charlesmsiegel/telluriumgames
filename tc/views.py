@@ -155,10 +155,9 @@ class RandomCharacterView(View):
         )
         try:
             xp = int(request.POST["xp"])
-        except:
+        except ValueError:
             xp = 0
-        if xp < 0:
-            xp = 0
+        xp = max(xp, 0)
         char.random(xp=xp)
         char.save()
         return redirect(char.get_absolute_url())

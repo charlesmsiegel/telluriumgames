@@ -111,7 +111,7 @@ class Aberrant(Human):
                 me_rating = MegaEdgeRating.objects.get(character=self, mega_edge=me)
                 if me_rating.rating < max(me.ratings):
                     if (
-                        min([x for x in me.ratings if x > me_rating.rating])
+                        min(x for x in me.ratings if x > me_rating.rating)
                         - me_rating.rating
                         <= dots
                     ):
@@ -140,7 +140,7 @@ class Aberrant(Human):
         return False
 
     def total_powers(self):
-        return sum([x.rating for x in PowerRating.objects.filter(character=self)])
+        return sum(x.rating for x in PowerRating.objects.filter(character=self))
 
     def random_power(self):
         d = {
@@ -174,7 +174,7 @@ class Aberrant(Human):
         r = t.rating
         if r == max(tag.ratings):
             return False
-        new_rating = min([x for x in tag.ratings if x > r])
+        new_rating = min(x for x in tag.ratings if x > r)
         t.rating = new_rating
         t.save()
         return True
@@ -404,7 +404,7 @@ class Aberrant(Human):
                     return True
         elif trait in [x.name for x in MegaEdge.objects.all()]:
             e = MegaEdge.objects.get(name=trait)
-            new_rating = min([x for x in e.ratings if x > self.mega_edge_rating(e)])
+            new_rating = min(x for x in e.ratings if x > self.mega_edge_rating(e))
             cost = self.xp_cost("mega edge", transcendence=transcendence) * (
                 new_rating - self.mega_edge_rating(e)
             )
@@ -431,7 +431,7 @@ class Aberrant(Human):
             t = Tag.objects.get(name=trait)
             if power not in t.permitted_powers.all():
                 return False
-            new_rating = min([x for x in t.ratings if x > self.tag_rating(power, t)])
+            new_rating = min(x for x in t.ratings if x > self.tag_rating(power, t))
             cost = self.xp_cost("power tag") * (new_rating - self.tag_rating(power, t))
             if self.xp >= cost:
                 if self.add_tag(power, t):
@@ -513,7 +513,7 @@ class Power(models.Model):
         return self.dicepool.split("+")
 
     def num_dice(self, char):
-        return sum([getattr(char, x) for x in self.dicepool_traits()])
+        return sum(getattr(char, x) for x in self.dicepool_traits())
 
     def add_to_dicepool(self, trait):
         if self.dicepool != "":
@@ -588,10 +588,9 @@ def aberrant_prereq_satisfied(prereq, character, obj):
         if prereq[1] == "dots":
             if obj in MegaEdge.objects.all():
                 r = character.mega_edge_rating(obj)
-                req = min([x for x in obj.ratings if x > r])
+                req = min(x for x in obj.ratings if x > r)
                 return character.quantum >= req
-            else:
-                return character.quantum >= prereq[1]
+            return character.quantum >= prereq[1]
     if prereq[0] in character.get_mega_attributes().keys():
         return getattr(character, prereq[0]) >= prereq[1]
     return False
