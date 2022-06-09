@@ -414,3 +414,7 @@ class Library(Wonder):
 
     def num_books(self):
         return self.books.count()
+    
+    def random(self):
+        while self.num_books() < self.rank:
+            self.random_book()

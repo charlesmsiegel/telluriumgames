@@ -183,6 +183,9 @@ class Mage(Human):
     quintessence = models.IntegerField(default=0)
     paradox = models.IntegerField(default=0)
 
+    library_owned = models.ForeignKey(Library, on_delete=models.CASCADE, null=True, blank=True)
+    node_owned = models.ForeignKey(Node, on_delete=models.CASCADE, null=True, blank=True)
+
     background_points = 7
 
     def __init__(self, *args, **kwargs):
@@ -823,10 +826,27 @@ class Mage(Human):
                 counter += 1
 
     def has_library(self):
-        pass
+        if self.library_owned is not None:
+            return self.library_owned.rank == self.library
+        return False
+
+    def random_library(self):
+        l = Library.objects.create(name=f"{self.name}'s Library", rank=self.library)
+        l.save()
+        self.library_owned = l
+        self.save()
 
     def has_node(self):
-        pass
+        if self.node_owned is not None:
+            return self.node_owned.rank == self.node
+        return False
+    
+    def random_node(self):
+        n = Node.objects.create(name=f"{self.name}'s Node")
+        n.random(rank=self.node)
+        n.save()
+        self.node_owned = n
+        self.save()
 
     def random(self, freebies=15, xp=0):
         self.freebies = freebies
@@ -852,22 +872,24 @@ class Mage(Human):
         self.random_xp()
         self.random_specialties()
         if self.node > 0:
-            n = Node.objects.create(name=f"{self.name}'s Node", rank=self.node)
-            n.random(rank=self.node)
-            self.owned_node = n
+            # n = Node.objects.create(name=f"{self.name}'s Node", rank=self.node)
+            # n.random(rank=self.node)
+            # self.owned_node = n
+            self.random_node()
         if self.library > 0:
-            l = Library.objects.create(name=f"{self.name}'s Library")
-            for i in range(1, self.library + 1):
-                g = Grimoire.objects.create(name=f"{self.name}'s Book {i}")
-                g.random(
-                    rank=i,
-                    faction=self.faction,
-                    paradigms=self.paradigms.all(),
-                    practices=self.practices.all(),
-                    instruments=self.instruments.all(),
-                    spheres=[x for x in self.filter_spheres(minimum=1).keys()],
-                )
-                l.increase_rank(book=g)
+            # l = Library.objects.create(name=f"{self.name}'s Library")
+            # for i in range(1, self.library + 1):
+            #     g = Grimoire.objects.create(name=f"{self.name}'s Book {i}")
+            #     g.random(
+            #         rank=i,
+            #         faction=self.faction,
+            #         paradigms=self.paradigms.all(),
+            #         practices=self.practices.all(),
+            #         instruments=self.instruments.all(),
+            #         spheres=[x for x in self.filter_spheres(minimum=1).keys()],
+            #     )
+            #     l.increase_rank(book=g)
+            self.random_library()
 
     def random_name(self):
         if not self.has_name():

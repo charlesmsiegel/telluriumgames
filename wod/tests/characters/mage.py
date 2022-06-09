@@ -991,14 +991,12 @@ class TestRandomMage(TestCase):
         self.assertTrue(self.character.has_rotes())
         
     def test_created_node_when_has_node(self):
-        self.assertTrue(self.character.has_node())
         self.character.node = 3
         self.assertFalse(self.character.has_node())
         self.character.random_node()
         self.assertTrue(self.character.has_node())
         
     def test_created_library_when_has_library(self):
-        self.assertTrue(self.character.has_library())
         self.character.library = 3
         self.assertFalse(self.character.has_library())
         self.character.random_library()
@@ -1037,8 +1035,14 @@ class TestRandomMage(TestCase):
         self.assertTrue(self.character.has_essence())
         self.assertTrue(self.character.has_rotes())
         self.assertTrue(self.character.has_mage_history())
-        self.assertTrue(self.character.has_node())
-        self.assertTrue(self.character.has_library())
+        if self.character.node != 0:
+            self.assertTrue(self.character.has_node())
+        else:
+            self.assertFalse(self.character.has_node())
+        if self.character.library != 0:
+            self.assertTrue(self.character.has_library())
+        else:
+            self.assertFalse(self.character.has_library())
 
 
 class TestCabal(TestCase):
