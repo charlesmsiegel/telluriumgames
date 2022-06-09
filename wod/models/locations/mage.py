@@ -6,6 +6,7 @@ from django.db.models import Q
 from wod.models.characters.mage import Mage, Resonance
 from wod.models.locations.human import Location
 from wod.models.items.mage import Library
+from core.utils import weighted_choice, add_dot
 
 
 # Create your models here.
@@ -292,17 +293,17 @@ class Chantry(Location):
             "backup",
             "cult",
             "elders",
-            "integrated effects",
-            "library",
+            "integrated_effects",
+            "library_rating",
             "retainers",
             "spies",
         ]:
             return 2
-        elif trait in ["node", "resources"]:
+        elif trait in ["node_rating", "resources"]:
             return 3
         elif trait in ["enhancement", "requisitions"]:
             return 4
-        elif trait in ["reality zone"]:
+        elif trait in ["reality_zone_rating"]:
             return 5
         return 1000
 
@@ -339,22 +340,26 @@ class Chantry(Location):
             node_ranks.append(x)
 
         for i, rank in enumerate(node_ranks):
-            n = Node.objects.create(name=f"{self.name}'s Node {i}")
+            n = Node.objects.create(name=f"{self.name}'s Node {i}", parent=self)
             n.random(rank=rank)
+            n.save()
             self.add_node(n)
 
     def total_node(self):
         return sum([x.rank for x in self.nodes.all()])
 
     def has_library(self):
-        return self.library is not None
+        if self.library is not None:
+            return self.library.rank == self.library.num_books()
+        return False
 
     def set_library(self, library):
         self.library = library
         return True
 
     def create_library(self):
-        l = Library.objects.create(rank=self.library_rating)
+        l, _ = Library.objects.get_or_create(name=f"{self.name} Library")
+        l.rank = self.library_rating
         while l.num_books() < l.rank:
             l.random_book()
         self.set_library(l)
@@ -385,21 +390,30 @@ class Chantry(Location):
 
     def random(self, rank=None):
         self.random_rank(rank=rank)
-        distribution = {
-            "allies": 1,
-            "arcane": 1,
-            "backup": 1,
-            "cult": 1,
-            "elders": 1,
-            "integrated_effects": 1,
-            "retainers": 1,
-            "spies": 1,
-            "resources": 1,
-            "enhancement": 1,
-            "requisitions": 1,
-            "reality_zone": 1,
-            "node": 1,
-            "library": 1,
+        while self.points - self.points_spent() > 1:
+            choice = weighted_choice(self.get_traits())
+            if self.trait_cost(choice) <= self.points - self.points_spent():
+                if choice != "node_rating":
+                    add_dot(self, choice, maximum=10)
+                else:
+                    add_dot(self, choice, maximum=100)
+        self.create_nodes()
+        self.create_library()
+
+    def get_traits(self):
+        return {
+            "allies": self.allies,
+            "arcane": self.arcane,
+            "backup": self.backup,
+            "cult": self.cult,
+            "elders": self.elders,
+            "integrated_effects": self.integrated_effects,
+            "retainers": self.retainers,
+            "spies": self.spies,
+            "resources": self.resources,
+            "enhancement": self.enhancement,
+            "requisitions": self.requisitions,
+            "reality_zone": self.reality_zone_rating,
+            "node_rating": self.node_rating,
+            "library_rating": self.library_rating,
         }
-        while self.points > self.points_spent():
-            break
