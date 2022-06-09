@@ -15,6 +15,8 @@ from wod.models.characters.mage import (
     Resonance,
     Rote,
 )
+from core.models import Language
+from wod.models.locations.mage import NodeMeritFlaw
 
 
 # Create your tests here.
@@ -47,6 +49,8 @@ def mage_setup(player):
     for i in range(5):
         MeritFlaw.objects.create(name=f"Merit {i}", ratings=[i])
         MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i])
+        NodeMeritFlaw.objects.create(name=f"Node Merit {i}", ratings=[i])
+        NodeMeritFlaw.objects.create(name=f"Node Flaw {i}", ratings=[-i])
 
     for i in range(1, 11):
         Resonance.objects.create(name=f"Resonance {i}")
@@ -80,6 +84,9 @@ def mage_setup(player):
 
     for i in range(20):
         Archetype.objects.create(name=f"Archetype {i}")
+        
+    for i in range(1, 11):
+        Language.objects.create(name=f"Language {i}", frequency=i)
 
 
 class TestMage(TestCase):

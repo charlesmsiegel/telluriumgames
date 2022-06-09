@@ -3,9 +3,10 @@ import random
 from django.db import models
 from django.db.models import Q
 
-from wod.models.characters.mage import Mage, Resonance
+from wod.models.characters.mage.resonance import Resonance
 from wod.models.locations.human import Location
 from wod.models.items.mage import Library
+from wod.models.characters.mage.utils import SPHERE_LIST
 from core.utils import weighted_choice, add_dot
 
 
@@ -178,7 +179,7 @@ class Node(Location):
             self.add_resonance(res)
             self.add_resonance(res)
         if "Sphere Attuned" in [x.name for x in self.merits_and_flaws.all()]:
-            sphere = random.choice(list(Mage(name="TMP").get_spheres().keys()))
+            sphere = random.choice(SPHERE_LIST)
             self.random_resonance(sphere=sphere)
 
     def has_resonance(self):

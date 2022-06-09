@@ -1,130 +1,17 @@
-import random
-
 from django.contrib.auth.models import User
-from django.db import models
-
 from accounts.models import WoDProfile
-from core.models import Language, Material, Medium
+import random
+from django.db import models
+from wod.models.characters.human import Human, Character
+from .faction import MageFaction
+from .focus import Paradigm, Practice, Instrument
+from .rote import Rote
 from core.utils import add_dot, weighted_choice
-from wod.models.characters.human import Character, Human
-# from wod.models.locations.mage import Node
-# from wod.models.items.mage import Library, Grimoire
+from .resonance import Resonance, ResRating
+from wod.models.locations.mage import Node
+from wod.models.items.mage import Library, Grimoire
 
 # Create your models here.
-class Instrument(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-
-    def __str__(self):
-        return self.name
-
-
-class Practice(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    abilities = models.JSONField(default=list)
-    instruments = models.ManyToManyField(Instrument, blank=True)
-
-    def __str__(self):
-        return self.name
-
-
-class Paradigm(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    practices = models.ManyToManyField(Practice, blank=True)
-
-    def __str__(self):
-        return self.name
-
-
-class MageFaction(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    languages = models.ManyToManyField(Language, blank=True)
-    affinities = models.JSONField(default=list)
-    paradigms = models.ManyToManyField(Paradigm, blank=True)
-    practices = models.ManyToManyField(Practice, blank=True)
-    media = models.ManyToManyField(Medium, blank=True)
-    materials = models.ManyToManyField(Material, blank=True)
-    founded = models.IntegerField(default=-5000)
-    parent = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
-
-    def __str__(self):
-        return self.name
-
-    def get_all_paradigms(self):
-        factions = [self]
-        while factions[-1].parent is not None:
-            factions.append(factions[-1].parent)
-        paradigms = Paradigm.objects.none()
-        for faction in factions:
-            paradigms |= faction.paradigms.all()
-        return paradigms
-
-    def get_all_practices(self):
-        factions = [self]
-        while factions[-1].parent is not None:
-            factions.append(factions[-1].parent)
-        practices = Practice.objects.none()
-        for faction in factions:
-            practices |= faction.practices.all()
-        return practices
-
-
-class Rote(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    correspondence = models.IntegerField(default=0)
-    time = models.IntegerField(default=0)
-    spirit = models.IntegerField(default=0)
-    matter = models.IntegerField(default=0)
-    life = models.IntegerField(default=0)
-    forces = models.IntegerField(default=0)
-    entropy = models.IntegerField(default=0)
-    mind = models.IntegerField(default=0)
-    prime = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.name
-
-    def cost(self):
-        return (
-            self.correspondence
-            + self.time
-            + self.spirit
-            + self.forces
-            + self.matter
-            + self.life
-            + self.prime
-            + self.entropy
-            + self.mind
-        )
-
-    def is_learnable(self, mage):
-        for sphere in mage.get_spheres().keys():
-            if getattr(self, sphere) > getattr(mage, sphere):
-                return False
-        return True
-
-
-class Resonance(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    correspondence = models.BooleanField(default=False)
-    time = models.BooleanField(default=False)
-    spirit = models.BooleanField(default=False)
-    matter = models.BooleanField(default=False)
-    life = models.BooleanField(default=False)
-    forces = models.BooleanField(default=False)
-    entropy = models.BooleanField(default=False)
-    mind = models.BooleanField(default=False)
-    prime = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.name.title()
-
-
-class ResRating(models.Model):
-    mage = models.ForeignKey("Mage", on_delete=models.CASCADE)
-    resonance = models.ForeignKey(Resonance, on_delete=models.CASCADE)
-    rating = models.IntegerField(default=0)
-
-
 class Mage(Human):
     type = "mage"
 
@@ -934,10 +821,10 @@ class Mage(Human):
                 spent = self.spend_freebies(choice)
             if not spent:
                 counter += 1
-                
+
     def has_library(self):
         pass
-    
+
     def has_node(self):
         pass
 
@@ -964,23 +851,23 @@ class Mage(Human):
         self.random_freebies()
         self.random_xp()
         self.random_specialties()
-        # if self.node > 0:
-        #     n = Node.objects.create(name=f"{self.name}'s Node", rank=self.node)
-        #     n.random(rank=self.node)
-        #     self.owned_node = n
-        # if self.library > 0:
-        #     l = Library.objects.create(name=f"{self.name}'s Library")
-        #     for i in range(1, self.library + 1):
-        #         g = Grimoire.objects.create(name=f"{self.name}'s Book {i}")
-        #         g.random(
-        #             rank=i,
-        #             faction=self.faction,
-        #             paradigms=self.paradigms.all(),
-        #             practices=self.practices.all(),
-        #             instruments=self.instruments.all(),
-        #             spheres=[x for x in self.filter_spheres(minimum=1).keys()],
-        #         )
-        #         l.increase_rank(book=g)
+        if self.node > 0:
+            n = Node.objects.create(name=f"{self.name}'s Node", rank=self.node)
+            n.random(rank=self.node)
+            self.owned_node = n
+        if self.library > 0:
+            l = Library.objects.create(name=f"{self.name}'s Library")
+            for i in range(1, self.library + 1):
+                g = Grimoire.objects.create(name=f"{self.name}'s Book {i}")
+                g.random(
+                    rank=i,
+                    faction=self.faction,
+                    paradigms=self.paradigms.all(),
+                    practices=self.practices.all(),
+                    instruments=self.instruments.all(),
+                    spheres=[x for x in self.filter_spheres(minimum=1).keys()],
+                )
+                l.increase_rank(book=g)
 
     def random_name(self):
         if not self.has_name():

@@ -8,15 +8,11 @@ from django.db.models import Q
 
 from core.models import Language, Material, Medium
 from core.utils import weighted_choice
-from wod.models.characters.mage import (
-    Instrument,
-    Mage,
-    MageFaction,
-    Paradigm,
-    Practice,
-    Rote,
-)
+from wod.models.characters.mage.focus import Instrument, Practice, Paradigm
+from wod.models.characters.mage.faction import MageFaction
+from wod.models.characters.mage.rote import Rote
 from wod.models.items.human import Item
+from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
 
 
 # Create your models here.
@@ -74,7 +70,7 @@ class Grimoire(Wonder):
     def random_abilities(self, abilities=None):
         if abilities is None:
             abilities = []
-            ability_dict = Mage(name="TMP").get_abilities()
+            ability_dict = {x: 1 for x in ABILITY_LIST}
             if self.practices.count() > 0:
                 for practice in self.practices.all():
                     for ability in practice.abilities:
@@ -313,7 +309,7 @@ class Grimoire(Wonder):
             rotes = Rote.objects.filter(q_objects)
 
             kwargs = {
-                f"{sphere}__lte": self.rank for sphere in Mage(name="TMP").get_spheres()
+                f"{sphere}__lte": self.rank for sphere in SPHERE_LIST
             }
             for key, value in kwargs.items():
                 rotes = rotes.filter(Q(**{key: value}))
@@ -335,7 +331,7 @@ class Grimoire(Wonder):
     def random_spheres(self, spheres=None):
         if spheres is None:
             spheres = []
-            sphere_dict = Mage(name="TMP").get_spheres()
+            sphere_dict = {x: 1 for x in SPHERE_LIST}
             if self.faction is not None:
                 for sphere in self.faction.affinities:
                     sphere_dict[sphere] += 1
