@@ -372,9 +372,9 @@ borrowed_resources = Edge.objects.create(
     name="Borrowed Resources", ratings=[2], prereqs=[[("path", 1)]]
 )
 call_for_backup = Edge.objects.create(
-    name="Call For Backup", ratings=[1, 2, 3], prereqs=[("path", 1)]
+    name="Call For Backup", ratings=[1, 2, 3], prereqs=[[("path", 1)]]
 )
-chrysalis = Edge.objects.create(name="Chrysalis", ratings=[2], prereqs=[("path", 1)])
+chrysalis = Edge.objects.create(name="Chrysalis", ratings=[2], prereqs=[[("path", 1)]])
 earned_trust = Edge.objects.create(
     name="Earned Trust", ratings=[1, 2], prereqs=[[("path", 1)]]
 )
@@ -394,7 +394,7 @@ followers = Edge.objects.create(name="Followers", ratings=[1, 2, 3, 4, 5],)
 anonymous = EnhancedEdge.objects.create(name="Anonymous", prereqs=[[("Covert", 3)]])
 armory = EnhancedEdge.objects.create(name="Armory", prereqs=[[("Artifact", 5)]])
 indomitable = EnhancedEdge.objects.create(
-    name="Indomitable", prereqs=[("Iron Will", 3)]
+    name="Indomitable", prereqs=[[("Iron Will", 3)]]
 )
 loaded = EnhancedEdge.objects.create(name="Loaded", prereqs=[[("Wealth", 5)]])
 respected_authority = EnhancedEdge.objects.create(
