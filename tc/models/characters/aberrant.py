@@ -42,7 +42,38 @@ class Aberrant(Human):
             limit = min(getattr(self, attribute), self.quantum)
         else:
             limit = self.quantum
-        return add_dot(self, mega_attribute, limit)
+
+        if add_dot(self, mega_attribute, limit):
+            if attribute == "intellect":
+                self.random_edge(
+                    dots=1,
+                    sublist=[
+                        Edge.objects.get(name=x)
+                        for x in [
+                            "Iron Will",
+                            "Lightning Calculator",
+                            "Photographic Memory",
+                            "Speed Reading",
+                        ]
+                    ],
+                )
+            if attribute == "cunning":
+                edges = Edge.objects.filter(name__icontains="Keen Sense")
+                for edge in edges:
+                    if edge not in self.edges.all():
+                        self.add_edge(edge)
+            if attribute == "manipulation":
+                self.random_edge(
+                    dots=1,
+                    sublist=[
+                        Edge.objects.get(name=x)
+                        for x in [
+                           "Animal Ken", "Skilled Liar", "Striking", "Wealth"
+                        ]
+                    ],
+                )
+            return True
+        return False
 
     def filter_mega_attributes(self):
         attributes = self.get_attributes()
@@ -385,9 +416,20 @@ class Aberrant(Human):
                 cost = 32
             elif trait_type == "quantum power":
                 cost = 12
-        if transcendence and trait_type in ["mega attribute", "mega edge", "quantum power"]:
-            cost /=2
-        if trait_type in ["mega attribute", "mega edge", "power tag", "quantum<=5", "quantum>5", "quantum power"]:
+        if transcendence and trait_type in [
+            "mega attribute",
+            "mega edge",
+            "quantum power",
+        ]:
+            cost /= 2
+        if trait_type in [
+            "mega attribute",
+            "mega edge",
+            "power tag",
+            "quantum<=5",
+            "quantum>5",
+            "quantum power",
+        ]:
             if transformation == "low":
                 cost -= 3
             if transformation == "medium":
