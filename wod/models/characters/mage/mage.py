@@ -14,6 +14,8 @@ from .focus import Instrument, Paradigm, Practice
 from .resonance import Resonance, ResRating
 from .rote import Rote
 
+PRACTICE_ABILITY_WEIGHTING = 3
+
 
 # Create your models here.
 class Mage(Human):
@@ -514,8 +516,10 @@ class Mage(Human):
         return add_dot(self, "arete", cap)
 
     def random_arete(self):
-        self.arete = random.randint(1, 3)
-        self.freebies -= (self.arete - 1) * 4
+        target = random.randint(1, 3)
+        self.arete = 1
+        for _ in range(target - 1):
+            self.spend_freebies("arete")
 
     def has_essence(self):
         return self.essence != ""
@@ -574,7 +578,7 @@ class Mage(Human):
         for practice in self.practices.all():
             for ability in practice.abilities:
                 if ability in possibilities:
-                    possibilities[ability] += 3
+                    possibilities[ability] += PRACTICE_ABILITY_WEIGHTING
         choice = weighted_choice(possibilities, ceiling=100)
         self.add_ability(choice, 5)
 
@@ -727,7 +731,7 @@ class Mage(Human):
         if trait == "arete":
             cost = self.freebie_cost("arete")
             if cost <= self.freebies:
-                if self.add_arete(trait):
+                if self.add_arete(trait, freebies=True):
                     self.freebies -= cost
                     return True
                 return False
