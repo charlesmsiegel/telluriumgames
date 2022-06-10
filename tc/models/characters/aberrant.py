@@ -370,29 +370,29 @@ class Aberrant(Human):
                 trait = None
             self.spend_xp(trait, power=p)
 
-    def xp_cost(self, trait_type, transcendence=False):
+    def xp_cost(self, trait_type, transcendence=False, transformation=None):
         cost = super().xp_cost(trait_type)
-        if cost != 10000:
-            return cost
-        if trait_type == "mega attribute":
-            if transcendence:
-                return 6
-            return 12
-        if trait_type == "mega edge":
-            if transcendence:
-                return 6
-            return 12
-        if trait_type == "power tag":
-            return 12
-        if trait_type == "quantum<=5":
-            return 16
-        if trait_type == "quantum>5":
-            return 32
-        if trait_type == "quantum power":
-            if transcendence:
-                return 6
-            return 12
-        return 10000
+        if cost == 10000:
+            if trait_type == "mega attribute":
+                cost = 12
+            elif trait_type == "mega edge":
+                cost = 12
+            elif trait_type == "power tag":
+                cost = 12
+            elif trait_type == "quantum<=5":
+                cost = 16
+            elif trait_type == "quantum>5":
+                cost = 32
+            elif trait_type == "quantum power":
+                cost = 12
+        if transcendence and trait_type in ["mega attribute", "mega edge", "quantum power"]:
+            cost /=2
+        if trait_type in ["mega attribute", "mega edge", "power tag", "quantum<=5", "quantum>5", "quantum power"]:
+            if transformation == "low":
+                cost -= 3
+            if transformation == "medium":
+                cost -= 6
+        return cost
 
     def spend_xp(self, trait, power=None, creation=False, transcendence=False):
         if trait in self.get_mega_attributes():
