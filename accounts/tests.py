@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from cod.models.characters.mortal import Mortal
+from wod.models.characters.mage import Mage
+from tc.models.characters.aberrant import Aberrant
 
 
 # Create your tests here.
@@ -34,6 +36,18 @@ class TestProfileView(TestCase):
         self.char2 = Mortal.objects.create(
             name="Test Character 2", player=self.user2.cod_profile
         )
+        self.char3 = Mage.objects.create(
+            name="Test Character 3", player=self.user1.wod_profile
+        )
+        self.char4 = Mage.objects.create(
+            name="Test Character 4", player=self.user2.wod_profile
+        )
+        self.char5 = Aberrant.objects.create(
+            name="Test Character 5", player=self.user1.tc_profile
+        )
+        self.char6 = Aberrant.objects.create(
+            name="Test Character 6", player=self.user2.tc_profile
+        )
 
     def test_template_logged_out(self):
         response = self.client.get("/accounts/", follow=True)
@@ -52,6 +66,14 @@ class TestProfileView(TestCase):
         self.assertContains(response, "Test Character 1")
         self.assertNotContains(response, "Test Character 2")
         self.assertContains(response, f"/cod/characters/{self.char1.id}/")
+
+        self.assertContains(response, "Test Character 3")
+        self.assertNotContains(response, "Test Character 4")
+        self.assertContains(response, f"/wod/characters/{self.char3.id}/")
+
+        self.assertContains(response, "Test Character 5")
+        self.assertNotContains(response, "Test Character 6")
+        self.assertContains(response, f"/tc/characters/{self.char5.id}/")
 
     def test_approval_list(self):
         self.client.login(username="Test Storyteller", password="testpass")

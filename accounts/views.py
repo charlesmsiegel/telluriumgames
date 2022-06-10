@@ -5,6 +5,8 @@ from django.views.generic import CreateView, View
 
 from accounts.models import CoDProfile, TCProfile, WoDProfile
 from cod.models.characters.mortal import Mortal
+from wod.models.characters.human import Character
+from tc.models.characters.human import Human
 
 # from tc.models import Aberrant
 # from wod.models.characters import Character
@@ -27,21 +29,21 @@ class ProfileView(View):
     def get(self, request):
         if request.user.is_authenticated:
             cod_profile = CoDProfile.objects.get(user=request.user)
-            # wod_profile = WoDProfile.objects.get(user=request.user)
-            # tc_profile = TCProfile.objects.get(user=request.user)
+            wod_profile = WoDProfile.objects.get(user=request.user)
+            tc_profile = TCProfile.objects.get(user=request.user)
             to_approve = []
             xp_requests = []
             characters = []
             characters.extend(Mortal.objects.filter(player=cod_profile))
-            # characters.extend(Character.objects.filter(player=wod_profile))
-            # characters.extend(Aberrant.objects.filter(player=tc_profile))
-            # characters.sort(key=lambda x: x.name)
+            characters.extend(Character.objects.filter(player=wod_profile))
+            characters.extend(Human.objects.filter(player=tc_profile))
+            characters.sort(key=lambda x: x.name)
             if cod_profile.storyteller:
                 to_approve.extend(Mortal.objects.filter(status__in=["Un", "Sub"]))
-            # if wod_profile.storyteller:
-            #     to_approve.extend(Character.objects.filter(status__in=["Un", "Sub"]))
-            # if tc_profile.storyteller:
-            #     to_approve.extend(Aberrant.objects.filter(status__in=["Un", "Sub"]))
+            if wod_profile.storyteller:
+                to_approve.extend(Character.objects.filter(status__in=["Un", "Sub"]))
+            if tc_profile.storyteller:
+                to_approve.extend(Human.objects.filter(status__in=["Un", "Sub"]))
             return render(
                 request,
                 "accounts/index.html",
