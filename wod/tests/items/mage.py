@@ -5,6 +5,7 @@ from django.test import TestCase
 
 from core.models import Language, Material, Medium
 from wod.models.characters.mage import Instrument, MageFaction, Paradigm, Practice, Rote
+from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
 from wod.models.items.mage import Grimoire, Library
 
 
@@ -161,77 +162,8 @@ class TestGrimoire(TestCase):
 class TestRandomGrimoire(TestCase):
     def setUp(self):
         self.grimoire = Grimoire.objects.create(name="Random Grimoire")
-        abilities = [
-            "alertness",
-            "art",
-            "athletics",
-            "awareness",
-            "brawl",
-            "empathy",
-            "expression",
-            "intimidation",
-            "leadership",
-            "streetwise",
-            "subterfuge",
-            "crafts",
-            "drive",
-            "etiquette",
-            "firearms",
-            "martial_arts",
-            "meditation",
-            "melee",
-            "research",
-            "stealth",
-            "survival",
-            "technology",
-            "academics",
-            "computer",
-            "cosmology",
-            "enigmas",
-            "esoterica",
-            "investigation",
-            "law",
-            "medicine",
-            "occult",
-            "politics",
-            "science",
-            "animal_kinship",
-            "blatancy",
-            "carousing",
-            "do",
-            "flying",
-            "high_ritual",
-            "lucid_dreaming",
-            "search",
-            "seduction",
-            "acrobatics",
-            "archery",
-            "biotech",
-            "energy_weapons",
-            "hypertech",
-            "jetpack",
-            "riding",
-            "torture",
-            "area_knowledge",
-            "belief_systems",
-            "cryptography",
-            "demolitions",
-            "finance",
-            "lore",
-            "media",
-            "pharmacopeia",
-        ]
-        spheres = [
-            "correspondence",
-            "forces",
-            "life",
-            "matter",
-            "mind",
-            "time",
-            "spirit",
-            "prime",
-            "entropy",
-        ]
+        abilities = ABILITY_LIST
+        spheres = SPHERE_LIST
 
         for i in range(40):
             Instrument.objects.create(name=f"Test Instrument {i}")
