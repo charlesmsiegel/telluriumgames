@@ -577,11 +577,13 @@ class Human(PolymorphicModel):
                 for x in sublist
                 if len([y for y in x.ratings if self.edge_rating(x) < y <= dots]) != 0
             ]
-            choice = random.choice(sublist)
-            num_dots = [
-                x for x in choice.ratings if self.edge_rating(choice) < x <= dots
-            ]
-            return self.add_edge(choice)
+            if len(sublist) != 0:
+                choice = random.choice(sublist)
+                num_dots = [
+                    x for x in choice.ratings if self.edge_rating(choice) < x <= dots
+                ]
+                return self.add_edge(choice)
+            return False
         else:
             index = random.randint(1, Edge.objects.last().id)
             if Edge.objects.filter(pk=index).exists():
