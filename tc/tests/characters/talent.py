@@ -131,8 +131,6 @@ class TestTalent(TestCase):
 
         p = Path.objects.create(name="Path", gift_keywords=["science"])
 
-        print(self.character.filter_gifts(keyword=None, path=None))
-
         self.assertEqual(len(self.character.filter_gifts(keyword=None, path=None)), 4)
         self.character.add_skill("science")
         self.assertEqual(len(self.character.filter_gifts(keyword=None, path=None)), 5)
