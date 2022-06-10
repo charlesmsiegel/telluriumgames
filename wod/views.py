@@ -298,10 +298,9 @@ class RandomCharacterView(View):
             freebies = 15
         try:
             xp = int(request.POST["xp"])
-        except:
+        except ValueError:
             xp = 0
-        if xp < 0:
-            xp = 0
+        xp = max(xp, 0)
         if freebies < 0:
             freebies = 0
         char.random(freebies=freebies, xp=xp)

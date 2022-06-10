@@ -473,7 +473,7 @@ class Mortal(PolymorphicModel):
         return MeritRating.objects.get(character=self, merit=merit).rating
 
     def total_merits(self):
-        return sum([x.rating for x in MeritRating.objects.filter(character=self)])
+        return sum(x.rating for x in MeritRating.objects.filter(character=self))
 
     def has_merits(self):
         return self.total_merits() == 7
@@ -703,20 +703,19 @@ class Merit(models.Model):
             if character.get_attributes()[prereq[0]] < prereq[1]:
                 return False
             return True
-        elif prereq[0] in character.get_skills().keys():
+        if prereq[0] in character.get_skills().keys():
             if prereq[1] == "specialty":
                 if character.specialties.filter(skill=prereq[0]).count() == 0:
                     return False
                 return True
-            else:
-                if character.get_skills()[prereq[0]] < prereq[1]:
-                    return False
-                return True
-        elif prereq[0] == "skill":
+            if character.get_skills()[prereq[0]] < prereq[1]:
+                return False
+            return True
+        if prereq[0] == "skill":
             if len(character.filter_skills(minimum=prereq[1]).keys()) == 0:
                 return False
             return True
-        elif prereq[0] == "specialty":
+        if prereq[0] == "specialty":
             possible_skills = character.filter_skills(minimum=prereq[1]).keys()
             applicable_specialties = []
             for skill in possible_skills:
@@ -724,7 +723,7 @@ class Merit(models.Model):
             if len(applicable_specialties) == 0:
                 return False
             return True
-        elif prereq[0] in [x.name for x in Merit.objects.all()]:
+        if prereq[0] in [x.name for x in Merit.objects.all()]:
             m = Merit.objects.get(name=prereq[0])
             if m in character.merits.all():
                 if (
@@ -733,9 +732,7 @@ class Merit(models.Model):
                 ):
                     return False
                 return True
-            else:
-                return False
-            return True
+            return False
         return False
 
     def check_prereqs(self, character):
