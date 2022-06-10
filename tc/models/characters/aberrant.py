@@ -67,9 +67,7 @@ class Aberrant(Human):
                     dots=1,
                     sublist=[
                         Edge.objects.get(name=x)
-                        for x in [
-                           "Animal Ken", "Skilled Liar", "Striking", "Wealth"
-                        ]
+                        for x in ["Animal Ken", "Skilled Liar", "Striking", "Wealth"]
                     ],
                 )
             return True
