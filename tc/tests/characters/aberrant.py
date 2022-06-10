@@ -612,7 +612,8 @@ class TestAberrant(TestCase):
 
     def test_mega_composure_add(self):
         self.fail(
-            "When adding mega-composure dot, gets dot in Always Prepared, Covert, Danger Sense, Iron Will, or for 2 points can get Indomitable Enhanced Edge"
+            """When adding mega-composure dot, gets dot in Always Prepared, Covert,
+            Danger Sense, Iron Will, or for 2 points can get Indomitable Enhanced Edge"""
         )
 
     def test_power_suites(self):
@@ -626,7 +627,9 @@ class TestAberrant(TestCase):
 
     def test_quantum_construct(self):
         self.fail(
-            "Implement Quantum Construct: Each dot of Quantum Construct beyond the first gives the power one of the following tags, which can also be applied separately as regular power tags"
+            """Implement Quantum Construct: Each dot of Quantum Construct beyond the first 
+            gives the power one of the following tags, which can also be applied separately 
+            as regular power tags"""
         )
 
     def test_tag_rating_limited_by_power_rating(self):
@@ -634,7 +637,8 @@ class TestAberrant(TestCase):
 
     def test_variable_quantum_minimum(self):
         self.fail(
-            "Implement so that powers can have quantum_minimum be dots-3 or dots+1, etc. so that a character iwth Quantum 4 could have 1 or 5 dots, respectively"
+            """Implement so that powers can have quantum_minimum be dots-3 or dots+1, etc. 
+            so that a character iwth Quantum 4 could have 1 or 5 dots, respectively"""
         )
 
     def test_cloak_power(self):
