@@ -627,8 +627,8 @@ class TestAberrant(TestCase):
 
     def test_quantum_construct(self):
         self.fail(
-            """Implement Quantum Construct: Each dot of Quantum Construct beyond the first 
-            gives the power one of the following tags, which can also be applied separately 
+            """Implement Quantum Construct: Each dot of Quantum Construct beyond the first
+            gives the power one of the following tags, which can also be applied separately
             as regular power tags"""
         )
 
@@ -637,7 +637,7 @@ class TestAberrant(TestCase):
 
     def test_variable_quantum_minimum(self):
         self.fail(
-            """Implement so that powers can have quantum_minimum be dots-3 or dots+1, etc. 
+            """Implement so that powers can have quantum_minimum be dots-3 or dots+1, etc.
             so that a character iwth Quantum 4 could have 1 or 5 dots, respectively"""
         )
 
