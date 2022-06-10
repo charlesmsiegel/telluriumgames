@@ -167,7 +167,7 @@ class Node(Location):
                 if self.check_resonance(choice, sphere=sphere):
                     if self.add_resonance(choice):
                         return True
-                            
+
     def check_resonance(self, resonance, sphere=None):
         if self.resonance_rating(resonance) < 5:
             if sphere is None:
