@@ -538,7 +538,7 @@ class Mage(Human):
         return True
 
     def total_resonance(self):
-        return sum([x.rating for x in ResRating.objects.filter(mage=self)])
+        return sum(x.rating for x in ResRating.objects.filter(mage=self))
 
     def resonance_rating(self, resonance):
         if resonance not in self.resonance.all():
@@ -633,7 +633,7 @@ class Mage(Human):
             self.random_rote()
 
     def total_rotes(self):
-        return sum([x.cost() for x in self.rotes.all()])
+        return sum(x.cost() for x in self.rotes.all())
 
     def has_specialties(self):
         output = super().has_specialties()

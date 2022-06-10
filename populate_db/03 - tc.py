@@ -317,7 +317,9 @@ precise_martial_arts = Edge.objects.create(
     prereqs=[[("dexterity", 2), ("close_combat", 2)]],
 )
 sniper = Edge.objects.create(
-    name="Sniper", ratings=[1, 2, 3], prereqs=[[("path", 1), ("resolve", 3), ("aim", 2)]]
+    name="Sniper",
+    ratings=[1, 2, 3],
+    prereqs=[[("path", 1), ("resolve", 3), ("aim", 2)]],
 )
 armor_expert = Edge.objects.create(
     name="Armor Expert", ratings=[1], prereqs=[[("stamina", 3)]]
@@ -1165,50 +1167,32 @@ MomentOfInspiration.objects.create(
 )
 MomentOfInspiration.objects.create(name="Violence", attributes=["might"])
 
-Gift.objects.create(
-    name="A Friend in Every Port", keywords=["constant", "luck"]
-)
-Gift.objects.create(
-    name="A Great Memory for Faces", keywords=["constant", "luck"]
-)
+Gift.objects.create(name="A Friend in Every Port", keywords=["constant", "luck"])
+Gift.objects.create(name="A Great Memory for Faces", keywords=["constant", "luck"])
 Gift.objects.create(name="Always Connected", keywords=["constant", "luck"])
 Gift.objects.create(name="Armor of Fate", keywords=["constant", "luck"])
-Gift.objects.create(
-    name="Battlefield Entanglement", keywords=["constant", "luck"]
-)
+Gift.objects.create(name="Battlefield Entanglement", keywords=["constant", "luck"])
 Gift.objects.create(name="I Respect You", keywords=["momentary", "luck"])
-Gift.objects.create(
-    name="Determined Defender", keywords=["constant", "luck"]
-)
+Gift.objects.create(name="Determined Defender", keywords=["constant", "luck"])
 Gift.objects.create(name="Device Mogul", keywords=["momentary", "luck"])
-Gift.objects.create(
-    name="Don't Scratch the Paint!", keywords=["momentary", "luck"]
-)
+Gift.objects.create(name="Don't Scratch the Paint!", keywords=["momentary", "luck"])
 Gift.objects.create(name="Easily Dismissed", keywords=["constant", "luck"])
-Gift.objects.create(
-    name="Fairweather Friend", keywords=["momentary", "luck"]
-)
+Gift.objects.create(name="Fairweather Friend", keywords=["momentary", "luck"])
 Gift.objects.create(name="For You", keywords=["momentary", "luck"])
-Gift.objects.create(
-    name="Destined for Damage", keywords=["momentary", "luck"]
-)
+Gift.objects.create(name="Destined for Damage", keywords=["momentary", "luck"])
 Gift.objects.create(name="Impeccable Timing", keywords=["constant", "luck"])
-Gift.objects.create(
-    name="Knee Deep in Brass", keywords=["momentary", "luck"]
-)
+Gift.objects.create(name="Knee Deep in Brass", keywords=["momentary", "luck"])
 Gift.objects.create(name="Love and Loss", keywords=["momentary", "luck"])
 Gift.objects.create(name="Navigation Hazard", keywords=["constant", "luck"])
 Gift.objects.create(name="Roll the Dice", keywords=["momentary", "luck"])
+Gift.objects.create(name="Name in the Lights", keywords=["constant", "luck"])
 Gift.objects.create(
-    name="Name in the Lights", keywords=["constant", "luck"]
-)
-Gift.objects.create(
-    name="Stash in Every City", keywords=["momentary", "luck"], prereqs=[[("Wealth", 3)]]
+    name="Stash in Every City",
+    keywords=["momentary", "luck"],
+    prereqs=[[("Wealth", 3)]],
 )
 Gift.objects.create(name="Untouchable", keywords=["momentary", "luck"])
-Gift.objects.create(
-    name="Voiding the Warranty", keywords=["momentary", "luck"]
-)
+Gift.objects.create(name="Voiding the Warranty", keywords=["momentary", "luck"])
 Gift.objects.create(name="Whodunnit", keywords=["momentary", "luck"])
 Gift.objects.create(name="X Marks the Spot", keywords=["momentary", "luck"])
 Gift.objects.create(
@@ -1283,18 +1267,20 @@ Gift.objects.create(
     name="Speak Softly", keywords=["might", "constant"], prereqs=[[("might", 3)]]
 )
 Gift.objects.create(
-    name="Eyes Life a Cat", keywords=["dexterity", "constant"], prereqs=[[("larceny", 1)]]
+    name="Eyes Life a Cat",
+    keywords=["dexterity", "constant"],
+    prereqs=[[("larceny", 1)]],
 )
 Gift.objects.create(
     name="On the Head of a Pin",
     keywords=["dexterity", "constant"],
     prereqs=[[("dexterity", 2)]],
 )
+Gift.objects.create(name="Pretty Damned Fast", keywords=["dexterity", "momentary"])
 Gift.objects.create(
-    name="Pretty Damned Fast", keywords=["dexterity", "momentary"]
-)
-Gift.objects.create(
-    name="Cast-Iron Stomach", keywords=["stamina", "constant"], prereqs=[[("stamina", 3)]]
+    name="Cast-Iron Stomach",
+    keywords=["stamina", "constant"],
+    prereqs=[[("stamina", 3)]],
 )
 Gift.objects.create(
     name="Iron Lungs", keywords=["stamina", "constant"], prereqs=[[("stamina", 2)]]
@@ -1334,7 +1320,9 @@ Gift.objects.create(
     prereqs=[[("manipulation", 2)]],
 )
 Gift.objects.create(
-    name="Calm Blue Ocean", keywords=["resolve", "momentary"], prereqs=[[("resolve", 4)]]
+    name="Calm Blue Ocean",
+    keywords=["resolve", "momentary"],
+    prereqs=[[("resolve", 4)]],
 )
 Gift.objects.create(
     name="Indomitable Will (Resolve)",
@@ -1357,7 +1345,9 @@ Gift.objects.create(
     prereqs=[[("close_combat", 3)]],
 )
 Gift.objects.create(
-    name="Murderous Totality (Aim)", keywords=["aim", "momentary"], prereqs=[[("aim", 3)]]
+    name="Murderous Totality (Aim)",
+    keywords=["aim", "momentary"],
+    prereqs=[[("aim", 3)]],
 )
 Gift.objects.create(
     name="Murderous Totality (Close Combat)",
@@ -1371,12 +1361,8 @@ Gift.objects.create(name="Steady Hands", keywords=["constant", "aim"])
 Gift.objects.create(
     name="Trigger Discipline", keywords=["constant", "aim"], prereqs=[[("aim", 2)]]
 )
-Gift.objects.create(
-    name="Warrior's Eye", keywords=["momentary", "aim", "close_combat"]
-)
-Gift.objects.create(
-    name="Contortionist", keywords=["constant", "athletics"]
-)
+Gift.objects.create(name="Warrior's Eye", keywords=["momentary", "aim", "close_combat"])
+Gift.objects.create(name="Contortionist", keywords=["constant", "athletics"])
 Gift.objects.create(
     name="Fight Choreographer",
     keywords=["constant", "athletics", "close_combat"],
@@ -1393,7 +1379,9 @@ Gift.objects.create(
     prereqs=[[("empathy", 2)]],
 )
 Gift.objects.create(
-    name="Moving Target", keywords=["constant", "athletics"], prereqs=[[("athletics", 2)]]
+    name="Moving Target",
+    keywords=["constant", "athletics"],
+    prereqs=[[("athletics", 2)]],
 )
 Gift.objects.create(name="Swan Dive", keywords=["momentary", "athletics"])
 Gift.objects.create(
@@ -1459,20 +1447,14 @@ Gift.objects.create(
     keywords=["momentary", "command", "technology"],
     prereqs=[[("command", 2), ("technology", 3)]],
 )
-Gift.objects.create(
-    name="Rousing Speech", keywords=["momentary", "command"]
-)
-Gift.objects.create(
-    name="Theatre of Conflict", keywords=["momentary", "command"]
-)
+Gift.objects.create(name="Rousing Speech", keywords=["momentary", "command"])
+Gift.objects.create(name="Theatre of Conflict", keywords=["momentary", "command"])
 Gift.objects.create(
     name="Disposable Minion",
     keywords=["momentary", "command"],
     prereqs=[[("command", 3)]],
 )
-Gift.objects.create(
-    name="Cold Read", keywords=["constant", "culture", "empathy"]
-)
+Gift.objects.create(name="Cold Read", keywords=["constant", "culture", "empathy"])
 Gift.objects.create(
     name="Forgettable (Culture)",
     keywords=["momentary", "culture"],
@@ -1496,18 +1478,18 @@ Gift.objects.create(
     keywords=["momentary", "empathy"],
     prereqs=[[("empathy", 3)]],
 )
-Gift.objects.create(
-    name="Ripped From the Headlines", keywords=["constant", "culture"]
-)
-Gift.objects.create(
-    name="That's Bad Luck", keywords=["constant", "culture"]
-)
+Gift.objects.create(name="Ripped From the Headlines", keywords=["constant", "culture"])
+Gift.objects.create(name="That's Bad Luck", keywords=["constant", "culture"])
 Gift.objects.create(name="The Hook", keywords=["constant", "empathy"])
 Gift.objects.create(
-    name="I Know That Feel", keywords=["momentary", "empathy"], prereqs=[[("empathy", 3)]]
+    name="I Know That Feel",
+    keywords=["momentary", "empathy"],
+    prereqs=[[("empathy", 3)]],
 )
 Gift.objects.create(
-    name="Know Thine Enemy", keywords=["momentary", "empathy"], prereqs=[[("empathy", 2)]]
+    name="Know Thine Enemy",
+    keywords=["momentary", "empathy"],
+    prereqs=[[("empathy", 2)]],
 )
 Gift.objects.create(
     name="Method Actor", keywords=["momentary", "empathy"], prereqs=[[("empathy", 3)]]
@@ -1558,9 +1540,7 @@ Gift.objects.create(
     keywords=["momentary", "technology"],
     prereqs=[[("technology", 3)]],
 )
-Gift.objects.create(
-    name="Mystery Archaeology", keywords=["constant", "enigmas"]
-)
+Gift.objects.create(name="Mystery Archaeology", keywords=["constant", "enigmas"])
 Gift.objects.create(
     name="Plot Twist", keywords=["momentary", "enigmas"], prereqs=[[("enigmas", 3)]]
 )
@@ -1570,9 +1550,7 @@ Gift.objects.create(
 Gift.objects.create(
     name="No Stone Unturned", keywords=["constant", "humanities", "science"]
 )
-Gift.objects.create(
-    name="Repeating History", keywords=["momentary", "humanities"]
-)
+Gift.objects.create(name="Repeating History", keywords=["momentary", "humanities"])
 Gift.objects.create(
     name="Steganographer",
     keywords=["constant", "humanities"],
@@ -1586,9 +1564,7 @@ Gift.objects.create(
 Gift.objects.create(
     name="Reverse-Engineering Calamity", keywords=["momentary", "integrity"]
 )
-Gift.objects.create(
-    name="Self-Sense", keywords=["constant", "integrity", "medicine"]
-)
+Gift.objects.create(name="Self-Sense", keywords=["constant", "integrity", "medicine"])
 Gift.objects.create(
     name="Shameless Lying Smile (Integrity)",
     keywords=["momentary", "integrity"],
@@ -1599,9 +1575,7 @@ Gift.objects.create(
     keywords=["momentary", "persuasion"],
     prereqs=[[("persuasion", 2)]],
 )
-Gift.objects.create(
-    name="Take it on the Chin", keywords=["momentary", "integrity"]
-)
+Gift.objects.create(name="Take it on the Chin", keywords=["momentary", "integrity"])
 Gift.objects.create(
     name="Unquestionable",
     keywords=["momentary", "integrity"],
@@ -1619,7 +1593,9 @@ Gift.objects.create(
     name="Listen In", keywords=["momentary", "larceny"], prereqs=[[("larceny", 3)]]
 )
 Gift.objects.create(
-    name="Nimble-Fingered", keywords=["momentary", "larceny"], prereqs=[[("larceny", 2)]]
+    name="Nimble-Fingered",
+    keywords=["momentary", "larceny"],
+    prereqs=[[("larceny", 2)]],
 )
 Gift.objects.create(
     name="Slip the Cuffs (Larceny)",
@@ -1656,9 +1632,7 @@ Gift.objects.create(
     keywords=["momentary", "medicine"],
     prereqs=[[("medicine", 3)]],
 )
-Gift.objects.create(
-    name="Disarming Candor", keywords=["momentary", "persuasion"]
-)
+Gift.objects.create(name="Disarming Candor", keywords=["momentary", "persuasion"])
 Gift.objects.create(
     name="I'm On The List",
     keywords=["momentary", "persuasion"],
@@ -1690,9 +1664,7 @@ Gift.objects.create(
 Gift.objects.create(
     name="Greased Lightning", keywords=["momentary", "pilot"], prereqs=[[("pilot", 3)]]
 )
-Gift.objects.create(
-    name="Head 'Em Off At The Pass", keywords=["constant", "pilot"]
-)
+Gift.objects.create(name="Head 'Em Off At The Pass", keywords=["constant", "pilot"])
 Gift.objects.create(
     name="Look Ma, No Hands!", keywords=["momentary", "pilot"], prereqs=[[("pilot", 3)]]
 )
@@ -1702,18 +1674,14 @@ Gift.objects.create(
 Gift.objects.create(
     name="Eureka!", keywords=["constant", "science"], prereqs=[[("science", 3)]]
 )
-Gift.objects.create(
-    name="Discovery Rush", keywords=["momentary", "science"]
-)
+Gift.objects.create(name="Discovery Rush", keywords=["momentary", "science"])
 Gift.objects.create(
     name="Blind Spots", keywords=["constant", "survival"], prereqs=[[("survival", 2)]]
 )
 Gift.objects.create(
     name="Get the Drop", keywords=["momentary", "survival"], prereqs=[[("survival", 2)]]
 )
-Gift.objects.create(
-    name="Internal Compass", keywords=["constant", "survival"]
-)
+Gift.objects.create(name="Internal Compass", keywords=["constant", "survival"])
 Gift.objects.create(
     name="Know Your Quarry",
     keywords=["momentary", "survival"],
@@ -1722,9 +1690,7 @@ Gift.objects.create(
 Gift.objects.create(
     name="Savage Beast", keywords=["momentary", "survival"], prereqs=[[("survival", 2)]]
 )
-Gift.objects.create(
-    name="Through Wild Eyes", keywords=["momentary", "survival"]
-)
+Gift.objects.create(name="Through Wild Eyes", keywords=["momentary", "survival"])
 Gift.objects.create(
     name="Whisperer", keywords=["constant", "survival"], prereqs=[[("survival", 2)]]
 )
@@ -1733,17 +1699,17 @@ Gift.objects.create(
     keywords=["momentary", "survival"],
     prereqs=[[("survival", 3)]],
 )
+Gift.objects.create(name="Cut the Red Wire", keywords=["momentary", "technology"])
+Gift.objects.create(name="Digital Crackerjack", keywords=["momentary", "technology"])
 Gift.objects.create(
-    name="Cut the Red Wire", keywords=["momentary", "technology"]
+    name="Quick Fix",
+    keywords=["momentary", "technology"],
+    prereqs=[[("technology", 3)]],
 )
 Gift.objects.create(
-    name="Digital Crackerjack", keywords=["momentary", "technology"]
-)
-Gift.objects.create(
-    name="Quick Fix", keywords=["momentary", "technology"], prereqs=[[("technology", 3)]]
-)
-Gift.objects.create(
-    name="Sawed Off", keywords=["momentary", "technology"], prereqs=[[("technology", 3)]]
+    name="Sawed Off",
+    keywords=["momentary", "technology"],
+    prereqs=[[("technology", 3)]],
 )
 
 accuracy = MegaEdge.objects.create(
@@ -1788,7 +1754,9 @@ fast_worker = MegaEdge.objects.create(
     name="Fast Worker", ratings=[2], prereqs=[[("mega_resolve", 1)]]
 )
 foresight = MegaEdge.objects.create(
-    name="Foresight", ratings=[1], prereqs=[[("mega_cunning", 1), ("mega_intellect", 1)]]
+    name="Foresight",
+    ratings=[1],
+    prereqs=[[("mega_cunning", 1), ("mega_intellect", 1)]],
 )
 x = MegaEdge.objects.create(name="Homunculus", ratings=[1],)
 hypnotic_presence = MegaEdge.objects.create(
@@ -1926,7 +1894,9 @@ rapid_strike = MegaEdge.objects.create(
     prereqs=[[("mega_dexterity", 1), ("mega_cunning", 1)]],
 )
 regeneration = MegaEdge.objects.create(
-    name="Regeneration", ratings=[1], prereqs=[[("mega_stamina", 1), ("mega_resolve", 1)]]
+    name="Regeneration",
+    ratings=[1],
+    prereqs=[[("mega_stamina", 1), ("mega_resolve", 1)]],
 )
 resourceful = MegaEdge.objects.create(
     name="Resourceful", ratings=[2], prereqs=[[("mega_cunning", 2)]]
@@ -1968,7 +1938,9 @@ thunderclap = MegaEdge.objects.create(
     name="Thunderclap", ratings=[1], prereqs=[[("mega_might", 1)]]
 )
 toughness = MegaEdge.objects.create(
-    name="Toughness", ratings=[1, 2, 3, 4, 5, 6, 7, 8, 9], prereqs=[[("quantum", "dots")]]
+    name="Toughness",
+    ratings=[1, 2, 3, 4, 5, 6, 7, 8, 9],
+    prereqs=[[("quantum", "dots")]],
 )
 ultraperipheral_perception = MegaEdge.objects.create(
     name="Ultraperipherial Perception", ratings=[1], prereqs=[[("mega_cunning", 1)]]

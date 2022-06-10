@@ -80,7 +80,7 @@ class Node(Location):
         return True
 
     def total_mf(self):
-        return sum([x.rating for x in NodeMeritFlawRating.objects.filter(node=self)])
+        return sum(x.rating for x in NodeMeritFlawRating.objects.filter(node=self))
 
     def filter_mf(self, minimum=-10, maximum=10):
         filtered = []
@@ -151,7 +151,7 @@ class Node(Location):
         return all_res
 
     def total_resonance(self):
-        return sum([x.rating for x in NodeResonanceRating.objects.filter(node=self)])
+        return sum(x.rating for x in NodeResonanceRating.objects.filter(node=self))
 
     def random_resonance(self, sphere=None):
         if random.random() < 0.7:
@@ -300,11 +300,11 @@ class Chantry(Location):
             "spies",
         ]:
             return 2
-        elif trait in ["node_rating", "resources"]:
+        if trait in ["node_rating", "resources"]:
             return 3
-        elif trait in ["enhancement", "requisitions"]:
+        if trait in ["enhancement", "requisitions"]:
             return 4
-        elif trait in ["reality_zone_rating"]:
+        if trait in ["reality_zone_rating"]:
             return 5
         return 1000
 
@@ -347,7 +347,7 @@ class Chantry(Location):
             self.add_node(n)
 
     def total_node(self):
-        return sum([x.rank for x in self.nodes.all()])
+        return sum(x.rank for x in self.nodes.all())
 
     def has_library(self):
         if self.library is not None:

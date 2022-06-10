@@ -493,20 +493,16 @@ class Human(Character):
 
     def total_flaws(self):
         return sum(
-            [
-                x.rating
-                for x in MeritFlawRating.objects.filter(character=self)
-                if x.rating < 0
-            ]
+            x.rating
+            for x in MeritFlawRating.objects.filter(character=self)
+            if x.rating < 0
         )
 
     def total_merits(self):
         return sum(
-            [
-                x.rating
-                for x in MeritFlawRating.objects.filter(character=self)
-                if x.rating > 0
-            ]
+            x.rating
+            for x in MeritFlawRating.objects.filter(character=self)
+            if x.rating > 0
         )
 
     def has_finishing_touches(self):
