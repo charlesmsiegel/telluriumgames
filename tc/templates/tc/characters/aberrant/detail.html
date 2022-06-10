@@ -442,7 +442,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm tc_aberrant_heading">
+                <div class="col-sm">
                     <h3 class="tc_aberrant_heading">
                         Tricks
                     </h3>
@@ -450,7 +450,7 @@
                         <br />{{ trick.name }}
                     {% endfor %}
                 </div>
-                <div class="col-sm tc_aberrant_heading">
+                <div class="col-sm">
                     <h3 class="tc_aberrant_heading">
                         Edges
                     </h3>
@@ -468,7 +468,7 @@
                     {% endfor %}
                 </div>
             </div>
-                <div class="col-sm tc_aberrant_heading">
+                <div class="col-sm">
                     <h3 class="tc_aberrant_heading">
                         Mega Edges
                     </h3>
@@ -481,7 +481,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm tc_aberrant_heading">
+                <div class="col-sm">
                     <h3 class="tc_aberrant_heading">
                         Transformations
                     </h3>
@@ -490,14 +490,11 @@
                         {{ transformation }}
                     {% endfor %}
                 </div>
-                <div class="col-sm tc_aberrant_heading">
+                <div class="col-sm">
                     <h3 class="tc_aberrant_heading">
                         Injury Conditions
                     </h3>
-                    {% comment %} <br />
-                    {% for mod in health_levels %}{{ mod }}{% endfor %}
-                    <br />
-                    {% for mod in health_levels %}&nbsp;☐{% endfor %} {% endcomment %}
+
                     Bruised {{ character.bruised_levels }}, Injured {{ character.injured_levels }}, Maimed {{ character.maimed_levels }}</div>
                 </div>
             </div>

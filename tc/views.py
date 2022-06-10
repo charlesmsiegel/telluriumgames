@@ -56,75 +56,25 @@ class HumanDetailView(View):
         return context
 
 
-class TalentDetailView(View):
+class TalentDetailView(HumanDetailView):
     def get(self, request, pk):
         context = self.get_context(pk)
         return render(request, "tc/characters/talent/detail.html", context)
 
     def get_context(self, pk):
-        char = Talent.objects.get(id=pk)
-        context = {"character": char}
-        context["origin_path"] = PathRating.objects.filter(
-            character=char, path__type="origin"
-        ).first()
-        context["role_path"] = PathRating.objects.filter(
-            character=char, path__type="role"
-        ).first()
-        context["society_path"] = PathRating.objects.filter(
-            character=char, path__type="society"
-        ).first()
-        context["additional_paths"] = [
-            x
-            for x in PathRating.objects.filter(character=char)
-            if x
-            not in [
-                context["origin_path"],
-                context["role_path"],
-                context["society_path"],
-            ]
-        ]
-        for skill in char.get_skills():
-            context[skill + "_spec"] = ", ".join(
-                [x.name for x in char.specialties.filter(skill=skill)]
-            )
-        context["edges"] = EdgeRating.objects.filter(character=char)
+        context = super().get_context(pk=pk)
         return context
 
 
-class AberrantDetailView(View):
+class AberrantDetailView(HumanDetailView):
     def get(self, request, pk):
         context = self.get_context(pk)
         return render(request, "tc/characters/aberrant/detail.html", context)
 
     def get_context(self, pk):
-        char = Aberrant.objects.get(id=pk)
-        context = {"character": char}
-        context["origin_path"] = PathRating.objects.filter(
-            character=char, path__type="origin"
-        ).first()
-        context["role_path"] = PathRating.objects.filter(
-            character=char, path__type="role"
-        ).first()
-        context["society_path"] = PathRating.objects.filter(
-            character=char, path__type="society"
-        ).first()
-        context["additional_paths"] = [
-            x
-            for x in PathRating.objects.filter(character=char)
-            if x
-            not in [
-                context["origin_path"],
-                context["role_path"],
-                context["society_path"],
-            ]
-        ]
-        for skill in char.get_skills():
-            context[skill + "_spec"] = ", ".join(
-                [x.name for x in char.specialties.filter(skill=skill)]
-            )
-        context["edges"] = EdgeRating.objects.filter(character=char)
-        context["mega_edges"] = MegaEdgeRating.objects.filter(character=char)
-        context["powers"] = PowerRating.objects.filter(character=char)
+        context = super().get_context(pk=pk)
+        context["mega_edges"] = MegaEdgeRating.objects.filter(character=context['character'])
+        context["powers"] = PowerRating.objects.filter(character=context['character'])
         return context
 
 
