@@ -164,14 +164,16 @@ class Node(Location):
             index = random.randint(1, Resonance.objects.last().id)
             if Resonance.objects.filter(pk=index).exists():
                 choice = Resonance.objects.get(pk=index)
-                if self.resonance_rating(choice) < 5:
-                    if sphere is None:
-                        if self.add_resonance(choice):
-                            return True
-                    else:
-                        if getattr(choice, sphere):
-                            if self.add_resonance(choice):
-                                return True
+                if self.check_resonance(choice, sphere=sphere):
+                    if self.add_resonance(choice):
+                        return True
+                            
+    def check_resonance(self, resonance, sphere=None):
+        if self.resonance_rating(resonance) < 5:
+            if sphere is None:
+                return True
+            return getattr(resonance, sphere)
+        return False
 
     def resonance_postprocessing(self):
         if "Corrupted" in [x.name for x in self.merits_and_flaws.all()]:
