@@ -97,7 +97,7 @@ class Aberrant(Human):
         return False
 
     def total_mega_edges(self):
-        return sum([x.rating for x in MegaEdgeRating.objects.filter(character=self)])
+        return sum(x.rating for x in MegaEdgeRating.objects.filter(character=self))
 
     def filter_mega_edges(self, dots=100):
         mega_edges = MegaEdge.objects.all()

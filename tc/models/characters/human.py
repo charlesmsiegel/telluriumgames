@@ -178,7 +178,7 @@ class Human(PolymorphicModel):
     def total_skills(self, path=None):
         if path is None:
             return sum(self.get_skills().values())
-        return sum([v for k, v in self.get_skills().items() if k in path.skills])
+        return sum(v for k, v in self.get_skills().items() if k in path.skills)
 
     def random_skill(self, skill_list=None):
         if skill_list is None:
@@ -470,7 +470,7 @@ class Human(PolymorphicModel):
         return PathRating.objects.get(character=self, path=path).rating
 
     def total_path_rating(self):
-        return sum([self.path_rating(x) for x in Path.objects.all()])
+        return sum(self.path_rating(x) for x in Path.objects.all())
 
     def has_connection(self, path):
         if self.path_rating(path) == 0:
@@ -507,7 +507,7 @@ class Human(PolymorphicModel):
         return True
 
     def total_edges(self):
-        return sum([x.rating for x in EdgeRating.objects.filter(character=self)])
+        return sum(x.rating for x in EdgeRating.objects.filter(character=self))
 
     def total_path_edges(self, path=None):
         list_of_path_edges = []
@@ -584,17 +584,16 @@ class Human(PolymorphicModel):
                 ]
                 return self.add_edge(choice)
             return False
-        else:
-            index = random.randint(1, Edge.objects.last().id)
-            if Edge.objects.filter(pk=index).exists():
-                choice = Edge.objects.get(pk=index)
-                num_dots = [
-                    x for x in choice.ratings if self.edge_rating(choice) < x <= dots
-                ]
-                if choice.type == "edge" and len(num_dots) != 0:
-                    return self.add_edge(choice)
-                return False
+        index = random.randint(1, Edge.objects.last().id)
+        if Edge.objects.filter(pk=index).exists():
+            choice = Edge.objects.get(pk=index)
+            num_dots = [
+                x for x in choice.ratings if self.edge_rating(choice) < x <= dots
+            ]
+            if choice.type == "edge" and len(num_dots) != 0:
+                return self.add_edge(choice)
             return False
+        return False
 
     def random_edges(self):
         p1 = self.paths.filter(type="origin").first()
@@ -676,7 +675,7 @@ class Human(PolymorphicModel):
                     return True
         elif trait in self.get_path_edges(dots=self.xp // self.xp_cost("path edge")):
             e = Edge.objects.get(name=trait)
-            new_rating = min([x for x in e.ratings if x >= self.edge_rating(e)])
+            new_rating = min(x for x in e.ratings if x >= self.edge_rating(e))
             cost = self.xp_cost("path edge") * (new_rating - self.edge_rating(e))
             if self.xp >= cost:
                 if self.add_edge(e):
@@ -687,7 +686,7 @@ class Human(PolymorphicModel):
             x.name for x in self.filter_edges(dots=self.xp // self.xp_cost("edge"))
         ]:
             e = Edge.objects.get(name=trait)
-            new_rating = min([x for x in e.ratings if x > self.edge_rating(e)])
+            new_rating = min(x for x in e.ratings if x > self.edge_rating(e))
             cost = self.xp_cost("edge") * (new_rating - self.edge_rating(e))
             if self.xp >= cost:
                 if self.add_edge(e):

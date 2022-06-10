@@ -259,7 +259,7 @@ class Gift(models.Model):
 
     def check_prereqs(self, character):
         if (
-            sum([getattr(character, k) for k in self.keywords if hasattr(character, k)])
+            sum(getattr(character, k) for k in self.keywords if hasattr(character, k))
             == 0
             and len(
                 [getattr(character, k) for k in self.keywords if hasattr(character, k)]
