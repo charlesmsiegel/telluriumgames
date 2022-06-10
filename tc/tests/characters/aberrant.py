@@ -575,9 +575,9 @@ class TestAberrant(TestCase):
         for name in edges:
             Edge.objects.create(name=name, ratings=[1, 2, 3])
 
-        num = sum([self.character.edge_rating(x) for x in edges])
+        num = sum(self.character.edge_rating(x) for x in edges)
         self.character.add_mega_attribute("intellect")
-        self.assertEqual(sum([self.character.edge_rating(x) for x in edges]), num + 1)
+        self.assertEqual(sum(self.character.edge_rating(x) for x in edges), num + 1)
 
     def test_mega_cunning_add(self):
         keen_sense_sight = Edge.objects.create(name="Keen Sense (Sight)", ratings=[1],)
@@ -606,9 +606,9 @@ class TestAberrant(TestCase):
         for name in edges:
             Edge.objects.create(name=name, ratings=[1, 2, 3])
 
-        num = sum([self.character.edge_rating(x) for x in edges])
+        num = sum(self.character.edge_rating(x) for x in edges)
         self.character.add_mega_attribute("manipulation")
-        self.assertEqual(sum([self.character.edge_rating(x) for x in edges]), num + 1)
+        self.assertEqual(sum(self.character.edge_rating(x) for x in edges), num + 1)
 
     def test_mega_composure_add(self):
         self.fail(
