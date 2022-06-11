@@ -184,10 +184,10 @@ class Talent(Human):
                     trait = None
             elif trait_type == "skills":
                 trait = weighted_choice(self.filter_skills(maximum=4))
-            elif trait_type == "tricks":
-                trait = random.choice(self.filter_tricks()).name
             elif trait_type == "specialties":
                 trait = random.choice(self.filter_specialties()).name
+            elif trait_type == "tricks":
+                trait = random.choice(self.filter_tricks()).name
             elif trait_type == "paths":
                 trait = weighted_choice(
                     {p.name: self.path_rating(p) for p in Path.objects.all()}
