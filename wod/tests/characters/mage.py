@@ -471,8 +471,8 @@ class TestMage(TestCase):
         self.character.arete = 3
         self.assertEqual(len(self.character.filter_spheres().keys()), 9)
         self.set_spheres()
-        self.assertEqual(len(self.character.filter_spheres().keys()), 4)
-        self.assertEqual(len(self.character.filter_spheres(minimum=2).keys()), 2)
+        self.assertEqual(len(self.character.filter_spheres(maximum=2).keys()), 4)
+        self.assertEqual(len(self.character.filter_spheres(minimum=2, maximum=2).keys()), 2)
         self.assertEqual(len(self.character.filter_spheres(maximum=1).keys()), 2)
 
     def test_has_spheres(self):
@@ -1001,6 +1001,12 @@ class TestRandomMage(TestCase):
         self.assertFalse(self.character.has_library())
         self.character.random_library()
         self.assertTrue(self.character.has_library())
+        
+    def test_random_specialties(self):
+        self.character.forces = 4
+        self.character.random_specialties()
+        self.assertTrue(self.character.has_specialties())
+        self.assertGreater(self.character.specialties.filter(stat="forces").count(), 0)
 
     def test_random(self):
         self.assertFalse(self.character.has_name())

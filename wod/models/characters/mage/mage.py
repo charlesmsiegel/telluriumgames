@@ -486,7 +486,7 @@ class Mage(Human):
         return {
             k: v
             for k, v in self.get_spheres().items()
-            if minimum <= v <= min(maximum, self.arete - 1)
+            if minimum <= v <= maximum
         }
 
     def total_spheres(self):
@@ -664,7 +664,7 @@ class Mage(Human):
     def random_specialties(self):
         super().random_specialties()
         for sphere in self.filter_spheres(minimum=4):
-            self.specialties.add(random.choice(self.filter_specialties(stat=sphere).keys()))
+            self.specialties.add(random.choice(self.filter_specialties(stat=sphere)))
 
     def has_mage_history(self):
         return (
