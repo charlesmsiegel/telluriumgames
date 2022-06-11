@@ -15,6 +15,7 @@ from wod.models.characters.mage import (
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
 from wod.models.items.mage import Library
 from wod.models.locations.mage import Chantry, Node, NodeMeritFlaw
+from wod.tests.items.mage import grimoire_setup
 
 
 # Create your tests here.
@@ -220,53 +221,7 @@ class TestChantry(TestCase):
                 else:
                     t = "Flaw"
                 NodeMeritFlaw.objects.create(name=f"Node {t} {i}", ratings=[i * j])
-        abilities = ABILITY_LIST
-        spheres = SPHERE_LIST
-
-        for i in range(40):
-            Instrument.objects.create(name=f"Test Instrument {i}")
-        for i in range(20):
-            p = Practice.objects.create(
-                name=f"Test Practice {i}", abilities=abilities[i : i + 7]
-            )
-            p.instruments.add(Instrument.objects.get(name=f"Test Instrument {i}"))
-            p.instruments.add(Instrument.objects.get(name=f"Test Instrument {20+i}"))
-            p.save()
-        for i in range(10):
-            p = Paradigm.objects.create(name=f"Test Paradigm {i}")
-            p.practices.add(Practice.objects.get(name=f"Test Practice {i}"))
-            p.practices.add(Practice.objects.get(name=f"Test Practice {i+10}"))
-            p.save()
-            Material.objects.create(name=f"Test Material {i}")
-            Language.objects.create(name=f"Test Language {i}")
-        for i in range(5):
-            m = MageFaction.objects.create(
-                name=f"Test Faction {i}", affinities=spheres[i : i + 4],
-            )
-            m.languages.add(Language.objects.get(name=f"Test Language {i}"))
-            m.languages.add(Language.objects.get(name=f"Test Language {5+i}"))
-            m.save()
-            m.paradigms.add(Paradigm.objects.get(name=f"Test Paradigm {i}"))
-            m.paradigms.add(Paradigm.objects.get(name=f"Test Paradigm {5+i}"))
-            m.save()
-            for modifier_type in ["+", "-", "*", "/"]:
-                for modifier in [1, 20]:
-                    med = Medium.objects.create(
-                        name=f"Test {modifier_type} Medium {i, modifier}",
-                        length_modifier_type=modifier_type,
-                        length_modifier=modifier,
-                    )
-                    m.media.add(med)
-                    m.save()
-        for sphere_1 in spheres:
-            for sphere_2 in spheres:
-                if sphere_1 != sphere_2:
-                    for i in range(5):
-                        for j in range(5):
-                            d = {sphere_1: i, sphere_2: j}
-                            Rote.objects.create(
-                                name=f"{sphere_1}/{sphere_2} Test Rote {5*i+j}", **d
-                            )
+        grimoire_setup()
 
     def test_total_points(self):
         self.chantry.rank = 1
