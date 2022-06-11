@@ -10,7 +10,7 @@ from wod.models.locations.mage import Node
 
 mage_start = time()
 for i in range(10):
-    mage = Mage.objects.create(name=f"Mage {i}", player=player.wod_profile)
+    mage = Mage.objects.create(name="", player=player.wod_profile)
     mage.random()
     mage.save()
 print("Average Random Mage Time:", (time() - mage_start) / 10)
