@@ -685,9 +685,9 @@ class Mage(Human):
     def random_xp(self):
         frequencies = {
             "attribute": 16,
-            "ability": 19,
-            "background": 12,
-            "willpower": 3,
+            "ability": 20,
+            "background": 13,
+            "willpower": 1,
             "sphere": 35,
             "arete": 15,
         }
@@ -818,9 +818,9 @@ class Mage(Human):
     def random_freebies(self):
         frequencies = {
             "attribute": 15,
-            "ability": 7,
+            "ability": 8,
             "background": 10,
-            "willpower": 2,
+            "willpower": 1,
             "meritflaw": 35,
             "sphere": 25,
             "arete": 5,
