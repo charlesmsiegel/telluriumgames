@@ -3266,7 +3266,8 @@ MageFaction.objects.create(name="The K'llashsaa", parent=nephandi)
 MageFaction.objects.create(name="Malfeans", parent=nephandi)
 MageFaction.objects.create(name="Infernalists", parent=nephandi)
 
-MageFaction.objects.create(name="Marauders")
+marauders = MageFaction.objects.create(name="Marauders")
+MageFaction.objects.create(name="Marauders Faction", parent=marauders)
 
 Resonance.objects.create(name="Acquisitive",)
 Resonance.objects.create(name="Alchemical",)
