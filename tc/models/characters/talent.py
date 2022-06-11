@@ -255,7 +255,7 @@ class Gift(models.Model):
     prereqs = models.JSONField(default=list)
 
     def __str__(self):
-        return f"{self.name} ({self.keywords})"
+        return f"{self.name} ({', '.join(self.keywords)})"
 
     def check_prereqs(self, character):
         if (

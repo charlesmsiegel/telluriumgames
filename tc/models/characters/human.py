@@ -878,6 +878,9 @@ class EnhancedEdge(models.Model):
 
     def check_prereqs(self, character):
         return check_prereqs(self, character)
+    
+    def __str__(self):
+        return self.name
 
 
 class EdgeRating(models.Model):
