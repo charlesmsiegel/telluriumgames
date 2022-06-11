@@ -839,7 +839,7 @@ MeritFlaw.objects.create(name="Circumspect Avatar", ratings=[2])
 MeritFlaw.objects.create(name="Clear Sighted", ratings=[5])
 MeritFlaw.objects.create(name="Cloak of the Seasons", ratings=[3])
 MeritFlaw.objects.create(name="Code of Honor", ratings=[2])
-# TODO: Finish this
+# FIXME: Finish this
 
 armor = Instrument.objects.create(name="Armor")
 artwork = Instrument.objects.create(name="Artwork")

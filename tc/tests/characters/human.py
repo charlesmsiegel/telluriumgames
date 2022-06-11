@@ -36,7 +36,7 @@ class TestPath(TestCase):
 
     def test_connection_added_at_first_dot(self):
         p = Path.objects.create(name="Path 2")
-        c = PathConnection.objects.create(path=p, name="Connection 2")
+        PathConnection.objects.create(path=p, name="Connection 2")
         self.h.add_path(p)
         self.assertTrue(self.h.has_connection(p))
 
