@@ -2,7 +2,7 @@ from random import choice, randint
 
 import requests
 
-from wod.secrets import API_KEY
+from telluriumgames.secrets import API_KEY
 
 
 def check_floor_ceiling(x, floor, ceiling):
