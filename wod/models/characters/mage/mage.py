@@ -1,5 +1,6 @@
 import random
 
+from collections import defaultdict
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -363,7 +364,22 @@ class Mage(Human):
         return True
 
     def random_faction(self):
-        self.affiliation = MageFaction.objects.filter(parent=None).order_by("?").first()
+        affiliation_weights = defaultdict(int)
+        for faction in MageFaction.objects.filter(parent=None):
+            if faction.name == "Traditions":
+                affiliation_weights[faction] = 40
+            elif faction.name == "Technocratic Union":
+                affiliation_weights[faction] = 40
+            elif faction.name == "The Disparate Alliance":
+                affiliation_weights[faction] = 10
+            elif faction.name == "Nephandi":
+                affiliation_weights[faction] = 5
+            elif faction.name == "Marauders":
+                affiliation_weights[faction] = 5
+            else:
+                affiliation_weights[faction] = 1
+        
+        self.affiliation = weighted_choice(affiliation_weights, ceiling=100)
         self.faction = (
             MageFaction.objects.filter(parent=self.affiliation).order_by("?").first()
         )
@@ -648,7 +664,7 @@ class Mage(Human):
     def random_specialties(self):
         super().random_specialties()
         for sphere in self.filter_spheres(minimum=4):
-            self.specialties.add(random.choice(self.filter_specialties(stat=sphere)))
+            self.specialties.add(random.choice(self.filter_specialties(stat=sphere).keys()))
 
     def has_mage_history(self):
         return (
@@ -863,10 +879,10 @@ class Mage(Human):
             self.node_owned = n
             self.save()
 
-    def random(self, freebies=15, xp=0):
+    def random(self, freebies=15, xp=0, ethnicity=None):
         self.freebies = freebies
         self.xp = xp
-        self.random_name()
+        self.random_name(ethnicity=ethnicity)
         self.random_concept()
         self.random_archetypes()
         self.random_essence()
