@@ -1,6 +1,6 @@
 import random
-
 from collections import defaultdict
+
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -378,7 +378,7 @@ class Mage(Human):
                 affiliation_weights[faction] = 5
             else:
                 affiliation_weights[faction] = 1
-        
+
         self.affiliation = weighted_choice(affiliation_weights, ceiling=100)
         self.faction = (
             MageFaction.objects.filter(parent=self.affiliation).order_by("?").first()
@@ -483,11 +483,7 @@ class Mage(Human):
         return add_dot(self, sphere, self.arete)
 
     def filter_spheres(self, minimum=0, maximum=5):
-        return {
-            k: v
-            for k, v in self.get_spheres().items()
-            if minimum <= v <= maximum
-        }
+        return {k: v for k, v in self.get_spheres().items() if minimum <= v <= maximum}
 
     def total_spheres(self):
         return sum(self.get_spheres().values())

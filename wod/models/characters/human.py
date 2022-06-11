@@ -7,8 +7,7 @@ from polymorphic.models import PolymorphicModel
 
 from accounts.models import WoDProfile
 from core.models import Language
-from core.utils import add_dot, weighted_choice
-from core.utils import random_ethnicity, random_name
+from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
 
 # Create your models here.
@@ -173,7 +172,7 @@ class Human(Character):
 
     freebies = 15
     background_points = 5
-    
+
     def random_name(self, ethnicity=None):
         if ethnicity is not None:
             self.ethnicity = ethnicity
