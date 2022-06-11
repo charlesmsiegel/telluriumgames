@@ -731,7 +731,7 @@ class Mage(Human):
         if trait == "arete":
             cost = self.freebie_cost("arete")
             if cost <= self.freebies:
-                if self.add_arete(trait, freebies=True):
+                if self.add_arete(freebies=True):
                     self.freebies -= cost
                     return True
                 return False
