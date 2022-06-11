@@ -437,7 +437,9 @@ class Human(PolymorphicModel):
         p, _ = PathRating.objects.get_or_create(character=self, path=path)
         if p.connection is None:
             if connection is None:
-                connection = PathConnection.objects.filter(path=path).order_by("?").first()
+                connection = (
+                    PathConnection.objects.filter(path=path).order_by("?").first()
+                )
             p.connection = connection
             p.save()
         if p.rating < 5:
@@ -878,7 +880,7 @@ class EnhancedEdge(models.Model):
 
     def check_prereqs(self, character):
         return check_prereqs(self, character)
-    
+
     def __str__(self):
         return self.name
 

@@ -2,8 +2,8 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from cod.models.characters.mortal import Mortal
-from wod.models.characters.mage import Mage
 from tc.models.characters.aberrant import Aberrant
+from wod.models.characters.mage import Mage
 
 
 # Create your tests here.

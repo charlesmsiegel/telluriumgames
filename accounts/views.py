@@ -5,8 +5,8 @@ from django.views.generic import CreateView, View
 
 from accounts.models import CoDProfile, TCProfile, WoDProfile
 from cod.models.characters.mortal import Mortal
-from wod.models.characters.human import Character
 from tc.models.characters.human import Human
+from wod.models.characters.human import Character
 
 # from tc.models import Aberrant
 # from wod.models.characters import Character

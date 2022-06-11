@@ -17691,7 +17691,9 @@ Rote.objects.create(name="Rot Body (Life)", life=4)
 Rote.objects.create(name="Shapeshift (Self)", life=4)
 Rote.objects.create(name="Shapeshift (Other)", life=5)
 Rote.objects.create(name="Soak Aggravated Damage", life=3)
-Rote.objects.create(name="Transform into Element (Earth, Metal, Water)", life=3, matter=3)
+Rote.objects.create(
+    name="Transform into Element (Earth, Metal, Water)", life=3, matter=3
+)
 Rote.objects.create(name="Transform into Element (Wood)", life=3)
 Rote.objects.create(name="Transform into Element (Air, Fire)", life=3, forces=3)
 Rote.objects.create(name="Alter Probability", entropy=2)
@@ -17704,7 +17706,9 @@ Rote.objects.create(name="Conjure Element (Fire, Wind)", forces=3, prime=2)
 Rote.objects.create(name="Conjure Element (Earth, Metal, Water)", matter=3, prime=2)
 Rote.objects.create(name="Conjure Element (Wood)", life=3, prime=2)
 Rote.objects.create(name="Conjure New Object", matter=3, prime=2)  # matter 3+ variants
-Rote.objects.create(name="Conjure \"Physical\" Illusion", forces=2, prime=2)  # forces 2+ variants
+Rote.objects.create(
+    name='Conjure "Physical" Illusion', forces=2, prime=2
+)  # forces 2+ variants
 Rote.objects.create(name="Direct Existing Elements", forces=2)  # forces 2+ variants
 Rote.objects.create(name="Disintegrate Object (Matter)", matter=3)
 Rote.objects.create(name="Disintegrate Object (Entropy/Time)", entropy=3, time=3)
@@ -17717,10 +17721,16 @@ Rote.objects.create(name="Flying (Forces)", forces=2)
 Rote.objects.create(name="Flying (Correspondence)", correspondence=3, life=2)
 Rote.objects.create(name="Speed Velocity", forces=2)  # forces 2+ variants
 Rote.objects.create(name="Slow Velocity", forces=2)  # forces 2+ variants
-Rote.objects.create(name="Transform Objects", matter=2)  # matter 2+ variants and other target thing spheres
-Rote.objects.create(name="Transform Forces", forces=3)  # forces 3+ variants and other target thing spheres
+Rote.objects.create(
+    name="Transform Objects", matter=2
+)  # matter 2+ variants and other target thing spheres
+Rote.objects.create(
+    name="Transform Forces", forces=3
+)  # forces 3+ variants and other target thing spheres
 Rote.objects.create(name="Astral Projection", mind=4)
-Rote.objects.create(name="Clairvoyance", correspondence=2)  # Mind 3/Corr 2 variant, why?
+Rote.objects.create(
+    name="Clairvoyance", correspondence=2
+)  # Mind 3/Corr 2 variant, why?
 Rote.objects.create(name="Conceal Aura (Mind)", mind=1)
 Rote.objects.create(name="Conceal Aura (Prime)", mind=2)
 Rote.objects.create(name="Alter Aura (Mind)", mind=1)
@@ -17744,7 +17754,9 @@ Rote.objects.create(name="Sense Energies (Life)", life=1)
 Rote.objects.create(name="Sense Energies (Entropy)", entropy=1)
 Rote.objects.create(name="Sense Energies (Mind)", mind=1)
 Rote.objects.create(name="Sense Energies (Prime)", prime=1)
-Rote.objects.create(name="Share Perception", mind=1)  # separate variants for other spheres?
+Rote.objects.create(
+    name="Share Perception", mind=1
+)  # separate variants for other spheres?
 Rote.objects.create(name="Shield Mind (Other)", mind=2)
 Rote.objects.create(name="Tear Mind Apart", mind=3)
 Rote.objects.create(name="Tear Mind Apart (Aggravated)", mind=3, life=3)
@@ -17758,7 +17770,9 @@ Rote.objects.create(name="Destroy by Draining Quintessence (Object)", prime=4)
 Rote.objects.create(name="Destroy by Draining Quintessence (Creature)", prime=5)
 Rote.objects.create(name="Drain Node", prime=4)
 Rote.objects.create(name="Drain Quintessence", prime=3)
-Rote.objects.create(name="Fuel New Pattern", prime=2)  # variants add appropriate spheres
+Rote.objects.create(
+    name="Fuel New Pattern", prime=2
+)  # variants add appropriate spheres
 Rote.objects.create(name="Share/Exchange Quintessence", prime=3)
 Rote.objects.create(name="Command Spirit", mind=4, spirit=4)
 Rote.objects.create(name="Conjure Spirit", spirit=3)
@@ -17770,14 +17784,22 @@ Rote.objects.create(name="See Spirits", spirit=1)
 Rote.objects.create(name="Speak to Spirits", spirit=2)
 Rote.objects.create(name="Step Sideways", spirit=3)
 Rote.objects.create(name="Touch Spirit", spirit=2)
-Rote.objects.create(name="Affect Distant Object/Being", correspondence=2)  # Correspondence 2+ variants
+Rote.objects.create(
+    name="Affect Distant Object/Being", correspondence=2
+)  # Correspondence 2+ variants
 Rote.objects.create(name="Aging (Living Being)", time=3, life=4)  # Time 3+ variants
-Rote.objects.create(name="Reversing Age (Living Being)", time=3, life=4)  # Time 3+ variants
+Rote.objects.create(
+    name="Reversing Age (Living Being)", time=3, life=4
+)  # Time 3+ variants
 Rote.objects.create(name="Aging (Object)", time=3, matter=2)  # Time 3+ variants
 Rote.objects.create(name="Reversing Age (Object)", time=3, matter=2)  # Time 3+ variants
 Rote.objects.create(name="Conjure Earthly Being", correspondence=4, life=2)
-Rote.objects.create(name="Create Multiple Images (Correspondence)", correspondence=3, prime=2)
-Rote.objects.create(name="Create Multiple Images (Forces)", forces=2, prime=2)  # forces 2+ variants
+Rote.objects.create(
+    name="Create Multiple Images (Correspondence)", correspondence=3, prime=2
+)
+Rote.objects.create(
+    name="Create Multiple Images (Forces)", forces=2, prime=2
+)  # forces 2+ variants
 Rote.objects.create(name="Create Multiple Objects", correspondence=5, matter=3, prime=2)
 Rote.objects.create(name="Open Gateway Between Locations", correspondence=4)
 Rote.objects.create(name="Rewind Time", time=3)
@@ -17807,7 +17829,9 @@ Rote.objects.create(name="Awaken Object's Spirit", spirit=3)
 Rote.objects.create(name="Harm Ghost", entropy=3, prime=2)
 Rote.objects.create(name="Perfect Object", matter=3)
 Rote.objects.create(name="Consecrate", prime=2)
-Rote.objects.create(name="Ward/Ban", correspondence=2, prime=2)  # Corr/PRime 2+ variant, plus appropriate spheres at 2+
+Rote.objects.create(
+    name="Ward/Ban", correspondence=2, prime=2
+)  # Corr/PRime 2+ variant, plus appropriate spheres at 2+
 Rote.objects.create(name="Astral Body of Light", mind=4, spirit=3, prime=2)
 Rote.objects.create(name="Enter a Dream", mind=3)
 Rote.objects.create(name="See Avatar", mind=3, prime=2, spirit=1)
@@ -17833,7 +17857,7 @@ Rote.objects.create(name="Body of Light", prime=2)
 # Operative's Dossier
 # Lore of the Traditions
 # M20 Victorian Age
-# Le Prix à Payer 
+# Le Prix à Payer
 # Rouen Brûle t elle
 
 # Enlightend Grimoire

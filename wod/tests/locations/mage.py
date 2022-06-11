@@ -12,9 +12,9 @@ from wod.models.characters.mage import (
     Resonance,
     Rote,
 )
+from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
 from wod.models.items.mage import Library
 from wod.models.locations.mage import Chantry, Node, NodeMeritFlaw
-from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
 
 
 # Create your tests here.

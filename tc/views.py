@@ -73,8 +73,10 @@ class AberrantDetailView(HumanDetailView):
 
     def get_context(self, pk):
         context = super().get_context(pk=pk)
-        context["mega_edges"] = MegaEdgeRating.objects.filter(character=context['character'])
-        context["powers"] = PowerRating.objects.filter(character=context['character'])
+        context["mega_edges"] = MegaEdgeRating.objects.filter(
+            character=context["character"]
+        )
+        context["powers"] = PowerRating.objects.filter(character=context["character"])
         return context
 
 
