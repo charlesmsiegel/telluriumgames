@@ -668,12 +668,12 @@ class Mage(Human):
 
     def random_xp(self):
         frequencies = {
-            "attribute": 1,
-            "ability": 1,
-            "background": 1,
-            "willpower": 1,
-            "sphere": 1,
-            "arete": 1,
+            "attribute": 16,
+            "ability": 19,
+            "background": 12,
+            "willpower": 3,
+            "sphere": 35,
+            "arete": 15,
         }
         counter = 0
         while counter < 10 and self.xp > 0:
@@ -801,13 +801,13 @@ class Mage(Human):
 
     def random_freebies(self):
         frequencies = {
-            "attribute": 1,
-            "ability": 1,
-            "background": 1,
-            "willpower": 1,
-            "meritflaw": 1,
-            "sphere": 1,
-            "arete": 1,
+            "attribute": 15,
+            "ability": 7,
+            "background": 10,
+            "willpower": 2,
+            "meritflaw": 35,
+            "sphere": 25,
+            "arete": 5,
             "quintessence": 1,
         }
         counter = 0

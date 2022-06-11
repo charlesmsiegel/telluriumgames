@@ -232,13 +232,13 @@ class Human(Character):
         attribute_types = [7, 5, 3]
         random.shuffle(attribute_types)
         while self.total_physical_attributes() < attribute_types[0] + 3:
-            attribute_choice = weighted_choice(self.get_physical_attributes())
+            attribute_choice = weighted_choice(self.get_physical_attributes(), floor=3, ceiling=3)
             add_dot(self, attribute_choice, 5)
         while self.total_social_attributes() < attribute_types[1] + 3:
-            attribute_choice = weighted_choice(self.get_social_attributes())
+            attribute_choice = weighted_choice(self.get_social_attributes(), floor=3, ceiling=3)
             add_dot(self, attribute_choice, 5)
         while self.total_mental_attributes() < attribute_types[2] + 3:
-            attribute_choice = weighted_choice(self.get_mental_attributes())
+            attribute_choice = weighted_choice(self.get_mental_attributes(), floor=3, ceiling=3)
             add_dot(self, attribute_choice, 5)
 
     def has_attributes(self):
@@ -263,7 +263,7 @@ class Human(Character):
         return add_dot(self, ability, maximum)
 
     def random_ability(self, maximum=4):
-        choice = weighted_choice(self.filter_abilities(maximum=maximum))
+        choice = weighted_choice(self.filter_abilities(maximum=maximum), ceiling=5, floor=0)
         self.add_ability(choice, 5)
 
     def get_abilities(self):
@@ -595,11 +595,13 @@ class Human(Character):
                 return False
             return False
         if trait == "willpower":
-            cost = self.freebie_cost("willpower")
-            if cost <= self.freebies:
-                if self.add_willpower():
-                    self.freebies -= cost
-                    return True
+            if self.willpower < 8:
+                cost = self.freebie_cost("willpower")
+                if cost <= self.freebies:
+                    if self.add_willpower():
+                        self.freebies -= cost
+                        return True
+                    return False
                 return False
             return False
         if trait in [x.name for x in MeritFlaw.objects.all()]:
