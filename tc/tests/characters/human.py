@@ -8,6 +8,7 @@ from tc.models.characters.human import (
     Human,
     Path,
     PathConnection,
+    PathRating,
     Specialty,
     Trick,
 )
@@ -18,10 +19,10 @@ from tc.models.characters.talent import Talent
 class TestPath(TestCase):
     def setUp(self) -> None:
         self.p = Path.objects.create(name="Path")
-        self.c = PathConnection.objects.create(name="Connection")
+        self.c = PathConnection.objects.create(name="Connection", path=self.p)
         self.player = User.objects.create(username="Test User")
         self.h = Human.objects.create(name="Test", player=self.player.tc_profile)
-        self.h.add_path(self.p)
+        PathRating.objects.create(path=self.p, character=self.h, rating=1)
 
     def test_has_connection(self):
         self.assertFalse(self.h.has_connection(self.p))
@@ -34,7 +35,10 @@ class TestPath(TestCase):
         self.assertTrue(self.h.has_connection(self.p))
 
     def test_connection_added_at_first_dot(self):
-        self.fail("This may require modifying other tests")
+        p = Path.objects.create(name="Path 2")
+        c = PathConnection.objects.create(path=p, name="Connection 2")
+        self.h.add_path(p)
+        self.assertTrue(self.h.has_connection(p))
 
 
 class TestHuman(TestCase):

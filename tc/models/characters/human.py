@@ -433,8 +433,13 @@ class Human(PolymorphicModel):
             attribute_choice = weighted_choice(self.get_mental_attributes())
             add_dot(self, attribute_choice, 5)
 
-    def add_path(self, path):
+    def add_path(self, path, connection=None):
         p, _ = PathRating.objects.get_or_create(character=self, path=path)
+        if p.connection is None:
+            if connection is None:
+                connection = PathConnection.objects.filter(path=path).order_by("?").first()
+            p.connection = connection
+            p.save()
         if p.rating < 5:
             p.rating += 1
             p.save()
