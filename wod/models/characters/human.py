@@ -78,18 +78,7 @@ class Character(PolymorphicModel):
         return True
 
     def random_name(self):
-        self.ethnicity = random_ethnicity()
-        sex = random.random()
-        if sex < 0.495:
-            self.sex = "Male"
-            gender = "m"
-        elif sex < 0.99:
-            self.sex = "Female"
-            gender = "f"
-        else:
-            self.sex = "Other"
-            gender = "mf"
-        self.set_name(random_name(gender, self.ethnicity))
+        self.set_name(f"Random Character {Character.objects.count()}")
 
     def __str__(self):
         return self.name
@@ -184,6 +173,25 @@ class Human(Character):
 
     freebies = 15
     background_points = 5
+    
+    def random_name(self, ethnicity=None):
+        if ethnicity is not None:
+            self.ethnicity = ethnicity
+        if self.ethnicity is None:
+            self.ethnicity = random_ethnicity()
+        if self.sex is None:
+            sex = random.random()
+            if sex < 0.495:
+                self.sex = "Male"
+                gender = "m"
+            elif sex < 0.99:
+                self.sex = "Female"
+                gender = "f"
+            else:
+                self.sex = "Other"
+                gender = "mf"
+        if not self.has_name():
+            self.set_name(random_name(gender, self.ethnicity))
 
     def has_archetypes(self):
         return self.nature is not None and self.demeanor is not None
@@ -556,7 +564,7 @@ class Human(Character):
         self.height = "5'7\""
         self.weight = "100 lbs"
         self.description = "Description"
-        self.apparent_age = 18
+        self.apparent_age = self.age
 
     def has_history(self):
         return self.childhood != "" and self.history != "" and self.goals != ""
@@ -756,10 +764,10 @@ class Human(Character):
             if not spent:
                 counter += 1
 
-    def random(self, freebies=15, xp=0):
+    def random(self, freebies=15, xp=0, ethnicity=None):
         self.freebies = freebies
         self.xp = xp
-        self.random_name()
+        self.random_name(ethnicity=ethnicity)
         self.random_concept()
         self.random_archetypes()
         self.random_attributes()
