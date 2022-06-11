@@ -74,7 +74,7 @@ tablets, _ = Medium.objects.get_or_create(
     name="Tablets", length_modifier_type="/", length_modifier=1
 )
 
-
+# M20
 Archetype.objects.create(name="Activist")
 Archetype.objects.create(name="Benefactor")
 Archetype.objects.create(name="Contrary")
@@ -94,6 +94,23 @@ Archetype.objects.create(name="Survivor")
 Archetype.objects.create(name="Traditionalist")
 Archetype.objects.create(name="Trickster")
 Archetype.objects.create(name="Visionary")
+
+# Book of Secrets
+Archetype.objects.create(name="Architect")
+Archetype.objects.create(name="Artist")
+Archetype.objects.create(name="Bon Vivant")
+Archetype.objects.create(name="Caregiver")
+Archetype.objects.create(name="Conformist")
+Archetype.objects.create(name="Director")
+Archetype.objects.create(name="Entertainer")
+Archetype.objects.create(name="Guardian")
+Archetype.objects.create(name="Heretic")
+Archetype.objects.create(name="Mentor")
+Archetype.objects.create(name="Romantic")
+Archetype.objects.create(name="Tycoon")
+Archetype.objects.create(name="Vigilante")
+Archetype.objects.create(name="Zealot")
+
 
 Specialty.objects.create(name="Lean", stat="strength")
 Specialty.objects.create(name="Deceptive Strength", stat="strength")
@@ -788,6 +805,7 @@ Specialty.objects.create(name="Triggers", stat="time")
 Specialty.objects.create(name="Time Travel", stat="time")
 Specialty.objects.create(name="Temporal Control", stat="time")
 
+# M20
 MeritFlaw.objects.create(name="Acute Sense", ratings=[1, 3])
 MeritFlaw.objects.create(name="Berserker", ratings=[4])
 MeritFlaw.objects.create(name="Dark Triad", ratings=[3])
@@ -805,6 +823,23 @@ MeritFlaw.objects.create(name="Echoes", ratings=[-1, -2, -3, -4, -5])
 MeritFlaw.objects.create(name="Enemy", ratings=[-1, -2, -3, -4, -5])
 MeritFlaw.objects.create(name="PTSD", ratings=[-2, -3, -4, -5])
 MeritFlaw.objects.create(name="Stress Atavism", ratings=[-4])
+
+# Book of Secrets
+MeritFlaw.objects.create(name="Alchohol/Drug Tolerance", ratings=[1, 2])
+MeritFlaw.objects.create(name="Ambidextrous", ratings=[1])
+MeritFlaw.objects.create(name="Animal Magnetism", ratings=[2])
+MeritFlaw.objects.create(name="Artistically Gifted", ratings=[1])
+MeritFlaw.objects.create(name="Avatar Companion", ratings=[7])
+MeritFlaw.objects.create(name="Bardic Gift", ratings=[2])
+MeritFlaw.objects.create(name="Burning Aura", ratings=[1])
+MeritFlaw.objects.create(name="Cast-Iron Stomach", ratings=[1])
+MeritFlaw.objects.create(name="Catlike Balance", ratings=[1])
+MeritFlaw.objects.create(name="Celestial Affinity", ratings=[3])
+MeritFlaw.objects.create(name="Circumspect Avatar", ratings=[2])
+MeritFlaw.objects.create(name="Clear Sighted", ratings=[5])
+MeritFlaw.objects.create(name="Cloak of the Seasons", ratings=[3])
+MeritFlaw.objects.create(name="Code of Honor", ratings=[2])
+# TODO: Finish this
 
 armor = Instrument.objects.create(name="Armor")
 artwork = Instrument.objects.create(name="Artwork")
@@ -17786,6 +17821,19 @@ Rote.objects.create(name="Nullify Paradox", prime=5)
 Rote.objects.create(name="Refine Tass", prime=4)
 Rote.objects.create(name="Tap Wellspring", prime=4)
 Rote.objects.create(name="Body of Light", prime=2)
+
+# How Do You DO That?
+# Book of Secrets
+# Gods and Monsters
+# Book of the Fallen
+# Technocracy: Reloaded
+# Rich Bastard's Guide to Magick
+# T:R Quickstart
+# Operative's Dossier
+# Lore of the Traditions
+# M20 Victorian Age
+# Le Prix à Payer 
+# Rouen Brûle t elle
 
 # Enlightend Grimoire
 Rote.objects.create(
