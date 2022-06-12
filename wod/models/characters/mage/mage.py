@@ -688,7 +688,7 @@ class Mage(Human):
             "willpower": 1,
             "sphere": 35,
             "arete": 15,
-            'rote points': 5,
+            "rote points": 5,
         }
         counter = 0
         while counter < 10000 and self.xp > 0:
@@ -845,7 +845,7 @@ class Mage(Human):
             "sphere": 25,
             "arete": 5,
             "quintessence": 1,
-            'rote points': 5,
+            "rote points": 5,
         }
         while self.freebies > 0:
             choice = weighted_choice(frequencies)

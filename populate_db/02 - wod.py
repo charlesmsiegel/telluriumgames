@@ -990,7 +990,9 @@ MeritFlaw.objects.create(name="Inappropriate", ratings=[-1, -2, -3, -4])
 MeritFlaw.objects.create(name="Infamy", ratings=[-1, -2, -3, -4, -5])
 MeritFlaw.objects.create(name="Insane/Infamous Mentor", ratings=[-1])
 MeritFlaw.objects.create(name="Intemperate", ratings=[-2])
-MeritFlaw.objects.create(name="Jinx/Infernal Contraption", ratings=[-2, -3, -4, -5, -6, -7, -8, -9, -10])
+MeritFlaw.objects.create(
+    name="Jinx/Infernal Contraption", ratings=[-2, -3, -4, -5, -6, -7, -8, -9, -10]
+)
 MeritFlaw.objects.create(name="Lifesaver", ratings=[-3])
 MeritFlaw.objects.create(name="Locked Vidare", ratings=[-1])
 MeritFlaw.objects.create(name="Mayfly Curse", ratings=[-5, -10])
@@ -1010,7 +1012,9 @@ MeritFlaw.objects.create(name="Offline", ratings=[-1, -3])
 MeritFlaw.objects.create(name="Old Flame", ratings=[-2])
 MeritFlaw.objects.create(name="Overconfident", ratings=[-1])
 MeritFlaw.objects.create(name="Overextended", ratings=[-4])
-MeritFlaw.objects.create(name="Paranormal Prohibition or Imperative", ratings=[-2, -3, -4, -5, -6, -7, -8])
+MeritFlaw.objects.create(
+    name="Paranormal Prohibition or Imperative", ratings=[-2, -3, -4, -5, -6, -7, -8]
+)
 MeritFlaw.objects.create(name="Permanent Paradox Flaw", ratings=[-2, -4, -6])
 MeritFlaw.objects.create(name="Permanent Wound", ratings=[-3])
 MeritFlaw.objects.create(name="Phobia", ratings=[-2, -3])
@@ -18068,14 +18072,33 @@ Rote.objects.create(name="Body of Light", prime=2)
 # How Do You DO That?
 # Book of Secrets
 Rote.objects.create(name="The Branding Rote", spirit=3, life=3, mind=2, prime=3)
-Rote.objects.create(name="The Branding Rote (Expirating)", spirit=3, life=3, mind=2, prime=3, time=4)
-Rote.objects.create(name="The Branding Rote (Avatar Brand)", spirit=4, life=3, mind=2, prime=3)
-Rote.objects.create(name="The Branding Rote (Glowing)", spirit=3, life=3, mind=2, prime=3, forces=3)
+Rote.objects.create(
+    name="The Branding Rote (Expirating)", spirit=3, life=3, mind=2, prime=3, time=4
+)
+Rote.objects.create(
+    name="The Branding Rote (Avatar Brand)", spirit=4, life=3, mind=2, prime=3
+)
+Rote.objects.create(
+    name="The Branding Rote (Glowing)", spirit=3, life=3, mind=2, prime=3, forces=3
+)
 
 Rote.objects.create(name="Gilgul", spirit=5, entropy=5, mind=5, prime=5)
-Rote.objects.create(name="Gilgul (Aggravated Damage)", spirit=5, entropy=5, mind=5, prime=5, life=3)
-Rote.objects.create(name="Gilgul (Body to Dust)", spirit=5, entropy=5, mind=5, prime=5, life=5)
-Rote.objects.create(name="Gilgul (Scattered Body to Dust)", spirit=5, entropy=5, mind=5, prime=5, life=5, forces=3, correspondence=5)
+Rote.objects.create(
+    name="Gilgul (Aggravated Damage)", spirit=5, entropy=5, mind=5, prime=5, life=3
+)
+Rote.objects.create(
+    name="Gilgul (Body to Dust)", spirit=5, entropy=5, mind=5, prime=5, life=5
+)
+Rote.objects.create(
+    name="Gilgul (Scattered Body to Dust)",
+    spirit=5,
+    entropy=5,
+    mind=5,
+    prime=5,
+    life=5,
+    forces=3,
+    correspondence=5,
+)
 
 # Gods and Monsters
 # Book of the Fallen
