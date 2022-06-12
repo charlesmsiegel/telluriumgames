@@ -266,6 +266,10 @@ class MageDetailView(View):
         context["merits_and_flaws"] = MeritFlawRating.objects.order_by(
             "mf__name"
         ).filter(character=mage)
+        all_rotes = list(context['object'].rotes.all())
+        row_length = 2
+        all_rotes = [all_rotes[i:i+row_length] for i in range(0, len(all_rotes), row_length)]
+        context['rotes'] = all_rotes
         return context
 
 

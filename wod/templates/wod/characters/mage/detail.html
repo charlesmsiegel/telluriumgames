@@ -457,11 +457,14 @@
         <div class="row">
             <h2 class="col-sm mtas_heading">Rotes</h2>
         </div>
+        {% for row in rotes %}
         <div class="row">
-            {% for rote in object.rotes.all %}
-            <div class="col-sm">{{ rote }}</div>
+            {% for rote in row %}
+            <div class="col-sm">{{ rote.name }}</div>
+            <div class="col-sm">{{ rote.spheres }}</div>
             {% endfor %}
         </div>
+        {% endfor %}
 
         <div class="row">
             <h2 class="col-sm mtas_heading">Resonance</h2>
