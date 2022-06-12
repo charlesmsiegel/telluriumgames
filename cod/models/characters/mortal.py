@@ -7,7 +7,7 @@ from polymorphic.models import PolymorphicModel
 
 from accounts.models import CoDProfile
 from core.models import Language
-from core.utils import add_dot, weighted_choice
+from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
 
 # Create your models here.
@@ -87,6 +87,9 @@ class Mortal(PolymorphicModel):
     initiative_modifier = models.IntegerField(default=1)
     defense = models.IntegerField(default=1)
 
+    ethnicity = models.CharField(blank=True, null=True, max_length=100)
+    sex = models.CharField(blank=True, null=True, max_length=100)
+
     breaking_point_1 = models.CharField(
         max_length=300, default="Worst thing you've ever done"
     )
@@ -117,6 +120,25 @@ class Mortal(PolymorphicModel):
     def add_name(self, name):
         self.name = name
         return True
+
+    def random_name(self, ethnicity=None):
+        if ethnicity is not None:
+            self.ethnicity = ethnicity
+        if self.ethnicity is None:
+            self.ethnicity = random_ethnicity()
+        if self.sex is None:
+            sex = random.random()
+            if sex < 0.495:
+                self.sex = "Male"
+                gender = "m"
+            elif sex < 0.99:
+                self.sex = "Female"
+                gender = "f"
+            else:
+                self.sex = "Other"
+                gender = "mf"
+        if not self.has_name():
+            self.add_name(random_name(gender, self.ethnicity))
 
     def has_name(self):
         return self.name != ""
@@ -172,7 +194,7 @@ class Mortal(PolymorphicModel):
 
     def random_basis(self):
         if not self.has_name():
-            self.add_name(f"Mortal {Mortal.objects.count() - 1}")
+            self.random_name()
         self.add_concept("Concept")
         self.random_vice()
         self.random_virtue()

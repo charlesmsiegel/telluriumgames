@@ -5,7 +5,7 @@ from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
 
 from accounts.models import TCProfile
-from core.utils import add_dot, weighted_choice
+from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
 
 # Create your models here.
@@ -74,6 +74,9 @@ class Human(PolymorphicModel):
     injured_levels = models.IntegerField(default=1)
     maimed_levels = models.IntegerField(default=1)
 
+    ethnicity = models.CharField(blank=True, null=True, max_length=100)
+    sex = models.CharField(blank=True, null=True, max_length=100)
+
     defense = models.IntegerField(default=1)
     xp = models.IntegerField(default=0)
 
@@ -94,6 +97,25 @@ class Human(PolymorphicModel):
 
     def has_name(self):
         return self.name != ""
+
+    def random_name(self, ethnicity=None):
+        if ethnicity is not None:
+            self.ethnicity = ethnicity
+        if self.ethnicity is None:
+            self.ethnicity = random_ethnicity()
+        if self.sex is None:
+            sex = random.random()
+            if sex < 0.495:
+                self.sex = "Male"
+                gender = "m"
+            elif sex < 0.99:
+                self.sex = "Female"
+                gender = "f"
+            else:
+                self.sex = "Other"
+                gender = "mf"
+        if not self.has_name():
+            self.set_name(random_name(gender, self.ethnicity))
 
     def add_concept(self, concept):
         self.concept = concept
@@ -125,7 +147,7 @@ class Human(PolymorphicModel):
 
     def random_basics(self):
         if not self.has_name():
-            self.add_name("Random Name")
+            self.random_name()
         self.add_concept("Random Concept")
         self.random_aspirations()
 
