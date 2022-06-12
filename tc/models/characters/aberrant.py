@@ -434,60 +434,102 @@ class Aberrant(Human):
                 cost -= 6
         return cost
 
-    def spend_xp(self, trait, power=None, creation=False, transcendence=False):
-        if trait in self.get_mega_attributes():
-            cost = self.xp_cost("mega attribute", transcendence=transcendence)
-            if self.xp >= cost:
-                if self.add_mega_attribute(trait):
-                    self.xp -= cost
-                    self.add_to_spend(trait, getattr(self, trait), cost)
-                    return True
-        elif trait in [x.name for x in MegaEdge.objects.all()]:
-            e = MegaEdge.objects.get(name=trait)
-            new_rating = min(x for x in e.ratings if x > self.mega_edge_rating(e))
-            cost = self.xp_cost("mega edge", transcendence=transcendence) * (
-                new_rating - self.mega_edge_rating(e)
+    def spend_xp_mega_attribute(self, trait, transcendence, transformation):
+        cost = self.xp_cost(
+            "mega attribute", transcendence=transcendence, transformation=transformation
+        )
+        if self.xp >= cost:
+            if self.add_mega_attribute(trait):
+                self.xp -= cost
+                self.add_to_spend(trait, getattr(self, trait), cost)
+                return True
+            return False
+        return False
+
+    def spend_xp_mega_edge(self, trait, transcendence, transformation):
+        e = MegaEdge.objects.get(name=trait)
+        new_rating = min(x for x in e.ratings if x > self.mega_edge_rating(e))
+        cost = self.xp_cost(
+            "mega edge", transcendence=transcendence, transformation=transformation
+        ) * (new_rating - self.mega_edge_rating(e))
+        if self.xp >= cost:
+            if self.add_mega_edge(e):
+                self.xp -= cost
+                self.add_to_spend(trait, self.mega_edge_rating(e), cost)
+                return True
+            return False
+        return False
+
+    def spend_xp_power(self, trait, transcendence, transformation):
+        e = Power.objects.get(name=trait)
+        cost = self.xp_cost(
+            "quantum power", transcendence=transcendence, transformation=transformation
+        )
+        if self.xp >= cost:
+            if self.add_power(e):
+                self.xp -= cost
+                self.add_to_spend(trait, self.power_rating(e), cost)
+                return True
+            return False
+        return False
+
+    def spend_xp_tag(self, trait, power, transcendence, transformation):
+        if power is None:
+            return False
+        if not isinstance(power, Power):
+            power = Power.objects.get(name=power)
+        if power not in self.powers.all():
+            return False
+        t = Tag.objects.get(name=trait)
+        if power not in t.permitted_powers.all():
+            return False
+        new_rating = min(x for x in t.ratings if x > self.tag_rating(power, t))
+        cost = self.xp_cost(
+            "power tag", transcendence=transcendence, transformation=transformation
+        ) * (new_rating - self.tag_rating(power, t))
+        if self.xp >= cost:
+            if self.add_tag(power, t):
+                self.xp -= cost
+                self.add_to_spend(trait, self.tag_rating(power, t), cost)
+                return True
+            return False
+        return False
+
+    def spend_xp_quantum(self, trait, transcendence, transformation, creation):
+        if self.quantum <= 4:
+            cost = self.xp_cost(
+                "quantum<=5", transcendence=transcendence, transformation=transformation
             )
-            if self.xp >= cost:
-                if self.add_mega_edge(e):
-                    self.xp -= cost
-                    self.add_to_spend(trait, self.mega_edge_rating(e), cost)
-                    return True
+        else:
+            cost = self.xp_cost(
+                "quantum>5", transcendence=transcendence, transformation=transformation
+            )
+        if self.xp >= cost:
+            if self.add_quantum(start=creation):
+                self.xp -= cost
+                self.add_to_spend(trait, getattr(self, trait), cost)
+                return True
+            return False
+        return False
+
+    def spend_xp(
+        self,
+        trait,
+        power=None,
+        creation=False,
+        transcendence=False,
+        transformation=None,
+    ):
+        if trait in self.get_mega_attributes():
+            return self.spend_xp_mega_attribute(trait, transcendence, transformation)
+        elif trait in [x.name for x in MegaEdge.objects.all()]:
+            return self.spend_xp_mega_edge(trait, transcendence, transformation)
         elif trait in [x.name for x in Power.objects.all()]:
-            e = Power.objects.get(name=trait)
-            cost = self.xp_cost("quantum power", transcendence=transcendence)
-            if self.xp >= cost:
-                if self.add_power(e):
-                    self.xp -= cost
-                    self.add_to_spend(trait, self.power_rating(e), cost)
-                    return True
+            return self.spend_xp_power(trait, transcendence, transformation)
         elif trait in [x.name for x in Tag.objects.all()]:
-            if power is None:
-                return False
-            if not isinstance(power, Power):
-                power = Power.objects.get(name=power)
-            if power not in self.powers.all():
-                return False
-            t = Tag.objects.get(name=trait)
-            if power not in t.permitted_powers.all():
-                return False
-            new_rating = min(x for x in t.ratings if x > self.tag_rating(power, t))
-            cost = self.xp_cost("power tag") * (new_rating - self.tag_rating(power, t))
-            if self.xp >= cost:
-                if self.add_tag(power, t):
-                    self.xp -= cost
-                    self.add_to_spend(trait, self.tag_rating(power, t), cost)
-                    return True
+            return self.spend_xp_tag(trait, power, transcendence, transformation)
         elif trait == "quantum":
-            if self.quantum <= 4:
-                cost = self.xp_cost("quantum<=5")
-            else:
-                cost = self.xp_cost("quantum>5")
-            if self.xp >= cost:
-                if self.add_quantum(start=creation):
-                    self.xp -= cost
-                    self.add_to_spend(trait, getattr(self, trait), cost)
-                    return True
+            return self.spend_xp_quantum(trait, transcendence, transformation, creation)
         elif super().spend_xp(trait):
             return True
         self.save()

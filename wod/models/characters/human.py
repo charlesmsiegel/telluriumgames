@@ -588,60 +588,75 @@ class Human(Character):
 
     def spend_freebies(self, trait):
         if trait in self.get_attributes():
-            cost = self.freebie_cost("attribute")
-            if cost <= self.freebies:
-                if self.add_attribute(trait):
-                    self.freebies -= cost
-                    return True
-                return False
-            return False
+            return self.spend_freebies_attribute(trait)
         if trait in self.get_abilities():
-            cost = self.freebie_cost("ability")
-            if cost <= self.freebies:
-                if self.add_ability(trait):
-                    self.freebies -= cost
-                    return True
-                return False
-            return False
+            return self.spend_freebies_ability(trait)
         if trait in self.get_backgrounds():
-            cost = self.freebie_cost("background")
-            if trait in ["enhancement", "sanctum", "totem"]:
-                cost *= 2
+            return self.spend_freebies_background(trait)
+        if trait == "willpower":
+            return self.spend_freebies_willpower()
+        if trait in [x.name for x in MeritFlaw.objects.all()]:
+            return self.spend_freebies_mf(trait)
+        return trait
+
+    def spend_freebies_attribute(self, trait):
+        cost = self.freebie_cost("attribute")
+        if cost <= self.freebies:
+            if self.add_attribute(trait):
+                self.freebies -= cost
+                return True
+            return False
+        return False
+
+    def spend_freebies_ability(self, trait):
+        cost = self.freebie_cost("ability")
+        if cost <= self.freebies:
+            if self.add_ability(trait):
+                self.freebies -= cost
+                return True
+            return False
+        return False
+
+    def spend_freebies_background(self, trait):
+        cost = self.freebie_cost("background")
+        if trait in ["enhancement", "sanctum", "totem"]:
+            cost *= 2
+        if cost <= self.freebies:
+            if self.add_background(trait):
+                self.freebies -= cost
+                return True
+            return False
+        return False
+
+    def spend_freebies_willpower(self):
+        if self.willpower < 8:
+            cost = self.freebie_cost("willpower")
             if cost <= self.freebies:
-                if self.add_background(trait):
+                if self.add_willpower():
                     self.freebies -= cost
                     return True
                 return False
             return False
-        if trait == "willpower":
-            if self.willpower < 8:
-                cost = self.freebie_cost("willpower")
-                if cost <= self.freebies:
-                    if self.add_willpower():
-                        self.freebies -= cost
-                        return True
-                    return False
+        return False
+
+    def spend_freebies_mf(self, trait):
+        if not self.has_max_flaws():
+            cost = self.freebie_cost("meritflaw")  # rating?
+            mf = MeritFlaw.objects.get(name=trait)
+            abs_ratings = [abs(x) for x in mf.ratings]
+            abs_ratings = [x for x in abs_ratings if x > abs(self.mf_rating(mf))]
+            if len(abs_ratings) == 0:
+                return False
+            rating = min(abs_ratings)
+            if rating not in mf.ratings:
+                rating *= -1
+            if cost * (rating - self.mf_rating(mf)) <= self.freebies:
+                if self.add_mf(mf, rating):
+                    self.freebies -= cost
+                    return True
                 return False
             return False
-        if trait in [x.name for x in MeritFlaw.objects.all()]:
-            if not self.has_max_flaws():
-                cost = self.freebie_cost("meritflaw")  # rating?
-                mf = MeritFlaw.objects.get(name=trait)
-                abs_ratings = [abs(x) for x in mf.ratings]
-                abs_ratings = [x for x in abs_ratings if x > abs(self.mf_rating(mf))]
-                if len(abs_ratings) == 0:
-                    return False
-                rating = min(abs_ratings)
-                if rating not in mf.ratings:
-                    rating *= -1
-                if cost * (rating - self.mf_rating(mf)) <= self.freebies:
-                    if self.add_mf(mf, rating):
-                        self.freebies -= cost
-                        return True
-                    return False
-                return False
-            return False
-        return trait
+        return False
 
     def xp_cost(self, trait):
         if trait == "attribute":

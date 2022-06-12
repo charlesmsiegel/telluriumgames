@@ -674,79 +674,111 @@ class Human(PolymorphicModel):
 
     def spend_xp(self, trait):
         if trait in self.get_attributes():
-            cost = self.xp_cost("attribute")
-            if self.xp >= cost:
-                if self.add_attribute(trait):
-                    self.xp -= cost
-                    self.add_to_spend(trait, getattr(self, trait), cost)
-                    return True
+            return self.spend_xp_attribute(trait)
         elif trait in self.get_path_edges(dots=self.xp // self.xp_cost("path edge")):
-            e = Edge.objects.get(name=trait)
-            new_rating = min(x for x in e.ratings if x >= self.edge_rating(e))
-            cost = self.xp_cost("path edge") * (new_rating - self.edge_rating(e))
-            if self.xp >= cost:
-                if self.add_edge(e):
-                    self.xp -= cost
-                    self.add_to_spend(trait, self.edge_rating(e), cost)
-                    return True
+            return self.spend_xp_edge(trait, "path edge")
         elif trait in [
             x.name for x in self.filter_edges(dots=self.xp // self.xp_cost("edge"))
         ]:
-            e = Edge.objects.get(name=trait)
-            new_rating = min(x for x in e.ratings if x > self.edge_rating(e))
-            cost = self.xp_cost("edge") * (new_rating - self.edge_rating(e))
-            if self.xp >= cost:
-                if self.add_edge(e):
-                    self.xp -= cost
-                    self.add_to_spend(trait, self.edge_rating(e), cost)
-                    return True
+            return self.spend_xp_edge(trait, "edge")
         elif trait in [x.name for x in EnhancedEdge.objects.all()]:
-            ee = EnhancedEdge.objects.get(name=trait)
-            if ee not in self.enhanced_edges.all():
-                cost = self.xp_cost("enhanced edge")
-                if self.xp >= cost:
-                    self.enhanced_edges.add(ee)
-                    self.xp -= cost
-                    self.add_to_spend(trait, 1, cost)
-                    return True
+            return self.spend_xp_enhanced_edge(trait)
         elif trait in self.get_skills():
-            cost = self.xp_cost("skill")
-            if self.xp >= cost:
-                if self.add_skill(trait):
-                    self.xp -= cost
-                    self.add_to_spend(trait, getattr(self, trait), cost)
-                    return True
+            return self.spend_xp_skill(trait)
         elif trait in [x.name for x in self.filter_tricks()]:
-            cost = self.xp_cost("skill trick")
-            if self.xp >= cost:
-                if self.add_trick(Trick.objects.get(name=trait)):
-                    self.xp -= cost
-                    self.add_to_spend(trait, 1, cost)
-                    return True
+            return self.spend_xp_trick(trait)
         elif trait in [x.name for x in self.filter_specialties()]:
-            cost = self.xp_cost("skill specialty")
-            if self.xp >= cost:
-                if self.add_specialty(Specialty.objects.get(name=trait)):
-                    self.xp -= cost
-                    self.add_to_spend(trait, 1, cost)
-                    return True
+            return self.spend_xp_specialty(trait)
         elif trait in [x.name for x in Path.objects.all() if self.path_rating(x) < 5]:
-            cost = self.xp_cost("path")
-            if self.xp >= cost:
-                if self.add_path(Path.objects.get(name=trait)):
-                    self.xp -= cost
-                    self.add_to_spend(
-                        trait, self.path_rating(Path.objects.get(name=trait)), cost
-                    )
-                    return True
+            return self.spend_xp_path(trait)
         elif trait in ["Favor FIN", "Favor FOR", "Favor RES"]:
-            cost = self.xp_cost("favored approach")
-            if self.xp >= cost and self.approach != trait.split(" ")[-1]:
-                self.approach = trait.split(" ")[-1]
+            return self.spend_xp_approach(trait)
+        self.save()
+        return False
+
+    def spend_xp_attribute(self, trait):
+        cost = self.xp_cost("attribute")
+        if self.xp >= cost:
+            if self.add_attribute(trait):
+                self.xp -= cost
+                self.add_to_spend(trait, getattr(self, trait), cost)
+                return True
+            return False
+        return False
+
+    def spend_xp_edge(self, trait, edge_type):
+        e = Edge.objects.get(name=trait)
+        new_rating = min(x for x in e.ratings if x > self.edge_rating(e))
+        cost = self.xp_cost(edge_type) * (new_rating - self.edge_rating(e))
+        if self.xp >= cost:
+            if self.add_edge(e):
+                self.xp -= cost
+                self.add_to_spend(trait, self.edge_rating(e), cost)
+                return True
+            return False
+        return False
+
+    def spend_xp_enhanced_edge(self, trait):
+        ee = EnhancedEdge.objects.get(name=trait)
+        if ee not in self.enhanced_edges.all():
+            cost = self.xp_cost("enhanced edge")
+            if self.xp >= cost:
+                self.enhanced_edges.add(ee)
                 self.xp -= cost
                 self.add_to_spend(trait, 1, cost)
                 return True
-        self.save()
+            return False
+        return False
+
+    def spend_xp_skill(self, trait):
+        cost = self.xp_cost("skill")
+        if self.xp >= cost:
+            if self.add_skill(trait):
+                self.xp -= cost
+                self.add_to_spend(trait, getattr(self, trait), cost)
+                return True
+            return False
+        return False
+
+    def spend_xp_trick(self, trait):
+        cost = self.xp_cost("skill trick")
+        if self.xp >= cost:
+            if self.add_trick(Trick.objects.get(name=trait)):
+                self.xp -= cost
+                self.add_to_spend(trait, 1, cost)
+                return True
+            return False
+        return False
+
+    def spend_xp_specialty(self, trait):
+        cost = self.xp_cost("skill specialty")
+        if self.xp >= cost:
+            if self.add_specialty(Specialty.objects.get(name=trait)):
+                self.xp -= cost
+                self.add_to_spend(trait, 1, cost)
+                return True
+            return False
+        return False
+
+    def spend_xp_path(self, trait):
+        cost = self.xp_cost("path")
+        if self.xp >= cost:
+            if self.add_path(Path.objects.get(name=trait)):
+                self.xp -= cost
+                self.add_to_spend(
+                    trait, self.path_rating(Path.objects.get(name=trait)), cost
+                )
+                return True
+            return False
+        return False
+
+    def spend_xp_approach(self, trait):
+        cost = self.xp_cost("favored approach")
+        if self.xp >= cost and self.approach != trait.split(" ")[-1]:
+            self.approach = trait.split(" ")[-1]
+            self.xp -= cost
+            self.add_to_spend(trait, 1, cost)
+            return True
         return False
 
     def add_to_spend(self, trait, value, cost):

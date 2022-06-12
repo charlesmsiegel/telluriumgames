@@ -58,6 +58,7 @@ def grimoire_setup():
                             name=f"{sphere_1}/{sphere_2} Test Rote {5*i+j}", **d
                         )
 
+
 class TestGrimoire(TestCase):
     def setUp(self):
         self.grimoire = Grimoire.objects.create(name="Test Grimoire")
