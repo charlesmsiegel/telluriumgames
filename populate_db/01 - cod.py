@@ -555,7 +555,10 @@ Merit.objects.create(
 Merit.objects.create(
     name="Taste",
     ratings=[1],
-    prereqs=[[("crafts", 2), ("crafts", "specialty")], [("crafts", 2), ("expression", "specialty")]],
+    prereqs=[
+        [("crafts", 2), ("crafts", "specialty")],
+        [("crafts", 2), ("expression", "specialty")],
+    ],
     merit_type="Social",
 )
 Merit.objects.create(
@@ -700,14 +703,20 @@ Merit.objects.create(
 Merit.objects.create(
     name="Iron Skin",
     ratings=[2, 4],
-    prereqs=[[("stamina", 3), ("Martial Arts", 2)], [("stamina", 3), ("Street Fighting", 2)]],
+    prereqs=[
+        [("stamina", 3), ("Martial Arts", 2)],
+        [("stamina", 3), ("Street Fighting", 2)],
+    ],
     merit_type="Fighting",
 )
 Merit.objects.create(
     name="Light Weapons",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
-    prereqs=[[("wits", 3), ("dexterity", 3), ("athletics", 2), ("weaponry", 2),], [("dexterity", 3), ("athletics", 2), ("weaponry", 2), ("Fighting Finesse", 1)]],
+    prereqs=[
+        [("wits", 3), ("dexterity", 3), ("athletics", 2), ("weaponry", 2),],
+        [("dexterity", 3), ("athletics", 2), ("weaponry", 2), ("Fighting Finesse", 1)],
+    ],
     merit_type="Fighting",
 )
 Merit.objects.create(
