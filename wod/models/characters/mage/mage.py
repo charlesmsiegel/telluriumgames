@@ -688,7 +688,7 @@ class Mage(Human):
             "arete": 15,
         }
         counter = 0
-        while counter < 10 and self.xp > 0:
+        while counter < 10000 and self.xp > 0:
             choice = weighted_choice(frequencies)
             if choice == "attribute":
                 trait = weighted_choice(self.get_attributes())
@@ -822,32 +822,29 @@ class Mage(Human):
             "arete": 5,
             "quintessence": 1,
         }
-        counter = 0
-        while counter < 10 and self.freebies > 0:
+        while self.freebies > 0:
             choice = weighted_choice(frequencies)
             if choice == "attribute":
                 trait = weighted_choice(self.get_attributes())
-                spent = self.spend_freebies(trait)
+                self.spend_freebies(trait)
             if choice == "ability":
                 trait = weighted_choice(self.get_abilities())
-                spent = self.spend_freebies(trait)
+                self.spend_freebies(trait)
             if choice == "background":
                 trait = weighted_choice(self.get_backgrounds())
-                spent = self.spend_freebies(trait)
+                self.spend_freebies(trait)
             if choice == "willpower":
-                spent = self.spend_freebies(choice)
+                self.spend_freebies(choice)
             if choice == "meritflaw":
                 trait = random.choice([x.name for x in self.filter_mfs()])
-                spent = self.spend_freebies(trait)
+                self.spend_freebies(trait)
             if choice == "sphere":
                 trait = weighted_choice(self.get_spheres())
-                spent = self.spend_freebies(trait)
+                self.spend_freebies(trait)
             if choice == "arete":
-                spent = self.spend_freebies(choice)
+                self.spend_freebies(choice)
             if choice == "quintessence":
-                spent = self.spend_freebies(choice)
-            if not spent:
-                counter += 1
+                self.spend_freebies(choice)
 
     def has_library(self):
         if self.library_owned is not None:
