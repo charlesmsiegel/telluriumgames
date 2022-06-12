@@ -1214,14 +1214,9 @@ Gift.objects.create(
     name="Apex Cunning", keywords=["cunning", "momentary"], prereqs=[[("cunning", 4)]]
 )
 Gift.objects.create(
-    name="Behold the Halo (Cunning)",
-    keywords=["cunning", "momentary"],
-    prereqs=[[("cunning", 3)]],
-)
-Gift.objects.create(
-    name="Behold the Halo (Manipulation)",
-    keywords=["manipulation", "momentary"],
-    prereqs=[[("manipulation", 3)]],
+    name="Behold the Halo",
+    keywords=["cunning", "momentary", "manipulation"],
+    prereqs=[[("cunning", 3)], [("manipulation", 3)]],
 )
 Gift.objects.create(
     name="Mirrored Sunglasses",
@@ -1238,19 +1233,9 @@ Gift.objects.create(
     keywords=["composure", "resolve", "stamina", "constant"],
 )
 Gift.objects.create(
-    name="The Late, Late Shift (Composure)",
-    keywords=["composure", "constant"],
-    prereqs=[[("composure", 2)]],
-)
-Gift.objects.create(
-    name="The Late, Late Shift (Resolve)",
-    keywords=["resolve", "constant"],
-    prereqs=[[("resolve", 2)]],
-)
-Gift.objects.create(
-    name="The Late, Late Shift (Stamina)",
-    keywords=["stamina", "constant"],
-    prereqs=[[("stamina", 2)]],
+    name="The Late, Late Shift",
+    keywords=["composure", "constant", "resolve", "stamina"],
+    prereqs=[[("composure", 2)], [("resolve", 2)], [("stamina", 2)]],
 )
 Gift.objects.create(
     name="Superlative Poise",
@@ -1325,34 +1310,19 @@ Gift.objects.create(
     prereqs=[[("resolve", 4)]],
 )
 Gift.objects.create(
-    name="Indomitable Will (Resolve)",
-    keywords=["resolve", "constant"],
-    prereqs=[[("resolve", 2)]],
+    name="Indomitable Will",
+    keywords=["resolve", "constant", "integrity"],
+    prereqs=[[("resolve", 2)], [("integrity", 3)]],
 )
 Gift.objects.create(
-    name="Indomitable Will (Integrity)",
-    keywords=["resolve", "constant"],
-    prereqs=[[("integrity", 3)]],
+    name="An Extension of Myself",
+    keywords=["constant", "aim", "close_combat"],
+    prereqs=[[("aim", 3)], [("close_combat", 3)]],
 )
 Gift.objects.create(
-    name="An Extension of Myself (Aim)",
-    keywords=["constant", "aim"],
-    prereqs=[[("aim", 3)]],
-)
-Gift.objects.create(
-    name="An Extension of Myself (Close Combat)",
-    keywords=["constant", "close_combat"],
-    prereqs=[[("close_combat", 3)]],
-)
-Gift.objects.create(
-    name="Murderous Totality (Aim)",
-    keywords=["aim", "momentary"],
-    prereqs=[[("aim", 3)]],
-)
-Gift.objects.create(
-    name="Murderous Totality (Close Combat)",
-    keywords=["close_combat", "momentary"],
-    prereqs=[[("close_combat", 3)]],
+    name="Murderous Totality",
+    keywords=["aim", "momentary", "close_combat"],
+    prereqs=[[("aim", 3)], [("close_combat", 3)]],
 )
 Gift.objects.create(
     name="Sharpshooter", keywords=["momentary", "aim"], prereqs=[[("aim", 4)]]
@@ -1369,14 +1339,9 @@ Gift.objects.create(
     prereqs=[[("athletics", 2)]],
 )
 Gift.objects.create(
-    name="Lightning Reflexes (Athletics)",
-    keywords=["constant", "athletics"],
-    prereqs=[[("athletics", 2)]],
-)
-Gift.objects.create(
-    name="Lightning Reflexes (Empathy)",
-    keywords=["constant", "empathy"],
-    prereqs=[[("empathy", 2)]],
+    name="Lightning Reflexes",
+    keywords=["constant", "athletics", "empathy"],
+    prereqs=[[("athletics", 2)], [("empathy", 2)]],
 )
 Gift.objects.create(
     name="Moving Target",
@@ -1395,24 +1360,14 @@ Gift.objects.create(
     prereqs=[[("close_combat", 3)]],
 )
 Gift.objects.create(
-    name="Say That To My Face (Close Combat)",
-    keywords=["momentary", "close_combat"],
-    prereqs=[[("close_combat", 2)]],
+    name="Say That To My Face",
+    keywords=["momentary", "close_combat", "command"],
+    prereqs=[[("close_combat", 2)], [("command", 2)]],
 )
 Gift.objects.create(
-    name="Say That To My Face (Command)",
-    keywords=["momentary", "command"],
-    prereqs=[[("command", 2)]],
-)
-Gift.objects.create(
-    name="After School Special (Command)",
-    keywords=["momentary", "command"],
-    prereqs=[[("command", 4)]],
-)
-Gift.objects.create(
-    name="After School Special (Persuasion)",
-    keywords=["momentary", "persuasion"],
-    prereqs=[[("persuasion", 4)]],
+    name="After School Special",
+    keywords=["momentary", "command", "persuasion"],
+    prereqs=[[("command", 4)], [("persuasion", 4)]],
 )
 Gift.objects.create(
     name="Chess Master", keywords=["momentary", "command"], prereqs=[[("command", 3)]]
@@ -1428,24 +1383,14 @@ Gift.objects.create(
     prereqs=[[("larceny", 2)]],
 )
 Gift.objects.create(
-    name="Public Education (Culture)",
-    keywords=["momentary", "command", "culture"],
-    prereqs=[[("command", 2), ("culture", 3)]],
-)
-Gift.objects.create(
-    name="Public Education (Humanities)",
-    keywords=["momentary", "command", "humanities"],
-    prereqs=[[("command", 2), ("humanities", 3)]],
-)
-Gift.objects.create(
-    name="Public Education (Science)",
-    keywords=["momentary", "command", "science"],
-    prereqs=[[("command", 2), ("science", 3)]],
-)
-Gift.objects.create(
-    name="Public Education (Technology)",
-    keywords=["momentary", "command", "technology"],
-    prereqs=[[("command", 2), ("technology", 3)]],
+    name="Public Education",
+    keywords=["momentary", "command", "culture", "humanities", "science", "technology"],
+    prereqs=[
+        [("command", 2), ("culture", 3)],
+        [("command", 2), ("humanities", 3)],
+        [("command", 2), ("science", 3)],
+        [("command", 2), ("technology", 3)],
+        ],
 )
 Gift.objects.create(name="Rousing Speech", keywords=["momentary", "command"])
 Gift.objects.create(name="Theatre of Conflict", keywords=["momentary", "command"])
@@ -1456,27 +1401,17 @@ Gift.objects.create(
 )
 Gift.objects.create(name="Cold Read", keywords=["constant", "culture", "empathy"])
 Gift.objects.create(
-    name="Forgettable (Culture)",
-    keywords=["momentary", "culture"],
-    prereqs=[[("culture", 3)]],
-)
-Gift.objects.create(
-    name="Forgettable (Larceny)",
-    keywords=["momentary", "larceny"],
-    prereqs=[[("larceny", 3)]],
+    name="Forgettable",
+    keywords=["momentary", "culture", "larceny"],
+    prereqs=[[("culture", 3)], [("larceny", 3)]],
 )
 Gift.objects.create(
     name="Politico", keywords=["momentary", "culture"], prereqs=[[("culture", 3)]]
 )
 Gift.objects.create(
-    name="The Right Climate (Culture)",
-    keywords=["momentary", "culture"],
-    prereqs=[[("culture", 3)]],
-)
-Gift.objects.create(
-    name="The Right Climate (Empathy)",
-    keywords=["momentary", "empathy"],
-    prereqs=[[("empathy", 3)]],
+    name="The Right Climate",
+    keywords=["momentary", "culture", "empathy"],
+    prereqs=[[("culture", 3)], [("empathy", 3)]],
 )
 Gift.objects.create(name="Ripped From the Headlines", keywords=["constant", "culture"])
 Gift.objects.create(name="That's Bad Luck", keywords=["constant", "culture"])
@@ -1501,14 +1436,9 @@ Gift.objects.create(
     name="Code Talker", keywords=["momentary", "enigmas"], prereqs=[[("enigmas", 2)]]
 )
 Gift.objects.create(
-    name="Deep System Scan (Enigmas)",
-    keywords=["momentary", "enigmas"],
-    prereqs=[[("enigmas", 3)]],
-)
-Gift.objects.create(
-    name="Deep System Scan (Technology)",
-    keywords=["momentary", "technology"],
-    prereqs=[[("technology", 3)]],
+    name="Deep System Scan",
+    keywords=["momentary", "enigmas", "technology"],
+    prereqs=[[("enigmas", 3)], [("technology", 3)]],
 )
 Gift.objects.create(
     name="Fortean Experience",
@@ -1516,29 +1446,9 @@ Gift.objects.create(
     prereqs=[[("enigmas", 1), ("science", 3)]],
 )
 Gift.objects.create(
-    name="Irons in the Fire (Enigmas)",
-    keywords=["momentary", "enigmas"],
-    prereqs=[[("enigmas", 3)]],
-)
-Gift.objects.create(
-    name="Irons in the Fire (Humanities)",
-    keywords=["momentary", "humanities"],
-    prereqs=[[("humanities", 3)]],
-)
-Gift.objects.create(
-    name="Irons in the Fire (Medicine)",
-    keywords=["momentary", "medicine"],
-    prereqs=[[("medicine", 3)]],
-)
-Gift.objects.create(
-    name="Irons in the Fire (Science)",
-    keywords=["momentary", "science"],
-    prereqs=[[("science", 3)]],
-)
-Gift.objects.create(
-    name="Irons in the Fire (Technology)",
-    keywords=["momentary", "technology"],
-    prereqs=[[("technology", 3)]],
+    name="Irons in the Fire",
+    keywords=["momentary", "enigmas", "humanities", "medicine", "science", "technology"],
+    prereqs=[[("enigmas", 3)], [("humanities", 3)], [("medicine", 3)], [("science", 3)], [("technology", 3)]],
 )
 Gift.objects.create(name="Mystery Archaeology", keywords=["constant", "enigmas"])
 Gift.objects.create(
@@ -1566,14 +1476,9 @@ Gift.objects.create(
 )
 Gift.objects.create(name="Self-Sense", keywords=["constant", "integrity", "medicine"])
 Gift.objects.create(
-    name="Shameless Lying Smile (Integrity)",
-    keywords=["momentary", "integrity"],
-    prereqs=[[("integrity", 2)]],
-)
-Gift.objects.create(
-    name="Shameless Lying Smile (Persuasion)",
-    keywords=["momentary", "persuasion"],
-    prereqs=[[("persuasion", 2)]],
+    name="Shameless Lying Smile",
+    keywords=["momentary", "integrity", "persuasion"],
+    prereqs=[[("integrity", 2)], [("persuasion", 2)]],
 )
 Gift.objects.create(name="Take it on the Chin", keywords=["momentary", "integrity"])
 Gift.objects.create(
@@ -1598,14 +1503,9 @@ Gift.objects.create(
     prereqs=[[("larceny", 2)]],
 )
 Gift.objects.create(
-    name="Slip the Cuffs (Larceny)",
-    keywords=["momentary", "larceny"],
-    prereqs=[[("larceny", 2)]],
-)
-Gift.objects.create(
-    name="Slip the Cuffs (Technology)",
-    keywords=["momentary", "technology"],
-    prereqs=[[("technology", 2)]],
+    name="Slip the Cuffs",
+    keywords=["momentary", "larceny", "technology"],
+    prereqs=[[("larceny", 2)], [("technology", 2)]],
 )
 Gift.objects.create(
     name="Doctor of Destruction",
@@ -1644,19 +1544,9 @@ Gift.objects.create(
     prereqs=[[("persuasion", 2)]],
 )
 Gift.objects.create(
-    name="Steely Gaze (Presence)",
-    keywords=["momentary", "persuasion"],
-    prereqs=[[("persuasion", 2), ("presence", 3)]],
-)
-Gift.objects.create(
-    name="Steely Gaze (Manipulation)",
-    keywords=["momentary", "persuasion"],
-    prereqs=[[("persuasion", 2), ("manipulation", 3)]],
-)
-Gift.objects.create(
-    name="Steely Gaze (Composure)",
-    keywords=["momentary", "persuasion"],
-    prereqs=[[("persuasion", 2), ("composure", 3)]],
+    name="Steely Gaze",
+    keywords=["momentary", "persuasion", "manipulation", "composure"],
+    prereqs=[[("persuasion", 2), ("presence", 3)], [("persuasion", 2), ("manipulation", 3)], [("persuasion", 2), ("composure", 3)]],
 )
 Gift.objects.create(
     name="Daredevil", keywords=["momentary", "pilot"], prereqs=[[("pilot", 3)]]
