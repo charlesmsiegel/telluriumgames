@@ -3,7 +3,7 @@ import random
 from django.db import models
 
 from core.utils import add_dot, weighted_choice
-from tc.models.characters.human import Edge, Human, Path, PathRating
+from tc.models.characters.human import Edge, EnhancedEdge, Human, Path, PathRating
 
 
 # Create your models here.
@@ -19,6 +19,8 @@ class Aberrant(Human):
     mega_presence = models.IntegerField(default=0)
     mega_manipulation = models.IntegerField(default=0)
     mega_composure = models.IntegerField(default=0)
+
+    mega_composure_flag = models.BooleanField(default=False)
 
     powers = models.ManyToManyField("Power", blank=True, through="PowerRating")
     mega_edges = models.ManyToManyField(
@@ -70,6 +72,27 @@ class Aberrant(Human):
                         for x in ["Animal Ken", "Skilled Liar", "Striking", "Wealth"]
                     ],
                 )
+            if attribute == "composure":
+                if self.edge_rating("Iron Will") == 3:
+                    if self.mega_composure_flag:
+                        self.enhanced_edges.add(
+                            EnhancedEdge.objects.get(name="Indomitable")
+                        )
+                    else:
+                        self.mega_composure_flag = True
+                else:
+                    self.random_edge(
+                        dots=1,
+                        sublist=[
+                            Edge.objects.get(name=x)
+                            for x in [
+                                "Always Prepared",
+                                "Covert",
+                                "Danger Sense",
+                                "Iron Will",
+                            ]
+                        ],
+                    )
             return True
         return False
 

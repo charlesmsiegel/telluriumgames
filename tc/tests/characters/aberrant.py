@@ -10,7 +10,7 @@ from tc.models.characters.aberrant import (
     Tag,
     Transformation,
 )
-from tc.models.characters.human import Edge, Path, Specialty, Trick
+from tc.models.characters.human import Edge, EnhancedEdge, Path, Specialty, Trick
 
 
 # Create your tests here.
@@ -611,38 +611,35 @@ class TestAberrant(TestCase):
         self.assertEqual(sum(self.character.edge_rating(x) for x in edges), num + 1)
 
     def test_mega_composure_add(self):
-        self.fail(
-            """When adding mega-composure dot, gets dot in Always Prepared, Covert,
-            Danger Sense, Iron Will, or for 2 points can get Indomitable Enhanced Edge"""
+        edges = ["Always Prepared", "Covert", "Danger Sense", "Iron Will"]
+        for name in edges:
+            Edge.objects.create(name=name, ratings=[1, 2, 3])
+
+        ee = EnhancedEdge.objects.create(
+            name="Indomitable", prereqs=[[("Iron Will", 3)]]
         )
 
-    def test_power_suites(self):
-        self.fail("Implement Power Suites")
-
-    def test_variable_tag(self):
-        self.fail("Implement Variable Tag")
-
-    def test_technique_tag(self):
-        self.fail("Implement Technique Tag")
-
-    def test_quantum_construct(self):
-        self.fail(
-            """Implement Quantum Construct: Each dot of Quantum Construct beyond the first
-            gives the power one of the following tags, which can also be applied separately
-            as regular power tags"""
+        num = sum(self.character.edge_rating(x) for x in edges)
+        self.character.add_mega_attribute("composure")
+        if ee in self.character.enhanced_edges.all():
+            ee_num = 2
+        else:
+            ee_num = 0
+        self.assertEqual(
+            sum(self.character.edge_rating(x) for x in edges) + ee_num, num + 1
         )
 
-    def test_tag_rating_limited_by_power_rating(self):
-        self.fail("Set up Multiple tag so that it cannot exceed the power's rating")
-
-    def test_variable_quantum_minimum(self):
-        self.fail(
-            """Implement so that powers can have quantum_minimum be dots-3 or dots+1, etc.
-            so that a character iwth Quantum 4 could have 1 or 5 dots, respectively"""
+        self.character.composure = 5
+        self.character.quantum = 5
+        while self.character.edge_rating("Iron Will") < 3:
+            e = Edge.objects.get(name="Iron Will")
+            self.character.add_edge(e)
+        self.character.add_mega_attribute("composure")
+        self.character.add_mega_attribute("composure")
+        self.assertEqual(
+            sum(self.character.edge_rating(x) for x in edges) + ee_num, num + 3
         )
-
-    def test_cloak_power(self):
-        self.fail("Cloak gets (dots-1) 1-point tags on it for free")
+        self.assertIn(ee, self.character.enhanced_edges.all())
 
 
 class TestRandomAberrant(TestCase):
