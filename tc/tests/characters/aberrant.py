@@ -621,13 +621,7 @@ class TestAberrant(TestCase):
 
         num = sum(self.character.edge_rating(x) for x in edges)
         self.character.add_mega_attribute("composure")
-        if ee in self.character.enhanced_edges.all():
-            ee_num = 2
-        else:
-            ee_num = 0
-        self.assertEqual(
-            sum(self.character.edge_rating(x) for x in edges) + ee_num, num + 1
-        )
+        self.assertEqual(sum(self.character.edge_rating(x) for x in edges), num + 1)
 
         self.character.composure = 5
         self.character.quantum = 5
@@ -636,9 +630,6 @@ class TestAberrant(TestCase):
             self.character.add_edge(e)
         self.character.add_mega_attribute("composure")
         self.character.add_mega_attribute("composure")
-        self.assertEqual(
-            sum(self.character.edge_rating(x) for x in edges) + ee_num, num + 3
-        )
         self.assertIn(ee, self.character.enhanced_edges.all())
 
 
