@@ -15,7 +15,20 @@ class Rote(models.Model):
     prime = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.name
+        dots = {
+            "correspondence": self.correspondence,
+            "time": self.time,
+            "spirit": self.spirit,
+            "matter": self.matter,
+            "life": self.life,
+            "forces": self.forces,
+            "entropy": self.entropy,
+            "mind": self.mind,
+            "prime": self.prime,
+        }
+        filtered_dots = [f"{k.title()}: {v}" for k, v in dots.items() if v != 0]
+        final_dots = ", ".join(filtered_dots)
+        return f"{self.name} ({final_dots})"
 
     def cost(self):
         return (
