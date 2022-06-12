@@ -115,7 +115,7 @@ class Human(PolymorphicModel):
                 self.sex = "Other"
                 gender = "mf"
         if not self.has_name():
-            self.set_name(random_name(gender, self.ethnicity))
+            self.add_name(random_name(gender, self.ethnicity))
 
     def add_concept(self, concept):
         self.concept = concept
