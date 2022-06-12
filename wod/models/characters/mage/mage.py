@@ -571,19 +571,21 @@ class Mage(Human):
         return all_res
 
     def random_resonance(self):
+        choice = self.choose_random_resonance()
+        return self.add_resonance(choice)
+
+    def choose_random_resonance(self):
         if random.random() < 0.7:
             possible = self.filter_resonance(minimum=1, maximum=4)
             if len(possible) > 0:
                 choice = random.choice(possible)
-                if self.add_resonance(choice):
-                    return True
+                return choice
         while True:
             index = random.randint(1, Resonance.objects.last().id)
             if Resonance.objects.filter(pk=index).exists():
                 choice = Resonance.objects.get(pk=index)
                 if self.resonance_rating(choice) < 5:
-                    if self.add_resonance(choice):
-                        return True
+                    return choice
 
     def random_ability(self, maximum=4):
         possibilities = self.filter_abilities(maximum=maximum)
@@ -817,7 +819,7 @@ class Mage(Human):
             "ability": 8,
             "background": 10,
             "willpower": 1,
-            "meritflaw": 35,
+            "meritflaw": 50,
             "sphere": 25,
             "arete": 5,
             "quintessence": 1,

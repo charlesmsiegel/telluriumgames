@@ -3476,7 +3476,16 @@ MageFaction.objects.create(name="Malfeans", parent=nephandi)
 MageFaction.objects.create(name="Infernalists", parent=nephandi)
 
 marauders = MageFaction.objects.create(name="Marauders")
-MageFaction.objects.create(name="Marauders Faction", parent=marauders)
+MageFaction.objects.create(name="Bai Dai", parent=marauders)
+uu = MageFaction.objects.create(name="Umbral Underground", parent=marauders)
+MageFaction.objects.create(name="Numpa Kachpa", parent=uu)
+MageFaction.objects.create(name="Independent", parent=marauders)
+MageFaction.objects.create(name="Butcher Street Regulars", parent=uu)
+MageFaction.objects.create(name="The Railroad", parent=uu)
+glh = MageFaction.objects.create(name="God's Left Hand", parent=marauders)
+MageFaction.objects.create(name="The Sitrin", parent=glh)
+MageFaction.objects.create(name="The P'o Chun", parent=glh)
+MageFaction.objects.create(name="Team 23", parent=glh)
 
 Resonance.objects.create(name="Acquisitive",)
 Resonance.objects.create(name="Alchemical",)
@@ -18058,6 +18067,16 @@ Rote.objects.create(name="Body of Light", prime=2)
 
 # How Do You DO That?
 # Book of Secrets
+Rote.objects.create(name="The Branding Rote", spirit=3, life=3, mind=2, prime=3)
+Rote.objects.create(name="The Branding Rote (Expirating)", spirit=3, life=3, mind=2, prime=3, time=4)
+Rote.objects.create(name="The Branding Rote (Avatar Brand)", spirit=4, life=3, mind=2, prime=3)
+Rote.objects.create(name="The Branding Rote (Glowing)", spirit=3, life=3, mind=2, prime=3, forces=3)
+
+Rote.objects.create(name="Gilgul", spirit=5, entropy=5, mind=5, prime=5)
+Rote.objects.create(name="Gilgul (Aggravated Damage)", spirit=5, entropy=5, mind=5, prime=5, life=3)
+Rote.objects.create(name="Gilgul (Body to Dust)", spirit=5, entropy=5, mind=5, prime=5, life=5)
+Rote.objects.create(name="Gilgul (Scattered Body to Dust)", spirit=5, entropy=5, mind=5, prime=5, life=5, forces=3, correspondence=5)
+
 # Gods and Monsters
 # Book of the Fallen
 # Technocracy: Reloaded
@@ -22463,18 +22482,6 @@ Rote.objects.create(
     prime=3,
 )
 Rote.objects.create(
-    name="The Branding Rote",
-    correspondence=0,
-    time=0,
-    spirit=3,
-    matter=0,
-    life=3,
-    forces=0,
-    entropy=0,
-    mind=2,
-    prime=3,
-)
-Rote.objects.create(
     name="Curseof the Mayfly",
     correspondence=0,
     time=0,
@@ -22521,18 +22528,6 @@ Rote.objects.create(
     entropy=0,
     mind=2,
     prime=0,
-)
-Rote.objects.create(
-    name="Gilgul",
-    correspondence=0,
-    time=0,
-    spirit=5,
-    matter=0,
-    life=0,
-    forces=0,
-    entropy=5,
-    mind=5,
-    prime=5,
 )
 Rote.objects.create(
     name="Heart Murmurs",
