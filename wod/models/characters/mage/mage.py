@@ -688,6 +688,7 @@ class Mage(Human):
             "willpower": 1,
             "sphere": 35,
             "arete": 15,
+            'rote points': 5,
         }
         counter = 0
         while counter < 10000 and self.xp > 0:
@@ -708,6 +709,8 @@ class Mage(Human):
             if choice == "sphere":
                 trait = weighted_choice(self.get_spheres())
                 spent = self.spend_xp(trait)
+            if choice == "rote points":
+                spent = self.spend_xp(choice)
             if not spent:
                 counter += 1
 
@@ -727,6 +730,8 @@ class Mage(Human):
         if trait == "arete":
             return 4
         if trait == "quintessence":
+            return 1
+        if trait == "rote points":
             return 1
         return 10000
 
@@ -759,6 +764,13 @@ class Mage(Human):
                     return True
                 return False
             return False
+        if trait == "rote points":
+            cost = self.freebie_cost("rote points")
+            if cost <= self.freebies:
+                self.rote_points += 4
+                self.freebies -= cost
+                return True
+            return False
         return trait
 
     def spend_xp(self, trait):
@@ -788,6 +800,13 @@ class Mage(Human):
                     return True
                 return False
             return False
+        if trait == "rote points":
+            cost = self.xp_cost("rote points")
+            if cost <= self.xp:
+                self.rote_points += 3
+                self.xp -= cost
+                return True
+            return False
         return trait
 
     def xp_cost(self, trait):
@@ -811,6 +830,8 @@ class Mage(Human):
             return 8
         if trait == "arete":
             return 8
+        if trait == "rote points":
+            return 1
         return 10000
 
     def random_freebies(self):
@@ -823,6 +844,7 @@ class Mage(Human):
             "sphere": 25,
             "arete": 5,
             "quintessence": 1,
+            'rote points': 5,
         }
         while self.freebies > 0:
             choice = weighted_choice(frequencies)
@@ -846,6 +868,8 @@ class Mage(Human):
             if choice == "arete":
                 self.spend_freebies(choice)
             if choice == "quintessence":
+                self.spend_freebies(choice)
+            if choice == "rote points":
                 self.spend_freebies(choice)
 
     def has_library(self):

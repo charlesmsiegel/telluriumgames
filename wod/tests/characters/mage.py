@@ -739,6 +739,7 @@ class TestMage(TestCase):
         self.assertEqual(self.character.freebie_cost("sphere"), 7)
         self.assertEqual(self.character.freebie_cost("arete"), 4)
         self.assertEqual(self.character.freebie_cost("quintessence"), 1)
+        self.assertEqual(self.character.freebie_cost("rote points"), 1)
 
     def test_spend_freebies(self):
         self.character.arete = 1
@@ -761,6 +762,8 @@ class TestMage(TestCase):
         self.assertEqual(self.character.freebies, 4)
         self.assertTrue(self.character.spend_freebies("quintessence"))
         self.assertEqual(self.character.freebies, 3)
+        self.assertTrue(self.character.spend_freebies("rote points"))
+        self.assertEqual(self.character.freebies, 2)
 
     def test_xp_cost(self):
         self.assertEqual(self.character.xp_cost("attribute"), 4)
@@ -774,6 +777,7 @@ class TestMage(TestCase):
         self.assertEqual(self.character.xp_cost("new sphere"), 10)
         self.assertEqual(self.character.xp_cost("arete"), 8)
         self.assertEqual(self.character.xp_cost("affinity sphere"), 7)
+        self.assertEqual(self.character.xp_cost("rote points"), 1)
 
     def test_spend_xp(self):
         self.character.arete = 1
@@ -799,6 +803,8 @@ class TestMage(TestCase):
         self.assertEqual(self.character.xp, 52)
         self.assertTrue(self.character.spend_xp("matter"))
         self.assertEqual(self.character.xp, 45)
+        self.assertTrue(self.character.spend_xp("rote points"))
+        self.assertEqual(self.character.xp, 44)
 
     def test_add_resonance(self):
         res = Resonance.objects.order_by("?").first()
