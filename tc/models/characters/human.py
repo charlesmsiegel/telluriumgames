@@ -675,23 +675,23 @@ class Human(PolymorphicModel):
     def spend_xp(self, trait):
         if trait in self.get_attributes():
             return self.spend_xp_attribute(trait)
-        elif trait in self.get_path_edges(dots=self.xp // self.xp_cost("path edge")):
+        if trait in self.get_path_edges(dots=self.xp // self.xp_cost("path edge")):
             return self.spend_xp_edge(trait, "path edge")
-        elif trait in [
+        if trait in [
             x.name for x in self.filter_edges(dots=self.xp // self.xp_cost("edge"))
         ]:
             return self.spend_xp_edge(trait, "edge")
-        elif trait in [x.name for x in EnhancedEdge.objects.all()]:
+        if trait in [x.name for x in EnhancedEdge.objects.all()]:
             return self.spend_xp_enhanced_edge(trait)
-        elif trait in self.get_skills():
+        if trait in self.get_skills():
             return self.spend_xp_skill(trait)
-        elif trait in [x.name for x in self.filter_tricks()]:
+        if trait in [x.name for x in self.filter_tricks()]:
             return self.spend_xp_trick(trait)
-        elif trait in [x.name for x in self.filter_specialties()]:
+        if trait in [x.name for x in self.filter_specialties()]:
             return self.spend_xp_specialty(trait)
-        elif trait in [x.name for x in Path.objects.all() if self.path_rating(x) < 5]:
+        if trait in [x.name for x in Path.objects.all() if self.path_rating(x) < 5]:
             return self.spend_xp_path(trait)
-        elif trait in ["Favor FIN", "Favor FOR", "Favor RES"]:
+        if trait in ["Favor FIN", "Favor FOR", "Favor RES"]:
             return self.spend_xp_approach(trait)
         self.save()
         return False

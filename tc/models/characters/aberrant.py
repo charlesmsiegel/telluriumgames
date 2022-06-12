@@ -522,15 +522,15 @@ class Aberrant(Human):
     ):
         if trait in self.get_mega_attributes():
             return self.spend_xp_mega_attribute(trait, transcendence, transformation)
-        elif trait in [x.name for x in MegaEdge.objects.all()]:
+        if trait in [x.name for x in MegaEdge.objects.all()]:
             return self.spend_xp_mega_edge(trait, transcendence, transformation)
-        elif trait in [x.name for x in Power.objects.all()]:
+        if trait in [x.name for x in Power.objects.all()]:
             return self.spend_xp_power(trait, transcendence, transformation)
-        elif trait in [x.name for x in Tag.objects.all()]:
+        if trait in [x.name for x in Tag.objects.all()]:
             return self.spend_xp_tag(trait, power, transcendence, transformation)
-        elif trait == "quantum":
+        if trait == "quantum":
             return self.spend_xp_quantum(trait, transcendence, transformation, creation)
-        elif super().spend_xp(trait):
+        if super().spend_xp(trait):
             return True
         self.save()
         return False
