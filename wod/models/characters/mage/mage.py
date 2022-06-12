@@ -805,6 +805,7 @@ class Mage(Human):
             if cost <= self.xp:
                 self.rote_points += 3
                 self.xp -= cost
+                self.add_to_spend(trait, getattr(self, trait.replace(" ", "_")), cost)
                 return True
             return False
         return trait
@@ -915,11 +916,11 @@ class Mage(Human):
         self.random_spheres()
         self.random_history()
         self.random_resonance()
-        self.random_rotes()
         self.random_finishing_touches()
         self.random_mage_history()
         self.random_freebies()
         self.random_xp()
+        self.random_rotes()
         self.random_specialties()
         self.random_node()
         self.random_library()
