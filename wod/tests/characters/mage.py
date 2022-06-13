@@ -460,6 +460,10 @@ class TestMage(TestCase):
         self.assertFalse(self.character.add_sphere("forces"))
         self.character.arete = 3
         self.assertTrue(self.character.add_sphere("forces"))
+        self.character.arete = 7
+        self.assertTrue(self.character.add_sphere("forces"))
+        self.assertTrue(self.character.add_sphere("forces"))
+        self.assertFalse(self.character.add_sphere("forces"))
 
     def test_batini_no_entropy(self):
         self.character.faction = MageFaction.objects.create(name="Ahl-i-Batin")
