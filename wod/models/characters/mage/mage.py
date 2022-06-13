@@ -480,7 +480,7 @@ class Mage(Human):
         if self.faction is not None:
             if self.faction.name == "Ahl-i-Batin" and sphere == "entropy":
                 return False
-        return add_dot(self, sphere, self.arete)
+        return add_dot(self, sphere, min(self.arete, 5))
 
     def filter_spheres(self, minimum=0, maximum=5):
         return {k: v for k, v in self.get_spheres().items() if minimum <= v <= maximum}
@@ -891,10 +891,10 @@ class Mage(Human):
             return self.node_owned.rank == self.node
         return False
 
-    def random_node(self):
+    def random_node(self, favored_list=None):
         if self.node > 0:
             n = Node.objects.create(name=f"{self.name}'s Node")
-            n.random(rank=self.node)
+            n.random(rank=self.node, favored_list=favored_list)
             n.save()
             self.node_owned = n
             self.save()
@@ -922,7 +922,7 @@ class Mage(Human):
         self.random_xp()
         self.random_rotes()
         self.random_specialties()
-        self.random_node()
+        self.random_node(favored_list=self.resonance.all())
         self.random_library()
 
 
