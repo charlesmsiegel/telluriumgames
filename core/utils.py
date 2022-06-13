@@ -233,7 +233,7 @@ ethnicity_to_code = {
     "Pashto": "pas",
     "Picard": "pcd",
     "Persian": "per",
-    "Pet": "pets",
+    # "Pet": "pets",
     "Pintupi": "pin",
     "Polish": "pol",
     # "Popular Culture": "popu",
