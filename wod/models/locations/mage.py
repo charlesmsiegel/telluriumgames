@@ -164,7 +164,7 @@ class Node(Location):
             if favored_list is not None:
                 choices = {i: 1 for i in range(1, Resonance.objects.last().id + 1)}
                 for resonance in favored_list:
-                    choices[resonance.id] += Resonance.objects.last().id//2
+                    choices[resonance.id] += Resonance.objects.last().id // 2
             else:
                 choices = {i: 1 for i in range(1, Resonance.objects.last().id + 1)}
             index = weighted_choice(choices, ceiling=1000000)
