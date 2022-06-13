@@ -153,7 +153,7 @@ class Node(Location):
     def total_resonance(self):
         return sum(x.rating for x in NodeResonanceRating.objects.filter(node=self))
 
-    def random_resonance(self, sphere=None):
+    def random_resonance(self, sphere=None, favored_list=None):
         if random.random() < 0.7:
             possible = self.filter_resonance(minimum=1, maximum=4, sphere=sphere)
             if len(possible) > 0:
@@ -161,7 +161,13 @@ class Node(Location):
                 if self.add_resonance(choice):
                     return True
         while True:
-            index = random.randint(1, Resonance.objects.last().id)
+            if favored_list is not None:
+                choices = {i: 1 for i in range(1, Resonance.objects.last().id + 1)}
+                for resonance in favored_list:
+                    choices[resonance.id] += Resonance.objects.last().id//2
+            else:
+                choices = {i: 1 for i in range(1, Resonance.objects.last().id + 1)}
+            index = weighted_choice(choices, ceiling=1000000)
             if Resonance.objects.filter(pk=index).exists():
                 choice = Resonance.objects.get(pk=index)
                 if self.check_resonance(choice, sphere=sphere):
@@ -224,15 +230,15 @@ class Node(Location):
         self.tass_per_week = self.points - self.quintessence_per_week
         return True
 
-    def random(self, rank=None):
+    def random(self, rank=None, favored_list=None):
         self.random_rank(rank=rank)
         while not self.has_resonance():
-            self.random_resonance()
+            self.random_resonance(favored_list=favored_list)
         self.random_ratio()
         self.random_size()
         self.random_forms()
         while random.random() < 0.2 and self.points > 1:
-            self.random_resonance()
+            self.random_resonance(favored_list=favored_list)
         while random.random() < 0.4 and self.points > 1:
             current = self.total_mf()
             self.random_mf(maximum=(self.points - 1))
