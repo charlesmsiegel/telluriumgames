@@ -36,6 +36,7 @@ class Specialty(models.Model):
 class MeritFlaw(models.Model):
     name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
+    allowed_types = models.JSONField(default=list)
 
     def __str__(self):
         return self.name
@@ -508,6 +509,7 @@ class Human(Character):
         filtered_set = [x[0] for x in filtered_set]
         if self.has_max_flaws():
             filtered_set = [x for x in filtered_set if max(x.ratings) > 0]
+        filtered_set = [x for x in filtered_set if self.type in x.allowed_types]
         return filtered_set
 
     def mf_rating(self, mf):
