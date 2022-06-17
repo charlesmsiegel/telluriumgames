@@ -733,6 +733,8 @@ class Mage(Human):
             return 1
         if trait == "rote points":
             return 1
+        if trait == "resonance":
+            return 3
         return 10000
 
     def spend_freebies(self, trait):
@@ -771,6 +773,14 @@ class Mage(Human):
                 self.freebies -= cost
                 return True
             return False
+        if Resonance.objects.filter(name=trait).exists():
+             cost = self.freebie_cost("resonance") * (self.total_resonance() - 1)
+             if cost <= self.freebies:
+                 if self.add_resonance(trait):
+                     self.freebies -= cost
+                     return True
+                 return False
+             return False
         return trait
 
     def spend_xp(self, trait):
@@ -846,6 +856,7 @@ class Mage(Human):
             "arete": 5,
             "quintessence": 1,
             "rote points": 5,
+            "resonance": 10,
         }
         while self.freebies > 0:
             choice = weighted_choice(frequencies)
@@ -872,6 +883,9 @@ class Mage(Human):
                 self.spend_freebies(choice)
             if choice == "rote points":
                 self.spend_freebies(choice)
+            if choice == "resonance":
+                trait = self.choose_random_resonance()
+                self.spend_freebies(trait)
 
     def has_library(self):
         if self.library_owned is not None:

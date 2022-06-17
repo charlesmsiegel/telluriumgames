@@ -16,6 +16,7 @@ from wod.models.characters.mage import (
     Resonance,
     Rote,
 )
+from wod.models.characters.mage.resonance import ResRating
 from wod.models.locations.mage import NodeMeritFlaw
 
 
@@ -748,6 +749,7 @@ class TestMage(TestCase):
         self.assertEqual(self.character.freebie_cost("arete"), 4)
         self.assertEqual(self.character.freebie_cost("quintessence"), 1)
         self.assertEqual(self.character.freebie_cost("rote points"), 1)
+        self.assertEqual(self.character.freebie_cost("resonance"), 3)
 
     def test_spend_freebies(self):
         self.character.arete = 1
@@ -772,6 +774,14 @@ class TestMage(TestCase):
         self.assertEqual(self.character.freebies, 3)
         self.assertTrue(self.character.spend_freebies("rote points"))
         self.assertEqual(self.character.freebies, 2)
+        ResRating.objects.create(mage=self.character, resonance=Resonance.objects.create(name="TestRes"), rating=1)
+        self.character.freebies = 30
+        self.assertTrue(self.character.spend_freebies("resonance"))
+        self.character.freebies = 27
+        self.assertTrue(self.character.spend_freebies("resonance"))
+        self.character.freebies = 21
+        self.assertTrue(self.character.spend_freebies("resonance"))
+        self.character.freebies = 12
 
     def test_xp_cost(self):
         self.assertEqual(self.character.xp_cost("attribute"), 4)
