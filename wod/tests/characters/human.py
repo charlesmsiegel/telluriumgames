@@ -56,9 +56,13 @@ class TestHuman(TestCase):
         for i in range(1, 6):
             for j in [-1, 1]:
                 if j == 1:
-                    MeritFlaw.objects.create(name=f"Merit {i}", ratings=[i])
+                    MeritFlaw.objects.create(
+                        name=f"Merit {i}", ratings=[i], allowed_types=["human"]
+                    )
                 else:
-                    MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i])
+                    MeritFlaw.objects.create(
+                        name=f"Flaw {i}", ratings=[-i], allowed_types=["human"]
+                    )
         for i in range(10):
             for stat in self.character.get_abilities():
                 Specialty.objects.create(
@@ -572,6 +576,11 @@ class TestHuman(TestCase):
         self.assertEqual(len(self.character.filter_mfs()), 7)
         self.character.add_mf(MeritFlaw.objects.get(name="Flaw 5"), -5)
         self.assertEqual(len(self.character.filter_mfs()), 3)
+        m = MeritFlaw.objects.create(name="Test Merit", ratings=[1, 2, 3])
+        self.assertNotIn(m, self.character.filter_mfs())
+        m.allowed_types.append("human")
+        m.save()
+        self.assertIn(m, self.character.filter_mfs())
 
     def test_total_merits(self):
         self.assertEqual(self.character.total_merits(), 0)
@@ -738,9 +747,13 @@ class TestRandomHuman(TestCase):
         for i in range(1, 6):
             for j in [-1, 1]:
                 if j == 1:
-                    MeritFlaw.objects.create(name=f"Merit {i}", ratings=[i])
+                    MeritFlaw.objects.create(
+                        name=f"Merit {i}", ratings=[i], allowed_types=["human"]
+                    )
                 else:
-                    MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i])
+                    MeritFlaw.objects.create(
+                        name=f"Flaw {i}", ratings=[-i], allowed_types=["human"]
+                    )
 
     def test_random_name(self):
         self.assertFalse(self.character.has_name())
