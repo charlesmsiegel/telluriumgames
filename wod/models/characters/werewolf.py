@@ -131,7 +131,9 @@ class Werewolf(Human):
         )
 
     def add_gift(self, gift):
-        pass
+        self.gifts.add(gift)
+        self.save()
+        return True
 
     def filter_gifts(self):
         return []
@@ -146,7 +148,9 @@ class Werewolf(Human):
         pass
 
     def add_rite(self, rite):
-        pass
+        self.rites_known.add(rite)
+        self.save()
+        return True
 
     def filter_rites(self):
         return []
@@ -190,6 +194,26 @@ class Werewolf(Human):
 
     def increase_rank(self):
         pass
+
+    def xp_cost(self, trait):
+        if trait == "gift":
+            return 3
+        if trait == "outside gift":
+            return 5
+        if trait == "rage":
+            return 1
+        if trait == "gnosis":
+            return 2
+        return super().xp_cost(trait)
+
+    def freebie_cost(self, trait):
+        if trait == "gift":
+            return 7
+        if trait == "rage":
+            return 1
+        if trait == "gnosis":
+            return 2
+        return super().freebie_cost(trait)
 
     def has_werewolf_history(self):
         return (
