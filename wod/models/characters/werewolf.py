@@ -293,7 +293,11 @@ class Werewolf(Human):
         return True
 
     def filter_gifts(self):
-        return []
+        return [
+            x
+            for x in Gift.objects.filter(rank__lte=self.rank)
+            if x not in self.gifts.all()
+        ]
 
     def has_gifts(self):
         pass
