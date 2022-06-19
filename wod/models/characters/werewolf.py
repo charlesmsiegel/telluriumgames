@@ -113,6 +113,7 @@ class Werewolf(Human):
 
     def set_tribe(self, tribe):
         self.tribe = tribe
+        self.willpower = tribe.willpower
         return True
 
     def random_tribe(self):
