@@ -50,6 +50,28 @@ class Werewolf(Human):
     type = "garou"
 
     rank = models.IntegerField(default=1)
+    auspice = models.CharField(
+        default="",
+        max_length=100,
+        choices=[
+            ("ragabash", "Ragabash"),
+            ("theurge", "Theurge"),
+            ("philodox", "Philodox"),
+            ("galliard", "Galliard"),
+            ("ahroun", "Ahroun"),
+        ],
+    )
+    breed = models.CharField(
+        default="",
+        max_length=100,
+        choices=[
+            ("homid", "Homid"),
+            ("metis", "Metis"),
+            ("lupus", "Lupus"),
+        ],
+    )
+    tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.CASCADE)
+    camp = models.ForeignKey(Camp, blank=True, null=True, on_delete=models.CASCADE)
 
     rites = models.IntegerField(default=0)
 
@@ -62,6 +84,10 @@ class Werewolf(Human):
 
     gifts = models.ManyToManyField(Gift, blank=True)
     rites_known = models.ManyToManyField(Rite, blank=True)
+    
+    first_change = models.TextField(default="")
+    battle_scars = models.TextField(default="")
+    age_of_first_change = models.IntegerField(default=0)
 
     def has_breed(self):
         return self.breed is not None
@@ -91,7 +117,7 @@ class Werewolf(Human):
         return True
 
     def random_tribe(self):
-        return self.set_tribe(Tribe.object.order("?").first())
+        return self.set_tribe(Tribe.objects.order_by("?").first())
 
     def has_camp(self):
         return self.camp is not None
@@ -101,7 +127,7 @@ class Werewolf(Human):
         return True
 
     def random_camp(self):
-        return self.set_tribe(Camp.object.filter(tribe=self.tribe).order("?").first())
+        return self.set_tribe(Camp.objects.filter(tribe=self.tribe).order_by("?").first())
 
     def add_gift(self, gift):
         pass
