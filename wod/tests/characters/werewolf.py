@@ -1,13 +1,25 @@
+from glob import glob1
 from django.test import TestCase
 from django.contrib.auth.models import User
 
-from wod.models.characters.werewolf import Werewolf, Pack, Totem, Tribe, Camp
+from wod.models.characters.werewolf import Werewolf, Pack, Totem, Tribe, Camp, Gift, Rite
 
 # Create your tests here.
 def werewolf_setup(player):
     for i in range(5):
         Totem.objects.create(name=f"Totem {i}", cost=(10 + i))
-
+    for i in range(1, 6):
+        Gift.objects.create(name=f"Gift {i}", rank=i)
+        Gift.objects.create(name=f"Gift {5+i}", rank=i)
+    t = Tribe.objects.create(name="Test Tribe", willpower=5)
+    Tribe.objects.create(name="Test Tribe 2", willpower=3)
+    Camp.objects.create(name="Test Camp", tribe=t)
+    Gift.objects.create(name="Test Tribe Gift", rank=1, allowed={"garou": ["Test Tribe"]})
+    Gift.objects.create(name="Ragabash Gift", rank=1, allowed={"garou": ["ragabash"]})
+    Gift.objects.create(name="Homid Gift", rank=1, allowed={"garou": ["homid"]})
+    for i in range(6):
+        Rite.objects.create(name=f"Rite {i}", level=i)
+        Rite.objects.create(name=f"Rite {6+i}", level=i)
 
 class TestWerewolf(TestCase):
     def setUp(self):
@@ -204,38 +216,61 @@ class TestWerewolf(TestCase):
             }
         )
 
-    def test_set_gifts(self):
-        self.fail()
-
     def test_add_gift(self):
-        self.fail()
+        g = Gift.objects.get(name="Gift 1")
+        self.assertEqual(self.character.gifts.count(), 0)
+        self.assertTrue(self.character.add_gift(g))
+        self.assertEqual(self.character.gifts.count(), 1)
+        self.assertIn(g, self.character.gifts.all())
 
     def test_filter_gifts(self):
-        self.fail()
+        self.character.rank = 2
+        self.assertEqual(len(self.character.filter_gifts(), 4))
+        self.character.add_rite(Gift.objects.get(name="Gift 1"))
+        self.character.add_rite(Gift.objects.get(name="Gift 2"))
+        self.assertEqual(len(self.character.filter_gifts(), 2))
 
     def test_has_gifts(self):
-        self.fail()
+        t = Tribe.objects.get(name="Test Tribe", willpower=5)
+        self.character.set_tribe(t)
+        g1 = Gift.objects.get(name="Test Tribe Gift")
+        g2 = Gift.objects.get(name="Ragabash Gift")
+        g3 = Gift.objects.get(name="Homid Gift")
+        self.assertFalse(self.character.has_gifts())
+        self.character.add_gift(g1)
+        self.assertFalse(self.character.has_gifts())
+        self.character.add_gift(g2)
+        self.assertFalse(self.character.has_gifts())
+        self.character.add_gift(g3)
+        self.assertTrue(self.character.has_gifts())
 
-    def test_set_rites(self):
-        self.fail()
-
-    def test_add_rites(self):
-        self.fail()
+    def test_add_rite(self):
+        r = Rite.objects.get(name="Rite 1", level=1)
+        self.assertEqual(self.character.rites.count(), 0)
+        self.assertTrue(self.character.add_rite(r))
+        self.assertEqual(self.character.rites.count(), 1)
+        self.assertIn(r, self.character.rites.all())
 
     def test_filter_rites(self):
-        self.fail()
+        self.assertEqual(len(self.character.filter_rites(), 12))
+        self.character.add_rite(Rite.objects.get(name="Rite 1"))
+        self.character.add_rite(Rite.objects.get(name="Rite 2"))
+        self.assertEqual(len(self.character.filter_rites(), 10))
 
     def test_has_rites(self):
-        self.fail()
+        self.character.rites = 3
+        self.assertFalse(self.character.has_rites())
+        self.character.add_rite(Rite.objects.get(name="Rite 3"))
+        self.assertTrue(self.character.has_rites())
 
     def test_set_tribe(self):
-        t = Tribe.objects.create(name="Test Tribe")
+        t = Tribe.objects.get(name="Test Tribe")
         self.assertFalse(self.character.has_tribe())
         self.assertTrue(self.character.set_tribe(t))
         self.assertTrue(self.character.has_tribe())
 
     def test_has_tribe(self):
-        t = Tribe.objects.create(name="Test Tribe")
+        t = Tribe.objects.get(name="Test Tribe")
         self.assertFalse(self.character.has_tribe())
         self.character.set_tribe(t)
         self.assertTrue(self.character.has_tribe())
@@ -250,30 +285,51 @@ class TestWerewolf(TestCase):
         self.character.set_breed("homid")
         self.assertTrue(self.character.has_breed())
 
+    def test_breed_sets_gnosis(self):
+        self.character.set_breed("homid")
+        self.assertEqual(self.character.gnosis, 1)
+        self.character.set_breed("metis")
+        self.assertEqual(self.character.gnosis, 3)
+        self.character.set_breed("lupus")
+        self.assertEqual(self.character.gnosis, 5)
+
     def test_set_camp(self):
-        t = Tribe.objects.create(name="Test Tribe")
+        t = Tribe.objects.get(name="Test Tribe")
         self.character.set_tribe(t)
-        c = Camp.objects.create(name="Test Camp", tribe=t)
+        c = Camp.objects.get(name="Test Camp")
         self.assertFalse(self.character.has_camp())
         self.assertTrue(self.character.set_camp(c))
         self.assertTrue(self.character.has_camp())
 
     def test_has_camp(self):
-        t = Tribe.objects.create(name="Test Tribe")
+        t = Tribe.objects.get(name="Test Tribe")
         self.character.set_tribe(t)
-        c = Camp.objects.create(name="Test Camp", tribe=t)
+        c = Camp.objects.get(name="Test Camp", tribe=t)
         self.assertFalse(self.character.has_camp())
         self.character.set_camp(c)
         self.assertTrue(self.character.has_camp())
 
     def test_add_gnosis(self):
-        self.fail()
+        self.assertEqual(self.character.gnosis, 0)
+        self.assertTrue(self.character.add_gnosis())
+        self.assertEqual(self.character.gnosis, 1)
+        self.character.gnosis = 10
+        self.assertFalse(self.character.add_gnosis())
 
     def test_add_rage(self):
-        self.fail()
+        self.assertEqual(self.character.rage, 0)
+        self.assertTrue(self.character.add_rage())
+        self.assertEqual(self.character.rage, 1)
+        self.character.rage = 10
+        self.assertFalse(self.character.add_rage())
 
     def test_tribe_sets_willpower(self):
-        self.fail()
+        t = Tribe.objects.get(name="Test Tribe 2")
+        self.character.set_tribe(t)
+        self.assertEqual(self.character.willpower, 3)
+        t = Tribe.objects.get(name="Test Tribe")
+        self.character.set_tribe(t)
+        self.assertEqual(self.character.willpower, 5)
 
     def test_get_backgrounds(self):
         self.assertEqual(
@@ -325,59 +381,166 @@ class TestWerewolf(TestCase):
         self.character.spirit_heritage = 2
         self.assertEqual(self.character.total_backgrounds(), 14)
 
-    def test_set_permanent_glory(self):
-        self.fail()
+    def test_set_glory(self):
+        self.assertEqual(self.character.glory, 0)
+        self.assertTrue(self.character.set_glory(3))
+        self.assertEqual(self.character.glory, 3)
 
-    def test_set_permanent_honor(self):
-        self.fail()
+    def test_set_honor(self):
+        self.assertEqual(self.character.honor, 0)
+        self.assertTrue(self.character.set_honor(3))
+        self.assertEqual(self.character.honor, 3)
 
-    def test_set_permanent_wisdom(self):
-        self.fail()
+    def test_set_wisdom(self):
+        self.assertEqual(self.character.wisdom, 0)
+        self.assertTrue(self.character.set_wisdom(3))
+        self.assertEqual(self.character.wisdom, 3)
 
-    def test_set_temporary_glory(self):
-        self.fail()
-
-    def test_set_temporary_honor(self):
-        self.fail()
-
-    def test_set_temporary_wisdom(self):
-        self.fail()
-        
     def test_has_renown(self):
-        self.fail()
+        self.assertFalse(self.character.has_renown())
+        self.character.set_auspice("ragabash")
+        self.assertEqual(self.character.glory + self.character.honor + self.character.wisdom, 3)
+        self.assertTrue(self.character.has_renown())
 
     def test_set_auspice(self):
-        self.fail()
+        self.assertFalse(self.character.has_auspice())
+        self.assertTrue(self.character.set_auspice("ragabash"))
+        self.assertTrue(self.character.has_auspice())
 
     def test_has_auspice(self):
-        self.fail()
+        self.assertFalse(self.character.has_breed())
+        self.character.set_breed("homid")
+        self.assertTrue(self.character.has_breed())
 
     def test_auspice_sets_rage(self):
-        self.fail()
+        self.assertEqual(self.character.rage, 0)
+        self.character.set_auspice("ragabash")
+        self.assertEqual(self.character.rage, 1)
+        self.character.set_auspice("theurge")
+        self.assertEqual(self.character.rage, 2)
+        self.character.set_auspice("philodox")
+        self.assertEqual(self.character.rage, 3)
+        self.character.set_auspice("galliard")
+        self.assertEqual(self.character.rage, 4)
+        self.character.set_auspice("ahroud")
+        self.assertEqual(self.character.rage, 5)
 
     def test_auspice_sets_renown(self):
-        self.fail()
+        self.assertEqual(self.character.glory + self.character.honor + self.character.wisdom, 0)
+        self.character.set_auspice("ragabash")
+        self.assertEqual(self.character.glory + self.character.honor + self.character.wisdom, 3)        
+        self.character.set_auspice("theurge")
+        self.assertEqual(self.character.glory, 0)
+        self.assertEqual(self.character.honor, 0)
+        self.assertEqual(self.character.wisdom, 3)
+        self.character.set_auspice("philodox")
+        self.assertEqual(self.character.glory, 0)
+        self.assertEqual(self.character.honor, 3)
+        self.assertEqual(self.character.wisdom, 0)
+        self.character.set_auspice("galliard")
+        self.assertEqual(self.character.glory, 2)
+        self.assertEqual(self.character.honor, 0)
+        self.assertEqual(self.character.wisdom, 1)
+        self.character.set_auspice("ahroud")
+        self.assertEqual(self.character.glory, 2)
+        self.assertEqual(self.character.honor, 1)
+        self.assertEqual(self.character.wisdom, 0)
 
     def test_set_rank(self):
-        self.fail()
+        self.assertEqual(self.character.rank, 1)
+        self.character.set_rank(3)
+        self.assertEqual(self.character.rank, 3)
 
     def test_increase_rank(self):
-        self.fail()
+        self.assertEqual(self.character.rank, 1)
+        self.character.set_auspice("ragabash")
+        self.assertFalse(self.character.increase_rank())
+        self.character.set_glory(3)
+        self.character.set_honor(3)
+        self.character.set_wisdom(1)
+        self.assertTrue(self.character.increase_rank())
 
     def test_freebie_cost(self):
-        self.fail()
+        self.assertEqual(self.character.freebie_cost("attribute"), 5)
+        self.assertEqual(self.character.freebie_cost("ability"), 2)
+        self.assertEqual(self.character.freebie_cost("background"), 1)
+        self.assertEqual(self.character.freebie_cost("willpower"), 1)
+        self.assertEqual(self.character.freebie_cost("meritflaw"), 1)
+        self.assertEqual(self.character.freebie_cost("gift"), 7)
+        self.assertEqual(self.character.freebie_cost("rage"), 1)
+        self.assertEqual(self.character.freebie_cost("gnosis"), 2)
 
     def test_spend_freebies(self):
-        self.fail()
+        self.assertEqual(self.character.freebies, 15)
+        self.assertTrue(self.character.spend_freebies("strength"))
+        self.assertEqual(self.character.freebies, 10)
+        self.assertTrue(self.character.spend_freebies("occult"))
+        self.assertEqual(self.character.freebies, 8)
+        self.assertTrue(self.character.spend_freebies("mentor"))
+        self.assertEqual(self.character.freebies, 7)
+        self.assertTrue(self.character.spend_freebies("willpower"))
+        self.assertEqual(self.character.freebies, 6)
+        self.assertTrue(self.character.spend_freebies("Merit 1"))
+        self.assertEqual(self.character.freebies, 5)
+        self.character.freebies = 15
+        self.assertEqual(self.character.freebies, 15)
+        self.assertTrue(self.character.spend_freebies("Gift 1"))
+        self.assertEqual(self.character.freebies, 8)
+        self.assertTrue(self.character.spend_freebies("rage"))
+        self.assertEqual(self.character.freebies, 7)
+        self.assertTrue(self.character.spend_freebies("gnosis"))
+        self.assertEqual(self.character.freebies, 5)
 
     def test_xp_cost(self):
-        self.fail()
+        self.assertEqual(self.character.xp_cost("attribute"), 4)
+        self.assertEqual(self.character.xp_cost("ability"), 2)
+        self.assertEqual(self.character.xp_cost("background"), 3)
+        self.assertEqual(self.character.xp_cost("new background"), 5)
+        self.assertEqual(self.character.xp_cost("willpower"), 1)
+        self.assertEqual(self.character.xp_cost("new ability"), 3)
+
+        self.assertEqual(self.character.xp_cost("gift"), 3)
+        self.assertEqual(self.character.xp_cost("outside gift"), 5)
+        self.assertEqual(self.character.xp_cost("rage"), 1)
+        self.assertEqual(self.character.xp_cost("gnosis"), )
 
     def test_spend_xp(self):
-        self.fail()
+        self.character.xp = 100
+        t = Tribe.objects.get(name="Test Tribe")
+        self.character.set_tribe(t)
+        self.character.set_auspice("ragabash")
+        self.character.set_breed("homid")
+        Gift.objects.get(name="Test Tribe Gift")
+        Gift.objects.get(name="Gift 1")
+        self.assertTrue(self.character.spend_xp("strength"))
+        self.assertEqual(self.character.xp, 96)
+        self.assertTrue(self.character.spend_xp("occult"))
+        self.assertEqual(self.character.xp, 93)
+        self.assertTrue(self.character.spend_xp("occult"))
+        self.assertEqual(self.character.xp, 91)
+        self.assertTrue(self.character.spend_xp("mentor"))
+        self.assertEqual(self.character.xp, 86)
+        self.assertTrue(self.character.spend_xp("mentor"))
+        self.assertEqual(self.character.xp, 83)
+        self.assertTrue(self.character.spend_xp("willpower"))
+        self.assertEqual(self.character.xp, 78)
+        self.assertTrue(self.character.spend_xp("Gift 1"))
+        self.assertEqual(self.character.xp, 75)
+        self.assertTrue(self.character.spend_xp("rage"))
+        self.assertEqual(self.character.xp, 74)
+        self.assertTrue(self.character.spend_xp("gnosis"))
+        self.assertEqual(self.character.xp, 72)
+        self.assertTrue(self.character.spend_xp("Gift 2"))
+        self.assertEqual(self.character.xp, 67)
 
     def test_has_werewolf_history(self):
-        self.fail()
+        self.assertFalse(self.character.has_werewolf_history())
+        self.character.first_change = "Young"
+        self.assertFalse(self.character.has_werewolf_history())
+        self.character.battle_scars = "Several"
+        self.assertFalse(self.character.has_werewolf_history())
+        self.character.age_of_first_change = 13
+        self.assertTrue(self.character.has_werewolf_history())
 
 
 class TestRandomWerewolf(TestCase):
@@ -404,14 +567,16 @@ class TestRandomWerewolf(TestCase):
         self.assertTrue(self.character.has_gifts())
 
     def test_random_rites(self):
-        self.fail()
+        self.character.rites = 3
+        self.assertFalse(self.character.has_riteS())
+        self.character.random_rites()
+        self.assertTrue(self.character.has_riteS())
 
     def test_random_spend_xp(self):
         self.character.science = 1
         self.character.xp = 15
         self.character.random_xp()
         self.assertLess(self.character.xp, 15)
-
 
     def test_random_freebies(self):
         self.assertEqual(self.character.freebies, 15)
