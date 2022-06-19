@@ -1,7 +1,6 @@
 import random
 
 from django.db import models
-from regex import P
 
 from core.utils import add_dot
 from wod.models.characters.human import Human
@@ -301,18 +300,20 @@ class Werewolf(Human):
 class Pack(models.Model):
     name = models.CharField(max_length=100, unique=True)
     members = models.ManyToManyField(Werewolf, blank=True)
+    totem = models.ForeignKey(Totem, null=True, blank=True, on_delete=models.CASCADE)
 
     def random(self, num_chars, new_characters=False):
         pass
 
     def set_totem(self, totem):
-        pass
+        self.totem = totem
+        return True
 
     def has_totem(self):
-        pass
+        return self.totem is not None
 
     def random_totem(self):
         pass
 
     def total_totem(self):
-        pass
+        return sum([x.totem for x in self.members.all()])
