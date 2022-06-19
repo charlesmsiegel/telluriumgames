@@ -268,6 +268,8 @@ class TestWerewolf(TestCase):
     def test_has_gifts(self):
         t = Tribe.objects.get(name="Test Tribe", willpower=5)
         self.character.set_tribe(t)
+        self.character.set_breed("homid")
+        self.character.set_auspice("ragabash")
         g1 = Gift.objects.get(name="Test Tribe Gift")
         g2 = Gift.objects.get(name="Ragabash Gift")
         g3 = Gift.objects.get(name="Homid Gift")
