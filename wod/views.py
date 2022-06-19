@@ -14,6 +14,7 @@ from wod.models.locations.mage import (
     NodeMeritFlawRating,
     NodeResonanceRating,
 )
+from wod.models.characters.werewolf import Werewolf
 
 
 # Create your views here.
@@ -123,16 +124,17 @@ class GenericLocationDetailView(View):
 class RandomLocationView(View):
     locs = {
         "node": Node,
+        "chantry": Chantry,
     }
 
     def post(self, request):
         location = self.locs[request.POST["location_type"]].objects.create(
-            name=request.POST["node_name"]
+            name=request.POST["name"]
         )
-        if request.POST["node_rank"] is None:
+        if request.POST["rank"] is None:
             rank = None
         else:
-            rank = int(request.POST["node_rank"])
+            rank = int(request.POST["rank"])
         location.random(rank=rank)
         location.save()
         return redirect(location.get_absolute_url())
@@ -235,6 +237,10 @@ class HumanDetailView(DetailView):
     model = Human
     template_name = "wod/characters/human/detail.html"
 
+class WerewolfDetailView(DetailView):
+    model = Werewolf
+    template_name = "wod/characters/werewolf/detail.html"
+
 
 class MageDetailView(View):
     def get(self, request, *args, **kwargs):
@@ -279,6 +285,7 @@ class GenericCharacterDetailView(View):
     character_views = {
         "character": CharacterDetailView,
         "human": HumanDetailView,
+        "werewolf": WerewolfDetailView,
         "mage": MageDetailView,
     }
 
@@ -291,6 +298,7 @@ class GenericCharacterDetailView(View):
 
 class RandomCharacterView(View):
     chars = {
+        "werewolf": Werewolf,
         "mage": Mage,
     }
 
