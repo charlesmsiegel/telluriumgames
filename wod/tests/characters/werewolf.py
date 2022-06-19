@@ -69,7 +69,7 @@ class TestWerewolf(TestCase):
 
     def test_get_abilities(self):
         self.assertEqual(
-            self.character.get_talents(),
+            self.character.get_abilities(),
             {
                 "alertness": 0,
                 "athletics": 0,
@@ -105,7 +105,7 @@ class TestWerewolf(TestCase):
         )
         self.set_abilities()
         self.assertEqual(
-            self.character.get_talents(),
+            self.character.get_abilities(),
             {
                 "alertness": 0,
                 "athletics": 0,
@@ -175,7 +175,7 @@ class TestWerewolf(TestCase):
 
     def test_get_skills(self):
         self.assertEqual(
-            self.character.get_talents(),
+            self.character.get_skills(),
             {
                 "crafts": 0,
                 "drive": 0,
@@ -191,7 +191,7 @@ class TestWerewolf(TestCase):
         )
         self.set_abilities()
         self.assertEqual(
-            self.character.get_talents(),
+            self.character.get_skills(),
             {
                 "crafts": 2,
                 "drive": 0,
@@ -208,7 +208,7 @@ class TestWerewolf(TestCase):
 
     def test_get_knowledges(self):
         self.assertEqual(
-            self.character.get_talents(),
+            self.character.get_knowledges(),
             {
                 "academics": 0,
                 "computer": 0,
@@ -224,7 +224,7 @@ class TestWerewolf(TestCase):
         )
         self.set_abilities()
         self.assertEqual(
-            self.character.get_talents(),
+            self.character.get_knowledges(),
             {
                 "academics": 0,
                 "computer": 4,
@@ -400,9 +400,9 @@ class TestWerewolf(TestCase):
         self.character.ancestors = 4
         self.character.resources = 1
         self.character.fetish = 2
-        self.assertEqual(self.character.total_backgrounds(), 12)
+        self.assertEqual(self.character.total_backgrounds(), 10)
         self.character.spirit_heritage = 2
-        self.assertEqual(self.character.total_backgrounds(), 14)
+        self.assertEqual(self.character.total_backgrounds(), 12)
 
     def test_set_glory(self):
         self.assertEqual(self.character.glory, 0)
