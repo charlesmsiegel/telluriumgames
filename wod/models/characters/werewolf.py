@@ -162,7 +162,7 @@ class Werewolf(Human):
         return tmp
 
     def has_breed(self):
-        return self.breed is not None
+        return self.breed != ""
 
     def set_breed(self, breed):
         self.breed = breed
@@ -172,7 +172,7 @@ class Werewolf(Human):
         return self.set_breed(random.choice(["homid", "metis", "lupus"]))
 
     def has_auspice(self):
-        return self.auspice is not None
+        return self.auspice != ""
 
     def set_auspice(self, auspice):
         self.auspice = auspice
