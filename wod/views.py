@@ -5,6 +5,7 @@ from django.views.generic import DetailView, View
 
 from wod.models.characters.human import Character, Human, MeritFlawRating
 from wod.models.characters.mage import Mage, ResRating
+from wod.models.characters.werewolf import Werewolf
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
 from wod.models.locations.human import City, Location
@@ -14,7 +15,6 @@ from wod.models.locations.mage import (
     NodeMeritFlawRating,
     NodeResonanceRating,
 )
-from wod.models.characters.werewolf import Werewolf
 
 
 # Create your views here.
@@ -237,6 +237,7 @@ class HumanDetailView(DetailView):
     model = Human
     template_name = "wod/characters/human/detail.html"
 
+
 class WerewolfDetailView(DetailView):
     model = Werewolf
     template_name = "wod/characters/werewolf/detail.html"
@@ -285,7 +286,7 @@ class GenericCharacterDetailView(View):
     character_views = {
         "character": CharacterDetailView,
         "human": HumanDetailView,
-        "werewolf": WerewolfDetailView,
+        "garou": WerewolfDetailView,
         "mage": MageDetailView,
     }
 

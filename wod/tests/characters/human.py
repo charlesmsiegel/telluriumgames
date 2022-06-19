@@ -11,6 +11,7 @@ from wod.models.characters.human import (
     Specialty,
 )
 from wod.models.characters.mage import Mage
+from wod.models.characters.werewolf import Werewolf
 
 
 # Create your tests here.
@@ -900,6 +901,9 @@ class TestCharacterDetailViews(TestCase):
         self.human = Human.objects.create(
             name="Test Human", player=self.player.wod_profile
         )
+        self.werewolf = Werewolf.objects.create(
+            name="Test Werewolf", player=self.player.wod_profile
+        )
         self.mage = Mage.objects.create(
             name="Test Mage", player=self.player.wod_profile
         )
@@ -911,3 +915,5 @@ class TestCharacterDetailViews(TestCase):
         self.assertTemplateUsed(response, "wod/characters/human/detail.html")
         response = self.client.get(f"/wod/characters/{self.mage.id}/")
         self.assertTemplateUsed(response, "wod/characters/mage/detail.html")
+        response = self.client.get(f"/wod/characters/{self.werewolf.id}/")
+        self.assertTemplateUsed(response, "wod/characters/werewolf/detail.html")
