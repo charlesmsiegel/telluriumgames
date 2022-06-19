@@ -111,6 +111,44 @@ class Werewolf(Human):
     battle_scars = models.TextField(default="")
     age_of_first_change = models.IntegerField(default=0)
 
+    requirements = {
+        "ragabash": {
+            1: {"total": 3},
+            2: {"total": 7},
+            3: {"total": 13},
+            4: {"total": 19},
+            5: {"total": 25},
+        },
+        "theurge": {
+            1: {"glory": 0, "honor": 0, "wisdom": 3},
+            2: {"glory": 1, "honor": 0, "wisdom": 5},
+            3: {"glory": 2, "honor": 1, "wisdom": 7},
+            4: {"glory": 4, "honor": 2, "wisdom": 9},
+            5: {"glory": 4, "honor": 9, "wisdom": 10},
+        },
+        "philodox": {
+            1: {"glory": 0, "honor": 3, "wisdom": 0},
+            2: {"glory": 1, "honor": 4, "wisdom": 1},
+            3: {"glory": 2, "honor": 6, "wisdom": 2},
+            4: {"glory": 3, "honor": 8, "wisdom": 4},
+            5: {"glory": 4, "honor": 10, "wisdom": 9},
+        },
+        "galliard": {
+            1: {"glory": 2, "honor": 0, "wisdom": 1},
+            2: {"glory": 4, "honor": 0, "wisdom": 2},
+            3: {"glory": 4, "honor": 2, "wisdom": 4},
+            4: {"glory": 7, "honor": 2, "wisdom": 6},
+            5: {"glory": 9, "honor": 5, "wisdom": 9},
+        },
+        "ahroun": {
+            1: {"glory": 2, "honor": 1, "wisdom": 0},
+            2: {"glory": 4, "honor": 1, "wisdom": 1},
+            3: {"glory": 6, "honor": 3, "wisdom": 1},
+            4: {"glory": 9, "honor": 4, "wisdom": 2},
+            5: {"glory": 10, "honor": 9, "wisdom": 4},
+        },
+    }
+
     def get_backgrounds(self):
         tmp = super().get_backgrounds()
         tmp.update(
@@ -167,11 +205,12 @@ class Werewolf(Human):
     def set_breed(self, breed):
         self.breed = breed
         if breed == "homid":
-            self.gnosis = 1
+            self.set_gnosis(1)
         elif breed == "metis":
-            self.gnosis = 3
+            self.set_gnosis(3)
         elif breed == "lupus":
-            self.gnosis = 5
+            self.set_gnosis(5)
+        self.save()
         return True
 
     def random_breed(self):
@@ -186,16 +225,28 @@ class Werewolf(Human):
             self.set_glory(ragabash_renown[0])
             self.set_honor(ragabash_renown[1])
             self.set_wisdom(ragabash_renown[2])
+            self.set_rage(1)
         elif auspice == "theurge":
+            self.set_glory(0)
+            self.set_honor(0)
             self.set_wisdom(3)
+            self.set_rage(2)
         elif auspice == "philodox":
+            self.set_glory(0)
             self.set_honor(3)
+            self.set_wisdom(0)
+            self.set_rage(3)
         elif auspice == "galliard":
             self.set_glory(2)
+            self.set_honor(0)
             self.set_wisdom(1)
+            self.set_rage(4)
         elif auspice == "ahroun":
             self.set_glory(2)
             self.set_honor(1)
+            self.set_wisdom(0)
+            self.set_rage(5)
+        self.save()
         return True
 
     def random_auspice(self):
@@ -217,6 +268,7 @@ class Werewolf(Human):
     def set_tribe(self, tribe):
         self.tribe = tribe
         self.willpower = tribe.willpower
+        self.save()
         return True
 
     def random_tribe(self):
@@ -227,6 +279,7 @@ class Werewolf(Human):
 
     def set_camp(self, camp):
         self.camp = camp
+        self.save()
         return True
 
     def random_camp(self):
@@ -273,14 +326,17 @@ class Werewolf(Human):
 
     def set_glory(self, glory):
         self.glory = glory
+        self.save()
         return True
 
     def set_honor(self, honor):
         self.honor = honor
+        self.save()
         return True
 
     def set_wisdom(self, wisdom):
         self.wisdom = wisdom
+        self.save()
         return True
 
     def has_renown(self):
@@ -289,15 +345,39 @@ class Werewolf(Human):
     def add_gnosis(self):
         return add_dot(self, "gnosis", 10)
 
+    def set_gnosis(self, gnosis):
+        self.gnosis = gnosis
+        self.save()
+        return True
+
     def add_rage(self):
         return add_dot(self, "rage", 10)
 
+    def set_rage(self, rage):
+        self.rage = rage
+        self.save()
+        return True
+
     def set_rank(self, rank):
         self.rank = rank
+        self.save()
         return True
 
     def increase_rank(self):
-        pass
+        requirements = self.requirements[self.auspice][self.rank + 1]
+        if "total" in requirements.keys():
+            allowed = self.glory + self.honor + self.wisdom >= requirements["total"]
+        else:
+            allowed = (
+                (self.glory >= requirements["glory"])
+                and (self.honor >= requirements["honor"])
+                and (self.wisdom >= requirements["wisdom"])
+            )
+        if allowed:
+            self.set_rank(self.rank + 1)
+            self.save()
+            return True
+        return False
 
     def xp_cost(self, trait):
         if trait == "gift":
@@ -330,6 +410,18 @@ class Werewolf(Human):
         self.first_change = "Young"
         self.battle_scars = "Several"
         self.age_of_first_change = 13
+
+    def spend_freebies(self, trait):
+        pass
+
+    def random_freebies(self):
+        pass
+
+    def spend_xp(self, trait):
+        pass
+
+    def random_xp(self):
+        pass
 
     def random(self, freebies=15, xp=0, ethnicity=None):
         self.freebies = freebies
@@ -394,6 +486,7 @@ class Pack(models.Model):
 
     def set_totem(self, totem):
         self.totem = totem
+        self.save()
         return True
 
     def has_totem(self):
