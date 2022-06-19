@@ -1,6 +1,8 @@
+import random
 from django.db import models
 
 from wod.models.characters.human import Human
+from core.utils import add_dot
 
 
 class Totem(models.Model):
@@ -62,40 +64,44 @@ class Werewolf(Human):
     rites_known = models.ManyToManyField(Rite, blank=True)
 
     def has_breed(self):
-        pass
+        return self.breed is not None
 
     def set_breed(self, breed):
-        pass
+        self.breed = breed
+        return True
 
     def random_breed(self):
-        pass
+        return self.set_breed(random.choice(['homid', 'metis', 'lupus']))
 
     def has_auspice(self):
-        pass
+        return self.auspice is not None
 
     def set_auspice(self, auspice):
-        pass
+        self.auspice = auspice
+        return True
 
     def random_auspice(self):
-        pass
+        return self.set_auspice(random.choice(['ragabash', 'theurge', 'philodox', 'galliard', 'ahroun']))
 
     def has_tribe(self):
-        pass
+        return self.tribe is not None
 
     def set_tribe(self, tribe):
-        pass
+        self.tribe = tribe
+        return True
 
     def random_tribe(self):
-        pass
+        return self.set_tribe(Tribe.object.order("?").first())
 
     def has_camp(self):
-        pass
+        return self.camp is not None
 
     def set_camp(self, camp):
-        pass
+        self.camp = camp
+        return True
 
     def random_camp(self):
-        pass
+        return self.set_tribe(Camp.object.filter(tribe=self.tribe).order("?").first())
 
     def add_gift(self, gift):
         pass
@@ -119,37 +125,44 @@ class Werewolf(Human):
         return []
 
     def has_rites(self):
-        pass
+        return self.rites == self.total_rites()
+    
+    def total_rites(self):
+        return sum([x.level for x in self.rites_known.all()]) + self.rites_known.filter(level=0).count()//2
 
     def random_rites(self):
         pass
 
     def set_glory(self, glory):
-        pass
+        self.glory = glory
+        return True
 
     def set_honor(self, honor):
-        pass
+        self.honor = honor
+        return True
 
     def set_wisdom(self, wisdom):
-        pass
+        self.wisdom = wisdom
+        return True
 
     def has_renown(self):
         pass
 
     def add_gnosis(self):
-        pass
+        return add_dot(self, "gnosis", 10)
 
     def add_rage(self):
-        pass
+        return add_dot(self, "rage", 10)
 
     def set_rank(self, rank):
-        pass
+        self.rank = rank
+        return True
 
     def increase_rank(self):
         pass
 
     def has_werewolf_history(self):
-        pass
+        return (self.first_change != "") and (self.battle_scars != "") and (self.age_of_first_change != 0)
 
 
 # Create your models here.
