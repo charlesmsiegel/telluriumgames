@@ -2,6 +2,7 @@ from glob import glob1
 from django.test import TestCase
 from django.contrib.auth.models import User
 
+from wod.models.characters.human import MeritFlaw
 from wod.models.characters.werewolf import Werewolf, Pack, Totem, Tribe, Camp, Gift, Rite
 
 # Create your tests here.
@@ -20,6 +21,13 @@ def werewolf_setup(player):
     for i in range(6):
         Rite.objects.create(name=f"Rite {i}", level=i)
         Rite.objects.create(name=f"Rite {6+i}", level=i)
+    for i in range(5):
+        MeritFlaw.objects.create(
+            name=f"Merit {i}", ratings=[i], allowed_types=["garou"]
+        )
+        MeritFlaw.objects.create(
+            name=f"Flaw {i}", ratings=[-i], allowed_types=["garou"]
+        )
 
 class TestWerewolf(TestCase):
     def setUp(self):
@@ -225,10 +233,10 @@ class TestWerewolf(TestCase):
 
     def test_filter_gifts(self):
         self.character.rank = 2
-        self.assertEqual(len(self.character.filter_gifts(), 4))
+        self.assertEqual(len(self.character.filter_gifts()), 4)
         self.character.add_rite(Gift.objects.get(name="Gift 1"))
         self.character.add_rite(Gift.objects.get(name="Gift 2"))
-        self.assertEqual(len(self.character.filter_gifts(), 2))
+        self.assertEqual(len(self.character.filter_gifts()), 2)
 
     def test_has_gifts(self):
         t = Tribe.objects.get(name="Test Tribe", willpower=5)
@@ -246,16 +254,16 @@ class TestWerewolf(TestCase):
 
     def test_add_rite(self):
         r = Rite.objects.get(name="Rite 1", level=1)
-        self.assertEqual(self.character.rites.count(), 0)
+        self.assertEqual(self.character.rites_known.count(), 0)
         self.assertTrue(self.character.add_rite(r))
-        self.assertEqual(self.character.rites.count(), 1)
-        self.assertIn(r, self.character.rites.all())
+        self.assertEqual(self.character.rites_known.count(), 1)
+        self.assertIn(r, self.character.rites_known.all())
 
     def test_filter_rites(self):
-        self.assertEqual(len(self.character.filter_rites(), 12))
+        self.assertEqual(len(self.character.filter_rites()), 12)
         self.character.add_rite(Rite.objects.get(name="Rite 1"))
         self.character.add_rite(Rite.objects.get(name="Rite 2"))
-        self.assertEqual(len(self.character.filter_rites(), 10))
+        self.assertEqual(len(self.character.filter_rites()), 10)
 
     def test_has_rites(self):
         self.character.rites = 3
@@ -546,6 +554,7 @@ class TestWerewolf(TestCase):
 class TestRandomWerewolf(TestCase):
     def setUp(self):
         self.player = User.objects.create_user(username="Player")
+        self.character = Werewolf.objects.create(name="Test Random Werewolf", player=self.player.wod_profile)
         werewolf_setup(self.player)
 
     def test_random_tribe(self):
@@ -568,9 +577,9 @@ class TestRandomWerewolf(TestCase):
 
     def test_random_rites(self):
         self.character.rites = 3
-        self.assertFalse(self.character.has_riteS())
+        self.assertFalse(self.character.has_rites())
         self.character.random_rites()
-        self.assertTrue(self.character.has_riteS())
+        self.assertTrue(self.character.has_rites())
 
     def test_random_spend_xp(self):
         self.character.science = 1
