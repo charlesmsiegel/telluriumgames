@@ -774,7 +774,11 @@ class TestMage(TestCase):
         self.assertEqual(self.character.freebies, 3)
         self.assertTrue(self.character.spend_freebies("rote points"))
         self.assertEqual(self.character.freebies, 2)
-        ResRating.objects.create(mage=self.character, resonance=Resonance.objects.create(name="TestRes"), rating=1)
+        ResRating.objects.create(
+            mage=self.character,
+            resonance=Resonance.objects.create(name="TestRes"),
+            rating=1,
+        )
         self.character.freebies = 30
         self.assertTrue(self.character.spend_freebies("resonance"))
         self.character.freebies = 27

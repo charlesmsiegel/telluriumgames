@@ -1,9 +1,19 @@
 from glob import glob1
-from django.test import TestCase
+
 from django.contrib.auth.models import User
+from django.test import TestCase
 
 from wod.models.characters.human import MeritFlaw
-from wod.models.characters.werewolf import Werewolf, Pack, Totem, Tribe, Camp, Gift, Rite
+from wod.models.characters.werewolf import (
+    Camp,
+    Gift,
+    Pack,
+    Rite,
+    Totem,
+    Tribe,
+    Werewolf,
+)
+
 
 # Create your tests here.
 def werewolf_setup(player):
@@ -15,7 +25,9 @@ def werewolf_setup(player):
     t = Tribe.objects.create(name="Test Tribe", willpower=5)
     Tribe.objects.create(name="Test Tribe 2", willpower=3)
     Camp.objects.create(name="Test Camp", tribe=t)
-    Gift.objects.create(name="Test Tribe Gift", rank=1, allowed={"garou": ["Test Tribe"]})
+    Gift.objects.create(
+        name="Test Tribe Gift", rank=1, allowed={"garou": ["Test Tribe"]}
+    )
     Gift.objects.create(name="Ragabash Gift", rank=1, allowed={"garou": ["ragabash"]})
     Gift.objects.create(name="Homid Gift", rank=1, allowed={"garou": ["homid"]})
     for i in range(6):
@@ -29,10 +41,13 @@ def werewolf_setup(player):
             name=f"Flaw {i}", ratings=[-i], allowed_types=["garou"]
         )
 
+
 class TestWerewolf(TestCase):
     def setUp(self):
         self.player = User.objects.create_user(username="Player")
-        self.character = Werewolf.objects.create(name="Test Werewolf", player=self.player.wod_profile)
+        self.character = Werewolf.objects.create(
+            name="Test Werewolf", player=self.player.wod_profile
+        )
         werewolf_setup(self.player)
 
     def set_abilities(self):
@@ -86,7 +101,7 @@ class TestWerewolf(TestCase):
                 "occult": 0,
                 "rituals": 0,
                 "technology": 0,
-            }
+            },
         )
         self.set_abilities()
         self.assertEqual(
@@ -122,7 +137,7 @@ class TestWerewolf(TestCase):
                 "occult": 0,
                 "rituals": 2,
                 "technology": 1,
-            }
+            },
         )
 
     def test_get_talents(self):
@@ -139,7 +154,7 @@ class TestWerewolf(TestCase):
                 "subterfuge": 0,
                 "leadership": 0,
                 "primal_urge": 0,
-            }
+            },
         )
         self.set_abilities()
         self.assertEqual(
@@ -155,7 +170,7 @@ class TestWerewolf(TestCase):
                 "subterfuge": 1,
                 "leadership": 4,
                 "primal_urge": 0,
-            }
+            },
         )
 
     def test_get_skills(self):
@@ -172,7 +187,7 @@ class TestWerewolf(TestCase):
                 "larceny": 0,
                 "performance": 0,
                 "survival": 0,
-            }
+            },
         )
         self.set_abilities()
         self.assertEqual(
@@ -188,7 +203,7 @@ class TestWerewolf(TestCase):
                 "larceny": 2,
                 "performance": 0,
                 "survival": 1,
-            }
+            },
         )
 
     def test_get_knowledges(self):
@@ -205,7 +220,7 @@ class TestWerewolf(TestCase):
                 "occult": 0,
                 "rituals": 0,
                 "technology": 0,
-            }
+            },
         )
         self.set_abilities()
         self.assertEqual(
@@ -221,7 +236,7 @@ class TestWerewolf(TestCase):
                 "occult": 0,
                 "rituals": 2,
                 "technology": 1,
-            }
+            },
         )
 
     def test_add_gift(self):
@@ -282,7 +297,7 @@ class TestWerewolf(TestCase):
         self.assertFalse(self.character.has_tribe())
         self.character.set_tribe(t)
         self.assertTrue(self.character.has_tribe())
-        
+
     def test_set_breed(self):
         self.assertFalse(self.character.has_breed())
         self.assertTrue(self.character.set_breed("homid"))
@@ -407,7 +422,9 @@ class TestWerewolf(TestCase):
     def test_has_renown(self):
         self.assertFalse(self.character.has_renown())
         self.character.set_auspice("ragabash")
-        self.assertEqual(self.character.glory + self.character.honor + self.character.wisdom, 3)
+        self.assertEqual(
+            self.character.glory + self.character.honor + self.character.wisdom, 3
+        )
         self.assertTrue(self.character.has_renown())
 
     def test_set_auspice(self):
@@ -434,9 +451,13 @@ class TestWerewolf(TestCase):
         self.assertEqual(self.character.rage, 5)
 
     def test_auspice_sets_renown(self):
-        self.assertEqual(self.character.glory + self.character.honor + self.character.wisdom, 0)
+        self.assertEqual(
+            self.character.glory + self.character.honor + self.character.wisdom, 0
+        )
         self.character.set_auspice("ragabash")
-        self.assertEqual(self.character.glory + self.character.honor + self.character.wisdom, 3)        
+        self.assertEqual(
+            self.character.glory + self.character.honor + self.character.wisdom, 3
+        )
         self.character.set_auspice("theurge")
         self.assertEqual(self.character.glory, 0)
         self.assertEqual(self.character.honor, 0)
@@ -510,7 +531,7 @@ class TestWerewolf(TestCase):
         self.assertEqual(self.character.xp_cost("gift"), 3)
         self.assertEqual(self.character.xp_cost("outside gift"), 5)
         self.assertEqual(self.character.xp_cost("rage"), 1)
-        self.assertEqual(self.character.xp_cost("gnosis"), )
+        self.assertEqual(self.character.xp_cost("gnosis"),)
 
     def test_spend_xp(self):
         self.character.xp = 100
@@ -554,7 +575,9 @@ class TestWerewolf(TestCase):
 class TestRandomWerewolf(TestCase):
     def setUp(self):
         self.player = User.objects.create_user(username="Player")
-        self.character = Werewolf.objects.create(name="Test Random Werewolf", player=self.player.wod_profile)
+        self.character = Werewolf.objects.create(
+            name="Test Random Werewolf", player=self.player.wod_profile
+        )
         werewolf_setup(self.player)
 
     def test_random_tribe(self):
@@ -713,4 +736,3 @@ class TestWerewolfDetailView(TestCase):
     def test_werewolf_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/{self.werewolf.id}/")
         self.assertTemplateUsed(response, "wod/characters/werewolf/detail.html")
-

@@ -774,13 +774,13 @@ class Mage(Human):
                 return True
             return False
         if Resonance.objects.filter(name=trait).exists():
-             cost = self.freebie_cost("resonance") * (self.total_resonance() - 1)
-             if cost <= self.freebies:
-                 if self.add_resonance(trait):
-                     self.freebies -= cost
-                     return True
-                 return False
-             return False
+            cost = self.freebie_cost("resonance") * (self.total_resonance() - 1)
+            if cost <= self.freebies:
+                if self.add_resonance(trait):
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
         return trait
 
     def spend_xp(self, trait):
