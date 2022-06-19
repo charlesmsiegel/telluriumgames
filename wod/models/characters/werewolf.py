@@ -1,7 +1,9 @@
 import random
 
+from django.contrib.auth.models import User
 from django.db import models
 
+from accounts.models import WoDProfile
 from core.utils import add_dot
 from wod.models.characters.human import Human
 
@@ -300,10 +302,38 @@ class Werewolf(Human):
 class Pack(models.Model):
     name = models.CharField(max_length=100, unique=True)
     members = models.ManyToManyField(Werewolf, blank=True)
+    leader = models.ForeignKey(
+        Werewolf, blank=True, null=True, on_delete=models.CASCADE, related_name="leads"
+    )
     totem = models.ForeignKey(Totem, null=True, blank=True, on_delete=models.CASCADE)
 
     def random(self, num_chars, new_characters=False):
-        pass
+        if not new_characters and Werewolf.objects.count() < num_chars:
+            raise ValueError("Not enough Werewolves!")
+        if not new_characters:
+            self.members.set(Werewolf.objects.order_by("?")[:num_chars])
+        else:
+            if WoDProfile.objects.filter(storyteller=True).count() > 0:
+                user = (
+                    WoDProfile.objects.filter(storyteller=True)
+                    .order_by("?")
+                    .first()
+                    .user
+                )
+            else:
+                user = User.objects.create_user(username="New User")
+                user.wod_profile.storyteller = True
+                user.save()
+            for _ in range(num_chars):
+                w = Werewolf.objects.create(
+                    name=f"{self.name} {self.members.count() + 1}",
+                    player=user.wod_profile,
+                )
+                w.random()
+                self.members.add(w)
+        self.leader = self.members.order_by("?").first()
+        self.random_totem()
+        self.save()
 
     def set_totem(self, totem):
         self.totem = totem
@@ -317,3 +347,6 @@ class Pack(models.Model):
 
     def total_totem(self):
         return sum([x.totem for x in self.members.all()])
+
+    def __str__(self):
+        return self.name

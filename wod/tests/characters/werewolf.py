@@ -3,7 +3,7 @@ from glob import glob1
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from wod.models.characters.human import MeritFlaw
+from wod.models.characters.human import MeritFlaw, Specialty
 from wod.models.characters.werewolf import (
     Camp,
     Gift,
@@ -17,6 +17,8 @@ from wod.models.characters.werewolf import (
 
 # Create your tests here.
 def werewolf_setup(player):
+    for i in range(5):
+        w = Werewolf.objects.create(name=f"Character {i}", player=player.wod_profile)
     for i in range(5):
         Totem.objects.create(name=f"Totem {i}", cost=(10 + i))
     for i in range(1, 6):
@@ -40,6 +42,16 @@ def werewolf_setup(player):
         MeritFlaw.objects.create(
             name=f"Flaw {i}", ratings=[-i], allowed_types=["garou"]
         )
+    for i in range(10):
+        for trait in w.get_attributes():
+            Specialty.objects.create(
+                name=f"{trait.replace('_', ' ').title()} {i}", stat=trait
+            )
+
+        for trait in w.get_abilities():
+            Specialty.objects.create(
+                name=f"{trait.replace('_', ' ').title()} {i}", stat=trait
+            )
 
 
 class TestWerewolf(TestCase):
