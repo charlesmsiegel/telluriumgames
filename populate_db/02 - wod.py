@@ -1459,6 +1459,33 @@ MeritFlaw.objects.create(
     name="Witch-Hunted", ratings=[-4], allowed_types=["human", "mage"]
 )
 
+# Book of the Fallen
+MeritFlaw.objects.create(
+    name="Shadow Appeal", ratings=[3], allowed_types=["human", "mage"]
+)
+MeritFlaw.objects.create(
+    name="Innocuous Aura", ratings=[5], allowed_types=["human", "mage"]
+)
+MeritFlaw.objects.create(
+    name="Abyssal Mastery", ratings=[7], allowed_types=["human", "mage"]
+)
+MeritFlaw.objects.create(
+    name="Saint of the Pit", ratings=[3], allowed_types=["human", "mage"]
+)
+MeritFlaw.objects.create(
+    name="Qlippothic Radiance",
+    ratings=[-1, -2, -3, -4, -5],
+    allowed_types=["human", "mage"],
+)
+MeritFlaw.objects.create(
+    name="Spectral Presence", ratings=[-3], allowed_types=["human", "mage"]
+)
+MeritFlaw.objects.create(
+    name="Abyssal Lunatic", ratings=[-5], allowed_types=["human", "mage"]
+)
+MeritFlaw.objects.create(
+    name="Widderslainte", ratings=[-7], allowed_types=["human", "mage"]
+)
 
 armor = Instrument.objects.create(name="Armor")
 artwork = Instrument.objects.create(name="Artwork")
@@ -3566,15 +3593,22 @@ ooh.languages.add(hebrew, arabic, latin, greek, aramaic, egyptian)
 ooh.materials.add(paper, vellum, parchment, leather, cloth, wood, steel, iron)
 ooh.media.add(book, scrolls)
 ooh.save()
-MageFaction.objects.create(name="House Bonisagus", parent=ooh)
+MageFaction.objects.create(name="House Bonisagus", parent=ooh, affinities=["prime"])
 MageFaction.objects.create(name="House Ex Miscellanea", parent=ooh)
+MageFaction.objects.create(name="House Criamon", parent=ooh)
+MageFaction.objects.create(name="House Merinita", parent=ooh)
+MageFaction.objects.create(name="House Jerbiton", parent=ooh)
 MageFaction.objects.create(name="House Flambeau", parent=ooh)
-MageFaction.objects.create(name="House Fortunae", parent=ooh)
-MageFaction.objects.create(name="House Quaesitor", parent=ooh)
-MageFaction.objects.create(name="House Shaea", parent=ooh)
-MageFaction.objects.create(name="House Solificati", parent=ooh)
-MageFaction.objects.create(name="House Tytalus", parent=ooh)
-MageFaction.objects.create(name="House Verditius", parent=ooh)
+MageFaction.objects.create(name="House Fortunae", parent=ooh, affinities=["entropy"])
+MageFaction.objects.create(
+    name="House Quaesitor", parent=ooh, affinities=["mind", "spirit"]
+)
+MageFaction.objects.create(name="House Shaea", parent=ooh, affinities=["time"])
+MageFaction.objects.create(name="House Solificati", parent=ooh, affinities=["matter"])
+MageFaction.objects.create(name="House Tytalus", parent=ooh, affinities=["mind"])
+MageFaction.objects.create(
+    name="House Verditius", parent=ooh, affinities=["matter", "correspondence"]
+)
 MageFaction.objects.create(name="House Hong Lei", parent=ooh)
 MageFaction.objects.create(name="House Ngoma", parent=ooh)
 MageFaction.objects.create(name="House Skopos", parent=ooh)
@@ -3882,8 +3916,17 @@ MageFaction.objects.create(name="Pan-Dimension Corps", parent=ve)
 
 nephandi = MageFaction.objects.create(name="Nephandi")
 MageFaction.objects.create(name="The K'llashsaa", parent=nephandi)
-MageFaction.objects.create(name="Malfeans", parent=nephandi)
-MageFaction.objects.create(name="Infernalists", parent=nephandi)
+MageFaction.objects.create(name="Malfeans", parent=nephandi, affinities=["entropy"])
+infernalist = MageFaction.objects.create(name="Infernalists", parent=nephandi)
+infernalist.practices.add(high_ritual_magick)
+infernalist.save()
+MageFaction.objects.create(name="Baphies", parent=nephandi)
+MageFaction.objects.create(name="Obliviates", parent=nephandi)
+MageFaction.objects.create(name="Heralds of Basilisk", parent=nephandi)
+ironhands = MageFaction.objects.create(name="Ironhands", parent=nephandi)
+ironhands.practices.add(weird_science, hypertech, craftwork)
+ironhands.save()
+MageFaction.objects.create(name="Mammonites", parent=nephandi)
 
 marauders = MageFaction.objects.create(name="Marauders")
 MageFaction.objects.create(name="Bai Dai", parent=marauders)
@@ -3918,149 +3961,33 @@ Resonance.objects.create(
 )
 Resonance.objects.create(name="Bureaucratic",)
 Resonance.objects.create(
-    name="Calm",
-    correspondence=0,
-    entropy=0,
-    forces=0,
-    life=0,
-    matter=0,
-    mind=True,
-    prime=0,
-    spirit=0,
-    time=0,
+    name="Calm", mind=True,
+)
+Resonance.objects.create(name="Calming",)
+Resonance.objects.create(
+    name="Chaotic", entropy=True,
 )
 Resonance.objects.create(
-    name="Calming",
-    correspondence=0,
-    entropy=0,
-    forces=0,
-    life=0,
-    matter=0,
-    mind=0,
-    prime=0,
-    spirit=0,
-    time=0,
+    name="Clockwork", matter=True, time=True,
+)
+Resonance.objects.create(name="Conductive",)
+Resonance.objects.create(
+    name="Constructive", matter=True,
 )
 Resonance.objects.create(
-    name="Chaotic",
-    correspondence=0,
-    entropy=True,
-    forces=0,
-    life=0,
-    matter=0,
-    mind=0,
-    prime=0,
-    spirit=0,
-    time=0,
+    name="Consuming", entropy=True, life=True,
 )
 Resonance.objects.create(
-    name="Clockwork",
-    correspondence=0,
-    entropy=0,
-    forces=0,
-    life=0,
-    matter=True,
-    mind=0,
-    prime=0,
-    spirit=0,
-    time=True,
+    name="Corrosive", entropy=True,
 )
 Resonance.objects.create(
-    name="Conductive",
-    correspondence=0,
-    entropy=0,
-    forces=0,
-    life=0,
-    matter=0,
-    mind=0,
-    prime=0,
-    spirit=0,
-    time=0,
+    name="Corrupted", entropy=True,
 )
 Resonance.objects.create(
-    name="Constructive",
-    correspondence=0,
-    entropy=0,
-    forces=0,
-    life=0,
-    matter=True,
-    mind=0,
-    prime=0,
-    spirit=0,
-    time=0,
+    name="Cowardly", mind=True,
 )
-Resonance.objects.create(
-    name="Consuming",
-    correspondence=0,
-    entropy=True,
-    forces=0,
-    life=True,
-    matter=0,
-    mind=0,
-    prime=0,
-    spirit=0,
-    time=0,
-)
-Resonance.objects.create(
-    name="Corrosive",
-    correspondence=0,
-    entropy=True,
-    forces=0,
-    life=0,
-    matter=0,
-    mind=0,
-    prime=0,
-    spirit=0,
-    time=0,
-)
-Resonance.objects.create(
-    name="Corrupted",
-    correspondence=0,
-    entropy=True,
-    forces=0,
-    life=0,
-    matter=0,
-    mind=0,
-    prime=0,
-    spirit=0,
-    time=0,
-)
-Resonance.objects.create(
-    name="Cowardly",
-    correspondence=0,
-    entropy=0,
-    forces=0,
-    life=0,
-    matter=0,
-    mind=True,
-    prime=0,
-    spirit=0,
-    time=0,
-)
-Resonance.objects.create(
-    name="Creative",
-    correspondence=0,
-    entropy=0,
-    forces=0,
-    life=0,
-    matter=0,
-    mind=0,
-    prime=0,
-    spirit=0,
-    time=0,
-)
-Resonance.objects.create(
-    name="Creepy",
-    correspondence=0,
-    entropy=0,
-    forces=0,
-    life=0,
-    matter=0,
-    mind=0,
-    prime=0,
-    spirit=0,
-    time=0,
-)
+Resonance.objects.create(name="Creative")
+Resonance.objects.create(name="Creepy")
 Resonance.objects.create(
     name="Crushing Depths",
     correspondence=0,
