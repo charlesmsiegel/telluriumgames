@@ -166,6 +166,12 @@ class Werewolf(Human):
 
     def set_breed(self, breed):
         self.breed = breed
+        if breed == "homid":
+            self.gnosis = 1
+        elif breed == "metis":
+            self.gnosis = 3
+        elif breed == "lupus":
+            self.gnosis = 5
         return True
 
     def random_breed(self):
@@ -174,14 +180,36 @@ class Werewolf(Human):
     def has_auspice(self):
         return self.auspice != ""
 
-    def set_auspice(self, auspice):
+    def set_auspice(self, auspice, ragabash_renown=(1, 1, 1)):
         self.auspice = auspice
+        if auspice == "ragabash":
+            self.set_glory(ragabash_renown[0])
+            self.set_honor(ragabash_renown[1])
+            self.set_wisdom(ragabash_renown[2])
+        elif auspice == "theurge":
+            self.set_wisdom(3)
+        elif auspice == "philodox":
+            self.set_honor(3)
+        elif auspice == "galliard":
+            self.set_glory(2)
+            self.set_wisdom(1)
+        elif auspice == "ahroun":
+            self.set_glory(2)
+            self.set_honor(1)
         return True
 
     def random_auspice(self):
-        return self.set_auspice(
-            random.choice(["ragabash", "theurge", "philodox", "galliard", "ahroun"])
+        choice = random.choice(
+            ["ragabash", "theurge", "philodox", "galliard", "ahroun"]
         )
+        if choice == "ragabash":
+            g = random.randint(0, 3)
+            h = random.randint(0, 3 - g)
+            w = 3 - g - h
+            ragabash_renown = [g, h, w]
+        else:
+            ragabash_renown = [1, 1, 1]
+        return self.set_auspice(choice, ragabash_renown=ragabash_renown)
 
     def has_tribe(self):
         return self.tribe is not None
@@ -256,7 +284,7 @@ class Werewolf(Human):
         return True
 
     def has_renown(self):
-        pass
+        return (self.glory + self.honor + self.wisdom) == 3
 
     def add_gnosis(self):
         return add_dot(self, "gnosis", 10)
