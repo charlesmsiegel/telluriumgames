@@ -359,8 +359,8 @@ class Werewolf(Human):
 
     def total_rites(self):
         return (
-            sum([x.level for x in self.rites_known.all()])
-            + self.rites_known.filter(level=0).count() // 2
+            sum(x.level for x in self.rites_known.all())
+            + self.rites_known.filter(level=0).count() / 2
         )
 
     def random_rite(self):
