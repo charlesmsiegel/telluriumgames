@@ -698,6 +698,7 @@ class TestPack(TestCase):
                 name=f"Werewolf {i}", player=self.player.wod_profile
             )
             w.totem = i + 1
+            w.save()
             p.members.add(w)
             p.save()
         self.assertEqual(p.total_totem(), 10)
