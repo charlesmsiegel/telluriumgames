@@ -363,11 +363,16 @@ class Werewolf(Human):
             + self.rites_known.filter(level=0).count() / 2
         )
 
-    def random_rite(self):
-        pass
+    def random_rite(self, max_level=5):
+        possibilities = [x for x in self.filter_rites() if x.level <= max_level]
+        if len(possibilities) == 0:
+            return False
+        choice = random.choice(possibilities)
+        return self.add_rite(choice)
 
     def random_rites(self):
-        pass
+        while not self.has_rites():
+            self.random_rite(max_level=self.rites - self.total_rites())
 
     def set_glory(self, glory):
         self.glory = glory
