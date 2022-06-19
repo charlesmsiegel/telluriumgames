@@ -1,4 +1,8 @@
 from django.db import models
+from wod.models.characters.human import Human
+
+class Werewolf(Human):
+    type = "werewolf"
 
 # Create your models here.
 # # Talents
@@ -29,3 +33,9 @@ from django.db import models
 # Rites
 # Spirit Heritage
 # Totem
+
+class Pack(models.Model):
+    pass
+
+class Totem(models.Model):
+    pass
