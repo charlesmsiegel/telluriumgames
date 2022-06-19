@@ -260,10 +260,10 @@ class TestWerewolf(TestCase):
 
     def test_filter_gifts(self):
         self.character.rank = 2
-        self.assertEqual(len(self.character.filter_gifts()), 4)
-        self.character.add_rite(Gift.objects.get(name="Gift 1"))
-        self.character.add_rite(Gift.objects.get(name="Gift 2"))
-        self.assertEqual(len(self.character.filter_gifts()), 2)
+        self.assertEqual(len(self.character.filter_gifts()), 7)
+        self.character.add_gift(Gift.objects.get(name="Gift 1"))
+        self.character.add_gift(Gift.objects.get(name="Gift 2"))
+        self.assertEqual(len(self.character.filter_gifts()), 5)
 
     def test_has_gifts(self):
         t = Tribe.objects.get(name="Test Tribe", willpower=5)
