@@ -202,7 +202,7 @@ class Werewolf(Human):
         return True
 
     def random_camp(self):
-        return self.set_tribe(
+        return self.set_camp(
             Camp.objects.filter(tribe=self.tribe).order_by("?").first()
         )
 
@@ -298,6 +298,35 @@ class Werewolf(Human):
             and (self.age_of_first_change != 0)
         )
 
+    def random_werewolf_history(self):
+        self.first_change = "Young"
+        self.battle_scars = "Several"
+        self.age_of_first_change = 13
+
+    def random(self, freebies=15, xp=0, ethnicity=None):
+        self.freebies = freebies
+        self.xp = xp
+        self.random_name(ethnicity=ethnicity)
+        self.random_concept()
+        self.random_archetypes()
+        self.random_breed()
+        self.random_auspice()
+        self.random_tribe()
+        if random.random() < 0.2:
+            self.random_camp()
+        self.random_attributes()
+        self.random_abilities()
+        self.random_backgrounds()
+        self.random_gifts()
+        self.random_rites()
+        self.random_history()
+        self.random_finishing_touches()
+        self.random_werewolf_history()
+        self.random_freebies()
+        self.random_xp()
+        self.random_specialties()
+        self.save()
+
 
 class Pack(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -343,7 +372,10 @@ class Pack(models.Model):
         return self.totem is not None
 
     def random_totem(self):
-        pass
+        filtered = list(Totem.objects.filter(cost__lte=self.total_totem()))
+        if len(filtered) == 0:
+            return False
+        return self.set_totem(random.choice(filtered))
 
     def total_totem(self):
         return sum([x.totem for x in self.members.all()])
