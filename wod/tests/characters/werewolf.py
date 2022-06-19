@@ -531,7 +531,7 @@ class TestWerewolf(TestCase):
         self.assertEqual(self.character.xp_cost("gift"), 3)
         self.assertEqual(self.character.xp_cost("outside gift"), 5)
         self.assertEqual(self.character.xp_cost("rage"), 1)
-        self.assertEqual(self.character.xp_cost("gnosis"),)
+        self.assertEqual(self.character.xp_cost("gnosis"), 2)
 
     def test_spend_xp(self):
         self.character.xp = 100
