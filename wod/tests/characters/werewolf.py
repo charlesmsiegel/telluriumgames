@@ -459,7 +459,7 @@ class TestWerewolf(TestCase):
         self.assertEqual(self.character.rage, 3)
         self.character.set_auspice("galliard")
         self.assertEqual(self.character.rage, 4)
-        self.character.set_auspice("ahroud")
+        self.character.set_auspice("ahroun")
         self.assertEqual(self.character.rage, 5)
 
     def test_auspice_sets_renown(self):
@@ -482,7 +482,7 @@ class TestWerewolf(TestCase):
         self.assertEqual(self.character.glory, 2)
         self.assertEqual(self.character.honor, 0)
         self.assertEqual(self.character.wisdom, 1)
-        self.character.set_auspice("ahroud")
+        self.character.set_auspice("ahroun")
         self.assertEqual(self.character.glory, 2)
         self.assertEqual(self.character.honor, 1)
         self.assertEqual(self.character.wisdom, 0)
