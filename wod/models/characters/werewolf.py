@@ -2,7 +2,7 @@ from django.db import models
 from wod.models.characters.human import Human
 
 class Werewolf(Human):
-    type = "werewolf"
+    type = "garou"
 
 # Create your models here.
 # # Talents
