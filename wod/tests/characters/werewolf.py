@@ -728,7 +728,6 @@ class TestPack(TestCase):
             p.members.add(w)
             p.save()
         self.assertFalse(p.has_totem())
-        print(p.total_totem())
         self.assertTrue(p.random_totem())
         self.assertTrue(p.has_totem())
 
