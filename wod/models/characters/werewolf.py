@@ -310,7 +310,7 @@ class Werewolf(Human):
         return True
 
     def filter_rites(self):
-        return []
+        return [x for x in Rite.objects.all() if x not in self.rites_known.all()]
 
     def has_rites(self):
         return self.rites == self.total_rites()
