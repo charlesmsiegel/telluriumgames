@@ -1,8 +1,9 @@
 import random
+
 from django.db import models
 
-from wod.models.characters.human import Human
 from core.utils import add_dot
+from wod.models.characters.human import Human
 
 
 class Totem(models.Model):
@@ -64,11 +65,7 @@ class Werewolf(Human):
     breed = models.CharField(
         default="",
         max_length=100,
-        choices=[
-            ("homid", "Homid"),
-            ("metis", "Metis"),
-            ("lupus", "Lupus"),
-        ],
+        choices=[("homid", "Homid"), ("metis", "Metis"), ("lupus", "Lupus"),],
     )
     tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.CASCADE)
     camp = models.ForeignKey(Camp, blank=True, null=True, on_delete=models.CASCADE)
@@ -84,7 +81,7 @@ class Werewolf(Human):
 
     gifts = models.ManyToManyField(Gift, blank=True)
     rites_known = models.ManyToManyField(Rite, blank=True)
-    
+
     first_change = models.TextField(default="")
     battle_scars = models.TextField(default="")
     age_of_first_change = models.IntegerField(default=0)
@@ -97,7 +94,7 @@ class Werewolf(Human):
         return True
 
     def random_breed(self):
-        return self.set_breed(random.choice(['homid', 'metis', 'lupus']))
+        return self.set_breed(random.choice(["homid", "metis", "lupus"]))
 
     def has_auspice(self):
         return self.auspice is not None
@@ -107,7 +104,9 @@ class Werewolf(Human):
         return True
 
     def random_auspice(self):
-        return self.set_auspice(random.choice(['ragabash', 'theurge', 'philodox', 'galliard', 'ahroun']))
+        return self.set_auspice(
+            random.choice(["ragabash", "theurge", "philodox", "galliard", "ahroun"])
+        )
 
     def has_tribe(self):
         return self.tribe is not None
@@ -127,7 +126,9 @@ class Werewolf(Human):
         return True
 
     def random_camp(self):
-        return self.set_tribe(Camp.objects.filter(tribe=self.tribe).order_by("?").first())
+        return self.set_tribe(
+            Camp.objects.filter(tribe=self.tribe).order_by("?").first()
+        )
 
     def add_gift(self, gift):
         pass
@@ -152,9 +153,12 @@ class Werewolf(Human):
 
     def has_rites(self):
         return self.rites == self.total_rites()
-    
+
     def total_rites(self):
-        return sum([x.level for x in self.rites_known.all()]) + self.rites_known.filter(level=0).count()//2
+        return (
+            sum([x.level for x in self.rites_known.all()])
+            + self.rites_known.filter(level=0).count() // 2
+        )
 
     def random_rites(self):
         pass
@@ -188,7 +192,11 @@ class Werewolf(Human):
         pass
 
     def has_werewolf_history(self):
-        return (self.first_change != "") and (self.battle_scars != "") and (self.age_of_first_change != 0)
+        return (
+            (self.first_change != "")
+            and (self.battle_scars != "")
+            and (self.age_of_first_change != 0)
+        )
 
 
 # Create your models here.
