@@ -300,7 +300,25 @@ class Werewolf(Human):
         ]
 
     def has_gifts(self):
-        pass
+        b = self.gifts.count() >= 3
+        b = (
+            b
+            and len(
+                [x for x in self.gifts.all() if self.tribe.name in x.allowed["garou"]]
+            )
+            > 0
+        )
+        b = (
+            b
+            and len([x for x in self.gifts.all() if self.auspice in x.allowed["garou"]])
+            > 0
+        )
+        b = (
+            b
+            and len([x for x in self.gifts.all() if self.breed in x.allowed["garou"]])
+            > 0
+        )
+        return b
 
     def random_gift(self):
         pass
