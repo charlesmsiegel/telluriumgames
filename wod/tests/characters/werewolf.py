@@ -22,16 +22,21 @@ def werewolf_setup(player):
     for i in range(5):
         Totem.objects.create(name=f"Totem {i}", cost=(10 + i))
     for i in range(1, 6):
-        Gift.objects.create(name=f"Gift {i}", rank=i)
-        Gift.objects.create(name=f"Gift {5+i}", rank=i)
+        Gift.objects.create(name=f"Gift {i}", rank=i, allowed={"garou": []})
+        Gift.objects.create(name=f"Gift {5+i}", rank=i, allowed={"garou": []})
     t = Tribe.objects.create(name="Test Tribe", willpower=5)
     Tribe.objects.create(name="Test Tribe 2", willpower=3)
     Camp.objects.create(name="Test Camp", tribe=t)
-    Gift.objects.create(
-        name="Test Tribe Gift", rank=1, allowed={"garou": ["Test Tribe"]}
-    )
-    Gift.objects.create(name="Ragabash Gift", rank=1, allowed={"garou": ["ragabash"]})
-    Gift.objects.create(name="Homid Gift", rank=1, allowed={"garou": ["homid"]})
+    for t in Tribe.objects.all():
+        Gift.objects.create(name=f"{t.name} Gift", rank=1, allowed={"garou": [t.name]})
+    for auspice in ["ragabash", "theurge", "philodox", "galliard", "ahroun"]:
+        Gift.objects.create(
+            name=f"{auspice.title()} Gift", rank=1, allowed={"garou": [auspice]}
+        )
+    for breed in ["homid", "metis", "lupus"]:
+        Gift.objects.create(
+            name=f"{breed.title()} Gift", rank=1, allowed={"garou": [breed]}
+        )
     for i in range(6):
         Rite.objects.create(name=f"Rite {i}", level=i)
         Rite.objects.create(name=f"Rite {6+i}", level=i)
@@ -260,10 +265,10 @@ class TestWerewolf(TestCase):
 
     def test_filter_gifts(self):
         self.character.rank = 2
-        self.assertEqual(len(self.character.filter_gifts()), 7)
+        self.assertEqual(len(self.character.filter_gifts()), 14)
         self.character.add_gift(Gift.objects.get(name="Gift 1"))
         self.character.add_gift(Gift.objects.get(name="Gift 2"))
-        self.assertEqual(len(self.character.filter_gifts()), 5)
+        self.assertEqual(len(self.character.filter_gifts()), 12)
 
     def test_has_gifts(self):
         t = Tribe.objects.get(name="Test Tribe", willpower=5)

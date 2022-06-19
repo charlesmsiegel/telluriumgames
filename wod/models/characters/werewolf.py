@@ -1,4 +1,5 @@
 import random
+from turtle import pos
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -320,11 +321,30 @@ class Werewolf(Human):
         )
         return b
 
-    def random_gift(self):
-        pass
+    def random_gift(
+        self, breed=False, tribe=False, auspice=False, min_rank=1, max_rank=5
+    ):
+        possible_gifts = self.filter_gifts()
+        possible_gifts = [x for x in possible_gifts if min_rank <= x.rank <= max_rank]
+        if breed:
+            possible_gifts = [
+                x for x in possible_gifts if self.breed in x.allowed["garou"]
+            ]
+        if tribe:
+            possible_gifts = [
+                x for x in possible_gifts if self.tribe.name in x.allowed["garou"]
+            ]
+        if auspice:
+            possible_gifts = [
+                x for x in possible_gifts if self.auspice in x.allowed["garou"]
+            ]
+        choice = random.choice(possible_gifts)
+        return self.add_gift(choice)
 
     def random_gifts(self):
-        pass
+        self.random_gift(breed=True)
+        self.random_gift(tribe=True)
+        self.random_gift(auspice=True)
 
     def add_rite(self, rite):
         self.rites_known.add(rite)
@@ -342,6 +362,9 @@ class Werewolf(Human):
             sum([x.level for x in self.rites_known.all()])
             + self.rites_known.filter(level=0).count() // 2
         )
+
+    def random_rite(self):
+        pass
 
     def random_rites(self):
         pass
