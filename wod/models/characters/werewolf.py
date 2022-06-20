@@ -480,7 +480,21 @@ class Werewolf(Human):
                     return True
                 return False
             return False
-        # gift
+        if Gift.objects.filter(name=trait).exists():
+            cost = self.freebie_cost("gift")
+            g = Gift.objects.get(name=trait)
+            if (
+                self.auspice in g.allowed["garou"]
+                or self.breed in g.allowed["garou"]
+                or self.tribe.name in g.allowed["garou"]
+            ):
+                if cost <= self.freebies:
+                    if self.add_gift(g):
+                        self.freebies -= cost
+                        return True
+                    return False
+                return False
+            return False
         return trait
 
     def random_freebies(self):
@@ -540,7 +554,23 @@ class Werewolf(Human):
                     return True
                 return False
             return False
-        # gift
+        if Gift.objects.filter(name=trait).exists():
+            g = Gift.objects.get(name=trait)
+            if (
+                self.auspice in g.allowed["garou"]
+                or self.breed in g.allowed["garou"]
+                or self.tribe.name in g.allowed["garou"]
+            ):
+                trait_type = "gift"
+            else:
+                trait_type = "outside gift"
+            cost = self.xp_cost(trait_type) * g.rank
+            if cost <= self.xp:
+                if self.add_gift(g):
+                    self.xp -= cost
+                    return True
+                return False
+            return False
         return trait
 
     def random_xp(self):

@@ -3,7 +3,7 @@ from glob import glob1
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from wod.models.characters.human import MeritFlaw, Specialty
+from wod.models.characters.human import Archetype, MeritFlaw, Specialty
 from wod.models.characters.werewolf import (
     Camp,
     Gift,
@@ -57,6 +57,8 @@ def werewolf_setup(player):
             Specialty.objects.create(
                 name=f"{trait.replace('_', ' ').title()} {i}", stat=trait
             )
+    for i in range(20):
+        Archetype.objects.create(name=f"Archetype {i}")
 
 
 class TestWerewolf(TestCase):
@@ -519,6 +521,7 @@ class TestWerewolf(TestCase):
         self.assertEqual(self.character.freebie_cost("gnosis"), 2)
 
     def test_spend_freebies(self):
+        self.character.set_tribe(Tribe.objects.get(name="Test Tribe"))
         self.assertEqual(self.character.freebies, 15)
         self.assertTrue(self.character.spend_freebies("strength"))
         self.assertEqual(self.character.freebies, 10)
@@ -532,7 +535,7 @@ class TestWerewolf(TestCase):
         self.assertEqual(self.character.freebies, 5)
         self.character.freebies = 15
         self.assertEqual(self.character.freebies, 15)
-        self.assertTrue(self.character.spend_freebies("Gift 1"))
+        self.assertTrue(self.character.spend_freebies("Test Tribe Gift"))
         self.assertEqual(self.character.freebies, 8)
         self.assertTrue(self.character.spend_freebies("rage"))
         self.assertEqual(self.character.freebies, 7)
@@ -558,8 +561,6 @@ class TestWerewolf(TestCase):
         self.character.set_tribe(t)
         self.character.set_auspice("ragabash")
         self.character.set_breed("homid")
-        Gift.objects.get(name="Test Tribe Gift")
-        Gift.objects.get(name="Gift 1")
         self.assertTrue(self.character.spend_xp("strength"))
         self.assertEqual(self.character.xp, 96)
         self.assertTrue(self.character.spend_xp("occult"))
@@ -572,13 +573,13 @@ class TestWerewolf(TestCase):
         self.assertEqual(self.character.xp, 83)
         self.assertTrue(self.character.spend_xp("willpower"))
         self.assertEqual(self.character.xp, 78)
-        self.assertTrue(self.character.spend_xp("Gift 1"))
+        self.assertTrue(self.character.spend_xp("Test Tribe Gift"))
         self.assertEqual(self.character.xp, 75)
         self.assertTrue(self.character.spend_xp("rage"))
         self.assertEqual(self.character.xp, 74)
         self.assertTrue(self.character.spend_xp("gnosis"))
         self.assertEqual(self.character.xp, 72)
-        self.assertTrue(self.character.spend_xp("Gift 2"))
+        self.assertTrue(self.character.spend_xp("Gift 1"))
         self.assertEqual(self.character.xp, 67)
 
     def test_has_werewolf_history(self):
@@ -595,7 +596,7 @@ class TestRandomWerewolf(TestCase):
     def setUp(self):
         self.player = User.objects.create_user(username="Player")
         self.character = Werewolf.objects.create(
-            name="Test Random Werewolf", player=self.player.wod_profile
+            name="", player=self.player.wod_profile
         )
         werewolf_setup(self.player)
 
@@ -624,12 +625,14 @@ class TestRandomWerewolf(TestCase):
         self.assertTrue(self.character.has_rites())
 
     def test_random_spend_xp(self):
+        self.character.random_tribe()
         self.character.science = 1
         self.character.xp = 15
         self.character.random_xp()
         self.assertLess(self.character.xp, 15)
 
     def test_random_freebies(self):
+        self.character.random_tribe()
         self.assertEqual(self.character.freebies, 15)
         self.character.random_freebies()
         self.assertEqual(self.character.freebies, 0)
@@ -644,7 +647,6 @@ class TestRandomWerewolf(TestCase):
         self.assertFalse(self.character.has_finishing_touches())
         self.assertFalse(self.character.has_history())
         self.assertFalse(self.character.has_gifts())
-        self.assertFalse(self.character.has_rites())
         self.assertFalse(self.character.has_tribe())
         self.assertFalse(self.character.has_auspice())
         self.assertFalse(self.character.has_camp())
@@ -664,7 +666,6 @@ class TestRandomWerewolf(TestCase):
         self.assertTrue(self.character.has_rites())
         self.assertTrue(self.character.has_tribe())
         self.assertTrue(self.character.has_auspice())
-        self.assertTrue(self.character.has_camp())
         self.assertTrue(self.character.has_renown())
         self.assertTrue(self.character.has_werewolf_history())
 
