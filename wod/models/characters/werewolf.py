@@ -1,11 +1,10 @@
 import random
-from turtle import pos
 
 from django.contrib.auth.models import User
 from django.db import models
 
 from accounts.models import WoDProfile
-from core.utils import add_dot
+from core.utils import add_dot, weighted_choice
 from wod.models.characters.human import Human
 
 
@@ -462,16 +461,121 @@ class Werewolf(Human):
         self.age_of_first_change = 13
 
     def spend_freebies(self, trait):
-        pass
+        output = super().spend_freebies(trait)
+        if output in [True, False]:
+            return output
+        if trait == "rage":
+            cost = self.freebie_cost("rage")
+            if cost <= self.freebies:
+                if self.add_rage():
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
+        if trait == "gnosis":
+            cost = self.freebie_cost("gnosis")
+            if cost <= self.freebies:
+                if self.add_gnosis():
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
+        # gift
+        return trait
 
     def random_freebies(self):
-        pass
+        frequencies = {
+            "attribute": 15,
+            "ability": 8,
+            "background": 10,
+            "willpower": 1,
+            "meritflaw": 50,
+            "gift": 25,
+            "rage": 5,
+            "gnosis": 1,
+        }
+        while self.freebies > 0:
+            choice = weighted_choice(frequencies)
+            if choice == "attribute":
+                trait = weighted_choice(self.get_attributes())
+                self.spend_freebies(trait)
+            if choice == "ability":
+                trait = weighted_choice(self.get_abilities())
+                self.spend_freebies(trait)
+            if choice == "background":
+                trait = weighted_choice(self.get_backgrounds())
+                self.spend_freebies(trait)
+            if choice == "willpower":
+                self.spend_freebies(choice)
+            if choice == "meritflaw":
+                trait = random.choice([x.name for x in self.filter_mfs()])
+                self.spend_freebies(trait)
+            if choice == "gift":
+                trait = random.choice(self.filter_gifts())
+                self.spend_freebies(trait)
+            if choice == "gnosis":
+                self.spend_freebies(choice)
+            if choice == "rage":
+                self.spend_freebies(choice)
 
     def spend_xp(self, trait):
-        pass
+        output = super().spend_xp(trait)
+        if output in [True, False]:
+            return output
+        if trait == "rage":
+            cost = self.xp_cost("rage") * getattr(self, trait)
+            if cost <= self.xp:
+                if self.add_rage():
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        if trait == "gnosis":
+            cost = self.xp_cost("gnosis") * getattr(self, trait)
+            if cost <= self.xp:
+                if self.add_gnosis():
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        # gift
+        return trait
 
     def random_xp(self):
-        pass
+        frequencies = {
+            "attribute": 16,
+            "ability": 20,
+            "background": 13,
+            "willpower": 1,
+            "gift": 35,
+            "rage": 15,
+            "gnosis": 5,
+        }
+        counter = 0
+        while counter < 10000 and self.xp > 0:
+            choice = weighted_choice(frequencies)
+            if choice == "attribute":
+                trait = weighted_choice(self.get_attributes())
+                spent = self.spend_xp(trait)
+            if choice == "ability":
+                trait = weighted_choice(self.get_abilities())
+                spent = self.spend_xp(trait)
+            if choice == "background":
+                trait = weighted_choice(self.get_backgrounds())
+                spent = self.spend_xp(trait)
+            if choice == "willpower":
+                spent = self.spend_xp(choice)
+            if choice == "gnosis":
+                spent = self.spend_xp(choice)
+            if choice == "gift":
+                trait = random.choice(self.filter_gifts())
+                spent = self.spend_xp(trait)
+            if choice == "rage":
+                spent = self.spend_xp(choice)
+            if not spent:
+                counter += 1
 
     def random(self, freebies=15, xp=0, ethnicity=None):
         self.freebies = freebies
