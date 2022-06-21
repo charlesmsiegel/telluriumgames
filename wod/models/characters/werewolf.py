@@ -267,13 +267,21 @@ class Werewolf(Human):
         return self.tribe is not None
 
     def set_tribe(self, tribe):
+        if tribe.name == "Red Talons" and self.breed == "homid":
+            return False
+        if tribe.name == "Black Furies" and self.sex == "Male":
+            return False
         self.tribe = tribe
         self.willpower = tribe.willpower
+        if self.tribe.name == "Silver Fangs" and self.pure_breed < 3:
+            self.pure_breed = 3
         self.save()
         return True
 
     def random_tribe(self):
-        return self.set_tribe(Tribe.objects.order_by("?").first())
+        while self.tribe is None:
+            value = self.set_tribe(Tribe.objects.order_by("?").first())
+        return value
 
     def has_camp(self):
         return self.camp is not None
@@ -684,7 +692,7 @@ class Pack(models.Model):
         return self.set_totem(random.choice(filtered))
 
     def total_totem(self):
-        return sum([x.totem for x in self.members.all()])
+        return sum(x.totem for x in self.members.all())
 
     def __str__(self):
         return self.name
