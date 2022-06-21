@@ -87,7 +87,6 @@ class Werewolf(Human):
     rituals = models.IntegerField(default=0)
     technology = models.IntegerField(default=0)
 
-    rites = models.IntegerField(default=0)
     allies = models.IntegerField(default=0)
     ancestors = models.IntegerField(default=0)
     fate = models.IntegerField(default=0)
@@ -95,6 +94,7 @@ class Werewolf(Human):
     kinfolk = models.IntegerField(default=0)
     pure_breed = models.IntegerField(default=0)
     resources = models.IntegerField(default=0)
+    rites = models.IntegerField(default=0)
     spirit_heritage = models.IntegerField(default=0)
     totem = models.IntegerField(default=0)
 

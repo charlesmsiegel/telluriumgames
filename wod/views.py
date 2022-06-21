@@ -238,9 +238,43 @@ class HumanDetailView(DetailView):
     template_name = "wod/characters/human/detail.html"
 
 
-class WerewolfDetailView(DetailView):
-    model = Werewolf
-    template_name = "wod/characters/werewolf/detail.html"
+class WerewolfDetailView(View):
+    def get(self, request, *args, **kwargs):
+        werewolf = Werewolf.objects.get(pk=kwargs["pk"])
+        context = self.get_context(werewolf)
+        return render(request, "wod/characters/werewolf/detail.html", context)
+    
+    def get_context(self, werewolf):
+        context = {"object": werewolf}
+        specialties = {}
+        for attribute in werewolf.get_attributes():
+            specialties[attribute] = ", ".join(
+                [x.name for x in werewolf.specialties.filter(stat=attribute)]
+            )
+        for ability in werewolf.get_abilities():
+            specialties[ability] = ", ".join(
+                [x.name for x in werewolf.specialties.filter(stat=ability)]
+            )
+        for key, value in specialties.items():
+            context[f"{key}_spec"] = value
+
+        context["merits_and_flaws"] = MeritFlawRating.objects.order_by(
+            "mf__name"
+        ).filter(character=werewolf)
+        all_gifts = list(context["object"].gifts.all())
+        row_length = 3
+        all_gifts = [
+            all_gifts[i : i + row_length] for i in range(0, len(all_gifts), row_length)
+        ]
+        context["gifts"] = all_gifts
+        
+        all_rites = list(context["object"].rites_known.all())
+        row_length = 3
+        all_rites = [
+            all_rites[i : i + row_length] for i in range(0, len(all_rites), row_length)
+        ]
+        context["rites"] = all_rites
+        return context
 
 
 class MageDetailView(View):
