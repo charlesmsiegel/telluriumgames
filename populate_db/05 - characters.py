@@ -4,9 +4,17 @@ from django.contrib.auth.models import User
 
 player = User.objects.create_user(username="Test")
 
+from wod.models.characters.werewolf import Werewolf
 from wod.models.characters.mage import Mage
 from wod.models.items.mage import Grimoire
 from wod.models.locations.mage import Node
+
+mage_start = time()
+for i in range(10):
+    mage = Werewolf.objects.create(name="", player=player.wod_profile)
+    mage.random()
+    mage.save()
+print("Average Random Werewolf Time:", (time() - mage_start) / 10)
 
 mage_start = time()
 for i in range(10):
