@@ -592,19 +592,26 @@ class TestWerewolf(TestCase):
         self.assertTrue(self.character.has_werewolf_history())
 
     def test_no_homid_red_talons(self):
-        self.fail()
+        self.character.breed = "homid"
+        self.assertFalse(self.character.set_tribe(Tribe.objects.create(name="Red Talons")))
 
     def test_no_male_black_furies(self):
-        self.fail()
+        self.character.sex = "Male"
+        self.assertFalse(self.character.set_tribe(Tribe.objects.create(name="Black Furies")))
 
     def test_silver_fangs_have_pure_breed_three(self):
-        self.fail()
+        self.character.set_tribe(Tribe.objects.create(name="Silver Fangs"))
+        self.assertEqual(self.character.pure_breed, 3)
 
     def test_add_renown_incident(self):
         self.fail()
 
     def test_update_renown(self):
-        self.fail()
+        self.character.glory = 2
+        self.character.tmp_glory = 10
+        self.character.update_renown()
+        self.assertEqual(self.character.glory, 3)
+        self.assertEqual(self.character.tmp_glory, 0)
 
 
 class TestTotem(TestCase):
