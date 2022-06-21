@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from wod.models.characters.human import Archetype, Character, Human
+from wod.models.characters.werewolf import Totem, Tribe, Camp, Gift, Rite, Werewolf, Pack
 from wod.models.characters.mage import (
     Instrument,
     Mage,
@@ -9,6 +10,7 @@ from wod.models.characters.mage import (
     Practice,
     Resonance,
     Rote,
+    Cabal,
 )
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
@@ -101,3 +103,15 @@ class GrimoireAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Library)
+
+admin.site.register(Archetype)
+admin.site.register(Totem)
+admin.site.register(Tribe)
+admin.site.register(Camp)
+admin.site.register(Gift)
+admin.site.register(Rite)
+admin.site.register(Werewolf)
+admin.site.register(Pack)
+admin.site.register(Cabal)
+admin.site.register(Item)
+admin.site.register(NodeMeritFlaw)
