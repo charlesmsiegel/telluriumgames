@@ -590,25 +590,26 @@ class TestWerewolf(TestCase):
         self.assertFalse(self.character.has_werewolf_history())
         self.character.age_of_first_change = 13
         self.assertTrue(self.character.has_werewolf_history())
-        
+
     def test_no_homid_red_talons(self):
         self.fail()
-        
+
     def test_no_male_black_furies(self):
         self.fail()
-        
+
     def test_silver_fangs_have_pure_breed_three(self):
         self.fail()
-        
+
     def test_add_renown_incident(self):
         self.fail()
-        
+
     def test_update_renown(self):
         self.fail()
 
 
 class TestTotem(TestCase):
     pass
+
 
 class TestRandomTotem(TestCase):
     # Cost 1 - 3 points for WP, Rage, and Gnosis
