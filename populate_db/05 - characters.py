@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 
 player = User.objects.create_user(username="Test")
 
-from wod.models.characters.werewolf import Werewolf
 from wod.models.characters.mage import Mage
+from wod.models.characters.werewolf import Werewolf
 from wod.models.items.mage import Grimoire
 from wod.models.locations.mage import Node
 

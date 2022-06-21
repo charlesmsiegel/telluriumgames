@@ -243,7 +243,7 @@ class WerewolfDetailView(View):
         werewolf = Werewolf.objects.get(pk=kwargs["pk"])
         context = self.get_context(werewolf)
         return render(request, "wod/characters/werewolf/detail.html", context)
-    
+
     def get_context(self, werewolf):
         context = {"object": werewolf}
         specialties = {}
@@ -267,7 +267,7 @@ class WerewolfDetailView(View):
             all_gifts[i : i + row_length] for i in range(0, len(all_gifts), row_length)
         ]
         context["gifts"] = all_gifts
-        
+
         all_rites = list(context["object"].rites_known.all())
         row_length = 3
         all_rites = [

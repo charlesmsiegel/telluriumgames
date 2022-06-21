@@ -1,4 +1,4 @@
-from wod.models.characters.human import Archetype, Specialty, MeritFlaw
+from wod.models.characters.human import Archetype, MeritFlaw, Specialty
 from wod.models.characters.werewolf import Camp, Gift, Rite, Totem, Tribe
 
 black_furies = Tribe.objects.create(name="Black Furies", willpower=3)

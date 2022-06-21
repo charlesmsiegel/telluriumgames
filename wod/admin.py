@@ -1,8 +1,8 @@
 from django.contrib import admin
 
 from wod.models.characters.human import Archetype, Character, Human
-from wod.models.characters.werewolf import Totem, Tribe, Camp, Gift, Rite, Werewolf, Pack
 from wod.models.characters.mage import (
+    Cabal,
     Instrument,
     Mage,
     MageFaction,
@@ -10,7 +10,15 @@ from wod.models.characters.mage import (
     Practice,
     Resonance,
     Rote,
-    Cabal,
+)
+from wod.models.characters.werewolf import (
+    Camp,
+    Gift,
+    Pack,
+    Rite,
+    Totem,
+    Tribe,
+    Werewolf,
 )
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
