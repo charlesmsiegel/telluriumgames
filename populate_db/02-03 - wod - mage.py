@@ -812,7 +812,6 @@ Specialty.objects.get_or_create(name="Time Travel", stat="time")
 Specialty.objects.get_or_create(name="Temporal Control", stat="time")
 
 
-
 armor = Instrument.objects.create(name="Armor")
 artwork = Instrument.objects.create(name="Artwork")
 atrocity = Instrument.objects.create(name="Atrocity")
