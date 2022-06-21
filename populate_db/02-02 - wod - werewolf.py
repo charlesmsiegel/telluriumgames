@@ -1,4 +1,4 @@
-from wod.models.characters.human import Archetype, Specialty
+from wod.models.characters.human import Archetype, Specialty, MeritFlaw
 from wod.models.characters.werewolf import Camp, Gift, Rite, Totem, Tribe
 
 black_furies = Tribe.objects.create(name="Black Furies", willpower=3)
@@ -672,7 +672,7 @@ Gift.objects.create(
 Gift.objects.create(name="Intrusion", rank=3, allowed={"garou": ["Glass Walkers"]})
 Gift.objects.create(name="Electroshock", rank=3, allowed={"garou": ["Glass Walkers"]})
 Gift.objects.create(
-    name="Elemental Favor", rank=3, allowed={"garou": ["Glass Walkers"]}
+    name="Elemental Favor", rank=3, allowed={"garou": ["Glass Walkers", "Red Talons"]}
 )
 Gift.objects.create(name="Doppelganger", rank=4, allowed={"garou": ["Glass Walkers"]})
 Gift.objects.create(name="Signal Rider", rank=4, allowed={"garou": ["Glass Walkers"]})
@@ -691,7 +691,6 @@ Gift.objects.create(name="Beastmind", rank=2, allowed={"garou": ["Red Talons"]})
 Gift.objects.create(
     name="Shadows of the Impergium", rank=2, allowed={"garou": ["Red Talons"]}
 )
-Gift.objects.create(name="Elemental Favor", rank=3, allowed={"garou": ["Red Talons"]})
 Gift.objects.create(name="Render Down", rank=3, allowed={"garou": ["Red Talons"]})
 Gift.objects.create(name="Territory", rank=3, allowed={"garou": ["Red Talons"]})
 Gift.objects.create(name="Trackless Waste", rank=3, allowed={"garou": ["Red Talons"]})
@@ -999,7 +998,6 @@ Rite.objects.create(name="Prayer for the Prey", level=0, type="minor")
 # TODO: Fomori pages 428-439
 # TODO: Creating Banes 440-441
 
-# TODO: Merits and Flaws pages 472-485
 # TODO: Derangements? Pages 485-486
 
 Archetype.objects.get_or_create(name="Alpha")
