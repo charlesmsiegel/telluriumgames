@@ -465,7 +465,9 @@ Specialty.objects.get_or_create(name="Urban Legends", stat="occult")
 Specialty.objects.get_or_create(name="Satanic Folklore", stat="occult")
 Specialty.objects.get_or_create(name="Pop-Culture Satanism", stat="occult")
 Specialty.objects.get_or_create(name="Actual Satanism", stat="occult")
-Specialty.objects.get_or_create(name="Specific Occult Discipline or Field", stat="occult")
+Specialty.objects.get_or_create(
+    name="Specific Occult Discipline or Field", stat="occult"
+)
 Specialty.objects.get_or_create(name="Legal Codes", stat="politics")
 Specialty.objects.get_or_create(name="Law Enforcement", stat="politics")
 Specialty.objects.get_or_create(name="Gang Culture", stat="politics")
@@ -612,7 +614,9 @@ Specialty.objects.get_or_create(name="Repair", stat="energy_weapons")
 Specialty.objects.get_or_create(name="Small Arms", stat="energy_weapons")
 Specialty.objects.get_or_create(name="Field Modifications", stat="energy_weapons")
 Specialty.objects.get_or_create(name="Cybernetic Weaponry", stat="energy_weapons")
-Specialty.objects.get_or_create(name="Micro-Gravitational Operations", stat="energy_weapons")
+Specialty.objects.get_or_create(
+    name="Micro-Gravitational Operations", stat="energy_weapons"
+)
 Specialty.objects.get_or_create(name="Sniper", stat="energy_weapons")
 Specialty.objects.get_or_create(name="Pulp-Tech", stat="energy_weapons")
 Specialty.objects.get_or_create(name="Hacking-n-Cracking", stat="hypertech")
@@ -669,7 +673,9 @@ Specialty.objects.get_or_create(name="Regional Beliefs", stat="belief_systems")
 Specialty.objects.get_or_create(name="Esoterica", stat="belief_systems")
 Specialty.objects.get_or_create(name="Cults", stat="belief_systems")
 Specialty.objects.get_or_create(name="Current Events", stat="belief_systems")
-Specialty.objects.get_or_create(name="Religious/Political History", stat="belief_systems")
+Specialty.objects.get_or_create(
+    name="Religious/Political History", stat="belief_systems"
+)
 Specialty.objects.get_or_create(name="Geopolitics", stat="belief_systems")
 Specialty.objects.get_or_create(name="Comparative Religion", stat="belief_systems")
 Specialty.objects.get_or_create(name="Media Manipulation", stat="belief_systems")
