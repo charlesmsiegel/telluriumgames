@@ -666,7 +666,6 @@ Gift.objects.create(
 Gift.objects.create(name="Diagnostics", rank=1, allowed={"garou": ["Glass Walkers"]})
 Gift.objects.create(name="Plug and Play", rank=1, allowed={"garou": ["Glass Walkers"]})
 Gift.objects.create(name="Trick Shot", rank=1, allowed={"garou": ["Glass Walkers"]})
-# TODO: Boli Zousizhe Gifts on page 183, allow gifts to check Camp?
 Gift.objects.create(name="Cybersenses", rank=2, allowed={"garou": ["Glass Walkers"]})
 Gift.objects.create(
     name="Hands Full of Thunder", rank=2, allowed={"garou": ["Glass Walkers"]}
@@ -693,7 +692,6 @@ Gift.objects.create(
 Gift.objects.create(name="Eye of the Hunter", rank=1, allowed={"garou": ["Red Talons"]})
 Gift.objects.create(name="Hidden Killer", rank=1, allowed={"garou": ["Red Talons"]})
 Gift.objects.create(name="Wolf at the Door", rank=1, allowed={"garou": ["Red Talons"]})
-# TODO: Kucha Ekundu Gifts on page 186
 Gift.objects.create(name="Beastmind", rank=2, allowed={"garou": ["Red Talons"]})
 Gift.objects.create(
     name="Shadows of the Impergium", rank=2, allowed={"garou": ["Red Talons"]}
@@ -719,7 +717,6 @@ Gift.objects.create(name="Shadow Weaving", rank=1, allowed={"garou": ["Shadow Lo
 Gift.objects.create(
     name="Whisper Catching", rank=1, allowed={"garou": ["Shadow Lords"]}
 )
-# TODO: Hakken Gifts page 189
 Gift.objects.create(name="Clap of Thunder", rank=2, allowed={"garou": ["Shadow Lords"]})
 Gift.objects.create(
     name="Cold Voice of Reason", rank=2, allowed={"garou": ["Shadow Lords"]}
@@ -890,7 +887,6 @@ Gift.objects.create(
 Gift.objects.create(
     name="Mask Taint", rank=5, allowed={"garou": ["Black Spiral Dancers"]}
 )
-# TODO: Lost Tribe Gifts pages 394-397
 Gift.objects.create(
     name="Bane Protector", rank=1, allowed={"garou": ["Black Spiral Dancers"]}
 )
@@ -989,8 +985,6 @@ Rite.objects.create(name="Greet the Moon", level=0, type="minor")
 Rite.objects.create(name="Greet the Sun", level=0, type="minor")
 Rite.objects.create(name="Hunting Prayer", level=0, type="minor")
 Rite.objects.create(name="Prayer for the Prey", level=0, type="minor")
-
-# TODO: Fetishes, pages 221-229
 
 RenownIncident.objects.create(
     name="Besting someone (including a spirit) in a riddle contest",
@@ -1519,21 +1513,7 @@ RenownIncident.objects.create(
 )
 RenownIncident.objects.create(name="Repairing the Veil", glory=0, honor=3, wisdom=1)
 
-# TODO: Sample Renwon Awards pages 246-250
-# TODO: Example Battle Scars 260
-
-# TODO: Before Totems are spirit things
-# TODO: Totems pages 373-377
 # Totem.objects.create(name="", cost=0)
-
-# TODO: Kinfolk creation pages 379-387
-
-# TODO: Changing Breeds pages 398-421
-
-# TODO: Fomori pages 428-439
-# TODO: Creating Banes 440-441
-
-# TODO: Derangements? Pages 485-486
 
 Archetype.objects.get_or_create(name="Alpha")
 Archetype.objects.get_or_create(name="Architect")
@@ -1637,7 +1617,6 @@ Camp.objects.create(name="Eaters of the Dead", tribe=silent_striders)
 Camp.objects.create(name="Seekers", tribe=silent_striders)
 Camp.objects.create(name="Swords of Night", tribe=silent_striders)
 Camp.objects.create(name="Wayfarers", tribe=silent_striders)
-# TODO: Silver Fang nonsense with Lodges, Houses, and Philosophical Decisions pages 500-502
 Camp.objects.create(name="Grey Raptors", tribe=silver_fangs)
 Camp.objects.create(name="Ivory Priesthood", tribe=silver_fangs)
 Camp.objects.create(name="Masters of the Seal", tribe=silver_fangs)
@@ -1665,7 +1644,6 @@ Camp.objects.create(name="Myeengun's Lodge", tribe=wendigo)
 Camp.objects.create(name="The Sacred Hoop", tribe=wendigo)
 Camp.objects.create(name="The Secret Hoop", tribe=wendigo)
 Camp.objects.create(name="The Warpath", tribe=wendigo)
-# TODO: How to represent camps that are pan-tribal like these three?
 Camp.objects.create(name="Fang Breakers", tribe=None)
 Camp.objects.create(name="Ghost Dancers", tribe=None)
 Camp.objects.create(name="Lazarite Movement", tribe=None)
