@@ -102,8 +102,13 @@ class Werewolf(Human):
     rage = models.IntegerField(default=0)
 
     glory = models.IntegerField(default=0)
+    temporary_glory = models.IntegerField(default=0)
     wisdom = models.IntegerField(default=0)
+    temporary_wisdom = models.IntegerField(default=0)
     honor = models.IntegerField(default=0)
+    temporary_honor = models.IntegerField(default=0)
+    
+    renown_incidents = models.JSONField(default=list)
 
     gifts = models.ManyToManyField(Gift, blank=True)
     rites_known = models.ManyToManyField(Rite, blank=True)
@@ -400,6 +405,41 @@ class Werewolf(Human):
     def has_renown(self):
         return (self.glory + self.honor + self.wisdom) == 3
 
+    def update_renown(self):
+        if self.temporary_glory >= 10:
+            self.glory += 1
+            self.temporary_glory -= 10
+        if self.temporary_honor >= 10:
+            self.honor += 1
+            self.temporary_honor -= 10
+        if self.temporary_wisdom >= 10:
+            self.wisdom += 1
+            self.temporary_wisdom -= 10
+
+    def num_renown_incidents(self):
+        return len(self.renown_incidents)
+
+    def add_renown_incident(self, r):
+        self.renown_incidents.append(r.name)
+        self.temporary_glory += r.glory
+        self.temporary_honor += r.honor
+        self.temporary_wisdom += r.wisdom
+        return True
+    
+    def random_renown_incident(self):
+        if self.rank != 5 and self.auspice != "ragabash":
+            reqs = self.requirements[self.auspice][self.rank + 1]
+            glory = reqs['glory'] - self.glory
+            honor = reqs['honor'] - self.honor
+            wisdom = reqs['wisdom'] - self.wisdom
+        else:
+            glory = 10 - self.glory
+            honor = 10 - self.honor
+            wisdom = 10 - self.wisdom
+        d = {r: sum([glory * r.glory, wisdom * r.wisdom, honor * r.honor]) for r in RenownIncident.objects.all()}
+        r = weighted_choice(d)
+        return self.add_renown_incident(r)
+
     def add_gnosis(self):
         return add_dot(self, "gnosis", 10)
 
@@ -592,6 +632,14 @@ class Werewolf(Human):
             "rage": 15,
             "gnosis": 5,
         }
+        starting_xp = self.xp
+        renown_requency_at_rank = {
+            1: 5,
+            2: 5,
+            3: 5,
+            4: 5,
+            5: 5,
+        }
         counter = 0
         while counter < 10000 and self.xp > 0:
             choice = weighted_choice(frequencies)
@@ -615,6 +663,12 @@ class Werewolf(Human):
                 spent = self.spend_xp(choice)
             if not spent:
                 counter += 1
+            num_renown_to_add = (starting_xp - self.xp)//renown_requency_at_rank[self.rank] - self.num_renown_incidents()
+            for _ in range(num_renown_to_add):
+                self.random_renown_incident()
+                self.update_renown()
+                if self.increase_rank():
+                    starting_xp = self.xp
 
     def random(self, freebies=15, xp=0, ethnicity=None):
         self.freebies = freebies
@@ -693,6 +747,16 @@ class Pack(models.Model):
 
     def total_totem(self):
         return sum(x.totem for x in self.members.all())
+
+    def __str__(self):
+        return self.name
+
+class RenownIncident(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    
+    glory = models.IntegerField(default=0)
+    honor = models.IntegerField(default=0)
+    wisdom = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
