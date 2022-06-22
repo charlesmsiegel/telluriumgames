@@ -43,7 +43,7 @@
         </div>
         <div class="row">
             <div class="col-sm">Rank</div>
-            <div class="col-sm">{{ object.rank }}</div>
+            <div class="col-sm">{{ rank_name }}</div>
             <div class="col-sm">Concept</div>
             <div class="col-sm">{{ object.concept }}</div>
             <div class="col-sm">Breed</div>
@@ -212,12 +212,20 @@
             <h2 class="col-sm wta_heading">Renown</h2>
         </div>
         <div class="row">
-            <div class="col-sm">Glore</div>
+            <div class="col-sm">Glory</div>
             <div class="col-sm dots">{{ object.glory|dots:10 }}</div>
             <div class="col-sm">Honor</div>
             <div class="col-sm dots">{{ object.honor|dots:10 }}</div>
             <div class="col-sm">Wisdom</div>
             <div class="col-sm dots">{{ object.wisdom|dots:10 }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Temporary Glory</div>
+            <div class="col-sm dots">{{ object.temporary_glory|dots:10 }}</div>
+            <div class="col-sm">Temporary Honor</div>
+            <div class="col-sm dots">{{ object.temporary_honor|dots:10 }}</div>
+            <div class="col-sm">Temporary Wisdom</div>
+            <div class="col-sm dots">{{ object.temporary_wisdom|dots:10 }}</div>
         </div>
         <div class="row">
             <h2 class="col-sm wta_heading">Backgrounds</h2>
@@ -361,6 +369,16 @@
             <div class="col-sm">Spent XP</div>
             <div class="col-sm">{{ object.spent_xp }}</div>
         </div>
+        <div class="row">
+            <h2 class="col-sm wta_heading">Renown Incidents</h2>
+        </div>
+        {% for incident in object.renown_incidents %}
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">{{ incident }}</div>
+            <div class="col-sm"></div>
+        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock content %}

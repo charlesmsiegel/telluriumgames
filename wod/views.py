@@ -274,6 +274,7 @@ class WerewolfDetailView(View):
             all_rites[i : i + row_length] for i in range(0, len(all_rites), row_length)
         ]
         context["rites"] = all_rites
+        context['rank_name'] = werewolf.rank_names[werewolf.rank]
         return context
 
 
