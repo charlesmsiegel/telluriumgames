@@ -53,6 +53,14 @@ class Rite(models.Model):
 class Werewolf(Human):
     type = "garou"
 
+    rank_names = {
+        1: "Cliath",
+        2: "Fostern",
+        3: "Adren",
+        4: "Athro",
+        5: "Elder",
+    }
+
     rank = models.IntegerField(default=1)
     auspice = models.CharField(
         default="",
@@ -284,6 +292,7 @@ class Werewolf(Human):
         return True
 
     def random_tribe(self):
+        value = True
         while self.tribe is None:
             value = self.set_tribe(Tribe.objects.order_by("?").first())
         return value
@@ -334,9 +343,28 @@ class Werewolf(Human):
         )
         return b
 
+    def choose_random_gift(self, breed=False, tribe=False, auspice=False, min_rank=1, max_rank=5):
+        while True:
+            index = random.randint(1, Gift.objects.last().id)
+            if Gift.objects.filter(pk=index).exists():
+                choice = Gift.objects.get(pk=index)
+                correct = True
+                if breed and self.breed not in choice.allowed['garou']:
+                    correct = False
+                if auspice and self.auspice not in choice.allowed['garou']:
+                    correct = False
+                if tribe and self.tribe.name not in choice.allowed['garou']:
+                    correct = False
+                if choice.rank < min_rank:
+                    correct = False
+                if choice.rank > max(max_rank, self.rank):
+                    correct = False
+                if correct:
+                    return choice
+                
     def random_gift(
         self, breed=False, tribe=False, auspice=False, min_rank=1, max_rank=5
-    ):
+    ):  
         possible_gifts = self.filter_gifts()
         possible_gifts = [x for x in possible_gifts if min_rank <= x.rank <= max_rank]
         if breed:
@@ -437,7 +465,7 @@ class Werewolf(Human):
             honor = 10 - self.honor
             wisdom = 10 - self.wisdom
         d = {r: sum([glory * r.glory, wisdom * r.wisdom, honor * r.honor]) for r in RenownIncident.objects.all()}
-        r = weighted_choice(d)
+        r = weighted_choice(d, floor=1, ceiling=20)
         return self.add_renown_incident(r)
 
     def add_gnosis(self):
@@ -462,19 +490,20 @@ class Werewolf(Human):
         return True
 
     def increase_rank(self):
-        requirements = self.requirements[self.auspice][self.rank + 1]
-        if "total" in requirements.keys():
-            allowed = self.glory + self.honor + self.wisdom >= requirements["total"]
-        else:
-            allowed = (
-                (self.glory >= requirements["glory"])
-                and (self.honor >= requirements["honor"])
-                and (self.wisdom >= requirements["wisdom"])
-            )
-        if allowed:
-            self.set_rank(self.rank + 1)
-            self.save()
-            return True
+        if self.rank < 5:
+            requirements = self.requirements[self.auspice][self.rank + 1]
+            if "total" in requirements.keys():
+                allowed = self.glory + self.honor + self.wisdom >= requirements["total"]
+            else:
+                allowed = (
+                    (self.glory >= requirements["glory"])
+                    and (self.honor >= requirements["honor"])
+                    and (self.wisdom >= requirements["wisdom"])
+                )
+            if allowed:
+                self.set_rank(self.rank + 1)
+                self.save()
+                return True
         return False
 
     def xp_cost(self, trait):
@@ -633,12 +662,12 @@ class Werewolf(Human):
             "gnosis": 5,
         }
         starting_xp = self.xp
-        renown_requency_at_rank = {
-            1: 5,
-            2: 5,
-            3: 5,
-            4: 5,
-            5: 5,
+        renown_frequency_at_rank = {
+            1: 3,
+            2: 3,
+            3: 3,
+            4: 3,
+            5: 3,
         }
         counter = 0
         while counter < 10000 and self.xp > 0:
@@ -657,13 +686,13 @@ class Werewolf(Human):
             if choice == "gnosis":
                 spent = self.spend_xp(choice)
             if choice == "gift":
-                trait = random.choice(self.filter_gifts())
+                trait = self.choose_random_gift()
                 spent = self.spend_xp(trait)
             if choice == "rage":
                 spent = self.spend_xp(choice)
             if not spent:
                 counter += 1
-            num_renown_to_add = (starting_xp - self.xp)//renown_requency_at_rank[self.rank] - self.num_renown_incidents()
+            num_renown_to_add = (starting_xp - self.xp)//renown_frequency_at_rank[self.rank] - self.num_renown_incidents()
             for _ in range(num_renown_to_add):
                 self.random_renown_incident()
                 self.update_renown()
