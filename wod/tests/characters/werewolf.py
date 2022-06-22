@@ -8,11 +8,11 @@ from wod.models.characters.werewolf import (
     Camp,
     Gift,
     Pack,
+    RenownIncident,
     Rite,
     Totem,
     Tribe,
     Werewolf,
-    RenownIncident
 )
 
 
@@ -63,7 +63,12 @@ def werewolf_setup(player):
     for i in range(3):
         for j in range(3):
             for k in range(3):
-                RenownIncident.objects.create(name=f"Incident {i}, {j}, {k}", glory=i-1, honor=j-1, wisdom=k-1)
+                RenownIncident.objects.create(
+                    name=f"Incident {i}, {j}, {k}",
+                    glory=i - 1,
+                    honor=j - 1,
+                    wisdom=k - 1,
+                )
 
 
 class TestWerewolf(TestCase):
@@ -598,18 +603,24 @@ class TestWerewolf(TestCase):
 
     def test_no_homid_red_talons(self):
         self.character.breed = "homid"
-        self.assertFalse(self.character.set_tribe(Tribe.objects.create(name="Red Talons")))
+        self.assertFalse(
+            self.character.set_tribe(Tribe.objects.create(name="Red Talons"))
+        )
 
     def test_no_male_black_furies(self):
         self.character.sex = "Male"
-        self.assertFalse(self.character.set_tribe(Tribe.objects.create(name="Black Furies")))
+        self.assertFalse(
+            self.character.set_tribe(Tribe.objects.create(name="Black Furies"))
+        )
 
     def test_silver_fangs_have_pure_breed_three(self):
         self.character.set_tribe(Tribe.objects.create(name="Silver Fangs"))
         self.assertEqual(self.character.pure_breed, 3)
 
     def test_add_renown_incident(self):
-        r = RenownIncident.objects.create(name="Test Renown Incident", glory=1, honor=1, wisdom=1)
+        r = RenownIncident.objects.create(
+            name="Test Renown Incident", glory=1, honor=1, wisdom=1
+        )
         self.assertTrue(self.character.add_renown_incident(r))
         self.assertEqual(self.character.num_renown_incidents(), 1)
         self.assertIn("Test Renown Incident", self.character.renown_incidents)
@@ -687,7 +698,7 @@ class TestRandomWerewolf(TestCase):
         self.assertEqual(self.character.freebies, 15)
         self.character.random_freebies()
         self.assertEqual(self.character.freebies, 0)
-        
+
     def test_random_renown_incident(self):
         self.character.auspice = "ahroun"
         num = self.character.num_renown_incidents()

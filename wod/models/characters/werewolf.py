@@ -115,7 +115,7 @@ class Werewolf(Human):
     temporary_wisdom = models.IntegerField(default=0)
     honor = models.IntegerField(default=0)
     temporary_honor = models.IntegerField(default=0)
-    
+
     renown_incidents = models.JSONField(default=list)
 
     gifts = models.ManyToManyField(Gift, blank=True)
@@ -343,17 +343,19 @@ class Werewolf(Human):
         )
         return b
 
-    def choose_random_gift(self, breed=False, tribe=False, auspice=False, min_rank=1, max_rank=5):
+    def choose_random_gift(
+        self, breed=False, tribe=False, auspice=False, min_rank=1, max_rank=5
+    ):
         while True:
             index = random.randint(1, Gift.objects.last().id)
             if Gift.objects.filter(pk=index).exists():
                 choice = Gift.objects.get(pk=index)
                 correct = True
-                if breed and self.breed not in choice.allowed['garou']:
+                if breed and self.breed not in choice.allowed["garou"]:
                     correct = False
-                if auspice and self.auspice not in choice.allowed['garou']:
+                if auspice and self.auspice not in choice.allowed["garou"]:
                     correct = False
-                if tribe and self.tribe.name not in choice.allowed['garou']:
+                if tribe and self.tribe.name not in choice.allowed["garou"]:
                     correct = False
                 if choice.rank < min_rank:
                     correct = False
@@ -361,10 +363,10 @@ class Werewolf(Human):
                     correct = False
                 if correct:
                     return choice
-                
+
     def random_gift(
         self, breed=False, tribe=False, auspice=False, min_rank=1, max_rank=5
-    ):  
+    ):
         possible_gifts = self.filter_gifts()
         possible_gifts = [x for x in possible_gifts if min_rank <= x.rank <= max_rank]
         if breed:
@@ -453,18 +455,21 @@ class Werewolf(Human):
         self.temporary_honor += r.honor
         self.temporary_wisdom += r.wisdom
         return True
-    
+
     def random_renown_incident(self):
         if self.rank != 5 and self.auspice != "ragabash":
             reqs = self.requirements[self.auspice][self.rank + 1]
-            glory = reqs['glory'] - self.glory
-            honor = reqs['honor'] - self.honor
-            wisdom = reqs['wisdom'] - self.wisdom
+            glory = reqs["glory"] - self.glory
+            honor = reqs["honor"] - self.honor
+            wisdom = reqs["wisdom"] - self.wisdom
         else:
             glory = 10 - self.glory
             honor = 10 - self.honor
             wisdom = 10 - self.wisdom
-        d = {r: sum([glory * r.glory, wisdom * r.wisdom, honor * r.honor]) for r in RenownIncident.objects.all()}
+        d = {
+            r: sum([glory * r.glory, wisdom * r.wisdom, honor * r.honor])
+            for r in RenownIncident.objects.all()
+        }
         r = weighted_choice(d, floor=1, ceiling=20)
         return self.add_renown_incident(r)
 
@@ -692,7 +697,9 @@ class Werewolf(Human):
                 spent = self.spend_xp(choice)
             if not spent:
                 counter += 1
-            num_renown_to_add = (starting_xp - self.xp)//renown_frequency_at_rank[self.rank] - self.num_renown_incidents()
+            num_renown_to_add = (starting_xp - self.xp) // renown_frequency_at_rank[
+                self.rank
+            ] - self.num_renown_incidents()
             for _ in range(num_renown_to_add):
                 self.random_renown_incident()
                 self.update_renown()
@@ -780,9 +787,10 @@ class Pack(models.Model):
     def __str__(self):
         return self.name
 
+
 class RenownIncident(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    
+
     glory = models.IntegerField(default=0)
     honor = models.IntegerField(default=0)
     wisdom = models.IntegerField(default=0)
