@@ -658,12 +658,12 @@ class Werewolf(Human):
 
     def random_xp(self):
         frequencies = {
-            "attribute": 16,
+            "attribute": 15,
             "ability": 20,
-            "background": 13,
-            "willpower": 1,
+            "background": 15,
+            "willpower": 5,
             "gift": 35,
-            "rage": 15,
+            "rage": 5,
             "gnosis": 5,
         }
         starting_xp = self.xp
