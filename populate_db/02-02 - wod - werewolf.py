@@ -972,13 +972,13 @@ Rite.objects.create(name="Rite of Renunciation", level=2, type="accord")
 Rite.objects.create(name="Rite of the Loyal PAck", level=3, type="accord")
 Rite.objects.create(name="Enchant the Forest", level=4, type="accord")
 Rite.objects.create(name="Rite of the Opened Sky", level=4, type="accord")
-Rite.objects.create(name="Moot Rite", level=1, type="caern")
+moot_rite = Rite.objects.create(name="Moot Rite", level=1, type="caern")
 Rite.objects.create(name="Rite of the Opened Caern", level=1, type="caern")
 Rite.objects.create(name="Rite of the Glorious Past", level=3, type="caern")
 Rite.objects.create(name="The Badger's Burrow", level=4, type="caern")
 Rite.objects.create(name="Rite of the Opened Bridge", level=4, type="caern")
 Rite.objects.create(name="Rite of the Shrouded Glen", level=4, type="caern")
-Rite.objects.create(name="Rite of Caern Building", level=5, type="caern")
+rite_of_caern_building = Rite.objects.create(name="Rite of Caern Building", level=5, type="caern")
 Rite.objects.create(name="Gathering for the Departed", level=1, type="death")
 Rite.objects.create(name="Last Blessing", level=1, type="death")
 Rite.objects.create(name="Rite of the Winter Wolf", level=3, type="death")
@@ -997,18 +997,18 @@ Rite.objects.create(name="Descent Into the Underworld", level=3, type="mystic")
 Rite.objects.create(name="Rite of the Fetish", level=3, type="mystic")
 Rite.objects.create(name="Rite of the Totem", level=3, type="mystic")
 Rite.objects.create(name="Rite of the Jackdaw", level=1, type="punishment")
-Rite.objects.create(name="Rite of Ostracism", level=2, type="punishment")
-Rite.objects.create(name="Stone of Scorn", level=2, type="punishment")
-Rite.objects.create(name="Voice of the Jackal", level=2, type="punishment")
+rite_of_ostracism = Rite.objects.create(name="Rite of Ostracism", level=2, type="punishment")
+stone_of_scorn = Rite.objects.create(name="Stone of Scorn", level=2, type="punishment")
+rite_of_the_jackal = Rite.objects.create(name="Voice of the Jackal", level=2, type="punishment")
 Rite.objects.create(name="The Hunt", level=3, type="punishment")
 Rite.objects.create(name="Rite of the Omega Wolf", level=3, type="punishment")
 Rite.objects.create(name="Satire Rite", level=3, type="punishment")
 Rite.objects.create(name="The Rending of the Veil", level=4, type="punishment")
 Rite.objects.create(name="Gaia's Vengeful Teeth", level=5, type="punishment")
 Rite.objects.create(name="Rite of Boasting", level=1, type="renown")
-Rite.objects.create(name="Rite of Wounding", level=1, type="renown")
+rite_of_wounding = Rite.objects.create(name="Rite of Wounding", level=1, type="renown")
 Rite.objects.create(name="Rite of Accomplishment", level=2, type="renown")
-Rite.objects.create(name="Rite of Passage", level=2, type="renown")
+rite_of_passage = Rite.objects.create(name="Rite of Passage", level=2, type="renown")
 Rite.objects.create(name="Rite of Praise", level=2, type="renown")
 Rite.objects.create(name="Rite of the Winter Winds", level=2, type="seasonal")
 Rite.objects.create(name="Rite of Reawakening", level=2, type="seasonal")
@@ -1172,20 +1172,20 @@ RenownIncident.objects.create(
 RenownIncident.objects.create(
     name="Discovering an ancient caern that was lost", glory=0, honor=0, wisdom=7
 )
-RenownIncident.objects.create(name="Perfomring a Moot Rite", glory=0, honor=2, wisdom=0)
+RenownIncident.objects.create(name="Perfomring a Moot Rite", glory=0, honor=2, wisdom=0, rite=moot_rite)
 RenownIncident.objects.create(
-    name="Refusing to perform a Moot Rite when asked", glory=0, honor=-3, wisdom=0
+    name="Refusing to perform a Moot Rite when asked", glory=0, honor=-3, wisdom=0, rite=moot_rite
 )
 RenownIncident.objects.create(name="Missing a Moot Rite", glory=0, honor=0, wisdom=-1)
 
 RenownIncident.objects.create(
-    name="Performing a Rite of Passage", glory=0, honor=2, wisdom=1
+    name="Performing a Rite of Passage", glory=0, honor=2, wisdom=1, rite=rite_of_passage
 )
 RenownIncident.objects.create(
-    name="Receiving a Rite of Wounding", glory=2, honor=0, wisdom=0
+    name="Receiving a Rite of Wounding", glory=2, honor=0, wisdom=0, rite=rite_of_wounding
 )
 RenownIncident.objects.create(
-    name="Performing a Rite of Caern Building", glory=3, honor=5, wisdom=7
+    name="Performing a Rite of Caern Building", glory=3, honor=5, wisdom=7, rite=rite_of_caern_building
 )
 RenownIncident.objects.create(
     name="Participating in a Rite of Caern Building", glory=0, honor=5, wisdom=3
@@ -1197,14 +1197,15 @@ RenownIncident.objects.create(
     name="Participating in a failed Great Hunt rite", glory=-2, honor=0, wisdom=0
 )
 RenownIncident.objects.create(
-    name="Suffering the Rite of Ostracism", glory=-1, honor=-7, wisdom=-1
+    name="Suffering the Rite of Ostracism", glory=-1, honor=-7, wisdom=-1, rite=rite_of_ostracism
 )
 RenownIncident.objects.create(
-    name="Suffering the Stone of Scorn", glory=0, honor=-8, wisdom=-2
+    name="Suffering the Stone of Scorn", glory=0, honor=-8, wisdom=-2, rite=stone_of_scorn
 )
 RenownIncident.objects.create(
-    name="Suffering the Rite of the Jackal", glory=-2, honor=-7, wisdom=0
+    name="Suffering the Rite of the Jackal", glory=-2, honor=-7, wisdom=0, rite=rite_of_the_jackal
 )
+# No test currently for "has a punishment rite"
 RenownIncident.objects.create(
     name="Performing a Punishment Rite", glory=0, honor=2, wisdom=0
 )
@@ -1291,7 +1292,7 @@ RenownIncident.objects.create(
     wisdom=0,
 )
 RenownIncident.objects.create(
-    name="Dying while defending a caern (posthumous)", glory=5, honor=8, wisdom=0
+    name="Dying while defending a caern (posthumous)", glory=5, honor=8, wisdom=0, posthumous=True
 )
 RenownIncident.objects.create(
     name="Single-handedly preventing a caern from being taken by the Wyrm",
@@ -1312,26 +1313,27 @@ RenownIncident.objects.create(
     wisdom=8,
 )
 RenownIncident.objects.create(
-    name="For a homid Garou, surviving to age 75", glory=0, honor=8, wisdom=10
+    name="For a homid Garou, surviving to age 75", glory=0, honor=8, wisdom=10, breed="homid"
 )
 RenownIncident.objects.create(
-    name="For a lupus Garou, surviving to age 65", glory=0, honor=8, wisdom=10
+    name="For a lupus Garou, surviving to age 65", glory=0, honor=8, wisdom=10, breed="lupus"
 )
 
 RenownIncident.objects.create(
     name="For a homid, ignoring one's wold nature for too long",
     glory=0,
     honor=0,
-    wisdom=-3,
+    wisdom=-3, breed="homid"
 )
 RenownIncident.objects.create(
-    name="For a metis, attempting to hide one's deformity", glory=0, honor=0, wisdom=-3
+    name="For a metis, attempting to hide one's deformity", glory=0, honor=0, wisdom=-3, breed="metis"
 )
 RenownIncident.objects.create(
     name="For a lupus, using too many human tools and other Weaver things",
     glory=0,
     honor=0,
     wisdom=-1,
+    breed="lupus"
 )
 RenownIncident.objects.create(
     name="Gaining the position of Pack leader", glory=0, honor=3, wisdom=0
@@ -1495,10 +1497,10 @@ RenownIncident.objects.create(
     wisdom=0,
 )
 RenownIncident.objects.create(
-    name="Dying while defending your pack (posthumous)", glory=4, honor=6, wisdom=0
+    name="Dying while defending your pack (posthumous)", glory=4, honor=6, wisdom=0, posthumous=True
 )
 RenownIncident.objects.create(
-    name="Dying in defense of Gaia (posthumous)", glory=7, honor=7, wisdom=0
+    name="Dying in defense of Gaia (posthumous)", glory=7, honor=7, wisdom=0, posthumous=True
 )
 RenownIncident.objects.create(
     name="Succumbing to a berserk frenzy", glory=0, honor=0, wisdom=-1
