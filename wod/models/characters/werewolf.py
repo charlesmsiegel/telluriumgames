@@ -357,8 +357,12 @@ class Werewolf(Human):
                     correct = False
                 if auspice and self.auspice not in choice.allowed["garou"]:
                     correct = False
-                if tribe and self.tribe.name not in choice.allowed["garou"]:
-                    correct = False
+                if tribe:
+                    if self.camp is not None:
+                        if self.tribe.name not in choice.allowed["garou"] and self.camp.name not in choice.allowed['garou']:
+                            correct = False
+                    elif self.tribe.name not in choice.allowed["garou"]:
+                        correct = False
                 if choice.rank < min_rank:
                     correct = False
                 if choice.rank > max(max_rank, self.rank):
