@@ -503,7 +503,7 @@ Gift.objects.create(
     name="Silver Claws", rank=3, allowed={"garou": ["ahroun", "Silver Fangs"]}
 )
 Gift.objects.create(name="Wind Claws", rank=3, allowed={"garou": ["ahroun"]})
-Gift.objects.create(name="Clenched Jaw", rank=4, allowed={"garou": ["ahroun"]})
+Gift.objects.create(name="Clenched Jaw", rank=4, allowed={"garou": ["ahroun", "Kucha Ekundu"]})
 Gift.objects.create(name="Full Moon's Light", rank=4, allowed={"garou": ["ahroun"]})
 Gift.objects.create(
     name="Stoking Fury's Furnace", rank=4, allowed={"garou": ["ahroun"]}
@@ -753,7 +753,7 @@ Gift.objects.create(
 )
 Gift.objects.create(name="Silence", rank=1, allowed={"garou": ["Silent Striders"]})
 Gift.objects.create(
-    name="Speed of Thought", rank=1, allowed={"garou": ["Silent Striders"]}
+    name="Speed of Thought", rank=1, allowed={"garou": ["Silent Striders", "Kucha Ekundu"]}
 )
 Gift.objects.create(
     name="Visions of Duat", rank=1, allowed={"garou": ["Silent Striders"]}
@@ -942,6 +942,10 @@ Gift.objects.create(name="Fu Xi's Honor", rank=2, allowed={"garou": ["Boli Zousi
 Gift.objects.create(name="Yao's Commands", rank=3, allowed={"garou": ["Boli Zousizhe"]})
 Gift.objects.create(name="Yu's Endurance", rank=4, allowed={"garou": ["Boli Zousizhe"]})
 Gift.objects.create(name="Huang Di's Sacrifice", rank=5, allowed={"garou": ["Boli Zousizhe"]})
+
+Gift.objects.create(name="Feed the Pack", rank=2, allowed={"garou": ["Kucha Ekundu"]})
+Gift.objects.create(name="Predator's Many Eyes", rank=3, allowed={"garou": ["Kucha Ekundu"]})
+Gift.objects.create(name="Crocodile Pact", rank=5, allowed={"garou": ["Kucha Ekundu"]})
 
 Rite.objects.create(name="Rite of Cleansing", level=1, type="accord")
 Rite.objects.create(name="Rite of Contrition", level=1, type="accord")
@@ -1661,3 +1665,4 @@ Camp.objects.create(name="Ghost Dancers", tribe=None)
 Camp.objects.create(name="Lazarite Movement", tribe=None)
 Camp.objects.create(name="Hakken", tribe=shadow_lords)
 Camp.objects.create(name="Boli Zousizhe", tribe=glass_walker)
+Camp.objects.create(name="Kucha Ekundu", tribe=red_talons)
