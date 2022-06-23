@@ -1,8 +1,8 @@
 import random
 
-from django.db.models import Q
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Q
 
 from accounts.models import WoDProfile
 from core.utils import add_dot, weighted_choice
@@ -307,10 +307,8 @@ class Werewolf(Human):
         return True
 
     def random_camp(self):
-        fltr =  Q(tribe=self.tribe) | Q(tribe=None)
-        return self.set_camp(
-            Camp.objects.filter(fltr).order_by("?").first()
-        )
+        fltr = Q(tribe=self.tribe) | Q(tribe=None)
+        return self.set_camp(Camp.objects.filter(fltr).order_by("?").first())
 
     def add_gift(self, gift):
         self.gifts.add(gift)
@@ -359,7 +357,10 @@ class Werewolf(Human):
                     correct = False
                 if tribe:
                     if self.camp is not None:
-                        if self.tribe.name not in choice.allowed["garou"] and self.camp.name not in choice.allowed['garou']:
+                        if (
+                            self.tribe.name not in choice.allowed["garou"]
+                            and self.camp.name not in choice.allowed["garou"]
+                        ):
                             correct = False
                     elif self.tribe.name not in choice.allowed["garou"]:
                         correct = False
@@ -384,7 +385,9 @@ class Werewolf(Human):
                 x for x in possible_gifts if self.tribe.name in x.allowed["garou"]
             ]
             if self.camp is not None:
-                possible_gifts.extend([x for x in possible_gifts if self.camp.name in x.allowed['garou']])
+                possible_gifts.extend(
+                    [x for x in possible_gifts if self.camp.name in x.allowed["garou"]]
+                )
         if auspice:
             possible_gifts = [
                 x for x in possible_gifts if self.auspice in x.allowed["garou"]
