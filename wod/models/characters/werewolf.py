@@ -1,5 +1,6 @@
 import random
 
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -306,8 +307,9 @@ class Werewolf(Human):
         return True
 
     def random_camp(self):
+        fltr =  Q(tribe=self.tribe) | Q(tribe=None)
         return self.set_camp(
-            Camp.objects.filter(tribe=self.tribe).order_by("?").first()
+            Camp.objects.filter(fltr).order_by("?").first()
         )
 
     def add_gift(self, gift):
