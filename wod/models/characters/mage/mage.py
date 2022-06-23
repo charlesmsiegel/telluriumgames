@@ -686,9 +686,9 @@ class Mage(Human):
             "ability": 20,
             "background": 13,
             "willpower": 1,
-            "sphere": 35,
-            "arete": 15,
-            "rote points": 5,
+            "sphere": 37,
+            "arete": 10,
+            "rote points": 2,
         }
         counter = 0
         while counter < 10000 and self.xp > 0:
