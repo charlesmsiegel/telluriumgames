@@ -634,6 +634,18 @@ class TestWerewolf(TestCase):
         self.character.update_renown()
         self.assertEqual(self.character.glory, 3)
         self.assertEqual(self.character.temporary_glory, 0)
+        
+    def test_achieved_age_only_once(self):
+        self.fail()
+        
+    def test_breed_renown_correct(self):
+        self.fail()
+        
+    def test_renown_check_if_has_rite(self):
+        self.fail()
+        
+    def test_wont_add_if_last_is_posthumous(self):
+        self.fail()
 
 
 class TestTotem(TestCase):
