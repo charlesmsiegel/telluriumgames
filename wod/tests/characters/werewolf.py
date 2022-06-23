@@ -636,16 +636,27 @@ class TestWerewolf(TestCase):
         self.assertEqual(self.character.temporary_glory, 0)
         
     def test_achieved_age_only_once(self):
-        self.fail()
+        r = RenownIncident.objects.create(name="One Off", glory=1, wisdom=2, only_once=True)
+        self.assertTrue(self.character.add_renown_incident(r))
+        self.assertFalse(self.character.add_renown_incident(r))
         
     def test_breed_renown_correct(self):
-        self.fail()
+        r = RenownIncident.objects.create(name="Lupus Award", breed="lupus")
+        self.character.set_breed("homid")
+        self.assertFalse(self.character.add_renown_incident(r))
         
     def test_renown_check_if_has_rite(self):
-        self.fail()
+        rite = Rite.objects.create(name="Test Rite for Renown")
+        renown = RenownIncident.objects.create(name="Used Test Rite for Renown", rite=rite)
+        self.assertFalse(self.character.add_renown_incident(renown))
+        self.character.add_rite(rite)
+        self.assertTrue(self.character.add_renown_incident(renown))
         
     def test_wont_add_if_last_is_posthumous(self):
-        self.fail()
+        r1 = RenownIncident.objects.create(name="Award (posthumous)", glory=3, honor=3, wisdom=0, posthumous=True)
+        r2 = RenownIncident.objects.create(name="Award", glory=3, honor=3, wisdom=0)
+        self.assertTrue(self.character.add_renown_incident(r1))
+        self.assertFalse(self.character.add_renown_incident(r2))
 
 
 class TestTotem(TestCase):
