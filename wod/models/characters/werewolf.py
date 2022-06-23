@@ -816,7 +816,7 @@ class RenownIncident(models.Model):
     glory = models.IntegerField(default=0)
     honor = models.IntegerField(default=0)
     wisdom = models.IntegerField(default=0)
-    
+
     posthumous = models.BooleanField(default=False)
     only_once = models.BooleanField(default=False)
     breed = models.CharField(default="", max_length=10)

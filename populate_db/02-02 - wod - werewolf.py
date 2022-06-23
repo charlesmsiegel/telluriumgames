@@ -227,7 +227,9 @@ Specialty.objects.get_or_create(name="Industrial Espionage", stat="technology")
 Gift.objects.create(name="Aprecraft's Blessings", rank=1, allowed={"garou": ["homid"]})
 Gift.objects.create(name="City Running", rank=1, allowed={"garou": ["homid"]})
 Gift.objects.create(
-    name="Master of Fire", rank=1, allowed={"garou": ["homid", "Get of Fenris", "Croatan"]}
+    name="Master of Fire",
+    rank=1,
+    allowed={"garou": ["homid", "Get of Fenris", "Croatan"]},
 )
 Gift.objects.create(
     name="Persuasion",
@@ -265,7 +267,9 @@ Gift.objects.create(name="Assimilation", rank=5, allowed={"garou": ["homid"]})
 Gift.objects.create(name="Beyond Human", rank=5, allowed={"garou": ["homid"]})
 Gift.objects.create(name="Part the Veil", rank=5, allowed={"garou": ["homid"]})
 Gift.objects.create(name="Create Element", rank=1, allowed={"garou": ["metis"]})
-Gift.objects.create(name="Primal Anger", rank=1, allowed={"garou": ["metis", "White Howler"]})
+Gift.objects.create(
+    name="Primal Anger", rank=1, allowed={"garou": ["metis", "White Howler"]}
+)
 Gift.objects.create(name="Rat Head", rank=1, allowed={"garou": ["metis"]})
 Gift.objects.create(
     name="Sense Wyrm",
@@ -279,7 +283,8 @@ Gift.objects.create(
             "Silver Fangs",
             "Stargazers",
             "Uktena",
-            "Black Spiral Dancers", "White Howler"
+            "Black Spiral Dancers",
+            "White Howler",
         ]
     },
 )
@@ -385,7 +390,9 @@ Gift.objects.create(
 )
 Gift.objects.create(name="Firebringer", rank=6, allowed={"garou": ["ragabash"]})
 Gift.objects.create(
-    name="Mother's Touch", rank=1, allowed={"garou": ["theurge", "Children of Gaia", "Bunyip"]}
+    name="Mother's Touch",
+    rank=1,
+    allowed={"garou": ["theurge", "Children of Gaia", "Bunyip"]},
 )
 Gift.objects.create(name="Spirit Snare", rank=1, allowed={"garou": ["theurge"]})
 Gift.objects.create(
@@ -433,7 +440,9 @@ Gift.objects.create(
     name="Command the Gathering", rank=2, allowed={"garou": ["philodox", "galliard"]}
 )
 Gift.objects.create(name="King of the Beasts", rank=2, allowed={"garou": ["philodox"]})
-Gift.objects.create(name="Strength of Purpose", rank=2, allowed={"garou": ["philodox", "Croatan"]})
+Gift.objects.create(
+    name="Strength of Purpose", rank=2, allowed={"garou": ["philodox", "Croatan"]}
+)
 Gift.objects.create(
     name="Scent of the Oathbreaker", rank=3, allowed={"garou": ["philodox"]}
 )
@@ -458,7 +467,9 @@ Gift.objects.create(
     name="Beast Speech", rank=1, allowed={"garou": ["galliard", "Red Talons"]}
 )
 Gift.objects.create(name="Call of the Wyld", rank=1, allowed={"garou": ["galliard"]})
-Gift.objects.create(name="Mindspeak", rank=1, allowed={"garou": ["galliard", "Croatan"]})
+Gift.objects.create(
+    name="Mindspeak", rank=1, allowed={"garou": ["galliard", "Croatan"]}
+)
 Gift.objects.create(name="Perfect Recall", rank=1, allowed={"garou": ["galliard"]})
 Gift.objects.create(name="Call of the Wyrm", rank=2, allowed={"garou": ["galliard"]})
 Gift.objects.create(name="Distractions", rank=2, allowed={"garou": ["galliard"]})
@@ -503,7 +514,9 @@ Gift.objects.create(
     name="Silver Claws", rank=3, allowed={"garou": ["ahroun", "Silver Fangs"]}
 )
 Gift.objects.create(name="Wind Claws", rank=3, allowed={"garou": ["ahroun"]})
-Gift.objects.create(name="Clenched Jaw", rank=4, allowed={"garou": ["ahroun", "Kucha Ekundu"]})
+Gift.objects.create(
+    name="Clenched Jaw", rank=4, allowed={"garou": ["ahroun", "Kucha Ekundu"]}
+)
 Gift.objects.create(name="Full Moon's Light", rank=4, allowed={"garou": ["ahroun"]})
 Gift.objects.create(
     name="Stoking Fury's Furnace", rank=4, allowed={"garou": ["ahroun"]}
@@ -515,7 +528,9 @@ Gift.objects.create(
     name="Breath of the Wyld", rank=1, allowed={"garou": ["Black Furies"]}
 )
 Gift.objects.create(name="Man's Skin", rank=1, allowed={"garou": ["Black Furies"]})
-Gift.objects.create(name="Wyld Resurgence", rank=1, allowed={"garou": ["Black Furies", "Croatan"]})
+Gift.objects.create(
+    name="Wyld Resurgence", rank=1, allowed={"garou": ["Black Furies", "Croatan"]}
+)
 Gift.objects.create(name="Curse of Aeolus", rank=2, allowed={"garou": ["Black Furies"]})
 Gift.objects.create(name="Kali's Tongue", rank=2, allowed={"garou": ["Black Furies"]})
 Gift.objects.create(name="Kneel", rank=2, allowed={"garou": ["Black Furies"]})
@@ -531,7 +546,9 @@ Gift.objects.create(name="Gorgon's Gaze", rank=5, allowed={"garou": ["Black Furi
 Gift.objects.create(name="Wyld Warp", rank=5, allowed={"garou": ["Black Furies"]})
 Gift.objects.create(name="Cooking", rank=1, allowed={"garou": ["Bone Gnawers"]})
 Gift.objects.create(
-    name="Desperate Strength", rank=1, allowed={"garou": ["Bone Gnawers", "White Howler"]}
+    name="Desperate Strength",
+    rank=1,
+    allowed={"garou": ["Bone Gnawers", "White Howler"]},
 )
 Gift.objects.create(
     name="Resist Toxin",
@@ -572,7 +589,9 @@ Gift.objects.create(
 Gift.objects.create(name="Blink", rank=4, allowed={"garou": ["Bone Gnawers"]})
 Gift.objects.create(name="Infest", rank=4, allowed={"garou": ["Bone Gnawers"]})
 Gift.objects.create(name="Riot", rank=5, allowed={"garou": ["Bone Gnawers"]})
-Gift.objects.create(name="Survivor", rank=5, allowed={"garou": ["Bone Gnawers", "Croatan"]})
+Gift.objects.create(
+    name="Survivor", rank=5, allowed={"garou": ["Bone Gnawers", "Croatan"]}
+)
 Gift.objects.create(
     name="Brother's Scent", rank=1, allowed={"garou": ["Children of Gaia"]}
 )
@@ -621,7 +640,9 @@ Gift.objects.create(name="Howl of the Banshee", rank=2, allowed={"garou": ["Fian
 Gift.objects.create(name="Howl of the Unseen", rank=2, allowed={"garou": ["Fianna"]})
 Gift.objects.create(name="Faerie Kin", rank=3, allowed={"garou": ["Fianna"]})
 Gift.objects.create(name="Fair Fortune", rank=3, allowed={"garou": ["Fianna"]})
-Gift.objects.create(name="Ley Lines", rank=3, allowed={"garou": ["Fianna", "White Howler"]})
+Gift.objects.create(
+    name="Ley Lines", rank=3, allowed={"garou": ["Fianna", "White Howler"]}
+)
 Gift.objects.create(name="Balor's Gaze", rank=4, allowed={"garou": ["Fianna"]})
 Gift.objects.create(name="Phantasm", rank=4, allowed={"garou": ["Fianna"]})
 Gift.objects.create(name="Call the Hunt", rank=5, allowed={"garou": ["Fianna"]})
@@ -649,7 +670,9 @@ Gift.objects.create(name="Venom Blood", rank=3, allowed={"garou": ["Get of Fenri
 Gift.objects.create(
     name="Heart of the Mountain", rank=4, allowed={"garou": ["Get of Fenris"]}
 )
-Gift.objects.create(name="Hero's Stand", rank=4, allowed={"garou": ["Get of Fenris", "White Howler"]})
+Gift.objects.create(
+    name="Hero's Stand", rank=4, allowed={"garou": ["Get of Fenris", "White Howler"]}
+)
 Gift.objects.create(
     name="Endurance of Heimdall", rank=5, allowed={"garou": ["Get of Fenris"]}
 )
@@ -701,9 +724,13 @@ Gift.objects.create(name="Territory", rank=3, allowed={"garou": ["Red Talons"]})
 Gift.objects.create(name="Trackless Waste", rank=3, allowed={"garou": ["Red Talons"]})
 Gift.objects.create(name="Gorge", rank=4, allowed={"garou": ["Red Talons"]})
 Gift.objects.create(name="Howl of Death", rank=4, allowed={"garou": ["Red Talons"]})
-Gift.objects.create(name="Quicksand", rank=4, allowed={"garou": ["Red Talons", "Bunyip"]})
+Gift.objects.create(
+    name="Quicksand", rank=4, allowed={"garou": ["Red Talons", "Bunyip"]}
+)
 Gift.objects.create(name="Curse of Lycaon", rank=5, allowed={"garou": ["Red Talons"]})
-Gift.objects.create(name="Gaia's Vengeance", rank=5, allowed={"garou": ["Red Talons", "White Howler"]})
+Gift.objects.create(
+    name="Gaia's Vengeance", rank=5, allowed={"garou": ["Red Talons", "White Howler"]}
+)
 Gift.objects.create(name="Scabwalker Curse", rank=5, allowed={"garou": ["Red Talons"]})
 Gift.objects.create(name="Shield of Giaa", rank=6, allowed={"garou": ["Red Talons"]})
 Gift.objects.create(
@@ -753,7 +780,9 @@ Gift.objects.create(
 )
 Gift.objects.create(name="Silence", rank=1, allowed={"garou": ["Silent Striders"]})
 Gift.objects.create(
-    name="Speed of Thought", rank=1, allowed={"garou": ["Silent Striders", "Kucha Ekundu"]}
+    name="Speed of Thought",
+    rank=1,
+    allowed={"garou": ["Silent Striders", "Kucha Ekundu"]},
 )
 Gift.objects.create(
     name="Visions of Duat", rank=1, allowed={"garou": ["Silent Striders"]}
@@ -839,7 +868,9 @@ Gift.objects.create(
     name="Shroud", rank=1, allowed={"garou": ["Uktena", "Black Spiral Dancers"]}
 )
 Gift.objects.create(name="Spirit of the Lizard", rank=1, allowed={"garou": ["Uktena"]})
-Gift.objects.create(name="Coils of the Serpent", rank=2, allowed={"garou": ["Uktena", "Bunyip"]})
+Gift.objects.create(
+    name="Coils of the Serpent", rank=2, allowed={"garou": ["Uktena", "Bunyip"]}
+)
 Gift.objects.create(name="Fetish Fetch", rank=2, allowed={"garou": ["Uktena"]})
 Gift.objects.create(name="Shadows at Dawn", rank=2, allowed={"garou": ["Uktena"]})
 Gift.objects.create(name="Spirit of the Bird", rank=2, allowed={"garou": ["Uktena"]})
@@ -930,38 +961,54 @@ Gift.objects.create(
 Gift.objects.create(
     name="Balefire", rank=5, allowed={"garou": ["Black Spiral Dancers"]}
 )
-Gift.objects.create(name="Dream of a Thousand Cranes", rank=1, allowed={"garou": ["Hakken"]})
+Gift.objects.create(
+    name="Dream of a Thousand Cranes", rank=1, allowed={"garou": ["Hakken"]}
+)
 Gift.objects.create(name="Fair Path", rank=1, allowed={"garou": ["Hakken"]})
 Gift.objects.create(name="Storm Winds Slash", rank=2, allowed={"garou": ["Hakken"]})
 Gift.objects.create(name="Dark of Night", rank=3, allowed={"garou": ["Hakken"]})
 Gift.objects.create(name="Living Treasure", rank=4, allowed={"garou": ["Hakken"]})
 Gift.objects.create(name="Divine Wind", rank=5, allowed={"garou": ["Hakken"]})
 
-Gift.objects.create(name="Sheng-Nong's Eyes", rank=1, allowed={"garou": ["Boli Zousizhe"]})
+Gift.objects.create(
+    name="Sheng-Nong's Eyes", rank=1, allowed={"garou": ["Boli Zousizhe"]}
+)
 Gift.objects.create(name="Fu Xi's Honor", rank=2, allowed={"garou": ["Boli Zousizhe"]})
 Gift.objects.create(name="Yao's Commands", rank=3, allowed={"garou": ["Boli Zousizhe"]})
 Gift.objects.create(name="Yu's Endurance", rank=4, allowed={"garou": ["Boli Zousizhe"]})
-Gift.objects.create(name="Huang Di's Sacrifice", rank=5, allowed={"garou": ["Boli Zousizhe"]})
+Gift.objects.create(
+    name="Huang Di's Sacrifice", rank=5, allowed={"garou": ["Boli Zousizhe"]}
+)
 
 Gift.objects.create(name="Feed the Pack", rank=2, allowed={"garou": ["Kucha Ekundu"]})
-Gift.objects.create(name="Predator's Many Eyes", rank=3, allowed={"garou": ["Kucha Ekundu"]})
+Gift.objects.create(
+    name="Predator's Many Eyes", rank=3, allowed={"garou": ["Kucha Ekundu"]}
+)
 Gift.objects.create(name="Crocodile Pact", rank=5, allowed={"garou": ["Kucha Ekundu"]})
 
 Gift.objects.create(name="Bunyip's Spell", rank=1, allowed={"garou": ["Bunyip"]})
 Gift.objects.create(name="Crocodile's Cunning", rank=2, allowed={"garou": ["Bunyip"]})
-Gift.objects.create(name="Lonesome Voice of the Bunyip", rank=3, allowed={"garou": ["Bunyip"]})
-Gift.objects.create(name="Dance of the Lightning Snakes", rank=4, allowed={"garou": ["Bunyip"]})
+Gift.objects.create(
+    name="Lonesome Voice of the Bunyip", rank=3, allowed={"garou": ["Bunyip"]}
+)
+Gift.objects.create(
+    name="Dance of the Lightning Snakes", rank=4, allowed={"garou": ["Bunyip"]}
+)
 Gift.objects.create(name="Billabong Bridge", rank=5, allowed={"garou": ["Bunyip"]})
 
 Gift.objects.create(name="Turtle Body", rank=1, allowed={"garou": ["Croatan"]})
 Gift.objects.create(name="Turtle Shell", rank=2, allowed={"garou": ["Croatan"]})
 Gift.objects.create(name="Call Earth Spirit", rank=3, allowed={"garou": ["Croatan"]})
 Gift.objects.create(name="Stronger on Stone", rank=4, allowed={"garou": ["Croatan"]})
-Gift.objects.create(name="Katanka-Sonnak's Spear", rank=5, allowed={"garou": ["Croatan"]})
+Gift.objects.create(
+    name="Katanka-Sonnak's Spear", rank=5, allowed={"garou": ["Croatan"]}
+)
 
 Gift.objects.create(name="Haunting Howl", rank=1, allowed={"garou": ["White Howler"]})
 Gift.objects.create(name="Pain-Strength", rank=2, allowed={"garou": ["White Howler"]})
-Gift.objects.create(name="Sense of the Deep", rank=3, allowed={"garou": ["White Howler"]})
+Gift.objects.create(
+    name="Sense of the Deep", rank=3, allowed={"garou": ["White Howler"]}
+)
 Gift.objects.create(name="Maddening Howl", rank=4, allowed={"garou": ["White Howler"]})
 Gift.objects.create(name="Mad Strength", rank=5, allowed={"garou": ["White Howler"]})
 
@@ -978,7 +1025,9 @@ Rite.objects.create(name="Rite of the Glorious Past", level=3, type="caern")
 Rite.objects.create(name="The Badger's Burrow", level=4, type="caern")
 Rite.objects.create(name="Rite of the Opened Bridge", level=4, type="caern")
 Rite.objects.create(name="Rite of the Shrouded Glen", level=4, type="caern")
-rite_of_caern_building = Rite.objects.create(name="Rite of Caern Building", level=5, type="caern")
+rite_of_caern_building = Rite.objects.create(
+    name="Rite of Caern Building", level=5, type="caern"
+)
 Rite.objects.create(name="Gathering for the Departed", level=1, type="death")
 Rite.objects.create(name="Last Blessing", level=1, type="death")
 Rite.objects.create(name="Rite of the Winter Wolf", level=3, type="death")
@@ -997,9 +1046,13 @@ Rite.objects.create(name="Descent Into the Underworld", level=3, type="mystic")
 Rite.objects.create(name="Rite of the Fetish", level=3, type="mystic")
 Rite.objects.create(name="Rite of the Totem", level=3, type="mystic")
 Rite.objects.create(name="Rite of the Jackdaw", level=1, type="punishment")
-rite_of_ostracism = Rite.objects.create(name="Rite of Ostracism", level=2, type="punishment")
+rite_of_ostracism = Rite.objects.create(
+    name="Rite of Ostracism", level=2, type="punishment"
+)
 stone_of_scorn = Rite.objects.create(name="Stone of Scorn", level=2, type="punishment")
-rite_of_the_jackal = Rite.objects.create(name="Voice of the Jackal", level=2, type="punishment")
+rite_of_the_jackal = Rite.objects.create(
+    name="Voice of the Jackal", level=2, type="punishment"
+)
 Rite.objects.create(name="The Hunt", level=3, type="punishment")
 Rite.objects.create(name="Rite of the Omega Wolf", level=3, type="punishment")
 Rite.objects.create(name="Satire Rite", level=3, type="punishment")
@@ -1172,20 +1225,38 @@ RenownIncident.objects.create(
 RenownIncident.objects.create(
     name="Discovering an ancient caern that was lost", glory=0, honor=0, wisdom=7
 )
-RenownIncident.objects.create(name="Perfomring a Moot Rite", glory=0, honor=2, wisdom=0, rite=moot_rite)
 RenownIncident.objects.create(
-    name="Refusing to perform a Moot Rite when asked", glory=0, honor=-3, wisdom=0, rite=moot_rite
+    name="Perfomring a Moot Rite", glory=0, honor=2, wisdom=0, rite=moot_rite
+)
+RenownIncident.objects.create(
+    name="Refusing to perform a Moot Rite when asked",
+    glory=0,
+    honor=-3,
+    wisdom=0,
+    rite=moot_rite,
 )
 RenownIncident.objects.create(name="Missing a Moot Rite", glory=0, honor=0, wisdom=-1)
 
 RenownIncident.objects.create(
-    name="Performing a Rite of Passage", glory=0, honor=2, wisdom=1, rite=rite_of_passage
+    name="Performing a Rite of Passage",
+    glory=0,
+    honor=2,
+    wisdom=1,
+    rite=rite_of_passage,
 )
 RenownIncident.objects.create(
-    name="Receiving a Rite of Wounding", glory=2, honor=0, wisdom=0, rite=rite_of_wounding
+    name="Receiving a Rite of Wounding",
+    glory=2,
+    honor=0,
+    wisdom=0,
+    rite=rite_of_wounding,
 )
 RenownIncident.objects.create(
-    name="Performing a Rite of Caern Building", glory=3, honor=5, wisdom=7, rite=rite_of_caern_building
+    name="Performing a Rite of Caern Building",
+    glory=3,
+    honor=5,
+    wisdom=7,
+    rite=rite_of_caern_building,
 )
 RenownIncident.objects.create(
     name="Participating in a Rite of Caern Building", glory=0, honor=5, wisdom=3
@@ -1197,13 +1268,25 @@ RenownIncident.objects.create(
     name="Participating in a failed Great Hunt rite", glory=-2, honor=0, wisdom=0
 )
 RenownIncident.objects.create(
-    name="Suffering the Rite of Ostracism", glory=-1, honor=-7, wisdom=-1, rite=rite_of_ostracism
+    name="Suffering the Rite of Ostracism",
+    glory=-1,
+    honor=-7,
+    wisdom=-1,
+    rite=rite_of_ostracism,
 )
 RenownIncident.objects.create(
-    name="Suffering the Stone of Scorn", glory=0, honor=-8, wisdom=-2, rite=stone_of_scorn
+    name="Suffering the Stone of Scorn",
+    glory=0,
+    honor=-8,
+    wisdom=-2,
+    rite=stone_of_scorn,
 )
 RenownIncident.objects.create(
-    name="Suffering the Rite of the Jackal", glory=-2, honor=-7, wisdom=0, rite=rite_of_the_jackal
+    name="Suffering the Rite of the Jackal",
+    glory=-2,
+    honor=-7,
+    wisdom=0,
+    rite=rite_of_the_jackal,
 )
 # No test currently for "has a punishment rite"
 RenownIncident.objects.create(
@@ -1292,7 +1375,11 @@ RenownIncident.objects.create(
     wisdom=0,
 )
 RenownIncident.objects.create(
-    name="Dying while defending a caern (posthumous)", glory=5, honor=8, wisdom=0, posthumous=True
+    name="Dying while defending a caern (posthumous)",
+    glory=5,
+    honor=8,
+    wisdom=0,
+    posthumous=True,
 )
 RenownIncident.objects.create(
     name="Single-handedly preventing a caern from being taken by the Wyrm",
@@ -1313,27 +1400,40 @@ RenownIncident.objects.create(
     wisdom=8,
 )
 RenownIncident.objects.create(
-    name="For a homid Garou, surviving to age 75", glory=0, honor=8, wisdom=10, breed="homid"
+    name="For a homid Garou, surviving to age 75",
+    glory=0,
+    honor=8,
+    wisdom=10,
+    breed="homid",
 )
 RenownIncident.objects.create(
-    name="For a lupus Garou, surviving to age 65", glory=0, honor=8, wisdom=10, breed="lupus"
+    name="For a lupus Garou, surviving to age 65",
+    glory=0,
+    honor=8,
+    wisdom=10,
+    breed="lupus",
 )
 
 RenownIncident.objects.create(
     name="For a homid, ignoring one's wold nature for too long",
     glory=0,
     honor=0,
-    wisdom=-3, breed="homid"
+    wisdom=-3,
+    breed="homid",
 )
 RenownIncident.objects.create(
-    name="For a metis, attempting to hide one's deformity", glory=0, honor=0, wisdom=-3, breed="metis"
+    name="For a metis, attempting to hide one's deformity",
+    glory=0,
+    honor=0,
+    wisdom=-3,
+    breed="metis",
 )
 RenownIncident.objects.create(
     name="For a lupus, using too many human tools and other Weaver things",
     glory=0,
     honor=0,
     wisdom=-1,
-    breed="lupus"
+    breed="lupus",
 )
 RenownIncident.objects.create(
     name="Gaining the position of Pack leader", glory=0, honor=3, wisdom=0
@@ -1497,10 +1597,18 @@ RenownIncident.objects.create(
     wisdom=0,
 )
 RenownIncident.objects.create(
-    name="Dying while defending your pack (posthumous)", glory=4, honor=6, wisdom=0, posthumous=True
+    name="Dying while defending your pack (posthumous)",
+    glory=4,
+    honor=6,
+    wisdom=0,
+    posthumous=True,
 )
 RenownIncident.objects.create(
-    name="Dying in defense of Gaia (posthumous)", glory=7, honor=7, wisdom=0, posthumous=True
+    name="Dying in defense of Gaia (posthumous)",
+    glory=7,
+    honor=7,
+    wisdom=0,
+    posthumous=True,
 )
 RenownIncident.objects.create(
     name="Succumbing to a berserk frenzy", glory=0, honor=0, wisdom=-1
