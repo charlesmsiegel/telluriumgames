@@ -930,6 +930,12 @@ Gift.objects.create(
 Gift.objects.create(
     name="Balefire", rank=5, allowed={"garou": ["Black Spiral Dancers"]}
 )
+Gift.objects.create(name="Dream of a Thousand Cranes", rank=1, allowed={"garou": ["Hakken"]})
+Gift.objects.create(name="Fair Path", rank=1, allowed={"garou": ["Hakken"]})
+Gift.objects.create(name="Storm Winds Slash", rank=2, allowed={"garou": ["Hakken"]})
+Gift.objects.create(name="Dark of Night", rank=3, allowed={"garou": ["Hakken"]})
+Gift.objects.create(name="Living Treasure", rank=4, allowed={"garou": ["Hakken"]})
+Gift.objects.create(name="Divine Wind", rank=5, allowed={"garou": ["Hakken"]})
 
 Rite.objects.create(name="Rite of Cleansing", level=1, type="accord")
 Rite.objects.create(name="Rite of Contrition", level=1, type="accord")
@@ -1647,3 +1653,4 @@ Camp.objects.create(name="The Warpath", tribe=wendigo)
 Camp.objects.create(name="Fang Breakers", tribe=None)
 Camp.objects.create(name="Ghost Dancers", tribe=None)
 Camp.objects.create(name="Lazarite Movement", tribe=None)
+Camp.objects.create(name="Hakken", tribe=shadow_lords)
