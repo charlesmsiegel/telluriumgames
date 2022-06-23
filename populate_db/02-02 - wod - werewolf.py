@@ -931,6 +931,12 @@ Gift.objects.create(
     name="Balefire", rank=5, allowed={"garou": ["Black Spiral Dancers"]}
 )
 
+Gift.objects.create(name="Sheng-Nong's Eyes", rank=1, allowed={"garou": ["Boli Zousizhe"]})
+Gift.objects.create(name="Fu Xi's Honor", rank=2, allowed={"garou": ["Boli Zousizhe"]})
+Gift.objects.create(name="Yao's Commands", rank=3, allowed={"garou": ["Boli Zousizhe"]})
+Gift.objects.create(name="Yu's Endurance", rank=4, allowed={"garou": ["Boli Zousizhe"]})
+Gift.objects.create(name="Huang Di's Sacrifice", rank=5, allowed={"garou": ["Boli Zousizhe"]})
+
 Rite.objects.create(name="Rite of Cleansing", level=1, type="accord")
 Rite.objects.create(name="Rite of Contrition", level=1, type="accord")
 Rite.objects.create(name="Rite of Renunciation", level=2, type="accord")
@@ -1647,3 +1653,4 @@ Camp.objects.create(name="The Warpath", tribe=wendigo)
 Camp.objects.create(name="Fang Breakers", tribe=None)
 Camp.objects.create(name="Ghost Dancers", tribe=None)
 Camp.objects.create(name="Lazarite Movement", tribe=None)
+Camp.objects.create(name="Boli Zousizhe", tribe=glass_walker)
