@@ -461,6 +461,17 @@ class Werewolf(Human):
         return len(self.renown_incidents)
 
     def add_renown_incident(self, r):
+        if r.breed is not None:
+            if r.breed != self.breed:
+                return False
+        if r.rite is not None:
+            if r.rite not in self.rites_known.all():
+                return False
+        if r.only_once and r.name in self.renown_incidents:
+            return False
+        if len(self.renown_incidents) != 0:
+            if RenownIncident.objects.get(name=self.renown_incidents[-1]).posthumous:
+                return False
         self.renown_incidents.append(r.name)
         self.temporary_glory += r.glory
         self.temporary_honor += r.honor
@@ -805,6 +816,11 @@ class RenownIncident(models.Model):
     glory = models.IntegerField(default=0)
     honor = models.IntegerField(default=0)
     wisdom = models.IntegerField(default=0)
+    
+    posthumous = models.BooleanField(default=False)
+    only_once = models.BooleanField(default=False)
+    breed = models.CharField(default="", max_length=10)
+    rite = models.ForeignKey(Rite, null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
