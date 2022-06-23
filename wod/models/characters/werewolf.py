@@ -379,6 +379,8 @@ class Werewolf(Human):
             possible_gifts = [
                 x for x in possible_gifts if self.tribe.name in x.allowed["garou"]
             ]
+            if self.camp is not None:
+                possible_gifts.extend([x for x in possible_gifts if self.camp.name in x.allowed['garou']])
         if auspice:
             possible_gifts = [
                 x for x in possible_gifts if self.auspice in x.allowed["garou"]
