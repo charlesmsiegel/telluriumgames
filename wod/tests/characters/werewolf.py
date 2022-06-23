@@ -664,6 +664,12 @@ class TestWerewolf(TestCase):
         self.assertTrue(self.character.add_renown_incident(r1))
         self.assertFalse(self.character.add_renown_incident(r2))
 
+    def test_learn_a_new_rite(self):
+        r = RenownIncident.objects.create(name="Learning a new rite")
+        num = self.character.rites_known.count()
+        self.character.add_renown_incident(r)
+        self.assertEqual(self.character.rites_known.count(), num + 1)
+
 
 class TestTotem(TestCase):
     pass

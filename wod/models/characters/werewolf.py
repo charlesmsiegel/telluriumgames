@@ -460,7 +460,7 @@ class Werewolf(Human):
     def num_renown_incidents(self):
         return len(self.renown_incidents)
 
-    def add_renown_incident(self, r):
+    def add_renown_incident(self, r, rite=None):
         if r.breed is not None:
             if r.breed != self.breed:
                 return False
@@ -476,6 +476,12 @@ class Werewolf(Human):
         self.temporary_glory += r.glory
         self.temporary_honor += r.honor
         self.temporary_wisdom += r.wisdom
+        if r.name == "Learning a new rite":
+            if rite is not None:
+                self.add_rite(rite)
+            else:
+                self.random_rite()
+            self.renown_incidents[-1] += f"({self.rites_known.last().name})"
         return True
 
     def random_renown_incident(self):
