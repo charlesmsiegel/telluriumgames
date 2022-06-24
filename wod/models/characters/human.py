@@ -487,11 +487,27 @@ class Human(Character):
     def add_willpower(self):
         return add_dot(self, "willpower", 10)
 
+    def add_random_language(self):
+        d = {l.name: l.frequency for l in Language.objects.all() if l not in self.languages.all()}
+        if len(d) == 0:
+            return False
+        choice = weighted_choice(d)
+        choice = Language.objects.get(name=choice)
+        self.languages.add(choice)
+        self.save()
+        return True
+
     def add_mf(self, mf, rating):
         if rating in mf.ratings:
             mfr, _ = MeritFlawRating.objects.get_or_create(character=self, mf=mf)
             mfr.rating = rating
             mfr.save()
+            if mf.name == "Language" or mf.name == "Natural Linguist":
+                num_languages = self.mf_rating(MeritFlaw.objects.get(name="Language"))
+                if self.merits_and_flaws.filter(name="Natural Linguist").exists():
+                    num_languages *= 2
+                while self.languages.count() < num_languages:
+                    self.add_random_language()
             return True
         return False
 
