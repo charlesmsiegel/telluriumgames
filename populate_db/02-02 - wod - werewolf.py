@@ -268,7 +268,7 @@ Gift.objects.create(name="Beyond Human", rank=5, allowed={"garou": ["homid"]})
 Gift.objects.create(name="Part the Veil", rank=5, allowed={"garou": ["homid"]})
 Gift.objects.create(name="Create Element", rank=1, allowed={"garou": ["metis"]})
 Gift.objects.create(
-    name="Primal Anger", rank=1, allowed={"garou": ["metis", "White Howler"]}
+    name="Primal Anger", rank=1, allowed={"garou": ["metis", "White Howlers"]}
 )
 Gift.objects.create(name="Rat Head", rank=1, allowed={"garou": ["metis"]})
 Gift.objects.create(
@@ -284,7 +284,7 @@ Gift.objects.create(
             "Stargazers",
             "Uktena",
             "Black Spiral Dancers",
-            "White Howler",
+            "White Howlers",
         ]
     },
 )
@@ -477,7 +477,7 @@ Gift.objects.create(name="Dreamspeak", rank=2, allowed={"garou": ["galliard"]})
 Gift.objects.create(
     name="Howls in the Night",
     rank=2,
-    allowed={"garou": ["galliard", "Red Talons", "Shadow Lords", "White Howler"]},
+    allowed={"garou": ["galliard", "Red Talons", "Shadow Lords", "White Howlers"]},
 )
 Gift.objects.create(name="Eye of the Cobra", rank=3, allowed={"garou": ["galliard"]})
 Gift.objects.create(name="Song of Heroes", rank=3, allowed={"garou": ["galliard"]})
@@ -548,7 +548,7 @@ Gift.objects.create(name="Cooking", rank=1, allowed={"garou": ["Bone Gnawers"]})
 Gift.objects.create(
     name="Desperate Strength",
     rank=1,
-    allowed={"garou": ["Bone Gnawers", "White Howler"]},
+    allowed={"garou": ["Bone Gnawers", "White Howlers"]},
 )
 Gift.objects.create(
     name="Resist Toxin",
@@ -641,7 +641,7 @@ Gift.objects.create(name="Howl of the Unseen", rank=2, allowed={"garou": ["Fiann
 Gift.objects.create(name="Faerie Kin", rank=3, allowed={"garou": ["Fianna"]})
 Gift.objects.create(name="Fair Fortune", rank=3, allowed={"garou": ["Fianna"]})
 Gift.objects.create(
-    name="Ley Lines", rank=3, allowed={"garou": ["Fianna", "White Howler"]}
+    name="Ley Lines", rank=3, allowed={"garou": ["Fianna", "White Howlers"]}
 )
 Gift.objects.create(name="Balor's Gaze", rank=4, allowed={"garou": ["Fianna"]})
 Gift.objects.create(name="Phantasm", rank=4, allowed={"garou": ["Fianna"]})
@@ -671,7 +671,7 @@ Gift.objects.create(
     name="Heart of the Mountain", rank=4, allowed={"garou": ["Get of Fenris"]}
 )
 Gift.objects.create(
-    name="Hero's Stand", rank=4, allowed={"garou": ["Get of Fenris", "White Howler"]}
+    name="Hero's Stand", rank=4, allowed={"garou": ["Get of Fenris", "White Howlers"]}
 )
 Gift.objects.create(
     name="Endurance of Heimdall", rank=5, allowed={"garou": ["Get of Fenris"]}
@@ -729,7 +729,7 @@ Gift.objects.create(
 )
 Gift.objects.create(name="Curse of Lycaon", rank=5, allowed={"garou": ["Red Talons"]})
 Gift.objects.create(
-    name="Gaia's Vengeance", rank=5, allowed={"garou": ["Red Talons", "White Howler"]}
+    name="Gaia's Vengeance", rank=5, allowed={"garou": ["Red Talons", "White Howlers"]}
 )
 Gift.objects.create(name="Scabwalker Curse", rank=5, allowed={"garou": ["Red Talons"]})
 Gift.objects.create(name="Shield of Giaa", rank=6, allowed={"garou": ["Red Talons"]})
@@ -1004,13 +1004,13 @@ Gift.objects.create(
     name="Katanka-Sonnak's Spear", rank=5, allowed={"garou": ["Croatan"]}
 )
 
-Gift.objects.create(name="Haunting Howl", rank=1, allowed={"garou": ["White Howler"]})
-Gift.objects.create(name="Pain-Strength", rank=2, allowed={"garou": ["White Howler"]})
+Gift.objects.create(name="Haunting Howl", rank=1, allowed={"garou": ["White Howlers"]})
+Gift.objects.create(name="Pain-Strength", rank=2, allowed={"garou": ["White Howlers"]})
 Gift.objects.create(
-    name="Sense of the Deep", rank=3, allowed={"garou": ["White Howler"]}
+    name="Sense of the Deep", rank=3, allowed={"garou": ["White Howlers"]}
 )
-Gift.objects.create(name="Maddening Howl", rank=4, allowed={"garou": ["White Howler"]})
-Gift.objects.create(name="Mad Strength", rank=5, allowed={"garou": ["White Howler"]})
+Gift.objects.create(name="Maddening Howl", rank=4, allowed={"garou": ["White Howlers"]})
+Gift.objects.create(name="Mad Strength", rank=5, allowed={"garou": ["White Howlers"]})
 
 
 Rite.objects.create(name="Rite of Cleansing", level=1, type="accord")
