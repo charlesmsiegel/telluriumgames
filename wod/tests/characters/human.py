@@ -732,7 +732,7 @@ class TestHuman(TestCase):
         m = MeritFlaw.objects.create(name="Language", ratings=[1, 2, 3, 4, 5])
         self.assertEqual(self.character.languages.count(), 0)
         for i in range(5):
-            self.character.add_mf(m, i+1)
+            self.character.add_mf(m, i + 1)
             self.assertEqual(self.character.languages.count(), 1 + i)
 
     def test_natural_linguist_merit(self):
@@ -741,11 +741,9 @@ class TestHuman(TestCase):
         m = MeritFlaw.objects.create(name="Language", ratings=[1, 2, 3, 4, 5])
         self.character.add_mf(nl, 1)
         for i in range(5):
-            self.character.add_mf(m, i+1)
+            self.character.add_mf(m, i + 1)
             self.assertEqual(self.character.languages.count(), 2 * (i + 1))
-        lt = Human.objects.create(
-            name="language tester", player=self.user.wod_profile
-        )
+        lt = Human.objects.create(name="language tester", player=self.user.wod_profile)
         self.assertEqual(lt.languages.count(), 0)
         lt.add_mf(m, 1)
         self.assertEqual(lt.languages.count(), 1)

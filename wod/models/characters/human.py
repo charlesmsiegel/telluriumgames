@@ -488,7 +488,11 @@ class Human(Character):
         return add_dot(self, "willpower", 10)
 
     def add_random_language(self):
-        d = {l.name: l.frequency for l in Language.objects.all() if l not in self.languages.all()}
+        d = {
+            l.name: l.frequency
+            for l in Language.objects.all()
+            if l not in self.languages.all()
+        }
         if len(d) == 0:
             return False
         choice = weighted_choice(d)

@@ -461,7 +461,7 @@ class Werewolf(Human):
         return len(self.renown_incidents)
 
     def add_renown_incident(self, r, rite=None):
-        if r.breed is not None:
+        if r.breed != "":
             if r.breed != self.breed:
                 return False
         if r.rite is not None:
