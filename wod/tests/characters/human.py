@@ -74,6 +74,8 @@ class TestHuman(TestCase):
                 Specialty.objects.create(
                     name=f"{stat.replace('_', ' ').title()} Specialty {i}", stat=stat,
                 )
+        for i in range(20):
+            Language.objects.create(name=f"TL {i}")
 
     def test_has_archetypes(self):
         self.assertFalse(self.character.has_archetypes())
@@ -725,6 +727,30 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.current_health_levels, "ALLBBBB")
         self.character.add_aggravated()
         self.assertEqual(self.character.get_wound_penalty(), -1000)
+
+    def test_language_merit(self):
+        m = MeritFlaw.objects.create(name="Language", ratings=[1, 2, 3, 4, 5])
+        self.assertEqual(self.character.languages.count(), 0)
+        for i in range(5):
+            self.character.add_mf(m, i+1)
+            self.assertEqual(self.character.languages.count(), 1 + i)
+
+    def test_natural_linguist_merit(self):
+        self.assertEqual(self.character.languages.count(), 0)
+        nl = MeritFlaw.objects.create(name="Natural Linguist", ratings=[1])
+        m = MeritFlaw.objects.create(name="Language", ratings=[1, 2, 3, 4, 5])
+        self.character.add_mf(nl, 1)
+        for i in range(5):
+            self.character.add_mf(m, i+1)
+            self.assertEqual(self.character.languages.count(), 2 * (i + 1))
+        lt = Human.objects.create(
+            name="language tester", player=self.user.wod_profile
+        )
+        self.assertEqual(lt.languages.count(), 0)
+        lt.add_mf(m, 1)
+        self.assertEqual(lt.languages.count(), 1)
+        lt.add_mf(nl, 1)
+        self.assertEqual(lt.languages.count(), 2)
 
 
 class TestRandomHuman(TestCase):
