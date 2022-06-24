@@ -1398,6 +1398,7 @@ RenownIncident.objects.create(
     glory=0,
     honor=7,
     wisdom=8,
+    only_once=True,
 )
 RenownIncident.objects.create(
     name="For a homid Garou, surviving to age 75",
@@ -1405,6 +1406,7 @@ RenownIncident.objects.create(
     honor=8,
     wisdom=10,
     breed="homid",
+    only_once=True,
 )
 RenownIncident.objects.create(
     name="For a lupus Garou, surviving to age 65",
@@ -1412,6 +1414,7 @@ RenownIncident.objects.create(
     honor=8,
     wisdom=10,
     breed="lupus",
+    only_once=True,
 )
 
 RenownIncident.objects.create(
