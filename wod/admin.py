@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from wod.models.characters.human import Archetype, Character, Human
+from wod.models.characters.human import Archetype, Character, Human, MeritFlaw
 from wod.models.characters.mage import (
     Cabal,
     Instrument,
@@ -123,3 +123,4 @@ admin.site.register(Pack)
 admin.site.register(Cabal)
 admin.site.register(Item)
 admin.site.register(NodeMeritFlaw)
+admin.site.register(MeritFlaw)
