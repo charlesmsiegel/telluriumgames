@@ -429,3 +429,13 @@ class Chantry(Location):
             "node_rating": self.node_rating,
             "library_rating": self.library_rating,
         }
+        
+    def set_faction(self, faction):
+        self.faction = faction
+        return True
+    
+    def has_faction(self):
+        return self.faction is not None
+    
+    def random_faction(self):
+        return self.set_faction(MageFaction.objects.order_by("?").first())
