@@ -4,15 +4,26 @@
 {% endblock title %}
 <body>
     {% block content %}
-        <div class="centertext">
+        <div>
             <div class="row border">
                 <div class="col-sm border">
-                    <h2>Locations</h2>
+                    <h2 class="centertext">Locations</h2>
                 </div>
             </div>
-            {% for loc in locations %}
-                <div class="row border">
+            {% comment %} {% for loc in locations %}
+                <div class="row">
+                    <div class="col-sm"></div>
                     <a class="col-sm border" href="{% url 'wod:location' loc.id %}">{{ loc.name }}</a>
+                    <div class="col-sm"></div>
+                </div>
+            {% endfor %} {% endcomment %}
+
+            {% for name, loc in names_dict.items %}
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <a class="col-sm" href="{% url 'wod:location' loc.id %}">{{ name|safe }}</a>
+                    {% comment %} <div class="col-sm">{{ names_dict[loc] }}</div> {% endcomment %}
+                    <div class="col-sm"></div>
                 </div>
             {% endfor %}
         </div>

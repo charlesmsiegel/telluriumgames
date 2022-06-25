@@ -3,6 +3,7 @@ from collections import defaultdict
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView, View
 
+from core.utils import tree_sort, level_name
 from wod.models.characters.human import Character, Human, MeritFlawRating
 from wod.models.characters.mage import Mage, ResRating
 from wod.models.characters.werewolf import Werewolf
@@ -47,8 +48,16 @@ class LocationIndexView(View):
         locations = Location.objects.all().order_by("name")
         context = {}
         context["locations"] = locations
+        
+        L1 = []
+        L2 = []
+        for x in Location.objects.filter(parent=None).order_by("name"):
+            L1.extend([level_name(y) for y in tree_sort(x)])
+            L2.extend([y for y in tree_sort(x)])
+            
+        # context['names_in_order'] = L1
+        context['names_dict'] = {x: y for x, y in zip(L1, L2)}
         return context
-
 
 class ItemIndexView(View):
     def get(self, request):
