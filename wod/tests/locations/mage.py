@@ -312,10 +312,12 @@ class TestChantry(TestCase):
         self.assertNotEqual(self.chantry.rank, 0)
 
     def test_random(self):
+        self.assertFalse(self.chantry.has_faction())
         self.assertFalse(self.chantry.has_name())
         self.assertFalse(self.chantry.has_library())
         self.assertTrue(self.chantry.has_node())
         self.chantry.random()
+        self.assertTrue(self.chantry.has_faction())
         self.assertTrue(self.chantry.has_name())
         self.assertGreater(self.chantry.points, 0)
         self.assertLessEqual(self.chantry.points - self.chantry.points_spent(), 1)
