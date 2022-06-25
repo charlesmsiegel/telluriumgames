@@ -506,7 +506,7 @@ class Human(Character):
             mfr, _ = MeritFlawRating.objects.get_or_create(character=self, mf=mf)
             mfr.rating = rating
             mfr.save()
-            if mf.name == "Language" or mf.name == "Natural Linguist":
+            if mf.name in ["Language", "Natural Linguist"]:
                 num_languages = self.mf_rating(MeritFlaw.objects.get(name="Language"))
                 if self.merits_and_flaws.filter(name="Natural Linguist").exists():
                     num_languages *= 2

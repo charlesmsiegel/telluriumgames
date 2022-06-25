@@ -357,7 +357,7 @@ class Chantry(Location):
         options = []
         current = self.faction
         while current is not None:
-            if current.name in self.factional_names.keys():
+            if current.name in self.factional_names:
                 options.extend(self.factional_names[current.name])
             current = current.parent
         if len(options) == 0:
