@@ -315,10 +315,12 @@ def compute_level(x, level=0):
     if x.parent is None:
         return level
     else:
-        return compute_level(x.parent, level=level+1)
-    
+        return compute_level(x.parent, level=level + 1)
+
+
 def level_name(x):
     return (compute_level(x) * "&emsp;&emsp;") + x.name
+
 
 def tree_sort(x, l=None):
     if l is None:

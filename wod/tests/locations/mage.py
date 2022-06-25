@@ -332,61 +332,61 @@ class TestChantry(TestCase):
         self.chantry.faction = faction
         self.chantry.save()
         self.assertTrue(self.chantry.has_faction())
-        
+
     def test_set_faction(self):
         faction = MageFaction.objects.get(name="Test Faction 0")
         self.assertFalse(self.chantry.has_faction())
         self.assertTrue(self.chantry.set_faction(faction))
         self.assertEqual(self.chantry.faction, faction)
         self.assertTrue(self.chantry.has_faction())
-        
+
     def test_random_faction(self):
         self.assertFalse(self.chantry.has_faction())
         self.assertTrue(self.chantry.random_faction())
         self.assertTrue(self.chantry.has_faction())
-        
+
     def test_random_name(self):
         self.assertEqual(self.chantry.name, "")
         m, _ = MageFaction.objects.get_or_create(name="Society of Ether")
         self.chantry.set_faction(m)
         self.assertTrue(self.chantry.random_name())
         self.assertIn("Laboratory", self.chantry.name)
-        
+
     def test_has_name(self):
         self.assertFalse(self.chantry.has_name())
         self.chantry.name = "Test"
         self.assertTrue(self.chantry.has_name())
-    
+
     def test_set_name(self):
         self.assertFalse(self.chantry.has_name())
         self.assertTrue(self.chantry.set_name("Test Chantry"))
         self.assertTrue(self.chantry.has_name())
-        
+
     def test_has_chantry_type(self):
         self.assertFalse(self.chantry.has_chantry_type())
         self.chantry.chantry_type = "war"
         self.assertTrue(self.chantry.has_chantry_type())
-        
+
     def test_set_chantry_type(self):
         self.assertFalse(self.chantry.has_chantry_type())
         self.chantry.set_chantry_type("war")
         self.assertTrue(self.chantry.has_chantry_type())
-        
+
     def test_random_chantry_type(self):
         self.assertFalse(self.chantry.has_chantry_type())
         self.chantry.random_chantry_type()
         self.assertTrue(self.chantry.has_chantry_type())
-        
+
     def test_has_season(self):
         self.assertFalse(self.chantry.has_season())
         self.chantry.season = "spring"
         self.assertTrue(self.chantry.has_season())
-        
+
     def test_set_season(self):
         self.assertFalse(self.chantry.has_season())
         self.chantry.set_season("spring")
         self.assertTrue(self.chantry.has_season())
-        
+
     def test_random_season(self):
         self.assertFalse(self.chantry.has_season())
         self.chantry.random_season()

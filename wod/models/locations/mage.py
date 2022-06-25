@@ -375,7 +375,7 @@ class Chantry(Location):
         self.season = season
         self.save()
         return True
-    
+
     def random_season(self):
         return self.set_season(random.choice(self.SEASONS)[0])
 
