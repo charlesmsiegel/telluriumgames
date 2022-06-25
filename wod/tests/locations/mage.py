@@ -318,6 +318,25 @@ class TestChantry(TestCase):
         self.assertGreater(self.chantry.points, 0)
         self.assertLessEqual(self.chantry.points - self.chantry.points_spent(), 1)
 
+    def test_has_faction(self):
+        faction = MageFaction.objects.get(name="Test Faction 0")
+        self.assertFalse(self.chantry.has_faction())
+        self.chantry.faction = faction
+        self.chantry.save()
+        self.assertTrue(self.chantry.has_faction())
+        
+    def test_set_faction(self):
+        faction = MageFaction.objects.get(name="Test Faction 0")
+        self.assertFalse(self.chantry.has_faction())
+        self.assertTrue(self.chantry.set_faction(faction))
+        self.assertEqual(self.chantry.faction, faction)
+        self.assertTrue(self.chantry.has_faction())
+        
+    def test_random_faction(self):
+        self.assertFalse(self.chantry.has_faction())
+        self.assertTrue(self.chantry.random_faction())
+        self.assertTrue(self.chantry.has_faction())
+
 
 class TestNodeDetailView(TestCase):
     def setUp(self) -> None:

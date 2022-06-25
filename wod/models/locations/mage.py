@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models import Q
 
 from core.utils import add_dot, weighted_choice
+from wod.models.characters.mage.faction import MageFaction
 from wod.models.characters.mage.resonance import Resonance
 from wod.models.characters.mage.utils import SPHERE_LIST
 from wod.models.items.mage import Library
@@ -271,6 +272,8 @@ class NodeResonanceRating(models.Model):
 
 class Chantry(Location):
     type = "chantry"
+    
+    faction = models.ForeignKey(MageFaction, blank=True, null=True, on_delete=models.CASCADE)
 
     rank = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
@@ -426,3 +429,13 @@ class Chantry(Location):
             "node_rating": self.node_rating,
             "library_rating": self.library_rating,
         }
+        
+    def set_faction(self, faction):
+        self.faction = faction
+        return True
+    
+    def has_faction(self):
+        return self.faction is not None
+    
+    def random_faction(self):
+        return self.set_faction(MageFaction.objects.order_by("?").first())
