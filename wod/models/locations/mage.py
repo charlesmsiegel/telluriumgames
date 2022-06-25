@@ -299,8 +299,8 @@ class Chantry(Location):
     nodes = models.ManyToManyField(Node, blank=True)
     
     factional_names = {
-        "Akashayana": ["Monastery", "Torii", "Pagoda"],
-        "Celestial Chorus": ["Chapel", "Covenant", "Sanctuary"],
+        "Akashayana": ["Monastery", "Torii", "Pagoda", "Bodhimandala", "Tao Chang", "Dojo", "Dojang", "Xiudaoyuan"],
+        "Celestial Chorus": ["Chapel", "Covenant", "Sanctuary", "Adytum", "Temple"],
         "Cult of Ecstasy": ["Pleasuredome"],
         "Dreamspeakers": ["Lodge"],
         "Euthanatos": ["Marabout"],
@@ -311,6 +311,7 @@ class Chantry(Location):
         "Virtual Adepts": ["Epicenter", "Fortress", "Net"],
         "Traditions": ["Chantry"],
         "Technocratic Union": ["Construct"],
+        "Kopa Loei": ["He'iau"],
     }
 
     def trait_cost(self, trait):
