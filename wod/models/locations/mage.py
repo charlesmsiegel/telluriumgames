@@ -313,6 +313,29 @@ class Chantry(Location):
         "Technocratic Union": ["Construct"],
         "Kopa Loei": ["He'iau"],
     }
+    
+    def has_name(self):
+        return self.name != ""
+    
+    def set_name(self, name):
+        self.name = name
+        self.save()
+        return True
+    
+    def random_name(self):
+        options = []
+        current = self.faction
+        while current is not None:
+            if current.name in self.factional_names.keys():
+                options.extend(self.factional_names[current.name])
+            current = current.parent
+        if len(options) == 0:
+            choice = "Chantry"
+        else:
+            choice = random.choice(options)
+        adjective = Resonance.objects.order_by("?").first().name
+        adjective = adjective.title()
+        return self.set_name(f"{adjective} {choice}")
 
     def trait_cost(self, trait):
         if trait in [
