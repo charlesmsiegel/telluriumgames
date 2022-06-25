@@ -211,7 +211,7 @@ class TestNode(TestCase):
 
 class TestChantry(TestCase):
     def setUp(self) -> None:
-        self.chantry = Chantry.objects.create(name="Test Chantry")
+        self.chantry = Chantry.objects.create(name="")
         for i in range(1, 11):
             Resonance.objects.create(name=f"Resonance {i}")
         for i in range(1, 6):
@@ -312,9 +312,13 @@ class TestChantry(TestCase):
         self.assertNotEqual(self.chantry.rank, 0)
 
     def test_random(self):
+        self.assertFalse(self.chantry.has_faction())
+        self.assertFalse(self.chantry.has_name())
         self.assertFalse(self.chantry.has_library())
         self.assertTrue(self.chantry.has_node())
         self.chantry.random()
+        self.assertTrue(self.chantry.has_faction())
+        self.assertTrue(self.chantry.has_name())
         self.assertGreater(self.chantry.points, 0)
         self.assertLessEqual(self.chantry.points - self.chantry.points_spent(), 1)
 
@@ -336,6 +340,23 @@ class TestChantry(TestCase):
         self.assertFalse(self.chantry.has_faction())
         self.assertTrue(self.chantry.random_faction())
         self.assertTrue(self.chantry.has_faction())
+        
+    def test_random_name(self):
+        self.assertEqual(self.chantry.name, "")
+        m, _ = MageFaction.objects.get_or_create(name="Society of Ether")
+        self.chantry.set_faction(m)
+        self.assertTrue(self.chantry.random_name())
+        self.assertIn("Laboratory", self.chantry.name)
+        
+    def test_has_name(self):
+        self.assertFalse(self.chantry.has_name())
+        self.chantry.name = "Test"
+        self.assertTrue(self.chantry.has_name())
+    
+    def test_set_name(self):
+        self.assertFalse(self.chantry.has_name())
+        self.assertTrue(self.chantry.set_name("Test Chantry"))
+        self.assertTrue(self.chantry.has_name())
 
 
 class TestNodeDetailView(TestCase):

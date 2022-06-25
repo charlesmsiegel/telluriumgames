@@ -297,6 +297,45 @@ class Chantry(Location):
         Library, on_delete=models.CASCADE, blank=True, null=True
     )
     nodes = models.ManyToManyField(Node, blank=True)
+    
+    factional_names = {
+        "Akashayana": ["Monastery", "Torii", "Pagoda", "Bodhimandala", "Tao Chang", "Dojo", "Dojang", "Xiudaoyuan"],
+        "Celestial Chorus": ["Chapel", "Covenant", "Sanctuary", "Adytum", "Temple"],
+        "Cult of Ecstasy": ["Pleasuredome"],
+        "Dreamspeakers": ["Lodge"],
+        "Euthanatos": ["Marabout"],
+        "Order of Hermes": ["Covenant", "Chantry"],
+        "Hollow Ones": ["Hideout", "Hole", "Crashspace", "Haunt"],
+        "Society of Ether": ["Laboratory"],
+        "Verbena": ["Covenhouse", "Circle", "Great Hall"],
+        "Virtual Adepts": ["Epicenter", "Fortress", "Net"],
+        "Traditions": ["Chantry"],
+        "Technocratic Union": ["Construct"],
+        "Kopa Loei": ["He'iau"],
+    }
+    
+    def has_name(self):
+        return self.name != ""
+    
+    def set_name(self, name):
+        self.name = name
+        self.save()
+        return True
+    
+    def random_name(self):
+        options = []
+        current = self.faction
+        while current is not None:
+            if current.name in self.factional_names.keys():
+                options.extend(self.factional_names[current.name])
+            current = current.parent
+        if len(options) == 0:
+            choice = "Chantry"
+        else:
+            choice = random.choice(options)
+        adjective = Resonance.objects.order_by("?").first().name
+        adjective = adjective.title()
+        return self.set_name(f"{adjective} {choice}")
 
     def trait_cost(self, trait):
         if trait in [
@@ -401,6 +440,8 @@ class Chantry(Location):
         return True
 
     def random(self, rank=None):
+        self.random_faction()
+        self.random_name()
         self.random_rank(rank=rank)
         while self.points - self.points_spent() > 1:
             choice = weighted_choice(self.get_traits())
