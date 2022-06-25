@@ -714,75 +714,6 @@ class Mage(Human):
             if not spent:
                 counter += 1
 
-    def freebie_cost(self, trait):
-        if trait == "attribute":
-            return 5
-        if trait == "ability":
-            return 2
-        if trait == "background":
-            return 1
-        if trait == "willpower":
-            return 1
-        if trait == "meritflaw":
-            return 1
-        if trait == "sphere":
-            return 7
-        if trait == "arete":
-            return 4
-        if trait == "quintessence":
-            return 1
-        if trait == "rote points":
-            return 1
-        if trait == "resonance":
-            return 3
-        return 10000
-
-    def spend_freebies(self, trait):
-        output = super().spend_freebies(trait)
-        if output in [True, False]:
-            return output
-        if trait in self.get_spheres():
-            cost = self.freebie_cost("sphere")
-            if cost <= self.freebies:
-                if self.add_sphere(trait):
-                    self.freebies -= cost
-                    return True
-                return False
-            return False
-        if trait == "arete":
-            cost = self.freebie_cost("arete")
-            if cost <= self.freebies:
-                if self.add_arete(freebies=True):
-                    self.freebies -= cost
-                    return True
-                return False
-            return False
-        if trait == "quintessence":
-            cost = self.freebie_cost("quintessence")
-            if cost <= self.freebies:
-                if self.quintessence < 17:
-                    self.quintessence += 4
-                    self.freebies -= cost
-                    return True
-                return False
-            return False
-        if trait == "rote points":
-            cost = self.freebie_cost("rote points")
-            if cost <= self.freebies:
-                self.rote_points += 4
-                self.freebies -= cost
-                return True
-            return False
-        if Resonance.objects.filter(name=trait).exists():
-            cost = self.freebie_cost("resonance") * (self.total_resonance() - 1)
-            if cost <= self.freebies:
-                if self.add_resonance(trait):
-                    self.freebies -= cost
-                    return True
-                return False
-            return False
-        return trait
-
     def spend_xp(self, trait):
         output = super().spend_xp(trait)
         if output in [True, False]:
@@ -844,6 +775,80 @@ class Mage(Human):
         if trait == "rote points":
             return 1
         return 10000
+
+    def freebie_frequencies(self):
+        return {
+            
+        }
+        
+    def random_freebie_functions(self):
+        return {
+            
+        }
+
+    def freebie_cost(self, trait):
+        costs = defaultdict(
+            lambda: 10000,
+            {
+                "attribute": 5,
+                "ability": 2,
+                "background": 1,
+                "willpower": 1,
+                "meritflaw": 1,
+                "sphere": 7,
+                "arete": 4,
+                "quintessence": 1,
+                "rote points": 1,
+                "resonance": 3
+            }
+        )
+        return costs[trait]
+
+    def spend_freebies(self, trait):
+        output = super().spend_freebies(trait)
+        if output in [True, False]:
+            return output
+        if trait in self.get_spheres():
+            cost = self.freebie_cost("sphere")
+            if cost <= self.freebies:
+                if self.add_sphere(trait):
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
+        if trait == "arete":
+            cost = self.freebie_cost("arete")
+            if cost <= self.freebies:
+                if self.add_arete(freebies=True):
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
+        if trait == "quintessence":
+            cost = self.freebie_cost("quintessence")
+            if cost <= self.freebies:
+                if self.quintessence < 17:
+                    self.quintessence += 4
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
+        if trait == "rote points":
+            cost = self.freebie_cost("rote points")
+            if cost <= self.freebies:
+                self.rote_points += 4
+                self.freebies -= cost
+                return True
+            return False
+        if Resonance.objects.filter(name=trait).exists():
+            cost = self.freebie_cost("resonance") * (self.total_resonance() - 1)
+            if cost <= self.freebies:
+                if self.add_resonance(trait):
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
+        return trait
 
     def random_freebies(self):
         frequencies = {
