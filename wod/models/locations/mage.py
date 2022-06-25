@@ -297,6 +297,21 @@ class Chantry(Location):
         Library, on_delete=models.CASCADE, blank=True, null=True
     )
     nodes = models.ManyToManyField(Node, blank=True)
+    
+    factional_names = {
+        "Akashayana": ["Monastery", "Torii", "Pagoda"],
+        "Celestial Chorus": ["Chapel", "Covenant", "Sanctuary"],
+        "Cult of Ecstasy": ["Pleasuredome"],
+        "Dreamspeakers": ["Lodge"],
+        "Euthanatos": ["Marabout"],
+        "Order of Hermes": ["Covenant", "Chantry"],
+        "Hollow Ones": ["Hideout", "Hole", "Crashspace", "Haunt"],
+        "Society of Ether": ["Laboratory"],
+        "Verbena": ["Covenhouse", "Circle", "Great Hall"],
+        "Virtual Adepts": ["Epicenter", "Fortress", "Net"],
+        "Traditions": ["Chantry"],
+        "Technocratic Union": ["Construct"],
+    }
 
     def trait_cost(self, trait):
         if trait in [
