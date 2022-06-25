@@ -343,6 +343,18 @@ class TestChantry(TestCase):
         self.chantry.set_faction(m)
         self.assertTrue(self.chantry.random_name())
         self.assertIn("Laboratory", self.chantry.name)
+        
+    def test_has_name(self):
+        self.chantry.name = ""
+        self.assertFalse(self.chantry.has_name())
+        self.chantry.name = "Test"
+        self.assertTrue(self.chantry.has_name())
+    
+    def test_set_name(self):
+        self.chantry.name = ""
+        self.assertFalse(self.chantry.has_name())
+        self.assertTrue(self.chantry.set_name("Test Chantry"))
+        self.assertTrue(self.chantry.has_name())
 
 
 class TestNodeDetailView(TestCase):
