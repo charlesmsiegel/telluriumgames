@@ -787,14 +787,12 @@ class Mage(Human):
         }
 
     def freebie_cost(self, trait):
+        cost = super().freebie_cost(trait)
+        if cost != 10000:
+            return cost
         costs = defaultdict(
             lambda: 10000,
             {
-                "attribute": 5,
-                "ability": 2,
-                "background": 1,
-                "willpower": 1,
-                "meritflaw": 1,
                 "sphere": 7,
                 "arete": 4,
                 "quintessence": 1,

@@ -552,14 +552,12 @@ class Werewolf(Human):
         return super().xp_cost(trait)
 
     def freebie_cost(self, trait):
+        cost = super().freebie_cost(trait)
+        if cost != 10000:
+            return cost
         costs = defaultdict(
             lambda: 10000,
             {
-                "attribute": 5,
-                "ability": 2,
-                "background": 1,
-                "willpower": 1,
-                "meritflaw": 1,
                 "gift": 7,
                 "rage": 1,
                 "gnosis": 2,
