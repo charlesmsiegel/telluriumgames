@@ -8,12 +8,14 @@
             <div class="col-sm mtas_heading">
                 <h1>{{ object.name }}</h1>
             </div>
+            <div class="row">
             {% if object.parent != None %}
-                <div class="row">
                     <div class="col-sm">Parent</div>
                     <a class="col-sm" href="{% url 'wod:location' object.parent.id %}">{{ object.parent.name }}</a>
-                </div>
             {% endif %}
+                <div class="col-sm">Faction</div>
+                <div class="col-sm">{{ object.faction }}</div>
+            </div>
             <div class="row">
                 <div class="col-sm"></div>
                 <div class="col-sm"></div>
