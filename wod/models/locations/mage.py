@@ -272,8 +272,30 @@ class NodeResonanceRating(models.Model):
 
 class Chantry(Location):
     type = "chantry"
-    
-    faction = models.ForeignKey(MageFaction, blank=True, null=True, on_delete=models.CASCADE)
+
+    faction = models.ForeignKey(
+        MageFaction, blank=True, null=True, on_delete=models.CASCADE
+    )
+
+    SEASONS = [
+        ("spring", "Spring"),
+        ("winter", "Winter"),
+        ("summer", "Summer"),
+        ("autumn", "Autumn"),
+    ]
+
+    season = models.CharField(max_length=100, null=True, choices=SEASONS,)
+
+    CHANTRY_TYPES = [
+        ("exploration", "Exploration"),
+        ("ancestral", "Ancestral"),
+        ("hereditary", "Hereditary"),
+        ("college", "College"),
+        ("squatter", "Squatter"),
+        ("war", "War"),
+    ]
+
+    chantry_type = models.CharField(max_length=100, null=True, choices=CHANTRY_TYPES,)
 
     rank = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
@@ -297,9 +319,18 @@ class Chantry(Location):
         Library, on_delete=models.CASCADE, blank=True, null=True
     )
     nodes = models.ManyToManyField(Node, blank=True)
-    
+
     factional_names = {
-        "Akashayana": ["Monastery", "Torii", "Pagoda", "Bodhimandala", "Tao Chang", "Dojo", "Dojang", "Xiudaoyuan"],
+        "Akashayana": [
+            "Monastery",
+            "Torii",
+            "Pagoda",
+            "Bodhimandala",
+            "Tao Chang",
+            "Dojo",
+            "Dojang",
+            "Xiudaoyuan",
+        ],
         "Celestial Chorus": ["Chapel", "Covenant", "Sanctuary", "Adytum", "Temple"],
         "Cult of Ecstasy": ["Pleasuredome"],
         "Dreamspeakers": ["Lodge"],
@@ -313,15 +344,15 @@ class Chantry(Location):
         "Technocratic Union": ["Construct"],
         "Kopa Loei": ["He'iau"],
     }
-    
+
     def has_name(self):
         return self.name != ""
-    
+
     def set_name(self, name):
         self.name = name
         self.save()
         return True
-    
+
     def random_name(self):
         options = []
         current = self.faction
@@ -336,6 +367,28 @@ class Chantry(Location):
         adjective = Resonance.objects.order_by("?").first().name
         adjective = adjective.title()
         return self.set_name(f"{adjective} {choice}")
+
+    def has_season(self):
+        return self.season is not None
+
+    def set_season(self, season):
+        self.season = season
+        self.save()
+        return True
+    
+    def random_season(self):
+        return self.set_season(random.choice(self.SEASONS)[0])
+
+    def has_chantry_type(self):
+        return self.chantry_type is not None
+
+    def set_chantry_type(self, chantry_type):
+        self.chantry_type = chantry_type
+        self.save()
+        return True
+
+    def random_chantry_type(self):
+        return self.set_chantry_type(random.choice(self.CHANTRY_TYPES)[0])
 
     def trait_cost(self, trait):
         if trait in [
@@ -442,6 +495,8 @@ class Chantry(Location):
     def random(self, rank=None):
         self.random_faction()
         self.random_name()
+        self.random_season()
+        self.random_chantry_type()
         self.random_rank(rank=rank)
         while self.points - self.points_spent() > 1:
             choice = weighted_choice(self.get_traits())
@@ -470,13 +525,13 @@ class Chantry(Location):
             "node_rating": self.node_rating,
             "library_rating": self.library_rating,
         }
-        
+
     def set_faction(self, faction):
         self.faction = faction
         return True
-    
+
     def has_faction(self):
         return self.faction is not None
-    
+
     def random_faction(self):
         return self.set_faction(MageFaction.objects.order_by("?").first())

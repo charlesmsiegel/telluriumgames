@@ -315,8 +315,12 @@ class TestChantry(TestCase):
         self.assertFalse(self.chantry.has_faction())
         self.assertFalse(self.chantry.has_name())
         self.assertFalse(self.chantry.has_library())
+        self.assertFalse(self.chantry.has_season())
+        self.assertFalse(self.chantry.has_chantry_type())
         self.assertTrue(self.chantry.has_node())
         self.chantry.random()
+        self.assertTrue(self.chantry.has_season())
+        self.assertTrue(self.chantry.has_chantry_type())
         self.assertTrue(self.chantry.has_faction())
         self.assertTrue(self.chantry.has_name())
         self.assertGreater(self.chantry.points, 0)
@@ -357,6 +361,36 @@ class TestChantry(TestCase):
         self.assertFalse(self.chantry.has_name())
         self.assertTrue(self.chantry.set_name("Test Chantry"))
         self.assertTrue(self.chantry.has_name())
+        
+    def test_has_chantry_type(self):
+        self.assertFalse(self.chantry.has_chantry_type())
+        self.chantry.chantry_type = "war"
+        self.assertTrue(self.chantry.has_chantry_type())
+        
+    def test_set_chantry_type(self):
+        self.assertFalse(self.chantry.has_chantry_type())
+        self.chantry.set_chantry_type("war")
+        self.assertTrue(self.chantry.has_chantry_type())
+        
+    def test_random_chantry_type(self):
+        self.assertFalse(self.chantry.has_chantry_type())
+        self.chantry.random_chantry_type()
+        self.assertTrue(self.chantry.has_chantry_type())
+        
+    def test_has_season(self):
+        self.assertFalse(self.chantry.has_season())
+        self.chantry.season = "spring"
+        self.assertTrue(self.chantry.has_season())
+        
+    def test_set_season(self):
+        self.assertFalse(self.chantry.has_season())
+        self.chantry.set_season("spring")
+        self.assertTrue(self.chantry.has_season())
+        
+    def test_random_season(self):
+        self.assertFalse(self.chantry.has_season())
+        self.chantry.random_season()
+        self.assertTrue(self.chantry.has_season())
 
 
 class TestNodeDetailView(TestCase):

@@ -55,7 +55,6 @@ class LocationIndexView(View):
             L1.extend([level_name(y) for y in tree_sort(x)])
             L2.extend([y for y in tree_sort(x)])
             
-        # context['names_in_order'] = L1
         context['names_dict'] = {x: y for x, y in zip(L1, L2)}
         return context
 
