@@ -336,6 +336,13 @@ class TestChantry(TestCase):
         self.assertFalse(self.chantry.has_faction())
         self.assertTrue(self.chantry.random_faction())
         self.assertTrue(self.chantry.has_faction())
+        
+    def test_random_name(self):
+        self.assertEqual(self.chantry.name, "")
+        m, _ = MageFaction.objects.get_or_create(name="Society of Ether")
+        self.chantry.set_faction(m)
+        self.assertTrue(self.chantry.random_name())
+        self.assertIn("Laboratory", self.chantry.name)
 
 
 class TestNodeDetailView(TestCase):
