@@ -309,3 +309,21 @@ ethnicity_to_code = {
     "Zapotec": "zap",
     "Zulu": "zul",
 }
+
+
+def compute_level(x, level=0):
+    if x.parent is None:
+        return level
+    else:
+        return compute_level(x.parent, level=level+1)
+    
+def level_name(x):
+    return (compute_level(x) * "&emsp;&emsp;") + x.name
+
+def tree_sort(x, l=None):
+    if l is None:
+        l = []
+    l.append(x)
+    for y in x.children.order_by("name"):
+        tree_sort(y, l=l)
+    return l
