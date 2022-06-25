@@ -338,6 +338,8 @@ class TestChantry(TestCase):
         self.assertTrue(self.chantry.has_faction())
         
     def test_random_name(self):
+        self.chantry.name = ""
+        self.chantry.save()
         self.assertEqual(self.chantry.name, "")
         m, _ = MageFaction.objects.get_or_create(name="Society of Ether")
         self.chantry.set_faction(m)
