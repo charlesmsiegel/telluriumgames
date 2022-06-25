@@ -680,8 +680,8 @@ class Mage(Human):
         self.age_of_awakening = 15
         self.avatar_description = "An Avatar"
 
-    def random_xp(self):
-        frequencies = {
+    def xp_frequencies(self):
+        return {
             "attribute": 16,
             "ability": 20,
             "background": 13,
@@ -690,29 +690,51 @@ class Mage(Human):
             "arete": 10,
             "rote points": 2,
         }
+
+    def random_xp_functions(self):
+        return {
+            "attribute": self.random_xp_attributes,
+            "ability": self.random_xp_abilities,
+            "background": self.random_xp_background,
+            "willpower": self.random_xp_willpower,
+            "sphere": self.random_xp_sphere,
+            "arete": self.random_xp_arete,
+            "rote points": self.random_xp_rote_points,
+        }
+
+    def random_xp(self):
+        frequencies = self.xp_frequencies()
         counter = 0
         while counter < 10000 and self.xp > 0:
             choice = weighted_choice(frequencies)
-            if choice == "attribute":
-                trait = weighted_choice(self.get_attributes())
-                spent = self.spend_xp(trait)
-            if choice == "ability":
-                trait = weighted_choice(self.get_abilities())
-                spent = self.spend_xp(trait)
-            if choice == "background":
-                trait = weighted_choice(self.get_backgrounds())
-                spent = self.spend_xp(trait)
-            if choice == "willpower":
-                spent = self.spend_xp(choice)
-            if choice == "arete":
-                spent = self.spend_xp(choice)
-            if choice == "sphere":
-                trait = weighted_choice(self.get_spheres())
-                spent = self.spend_xp(trait)
-            if choice == "rote points":
-                spent = self.spend_xp(choice)
+            spent = self.random_xp_functions()[choice]()
             if not spent:
                 counter += 1
+
+    def random_xp_attributes(self):
+        trait = weighted_choice(self.get_attributes())
+        return self.spend_xp(trait)
+    
+    def random_xp_abilities(self):
+        trait = weighted_choice(self.get_abilities())
+        return self.spend_xp(trait)
+
+    def random_xp_background(self):
+        trait = weighted_choice(self.get_backgrounds())
+        return self.spend_xp(trait)
+
+    def random_xp_willpower(self):
+        return self.spend_xp("willpower")
+
+    def random_xp_sphere(self):
+        trait = weighted_choice(self.get_spheres())
+        return self.spend_xp(trait)
+
+    def random_xp_arete(self):
+        return self.spend_xp("arete")
+
+    def random_xp_rote_points(self):
+        return self.spend_xp("rote points")
 
     def spend_xp(self, trait):
         output = super().spend_xp(trait)
@@ -752,38 +774,47 @@ class Mage(Human):
         return trait
 
     def xp_cost(self, trait):
-        if trait == "attribute":
-            return 4
-        if trait == "ability":
-            return 2
-        if trait == "new ability":
-            return 3
-        if trait == "background":
-            return 3
-        if trait == "new background":
-            return 5
-        if trait == "willpower":
-            return 1
-        if trait == "affinity sphere":
-            return 7
-        if trait == "new sphere":
-            return 10
-        if trait == "sphere":
-            return 8
-        if trait == "arete":
-            return 8
-        if trait == "rote points":
-            return 1
-        return 10000
+        cost = super().freebie_cost(trait)
+        if cost != 10000:
+            return cost
+        costs = defaultdict(
+            lambda: 10000,
+            {
+                "affinity sphere": 7,
+                "new sphere": 10,
+                "sphere": 8,
+                "arete": 8,
+                "rote points": 1
+            }
+        )
+        return costs[trait]
 
     def freebie_frequencies(self):
         return {
-            
+            "attribute": 15,
+            "ability": 8,
+            "background": 10,
+            "willpower": 1,
+            "meritflaw": 50,
+            "sphere": 25,
+            "arete": 5,
+            "quintessence": 1,
+            "rote points": 5,
+            "resonance": 10,
         }
-        
+
     def random_freebie_functions(self):
         return {
-            
+            "attribute": self.random_freebies_attributes,
+            "ability": self.random_freebies_abilities,
+            "background": self.random_freebies_background,
+            "willpower": self.random_freebies_willpower,
+            "meritflaw": self.random_freebies_meritflaw,
+            "sphere": self.random_freebies_sphere,
+            "arete": self.random_freebies_arete,
+            "quintessence": self.random_freebies_quintessence,
+            "rote points": self.random_freebies_rote_points,
+            "resonance": self.random_freebies_resonance,
         }
 
     def freebie_cost(self, trait):
@@ -849,46 +880,46 @@ class Mage(Human):
         return trait
 
     def random_freebies(self):
-        frequencies = {
-            "attribute": 15,
-            "ability": 8,
-            "background": 10,
-            "willpower": 1,
-            "meritflaw": 50,
-            "sphere": 25,
-            "arete": 5,
-            "quintessence": 1,
-            "rote points": 5,
-            "resonance": 10,
-        }
+        frequencies = self.freebie_frequencies()
         while self.freebies > 0:
             choice = weighted_choice(frequencies)
-            if choice == "attribute":
-                trait = weighted_choice(self.get_attributes())
-                self.spend_freebies(trait)
-            if choice == "ability":
-                trait = weighted_choice(self.get_abilities())
-                self.spend_freebies(trait)
-            if choice == "background":
-                trait = weighted_choice(self.get_backgrounds())
-                self.spend_freebies(trait)
-            if choice == "willpower":
-                self.spend_freebies(choice)
-            if choice == "meritflaw":
-                trait = random.choice([x.name for x in self.filter_mfs()])
-                self.spend_freebies(trait)
-            if choice == "sphere":
-                trait = weighted_choice(self.get_spheres())
-                self.spend_freebies(trait)
-            if choice == "arete":
-                self.spend_freebies(choice)
-            if choice == "quintessence":
-                self.spend_freebies(choice)
-            if choice == "rote points":
-                self.spend_freebies(choice)
-            if choice == "resonance":
-                trait = self.choose_random_resonance()
-                self.spend_freebies(trait)
+            self.random_freebie_functions()[choice]()
+                
+    def random_freebies_attributes(self):
+        trait = weighted_choice(self.get_attributes())
+        self.spend_freebies(trait)
+
+    def random_freebies_abilities(self):
+        trait = weighted_choice(self.get_abilities())
+        self.spend_freebies(trait)
+
+    def random_freebies_background(self):
+        trait = weighted_choice(self.get_backgrounds())
+        self.spend_freebies(trait)
+
+    def random_freebies_willpower(self):
+        self.spend_freebies("willpower")
+
+    def random_freebies_meritflaw(self):
+        trait = random.choice([x.name for x in self.filter_mfs()])
+        self.spend_freebies(trait)
+
+    def random_freebies_sphere(self):
+        trait = weighted_choice(self.get_spheres())
+        self.spend_freebies(trait)
+
+    def random_freebies_arete(self):
+        self.spend_freebies("arete")
+
+    def random_freebies_quintessence(self):
+        self.spend_freebies("quintessence")
+
+    def random_freebies_rote_points(self):
+        self.spend_freebies("rote points")
+
+    def random_freebies_resonance(self):
+        trait = self.choose_random_resonance()
+        self.spend_freebies(trait)
 
     def has_library(self):
         if self.library_owned is not None:
