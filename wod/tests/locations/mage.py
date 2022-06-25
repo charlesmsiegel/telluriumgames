@@ -318,6 +318,15 @@ class TestChantry(TestCase):
         self.assertGreater(self.chantry.points, 0)
         self.assertLessEqual(self.chantry.points - self.chantry.points_spent(), 1)
 
+    def test_has_faction(self):
+        self.fail()
+        
+    def test_set_faction(self):
+        self.fail()
+        
+    def test_random_faction(self):
+        self.fail()
+
 
 class TestNodeDetailView(TestCase):
     def setUp(self) -> None:
