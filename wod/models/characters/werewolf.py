@@ -1,5 +1,6 @@
 import random
 
+from collections import defaultdict
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Q
@@ -551,13 +552,20 @@ class Werewolf(Human):
         return super().xp_cost(trait)
 
     def freebie_cost(self, trait):
-        if trait == "gift":
-            return 7
-        if trait == "rage":
-            return 1
-        if trait == "gnosis":
-            return 2
-        return super().freebie_cost(trait)
+        costs = defaultdict(
+            lambda: 10000,
+            {
+                "attribute": 5,
+                "ability": 2,
+                "background": 1,
+                "willpower": 1,
+                "meritflaw": 1,
+                "gift": 7,
+                "rage": 1,
+                "gnosis": 2,
+            }
+        )
+        return costs[trait]
 
     def has_werewolf_history(self):
         return (

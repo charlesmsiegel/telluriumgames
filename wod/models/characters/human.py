@@ -1,6 +1,7 @@
 import random
 from datetime import date, timedelta
 
+from collections import defaultdict
 from django.db import models
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
@@ -596,17 +597,17 @@ class Human(Character):
         self.goals = "Goals"
 
     def freebie_cost(self, trait):
-        if trait == "attribute":
-            return 5
-        if trait == "ability":
-            return 2
-        if trait == "background":
-            return 1
-        if trait == "willpower":
-            return 1
-        if trait == "meritflaw":
-            return 1
-        return 10000
+        costs = defaultdict(
+            lambda: 10000,
+            {
+                "attribute": 5,
+                "ability": 2,
+                "background": 1,
+                "willpower": 1,
+                "meritflaw": 1,
+            }
+        )
+        return costs[trait]
 
     def spend_freebies(self, trait):
         if trait in self.get_attributes():
