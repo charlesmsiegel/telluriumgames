@@ -109,7 +109,15 @@ class ChantryDetailView(View):
         return render(request, "wod/locations/chantry/detail.html", context)
 
     def get_context(self, chantry):
+        factions = []
+        f = chantry.faction
+        while f is not None:
+            factions.append(f.name)
+            f = f.parent
+        factions.reverse()
+        factions = "/".join(factions)
         return {
+            "factions": factions,
             "object": chantry,
         }
 
