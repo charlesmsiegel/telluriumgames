@@ -440,6 +440,8 @@ class Chantry(Location):
         return True
 
     def random(self, rank=None):
+        self.random_faction()
+        self.random_name()
         self.random_rank(rank=rank)
         while self.points - self.points_spent() > 1:
             choice = weighted_choice(self.get_traits())
