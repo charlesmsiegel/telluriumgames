@@ -541,15 +541,19 @@ class Werewolf(Human):
         return False
 
     def xp_cost(self, trait):
-        if trait == "gift":
-            return 3
-        if trait == "outside gift":
-            return 5
-        if trait == "rage":
-            return 1
-        if trait == "gnosis":
-            return 2
-        return super().xp_cost(trait)
+        cost = super().xp_cost(trait)
+        if cost != 10000:
+            return cost
+        costs = defaultdict(
+            lambda: 10000,
+            {
+                "gift": 3,
+                "outside gift": 5,
+                "rage": 1,
+                "gnosis": 2,
+            }
+        )
+        return costs[trait]
 
     def freebie_cost(self, trait):
         cost = super().freebie_cost(trait)
@@ -614,8 +618,8 @@ class Werewolf(Human):
             return False
         return trait
 
-    def random_freebies(self):
-        frequencies = {
+    def freebie_frequencies(self):
+        return {
             "attribute": 15,
             "ability": 8,
             "background": 10,
@@ -625,29 +629,28 @@ class Werewolf(Human):
             "rage": 5,
             "gnosis": 1,
         }
-        while self.freebies > 0:
-            choice = weighted_choice(frequencies)
-            if choice == "attribute":
-                trait = weighted_choice(self.get_attributes())
-                self.spend_freebies(trait)
-            if choice == "ability":
-                trait = weighted_choice(self.get_abilities())
-                self.spend_freebies(trait)
-            if choice == "background":
-                trait = weighted_choice(self.get_backgrounds())
-                self.spend_freebies(trait)
-            if choice == "willpower":
-                self.spend_freebies(choice)
-            if choice == "meritflaw":
-                trait = random.choice([x.name for x in self.filter_mfs()])
-                self.spend_freebies(trait)
-            if choice == "gift":
-                trait = random.choice(self.filter_gifts())
-                self.spend_freebies(trait)
-            if choice == "gnosis":
-                self.spend_freebies(choice)
-            if choice == "rage":
-                self.spend_freebies(choice)
+
+    def random_freebie_functions(self):
+        return {
+            "attribute": self.random_freebies_attributes,
+            "ability": self.random_freebies_abilities,
+            "background": self.random_freebies_background,
+            "willpower": self.random_freebies_willpower,
+            "meritflaw": self.random_freebies_meritflaw,
+            "gift": self.random_freebies_gift,
+            "rage": self.random_freebies_rage,
+            "gnosis": self.random_freebies_gnosis,
+        }
+        
+    def random_freebies_gift(self):
+        trait = random.choice(self.filter_gifts())
+        self.spend_freebies(trait)
+        
+    def random_freebies_rage(self):
+        self.spend_freebies("rage")
+
+    def random_freebies_gnosis(self):
+        self.spend_freebies("gnosis")
 
     def spend_xp(self, trait):
         output = super().spend_xp(trait)
@@ -690,8 +693,8 @@ class Werewolf(Human):
             return False
         return trait
 
-    def random_xp(self):
-        frequencies = {
+    def xp_frequencies(self):
+        return {
             "attribute": 15,
             "ability": 20,
             "background": 15,
@@ -700,6 +703,31 @@ class Werewolf(Human):
             "rage": 5,
             "gnosis": 5,
         }
+
+    def random_xp_functions(self):
+        return {
+            "attribute": self.random_xp_attributes,
+            "ability": self.random_xp_abilities,
+            "background": self.random_xp_background,
+            "willpower": self.random_xp_willpower,
+            "gift": self.random_xp_gift,
+            "rage": self.random_xp_rage,
+            "gnosis": self.random_xp_gnosis,
+        }
+
+    def random_xp_gift(self):
+        trait = self.choose_random_gift()
+        return self.spend_xp(trait)
+        
+    def random_xp_rage(self):
+        return self.spend_xp("rage")
+
+    def random_xp_gnosis(self):
+        return self.spend_xp("gnosis")
+
+    def random_xp(self):
+        frequencies = self.xp_frequencies()
+        counter = 0
         starting_xp = self.xp
         renown_frequency_at_rank = {
             1: 3,
@@ -708,27 +736,9 @@ class Werewolf(Human):
             4: 3,
             5: 3,
         }
-        counter = 0
         while counter < 10000 and self.xp > 0:
             choice = weighted_choice(frequencies)
-            if choice == "attribute":
-                trait = weighted_choice(self.get_attributes())
-                spent = self.spend_xp(trait)
-            if choice == "ability":
-                trait = weighted_choice(self.get_abilities())
-                spent = self.spend_xp(trait)
-            if choice == "background":
-                trait = weighted_choice(self.get_backgrounds())
-                spent = self.spend_xp(trait)
-            if choice == "willpower":
-                spent = self.spend_xp(choice)
-            if choice == "gnosis":
-                spent = self.spend_xp(choice)
-            if choice == "gift":
-                trait = self.choose_random_gift()
-                spent = self.spend_xp(trait)
-            if choice == "rage":
-                spent = self.spend_xp(choice)
+            spent = self.random_xp_functions()[choice]()
             if not spent:
                 counter += 1
             num_renown_to_add = (starting_xp - self.xp) // renown_frequency_at_rank[

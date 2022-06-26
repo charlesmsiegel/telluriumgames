@@ -702,15 +702,6 @@ class Mage(Human):
             "rote points": self.random_xp_rote_points,
         }
 
-    def random_xp(self):
-        frequencies = self.xp_frequencies()
-        counter = 0
-        while counter < 10000 and self.xp > 0:
-            choice = weighted_choice(frequencies)
-            spent = self.random_xp_functions()[choice]()
-            if not spent:
-                counter += 1
-
     def random_xp_sphere(self):
         trait = weighted_choice(self.get_spheres())
         return self.spend_xp(trait)
@@ -863,12 +854,6 @@ class Mage(Human):
                 return False
             return False
         return trait
-
-    def random_freebies(self):
-        frequencies = self.freebie_frequencies()
-        while self.freebies > 0:
-            choice = weighted_choice(frequencies)
-            self.random_freebie_functions()[choice]()
 
     def random_freebies_sphere(self):
         trait = weighted_choice(self.get_spheres())
