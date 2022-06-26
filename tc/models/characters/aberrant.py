@@ -195,13 +195,13 @@ class Aberrant(Human):
         return sum(x.rating for x in PowerRating.objects.filter(character=self))
 
     def random_power(self):
-        d = {
-            x.name: self.power_rating(x)
-            for x in Power.objects.all()
-            if x.quantum_minimum <= self.quantum
-        }
-        choice = weighted_choice(d)
-        return self.add_power(Power.objects.get(name=choice))
+        powers = Power.objects.filter(quantum_minimum__lte=self.quantum)
+        if random.random() < 0.7 and self.powers.count() != 0:
+            powers = self.powers.all()
+        else:
+            powers = powers.exclude(pk__in=self.powers.all())
+        choice = random.choice(powers)
+        return self.add_power(choice)
 
     def power_rating(self, p):
         if p not in self.powers.all():
@@ -249,17 +249,13 @@ class Aberrant(Human):
     def filter_tags(self, power):
         if power not in self.powers.all():
             return []
-        tags = [x for x in Tag.objects.all() if power in x.permitted_powers.all()]
+        tags = Tag.objects.filter(permitted_powers__id=power.id)
+
         p = PowerRating.objects.get(character=self, power=power)
-        output = []
-        for tag in tags:
-            if tag not in p.tags.all():
+        output = list(tags.exclude(pk__in=p.tags.all()))
+        for tag in p.tags.all():
+            if TagRating.objects.get(power_rating=p, tag=tag).rating != max(tag.ratings):
                 output.append(tag)
-            else:
-                if TagRating.objects.get(power_rating=p, tag=tag).rating != max(
-                    tag.ratings
-                ):
-                    output.append(tag)
         return output
 
     def add_transformation(self, transformation, transcendence=False):
@@ -279,8 +275,8 @@ class Aberrant(Human):
     def filter_transformations(self, level=None):
         transforms = Transformation.objects.all()
         if level is not None:
-            transforms = [x for x in transforms if x.level == level]
-        return [x for x in transforms if x not in self.transformations.all()]
+            transforms = transforms.filter(level=level)
+        return transforms.exclude(pk__in=self.transformations.all())
 
     def add_transcendence(self, transformation=None):
         if transformation is None:

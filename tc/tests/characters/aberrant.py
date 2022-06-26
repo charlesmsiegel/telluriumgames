@@ -697,6 +697,37 @@ class TestRandomAberrant(TestCase):
         t.permitted_powers.set(Power.objects.all())
         t.save()
 
+        edges = [
+            "Lightning Calculator",
+            "Photographic Memory",
+            "Speed Reading",
+        ]
+        for name in edges:
+            Edge.objects.create(name=name, ratings=[1, 2, 3])
+
+        edges = ["Always Prepared", "Covert", "Danger Sense", "Iron Will"]
+        for name in edges:
+            Edge.objects.create(name=name, ratings=[1, 2, 3])
+
+        EnhancedEdge.objects.create(name="Indomitable", prereqs=[[("Iron Will", 3)]])
+
+        edges = ["Animal Ken", "Skilled Liar", "Striking", "Wealth"]
+        for name in edges:
+            Edge.objects.create(name=name, ratings=[1, 2, 3])
+
+        Edge.objects.create(
+            name="Keen Sense (Sight)", ratings=[1],
+        )
+        Edge.objects.create(
+            name="Keen Sense (Hearing)", ratings=[1],
+        )
+        Edge.objects.create(
+            name="Keen Sense (Touch)", ratings=[1],
+        )
+        Edge.objects.create(
+            name="Keen Sense (Smell and Taste)", ratings=[1],
+        )
+
     def test_random_mega_attribute(self):
         num = self.character.total_mega_attributes()
         self.character.random_mega_attribute()

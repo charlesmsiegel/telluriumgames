@@ -107,9 +107,7 @@ class Talent(Human):
             self.add_gift(random.choice(possible_gifts))
 
     def filter_gifts(self, keyword=None, path=None):
-        gifts = Gift.objects.all()
-        gifts = [x for x in gifts if x.check_prereqs(self)]
-        gifts = [x for x in gifts if x not in self.gifts.all()]
+        gifts = Gift.objects.all().exclude(pk__in=self.gifts.all())
         if keyword is not None:
             gifts = [x for x in gifts if keyword in x.keywords]
         if path is not None:
@@ -118,6 +116,7 @@ class Talent(Human):
                 for x in gifts
                 if set(x.keywords).intersection(set(path.gift_keywords)) != set()
             ]
+        gifts = [x for x in gifts if x.check_prereqs(self)]
         return gifts
 
     def has_template(self):
