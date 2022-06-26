@@ -711,21 +711,6 @@ class Mage(Human):
             if not spent:
                 counter += 1
 
-    def random_xp_attributes(self):
-        trait = weighted_choice(self.get_attributes())
-        return self.spend_xp(trait)
-    
-    def random_xp_abilities(self):
-        trait = weighted_choice(self.get_abilities())
-        return self.spend_xp(trait)
-
-    def random_xp_background(self):
-        trait = weighted_choice(self.get_backgrounds())
-        return self.spend_xp(trait)
-
-    def random_xp_willpower(self):
-        return self.spend_xp("willpower")
-
     def random_xp_sphere(self):
         trait = weighted_choice(self.get_spheres())
         return self.spend_xp(trait)
@@ -884,25 +869,6 @@ class Mage(Human):
         while self.freebies > 0:
             choice = weighted_choice(frequencies)
             self.random_freebie_functions()[choice]()
-                
-    def random_freebies_attributes(self):
-        trait = weighted_choice(self.get_attributes())
-        self.spend_freebies(trait)
-
-    def random_freebies_abilities(self):
-        trait = weighted_choice(self.get_abilities())
-        self.spend_freebies(trait)
-
-    def random_freebies_background(self):
-        trait = weighted_choice(self.get_backgrounds())
-        self.spend_freebies(trait)
-
-    def random_freebies_willpower(self):
-        self.spend_freebies("willpower")
-
-    def random_freebies_meritflaw(self):
-        trait = random.choice([x.name for x in self.filter_mfs()])
-        self.spend_freebies(trait)
 
     def random_freebies_sphere(self):
         trait = weighted_choice(self.get_spheres())
