@@ -774,7 +774,7 @@ class Mage(Human):
         return trait
 
     def xp_cost(self, trait):
-        cost = super().freebie_cost(trait)
+        cost = super().xp_cost(trait)
         if cost != 10000:
             return cost
         costs = defaultdict(
