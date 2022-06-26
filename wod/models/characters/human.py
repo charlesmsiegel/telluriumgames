@@ -682,19 +682,18 @@ class Human(Character):
         return False
 
     def xp_cost(self, trait):
-        if trait == "attribute":
-            return 4
-        if trait == "ability":
-            return 2
-        if trait == "new ability":
-            return 3
-        if trait == "background":
-            return 3
-        if trait == "new background":
-            return 5
-        if trait == "willpower":
-            return 1
-        return 10000
+        costs = defaultdict(
+            lambda: 10000,
+            {
+                "attribute": 4,
+                "ability": 2,
+                "new ability": 3,
+                "new background": 5,
+                "background": 3,
+                "willpower": 1
+            }
+        )
+        return costs[trait]
 
     def add_to_spend(self, trait, value, cost):
         trait = trait.replace("_", " ").title()
@@ -726,9 +725,10 @@ class Human(Character):
                 return False
             return False
         if trait in self.get_backgrounds():
-            cost = self.xp_cost("background") * getattr(self, trait)
-            if cost == 0:
-                cost = 5
+            if getattr(self, trait) != 0:
+                cost = self.xp_cost("background") * getattr(self, trait)
+            else:
+                cost = self.xp_cost("new background")
             if trait in ["enhancement", "sanctum", "totem"]:
                 cost *= 2
             if cost <= self.xp:
@@ -749,57 +749,88 @@ class Human(Character):
             return False
         return trait
 
-    def random_freebies(self):
-        frequencies = {
+    def freebie_frequencies(self):
+        return {
             "attribute": 1,
             "ability": 1,
             "background": 1,
             "willpower": 1,
             "meritflaw": 1,
         }
-        counter = 0
-        while counter < 10 and self.freebies > 0:
-            choice = weighted_choice(frequencies)
-            if choice == "attribute":
-                trait = weighted_choice(self.get_attributes())
-                spent = self.spend_freebies(trait)
-            if choice == "ability":
-                trait = weighted_choice(self.get_abilities())
-                spent = self.spend_freebies(trait)
-            if choice == "background":
-                trait = weighted_choice(self.get_backgrounds())
-                spent = self.spend_freebies(trait)
-            if choice == "willpower":
-                spent = self.spend_freebies(choice)
-            if choice == "meritflaw":
-                trait = random.choice([x.name for x in self.filter_mfs()])
-                spent = self.spend_freebies(trait)
-            if not spent:
-                counter += 1
+        
+    def random_freebie_functions(self):
+        return {
+            "attribute": self.random_freebies_attributes,
+            "ability": self.random_freebies_abilities,
+            "background": self.random_freebies_background,
+            "willpower": self.random_freebies_willpower,
+            "meritflaw": self.random_freebies_meritflaw,
+        }
 
-    def random_xp(self):
-        frequencies = {
+    def random_freebies(self):
+        frequencies = self.freebie_frequencies()
+        while self.freebies > 0:
+            choice = weighted_choice(frequencies)
+            self.random_freebie_functions()[choice]()
+
+    def random_freebies_attributes(self):
+        trait = weighted_choice(self.get_attributes())
+        self.spend_freebies(trait)
+
+    def random_freebies_abilities(self):
+        trait = weighted_choice(self.get_abilities())
+        self.spend_freebies(trait)
+
+    def random_freebies_background(self):
+        trait = weighted_choice(self.get_backgrounds())
+        self.spend_freebies(trait)
+
+    def random_freebies_willpower(self):
+        self.spend_freebies("willpower")
+
+    def random_freebies_meritflaw(self):
+        trait = random.choice([x.name for x in self.filter_mfs()])
+        self.spend_freebies(trait)
+
+    def xp_frequencies(self):
+        return {
             "attribute": 1,
             "ability": 1,
             "background": 1,
             "willpower": 1,
         }
+        
+    def random_xp_functions(self):
+        return {
+            "attribute": self.random_xp_attributes,
+            "ability": self.random_xp_abilities,
+            "background": self.random_xp_background,
+            "willpower": self.random_xp_willpower,
+        }
+
+    def random_xp(self):
+        frequencies = self.xp_frequencies()
         counter = 0
-        while counter < 10 and self.xp > 0:
+        while counter < 10000 and self.xp > 0:
             choice = weighted_choice(frequencies)
-            if choice == "attribute":
-                trait = weighted_choice(self.get_attributes())
-                spent = self.spend_xp(trait)
-            if choice == "ability":
-                trait = weighted_choice(self.get_abilities())
-                spent = self.spend_xp(trait)
-            if choice == "background":
-                trait = weighted_choice(self.get_backgrounds())
-                spent = self.spend_xp(trait)
-            if choice == "willpower":
-                spent = self.spend_xp(choice)
+            spent = self.random_xp_functions()[choice]()
             if not spent:
                 counter += 1
+
+    def random_xp_attributes(self):
+        trait = weighted_choice(self.get_attributes())
+        return self.spend_xp(trait)
+    
+    def random_xp_abilities(self):
+        trait = weighted_choice(self.get_abilities())
+        return self.spend_xp(trait)
+
+    def random_xp_background(self):
+        trait = weighted_choice(self.get_backgrounds())
+        return self.spend_xp(trait)
+
+    def random_xp_willpower(self):
+        return self.spend_xp("willpower")
 
     def random(self, freebies=15, xp=0, ethnicity=None):
         self.freebies = freebies
