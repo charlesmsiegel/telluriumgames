@@ -1,6 +1,7 @@
 import random
 
 from django.db import models
+from django.db.models import Q, F
 
 from core.utils import add_dot, weighted_choice
 from tc.models.characters.human import Edge, EnhancedEdge, Human, Path, PathRating
@@ -252,11 +253,11 @@ class Aberrant(Human):
         tags = Tag.objects.filter(permitted_powers__id=power.id)
 
         p = PowerRating.objects.get(character=self, power=power)
-        output = list(tags.exclude(pk__in=p.tags.all()))
-        for tag in p.tags.all():
-            if TagRating.objects.get(power_rating=p, tag=tag).rating != tag.max_rating:
-                output.append(tag)
-        return output
+        
+        had_tags = [x.tag for x in TagRating.objects.filter(power_rating=p).exclude(rating=F("tag__max_rating"))]
+        had_tags = Tag.objects.filter(pk__in=had_tags)
+        new_tags = tags.exclude(pk__in=p.tags.all())
+        return had_tags | new_tags
 
     def add_transformation(self, transformation, transcendence=False):
         if not transcendence:
