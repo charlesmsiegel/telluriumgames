@@ -19,67 +19,12 @@
         {% endif %}
       {% endfor %}
     </div>
-    {% comment %} <form name="character creation form" id="character creation form" action="{% url 'wod:random_character' %}" method="post">
-            {% csrf_token %}
-            Subjects: <select name="subject" id="subject">
-                <option value="" selected="selected">Select subject</option>
-              </select>
-              <br /><br />
-              Topics: <select name="topic" id="topic">
-                <option value="" selected="selected">Please select subject first</option>
-              </select>
-              <br /><br />
-              Chapters: <select name="chapter" id="chapter">
-                <option value="" selected="selected">Please select topic first</option>
-              </select>
-              <br /><br />
-              <input type="submit" value="Submit"/>
-    {% endcomment %}
-    {% comment %} <div class="row">
-                <div class="col-sm"></div>
-                <div class="col-sm">
-                    <label>
-                        <select name="char_type">
-                            <option value="werewolf">
-                                Werewolf
-                            </option>
-                            <option value="mage">
-                                Mage
-                            </option>
-                        </select>
-                    </label>
-                </div>
-                <div class="col-sm">Name</div>
-                <div class="col-sm">
-                    <label>
-                        <input name="char_name" type="text" placeholder=""/>
-                    </label>
-                </div>
-                <div class="col-sm">Freebies</div>
-                <div class="col-sm">
-                    <label>
-                        <input name="freebies" type="numeric" placeholder=""/>
-                    </label>
-                </div>
-                <div class="col-sm">XP</div>
-                <div class="col-sm">
-                    <label>
-                        <input name="xp" type="numeric" placeholder=""/>
-                    </label>
-                </div>
-                <div class="col-sm">
-                    <input type="submit" name="creator" value="Create Character"/>
-                </div>
-                <div class="col-sm"></div>
-    </div> {% endcomment %}
-    {% comment %} </form> {% endcomment %}
     <form id="personForm" data-cities-url="{% url 'wod:ajax_load_character_types' %}" action="{% url 'wod:random_character' %}" method="post" novalidate>
       {% csrf_token %}
       <table>
         {{ form.as_table }}
       </table>
       <button type="submit">Save</button>
-      {% comment %} <a href="{% url 'person_changelist' %}">Nevermind</a> {% endcomment %}
     </form>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
