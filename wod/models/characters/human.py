@@ -422,14 +422,8 @@ class Human(Character):
 
     def filter_specialties(self, stat=None):
         if stat is None:
-            return [
-                x for x in Specialty.objects.all() if x not in self.specialties.all()
-            ]
-        return [
-            x
-            for x in Specialty.objects.filter(stat=stat)
-            if x not in self.specialties.all()
-        ]
+            return Specialty.objects.all().exclude(pk__in=self.specialties.all())
+        return Specialty.objects.filter(stat=stat).exclude(pk__in=self.specialties.all())
 
     def random_specialty(self, stat):
         options = self.filter_specialties(stat=stat)
