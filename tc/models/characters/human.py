@@ -917,9 +917,6 @@ class Edge(PolymorphicModel):
     def __str__(self):
         return self.name
 
-    def get_max_rating(self):
-        return max(self.ratings)
-
     def check_prereqs(self, character):
         return check_prereqs(self, character)
 

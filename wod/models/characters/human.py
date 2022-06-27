@@ -534,7 +534,7 @@ class Human(Character):
                     filtered_set.append((mf, r))
         filtered_set = [x[0] for x in filtered_set]
         if self.has_max_flaws():
-            filtered_set = [x for x in filtered_set if max(x.ratings) > 0]
+            filtered_set = [x for x in filtered_set if x.max_rating > 0]
         filtered_set = [x for x in filtered_set if self.type in x.allowed_types]
         return filtered_set
 

@@ -687,7 +687,7 @@ class TestRandomHuman(TestCase):
 
         for edge in Edge.objects.all():
             EnhancedEdge.objects.create(
-                name=f"Enhanced {edge.name}", prereqs=[[(edge.name, max(edge.ratings))]]
+                name=f"Enhanced {edge.name}", prereqs=[[(edge.name, edge.max_ratings)]]
             )
 
     def test_random_aspirations(self):

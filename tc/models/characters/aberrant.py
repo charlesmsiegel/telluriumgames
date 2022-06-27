@@ -161,7 +161,7 @@ class Aberrant(Human):
         for me in mega_edges:
             if me in self.mega_edges.all():
                 me_rating = MegaEdgeRating.objects.get(character=self, mega_edge=me)
-                if me_rating.rating < max(me.ratings):
+                if me_rating.rating < me.max_rating:
                     if (
                         min(x for x in me.ratings if x > me_rating.rating)
                         - me_rating.rating
@@ -224,7 +224,7 @@ class Aberrant(Human):
         p = PowerRating.objects.get(character=self, power=power)
         t, _ = TagRating.objects.get_or_create(power_rating=p, tag=tag)
         r = t.rating
-        if r == max(tag.ratings):
+        if r == tag.max_rating:
             return False
         new_rating = min(x for x in tag.ratings if x > r)
         t.rating = new_rating
@@ -254,7 +254,7 @@ class Aberrant(Human):
         p = PowerRating.objects.get(character=self, power=power)
         output = list(tags.exclude(pk__in=p.tags.all()))
         for tag in p.tags.all():
-            if TagRating.objects.get(power_rating=p, tag=tag).rating != max(tag.ratings):
+            if TagRating.objects.get(power_rating=p, tag=tag).rating != tag.max_rating:
                 output.append(tag)
         return output
 

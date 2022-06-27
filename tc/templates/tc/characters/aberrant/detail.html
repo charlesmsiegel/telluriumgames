@@ -457,7 +457,7 @@
                     {% for edge in edges %}
                         <div class="row">
                         <div class="col-sm">{{ edge.edge }}</div>
-                        <div class="col-sm dots">{{ edge.rating| dots:edge.edge.get_max_rating }}</div>
+                        <div class="col-sm dots">{{ edge.rating| dots:edge.edge.max_rating }}</div>
                         </div>
                     {% endfor %}
                     {% for edge in self.enhanced_edges.all %}
@@ -475,7 +475,7 @@
                     {% for edge in mega_edges %}
                         <div class="row">
                         <div class="col-sm">{{ edge.mega_edge }}</div>
-                        <div class="col-sm dots">{{ edge.rating| dots:edge.mega_edge.get_max_rating }}</div>
+                        <div class="col-sm dots">{{ edge.rating| dots:edge.mega_edge.max_rating }}</div>
                         </div>
                     {% endfor %}
                 </div>
