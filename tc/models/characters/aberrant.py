@@ -641,10 +641,15 @@ class PowerRating(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
+    max_rating = models.IntegerField(default=0)
     permitted_powers = models.ManyToManyField(Power, blank=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.max_rating = max(self.ratings)
+        super().save(*args, **kwargs)
 
 
 class TagRating(models.Model):

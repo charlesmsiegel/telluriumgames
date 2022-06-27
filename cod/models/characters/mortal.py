@@ -704,6 +704,7 @@ class Mortal(PolymorphicModel):
 class Merit(models.Model):
     name = models.CharField(max_length=100)
     ratings = models.JSONField(default=list)
+    max_rating = models.IntegerField(default=0)
     prereqs = models.JSONField(default=list)
     requires_detail = models.BooleanField(default=False)
     possible_details = models.JSONField(default=list)
@@ -713,6 +714,10 @@ class Merit(models.Model):
     class Meta:
         verbose_name = "Merit"
         verbose_name_plural = "Merits"
+
+    def save(self, *args, **kwargs):
+        self.max_rating = max(self.ratings)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.name}"

@@ -37,7 +37,12 @@ class Specialty(models.Model):
 class MeritFlaw(models.Model):
     name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
+    max_rating = models.IntegerField(default=0)
     allowed_types = models.JSONField(default=list)
+
+    def save(self, *args, **kwargs):
+        self.max_rating = max(self.ratings)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

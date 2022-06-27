@@ -253,10 +253,14 @@ class Node(Location):
 class NodeMeritFlaw(models.Model):
     name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
+    max_rating = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        self.max_rating = max(self.ratings)
+        super().save(*args, **kwargs)
 
 class NodeMeritFlawRating(models.Model):
     node = models.ForeignKey(Node, on_delete=models.CASCADE)
