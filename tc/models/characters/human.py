@@ -568,12 +568,7 @@ class Human(PolymorphicModel):
         return possible_edges
 
     def filter_enhanced_edges(self):
-        all_ees = EnhancedEdge.objects.all()
-        possible_ee = []
-        for ee in all_ees:
-            if ee.check_prereqs(self) and ee not in self.enhanced_edges.all():
-                possible_ee.append(ee)
-        return possible_ee
+        return [x for x in EnhancedEdge.objects.all().exclude(pk__in=self.enhanced_edges.all()) if x.check_prereqs(self)]
 
     def has_edges(self, start=False):
         output = True
