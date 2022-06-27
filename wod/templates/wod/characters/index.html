@@ -19,12 +19,24 @@
         {% endif %}
       {% endfor %}
     </div>
-    <form id="personForm" data-character-type-url="{% url 'wod:ajax_load_character_types' %}" action="{% url 'wod:random_character' %}" method="post" novalidate>
+    <form id="personForm"
+          data-character-type-url="{% url 'wod:ajax_load_character_types' %}"
+          action="{% url 'wod:random_character' %}"
+          method="post"
+          novalidate>
       {% csrf_token %}
-      <table>
+      {% comment %} <table>
         {{ form.as_table }}
-      </table>
-      <button type="submit">Save</button>
+      </table> {% endcomment %}
+      <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm">{{ form.gameline }}</div>
+        <div class="col-sm">{{ form.character_type }}</div>
+        <div class="col-sm">{{ form.character_name }}</div>
+        <div class="col-sm">{{ form.freebies }}</div>
+        <div class="col-sm">{{ form.xp }}</div>
+        <div class="col-sm"><button type="submit">Create</button></div>
+      </div>
     </form>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
