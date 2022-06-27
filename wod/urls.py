@@ -4,6 +4,7 @@ from wod import views
 
 # Create your URLs here
 urlpatterns = [
+    path("ajax/load-character-types/", views.load_character_types, name="ajax_load_character_types"),
     path("characters/", views.CharacterIndexView.as_view(), name="characters_index"),
     path(
         "characters/random/",

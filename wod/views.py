@@ -16,6 +16,7 @@ from wod.models.locations.mage import (
     NodeMeritFlawRating,
     NodeResonanceRating,
 )
+from wod.forms import RandomCharacterForm
 
 
 # Create your views here.
@@ -32,7 +33,23 @@ class CharacterIndexView(View):
         characters = Character.objects.all().order_by("name")
         context = {}
         context["characters"] = characters
+        context['form'] = RandomCharacterForm
         return context
+
+
+def load_character_types(request):
+    print("WAAAAAAAAAAAAAAAAAAAAA")
+    characters = {
+        "werewolf": ["werewolf"],
+        "mage": ["mage"],
+    }
+    gameline = request.GET.get('gameline')
+    character_types = characters[gameline]
+    return render(
+        request,
+        "wod/characters/load_character_dropdown_list.html",
+        {"character_types": character_types},
+    )
 
 
 class LocationIndexView(View):
@@ -356,8 +373,8 @@ class RandomCharacterView(View):
     }
 
     def post(self, request, *args, **kwargs):
-        char = self.chars[request.POST["char_type"]].objects.create(
-            name=request.POST["char_name"], player=request.user.wod_profile
+        char = self.chars[request.POST["character_type"]].objects.create(
+            name=request.POST["character_name"], player=request.user.wod_profile
         )
         try:
             freebies = int(request.POST["freebies"])
