@@ -281,6 +281,7 @@ class TestAberrant(TestCase):
         Tag.objects.create(name="Tag 4", ratings=[1, 2])
         self.assertEqual(len(self.character.filter_tags(p)), 3)
         self.character.add_tag(p, t1)
+        self.assertEqual(len(self.character.filter_tags(p)), 3)
         self.character.add_tag(p, t1)
         self.assertEqual(len(self.character.filter_tags(p)), 2)
 
