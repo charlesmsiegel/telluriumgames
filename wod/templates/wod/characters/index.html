@@ -39,6 +39,32 @@
         <div class="col-sm"><button type="submit">Create</button></div>
       </div>
     </form>
+
+    <div class="row border">
+      <div class="col-sm border">
+        <h2>Packs</h2>
+      </div>
+    </div>
+    {% for pack in packs %}
+        <div class="row border">
+          <a class="col-sm border" href="{% url 'wod:character' pack.id %}">{{ pack.name }}</a>
+          <div class="col-sm border">{{ pack.type.title }}</div>
+        </div>
+    {% endfor %}
+  </div>
+  <div class="row border">
+    <div class="col-sm border">
+      <h2>Cabals</h2>
+    </div>
+  </div>
+  {% for cabal in cabals %}
+      <div class="row border">
+        <a class="col-sm border" href="{% url 'wod:character' cabal.id %}">{{ cabal.name }}</a>
+        <div class="col-sm border">{{ cabal.type.title }}</div>
+      </div>
+  {% endfor %}
+</div>
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
       $("#id_gameline").change(function () {

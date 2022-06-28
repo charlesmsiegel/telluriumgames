@@ -34,6 +34,8 @@ class CharacterIndexView(View):
         context = {}
         context["characters"] = characters
         context['form'] = RandomCharacterForm
+        context["cabals"] = Cabal.objects.all().order_by("name")
+        context["packs"] = Pack.objects.all().order_by("name")
         return context
 
 
