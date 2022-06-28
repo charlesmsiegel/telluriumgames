@@ -635,10 +635,13 @@ class Mage(Human):
         return self.rote_points == 0
 
     def filter_rotes(self, max_cost=100):
+        rotes = Rote.objects.filter(rote_cost__lte=max_cost)
+        
+        
         return [
             x
-            for x in Rote.objects.all()
-            if x.cost() <= max_cost and x.is_learnable(self)
+            for x in rotes
+            if x.is_learnable(self)
         ]
 
     def random_rote(self):
