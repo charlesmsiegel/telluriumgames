@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView, View
 
 from core.utils import level_name, tree_sort
-from wod.models.characters.human import Character, Human, MeritFlawRating
+from wod.models.characters.human import Character, Human, MeritFlawRating, Group
 from wod.models.characters.mage import Mage, ResRating, Cabal
 from wod.models.characters.werewolf import Werewolf, Pack
 from wod.models.items.human import Item
@@ -34,8 +34,7 @@ class CharacterIndexView(View):
         context = {}
         context["characters"] = characters
         context['form'] = RandomCharacterForm
-        context["cabals"] = Cabal.objects.all().order_by("name")
-        context["packs"] = Pack.objects.all().order_by("name")
+        context["groups"] = Group.objects.all().order_by("name")
         return context
 
 

@@ -42,28 +42,16 @@
 
     <div class="row border">
       <div class="col-sm border">
-        <h2>Packs</h2>
+        <h2>Groups</h2>
       </div>
     </div>
-    {% for pack in packs %}
+    {% for group in groups %}
         <div class="row border">
-          <a class="col-sm border" href="{% url 'wod:character' pack.id %}">{{ pack.name }}</a>
-          <div class="col-sm border">{{ pack.type.title }}</div>
+          <a class="col-sm border" href="{% url 'wod:character' pack.id %}">{{ group.name }}</a>
+          <div class="col-sm border">{{ group.type.title }}</div>
         </div>
     {% endfor %}
   </div>
-  <div class="row border">
-    <div class="col-sm border">
-      <h2>Cabals</h2>
-    </div>
-  </div>
-  {% for cabal in cabals %}
-      <div class="row border">
-        <a class="col-sm border" href="{% url 'wod:character' cabal.id %}">{{ cabal.name }}</a>
-        <div class="col-sm border">{{ cabal.type.title }}</div>
-      </div>
-  {% endfor %}
-</div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
