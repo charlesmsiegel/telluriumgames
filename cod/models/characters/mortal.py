@@ -400,14 +400,10 @@ class Mortal(PolymorphicModel):
 
     def filter_specialties(self, skill=None):
         if skill is None:
-            return [
-                x for x in Specialty.objects.all() if x not in self.specialties.all()
-            ]
-        return [
-            x
-            for x in Specialty.objects.filter(skill=skill)
-            if x not in self.specialties.all()
-        ]
+            return Specialty.objects.all().exclude(pk__in=self.specialties.all())
+        return Specialty.objects.filter(skill=skill).exclude(
+            pk__in=self.specialties.all()
+        )
 
     def add_specialty(self, specialty):
         if specialty not in self.specialties.all():
@@ -704,6 +700,7 @@ class Mortal(PolymorphicModel):
 class Merit(models.Model):
     name = models.CharField(max_length=100)
     ratings = models.JSONField(default=list)
+    max_rating = models.IntegerField(default=0)
     prereqs = models.JSONField(default=list)
     requires_detail = models.BooleanField(default=False)
     possible_details = models.JSONField(default=list)
@@ -714,11 +711,12 @@ class Merit(models.Model):
         verbose_name = "Merit"
         verbose_name_plural = "Merits"
 
+    def save(self, *args, **kwargs):
+        self.max_rating = max(self.ratings)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.name}"
-
-    def get_max_rating(self):
-        return max(self.ratings)
 
     def prereq_satisfied(self, prereq, character):
         if prereq[0] in character.get_attributes().keys():

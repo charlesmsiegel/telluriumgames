@@ -635,11 +635,9 @@ class Mage(Human):
         return self.rote_points == 0
 
     def filter_rotes(self, max_cost=100):
-        return [
-            x
-            for x in Rote.objects.all()
-            if x.cost() <= max_cost and x.is_learnable(self)
-        ]
+        rotes = Rote.objects.filter(rote_cost__lte=max_cost)
+
+        return [x for x in rotes if x.is_learnable(self)]
 
     def random_rote(self):
         options = self.filter_rotes(max_cost=self.rote_points)
@@ -760,8 +758,8 @@ class Mage(Human):
                 "new sphere": 10,
                 "sphere": 8,
                 "arete": 8,
-                "rote points": 1
-            }
+                "rote points": 1,
+            },
         )
         return costs[trait]
 
@@ -804,8 +802,8 @@ class Mage(Human):
                 "arete": 4,
                 "quintessence": 1,
                 "rote points": 1,
-                "resonance": 3
-            }
+                "resonance": 3,
+            },
         )
         return costs[trait]
 

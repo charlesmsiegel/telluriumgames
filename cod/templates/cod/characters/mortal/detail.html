@@ -417,7 +417,7 @@
                         {% if merit.merit.needs_detail %}({{ merit.detail }}){% endif %}
                     </div>
                     <div class="col-sm dots">
-                        {{ merit.rating| dots:merit.merit.get_max_rating }}
+                        {{ merit.rating| dots:merit.merit.max_rating }}
                     </div>
                     <div class="col-sm">
                     </div>

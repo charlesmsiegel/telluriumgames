@@ -1,8 +1,9 @@
 import random
+from collections import defaultdict
 from datetime import date, timedelta
 
-from collections import defaultdict
 from django.db import models
+from django.db.models import F, Q
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
@@ -37,7 +38,12 @@ class Specialty(models.Model):
 class MeritFlaw(models.Model):
     name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
+    max_rating = models.IntegerField(default=0)
     allowed_types = models.JSONField(default=list)
+
+    def save(self, *args, **kwargs):
+        self.max_rating = max(self.ratings)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -417,14 +423,10 @@ class Human(Character):
 
     def filter_specialties(self, stat=None):
         if stat is None:
-            return [
-                x for x in Specialty.objects.all() if x not in self.specialties.all()
-            ]
-        return [
-            x
-            for x in Specialty.objects.filter(stat=stat)
-            if x not in self.specialties.all()
-        ]
+            return Specialty.objects.all().exclude(pk__in=self.specialties.all())
+        return Specialty.objects.filter(stat=stat).exclude(
+            pk__in=self.specialties.all()
+        )
 
     def random_specialty(self, stat):
         options = self.filter_specialties(stat=stat)
@@ -517,20 +519,17 @@ class Human(Character):
         return False
 
     def filter_mfs(self):
-        full_set = MeritFlaw.objects.all()
-        filtered_set = []
-        for mf in full_set:
-            for r in mf.ratings:
-                if mf not in self.merits_and_flaws.all():
-                    filtered_set.append((mf, r))
-                elif r > self.mf_rating(mf) > 0:
-                    filtered_set.append((mf, r))
-                elif r < self.mf_rating(mf) < 0:
-                    filtered_set.append((mf, r))
-        filtered_set = [x[0] for x in filtered_set]
+        new_mfs = MeritFlaw.objects.exclude(pk__in=self.merits_and_flaws.all())
+
+        non_max_mf = MeritFlawRating.objects.filter(character=self).exclude(
+            Q(rating=F("mf__max_rating"))
+        )
+
+        had_mfs = MeritFlaw.objects.filter(pk__in=non_max_mf)
+        mf = new_mfs | had_mfs
         if self.has_max_flaws():
-            filtered_set = [x for x in filtered_set if max(x.ratings) > 0]
-        filtered_set = [x for x in filtered_set if self.type in x.allowed_types]
+            mf = mf.filter(max_rating__gt=0)
+        filtered_set = [x for x in mf if self.type in x.allowed_types]
         return filtered_set
 
     def mf_rating(self, mf):
@@ -605,7 +604,7 @@ class Human(Character):
                 "background": 1,
                 "willpower": 1,
                 "meritflaw": 1,
-            }
+            },
         )
         return costs[trait]
 
@@ -690,8 +689,8 @@ class Human(Character):
                 "new ability": 3,
                 "new background": 5,
                 "background": 3,
-                "willpower": 1
-            }
+                "willpower": 1,
+            },
         )
         return costs[trait]
 
@@ -757,7 +756,7 @@ class Human(Character):
             "willpower": 1,
             "meritflaw": 1,
         }
-        
+
     def random_freebie_functions(self):
         return {
             "attribute": self.random_freebies_attributes,
@@ -799,7 +798,7 @@ class Human(Character):
             "background": 1,
             "willpower": 1,
         }
-        
+
     def random_xp_functions(self):
         return {
             "attribute": self.random_xp_attributes,
@@ -820,7 +819,7 @@ class Human(Character):
     def random_xp_attributes(self):
         trait = weighted_choice(self.get_attributes())
         return self.spend_xp(trait)
-    
+
     def random_xp_abilities(self):
         trait = weighted_choice(self.get_abilities())
         return self.spend_xp(trait)

@@ -236,14 +236,10 @@ class Human(PolymorphicModel):
 
     def filter_specialties(self, skill=None):
         if skill is None:
-            return [
-                x for x in Specialty.objects.all() if x not in self.specialties.all()
-            ]
-        return [
-            x
-            for x in Specialty.objects.filter(skill=skill)
-            if x not in self.specialties.all()
-        ]
+            return Specialty.objects.all().exclude(pk__in=self.specialties.all())
+        return Specialty.objects.filter(skill=skill).exclude(
+            pk__in=self.specialties.all()
+        )
 
     def has_specialties(self):
         for skill in self.filter_skills(minimum=3).keys():
@@ -289,10 +285,8 @@ class Human(PolymorphicModel):
 
     def filter_tricks(self, skill=None):
         if skill is None:
-            return [x for x in Trick.objects.all() if x not in self.tricks.all()]
-        return [
-            x for x in Trick.objects.filter(skill=skill) if x not in self.tricks.all()
-        ]
+            return Trick.objects.all().exclude(pk__in=self.tricks.all())
+        return Trick.objects.filter(skill=skill).exclude(pk__in=self.tricks.all())
 
     def random_trick(self, skill=None):
         if skill is not None:
@@ -553,8 +547,7 @@ class Human(PolymorphicModel):
         return total
 
     def filter_edges(self, dots=100):
-        all_edges = Edge.objects.all()
-        all_edges = [x for x in all_edges if x.type == "edge"]
+        all_edges = [x for x in Edge.objects.all() if x.type == "edge"]
         possible_edges = []
         for edge in all_edges:
             if edge in self.edges.all():
@@ -577,12 +570,13 @@ class Human(PolymorphicModel):
         return possible_edges
 
     def filter_enhanced_edges(self):
-        all_ees = EnhancedEdge.objects.all()
-        possible_ee = []
-        for ee in all_ees:
-            if ee.check_prereqs(self) and ee not in self.enhanced_edges.all():
-                possible_ee.append(ee)
-        return possible_ee
+        return [
+            x
+            for x in EnhancedEdge.objects.all().exclude(
+                pk__in=self.enhanced_edges.all()
+            )
+            if x.check_prereqs(self)
+        ]
 
     def has_edges(self, start=False):
         output = True
@@ -913,16 +907,18 @@ class Edge(PolymorphicModel):
 
     name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
+    max_rating = models.IntegerField(default=0)
     prereqs = models.JSONField(default=list)
 
     class Meta:
         ordering = ("name",)
 
+    def save(self, *args, **kwargs):
+        self.max_rating = max(self.ratings)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.name
-
-    def get_max_rating(self):
-        return max(self.ratings)
 
     def check_prereqs(self, character):
         return check_prereqs(self, character)

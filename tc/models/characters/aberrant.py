@@ -1,6 +1,7 @@
 import random
 
 from django.db import models
+from django.db.models import F, Q
 
 from core.utils import add_dot, weighted_choice
 from tc.models.characters.human import Edge, EnhancedEdge, Human, Path, PathRating
@@ -161,7 +162,7 @@ class Aberrant(Human):
         for me in mega_edges:
             if me in self.mega_edges.all():
                 me_rating = MegaEdgeRating.objects.get(character=self, mega_edge=me)
-                if me_rating.rating < max(me.ratings):
+                if me_rating.rating < me.max_rating:
                     if (
                         min(x for x in me.ratings if x > me_rating.rating)
                         - me_rating.rating
@@ -195,13 +196,13 @@ class Aberrant(Human):
         return sum(x.rating for x in PowerRating.objects.filter(character=self))
 
     def random_power(self):
-        d = {
-            x.name: self.power_rating(x)
-            for x in Power.objects.all()
-            if x.quantum_minimum <= self.quantum
-        }
-        choice = weighted_choice(d)
-        return self.add_power(Power.objects.get(name=choice))
+        powers = Power.objects.filter(quantum_minimum__lte=self.quantum)
+        if random.random() < 0.7 and self.powers.count() != 0:
+            powers = self.powers.all()
+        else:
+            powers = powers.exclude(pk__in=self.powers.all())
+        choice = random.choice(powers)
+        return self.add_power(choice)
 
     def power_rating(self, p):
         if p not in self.powers.all():
@@ -224,7 +225,7 @@ class Aberrant(Human):
         p = PowerRating.objects.get(character=self, power=power)
         t, _ = TagRating.objects.get_or_create(power_rating=p, tag=tag)
         r = t.rating
-        if r == max(tag.ratings):
+        if r == tag.max_rating:
             return False
         new_rating = min(x for x in tag.ratings if x > r)
         t.rating = new_rating
@@ -249,18 +250,18 @@ class Aberrant(Human):
     def filter_tags(self, power):
         if power not in self.powers.all():
             return []
-        tags = [x for x in Tag.objects.all() if power in x.permitted_powers.all()]
+        tags = Tag.objects.filter(permitted_powers__id=power.id)
+
         p = PowerRating.objects.get(character=self, power=power)
-        output = []
-        for tag in tags:
-            if tag not in p.tags.all():
-                output.append(tag)
-            else:
-                if TagRating.objects.get(power_rating=p, tag=tag).rating != max(
-                    tag.ratings
-                ):
-                    output.append(tag)
-        return output
+
+        had_tags = (
+            TagRating.objects.filter(power_rating=p)
+            .exclude(rating=F("tag__max_rating"))
+            .values_list("tag", flat=True)
+        )
+        had_tags = Tag.objects.filter(pk__in=had_tags)
+        new_tags = tags.exclude(pk__in=p.tags.all())
+        return had_tags | new_tags
 
     def add_transformation(self, transformation, transcendence=False):
         if not transcendence:
@@ -279,8 +280,8 @@ class Aberrant(Human):
     def filter_transformations(self, level=None):
         transforms = Transformation.objects.all()
         if level is not None:
-            transforms = [x for x in transforms if x.level == level]
-        return [x for x in transforms if x not in self.transformations.all()]
+            transforms = transforms.filter(level=level)
+        return transforms.exclude(pk__in=self.transformations.all())
 
     def add_transcendence(self, transformation=None):
         if transformation is None:
@@ -645,10 +646,15 @@ class PowerRating(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
+    max_rating = models.IntegerField(default=0)
     permitted_powers = models.ManyToManyField(Power, blank=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.max_rating = max(self.ratings)
+        super().save(*args, **kwargs)
 
 
 class TagRating(models.Model):

@@ -13,6 +13,7 @@ class Rote(models.Model):
     entropy = models.IntegerField(default=0)
     mind = models.IntegerField(default=0)
     prime = models.IntegerField(default=0)
+    rote_cost = models.IntegerField(default=0)
 
     def __str__(self):
         dots = {
@@ -29,6 +30,10 @@ class Rote(models.Model):
         filtered_dots = [f"{k.title()}: {v}" for k, v in dots.items() if v != 0]
         final_dots = ", ".join(filtered_dots)
         return f"{self.name} ({final_dots})"
+
+    def save(self, *args, **kwargs):
+        self.rote_cost = self.cost()
+        return super().save(*args, **kwargs)
 
     def spheres(self):
         dots = {
