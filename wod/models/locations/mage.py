@@ -1,7 +1,7 @@
 import random
 
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, F
 
 from core.utils import add_dot, weighted_choice
 from wod.models.characters.mage.faction import MageFaction
@@ -84,16 +84,13 @@ class Node(Location):
         return sum(x.rating for x in NodeMeritFlawRating.objects.filter(node=self))
 
     def filter_mf(self, minimum=-10, maximum=10):
-        filtered = []
-        for mf in NodeMeritFlaw.objects.all():
-            for r in mf.ratings:
-                if max(0, minimum) < r <= maximum:
-                    if self.mf_rating(mf) < r:
-                        filtered.append(mf)
-                elif minimum < r < min(0, maximum):
-                    if self.mf_rating(mf) > r:
-                        filtered.append(mf)
-        return list(set(filtered))
+        new_mfs = NodeMeritFlaw.objects.exclude(pk__in=self.merits_and_flaws.all())
+        had_mf_ratings = NodeMeritFlawRating.objects.all()
+        had_mf_ratings = had_mf_ratings.filter(rating__lt=F("mf__max_rating"))
+        
+        had_mfs = NodeMeritFlaw.objects.filter(pk__in=had_mf_ratings)
+        q = new_mfs | had_mfs
+        return q
 
     def mf_rating(self, mf):
         if mf not in self.merits_and_flaws.all():
@@ -106,20 +103,17 @@ class Node(Location):
         possible_ratings = choice.ratings
         possible_ratings = [x for x in possible_ratings if minimum <= x <= maximum]
         r = 0
-        if self.mf_rating(choice) == 0:
-            r = random.choice(possible_ratings)
         if self.mf_rating(choice) < 0:
             possible_ratings = [
                 x for x in possible_ratings if x < self.mf_rating(choice)
             ]
-            r = random.choice(possible_ratings)
         if self.mf_rating(choice) > 0:
             possible_ratings = [
                 x for x in possible_ratings if x > self.mf_rating(choice)
-            ]
-            r = random.choice(possible_ratings)
-        if r == 0:
+            ]        
+        if len(possible_ratings) == 0:
             return False
+        r = random.choice(possible_ratings)
         return self.add_mf(choice, r)
 
     def add_resonance(self, resonance):
