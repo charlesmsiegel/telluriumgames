@@ -237,7 +237,9 @@ class Human(PolymorphicModel):
     def filter_specialties(self, skill=None):
         if skill is None:
             return Specialty.objects.all().exclude(pk__in=self.specialties.all())
-        return Specialty.objects.filter(skill=skill).exclude(pk__in=self.specialties.all())
+        return Specialty.objects.filter(skill=skill).exclude(
+            pk__in=self.specialties.all()
+        )
 
     def has_specialties(self):
         for skill in self.filter_skills(minimum=3).keys():
@@ -568,7 +570,13 @@ class Human(PolymorphicModel):
         return possible_edges
 
     def filter_enhanced_edges(self):
-        return [x for x in EnhancedEdge.objects.all().exclude(pk__in=self.enhanced_edges.all()) if x.check_prereqs(self)]
+        return [
+            x
+            for x in EnhancedEdge.objects.all().exclude(
+                pk__in=self.enhanced_edges.all()
+            )
+            if x.check_prereqs(self)
+        ]
 
     def has_edges(self, start=False):
         output = True

@@ -1,9 +1,9 @@
 import random
+from collections import defaultdict
 from datetime import date, timedelta
 
-from collections import defaultdict
 from django.db import models
-from django.db.models import Q, F
+from django.db.models import F, Q
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
@@ -424,7 +424,9 @@ class Human(Character):
     def filter_specialties(self, stat=None):
         if stat is None:
             return Specialty.objects.all().exclude(pk__in=self.specialties.all())
-        return Specialty.objects.filter(stat=stat).exclude(pk__in=self.specialties.all())
+        return Specialty.objects.filter(stat=stat).exclude(
+            pk__in=self.specialties.all()
+        )
 
     def random_specialty(self, stat):
         options = self.filter_specialties(stat=stat)
@@ -519,8 +521,10 @@ class Human(Character):
     def filter_mfs(self):
         new_mfs = MeritFlaw.objects.exclude(pk__in=self.merits_and_flaws.all())
 
-        non_max_mf = MeritFlawRating.objects.filter(character=self).exclude(Q(rating=F("mf__max_rating")))
-        
+        non_max_mf = MeritFlawRating.objects.filter(character=self).exclude(
+            Q(rating=F("mf__max_rating"))
+        )
+
         had_mfs = MeritFlaw.objects.filter(pk__in=non_max_mf)
         mf = new_mfs | had_mfs
         if self.has_max_flaws():
@@ -600,7 +604,7 @@ class Human(Character):
                 "background": 1,
                 "willpower": 1,
                 "meritflaw": 1,
-            }
+            },
         )
         return costs[trait]
 
@@ -685,8 +689,8 @@ class Human(Character):
                 "new ability": 3,
                 "new background": 5,
                 "background": 3,
-                "willpower": 1
-            }
+                "willpower": 1,
+            },
         )
         return costs[trait]
 
@@ -752,7 +756,7 @@ class Human(Character):
             "willpower": 1,
             "meritflaw": 1,
         }
-        
+
     def random_freebie_functions(self):
         return {
             "attribute": self.random_freebies_attributes,
@@ -794,7 +798,7 @@ class Human(Character):
             "background": 1,
             "willpower": 1,
         }
-        
+
     def random_xp_functions(self):
         return {
             "attribute": self.random_xp_attributes,
@@ -815,7 +819,7 @@ class Human(Character):
     def random_xp_attributes(self):
         trait = weighted_choice(self.get_attributes())
         return self.spend_xp(trait)
-    
+
     def random_xp_abilities(self):
         trait = weighted_choice(self.get_abilities())
         return self.spend_xp(trait)

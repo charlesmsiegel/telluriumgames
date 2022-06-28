@@ -401,7 +401,9 @@ class Mortal(PolymorphicModel):
     def filter_specialties(self, skill=None):
         if skill is None:
             return Specialty.objects.all().exclude(pk__in=self.specialties.all())
-        return Specialty.objects.filter(skill=skill).exclude(pk__in=self.specialties.all())
+        return Specialty.objects.filter(skill=skill).exclude(
+            pk__in=self.specialties.all()
+        )
 
     def add_specialty(self, specialty):
         if specialty not in self.specialties.all():

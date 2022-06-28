@@ -1,7 +1,7 @@
 import random
 
 from django.db import models
-from django.db.models import Q, F
+from django.db.models import F, Q
 
 from core.utils import add_dot, weighted_choice
 from tc.models.characters.human import Edge, EnhancedEdge, Human, Path, PathRating
@@ -253,8 +253,12 @@ class Aberrant(Human):
         tags = Tag.objects.filter(permitted_powers__id=power.id)
 
         p = PowerRating.objects.get(character=self, power=power)
-        
-        had_tags = TagRating.objects.filter(power_rating=p).exclude(rating=F("tag__max_rating")).values_list("tag", flat=True)
+
+        had_tags = (
+            TagRating.objects.filter(power_rating=p)
+            .exclude(rating=F("tag__max_rating"))
+            .values_list("tag", flat=True)
+        )
         had_tags = Tag.objects.filter(pk__in=had_tags)
         new_tags = tags.exclude(pk__in=p.tags.all())
         return had_tags | new_tags

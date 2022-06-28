@@ -1,7 +1,7 @@
 import random
 
 from django.db import models
-from django.db.models import Q, F
+from django.db.models import F, Q
 
 from core.utils import add_dot, weighted_choice
 from wod.models.characters.mage.faction import MageFaction
@@ -87,8 +87,10 @@ class Node(Location):
         new_mfs = NodeMeritFlaw.objects.exclude(pk__in=self.merits_and_flaws.all())
         had_mf_ratings = NodeMeritFlawRating.objects.all()
         had_mf_ratings = had_mf_ratings.filter(rating__lt=F("mf__max_rating"))
-        
-        had_mfs = NodeMeritFlaw.objects.filter(pk__in=had_mf_ratings.values_list("mf", flat=True))
+
+        had_mfs = NodeMeritFlaw.objects.filter(
+            pk__in=had_mf_ratings.values_list("mf", flat=True)
+        )
         q = new_mfs | had_mfs
         return q
 
@@ -110,7 +112,7 @@ class Node(Location):
         if self.mf_rating(choice) > 0:
             possible_ratings = [
                 x for x in possible_ratings if x > self.mf_rating(choice)
-            ]        
+            ]
         if len(possible_ratings) == 0:
             return False
         r = random.choice(possible_ratings)
@@ -255,6 +257,7 @@ class NodeMeritFlaw(models.Model):
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)
         super().save(*args, **kwargs)
+
 
 class NodeMeritFlawRating(models.Model):
     node = models.ForeignKey(Node, on_delete=models.CASCADE)
