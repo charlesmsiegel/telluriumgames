@@ -117,7 +117,8 @@ class TestNode(TestCase):
 
     def test_random_mf(self):
         num = self.node.total_mf()
-        self.node.random_mf(minimum=0)
+        while not self.node.random_mf(minimum=0):
+            pass
         self.assertGreater(self.node.total_mf(), num)
 
     def test_total_mf(self):
