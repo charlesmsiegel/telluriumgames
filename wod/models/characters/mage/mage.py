@@ -930,29 +930,30 @@ class Cabal(models.Model):
         Mage, blank=True, related_name="leads", on_delete=models.CASCADE, null=True
     )
 
-    def random(self, num_chars, new_characters=False):
+    def random(self, num_chars, new_characters=False, freebies=15, xp=0, user=None):
         if not new_characters and Mage.objects.count() < num_chars:
             raise ValueError("Not enough Mages!")
         if not new_characters:
             self.members.set(Mage.objects.order_by("?")[:num_chars])
         else:
-            if WoDProfile.objects.filter(storyteller=True).count() > 0:
-                user = (
-                    WoDProfile.objects.filter(storyteller=True)
-                    .order_by("?")
-                    .first()
-                    .user
-                )
-            else:
-                user = User.objects.create_user(username="New User")
-                user.wod_profile.storyteller = True
-                user.save()
+            if user is None:
+                if WoDProfile.objects.filter(storyteller=True).count() > 0:
+                    user = (
+                        WoDProfile.objects.filter(storyteller=True)
+                        .order_by("?")
+                        .first()
+                        .user
+                    )
+                else:
+                    user = User.objects.create_user(username="New User")
+                    user.wod_profile.storyteller = True
+                    user.save()
             for _ in range(num_chars):
                 m = Mage.objects.create(
                     name=f"{self.name} {self.members.count() + 1}",
                     player=user.wod_profile,
                 )
-                m.random()
+                m.random(freebies=freebies, xp=xp)
                 self.members.add(m)
         self.leader = self.members.order_by("?").first()
         self.save()
