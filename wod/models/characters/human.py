@@ -3,6 +3,7 @@ from datetime import date, timedelta
 
 from collections import defaultdict
 from django.db import models
+from django.db.models import Q, F
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
@@ -516,20 +517,15 @@ class Human(Character):
         return False
 
     def filter_mfs(self):
-        full_set = MeritFlaw.objects.all()
-        filtered_set = []
-        for mf in full_set:
-            for r in mf.ratings:
-                if mf not in self.merits_and_flaws.all():
-                    filtered_set.append((mf, r))
-                elif r > self.mf_rating(mf) > 0:
-                    filtered_set.append((mf, r))
-                elif r < self.mf_rating(mf) < 0:
-                    filtered_set.append((mf, r))
-        filtered_set = [x[0] for x in filtered_set]
+        new_mfs = MeritFlaw.objects.exclude(pk__in=self.merits_and_flaws.all())
+
+        non_max_mf = MeritFlawRating.objects.filter(character=self).exclude(Q(rating=F("mf__max_rating")))
+        
+        had_mfs = MeritFlaw.objects.filter(pk__in=non_max_mf)
+        mf = new_mfs | had_mfs
         if self.has_max_flaws():
-            filtered_set = [x for x in filtered_set if x.max_rating > 0]
-        filtered_set = [x for x in filtered_set if self.type in x.allowed_types]
+            mf = mf.filter(max_rating__gt=0)
+        filtered_set = [x for x in mf if self.type in x.allowed_types]
         return filtered_set
 
     def mf_rating(self, mf):
