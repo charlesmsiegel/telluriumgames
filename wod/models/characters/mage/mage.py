@@ -7,7 +7,7 @@ from django.urls import reverse
 
 from accounts.models import WoDProfile
 from core.utils import add_dot, weighted_choice
-from wod.models.characters.human import Character, Human
+from wod.models.characters.human import Character, Human, Group
 from wod.models.items.mage import Grimoire, Library
 from wod.models.locations.mage import Node
 
@@ -924,52 +924,57 @@ class Mage(Human):
         self.random_library()
 
 
-class Cabal(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    members = models.ManyToManyField(Mage, blank=True)
-    leader = models.ForeignKey(
-        Mage, blank=True, related_name="leads", on_delete=models.CASCADE, null=True
-    )
-
-    def random(self, num_chars=None, new_characters=True, freebies=15, xp=0, user=None):
-        if self.name == "":
-            self.random_name()
-        if num_chars is None:
-            num_chars = random.randint(3, 7)
-        if not new_characters and Mage.objects.count() < num_chars:
-            raise ValueError("Not enough Mages!")
-        if not new_characters:
-            self.members.set(Mage.objects.order_by("?")[:num_chars])
-        else:
-            if user is None:
-                if WoDProfile.objects.filter(storyteller=True).count() > 0:
-                    user = (
-                        WoDProfile.objects.filter(storyteller=True)
-                        .order_by("?")
-                        .first()
-                        .user
-                    )
-                else:
-                    user = User.objects.create_user(username="New User")
-                    user.wod_profile.storyteller = True
-                    user.save()
-            for _ in range(num_chars):
-                m = Mage.objects.create(
-                    name=f"{self.name} {self.members.count() + 1}",
-                    player=user.wod_profile,
-                )
-                m.random(freebies=freebies, xp=xp)
-                self.members.add(m)
-        self.leader = self.members.order_by("?").first()
-        self.save()
-
-    def __str__(self):
-        return self.name
-
-    def random_name(self):
-        self.name = f"Random Cabal {Cabal.objects.count()}"
-        return True
+class Cabal(Group):
+    type = "cabal"
     
-    def get_absolute_url(self):
-        return reverse("wod:cabal", kwargs={"pk": self.pk})
+    def random(self, num_chars=None, new_characters=True, freebies=15, xp=0, user=None):
+        super().random(num_chars=num_chars, new_characters=new_characters, freebies=freebies, xp=xp, user=user, member_type=Mage)
+    
+    # name = models.CharField(max_length=100, unique=True)
+    # members = models.ManyToManyField(Mage, blank=True)
+    # leader = models.ForeignKey(
+    #     Mage, blank=True, related_name="leads", on_delete=models.CASCADE, null=True
+    # )
+
+    # def random(self, num_chars=None, new_characters=True, freebies=15, xp=0, user=None):
+    #     if self.name == "":
+    #         self.random_name()
+    #     if num_chars is None:
+    #         num_chars = random.randint(3, 7)
+    #     if not new_characters and Mage.objects.count() < num_chars:
+    #         raise ValueError("Not enough Mages!")
+    #     if not new_characters:
+    #         self.members.set(Mage.objects.order_by("?")[:num_chars])
+    #     else:
+    #         if user is None:
+    #             if WoDProfile.objects.filter(storyteller=True).count() > 0:
+    #                 user = (
+    #                     WoDProfile.objects.filter(storyteller=True)
+    #                     .order_by("?")
+    #                     .first()
+    #                     .user
+    #                 )
+    #             else:
+    #                 user = User.objects.create_user(username="New User")
+    #                 user.wod_profile.storyteller = True
+    #                 user.save()
+    #         for _ in range(num_chars):
+    #             m = Mage.objects.create(
+    #                 name=f"{self.name} {self.members.count() + 1}",
+    #                 player=user.wod_profile,
+    #             )
+    #             m.random(freebies=freebies, xp=xp)
+    #             self.members.add(m)
+    #     self.leader = self.members.order_by("?").first()
+    #     self.save()
+
+    # def __str__(self):
+    #     return self.name
+
+    # def random_name(self):
+    #     self.name = f"Random Cabal {Cabal.objects.count()}"
+    #     return True
+    
+    # def get_absolute_url(self):
+    #     return reverse("wod:cabal", kwargs={"pk": self.pk})
     

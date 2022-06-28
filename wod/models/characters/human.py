@@ -6,6 +6,7 @@ from django.db import models
 from django.db.models import F, Q
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
+from django.contrib.auth.models import User
 
 from accounts.models import WoDProfile
 from core.models import Language
@@ -889,3 +890,55 @@ class Human(Character):
         self.current_health_levels = "".join(
             sorted(self.current_health_levels, key=self.sort_damage)
         )
+
+
+class Group(PolymorphicModel):
+    type = "group"
+    
+    name = models.CharField(max_length=100, unique=True)
+    members = models.ManyToManyField(Human, blank=True)
+    leader = models.ForeignKey(
+        Human, blank=True, related_name="leads_group", on_delete=models.CASCADE, null=True
+    )
+
+    def __str__(self):
+        return self.name
+
+    def random_name(self):
+        self.name = f"Random Group {Group.objects.count()}"
+        return True
+    
+    def get_absolute_url(self):
+        return reverse("wod:group", kwargs={"pk": self.pk})
+    
+    def random(self, num_chars=None, new_characters=True, freebies=15, xp=0, user=None, member_type=Human):
+        if self.name == "":
+            self.random_name()
+        if num_chars is None:
+            num_chars = random.randint(3, 7)
+        if not new_characters and member_type.objects.count() < num_chars:
+            raise ValueError(f"Not enough {member_type}!")
+        if not new_characters:
+            self.members.set(member_type.objects.order_by("?")[:num_chars])
+        else:
+            if user is None:
+                if WoDProfile.objects.filter(storyteller=True).count() > 0:
+                    user = (
+                        WoDProfile.objects.filter(storyteller=True)
+                        .order_by("?")
+                        .first()
+                        .user
+                    )
+                else:
+                    user = User.objects.create_user(username="New User")
+                    user.wod_profile.storyteller = True
+                    user.save()
+            for _ in range(num_chars):
+                m = member_type.objects.create(
+                    name=f"{self.name} {self.members.count() + 1}",
+                    player=user.wod_profile,
+                )
+                m.random(freebies=freebies, xp=xp)
+                self.members.add(m)
+        self.leader = self.members.order_by("?").first()
+        self.save()
