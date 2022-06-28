@@ -5,8 +5,8 @@ from django.views.generic import DetailView, View
 
 from core.utils import level_name, tree_sort
 from wod.models.characters.human import Character, Human, MeritFlawRating
-from wod.models.characters.mage import Mage, ResRating
-from wod.models.characters.werewolf import Werewolf
+from wod.models.characters.mage import Mage, ResRating, Cabal
+from wod.models.characters.werewolf import Werewolf, Pack
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
 from wod.models.locations.human import City, Location
@@ -369,12 +369,19 @@ class RandomCharacterView(View):
     chars = {
         "werewolf": Werewolf,
         "mage": Mage,
+        "cabal": Cabal,
+        "pack": Pack,
     }
 
     def post(self, request, *args, **kwargs):
-        char = self.chars[request.POST["character_type"]].objects.create(
-            name=request.POST["character_name"], player=request.user.wod_profile
-        )
+        if request.POST["character_type"] in ["werewolf", "mage"]:
+            char = self.chars[request.POST["character_type"]].objects.create(
+                name=request.POST["character_name"], player=request.user.wod_profile
+            )
+        else:
+            char = self.chars[request.POST["character_type"]].objects.create(
+                name=request.POST["character_name"]
+            )
         try:
             freebies = int(request.POST["freebies"])
         except ValueError:
