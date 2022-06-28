@@ -254,7 +254,7 @@ class Aberrant(Human):
 
         p = PowerRating.objects.get(character=self, power=power)
         
-        had_tags = [x.tag for x in TagRating.objects.filter(power_rating=p).exclude(rating=F("tag__max_rating"))]
+        had_tags = TagRating.objects.filter(power_rating=p).exclude(rating=F("tag__max_rating")).values_list("tag", flat=True)
         had_tags = Tag.objects.filter(pk__in=had_tags)
         new_tags = tags.exclude(pk__in=p.tags.all())
         return had_tags | new_tags
