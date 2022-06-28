@@ -788,18 +788,18 @@ class TestPack(TestCase):
 
     def test_random_pack(self):
         pack = Pack.objects.create(name="Pack 1")
-        pack.random(5, new_characters=False)
+        pack.random(num_chars=5, new_characters=False)
         self.assertEqual(pack.members.count(), 5)
         for werewolf in Werewolf.objects.all():
             self.assertIn(werewolf, pack.members.all())
         pack = Pack.objects.create(name="Pack 2")
-        pack.random(5, new_characters=True)
+        pack.random(num_chars=5, new_characters=True)
         self.assertEqual(pack.members.count(), 5)
 
     def test_exception(self):
         pack = Pack.objects.create(name="Pack 10")
         with self.assertRaises(ValueError):
-            pack.random(10, new_characters=False)
+            pack.random(num_chars=10, new_characters=False)
 
     def test_totem_total(self):
         p = Pack.objects.create(name="Pack")
