@@ -88,7 +88,7 @@ class Node(Location):
         had_mf_ratings = NodeMeritFlawRating.objects.all()
         had_mf_ratings = had_mf_ratings.filter(rating__lt=F("mf__max_rating"))
         
-        had_mfs = NodeMeritFlaw.objects.filter(pk__in=had_mf_ratings)
+        had_mfs = NodeMeritFlaw.objects.filter(pk__in=had_mf_ratings.values_list("mf", flat=True))
         q = new_mfs | had_mfs
         return q
 
