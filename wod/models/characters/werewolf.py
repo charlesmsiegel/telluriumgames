@@ -4,6 +4,7 @@ from collections import defaultdict
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Q
+from django.urls import reverse
 
 from accounts.models import WoDProfile
 from core.utils import add_dot, weighted_choice
@@ -766,7 +767,11 @@ class Pack(models.Model):
     )
     totem = models.ForeignKey(Totem, null=True, blank=True, on_delete=models.CASCADE)
 
-    def random(self, num_chars, new_characters=False, freebies=15, xp=0, user=None):
+    def random(self, num_chars=None, new_characters=True, freebies=15, xp=0, user=None):
+        if self.name == "":
+            self.random_name()
+        if num_chars is None:
+            num_chars = random.randint(3, 7)
         if not new_characters and Werewolf.objects.count() < num_chars:
             raise ValueError("Not enough Werewolves!")
         if not new_characters:
@@ -814,6 +819,13 @@ class Pack(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def random_name(self):
+        self.name = f"Random Pack {Pack.objects.count()}"
+        return True
+    
+    def get_absolute_url(self):
+        return reverse("wod:pack", kwargs={"pk": self.pk})
 
 
 class RenownIncident(models.Model):
