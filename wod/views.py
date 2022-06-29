@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView, View
 
 from core.utils import level_name, tree_sort
+from wod.forms import RandomCharacterForm
 from wod.models.characters.human import Character, Human, MeritFlawRating
 from wod.models.characters.mage import Mage, ResRating
 from wod.models.characters.werewolf import Werewolf
@@ -16,7 +17,6 @@ from wod.models.locations.mage import (
     NodeMeritFlawRating,
     NodeResonanceRating,
 )
-from wod.forms import RandomCharacterForm
 
 
 # Create your views here.
@@ -33,7 +33,7 @@ class CharacterIndexView(View):
         characters = Character.objects.all().order_by("name")
         context = {}
         context["characters"] = characters
-        context['form'] = RandomCharacterForm
+        context["form"] = RandomCharacterForm
         return context
 
 
@@ -43,7 +43,7 @@ def load_character_types(request):
         "werewolf": ["werewolf"],
         "mage": ["mage"],
     }
-    gameline = request.GET.get('gameline')
+    gameline = request.GET.get("gameline")
     character_types = characters[gameline]
     return render(
         request,
