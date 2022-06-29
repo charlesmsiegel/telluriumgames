@@ -3,10 +3,11 @@ from collections import defaultdict
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 
 from accounts.models import WoDProfile
 from core.utils import add_dot, weighted_choice
-from wod.models.characters.human import Character, Human
+from wod.models.characters.human import Character, Group, Human
 from wod.models.items.mage import Grimoire, Library
 from wod.models.locations.mage import Node
 
@@ -923,39 +924,15 @@ class Mage(Human):
         self.random_library()
 
 
-class Cabal(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    members = models.ManyToManyField(Mage, blank=True)
-    leader = models.ForeignKey(
-        Mage, blank=True, related_name="leads", on_delete=models.CASCADE, null=True
-    )
+class Cabal(Group):
+    type = "cabal"
 
-    def random(self, num_chars, new_characters=False):
-        if not new_characters and Mage.objects.count() < num_chars:
-            raise ValueError("Not enough Mages!")
-        if not new_characters:
-            self.members.set(Mage.objects.order_by("?")[:num_chars])
-        else:
-            if WoDProfile.objects.filter(storyteller=True).count() > 0:
-                user = (
-                    WoDProfile.objects.filter(storyteller=True)
-                    .order_by("?")
-                    .first()
-                    .user
-                )
-            else:
-                user = User.objects.create_user(username="New User")
-                user.wod_profile.storyteller = True
-                user.save()
-            for _ in range(num_chars):
-                m = Mage.objects.create(
-                    name=f"{self.name} {self.members.count() + 1}",
-                    player=user.wod_profile,
-                )
-                m.random()
-                self.members.add(m)
-        self.leader = self.members.order_by("?").first()
-        self.save()
-
-    def __str__(self):
-        return self.name
+    def random(self, num_chars=None, new_characters=True, freebies=15, xp=0, user=None):
+        super().random(
+            num_chars=num_chars,
+            new_characters=new_characters,
+            freebies=freebies,
+            xp=xp,
+            user=user,
+            member_type=Mage,
+        )

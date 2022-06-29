@@ -4,9 +4,10 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView, View
 
 from core.utils import level_name, tree_sort
-from wod.models.characters.human import Character, Human, MeritFlawRating
-from wod.models.characters.mage import Mage, ResRating
-from wod.models.characters.werewolf import Werewolf
+from wod.forms import RandomCharacterForm
+from wod.models.characters.human import Character, Group, Human, MeritFlawRating
+from wod.models.characters.mage import Cabal, Mage, ResRating
+from wod.models.characters.werewolf import Pack, Werewolf
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
 from wod.models.locations.human import City, Location
@@ -16,7 +17,6 @@ from wod.models.locations.mage import (
     NodeMeritFlawRating,
     NodeResonanceRating,
 )
-from wod.forms import RandomCharacterForm
 
 
 # Create your views here.
@@ -33,17 +33,17 @@ class CharacterIndexView(View):
         characters = Character.objects.all().order_by("name")
         context = {}
         context["characters"] = characters
-        context['form'] = RandomCharacterForm
+        context["form"] = RandomCharacterForm
+        context["groups"] = Group.objects.all().order_by("name")
         return context
 
 
 def load_character_types(request):
-    print("WAAAAAAAAAAAAAAAAAAAAA")
     characters = {
-        "werewolf": ["werewolf"],
-        "mage": ["mage"],
+        "werewolf": ["werewolf", "pack"],
+        "mage": ["mage", "cabal"],
     }
-    gameline = request.GET.get('gameline')
+    gameline = request.GET.get("gameline")
     character_types = characters[gameline]
     return render(
         request,
@@ -370,12 +370,19 @@ class RandomCharacterView(View):
     chars = {
         "werewolf": Werewolf,
         "mage": Mage,
+        "cabal": Cabal,
+        "pack": Pack,
     }
 
     def post(self, request, *args, **kwargs):
-        char = self.chars[request.POST["character_type"]].objects.create(
-            name=request.POST["character_name"], player=request.user.wod_profile
-        )
+        if request.POST["character_type"] in ["werewolf", "mage"]:
+            char = self.chars[request.POST["character_type"]].objects.create(
+                name=request.POST["character_name"], player=request.user.wod_profile
+            )
+        else:
+            char = self.chars[request.POST["character_type"]].objects.create(
+                name=request.POST["character_name"]
+            )
         try:
             freebies = int(request.POST["freebies"])
         except ValueError:
