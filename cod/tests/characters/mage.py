@@ -97,3 +97,12 @@ class TestRandomMage(TestCase):
 
     def test_random(self):
         self.fail()
+
+
+class TestMageDetailView(TestCase):
+    def test_mage_detail_view_status_code(self):
+        self.fail()
+
+    def test_mage_detail_view_templates(self):
+        self.fail()
+
