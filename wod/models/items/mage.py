@@ -274,6 +274,10 @@ class Grimoire(Wonder):
         self.set_medium(medium)
 
     def set_rank(self, rank):
+        if rank > 5:
+            rank = 5
+        if rank < 1:
+            rank = 1
         self.rank = rank
         return True
 
@@ -407,7 +411,8 @@ class Library(Wonder):
 
     def random_book(self):
         book = Grimoire.objects.create(name=f"{self.name} Book {self.num_books() + 1}")
-        book.random(rank=self.rank)
+        rank = random.randint(1, self.rank)
+        book.random(rank=rank)
         return self.add_book(book)
 
     def num_books(self):
