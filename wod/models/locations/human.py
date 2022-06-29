@@ -21,6 +21,7 @@ class Location(PolymorphicModel):
     shroud = models.IntegerField(default=7)
     dimension_barrier = models.IntegerField(default=6)
     reality_zone = models.TextField(blank=True, null=True)
+    description = models.TextField(default="")
 
     def __str__(self):
         return self.name

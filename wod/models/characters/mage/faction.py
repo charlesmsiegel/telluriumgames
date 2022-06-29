@@ -16,6 +16,7 @@ class MageFaction(models.Model):
     materials = models.ManyToManyField(Material, blank=True)
     founded = models.IntegerField(default=-5000)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
+    description = models.TextField(default="")
 
     def __str__(self):
         return self.name

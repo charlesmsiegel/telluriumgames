@@ -14,6 +14,7 @@ from wod.models.characters.human import Group, Human
 class Totem(models.Model):
     name = models.CharField(max_length=100, unique=True)
     cost = models.IntegerField(default=0)
+    description = models.TextField(default="")
 
     def __str__(self):
         return self.name
@@ -22,6 +23,7 @@ class Totem(models.Model):
 class Tribe(models.Model):
     name = models.CharField(max_length=100, unique=True)
     willpower = models.IntegerField(default=3)
+    description = models.TextField(default="")
 
     def __str__(self):
         return self.name
@@ -30,6 +32,7 @@ class Tribe(models.Model):
 class Camp(models.Model):
     name = models.CharField(max_length=100, unique=True)
     tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.CASCADE)
+    description = models.TextField(default="")
 
     def __str__(self):
         return self.name
@@ -39,6 +42,7 @@ class Gift(models.Model):
     name = models.CharField(max_length=100, unique=True)
     rank = models.IntegerField(default=0)
     allowed = models.JSONField(default=dict)
+    description = models.TextField(default="")
 
     def __str__(self):
         return self.name
@@ -48,6 +52,7 @@ class Rite(models.Model):
     name = models.CharField(max_length=100, unique=True)
     level = models.IntegerField(default=0)
     type = models.CharField(max_length=100, default="")
+    description = models.TextField(default="")
 
     def __str__(self):
         return self.name
@@ -810,6 +815,7 @@ class RenownIncident(models.Model):
     only_once = models.BooleanField(default=False)
     breed = models.CharField(default="", max_length=10)
     rite = models.ForeignKey(Rite, null=True, blank=True, on_delete=models.CASCADE)
+    description = models.TextField(default="")
 
     def __str__(self):
         return self.name
