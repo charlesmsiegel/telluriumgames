@@ -462,7 +462,7 @@ class TestHuman(TestCase):
         num = self.character.specialties.count()
         self.assertTrue(
             self.character.add_specialty(
-                Specialty.objects.get(name="Athletics Specialty 3")
+                Specialty.objects.get(name="Athletics Specialty 3", stat="athletics")
             )
         )
         self.assertEqual(self.character.specialties.count(), num + 1)
@@ -472,7 +472,7 @@ class TestHuman(TestCase):
         self.assertEqual(len(self.character.filter_specialties(stat="strength")), 10)
         self.assertEqual(len(self.character.filter_specialties(stat="athletics")), 10)
         self.character.add_specialty(
-            Specialty.objects.get(name="Athletics Specialty 3")
+            Specialty.objects.get(name="Athletics Specialty 3", stat="athletics")
         )
         self.assertEqual(len(self.character.filter_specialties(stat="athletics")), 9)
 
