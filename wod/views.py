@@ -437,3 +437,28 @@ class RandomCharacterView(View):
 
     def get(self, request):
         return redirect("wod:characters_index")
+
+class GroupDetailView(DetailView):
+    model = Group
+    template_name = "wod/characters/group/detail.html"
+    
+class CabalDetailView(DetailView):
+    model = Cabal
+    template_name = "wod/characters/cabal/detail.html"
+    
+class PackDetailView(DetailView):
+    model = Pack
+    template_name = "wod/characters/pack/detail.html"
+
+class GenericGroupDetailView(View):
+    group_views = {
+        "group": GroupDetailView,
+        "cabal": CabalDetailView,
+        "pack": PackDetailView,
+    }
+
+    def get(self, request, *args, **kwargs):
+        group = Group.objects.get(pk=kwargs["pk"])
+        if group.type in self.group_views:
+            return self.group_views[group.type].as_view()(request, *args, **kwargs)
+        return redirect("wod:characters_index")

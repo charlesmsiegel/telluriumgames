@@ -1348,3 +1348,16 @@ class TestMageDetailView(TestCase):
     def test_mage_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/{self.mage.id}/")
         self.assertTemplateUsed(response, "wod/characters/mage/detail.html")
+
+class TestCabalDetailView(TestCase):
+    def setUp(self) -> None:
+        self.player = User.objects.create_user(username="User1", password="12345")
+        self.cabal = Cabal.objects.create(name="Test Cabal")
+
+    def test_cabal_detail_view_status_code(self):
+        response = self.client.get(f"/wod/groups/{self.cabal.id}/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_cabal_detail_view_templates(self):
+        response = self.client.get(f"/wod/groups/{self.cabal.id}/")
+        self.assertTemplateUsed(response, "wod/characters/cabal/detail.html")
