@@ -606,6 +606,7 @@ class Power(models.Model):
             ("continuous", "Continuous"),
         ],
     )
+    description = models.TextField(default="")
 
     def set_dicepool(self, dicepool):
         self.dicepool = dicepool
@@ -648,6 +649,7 @@ class Tag(models.Model):
     ratings = models.JSONField(default=list)
     max_rating = models.IntegerField(default=0)
     permitted_powers = models.ManyToManyField(Power, blank=True)
+    description = models.TextField(default="")
 
     def __str__(self):
         return self.name
@@ -670,6 +672,7 @@ class Transformation(models.Model):
     level = models.CharField(
         max_length=4, choices=[("low", "low"), ("med", "medium"), ("high", "high"),],
     )
+    description = models.TextField(default="")
 
     def __str__(self):
         return f"{self.name} ({self.level})"

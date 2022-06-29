@@ -16,6 +16,7 @@ from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 # Create your models here.
 class Archetype(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(default="")
 
     def __str__(self):
         return self.name
@@ -41,6 +42,7 @@ class MeritFlaw(models.Model):
     ratings = models.JSONField(default=list)
     max_rating = models.IntegerField(default=0)
     allowed_types = models.JSONField(default=list)
+    description = models.TextField(default="")
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)
@@ -67,6 +69,7 @@ class Character(PolymorphicModel):
         WoDProfile, on_delete=models.CASCADE, related_name="characters"
     )
     concept = models.CharField(max_length=100)
+    description = models.TextField(default="")
 
     def has_concept(self):
         return self.concept != ""
@@ -167,7 +170,6 @@ class Human(Character):
     height = models.CharField(blank=True, null=True, max_length=100)
     weight = models.CharField(blank=True, null=True, max_length=100)
     sex = models.CharField(blank=True, null=True, max_length=100)
-    description = models.TextField(blank=True, null=True)
 
     childhood = models.TextField(default="", blank=True, null=True)
     history = models.TextField(default="", blank=True, null=True)
@@ -904,6 +906,7 @@ class Group(PolymorphicModel):
         on_delete=models.CASCADE,
         null=True,
     )
+    description = models.TextField(default="")
 
     def __str__(self):
         return self.name

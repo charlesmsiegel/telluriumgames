@@ -77,6 +77,8 @@ class Human(PolymorphicModel):
     ethnicity = models.CharField(blank=True, null=True, max_length=100)
     sex = models.CharField(blank=True, null=True, max_length=100)
 
+    description = models.TextField(default="")
+
     defense = models.IntegerField(default=1)
     xp = models.IntegerField(default=0)
 
@@ -868,6 +870,7 @@ class Path(models.Model):
     skills = models.JSONField(default=list)
     edges = models.ManyToManyField("Edge", blank=True)
     gift_keywords = models.JSONField(default=list)
+    description = models.TextField(default="")
 
     class Meta:
         ordering = ("name",)
@@ -894,6 +897,7 @@ class Specialty(models.Model):
 class Trick(models.Model):
     name = models.CharField(max_length=100, unique=True)
     skill = models.CharField(max_length=100)
+    description = models.TextField(default="")
 
     class Meta:
         ordering = ("name",)
@@ -909,6 +913,7 @@ class Edge(PolymorphicModel):
     ratings = models.JSONField(default=list)
     max_rating = models.IntegerField(default=0)
     prereqs = models.JSONField(default=list)
+    description = models.TextField(default="")
 
     class Meta:
         ordering = ("name",)
@@ -927,6 +932,7 @@ class Edge(PolymorphicModel):
 class EnhancedEdge(models.Model):
     name = models.CharField(max_length=100, unique=True)
     prereqs = models.JSONField(default=list)
+    description = models.TextField(default="")
 
     def check_prereqs(self, character):
         return check_prereqs(self, character)
@@ -963,6 +969,7 @@ class PathRating(models.Model):
 class PathConnection(models.Model):
     name = models.CharField(max_length=100)
     path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.CASCADE)
+    description = models.TextField(default="")
 
 
 def prereq_satisfied(prereq, character, obj):
