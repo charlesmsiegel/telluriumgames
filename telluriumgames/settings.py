@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "accounts",
     "cod",
     "core",
+    "exalted",
     "tc",
     "wod",
     "tinymce",
