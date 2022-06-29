@@ -8,7 +8,7 @@ from django.urls import reverse
 
 from accounts.models import WoDProfile
 from core.utils import add_dot, weighted_choice
-from wod.models.characters.human import Human, Group
+from wod.models.characters.human import Group, Human
 
 
 class Totem(models.Model):
@@ -760,14 +760,21 @@ class Werewolf(Human):
 
 
 class Pack(Group):
-    type = 'pack'
-    
+    type = "pack"
+
     totem = models.ForeignKey(Totem, null=True, blank=True, on_delete=models.CASCADE)
-    
+
     def random(self, num_chars=None, new_characters=True, freebies=15, xp=0, user=None):
-        super().random(num_chars=num_chars, new_characters=new_characters, freebies=freebies, xp=xp, user=user, member_type=Werewolf)
+        super().random(
+            num_chars=num_chars,
+            new_characters=new_characters,
+            freebies=freebies,
+            xp=xp,
+            user=user,
+            member_type=Werewolf,
+        )
         self.random_totem()
-            
+
     def set_totem(self, totem):
         self.totem = totem
         self.save()
@@ -784,6 +791,7 @@ class Pack(Group):
 
     def total_totem(self):
         return sum(x.totem for x in self.members.all())
+
 
 class RenownIncident(models.Model):
     name = models.CharField(max_length=100, unique=True)

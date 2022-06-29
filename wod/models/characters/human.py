@@ -2,11 +2,11 @@ import random
 from collections import defaultdict
 from datetime import date, timedelta
 
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import F, Q
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
-from django.contrib.auth.models import User
 
 from accounts.models import WoDProfile
 from core.models import Language
@@ -894,11 +894,15 @@ class Human(Character):
 
 class Group(PolymorphicModel):
     type = "group"
-    
+
     name = models.CharField(max_length=100, unique=True)
     members = models.ManyToManyField(Human, blank=True)
     leader = models.ForeignKey(
-        Human, blank=True, related_name="leads_group", on_delete=models.CASCADE, null=True
+        Human,
+        blank=True,
+        related_name="leads_group",
+        on_delete=models.CASCADE,
+        null=True,
     )
 
     def __str__(self):
@@ -907,11 +911,19 @@ class Group(PolymorphicModel):
     def random_name(self):
         self.name = f"Random Group {Group.objects.count()}"
         return True
-    
+
     def get_absolute_url(self):
         return reverse("wod:group", kwargs={"pk": self.pk})
-    
-    def random(self, num_chars=None, new_characters=True, freebies=15, xp=0, user=None, member_type=Human):
+
+    def random(
+        self,
+        num_chars=None,
+        new_characters=True,
+        freebies=15,
+        xp=0,
+        user=None,
+        member_type=Human,
+    ):
         if self.name == "":
             self.random_name()
         if num_chars is None:

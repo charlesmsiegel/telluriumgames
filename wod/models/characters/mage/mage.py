@@ -7,7 +7,7 @@ from django.urls import reverse
 
 from accounts.models import WoDProfile
 from core.utils import add_dot, weighted_choice
-from wod.models.characters.human import Character, Human, Group
+from wod.models.characters.human import Character, Group, Human
 from wod.models.items.mage import Grimoire, Library
 from wod.models.locations.mage import Node
 
@@ -926,6 +926,13 @@ class Mage(Human):
 
 class Cabal(Group):
     type = "cabal"
-    
+
     def random(self, num_chars=None, new_characters=True, freebies=15, xp=0, user=None):
-        super().random(num_chars=num_chars, new_characters=new_characters, freebies=freebies, xp=xp, user=user, member_type=Mage)
+        super().random(
+            num_chars=num_chars,
+            new_characters=new_characters,
+            freebies=freebies,
+            xp=xp,
+            user=user,
+            member_type=Mage,
+        )
