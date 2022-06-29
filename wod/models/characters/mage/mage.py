@@ -15,7 +15,9 @@ from .faction import MageFaction
 from .focus import Instrument, Paradigm, Practice
 from .resonance import Resonance, ResRating
 from .rote import Rote
+from .utils import PRIMARY_ABILITIES
 
+PRIMARY_ABILITY_WEIGHTING = 5
 PRACTICE_ABILITY_WEIGHTING = 3
 
 
@@ -95,6 +97,52 @@ class Mage(Human):
     lore = models.IntegerField(default=0)
     media = models.IntegerField(default=0)
     pharmacopeia = models.IntegerField(default=0)
+
+    cooking = models.IntegerField(default=0)
+    diplomacy = models.IntegerField(default=0)
+    instruction = models.IntegerField(default=0)
+    intrigue = models.IntegerField(default=0)
+    intuition = models.IntegerField(default=0)
+    mimicry = models.IntegerField(default=0)
+    negotiation = models.IntegerField(default=0)
+    newspeak = models.IntegerField(default=0)
+    scan = models.IntegerField(default=0)
+    scrounging = models.IntegerField(default=0)
+    style = models.IntegerField(default=0)
+    blind_fighting = models.IntegerField(default=0)
+    climbing = models.IntegerField(default=0)
+    disguise = models.IntegerField(default=0)
+    elusion = models.IntegerField(default=0)
+    escapology = models.IntegerField(default=0)
+    fast_draw = models.IntegerField(default=0)
+    fast_talk = models.IntegerField(default=0)
+    fencing = models.IntegerField(default=0)
+    fortune_telling = models.IntegerField(default=0)
+    gambling = models.IntegerField(default=0)
+    gunsmith = models.IntegerField(default=0)
+    heavy_weapons = models.IntegerField(default=0)
+    hunting = models.IntegerField(default=0)
+    hypnotism = models.IntegerField(default=0)
+    jury_rigging = models.IntegerField(default=0)
+    microgravity_operations = models.IntegerField(default=0)
+    misdirection = models.IntegerField(default=0)
+    networking = models.IntegerField(default=0)
+    pilot = models.IntegerField(default=0)
+    psychology = models.IntegerField(default=0)
+    security = models.IntegerField(default=0)
+    speed_reading = models.IntegerField(default=0)
+    swimming = models.IntegerField(default=0)
+    conspiracy_theory = models.IntegerField(default=0)
+    chantry_politics = models.IntegerField(default=0)
+    covert_culture = models.IntegerField(default=0)
+    cultural_savvy = models.IntegerField(default=0)
+    helmsman = models.IntegerField(default=0)
+    history_knowledge = models.IntegerField(default=0)
+    power_brokering = models.IntegerField(default=0)
+    propaganda = models.IntegerField(default=0)
+    theology = models.IntegerField(default=0)
+    unconventional_warface = models.IntegerField(default=0)
+    vice = models.IntegerField(default=0)
 
     allies = models.IntegerField(default=0)
     alternate_identity = models.IntegerField(default=0)
@@ -220,6 +268,17 @@ class Mage(Human):
                 "lucid_dreaming": self.lucid_dreaming,
                 "search": self.search,
                 "seduction": self.seduction,
+                "cooking": self.cooking,
+                "diplomacy": self.diplomacy,
+                "instruction": self.instruction,
+                "intrigue": self.intrigue,
+                "intuition": self.intuition,
+                "mimicry": self.mimicry,
+                "negotiation": self.negotiation,
+                "newspeak": self.newspeak,
+                "scan": self.scan,
+                "scrounging": self.scrounging,
+                "style": self.style,
             }
         )
         return tmp
@@ -241,6 +300,29 @@ class Mage(Human):
                 "jetpack": self.jetpack,
                 "riding": self.riding,
                 "torture": self.torture,
+                "blind_fighting": self.blind_fighting,
+                "climbing": self.climbing,
+                "disguise": self.disguise,
+                "elusion": self.elusion,
+                "escapology": self.escapology,
+                "fast_draw": self.fast_draw,
+                "fast_talk": self.fast_talk,
+                "fencing": self.fencing,
+                "fortune_telling": self.fortune_telling,
+                "gambling": self.gambling,
+                "gunsmith": self.gunsmith,
+                "heavy_weapons": self.heavy_weapons,
+                "hunting": self.hunting,
+                "hypnotism": self.hypnotism,
+                "jury_rigging": self.jury_rigging,
+                "microgravity_operations": self.microgravity_operations,
+                "misdirection": self.misdirection,
+                "networking": self.networking,
+                "pilot": self.pilot,
+                "psychology": self.psychology,
+                "security": self.security,
+                "speed_reading": self.speed_reading,
+                "swimming": self.swimming,
             }
         )
         return tmp
@@ -263,6 +345,17 @@ class Mage(Human):
                 "lore": self.lore,
                 "media": self.media,
                 "pharmacopeia": self.pharmacopeia,
+                "conspiracy_theory": self.conspiracy_theory,
+                "chantry_politics": self.chantry_politics,
+                "covert_culture": self.covert_culture,
+                "cultural_savvy": self.cultural_savvy,
+                "helmsman": self.helmsman,
+                "history_knowledge": self.history_knowledge,
+                "power_brokering": self.power_brokering,
+                "propaganda": self.propaganda,
+                "theology": self.theology,
+                "unconventional_warface": self.unconventional_warface,
+                "vice": self.vice,
             }
         )
         return tmp
@@ -594,6 +687,9 @@ class Mage(Human):
             for ability in practice.abilities:
                 if ability in possibilities:
                     possibilities[ability] += PRACTICE_ABILITY_WEIGHTING
+        for ability in possibilities:
+            if ability in PRIMARY_ABILITIES:
+                possibilities[ability] *= PRIMARY_ABILITY_WEIGHTING
         choice = weighted_choice(possibilities, ceiling=100)
         self.add_ability(choice, 5)
 

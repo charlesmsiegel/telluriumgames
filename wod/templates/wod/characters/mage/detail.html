@@ -204,70 +204,30 @@
         <div class="row">
             <h2 class="col-sm mtas_heading">Secondary Abilities</h2>
         </div>
-        <div class="row">
-            <div class="col-sm">Animal Kinship {% if animal_kinship_spec %}({{ animal_kinship_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.animal_kinship|dots }}</div>
-            <div class="col-sm">Acrobatics {% if acrobatics_spec %}({{ acrobatic_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.acrobatics|dots }}</div>
-            <div class="col-sm">Area Knowledge {% if area_knowledge_spec %}({{ area_knowledge_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.area_knowledge|dots }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Blatancy {% if blatancy_spec %}({{ blatancy_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.blatancy|dots }}</div>
-            <div class="col-sm">Archery {% if archery_spec %}({{ archery_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.archery|dots }}</div>
-            <div class="col-sm">Belief Systems {% if belief_systems_spec %}({{ belief_systems_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.belief_systems|dots }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Carousing {% if carousing_spec %}({{ carousing_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.carousing|dots }}</div>
-            <div class="col-sm">Biotech {% if biotech_spec %}({{ biotech_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.biotech|dots }}</div>
-            <div class="col-sm">Cryptography {% if cryptography_spec %}({{ cryptography_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.cryptography|dots }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Flying {% if flying_spec %}({{ flying_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.flying|dots }}</div>
-            <div class="col-sm">Energy Weapons {% if energy_weapons_spec %}({{ energy_weapons_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.energy_weapons|dots }}</div>
-            <div class="col-sm">Demolitions {% if demolitions_spec %}({{ demolitions_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.demolitions|dots }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">High Ritual {% if high_ritual_spec %}({{ high_ritual_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.high_ritual|dots }}</div>
-            <div class="col-sm">Hypertech {% if hypertech_spec %}({{ hypertech_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.hypertech|dots }}</div>
-            <div class="col-sm">Finance {% if finance_spec %}({{ finance_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.finance|dots }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Lucid Dreaming {% if lucid_dreaming_spec %}({{ lucid_dreaming_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.lucid_dreaming|dots }}</div>
-            <div class="col-sm">Jetpack {% if jetpack_spec %}({{ jetpack_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.jetpack|dots }}</div>
-            <div class="col-sm">Lore {% if lore_spec %}({{ lore_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.lore|dots }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Search {% if search_spec %}({{ search_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.search|dots }}</div>
-            <div class="col-sm">Riding {% if riding_spec %}({{ riding_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.riding|dots }}</div>
-            <div class="col-sm">Media {% if media_spec %}({{ media_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.media|dots }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Seduction {% if seduction_spec %}({{ seduction_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.seduction|dots }}</div>
-            <div class="col-sm">Torture {% if torture_spec %}({{ torture_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.torture|dots }}</div>
-            <div class="col-sm">Pharmacopeia {% if pharmacopeia_spec %}({{ pharmacopeia_spec }}){% endif %}</div>
-            <div class="col-sm dots">{{ object.pharmacopeia|dots }}</div>
-        </div>
+
+        {% for tal, ski, kno in secondaries %}
+            <div class="row">
+                <div class="col-sm"> {{ tal|first }} {% if tal|last %}({{ tal|last }}){% endif %} </div>
+                {% if tal|slice:"1:"|first != 0 %}
+                <div class="col-sm dots">{{ tal|slice:"1:"|first|dots }}</div>
+                {% else %}
+                <div class="col-sm dots"></div>
+                {% endif %}
+                <div class="col-sm"> {{ ski|first }} {% if ski|last %}({{ ski|last }}){% endif %}</div>
+                {% if ski|slice:"1:"|first != 0 %}
+                <div class="col-sm dots">{{ ski|slice:"1:"|first|dots }}</div>
+                {% else %}
+                <div class="col-sm dots"></div>
+                {% endif %}
+                <div class="col-sm"> {{ kno|first }} {% if kno|last %}({{ kno|last }}){% endif %}</div>
+                {% if kno|slice:"1:"|first != 0 %}
+                <div class="col-sm dots">{{ kno|slice:"1:"|first|dots }}</div>
+                {% else %}
+                <div class="col-sm dots"></div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        
         {% ifequal object.faction.name "Akashayana" %}
         <div class="row">
             <div class="col-sm">Do {% if do_spec %}({{ do_spec }}){% endif %}</div>

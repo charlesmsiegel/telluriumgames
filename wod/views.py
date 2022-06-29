@@ -7,6 +7,7 @@ from core.utils import level_name, tree_sort
 from wod.forms import RandomCharacterForm
 from wod.models.characters.human import Character, Group, Human, MeritFlawRating
 from wod.models.characters.mage import Cabal, Mage, ResRating
+from wod.models.characters.mage.utils import PRIMARY_ABILITIES
 from wod.models.characters.werewolf import Pack, Werewolf
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
@@ -348,6 +349,43 @@ class MageDetailView(View):
             all_rotes[i : i + row_length] for i in range(0, len(all_rotes), row_length)
         ]
         context["rotes"] = all_rotes
+
+        secondary_talents = [
+            [f"{k.replace('_', ' ').title()}", v, context[f"{k}_spec"]]
+            for k, v in mage.get_talents().items()
+            if k not in PRIMARY_ABILITIES and v != 0
+        ]
+        secondary_skills = [
+            [f"{k.replace('_', ' ').title()}", v, context[f"{k}_spec"]]
+            for k, v in mage.get_skills().items()
+            if k not in PRIMARY_ABILITIES and v != 0
+        ]
+        secondary_knowledges = [
+            [f"{k.replace('_', ' ').title()}", v, context[f"{k}_spec"]]
+            for k, v in mage.get_knowledges().items()
+            if k not in PRIMARY_ABILITIES and v != 0
+        ]
+        
+        for triple in secondary_knowledges:
+            if triple[0] == "History Knowledge":
+                triple[0] = "History"
+        
+        secondary_talents.sort(key=lambda x: x[0])
+        secondary_skills.sort(key=lambda x: x[0])
+        secondary_knowledges.sort(key=lambda x: x[0])
+        num_sec_tal = len(secondary_talents)
+        num_sec_ski = len(secondary_skills)
+        num_sec_kno = len(secondary_knowledges)
+        m = max(num_sec_tal, num_sec_ski, num_sec_kno)
+        for _ in range(m - num_sec_tal):
+            secondary_talents.append(("", 0, []))
+        for _ in range(m - num_sec_ski):
+            secondary_skills.append(("", 0, []))
+        for _ in range(m - num_sec_kno):
+            secondary_knowledges.append(("", 0, []))
+        context["secondaries"] = list(
+            zip(secondary_talents, secondary_skills, secondary_knowledges)
+        )
         return context
 
 
