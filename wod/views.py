@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView, View
@@ -18,6 +18,9 @@ from wod.models.locations.mage import (
     NodeMeritFlawRating,
     NodeResonanceRating,
 )
+
+EmptyRote = namedtuple("EmptyRote", ["name", "spheres"])
+empty_rote = EmptyRote("", "")
 
 
 # Create your views here.
@@ -205,7 +208,7 @@ class GrimoireDetailView(View):
                 s = ""
         else:
             s = ""
-        return {
+        context = {
             "object": grimoire,
             "paradigms": "<br>".join([str(x) for x in grimoire.paradigms.all()]),
             "practices": "<br>".join([str(x) for x in grimoire.practices.all()]),
@@ -220,6 +223,17 @@ class GrimoireDetailView(View):
             "date_written": grimoire.date_written,
             "faction": s,
         }
+        all_rotes = list(context["object"].rotes.all())
+        row_length = 2
+        all_rotes = [
+            all_rotes[i : i + row_length] for i in range(0, len(all_rotes), row_length)
+        ]
+        if len(all_rotes) != 0:
+            while len(all_rotes[-1]) < row_length:
+                all_rotes[-1].append(empty_rote)
+        context["rotes"] = all_rotes
+        context["year"] = abs(grimoire.date_written)
+        return context
 
 
 class LibraryDetailView(DetailView):
@@ -365,11 +379,11 @@ class MageDetailView(View):
             for k, v in mage.get_knowledges().items()
             if k not in PRIMARY_ABILITIES and v != 0
         ]
-        
+
         for triple in secondary_knowledges:
             if triple[0] == "History Knowledge":
                 triple[0] = "History"
-        
+
         secondary_talents.sort(key=lambda x: x[0])
         secondary_skills.sort(key=lambda x: x[0])
         secondary_knowledges.sort(key=lambda x: x[0])
@@ -438,17 +452,21 @@ class RandomCharacterView(View):
     def get(self, request):
         return redirect("wod:characters_index")
 
+
 class GroupDetailView(DetailView):
     model = Group
     template_name = "wod/characters/group/detail.html"
-    
+
+
 class CabalDetailView(DetailView):
     model = Cabal
     template_name = "wod/characters/cabal/detail.html"
-    
+
+
 class PackDetailView(DetailView):
     model = Pack
     template_name = "wod/characters/pack/detail.html"
+
 
 class GenericGroupDetailView(View):
     group_views = {

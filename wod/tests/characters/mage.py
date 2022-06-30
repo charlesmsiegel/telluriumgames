@@ -1349,6 +1349,7 @@ class TestMageDetailView(TestCase):
         response = self.client.get(f"/wod/characters/{self.mage.id}/")
         self.assertTemplateUsed(response, "wod/characters/mage/detail.html")
 
+
 class TestCabalDetailView(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="User1", password="12345")

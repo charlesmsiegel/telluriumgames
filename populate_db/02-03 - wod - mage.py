@@ -812,7 +812,6 @@ Specialty.objects.get_or_create(name="Time Travel", stat="time")
 Specialty.objects.get_or_create(name="Temporal Control", stat="time")
 
 
-
 Specialty.objects.get_or_create(name="Grab-n-Go", stat="cooking")
 Specialty.objects.get_or_create(name="Fast-Food Prep", stat="cooking")
 Specialty.objects.get_or_create(name="Gourmet Meals", stat="cooking")
@@ -997,7 +996,9 @@ Specialty.objects.get_or_create(name="Machine-Guns", stat="heavy_weapons")
 Specialty.objects.get_or_create(name="Mortars", stat="heavy_weapons")
 Specialty.objects.get_or_create(name="Desert Operations", stat="heavy_weapons")
 Specialty.objects.get_or_create(name="Urban Combat", stat="heavy_weapons")
-Specialty.objects.get_or_create(name="Weapons-Based Technocratic Damage Procedures", stat="heavy_weapons")
+Specialty.objects.get_or_create(
+    name="Weapons-Based Technocratic Damage Procedures", stat="heavy_weapons"
+)
 Specialty.objects.get_or_create(name="Shadowing", stat="hunting")
 Specialty.objects.get_or_create(name="Tracking", stat="hunting")
 Specialty.objects.get_or_create(name="Trapping", stat="hunting")
@@ -1024,7 +1025,9 @@ Specialty.objects.get_or_create(name="Low-G", stat="microgravity_operations")
 Specialty.objects.get_or_create(name="Micro-G", stat="microgravity_operations")
 Specialty.objects.get_or_create(name="Vacuum Suit", stat="microgravity_operations")
 Specialty.objects.get_or_create(name="Combat", stat="microgravity_operations")
-Specialty.objects.get_or_create(name="Extra-Vehicular Maneuver", stat="microgravity_operations")
+Specialty.objects.get_or_create(
+    name="Extra-Vehicular Maneuver", stat="microgravity_operations"
+)
 Specialty.objects.get_or_create(name="Confusion", stat="misdirection")
 Specialty.objects.get_or_create(name="Feints", stat="misdirection")
 Specialty.objects.get_or_create(name="Passing the Buck", stat="misdirection")
@@ -1076,8 +1079,12 @@ Specialty.objects.get_or_create(name="Competition", stat="swimming")
 Specialty.objects.get_or_create(name="Open Seas", stat="swimming")
 Specialty.objects.get_or_create(name="Lifesaving", stat="swimming")
 Specialty.objects.get_or_create(name="Survival", stat="swimming")
-Specialty.objects.get_or_create(name="Right-Wing Political Lore", stat="conspiracy_theory")
-Specialty.objects.get_or_create(name="Left-Wing Political Lore", stat="conspiracy_theory")
+Specialty.objects.get_or_create(
+    name="Right-Wing Political Lore", stat="conspiracy_theory"
+)
+Specialty.objects.get_or_create(
+    name="Left-Wing Political Lore", stat="conspiracy_theory"
+)
 Specialty.objects.get_or_create(name="Hoaxes", stat="conspiracy_theory")
 Specialty.objects.get_or_create(name="9/11", stat="conspiracy_theory")
 Specialty.objects.get_or_create(name="Birth Certificates", stat="conspiracy_theory")
@@ -1121,7 +1128,9 @@ Specialty.objects.get_or_create(name="Gossip", stat="covert_culture")
 Specialty.objects.get_or_create(name="Scandals", stat="covert_culture")
 Specialty.objects.get_or_create(name="Wetwork", stat="covert_culture")
 Specialty.objects.get_or_create(name="Special Projects", stat="covert_culture")
-Specialty.objects.get_or_create(name="Things You're Really Not Supposed to Know", stat="covert_culture")
+Specialty.objects.get_or_create(
+    name="Things You're Really Not Supposed to Know", stat="covert_culture"
+)
 Specialty.objects.get_or_create(name="Manners", stat="cultural_savvy")
 Specialty.objects.get_or_create(name="Taboos", stat="cultural_savvy")
 Specialty.objects.get_or_create(name="Social Graces", stat="cultural_savvy")
@@ -1191,11 +1200,15 @@ Specialty.objects.get_or_create(name="Counter-Theology", stat="theology")
 Specialty.objects.get_or_create(name="Religion/Science Communion", stat="theology")
 Specialty.objects.get_or_create(name="Religious Activism", stat="theology")
 Specialty.objects.get_or_create(name="Religious History", stat="theology")
-Specialty.objects.get_or_create(name="Alternative/Marginalized Theology", stat="theology")
+Specialty.objects.get_or_create(
+    name="Alternative/Marginalized Theology", stat="theology"
+)
 Specialty.objects.get_or_create(name="Loopholes", stat="theology")
 Specialty.objects.get_or_create(name="Hidden Scriptures", stat="theology")
 Specialty.objects.get_or_create(name="Dirty Little Secrets", stat="theology")
-Specialty.objects.get_or_create(name="Religious-Government Collaboration", stat="theology")
+Specialty.objects.get_or_create(
+    name="Religious-Government Collaboration", stat="theology"
+)
 Specialty.objects.get_or_create(name="End-Times Theology", stat="theology")
 Specialty.objects.get_or_create(name="Specific Religious Creeds", stat="theology")
 Specialty.objects.get_or_create(name="Domestic Terror", stat="unconventional_warface")
@@ -1203,8 +1216,12 @@ Specialty.objects.get_or_create(name="Ethnic Conflicts", stat="unconventional_wa
 Specialty.objects.get_or_create(name="History of Terror", stat="unconventional_warface")
 Specialty.objects.get_or_create(name="Media Effects", stat="unconventional_warface")
 Specialty.objects.get_or_create(name="Watchdogs", stat="unconventional_warface")
-Specialty.objects.get_or_create(name="Counterterrorism Agencies", stat="unconventional_warface")
-Specialty.objects.get_or_create(name="Intelligence Collection", stat="unconventional_warface")
+Specialty.objects.get_or_create(
+    name="Counterterrorism Agencies", stat="unconventional_warface"
+)
+Specialty.objects.get_or_create(
+    name="Intelligence Collection", stat="unconventional_warface"
+)
 Specialty.objects.get_or_create(name="Kidnapping", stat="unconventional_warface")
 Specialty.objects.get_or_create(name="Ideology", stat="unconventional_warface")
 Specialty.objects.get_or_create(name="Secrets", stat="unconventional_warface")

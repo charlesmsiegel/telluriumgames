@@ -862,6 +862,7 @@ class TestWerewolfDetailView(TestCase):
         response = self.client.get(f"/wod/characters/{self.werewolf.id}/")
         self.assertTemplateUsed(response, "wod/characters/werewolf/detail.html")
 
+
 class TestPackDetailView(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="User1", password="12345")
