@@ -26,9 +26,6 @@
           method="post"
           novalidate>
       {% csrf_token %}
-      {% comment %} <table>
-        {{ form.as_table }}
-      </table> {% endcomment %}
       <div class="row">
         <div class="col-sm"></div>
         <div class="col-sm">{{ form.gameline }}</div>
@@ -41,17 +38,17 @@
         </div>
       </div>
     </form>
-    <div class="row border">
-      <div class="col-sm border">
-        <h2>Groups</h2>
-      </div>
-    </div>
-    {% for group in groups %}
+    <div class="centertext">
       <div class="row border">
-        <a class="col-sm border" href="{% url 'wod:group' group.id %}">{{ group.name }}</a>
-        <div class="col-sm border">{{ group.type.title }}</div>
+        <h2 class="col-sm border">Groups</h2>
       </div>
-    {% endfor %}
+      {% for group in groups %}
+        <div class="row border">
+          <a class="col-sm border" href="{% url 'wod:group' group.id %}">{{ group.name }}</a>
+          <div class="col-sm border">{{ group.type.title }}</div>
+        </div>
+      {% endfor %}
+    </div>
   </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
