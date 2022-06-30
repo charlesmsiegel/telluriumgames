@@ -6,13 +6,13 @@ from core.models import Language
 from wod.models.characters.human import (
     Archetype,
     Character,
+    Group,
     Human,
     MeritFlaw,
     Specialty,
-    Group,
 )
-from wod.models.characters.mage import Mage, Cabal
-from wod.models.characters.werewolf import Werewolf, Pack
+from wod.models.characters.mage import Cabal, Mage
+from wod.models.characters.werewolf import Pack, Werewolf
 
 
 # Create your tests here.
@@ -942,6 +942,7 @@ class TestGenericCharacterDetailViews(TestCase):
         self.assertTemplateUsed(response, "wod/characters/mage/detail.html")
         response = self.client.get(f"/wod/characters/{self.werewolf.id}/")
         self.assertTemplateUsed(response, "wod/characters/werewolf/detail.html")
+
 
 class TestGroupDetailView(TestCase):
     def setUp(self) -> None:
