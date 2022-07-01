@@ -2,9 +2,22 @@ import random
 from django.db.models import Q, F
 from django.db import models
 from cod.models.characters.mortal import Mortal
-from core.utils import add_dot
+from core.utils import add_dot, weighted_choice
 
 # Create your models here.
+ARCANA = [
+    "space",
+    "time",
+    "death",
+    "fate",
+    "life",
+    "matter",
+    "forces",
+    "prime",
+    "mind",
+    "spirit",
+]
+
 class Path(models.Model):
     name = models.CharField(max_length=100)
     ruling_arcana = models.JSONField(default=list)
@@ -122,6 +135,7 @@ class Mage(Mortal):
     
     def set_order(self, order):
         self.order = order
+        self.rote_skills = self.order.rote_skills
         self.save()
         return True
     
@@ -144,9 +158,9 @@ class Mage(Mortal):
     
     def set_gnosis(self, gnosis):
         if gnosis < 1:
-            gnosis = 1
+            return False
         if gnosis > 10:
-            gnosis = 10
+            return False
         self.gnosis = gnosis
         self.save()
         return True
@@ -188,19 +202,36 @@ class Mage(Mortal):
         return add_dot(self, arcanum, maximum=5)
     
     def random_arcanum(self):
-        pass
+        arcana = self.get_arcana()
+        choice = weighted_choice(arcana)
+        return self.add_arcanum(choice)
     
     def random_arcana(self):
-        pass
+        distributions = [[3, 2, 1], [3, 1, 1, 1], [2, 2, 2], [2, 2, 1, 1], [2, 1, 1, 1, 1]]
+        distribution = random.choice(distributions)
+        arcana = self.path.ruling_arcana
+        options = [x for x in ARCANA if x not in arcana and x != self.path.inferior_arcanum]
+        while len(arcana) < len(distribution):
+            choice = random.choice(options)
+            arcana.append(choice)
+            options = [x for x in options if x != choice]
+        random.shuffle(arcana)
+        for stat, value in zip(arcana, distribution):
+            setattr(self, stat, value)
+        return True
     
     def has_legacy(self):
         return self.legacy is not None
     
     def set_legacy(self, legacy):
-        pass
+        self.legacy = legacy
+        self.save()
+        return True
     
     def random_legacy(self):
-        pass
+        options = self.filter_legacies()
+        choice = random.choice(options)
+        return self.set_legacy(choice)
     
     def filter_legacies(self):
         possiblities = Legacy.objects.all()
@@ -215,6 +246,22 @@ class Mage(Mortal):
         return self.mana != 0
     
     def set_mana(self, mana):
+        gnosis_mana_limits = {
+            1: 10,
+            2: 11,
+            3: 12,
+            4: 13,
+            5: 15,
+            6: 20,
+            7: 25,
+            8: 30,
+            9: 50,
+            10: 75,
+        }
+        if mana > gnosis_mana_limits[self.gnosis]:
+            mana = gnosis_mana_limits[self.gnosis]
+        if mana < 0:
+            mana = 0
         self.mana = mana
         self.save()
         return True
@@ -254,7 +301,7 @@ class Mage(Mortal):
         return self.nimbus != ""
     
     def set_nimbus(self, nimbus):
-        self.numbus = nimbus
+        self.nimbus = nimbus
         return True
     
     def random_nimbus(self):
@@ -287,3 +334,53 @@ class Mage(Mortal):
         if level == 5:
             return ["making", "unmaking"]
         return []
+
+    def xp_cost(self, trait_type):
+        cost = super().xp_cost(trait_type)
+        if cost != 10000:
+            return cost
+        if trait_type == "arcanum (to limit)":
+            return 4
+        if trait_type == "arcanum (above limit)":
+            return 5
+        if trait_type == "gnosis":
+            return 5
+        if trait_type == "rote":
+            return 1
+        if trait_type == "praxis":
+            return 1
+        if trait_type == "wisdom":
+            return 2
+        if trait_type == "willpower":
+            return 1
+        if trait_type == "legacy attainment (tutored)":
+            return 1
+        if trait_type == "legacy attainment (untutored)":
+            return 1
+        return 10000
+
+    def random(self, xp=0, arcane_xp=0):
+        self.xp = xp
+        self.arcane_xp = arcane_xp
+        self.random_basis()
+        self.random_attributes()
+        self.random_skills()
+        self.random_specialties()
+        self.random_path()
+        self.random_order()
+        self.random_nimbus()
+        # self.random_dedicated_tool()
+        self.random_arcana()
+        self.random_rotes()
+        self.gnosis = 1
+        self.set_mana(100)
+        # self.random_obsessions()
+        # self.random_praxes()
+        options = ["stamina", "resolve", "composure"]
+        options = [x for x in options if getattr(self, x) < 5]
+        choice = random.choice(options)
+        self.add_attribute(choice)
+        self.random_merits()
+        self.assign_advantages()
+        self.random_spend_xp()
+        self.save()
