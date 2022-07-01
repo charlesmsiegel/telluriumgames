@@ -98,9 +98,9 @@ class TestMage(TestCase):
         path_right.set_path(right_path)
         order_right.set_order(right_order)
         order_right.set_path(wrong_path)
-        self.assertNotIn(legacy, self.both_wrong.filter_legacy())
-        self.assertIn(legacy, self.path_right.filter_legacy())
-        self.assertIn(legacy, self.order_right.filter_legacy())
+        self.assertNotIn(legacy, both_wrong.filter_legacy())
+        self.assertIn(legacy, path_right.filter_legacy())
+        self.assertIn(legacy, order_right.filter_legacy())
 
     def test_has_rote_skills(self):
         self.assertFalse(self.mage.has_rote_skills())
