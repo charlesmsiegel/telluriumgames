@@ -32,7 +32,8 @@ def mage_setup():
         )
     for path in Path.objects.all():
         for order in Order.objects.all():
-            Legacy.objects.create(name=f"{path.name} {order.name} Legacy", path=path, order=order)
+            for arcanum in ARCANA:
+                Legacy.objects.create(name=f"{path.name} {order.name} {arcanum.title()} Legacy", path=path, order=order, ruling_arcanum=arcanum)
     for arcana in ARCANA:
         for level, practice in [(1, "compelling"), (2, "ruling"), (3, "fraying"), (4, "patterning"), (5, "making")]:
             s = Spell.objects.create(name=f"{practice.title()} {arcana.title()} Spell", practice=practice, arcanum=arcana, level=level)
@@ -72,7 +73,7 @@ class TestMage(TestCase):
 
     def test_has_legacy(self):
         self.assertFalse(self.mage.has_legacy())
-        self.mage.legacy = Legacy.objects.get(name="Path 0 Order 0 Legacy")
+        self.mage.legacy = Legacy.objects.get(name="Path 0 Order 0 Death Legacy")
         self.mage.save()
         self.assertTrue(self.mage.has_legacy())
 
@@ -87,7 +88,7 @@ class TestMage(TestCase):
         both_wrong = Mage.objects.create(name="Neither Character", player=self.player.cod_profile)
         path_right = Mage.objects.create(name="Path Character", player=self.player.cod_profile)
         order_right = Mage.objects.create(name="Order Character", player=self.player.cod_profile)
-        legacy = Legacy.objects.get(name="Path 0 Order 0 Legacy")
+        legacy = Legacy.objects.get(name="Path 0 Order 0 Death Legacy")
         right_order = Order.objects.get(name="Order 0")
         wrong_order = Order.objects.get(name="Order 1")
         right_path = Path.objects.get(name="Path 0")
@@ -98,6 +99,12 @@ class TestMage(TestCase):
         path_right.set_path(right_path)
         order_right.set_order(right_order)
         order_right.set_path(wrong_path)
+        self.assertNotIn(legacy, both_wrong.filter_legacies())
+        self.assertNotIn(legacy, path_right.filter_legacies())
+        self.assertNotIn(legacy, order_right.filter_legacies())
+        both_wrong.death = 2
+        path_right.death = 2
+        order_right.death = 2
         self.assertNotIn(legacy, both_wrong.filter_legacies())
         self.assertIn(legacy, path_right.filter_legacies())
         self.assertIn(legacy, order_right.filter_legacies())
@@ -142,7 +149,8 @@ class TestMage(TestCase):
 
     def test_has_arcana(self):
         self.assertFalse(self.mage.has_arcana())
-        self.mage.set_path(Path.objects.get(name="Path 0"))
+        p = Path.objects.get(name="Path 0")
+        self.mage.set_path(p)
         self.mage.space = 3
         self.assertFalse(self.mage.has_arcana())
         self.mage.time = 1
@@ -339,6 +347,9 @@ class TestRandomMage(TestCase):
         self.assertEqual(self.mage.rotes.count(), num + 1)
         
     def test_random_rotes(self):
+        self.mage.death = 3
+        self.mage.matter = 2
+        self.mage.spirit = 1
         self.assertFalse(self.mage.has_rotes())
         self.assertTrue(self.mage.random_rotes())
         self.assertTrue(self.mage.has_rotes())
