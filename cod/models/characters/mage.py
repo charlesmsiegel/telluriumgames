@@ -118,6 +118,9 @@ class Mage(Mortal):
     nimbus = models.TextField(default="")
     mana = models.IntegerField(default=0)
     
+    arcane_xp = models.IntegerField(default=0)
+    arcane_beats = models.IntegerField(default=0)
+    
     def has_path(self):
         return self.path is not None
     
