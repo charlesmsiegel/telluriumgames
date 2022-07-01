@@ -222,6 +222,7 @@ class TestMage(TestCase):
 
     def test_add_rote(self):
         self.mage.death = 3
+        self.mage.save()
         num = self.mage.rotes.count()
         self.assertTrue(self.mage.add_rote(Rote.objects.get(name="Compelling Death Rote")))
         self.assertFalse(self.mage.add_rote(Rote.objects.get(name="Compelling Matter Rote")))
