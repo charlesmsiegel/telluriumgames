@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.db import models
 from cod.models.characters.mortal import Mortal
 from core.utils import add_dot
@@ -60,6 +61,8 @@ class Mage(Mortal):
     path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.CASCADE)
     legacy = models.ForeignKey(Legacy, blank=True, null=True, on_delete=models.CASCADE)
     
+    rote_skills = models.JSONField(default=list)
+    
     gnosis = models.IntegerField(default=0)
 
     death = models.IntegerField(default=0)
@@ -103,10 +106,11 @@ class Mage(Mortal):
         return self.set_order(order)
     
     def has_rote_skills(self):
-        pass
+        return len(self.rote_skills) == 3
     
     def set_rote_skills(self, rote_skills):
-        pass
+        self.rote_skills = rote_skills
+        return True
     
     def add_gnosis(self):
         return add_dot(self, "gnosis", maximum=10)
@@ -141,7 +145,16 @@ class Mage(Mortal):
 		}
     
     def has_arcana(self):
-        pass
+        nonzero_values = [x for x in self.get_arcana().values() if x != 0]
+        nonzero_values.sort()
+        if nonzero_values not in [[3, 2, 1], [3, 1, 1, 1], [2, 2, 2], [2, 2, 1, 1], [2, 1, 1, 1, 1]]:
+            return False
+        for ruling in self.path.ruling_arcana:
+            if self.get_arcana()[ruling] == 0:
+                return False
+        if self.get_arcana()[self.path.inferior_arcanum] != 0:
+            return False
+        return True        
     
     def total_arcana(self):
         return sum(v for k, v in self.get_arcana().items())
@@ -163,6 +176,9 @@ class Mage(Mortal):
     
     def random_legacy(self):
         pass
+    
+    def filter_legacies(self):
+        return []
     
     def has_mana(self):
         return self.mana != 0
@@ -191,6 +207,14 @@ class Mage(Mortal):
     def random_rotes(self):
         pass
     
+    def filter_rotes(self):
+        arcana_dict = self.get_arcana()
+        q = Q()
+        for arcana, level in arcana_dict.items():
+            q |= Q(spell__arcanum=arcana, spell__level__lte=level)
+        allowed_rotes = Rote.objects.filter(q)
+        return allowed_rotes.exclude(pk__in=self.rotes.all())
+    
     def has_nimbus(self):
         return self.nimbus != ""
     
@@ -203,4 +227,28 @@ class Mage(Mortal):
     
     @staticmethod
     def practice_level(practice):
-        pass
+        if practice in ["compelling", "knowing", "unveiling"]:
+            return 1
+        if practice in ["ruling", "shielding", "veiling"]:
+            return 2
+        if practice in ["fraying", "perfecting", "weaving"]:
+            return 3
+        if practice in ["patterning", "unraveling"]:
+            return 4
+        if practice in ["making", "unmaking"]:
+            return 5
+        return 0
+
+    @staticmethod
+    def practices_at_level(level):
+        if level == 1:
+            return ["compelling", "knowing", "unveiling"]
+        if level == 2:
+            return ["ruling", "shielding", "veiling"]
+        if level == 3:
+            return ["fraying", "perfecting", "weaving"]
+        if level == 4:
+            return ["patterning", "unraveling"]
+        if level == 5:
+            return ["making", "unmaking"]
+        return []
