@@ -84,7 +84,23 @@ class TestMage(TestCase):
         self.assertTrue(self.mage.has_order())
         
     def test_filter_legacy(self):
-        self.fail()
+        both_wrong = Mage.objects.create(name="Neither Character", player=self.player.cod_profile)
+        path_right = Mage.objects.create(name="Path Character", player=self.player.cod_profile)
+        order_right = Mage.objects.create(name="Order Character", player=self.player.cod_profile)
+        legacy = Legacy.objects.get(name="Path 0 Order 0 Legacy")
+        right_order = Order.objects.get(name="Order 0")
+        wrong_order = Order.objects.get(name="Order 1")
+        right_path = Path.objects.get(name="Path 0")
+        wrong_path = Path.objects.get(name="Path 1")
+        both_wrong.set_order(wrong_order)
+        both_wrong.set_path(wrong_path)
+        path_right.set_order(wrong_order)
+        path_right.set_path(right_path)
+        order_right.set_order(right_order)
+        order_right.set_path(wrong_path)
+        self.assertNotIn(legacy, self.both_wrong.filter_legacy())
+        self.assertIn(legacy, self.path_right.filter_legacy())
+        self.assertIn(legacy, self.order_right.filter_legacy())
 
     def test_has_rote_skills(self):
         self.assertFalse(self.mage.has_rote_skills())
@@ -241,7 +257,18 @@ class TestMage(TestCase):
         self.assertEqual(self.mage.total_rotes(), 3)
 
     def test_filter_rotes(self):
-        self.fail()
+        self.assertEqual(len(self.mage.filter_rote()), 0)
+        self.mage.death = 3
+        self.assertEqual(len(self.mage.filter_rote()), 3)
+        self.mage.fate = 2
+        self.assertEqual(len(self.mage.filter_rote()), 5)
+        self.mage.spirit = 1
+        self.assertEqual(len(self.mage.filter_rote()), 6)
+        r = Rote.objects.get(name="Compelling Death Rote")
+        self.assertIn(r, self.mage.filter_rotes())
+        self.mage.add_rote(r)
+        self.assertNotIn(r, self.mage.filter_rotes())
+        self.assertEqual(len(self.mage.filter_rote()), 5)
 
     def test_has_nimbus(self):
         self.assertFalse(self.mage.has_nimbus())
