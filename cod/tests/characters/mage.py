@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 from cod.models.characters.mage import Path, Mage, Order, Legacy, Spell, Rote
+from cod.models.characters.mortal import Merit
 
 
 # Create your tests here.
@@ -23,7 +24,7 @@ def mage_setup():
         Path.objects.create(
             name=f"Path {i}",
             ruling_arcana=[ARCANA[2 * i], ARCANA[2 * i + 1]],
-            inferior_arcanum=ARCANA[3 * i + 2 % 10],
+            inferior_arcanum=ARCANA[(3 * i + 2) % 10],
         )
         Order.objects.create(
             name=f"Order {i}",
@@ -36,6 +37,10 @@ def mage_setup():
         for level, practice in [(1, "compelling"), (2, "ruling"), (3, "fraying"), (4, "patterning"), (5, "making")]:
             s = Spell.objects.create(name=f"{practice.title()} {arcana.title()} Spell", practice=practice)
             Rote.objects.create(name=f"{practice.title()} {arcana.title()} Rote", level=level, spell=s)
+    for i in range(1, 5):
+        Merit.objects.create(name=f"Merit {i}", ratings=[i, i+1])
+        Merit.objects.create(name=f"Merit {i + 5}", ratings=[i, i+1])
+        Merit.objects.create(name=f"Merit {i + 10}", ratings=[i, i+1])
 
 class TestMage(TestCase):
     def setUp(self):
@@ -69,7 +74,7 @@ class TestMage(TestCase):
         self.assertFalse(self.mage.has_legacy())
         self.mage.legacy = Legacy.objects.get(name="Path 0 Order 0 Legacy")
         self.mage.save()
-        self.assertTrue(self.mage.has_lageacy())
+        self.assertTrue(self.mage.has_legacy())
 
     def test_set_legacy(self):
         self.mage.set_order(Order.objects.get(name="Order 0"))
@@ -128,9 +133,9 @@ class TestMage(TestCase):
         self.mage.spirit = 1
         self.assertTrue(self.mage.has_arcana())
 
-    def test_add_arcana(self):
+    def test_add_arcanum(self):
         self.assertEqual(self.mage.death, 0)
-        self.assertTrue(self.mage.add_arcana("death"))
+        self.assertTrue(self.mage.add_arcanum("death"))
         self.assertEqual(self.mage.death, 1)
 
     def test_filter_arcana(self):
@@ -241,6 +246,26 @@ class TestMage(TestCase):
         self.mage.set_nimbus("It's a Nimbus!")
         self.assertTrue(self.mage.has_nimbus())
 
+    def test_practice_level_translation(self):
+        self.assertEqual(self.mage.practice_level("compelling"), 1)
+        self.assertEqual(self.mage.practice_level("knowing"), 1)
+        self.assertEqual(self.mage.practice_level("unveiling"), 1)
+        self.assertEqual(self.mage.practice_level("ruling"), 2)
+        self.assertEqual(self.mage.practice_level("shielding"), 2)
+        self.assertEqual(self.mage.practice_level("veiling"), 2)
+        self.assertEqual(self.mage.practice_level("fraying"), 3)
+        self.assertEqual(self.mage.practice_level("perfecting"), 3)
+        self.assertEqual(self.mage.practice_level("weaving"), 3)
+        self.assertEqual(self.mage.practice_level("patterning"), 4)
+        self.assertEqual(self.mage.practice_level("unraveling"), 4)
+        self.assertEqual(self.mage.practice_level("making"), 5)
+        self.assertEqual(self.mage.practice_level("unmaking"), 5)
+        
+        self.assertEqual(self.mage.practices_at_level(1), ["compelling", "knowing", "unveiling"])
+        self.assertEqual(self.mage.practices_at_level(2), ["ruling", "shielding", "veiling"])
+        self.assertEqual(self.mage.practices_at_level(3), ["fraying", "perfecting", "weaving"])
+        self.assertEqual(self.mage.practices_at_level(4), ["patterning", "unraveling"])
+        self.assertEqual(self.mage.practices_at_level(5), ["making", "unmaking"])
 
 class TestRandomMage(TestCase):
     def setUp(self):
@@ -290,13 +315,13 @@ class TestRandomMage(TestCase):
         self.assertTrue(self.mage.has_nimbus())
 
     def test_random_spend_xp(self):
-        self.character.science = 1
-        self.character.xp = 15
-        self.character.random_spend_xp()
-        self.assertLess(self.character.xp, 15)
-        self.character.arcane_xp = 15
-        self.character.random_spend_xp()
-        self.assertLess(self.character.arcane_xp, 15)
+        self.mage.science = 1
+        self.mage.xp = 15
+        self.mage.random_spend_xp()
+        self.assertLess(self.mage.xp, 15)
+        self.mage.arcane_xp = 15
+        self.mage.random_spend_xp()
+        self.assertLess(self.mage.arcane_xp, 15)
 
     def test_random(self):
         self.assertFalse(self.mage.has_path())
