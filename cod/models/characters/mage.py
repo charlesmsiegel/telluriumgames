@@ -1,5 +1,6 @@
 from django.db import models
 from cod.models.characters.mortal import Mortal
+from core.utils import add_dot
 
 # Create your models here.
 class Path(models.Model):
@@ -33,22 +34,45 @@ class Spell(models.Model):
 		("making", "Making"),
 		("unmaking", "Unmaking"),
 	])
+    arcanum = models.CharField(max_length=10, choices=[
+		("death", "Death"),
+        ("matter", "Matter"),
+        ("life", "Life"),
+        ("spirit", "Spirit"),
+        ("time", "Time"),
+        ("fate", "Fate"),
+        ("mind", "Mind"),
+        ("space", "Space"),
+        ("prime", "Prime"),
+        ("forces", "Forces"),
+	])
+    level = models.IntegerField(default=0)
 
 class Rote(models.Model):
     name = models.CharField(max_length=100)
-    level = models.IntegerField(default=0)
     spell = models.ForeignKey(Spell, on_delete=models.CASCADE)
+    
 
 class Mage(Mortal):
     type = "mage"
     
     order = models.ForeignKey(Order, blank=True, null=True, on_delete=models.CASCADE)
     path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.CASCADE)
+    legacy = models.ForeignKey(Legacy, blank=True, null=True, on_delete=models.CASCADE)
     
     gnosis = models.IntegerField(default=0)
 
     death = models.IntegerField(default=0)
-    
+    matter = models.IntegerField(default=0)
+    life = models.IntegerField(default=0)
+    spirit = models.IntegerField(default=0)
+    time = models.IntegerField(default=0)
+    fate = models.IntegerField(default=0)
+    mind = models.IntegerField(default=0)
+    space = models.IntegerField(default=0)
+    prime = models.IntegerField(default=0)
+    forces = models.IntegerField(default=0)
+
     rotes = models.ManyToManyField(Rote, blank=True)
     
     nimbus = models.TextField(default="")
@@ -79,7 +103,7 @@ class Mage(Mortal):
         pass
     
     def add_gnosis(self):
-        pass
+        return add_dot(self, "gnosis", maximum=10)
     
     def has_gnosis(self):
         return self.gnosis > 0
@@ -88,10 +112,21 @@ class Mage(Mortal):
         pass
 
     def filter_arcana(self, minimum=0, maximum=5):
-        return []
+        return [k for k, v in self.get_arcana().items() if minimum <= v <= maximum]
     
     def get_arcana(self):
-        pass
+        return {
+            "death": self.death,
+            "matter": self.matter,
+            "life": self.life,
+            "spirit": self.spirit,
+            "time": self.time,
+            "fate": self.fate,
+            "mind": self.mind,
+            "space": self.space,
+            "prime": self.prime,
+            "forces": self.forces,
+		}
     
     def has_arcana(self):
         pass
@@ -100,7 +135,7 @@ class Mage(Mortal):
         pass
     
     def add_arcanum(self, arcanum):
-        pass
+        return add_dot(self, arcanum, maximum=5)
     
     def random_arcanum(self):
         pass
@@ -109,22 +144,28 @@ class Mage(Mortal):
         pass
     
     def has_legacy(self):
-        pass
+        return self.legacy is not None
     
     def random_legacy(self):
         pass
     
     def has_mana(self):
-        pass
+        return self.mana != 0
     
     def set_mana(self, mana):
-        pass
+        self.mana = mana
+        self.save()
+        return True
     
     def has_rotes(self):
         pass
     
     def add_rote(self, rote):
-        pass
+        if getattr(self, rote.spell.arcanum) <= rote.spell.level:
+            self.rotes.add(rote)
+            self.save()
+            return True
+        return False
     
     def total_rotes(self):
         pass
