@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from cod.models.characters.mortal import Merit, MeritRating, Mortal, Specialty
-
+from cod.models.characters.mage import Mage
 
 # Create your tests here.
 class TestMortal(TestCase):
@@ -880,6 +880,10 @@ class CharacterDetailView(TestCase):
             name="Test Character",
             player=User.objects.get(username="Test User").cod_profile,
         )
+        self.mage = Mage.objects.create(
+            name="Test Mage",
+            player=User.objects.get(username="Test User").cod_profile,
+        )
 
     def test_character_detail_view_status_code(self):
         response = self.client.get(f"/cod/characters/{self.character.id}/")
@@ -888,4 +892,5 @@ class CharacterDetailView(TestCase):
     def test_character_detail_view_templates(self):
         response = self.client.get(f"/cod/characters/{self.character.id}/")
         self.assertTemplateUsed(response, "cod/characters/mortal/detail.html")
-        # Will add other character templates here
+        response = self.client.get(f"/cod/characters/{self.mage.id}/")
+        self.assertTemplateUsed(response, "cod/characters/mage/detail.html")
