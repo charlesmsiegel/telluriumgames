@@ -41,15 +41,21 @@ class Rote(models.Model):
 
 class Mage(Mortal):
     type = "mage"
+    
+    order = models.ForeignKey(Order, blank=True, null=True, on_delete=models.CASCADE)
+    path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.CASCADE)
+    
+    gnosis = models.IntegerField(default=0)
 
     death = models.IntegerField(default=0)
     
     rotes = models.ManyToManyField(Rote, blank=True)
     
+    nimbus = models.TextField(default="")
     mana = models.IntegerField(default=0)
     
     def has_path(self):
-        pass
+        return self.path is not None
     
     def set_path(self, path):
         pass
@@ -58,7 +64,7 @@ class Mage(Mortal):
         pass
     
     def has_order(self):
-        pass
+        return self.order is not None
     
     def set_order(self, order):
         pass
@@ -76,7 +82,7 @@ class Mage(Mortal):
         pass
     
     def has_gnosis(self):
-        pass
+        return self.gnosis > 0
     
     def set_gnosis(self, gnosis):
         pass
@@ -130,10 +136,11 @@ class Mage(Mortal):
         pass
     
     def has_nimbus(self):
-        pass
+        return self.nimbus != ""
     
     def set_nimbus(self, nimbus):
-        pass
+        self.numbus = nimbus
+        return True
     
     def random_nimbus(self):
         pass
