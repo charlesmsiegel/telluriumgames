@@ -98,9 +98,9 @@ class TestMage(TestCase):
         path_right.set_path(right_path)
         order_right.set_order(right_order)
         order_right.set_path(wrong_path)
-        self.assertNotIn(legacy, both_wrong.filter_legacy())
-        self.assertIn(legacy, path_right.filter_legacy())
-        self.assertIn(legacy, order_right.filter_legacy())
+        self.assertNotIn(legacy, both_wrong.filter_legacies())
+        self.assertIn(legacy, path_right.filter_legacies())
+        self.assertIn(legacy, order_right.filter_legacies())
 
     def test_has_rote_skills(self):
         self.assertFalse(self.mage.has_rote_skills())
@@ -257,18 +257,18 @@ class TestMage(TestCase):
         self.assertEqual(self.mage.total_rotes(), 3)
 
     def test_filter_rotes(self):
-        self.assertEqual(len(self.mage.filter_rote()), 0)
+        self.assertEqual(len(self.mage.filter_rotes()), 0)
         self.mage.death = 3
-        self.assertEqual(len(self.mage.filter_rote()), 3)
+        self.assertEqual(len(self.mage.filter_rotes()), 3)
         self.mage.fate = 2
-        self.assertEqual(len(self.mage.filter_rote()), 5)
+        self.assertEqual(len(self.mage.filter_rotes()), 5)
         self.mage.spirit = 1
-        self.assertEqual(len(self.mage.filter_rote()), 6)
+        self.assertEqual(len(self.mage.filter_rotes()), 6)
         r = Rote.objects.get(name="Compelling Death Rote")
         self.assertIn(r, self.mage.filter_rotes())
         self.mage.add_rote(r)
         self.assertNotIn(r, self.mage.filter_rotes())
-        self.assertEqual(len(self.mage.filter_rote()), 5)
+        self.assertEqual(len(self.mage.filter_rotes()), 5)
 
     def test_has_nimbus(self):
         self.assertFalse(self.mage.has_nimbus())
