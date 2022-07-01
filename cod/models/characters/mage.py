@@ -82,19 +82,25 @@ class Mage(Mortal):
         return self.path is not None
     
     def set_path(self, path):
-        pass
+        self.path = path
+        self.save()
+        return True
     
     def random_path(self):
-        pass
+        path = Path.objects.order_by("?").first()
+        return self.set_path(path)
     
     def has_order(self):
         return self.order is not None
     
     def set_order(self, order):
-        pass
+        self.order = order
+        self.save()
+        return True
     
     def random_order(self):
-        pass
+        order = Order.objects.order_by("?").first()
+        return self.set_order(order)
     
     def has_rote_skills(self):
         pass
@@ -109,7 +115,13 @@ class Mage(Mortal):
         return self.gnosis > 0
     
     def set_gnosis(self, gnosis):
-        pass
+        if gnosis < 1:
+            gnosis = 1
+        if gnosis > 10:
+            gnosis = 10
+        self.gnosis = gnosis
+        self.save()
+        return True
 
     def filter_arcana(self, minimum=0, maximum=5):
         return [k for k, v in self.get_arcana().items() if minimum <= v <= maximum]
@@ -132,7 +144,7 @@ class Mage(Mortal):
         pass
     
     def total_arcana(self):
-        pass
+        return sum(v for k, v in self.get_arcana().items())
     
     def add_arcanum(self, arcanum):
         return add_dot(self, arcanum, maximum=5)
@@ -145,6 +157,9 @@ class Mage(Mortal):
     
     def has_legacy(self):
         return self.legacy is not None
+    
+    def set_legacy(self, legacy):
+        pass
     
     def random_legacy(self):
         pass
@@ -168,7 +183,7 @@ class Mage(Mortal):
         return False
     
     def total_rotes(self):
-        pass
+        return self.rotes.count()
     
     def random_rote(self):
         pass
