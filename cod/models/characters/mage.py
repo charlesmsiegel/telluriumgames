@@ -176,7 +176,7 @@ class Mage(Mortal):
         pass
     
     def add_rote(self, rote):
-        if getattr(self, rote.spell.arcanum) <= rote.spell.level:
+        if getattr(self, rote.spell.arcanum) >= rote.spell.level:
             self.rotes.add(rote)
             self.save()
             return True
