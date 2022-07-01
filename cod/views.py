@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import DetailView, View
 
 from cod.models.characters.mortal import MeritRating, Mortal
+from cod.models.characters.mage import Mage
 
 
 # Create your views here.
@@ -35,12 +36,24 @@ class MortalDetailView(View):
         }
         return render(request, "cod/characters/mortal/detail.html", context,)
 
+class MageDetailView(View):
+    def get(self, request, *args, **kwargs):
+        char = Mage.objects.get(pk=kwargs["pk"])
+        context = {
+            "object": char,
+            "merits": MeritRating.objects.filter(character=char).order_by(
+                "merit__name"
+            ),
+            "specialties": char.specialties.all().order_by("name"),
+        }
+        return render(request, "cod/characters/mage/detail.html", context,)
 
 class CharacterDetailView(View):
     """Class that manages Views for characters"""
 
     create_views = {
         "mortal": MortalDetailView,
+        "mage": MageDetailView,
     }
 
     def get(self, request, *args, **kwargs):
@@ -53,6 +66,7 @@ class CharacterDetailView(View):
 class RandomCharacterView(View):
     chars = {
         "mortal": Mortal,
+        "mage": Mage,
     }
 
     def post(self, request, *args, **kwargs):
