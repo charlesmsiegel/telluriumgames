@@ -1,4 +1,5 @@
-from django.db.models import Q
+import random
+from django.db.models import Q, F
 from django.db import models
 from cod.models.characters.mortal import Mortal
 from core.utils import add_dot
@@ -7,7 +8,18 @@ from core.utils import add_dot
 class Path(models.Model):
     name = models.CharField(max_length=100)
     ruling_arcana = models.JSONField(default=list)
-    inferior_arcanum = models.CharField(max_length=40, default="")
+    inferior_arcanum = models.CharField(max_length=10, choices=[
+		("death", "Death"),
+        ("matter", "Matter"),
+        ("life", "Life"),
+        ("spirit", "Spirit"),
+        ("time", "Time"),
+        ("fate", "Fate"),
+        ("mind", "Mind"),
+        ("space", "Space"),
+        ("prime", "Prime"),
+        ("forces", "Forces"),
+	])
 
 class Order(models.Model):
     name = models.CharField(max_length=100)
@@ -17,6 +29,18 @@ class Legacy(models.Model):
     name = models.CharField(max_length=100)
     path = models.ForeignKey(Path, null=True, blank=True, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, null=True, blank=True, on_delete=models.CASCADE)
+    ruling_arcanum = models.CharField(max_length=10, choices=[
+		("death", "Death"),
+        ("matter", "Matter"),
+        ("life", "Life"),
+        ("spirit", "Spirit"),
+        ("time", "Time"),
+        ("fate", "Fate"),
+        ("mind", "Mind"),
+        ("space", "Space"),
+        ("prime", "Prime"),
+        ("forces", "Forces"),
+	])
 
 class Spell(models.Model):
     name = models.CharField(max_length=100)
@@ -147,6 +171,7 @@ class Mage(Mortal):
     def has_arcana(self):
         nonzero_values = [x for x in self.get_arcana().values() if x != 0]
         nonzero_values.sort()
+        nonzero_values.reverse()
         if nonzero_values not in [[3, 2, 1], [3, 1, 1, 1], [2, 2, 2], [2, 2, 1, 1], [2, 1, 1, 1, 1]]:
             return False
         for ruling in self.path.ruling_arcana:
@@ -178,7 +203,13 @@ class Mage(Mortal):
         pass
     
     def filter_legacies(self):
-        return []
+        possiblities = Legacy.objects.all()
+        has_path = possiblities.filter(path=self.path)
+        has_order = possiblities.filter(order=self.order)
+        either = has_path | has_order
+        either = either.distinct()
+        
+        return [x for x in either if getattr(self, x.ruling_arcanum) >= 2]
     
     def has_mana(self):
         return self.mana != 0
@@ -189,7 +220,7 @@ class Mage(Mortal):
         return True
     
     def has_rotes(self):
-        pass
+        return self.total_rotes() == 3
     
     def add_rote(self, rote):
         if getattr(self, rote.spell.arcanum) >= rote.spell.level:
@@ -202,10 +233,14 @@ class Mage(Mortal):
         return self.rotes.count()
     
     def random_rote(self):
-        pass
+        options = self.filter_rotes()
+        choice = random.choice(options)
+        return self.add_rote(choice)
 
     def random_rotes(self):
-        pass
+        while self.total_rotes() < 3:
+            self.random_rote()
+        return True
     
     def filter_rotes(self):
         arcana_dict = self.get_arcana()
@@ -223,7 +258,7 @@ class Mage(Mortal):
         return True
     
     def random_nimbus(self):
-        pass
+        return self.set_nimbus("Random")
     
     @staticmethod
     def practice_level(practice):
