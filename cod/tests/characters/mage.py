@@ -28,7 +28,7 @@ def mage_setup():
         )
         Order.objects.create(
             name=f"Order {i}",
-            rote_skills=[]
+            rote_skills=["athletics", "science", "occult"]
         )
     for path in Path.objects.all():
         for order in Order.objects.all():
@@ -80,9 +80,10 @@ class TestMage(TestCase):
     def test_set_legacy(self):
         self.mage.set_order(Order.objects.get(name="Order 0"))
         self.mage.set_path(Path.objects.get(name="Path 0"))
-        self.assertFalse(self.mage.has_order())
-        self.assertTrue(self.mage.set_order(Order.objects.get(name="Order 0")))
-        self.assertTrue(self.mage.has_order())
+        self.mage.death = 2
+        self.assertFalse(self.mage.has_legacy())
+        self.assertTrue(self.mage.set_legacy(Legacy.objects.get(name="Path 0 Order 0 Death Legacy")))
+        self.assertTrue(self.mage.has_legacy())
         
     def test_filter_legacy(self):
         both_wrong = Mage.objects.create(name="Neither Character", player=self.player.cod_profile)
@@ -195,7 +196,7 @@ class TestMage(TestCase):
         self.assertEqual(self.mage.xp_cost("rote"), 1)
         self.assertEqual(self.mage.xp_cost("praxis"), 1)
         self.assertEqual(self.mage.xp_cost("wisdom"), 2)
-        self.assertEqual(self.mage.xp_cost("willpower"),14)
+        self.assertEqual(self.mage.xp_cost("willpower"), 1)
         self.assertEqual(self.mage.xp_cost("legacy attainment (tutored)"), 1)
         self.assertEqual(self.mage.xp_cost("legacy attainment (untutored)"), 1)
 
@@ -326,6 +327,9 @@ class TestRandomMage(TestCase):
         self.assertTrue(self.mage.has_order())
 
     def test_random_legacy(self):
+        self.mage.random_order()
+        self.mage.random_path()
+        self.mage.random_arcana()
         self.assertFalse(self.mage.has_legacy())
         self.assertTrue(self.mage.random_legacy())
         self.assertTrue(self.mage.has_legacy())
@@ -336,6 +340,7 @@ class TestRandomMage(TestCase):
         self.assertEqual(self.mage.total_arcana(), num + 1)
 
     def test_random_arcana(self):
+        self.mage.random_path()
         self.assertFalse(self.mage.has_arcana())
         self.assertTrue(self.mage.random_arcana())
         self.assertTrue(self.mage.has_arcana())
