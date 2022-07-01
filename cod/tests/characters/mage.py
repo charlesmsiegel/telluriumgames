@@ -82,6 +82,9 @@ class TestMage(TestCase):
         self.assertFalse(self.mage.has_order())
         self.assertTrue(self.mage.set_order(Order.objects.get(name="Order 0")))
         self.assertTrue(self.mage.has_order())
+        
+    def test_filter_legacy(self):
+        self.fail()
 
     def test_has_rote_skills(self):
         self.assertFalse(self.mage.has_rote_skills())
@@ -235,6 +238,9 @@ class TestMage(TestCase):
         self.assertEqual(self.mage.total_rotes(), 2)
         self.mage.add_rote(Rote.objects.get(name="Compelling Life Rote"))
         self.assertEqual(self.mage.total_rotes(), 3)
+
+    def test_filter_rotes(self):
+        self.fail()
 
     def test_has_nimbus(self):
         self.assertFalse(self.mage.has_nimbus())
