@@ -104,6 +104,7 @@ class Mortal(PolymorphicModel):
     )
     breaking_point_5 = models.CharField(max_length=300, default="Most traumatic thing")
 
+    beats = models.IntegerField(default=0)
     xp = models.IntegerField(default=0)
     spent_xp = models.TextField(default="")
 
