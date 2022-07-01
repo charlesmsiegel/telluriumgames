@@ -35,8 +35,8 @@ def mage_setup():
             Legacy.objects.create(name=f"{path.name} {order.name} Legacy", path=path, order=order)
     for arcana in ARCANA:
         for level, practice in [(1, "compelling"), (2, "ruling"), (3, "fraying"), (4, "patterning"), (5, "making")]:
-            s = Spell.objects.create(name=f"{practice.title()} {arcana.title()} Spell", practice=practice)
-            Rote.objects.create(name=f"{practice.title()} {arcana.title()} Rote", level=level, spell=s)
+            s = Spell.objects.create(name=f"{practice.title()} {arcana.title()} Spell", practice=practice, arcanum=arcana, level=level)
+            Rote.objects.create(name=f"{practice.title()} {arcana.title()} Rote", spell=s)
     for i in range(1, 5):
         Merit.objects.create(name=f"Merit {i}", ratings=[i, i+1])
         Merit.objects.create(name=f"Merit {i + 5}", ratings=[i, i+1])
