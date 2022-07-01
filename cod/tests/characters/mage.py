@@ -39,7 +39,7 @@ def mage_setup():
 
 class TestMage(TestCase):
     def setUp(self):
-        self.player = User.objects.createuser(username="Test")
+        self.player = User.objects.create(username="Test User")
         self.mage = Mage.objects.create(name="", player=self.player.cod_profile)
         mage_setup()
 
@@ -244,7 +244,7 @@ class TestMage(TestCase):
 
 class TestRandomMage(TestCase):
     def setUp(self):
-        self.player = User.objects.createuser(username="Test")
+        self.player = User.objects.create(username="Test User")
         self.mage = Mage.objects.create(name="", player=self.player.cod_profile)
         mage_setup()
 
@@ -319,7 +319,7 @@ class TestRandomMage(TestCase):
 
 class TestMageDetailView(TestCase):
     def setUp(self):
-        self.player = User.objects.createuser(username="Test")
+        self.player = User.objects.create(username="Test User")
         self.mage = Mage.objects.create(name="", player=self.player.cod_profile)
 
     def test_mage_detail_view_status_code(self):
