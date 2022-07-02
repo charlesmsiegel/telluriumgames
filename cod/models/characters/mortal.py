@@ -104,8 +104,11 @@ class Mortal(PolymorphicModel):
     )
     breaking_point_5 = models.CharField(max_length=300, default="Most traumatic thing")
 
-    beats = models.IntegerField(default=0)
+    description = models.TextField(default="")
+
     xp = models.IntegerField(default=0)
+    beats = models.IntegerField(default=0)
+    
     spent_xp = models.TextField(default="")
 
     class Meta:
@@ -721,6 +724,7 @@ class Merit(models.Model):
     possible_details = models.JSONField(default=list)
     merit_type = models.CharField(max_length=100, default="")
     is_style = models.BooleanField(default=False)
+    description = models.TextField(default="")
 
     class Meta:
         verbose_name = "Merit"

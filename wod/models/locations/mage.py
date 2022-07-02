@@ -250,6 +250,7 @@ class NodeMeritFlaw(models.Model):
     name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
     max_rating = models.IntegerField(default=0)
+    description = models.TextField(default="")
 
     def __str__(self):
         return self.name

@@ -14,6 +14,7 @@ class Rote(models.Model):
     mind = models.IntegerField(default=0)
     prime = models.IntegerField(default=0)
     rote_cost = models.IntegerField(default=0)
+    description = models.TextField(default="")
 
     def __str__(self):
         dots = {

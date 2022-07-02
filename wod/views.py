@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView, View
@@ -7,6 +7,7 @@ from core.utils import level_name, tree_sort
 from wod.forms import RandomCharacterForm
 from wod.models.characters.human import Character, Group, Human, MeritFlawRating
 from wod.models.characters.mage import Cabal, Mage, ResRating
+from wod.models.characters.mage.utils import PRIMARY_ABILITIES
 from wod.models.characters.werewolf import Pack, Werewolf
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
@@ -17,6 +18,9 @@ from wod.models.locations.mage import (
     NodeMeritFlawRating,
     NodeResonanceRating,
 )
+
+EmptyRote = namedtuple("EmptyRote", ["name", "spheres"])
+empty_rote = EmptyRote("", "")
 
 
 # Create your views here.
@@ -204,7 +208,7 @@ class GrimoireDetailView(View):
                 s = ""
         else:
             s = ""
-        return {
+        context = {
             "object": grimoire,
             "paradigms": "<br>".join([str(x) for x in grimoire.paradigms.all()]),
             "practices": "<br>".join([str(x) for x in grimoire.practices.all()]),
@@ -219,6 +223,17 @@ class GrimoireDetailView(View):
             "date_written": grimoire.date_written,
             "faction": s,
         }
+        all_rotes = list(context["object"].rotes.all())
+        row_length = 2
+        all_rotes = [
+            all_rotes[i : i + row_length] for i in range(0, len(all_rotes), row_length)
+        ]
+        if len(all_rotes) != 0:
+            while len(all_rotes[-1]) < row_length:
+                all_rotes[-1].append(empty_rote)
+        context["rotes"] = all_rotes
+        context["year"] = abs(grimoire.date_written)
+        return context
 
 
 class LibraryDetailView(DetailView):
@@ -348,6 +363,43 @@ class MageDetailView(View):
             all_rotes[i : i + row_length] for i in range(0, len(all_rotes), row_length)
         ]
         context["rotes"] = all_rotes
+
+        secondary_talents = [
+            [f"{k.replace('_', ' ').title()}", v, context[f"{k}_spec"]]
+            for k, v in mage.get_talents().items()
+            if k not in PRIMARY_ABILITIES and v != 0
+        ]
+        secondary_skills = [
+            [f"{k.replace('_', ' ').title()}", v, context[f"{k}_spec"]]
+            for k, v in mage.get_skills().items()
+            if k not in PRIMARY_ABILITIES and v != 0
+        ]
+        secondary_knowledges = [
+            [f"{k.replace('_', ' ').title()}", v, context[f"{k}_spec"]]
+            for k, v in mage.get_knowledges().items()
+            if k not in PRIMARY_ABILITIES and v != 0
+        ]
+
+        for triple in secondary_knowledges:
+            if triple[0] == "History Knowledge":
+                triple[0] = "History"
+
+        secondary_talents.sort(key=lambda x: x[0])
+        secondary_skills.sort(key=lambda x: x[0])
+        secondary_knowledges.sort(key=lambda x: x[0])
+        num_sec_tal = len(secondary_talents)
+        num_sec_ski = len(secondary_skills)
+        num_sec_kno = len(secondary_knowledges)
+        m = max(num_sec_tal, num_sec_ski, num_sec_kno)
+        for _ in range(m - num_sec_tal):
+            secondary_talents.append(("", 0, []))
+        for _ in range(m - num_sec_ski):
+            secondary_skills.append(("", 0, []))
+        for _ in range(m - num_sec_kno):
+            secondary_knowledges.append(("", 0, []))
+        context["secondaries"] = list(
+            zip(secondary_talents, secondary_skills, secondary_knowledges)
+        )
         return context
 
 
@@ -398,4 +450,33 @@ class RandomCharacterView(View):
         return redirect(char.get_absolute_url())
 
     def get(self, request):
+        return redirect("wod:characters_index")
+
+
+class GroupDetailView(DetailView):
+    model = Group
+    template_name = "wod/characters/group/detail.html"
+
+
+class CabalDetailView(DetailView):
+    model = Cabal
+    template_name = "wod/characters/cabal/detail.html"
+
+
+class PackDetailView(DetailView):
+    model = Pack
+    template_name = "wod/characters/pack/detail.html"
+
+
+class GenericGroupDetailView(View):
+    group_views = {
+        "group": GroupDetailView,
+        "cabal": CabalDetailView,
+        "pack": PackDetailView,
+    }
+
+    def get(self, request, *args, **kwargs):
+        group = Group.objects.get(pk=kwargs["pk"])
+        if group.type in self.group_views:
+            return self.group_views[group.type].as_view()(request, *args, **kwargs)
         return redirect("wod:characters_index")

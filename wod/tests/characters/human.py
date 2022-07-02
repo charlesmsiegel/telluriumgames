@@ -6,12 +6,13 @@ from core.models import Language
 from wod.models.characters.human import (
     Archetype,
     Character,
+    Group,
     Human,
     MeritFlaw,
     Specialty,
 )
-from wod.models.characters.mage import Mage
-from wod.models.characters.werewolf import Werewolf
+from wod.models.characters.mage import Cabal, Mage
+from wod.models.characters.werewolf import Pack, Werewolf
 
 
 # Create your tests here.
@@ -462,7 +463,7 @@ class TestHuman(TestCase):
         num = self.character.specialties.count()
         self.assertTrue(
             self.character.add_specialty(
-                Specialty.objects.get(name="Athletics Specialty 3")
+                Specialty.objects.get(name="Athletics Specialty 3", stat="athletics")
             )
         )
         self.assertEqual(self.character.specialties.count(), num + 1)
@@ -472,7 +473,7 @@ class TestHuman(TestCase):
         self.assertEqual(len(self.character.filter_specialties(stat="strength")), 10)
         self.assertEqual(len(self.character.filter_specialties(stat="athletics")), 10)
         self.character.add_specialty(
-            Specialty.objects.get(name="Athletics Specialty 3")
+            Specialty.objects.get(name="Athletics Specialty 3", stat="athletics")
         )
         self.assertEqual(len(self.character.filter_specialties(stat="athletics")), 9)
 
@@ -916,7 +917,7 @@ class TestHumanDetailView(TestCase):
         self.assertTemplateUsed(response, "wod/characters/human/detail.html")
 
 
-class TestCharacterDetailViews(TestCase):
+class TestGenericCharacterDetailViews(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="Test")
         self.character = Character.objects.create(
@@ -941,3 +942,33 @@ class TestCharacterDetailViews(TestCase):
         self.assertTemplateUsed(response, "wod/characters/mage/detail.html")
         response = self.client.get(f"/wod/characters/{self.werewolf.id}/")
         self.assertTemplateUsed(response, "wod/characters/werewolf/detail.html")
+
+
+class TestGroupDetailView(TestCase):
+    def setUp(self) -> None:
+        self.player = User.objects.create_user(username="User1", password="12345")
+        self.group = Group.objects.create(name="Test Group")
+
+    def test_group_detail_view_status_code(self):
+        response = self.client.get(f"/wod/groups/{self.group.id}/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_group_detail_view_templates(self):
+        response = self.client.get(f"/wod/groups/{self.group.id}/")
+        self.assertTemplateUsed(response, "wod/characters/group/detail.html")
+
+
+class TestGenericGroupDetailView(TestCase):
+    def setUp(self) -> None:
+        self.player = User.objects.create_user(username="Test")
+        self.group = Group.objects.create(name="Group Test")
+        self.cabal = Cabal.objects.create(name="Cabal Test")
+        self.pack = Pack.objects.create(name="Pack Test")
+
+    def test_generic_group_detail_view_templates(self):
+        response = self.client.get(f"/wod/groups/{self.group.id}/")
+        self.assertTemplateUsed(response, "wod/characters/group/detail.html")
+        response = self.client.get(f"/wod/groups/{self.cabal.id}/")
+        self.assertTemplateUsed(response, "wod/characters/cabal/detail.html")
+        response = self.client.get(f"/wod/groups/{self.pack.id}/")
+        self.assertTemplateUsed(response, "wod/characters/pack/detail.html")

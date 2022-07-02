@@ -322,16 +322,18 @@ vellum = Material.objects.create(name="Vellum")
 wood = Material.objects.create(name="Wood")
 
 book = Medium.objects.create(name="Book")
-ebook = Medium.objects.create(name="eBook", length_modifier_type="/", length_modifier=1)
+ebook = Medium.objects.create(
+    name="eBook", length_modifier_type="/", length_modifier=20
+)
 flash_drive = Medium.objects.create(
-    name="Flash Drive", length_modifier_type="/", length_modifier=1
+    name="Flash Drive", length_modifier_type="/", length_modifier=10
 )
 scrolls = Medium.objects.create(
-    name="Scrolls", length_modifier_type="/", length_modifier=1
+    name="Scrolls", length_modifier_type="/", length_modifier=20
 )
 software = Medium.objects.create(
     name="Software", length_modifier_type="/", length_modifier=1
 )
 tablets = Medium.objects.create(
-    name="Tablets", length_modifier_type="/", length_modifier=1
+    name="Tablets", length_modifier_type="/", length_modifier=40
 )

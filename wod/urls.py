@@ -26,4 +26,5 @@ urlpatterns = [
     path("items/", views.ItemIndexView.as_view(), name="item_index"),
     path("items/random/", views.RandomItemView.as_view(), name="random_item"),
     path("items/<pk>/", views.GenericItemDetailView.as_view(), name="item"),
+    path("groups/<pk>/", views.GenericGroupDetailView.as_view(), name="group"),
 ]

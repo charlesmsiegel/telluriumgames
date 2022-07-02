@@ -861,3 +861,17 @@ class TestWerewolfDetailView(TestCase):
     def test_werewolf_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/{self.werewolf.id}/")
         self.assertTemplateUsed(response, "wod/characters/werewolf/detail.html")
+
+
+class TestPackDetailView(TestCase):
+    def setUp(self) -> None:
+        self.player = User.objects.create_user(username="User1", password="12345")
+        self.pack = Pack.objects.create(name="Test Pack")
+
+    def test_pack_detail_view_status_code(self):
+        response = self.client.get(f"/wod/groups/{self.pack.id}/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_pack_detail_view_templates(self):
+        response = self.client.get(f"/wod/groups/{self.pack.id}/")
+        self.assertTemplateUsed(response, "wod/characters/pack/detail.html")

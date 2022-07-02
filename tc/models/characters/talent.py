@@ -252,6 +252,7 @@ class Gift(models.Model):
     name = models.CharField(max_length=100, unique=True)
     keywords = models.JSONField(default=list)
     prereqs = models.JSONField(default=list)
+    description = models.TextField(default="")
 
     def __str__(self):
         return f"{self.name} ({', '.join(self.keywords)})"
@@ -274,6 +275,7 @@ class Gift(models.Model):
 class MomentOfInspiration(models.Model):
     name = models.CharField(max_length=100, unique=True)
     attributes = models.JSONField(default=list)
+    description = models.TextField(default="")
 
     def __str__(self):
         return self.name
