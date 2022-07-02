@@ -1,7 +1,7 @@
+import random
 from django.contrib.auth.models import User
 from django.test import TestCase
-
-from cod.models.characters.mage import Legacy, Mage, Order, Path, Rote
+from cod.models.characters.mage import Path, Mage, Order, Legacy, Rote, ProximiFamily, Proximi
 from cod.models.characters.mortal import Merit, Specialty
 
 # Create your tests here.
@@ -467,29 +467,51 @@ class TestMageDetailView(TestCase):
 
 
 class TestProximiFamily(TestCase):
+    def setUp(self):
+        self.player = User.objects.create(username="Test User")
+        self.mage = Mage.objects.create(name="", player=self.player.cod_profile)
+        mage_setup(self.mage)
+        self.proximi_family = ProximiFamily.objects.create(name="Test Family")
+    
     def test_has_parent_path(self):
-        self.fail()
+        self.assertFalse(self.proximi_family.has_parent_path())
+        self.proximi_family.path = Path.objects.get(name="Path 0")
+        self.assertTrue(self.proximi_family.has_parent_path())
 
     def test_set_parent_path(self):
-        self.fail()
+        self.assertFalse(self.proximi_family.has_parent_path())
+        self.assertTrue(self.proximi_family.set_parent_path(Path.objects.get(name="Path 0")))
+        self.assertTrue(self.proximi_family.has_parent_path())
 
     def test_has_blessing_arcana(self):
-        self.fail()
+        self.assertFalse(self.proximi_family.has_blessing_arcana())
+        self.proximi_family.blessing_arcana = "death"
+        self.assertTrue(self.proximi_family.has_blessing_arcana())
 
     def test_set_blessing_arcana(self):
-        self.fail()
+        self.assertFalse(self.proximi_family.has_blessing_arcana())
+        self.proximi_family.set_blessing_arcana("death")
+        self.assertTrue(self.proximi_family.has_blessing_arcana())
 
     def test_has_possible_blessings(self):
-        self.fail()
+        self.assertFalse(self.proximi_family.has_possible_blessings())
+        while sum(x.spell.level for x in self.proximi_family.possible_blessings.all()) < 30:
+            options = Rote.objects.filter(spell__level__lte=3, spell__arcanum__in=["death", "space", "time"])
+            choice = random.choice(choice)
+            if choice.spell.level + sum(x.spell.level for x in self.proximi_family.possible_blessings()) <= 30:
+                self.proximi_family.possible_blessings.add(choice)
+        self.assertTrue(self.proximi_family.has_possible_blessings())
 
     def test_set_possible_blessings(self):
-        self.fail()
-
-    def test_has_curse(self):
-        self.fail()
-
-    def test_set_curse(self):
-        self.fail()
+        self.assertFalse(self.proximi_family.has_possible_blessings())
+        L = []
+        while sum(x.spell.level for x in L) < 30:
+            options = Rote.objects.filter(spell__level__lte=3, spell__arcanum__in=["death", "space", "time"])
+            choice = random.choice(options)
+            if choice.spell.level + sum(x.spell.level for x in self.proximi_family.possible_blessings()) <= 30:
+                L.append(choice)
+        self.assertTrue(self.proximi_family.set_possible_blessings(L))
+        self.assertTrue(self.proximi_family.has_possible_blessings())
 
 
 class TestProximi(TestCase):
