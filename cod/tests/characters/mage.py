@@ -52,6 +52,7 @@ def mage_setup(mage):
                 arcanum=arcana,
                 level=level,
             )
+
     for i in range(1, 5):
         for merit_type in ["Physical", "Social", "Mental", "Fighting", "Mage"]:
             Merit.objects.create(
@@ -69,6 +70,7 @@ def mage_setup(mage):
                 ratings=[i, i + 1],
                 merit_type=merit_type,
             )
+
     for skill in mage.get_skills():
         for i in range(5):
             Specialty.objects.create(name=f"{skill.title()} {i}", skill=skill)
@@ -462,3 +464,74 @@ class TestMageDetailView(TestCase):
     def test_mage_detail_view_templates(self):
         response = self.client.get(f"/cod/characters/{self.mage.id}/")
         self.assertTemplateUsed(response, "cod/characters/mage/detail.html")
+
+
+class TestProximiFamily(TestCase):
+    def test_has_parent_path(self):
+        self.fail()
+
+    def test_set_parent_path(self):
+        self.fail()
+
+    def test_has_blessing_arcana(self):
+        self.fail()
+
+    def test_set_blessing_arcana(self):
+        self.fail()
+
+    def test_has_possible_blessings(self):
+        self.fail()
+
+    def test_set_possible_blessings(self):
+        self.fail()
+
+    def test_has_curse(self):
+        self.fail()
+
+    def test_set_curse(self):
+        self.fail()
+
+
+class TestProximi(TestCase):
+    def test_has_proximi_family(self):
+        self.fail()
+
+    def test_set_proximi_family(self):
+        self.fail()
+
+    def test_has_blessings(self):
+        self.fail()
+
+    def test_set_blessings(self):
+        self.fail()
+
+    def test_add_blessing(self):
+        self.fail()
+
+    def test_has_mana(self):
+        self.fail()
+
+    def test_set_mana(self):
+        self.fail()
+
+
+class TestRandomProximi(TestCase):
+    def test_random_family(self):
+        self.fail()
+
+    def test_random_blessings(self):
+        self.fail()
+
+    def test_random_blessing(self):
+        self.fail()
+
+    def test_random_mana(self):
+        self.fail()
+
+
+class TestProximiDetailView(TestCase):
+    def test_proximi_detail_view_status_code(self):
+        self.fail()
+
+    def test_proximi_detail_view_templates(self):
+        self.fail()
