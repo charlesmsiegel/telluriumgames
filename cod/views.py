@@ -46,6 +46,14 @@ class MageDetailView(View):
             ),
             "specialties": char.specialties.all().order_by("name"),
         }
+        
+        all_rotes = list(context["object"].rotes.all())
+        row_length = 2
+        all_rotes = [
+            all_rotes[i : i + row_length] for i in range(0, len(all_rotes), row_length)
+        ]
+        context["rotes"] = all_rotes
+        
         return render(request, "cod/characters/mage/detail.html", context,)
 
 class CharacterDetailView(View):
