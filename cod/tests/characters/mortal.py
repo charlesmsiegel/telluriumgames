@@ -322,7 +322,7 @@ class TestMortal(TestCase):
         self.assertTrue(self.character.has_specialties())
 
     def test_add_merit(self):
-        m = Merit.objects.create(name="Merit 1", ratings=[1, 2, 4])
+        m = Merit.objects.create(name="Merit 1", ratings=[1, 2, 4], merit_type="Physical")
         self.assertNotIn(m, self.character.merits.all())
         self.assertTrue(self.character.add_merit(m))
         self.assertIn(m, self.character.merits.all())
@@ -337,7 +337,7 @@ class TestMortal(TestCase):
             name="Merit with Details",
             requires_detail=True,
             possible_details=["Detail 1", "Detail 2"],
-            ratings=[1, 2],
+            ratings=[1, 2], merit_type="Physical"
         )
         with self.assertRaises(Exception):
             self.character.add_merit(m2)
@@ -355,12 +355,13 @@ class TestMortal(TestCase):
         )
 
     def test_filter_merits(self):
-        m1 = Merit.objects.create(name="Merit 1", ratings=[1, 2])
-        m2 = Merit.objects.create(name="Merit 2", ratings=[2, 3])
-        m3 = Merit.objects.create(name="Merit 3", ratings=[3, 4])
-        m4 = Merit.objects.create(name="Merit 4", ratings=[1, 4])
-        m5 = Merit.objects.create(name="Merit 5", ratings=[2, 4])
-        m6 = Merit.objects.create(name="Merit 6", ratings=[3, 4])
+        m1 = Merit.objects.create(name="Merit 1", ratings=[1, 2], merit_type="Physical")
+        m2 = Merit.objects.create(name="Merit 2", ratings=[2, 3], merit_type="Mental")
+        m3 = Merit.objects.create(name="Merit 3", ratings=[3, 4], merit_type="Social")
+        m4 = Merit.objects.create(name="Merit 4", ratings=[1, 4], merit_type="Fighting")
+        m5 = Merit.objects.create(name="Merit 5", ratings=[2, 4], merit_type="Supernatural")
+        m6 = Merit.objects.create(name="Merit 6", ratings=[3, 4], merit_type="Physical")
+        m7 = Merit.objects.create(name="Merit 7", ratings=[3, 4], merit_type="Mage")
         merit_list = self.character.filter_merits(
             dots=3
         )  # Gives all merits with cost <= dots that character could add
@@ -377,9 +378,9 @@ class TestMortal(TestCase):
         )
 
     def test_has_merits(self):
-        m1 = Merit.objects.create(name="Merit 1", ratings=[1, 2])
-        m2 = Merit.objects.create(name="Merit 2", ratings=[2, 3])
-        m3 = Merit.objects.create(name="Merit 3", ratings=[3, 4])
+        m1 = Merit.objects.create(name="Merit 1", ratings=[1, 2], merit_type="Physical")
+        m2 = Merit.objects.create(name="Merit 2", ratings=[2, 3], merit_type="Physical")
+        m3 = Merit.objects.create(name="Merit 3", ratings=[3, 4], merit_type="Physical")
         self.assertFalse(self.character.has_merits())
         self.character.add_merit(m1)
         self.assertFalse(self.character.has_merits())
@@ -430,7 +431,7 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.defense, 6)
 
     def test_giant_merit(self):
-        giant = Merit.objects.create(name="Giant", ratings=[1])
+        giant = Merit.objects.create(name="Giant", ratings=[1], merit_type="Physical")
         self.character.stamina = 2
         self.character.assign_advantages()
         self.assertEqual(self.character.size, 5)
@@ -439,12 +440,12 @@ class TestMortal(TestCase):
         self.character.assign_advantages()
         self.assertEqual(self.character.size, 6)
         self.assertEqual(self.character.health, 8)
-        small_framed = Merit.objects.create(name="Small-Framed", ratings=[1])
+        small_framed = Merit.objects.create(name="Small-Framed", ratings=[1], merit_type="Physical")
         self.assertFalse(self.character.add_merit(small_framed))
         self.assertEqual(self.character.merits.count(), 1)
 
     def test_fast_reflexes_merit(self):
-        fast_reflexes = Merit.objects.create(name="Fast Reflexes", ratings=[1, 2, 3])
+        fast_reflexes = Merit.objects.create(name="Fast Reflexes", ratings=[1, 2, 3], merit_type="Physical")
         self.character.dexterity = 2
         self.character.composure = 3
         self.character.assign_advantages()
@@ -460,7 +461,7 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.initiative_modifier, 8)
 
     def test_small_framed_merit(self):
-        small_framed = Merit.objects.create(name="Small-Framed", ratings=[1])
+        small_framed = Merit.objects.create(name="Small-Framed", ratings=[1], merit_type="Physical")
         self.character.stamina = 2
         self.assertEqual(self.character.size, 5)
         self.character.add_merit(small_framed)
@@ -472,7 +473,7 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.merits.count(), 1)
 
     def test_fleet_of_foot_merit(self):
-        fleet_of_foot = Merit.objects.create(name="Fleet of Foot", ratings=[1, 2, 3])
+        fleet_of_foot = Merit.objects.create(name="Fleet of Foot", ratings=[1, 2, 3], merit_type="Physical")
         self.character.strength = 1
         self.character.dexterity = 2
         self.character.assign_advantages()
@@ -488,7 +489,7 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.speed, 11)
 
     def test_vice_ridden_merit(self):
-        vice_ridden = Merit.objects.create(name="Vice-Ridden", ratings=[1])
+        vice_ridden = Merit.objects.create(name="Vice-Ridden", ratings=[1], merit_type="Physical")
         self.character.add_vice("Vice 1")
         self.assertNotIn(", ", self.character.vice)
         self.character.add_merit(vice_ridden)
@@ -496,7 +497,7 @@ class TestMortal(TestCase):
         self.assertEqual(len(self.character.vice.split(", ")), 2)
 
     def test_virtuous_merit(self):
-        virtuous = Merit.objects.create(name="Virtuous", ratings=[1])
+        virtuous = Merit.objects.create(name="Virtuous", ratings=[1], merit_type="Physical")
         self.character.add_virtue("Virtue 1")
         self.assertNotIn(", ", self.character.virtue)
         self.character.add_merit(virtuous)
@@ -505,10 +506,10 @@ class TestMortal(TestCase):
 
     def test_defensive_combat_merit(self):
         defensive_combat_brawl = Merit.objects.create(
-            name="Defensive Combat (Brawl)", ratings=[1]
+            name="Defensive Combat (Brawl)", ratings=[1], merit_type="Physical"
         )
         defensive_combat_weaponry = Merit.objects.create(
-            name="Defensive Combat (Weaponry)", ratings=[1]
+            name="Defensive Combat (Weaponry)", ratings=[1], merit_type="Physical"
         )
         self.character.wits = 2
         self.character.dexterity = 2
@@ -526,8 +527,8 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.defense, 7)
 
     def test_anonymity_and_fame(self):
-        fame = Merit.objects.create(name="Fame", ratings=[1])
-        anonymity = Merit.objects.create(name="Anonymity", ratings=[1])
+        fame = Merit.objects.create(name="Fame", ratings=[1], merit_type="Physical")
+        anonymity = Merit.objects.create(name="Anonymity", ratings=[1], merit_type="Physical")
         self.assertEqual(self.character.merits.count(), 0)
         self.assertTrue(self.character.add_merit(fame))
         self.assertEqual(self.character.merits.count(), 1)
@@ -572,7 +573,7 @@ class TestMortal(TestCase):
         )
 
     def test_contacts_merit(self):
-        contacts = Merit.objects.create(name="Contacts", ratings=[1, 2, 3, 4, 5])
+        contacts = Merit.objects.create(name="Contacts", ratings=[1, 2, 3, 4, 5], merit_type="Physical")
         self.character.occult = 3
         while contacts not in self.character.merits.all():
             self.character.random_merit()
@@ -589,7 +590,7 @@ class TestRandomMortal(TestCase):
                 Specialty.objects.create(name=f"{skill} spec {i}", skill=skill)
         for i in range(10):
             for j in range(1, 6):
-                Merit.objects.create(name=f"Merit {10*j + i}", ratings=[j])
+                Merit.objects.create(name=f"Merit {10*j + i}", ratings=[j], merit_type="Physical")
 
     def test_random_basis(self):
         self.character.random_basis()
@@ -708,7 +709,7 @@ class TestMerit(TestCase):
         occult_specialty = Merit.objects.create(
             name="Occult Specialty Requirement",
             prereqs=[[("occult", "specialty")]],
-            ratings=[1],
+            ratings=[1], merit_type="Physical"
         )
         specialty_in_occult = Specialty.objects.create(skill="occult", name="Spec")
         self.assertFalse(occult_specialty.check_prereqs(self.character))
@@ -719,7 +720,7 @@ class TestMerit(TestCase):
         any_specialty_2 = Merit.objects.create(
             name="Occult Specialty Requirement",
             prereqs=[[("specialty", 2)]],
-            ratings=[1],
+            ratings=[1], merit_type="Physical"
         )
         specialty_in_occult = Specialty.objects.create(skill="occult", name="Spec")
         self.character.add_specialty(specialty_in_occult)
@@ -729,7 +730,7 @@ class TestMerit(TestCase):
 
     def test_prereq_skill_minimum_value(self):
         occult_3 = Merit.objects.create(
-            name="Occult Specialty Requirement", prereqs=[[("occult", 3)]], ratings=[1],
+            name="Occult Specialty Requirement", prereqs=[[("occult", 3)]], ratings=[1], merit_type="Physical"
         )
         self.assertFalse(occult_3.check_prereqs(self.character))
         self.character.occult = 3
@@ -737,18 +738,18 @@ class TestMerit(TestCase):
 
     def test_prereq_any_skill_minimum_value(self):
         occult_3 = Merit.objects.create(
-            name="Occult Specialty Requirement", prereqs=[[("skill", 3)]], ratings=[1],
+            name="Occult Specialty Requirement", prereqs=[[("skill", 3)]], ratings=[1], merit_type="Physical"
         )
         self.assertFalse(occult_3.check_prereqs(self.character))
         self.character.occult = 3
         self.assertTrue(occult_3.check_prereqs(self.character))
 
     def test_merit_prereq(self):
-        prereq_merit = Merit.objects.create(name="Prereq for other", ratings=[1])
+        prereq_merit = Merit.objects.create(name="Prereq for other", ratings=[1], merit_type="Physical")
         prereq_merit_tester = Merit.objects.create(
             name="Occult Specialty Requirement",
             prereqs=[[("Prereq for other", 1)]],
-            ratings=[1],
+            ratings=[1], merit_type="Physical"
         )
         self.assertFalse(prereq_merit_tester.check_prereqs(self.character))
         self.character.add_merit(prereq_merit)
@@ -756,7 +757,7 @@ class TestMerit(TestCase):
 
     def test_filter_details(self):
         area_of_expertise = Merit.objects.create(
-            name="Area of Expertise", ratings=[1], requires_detail=True
+            name="Area of Expertise", ratings=[1], requires_detail=True, merit_type="Physical"
         )
         self.assertEqual(len(area_of_expertise.filter_details(self.character)), 0)
         spec = Specialty.objects.create(name="Occult Specailty", skill="occult")
@@ -764,7 +765,7 @@ class TestMerit(TestCase):
         self.assertEqual(len(area_of_expertise.filter_details(self.character)), 1)
 
         interdisciplinary_specialty = Merit.objects.create(
-            name="Interdisciplinary Specialty", ratings=[1], requires_detail=True
+            name="Interdisciplinary Specialty", ratings=[1], requires_detail=True, merit_type="Physical"
         )
         self.assertEqual(
             len(interdisciplinary_specialty.filter_details(self.character)), 0
@@ -775,14 +776,14 @@ class TestMerit(TestCase):
         )
 
         investigative_aide = Merit.objects.create(
-            name="Investigative Aide", ratings=[1], requires_detail=True
+            name="Investigative Aide", ratings=[1], requires_detail=True, merit_type="Physical"
         )
         self.assertEqual(len(investigative_aide.filter_details(self.character)), 1)
         self.character.science = 3
         self.assertEqual(len(investigative_aide.filter_details(self.character)), 2)
 
         hobbyist_clique = Merit.objects.create(
-            name="Hobbyist Clique", ratings=[1], requires_detail=True
+            name="Hobbyist Clique", ratings=[1], requires_detail=True, merit_type="Physical"
         )
         self.assertEqual(len(hobbyist_clique.filter_details(self.character)), 2)
         self.character.athletics = 2
@@ -796,7 +797,7 @@ class TestMerit(TestCase):
                 "Prof 1 (Occult, Science)",
                 "Prof 2 (Athletics, Empathy)",
                 "Prof 3 (Animal Ken, Firearms)",
-            ],
+            ], merit_type="Physical"
         )
         self.assertEqual(len(protessional_training.filter_details(self.character)), 1)
         self.character.empathy = 1
@@ -806,7 +807,7 @@ class TestMerit(TestCase):
             name="Merit with no weird detail",
             ratings=[1],
             requires_detail=True,
-            possible_details=["Detail 1", "Detail 2"],
+            possible_details=["Detail 1", "Detail 2"], merit_type="Physical"
         )
         self.assertEqual(len(merit.filter_details(self.character)), 2)
 
@@ -814,7 +815,7 @@ class TestMerit(TestCase):
         merit = Merit.objects.create(
             name="Prereq Testing",
             ratings=[1, 2, 3],
-            prereqs=[[("occult", 2)], [("science", 2)]],
+            prereqs=[[("occult", 2)], [("science", 2)]], merit_type="Physical"
         )
         self.assertFalse(merit.check_prereqs(self.character))
         self.character.occult = 2

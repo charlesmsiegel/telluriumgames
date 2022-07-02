@@ -13,6 +13,7 @@ from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 # Create your models here.
 class Mortal(PolymorphicModel):
     type = "mortal"
+    
     name = models.CharField(max_length=100)
     player = models.ForeignKey(
         CoDProfile, on_delete=models.CASCADE, related_name="characters"
@@ -500,8 +501,13 @@ class Mortal(PolymorphicModel):
     def has_merits(self):
         return self.total_merits() == 7
 
+    @staticmethod
+    def allowed_merit_types():
+        return ["Mental", "Physical", "Social", "Supernatural", "Fighting"]
+
     def filter_merits(self, dots=None):
         all_merits = Merit.objects.all()
+        all_merits = all_merits.filter(merit_type__in=self.allowed_merit_types())
         pairs = [(m, r) for m in all_merits for r in m.ratings]
         pairs = [p for p in pairs if p[1] <= dots]
         output = []
@@ -772,6 +778,10 @@ class Merit(models.Model):
                     return False
                 return True
             return False
+        if hasattr(character, prereq[0]):
+            if getattr(character, prereq[0]) < prereq[1]:
+                return False
+            return True
         return False
 
     def check_prereqs(self, character):

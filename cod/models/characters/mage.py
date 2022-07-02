@@ -55,7 +55,7 @@ class Legacy(models.Model):
         ("forces", "Forces"),
 	])
 
-class Spell(models.Model):
+class Rote(models.Model):
     name = models.CharField(max_length=100)
     practice = models.CharField(max_length=40, choices=[
 		("compelling", "Compelling"),
@@ -86,10 +86,6 @@ class Spell(models.Model):
 	])
     level = models.IntegerField(default=0)
 
-class Rote(models.Model):
-    name = models.CharField(max_length=100)
-    spell = models.ForeignKey(Spell, on_delete=models.CASCADE)
-    
 
 class Mage(Mortal):
     type = "mage"
@@ -119,6 +115,10 @@ class Mage(Mortal):
     
     nimbus = models.TextField(default="")
     mana = models.IntegerField(default=0)
+    
+    @staticmethod
+    def allowed_merit_types():
+        return ["Mental", "Physical", "Social", "Mage", "Fighting"]
     
     def has_path(self):
         return self.path is not None
@@ -275,7 +275,7 @@ class Mage(Mortal):
         return self.total_rotes() == 3
     
     def add_rote(self, rote):
-        if getattr(self, rote.spell.arcanum) >= rote.spell.level:
+        if getattr(self, rote.arcanum) >= rote.level:
             self.rotes.add(rote)
             self.save()
             return True
@@ -298,7 +298,7 @@ class Mage(Mortal):
         arcana_dict = self.get_arcana()
         q = Q()
         for arcana, level in arcana_dict.items():
-            q |= Q(spell__arcanum=arcana, spell__level__lte=level)
+            q |= Q(arcanum=arcana, level__lte=level)
         allowed_rotes = Rote.objects.filter(q)
         return allowed_rotes.exclude(pk__in=self.rotes.all())
     
@@ -461,7 +461,7 @@ class Mage(Mortal):
             r = Rote.objects.get(name=trait)
             if self.add_rote(r):
                 self.xp -= cost
-                self.add_to_spend(trait, r.spell.level, cost)
+                self.add_to_spend(trait, r.level, cost)
                 return True
             return False
         return False

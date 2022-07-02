@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
-from cod.models.characters.mage import Path, Mage, Order, Legacy, Spell, Rote
+from cod.models.characters.mage import Path, Mage, Order, Legacy, Rote
 from cod.models.characters.mortal import Merit, Specialty
 
 
@@ -36,12 +36,12 @@ def mage_setup(mage):
                 Legacy.objects.create(name=f"{path.name} {order.name} {arcanum.title()} Legacy", path=path, order=order, ruling_arcanum=arcanum)
     for arcana in ARCANA:
         for level, practice in [(1, "compelling"), (2, "ruling"), (3, "fraying"), (4, "patterning"), (5, "making")]:
-            s = Spell.objects.create(name=f"{practice.title()} {arcana.title()} Spell", practice=practice, arcanum=arcana, level=level)
-            Rote.objects.create(name=f"{practice.title()} {arcana.title()} Rote", spell=s)
+            Rote.objects.create(name=f"{practice.title()} {arcana.title()} Rote", practice=practice, arcanum=arcana, level=level)
     for i in range(1, 5):
-        Merit.objects.create(name=f"Merit {i}", ratings=[i, i+1])
-        Merit.objects.create(name=f"Merit {i + 5}", ratings=[i, i+1])
-        Merit.objects.create(name=f"Merit {i + 10}", ratings=[i, i+1])
+        for merit_type in ["Physical", "Social", "Mental", "Fighting", "Mage"]:
+            Merit.objects.create(name=f"{merit_type} Merit {i}", ratings=[i, i+1], merit_type=merit_type)
+            Merit.objects.create(name=f"{merit_type} Merit {i + 5}", ratings=[i, i+1], merit_type=merit_type)
+            Merit.objects.create(name=f"{merit_type} Merit {i + 10}", ratings=[i, i+1], merit_type=merit_type)
     for skill in mage.get_skills():
         for i in range(5):
             Specialty.objects.create(name=f"{skill.title()} {i}", skill=skill)
