@@ -115,11 +115,10 @@ class Mage(Mortal):
 
     rotes = models.ManyToManyField(Rote, blank=True)
     
+    wisdom = models.IntegerField(default=7)
+    
     nimbus = models.TextField(default="")
     mana = models.IntegerField(default=0)
-    
-    arcane_xp = models.IntegerField(default=0)
-    arcane_beats = models.IntegerField(default=0)
     
     def has_path(self):
         return self.path is not None
@@ -153,6 +152,9 @@ class Mage(Mortal):
         self.rote_skills = rote_skills
         return True
     
+    def add_wisdom(self):
+        return add_dot(self, "wisdom", maximum=10)
+    
     def add_gnosis(self):
         return add_dot(self, "gnosis", maximum=10)
     
@@ -169,7 +171,7 @@ class Mage(Mortal):
         return True
 
     def filter_arcana(self, minimum=0, maximum=5):
-        return [k for k, v in self.get_arcana().items() if minimum <= v <= maximum]
+        return {k: v for k, v in self.get_arcana().items() if minimum <= v <= maximum}
     
     def get_arcana(self):
         return {
@@ -362,9 +364,130 @@ class Mage(Mortal):
             return 1
         return 10000
 
-    def random(self, xp=0, arcane_xp=0):
+    def spend_xp(self, trait):
+        if super().spend_xp(trait):
+            return True
+        if trait in ARCANA:
+            return self.spend_xp_arcana(trait)
+        if trait == "gnosis":
+            return self.spend_xp_gnosis()
+        if trait == "wisdom":
+            return self.spend_xp_wisdom()
+        if Rote.objects.filter(name=trait).exists():
+            return self.spend_xp_rote(trait)
+        if trait == "willpower":
+            return self.spend_xp_willpower()
+        if Legacy.objects.filter(name=trait).exists():
+            return self.spend_xp_legacy(trait)
+        return False
+
+    def xp_frequencies(self):
+        return {
+            "attribute": 1,
+            "merit": 1,
+            "specialty": 1,
+            "skill": 1,
+            "wisdom": 1,
+            "arcanum": 1,
+            "gnosis": 1,
+            "rote": 1,
+        }
+
+    def random_xp_functions(self):
+        return {
+            "attribute": self.random_xp_attributes,
+            "merit": self.random_xp_merit,
+            "specialty": self.random_xp_specialty,
+            "skill": self.random_xp_skill,
+            "wisdom": self.random_xp_wisdom,
+            "arcanum": self.random_xp_arcanum,
+            "gnosis": self.random_xp_gnosis,
+            "rote": self.random_xp_rote,
+        }
+    
+    def random_xp_wisdom(self):
+        return self.spend_xp_wisdom()
+
+    def random_xp_arcanum(self):
+        trait = weighted_choice(self.filter_arcana(maximum=4))
+        return self.spend_xp_arcana(trait)
+
+    def random_xp_gnosis(self):
+        return self.spend_xp_gnosis()
+
+    def random_xp_rote(self):
+        options = self.filter_rotes()
+        trait = random.choice(options).name
+        return self.spend_xp_rote(trait)
+
+    def spend_xp_arcana(self, trait):
+        arcana = self.get_arcana()
+        if self.gnosis == 1:
+            highest = 3
+            other = 2
+        if self.gnosis == 2:
+            highest = 3
+            other = 3
+        if self.gnosis == 3:
+            highest = 4
+            other = 3
+        if self.gnosis == 4:
+            highest = 4
+            other = 4
+        if self.gnosis == 5:
+            highest = 5
+            other = 4
+        if self.gnosis >= 6:
+            highest = 5
+            other = 5
+        if arcana[trait] < other:
+            cost = self.xp_cost("arcanum (to limit)")
+        else:
+            if arcana[trait] < highest and arcana[trait] == max(v for v in arcana.values()) and len([k for k, v in arcana.items() if v == arcana[trait]]) == 1:
+                cost = self.xp_cost("arcanum (to limit)")
+            else:
+                cost = self.xp_cost("arcanum (above limit)")
+        if cost <= self.xp:
+            if self.add_arcanum(trait):
+                self.xp -= cost
+                self.add_to_spend(trait, getattr(self, trait), cost)
+                return True
+            return False
+        return False
+
+    def spend_xp_rote(self, trait):
+        cost = self.xp_cost("rote")
+        if cost <= self.xp:
+            r = Rote.objects.get(name=trait)
+            if self.add_rote(r):
+                self.xp -= cost
+                self.add_to_spend(trait, r.spell.level, cost)
+                return True
+            return False
+        return False
+    
+    def spend_xp_gnosis(self):
+        cost = self.xp_cost("gnosis")
+        if cost <= self.xp:
+            if self.add_gnosis():
+                self.xp -= cost
+                self.add_to_spend("gnosis", self.gnosis, cost)
+                return True
+            return False
+        return False
+    
+    def spend_xp_wisdom(self):
+        cost = self.xp_cost("wisdom")
+        if cost <= self.xp:
+            if self.add_wisdom():
+                self.xp -= cost
+                self.add_to_spend("wisdom", self.wisdom, cost)
+                return True
+            return False
+        return False
+
+    def random(self, xp=0):
         self.xp = xp
-        self.arcane_xp = arcane_xp
         self.random_basis()
         self.random_attributes()
         self.random_skills()
@@ -372,13 +495,10 @@ class Mage(Mortal):
         self.random_path()
         self.random_order()
         self.random_nimbus()
-        # self.random_dedicated_tool()
         self.random_arcana()
         self.random_rotes()
         self.gnosis = 1
         self.set_mana(100)
-        # self.random_obsessions()
-        # self.random_praxes()
         options = ["stamina", "resolve", "composure"]
         options = [x for x in options if getattr(self, x) < 5]
         choice = random.choice(options)

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 from cod.models.characters.mage import Path, Mage, Order, Legacy, Spell, Rote
-from cod.models.characters.mortal import Merit
+from cod.models.characters.mortal import Merit, Specialty
 
 
 # Create your tests here.
@@ -19,7 +19,7 @@ ARCANA = [
 ]
 
 
-def mage_setup():
+def mage_setup(mage):
     for i in range(5):
         Path.objects.create(
             name=f"Path {i}",
@@ -42,12 +42,15 @@ def mage_setup():
         Merit.objects.create(name=f"Merit {i}", ratings=[i, i+1])
         Merit.objects.create(name=f"Merit {i + 5}", ratings=[i, i+1])
         Merit.objects.create(name=f"Merit {i + 10}", ratings=[i, i+1])
+    for skill in mage.get_skills():
+        for i in range(5):
+            Specialty.objects.create(name=f"{skill.title()} {i}", skill=skill)
 
 class TestMage(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
         self.mage = Mage.objects.create(name="", player=self.player.cod_profile)
-        mage_setup()
+        mage_setup(self.mage)
 
     def test_has_path(self):
         self.assertFalse(self.mage.has_path())
@@ -314,7 +317,7 @@ class TestRandomMage(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
         self.mage = Mage.objects.create(name="", player=self.player.cod_profile)
-        mage_setup()
+        mage_setup(self.mage)
 
     def test_random_path(self):
         self.assertFalse(self.mage.has_path())
@@ -365,13 +368,14 @@ class TestRandomMage(TestCase):
         self.assertTrue(self.mage.has_nimbus())
 
     def test_random_spend_xp(self):
-        self.mage.science = 1
-        self.mage.xp = 15
+        self.mage.gnosis = 1
+        self.mage.random_path()
+        self.mage.random_order()
+        self.mage.random_skills()
+        self.mage.random_arcana()
+        self.mage.xp = 20
         self.mage.random_spend_xp()
-        self.assertLess(self.mage.xp, 15)
-        self.mage.arcane_xp = 15
-        self.mage.random_spend_xp()
-        self.assertLess(self.mage.arcane_xp, 15)
+        self.assertLess(self.mage.xp, 20)
 
     def test_random(self):
         self.assertFalse(self.mage.has_path())
