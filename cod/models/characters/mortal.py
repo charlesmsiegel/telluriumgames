@@ -107,6 +107,8 @@ class Mortal(PolymorphicModel):
     description = models.TextField(default="")
 
     xp = models.IntegerField(default=0)
+    beats = models.IntegerField(default=0)
+    
     spent_xp = models.TextField(default="")
 
     class Meta:
@@ -568,68 +570,64 @@ class Mortal(PolymorphicModel):
             return 2
         return 10000
 
-    def random_spend_xp(self):
-        frequencies = {
+    def xp_frequencies(self):
+        return {
             "attribute": 1,
             "merit": 1,
             "specialty": 1,
             "skill": 1,
             "integrity": 1,
         }
+
+    def random_xp_functions(self):
+        return {
+            "attribute": self.random_xp_attributes,
+            "merit": self.random_xp_merit,
+            "specialty": self.random_xp_specialty,
+            "skill": self.random_xp_skill,
+            "integrity": self.random_xp_integrity,
+        }
+
+    def random_xp_attributes(self):
+        trait = weighted_choice(self.filter_attributes(maximum=4))
+        return self.spend_xp_attribute(trait)
+
+    def random_xp_skill(self):
+        trait = weighted_choice(self.filter_skills(maximum=4))
+        return self.spend_xp_skill(trait)
+
+    def random_xp_merit(self):
+        merit_candidates = self.filter_merits(dots=self.xp)
+        trait = random.choice(merit_candidates)
+        detail = None
+        possible_details = trait.filter_details(self)
+        if len(possible_details) == 0:
+            detail = None
+        else:
+            detail = random.choice(possible_details)
+        if detail is None and trait.requires_detail:
+            return False
+        return self.spend_xp_merit(trait, detail)
+
+    def random_xp_specialty(self):
+        skill_choice = weighted_choice(self.filter_skills(minimum=1))
+        possible_specialties = self.filter_specialties(skill=skill_choice)
+        if len(possible_specialties) != 0:
+            trait = random.choice(possible_specialties)
+            return self.spend_xp_specialty(trait)
+        return False
+    
+    def random_xp_integrity(self):
+        return self.spend_xp_integrity()
+
+    def random_spend_xp(self):
+        frequencies = self.xp_frequencies()
         counter = 0
-        while 10 < self.xp and counter < 50:
-            counter += 1
+        while counter < 10000 and self.xp > 0:
             choice = weighted_choice(frequencies)
-            if choice == "attribute":
-                if self.xp_cost(choice) <= self.xp:
-                    trait = weighted_choice(self.filter_attributes(maximum=4))
-                    value = getattr(self, trait) + 1
-                    self.xp -= self.xp_cost(choice)
-                    self.add_to_spend(trait, value, self.xp_cost(choice))
-                    counter -= 1
-            elif choice == "merit":
-                if self.xp_cost(choice) <= self.xp:
-                    merit_candidates = self.filter_merits(dots=self.xp)
-                    trait = random.choice(merit_candidates)
-                    possible_details = trait.filter_details(self)
-                    if len(possible_details) == 0:
-                        detail = None
-                    else:
-                        detail = random.choice(possible_details)
-                    if detail is None and trait.requires_detail:
-                        pass
-                    else:
-                        self.add_merit(trait, detail=detail)
-                        self.xp -= self.xp_cost(choice)
-                        self.add_to_spend(
-                            trait.name,
-                            MeritRating.objects.get(merit=trait, character=self).rating,
-                            self.xp_cost(choice),
-                        )
-                        counter -= 1
-            elif choice == "specialty":
-                if self.xp_cost(choice) <= self.xp:
-                    if self.random_specialty():
-                        self.xp -= self.xp_cost(choice)
-                        self.add_to_spend(
-                            self.specialties.last(), 1, self.xp_cost(choice)
-                        )
-                        counter -= 1
-            elif choice == "skill":
-                if self.xp_cost(choice) <= self.xp:
-                    trait = weighted_choice(self.filter_skills(maximum=4))
-                    value = getattr(self, trait) + 1
-                    self.xp -= self.xp_cost(choice)
-                    self.add_to_spend(trait, value, self.xp_cost(choice))
-                    counter -= 1
-            elif choice == "integrity":
-                if self.xp_cost(choice) <= self.xp:
-                    if add_dot(self, "integrity", 10):
-                        self.xp -= self.xp_cost(choice)
-                        self.add_to_spend(
-                            "integrity", self.integrity, self.xp_cost(choice)
-                        )
-                        counter -= 1
+            spent = self.random_xp_functions()[choice]()
+            if not spent:
+                counter += 1
 
     def add_to_spend(self, trait, value, cost):
         trait = trait.replace("_", " ").title()
@@ -639,52 +637,70 @@ class Mortal(PolymorphicModel):
         spent = [x for x in spent if len(x) != 0]
         self.spent_xp = ", ".join(spent)
 
+    def spend_xp_attribute(self, trait):
+        cost = self.xp_cost("attribute")
+        if cost <= self.xp:
+            if self.add_attribute(trait):
+                self.xp -= cost
+                self.add_to_spend(trait, getattr(self, trait), cost)
+                return True
+            return False
+        return False
+    
+    def spend_xp_skill(self, trait):
+        cost = self.xp_cost("skill")
+        if cost <= self.xp:
+            if self.add_skill(trait):
+                self.xp -= cost
+                self.add_to_spend(trait, getattr(self, trait), cost)
+                return True
+            return False
+        return False
+
+    def spend_xp_merit(self, trait, detail=None):
+        cost = self.xp_cost("merit")
+        if cost <= self.xp:
+            if self.add_merit(trait, detail=detail):
+                self.xp -= cost
+                self.add_to_spend(trait.name, self.merit_rating(trait), cost)
+                return True
+            return False
+        return False
+    
+    def spend_xp_specialty(self, trait):
+        cost = self.xp_cost("specialty")
+        if cost <= self.xp:
+            if self.add_specialty(trait):
+                self.xp -= cost
+                self.add_to_spend(trait.name, 1, cost)
+                return True
+            return False
+        return False
+    
+    def add_integrity(self):
+        return add_dot(self, "integrity", 10)
+    
+    def spend_xp_integrity(self):
+        cost = self.xp_cost("integrity")
+        if cost <= self.xp:
+            if self.add_integrity():
+                self.xp -= cost
+                self.add_to_spend("integrity", getattr(self, "integrity"), cost)
+                return True
+            return False
+        return False
+
     def spend_xp(self, trait):
         if trait in self.get_attributes():
-            cost = self.xp_cost("attribute")
-            if cost <= self.xp:
-                if self.add_attribute(trait):
-                    self.xp -= cost
-                    self.add_to_spend(trait, getattr(self, trait), cost)
-                    return True
-                return False
-            return False
+            return self.spend_xp_attribute(trait)
         if trait in self.get_skills():
-            cost = self.xp_cost("skill")
-            if cost <= self.xp:
-                if self.add_skill(trait):
-                    self.xp -= cost
-                    self.add_to_spend(trait, getattr(self, trait), cost)
-                    return True
-                return False
-            return False
-        if trait in [x.name for x in Merit.objects.all()]:
-            cost = self.xp_cost("merit")
-            if cost <= self.xp:
-                if self.add_merit(trait):
-                    self.xp -= cost
-                    self.add_to_spend(trait, getattr(self, trait), cost)
-                    return True
-                return False
-            return False
-        if trait in [x.name for x in Specialty.objects.all()]:
-            cost = self.xp_cost("specialty")
-            if cost <= self.xp:
-                if self.add_specialty(trait):
-                    self.xp -= cost
-                    self.add_to_spend(trait, getattr(self, trait), cost)
-                    return True
-                return False
-            return False
+            return self.spend_xp_skill(trait)
+        if Merit.objects.filter(name=trait).exists():
+            return self.spend_xp_merit(trait)
+        if Specialty.objects.filter(name=trait).exists():
+            return self.spend_xp_specialty(trait)
         if trait == "integrity":
-            cost = self.xp_cost("integrity")
-            if cost <= self.xp:
-                if self.add_integrity(trait):
-                    self.xp -= cost
-                    self.add_to_spend(trait, getattr(self, trait), cost)
-                    return True
-                return False
-            return False
+            return self.spend_xp_integrity()
         return False
 
     def random(self, xp=0):
