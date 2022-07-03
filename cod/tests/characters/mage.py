@@ -1,7 +1,17 @@
 import random
+
 from django.contrib.auth.models import User
 from django.test import TestCase
-from cod.models.characters.mage import Path, Mage, Order, Legacy, Rote, ProximiFamily, Proximi
+
+from cod.models.characters.mage import (
+    Legacy,
+    Mage,
+    Order,
+    Path,
+    Proximi,
+    ProximiFamily,
+    Rote,
+)
 from cod.models.characters.mortal import Merit, Specialty
 
 # Create your tests here.
@@ -473,7 +483,7 @@ class TestProximiFamily(TestCase):
         self.mage = Mage.objects.create(name="", player=self.player.cod_profile)
         mage_setup(self.mage)
         self.proximi_family = ProximiFamily.objects.create(name="Test Family")
-    
+
     def test_has_parent_path(self):
         self.assertFalse(self.proximi_family.has_parent_path())
         self.proximi_family.path = Path.objects.get(name="Path 0")
@@ -481,7 +491,9 @@ class TestProximiFamily(TestCase):
 
     def test_set_parent_path(self):
         self.assertFalse(self.proximi_family.has_parent_path())
-        self.assertTrue(self.proximi_family.set_parent_path(Path.objects.get(name="Path 0")))
+        self.assertTrue(
+            self.proximi_family.set_parent_path(Path.objects.get(name="Path 0"))
+        )
         self.assertTrue(self.proximi_family.has_parent_path())
 
     def test_has_blessing_arcana(self):
@@ -497,9 +509,15 @@ class TestProximiFamily(TestCase):
     def test_has_possible_blessings(self):
         self.assertFalse(self.proximi_family.has_possible_blessings())
         while sum(x.level for x in self.proximi_family.possible_blessings.all()) < 30:
-            options = Rote.objects.filter(level__lte=3, arcanum__in=["death", "space", "time"])
+            options = Rote.objects.filter(
+                level__lte=3, arcanum__in=["death", "space", "time"]
+            )
             choice = random.choice(options)
-            if choice.level + sum(x.level for x in self.proximi_family.possible_blessings.all()) <= 30:
+            if (
+                choice.level
+                + sum(x.level for x in self.proximi_family.possible_blessings.all())
+                <= 30
+            ):
                 self.proximi_family.possible_blessings.add(choice)
         self.assertTrue(self.proximi_family.has_possible_blessings())
 
@@ -507,7 +525,9 @@ class TestProximiFamily(TestCase):
         self.assertFalse(self.proximi_family.has_possible_blessings())
         L = []
         while sum(x.level for x in L) < 30:
-            options = Rote.objects.filter(level__lte=3, arcanum__in=["death", "space", "time"]).exclude(pk__in=[x.id for x in L])
+            options = Rote.objects.filter(
+                level__lte=3, arcanum__in=["death", "space", "time"]
+            ).exclude(pk__in=[x.id for x in L])
             choice = random.choice(options)
             if choice.level + sum(x.level for x in L) <= 30:
                 L.append(choice)
@@ -523,16 +543,30 @@ class TestProximi(TestCase):
         for path in Path.objects.all():
             for arcana in ARCANA:
                 if arcana not in path.ruling_arcana:
-                    proximi_family = ProximiFamily.objects.create(name=f"{path.name} {arcana.title()} Family", path=path, blessing_arcana=arcana)
+                    proximi_family = ProximiFamily.objects.create(
+                        name=f"{path.name} {arcana.title()} Family",
+                        path=path,
+                        blessing_arcana=arcana,
+                    )
                     L = []
                     while sum(x.level for x in L) < 30:
-                        options = Rote.objects.filter(level__lte=3, arcanum__in=["death", "space", "time"])
+                        options = Rote.objects.filter(
+                            level__lte=3, arcanum__in=["death", "space", "time"]
+                        )
                         choice = random.choice(options)
-                        if choice.level + sum(x.level for x in proximi_family.possible_blessings.all()) <= 30:
+                        if (
+                            choice.level
+                            + sum(
+                                x.level for x in proximi_family.possible_blessings.all()
+                            )
+                            <= 30
+                        ):
                             L.append(choice)
                     proximi_family.set_possible_blessings(L)
-        self.proximi = Proximi.objects.create(name="Test Proximi", player=self.player.cod_profile)
-    
+        self.proximi = Proximi.objects.create(
+            name="Test Proximi", player=self.player.cod_profile
+        )
+
     def test_has_family(self):
         self.assertFalse(self.proximi.has_family())
         self.proximi.family = ProximiFamily.objects.get(name="Path 0 Death Family")
@@ -540,7 +574,11 @@ class TestProximi(TestCase):
 
     def test_set_family(self):
         self.assertFalse(self.proximi.has_family())
-        self.assertTrue(self.proximi.set_family(ProximiFamily.objects.get(name="Path 0 Death Family")))
+        self.assertTrue(
+            self.proximi.set_family(
+                ProximiFamily.objects.get(name="Path 0 Death Family")
+            )
+        )
         self.assertTrue(self.proximi.has_family())
 
     def test_has_blessings(self):
@@ -589,13 +627,13 @@ class TestRandomProximiFamily(TestCase):
         self.assertFalse(self.proximi_family.has_parent_path())
         self.assertTrue(self.proximi_family.random_parent_path())
         self.assertTrue(self.proximi_family.has_parent_path())
-        
+
     def test_random_arcana(self):
         self.proximi_family.set_parent_path(Path.objects.first())
         self.assertFalse(self.proximi_family.has_blessing_arcana())
         self.assertTrue(self.proximi_family.random_blessing_arcana())
         self.assertTrue(self.proximi_family.has_blessing_arcana())
-        
+
     def test_random_blessings(self):
         self.proximi_family.set_parent_path(Path.objects.first())
         self.proximi_family.set_blessing_arcana("death")
@@ -621,12 +659,24 @@ class TestRandomProximi(TestCase):
         for path in Path.objects.all():
             for arcana in ARCANA:
                 if arcana not in path.ruling_arcana:
-                    proximi_family = ProximiFamily.objects.create(name=f"{path.name} {arcana.title()} Family", path=path, blessing_arcana=arcana)
+                    proximi_family = ProximiFamily.objects.create(
+                        name=f"{path.name} {arcana.title()} Family",
+                        path=path,
+                        blessing_arcana=arcana,
+                    )
                     L = []
                     while sum(x.level for x in L) < 30:
-                        options = Rote.objects.filter(level__lte=3, arcanum__in=["death", "space", "time"])
+                        options = Rote.objects.filter(
+                            level__lte=3, arcanum__in=["death", "space", "time"]
+                        )
                         choice = random.choice(options)
-                        if choice.level + sum(x.level for x in proximi_family.possible_blessings.all()) <= 30:
+                        if (
+                            choice.level
+                            + sum(
+                                x.level for x in proximi_family.possible_blessings.all()
+                            )
+                            <= 30
+                        ):
                             L.append(choice)
                     proximi_family.set_possible_blessings(L)
         self.proximi = Proximi.objects.create(name="", player=self.player.cod_profile)
@@ -648,7 +698,7 @@ class TestRandomProximi(TestCase):
         self.assertFalse(self.proximi.has_concept())
         self.assertFalse(self.proximi.has_virtue())
         self.assertFalse(self.proximi.has_vice())
-        self.assertFalse(self.proximi.has_family())        
+        self.assertFalse(self.proximi.has_family())
         self.assertFalse(self.proximi.has_aspirations())
         self.assertFalse(self.proximi.has_attributes())
         self.assertFalse(self.proximi.has_skills())
@@ -661,7 +711,7 @@ class TestRandomProximi(TestCase):
         self.assertTrue(self.proximi.has_concept())
         self.assertTrue(self.proximi.has_virtue())
         self.assertTrue(self.proximi.has_vice())
-        self.assertTrue(self.proximi.has_family())        
+        self.assertTrue(self.proximi.has_family())
         self.assertTrue(self.proximi.has_aspirations())
         self.assertTrue(self.proximi.has_attributes())
         self.assertTrue(self.proximi.has_skills())
@@ -673,8 +723,12 @@ class TestRandomProximi(TestCase):
 
 class TestProximiFamilyDetailView(TestCase):
     def setUp(self):
+        self.player = User.objects.create(username="Test User")
+        self.mage = Mage.objects.create(name="", player=self.player.cod_profile)
+        mage_setup(self.mage)
         self.proximi_family = ProximiFamily.objects.create(name="Test Family")
-    
+        self.proximi_family.random()
+
     def test_proximi_family_detail_view_status_code(self):
         response = self.client.get(f"/cod/proximifamily/{self.proximi_family.id}/")
         self.assertEqual(response.status_code, 200)
@@ -683,11 +737,14 @@ class TestProximiFamilyDetailView(TestCase):
         response = self.client.get(f"/cod/proximifamily/{self.proximi_family.id}/")
         self.assertTemplateUsed(response, "cod/characters/proximifamily/detail.html")
 
+
 class TestProximiDetailView(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.proximi = Proximi.objects.create(name="Test Proximus", player=self.player.cod_profile)
-    
+        self.proximi = Proximi.objects.create(
+            name="Test Proximus", player=self.player.cod_profile
+        )
+
     def test_proximi_detail_view_status_code(self):
         response = self.client.get(f"/cod/characters/{self.proximi.id}/")
         self.assertEqual(response.status_code, 200)
