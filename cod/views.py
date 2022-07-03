@@ -3,7 +3,7 @@ from collections import namedtuple
 from django.shortcuts import redirect, render
 from django.views.generic import DetailView, View
 
-from cod.models.characters.mage import Mage
+from cod.models.characters.mage import Mage, Proximi, ProximiFamily
 from cod.models.characters.mortal import MeritRating, Mortal
 
 # Create your views here.
@@ -42,6 +42,18 @@ class MortalDetailView(View):
         return render(request, "cod/characters/mortal/detail.html", context,)
 
 
+class ProximiDetailView(View):
+    def get(self, request, *args, **kwargs):
+        char = Proximi.objects.get(pk=kwargs["pk"])
+        context = {
+            "object": char,
+            "merits": MeritRating.objects.filter(character=char).order_by(
+                "merit__name"
+            ),
+            "specialties": char.specialties.all().order_by("name"),
+        }
+        return render(request, "cod/characters/proximi/detail.html", context,)
+
 class MageDetailView(View):
     def get(self, request, *args, **kwargs):
         char = Mage.objects.get(pk=kwargs["pk"])
@@ -72,6 +84,7 @@ class CharacterDetailView(View):
     create_views = {
         "mortal": MortalDetailView,
         "mage": MageDetailView,
+        "proximi": ProximiDetailView
     }
 
     def get(self, request, *args, **kwargs):
@@ -85,6 +98,7 @@ class RandomCharacterView(View):
     chars = {
         "mortal": Mortal,
         "mage": Mage,
+        "proximi": Proximi,
     }
 
     def post(self, request, *args, **kwargs):
@@ -102,3 +116,7 @@ class RandomCharacterView(View):
 
     def get(self, request):
         return redirect("cod:characters_index")
+
+class ProximiFamilyDetailView(DetailView):
+    model = ProximiFamily
+    template_name = "cod/characters/proximifamily/detail.html"
