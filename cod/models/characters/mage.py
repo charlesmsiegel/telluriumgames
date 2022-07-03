@@ -1,6 +1,8 @@
 import random
-from django.db.models import Q, F
+
 from django.db import models
+from django.db.models import F, Q
+
 from cod.models.characters.mortal import Mortal
 from core.utils import add_dot, weighted_choice
 
@@ -18,92 +20,109 @@ ARCANA = [
     "spirit",
 ]
 
+
 class Path(models.Model):
     name = models.CharField(max_length=100)
     ruling_arcana = models.JSONField(default=list)
-    inferior_arcanum = models.CharField(max_length=10, choices=[
-		("death", "Death"),
-        ("matter", "Matter"),
-        ("life", "Life"),
-        ("spirit", "Spirit"),
-        ("time", "Time"),
-        ("fate", "Fate"),
-        ("mind", "Mind"),
-        ("space", "Space"),
-        ("prime", "Prime"),
-        ("forces", "Forces"),
-	])
+    inferior_arcanum = models.CharField(
+        max_length=10,
+        choices=[
+            ("death", "Death"),
+            ("matter", "Matter"),
+            ("life", "Life"),
+            ("spirit", "Spirit"),
+            ("time", "Time"),
+            ("fate", "Fate"),
+            ("mind", "Mind"),
+            ("space", "Space"),
+            ("prime", "Prime"),
+            ("forces", "Forces"),
+        ],
+    )
+
 
 class Order(models.Model):
     name = models.CharField(max_length=100)
     rote_skills = models.JSONField(default=list)
 
+
 class Legacy(models.Model):
     name = models.CharField(max_length=100)
     path = models.ForeignKey(Path, null=True, blank=True, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, null=True, blank=True, on_delete=models.CASCADE)
-    ruling_arcanum = models.CharField(max_length=10, choices=[
-		("death", "Death"),
-        ("matter", "Matter"),
-        ("life", "Life"),
-        ("spirit", "Spirit"),
-        ("time", "Time"),
-        ("fate", "Fate"),
-        ("mind", "Mind"),
-        ("space", "Space"),
-        ("prime", "Prime"),
-        ("forces", "Forces"),
-	])
+    ruling_arcanum = models.CharField(
+        max_length=10,
+        choices=[
+            ("death", "Death"),
+            ("matter", "Matter"),
+            ("life", "Life"),
+            ("spirit", "Spirit"),
+            ("time", "Time"),
+            ("fate", "Fate"),
+            ("mind", "Mind"),
+            ("space", "Space"),
+            ("prime", "Prime"),
+            ("forces", "Forces"),
+        ],
+    )
     is_left_handed = models.BooleanField(default=False)
+
 
 class Rote(models.Model):
     name = models.CharField(max_length=100)
-    practice = models.CharField(max_length=40, choices=[
-		("compelling", "Compelling"),
-		("knowing", "Knowing"),
-		("unveiling", "Unveiling"),
-		("ruling", "Ruling"),
-		("shielding", "Shielding"),
-		("veiling", "Veiling"),
-		("fraying", "Fraying"),
-		("perfecting", "Perfecting"),
-		("weaving", "Weaving"),
-		("patterning", "Patterning"),
-		("unraveling", "Unraveling"),
-		("making", "Making"),
-		("unmaking", "Unmaking"),
-	])
-    arcanum = models.CharField(max_length=10, choices=[
-		("death", "Death"),
-        ("matter", "Matter"),
-        ("life", "Life"),
-        ("spirit", "Spirit"),
-        ("time", "Time"),
-        ("fate", "Fate"),
-        ("mind", "Mind"),
-        ("space", "Space"),
-        ("prime", "Prime"),
-        ("forces", "Forces"),
-	])
+    practice = models.CharField(
+        max_length=40,
+        choices=[
+            ("compelling", "Compelling"),
+            ("knowing", "Knowing"),
+            ("unveiling", "Unveiling"),
+            ("ruling", "Ruling"),
+            ("shielding", "Shielding"),
+            ("veiling", "Veiling"),
+            ("fraying", "Fraying"),
+            ("perfecting", "Perfecting"),
+            ("weaving", "Weaving"),
+            ("patterning", "Patterning"),
+            ("unraveling", "Unraveling"),
+            ("making", "Making"),
+            ("unmaking", "Unmaking"),
+        ],
+    )
+    arcanum = models.CharField(
+        max_length=10,
+        choices=[
+            ("death", "Death"),
+            ("matter", "Matter"),
+            ("life", "Life"),
+            ("spirit", "Spirit"),
+            ("time", "Time"),
+            ("fate", "Fate"),
+            ("mind", "Mind"),
+            ("space", "Space"),
+            ("prime", "Prime"),
+            ("forces", "Forces"),
+        ],
+    )
     level = models.IntegerField(default=0)
     suggested_rote_skills = models.JSONField(default=list)
-    primary_factor = models.CharField(default="", max_length=20, choices=[
-        ("duration", "Duration"),
-        ("potency", "Potency"),
-    ])
+    primary_factor = models.CharField(
+        default="",
+        max_length=20,
+        choices=[("duration", "Duration"), ("potency", "Potency"),],
+    )
     withstand = models.CharField(default="", max_length=20)
     mana_cost = models.IntegerField(default=0)
 
 
 class Mage(Mortal):
     type = "mage"
-    
+
     order = models.ForeignKey(Order, blank=True, null=True, on_delete=models.CASCADE)
     path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.CASCADE)
     legacy = models.ForeignKey(Legacy, blank=True, null=True, on_delete=models.CASCADE)
-    
+
     rote_skills = models.JSONField(default=list)
-    
+
     gnosis = models.IntegerField(default=0)
 
     death = models.IntegerField(default=0)
@@ -118,57 +137,57 @@ class Mage(Mortal):
     forces = models.IntegerField(default=0)
 
     rotes = models.ManyToManyField(Rote, blank=True, through="KnownRote")
-    
+
     wisdom = models.IntegerField(default=7)
-    
+
     nimbus = models.TextField(default="")
     mana = models.IntegerField(default=0)
-    
+
     @staticmethod
     def allowed_merit_types():
         return ["Mental", "Physical", "Social", "Mage", "Fighting"]
-    
+
     def has_path(self):
         return self.path is not None
-    
+
     def set_path(self, path):
         self.path = path
         self.save()
         return True
-    
+
     def random_path(self):
         path = Path.objects.order_by("?").first()
         return self.set_path(path)
-    
+
     def has_order(self):
         return self.order is not None
-    
+
     def set_order(self, order):
         self.order = order
         self.rote_skills = self.order.rote_skills
         self.save()
         return True
-    
+
     def random_order(self):
         order = Order.objects.order_by("?").first()
         return self.set_order(order)
-    
+
     def has_rote_skills(self):
         return len(self.rote_skills) == 3
-    
+
     def set_rote_skills(self, rote_skills):
         self.rote_skills = rote_skills
         return True
-    
+
     def add_wisdom(self):
         return add_dot(self, "wisdom", maximum=10)
-    
+
     def add_gnosis(self):
         return add_dot(self, "gnosis", maximum=10)
-    
+
     def has_gnosis(self):
         return self.gnosis > 0
-    
+
     def set_gnosis(self, gnosis):
         if gnosis < 1:
             return False
@@ -180,7 +199,7 @@ class Mage(Mortal):
 
     def filter_arcana(self, minimum=0, maximum=5):
         return {k: v for k, v in self.get_arcana().items() if minimum <= v <= maximum}
-    
+
     def get_arcana(self):
         return {
             "death": self.death,
@@ -193,37 +212,51 @@ class Mage(Mortal):
             "space": self.space,
             "prime": self.prime,
             "forces": self.forces,
-		}
-    
+        }
+
     def has_arcana(self):
         nonzero_values = [x for x in self.get_arcana().values() if x != 0]
         nonzero_values.sort()
         nonzero_values.reverse()
-        if nonzero_values not in [[3, 2, 1], [3, 1, 1, 1], [2, 2, 2], [2, 2, 1, 1], [2, 1, 1, 1, 1]]:
+        if nonzero_values not in [
+            [3, 2, 1],
+            [3, 1, 1, 1],
+            [2, 2, 2],
+            [2, 2, 1, 1],
+            [2, 1, 1, 1, 1],
+        ]:
             return False
         for ruling in self.path.ruling_arcana:
             if self.get_arcana()[ruling] == 0:
                 return False
         if self.get_arcana()[self.path.inferior_arcanum] != 0:
             return False
-        return True        
-    
+        return True
+
     def total_arcana(self):
         return sum(v for k, v in self.get_arcana().items())
-    
+
     def add_arcanum(self, arcanum):
         return add_dot(self, arcanum, maximum=5)
-    
+
     def random_arcanum(self):
         arcana = self.get_arcana()
         choice = weighted_choice(arcana)
         return self.add_arcanum(choice)
-    
+
     def random_arcana(self):
-        distributions = [[3, 2, 1], [3, 1, 1, 1], [2, 2, 2], [2, 2, 1, 1], [2, 1, 1, 1, 1]]
+        distributions = [
+            [3, 2, 1],
+            [3, 1, 1, 1],
+            [2, 2, 2],
+            [2, 2, 1, 1],
+            [2, 1, 1, 1, 1],
+        ]
         distribution = random.choice(distributions)
         arcana = self.path.ruling_arcana
-        options = [x for x in ARCANA if x not in arcana and x != self.path.inferior_arcanum]
+        options = [
+            x for x in ARCANA if x not in arcana and x != self.path.inferior_arcanum
+        ]
         while len(arcana) < len(distribution):
             choice = random.choice(options)
             arcana.append(choice)
@@ -232,32 +265,32 @@ class Mage(Mortal):
         for stat, value in zip(arcana, distribution):
             setattr(self, stat, value)
         return True
-    
+
     def has_legacy(self):
         return self.legacy is not None
-    
+
     def set_legacy(self, legacy):
         self.legacy = legacy
         self.save()
         return True
-    
+
     def random_legacy(self):
         options = self.filter_legacies()
         choice = random.choice(options)
         return self.set_legacy(choice)
-    
+
     def filter_legacies(self):
         possiblities = Legacy.objects.all()
         has_path = possiblities.filter(path=self.path)
         has_order = possiblities.filter(order=self.order)
         either = has_path | has_order
         either = either.distinct()
-        
+
         return [x for x in either if getattr(self, x.ruling_arcanum) >= 2]
-    
+
     def has_mana(self):
         return self.mana != 0
-    
+
     def set_mana(self, mana):
         gnosis_mana_limits = {
             1: 10,
@@ -278,10 +311,10 @@ class Mage(Mortal):
         self.mana = mana
         self.save()
         return True
-    
+
     def has_rotes(self):
         return self.total_rotes() == 3
-    
+
     def add_rote(self, rote):
         if getattr(self, rote.arcanum) >= rote.level:
             k = KnownRote.objects.create(mage=self, rote=rote)
@@ -290,10 +323,10 @@ class Mage(Mortal):
             k.save()
             return True
         return False
-    
+
     def total_rotes(self):
         return self.rotes.count()
-    
+
     def random_rote(self):
         options = self.filter_rotes()
         choice = random.choice(options)
@@ -303,7 +336,7 @@ class Mage(Mortal):
         while self.total_rotes() < 3:
             self.random_rote()
         return True
-    
+
     def filter_rotes(self):
         arcana_dict = self.get_arcana()
         q = Q()
@@ -311,17 +344,17 @@ class Mage(Mortal):
             q |= Q(arcanum=arcana, level__lte=level)
         allowed_rotes = Rote.objects.filter(q)
         return allowed_rotes.exclude(pk__in=self.rotes.all())
-    
+
     def has_nimbus(self):
         return self.nimbus != ""
-    
+
     def set_nimbus(self, nimbus):
         self.nimbus = nimbus
         return True
-    
+
     def random_nimbus(self):
         return self.set_nimbus("Random")
-    
+
     @staticmethod
     def practice_level(practice):
         if practice in ["compelling", "knowing", "unveiling"]:
@@ -414,7 +447,7 @@ class Mage(Mortal):
             "gnosis": self.random_xp_gnosis,
             "rote": self.random_xp_rote,
         }
-    
+
     def random_xp_wisdom(self):
         return self.spend_xp_wisdom()
 
@@ -453,7 +486,11 @@ class Mage(Mortal):
         if arcana[trait] < other:
             cost = self.xp_cost("arcanum (to limit)")
         else:
-            if arcana[trait] < highest and arcana[trait] == max(v for v in arcana.values()) and len([k for k, v in arcana.items() if v == arcana[trait]]) == 1:
+            if (
+                arcana[trait] < highest
+                and arcana[trait] == max(v for v in arcana.values())
+                and len([k for k, v in arcana.items() if v == arcana[trait]]) == 1
+            ):
                 cost = self.xp_cost("arcanum (to limit)")
             else:
                 cost = self.xp_cost("arcanum (above limit)")
@@ -475,7 +512,7 @@ class Mage(Mortal):
                 return True
             return False
         return False
-    
+
     def spend_xp_gnosis(self):
         cost = self.xp_cost("gnosis")
         if cost <= self.xp:
@@ -485,7 +522,7 @@ class Mage(Mortal):
                 return True
             return False
         return False
-    
+
     def spend_xp_wisdom(self):
         cost = self.xp_cost("wisdom")
         if cost <= self.xp:
@@ -517,6 +554,7 @@ class Mage(Mortal):
         self.assign_advantages()
         self.random_spend_xp()
         self.save()
+
 
 class KnownRote(models.Model):
     mage = models.ForeignKey(Mage, on_delete=models.CASCADE)

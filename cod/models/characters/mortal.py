@@ -13,7 +13,7 @@ from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 # Create your models here.
 class Mortal(PolymorphicModel):
     type = "mortal"
-    
+
     name = models.CharField(max_length=100)
     player = models.ForeignKey(
         CoDProfile, on_delete=models.CASCADE, related_name="characters"
@@ -109,7 +109,7 @@ class Mortal(PolymorphicModel):
 
     xp = models.IntegerField(default=0)
     beats = models.IntegerField(default=0)
-    
+
     spent_xp = models.TextField(default="")
 
     class Meta:
@@ -163,7 +163,19 @@ class Mortal(PolymorphicModel):
         return [x for x in virtue_list if x not in virtues]
 
     def random_virtue(self):
-        virtues = ["Competitive", "Generous", "Just", "Loyal", "Hopeful", "Loving", "Honest", "Trustworthy", "Ambitious", "Patient", "Courageous"]
+        virtues = [
+            "Competitive",
+            "Generous",
+            "Just",
+            "Loyal",
+            "Hopeful",
+            "Loving",
+            "Honest",
+            "Trustworthy",
+            "Ambitious",
+            "Patient",
+            "Courageous",
+        ]
         virtues = self.filter_virtues(virtues)
         self.add_virtue(random.choice(virtues))
 
@@ -184,7 +196,20 @@ class Mortal(PolymorphicModel):
         return [x for x in vice_list if x not in vices]
 
     def random_vice(self):
-        vices = ["Ambitious", "Arrogant", "Competitive", "Greedy", "Pessimistic", "Hateful", "Deceitful", "Cruel", "Addictive", "Hasty", "Corrupt", "Dogmatic"]
+        vices = [
+            "Ambitious",
+            "Arrogant",
+            "Competitive",
+            "Greedy",
+            "Pessimistic",
+            "Hateful",
+            "Deceitful",
+            "Cruel",
+            "Addictive",
+            "Hasty",
+            "Corrupt",
+            "Dogmatic",
+        ]
         vices = self.filter_vices(vices)
         self.add_vice(random.choice(vices))
 
@@ -622,7 +647,7 @@ class Mortal(PolymorphicModel):
             trait = random.choice(possible_specialties)
             return self.spend_xp_specialty(trait)
         return False
-    
+
     def random_xp_integrity(self):
         return self.spend_xp_integrity()
 
@@ -652,7 +677,7 @@ class Mortal(PolymorphicModel):
                 return True
             return False
         return False
-    
+
     def spend_xp_skill(self, trait):
         cost = self.xp_cost("skill")
         if cost <= self.xp:
@@ -672,7 +697,7 @@ class Mortal(PolymorphicModel):
                 return True
             return False
         return False
-    
+
     def spend_xp_specialty(self, trait):
         cost = self.xp_cost("specialty")
         if cost <= self.xp:
@@ -682,10 +707,10 @@ class Mortal(PolymorphicModel):
                 return True
             return False
         return False
-    
+
     def add_integrity(self):
         return add_dot(self, "integrity", 10)
-    
+
     def spend_xp_integrity(self):
         cost = self.xp_cost("integrity")
         if cost <= self.xp:

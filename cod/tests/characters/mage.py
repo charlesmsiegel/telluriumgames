@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
-from cod.models.characters.mage import Path, Mage, Order, Legacy, Rote
-from cod.models.characters.mortal import Merit, Specialty
 
+from cod.models.characters.mage import Legacy, Mage, Order, Path, Rote
+from cod.models.characters.mortal import Merit, Specialty
 
 # Create your tests here.
 ARCANA = [
@@ -27,24 +27,52 @@ def mage_setup(mage):
             inferior_arcanum=ARCANA[(3 * i + 2) % 10],
         )
         Order.objects.create(
-            name=f"Order {i}",
-            rote_skills=["athletics", "science", "occult"]
+            name=f"Order {i}", rote_skills=["athletics", "science", "occult"]
         )
     for path in Path.objects.all():
         for order in Order.objects.all():
             for arcanum in ARCANA:
-                Legacy.objects.create(name=f"{path.name} {order.name} {arcanum.title()} Legacy", path=path, order=order, ruling_arcanum=arcanum)
+                Legacy.objects.create(
+                    name=f"{path.name} {order.name} {arcanum.title()} Legacy",
+                    path=path,
+                    order=order,
+                    ruling_arcanum=arcanum,
+                )
     for arcana in ARCANA:
-        for level, practice in [(1, "compelling"), (2, "ruling"), (3, "fraying"), (4, "patterning"), (5, "making")]:
-            Rote.objects.create(name=f"{practice.title()} {arcana.title()} Rote", practice=practice, arcanum=arcana, level=level)
+        for level, practice in [
+            (1, "compelling"),
+            (2, "ruling"),
+            (3, "fraying"),
+            (4, "patterning"),
+            (5, "making"),
+        ]:
+            Rote.objects.create(
+                name=f"{practice.title()} {arcana.title()} Rote",
+                practice=practice,
+                arcanum=arcana,
+                level=level,
+            )
     for i in range(1, 5):
         for merit_type in ["Physical", "Social", "Mental", "Fighting", "Mage"]:
-            Merit.objects.create(name=f"{merit_type} Merit {i}", ratings=[i, i+1], merit_type=merit_type)
-            Merit.objects.create(name=f"{merit_type} Merit {i + 5}", ratings=[i, i+1], merit_type=merit_type)
-            Merit.objects.create(name=f"{merit_type} Merit {i + 10}", ratings=[i, i+1], merit_type=merit_type)
+            Merit.objects.create(
+                name=f"{merit_type} Merit {i}",
+                ratings=[i, i + 1],
+                merit_type=merit_type,
+            )
+            Merit.objects.create(
+                name=f"{merit_type} Merit {i + 5}",
+                ratings=[i, i + 1],
+                merit_type=merit_type,
+            )
+            Merit.objects.create(
+                name=f"{merit_type} Merit {i + 10}",
+                ratings=[i, i + 1],
+                merit_type=merit_type,
+            )
     for skill in mage.get_skills():
         for i in range(5):
             Specialty.objects.create(name=f"{skill.title()} {i}", skill=skill)
+
 
 class TestMage(TestCase):
     def setUp(self):
@@ -85,13 +113,21 @@ class TestMage(TestCase):
         self.mage.set_path(Path.objects.get(name="Path 0"))
         self.mage.death = 2
         self.assertFalse(self.mage.has_legacy())
-        self.assertTrue(self.mage.set_legacy(Legacy.objects.get(name="Path 0 Order 0 Death Legacy")))
+        self.assertTrue(
+            self.mage.set_legacy(Legacy.objects.get(name="Path 0 Order 0 Death Legacy"))
+        )
         self.assertTrue(self.mage.has_legacy())
-        
+
     def test_filter_legacy(self):
-        both_wrong = Mage.objects.create(name="Neither Character", player=self.player.cod_profile)
-        path_right = Mage.objects.create(name="Path Character", player=self.player.cod_profile)
-        order_right = Mage.objects.create(name="Order Character", player=self.player.cod_profile)
+        both_wrong = Mage.objects.create(
+            name="Neither Character", player=self.player.cod_profile
+        )
+        path_right = Mage.objects.create(
+            name="Path Character", player=self.player.cod_profile
+        )
+        order_right = Mage.objects.create(
+            name="Order Character", player=self.player.cod_profile
+        )
         legacy = Legacy.objects.get(name="Path 0 Order 0 Death Legacy")
         right_order = Order.objects.get(name="Order 0")
         wrong_order = Order.objects.get(name="Order 1")
@@ -124,32 +160,38 @@ class TestMage(TestCase):
         self.assertTrue(self.mage.has_rote_skills())
 
     def test_get_arcana(self):
-        self.assertEqual(self.mage.get_arcana(), {
-            "death": 0,
-            "matter": 0,
-            "life": 0,
-            "spirit": 0,
-            "forces": 0,
-            "prime": 0,
-            "fate": 0,
-            "time": 0,
-            "mind": 0,
-            "space": 0,
-        })
+        self.assertEqual(
+            self.mage.get_arcana(),
+            {
+                "death": 0,
+                "matter": 0,
+                "life": 0,
+                "spirit": 0,
+                "forces": 0,
+                "prime": 0,
+                "fate": 0,
+                "time": 0,
+                "mind": 0,
+                "space": 0,
+            },
+        )
         self.mage.matter = 2
         self.mage.spirit = 3
-        self.assertEqual(self.mage.get_arcana(), {
-            "death": 0,
-            "matter": 2,
-            "life": 0,
-            "spirit": 3,
-            "forces": 0,
-            "prime": 0,
-            "fate": 0,
-            "time": 0,
-            "mind": 0,
-            "space": 0,
-        })
+        self.assertEqual(
+            self.mage.get_arcana(),
+            {
+                "death": 0,
+                "matter": 2,
+                "life": 0,
+                "spirit": 3,
+                "forces": 0,
+                "prime": 0,
+                "fate": 0,
+                "time": 0,
+                "mind": 0,
+                "space": 0,
+            },
+        )
 
     def test_has_arcana(self):
         self.assertFalse(self.mage.has_arcana())
@@ -181,7 +223,7 @@ class TestMage(TestCase):
         self.assertEqual(len(self.mage.filter_arcana(minimum=2, maximum=5)), 2)
         self.assertEqual(len(self.mage.filter_arcana(minimum=3, maximum=5)), 1)
         self.assertEqual(len(self.mage.filter_arcana(minimum=4, maximum=5)), 0)
-        
+
     def test_total_arcana(self):
         self.mage.gnosis = 1
         self.assertEqual(self.mage.total_arcana(), 0)
@@ -252,8 +294,12 @@ class TestMage(TestCase):
         self.mage.death = 3
         self.mage.save()
         num = self.mage.rotes.count()
-        self.assertTrue(self.mage.add_rote(Rote.objects.get(name="Compelling Death Rote")))
-        self.assertFalse(self.mage.add_rote(Rote.objects.get(name="Compelling Matter Rote")))
+        self.assertTrue(
+            self.mage.add_rote(Rote.objects.get(name="Compelling Death Rote"))
+        )
+        self.assertFalse(
+            self.mage.add_rote(Rote.objects.get(name="Compelling Matter Rote"))
+        )
         self.assertEqual(self.mage.rotes.count(), num + 1)
 
     def test_total_rotes(self):
@@ -306,12 +352,19 @@ class TestMage(TestCase):
         self.assertEqual(self.mage.practice_level("unraveling"), 4)
         self.assertEqual(self.mage.practice_level("making"), 5)
         self.assertEqual(self.mage.practice_level("unmaking"), 5)
-        
-        self.assertEqual(self.mage.practices_at_level(1), ["compelling", "knowing", "unveiling"])
-        self.assertEqual(self.mage.practices_at_level(2), ["ruling", "shielding", "veiling"])
-        self.assertEqual(self.mage.practices_at_level(3), ["fraying", "perfecting", "weaving"])
+
+        self.assertEqual(
+            self.mage.practices_at_level(1), ["compelling", "knowing", "unveiling"]
+        )
+        self.assertEqual(
+            self.mage.practices_at_level(2), ["ruling", "shielding", "veiling"]
+        )
+        self.assertEqual(
+            self.mage.practices_at_level(3), ["fraying", "perfecting", "weaving"]
+        )
         self.assertEqual(self.mage.practices_at_level(4), ["patterning", "unraveling"])
         self.assertEqual(self.mage.practices_at_level(5), ["making", "unmaking"])
+
 
 class TestRandomMage(TestCase):
     def setUp(self):
@@ -353,7 +406,7 @@ class TestRandomMage(TestCase):
         num = self.mage.rotes.count()
         self.assertTrue(self.mage.random_rote())
         self.assertEqual(self.mage.rotes.count(), num + 1)
-        
+
     def test_random_rotes(self):
         self.mage.death = 3
         self.mage.matter = 2
@@ -395,6 +448,7 @@ class TestRandomMage(TestCase):
         self.assertTrue(self.mage.has_mana())
         self.assertTrue(self.mage.has_rotes())
         self.assertTrue(self.mage.has_nimbus())
+
 
 class TestMageDetailView(TestCase):
     def setUp(self):

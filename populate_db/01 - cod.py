@@ -1,7 +1,7 @@
 from time import time
 
+from cod.models.characters.mage import Legacy, Order, Path, Rote, Spell
 from cod.models.characters.mortal import Merit, Specialty
-from cod.models.characters.mage import Path, Order, Legacy, Spell, Rote
 from core.models import Language
 
 SKILLS = [
@@ -335,9 +335,7 @@ Merit.objects.create(
 Merit.objects.create(
     name="Library, Advanced",
     ratings=[1, 2, 3],
-    prereqs=[
-        [("Library", 3), ("Safe Place", 1)]
-    ],
+    prereqs=[[("Library", 3), ("Safe Place", 1)]],
     merit_type="Mental",
 )
 Merit.objects.create(
@@ -855,23 +853,53 @@ Merit.objects.create(
 )
 
 
-acanthus = Path.objects.create(name="Acanthus", ruling_arcana=["fate", "time"], inferior_arcanum="forces")
-mastigos = Path.objects.create(name="Mastigo", ruling_arcana=["mind", "space"], inferior_arcanum="matter")
-moros = Path.objects.create(name="Moros", ruling_arcana=["death", "matter"], inferior_arcanum="spirit")
-obrimos = Path.objects.create(name="Obrimos", ruling_arcana=["forces", "prime"], inferior_arcanum="death")
-thyrsus = Path.objects.create(name="Thyrsus", ruling_arcana=["life", "spirit"], inferior_arcanum="mind")
+acanthus = Path.objects.create(
+    name="Acanthus", ruling_arcana=["fate", "time"], inferior_arcanum="forces"
+)
+mastigos = Path.objects.create(
+    name="Mastigo", ruling_arcana=["mind", "space"], inferior_arcanum="matter"
+)
+moros = Path.objects.create(
+    name="Moros", ruling_arcana=["death", "matter"], inferior_arcanum="spirit"
+)
+obrimos = Path.objects.create(
+    name="Obrimos", ruling_arcana=["forces", "prime"], inferior_arcanum="death"
+)
+thyrsus = Path.objects.create(
+    name="Thyrsus", ruling_arcana=["life", "spirit"], inferior_arcanum="mind"
+)
 
-adamantine_arrow = Order.objects.create(name="Adamantine Arrow", rote_skills=["athletics", "intimidation", "medicine"])
-guardians_of_the_veil = Order.objects.create(name="Guardians of the Veil", rote_skills=["investigation", "stealth", "subterfuge"])
-mysterium = Order.objects.create(name="Mysterium", rote_skills=["investigation", "occult", "survival"])
-silver_ladder = Order.objects.create(name="Silver Ladder", rote_skills=["expression", "persuasion", "subterfuge"])
-free_council = Order.objects.create(name="Free Councl", rote_skills=["crafts", "persuasion", "science"])
-seers_of_the_throne = Order.objects.create(name="Seers of the Throne", rote_skills=["investigation", "occult", "persuasion"])
+adamantine_arrow = Order.objects.create(
+    name="Adamantine Arrow", rote_skills=["athletics", "intimidation", "medicine"]
+)
+guardians_of_the_veil = Order.objects.create(
+    name="Guardians of the Veil", rote_skills=["investigation", "stealth", "subterfuge"]
+)
+mysterium = Order.objects.create(
+    name="Mysterium", rote_skills=["investigation", "occult", "survival"]
+)
+silver_ladder = Order.objects.create(
+    name="Silver Ladder", rote_skills=["expression", "persuasion", "subterfuge"]
+)
+free_council = Order.objects.create(
+    name="Free Councl", rote_skills=["crafts", "persuasion", "science"]
+)
+seers_of_the_throne = Order.objects.create(
+    name="Seers of the Throne", rote_skills=["investigation", "occult", "persuasion"]
+)
 
-hegemony = Order.objects.create(name="Hegemony", rote_skills=["politics", "persuasion", "empathy"])
-panopticon = Order.objects.create(name="Panopticon", rote_skills=["investigation", "stealth", "subterfuge"])
-paternoster = Order.objects.create(name="Paternoster", rote_skills=["academics", "occult", "expression"])
-praetorian = Order.objects.create(name="Praetorian", rote_skills=["athletics", "larceny", "intimidation"])
+hegemony = Order.objects.create(
+    name="Hegemony", rote_skills=["politics", "persuasion", "empathy"]
+)
+panopticon = Order.objects.create(
+    name="Panopticon", rote_skills=["investigation", "stealth", "subterfuge"]
+)
+paternoster = Order.objects.create(
+    name="Paternoster", rote_skills=["academics", "occult", "expression"]
+)
+praetorian = Order.objects.create(
+    name="Praetorian", rote_skills=["athletics", "larceny", "intimidation"]
+)
 
 Merit.objects.create(
     name="Adamant Hand",
@@ -882,247 +910,145 @@ Merit.objects.create(
         [("athletics", 3), ("Adamantine Arrow Status", 1)],
         [("brawl", 3), ("Adamantine Arrow Status", 1)],
         [("weaponry", 3), ("Adamantine Arrow Status", 1)],
-        ],
+    ],
     merit_type="Mage",
 )
 Merit.objects.create(
-    name="Artifact",
-    ratings=[3, 4, 5],
-    merit_type="Mage",
+    name="Artifact", ratings=[3, 4, 5], merit_type="Mage",
 )
 Merit.objects.create(
-    name="Astral Adept",
-    ratings=[4],
-    merit_type="Mage",
+    name="Astral Adept", ratings=[4], merit_type="Mage",
 )
 Merit.objects.create(
     name="Between the Ticks",
     ratings=[2],
     merit_type="Mage",
-    prereqs=[
-        [("wits", 3), ("time", 1)]
-    ]
+    prereqs=[[("wits", 3), ("time", 1)]],
 )
+Merit.objects.create(name="Cabal Theme", ratings=[1], merit_type="Mage", prereqs=[])
 Merit.objects.create(
-    name="Cabal Theme",
-    ratings=[1],
-    merit_type="Mage",
-    prereqs=[
-    ]
-)
-Merit.objects.create(
-    name="Consilium Status",
-    ratings=[1, 2, 3, 4, 5],
-    merit_type="Mage",
+    name="Consilium Status", ratings=[1, 2, 3, 4, 5], merit_type="Mage",
 )
 Merit.objects.create(
     name="Adamantine Arrow Status",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
-    prereqs=[
-    ]
+    prereqs=[],
 )
 Merit.objects.create(
-    name="Mysterium Status",
-    ratings=[1, 2, 3, 4, 5],
-    merit_type="Mage",
-    prereqs=[
-    ]
+    name="Mysterium Status", ratings=[1, 2, 3, 4, 5], merit_type="Mage", prereqs=[]
 )
 Merit.objects.create(
     name="Guardians of the Veil Status",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
-    prereqs=[
-    ]
+    prereqs=[],
 )
 Merit.objects.create(
-    name="Silver Ladder Status",
-    ratings=[1, 2, 3, 4, 5],
-    merit_type="Mage",
-    prereqs=[
-    ]
+    name="Silver Ladder Status", ratings=[1, 2, 3, 4, 5], merit_type="Mage", prereqs=[]
 )
 Merit.objects.create(
-    name="Free Council Status",
-    ratings=[1, 2, 3, 4, 5],
-    merit_type="Mage",
-    prereqs=[
-    ]
+    name="Free Council Status", ratings=[1, 2, 3, 4, 5], merit_type="Mage", prereqs=[]
 )
 Merit.objects.create(
     name="Seers pf the Throne Status",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
-    prereqs=[
-    ]
+    prereqs=[],
 )
 Merit.objects.create(
-    name="Destiny",
-    ratings=[1, 2, 3, 4, 5],
-    merit_type="Mage",
-    prereqs=[
-    ]
+    name="Destiny", ratings=[1, 2, 3, 4, 5], merit_type="Mage", prereqs=[]
 )
 Merit.objects.create(
     name="Dream",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
-    prereqs=[
-        [("composure", 3), ("wits", 3)]
-    ]
+    prereqs=[[("composure", 3), ("wits", 3)]],
 )
 Merit.objects.create(
     name="Egregore",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
-    prereqs=[
-        [("Mysterium Status", 1)]
-    ]
+    prereqs=[[("Mysterium Status", 1)]],
 )
 Merit.objects.create(
-    name="Enhanced Item",
-    ratings=[1, 2, 3, 4, 5],
-    merit_type="Mage",
-    prereqs=[
-    ]
+    name="Enhanced Item", ratings=[1, 2, 3, 4, 5], merit_type="Mage", prereqs=[]
 )
-Merit.objects.create(
-    name="Familiar",
-    ratings=[2, 4],
-    merit_type="Mage",
-    prereqs=[
-    ]
-)
+Merit.objects.create(name="Familiar", ratings=[2, 4], merit_type="Mage", prereqs=[])
 Merit.objects.create(
     name="Fast Spells",
     ratings=[2],
     merit_type="Mage",
-    prereqs=[
-        [("firearms", 2), ("time", 1)]
-    ]
+    prereqs=[[("firearms", 2), ("time", 1)]],
 )
 Merit.objects.create(
-    name="Grimoire",
-    ratings=[1, 2, 3, 4, 5],
-    merit_type="Mage",
-    prereqs=[
-    ]
+    name="Grimoire", ratings=[1, 2, 3, 4, 5], merit_type="Mage", prereqs=[]
 )
 Merit.objects.create(
-    name="Hallow",
-    ratings=[1, 2, 3, 4, 5],
-    merit_type="Mage",
-    prereqs=[
-    ]
+    name="Hallow", ratings=[1, 2, 3, 4, 5], merit_type="Mage", prereqs=[]
 )
+Merit.objects.create(name="High Speech", ratings=[1], merit_type="Mage", prereqs=[])
 Merit.objects.create(
-    name="High Speech",
-    ratings=[1],
-    merit_type="Mage",
-    prereqs=[
-    ]
-)
-Merit.objects.create(
-    name="Imbued Item",
-    ratings=[1, 2, 3, 4, 5],
-    merit_type="Mage",
-    prereqs=[
-    ]
+    name="Imbued Item", ratings=[1, 2, 3, 4, 5], merit_type="Mage", prereqs=[]
 )
 Merit.objects.create(
     name="Infamous Mentor",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
-    prereqs=[
-        [("Mentor", 1)]
-    ]
+    prereqs=[[("Mentor", 1)]],
 )
 Merit.objects.create(
     name="Lex Magica",
     ratings=[2],
     merit_type="Mage",
-    prereqs=[
-        [("Silver Ladder Status", 1)]
-    ]
+    prereqs=[[("Silver Ladder Status", 1)]],
 )
 Merit.objects.create(
     name="Mana Sensitivity",
     ratings=[1],
     merit_type="Mage",
-    prereqs=[
-        [("wits", 3), ("prime", 1)]
-    ]
+    prereqs=[[("wits", 3), ("prime", 1)]],
 )
 Merit.objects.create(
     name="Masque",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
-    prereqs=[
-        [("Guardians of the Veil Status", 1)]
-    ],
-    is_style=True
+    prereqs=[[("Guardians of the Veil Status", 1)]],
+    is_style=True,
 )
 Merit.objects.create(
-    name="Mystery Cult Influence",
-    ratings=[3, 4, 5],
-    merit_type="Mage",
-    prereqs=[
-    ]
+    name="Mystery Cult Influence", ratings=[3, 4, 5], merit_type="Mage", prereqs=[]
 )
 Merit.objects.create(
-    name="Occultation",
-    ratings=[1, 2, 3],
-    merit_type="Mage",
-    prereqs=[
-    ]
+    name="Occultation", ratings=[1, 2, 3], merit_type="Mage", prereqs=[]
 )
 Merit.objects.create(
-    name="Potent Nimbus",
-    ratings=[1, 2],
-    merit_type="Mage",
-    prereqs=[
-    ]
+    name="Potent Nimbus", ratings=[1, 2], merit_type="Mage", prereqs=[]
 )
 Merit.objects.create(
-    name="Potent Resonance",
-    ratings=[2],
-    merit_type="Mage",
-    prereqs=[
-        [("gnosis", 3)]
-    ]
+    name="Potent Resonance", ratings=[2], merit_type="Mage", prereqs=[[("gnosis", 3)]]
 )
 Merit.objects.create(
     name="Prelacy",
     ratings=[1, 2, 3, 4],
     merit_type="Mage",
-    prereqs=[
-        [("Seers of the Throne Status", 3)]
-    ],
+    prereqs=[[("Seers of the Throne Status", 3)]],
     is_style=True,
 )
 Merit.objects.create(
     name="Sanctum",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
-    prereqs=[
-        [("Safe Place", 1)]
-    ]
+    prereqs=[[("Safe Place", 1)]],
 )
 Merit.objects.create(
-    name="Shadow Name",
-    ratings=[1, 2, 3],
-    merit_type="Mage",
-    prereqs=[
-    ]
+    name="Shadow Name", ratings=[1, 2, 3], merit_type="Mage", prereqs=[]
 )
 Merit.objects.create(
     name="Techne",
     ratings=[2],
     merit_type="Mage",
-    prereqs=[
-        [("Free Council Status", 1)]
-    ]
+    prereqs=[[("Free Council Status", 1)]],
 )
 
 Rote.objects.create(
@@ -1132,7 +1058,7 @@ Rote.objects.create(
     level=1,
     suggested_rote_skills=["crafts", "occult", "larceny"],
     primary_factor="duration",
-    withstand="resolve"
+    withstand="resolve",
 )
 Rote.objects.create(
     name="Deepen Shadows",
@@ -1977,7 +1903,7 @@ Rote.objects.create(
     practice="making",
     primary_factor="duration",
     withstand="",
-    suggested_rote_skills=["crafts", "occult", 'science'],
+    suggested_rote_skills=["crafts", "occult", "science"],
 )
 Rote.objects.create(
     name="Create Energy",
@@ -1986,7 +1912,7 @@ Rote.objects.create(
     practice="making",
     primary_factor="duration",
     withstand="",
-    suggested_rote_skills=["crafts", "occult", 'science'],
+    suggested_rote_skills=["crafts", "occult", "science"],
 )
 Rote.objects.create(
     name="Eradicate Energy",
@@ -1995,7 +1921,7 @@ Rote.objects.create(
     practice="unmaking",
     primary_factor="potency",
     withstand="",
-    suggested_rote_skills=["intimidation", 'science', "survival"],
+    suggested_rote_skills=["intimidation", "science", "survival"],
 )
 Rote.objects.create(
     name="Earthquake",
@@ -2049,7 +1975,7 @@ Rote.objects.create(
     practice="knowing",
     primary_factor="duration",
     withstand="",
-    suggested_rote_skills=["investigation", "medicine", 'survival'],
+    suggested_rote_skills=["investigation", "medicine", "survival"],
 )
 Rote.objects.create(
     name="Body Control",
@@ -2591,7 +2517,7 @@ Rote.objects.create(
     practice="ruling",
     primary_factor="potency",
     withstand="resolve",
-    suggested_rote_skills=["expression", "intimidation", 'subterfuge'],
+    suggested_rote_skills=["expression", "intimidation", "subterfuge"],
 )
 Rote.objects.create(
     name="Telepathy",
@@ -2663,7 +2589,7 @@ Rote.objects.create(
     practice="weaving",
     primary_factor="duration",
     withstand="composure",
-    suggested_rote_skills=["persuasion", 'stealth', 'subterfuge'],
+    suggested_rote_skills=["persuasion", "stealth", "subterfuge"],
 )
 Rote.objects.create(
     name="Psychic Assault",
@@ -2672,7 +2598,7 @@ Rote.objects.create(
     practice="fraying",
     primary_factor="potency",
     withstand="",
-    suggested_rote_skills=["academics", 'intimidation', "medicine"],
+    suggested_rote_skills=["academics", "intimidation", "medicine"],
 )
 Rote.objects.create(
     name="Sleep of the Just",
@@ -2762,7 +2688,7 @@ Rote.objects.create(
     practice="patterning",
     primary_factor="potency",
     withstand="composure",
-    suggested_rote_skills=["expression", "intimidation", 'medicine'],
+    suggested_rote_skills=["expression", "intimidation", "medicine"],
 )
 Rote.objects.create(
     name="Amorality",
@@ -2825,7 +2751,7 @@ Rote.objects.create(
     practice="unveiling",
     primary_factor="duration",
     withstand="",
-    suggested_rote_skills=["investigation", "medicine", 'occult'],
+    suggested_rote_skills=["investigation", "medicine", "occult"],
 )
 Rote.objects.create(
     name="Supernal Vision",
@@ -3025,7 +2951,7 @@ Rote.objects.create(
     practice="patterning",
     primary_factor="potency",
     withstand="hallow_rating",
-    suggested_rote_skills=["expression", 'occult', "survival"],
+    suggested_rote_skills=["expression", "occult", "survival"],
 )
 Rote.objects.create(
     name="Supernal Dispellation",
@@ -3034,7 +2960,7 @@ Rote.objects.create(
     practice="unraveling",
     primary_factor="potency",
     withstand="arcanum",
-    suggested_rote_skills=["athletics", "intimidation", 'occult'],
+    suggested_rote_skills=["athletics", "intimidation", "occult"],
 )
 Rote.objects.create(
     name="Blasphemy",
@@ -3090,7 +3016,7 @@ Rote.objects.create(
     practice="knowing",
     primary_factor="potency",
     withstand="",
-    suggested_rote_skills=["academics", 'empathy', 'medicine'],
+    suggested_rote_skills=["academics", "empathy", "medicine"],
 )
 Rote.objects.create(
     name="Ground-Eater",
@@ -3117,7 +3043,7 @@ Rote.objects.create(
     practice="knowing",
     primary_factor="duration",
     withstand="",
-    suggested_rote_skills=["empathy", 'occult', "science"],
+    suggested_rote_skills=["empathy", "occult", "science"],
 )
 Rote.objects.create(
     name="The Outward and Inward Eye",
@@ -3252,7 +3178,7 @@ Rote.objects.create(
     practice="unraveling",
     primary_factor="potency",
     withstand="",
-    suggested_rote_skills=["academics", 'firearms', "intimidation"],
+    suggested_rote_skills=["academics", "firearms", "intimidation"],
 )
 Rote.objects.create(
     name="Cut Threads",
@@ -3288,7 +3214,7 @@ Rote.objects.create(
     practice="making",
     primary_factor="potency",
     withstand="connection",
-    suggested_rote_skills=["empathy", "persuasion", 'poltiics'],
+    suggested_rote_skills=["empathy", "persuasion", "poltiics"],
 )
 Rote.objects.create(
     name="Forge No Chains",
@@ -3495,7 +3421,7 @@ Rote.objects.create(
     practice="perfecting",
     primary_factor="potency",
     withstand="rank",
-    suggested_rote_skills=["athletics", "expression", 'investigation'],
+    suggested_rote_skills=["athletics", "expression", "investigation"],
 )
 Rote.objects.create(
     name="Spirit Summoning",
@@ -3702,7 +3628,7 @@ Rote.objects.create(
     practice="veiling",
     primary_factor="duration",
     withstand="",
-    suggested_rote_skills=["academics", "stealth", 'subterfuge'],
+    suggested_rote_skills=["academics", "stealth", "subterfuge"],
 )
 Rote.objects.create(
     name="Tipping the Hourglass",
@@ -3843,34 +3769,64 @@ Rote.objects.create(
     suggested_rote_skills=["occult", "science", "stealth"],
 )
 
-Legacy.objects.create(name="The Eleventh Question", path=moros, order=guardians_of_the_veil, ruling_arcanum="time")
+Legacy.objects.create(
+    name="The Eleventh Question",
+    path=moros,
+    order=guardians_of_the_veil,
+    ruling_arcanum="time",
+)
 Legacy.objects.create(name="Walkers in Mists", path=acanthus, ruling_arcanum="space")
 Legacy.objects.create(name="House of Ariadne", path=acanthus, ruling_arcanum="time")
-Legacy.objects.create(name="Sisterhood of the Blessed", path=acanthus, ruling_arcanum="fate")
+Legacy.objects.create(
+    name="Sisterhood of the Blessed", path=acanthus, ruling_arcanum="fate"
+)
 Legacy.objects.create(name="Pygmalion Society", path=acanthus, ruling_arcanum="mind")
 Legacy.objects.create(name="Blank Badge", path=acanthus, ruling_arcanum="mind")
-Legacy.objects.create(name="Carnival Melancholy", path=acanthus, ruling_arcanum="death", is_left_handed=True)
+Legacy.objects.create(
+    name="Carnival Melancholy",
+    path=acanthus,
+    ruling_arcanum="death",
+    is_left_handed=True,
+)
 Legacy.objects.create(name="Clavicularius", path=mastigos, ruling_arcanum="spirit")
 Legacy.objects.create(name="Bene Ashmedai", path=mastigos, ruling_arcanum="spirit")
-Legacy.objects.create(name="Bearers of the Eternal Voice", path=mastigos, ruling_arcanum="mind")
+Legacy.objects.create(
+    name="Bearers of the Eternal Voice", path=mastigos, ruling_arcanum="mind"
+)
 Legacy.objects.create(name="Cryptologos", path=mastigos, ruling_arcanum="prime")
-Legacy.objects.create(name="Brotherhood of the Demon Wind", path=mastigos, ruling_arcanum="time")
-Legacy.objects.create(name="Legion", path=mastigos, ruling_arcanum="death", is_left_handed=True)
+Legacy.objects.create(
+    name="Brotherhood of the Demon Wind", path=mastigos, ruling_arcanum="time"
+)
+Legacy.objects.create(
+    name="Legion", path=mastigos, ruling_arcanum="death", is_left_handed=True
+)
 Legacy.objects.create(name="Uncrowned Kings", path=moros, ruling_arcanum="mind")
 Legacy.objects.create(name="Stone Scribes", path=moros, ruling_arcanum="time")
 Legacy.objects.create(name="Bokor", path=moros, ruling_arcanum="death")
 Legacy.objects.create(name="Forge Masters", path=moros, ruling_arcanum="prime")
-Legacy.objects.create(name="Votaries of the Ordained", path=moros, ruling_arcanum="fate")
-Legacy.objects.create(name="Logophages", path=moros, ruling_arcanum="prime", is_left_handed=True)
+Legacy.objects.create(
+    name="Votaries of the Ordained", path=moros, ruling_arcanum="fate"
+)
+Legacy.objects.create(
+    name="Logophages", path=moros, ruling_arcanum="prime", is_left_handed=True
+)
 Legacy.objects.create(name="Perfected Adepts", path=obrimos, ruling_arcanum="life")
 Legacy.objects.create(name="Daksha", path=obrimos, ruling_arcanum="life")
 Legacy.objects.create(name="Thrice-Great", path=obrimos, ruling_arcanum="spirit")
 Legacy.objects.create(name="Tamers of Fire", path=obrimos, ruling_arcanum="mind")
-Legacy.objects.create(name="Transhuman Engineers", path=obrimos, ruling_arcanum="matter")
-Legacy.objects.create(name="Echo Walkers", path=obrimos, ruling_arcanum="life", is_left_handed=True)
+Legacy.objects.create(
+    name="Transhuman Engineers", path=obrimos, ruling_arcanum="matter"
+)
+Legacy.objects.create(
+    name="Echo Walkers", path=obrimos, ruling_arcanum="life", is_left_handed=True
+)
 Legacy.objects.create(name="Orphans of Proteus", path=thyrsus, ruling_arcanum="life")
 Legacy.objects.create(name="Dreamspeakers", path=thyrsus, ruling_arcanum="mind")
 Legacy.objects.create(name="Illumined Path", path=thyrsus, ruling_arcanum="prime")
-Legacy.objects.create(name="Keepers of the Covenant", path=thyrsus, ruling_arcanum="fate")
+Legacy.objects.create(
+    name="Keepers of the Covenant", path=thyrsus, ruling_arcanum="fate"
+)
 Legacy.objects.create(name="Chrysalides", path=thyrsus, ruling_arcanum="life")
-Legacy.objects.create(name="Tamers of Blood", path=thyrsus, ruling_arcanum="space", is_left_handed=True)
+Legacy.objects.create(
+    name="Tamers of Blood", path=thyrsus, ruling_arcanum="space", is_left_handed=True
+)
