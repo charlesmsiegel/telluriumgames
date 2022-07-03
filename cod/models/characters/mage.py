@@ -319,8 +319,7 @@ class Mage(Mortal):
         }
         if mana > gnosis_mana_limits[self.gnosis]:
             mana = gnosis_mana_limits[self.gnosis]
-        if mana < 0:
-            mana = 0
+        mana = max(0, mana)
         self.mana = mana
         self.save()
         return True

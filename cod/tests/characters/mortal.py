@@ -367,7 +367,7 @@ class TestMortal(TestCase):
             name="Merit 5", ratings=[2, 4], merit_type="Supernatural"
         )
         m6 = Merit.objects.create(name="Merit 6", ratings=[3, 4], merit_type="Physical")
-        m7 = Merit.objects.create(name="Merit 7", ratings=[3, 4], merit_type="Mage")
+        Merit.objects.create(name="Merit 7", ratings=[3, 4], merit_type="Mage")
         merit_list = self.character.filter_merits(
             dots=3
         )  # Gives all merits with cost <= dots that character could add

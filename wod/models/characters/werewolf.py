@@ -479,12 +479,9 @@ class Werewolf(Human):
         self.temporary_glory += r.glory
         self.temporary_honor += r.honor
         self.temporary_wisdom += r.wisdom
-        if self.temporary_glory < 0:
-            self.temporary_glory = 0
-        if self.temporary_honor < 0:
-            self.temporary_honor = 0
-        if self.temporary_wisdom < 0:
-            self.temporary_wisdom = 0
+        self.temporary_glory = max(0, self.temporary_glory)
+        self.temporary_honor = max(0, self.temporary_honor)
+        self.temporary_wisdom = max(0, self.temporary_wisdom)
         if r.name == "Learning a new rite":
             if rite is not None:
                 self.add_rite(rite)

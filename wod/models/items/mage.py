@@ -274,10 +274,8 @@ class Grimoire(Wonder):
         self.set_medium(medium)
 
     def set_rank(self, rank):
-        if rank > 5:
-            rank = 5
-        if rank < 1:
-            rank = 1
+        rank = min(5, rank)
+        rank = max(1, rank)
         self.rank = rank
         return True
 
