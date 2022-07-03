@@ -140,7 +140,7 @@ class ProximiFamilyDetailView(DetailView):
             [x.title() for x in fam.path.ruling_arcana + [fam.blessing_arcana]]
         )
 
-        all_blessings = list(context["object"].possible_blessings.all())
+        all_blessings = list(context["object"].possible_blessings.all().order_by("arcanum"))
         row_length = 2
         all_blessings = [
             all_blessings[i : i + row_length]
