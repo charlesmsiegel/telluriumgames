@@ -591,13 +591,16 @@ class ProximiFamily(models.Model):
     possible_blessings = models.ManyToManyField(Rote, blank=True)
     
     def has_parent_path(self):
-        pass
+        return self.path is not None
     
     def set_parent_path(self, parent_path):
-        pass
+        self.path = parent_path
+        self.save()
+        return True
     
     def random_parent_path(self):
-        pass
+        p = Path.objects.order_by("?").first()
+        return self.set_parent_path(p)
     
     def has_blessing_arcana(self):
         pass
