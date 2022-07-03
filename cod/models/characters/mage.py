@@ -569,3 +569,88 @@ class KnownRote(models.Model):
     mage = models.ForeignKey(Mage, on_delete=models.CASCADE)
     rote = models.ForeignKey(Rote, on_delete=models.CASCADE)
     rote_skill = models.CharField(default="", max_length=20, blank=True, null=True)
+
+class ProximiFamily(models.Model):
+    name = models.CharField(max_length=100)
+    path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.CASCADE)
+    blessing_arcana = models.CharField(
+        max_length=10,
+        choices=[
+            ("death", "Death"),
+            ("matter", "Matter"),
+            ("life", "Life"),
+            ("spirit", "Spirit"),
+            ("time", "Time"),
+            ("fate", "Fate"),
+            ("mind", "Mind"),
+            ("space", "Space"),
+            ("prime", "Prime"),
+            ("forces", "Forces"),
+        ],
+    )
+    possible_blessings = models.ManyToManyField(Rote, blank=True)
+    
+    def has_parent_path(self):
+        pass
+    
+    def set_parent_path(self, parent_path):
+        pass
+    
+    def random_parent_path(self):
+        pass
+    
+    def has_blessing_arcana(self):
+        pass
+    
+    def set_blessing_arcana(self, arcana):
+        pass
+    
+    def random_blessing_arcana(self):
+        pass
+    
+    def has_possible_blessings(self):
+        pass
+    
+    def set_possible_blessings(self, list_of_blessings):
+        pass
+
+    def random_blessings(self):
+        pass
+    
+    def random(self):
+        pass
+
+class Proximi(Mortal):
+    type = "proximi"
+    
+    family = models.ForeignKey(ProximiFamily, null=True, blank=True, on_delete=models.CASCADE)
+    blessings = models.ManyToManyField(Rote, blank=True)
+    
+    def has_family(self):
+        pass
+    
+    def set_family(self, family):
+        self.family = family
+        self.save()
+        return True
+    
+    def random_family(self):
+        pass
+    
+    def has_mana(self):
+        pass
+    
+    def set_mana(self, mana):
+        pass
+    
+    def has_blessings(self):
+        pass
+    
+    def set_blessings(self, blessings):
+        pass
+    
+    def add_blessing(self, blessing):
+        pass
+    
+    def random_blessing(self):
+        pass
