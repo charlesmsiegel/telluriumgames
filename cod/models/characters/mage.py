@@ -40,10 +40,16 @@ class Path(models.Model):
         ],
     )
 
+    def __str__(self):
+        return self.name
+
 
 class Order(models.Model):
     name = models.CharField(max_length=100)
     rote_skills = models.JSONField(default=list)
+
+    def __str__(self):
+        return self.name
 
 
 class Legacy(models.Model):
@@ -66,6 +72,9 @@ class Legacy(models.Model):
         ],
     )
     is_left_handed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
 
 
 class Rote(models.Model):

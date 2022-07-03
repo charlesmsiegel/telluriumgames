@@ -637,12 +637,17 @@
                 <div class="col-sm">Time</div>
                 <div class="col-sm dots">{{ object.time|dots }}</div>
             </div>
+            <div class="row">
+                <h3 class="col-sm cod_heading">
+                    Rotes
+                </h3>
+            </div>
             {% for row in rotes %}
             <div class="row">
                 {% for rote in row %}
                 <div class="col-sm">{{ rote.name }}</div>
-                <div class="col-sm">{{ rote.spell.arcanum }}</div>
-                <div class="col-sm dots">{{ rote.spell.level|dots }}</div>
+                <div class="col-sm">{{ rote.arcanum.title }}</div>
+                <div class="col-sm dots">{{ rote.level|dots }}</div>
                 {% endfor %}
             </div>
             {% endfor %}

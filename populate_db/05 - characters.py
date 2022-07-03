@@ -43,8 +43,8 @@ for i in range(10):
     grimoire.save()
 print("Average Random Grimoire Time:", (time() - grimoire_start) / 10)
 
-from cod.models.characters.mortal import Mortal
 from cod.models.characters.mage import Mage
+from cod.models.characters.mortal import Mortal
 
 mortal_start = time()
 for i in range(10):

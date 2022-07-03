@@ -1,6 +1,6 @@
 from time import time
 
-from cod.models.characters.mage import Legacy, Order, Path, Rote, Spell
+from cod.models.characters.mage import Legacy, Order, Path, Rote
 from cod.models.characters.mortal import Merit, Specialty
 from core.models import Language
 
@@ -903,7 +903,7 @@ praetorian = Order.objects.create(
 
 Merit.objects.create(
     name="Adamant Hand",
-    requires_details=True,
+    requires_detail=True,
     possible_details=["Athletics", "Weaponry", "Brawl"],
     ratings=[2],
     prereqs=[

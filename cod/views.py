@@ -1,11 +1,16 @@
+from collections import namedtuple
+
 from django.shortcuts import redirect, render
 from django.views.generic import DetailView, View
 
 from cod.models.characters.mage import Mage
 from cod.models.characters.mortal import MeritRating, Mortal
 
-
 # Create your views here.
+EmptyRote = namedtuple("EmptyRote", ["name", "arcana", "level"])
+empty_rote = EmptyRote("", "", "")
+
+
 class IndexView(View):
     """Class that manages the Index view"""
 
@@ -53,6 +58,9 @@ class MageDetailView(View):
         all_rotes = [
             all_rotes[i : i + row_length] for i in range(0, len(all_rotes), row_length)
         ]
+        if len(all_rotes) != 0:
+            while len(all_rotes[-1]) < row_length:
+                all_rotes[-1].append(empty_rote)
         context["rotes"] = all_rotes
 
         return render(request, "cod/characters/mage/detail.html", context,)
