@@ -591,6 +591,7 @@ class TestRandomProximiFamily(TestCase):
         self.assertTrue(self.proximi_family.has_parent_path())
         
     def test_random_arcana(self):
+        self.proximi_family.set_parent_path(Path.objects.first())
         self.assertFalse(self.proximi_family.has_blessing_arcana())
         self.assertTrue(self.proximi_family.random_blessing_arcana())
         self.assertTrue(self.proximi_family.has_blessing_arcana())

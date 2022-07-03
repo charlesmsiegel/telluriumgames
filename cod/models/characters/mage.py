@@ -603,13 +603,15 @@ class ProximiFamily(models.Model):
         return self.set_parent_path(p)
     
     def has_blessing_arcana(self):
-        pass
+        return self.blessing_arcana != ""
     
     def set_blessing_arcana(self, arcana):
-        pass
+        self.blessing_arcana = arcana
+        return True
     
     def random_blessing_arcana(self):
-        pass
+        arcana = random.choice([x for x in ARCANA if x not in self.path.ruling_arcana])
+        return self.set_blessing_arcana(arcana)
     
     def has_possible_blessings(self):
         pass
