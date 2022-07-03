@@ -496,20 +496,20 @@ class TestProximiFamily(TestCase):
 
     def test_has_possible_blessings(self):
         self.assertFalse(self.proximi_family.has_possible_blessings())
-        while sum(x.spell.level for x in self.proximi_family.possible_blessings.all()) < 30:
-            options = Rote.objects.filter(spell__level__lte=3, spell__arcanum__in=["death", "space", "time"])
+        while sum(x.level for x in self.proximi_family.possible_blessings.all()) < 30:
+            options = Rote.objects.filter(level__lte=3, arcanum__in=["death", "space", "time"])
             choice = random.choice(options)
-            if choice.spell.level + sum(x.spell.level for x in self.proximi_family.possible_blessings()) <= 30:
+            if choice.level + sum(x.level for x in self.proximi_family.possible_blessings()) <= 30:
                 self.proximi_family.possible_blessings.add(choice)
         self.assertTrue(self.proximi_family.has_possible_blessings())
 
     def test_set_possible_blessings(self):
         self.assertFalse(self.proximi_family.has_possible_blessings())
         L = []
-        while sum(x.spell.level for x in L) < 30:
-            options = Rote.objects.filter(spell__level__lte=3, spell__arcanum__in=["death", "space", "time"])
+        while sum(x.level for x in L) < 30:
+            options = Rote.objects.filter(level__lte=3, arcanum__in=["death", "space", "time"])
             choice = random.choice(options)
-            if choice.spell.level + sum(x.spell.level for x in self.proximi_family.possible_blessings()) <= 30:
+            if choice.level + sum(x.level for x in self.proximi_family.possible_blessings()) <= 30:
                 L.append(choice)
         self.assertTrue(self.proximi_family.set_possible_blessings(L))
         self.assertTrue(self.proximi_family.has_possible_blessings())
@@ -525,10 +525,10 @@ class TestProximi(TestCase):
                 if arcana not in path.ruling_arcana:
                     proximi_family = ProximiFamily.objects.create(name=f"{path.name} {arcana.title()} Family", path=path, blessing_arcana=arcana)
                     L = []
-                    while sum(x.spell.level for x in L) < 30:
-                        options = Rote.objects.filter(spell__level__lte=3, spell__arcanum__in=["death", "space", "time"])
+                    while sum(x.level for x in L) < 30:
+                        options = Rote.objects.filter(level__lte=3, arcanum__in=["death", "space", "time"])
                         choice = random.choice(options)
-                        if choice.spell.level + sum(x.spell.level for x in self.proximi_family.possible_blessings()) <= 30:
+                        if choice.level + sum(x.level for x in proximi_family.possible_blessings()) <= 30:
                             L.append(choice)
                     proximi_family.set_possible_blessings(L)
         self.proximi = Proximi.objects.create(name="Test Proximi", player=self.player.cod_profile)
@@ -622,10 +622,10 @@ class TestRandomProximi(TestCase):
                 if arcana not in path.ruling_arcana:
                     proximi_family = ProximiFamily.objects.create(name=f"{path.name} {arcana.title()} Family", path=path, blessing_arcana=arcana)
                     L = []
-                    while sum(x.spell.level for x in L) < 30:
-                        options = Rote.objects.filter(spell__level__lte=3, spell__arcanum__in=["death", "space", "time"])
+                    while sum(x.level for x in L) < 30:
+                        options = Rote.objects.filter(level__lte=3, arcanum__in=["death", "space", "time"])
                         choice = random.choice(options)
-                        if choice.spell.level + sum(x.spell.level for x in self.proximi_family.possible_blessings()) <= 30:
+                        if choice.level + sum(x.level for x in self.proximi_family.possible_blessings()) <= 30:
                             L.append(choice)
                     proximi_family.set_possible_blessings(L)
         self.proximi = Proximi.objects.create(name="Test Proximi", player=self.player.cod_profile)
