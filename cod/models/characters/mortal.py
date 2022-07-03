@@ -163,7 +163,7 @@ class Mortal(PolymorphicModel):
         return [x for x in virtue_list if x not in virtues]
 
     def random_virtue(self):
-        virtues = ["Competitive", "Generous", "Just", "Loyal"]
+        virtues = ["Competitive", "Generous", "Just", "Loyal", "Hopeful", "Loving", "Honest", "Trustworthy", "Ambitious", "Patient", "Courageous"]
         virtues = self.filter_virtues(virtues)
         self.add_virtue(random.choice(virtues))
 
@@ -184,7 +184,7 @@ class Mortal(PolymorphicModel):
         return [x for x in vice_list if x not in vices]
 
     def random_vice(self):
-        vices = ["Ambitious", "Arrogant", "Competitive", "Greedy"]
+        vices = ["Ambitious", "Arrogant", "Competitive", "Greedy", "Pessimistic", "Hateful", "Deceitful", "Cruel", "Addictive", "Hasty", "Corrupt", "Dogmatic"]
         vices = self.filter_vices(vices)
         self.add_vice(random.choice(vices))
 

@@ -596,10 +596,10 @@ class TestRandomMortal(TestCase):
         self.character.random_basis()
         self.assertNotEqual(self.character.name, "")
         self.assertIn(
-            self.character.vice, ["Ambitious", "Arrogant", "Competitive", "Greedy"]
+            self.character.vice, ["Ambitious", "Arrogant", "Competitive", "Greedy", "Pessimistic", "Hateful", "Deceitful", "Cruel", "Addictive", "Hasty", "Corrupt", "Dogmatic"]
         )
         self.assertIn(
-            self.character.virtue, ["Competitive", "Generous", "Just", "Loyal"]
+            self.character.virtue, ["Competitive", "Generous", "Just", "Loyal", "Hopeful", "Loving", "Honest", "Trustworthy", "Ambitious", "Patient", "Courageous"]
         )
         self.assertEqual(self.character.concept, "Concept")
         self.assertEqual(
