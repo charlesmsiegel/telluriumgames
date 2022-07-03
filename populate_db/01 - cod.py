@@ -1,6 +1,6 @@
 from time import time
 
-from cod.models.characters.mage import Legacy, Order, Path, Rote
+from cod.models.characters.mage import Legacy, Order, Path, ProximiFamily, Rote
 from cod.models.characters.mortal import Merit, Specialty
 from core.models import Language
 
@@ -3830,3 +3830,25 @@ Legacy.objects.create(name="Chrysalides", path=thyrsus, ruling_arcanum="life")
 Legacy.objects.create(
     name="Tamers of Blood", path=thyrsus, ruling_arcanum="space", is_left_handed=True
 )
+
+pf = ProximiFamily.objects.create(
+    name="The Sisters of the Mountain", path=thyrsus, blessing_arcana="fate",
+)
+rotes = [
+    "Oaths Fulfilled",
+    "Exceptional Luck",
+    "Shifting the Odds",
+    "Monkey's Paw",
+    "Shared Fate",
+    "Cleanse the Body",
+    "Analyze Life",
+    "Body Control",
+    "Lure and Repel",
+    "Purge Illness",
+    "Degrading the Form",
+    "Honing the Form",
+    "Knit",
+    "Coaxing the Spirits",
+    "Gremlins",
+]
+pf.set_possible_blessings([Rote.objects.get(name=x) for x in rotes])
