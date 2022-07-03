@@ -661,6 +661,7 @@ class ProximiFamily(models.Model):
     def get_absolute_url(self):
         return reverse("cod:proximifamily", args=[str(self.id)])
 
+
 class Proximi(Mortal):
     type = "proximi"
 
