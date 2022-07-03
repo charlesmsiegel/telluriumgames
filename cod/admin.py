@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from cod.models.characters.mortal import Merit, Mortal, Specialty
+from cod.models.characters.mage import Mage, ProximiFamily, Proximi
 
 
 # Register your models here.
@@ -17,3 +18,7 @@ class SpecialtyProfileAdmin(admin.ModelAdmin):
 @admin.register(Merit)
 class MeritProfileAdmin(admin.ModelAdmin):
     list_display = ("name", "ratings")
+
+admin.site.register(Mage)
+admin.site.register(Proximi)
+admin.site.register(ProximiFamily)
