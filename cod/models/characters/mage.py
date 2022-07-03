@@ -54,6 +54,7 @@ class Legacy(models.Model):
         ("prime", "Prime"),
         ("forces", "Forces"),
 	])
+    is_left_handed = models.BooleanField(default=False)
 
 class Rote(models.Model):
     name = models.CharField(max_length=100)
@@ -85,6 +86,13 @@ class Rote(models.Model):
         ("forces", "Forces"),
 	])
     level = models.IntegerField(default=0)
+    suggested_rote_skills = models.JSONField(default=list)
+    primary_factor = models.CharField(default="", max_length=20, choices=[
+        ("duration", "Duration"),
+        ("potency", "Potency"),
+    ])
+    withstand = models.CharField(default="", max_length=20)
+    mana_cost = models.IntegerField(default=0)
 
 
 class Mage(Mortal):
@@ -109,7 +117,7 @@ class Mage(Mortal):
     prime = models.IntegerField(default=0)
     forces = models.IntegerField(default=0)
 
-    rotes = models.ManyToManyField(Rote, blank=True)
+    rotes = models.ManyToManyField(Rote, blank=True, through="KnownRote")
     
     wisdom = models.IntegerField(default=7)
     
@@ -276,8 +284,10 @@ class Mage(Mortal):
     
     def add_rote(self, rote):
         if getattr(self, rote.arcanum) >= rote.level:
-            self.rotes.add(rote)
-            self.save()
+            k = KnownRote.objects.create(mage=self, rote=rote)
+            if len(rote.suggested_rote_skills) != 0:
+                k.rote_skill = random.choice(rote.suggested_rote_skills)
+            k.save()
             return True
         return False
     
@@ -507,3 +517,8 @@ class Mage(Mortal):
         self.assign_advantages()
         self.random_spend_xp()
         self.save()
+
+class KnownRote(models.Model):
+    mage = models.ForeignKey(Mage, on_delete=models.CASCADE)
+    rote = models.ForeignKey(Rote, on_delete=models.CASCADE)
+    rote_skill = models.CharField(default="", max_length=20, blank=True, null=True)
