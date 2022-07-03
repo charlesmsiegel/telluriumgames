@@ -32,8 +32,8 @@
                 <div class="col-sm">{{ object.player }}</div>
                 <div class="col-sm">Concept</div>
                 <div class="col-sm">{{ object.concept }}</div>
-                <div class="col-sm">Group Name</div>
-                <div class="col-sm"></div>
+                <div class="col-sm">Family</div>
+                <div class="col-sm">{{ object.family }}</div>
             </div>
             <div class="row">
                 <h3 class="col-sm cod_heading">Aspirations</h3>
@@ -480,12 +480,27 @@
                     {{ object.speed }}
                 </div>
                 <div class="col-sm">
+                    Mana
                 </div>
                 <div class="col-sm">
+                    {{ object.mana }}
                 </div>
             </div>
 
-            
+            <div class="row">
+                <h3 class="col-sm cod_heading">
+                    Blessings
+                </h3>
+            </div>
+            {% for row in blessings %}
+            <div class="row">
+                {% for rote in row %}
+                <div class="col-sm">{{ rote.name }}</div>
+                <div class="col-sm">{{ rote.arcanum.title }}</div>
+                <div class="col-sm dots">{{ rote.level|dots }}</div>
+                {% endfor %}
+            </div>
+            {% endfor %}
 
             <div class="row">
                 <h3 class="col-sm cod_heading">

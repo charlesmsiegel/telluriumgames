@@ -52,7 +52,19 @@ class ProximiDetailView(View):
             ),
             "specialties": char.specialties.all().order_by("name"),
         }
+
+        all_blessings = list(context["object"].blessings.all())
+        row_length = 2
+        all_blessings = [
+            all_blessings[i : i + row_length]
+            for i in range(0, len(all_blessings), row_length)
+        ]
+        if len(all_blessings) != 0:
+            while len(all_blessings[-1]) < row_length:
+                all_blessings[-1].append(empty_rote)
+        context["blessings"] = all_blessings
         return render(request, "cod/characters/proximi/detail.html", context,)
+
 
 class MageDetailView(View):
     def get(self, request, *args, **kwargs):
@@ -84,7 +96,7 @@ class CharacterDetailView(View):
     create_views = {
         "mortal": MortalDetailView,
         "mage": MageDetailView,
-        "proximi": ProximiDetailView
+        "proximi": ProximiDetailView,
     }
 
     def get(self, request, *args, **kwargs):
@@ -117,6 +129,25 @@ class RandomCharacterView(View):
     def get(self, request):
         return redirect("cod:characters_index")
 
+
 class ProximiFamilyDetailView(DetailView):
-    model = ProximiFamily
-    template_name = "cod/characters/proximifamily/detail.html"
+    def get(self, request, *args, **kwargs):
+        fam = ProximiFamily.objects.get(pk=kwargs["pk"])
+        context = {
+            "object": fam,
+        }
+        context["arcana"] = ", ".join(
+            [x.title() for x in fam.path.ruling_arcana + [fam.blessing_arcana]]
+        )
+
+        all_blessings = list(context["object"].possible_blessings.all())
+        row_length = 2
+        all_blessings = [
+            all_blessings[i : i + row_length]
+            for i in range(0, len(all_blessings), row_length)
+        ]
+        if len(all_blessings) != 0:
+            while len(all_blessings[-1]) < row_length:
+                all_blessings[-1].append(empty_rote)
+        context["blessings"] = all_blessings
+        return render(request, "cod/characters/proximifamily/detail.html", context,)
