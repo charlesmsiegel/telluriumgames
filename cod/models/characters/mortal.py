@@ -503,7 +503,7 @@ class Mortal(PolymorphicModel):
         return False
 
     def merit_rating(self, name, detail=None):
-        if name not in [x.name for x in Merit.objects.all()]:
+        if not Merit.objects.filter(name=name).exists():
             return 0
         merit = Merit.objects.get(name=name)
         if merit not in self.merits.all():
@@ -692,7 +692,7 @@ class Mortal(PolymorphicModel):
         cost = self.xp_cost("merit")
         if cost <= self.xp:
             if self.add_merit(trait, detail=detail):
-                self.xp -= cost
+                self.xp -= cost * self.merit_rating(trait)
                 self.add_to_spend(trait.name, self.merit_rating(trait), cost)
                 return True
             return False

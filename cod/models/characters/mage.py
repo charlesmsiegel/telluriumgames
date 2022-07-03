@@ -2,6 +2,7 @@ import random
 
 from django.db import models
 from django.db.models import F, Q
+from django.urls import reverse
 
 from cod.models.characters.mortal import Mortal
 from core.utils import add_dot, weighted_choice
@@ -654,6 +655,11 @@ class ProximiFamily(models.Model):
         self.random_blessings()
         return True
 
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("cod:proximifamily", args=[str(self.id)])
 
 class Proximi(Mortal):
     type = "proximi"
@@ -720,6 +726,7 @@ class Proximi(Mortal):
     def random_xp_functions(self):
         tmp = super().random_xp_functions()
         tmp["blessing"] = self.random_xp_blessing
+        return tmp
 
     def random_xp_blessing(self):
         trait = (
@@ -749,4 +756,4 @@ class Proximi(Mortal):
         self.random_family()
         self.set_mana(5)
         self.random_blessing()
-        return super().random(xp)
+        return super().random(xp=xp)
