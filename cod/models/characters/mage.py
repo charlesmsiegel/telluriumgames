@@ -121,7 +121,7 @@ class Rote(models.Model):
     )
     withstand = models.CharField(default="", max_length=20)
     mana_cost = models.IntegerField(default=0)
-    
+
     def __str__(self):
         return f"{self.name} ({self.arcanum.title()} {self.level})"
 
