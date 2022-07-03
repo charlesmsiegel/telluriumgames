@@ -43,7 +43,7 @@ for i in range(10):
     grimoire.save()
 print("Average Random Grimoire Time:", (time() - grimoire_start) / 10)
 
-from cod.models.characters.mage import Mage
+from cod.models.characters.mage import Mage, Proximi, ProximiFamily
 from cod.models.characters.mortal import Mortal
 
 mortal_start = time()
@@ -63,6 +63,24 @@ for i in range(10):
     mortal.random()
     mortal.save()
 print("Average CoD Mage Time:", (time() - mortal_start) / 10)
+
+mortal_start = time()
+for i in range(10):
+    mortal = ProximiFamily.objects.create(
+        name=f"Proximi Family {ProximiFamily.objects.count()}"
+    )
+    mortal.random()
+    mortal.save()
+print("Average CoD Proximi Family Time:", (time() - mortal_start) / 10)
+
+mortal_start = time()
+for i in range(10):
+    mortal = Proximi.objects.create(
+        name=f"Proximi {Proximi.objects.count()}", player=player.cod_profile
+    )
+    mortal.random()
+    mortal.save()
+print("Average CoD Proximi Time:", (time() - mortal_start) / 10)
 
 from tc.models.characters.aberrant import Aberrant
 from tc.models.characters.human import Human
