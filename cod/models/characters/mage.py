@@ -613,17 +613,40 @@ class ProximiFamily(models.Model):
         arcana = random.choice([x for x in ARCANA if x not in self.path.ruling_arcana])
         return self.set_blessing_arcana(arcana)
     
+    def total_possible_blessings(self):
+        return sum(x.level for x in self.possible_blessings.all())
+    
     def has_possible_blessings(self):
-        pass
+        return self.total_possible_blessings() == 30
     
     def set_possible_blessings(self, list_of_blessings):
-        pass
+        self.possible_blessings.set(list_of_blessings)
+        self.save()
+        return True
+    
+    def add_possible_blessing(self, blessing):
+        self.possible_blessings.add(blessing)
+        self.save()
+        return True
+
+    def random_blessing(self, max_rating=3):
+        arcana_list = []
+        arcana_list.extend(self.path.ruling_arcana)
+        arcana_list.append(self.blessing_arcana)
+        options = Rote.objects.filter(level__lte=min(max_rating, 3), arcanum__in=arcana_list)
+        choice = random.choice(options)
+        return self.add_possible_blessing(choice)
 
     def random_blessings(self):
-        pass
+        while self.total_possible_blessings() < 30:
+            self.random_blessing(max_rating=30-self.total_possible_blessings())
+        return True
     
     def random(self):
-        pass
+        self.random_parent_path()
+        self.random_blessing_arcana()
+        self.random_blessings()
+        return True
 
 class Proximi(Mortal):
     type = "proximi"
