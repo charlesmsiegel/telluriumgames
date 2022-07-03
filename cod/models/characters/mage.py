@@ -121,6 +121,9 @@ class Rote(models.Model):
     )
     withstand = models.CharField(default="", max_length=20)
     mana_cost = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return f"{self.name} ({self.arcanum.title()} {self.level})"
 
 
 class Mage(Mortal):
@@ -570,6 +573,7 @@ class KnownRote(models.Model):
     rote = models.ForeignKey(Rote, on_delete=models.CASCADE)
     rote_skill = models.CharField(default="", max_length=20, blank=True, null=True)
 
+
 class ProximiFamily(models.Model):
     name = models.CharField(max_length=100)
     path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.CASCADE)
@@ -589,41 +593,41 @@ class ProximiFamily(models.Model):
         ],
     )
     possible_blessings = models.ManyToManyField(Rote, blank=True)
-    
+
     def has_parent_path(self):
         return self.path is not None
-    
+
     def set_parent_path(self, parent_path):
         self.path = parent_path
         self.save()
         return True
-    
+
     def random_parent_path(self):
         p = Path.objects.order_by("?").first()
         return self.set_parent_path(p)
-    
+
     def has_blessing_arcana(self):
         return self.blessing_arcana != ""
-    
+
     def set_blessing_arcana(self, arcana):
         self.blessing_arcana = arcana
         return True
-    
+
     def random_blessing_arcana(self):
         arcana = random.choice([x for x in ARCANA if x not in self.path.ruling_arcana])
         return self.set_blessing_arcana(arcana)
-    
+
     def total_possible_blessings(self):
         return sum(x.level for x in self.possible_blessings.all())
-    
+
     def has_possible_blessings(self):
         return self.total_possible_blessings() == 30
-    
+
     def set_possible_blessings(self, list_of_blessings):
         self.possible_blessings.set(list_of_blessings)
         self.save()
         return True
-    
+
     def add_possible_blessing(self, blessing):
         self.possible_blessings.add(blessing)
         self.save()
@@ -633,52 +637,116 @@ class ProximiFamily(models.Model):
         arcana_list = []
         arcana_list.extend(self.path.ruling_arcana)
         arcana_list.append(self.blessing_arcana)
-        options = Rote.objects.filter(level__lte=min(max_rating, 3), arcanum__in=arcana_list)
+        options = Rote.objects.filter(
+            level__lte=min(max_rating, 3), arcanum__in=arcana_list
+        )
         choice = random.choice(options)
         return self.add_possible_blessing(choice)
 
     def random_blessings(self):
         while self.total_possible_blessings() < 30:
-            self.random_blessing(max_rating=30-self.total_possible_blessings())
+            self.random_blessing(max_rating=30 - self.total_possible_blessings())
         return True
-    
+
     def random(self):
         self.random_parent_path()
         self.random_blessing_arcana()
         self.random_blessings()
         return True
 
+
 class Proximi(Mortal):
     type = "proximi"
-    
-    family = models.ForeignKey(ProximiFamily, null=True, blank=True, on_delete=models.CASCADE)
+
+    family = models.ForeignKey(
+        ProximiFamily, null=True, blank=True, on_delete=models.CASCADE
+    )
     blessings = models.ManyToManyField(Rote, blank=True)
-    
+
+    mana = models.IntegerField(default=0)
+
     def has_family(self):
-        pass
-    
+        return self.family is not None
+
     def set_family(self, family):
         self.family = family
         self.save()
         return True
-    
+
     def random_family(self):
-        pass
-    
+        pf = ProximiFamily.objects.order_by("?").first()
+        return self.set_family(pf)
+
     def has_mana(self):
-        pass
-    
+        return self.mana == 5
+
     def set_mana(self, mana):
-        pass
-    
+        if mana > 5:
+            return False
+        self.mana = max(min(mana, 5), 0)
+        return True
+
     def has_blessings(self):
-        pass
-    
+        return self.blessings.count() != 0
+
     def set_blessings(self, blessings):
-        pass
-    
+        self.blessings.set(blessings)
+        self.save()
+        return True
+
     def add_blessing(self, blessing):
-        pass
-    
+        self.blessings.add(blessing)
+        self.save()
+        return True
+
     def random_blessing(self):
-        pass
+        choice = (
+            self.family.possible_blessings.exclude(pk__in=self.blessings.all())
+            .order_by("?")
+            .first()
+        )
+        return self.add_blessing(choice)
+
+    def xp_frequencies(self):
+        return {
+            "attribute": 1,
+            "merit": 1,
+            "specialty": 1,
+            "skill": 1,
+            "integrity": 1,
+            "blessing": 1,
+        }
+
+    def random_xp_functions(self):
+        tmp = super().random_xp_functions()
+        tmp["blessing"] = self.random_xp_blessing
+
+    def random_xp_blessing(self):
+        trait = (
+            self.family.possible_blessings.exclude(pk__in=self.blessings.all())
+            .order_by("?")
+            .first()
+        )
+        return self.spend_xp_blessing(trait)
+
+    def spend_xp_blessing(self, trait):
+        cost = self.xp_cost("merit") * trait.level
+        if cost <= self.xp:
+            if self.add_blessing(trait):
+                self.xp -= cost
+                self.add_to_spend(trait.name, trait.level, cost)
+                return True
+            return False
+        return False
+
+    def total_merits(self):
+        return super().total_merits() + self.total_blessings()
+
+    def total_blessings(self):
+        return sum(x.level for x in self.blessings.all())
+
+    def random(self, xp=0):
+        self.random_family()
+        self.set_mana(5)
+        self.random_blessing()
+        return super().random(xp)
