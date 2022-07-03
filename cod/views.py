@@ -3,7 +3,7 @@ from collections import namedtuple
 from django.shortcuts import redirect, render
 from django.views.generic import DetailView, View
 
-from cod.models.characters.mage import Mage
+from cod.models.characters.mage import Mage, Proximi, ProximiFamily
 from cod.models.characters.mortal import MeritRating, Mortal
 
 # Create your views here.
@@ -42,6 +42,30 @@ class MortalDetailView(View):
         return render(request, "cod/characters/mortal/detail.html", context,)
 
 
+class ProximiDetailView(View):
+    def get(self, request, *args, **kwargs):
+        char = Proximi.objects.get(pk=kwargs["pk"])
+        context = {
+            "object": char,
+            "merits": MeritRating.objects.filter(character=char).order_by(
+                "merit__name"
+            ),
+            "specialties": char.specialties.all().order_by("name"),
+        }
+
+        all_blessings = list(context["object"].blessings.all())
+        row_length = 2
+        all_blessings = [
+            all_blessings[i : i + row_length]
+            for i in range(0, len(all_blessings), row_length)
+        ]
+        if len(all_blessings) != 0:
+            while len(all_blessings[-1]) < row_length:
+                all_blessings[-1].append(empty_rote)
+        context["blessings"] = all_blessings
+        return render(request, "cod/characters/proximi/detail.html", context,)
+
+
 class MageDetailView(View):
     def get(self, request, *args, **kwargs):
         char = Mage.objects.get(pk=kwargs["pk"])
@@ -72,6 +96,7 @@ class CharacterDetailView(View):
     create_views = {
         "mortal": MortalDetailView,
         "mage": MageDetailView,
+        "proximi": ProximiDetailView,
     }
 
     def get(self, request, *args, **kwargs):
@@ -85,6 +110,7 @@ class RandomCharacterView(View):
     chars = {
         "mortal": Mortal,
         "mage": Mage,
+        "proximi": Proximi,
     }
 
     def post(self, request, *args, **kwargs):
@@ -102,3 +128,28 @@ class RandomCharacterView(View):
 
     def get(self, request):
         return redirect("cod:characters_index")
+
+
+class ProximiFamilyDetailView(DetailView):
+    def get(self, request, *args, **kwargs):
+        fam = ProximiFamily.objects.get(pk=kwargs["pk"])
+        context = {
+            "object": fam,
+        }
+        context["arcana"] = ", ".join(
+            [x.title() for x in fam.path.ruling_arcana + [fam.blessing_arcana]]
+        )
+
+        all_blessings = list(
+            context["object"].possible_blessings.all().order_by("arcanum")
+        )
+        row_length = 2
+        all_blessings = [
+            all_blessings[i : i + row_length]
+            for i in range(0, len(all_blessings), row_length)
+        ]
+        if len(all_blessings) != 0:
+            while len(all_blessings[-1]) < row_length:
+                all_blessings[-1].append(empty_rote)
+        context["blessings"] = all_blessings
+        return render(request, "cod/characters/proximifamily/detail.html", context,)

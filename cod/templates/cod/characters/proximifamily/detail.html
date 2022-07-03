@@ -1,0 +1,36 @@
+{% extends "core/base.html" %}
+{% block title %}
+    {{ object.name }}
+{% endblock title %}
+<body>
+    {% block content %}
+        {% load dots %}
+        <div class="centertext">
+            <div class="row">
+                <div class="col-sm cod_heading">
+                    <h1>{{ object.name }}</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Path</div>
+                <div class="col-sm">{{ object.path }}</div>
+                <div class="col-sm">Arcana</div>
+                <div class="col-sm">{{ arcana }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm cod_heading">
+                    <h2>Possible Blessings</h2>
+                </div>
+            </div>
+            {% for row in blessings %}
+                <div class="row">
+                    {% for rote in row %}
+                        <div class="col-sm">{{ rote.name }}</div>
+                        <div class="col-sm">{{ rote.arcanum.title }}</div>
+                        <div class="col-sm dots">{{ rote.level|dots }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endblock content %}
+</body>

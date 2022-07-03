@@ -32,16 +32,8 @@
                 <div class="col-sm">{{ object.player }}</div>
                 <div class="col-sm">Concept</div>
                 <div class="col-sm">{{ object.concept }}</div>
-                <div class="col-sm">Group Name</div>
-                <div class="col-sm"></div>
-            </div>
-            <div class="row">
-                <div class="col-sm">Path</div>
-                <div class="col-sm">{{ object.path }}</div>
-                <div class="col-sm">Order</div>
-                <div class="col-sm">{{ object.order }}</div>
-                <div class="col-sm">Legacy</div>
-                <div class="col-sm">{{ object.legacy }}</div>
+                <div class="col-sm">Family</div>
+                <a class="col-sm" href="{{ object.family.get_absolute_url }}">{{ object.family }}</a>
             </div>
             <div class="row">
                 <h3 class="col-sm cod_heading">Aspirations</h3>
@@ -146,11 +138,7 @@
             </div>
             <div class="row">
                 <div class="col-sm">
-                    {% if 'academics' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Academics
@@ -159,11 +147,7 @@
                     {{ object.academics|dots }}
                 </div>
                 <div class="col-sm">
-                    {% if 'athletics' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Athletics
@@ -172,11 +156,7 @@
                     {{ object.athletics|dots }}
                 </div>
                 <div class="col-sm">
-                    {% if 'animal_ken' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Animal Ken
@@ -187,11 +167,7 @@
             </div>
             <div class="row">
                 <div class="col-sm">
-                    {% if 'computer' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Computer
@@ -200,11 +176,7 @@
                     {{ object.computer|dots }}
                 </div>
                 <div class="col-sm">
-                    {% if 'brawl' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Brawl
@@ -213,11 +185,7 @@
                     {{ object.brawl|dots }}
                 </div>
                 <div class="col-sm">
-                    {% if 'empathy' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Empathy
@@ -228,11 +196,7 @@
             </div>
             <div class="row">
                 <div class="col-sm">
-                    {% if 'crafts' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Crafts
@@ -241,11 +205,7 @@
                     {{ object.crafts|dots }}
                 </div>
                 <div class="col-sm">
-                    {% if 'drive' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Drive
@@ -254,11 +214,7 @@
                     {{ object.drive|dots }}
                 </div>
                 <div class="col-sm">
-                    {% if 'expression' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Expression
@@ -269,11 +225,7 @@
             </div>
             <div class="row">
                 <div class="col-sm">
-                    {% if 'investigation' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Investigation
@@ -282,11 +234,7 @@
                     {{ object.investigation|dots }}
                 </div>
                 <div class="col-sm">
-                    {% if 'firearms' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Firearms
@@ -295,11 +243,7 @@
                     {{ object.firearms|dots }}
                 </div>
                 <div class="col-sm">
-                    {% if 'intimidation' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Intimidation
@@ -310,11 +254,7 @@
             </div>
             <div class="row">
                 <div class="col-sm">
-                    {% if 'medicine' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Medicine
@@ -323,11 +263,7 @@
                     {{ object.medicine|dots }}
                 </div>
                 <div class="col-sm">
-                    {% if 'larceny' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Larceny
@@ -336,11 +272,7 @@
                     {{ object.larceny|dots }}
                 </div>
                 <div class="col-sm">
-                    {% if 'persuasion' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Persuasion
@@ -351,11 +283,7 @@
             </div>
             <div class="row">
                 <div class="col-sm">
-                    {% if 'occult' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Occult
@@ -364,11 +292,7 @@
                     {{ object.occult|dots }}
                 </div>
                 <div class="col-sm">
-                    {% if 'stealth' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Stealth
@@ -377,11 +301,7 @@
                     {{ object.stealth|dots }}
                 </div>
                 <div class="col-sm">
-                    {% if 'socialize' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Socialize
@@ -392,11 +312,7 @@
             </div>
             <div class="row">
                 <div class="col-sm">
-                    {% if 'politics' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Politics
@@ -405,11 +321,7 @@
                     {{ object.politics|dots }}
                 </div>
                 <div class="col-sm">
-                    {% if 'survival' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Survival
@@ -418,11 +330,7 @@
                     {{ object.survival|dots }}
                 </div>
                 <div class="col-sm">
-                    {% if 'streetwise' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Streetwise
@@ -433,11 +341,7 @@
             </div>
             <div class="row">
                 <div class="col-sm">
-                    {% if 'science' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Science
@@ -446,11 +350,7 @@
                     {{ object.science|dots }}
                 </div>
                 <div class="col-sm">
-                    {% if 'weaponry' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Weaponry
@@ -459,11 +359,7 @@
                     {{ object.weaponry|dots }}
                 </div>
                 <div class="col-sm">
-                    {% if 'subterfuge' in object.rote_skills %}
-                    ☑
-                    {% else %}
                     ☐
-                    {% endif %}
                 </div>
                 <div class="col-sm">
                     Subterfuge
@@ -540,10 +436,10 @@
                     {{ object.willpower }}
                 </div>
                 <div class="col-sm">
-                    Wisdom
+                    Integrity
                 </div>
                 <div class="col-sm">
-                    {{ object.wisdom }}
+                    {{ object.integrity }}
                 </div>
                 <div class="col-sm">
                     Size
@@ -574,16 +470,14 @@
             </div>
             <div class="row">
                 <div class="col-sm">
+                </div>
+                <div class="col-sm">
+                </div>
+                <div class="col-sm">
                     Speed
                 </div>
                 <div class="col-sm">
                     {{ object.speed }}
-                </div>
-                <div class="col-sm">
-                    Gnosis
-                </div>
-                <div class="col-sm">
-                    {{ object.gnosis }}
                 </div>
                 <div class="col-sm">
                     Mana
@@ -592,57 +486,13 @@
                     {{ object.mana }}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm">
-                </div>
-                <div class="col-sm">
-                </div>
-                <div class="col-sm">
-                    Nimbus
-                </div>
-                <div class="col-sm">
-                    {{ object.nimbus }}
-                </div>
-                <div class="col-sm">
-                </div>
-                <div class="col-sm">
-                </div>
-            </div>
+
             <div class="row">
                 <h3 class="col-sm cod_heading">
-                    Arcana
+                    Blessings
                 </h3>
             </div>
-            <div class="row">
-                <div class="col-sm">Death</div>
-                <div class="col-sm dots">{{ object.death|dots }}</div>
-                <div class="col-sm">Fate</div>
-                <div class="col-sm dots">{{ object.fate|dots }}</div>
-                <div class="col-sm">Forces</div>
-                <div class="col-sm dots">{{ object.forces|dots }}</div>
-                <div class="col-sm">Life</div>
-                <div class="col-sm dots">{{ object.life|dots }}</div>
-                <div class="col-sm">Matter</div>
-                <div class="col-sm dots">{{ object.matter|dots }}</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">Mind</div>
-                <div class="col-sm dots">{{ object.mind|dots }}</div>
-                <div class="col-sm">Prime</div>
-                <div class="col-sm dots">{{ object.prime|dots }}</div>
-                <div class="col-sm">Space</div>
-                <div class="col-sm dots">{{ object.space|dots }}</div>
-                <div class="col-sm">Spirit</div>
-                <div class="col-sm dots">{{ object.spirit|dots }}</div>
-                <div class="col-sm">Time</div>
-                <div class="col-sm dots">{{ object.time|dots }}</div>
-            </div>
-            <div class="row">
-                <h3 class="col-sm cod_heading">
-                    Rotes
-                </h3>
-            </div>
-            {% for row in rotes %}
+            {% for row in blessings %}
             <div class="row">
                 {% for rote in row %}
                 <div class="col-sm">{{ rote.name }}</div>
@@ -651,6 +501,7 @@
                 {% endfor %}
             </div>
             {% endfor %}
+
             <div class="row">
                 <h3 class="col-sm cod_heading">
                     Breaking Points
