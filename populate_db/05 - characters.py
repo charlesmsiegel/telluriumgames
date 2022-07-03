@@ -16,7 +16,7 @@ for i in range(10):
     )
     mage.random()
     mage.save()
-print("Average Random Werewolf Time:", (time() - mage_start) / 10, "original", "1.46")
+print("Average Random Werewolf Time:", (time() - mage_start) / 10)
 
 mage_start = time()
 for i in range(10):
@@ -25,7 +25,7 @@ for i in range(10):
     )
     mage.random()
     mage.save()
-print("Average Random Mage Time:", (time() - mage_start) / 10, "original", "1.21")
+print("Average Random Mage Time:", (time() - mage_start) / 10)
 
 
 node_start = time()
@@ -33,7 +33,7 @@ for i in range(10):
     node = Node.objects.create(name=f"Node {Node.objects.count()}")
     node.random(rank=(i % 5) + 1)
     node.save()
-print("Average Random Node Time:", (time() - node_start) / 10, "original", "0.09")
+print("Average Random Node Time:", (time() - node_start) / 10)
 
 
 grimoire_start = time()
@@ -41,11 +41,10 @@ for i in range(10):
     grimoire = Grimoire.objects.create(name=f"Grimoire {Grimoire.objects.count()}")
     grimoire.random(rank=(i % 5) + 1)
     grimoire.save()
-print(
-    "Average Random Grimoire Time:", (time() - grimoire_start) / 10, "original", "0.07"
-)
+print("Average Random Grimoire Time:", (time() - grimoire_start) / 10)
 
 from cod.models.characters.mortal import Mortal
+from cod.models.characters.mage import Mage
 
 mortal_start = time()
 for i in range(10):
@@ -54,7 +53,16 @@ for i in range(10):
     )
     mortal.random()
     mortal.save()
-print("Average CoD Mortal Time:", (time() - mortal_start) / 10, "original", "0.85")
+print("Average CoD Mortal Time:", (time() - mortal_start) / 10)
+
+mortal_start = time()
+for i in range(10):
+    mortal = Mage.objects.create(
+        name=f"Mage {Mage.objects.count()}", player=player.cod_profile
+    )
+    mortal.random()
+    mortal.save()
+print("Average CoD Mage Time:", (time() - mortal_start) / 10)
 
 from tc.models.characters.aberrant import Aberrant
 from tc.models.characters.human import Human
@@ -67,7 +75,7 @@ for i in range(10):
     )
     human.random(xp=0)
     human.save()
-print("Average Random TC Human Time:", (time() - human_start) / 10, "original", "0.56")
+print("Average Random TC Human Time:", (time() - human_start) / 10)
 talent_start = time()
 for i in range(10):
     talent = Talent.objects.create(
@@ -75,7 +83,7 @@ for i in range(10):
     )
     talent.random(xp=50)
     talent.save()
-print("Average Random Talent Time:", (time() - talent_start) / 10, "original", "2.64")
+print("Average Random Talent Time:", (time() - talent_start) / 10)
 aberrant_start = time()
 for i in range(10):
     aberrant = Aberrant.objects.create(
@@ -83,6 +91,4 @@ for i in range(10):
     )
     aberrant.random(xp=150)
     aberrant.save()
-print(
-    "Average Random Aberrant Time:", (time() - aberrant_start) / 10, "original", "3.43"
-)
+print("Average Random Aberrant Time:", (time() - aberrant_start) / 10)
