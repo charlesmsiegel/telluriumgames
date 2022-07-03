@@ -33,7 +33,7 @@
                 <div class="col-sm">Concept</div>
                 <div class="col-sm">{{ object.concept }}</div>
                 <div class="col-sm">Family</div>
-                <div class="col-sm">{{ object.family }}</div>
+                <a class="col-sm" href="{{ object.family.get_absolute_url }}">{{ object.family }}</a>
             </div>
             <div class="row">
                 <h3 class="col-sm cod_heading">Aspirations</h3>

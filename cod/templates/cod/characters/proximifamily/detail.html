@@ -17,20 +17,20 @@
                 <div class="col-sm">Arcana</div>
                 <div class="col-sm">{{ arcana }}</div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm cod_heading">
-                <h1>Possible Blessings</h1>
-            </div>
-        </div>
-        {% for row in blessings %}
             <div class="row">
-                {% for rote in row %}
-                <div class="col-sm">{{ rote.name }}</div>
-                <div class="col-sm">{{ rote.arcanum.title }}</div>
-                <div class="col-sm dots">{{ rote.level|dots }}</div>
-                {% endfor %}
+                <div class="col-sm cod_heading">
+                    <h2>Possible Blessings</h2>
+                </div>
             </div>
-        {% endfor %}
+            {% for row in blessings %}
+                <div class="row">
+                    {% for rote in row %}
+                        <div class="col-sm">{{ rote.name }}</div>
+                        <div class="col-sm">{{ rote.arcanum.title }}</div>
+                        <div class="col-sm dots">{{ rote.level|dots }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
     {% endblock content %}
 </body>
