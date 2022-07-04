@@ -189,7 +189,7 @@ class Mortal(PolymorphicModel):
         pass
     
     def has_specialties(self):
-        pass
+        return self.specialties.count() == 4
     
     def filter_specialties(self):
         possible_abilities = self.filter_abilities(minimum=1)
@@ -202,11 +202,15 @@ class Mortal(PolymorphicModel):
             return True
         return False
     
-    def random_specialty(self):
-        pass
+    def random_specialty(self, ability=None):
+        specialties = self.filter_specialties()
+        if ability is not None:
+            specialties = specialties.filter(ability=ability)
+        return self.add_specialty(specialties.order_by("?").first())
     
     def random_specialties(self):
-        pass
+        while self.specialties.count() < 4:
+            self.random_specialty()
     
     def has_intimacies(self):
         pass
