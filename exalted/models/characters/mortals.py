@@ -69,7 +69,7 @@ class Mortal(PolymorphicModel):
         return True
     
     def random_name(self):
-        pass
+        return self.set_concept(f"Mortal {Mortal.objects.count()}")
     
     def has_concept(self):
         return self.concept != ""
@@ -79,7 +79,7 @@ class Mortal(PolymorphicModel):
         return True
     
     def random_concept(self):
-        pass
+        return self.set_concept("Random")
     
     def has_attributes(self):
         pass
