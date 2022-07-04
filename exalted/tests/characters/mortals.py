@@ -1,5 +1,5 @@
 from django.test import TestCase
-from exalted.models.characters.mortals import Mortal, Specialty, Intimacy
+from exalted.models.characters.mortals import Mortal, Specialty, Intimacy, Merit
 from django.contrib.auth.models import User
 
 # Create your tests here.
@@ -19,6 +19,9 @@ def setup(character):
                     strength=strength,
                     is_negative=is_negative,
                 )
+    for merit_type in ["innate", "purchased", "story"]:
+        for i in range(1, 4):
+            Merit.objects.create(name=f"{merit_type.title()} Merit {i}", type=merit_type, ratings=[i, i+1])
 
 class TestMortal(TestCase):
     def setUp(self):
@@ -372,13 +375,36 @@ class TestMortal(TestCase):
         self.assertEqual(len(self.character.filter_specialties()), 139)
 
     def test_add_merit(self):
-        self.fail()
+        m = Merit.objects.create(
+            name="Merit 1", ratings=[1, 2, 4], merit_type="innate"
+        )
+        self.assertNotIn(m, self.character.merits.all())
+        self.assertTrue(self.character.add_merit(m))
+        self.assertIn(m, self.character.merits.all())
+        self.assertEqual(self.character.merit_rating("Merit 1"), 1)
+        self.assertTrue(self.character.add_merit(m))
+        self.assertEqual(self.character.merit_rating("Merit 1"), 2)
+        self.assertTrue(self.character.add_merit(m))
+        self.assertEqual(self.character.merit_rating("Merit 1"), 4)
+        self.assertFalse(self.character.add_merit(m))
+        self.assertEqual(self.character.merit_rating("Merit 1"), 4)
         
     def test_has_merits(self):
-        self.fail()
+        self.assertFalse(self.character.has_merits())
+        self.character.add_merit(Merit.objects.get(name="Story Merit 3"))
+        self.character.add_merit(Merit.objects.get(name="Innate Merit 4"))
+        self.assertTrue(self.character.has_merits())
 
     def test_filter_merits(self):
-        self.fail()
+        m1 = Merit.objects.get(name="Innate Merit 1")
+        m2 = Merit.objects.create(name="Purchased Merit 2")
+        m3 = Merit.objects.create(name="Story Merit 3")
+        m4 = Merit.objects.create(name="Nonsequential Merit", ratings=[1, 4], merit_type="innate")
+        
+        merit_list = self.character.filter_merits(
+            dots=3
+        )
+        self.assertEqual(len(merit_list), 10)        
 
     def test_has_intimacies(self):
         self.assertFalse(self.character.has_intimacies())
