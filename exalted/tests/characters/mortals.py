@@ -1,16 +1,18 @@
 from django.test import TestCase
-from exalted.models.characters.mortals import Mortal
+from exalted.models.characters.mortals import Mortal, Specialty
 from django.contrib.auth.models import User
 
 # Create your tests here.
-def setup():
-    pass
+def setup(character):
+    for ability in character.get_abilities():
+        for i in range(10):
+            Specialty.objects.create(name=f"{ability.replace('_', ' ').title()} Specialty {i}", ability=ability)
 
 class TestMortal(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
         self.character = Mortal.objects.create(name="", player=self.player.exalted_profile)
-        setup()
+        setup(self.character)
         
     def test_absolute_url(self):
         self.assertEqual(
@@ -308,18 +310,59 @@ class TestMortal(TestCase):
         self.assertTrue(self.character.has_abilities())
 
     def test_filter_abilities(self):
-        self.fail()
+        self.assertEqual(len(self.character.filter_abilities()), 26)
+        self.assertEqual(len(self.character.filter_abilities(maximum=1)), 26)
+        self.assertEqual(len(self.character.filter_abilities(minimum=1)), 0)
+        self.set_abilities()
+        self.assertEqual(len(self.character.filter_abilities(minimum=0, maximum=5)), 26)
+        self.assertEqual(len(self.character.filter_abilities(minimum=1, maximum=5)), 14)
+        self.assertEqual(len(self.character.filter_abilities(minimum=2, maximum=5)), 9)
+        self.assertEqual(len(self.character.filter_abilities(minimum=3, maximum=5)), 5)
+        self.assertEqual(len(self.character.filter_abilities(minimum=4, maximum=5)), 0)
+        self.assertEqual(len(self.character.filter_abilities(minimum=5, maximum=5)), 0)
+        self.assertEqual(len(self.character.filter_abilities(minimum=0, maximum=4)), 26)
+        self.assertEqual(len(self.character.filter_abilities(minimum=1, maximum=4)), 14)
+        self.assertEqual(len(self.character.filter_abilities(minimum=2, maximum=4)), 9)
+        self.assertEqual(len(self.character.filter_abilities(minimum=3, maximum=4)), 5)
+        self.assertEqual(len(self.character.filter_abilities(minimum=4, maximum=4)), 0)
+        self.assertEqual(len(self.character.filter_abilities(minimum=0, maximum=3)), 26)
+        self.assertEqual(len(self.character.filter_abilities(minimum=1, maximum=3)), 14)
+        self.assertEqual(len(self.character.filter_abilities(minimum=2, maximum=3)), 9)
+        self.assertEqual(len(self.character.filter_abilities(minimum=3, maximum=3)), 5)
+        self.assertEqual(len(self.character.filter_abilities(minimum=0, maximum=2)), 21)
+        self.assertEqual(len(self.character.filter_abilities(minimum=1, maximum=2)), 9)
+        self.assertEqual(len(self.character.filter_abilities(minimum=2, maximum=2)), 4)
+        self.assertEqual(len(self.character.filter_abilities(minimum=0, maximum=1)), 16)
+        self.assertEqual(len(self.character.filter_abilities(minimum=1, maximum=1)), 5)
+        self.assertEqual(len(self.character.filter_abilities(minimum=0, maximum=0)), 12)
 
     def test_add_specialty(self):
-        self.fail()
+        num = self.character.specialties.count()
+        spec = Specialty.objects.filter(ability="occult").first()
+        self.assertFalse(self.character.add_specialty(spec))
+        self.assertEqual(self.character.specialtyies.count(), num)
+        self.character.occult = 1
+        self.assertTrue(self.character.add_specialty(spec))
+        self.assertEqual(self.character.specialtyies.count(), num + 1)
 
     def test_has_specialties(self):
-        self.fail()
+        self.assertFalse(self.character.has_specialties())
+        for ability in ["occult", "war", "melee", "archery"]:
+            setattr(self.character, ability, 1)
+            self.assertTrue(self.character.add_specialty(Specialty.objects.filter(ability=ability).first()))
+        self.assertTrue(self.character.has_specialties())
 
     def test_filter_specialties(self):
-        self.fail()
+        self.assertEqual(len(self.character.filter_specialties()), 0)
+        self.set_abilities()
+        self.assertEqual(len(self.character.filter_specialties()), 140)
+        self.character.add_specialtiy(Specialty.objects.filter(ability="war").first())
+        self.assertEqual(len(self.character.filter_specialties()), 139)
 
     def test_add_merit(self):
+        self.fail()
+        
+    def test_has_merits(self):
         self.fail()
 
     def test_filter_merits(self):
@@ -336,6 +379,12 @@ class TestMortal(TestCase):
 
     def test_spend_bonus_points(self):
         self.fail()
+        
+    def test_has_finishing_touches(self):
+        self.fail()
+        
+    def test_apply_finishing_touches(self):
+        self.fail()
 
     def test_xp_costs(self):
         self.fail()
@@ -348,7 +397,7 @@ class TestRandomMortal(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
         self.character = Mortal.objects.create(name="", player=self.player.exalted_profile)
-        setup()
+        setup(self.character)
 
     def test_random_name(self):
         self.assertFalse(self.character.has_name())
@@ -386,25 +435,79 @@ class TestRandomMortal(TestCase):
         self.assertTrue(self.character.has_abilities())
 
     def test_random_specialty(self):
-        self.fail()
+        self.character.war = 1
+        self.character.random_specialty()
+        self.assertEqual(self.character.specialties.count(), 1)
 
     def test_random_specialties(self):
-        self.fail()
+        self.character.archery = 3
+        self.character.melee = 2
+        self.character.awareness = 1
+        self.character.dodge = 1
+        self.character.craft = 1
+        self.character.presence = 2
+        self.character.martial_arts = 3
+        self.character.linguistics = 3
+        self.character.lore = 2
+        self.character.bureaucracy = 2
+        self.character.socialize = 3
+        self.character.sail = 1
+        self.character.ride = 1
+        self.character.war = 3
+        self.assertFalse(self.character.has_specialties())
+        self.character.random_specialties()
+        self.assertTrue(self.character.has_specialties())
 
     def test_random_merit(self):
-        self.fail()
+        num = self.character.merits.count()
+        self.character.random_merit()
+        self.assertEqual(self.character.merits.count(), num + 1)
+
+    def test_random_merits(self):
+        self.assertFalse(self.character.has_merits())
+        self.character.random_merits()
+        self.assertTrue(self.character.has_merits())
 
     def test_random_intimacy(self):
-        self.fail()
+        num = self.character.intimacies.count()
+        self.character.random_intimacy()
+        self.assertEqual(self.character.intimacies.count(), num + 1)
+        
+    def test_random_intimacies(self):
+        self.assertFalse(self.character.has_intimacies())
+        self.character.random_intimacies()
+        self.assertTrue(self.character.has_intimacies())
 
     def test_random_spend_bonus_points(self):
-        self.fail()
+        self.assertEqual(self.character.bonus_points, 21)
+        self.character.random_spend_bonus_points()
+        self.assertEqual(self.character.bonus_points, 0)
 
     def test_random_spend_xp(self):
-        self.fail()
+        self.character.xp = 15
+        self.character.random_spend_xp()
+        self.assertEqual(self.character.xp, 0)
 
     def test_random(self):
-        self.fail()
+        self.assertFalse(self.character.has_name())
+        self.assertFalse(self.character.has_concept())
+        self.assertFalse(self.character.has_attributes())
+        self.assertFalse(self.character.has_abilities())
+        self.assertFalse(self.character.has_specialties())
+        self.assertFalse(self.character.has_merits())
+        self.assertFalse(self.character.has_intimacies())
+        self.assertEqual(self.character.bonus_points, 21)
+        self.assertFalse(self.character.has_finishing_touches())
+        self.character.random(xp=0)
+        self.assertTrue(self.character.has_name())
+        self.assertTrue(self.character.has_concept())
+        self.assertTrue(self.character.has_attributes())
+        self.assertTrue(self.character.has_abilities())
+        self.assertTrue(self.character.has_specialties())
+        self.assertTrue(self.character.has_merits())
+        self.assertTrue(self.character.has_intimacies())
+        self.assertEqual(self.character.bonus_points, 0)
+        self.assertTrue(self.character.has_finishing_touches())
 
 
 class TestCharacterIndexView(TestCase):
