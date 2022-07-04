@@ -4,7 +4,34 @@ from django.contrib.auth.models import User
 
 # Create your tests here.
 def setup(character):
-    for ability in character.get_abilities():
+    for ability in [
+        "archery",
+        "athletics",
+        "awareness",
+        "brawl",
+        "bureaucracy",
+        "craft",
+        "dodge",
+        "integrity",
+        "investigation",
+        "larceny",
+        "linguistics",
+        "lore",
+        "martial_arts",
+        "medicine",
+        "melee",
+        "occult",
+        "performance",
+        "presence",
+        "resistance",
+        "ride",
+        "sail",
+        "socialize",
+        "stealth",
+        "survival",
+        "thrown",
+        "war",
+    ]:
         for i in range(10):
             Specialty.objects.create(
                 name=f"{ability.replace('_', ' ').title()} Specialty {i}",
