@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from accounts.models import ExaltedProfile
 from polymorphic.models import PolymorphicModel
+from core.utils import add_dot, weighted_choice, random_ethnicity, random_name
 
 # Create your models here.
 class Mortal(PolymorphicModel):
@@ -15,6 +16,16 @@ class Mortal(PolymorphicModel):
     player = models.ForeignKey(
         ExaltedProfile, on_delete=models.CASCADE, related_name="characters"
     )
+    
+    strength = models.IntegerField(default=1)
+    dexterity = models.IntegerField(default=1)
+    stamina = models.IntegerField(default=1)
+    perception = models.IntegerField(default=1)
+    intelligence = models.IntegerField(default=1)
+    wits = models.IntegerField(default=1)
+    charisma = models.IntegerField(default=1)
+    manipulation = models.IntegerField(default=1)
+    appearance = models.IntegerField(default=1)
     
     archery = models.IntegerField(default=0)
     athletics = models.IntegerField(default=0)
@@ -77,31 +88,47 @@ class Mortal(PolymorphicModel):
         pass
     
     def get_attributes(self):
-        return {}
+        tmp = {}
+        tmp.update(self.get_social_attributes())
+        tmp.update(self.get_mental_attributes())
+        tmp.update(self.get_physical_attributes())
+        return tmp
     
     def total_attributes(self):
-        return sum(k for k in self.get_attributes())
+        return sum(v for k, v in self.get_attributes().items())
  
     def filter_attributes(self, minimum=0, maximum=5):
         return []
     
     def get_mental_attributes(self):
-        return {}
+        return {
+            "perception": self.perception,
+            "intelligence": self.intelligence,
+            "wits": self.wits,
+        }
     
     def total_mental_attributes(self):
-        return sum(k for k in self.get_mental_attributes())
+        return sum(v for k, v in self.get_mental_attributes().items())
     
     def get_physical_attributes(self):
-        return {}
+        return {
+            "strength": self.strength,
+            "dexterity": self.dexterity,
+            "stamina": self.stamina
+        }
     
     def total_physical_attributes(self):
-        return sum(k for k in self.get_physical_attributes())
+        return sum(v for k, v in self.get_physical_attributes().items())
     
     def get_social_attributes(self):
-        return {}
+        return {
+            "charisma": self.charisma,
+            "manipulation": self.manipulation,
+            "appearance": self.appearance,
+        }
     
     def total_social_attributes(self):
-        return sum(k for k in self.get_social_attributes())
+        return sum(v for k, v in self.get_social_attributes().items())
     
     def random_attribute(self):
         pass
@@ -109,8 +136,8 @@ class Mortal(PolymorphicModel):
     def random_attributes(self):
         pass
     
-    def add_ability(self, ability):
-        pass
+    def add_ability(self, ability, maximum=5):
+        return add_dot(self, ability, maximum=maximum)
     
     def get_abilities(self):
         return {
