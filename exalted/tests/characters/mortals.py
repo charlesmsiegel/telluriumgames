@@ -1,5 +1,5 @@
 from django.test import TestCase
-from exalted.models.characters.mortals import Mortal, Specialty
+from exalted.models.characters.mortals import Mortal, Specialty, Intimacy
 from django.contrib.auth.models import User
 
 # Create your tests here.
@@ -7,6 +7,18 @@ def setup(character):
     for ability in character.get_abilities():
         for i in range(10):
             Specialty.objects.create(name=f"{ability.replace('_', ' ').title()} Specialty {i}", ability=ability)
+    for intimacy_type in ["tie", "principle"]:
+        for strength in ["minor", "major", "defining"]:
+            for is_negative in [True, False]:
+                name = f"{strength.title()} {intimacy_type.title()}"
+                if is_negative:
+                    name = "Negative " + name
+                Intimacy.objects.create(
+                    name=name,
+                    type=intimacy_type,
+                    strength=strength,
+                    is_negative=is_negative,
+                )
 
 class TestMortal(TestCase):
     def setUp(self):
@@ -369,10 +381,21 @@ class TestMortal(TestCase):
         self.fail()
 
     def test_has_intimacies(self):
-        self.fail()
+        self.assertFalse(self.character.has_intimacies())
+        self.character.add_intimacy(Intimacy.objects.get(name="Defining Tie"))
+        self.assertFalse(self.character.has_intimacies())
+        self.character.add_intimacy(Intimacy.objects.get(name="Major Tie"))
+        self.assertFalse(self.character.has_intimacies())
+        self.character.add_intimacy(Intimacy.objects.get(name="Defining Principle"))
+        self.assertFalse(self.character.has_intimacies())
+        self.character.add_intimacy(Intimacy.objects.get(name="Negative Minor Principle"))
+        self.assertTrue(self.character.has_intimacies())
 
     def test_add_intimacy(self):
-        self.fail()
+        i = Intimacy.objects.first()
+        num = self.character.intimacies.count()
+        self.assertTrue(self.character.add_intimacy(i))
+        self.assertEqual(self.character.intimacies.count(), num + 1)
 
     def test_bonus_point_costs(self):
         self.fail()
