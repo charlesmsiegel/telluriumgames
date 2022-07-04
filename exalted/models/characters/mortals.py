@@ -213,7 +213,11 @@ class Mortal(PolymorphicModel):
             self.random_specialty()
     
     def has_intimacies(self):
-        pass
+        has_four = self.intimacies.count() >= 4
+        one_defining = self.intimacies.filter(strength="defining").exists()
+        one_major = self.intimacies.filter(strength="major").exists()
+        one_negative = self.intimacies.filter(is_negative=True).exists()
+        return has_four and one_defining and one_major and one_negative
     
     def add_intimacy(self, intimacy):
         self.intimacies.add(intimacy)
