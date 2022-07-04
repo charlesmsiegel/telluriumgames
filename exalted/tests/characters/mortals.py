@@ -6,7 +6,10 @@ from django.contrib.auth.models import User
 def setup(character):
     for ability in character.get_abilities():
         for i in range(10):
-            Specialty.objects.create(name=f"{ability.replace('_', ' ').title()} Specialty {i}", ability=ability)
+            Specialty.objects.create(
+                name=f"{ability.replace('_', ' ').title()} Specialty {i}",
+                ability=ability,
+            )
     for intimacy_type in ["tie", "principle"]:
         for strength in ["minor", "major", "defining"]:
             for is_negative in [True, False]:
@@ -21,30 +24,38 @@ def setup(character):
                 )
     for merit_type in ["innate", "purchased", "story"]:
         for i in range(1, 4):
-            Merit.objects.create(name=f"{merit_type.title()} Merit {i}", type=merit_type, ratings=[i, i+1])
+            Merit.objects.create(
+                name=f"{merit_type.title()} Merit {i}",
+                type=merit_type,
+                ratings=[i, i + 1],
+            )
+
 
 class TestMortal(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Mortal.objects.create(name="", player=self.player.exalted_profile)
+        self.character = Mortal.objects.create(
+            name="", player=self.player.exalted_profile
+        )
         setup(self.character)
-        
+
     def test_absolute_url(self):
         self.assertEqual(
-            self.character.get_absolute_url(), f"/exalted/characters/{self.character.id}/"
+            self.character.get_absolute_url(),
+            f"/exalted/characters/{self.character.id}/",
         )
-        
+
     def test_has_name(self):
         self.character.name = ""
         self.assertFalse(self.character.has_name())
         self.character.name = "Test"
         self.assertTrue(self.character.has_name())
-    
+
     def test_set_name(self):
         self.assertEqual(self.character.name, "")
         self.assertTrue(self.character.set_name("Test"))
         self.assertNotEqual(self.character.name, "")
-    
+
     def test_has_concept(self):
         self.character.concept = ""
         self.assertFalse(self.character.has_concept())
@@ -261,63 +272,69 @@ class TestMortal(TestCase):
         self.character.war = 3
 
     def test_get_abilities(self):
-        self.assertEqual(self.character.get_abilities(), {
-            "archery": 0,
-            "athletics": 0,
-            "awareness": 0,
-            "brawl": 0,
-            "bureaucracy": 0,
-            "craft": 0,
-            "dodge": 0,
-            "integrity": 0,
-            "investigation": 0,
-            "larceny": 0,
-            "linguistics": 0,
-            "lore": 0,
-            "martial_arts": 0,
-            "medicine": 0,
-            "melee": 0,
-            "occult": 0,
-            "performance": 0,
-            "presence": 0,
-            "resistance": 0,
-            "ride": 0,
-            "sail": 0,
-            "socialize": 0,
-            "stealth": 0,
-            "survival": 0,
-            "thrown": 0,
-            "war": 0,
-        })
+        self.assertEqual(
+            self.character.get_abilities(),
+            {
+                "archery": 0,
+                "athletics": 0,
+                "awareness": 0,
+                "brawl": 0,
+                "bureaucracy": 0,
+                "craft": 0,
+                "dodge": 0,
+                "integrity": 0,
+                "investigation": 0,
+                "larceny": 0,
+                "linguistics": 0,
+                "lore": 0,
+                "martial_arts": 0,
+                "medicine": 0,
+                "melee": 0,
+                "occult": 0,
+                "performance": 0,
+                "presence": 0,
+                "resistance": 0,
+                "ride": 0,
+                "sail": 0,
+                "socialize": 0,
+                "stealth": 0,
+                "survival": 0,
+                "thrown": 0,
+                "war": 0,
+            },
+        )
         self.set_abilities()
-        self.assertEqual(self.character.get_abilities(), {
-            "archery": 3,
-            "athletics": 0,
-            "awareness": 1,
-            "brawl": 0,
-            "bureaucracy": 2,
-            "craft": 1,
-            "dodge": 1,
-            "integrity": 0,
-            "investigation": 0,
-            "larceny": 0,
-            "linguistics": 3,
-            "lore": 2,
-            "martial_arts": 3,
-            "medicine": 0,
-            "melee": 2,
-            "occult": 0,
-            "performance": 0,
-            "presence": 2,
-            "resistance": 0,
-            "ride": 1,
-            "sail": 1,
-            "socialize": 3,
-            "stealth": 0,
-            "survival": 0,
-            "thrown": 0,
-            "war": 3,
-        })
+        self.assertEqual(
+            self.character.get_abilities(),
+            {
+                "archery": 3,
+                "athletics": 0,
+                "awareness": 1,
+                "brawl": 0,
+                "bureaucracy": 2,
+                "craft": 1,
+                "dodge": 1,
+                "integrity": 0,
+                "investigation": 0,
+                "larceny": 0,
+                "linguistics": 3,
+                "lore": 2,
+                "martial_arts": 3,
+                "medicine": 0,
+                "melee": 2,
+                "occult": 0,
+                "performance": 0,
+                "presence": 2,
+                "resistance": 0,
+                "ride": 1,
+                "sail": 1,
+                "socialize": 3,
+                "stealth": 0,
+                "survival": 0,
+                "thrown": 0,
+                "war": 3,
+            },
+        )
 
     def test_has_abilities(self):
         self.assertFalse(self.character.has_abilities())
@@ -364,7 +381,11 @@ class TestMortal(TestCase):
         self.assertFalse(self.character.has_specialties())
         for ability in ["occult", "war", "melee", "archery"]:
             setattr(self.character, ability, 1)
-            self.assertTrue(self.character.add_specialty(Specialty.objects.filter(ability=ability).first()))
+            self.assertTrue(
+                self.character.add_specialty(
+                    Specialty.objects.filter(ability=ability).first()
+                )
+            )
         self.assertTrue(self.character.has_specialties())
 
     def test_filter_specialties(self):
@@ -375,9 +396,7 @@ class TestMortal(TestCase):
         self.assertEqual(len(self.character.filter_specialties()), 139)
 
     def test_add_merit(self):
-        m = Merit.objects.create(
-            name="Merit 1", ratings=[1, 2, 4], merit_type="innate"
-        )
+        m = Merit.objects.create(name="Merit 1", ratings=[1, 2, 4], merit_type="innate")
         self.assertNotIn(m, self.character.merits.all())
         self.assertTrue(self.character.add_merit(m))
         self.assertIn(m, self.character.merits.all())
@@ -388,7 +407,7 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.merit_rating("Merit 1"), 4)
         self.assertFalse(self.character.add_merit(m))
         self.assertEqual(self.character.merit_rating("Merit 1"), 4)
-        
+
     def test_has_merits(self):
         self.assertFalse(self.character.has_merits())
         self.character.add_merit(Merit.objects.get(name="Story Merit 3"))
@@ -399,12 +418,12 @@ class TestMortal(TestCase):
         m1 = Merit.objects.get(name="Innate Merit 1")
         m2 = Merit.objects.create(name="Purchased Merit 2")
         m3 = Merit.objects.create(name="Story Merit 3")
-        m4 = Merit.objects.create(name="Nonsequential Merit", ratings=[1, 4], merit_type="innate")
-        
-        merit_list = self.character.filter_merits(
-            dots=3
+        m4 = Merit.objects.create(
+            name="Nonsequential Merit", ratings=[1, 4], merit_type="innate"
         )
-        self.assertEqual(len(merit_list), 10)        
+
+        merit_list = self.character.filter_merits(dots=3)
+        self.assertEqual(len(merit_list), 10)
 
     def test_has_intimacies(self):
         self.assertFalse(self.character.has_intimacies())
@@ -414,7 +433,9 @@ class TestMortal(TestCase):
         self.assertFalse(self.character.has_intimacies())
         self.character.add_intimacy(Intimacy.objects.get(name="Defining Principle"))
         self.assertFalse(self.character.has_intimacies())
-        self.character.add_intimacy(Intimacy.objects.get(name="Negative Minor Principle"))
+        self.character.add_intimacy(
+            Intimacy.objects.get(name="Negative Minor Principle")
+        )
         self.assertTrue(self.character.has_intimacies())
 
     def test_add_intimacy(self):
@@ -424,28 +445,72 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.intimacies.count(), num + 1)
 
     def test_bonus_point_costs(self):
-        self.fail()
+        self.assertEqual(self.character.bonus_cost("primary attribute"), 4)
+        self.assertEqual(self.character.bonus_cost("secondary attribute"), 4)
+        self.assertEqual(self.character.bonus_cost("tertiary attribute"), 3)
+        self.assertEqual(self.character.bonus_cost("ability"), 2)
+        self.assertEqual(self.character.bonus_cost("specialty"), 1)
+        self.assertEqual(self.character.bonus_cost("merit"), 1)
+        self.assertEqual(self.character.bonus_cost("willpower"), 2)
 
     def test_spend_bonus_points(self):
-        self.fail()
-        
+        self.character.tertiary_category = "physical"
+        self.assertEqual(self.character.bonus, 21)
+        self.assertTrue(self.character.spend_bonus("wits"))
+        self.assertEqual(self.character.bonus, 17)
+        self.assertTrue(self.character.spend_bonus("dexterity"))
+        self.assertEqual(self.character.bonus, 14)
+        self.assertTrue(self.character.spend_bonus("occult"))
+        self.assertEqual(self.character.bonus, 12)
+        self.assertTrue(self.character.spend_bonus("Occult Specialty 0"))
+        self.assertEqual(self.character.bonus, 11)
+        self.assertTrue(self.character.spend_bonus("Innate Merit 1"))
+        self.assertEqual(self.character.bonus, 10)
+        self.assertTrue(self.character.spend_bonus("willpower"))
+        self.assertEqual(self.character.bonus, 8)
+
     def test_has_finishing_touches(self):
-        self.fail()
-        
+        self.assertFalse(self.character.has_finishing_touches())
+        self.character.willpower = 3
+        self.character.health_levels = 7
+        self.character.essence = 1
+        self.assertTrue(self.character.has_finishing_touches())
+
     def test_apply_finishing_touches(self):
-        self.fail()
+        self.assertFalse(self.character.has_finishing_touches())
+        self.assertTrue(self.character.apply_finishing_touches())
+        self.assertTrue(self.character.has_finishing_touches())
 
     def test_xp_costs(self):
-        self.fail()
+        self.assertEqual(self.character.xp_cost("attribute"), 4)
+        self.assertEqual(self.character.xp_cost("new ability"), 3)
+        self.assertEqual(self.character.xp_cost("ability"), 2)
+        self.assertEqual(self.character.xp_cost("specialty"), 3)
+        self.assertEqual(self.character.xp_cost("merit"), 3)
+        self.assertEqual(self.character.xp_cost("willpower"), 8)
 
     def test_spend_xp(self):
-        self.fail()
+        self.character.xp = 100
+        self.assertTrue(self.character.spend_xp("strength"))
+        self.assertEqual(self.character.xp, 96)
+        self.assertTrue(self.character.spend_xp("occult"))
+        self.assertEqual(self.character.xp, 93)
+        self.assertTrue(self.character.spend_xp("occult"))
+        self.assertEqual(self.character.xp, 91)
+        self.assertTrue(self.character.spend_xp("Occult Specialty 0"))
+        self.assertEqual(self.character.xp, 88)
+        self.assertTrue(self.character.spend_xp("Purchased Merit 1"))
+        self.assertEqual(self.character.xp, 85)
+        self.assertTrue(self.character.spend_xp("willpower"))
+        self.assertEqual(self.character.xp, 77)
 
 
 class TestRandomMortal(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Mortal.objects.create(name="", player=self.player.exalted_profile)
+        self.character = Mortal.objects.create(
+            name="", player=self.player.exalted_profile
+        )
         setup(self.character)
 
     def test_random_name(self):
@@ -477,7 +542,7 @@ class TestRandomMortal(TestCase):
         num = self.character.total_abilities()
         self.character.random_ability()
         self.assertEqual(self.character.total_abilities(), num + 1)
-        
+
     def test_random_abilities(self):
         self.assertFalse(self.character.has_abilities())
         self.assertTrue(self.character.random_abilities())
@@ -521,7 +586,7 @@ class TestRandomMortal(TestCase):
         num = self.character.intimacies.count()
         self.character.random_intimacy()
         self.assertEqual(self.character.intimacies.count(), num + 1)
-        
+
     def test_random_intimacies(self):
         self.assertFalse(self.character.has_intimacies())
         self.character.random_intimacies()
@@ -576,6 +641,7 @@ class TestCharacterIndexView(TestCase):
         for i in range(10):
             self.assertContains(response, f"Mortal {i}")
 
+
 class TestMortalDetailView(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="Test")
@@ -590,6 +656,7 @@ class TestMortalDetailView(TestCase):
     def test_mortal_detail_view_template(self):
         response = self.client.get(f"/exalted/characters/{self.human.id}/")
         self.assertTemplateUsed(response, "exalted/characters/mortal/detail.html")
+
 
 class TestGenericCharacterDetailViews(TestCase):
     def setUp(self) -> None:
