@@ -23,7 +23,7 @@ def setup(character):
                     is_negative=is_negative,
                 )
     for merit_type in ["innate", "purchased", "story"]:
-        for i in range(1, 4):
+        for i in range(1, 5):
             Merit.objects.create(
                 name=f"{merit_type.title()} Merit {i}",
                 type=merit_type,
@@ -372,10 +372,10 @@ class TestMortal(TestCase):
         num = self.character.specialties.count()
         spec = Specialty.objects.filter(ability="occult").first()
         self.assertFalse(self.character.add_specialty(spec))
-        self.assertEqual(self.character.specialtyies.count(), num)
+        self.assertEqual(self.character.specialties.count(), num)
         self.character.occult = 1
         self.assertTrue(self.character.add_specialty(spec))
-        self.assertEqual(self.character.specialtyies.count(), num + 1)
+        self.assertEqual(self.character.specialties.count(), num + 1)
 
     def test_has_specialties(self):
         self.assertFalse(self.character.has_specialties())
@@ -396,7 +396,7 @@ class TestMortal(TestCase):
         self.assertEqual(len(self.character.filter_specialties()), 139)
 
     def test_add_merit(self):
-        m = Merit.objects.create(name="Merit 1", ratings=[1, 2, 4], merit_type="innate")
+        m = Merit.objects.create(name="Merit 1", ratings=[1, 2, 4], type="innate")
         self.assertNotIn(m, self.character.merits.all())
         self.assertTrue(self.character.add_merit(m))
         self.assertIn(m, self.character.merits.all())
@@ -415,15 +415,10 @@ class TestMortal(TestCase):
         self.assertTrue(self.character.has_merits())
 
     def test_filter_merits(self):
-        m1 = Merit.objects.get(name="Innate Merit 1")
-        m2 = Merit.objects.create(name="Purchased Merit 2")
-        m3 = Merit.objects.create(name="Story Merit 3")
-        m4 = Merit.objects.create(
-            name="Nonsequential Merit", ratings=[1, 4], merit_type="innate"
-        )
-
         merit_list = self.character.filter_merits(dots=3)
         self.assertEqual(len(merit_list), 10)
+        self.character.add_merit(merit_list[0])
+        self.assertEqual(len(self.character.filter_merits(dots=3)), 9)
 
     def test_has_intimacies(self):
         self.assertFalse(self.character.has_intimacies())
@@ -455,19 +450,19 @@ class TestMortal(TestCase):
 
     def test_spend_bonus_points(self):
         self.character.tertiary_category = "physical"
-        self.assertEqual(self.character.bonus, 21)
-        self.assertTrue(self.character.spend_bonus("wits"))
-        self.assertEqual(self.character.bonus, 17)
-        self.assertTrue(self.character.spend_bonus("dexterity"))
-        self.assertEqual(self.character.bonus, 14)
-        self.assertTrue(self.character.spend_bonus("occult"))
-        self.assertEqual(self.character.bonus, 12)
-        self.assertTrue(self.character.spend_bonus("Occult Specialty 0"))
-        self.assertEqual(self.character.bonus, 11)
-        self.assertTrue(self.character.spend_bonus("Innate Merit 1"))
-        self.assertEqual(self.character.bonus, 10)
-        self.assertTrue(self.character.spend_bonus("willpower"))
-        self.assertEqual(self.character.bonus, 8)
+        self.assertEqual(self.character.bonus_points, 21)
+        self.assertTrue(self.character.spend_bonus_points("wits"))
+        self.assertEqual(self.character.bonus_points, 17)
+        self.assertTrue(self.character.spend_bonus_points("dexterity"))
+        self.assertEqual(self.character.bonus_points, 14)
+        self.assertTrue(self.character.spend_bonus_points("occult"))
+        self.assertEqual(self.character.bonus_points, 12)
+        self.assertTrue(self.character.spend_bonus_points("Occult Specialty 0"))
+        self.assertEqual(self.character.bonus_points, 11)
+        self.assertTrue(self.character.spend_bonus_points("Innate Merit 1"))
+        self.assertEqual(self.character.bonus_points, 10)
+        self.assertTrue(self.character.spend_bonus_points("willpower"))
+        self.assertEqual(self.character.bonus_points, 8)
 
     def test_has_finishing_touches(self):
         self.assertFalse(self.character.has_finishing_touches())
@@ -650,11 +645,11 @@ class TestMortalDetailView(TestCase):
         )
 
     def test_mortal_detail_view_status_code(self):
-        response = self.client.get(f"/exalted/characters/{self.human.id}/")
+        response = self.client.get(f"exalted/characters/{self.human.id}/")
         self.assertEqual(response.status_code, 200)
 
     def test_mortal_detail_view_template(self):
-        response = self.client.get(f"/exalted/characters/{self.human.id}/")
+        response = self.client.get(f"exalted/characters/{self.human.id}/")
         self.assertTemplateUsed(response, "exalted/characters/mortal/detail.html")
 
 
@@ -666,5 +661,5 @@ class TestGenericCharacterDetailViews(TestCase):
         )
 
     def test_character_detail_view_templates(self):
-        response = self.client.get(f"/exalted/characters/{self.mortal.id}/")
+        response = self.client.get(f"exalted/characters/{self.mortal.id}/")
         self.assertTemplateUsed(response, "exalted/characters/mortal/detail.html")
