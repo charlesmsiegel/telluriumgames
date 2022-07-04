@@ -16,6 +16,33 @@ class Mortal(PolymorphicModel):
         ExaltedProfile, on_delete=models.CASCADE, related_name="characters"
     )
     
+    archery = models.IntegerField(default=0)
+    athletics = models.IntegerField(default=0)
+    awareness = models.IntegerField(default=0)
+    brawl = models.IntegerField(default=0)
+    bureaucracy = models.IntegerField(default=0)
+    craft = models.IntegerField(default=0)
+    dodge = models.IntegerField(default=0)
+    integrity = models.IntegerField(default=0)
+    investigation = models.IntegerField(default=0)
+    larceny = models.IntegerField(default=0)
+    linguistics = models.IntegerField(default=0)
+    lore = models.IntegerField(default=0)
+    martial_arts = models.IntegerField(default=0)
+    medicine = models.IntegerField(default=0)
+    melee = models.IntegerField(default=0)
+    occult = models.IntegerField(default=0)
+    performance = models.IntegerField(default=0)
+    presence = models.IntegerField(default=0)
+    resistance = models.IntegerField(default=0)
+    ride = models.IntegerField(default=0)
+    sail = models.IntegerField(default=0)
+    socialize = models.IntegerField(default=0)
+    stealth = models.IntegerField(default=0)
+    survival = models.IntegerField(default=0)
+    thrown = models.IntegerField(default=0)
+    war = models.IntegerField(default=0)
+    
     specialties = models.ManyToManyField("Specialty", blank=True)
     intimacies = models.ManyToManyField("Intimacy", blank=True)
     merits = models.ManyToManyField("Merit", blank=True)
@@ -24,19 +51,21 @@ class Mortal(PolymorphicModel):
         return reverse("exalted:character", args=[str(self.id)])
     
     def has_name(self):
-        pass
+        return self.name != ""
     
     def set_name(self, name):
-        pass
+        self.name = name
+        return True
     
     def random_name(self):
         pass
     
     def has_concept(self):
-        pass
+        return self.concept != ""
     
     def set_concept(self, concept):
-        pass
+        self.concept = concept
+        return True
     
     def random_concept(self):
         pass
@@ -51,7 +80,7 @@ class Mortal(PolymorphicModel):
         return {}
     
     def total_attributes(self):
-        return 0
+        return sum(k for k in self.get_attributes())
  
     def filter_attributes(self, minimum=0, maximum=5):
         return []
@@ -60,19 +89,19 @@ class Mortal(PolymorphicModel):
         return {}
     
     def total_mental_attributes(self):
-        return 0
+        return sum(k for k in self.get_mental_attributes())
     
     def get_physical_attributes(self):
         return {}
     
     def total_physical_attributes(self):
-        return 0
+        return sum(k for k in self.get_physical_attributes())
     
     def get_social_attributes(self):
         return {}
     
     def total_social_attributes(self):
-        return 0
+        return sum(k for k in self.get_social_attributes())
     
     def random_attribute(self):
         pass
@@ -84,16 +113,40 @@ class Mortal(PolymorphicModel):
         pass
     
     def get_abilities(self):
-        return {}
+        return {
+        "archery": self.archery,
+        "athletics": self.athletics,
+        "awareness": self.awareness,
+        "brawl": self.brawl,
+        "bureaucracy": self.bureaucracy,
+        "craft": self.craft,
+        "dodge": self.dodge,
+        "integrity": self.integrity,
+        "investigation": self.investigation,
+        "larceny": self.larceny,
+        "linguistics": self.linguistics,
+        "lore": self.lore,
+        "martial_arts": self.martial_arts,
+        "medicine": self.medicine,
+        "melee": self.melee,
+        "occult": self.occult,
+        "performance": self.performance,
+        "presence": self.presence,
+        "resistance": self.resistance,
+        "ride": self.ride,
+        "sail": self.sail,
+        "socialize": self.socialize,
+        "stealth": self.stealth,
+        "survival": self.survival,
+        "thrown": self.thrown,
+        "war": self.war,
+        }
     
     def has_abilities(self):
         pass
     
     def total_abilities(self):
-        return 0
-    
-    def has_abilities(self):
-        pass
+        return sum(v for k, v in self.get_abilities().items())
     
     def filter_abilities(self, minimum=0, maximum=5):
         return []
@@ -111,7 +164,11 @@ class Mortal(PolymorphicModel):
         return []
     
     def add_specialty(self, specialty):
-        pass
+        if self.get_abilities()[specialty.ability] > 0 and specialty not in self.specialties.all():
+            self.specialties.add(specialty)
+            self.save()
+            return True
+        return False
     
     def random_specialty(self):
         pass
@@ -123,7 +180,8 @@ class Mortal(PolymorphicModel):
         pass
     
     def add_intimacy(self, intimacy):
-        pass
+        self.intimacies.add(intimacy)
+        return True
     
     def random_intimacy(self):
         pass
