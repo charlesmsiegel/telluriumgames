@@ -180,6 +180,7 @@ class TestMortal(TestCase):
         )
 
     def test_has_attributes(self):
+        self.assertFalse(self.character.has_attributes())
         triple = [
             self.character.total_physical_attributes(),
             self.character.total_mental_attributes(),
@@ -188,10 +189,10 @@ class TestMortal(TestCase):
         triple.sort()
         self.assertNotEqual(triple, [6, 7, 9])
         self.character.strength = 3
-        self.character.dexterity = 4
+        self.character.dexterity = 3
         self.character.stamina = 3
         self.character.intelligence = 3
-        self.character.wits = 3
+        self.character.wits = 2
         self.character.perception = 2
         self.character.charisma = 2
         self.character.manipulation = 2
@@ -203,6 +204,7 @@ class TestMortal(TestCase):
         ]
         triple.sort()
         self.assertEqual(triple, [6, 7, 9])
+        self.assertTrue(self.character.has_attributes())
         self.character.perception = 3
         triple = [
             self.character.total_physical_attributes(),
@@ -211,6 +213,7 @@ class TestMortal(TestCase):
         ]
         triple.sort()
         self.assertNotEqual(triple, [6, 7, 9])
+        self.assertFalse(self.character.has_attributes())
 
     def test_total_physical_attribute(self):
         self.character.strength = 1

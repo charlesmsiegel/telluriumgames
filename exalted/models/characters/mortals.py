@@ -81,8 +81,12 @@ class Mortal(PolymorphicModel):
     def random_concept(self):
         return self.set_concept("Random")
     
-    def has_attributes(self):
-        pass
+    def has_attributes(self, primary=6, secondary=4, tertiary=3):
+        triple = [primary + 3, secondary + 3, tertiary + 3]
+        other_triple = [self.total_physical_attributes(), self.total_mental_attributes(), self.total_social_attributes()]
+        triple.sort()
+        other_triple.sort()
+        return triple == other_triple
     
     def add_attribute(self, attribute, maximum=5):
         return add_dot(self, attribute, maximum=maximum)
