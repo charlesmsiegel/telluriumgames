@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from accounts.models import ExaltedProfile
 from polymorphic.models import PolymorphicModel
-from core.utils import add_dot, weighted_choice, random_ethnicity, random_name
+from core.utils import add_dot, weighted_choice
 
 # Create your models here.
 class Mortal(PolymorphicModel):
@@ -84,8 +84,8 @@ class Mortal(PolymorphicModel):
     def has_attributes(self):
         pass
     
-    def add_attribute(self, attribute):
-        pass
+    def add_attribute(self, attribute, maximum=5):
+        return add_dot(self, attribute, maximum=maximum)
     
     def get_attributes(self):
         tmp = {}
@@ -98,7 +98,7 @@ class Mortal(PolymorphicModel):
         return sum(v for k, v in self.get_attributes().items())
  
     def filter_attributes(self, minimum=0, maximum=5):
-        return []
+        return {k: v for k, v in self.get_attributes().items() if minimum <= v <= maximum}
     
     def get_mental_attributes(self):
         return {
@@ -131,7 +131,9 @@ class Mortal(PolymorphicModel):
         return sum(v for k, v in self.get_social_attributes().items())
     
     def random_attribute(self):
-        pass
+        d = self.get_attributes()
+        choice = weighted_choice(d)
+        return self.add_attribute(choice)
     
     def random_attributes(self):
         pass
@@ -176,10 +178,12 @@ class Mortal(PolymorphicModel):
         return sum(v for k, v in self.get_abilities().items())
     
     def filter_abilities(self, minimum=0, maximum=5):
-        return []
+        return {k: v for k, v in self.get_abilities().items() if minimum <= v <= maximum}
     
     def random_ability(self):
-        pass
+        d = self.get_abilities()
+        choice = weighted_choice(d)
+        return self.add_ability(choice)
     
     def random_abilities(self):
         pass
@@ -188,7 +192,8 @@ class Mortal(PolymorphicModel):
         pass
     
     def filter_specialties(self):
-        return []
+        possible_abilities = self.filter_abilities(minimum=1)
+        return Specialty.objects.filter(ability__in=possible_abilities).exclude(pk__in=self.specialties.all())
     
     def add_specialty(self, specialty):
         if self.get_abilities()[specialty.ability] > 0 and specialty not in self.specialties.all():
