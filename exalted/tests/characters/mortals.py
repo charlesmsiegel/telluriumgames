@@ -394,7 +394,7 @@ class TestMortal(TestCase):
         self.assertEqual(len(self.character.filter_abilities(minimum=0, maximum=2)), 21)
         self.assertEqual(len(self.character.filter_abilities(minimum=1, maximum=2)), 9)
         self.assertEqual(len(self.character.filter_abilities(minimum=2, maximum=2)), 4)
-        self.assertEqual(len(self.character.filter_abilities(minimum=0, maximum=1)), 16)
+        self.assertEqual(len(self.character.filter_abilities(minimum=0, maximum=1)), 17)
         self.assertEqual(len(self.character.filter_abilities(minimum=1, maximum=1)), 5)
         self.assertEqual(len(self.character.filter_abilities(minimum=0, maximum=0)), 12)
 
@@ -570,7 +570,7 @@ class TestRandomMortal(TestCase):
 
     def test_random_abilities(self):
         self.assertFalse(self.character.has_abilities())
-        self.assertTrue(self.character.random_abilities())
+        self.character.random_abilities()
         self.assertTrue(self.character.has_abilities())
 
     def test_random_specialty(self):

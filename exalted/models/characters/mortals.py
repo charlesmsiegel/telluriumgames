@@ -1,3 +1,4 @@
+import random
 from django.db import models
 from django.urls import reverse
 from accounts.models import ExaltedProfile
@@ -140,7 +141,29 @@ class Mortal(PolymorphicModel):
         return self.add_attribute(choice)
     
     def random_attributes(self):
-        pass
+        attribute_types = [6, 4, 3]
+        random.shuffle(attribute_types)
+        while self.total_physical_attributes() < attribute_types[0] + 3:
+            attribute_choice = weighted_choice(
+                self.get_physical_attributes(), floor=3, ceiling=3
+            )
+            add_dot(self, attribute_choice, 5)
+        if attribute_types[0] == 3:
+            self.tertiary = "physical"
+        while self.total_social_attributes() < attribute_types[1] + 3:
+            attribute_choice = weighted_choice(
+                self.get_social_attributes(), floor=3, ceiling=3
+            )
+            add_dot(self, attribute_choice, 5)
+        if attribute_types[1] == 3:
+            self.tertiary = "social"
+        while self.total_mental_attributes() < attribute_types[2] + 3:
+            attribute_choice = weighted_choice(
+                self.get_mental_attributes(), floor=3, ceiling=3
+            )
+            add_dot(self, attribute_choice, 5)
+        if attribute_types[2] == 3:
+            self.tertiary = "mental"
     
     def add_ability(self, ability, maximum=5):
         return add_dot(self, ability, maximum=maximum)
@@ -176,7 +199,7 @@ class Mortal(PolymorphicModel):
         }
     
     def has_abilities(self):
-        pass
+        return self.total_abilities() == 28
     
     def total_abilities(self):
         return sum(v for k, v in self.get_abilities().items())
@@ -190,7 +213,8 @@ class Mortal(PolymorphicModel):
         return self.add_ability(choice)
     
     def random_abilities(self):
-        pass
+        while not self.has_abilities():
+            self.random_ability()
     
     def has_specialties(self):
         return self.specialties.count() == 4
