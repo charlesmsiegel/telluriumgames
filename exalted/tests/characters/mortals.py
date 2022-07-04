@@ -419,7 +419,7 @@ class TestMortal(TestCase):
         self.assertEqual(len(self.character.filter_specialties()), 0)
         self.set_abilities()
         self.assertEqual(len(self.character.filter_specialties()), 140)
-        self.character.add_specialtiy(Specialty.objects.filter(ability="war").first())
+        self.character.add_specialty(Specialty.objects.filter(ability="war").first())
         self.assertEqual(len(self.character.filter_specialties()), 139)
 
     def test_add_merit(self):
