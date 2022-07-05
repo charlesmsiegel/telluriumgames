@@ -675,11 +675,11 @@ class TestMortalDetailView(TestCase):
         )
 
     def test_mortal_detail_view_status_code(self):
-        response = self.client.get(f"exalted/characters/{self.human.id}/")
+        response = self.client.get(f"/exalted/characters/{self.human.id}/")
         self.assertEqual(response.status_code, 200)
 
     def test_mortal_detail_view_template(self):
-        response = self.client.get(f"exalted/characters/{self.human.id}/")
+        response = self.client.get(f"/exalted/characters/{self.human.id}/")
         self.assertTemplateUsed(response, "exalted/characters/mortal/detail.html")
 
 
@@ -691,5 +691,5 @@ class TestGenericCharacterDetailViews(TestCase):
         )
 
     def test_character_detail_view_templates(self):
-        response = self.client.get(f"exalted/characters/{self.mortal.id}/")
+        response = self.client.get(f"/exalted/characters/{self.mortal.id}/")
         self.assertTemplateUsed(response, "exalted/characters/mortal/detail.html")
