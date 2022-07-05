@@ -446,9 +446,11 @@ class TestMortal(TestCase):
 
     def test_filter_merits(self):
         merit_list = self.character.filter_merits(dots=3)
-        self.assertEqual(len(merit_list), 10)
+        self.assertEqual(len(merit_list), 9)
         self.character.add_merit(merit_list[0])
         self.assertEqual(len(self.character.filter_merits(dots=3)), 9)
+        self.character.add_merit(merit_list[0])
+        self.assertEqual(len(self.character.filter_merits(dots=3)), 8)
 
     def test_has_intimacies(self):
         self.assertFalse(self.character.has_intimacies())
