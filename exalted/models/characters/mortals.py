@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 from accounts.models import ExaltedProfile
 from polymorphic.models import PolymorphicModel
+from cod.models.characters.mortal import MeritRating
 from core.utils import add_dot, weighted_choice
 
 # Create your models here.
@@ -55,9 +56,13 @@ class Mortal(PolymorphicModel):
     thrown = models.IntegerField(default=0)
     war = models.IntegerField(default=0)
     
+    willpower = models.IntegerField(default=0)
+    health_levels = models.IntegerField(default=0)
+    essence = models.IntegerField(default=0)
+    
     specialties = models.ManyToManyField("Specialty", blank=True)
     intimacies = models.ManyToManyField("Intimacy", blank=True)
-    merits = models.ManyToManyField("Merit", blank=True)
+    merits = models.ManyToManyField("Merit", blank=True, through="MeritRating")
     
     def get_absolute_url(self):
         return reverse("exalted:character", args=[str(self.id)])
@@ -257,26 +262,70 @@ class Mortal(PolymorphicModel):
     def random_intimacies(self):
         pass
     
+    def total_merits(self):
+        return sum(x.rating for x in MeritRating.objects.filter(character=self))
+    
     def has_merits(self):
-        pass
+        return self.total_merits() == 7
     
     def add_merit(self, merit):
-        pass
+        if merit in self.merits.all():
+            merit_rating = MeritRating.objects.get(character=self, merit=merit)
+            if merit_rating.rating == max(merit.ratings):
+                return False
+            new_rating = min([x for x in merit.ratings if x > merit_rating.rating])
+            merit_rating.rating = new_rating
+            merit_rating.save()
+            return True
+        else:
+            MeritRating.objects.create(character=self, merit=merit, rating=min(merit.ratings))
+            return True
     
-    def filter_merits(self, dots=1000):
-        return []
+    def filter_merits(self, dots=1000, merit_type=None):
+        if merit_type is None:
+            merits = Merit.objects.all()
+        else:
+            merits = Merit.objects.filter(type=merit_type)
+            
+        new_merits = merits.exclude(pk__in=self.merits.all())
+        old_merits = [x.merit.id for x in MeritRating.objects.filter(character=self) if x.rating < x.merit.max_rating]
+        old_merits = Merit.objects.filter(pk__in=old_merits)
+        valid_merits = new_merits | old_merits
+        return [x for x in valid_merits if len([y for y in x.ratings if dots >= y > self.merit_rating(x)]) != 0]
     
-    def random_merit(self):
-        pass
+    def merit_rating(self, name):
+        if not self.merits.filter(name=name).exists():
+            return 0
+        merit = Merit.objects.get(name=name)
+        merit_rating = MeritRating.objects.get(character=self, merit=merit)
+        return merit_rating.rating
+    
+    def random_merit(self, dots=7):
+        merit_candidates = self.filter_merits(dots=dots)
+        choice = random.choice(merit_candidates)
+        return self.add_merit(choice)
     
     def random_merits(self):
-        pass
+        dots = 7
+        while not self.has_merits():
+            self.random_merit(dots=dots)
+            dots = 7 - self.total_merits()
      
     def has_finishing_touches(self):
-        pass
+        return self.willpower == 3 and self.health_levels == 7 and self.essence == 1
     
     def apply_finishing_touches(self):
-        pass
+        self.willpower = 3
+        self.health_levels = 7
+        self.essence = 1
+        self.save()
+        return True
+    
+    def bonus_frequencies(self):
+        return {}
+    
+    def random_bonus_functions(self):
+        return {}
     
     def bonus_cost(self, trait_type):
         pass
@@ -286,6 +335,12 @@ class Mortal(PolymorphicModel):
     
     def random_spend_bonus_points(self):
         pass
+    
+    def xp_frequencies(self):
+        return {}
+    
+    def random_xp_functions(self):
+        return {}
     
     def xp_cost(self, trait_type):
         pass
@@ -324,3 +379,13 @@ class Merit(models.Model):
         ("story", "Story"),
     ])
     ratings = models.JSONField(default=list)
+    max_rating = models.IntegerField(default=0)
+    
+    def save(self, *args, **kwargs):
+        self.max_rating = max(self.ratings)
+        return super().save(*args, **kwargs)
+
+class MeritRating(models.Model):
+    character = models.ForeignKey(Mortal, on_delete=models.CASCADE)
+    merit = models.ForeignKey(Merit, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0)
