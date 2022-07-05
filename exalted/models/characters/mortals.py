@@ -340,13 +340,39 @@ class Mortal(PolymorphicModel):
         return True
     
     def bonus_frequencies(self):
-        return {}
+        return {
+            "attribute": 1,
+            "ability": 1,
+            "specialty": 1,
+            "merit": 1,
+            "willpower": 1
+        }
     
     def random_bonus_functions(self):
-        return {}
+        return {
+            "attribute": self.random_bonus_attribute,
+            "ability": self.random_bonus_ability,
+            "specialty": self.random_bonus_specialty,
+            "merit": self.random_bonus_merit,
+            "willpower": self.random_bonus_willpower,
+        }
     
     def bonus_cost(self, trait_type):
-        pass
+        if trait_type == "primary attribute":
+            return 4
+        if trait_type == "secondary attribute":
+            return 4
+        if trait_type == "tertiary attribute":
+            return 3
+        if trait_type == "ability":
+            return 2
+        if trait_type == "specialty":
+            return 1
+        if trait_type == "merit":
+            return 1
+        if trait_type == "willpower":
+            return 2
+        return 10000
     
     def spend_bonus_points(self, trait):
         pass
@@ -355,13 +381,37 @@ class Mortal(PolymorphicModel):
         pass
     
     def xp_frequencies(self):
-        return {}
+        return {
+            "attribute": 1,
+            "ability": 1,
+            "specialty": 1,
+            "merit": 1,
+            "willpower": 1,
+        }
     
     def random_xp_functions(self):
-        return {}
+        return {
+            "attribute": self.random_xp_attribute,
+            "ability": self.random_xp_ability,
+            "specialty": self.random_xp_specialty,
+            "merit": self.random_xp_merit,
+            "willpower": self.random_xp_willpower,
+        }
     
     def xp_cost(self, trait_type):
-        pass
+        if trait_type == "attribute":
+            return 4
+        if trait_type == "ability":
+            return 2
+        if trait_type == "new ability":
+            return 3
+        if trait_type == "specialty":
+            return 3
+        if trait_type == "merit":
+            return 3
+        if trait_type == "willpower":
+            return 8
+        return 10000
     
     def spend_xp(self, trait):
         pass
