@@ -256,11 +256,29 @@ class Mortal(PolymorphicModel):
         self.intimacies.add(intimacy)
         return True
     
-    def random_intimacy(self):
-        pass
+    def random_intimacy(self, intimacy_type=None, strength=None, is_negative=None):
+        if intimacy_type is None:
+            intimacy_type = random.choice(["tie", "principle"])
+        if strength is None:
+            strength = random.choice(["minor", "major", "defining"])
+        if is_negative is None:
+            is_negative = random.choice([True, False])
+        i = Intimacy.objects.create(
+            name=f"Intimacy {Intimacy.objects.count()}",
+            type=intimacy_type,
+            strength=strength,
+            is_negative=is_negative,
+        )
+        return self.add_intimacy(i)
     
     def random_intimacies(self):
-        pass
+        self.random_intimacy(strength="defining")
+        self.random_intimacy(strength="major")
+        self.random_intimacy()
+        if self.intimacies.filter(is_negative=True).count() == 0:
+            self.random_intimacy(is_negative=True)
+        else:
+            self.random_intimacy()
     
     def total_merits(self):
         return sum(x.rating for x in MeritRating.objects.filter(character=self))
