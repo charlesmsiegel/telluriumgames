@@ -419,8 +419,19 @@ class Mortal(PolymorphicModel):
     def random_spend_xp(self):
         pass
     
-    def random(self, xp=0):
-        pass
+    def random(self, bonus_points=21, xp=0):
+        self.bonus_points = bonus_points
+        self.xp = xp
+        self.random_name()
+        self.random_concept()
+        self.random_attributes()
+        self.random_abilities()
+        self.random_specialties()
+        self.random_merits()
+        self.random_intimacies()
+        self.random_spend_bonus_points()
+        self.random_spend_xp()
+        self.apply_finishing_touches()
 
 class Specialty(models.Model):
     name = models.CharField(max_length=100, unique=True)
