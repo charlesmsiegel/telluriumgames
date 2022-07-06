@@ -1,10 +1,13 @@
 import random
+
 from django.db import models
 from django.urls import reverse
-from accounts.models import ExaltedProfile
 from polymorphic.models import PolymorphicModel
+
+from accounts.models import ExaltedProfile
 from cod.models.characters.mortal import MeritRating
 from core.utils import add_dot, weighted_choice
+
 
 # Create your models here.
 class Mortal(PolymorphicModel):

@@ -255,4 +255,3 @@ for ability in [
         Specialty.objects.create(
             name=f"{ability.replace('_', ' ').title()} Specialty {i}", ability=ability,
         )
-

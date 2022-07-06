@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
-from django.views.generic import View, DetailView
+from django.shortcuts import redirect, render
+from django.views.generic import DetailView, View
 
-from exalted.models.characters.mortals import Mortal, MeritRating
+from exalted.models.characters.mortals import MeritRating, Mortal
+
 
 # Create your views here.
 class IndexView(View):
@@ -21,6 +22,7 @@ class IndexView(View):
         context["chars"] = chars
         return context
 
+
 class MortalDetailView(View):
     def get(self, request, *args, **kwargs):
         char = Mortal.objects.get(pk=kwargs["pk"])
@@ -32,6 +34,7 @@ class MortalDetailView(View):
             "specialties": char.specialties.all().order_by("name"),
         }
         return render(request, "exalted/characters/mortal/detail.html", context,)
+
 
 class CharacterDetailView(View):
     """Class that manages Views for characters"""

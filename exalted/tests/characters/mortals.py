@@ -1,6 +1,8 @@
-from django.test import TestCase
-from exalted.models.characters.mortals import Mortal, Specialty, Intimacy, Merit
 from django.contrib.auth.models import User
+from django.test import TestCase
+
+from exalted.models.characters.mortals import Intimacy, Merit, Mortal, Specialty
+
 
 # Create your tests here.
 def setup(character):
