@@ -60,3 +60,22 @@ def update_tcprofile_signal(sender, instance, created, **kwargs):
     if created:
         TCProfile.objects.create(user=instance)
     instance.tc_profile.save()
+
+
+class ExaltedProfile(models.Model):
+    """Class extending the User model to add additional fields."""
+
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name="exalted_profile"
+    )
+    storyteller = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user}"
+
+
+@receiver(post_save, sender=User)
+def update_exaltedprofile_signal(sender, instance, created, **kwargs):
+    if created:
+        ExaltedProfile.objects.create(user=instance)
+    instance.exalted_profile.save()

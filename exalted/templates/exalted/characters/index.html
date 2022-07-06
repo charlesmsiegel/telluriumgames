@@ -1,0 +1,61 @@
+{% extends "core/base.html" %}
+{% block title %}
+    Characters
+{% endblock title %}
+<body>
+    {% block content %}
+        <div class="centertext">
+            <div class="row border">
+                <div class="col-sm border">
+                    <h2>Characters</h2>
+                </div>
+            </div>
+            {% for char in chars %}
+                {% if not char.minor and char.name != 'Storyteller' %}
+                    <div class="row border">
+                        <a class="col-sm border" href="{% url 'exalted:character' char.id %}">{{ char.name| safe }}</a>
+                        <div class="col-sm border">{{ char.player.user.username }}</div>
+                        <div class="col-sm border">{{ char.get_status_display }}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <form action="{% url 'exalted:random_character' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                    <label>
+                        <select name="char_type">
+                            <option value="mortal">
+                                Mortal
+                            </option>
+                            <option value="proximi">
+                                Proximi
+                            </option>
+                            <option value="mage">
+                                Mage
+                            </option>
+                        </select>
+                    </label>
+                </div>
+                <div class="col-sm">Name</div>
+                <div class="col-sm">
+                    <label>
+                        <input name="char_name" type="text" placeholder=""/>
+                    </label>
+                </div>
+                <div class="col-sm">XP</div>
+                <div class="col-sm">
+                    <label>
+                        <input name="xp" type="numeric" placeholder=""/>
+                    </label>
+                </div>
+                <div class="col-sm">
+                    <input type="submit" name="creator" value="Create Character"/>
+                </div>
+                <div class="col-sm"></div>
+            </div>
+        </form>
+    </body>
+{% endblock content %}

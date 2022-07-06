@@ -110,3 +110,12 @@ for i in range(10):
     aberrant.random(xp=150)
     aberrant.save()
 print("Average Random Aberrant Time:", (time() - aberrant_start) / 10)
+
+from exalted.models.characters.mortals import Mortal
+
+mortal_start = time()
+for i in range(10):
+    mortal = Mortal.objects.create(name=f"", player=player.exalted_profile)
+    mortal.random()
+    mortal.save()
+print("Average Exalted Mortal Time:", (time() - mortal_start) / 10)
