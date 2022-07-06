@@ -530,7 +530,7 @@ class Mortal(PolymorphicModel):
     def allowed_merit_types():
         return ["Mental", "Physical", "Social", "Supernatural", "Fighting"]
 
-    def filter_merits(self, dots=None, supernatural_permitted=False):
+    def filter_merits(self, dots=None):
         all_merits = Merit.objects.all()
         all_merits = all_merits.filter(merit_type__in=self.allowed_merit_types())
         pairs = [(m, r) for m in all_merits for r in m.ratings]
@@ -545,8 +545,6 @@ class Mortal(PolymorphicModel):
                 output.append(merit)
         output = list(set(output))
         output = [x for x in output if x.check_prereqs(self)]
-        if not supernatural_permitted:
-            output = [x for x in output if x.merit_class == "standard"]
         return output
 
     def random_merit(self, dots=7):

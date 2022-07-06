@@ -367,7 +367,7 @@ class Mortal(PolymorphicModel):
             )
             return True
 
-    def filter_merits(self, dots=1000, merit_type=None):
+    def filter_merits(self, dots=1000, merit_type=None, supernatural_permitted=False):
         if merit_type is None:
             merits = Merit.objects.all()
         else:
@@ -381,11 +381,14 @@ class Mortal(PolymorphicModel):
         ]
         old_merits = Merit.objects.filter(pk__in=old_merits)
         valid_merits = new_merits | old_merits
-        return [
+        output = [
             x
             for x in valid_merits
             if len([y for y in x.ratings if dots >= y > self.merit_rating(x)]) != 0
         ]
+        if not supernatural_permitted:
+            output = [x for x in output if x.merit_class == "standard"]
+        return output
 
     def merit_rating(self, name):
         if not self.merits.filter(name=name).exists():
@@ -697,6 +700,7 @@ class Merit(models.Model):
     merit_class = models.CharField(
         max_length=20,
         choices=[("standard", "Standard"), ("supernatural", "Supernatura;"),],
+        default="standard",
     )
     max_rating = models.IntegerField(default=0)
     prereqs = models.JSONField(default=list)
