@@ -549,7 +549,7 @@ class Mortal(PolymorphicModel):
                 return False
             return False
         if Specialty.objects.filter(name=trait).exists():
-            cost = self.spend_xp("specialty")
+            cost = self.xp_cost("specialty")
             if cost <= self.xp:
                 if self.add_specialty(Specialty.objects.get(name=trait)):
                     self.xp -= cost
@@ -560,7 +560,7 @@ class Mortal(PolymorphicModel):
         if Merit.objects.filter(name=trait).exists():
             merit = Merit.objects.get(name=trait)
             new_rating = min([x for x in merit.ratings if x > self.merit_rating(merit)])
-            cost = new_rating * self.spend_xp("merit")
+            cost = new_rating * self.xp_cost("merit")
             if cost <= self.xp:
                 if self.add_merit(merit):
                     self.xp -= cost
@@ -569,7 +569,7 @@ class Mortal(PolymorphicModel):
                 return False
             return False
         if trait == "willpower":
-            cost = self.spend_xp("willpower")
+            cost = self.xp_cost("willpower")
             if cost <= self.xp:
                 if self.add_willpower():
                     self.xp -= cost

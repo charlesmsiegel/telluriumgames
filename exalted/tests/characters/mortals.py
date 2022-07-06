@@ -641,7 +641,7 @@ class TestRandomMortal(TestCase):
         self.assertFalse(self.character.has_intimacies())
         self.assertEqual(self.character.bonus_points, 21)
         self.assertFalse(self.character.has_finishing_touches())
-        self.character.random(xp=0)
+        self.character.random(xp=0, bonus_points=0)
         self.assertTrue(self.character.has_name())
         self.assertTrue(self.character.has_concept())
         self.assertTrue(self.character.has_attributes())
