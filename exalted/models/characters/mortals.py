@@ -217,7 +217,7 @@ class Mortal(PolymorphicModel):
     def random_ability(self, preference=None):
         d = self.get_abilities()
         if preference is not None:
-            new_d = self.ability_types[preference]()
+            new_d = self.ability_types()[preference]()
             for k, v in new_d.items():
                 d[k] += v
         choice = weighted_choice(d)
