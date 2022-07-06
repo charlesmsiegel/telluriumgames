@@ -2,38 +2,12 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from exalted.models.characters.mortals import Intimacy, Merit, Mortal, Specialty
+from exalted.models.characters.utils import ABILITIES
 
 
 # Create your tests here.
-def setup(character):
-    for ability in [
-        "archery",
-        "athletics",
-        "awareness",
-        "brawl",
-        "bureaucracy",
-        "craft",
-        "dodge",
-        "integrity",
-        "investigation",
-        "larceny",
-        "linguistics",
-        "lore",
-        "martial_arts",
-        "medicine",
-        "melee",
-        "occult",
-        "performance",
-        "presence",
-        "resistance",
-        "ride",
-        "sail",
-        "socialize",
-        "stealth",
-        "survival",
-        "thrown",
-        "war",
-    ]:
+def setup():
+    for ability in ABILITIES:
         for i in range(10):
             Specialty.objects.create(
                 name=f"{ability.replace('_', ' ').title()} Specialty {i}",
@@ -66,7 +40,7 @@ class TestMortal(TestCase):
         self.character = Mortal.objects.create(
             name="", player=self.player.exalted_profile
         )
-        setup(self.character)
+        setup()
 
     def test_absolute_url(self):
         self.assertEqual(
@@ -540,7 +514,7 @@ class TestRandomMortal(TestCase):
         self.character = Mortal.objects.create(
             name="", player=self.player.exalted_profile
         )
-        setup(self.character)
+        setup()
 
     def test_random_name(self):
         self.assertFalse(self.character.has_name())

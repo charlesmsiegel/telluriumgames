@@ -1,4 +1,5 @@
 from exalted.models.characters.mortals import Merit, Specialty
+from exalted.models.characters.utils import ABILITIES
 
 Merit.objects.create(
     name="Allies", type="story", ratings=[1, 3, 5], merit_class="standard",
@@ -223,34 +224,7 @@ Merit.objects.create(
     name="Wings", type="innate", ratings=[3, 5], merit_class="supernatural",
 )
 
-for ability in [
-    "archery",
-    "athletics",
-    "awareness",
-    "brawl",
-    "bureaucracy",
-    "craft",
-    "dodge",
-    "integrity",
-    "investigation",
-    "larceny",
-    "linguistics",
-    "lore",
-    "martial_arts",
-    "medicine",
-    "melee",
-    "occult",
-    "performance",
-    "presence",
-    "resistance",
-    "ride",
-    "sail",
-    "socialize",
-    "stealth",
-    "survival",
-    "thrown",
-    "war",
-]:
+for ability in ABILITIES:
     for i in range(10):
         Specialty.objects.create(
             name=f"{ability.replace('_', ' ').title()} Specialty {i}", ability=ability,
