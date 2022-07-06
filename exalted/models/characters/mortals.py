@@ -214,14 +214,64 @@ class Mortal(PolymorphicModel):
     def filter_abilities(self, minimum=0, maximum=5):
         return {k: v for k, v in self.get_abilities().items() if minimum <= v <= maximum}
     
-    def random_ability(self):
+    def random_ability(self, preference=None):
         d = self.get_abilities()
+        if preference is not None:
+            new_d = self.ability_types[preference]()
+            for k, v in new_d.items():
+                d[k] += v
         choice = weighted_choice(d)
         return self.add_ability(choice)
     
     def random_abilities(self):
+        preference = random.choice(list(self.ability_types().keys()))
         while not self.has_abilities():
-            self.random_ability()
+            self.random_ability(preference=preference)
+    
+    def ability_types(self):
+        return {
+            "combat": self.get_combat_abilities, 
+            "crafting": self.get_crafting_abilities, 
+            "social": self.get_social_abilities,
+            "sorcery": self.get_sorcery_abilities,
+        }
+    
+    def get_combat_abilities(self):
+        return {
+            "archery": self.archery,
+            "athletics": self.athletics,
+            "awareness": self.awareness,
+            "brawl": self.brawl,
+            "dodge": self.dodge,
+            "martial_arts": self.martial_arts,
+            "melee": self.melee,
+            "resistance": self.resistance,
+            "ride": self.ride,
+            "stealth": self.stealth,
+            "thrown": self.thrown,
+            "war": self.war,
+        }
+        
+    def get_crafting_abilities(self):
+        return {
+            "craft": self.craft,
+            "lore": self.lore,
+            "occult": self.occult,
+        }
+        
+    def get_social_abilities(self):
+        return {
+            "integrity": self.integrity,
+            "linguistics": self.linguistics,
+            "performance": self.performance,
+            "presence": self.presence,
+            "socialize": self.socialize,
+        }
+        
+    def get_sorcery_abilities(self):
+        return {
+            "occult": self.occult
+        }
     
     def has_specialties(self):
         return self.specialties.count() == 4
@@ -517,15 +567,6 @@ class Mortal(PolymorphicModel):
         return 10000
     
     def spend_xp(self, trait):
-        """
-            if cost <= self.xp:
-                if self.add_attribute(trait):
-                    self.xp -= cost
-                    self.add_to_spend(trait, getattr(self, trait), cost)
-                    return True
-                return False
-            return False
-        """
         if trait in self.get_attributes():
             cost = self.xp_cost("attribute") * self.get_attributes()[trait]
             if cost <= self.xp:
@@ -577,8 +618,7 @@ class Mortal(PolymorphicModel):
                     return True
                 return False
             return False
-
-    
+  
     def random_spend_xp(self):
         frequencies = self.xp_frequencies()
         counter = 0
