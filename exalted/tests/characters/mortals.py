@@ -631,8 +631,10 @@ class TestRandomMortal(TestCase):
     def test_random_spend_xp(self):
         self.character.xp = 15
         self.character.occult = 1
+        self.character.war = 1
+        self.character.awareness = 1
         self.character.random_spend_xp()
-        self.assertEqual(self.character.xp, 0)
+        self.assertLessEqual(self.character.xp, 1)
 
     def test_random(self):
         self.assertFalse(self.character.has_name())

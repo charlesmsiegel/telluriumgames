@@ -115,7 +115,7 @@ from exalted.models.characters.mortals import Mortal
 
 mortal_start = time()
 for i in range(10):
-    mortal = Mortal.objects.create(name=f"", player=player.exalted_profile)
+    mortal = Mortal.objects.create(name="", player=player.exalted_profile)
     mortal.random()
     mortal.save()
 print("Average Exalted Mortal Time:", (time() - mortal_start) / 10)

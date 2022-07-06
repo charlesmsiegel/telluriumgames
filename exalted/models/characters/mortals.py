@@ -5,7 +5,6 @@ from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
 from accounts.models import ExaltedProfile
-from cod.models.characters.mortal import MeritRating
 from core.utils import add_dot, weighted_choice
 
 
@@ -21,6 +20,8 @@ class Mortal(PolymorphicModel):
     player = models.ForeignKey(
         ExaltedProfile, on_delete=models.CASCADE, related_name="characters"
     )
+
+    tertiary = None
 
     strength = models.IntegerField(default=1)
     dexterity = models.IntegerField(default=1)
@@ -66,6 +67,8 @@ class Mortal(PolymorphicModel):
     specialties = models.ManyToManyField("Specialty", blank=True)
     intimacies = models.ManyToManyField("Intimacy", blank=True)
     merits = models.ManyToManyField("Merit", blank=True, through="MeritRating")
+
+    xp = models.IntegerField(default=0)
 
     spent_xp = models.TextField(default="")
 
@@ -357,15 +360,12 @@ class Mortal(PolymorphicModel):
             merit_rating = MeritRating.objects.get(character=self, merit=merit)
             if merit_rating.rating == max(merit.ratings):
                 return False
-            new_rating = min([x for x in merit.ratings if x > merit_rating.rating])
+            new_rating = min(x for x in merit.ratings if x > merit_rating.rating)
             merit_rating.rating = new_rating
             merit_rating.save()
             return True
-        else:
-            MeritRating.objects.create(
-                character=self, merit=merit, rating=min(merit.ratings)
-            )
-            return True
+        MeritRating.objects.create(character=self, merit=merit, rating=min(merit.ratings))
+        return True
 
     def filter_merits(self, dots=1000, merit_type=None, supernatural_permitted=False):
         if merit_type is None:
@@ -506,7 +506,7 @@ class Mortal(PolymorphicModel):
             return False
         if Merit.objects.filter(name=trait).exists():
             trait = Merit.objects.get(name=trait)
-            new_rating = min([x for x in trait.ratings if x > self.merit_rating(trait)])
+            new_rating = min(x for x in trait.ratings if x > self.merit_rating(trait))
             cost = self.bonus_cost("merit") * new_rating
             if cost <= self.bonus_points:
                 if self.add_merit(trait):
@@ -627,7 +627,7 @@ class Mortal(PolymorphicModel):
             return False
         if Merit.objects.filter(name=trait).exists():
             merit = Merit.objects.get(name=trait)
-            new_rating = min([x for x in merit.ratings if x > self.merit_rating(merit)])
+            new_rating = min(x for x in merit.ratings if x > self.merit_rating(merit))
             cost = new_rating * self.xp_cost("merit")
             if cost <= self.xp:
                 if self.add_merit(merit):
@@ -645,11 +645,12 @@ class Mortal(PolymorphicModel):
                     return True
                 return False
             return False
+        return False
 
     def random_spend_xp(self):
         frequencies = self.xp_frequencies()
         counter = 0
-        while counter < 10000 and self.xp > 0:
+        while counter < 10000 and self.xp > 1:
             choice = weighted_choice(frequencies)
             spent = self.random_xp_functions()[choice]()
             if not spent:
