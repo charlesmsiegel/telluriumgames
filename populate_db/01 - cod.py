@@ -443,7 +443,7 @@ Merit.objects.create(
 Merit.objects.create(
     name="Greyhound",
     ratings=[1],
-    prereqs=[("athletics", 3), ("wits", 3), ("stamina", 3)],
+    prereqs=[[("athletics", 3), ("wits", 3), ("stamina", 3)]],
     merit_type="Physical",
 )
 Merit.objects.create(
@@ -748,7 +748,7 @@ Merit.objects.create(
     merit_type="Fighting",
 )
 Merit.objects.create(
-    name="Fighting Finesse",
+    name="Fighting Finesse (Weaponry)",
     requires_detail=True,
     ratings=[2],
     prereqs=[[("dexterity", 2), ("weaponry", "specialty")]],
@@ -756,7 +756,7 @@ Merit.objects.create(
     merit_type="Fighting",
 )
 Merit.objects.create(
-    name="Fighting Finesse",
+    name="Fighting Finesse (Brawl)",
     requires_detail=True,
     ratings=[2],
     prereqs=[[("dexterity", 2), ("brawl", "specialty")]],
