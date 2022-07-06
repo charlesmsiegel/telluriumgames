@@ -64,6 +64,8 @@ class Mortal(PolymorphicModel):
     intimacies = models.ManyToManyField("Intimacy", blank=True)
     merits = models.ManyToManyField("Merit", blank=True, through="MeritRating")
     
+    spent_xp = models.TextField(default="")
+    
     def get_absolute_url(self):
         return reverse("exalted:character", args=[str(self.id)])
     
@@ -462,6 +464,14 @@ class Mortal(PolymorphicModel):
             "merit": 1,
             "willpower": 1,
         }
+        
+    def add_to_spend(self, trait, value, cost):
+        trait = trait.replace("_", " ").title()
+        new_term = f"{trait} {value} ({cost} XP)"
+        spent = self.spent_xp.split(", ")
+        spent.append(new_term)
+        spent = [x for x in spent if len(x) != 0]
+        self.spent_xp = ", ".join(spent)
     
     def random_xp_functions(self):
         return {
@@ -473,29 +483,23 @@ class Mortal(PolymorphicModel):
         }
     
     def random_xp_attribute(self):
-        # choose random example trait
-        # self.spend_freebies(trait)
-        pass
+        trait = weighted_choice(self.get_attributes())
+        return self.spend_xp(trait)
     
     def random_xp_ability(self):
-        # choose random example trait
-        # self.spend_freebies(trait)
-        pass
+        trait = weighted_choice(self.get_abilities())
+        return self.spend_xp(trait)
     
     def random_xp_specialty(self):
-        # choose random example trait
-        # self.spend_freebies(trait)
-        pass
+        trait = random.choice(self.filter_specialties())
+        return self.spend_xp(trait.name)
     
     def random_xp_merit(self):
-        # choose random example trait
-        # self.spend_freebies(trait)
-        pass
+        trait = random.choice(self.filter_merits(merit_type="purchased"))
+        return self.spend_xp(trait.name)
     
     def random_xp_willpower(self):
-        # choose random example trait
-        # self.spend_freebies(trait)
-        pass
+        return self.spend_bonus_points("willpower")
     
     def xp_cost(self, trait_type):
         if trait_type == "attribute":
@@ -513,7 +517,67 @@ class Mortal(PolymorphicModel):
         return 10000
     
     def spend_xp(self, trait):
-        pass
+        """
+            if cost <= self.xp:
+                if self.add_attribute(trait):
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        """
+        if trait in self.get_attributes():
+            cost = self.xp_cost("attribute") * self.get_attributes()[trait]
+            if cost <= self.xp:
+                if self.add_attribute(trait):
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        if trait in self.get_abilities():
+            current_rating = self.get_abilities()[trait]
+            if current_rating == 0:
+                cost = self.xp_cost("new ability")
+            else:
+                cost = self.xp_cost("ability") * current_rating
+            if cost <= self.xp:
+                if self.add_ability(trait):
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        if Specialty.objects.filter(name=trait).exists():
+            cost = self.spend_xp("specialty")
+            if cost <= self.xp:
+                if self.add_specialty(Specialty.objects.get(name=trait)):
+                    self.xp -= cost
+                    self.add_to_spend(trait, 3, cost)
+                    return True
+                return False
+            return False
+        if Merit.objects.filter(name=trait).exists():
+            merit = Merit.objects.get(name=trait)
+            new_rating = min([x for x in merit.ratings if x > self.merit_rating(merit)])
+            cost = new_rating * self.spend_xp("merit")
+            if cost <= self.xp:
+                if self.add_merit(merit):
+                    self.xp -= cost
+                    self.add_to_spend(trait, self.merit_rating(merit), cost)
+                    return True
+                return False
+            return False
+        if trait == "willpower":
+            cost = self.spend_xp("willpower")
+            if cost <= self.xp:
+                if self.add_willpower():
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+
     
     def random_spend_xp(self):
         frequencies = self.xp_frequencies()
