@@ -1,0 +1,192 @@
+{% extends "core/base.html" %}
+{% block title %}
+    {{ object.name }}
+{% endblock title %}
+<body>
+    {% block content %}
+        {% load dots %}
+        <div class="centertext">
+            <div class="row">
+                <h1 class="col-sm exalted_heading">{{ object.name }}</h1>
+            </div>
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm">Name</div>
+                <div class="col-sm">{{ object.name }}</div>
+                <div class="col-sm">Concept</div>
+                <div class="col-sm">{{ object.concept }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm">Player</div>
+                <div class="col-sm">{{ object.player }}</div>
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+            </div>
+            <div class="row">
+                <h2 class="col-sm exalted_heading">Attributes</h2>
+            </div>
+            <div class="row">
+                <div class="col-sm">Strength</div>
+                <div class="col-sm dots">{{ object.strength|dots }}</div>
+                <div class="col-sm">Charisma</div>
+                <div class="col-sm dots">{{ object.charisma|dots }}</div>
+                <div class="col-sm">Perception</div>
+                <div class="col-sm dots">{{ object.perception|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Dexterity</div>
+                <div class="col-sm dots">{{ object.dexterity|dots }}</div>
+                <div class="col-sm">Manipulation</div>
+                <div class="col-sm dots">{{ object.manipulation|dots }}</div>
+                <div class="col-sm">Intelligence</div>
+                <div class="col-sm dots">{{ object.intelligence|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Stamina</div>
+                <div class="col-sm dots">{{ object.stamina|dots }}</div>
+                <div class="col-sm">Appearance</div>
+                <div class="col-sm dots">{{ object.appearance|dots }}</div>
+                <div class="col-sm">Wits</div>
+                <div class="col-sm dots">{{ object.wits|dots }}</div>
+            </div>
+            <div class="row">
+                <h2 class="col-sm exalted_heading">Abilities</h2>
+            </div>
+            <div class="row">
+                <div class="col-sm">Archery</div>
+                <div class="col-sm dots">{{ object.archery|dots }}</div>
+                <div class="col-sm">Medicine</div>
+                <div class="col-sm dots">{{ object.medicine|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Athletics</div>
+                <div class="col-sm dots">{{ object.athletics|dots }}</div>
+                <div class="col-sm">Melee</div>
+                <div class="col-sm dots">{{ object.melee|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Awareness</div>
+                <div class="col-sm dots">{{ object.awareness|dots }}</div>
+                <div class="col-sm">Occult</div>
+                <div class="col-sm dots">{{ object.occult|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Brawl</div>
+                <div class="col-sm dots">{{ object.brawl|dots }}</div>
+                <div class="col-sm">Performance</div>
+                <div class="col-sm dots">{{ object.performance|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Bureaucracy</div>
+                <div class="col-sm dots">{{ object.bureaucracy|dots }}</div>
+                <div class="col-sm">Presence</div>
+                <div class="col-sm dots">{{ object.presence|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Craft</div>
+                <div class="col-sm dots">{{ object.craft|dots }}</div>
+                <div class="col-sm">Resistance</div>
+                <div class="col-sm dots">{{ object.resistance|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Dodge</div>
+                <div class="col-sm dots">{{ object.dodge|dots }}</div>
+                <div class="col-sm">Ride</div>
+                <div class="col-sm dots">{{ object.ride|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Integrity</div>
+                <div class="col-sm dots">{{ object.integrity|dots }}</div>
+                <div class="col-sm">Sail</div>
+                <div class="col-sm dots">{{ object.sail|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Investigation</div>
+                <div class="col-sm dots">{{ object.investigation|dots }}</div>
+                <div class="col-sm">Socialize</div>
+                <div class="col-sm dots">{{ object.socialize|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Larceny</div>
+                <div class="col-sm dots">{{ object.larceny|dots }}</div>
+                <div class="col-sm">Stealth</div>
+                <div class="col-sm dots">{{ object.stealth|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Linguistics</div>
+                <div class="col-sm dots">{{ object.linguistics|dots }}</div>
+                <div class="col-sm">Survival</div>
+                <div class="col-sm dots">{{ object.survival|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Lore</div>
+                <div class="col-sm dots">{{ object.lore|dots }}</div>
+                <div class="col-sm">Thrown</div>
+                <div class="col-sm dots">{{ object.thrown|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Martial Arts</div>
+                <div class="col-sm dots">{{ object.martial_arts|dots }}</div>
+                <div class="col-sm">War</div>
+                <div class="col-sm dots">{{ object.war|dots }}</div>
+            </div>
+            <div class="row">
+                <h2 class="col-sm exalted_heading">Specialties</h2>
+            </div>
+            {% for specialty in specialties %}
+            <div class="row">
+                <div class="col-sm">{{ specialty.name }} ({{ specialty.ability.title }})</div>
+            </div>
+            {% endfor %}
+            <div class="row">
+                <h2 class="col-sm exalted_heading">Merits</h2>
+            </div>
+            {% for merit in merits %}
+            <div class="row">
+                <div class="col-sm">{{ merit.merit.name }}</div>
+                <div class="col-sm dots"> {{ merit.rating|dots:merit.merit.max_rating }} </div>
+            </div>
+            {% endfor %}
+            <div class="row">
+                <h2 class="col-sm exalted_heading">Intimacies</h2>
+            </div>
+            {% for intimacy in object.intimacies.all %}
+            <div class="row">
+                <div class="col-sm">{{ intimacy.name }}</div>
+                <div class="col-sm">{{ intimacy.get_type_display }}</div>
+                <div class="col-sm">{{ intimacy.get_strength_display }}</div>
+                {% if intimacy.is_negative %}
+                <div class="col-sm">Negative</div>
+                {% else %}
+                <div class="col-sm"></div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <div class="row">
+                <h2 class="col-sm exalted_heading">Advantages</h2>
+            </div>
+            <div class="row">
+                <div class="col-sm">Willpower</div>
+                <div class="col-sm dots"> {{ object.willpower|dots:10 }} </div>
+                <div class="col-sm">Health Levels</div>
+                <div class="col-sm dots"> {{ object.health_levels }} </div>
+                <div class="col-sm">Essence</div>
+                <div class="col-sm dots"> {{ object.essence|dots:5 }} </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    XP
+                </div>
+                <div class="col-sm">
+                    {{ object.xp }}
+                </div>
+                <div class="col-sm">
+                    {{ object.spent_xp }}
+                </div>
+            </div>
+        </div>
+    </body>
+{% endblock content %}
