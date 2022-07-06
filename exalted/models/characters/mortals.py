@@ -154,21 +154,21 @@ class Mortal(PolymorphicModel):
             )
             add_dot(self, attribute_choice, 5)
         if attribute_types[0] == 3:
-            self.tertiary = "physical"
+            self.tertiary = self.get_physical_attributes
         while self.total_social_attributes() < attribute_types[1] + 3:
             attribute_choice = weighted_choice(
                 self.get_social_attributes(), floor=3, ceiling=3
             )
             add_dot(self, attribute_choice, 5)
         if attribute_types[1] == 3:
-            self.tertiary = "social"
+            self.tertiary = self.get_social_attributes
         while self.total_mental_attributes() < attribute_types[2] + 3:
             attribute_choice = weighted_choice(
                 self.get_mental_attributes(), floor=3, ceiling=3
             )
             add_dot(self, attribute_choice, 5)
         if attribute_types[2] == 3:
-            self.tertiary = "mental"
+            self.tertiary = self.get_mental_attributes
     
     def add_ability(self, ability, maximum=5):
         return add_dot(self, ability, maximum=maximum)
@@ -339,6 +339,9 @@ class Mortal(PolymorphicModel):
         self.save()
         return True
     
+    def add_willpower(self):
+        return add_dot(self, "willpower", maximum=10)
+    
     def bonus_frequencies(self):
         return {
             "attribute": 1,
@@ -356,6 +359,25 @@ class Mortal(PolymorphicModel):
             "merit": self.random_bonus_merit,
             "willpower": self.random_bonus_willpower,
         }
+    
+    def random_bonus_attribute(self):
+        trait = weighted_choice(self.get_attributes())
+        return self.spend_bonus_points(trait)
+    
+    def random_bonus_ability(self):
+        trait = weighted_choice(self.get_abilities())
+        return self.spend_bonus_points(trait)
+    
+    def random_bonus_specialty(self):
+        trait = random.choice(self.filter_specialties())
+        return self.spend_bonus_points(trait.name)
+    
+    def random_bonus_merit(self):
+        trait = random.choice(self.filter_merits())
+        return self.spend_bonus_points(trait.name)
+    
+    def random_bonus_willpower(self):
+        return self.spend_bonus_points("willpower")
     
     def bonus_cost(self, trait_type):
         if trait_type == "primary attribute":
@@ -375,10 +397,62 @@ class Mortal(PolymorphicModel):
         return 10000
     
     def spend_bonus_points(self, trait):
-        pass
+        if trait in self.get_attributes():
+            if trait in self.tertiary():
+                cost = self.bonus_cost("tertiary attribute")
+            else:
+                cost = self.bonus_cost("primary attribute")
+            if cost <= self.bonus_points:
+                if self.add_attribute(trait):
+                    self.bonus_points -= cost
+                    return True
+                return False
+            return False
+        if trait in self.get_abilities():
+            cost = self.bonus_cost("ability")
+            if cost <= self.bonus_points:
+                if self.add_ability(trait):
+                    self.bonus_points -= cost
+                    return True
+                return False
+            return False
+        if Specialty.objects.filter(name=trait).exists():
+            cost = self.bonus_cost("specialty")
+            if cost <= self.bonus_points:
+                trait = Specialty.objects.get(name=trait)
+                if self.add_specialty(trait):
+                    self.bonus_points -= cost
+                    return True
+                return False
+            return False
+        if Merit.objects.filter(name=trait).exists():
+            trait = Merit.objects.get(name=trait)
+            new_rating = min([x for x in trait.ratings if x > self.merit_rating(trait)])
+            cost = self.bonus_cost("merit") * new_rating
+            if cost <= self.bonus_points:
+                if self.add_merit(trait):
+                    self.bonus_points -= cost
+                    return True
+                return False
+            return False
+        if trait == "willpower":
+            cost = self.bonus_cost("willpower")
+            if cost <= self.bonus_points:
+                if self.add_willpower():
+                    self.bonus_points -= cost
+                    return True
+                return False
+            return False
+        return False
     
     def random_spend_bonus_points(self):
-        pass
+        frequencies = self.bonus_frequencies()
+        counter = 0
+        while counter < 100 and self.bonus_points > 0:
+            choice = weighted_choice(frequencies)
+            spent = self.random_bonus_functions()[choice]()
+            if not spent:
+                counter += 1
     
     def xp_frequencies(self):
         return {
@@ -397,6 +471,31 @@ class Mortal(PolymorphicModel):
             "merit": self.random_xp_merit,
             "willpower": self.random_xp_willpower,
         }
+    
+    def random_xp_attribute(self):
+        # choose random example trait
+        # self.spend_freebies(trait)
+        pass
+    
+    def random_xp_ability(self):
+        # choose random example trait
+        # self.spend_freebies(trait)
+        pass
+    
+    def random_xp_specialty(self):
+        # choose random example trait
+        # self.spend_freebies(trait)
+        pass
+    
+    def random_xp_merit(self):
+        # choose random example trait
+        # self.spend_freebies(trait)
+        pass
+    
+    def random_xp_willpower(self):
+        # choose random example trait
+        # self.spend_freebies(trait)
+        pass
     
     def xp_cost(self, trait_type):
         if trait_type == "attribute":
@@ -417,7 +516,13 @@ class Mortal(PolymorphicModel):
         pass
     
     def random_spend_xp(self):
-        pass
+        frequencies = self.xp_frequencies()
+        counter = 0
+        while counter < 10000 and self.xp > 0:
+            choice = weighted_choice(frequencies)
+            spent = self.random_xp_functions()[choice]()
+            if not spent:
+                counter += 1
     
     def random(self, bonus_points=21, xp=0):
         self.bonus_points = bonus_points
@@ -436,6 +541,9 @@ class Mortal(PolymorphicModel):
 class Specialty(models.Model):
     name = models.CharField(max_length=100, unique=True)
     ability = models.CharField(max_length=20)
+    
+    def __str__(self):
+        return f"{self.name} ({self.ability})"
 
 class Intimacy(models.Model):
     name = models.CharField(max_length=100, unique=True)

@@ -481,7 +481,7 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.bonus_cost("willpower"), 2)
 
     def test_spend_bonus_points(self):
-        self.character.tertiary_category = "physical"
+        self.character.tertiary = self.character.get_physical_attributes
         self.assertEqual(self.character.bonus_points, 21)
         self.assertTrue(self.character.spend_bonus_points("wits"))
         self.assertEqual(self.character.bonus_points, 17)
@@ -620,6 +620,8 @@ class TestRandomMortal(TestCase):
         self.assertTrue(self.character.has_intimacies())
 
     def test_random_spend_bonus_points(self):
+        self.character.tertiary = self.character.get_physical_attributes
+        self.character.random_abilities()
         self.assertEqual(self.character.bonus_points, 21)
         self.character.random_spend_bonus_points()
         self.assertEqual(self.character.bonus_points, 0)
