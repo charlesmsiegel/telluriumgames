@@ -1,6 +1,13 @@
 from django.contrib import admin
 
-from wod.models.characters.human import Archetype, Character, Human, MeritFlaw
+from wod.models.characters.human import (
+    Archetype,
+    Character,
+    Group,
+    Human,
+    MeritFlaw,
+    Specialty,
+)
 from wod.models.characters.mage import (
     Cabal,
     Instrument,
@@ -15,6 +22,7 @@ from wod.models.characters.werewolf import (
     Camp,
     Gift,
     Pack,
+    RenownIncident,
     Rite,
     Totem,
     Tribe,
@@ -37,9 +45,43 @@ class HumanCharacterAdmin(admin.ModelAdmin):
     list_display = ("name", "player")
 
 
+@admin.register(Archetype)
+class ArchetypeAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+
+
+@admin.register(MeritFlaw)
+class MeritFlawAdmin(admin.ModelAdmin):
+    list_display = ("name", "allowed_types")
+
+
+@admin.register(Specialty)
+class SpecialtyAdmin(admin.ModelAdmin):
+    list_display = ("name", "stat")
+
+
+@admin.register(Group)
+class GroupAdmin(admin.ModelAdmin):
+    list_display = ("name", "leader")
+
+
 @admin.register(Mage)
 class MageAdmin(admin.ModelAdmin):
-    list_display = ("name", "player", "arete", "faction")
+    list_display = (
+        "name",
+        "player",
+        "arete",
+        "affiliation",
+        "faction",
+        "subfaction",
+        "essence",
+        "affinity_sphere",
+    )
+
+
+@admin.register(Cabal)
+class CabalAdmin(admin.ModelAdmin):
+    list_display = ("name", "leader")
 
 
 @admin.register(MageFaction)
@@ -94,10 +136,34 @@ class RoteAdmin(admin.ModelAdmin):
     )
 
 
-admin.site.register(Location)
-admin.site.register(City)
-admin.site.register(Node)
-admin.site.register(Chantry)
+@admin.register(Location)
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ("name", "parent")
+
+
+@admin.register(City)
+class CityAdmin(admin.ModelAdmin):
+    list_display = ("name", "parent")
+
+
+@admin.register(Node)
+class NodeAdmin(admin.ModelAdmin):
+    list_display = ("name", "rank", "parent")
+
+
+@admin.register(NodeMeritFlaw)
+class NodeMeritFlawAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+
+
+@admin.register(Chantry)
+class ChantryAdmin(admin.ModelAdmin):
+    list_display = ("name", "rank", "parent", "faction")
+
+
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ("name",)
 
 
 @admin.register(Wonder)
@@ -107,20 +173,69 @@ class WonderAdmin(admin.ModelAdmin):
 
 @admin.register(Grimoire)
 class GrimoireAdmin(admin.ModelAdmin):
-    list_display = ("name", "rank", "is_primer", "medium")
+    list_display = ("name", "rank", "is_primer", "medium", "faction")
 
 
-admin.site.register(Library)
+@admin.register(Library)
+class LibraryAdmin(admin.ModelAdmin):
+    list_display = ("name", "rank")
 
-admin.site.register(Archetype)
-admin.site.register(Totem)
-admin.site.register(Tribe)
-admin.site.register(Camp)
-admin.site.register(Gift)
-admin.site.register(Rite)
-admin.site.register(Werewolf)
-admin.site.register(Pack)
-admin.site.register(Cabal)
-admin.site.register(Item)
-admin.site.register(NodeMeritFlaw)
-admin.site.register(MeritFlaw)
+
+@admin.register(Totem)
+class TotemAdmin(admin.ModelAdmin):
+    list_display = ("name", "cost")
+
+
+@admin.register(Tribe)
+class TribeAdmin(admin.ModelAdmin):
+    list_display = ("name", "willpower")
+
+
+@admin.register(Camp)
+class CampAdmin(admin.ModelAdmin):
+    list_display = ("name", "tribe")
+
+
+@admin.register(Gift)
+class GiftAdmin(admin.ModelAdmin):
+    list_display = ("name", "rank", "allowed")
+
+
+@admin.register(Rite)
+class RiteAdmin(admin.ModelAdmin):
+    list_display = ("name", "level", "type")
+
+
+@admin.register(Werewolf)
+class WerewolfAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "rank",
+        "auspice",
+        "breed",
+        "tribe",
+        "rage",
+        "gnosis",
+        "glory",
+        "wisdom",
+        "honor",
+    )
+
+
+@admin.register(Pack)
+class PackAdmin(admin.ModelAdmin):
+    list_display = ("name", "leader", "totem")
+
+
+@admin.register(RenownIncident)
+class RenownIncidentAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "glory",
+        "honor",
+        "wisdom",
+        "posthumous",
+        "only_once",
+        "breed",
+        "rite",
+    )

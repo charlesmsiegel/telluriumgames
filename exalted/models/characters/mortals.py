@@ -364,7 +364,9 @@ class Mortal(PolymorphicModel):
             merit_rating.rating = new_rating
             merit_rating.save()
             return True
-        MeritRating.objects.create(character=self, merit=merit, rating=min(merit.ratings))
+        MeritRating.objects.create(
+            character=self, merit=merit, rating=min(merit.ratings)
+        )
         return True
 
     def filter_merits(self, dots=1000, merit_type=None, supernatural_permitted=False):
