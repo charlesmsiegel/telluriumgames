@@ -670,7 +670,7 @@ class TagRating(models.Model):
 class Transformation(models.Model):
     name = models.CharField(max_length=100, unique=True)
     level = models.CharField(
-        max_length=4, choices=[("low", "low"), ("med", "medium"), ("high", "high"),],
+        max_length=10, choices=[("low", "low"), ("medium", "medium"), ("high", "high"),],
     )
     description = models.TextField(default="")
 

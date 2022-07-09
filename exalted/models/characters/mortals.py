@@ -702,7 +702,7 @@ class Merit(models.Model):
     ratings = models.JSONField(default=list)
     merit_class = models.CharField(
         max_length=20,
-        choices=[("standard", "Standard"), ("supernatural", "Supernatura;"),],
+        choices=[("standard", "Standard"), ("supernatural", "Supernatural"),],
         default="standard",
     )
     max_rating = models.IntegerField(default=0)

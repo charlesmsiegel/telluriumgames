@@ -51,10 +51,10 @@ class Mage(Human):
         default="",
         max_length=100,
         choices=[
-            ("dynamic", "Dynamic"),
-            ("pattern", "Pattern"),
-            ("primordial", "Primordial"),
-            ("questing", "Questing"),
+            ("Dynamic", "Dynamic"),
+            ("Pattern", "Pattern"),
+            ("Primordial", "Primordial"),
+            ("Questing", "Questing"),
         ],
     )
 
