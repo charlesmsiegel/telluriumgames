@@ -857,7 +857,7 @@ acanthus = Path.objects.create(
     name="Acanthus", ruling_arcana=["fate", "time"], inferior_arcanum="forces"
 )
 mastigos = Path.objects.create(
-    name="Mastigo", ruling_arcana=["mind", "space"], inferior_arcanum="matter"
+    name="Mastigos", ruling_arcana=["mind", "space"], inferior_arcanum="matter"
 )
 moros = Path.objects.create(
     name="Moros", ruling_arcana=["death", "matter"], inferior_arcanum="spirit"
