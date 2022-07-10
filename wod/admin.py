@@ -77,6 +77,12 @@ class MageAdmin(admin.ModelAdmin):
         "essence",
         "affinity_sphere",
     )
+    list_filter = (
+        "player",
+        "arete",
+        "essence",
+        "affinity_sphere",
+    )
 
 
 @admin.register(Cabal)
