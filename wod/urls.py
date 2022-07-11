@@ -4,6 +4,12 @@ from wod import views
 
 # Create your URLs here
 urlpatterns = [
+    path("ajax/load_faction_details/", views.load_factions, name="ajax_load_factions"),
+    path(
+        "ajax/load_subfaction_details/",
+        views.load_subfactions,
+        name="ajax_load_subfactions",
+    ),
     path(
         "locations/create/location/",
         views.LocationCreateView.as_view(),
