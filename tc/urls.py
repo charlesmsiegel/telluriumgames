@@ -4,6 +4,19 @@ from tc import views
 
 # Create your URLs here
 urlpatterns = [
+    path(
+        "characters/create/human/", views.HumanCreateView.as_view(), name="create_human"
+    ),
+    path(
+        "characters/create/talent/",
+        views.TalentCreateView.as_view(),
+        name="create_talent",
+    ),
+    path(
+        "characters/create/aberrant/",
+        views.AberrantCreateView.as_view(),
+        name="create_aberrant",
+    ),
     path("characters/", views.IndexView.as_view(), name="characters_index"),
     path(
         "characters/random/",

@@ -1,7 +1,7 @@
 from collections import namedtuple
 
 from django.shortcuts import redirect, render
-from django.views.generic import DetailView, View
+from django.views.generic import CreateView, DetailView, View
 
 from cod.models.characters.mage import Mage, Proximi, ProximiFamily
 from cod.models.characters.mortal import MeritRating, Mortal
@@ -42,6 +42,12 @@ class MortalDetailView(View):
         return render(request, "cod/characters/mortal/detail.html", context,)
 
 
+class MortalCreateView(CreateView):
+    model = Mortal
+    fields = "__all__"
+    template_name = "cod/characters/mortal/create.html"
+
+
 class ProximiDetailView(View):
     def get(self, request, *args, **kwargs):
         char = Proximi.objects.get(pk=kwargs["pk"])
@@ -66,6 +72,12 @@ class ProximiDetailView(View):
         return render(request, "cod/characters/proximi/detail.html", context,)
 
 
+class ProximiCreateView(CreateView):
+    model = Proximi
+    fields = "__all__"
+    template_name = "cod/characters/proximi/create.html"
+
+
 class MageDetailView(View):
     def get(self, request, *args, **kwargs):
         char = Mage.objects.get(pk=kwargs["pk"])
@@ -88,6 +100,12 @@ class MageDetailView(View):
         context["rotes"] = all_rotes
 
         return render(request, "cod/characters/mage/detail.html", context,)
+
+
+class MageCreateView(CreateView):
+    model = Mage
+    fields = "__all__"
+    template_name = "cod/characters/mage/create.html"
 
 
 class CharacterDetailView(View):
@@ -153,3 +171,9 @@ class ProximiFamilyDetailView(DetailView):
                 all_blessings[-1].append(empty_rote)
         context["blessings"] = all_blessings
         return render(request, "cod/characters/proximifamily/detail.html", context,)
+
+
+class ProximiFamilyCreateView(CreateView):
+    model = ProximiFamily
+    fields = "__all__"
+    template_name = "cod/characters/proximifamily/create.html"

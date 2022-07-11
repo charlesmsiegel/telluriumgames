@@ -5,6 +5,53 @@ from wod import views
 # Create your URLs here
 urlpatterns = [
     path(
+        "locations/create/location/",
+        views.LocationCreateView.as_view(),
+        name="create_location",
+    ),
+    path("locations/create/city/", views.CityCreateView.as_view(), name="create_city"),
+    path("locations/create/node/", views.NodeCreateView.as_view(), name="create_node"),
+    path(
+        "locations/create/chantry/",
+        views.ChantryCreateView.as_view(),
+        name="create_chantry",
+    ),
+    path(
+        "items/create/grimoire/",
+        views.GrimoireCreateView.as_view(),
+        name="create_grimoire",
+    ),
+    path("items/create/item/", views.ItemCreateView.as_view(), name="create_item"),
+    path(
+        "items/create/wonder/", views.WonderCreateView.as_view(), name="create_wonder"
+    ),
+    path(
+        "items/create/library/",
+        views.LibraryCreateView.as_view(),
+        name="create_library",
+    ),
+    path(
+        "characters/create/cabal/", views.CabalCreateView.as_view(), name="create_cabal"
+    ),
+    path(
+        "characters/create/character/",
+        views.CharacterCreateView.as_view(),
+        name="create_character",
+    ),
+    path(
+        "characters/create/group/", views.GroupCreateView.as_view(), name="create_group"
+    ),
+    path(
+        "characters/create/human/", views.HumanCreateView.as_view(), name="create_human"
+    ),
+    path("characters/create/mage/", views.MageCreateView.as_view(), name="create_mage"),
+    path("characters/create/pack/", views.PackCreateView.as_view(), name="create_pack"),
+    path(
+        "characters/create/werewolf/",
+        views.WerewolfCreateView.as_view(),
+        name="create_werewolf",
+    ),
+    path(
         "ajax/load-character-types/",
         views.load_character_types,
         name="ajax_load_character_types",

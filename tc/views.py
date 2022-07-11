@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from django.views.generic import View
+from django.views.generic import CreateView, View
 
 from tc.models.characters.aberrant import Aberrant, MegaEdgeRating, PowerRating
 from tc.models.characters.human import EdgeRating, Human, PathRating
@@ -56,6 +56,12 @@ class HumanDetailView(View):
         return context
 
 
+class HumanCreateView(CreateView):
+    model = Human
+    fields = "__all__"
+    template_name = "tc/characters/human/create.html"
+
+
 class TalentDetailView(HumanDetailView):
     def get(self, request, pk):
         context = self.get_context(pk)
@@ -64,6 +70,12 @@ class TalentDetailView(HumanDetailView):
     def get_context(self, pk):
         context = super().get_context(pk=pk)
         return context
+
+
+class TalentCreateView(CreateView):
+    model = Talent
+    fields = "__all__"
+    template_name = "tc/characters/talent/create.html"
 
 
 class AberrantDetailView(HumanDetailView):
@@ -78,6 +90,12 @@ class AberrantDetailView(HumanDetailView):
         )
         context["powers"] = PowerRating.objects.filter(character=context["character"])
         return context
+
+
+class AberrantCreateView(CreateView):
+    model = Aberrant
+    fields = "__all__"
+    template_name = "tc/characters/aberrant/create.html"
 
 
 class CharacterDetailView(View):

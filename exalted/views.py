@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from django.views.generic import DetailView, View
+from django.views.generic import CreateView, DetailView, View
 
 from exalted.models.characters.mortals import MeritRating, Mortal
 
@@ -34,6 +34,12 @@ class MortalDetailView(View):
             "specialties": char.specialties.all().order_by("name"),
         }
         return render(request, "exalted/characters/mortal/detail.html", context,)
+
+
+class MortalCreateView(CreateView):
+    model = Mortal
+    fields = "__all__"
+    template_name = "exalted/characters/mortal/create.html"
 
 
 class CharacterDetailView(View):

@@ -1,7 +1,7 @@
 from collections import defaultdict, namedtuple
 
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import DetailView, View
+from django.views.generic import CreateView, DetailView, View
 
 from core.utils import level_name, tree_sort
 from wod.forms import RandomCharacterForm
@@ -101,9 +101,21 @@ class LocationDetailView(DetailView):
     template_name = "wod/locations/location/detail.html"
 
 
+class LocationCreateView(CreateView):
+    model = Location
+    fields = "__all__"
+    template_name = "wod/locations/location/create.html"
+
+
 class CityDetailView(DetailView):
     model = City
     template_name = "wod/locations/city/detail.html"
+
+
+class CityCreateView(CreateView):
+    model = City
+    fields = "__all__"
+    template_name = "wod/locations/city/create.html"
 
 
 class NodeDetailView(View):
@@ -124,6 +136,12 @@ class NodeDetailView(View):
         }
 
 
+class NodeCreateView(CreateView):
+    model = Node
+    fields = "__all__"
+    template_name = "wod/locations/node/create.html"
+
+
 class ChantryDetailView(View):
     def get(self, request, *args, **kwargs):
         chantry = Chantry.objects.get(pk=kwargs["pk"])
@@ -142,6 +160,12 @@ class ChantryDetailView(View):
             "factions": factions,
             "object": chantry,
         }
+
+
+class ChantryCreateView(CreateView):
+    model = Chantry
+    fields = "__all__"
+    template_name = "wod/locations/chantry/create.html"
 
 
 class GenericLocationDetailView(View):
@@ -186,9 +210,21 @@ class ItemDetailView(DetailView):
     template_name = "wod/items/item/detail.html"
 
 
+class ItemCreateView(CreateView):
+    model = Item
+    fields = "__all__"
+    template_name = "wod/items/item/create.html"
+
+
 class WonderDetailView(DetailView):
     model = Wonder
     template_name = "wod/items/wonder/detail.html"
+
+
+class WonderCreateView(CreateView):
+    model = Wonder
+    fields = "__all__"
+    template_name = "wod/items/wonder/create.html"
 
 
 class GrimoireDetailView(View):
@@ -236,9 +272,21 @@ class GrimoireDetailView(View):
         return context
 
 
+class GrimoireCreateView(CreateView):
+    model = Grimoire
+    fields = "__all__"
+    template_name = "wod/items/grimoire/create.html"
+
+
 class LibraryDetailView(DetailView):
     model = Library
     template_name = "wod/items/library/detail.html"
+
+
+class LibraryCreateView(CreateView):
+    model = Library
+    fields = "__all__"
+    template_name = "wod/items/libtary/create.html"
 
 
 class GenericItemDetailView(View):
@@ -282,9 +330,21 @@ class CharacterDetailView(DetailView):
     template_name = "wod/characters/character/detail.html"
 
 
+class CharacterCreateView(CreateView):
+    model = Character
+    fields = "__all__"
+    template_name = "wod/characters/character/create.html"
+
+
 class HumanDetailView(DetailView):
     model = Human
     template_name = "wod/characters/human/detail.html"
+
+
+class HumanCreateView(CreateView):
+    model = Human
+    fields = "__all__"
+    template_name = "wod/characters/human/create.html"
 
 
 class WerewolfDetailView(View):
@@ -325,6 +385,12 @@ class WerewolfDetailView(View):
         context["rites"] = all_rites
         context["rank_name"] = werewolf.rank_names[werewolf.rank]
         return context
+
+
+class WerewolfCreateView(CreateView):
+    model = Werewolf
+    fields = "__all__"
+    template_name = "wod/characters/werewolf/create.html"
 
 
 class MageDetailView(View):
@@ -403,6 +469,12 @@ class MageDetailView(View):
         return context
 
 
+class MageCreateView(CreateView):
+    model = Mage
+    fields = "__all__"
+    template_name = "wod/characters/mage/create.html"
+
+
 class GenericCharacterDetailView(View):
     character_views = {
         "character": CharacterDetailView,
@@ -458,14 +530,32 @@ class GroupDetailView(DetailView):
     template_name = "wod/characters/group/detail.html"
 
 
+class GroupCreateView(CreateView):
+    model = Group
+    fields = "__all__"
+    template_name = "wod/characters/group/create.html"
+
+
 class CabalDetailView(DetailView):
     model = Cabal
     template_name = "wod/characters/cabal/detail.html"
 
 
+class CabalCreateView(CreateView):
+    model = Cabal
+    fields = "__all__"
+    template_name = "wod/characters/cabal/create.html"
+
+
 class PackDetailView(DetailView):
     model = Pack
     template_name = "wod/characters/pack/detail.html"
+
+
+class PackCreateView(CreateView):
+    model = Pack
+    fields = "__all__"
+    template_name = "wod/characters/pack/create.html"
 
 
 class GenericGroupDetailView(View):

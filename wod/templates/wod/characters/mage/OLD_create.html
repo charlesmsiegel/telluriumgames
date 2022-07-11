@@ -1,0 +1,1142 @@
+{% extends "core/base.html" %}
+{% block title %}
+    New Mage Character
+{% endblock title %}
+{% block headerimg %}
+    {% load static %}
+    <img src="{% static 'images/mage.png' %}" class="headerimg" alt="" height="30px" width="auto"/>
+{% endblock headerimg %}
+{% block content %}
+    <div class="centertext">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm mage_heading">
+                    <h1>{{ character.name }}</h1>
+                </div>
+            </div>
+            <form method="post"
+                  id="mageForm"
+                  data-factions-url="{% url 'wod:ajax_load_factions' %}"
+                  data-subfactions-url="{% url 'wod:ajax_load_subfactions' %}"
+                  action=""
+                  novalidate>
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="row">
+                    <h2 class="col-sm mage_heading">Basics</h2>
+                </div>
+                <div class="row">
+                    <div class="col-sm">Name</div>
+                    <div class="col-sm">{{ form.name }}</div>
+                    <div class="col-sm">{{ form.nature.label_tag }}</div>
+                    <div class="col-sm">{{ form.nature }}</div>
+                    <div class="col-sm">{{ form.affiliation.label_tag }}</div>
+                    <div class="col-sm">{{ form.affiliation }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">Player</div>
+                    <div class="col-sm">{{ user.username }}</div>
+                    <div class="col-sm">{{ form.demeanor.label_tag }}</div>
+                    <div class="col-sm">{{ form.demeanor }}</div>
+                    <div class="col-sm">{{ form.faction.label_tag }}</div>
+                    <div class="col-sm">{{ form.faction }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">{{ form.essence.label_tag }}</div>
+                    <div class="col-sm">{{ form.essence }}</div>
+                    <div class="col-sm">{{ form.concept.label_tag }}</div>
+                    <div class="col-sm">{{ form.concept }}</div>
+                    <div class="col-sm">Subfaction</div>
+                    <div class="col-sm">{{ form.subfaction }}</div>
+                </div>
+                <div class="row">
+                    <h2 class="col-sm {{ character_type }}_heading">Attributes</h2>
+                </div>
+                <div class="row">
+                    <h3 class="col-sm {{ character_type }}_heading">Physical</h3>
+                    <h3 class="col-sm {{ character_type }}_heading">Social</h3>
+                    <h3 class="col-sm {{ character_type }}_heading">Mental</h3>
+                </div>
+                <div class="row">
+                    <div class="col-sm">Strength</div>
+                    <div class="col-sm">{{ form.strength }}</div>
+                    <div class="col-sm">
+                        Charisma
+                    </div>
+                    <div class="col-sm">
+                        {{ form.charisma }}
+                    </div>
+                    <div class="col-sm">
+                        Perception
+                    </div>
+                    <div class="col-sm">
+                        {{ form.perception }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        Dexterity
+                    </div>
+                    <div class="col-sm">
+                        {{ form.dexterity }}
+                    </div>
+                    <div class="col-sm">
+                        Manipulation
+                    </div>
+                    <div class="col-sm">
+                        {{ form.manipulation }}
+                    </div>
+                    <div class="col-sm">
+                        Intelligence
+                    </div>
+                    <div class="col-sm">
+                        {{ form.intelligence }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        Stamina
+                    </div>
+                    <div class="col-sm">
+                        {{ form.stamina }}
+                    </div>
+                    <div class="col-sm">
+                        Appearance
+                    </div>
+                    <div class="col-sm">
+                        {{ form.appearance }}
+                    </div>
+                    <div class="col-sm">
+                        Wits
+                    </div>
+                    <div class="col-sm">
+                        {{ form.wits }}
+                    </div>
+                </div>
+                <div class="row">
+                    <h2 class="col-sm mage_heading">
+                        Abilities
+                    </h2>
+                </div>
+                <div class="row">
+                    <h3 class="mage_heading col-sm">
+                        Talents
+                    </h3>
+                    <h3 class="mage_heading col-sm">
+                        Skills
+                    </h3>
+                    <h3 class="mage_heading col-sm">
+                        Knowledges
+                    </h3>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.alertness.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.alertness }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.crafts.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.crafts }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.academics.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.academics }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.art.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.art }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.drive.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.drive }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.computer.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.computer }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.athletics.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.athletics }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.etiquette.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.etiquette }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.cosmology.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.cosmology }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.awareness.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.awareness }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.firearms.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.firearms }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.enigmas.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.enigmas }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.brawl.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.brawl }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.martial_arts.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.martial_arts }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.esoterica.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.esoterica }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.empathy.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.empathy }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.meditation.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.meditation }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.investigation.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.investigation }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.expression.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.expression }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.melee.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.melee }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.law.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.law }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.intimidation.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.intimidation }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.research.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.research }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.medicine.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.medicine }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.leadership.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.leadership }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.stealth.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.stealth }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.occult.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.occult }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.streetwise.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.streetwise }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.survival.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.survival }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.politics.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.politics }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.subterfuge.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.subterfuge }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.technology.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.technology }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.science.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.science }}
+                    </div>
+                </div>
+                <div class="row">
+                    <h3 class="col-sm mage_heading">
+                        Secondary Talents
+                    </h3>
+                    <h3 class="col-sm mage_heading">
+                        Secondary Skills
+                    </h3>
+                    <h3 class="col-sm mage_heading">
+                        Secondary Knowledges
+                    </h3>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.animal_kinship.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.animal_kinship }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.acrobatics.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.acrobatics }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.area_knowledge.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.area_knowledge }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.blatancy.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.blatancy }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.archery.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.archery }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.belief_systems.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.belief_systems }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.carousing.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.carousing }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.biotech.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.biotech }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.cryptography.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.cryptography }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.flying.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.flying }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.energy_weapons.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.energy_weapons }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.demolitions.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.demolitions }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.high_ritual.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.high_ritual }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.hypertech.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.hypertech }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.finance.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.finance }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.lucid_dreaming.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.lucid_dreaming }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.jetpack.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.jetpack }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.lore.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.lore }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.search.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.search }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.riding.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.riding }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.media.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.media }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.seduction.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.seduction }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.torture.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.torture }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.pharmacopeia.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.pharmacopeia }}
+                    </div>
+                </div>
+                {% if character.faction.name == "Akashayana" %}
+                    <div class="row">
+                        <div class="col-sm">
+                            {{ form.do.label_tag }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form.do }}
+                        </div>
+                        <div class="col-sm">
+                        </div>
+                        <div class="col-sm">
+                        </div>
+                        <div class="col-sm">
+                        </div>
+                        <div class="col-sm">
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <h2 class="mage_heading col-sm">
+                        Backgrounds
+                    </h2>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.allies.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.allies }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.alternate_identity.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.alternate_identity }}
+                    </div>
+                    {% if character.affiliation == "TU" %}
+                        <div class="col-sm">
+                            Cloaking
+                        </div>
+                    {% else %}
+                        <div class="col-sm">
+                            Arcane
+                        </div>
+                    {% endif %}
+                    <div class="col-sm">
+                        {{ form.arcane }}
+                    </div>
+                </div>
+                <div class="row">
+                    {% if character.affiliation == "TU" %}
+                        <div class="col-sm">
+                            Genius
+                        </div>
+                    {% else %}
+                        <div class="col-sm">
+                            Avatar
+                        </div>
+                    {% endif %}
+                    <div class="col-sm">
+                        {{ form.avatar }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.backup.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.backup }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.certification.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.certification }}
+                    </div>
+                </div>
+                <div class="row">
+                    {% if character.affiliation == "TU" %}
+                        <div class="col-sm">
+                            Construct
+                        </div>
+                    {% else %}
+                        <div class="col-sm">
+                            Chantry
+                        </div>
+                    {% endif %}
+                    <div class="col-sm">
+                        {{ form.chantry }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.contacts.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.contacts }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.cult.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.cult }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.demesne.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.demesne }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.destiny.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.destiny }}
+                    </div>
+                    {% if character.affiliation == "TU" %}
+                        <div class="col-sm">
+                            Hypercram
+                        </div>
+                    {% else %}
+                        <div class="col-sm">
+                            Dream
+                        </div>
+                    {% endif %}
+                    <div class="col-sm">
+                        {{ form.dream }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.enhancement.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.enhancement }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.fame.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.fame }}
+                    </div>
+                    {% if character.affiliation == "TU" %}
+                        <div class="col-sm">
+                            Companion
+                        </div>
+                    {% else %}
+                        <div class="col-sm">
+                            Familiar
+                        </div>
+                    {% endif %}
+                    <div class="col-sm">
+                        {{ form.familiar }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.influence.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.influence }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.legend.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.legend }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.library.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.library }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.mentor.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.mentor }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.node.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.node }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.past_lives.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.past_lives }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.patron.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.patron }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.rank.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.rank }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.requisitions.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.requisitions }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.resources.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.resources }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.retainers.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.retainers }}
+                    </div>
+                    {% if character.affiliation == "TU" %}
+                        <div class="col-sm">
+                            Laboratory
+                        </div>
+                    {% else %}
+                        <div class="col-sm">
+                            Sanctum
+                        </div>
+                    {% endif %}
+                    <div class="col-sm">
+                        {{ form.sanctum }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.secret_weapons.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.secret_weapons }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.spies.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.spies }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.totem.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.totem }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                    </div>
+                    <div class="col-sm">
+                    </div>
+                    <div class="col-sm">
+                        {{ form.wonder.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.wonder }}
+                    </div>
+                    <div class="col-sm">
+                    </div>
+                    <div class="col-sm">
+                    </div>
+                </div>
+                <div class="row">
+                    <h2 class="col-sm mage_heading">
+                        Advantages
+                    </h2>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.willpower.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.willpower }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.arete.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.arete }}
+                    </div>
+                    <div class="col-sm">
+                        Affinity Sphere
+                    </div>
+                    {% comment %} {% if character.affinity %} {% endcomment %}
+                    {% comment %} <div class="col-sm">{{ character.affinity }}</div> {% endcomment %}
+                    {% comment %} {% else %} {% endcomment %}
+                    <div class="col-sm">
+                        {{ form.affinity_sphere }}
+                    </div>
+                    {% comment %} {% endif %} {% endcomment %}
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.quintessence.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.quintessence }}
+                    </div>
+                    <div class="col-sm">
+                    </div>
+                    <div class="col-sm">
+                    </div>
+                    <div class="col-sm">
+                    </div>
+                    <div class="col-sm">
+                    </div>
+                </div>
+                <div class="row">
+                    <h2 class="col-sm mage_heading">
+                        Spheres
+                    </h2>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.corr_name }}
+                    </div>
+                    {{ form.correspondence }}
+                    <div class="col-sm">
+                        Life
+                    </div>
+                    {{ form.life }}
+                    <div class="col-sm">
+                        {{ form.prime_name }}
+                    </div>
+                    {{ form.prime }}
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        Entropy
+                    </div>
+                    {{ form.entropy }}
+                    <div class="col-sm">
+                        Matter
+                    </div>
+                    {{ form.matter }}
+                    <div class="col-sm">
+                        {{ form.spirit_name }}
+                    </div>
+                    {{ form.spirit }}
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        Forces
+                    </div>
+                    {{ form.forces }}
+                    <div class="col-sm">
+                        Mind
+                    </div>
+                    {{ form.mind }}
+                    <div class="col-sm">
+                        Time
+                    </div>
+                    {{ form.time }}
+                </div>
+                <div class="row">
+                    <h2 class="mage_heading col-sm">
+                        Focus
+                    </h2>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.paradigms.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.paradigms }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.practices.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.practices }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.instruments.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.instruments }}
+                    </div>
+                </div>
+                <div class="row">
+                    <h2 class="col-sm mage_heading">
+                        Resonance
+                    </h2>
+                </div>
+                <div class="row">
+                    {% for res in resonance %}
+                        <div class="col-sm">
+                            {{ res }}
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if character.creation_phase < 6 %}
+                    <div class="row">
+                        <div class="col-sm">
+                            {{ resonance_form.char_field_with_list }}
+                        </div>
+                        <div class="col-sm">
+                            {{ resonance_form.rating }}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <h2 class="col-sm {{ character_type }}_heading">
+                        Merits and Flaws
+                    </h2>
+                </div>
+                <div class="row">
+                    {% for mf in character.merits_and_flaws.all %}
+                        <div class="col-sm">
+                            {{ mf }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        Merits
+                    </div>
+                    <div class="col-sm">
+                        {{ form.merits }}
+                    </div>
+                    <div class="col-sm">
+                        Flaws
+                    </div>
+                    <div class="col-sm">
+                        {{ form.flaws }}
+                    </div>
+                    <div class="col-sm">
+                        Languages
+                    </div>
+                    <div class="col-sm">
+                        {{ form.languages }}
+                    </div>
+                </div>
+                <div class="row">
+                    <h2 class="mage_heading col-sm">
+                        Appearance
+                    </h2>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.date_of_birth.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.date_of_birth }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.apparent_age.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.apparent_age }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.age_of_awakening.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.age_of_awakening }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.hair.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.hair }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.eyes.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.eyes }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.ethnicity.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.ethnicity }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.nationality.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.nationality }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.height.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.height }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.weight.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.weight }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.description.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.description }}
+                    </div>
+                </div>
+                <div class="row">
+                    <h2 class="mage_heading col-sm">
+                        History
+                    </h2>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.childhood.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.childhood }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.history.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.history }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.awakening.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.awakening }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.seekings.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.seekings }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.quiets.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.quiets }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.avatar_description.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.avatar_description }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.goals.label_tag }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.goals }}
+                    </div>
+                    <div class="col-sm">
+                    </div>
+                    <div class="col-sm">
+                    </div>
+                </div>
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+  $("#id_affiliation").change(function () {
+    var url = $("#mageForm").attr("data-factions-url");  // get the url of the `load_factions` view
+    var affiliationId = $(this).val();  // get the selected affiliation ID from the HTML input
+
+    $.ajax({                       // initialize an AJAX request
+      url: '{% url 'wod:ajax_load_factions' %}',                    // set the url of the request (= localhost:8000/hr/ajax/load-factions/)
+      data: {
+        'affiliation': affiliationId       // add the affiliation id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_factions` view function
+        $("#id_faction").html(data);  // replace the contents of the faction input with the data that came from the server
+        $("#id_subfaction").html('<option value="">---------</option>');
+      }
+    });
+
+  });
+  // this one is for fetching subfaction data
+  $("#id_faction").change(function () { //django-model-form created this id
+    var url = $("#mageForm").attr("data-subfactions-url");  // get the url of the `load_subfactions` view
+    var factionId = $(this).val();  // get the selected affiliation ID from the HTML input
+
+    $.ajax({                       // initialize an AJAX request
+      url: '{% url 'wod:ajax_load_subfactions' %}',                    // set the url of the request (= localhost:8000/hr/ajax/load-factions/) person_form.html template has this url var
+      data: {
+        'faction': factionId       // add the affiliation id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_factions` view function
+        $("#id_subfaction").html(data);  // replace the contents of the faction input with the data that came from the server
+      }
+    });
+
+  });
+    </script>
+{% endblock content %}
