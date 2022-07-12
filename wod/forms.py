@@ -1,6 +1,6 @@
 from django import forms
 from wod.models.characters.mage import Mage, MageFaction
-from wod.models.characters.human import MeritFlaw, Specialty
+from wod.models.characters.human import MeritFlaw
 
 
 class RandomCharacterForm(forms.Form):
@@ -25,10 +25,6 @@ class RandomCharacterForm(forms.Form):
 
 
 class MageForm(forms.ModelForm):
-    strength_specs = Specialty.objects.filter(stat="strength")
-    num_strength_specs = strength_specs.count()
-    strength_specialty = forms.MultipleChoiceField(choices=zip(range(num_strength_specs), Specialty.objects.filter(stat="strength")))
-    
     class Meta:
         model = Mage
         fields = "__all__"
