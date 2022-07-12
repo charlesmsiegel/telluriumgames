@@ -9,7 +9,7 @@ from tc.models.characters.talent import Gift, MomentOfInspiration, Talent
 class TestTalent(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Talent.objects.create(name="", player=self.player.tc_profile)
+        self.character = Talent.objects.create(name="", player=self.player)
 
     def test_add_moment_of_inspiration(self):
         m = MomentOfInspiration.objects.create(
@@ -206,7 +206,7 @@ class TestTalent(TestCase):
 class TestRandomTalent(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Talent.objects.create(name="", player=self.player.tc_profile)
+        self.character = Talent.objects.create(name="", player=self.player)
         for skill in self.character.get_skills().keys():
             for i in range(5):
                 Specialty.objects.create(name=f"{skill} Specialty {i}", skill=skill)
@@ -272,7 +272,7 @@ class TestRandomTalent(TestCase):
         self.assertTrue(self.character.has_moment_of_inspiration())
 
     def test_random(self):
-        character = Talent.objects.create(player=self.player.tc_profile)
+        character = Talent.objects.create(player=self.player)
         self.assertFalse(character.has_name())
         self.assertFalse(character.has_concept())
         self.assertFalse(character.has_paths())
@@ -304,7 +304,7 @@ class TestTalentDetailView(TestCase):
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Talent.objects.create(
             name="Test Character",
-            player=User.objects.get(username="Test User").tc_profile,
+            player=User.objects.get(username="Test User"),
         )
 
     def test_talent_detail_view_status_code(self):

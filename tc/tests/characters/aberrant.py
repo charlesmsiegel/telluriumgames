@@ -18,7 +18,7 @@ class TestPower(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
         self.character = Aberrant.objects.create(
-            name="", player=self.player.tc_profile, might=3, dexterity=2, science=1
+            name="", player=self.player, might=3, dexterity=2, science=1
         )
         self.power = Power.objects.create(name="Test", cost=4)
         self.tag = Tag.objects.create(name="Reduced Cost", ratings=[2, 4, 6, 8, 10])
@@ -83,7 +83,7 @@ class TestPower(TestCase):
 class TestAberrant(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Aberrant.objects.create(name="", player=self.player.tc_profile)
+        self.character = Aberrant.objects.create(name="", player=self.player)
         for i in range(1, 5):
             for j in range(5):
                 MegaEdge.objects.create(name=f"MegaEdge {5*i+j}", ratings=[i, i + 1])
@@ -637,7 +637,7 @@ class TestAberrant(TestCase):
 class TestRandomAberrant(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Aberrant.objects.create(name="", player=self.player.tc_profile)
+        self.character = Aberrant.objects.create(name="", player=self.player)
         for skill in self.character.get_skills().keys():
             for i in range(5):
                 Specialty.objects.create(name=f"{skill} Specialty {i}", skill=skill)
@@ -764,7 +764,7 @@ class TestRandomAberrant(TestCase):
         self.assertLess(self.character.xp, 15)
 
     def test_random(self):
-        character = Aberrant.objects.create(player=self.player.tc_profile)
+        character = Aberrant.objects.create(player=self.player)
         self.assertFalse(character.has_name())
         self.assertFalse(character.has_concept())
         self.assertFalse(character.has_paths())
@@ -792,7 +792,7 @@ class TestAberrantDetailView(TestCase):
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Aberrant.objects.create(
             name="Test Character",
-            player=User.objects.get(username="Test User").tc_profile,
+            player=User.objects.get(username="Test User"),
         )
 
     def test_mortal_detail_view_status_code(self):

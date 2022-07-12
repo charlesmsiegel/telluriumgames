@@ -38,7 +38,7 @@ class TestMortal(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
         self.character = Mortal.objects.create(
-            name="", player=self.player.exalted_profile
+            name="", player=self.player
         )
         setup()
 
@@ -491,7 +491,7 @@ class TestRandomMortal(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
         self.character = Mortal.objects.create(
-            name="", player=self.player.exalted_profile
+            name="", player=self.player
         )
         setup()
 
@@ -623,7 +623,7 @@ class TestCharacterIndexView(TestCase):
     def test_index_content(self):
         player = User.objects.create_user(username="User1", password="12345")
         for i in range(10):
-            Mortal.objects.create(name=f"Mortal {i}", player=player.exalted_profile)
+            Mortal.objects.create(name=f"Mortal {i}", player=player)
         response = self.client.post("/exalted/characters/")
         for i in range(10):
             self.assertContains(response, f"Mortal {i}")
@@ -633,7 +633,7 @@ class TestMortalDetailView(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="Test")
         self.human = Mortal.objects.create(
-            name="Test Mortal", player=self.player.exalted_profile
+            name="Test Mortal", player=self.player
         )
 
     def test_mortal_detail_view_status_code(self):
@@ -649,7 +649,7 @@ class TestGenericCharacterDetailViews(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="Test")
         self.mortal = Mortal.objects.create(
-            name="Test Mortal", player=self.player.exalted_profile
+            name="Test Mortal", player=self.player
         )
 
     def test_character_detail_view_templates(self):

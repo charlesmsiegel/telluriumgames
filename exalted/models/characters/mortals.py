@@ -1,10 +1,10 @@
 import random
 
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
-from accounts.models import ExaltedProfile
 from core.utils import add_dot, weighted_choice
 
 
@@ -18,7 +18,7 @@ class Mortal(PolymorphicModel):
     name = models.CharField(max_length=100, unique=True)
     concept = models.CharField(max_length=100)
     player = models.ForeignKey(
-        ExaltedProfile, on_delete=models.CASCADE, related_name="characters"
+        User, on_delete=models.CASCADE, related_name="exalted_characters"
     )
 
     tertiary = None

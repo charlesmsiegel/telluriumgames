@@ -20,7 +20,7 @@ class TestCharacter(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="User1", password="12345")
         self.character = Character.objects.create(
-            player=self.player.wod_profile, name=""
+            player=self.player, name=""
         )
 
     def test_has_name(self):
@@ -52,7 +52,7 @@ class TestCharacter(TestCase):
 class TestHuman(TestCase):
     def setUp(self) -> None:
         self.user = User.objects.create_user(username="Test")
-        self.character = Human.objects.create(name="", player=self.user.wod_profile)
+        self.character = Human.objects.create(name="", player=self.user)
         for i in range(10):
             Archetype.objects.create(name=f"Archetype {i}")
         for i in range(1, 6):
@@ -744,7 +744,7 @@ class TestHuman(TestCase):
         for i in range(5):
             self.character.add_mf(m, i + 1)
             self.assertEqual(self.character.languages.count(), 2 * (i + 1))
-        lt = Human.objects.create(name="language tester", player=self.user.wod_profile)
+        lt = Human.objects.create(name="language tester", player=self.user)
         self.assertEqual(lt.languages.count(), 0)
         lt.add_mf(m, 1)
         self.assertEqual(lt.languages.count(), 1)
@@ -755,7 +755,7 @@ class TestHuman(TestCase):
 class TestRandomHuman(TestCase):
     def setUp(self) -> None:
         self.user = User.objects.create_user(username="Test")
-        self.character = Human.objects.create(name="", player=self.user.wod_profile)
+        self.character = Human.objects.create(name="", player=self.user)
         for i in range(10):
             Archetype.objects.create(name=f"Archetype {i}")
         for i in range(10):
@@ -895,7 +895,7 @@ class TestCharacterIndexView(TestCase):
     def test_index_content(self):
         player = User.objects.create_user(username="User1", password="12345")
         for i in range(10):
-            Human.objects.create(name=f"Human {i}", player=player.wod_profile)
+            Human.objects.create(name=f"Human {i}", player=player)
         response = self.client.post("/wod/characters/")
         for i in range(10):
             self.assertContains(response, f"Human {i}")
@@ -905,7 +905,7 @@ class TestHumanDetailView(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="Test")
         self.human = Human.objects.create(
-            name="Test Human", player=self.player.wod_profile
+            name="Test Human", player=self.player
         )
 
     def test_mage_detail_view_status_code(self):
@@ -921,16 +921,16 @@ class TestGenericCharacterDetailViews(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="Test")
         self.character = Character.objects.create(
-            name="Test Character", player=self.player.wod_profile
+            name="Test Character", player=self.player
         )
         self.human = Human.objects.create(
-            name="Test Human", player=self.player.wod_profile
+            name="Test Human", player=self.player
         )
         self.werewolf = Werewolf.objects.create(
-            name="Test Werewolf", player=self.player.wod_profile
+            name="Test Werewolf", player=self.player
         )
         self.mage = Mage.objects.create(
-            name="Test Mage", player=self.player.wod_profile
+            name="Test Mage", player=self.player
         )
 
     def test_character_detail_view_templates(self):

@@ -4,9 +4,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import CreateView, DetailView, View
 
 from core.utils import level_name, tree_sort
-from wod.forms import RandomCharacterForm
+from wod.forms import RandomCharacterForm, MageForm
 from wod.models.characters.human import Character, Group, Human, MeritFlawRating
-from wod.models.characters.mage import Cabal, Mage, ResRating
+from wod.models.characters.mage import Cabal, Mage, ResRating, MageFaction
 from wod.models.characters.mage.utils import PRIMARY_ABILITIES
 from wod.models.characters.werewolf import Pack, Werewolf
 from wod.models.items.human import Item
@@ -53,6 +53,26 @@ def load_character_types(request):
         request,
         "wod/characters/load_character_dropdown_list.html",
         {"character_types": character_types},
+    )
+
+
+def load_factions(request):
+    affiliation_id = request.GET.get("affiliation")
+    factions = MageFaction.objects.filter(parent=affiliation_id).order_by("name")
+    return render(
+        request,
+        "wod/characters/mage/load_faction_dropdown_list.html",
+        {"factions": factions},
+    )
+
+
+def load_subfactions(request):
+    faction_id = request.GET.get("faction")
+    subfactions = MageFaction.objects.filter(parent=faction_id).order_by("name")
+    return render(
+        request,
+        "wod/characters/mage/load_subfaction_dropdown_list.html",
+        {"subfactions": subfactions},
     )
 
 
@@ -471,7 +491,8 @@ class MageDetailView(View):
 
 class MageCreateView(CreateView):
     model = Mage
-    fields = "__all__"
+    form_class = MageForm
+    # fields = "__all__"
     template_name = "wod/characters/mage/create.html"
 
 
@@ -501,7 +522,7 @@ class RandomCharacterView(View):
     def post(self, request, *args, **kwargs):
         if request.POST["character_type"] in ["werewolf", "mage"]:
             char = self.chars[request.POST["character_type"]].objects.create(
-                name=request.POST["character_name"], player=request.user.wod_profile
+                name=request.POST["character_name"], player=request.user
             )
         else:
             char = self.chars[request.POST["character_type"]].objects.create(

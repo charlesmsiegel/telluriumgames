@@ -8,7 +8,7 @@ from django.db.models import F, Q
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
-from accounts.models import WoDProfile
+from django.contrib.auth.models import User
 from core.models import Language
 from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
@@ -66,7 +66,7 @@ class Character(PolymorphicModel):
 
     name = models.CharField(max_length=100, unique=True)
     player = models.ForeignKey(
-        WoDProfile, on_delete=models.CASCADE, related_name="characters"
+        User, on_delete=models.CASCADE, related_name="wod_characters"
     )
     concept = models.CharField(max_length=100)
     description = models.TextField(default="")
@@ -937,21 +937,20 @@ class Group(PolymorphicModel):
             self.members.set(member_type.objects.order_by("?")[:num_chars])
         else:
             if user is None:
-                if WoDProfile.objects.filter(storyteller=True).count() > 0:
+                if User.objects.filter(profile__wod_st=True).count() > 0:
                     user = (
-                        WoDProfile.objects.filter(storyteller=True)
+                        User.objects.filter(profile__wod_st=True)
                         .order_by("?")
                         .first()
-                        .user
                     )
                 else:
                     user = User.objects.create_user(username="New User")
-                    user.wod_profile.storyteller = True
+                    user.profile.wod_st = True
                     user.save()
             for _ in range(num_chars):
                 m = member_type.objects.create(
                     name=f"{self.name} {self.members.count() + 1}",
-                    player=user.wod_profile,
+                    player=user,
                 )
                 m.random(freebies=freebies, xp=xp)
                 self.members.add(m)

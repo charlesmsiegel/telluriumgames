@@ -21,7 +21,7 @@ class TestPath(TestCase):
         self.p = Path.objects.create(name="Path")
         self.c = PathConnection.objects.create(name="Connection", path=self.p)
         self.player = User.objects.create(username="Test User")
-        self.h = Human.objects.create(name="Test", player=self.player.tc_profile)
+        self.h = Human.objects.create(name="Test", player=self.player)
         PathRating.objects.create(path=self.p, character=self.h, rating=1)
 
     def test_has_connection(self):
@@ -44,7 +44,7 @@ class TestPath(TestCase):
 class TestHuman(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Human.objects.create(name="", player=self.player.tc_profile)
+        self.character = Human.objects.create(name="", player=self.player)
 
     def test_add_name(self):
         self.assertEqual(self.character.name, "")
@@ -668,7 +668,7 @@ class TestHuman(TestCase):
 class TestRandomHuman(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Human.objects.create(name="", player=self.player.tc_profile)
+        self.character = Human.objects.create(name="", player=self.player)
         for skill in self.character.get_skills().keys():
             for i in range(5):
                 Specialty.objects.create(name=f"{skill} Specialty {i}", skill=skill)
@@ -785,7 +785,7 @@ class TestRandomHuman(TestCase):
         self.assertLess(self.character.xp, 15)
 
     def test_random(self):
-        character = Human.objects.create(player=self.player.tc_profile)
+        character = Human.objects.create(player=self.player)
         self.assertFalse(character.has_name())
         self.assertFalse(character.has_concept())
         self.assertFalse(character.has_paths())
@@ -813,7 +813,7 @@ class TestEdge(TestCase):
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Human.objects.create(
             name="Test Character",
-            player=User.objects.get(username="Test User").tc_profile,
+            player=User.objects.get(username="Test User"),
         )
 
     def test_prereq_or(self):
@@ -836,7 +836,7 @@ class TestHumanDetailView(TestCase):
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Human.objects.create(
             name="Test Character",
-            player=User.objects.get(username="Test User").tc_profile,
+            player=User.objects.get(username="Test User"),
         )
 
     def test_mortal_detail_view_status_code(self):
@@ -852,15 +852,15 @@ class CharacterDetailView(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.human = Human.objects.create(
-            name="Test Human", player=User.objects.get(username="Test User").tc_profile,
+            name="Test Human", player=User.objects.get(username="Test User"),
         )
         self.talent = Talent.objects.create(
             name="Test Talent",
-            player=User.objects.get(username="Test User").tc_profile,
+            player=User.objects.get(username="Test User"),
         )
         self.aberrant = Aberrant.objects.create(
             name="Test Aberrant",
-            player=User.objects.get(username="Test User").tc_profile,
+            player=User.objects.get(username="Test User"),
         )
 
     def test_character_detail_view_status_code(self):
@@ -899,17 +899,17 @@ class TestIndexView(TestCase):
             for j in range(3):
                 Human.objects.create(
                     name=f"Human {5*j+i}",
-                    player=player.tc_profile,
+                    player=player,
                     status=Human.status_keys[i],
                 )
                 Talent.objects.create(
                     name=f"Talent {5*j+i}",
-                    player=player.tc_profile,
+                    player=player,
                     status=Talent.status_keys[i],
                 )
                 Aberrant.objects.create(
                     name=f"Aberrant {5*j+i}",
-                    player=player.tc_profile,
+                    player=player,
                     status=Aberrant.status_keys[i],
                 )
         response = self.client.get("/tc/characters/")

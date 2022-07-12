@@ -5,7 +5,7 @@ from django.db import models
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
 
-from accounts.models import CoDProfile
+from django.contrib.auth.models import User
 from core.models import Language
 from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
@@ -16,7 +16,7 @@ class Mortal(PolymorphicModel):
 
     name = models.CharField(max_length=100)
     player = models.ForeignKey(
-        CoDProfile, on_delete=models.CASCADE, related_name="characters"
+        User, on_delete=models.CASCADE, related_name="cod_characters"
     )
 
     status_keys = ["Un", "Sub", "App", "Ret", "Dec"]

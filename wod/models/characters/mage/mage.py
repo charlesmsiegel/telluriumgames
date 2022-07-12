@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
-from accounts.models import WoDProfile
+from django.contrib.auth.models import User
 from core.utils import add_dot, weighted_choice
 from wod.models.characters.human import Character, Group, Human
 from wod.models.items.mage import Grimoire, Library
