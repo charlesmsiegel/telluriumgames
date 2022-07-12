@@ -19,7 +19,7 @@ from wod.models.characters.werewolf import (
 # Create your tests here.
 def werewolf_setup(player):
     for i in range(5):
-        w = Werewolf.objects.create(name=f"Character {i}", player=player.wod_profile)
+        w = Werewolf.objects.create(name=f"Character {i}", player=player)
     for i in range(5):
         Totem.objects.create(name=f"Totem {i}", cost=(10 + i))
     for i in range(1, 6):
@@ -75,7 +75,7 @@ class TestWerewolf(TestCase):
     def setUp(self):
         self.player = User.objects.create_user(username="Player")
         self.character = Werewolf.objects.create(
-            name="Test Werewolf", player=self.player.wod_profile
+            name="Test Werewolf", player=self.player
         )
         werewolf_setup(self.player)
 
@@ -692,7 +692,7 @@ class TestRandomWerewolf(TestCase):
     def setUp(self):
         self.player = User.objects.create_user(username="Player")
         self.character = Werewolf.objects.create(
-            name="", player=self.player.wod_profile
+            name="", player=self.player
         )
         werewolf_setup(self.player)
 
@@ -806,7 +806,7 @@ class TestPack(TestCase):
         self.assertEqual(p.total_totem(), 0)
         for i in range(4):
             w = Werewolf.objects.create(
-                name=f"Werewolf {i}", player=self.player.wod_profile
+                name=f"Werewolf {i}", player=self.player
             )
             w.totem = i + 1
             w.save()
@@ -832,7 +832,7 @@ class TestPack(TestCase):
         p = Pack.objects.create(name="Pack")
         for i in range(4):
             w = Werewolf.objects.create(
-                name=f"Werewolf {i}", player=self.player.wod_profile
+                name=f"Werewolf {i}", player=self.player
             )
             w.totem = i + 1
             w.save()
@@ -851,7 +851,7 @@ class TestWerewolfDetailView(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="User1", password="12345")
         self.werewolf = Werewolf.objects.create(
-            name="Test Werewolf", player=self.player.wod_profile
+            name="Test Werewolf", player=self.player
         )
 
     def test_werewolf_detail_view_status_code(self):

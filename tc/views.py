@@ -121,7 +121,7 @@ class RandomCharacterView(View):
 
     def post(self, request, *args, **kwargs):
         char = self.chars[request.POST["char_type"]].objects.create(
-            name=request.POST["char_name"], player=request.user.tc_profile
+            name=request.POST["char_name"], player=request.user
         )
         try:
             xp = int(request.POST["xp"])

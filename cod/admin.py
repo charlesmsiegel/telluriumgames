@@ -6,45 +6,45 @@ from cod.models.characters.mortal import Merit, Mortal, Specialty
 
 # Register your models here.
 @admin.register(Mortal)
-class MortalProfileAdmin(admin.ModelAdmin):
+class MortalAdmin(admin.ModelAdmin):
     list_display = ("name", "player")
 
 
 @admin.register(Specialty)
-class SpecialtyProfileAdmin(admin.ModelAdmin):
+class SpecialtyAdmin(admin.ModelAdmin):
     list_display = ("name", "skill")
 
 
 @admin.register(Merit)
-class MeritProfileAdmin(admin.ModelAdmin):
+class MeritAdmin(admin.ModelAdmin):
     list_display = ("name", "ratings")
 
 
 @admin.register(Mage)
-class MageProfileAdmin(admin.ModelAdmin):
+class MageAdmin(admin.ModelAdmin):
     list_display = ("name", "player", "path", "order", "gnosis")
 
 
 @admin.register(Proximi)
-class ProximiProfileAdmin(admin.ModelAdmin):
+class ProximiAdmin(admin.ModelAdmin):
     list_display = ("name", "player", "family")
 
 
 @admin.register(ProximiFamily)
-class ProximiFamilyProfileAdmin(admin.ModelAdmin):
+class ProximiFamilyAdmin(admin.ModelAdmin):
     list_display = ("name", "path", "blessing_arcana")
 
 
 @admin.register(Path)
-class PathProfileAdmin(admin.ModelAdmin):
+class PathAdmin(admin.ModelAdmin):
     list_display = ("name", "ruling_arcana", "inferior_arcanum")
 
 
 @admin.register(Order)
-class OrderProfileAdmin(admin.ModelAdmin):
+class OrderAdmin(admin.ModelAdmin):
     list_display = ("name", "rote_skills")
 
 
 @admin.register(Legacy)
-class LegacyProfileAdmin(admin.ModelAdmin):
+class LegacyAdmin(admin.ModelAdmin):
     list_display = ("name", "ruling_arcanum", "is_left_handed")

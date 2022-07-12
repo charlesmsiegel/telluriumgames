@@ -6,7 +6,6 @@ from django.db import models
 from django.db.models import Q
 from django.urls import reverse
 
-from accounts.models import WoDProfile
 from core.utils import add_dot, weighted_choice
 from wod.models.characters.human import Group, Human
 

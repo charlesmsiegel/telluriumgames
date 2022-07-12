@@ -9,7 +9,7 @@ from cod.models.characters.mortal import Merit, MeritRating, Mortal, Specialty
 class TestMortal(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Mortal.objects.create(name="", player=self.player.cod_profile)
+        self.character = Mortal.objects.create(name="", player=self.player)
 
     def test_add_name(self):
         self.assertEqual(self.character.name, "")
@@ -606,7 +606,7 @@ class TestMortal(TestCase):
 class TestRandomMortal(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Mortal.objects.create(name="", player=self.player.cod_profile)
+        self.character = Mortal.objects.create(name="", player=self.player)
         for skill in self.character.get_skills().keys():
             for i in range(3):
                 Specialty.objects.create(name=f"{skill} spec {i}", skill=skill)
@@ -727,7 +727,7 @@ class TestRandomMortal(TestCase):
         self.assertLess(self.character.xp, 15)
 
     def test_random(self):
-        character = Mortal.objects.create(player=self.player.cod_profile)
+        character = Mortal.objects.create(player=self.player)
         self.assertFalse(character.has_name())
         self.assertFalse(character.has_concept())
         self.assertFalse(character.has_virtue())
@@ -753,7 +753,7 @@ class TestMerit(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
         self.character = Mortal.objects.create(
-            name="Test", player=self.player.cod_profile
+            name="Test", player=self.player
         )
 
     def test_prereq_skill_specialty(self):
@@ -922,7 +922,7 @@ class TestIndexView(TestCase):
             for j in range(3):
                 Mortal.objects.create(
                     name=f"Character {5*j+i}",
-                    player=player.cod_profile,
+                    player=player,
                     status=Mortal.status_keys[i],
                 )
         response = self.client.post("/cod/characters/")
@@ -939,7 +939,7 @@ class TestMortalDetailView(TestCase):
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Mortal.objects.create(
             name="Test Character",
-            player=User.objects.get(username="Test User").cod_profile,
+            player=User.objects.get(username="Test User"),
         )
 
     def test_mortal_detail_view_status_code(self):
@@ -956,10 +956,10 @@ class CharacterDetailView(TestCase):
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Mortal.objects.create(
             name="Test Character",
-            player=User.objects.get(username="Test User").cod_profile,
+            player=User.objects.get(username="Test User"),
         )
         self.mage = Mage.objects.create(
-            name="Test Mage", player=User.objects.get(username="Test User").cod_profile,
+            name="Test Mage", player=User.objects.get(username="Test User"),
         )
 
     def test_character_detail_view_status_code(self):

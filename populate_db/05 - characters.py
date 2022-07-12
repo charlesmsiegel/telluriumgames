@@ -12,7 +12,7 @@ from wod.models.locations.mage import Node
 mage_start = time()
 for i in range(10):
     mage = Werewolf.objects.create(
-        name=f"Werewolf {Werewolf.objects.count()}", player=player.wod_profile
+        name=f"Werewolf {Werewolf.objects.count()}", player=player
     )
     mage.random()
     mage.save()
@@ -21,7 +21,7 @@ print("Average Random Werewolf Time:", (time() - mage_start) / 10)
 mage_start = time()
 for i in range(10):
     mage = Mage.objects.create(
-        name=f"Mage {Mage.objects.count()}", player=player.wod_profile
+        name=f"Mage {Mage.objects.count()}", player=player
     )
     mage.random()
     mage.save()
@@ -49,7 +49,7 @@ from cod.models.characters.mortal import Mortal
 mortal_start = time()
 for i in range(10):
     mortal = Mortal.objects.create(
-        name=f"Mortal {Mortal.objects.count()}", player=player.cod_profile
+        name=f"Mortal {Mortal.objects.count()}", player=player
     )
     mortal.random()
     mortal.save()
@@ -58,7 +58,7 @@ print("Average CoD Mortal Time:", (time() - mortal_start) / 10)
 mortal_start = time()
 for i in range(10):
     mortal = Mage.objects.create(
-        name=f"Mage {Mage.objects.count()}", player=player.cod_profile
+        name=f"Mage {Mage.objects.count()}", player=player
     )
     mortal.random()
     mortal.save()
@@ -76,7 +76,7 @@ print("Average CoD Proximi Family Time:", (time() - mortal_start) / 10)
 mortal_start = time()
 for i in range(10):
     mortal = Proximi.objects.create(
-        name=f"Proximi {Proximi.objects.count()}", player=player.cod_profile
+        name=f"Proximi {Proximi.objects.count()}", player=player
     )
     mortal.random()
     mortal.save()
@@ -89,7 +89,7 @@ from tc.models.characters.talent import Talent
 human_start = time()
 for i in range(10):
     human = Human.objects.create(
-        name=f"Human {Human.objects.count()}", player=player.tc_profile
+        name=f"Human {Human.objects.count()}", player=player
     )
     human.random(xp=0)
     human.save()
@@ -97,7 +97,7 @@ print("Average Random TC Human Time:", (time() - human_start) / 10)
 talent_start = time()
 for i in range(10):
     talent = Talent.objects.create(
-        name=f"Talent {Talent.objects.count()}", player=player.tc_profile
+        name=f"Talent {Talent.objects.count()}", player=player
     )
     talent.random(xp=50)
     talent.save()
@@ -105,7 +105,7 @@ print("Average Random Talent Time:", (time() - talent_start) / 10)
 aberrant_start = time()
 for i in range(10):
     aberrant = Aberrant.objects.create(
-        name=f"Aberrant {Aberrant.objects.count()}", player=player.tc_profile
+        name=f"Aberrant {Aberrant.objects.count()}", player=player
     )
     aberrant.random(xp=150)
     aberrant.save()
@@ -115,7 +115,7 @@ from exalted.models.characters.mortals import Mortal
 
 mortal_start = time()
 for i in range(10):
-    mortal = Mortal.objects.create(name="", player=player.exalted_profile)
+    mortal = Mortal.objects.create(name="", player=player)
     mortal.random()
     mortal.save()
 print("Average Exalted Mortal Time:", (time() - mortal_start) / 10)

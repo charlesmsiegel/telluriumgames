@@ -23,7 +23,7 @@ from wod.models.locations.mage import NodeMeritFlaw
 # Create your tests here.
 def mage_setup(player):
     for i in range(5):
-        m = Mage.objects.create(name=f"Character {i}", player=player.wod_profile)
+        m = Mage.objects.create(name=f"Character {i}", player=player)
 
     for i in range(15):
         Instrument.objects.create(name=f"Instrument {i}")
@@ -97,7 +97,7 @@ def mage_setup(player):
 class TestMage(TestCase):
     def setUp(self):
         self.player = User.objects.create_user(username="Test")
-        self.character = Mage.objects.create(name="", player=self.player.wod_profile)
+        self.character = Mage.objects.create(name="", player=self.player)
         mage_setup(self.player)
 
     def set_abilities(self):
@@ -835,9 +835,9 @@ class TestMage(TestCase):
         self.assertEqual(self.character.total_backgrounds(), 14)
 
     def test_technocracy_only_backgrounds(self):
-        tech_char = Mage.objects.create(name="Tech", player=self.player.wod_profile)
+        tech_char = Mage.objects.create(name="Tech", player=self.player)
         tech_char.affiliation = MageFaction.objects.create(name="Technocratic Union")
-        trad_char = Mage.objects.create(name="Trad", player=self.player.wod_profile)
+        trad_char = Mage.objects.create(name="Trad", player=self.player)
         trad_char.affiliation = MageFaction.objects.get(name="Traditions")
         self.assertTrue(tech_char.add_background("secret_weapons"))
         self.assertFalse(trad_char.add_background("secret_weapons"))
@@ -1117,7 +1117,7 @@ class TestMage(TestCase):
 class TestRandomMage(TestCase):
     def setUp(self):
         self.player = User.objects.create_user(username="Test")
-        self.character = Mage.objects.create(name="", player=self.player.wod_profile)
+        self.character = Mage.objects.create(name="", player=self.player)
         mage_setup(self.player)
 
     def test_random_affinity_sphere(self):
@@ -1130,7 +1130,7 @@ class TestRandomMage(TestCase):
         self.character.random_faction()
         self.assertTrue(self.character.has_faction())
         mage = Mage.objects.create(
-            name="Random Character", player=self.player.wod_profile
+            name="Random Character", player=self.player
         )
         mocker = Mock()
         mocker.side_effect = [0.01]
@@ -1338,7 +1338,7 @@ class TestMageDetailView(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="User1", password="12345")
         self.mage = Mage.objects.create(
-            name="Test Mage", player=self.player.wod_profile
+            name="Test Mage", player=self.player
         )
 
     def test_mage_detail_view_status_code(self):
