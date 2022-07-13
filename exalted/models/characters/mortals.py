@@ -401,8 +401,10 @@ class Mortal(PolymorphicModel):
 
     def random_merit(self, dots=7):
         merit_candidates = self.filter_merits(dots=dots)
-        choice = random.choice(merit_candidates)
-        return self.add_merit(choice)
+        if len(merit_candidates) != 0:
+            choice = random.choice(merit_candidates)
+            return self.add_merit(choice)
+        return False
 
     def random_merits(self):
         dots = 7
