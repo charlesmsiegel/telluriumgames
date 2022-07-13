@@ -59,11 +59,11 @@ class TestHuman(TestCase):
             for j in [-1, 1]:
                 if j == 1:
                     MeritFlaw.objects.create(
-                        name=f"Merit {i}", ratings=[i], allowed_types=["human"]
+                        name=f"Merit {i}", ratings=[i], human=True
                     )
                 else:
                     MeritFlaw.objects.create(
-                        name=f"Flaw {i}", ratings=[-i], allowed_types=["human"]
+                        name=f"Flaw {i}", ratings=[-i], human=True
                     )
         for i in range(10):
             for stat in self.character.get_abilities():
@@ -582,7 +582,7 @@ class TestHuman(TestCase):
         self.assertEqual(len(self.character.filter_mfs()), 3)
         m = MeritFlaw.objects.create(name="Test Merit", ratings=[1, 2, 3])
         self.assertNotIn(m, self.character.filter_mfs())
-        m.allowed_types.append("human")
+        m.human = True
         m.save()
         self.assertIn(m, self.character.filter_mfs())
 
@@ -774,11 +774,11 @@ class TestRandomHuman(TestCase):
             for j in [-1, 1]:
                 if j == 1:
                     MeritFlaw.objects.create(
-                        name=f"Merit {i}", ratings=[i], allowed_types=["human"]
+                        name=f"Merit {i}", ratings=[i], human=True
                     )
                 else:
                     MeritFlaw.objects.create(
-                        name=f"Flaw {i}", ratings=[-i], allowed_types=["human"]
+                        name=f"Flaw {i}", ratings=[-i], human=True
                     )
 
     def test_random_name(self):

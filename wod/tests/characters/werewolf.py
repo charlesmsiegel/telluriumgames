@@ -43,10 +43,10 @@ def werewolf_setup(player):
         Rite.objects.create(name=f"Rite {6+i}", level=i)
     for i in range(5):
         MeritFlaw.objects.create(
-            name=f"Merit {i}", ratings=[i], allowed_types=["garou"]
+            name=f"Merit {i}", ratings=[i], garou=True
         )
         MeritFlaw.objects.create(
-            name=f"Flaw {i}", ratings=[-i], allowed_types=["garou"]
+            name=f"Flaw {i}", ratings=[-i], garou=True
         )
     for i in range(10):
         for trait in w.get_attributes():
