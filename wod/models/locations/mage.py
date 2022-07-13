@@ -5,7 +5,7 @@ from django.db.models import F, Q
 
 from core.utils import add_dot, weighted_choice
 from wod.models.characters.mage.faction import MageFaction
-from wod.models.characters.mage.resonance import ResRating, Resonance
+from wod.models.characters.mage.resonance import Resonance
 from wod.models.characters.mage.utils import SPHERE_LIST
 from wod.models.items.mage import Library
 from wod.models.locations.human import Location
@@ -140,9 +140,15 @@ class Node(Location):
         else:
             q = Q(**{sphere: True})
         all_res = all_res.filter(q)
-        
-        maxed_resonance = [x.id for x in NodeResonanceRating.objects.filter(node=self, rating__gt=maximum)]
-        mined_resonance = [x.id for x in NodeResonanceRating.objects.filter(node=self, rating__lt=minimum)]
+
+        maxed_resonance = [
+            x.id
+            for x in NodeResonanceRating.objects.filter(node=self, rating__gt=maximum)
+        ]
+        mined_resonance = [
+            x.id
+            for x in NodeResonanceRating.objects.filter(node=self, rating__lt=minimum)
+        ]
         all_res = all_res.exclude(pk__in=maxed_resonance)
         all_res = all_res.exclude(pk__in=mined_resonance)
         return all_res

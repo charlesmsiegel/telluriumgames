@@ -37,9 +37,7 @@ def setup():
 class TestMortal(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Mortal.objects.create(
-            name="", player=self.player
-        )
+        self.character = Mortal.objects.create(name="", player=self.player)
         setup()
 
     def test_absolute_url(self):
@@ -490,9 +488,7 @@ class TestMortal(TestCase):
 class TestRandomMortal(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Mortal.objects.create(
-            name="", player=self.player
-        )
+        self.character = Mortal.objects.create(name="", player=self.player)
         setup()
 
     def test_random_name(self):
@@ -632,9 +628,7 @@ class TestCharacterIndexView(TestCase):
 class TestMortalDetailView(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="Test")
-        self.human = Mortal.objects.create(
-            name="Test Mortal", player=self.player
-        )
+        self.human = Mortal.objects.create(name="Test Mortal", player=self.player)
 
     def test_mortal_detail_view_status_code(self):
         response = self.client.get(f"/exalted/characters/{self.human.id}/")
@@ -648,9 +642,7 @@ class TestMortalDetailView(TestCase):
 class TestGenericCharacterDetailViews(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="Test")
-        self.mortal = Mortal.objects.create(
-            name="Test Mortal", player=self.player
-        )
+        self.mortal = Mortal.objects.create(name="Test Mortal", player=self.player)
 
     def test_character_detail_view_templates(self):
         response = self.client.get(f"/exalted/characters/{self.mortal.id}/")

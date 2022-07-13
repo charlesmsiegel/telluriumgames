@@ -791,8 +791,7 @@ class TestAberrantDetailView(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Aberrant.objects.create(
-            name="Test Character",
-            player=User.objects.get(username="Test User"),
+            name="Test Character", player=User.objects.get(username="Test User"),
         )
 
     def test_mortal_detail_view_status_code(self):

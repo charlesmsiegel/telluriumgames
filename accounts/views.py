@@ -1,14 +1,14 @@
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, View
 
-from django.contrib.auth.models import User
 from accounts.models import Profile
 from cod.models.characters.mortal import Mortal
+from exalted.models.characters.mortals import Mortal as ExMortal
 from tc.models.characters.human import Human
 from wod.models.characters.human import Character
-from exalted.models.characters.mortals import Mortal as ExMortal
 
 # from tc.models import Aberrant
 # from wod.models.characters import Character
@@ -30,7 +30,7 @@ class ProfileView(View):
 
     def get(self, request):
         if request.user.is_authenticated:
-            
+
             profile = Profile.objects.get(user=request.user)
             to_approve = []
             xp_requests = []

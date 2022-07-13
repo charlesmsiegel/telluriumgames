@@ -30,24 +30,12 @@ class TestProfileView(TestCase):
         )
         self.storyteller.profile.cod_st = True
         self.storyteller.profile.save()
-        self.char1 = Mortal.objects.create(
-            name="Test Character 1", player=self.user1
-        )
-        self.char2 = Mortal.objects.create(
-            name="Test Character 2", player=self.user2
-        )
-        self.char3 = Mage.objects.create(
-            name="Test Character 3", player=self.user1
-        )
-        self.char4 = Mage.objects.create(
-            name="Test Character 4", player=self.user2
-        )
-        self.char5 = Aberrant.objects.create(
-            name="Test Character 5", player=self.user1
-        )
-        self.char6 = Aberrant.objects.create(
-            name="Test Character 6", player=self.user2
-        )
+        self.char1 = Mortal.objects.create(name="Test Character 1", player=self.user1)
+        self.char2 = Mortal.objects.create(name="Test Character 2", player=self.user2)
+        self.char3 = Mage.objects.create(name="Test Character 3", player=self.user1)
+        self.char4 = Mage.objects.create(name="Test Character 4", player=self.user2)
+        self.char5 = Aberrant.objects.create(name="Test Character 5", player=self.user1)
+        self.char6 = Aberrant.objects.create(name="Test Character 6", player=self.user2)
 
     def test_template_logged_out(self):
         response = self.client.get("/accounts/", follow=True)
@@ -78,6 +66,5 @@ class TestProfileView(TestCase):
     def test_approval_list(self):
         self.client.login(username="Test Storyteller", password="testpass")
         response = self.client.get("/accounts/")
-        print(response)
         self.assertContains(response, "Test Character 2")
         self.assertContains(response, "To Approve")

@@ -19,9 +19,7 @@ from wod.models.characters.werewolf import Pack, Werewolf
 class TestCharacter(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="User1", password="12345")
-        self.character = Character.objects.create(
-            player=self.player, name=""
-        )
+        self.character = Character.objects.create(player=self.player, name="")
 
     def test_has_name(self):
         self.assertFalse(self.character.has_name())
@@ -58,13 +56,9 @@ class TestHuman(TestCase):
         for i in range(1, 6):
             for j in [-1, 1]:
                 if j == 1:
-                    MeritFlaw.objects.create(
-                        name=f"Merit {i}", ratings=[i], human=True
-                    )
+                    MeritFlaw.objects.create(name=f"Merit {i}", ratings=[i], human=True)
                 else:
-                    MeritFlaw.objects.create(
-                        name=f"Flaw {i}", ratings=[-i], human=True
-                    )
+                    MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i], human=True)
         for i in range(10):
             for stat in self.character.get_abilities():
                 Specialty.objects.create(
@@ -773,13 +767,9 @@ class TestRandomHuman(TestCase):
         for i in range(1, 6):
             for j in [-1, 1]:
                 if j == 1:
-                    MeritFlaw.objects.create(
-                        name=f"Merit {i}", ratings=[i], human=True
-                    )
+                    MeritFlaw.objects.create(name=f"Merit {i}", ratings=[i], human=True)
                 else:
-                    MeritFlaw.objects.create(
-                        name=f"Flaw {i}", ratings=[-i], human=True
-                    )
+                    MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i], human=True)
 
     def test_random_name(self):
         self.assertFalse(self.character.has_name())
@@ -904,9 +894,7 @@ class TestCharacterIndexView(TestCase):
 class TestHumanDetailView(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="Test")
-        self.human = Human.objects.create(
-            name="Test Human", player=self.player
-        )
+        self.human = Human.objects.create(name="Test Human", player=self.player)
 
     def test_mage_detail_view_status_code(self):
         response = self.client.get(f"/wod/characters/{self.human.id}/")
@@ -923,15 +911,11 @@ class TestGenericCharacterDetailViews(TestCase):
         self.character = Character.objects.create(
             name="Test Character", player=self.player
         )
-        self.human = Human.objects.create(
-            name="Test Human", player=self.player
-        )
+        self.human = Human.objects.create(name="Test Human", player=self.player)
         self.werewolf = Werewolf.objects.create(
             name="Test Werewolf", player=self.player
         )
-        self.mage = Mage.objects.create(
-            name="Test Mage", player=self.player
-        )
+        self.mage = Mage.objects.create(name="Test Mage", player=self.player)
 
     def test_character_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/{self.character.id}/")

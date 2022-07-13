@@ -6,7 +6,6 @@ from django.db import models
 from django.db.models import Q
 from django.urls import reverse
 
-from django.contrib.auth.models import User
 from core.utils import add_dot, weighted_choice
 from wod.models.characters.human import Character, Group, Human
 from wod.models.items.mage import Grimoire, Library
@@ -661,9 +660,13 @@ class Mage(Human):
             all_res = Resonance.objects.filter(mage__name__contains=self.name)
         else:
             all_res = Resonance.objects.all()
-        
-        maxed_resonance = [x.id for x in ResRating.objects.filter(mage=self, rating__gt=maximum)]
-        mined_resonance = [x.id for x in ResRating.objects.filter(mage=self, rating__lt=minimum)]
+
+        maxed_resonance = [
+            x.id for x in ResRating.objects.filter(mage=self, rating__gt=maximum)
+        ]
+        mined_resonance = [
+            x.id for x in ResRating.objects.filter(mage=self, rating__lt=minimum)
+        ]
         all_res = all_res.exclude(pk__in=maxed_resonance)
         all_res = all_res.exclude(pk__in=mined_resonance)
         return all_res
@@ -737,7 +740,7 @@ class Mage(Human):
 
     def filter_rotes(self, max_cost=100):
         rotes = Rote.objects.filter(rote_cost__lte=max_cost)
-        
+
         spheres = self.get_spheres()
         spheres = {k + "__lte": v for k, v in spheres.items()}
         q = Q(**spheres)

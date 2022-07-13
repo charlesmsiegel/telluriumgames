@@ -20,9 +20,7 @@ print("Average Random Werewolf Time:", (time() - mage_start) / 10)
 
 mage_start = time()
 for i in range(10):
-    mage = Mage.objects.create(
-        name=f"Mage {Mage.objects.count()}", player=player
-    )
+    mage = Mage.objects.create(name=f"Mage {Mage.objects.count()}", player=player)
     mage.random()
     mage.save()
 print("Average Random Mage Time:", (time() - mage_start) / 10)
@@ -57,9 +55,7 @@ print("Average CoD Mortal Time:", (time() - mortal_start) / 10)
 
 mortal_start = time()
 for i in range(10):
-    mortal = Mage.objects.create(
-        name=f"Mage {Mage.objects.count()}", player=player
-    )
+    mortal = Mage.objects.create(name=f"Mage {Mage.objects.count()}", player=player)
     mortal.random()
     mortal.save()
 print("Average CoD Mage Time:", (time() - mortal_start) / 10)
@@ -88,9 +84,7 @@ from tc.models.characters.talent import Talent
 
 human_start = time()
 for i in range(10):
-    human = Human.objects.create(
-        name=f"Human {Human.objects.count()}", player=player
-    )
+    human = Human.objects.create(name=f"Human {Human.objects.count()}", player=player)
     human.random(xp=0)
     human.save()
 print("Average Random TC Human Time:", (time() - human_start) / 10)

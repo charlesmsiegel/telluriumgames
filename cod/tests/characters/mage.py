@@ -132,15 +132,9 @@ class TestMage(TestCase):
         self.assertTrue(self.mage.has_legacy())
 
     def test_filter_legacy(self):
-        both_wrong = Mage.objects.create(
-            name="Neither Character", player=self.player
-        )
-        path_right = Mage.objects.create(
-            name="Path Character", player=self.player
-        )
-        order_right = Mage.objects.create(
-            name="Order Character", player=self.player
-        )
+        both_wrong = Mage.objects.create(name="Neither Character", player=self.player)
+        path_right = Mage.objects.create(name="Path Character", player=self.player)
+        order_right = Mage.objects.create(name="Order Character", player=self.player)
         legacy = Legacy.objects.get(name="Path 0 Order 0 Death Legacy")
         right_order = Order.objects.get(name="Order 0")
         wrong_order = Order.objects.get(name="Order 1")
@@ -563,9 +557,7 @@ class TestProximi(TestCase):
                         ):
                             L.append(choice)
                     proximi_family.set_possible_blessings(L)
-        self.proximi = Proximi.objects.create(
-            name="Test Proximi", player=self.player
-        )
+        self.proximi = Proximi.objects.create(name="Test Proximi", player=self.player)
 
     def test_has_family(self):
         self.assertFalse(self.proximi.has_family())
@@ -741,9 +733,7 @@ class TestProximiFamilyDetailView(TestCase):
 class TestProximiDetailView(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.proximi = Proximi.objects.create(
-            name="Test Proximus", player=self.player
-        )
+        self.proximi = Proximi.objects.create(name="Test Proximus", player=self.player)
 
     def test_proximi_detail_view_status_code(self):
         response = self.client.get(f"/cod/characters/{self.proximi.id}/")

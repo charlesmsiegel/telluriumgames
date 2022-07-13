@@ -8,7 +8,6 @@ from django.db.models import F, Q
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
-from django.contrib.auth.models import User
 from core.models import Language
 from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
@@ -941,9 +940,7 @@ class Group(PolymorphicModel):
             if user is None:
                 if User.objects.filter(profile__wod_st=True).count() > 0:
                     user = (
-                        User.objects.filter(profile__wod_st=True)
-                        .order_by("?")
-                        .first()
+                        User.objects.filter(profile__wod_st=True).order_by("?").first()
                     )
                 else:
                     user = User.objects.create_user(username="New User")
@@ -951,8 +948,7 @@ class Group(PolymorphicModel):
                     user.save()
             for _ in range(num_chars):
                 m = member_type.objects.create(
-                    name=f"{self.name} {self.members.count() + 1}",
-                    player=user,
+                    name=f"{self.name} {self.members.count() + 1}", player=user,
                 )
                 m.random(freebies=freebies, xp=xp)
                 self.members.add(m)

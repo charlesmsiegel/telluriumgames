@@ -1,6 +1,7 @@
 from django import forms
-from wod.models.characters.mage import Mage, MageFaction
+
 from wod.models.characters.human import MeritFlaw
+from wod.models.characters.mage import Mage, MageFaction
 
 
 class RandomCharacterForm(forms.Form):

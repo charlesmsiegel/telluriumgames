@@ -48,12 +48,8 @@ def mage_setup(player):
         MageFaction.objects.create(name=f"sub-{faction.name}", parent=faction)
 
     for i in range(5):
-        MeritFlaw.objects.create(
-            name=f"Merit {i}", ratings=[i], human=True, mage=True
-        )
-        MeritFlaw.objects.create(
-            name=f"Flaw {i}", ratings=[-i], human=True, mage=True
-        )
+        MeritFlaw.objects.create(name=f"Merit {i}", ratings=[i], human=True, mage=True)
+        MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i], human=True, mage=True)
         NodeMeritFlaw.objects.create(name=f"Node Merit {i}", ratings=[i])
         NodeMeritFlaw.objects.create(name=f"Node Flaw {i}", ratings=[-i])
 
@@ -1129,9 +1125,7 @@ class TestRandomMage(TestCase):
         self.assertFalse(self.character.has_faction())
         self.character.random_faction()
         self.assertTrue(self.character.has_faction())
-        mage = Mage.objects.create(
-            name="Random Character", player=self.player
-        )
+        mage = Mage.objects.create(name="Random Character", player=self.player)
         mocker = Mock()
         mocker.side_effect = [0.01]
         with mock.patch("random.random", mocker):
@@ -1337,9 +1331,7 @@ class TestParadigm(TestCase):
 class TestMageDetailView(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="User1", password="12345")
-        self.mage = Mage.objects.create(
-            name="Test Mage", player=self.player
-        )
+        self.mage = Mage.objects.create(name="Test Mage", player=self.player)
 
     def test_mage_detail_view_status_code(self):
         response = self.client.get(f"/wod/characters/{self.mage.id}/")
