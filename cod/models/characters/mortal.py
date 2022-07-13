@@ -538,7 +538,10 @@ class Mortal(PolymorphicModel):
         output = []
         for merit, rating in pairs:
             if merit in self.merits.all():
-                r = MeritRating.objects.get(character=self, merit=merit).rating
+                merit_with_details = MeritRating.objects.filter(character=self, merit=merit)
+                rs = [x.rating for x in merit_with_details]
+                # r = MeritRating.objects.get(character=self, merit=merit).rating
+                r = min(rs)
                 if rating > r:
                     output.append(merit)
             else:
