@@ -278,10 +278,10 @@ class Aberrant(Human):
         return self.add_transformation(t)
 
     def filter_transformations(self, level=None):
-        transforms = Transformation.objects.all()
+        transforms = Transformation.objects.exclude(pk__in=self.transformations.all())
         if level is not None:
             transforms = transforms.filter(level=level)
-        return transforms.exclude(pk__in=self.transformations.all())
+        return transforms
 
     def add_transcendence(self, transformation=None):
         if transformation is None:
