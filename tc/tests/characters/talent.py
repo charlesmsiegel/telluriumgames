@@ -303,8 +303,7 @@ class TestTalentDetailView(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Talent.objects.create(
-            name="Test Character",
-            player=User.objects.get(username="Test User"),
+            name="Test Character", player=User.objects.get(username="Test User"),
         )
 
     def test_talent_detail_view_status_code(self):

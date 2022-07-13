@@ -8,7 +8,6 @@ from django.db.models import F, Q
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
-from django.contrib.auth.models import User
 from core.models import Language
 from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
@@ -41,7 +40,10 @@ class MeritFlaw(models.Model):
     name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
     max_rating = models.IntegerField(default=0)
-    allowed_types = models.JSONField(default=list)
+    # allowed_types = models.JSONField(default=list)
+    human = models.BooleanField(default=False)
+    garou = models.BooleanField(default=False)
+    mage = models.BooleanField(default=False)
     description = models.TextField(default="")
 
     def save(self, *args, **kwargs):
@@ -156,7 +158,7 @@ class Human(Character):
     willpower = models.IntegerField(default=3)
 
     merits_and_flaws = models.ManyToManyField(
-        MeritFlaw, blank=True, through=MeritFlawRating
+        MeritFlaw, blank=True, through=MeritFlawRating, related_name="flawed"
     )
     languages = models.ManyToManyField(Language, blank=True)
 
@@ -532,8 +534,7 @@ class Human(Character):
         mf = new_mfs | had_mfs
         if self.has_max_flaws():
             mf = mf.filter(max_rating__gt=0)
-        filtered_set = [x for x in mf if self.type in x.allowed_types]
-        return filtered_set
+        return mf.filter(Q(**{self.type: True}))
 
     def mf_rating(self, mf):
         if mf not in self.merits_and_flaws.all():
@@ -939,9 +940,7 @@ class Group(PolymorphicModel):
             if user is None:
                 if User.objects.filter(profile__wod_st=True).count() > 0:
                     user = (
-                        User.objects.filter(profile__wod_st=True)
-                        .order_by("?")
-                        .first()
+                        User.objects.filter(profile__wod_st=True).order_by("?").first()
                     )
                 else:
                     user = User.objects.create_user(username="New User")
@@ -949,8 +948,7 @@ class Group(PolymorphicModel):
                     user.save()
             for _ in range(num_chars):
                 m = member_type.objects.create(
-                    name=f"{self.name} {self.members.count() + 1}",
-                    player=user,
+                    name=f"{self.name} {self.members.count() + 1}", player=user,
                 )
                 m.random(freebies=freebies, xp=xp)
                 self.members.add(m)

@@ -812,8 +812,7 @@ class TestEdge(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Human.objects.create(
-            name="Test Character",
-            player=User.objects.get(username="Test User"),
+            name="Test Character", player=User.objects.get(username="Test User"),
         )
 
     def test_prereq_or(self):
@@ -835,8 +834,7 @@ class TestHumanDetailView(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Human.objects.create(
-            name="Test Character",
-            player=User.objects.get(username="Test User"),
+            name="Test Character", player=User.objects.get(username="Test User"),
         )
 
     def test_mortal_detail_view_status_code(self):
@@ -855,12 +853,10 @@ class CharacterDetailView(TestCase):
             name="Test Human", player=User.objects.get(username="Test User"),
         )
         self.talent = Talent.objects.create(
-            name="Test Talent",
-            player=User.objects.get(username="Test User"),
+            name="Test Talent", player=User.objects.get(username="Test User"),
         )
         self.aberrant = Aberrant.objects.create(
-            name="Test Aberrant",
-            player=User.objects.get(username="Test User"),
+            name="Test Aberrant", player=User.objects.get(username="Test User"),
         )
 
     def test_character_detail_view_status_code(self):
@@ -898,14 +894,10 @@ class TestIndexView(TestCase):
             player = User.objects.get(username=f"Player {i}")
             for j in range(3):
                 Human.objects.create(
-                    name=f"Human {5*j+i}",
-                    player=player,
-                    status=Human.status_keys[i],
+                    name=f"Human {5*j+i}", player=player, status=Human.status_keys[i],
                 )
                 Talent.objects.create(
-                    name=f"Talent {5*j+i}",
-                    player=player,
-                    status=Talent.status_keys[i],
+                    name=f"Talent {5*j+i}", player=player, status=Talent.status_keys[i],
                 )
                 Aberrant.objects.create(
                     name=f"Aberrant {5*j+i}",

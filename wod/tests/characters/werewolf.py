@@ -42,12 +42,8 @@ def werewolf_setup(player):
         Rite.objects.create(name=f"Rite {i}", level=i)
         Rite.objects.create(name=f"Rite {6+i}", level=i)
     for i in range(5):
-        MeritFlaw.objects.create(
-            name=f"Merit {i}", ratings=[i], allowed_types=["garou"]
-        )
-        MeritFlaw.objects.create(
-            name=f"Flaw {i}", ratings=[-i], allowed_types=["garou"]
-        )
+        MeritFlaw.objects.create(name=f"Merit {i}", ratings=[i], garou=True)
+        MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i], garou=True)
     for i in range(10):
         for trait in w.get_attributes():
             Specialty.objects.create(
@@ -691,9 +687,7 @@ class TestRandomTotem(TestCase):
 class TestRandomWerewolf(TestCase):
     def setUp(self):
         self.player = User.objects.create_user(username="Player")
-        self.character = Werewolf.objects.create(
-            name="", player=self.player
-        )
+        self.character = Werewolf.objects.create(name="", player=self.player)
         werewolf_setup(self.player)
 
     def test_random_tribe(self):
@@ -805,9 +799,7 @@ class TestPack(TestCase):
         p = Pack.objects.create(name="Pack")
         self.assertEqual(p.total_totem(), 0)
         for i in range(4):
-            w = Werewolf.objects.create(
-                name=f"Werewolf {i}", player=self.player
-            )
+            w = Werewolf.objects.create(name=f"Werewolf {i}", player=self.player)
             w.totem = i + 1
             w.save()
             p.members.add(w)
@@ -831,9 +823,7 @@ class TestPack(TestCase):
     def test_random_totem(self):
         p = Pack.objects.create(name="Pack")
         for i in range(4):
-            w = Werewolf.objects.create(
-                name=f"Werewolf {i}", player=self.player
-            )
+            w = Werewolf.objects.create(name=f"Werewolf {i}", player=self.player)
             w.totem = i + 1
             w.save()
             p.members.add(w)

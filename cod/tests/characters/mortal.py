@@ -752,9 +752,7 @@ class TestRandomMortal(TestCase):
 class TestMerit(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Mortal.objects.create(
-            name="Test", player=self.player
-        )
+        self.character = Mortal.objects.create(name="Test", player=self.player)
 
     def test_prereq_skill_specialty(self):
         occult_specialty = Merit.objects.create(
@@ -938,8 +936,7 @@ class TestMortalDetailView(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Mortal.objects.create(
-            name="Test Character",
-            player=User.objects.get(username="Test User"),
+            name="Test Character", player=User.objects.get(username="Test User"),
         )
 
     def test_mortal_detail_view_status_code(self):
@@ -955,8 +952,7 @@ class CharacterDetailView(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Mortal.objects.create(
-            name="Test Character",
-            player=User.objects.get(username="Test User"),
+            name="Test Character", player=User.objects.get(username="Test User"),
         )
         self.mage = Mage.objects.create(
             name="Test Mage", player=User.objects.get(username="Test User"),

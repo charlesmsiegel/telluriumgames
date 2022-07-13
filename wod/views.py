@@ -4,9 +4,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import CreateView, DetailView, View
 
 from core.utils import level_name, tree_sort
-from wod.forms import RandomCharacterForm, MageForm
+from wod.forms import MageForm, RandomCharacterForm
 from wod.models.characters.human import Character, Group, Human, MeritFlawRating
-from wod.models.characters.mage import Cabal, Mage, ResRating, MageFaction
+from wod.models.characters.mage import Cabal, Mage, MageFaction, ResRating
 from wod.models.characters.mage.utils import PRIMARY_ABILITIES
 from wod.models.characters.werewolf import Pack, Werewolf
 from wod.models.items.human import Item

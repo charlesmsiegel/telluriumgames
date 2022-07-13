@@ -52,7 +52,8 @@ class ArchetypeAdmin(admin.ModelAdmin):
 
 @admin.register(MeritFlaw)
 class MeritFlawAdmin(admin.ModelAdmin):
-    list_display = ("name", "allowed_types")
+    list_display = ("name", "human", "garou", "mage")
+    list_filter = ("human", "garou", "mage")
 
 
 @admin.register(Specialty)

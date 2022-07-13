@@ -1,10 +1,10 @@
 import random
 
+from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
 
-from django.contrib.auth.models import User
 from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
 

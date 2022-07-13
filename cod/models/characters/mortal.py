@@ -1,11 +1,11 @@
 import random
 from itertools import product
 
+from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
 
-from django.contrib.auth.models import User
 from core.models import Language
 from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
@@ -538,7 +538,12 @@ class Mortal(PolymorphicModel):
         output = []
         for merit, rating in pairs:
             if merit in self.merits.all():
-                r = MeritRating.objects.get(character=self, merit=merit).rating
+                merit_with_details = MeritRating.objects.filter(
+                    character=self, merit=merit
+                )
+                rs = [x.rating for x in merit_with_details]
+                # r = MeritRating.objects.get(character=self, merit=merit).rating
+                r = min(rs)
                 if rating > r:
                     output.append(merit)
             else:
@@ -798,8 +803,16 @@ class Merit(models.Model):
             m = Merit.objects.get(name=prereq[0])
             if m in character.merits.all():
                 if (
-                    MeritRating.objects.get(character=character, merit=m).rating
-                    < prereq[1]
+                    len(
+                        [
+                            x
+                            for x in MeritRating.objects.filter(
+                                character=character, merit=m
+                            )
+                            if x.rating >= prereq[1]
+                        ]
+                    )
+                    == 0
                 ):
                     return False
                 return True

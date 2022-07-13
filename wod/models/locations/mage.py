@@ -134,17 +134,23 @@ class Node(Location):
         return 0
 
     def filter_resonance(self, minimum=0, maximum=5, sphere=None):
-        if minimum > 0:
-            all_res = Resonance.objects.filter(node__name__contains=self.name)
-        else:
-            all_res = Resonance.objects.all()
+        all_res = Resonance.objects.all()
         if sphere is None:
             q = Q()
         else:
             q = Q(**{sphere: True})
         all_res = all_res.filter(q)
 
-        all_res = [x for x in all_res if minimum <= self.resonance_rating(x) <= maximum]
+        maxed_resonance = [
+            x.id
+            for x in NodeResonanceRating.objects.filter(node=self, rating__gt=maximum)
+        ]
+        mined_resonance = [
+            x.id
+            for x in NodeResonanceRating.objects.filter(node=self, rating__lt=minimum)
+        ]
+        all_res = all_res.exclude(pk__in=maxed_resonance)
+        all_res = all_res.exclude(pk__in=mined_resonance)
         return all_res
 
     def total_resonance(self):
