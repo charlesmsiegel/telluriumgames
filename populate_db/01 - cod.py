@@ -1,7 +1,7 @@
 from time import time
 
 from cod.models.characters.mage import Legacy, Order, Path, ProximiFamily, Rote
-from cod.models.characters.mortal import Merit, Specialty
+from cod.models.characters.mortal import Merit, Specialty, Condition
 from core.models import Language
 
 SKILLS = [
@@ -235,6 +235,30 @@ Specialty.objects.create(skill="subterfuge", name="Long cons")
 Specialty.objects.create(skill="subterfuge", name="Misdirection")
 Specialty.objects.create(skill="subterfuge", name="Doublespeak")
 Specialty.objects.create(skill="subterfuge", name="Little White Lies")
+
+Condition.objects.create(name="Amnesia", persistent=True, resolution="Something problematic arises, such as a forgotten arrest warrant or an old enemy")
+Condition.objects.create(name="Blind", persistent=False, resolution="Limitation or difficulty that heightens immediate danger")
+Condition.objects.create(name="Broken", persistent=True, resolution="")
+Condition.objects.create(name="Bonded", persistent=False, resolution="The bonded animal dies")
+Condition.objects.create(name="Connected", persistent=False, resolution="Condition shed, bridge burned")
+Condition.objects.create(name="Crippled", persistent=True, resolution="")
+Condition.objects.create(name="Deprived", persistent=False, resolution="Indulge in the deprived Vice, therapy")
+Condition.objects.create(name="Embarrassing Secret", persistent=False, resolution="The secret gets out")
+Condition.objects.create(name="Fugue", persistent=True, resolution="")
+Condition.objects.create(name="Guilty", persistent=False, resolution="The character makes restitution or confesses")
+Condition.objects.create(name="Informed", persistent=False, resolution="Use the Condition for its benefit")
+Condition.objects.create(name="Inspired", persistent=False, resolution="Use the Condition for its benefit")
+Condition.objects.create(name="Leveraged", persistent=False, resolution="Turn the tables, do what is asked by the person with leverage")
+Condition.objects.create(name="Lost", persistent=False, resolution="Abandoning the goal, successfully navigating")
+Condition.objects.create(name="Madness", persistent=True, resolution="")
+Condition.objects.create(name="Mute", persistent=True, resolution="")
+Condition.objects.create(name="Notoriety", persistent=False, resolution="The story is debunked or the character's name is cleared")
+Condition.objects.create(name="Obsession", persistent=False, resolution="Fulfilling the obsession, therapy")
+Condition.objects.create(name="Shaken", persistent=False, resolution="Fail a roll as noted")
+Condition.objects.create(name="Soulless", persistent=True, resolution="Regain soul")
+Condition.objects.create(name="Spooked", persistent=False, resolution="Shed when the character does something that hinders teh group or complicates things due to the Condition.")
+Condition.objects.create(name="Steadfast", persistent=False, resolution="Use the Condition, as noted")
+Condition.objects.create(name="Swooned", persistent=False, resolution="Do something for the object that puts your character in danger, opt to fail a roll to resist a social action by the object")
 
 Merit.objects.create(
     name="Area of Expertise",
