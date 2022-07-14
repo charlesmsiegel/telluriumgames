@@ -732,7 +732,7 @@ Gift.objects.create(
     name="Gaia's Vengeance", rank=5, allowed={"garou": ["Red Talons", "White Howlers"]}
 )
 Gift.objects.create(name="Scabwalker Curse", rank=5, allowed={"garou": ["Red Talons"]})
-Gift.objects.create(name="Shield of Giaa", rank=6, allowed={"garou": ["Red Talons"]})
+Gift.objects.create(name="Shield of Gaia", rank=6, allowed={"garou": ["Red Talons"]})
 Gift.objects.create(
     name="Aura of Confidence", rank=1, allowed={"garou": ["Shadow Lords"]}
 )
