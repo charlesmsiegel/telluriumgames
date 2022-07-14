@@ -566,7 +566,7 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.xp_cost("merit"), 1)
         self.assertEqual(self.character.xp_cost("specialty"), 1)
         self.assertEqual(self.character.xp_cost("skill"), 2)
-        self.assertEqual(self.character.xp_cost("integrity"), 2)
+        self.assertEqual(self.character.xp_cost("morality"), 2)
 
     def test_get_absolute_url(self):
         self.assertEqual(
@@ -601,6 +601,12 @@ class TestMortal(TestCase):
             self.character.random_merit()
         rating = MeritRating.objects.get(character=self.character, merit=contacts)
         rating.detail = "Occult Contact 1"
+
+    def test_integrity_prereq(self):
+        integrity = Merit.objects.create(name="Integrity Merit", ratings=[1], prereqs=[[("Morality Name", "Integritude")]])
+        self.assertFalse(integrity.check_prereqs(self.character))
+        integrity.prereqs = [[("Morality Name", "Integrity")]]
+        self.assertTrue(integrity.check_prereqs(self.character))
         
     def test_add_condition(self):
         Condition.objects.create(name="Test Condition")

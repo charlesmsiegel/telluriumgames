@@ -81,7 +81,11 @@ class Mortal(PolymorphicModel):
     specialties = models.ManyToManyField("Specialty", blank=True)
 
     willpower = models.IntegerField(default=1)
-    integrity = models.IntegerField(default=7)
+    
+    morality = models.IntegerField(default=7)
+    
+    morality_name = models.CharField(max_length=30, default="Integrity")
+    
     size = models.IntegerField(default=5)
     speed = models.IntegerField(default=1)
     health = models.IntegerField(default=1)
@@ -605,7 +609,7 @@ class Mortal(PolymorphicModel):
             return 1
         if trait_type == "skill":
             return 2
-        if trait_type == "integrity":
+        if trait_type == "morality":
             return 2
         return 10000
 
@@ -615,7 +619,7 @@ class Mortal(PolymorphicModel):
             "merit": 1,
             "specialty": 1,
             "skill": 1,
-            "integrity": 1,
+            "morality": 1,
         }
 
     def random_xp_functions(self):
@@ -624,7 +628,7 @@ class Mortal(PolymorphicModel):
             "merit": self.random_xp_merit,
             "specialty": self.random_xp_specialty,
             "skill": self.random_xp_skill,
-            "integrity": self.random_xp_integrity,
+            "morality": self.random_xp_morality,
         }
 
     def random_xp_attributes(self):
@@ -656,8 +660,8 @@ class Mortal(PolymorphicModel):
             return self.spend_xp_specialty(trait)
         return False
 
-    def random_xp_integrity(self):
-        return self.spend_xp_integrity()
+    def random_xp_morality(self):
+        return self.spend_xp_morality()
 
     def random_spend_xp(self):
         frequencies = self.xp_frequencies()
@@ -716,15 +720,15 @@ class Mortal(PolymorphicModel):
             return False
         return False
 
-    def add_integrity(self):
-        return add_dot(self, "integrity", 10)
+    def add_morality(self):
+        return add_dot(self, "morality", 10)
 
-    def spend_xp_integrity(self):
-        cost = self.xp_cost("integrity")
+    def spend_xp_morality(self):
+        cost = self.xp_cost("morality")
         if cost <= self.xp:
-            if self.add_integrity():
+            if self.add_morality():
                 self.xp -= cost
-                self.add_to_spend("integrity", getattr(self, "integrity"), cost)
+                self.add_to_spend("morality", getattr(self, "morality"), cost)
                 return True
             return False
         return False
@@ -738,8 +742,8 @@ class Mortal(PolymorphicModel):
             return self.spend_xp_merit(trait)
         if Specialty.objects.filter(name=trait).exists():
             return self.spend_xp_specialty(trait)
-        if trait == "integrity":
-            return self.spend_xp_integrity()
+        if trait == "morality":
+            return self.spend_xp_morality()
         return False
 
     def add_condition(self, condition):
@@ -839,6 +843,9 @@ class Merit(models.Model):
             if getattr(character, prereq[0]) < prereq[1]:
                 return False
             return True
+        if prereq[0] == "Morality Name":
+            if character.morality_name == prereq[1]:
+                return True
         return False
 
     def check_prereqs(self, character):
