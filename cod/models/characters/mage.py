@@ -156,6 +156,10 @@ class Mage(Mortal):
     nimbus = models.TextField(default="")
     mana = models.IntegerField(default=0)
 
+    def __init__(self, *args, **kwargs):
+        kwargs["morality_name"] = "Wisdom"
+        super().__init__(*args, **kwargs)
+
     @staticmethod
     def allowed_merit_types():
         return ["Mental", "Physical", "Social", "Mage", "Fighting"]
