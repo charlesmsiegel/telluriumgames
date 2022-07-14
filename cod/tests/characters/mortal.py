@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from cod.models.characters.mage import Mage
-from cod.models.characters.mortal import Merit, MeritRating, Mortal, Specialty
+from cod.models.characters.mortal import Merit, MeritRating, Mortal, Specialty, Condition
 
 
 # Create your tests here.
@@ -601,6 +601,19 @@ class TestMortal(TestCase):
             self.character.random_merit()
         rating = MeritRating.objects.get(character=self.character, merit=contacts)
         rating.detail = "Occult Contact 1"
+        
+    def test_add_condition(self):
+        Condition.objects.create(name="Test Condition")
+        self.assertEqual(self.character.conditions.count(), 0)
+        self.character.add_condition(Condition.objects.first())
+        self.assertEqual(self.character.conditions.count(), 1)
+    
+    def test_remove_condition(self):
+        Condition.objects.create(name="Test Condition")
+        self.character.add_condition(Condition.objects.first())
+        self.assertEqual(self.character.conditions.count(), 1)
+        self.character.remove_condition(self.character.conditions.first())
+        self.assertEqual(self.character.conditions.count(), 0)
 
 
 class TestRandomMortal(TestCase):
@@ -615,6 +628,8 @@ class TestRandomMortal(TestCase):
                 Merit.objects.create(
                     name=f"Merit {10*j + i}", ratings=[j], merit_type="Physical"
                 )
+        for i in range(10):
+            Condition.objects.create(name=f"Condition {i}")
 
     def test_random_basis(self):
         self.character.random_basis()
@@ -747,6 +762,11 @@ class TestRandomMortal(TestCase):
         self.assertTrue(character.has_skills())
         self.assertTrue(character.has_specialties())
         self.assertTrue(character.has_merits())
+        
+    def test_random_condition(self):
+        self.assertEqual(self.character.conditions.count(), 0)
+        self.character.random_condition()
+        self.assertEqual(self.character.conditions.count(), 1)
 
 
 class TestMerit(TestCase):

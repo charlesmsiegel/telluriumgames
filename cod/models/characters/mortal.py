@@ -106,6 +106,8 @@ class Mortal(PolymorphicModel):
     breaking_point_5 = models.CharField(max_length=300, default="Most traumatic thing")
 
     description = models.TextField(default="")
+    
+    conditions = models.ManyToManyField("Condition", blank=True)
 
     xp = models.IntegerField(default=0)
     beats = models.IntegerField(default=0)
@@ -740,6 +742,22 @@ class Mortal(PolymorphicModel):
             return self.spend_xp_integrity()
         return False
 
+    def add_condition(self, condition):
+        if condition in self.conditions.all():
+            return False
+        self.conditions.add(condition)
+        return True
+    
+    def remove_condition(self, condition):
+        if condition not in self.conditions.all():
+            return False
+        self.conditions.remove(condition)
+        return True
+    
+    def random_condition(self):
+        c = Condition.objects.all().order_by("?").first()
+        return self.add_condition(c)
+
     def random(self, xp=0):
         self.xp = xp
         self.random_basis()
@@ -887,3 +905,9 @@ class MeritRating(models.Model):
     )
     rating = models.IntegerField(default=0)
     detail = models.CharField(max_length=100, null=True, blank=True)
+
+
+class Condition(models.Model):
+    name = models.CharField(max_length=100)
+    persistent = models.BooleanField(default=False)
+    resolution = models.TextField(default="")
