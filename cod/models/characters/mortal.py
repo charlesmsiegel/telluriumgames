@@ -839,6 +839,10 @@ class Merit(models.Model):
                     return False
                 return True
             return False
+        if prereq[0] == "morality" and prereq[1] < 0:
+            if character.morality > -prereq[1]:
+                return False
+            return True
         if hasattr(character, prereq[0]):
             if getattr(character, prereq[0]) < prereq[1]:
                 return False

@@ -608,6 +608,16 @@ class TestMortal(TestCase):
         integrity.prereqs = [[("Morality Name", "Integrity")]]
         self.assertTrue(integrity.check_prereqs(self.character))
         
+    def test_low_integrity_prereq(self):
+        integrity = Merit.objects.create(name="Integrity Merit", ratings=[1], prereqs=[[("morality", -5)]])
+        self.assertFalse(integrity.check_prereqs(self.character))
+        self.character.morality = 5
+        self.assertTrue(integrity.check_prereqs(self.character))
+        integrity2 = Merit.objects.create(name="Integrity Merit", ratings=[1], prereqs=[[("morality", 6)]])
+        self.assertFalse(integrity2.check_prereqs(self.character))
+        self.character.morality = 6
+        self.assertTrue(integrity2.check_prereqs(self.character))
+        
     def test_add_condition(self):
         Condition.objects.create(name="Test Condition")
         self.assertEqual(self.character.conditions.count(), 0)
