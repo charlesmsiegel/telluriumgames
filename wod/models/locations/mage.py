@@ -328,11 +328,25 @@ class Chantry(Location):
         Library, on_delete=models.CASCADE, blank=True, null=True
     )
     nodes = models.ManyToManyField(Node, blank=True)
-    
+
     members = models.ManyToManyField(Human, blank=True, related_name="member_of")
-    ambassador = models.ForeignKey(Human, blank=True, null=True, on_delete=models.CASCADE, related_name="ambassador_from")
-    node_tender = models.ForeignKey(Human, blank=True, null=True, on_delete=models.CASCADE, related_name="tends_node_at")
-    investigator = models.ManyToManyField(Human, blank=True, related_name="investigator_at")
+    ambassador = models.ForeignKey(
+        Human,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="ambassador_from",
+    )
+    node_tender = models.ForeignKey(
+        Human,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="tends_node_at",
+    )
+    investigator = models.ManyToManyField(
+        Human, blank=True, related_name="investigator_at"
+    )
     guardian = models.ManyToManyField(Human, blank=True, related_name="guardian_of")
     teacher = models.ManyToManyField(Human, blank=True, related_name="teacher_at")
 

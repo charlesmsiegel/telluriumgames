@@ -3,11 +3,11 @@ from django.test import TestCase
 
 from cod.models.characters.mage import Mage
 from cod.models.characters.mortal import (
+    Condition,
     Merit,
     MeritRating,
     Mortal,
     Specialty,
-    Condition,
 )
 
 

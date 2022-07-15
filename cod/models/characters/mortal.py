@@ -81,11 +81,11 @@ class Mortal(PolymorphicModel):
     specialties = models.ManyToManyField("Specialty", blank=True)
 
     willpower = models.IntegerField(default=1)
-    
+
     morality = models.IntegerField(default=7)
-    
+
     morality_name = models.CharField(max_length=30, default="Integrity")
-    
+
     size = models.IntegerField(default=5)
     speed = models.IntegerField(default=1)
     health = models.IntegerField(default=1)
@@ -110,7 +110,7 @@ class Mortal(PolymorphicModel):
     breaking_point_5 = models.CharField(max_length=300, default="Most traumatic thing")
 
     description = models.TextField(default="")
-    
+
     conditions = models.ManyToManyField("Condition", blank=True)
 
     xp = models.IntegerField(default=0)
@@ -633,7 +633,7 @@ class Mortal(PolymorphicModel):
             "morality": self.random_xp_morality,
             "willpower": self.random_xp_willpower,
         }
-        
+
     def random_xp_willpower(self):
         return self.spend_xp_willpower()
 
@@ -728,7 +728,7 @@ class Mortal(PolymorphicModel):
 
     def add_morality(self):
         return add_dot(self, "morality", 10)
-    
+
     def add_willpower(self):
         return add_dot(self, "willpower", self.resolve + self.composure)
 
@@ -741,7 +741,7 @@ class Mortal(PolymorphicModel):
                 return True
             return False
         return False
-    
+
     def spend_xp_willpower(self):
         cost = self.xp_cost("willpower")
         if cost <= self.xp:
@@ -772,13 +772,13 @@ class Mortal(PolymorphicModel):
             return False
         self.conditions.add(condition)
         return True
-    
+
     def remove_condition(self, condition):
         if condition not in self.conditions.all():
             return False
         self.conditions.remove(condition)
         return True
-    
+
     def random_condition(self):
         c = Condition.objects.all().order_by("?").first()
         return self.add_condition(c)

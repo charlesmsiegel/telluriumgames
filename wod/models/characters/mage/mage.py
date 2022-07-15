@@ -245,14 +245,18 @@ class Mage(Human):
     node_owned = models.ForeignKey(
         Node, on_delete=models.CASCADE, null=True, blank=True
     )
-    
+
     quiet = models.IntegerField(default=0)
-    quiet_type = models.CharField(default="none", max_length=10, choices=[
-        ("none", "None"),
-        ("denial", "Denial"),
-        ("madness", "Madness"),
-        ("morbidity", "Morbidity"),
-    ])
+    quiet_type = models.CharField(
+        default="none",
+        max_length=10,
+        choices=[
+            ("none", "None"),
+            ("denial", "Denial"),
+            ("madness", "Madness"),
+            ("morbidity", "Morbidity"),
+        ],
+    )
 
     background_points = 7
 
@@ -485,9 +489,7 @@ class Mage(Human):
                 affiliation_weights[faction] = 1
 
         affiliation = weighted_choice(affiliation_weights, ceiling=100)
-        faction = (
-            MageFaction.objects.filter(parent=affiliation).order_by("?").first()
-        )
+        faction = MageFaction.objects.filter(parent=affiliation).order_by("?").first()
         subfaction = None
         if (
             random.random() < 0.25
@@ -496,22 +498,22 @@ class Mage(Human):
         ):
             if MageFaction.objects.filter(parent=faction).exists():
                 subfaction = (
-                    MageFaction.objects.filter(parent=faction)
-                    .order_by("?")
-                    .first()
+                    MageFaction.objects.filter(parent=faction).order_by("?").first()
                 )
         return self.set_faction(affiliation, faction, subfaction=subfaction)
 
     def set_quiet_type(self, quiet_type):
         self.quiet_type = quiet_type
         return True
-    
+
     def set_quiet_rating(self, quiet_rating):
         self.quiet = quiet_rating
         return True
-    
+
     def random_quiet(self):
-        return self.set_quiet_rating(random.randint(1, 5)) and self.set_quiet_type(random.choice(["denial", "madness", "morbidity"]))
+        return self.set_quiet_rating(random.randint(1, 5)) and self.set_quiet_type(
+            random.choice(["denial", "madness", "morbidity"])
+        )
 
     def has_focus(self):
         return (

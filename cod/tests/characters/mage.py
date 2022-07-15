@@ -168,22 +168,22 @@ class TestMage(TestCase):
         self.assertFalse(self.mage.has_rote_skills())
         self.assertTrue(self.mage.set_rote_skills(["occult", "science", "athletics"]))
         self.assertTrue(self.mage.has_rote_skills())
-        
+
     def test_has_merits(self):
         self.assertFalse(self.mage.has_merits())
         self.mage.gnosis = 3
         self.assertTrue(self.mage.has_merits())
         self.mage.gnosis = 2
         self.assertFalse(self.mage.has_merits())
-        m1 = Merit.objects.get(name='Mage Merit 3')
-        m2 = Merit.objects.get(name='Mage Merit 2')
+        m1 = Merit.objects.get(name="Mage Merit 3")
+        m2 = Merit.objects.get(name="Mage Merit 2")
         self.mage.add_merit(m1)
         self.mage.add_merit(m2)
         self.assertTrue(self.mage.has_merits())
         self.mage.gnosis = 1
         self.assertFalse(self.mage.has_merits())
-        m3 = Merit.objects.get(name='Physical Merit 3')
-        m4 = Merit.objects.get(name='Physical Merit 2')
+        m3 = Merit.objects.get(name="Physical Merit 3")
+        m4 = Merit.objects.get(name="Physical Merit 2")
         self.mage.add_merit(m3)
         self.mage.add_merit(m4)
         self.assertTrue(self.mage.has_merits())

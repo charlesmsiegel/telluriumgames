@@ -1108,17 +1108,17 @@ class TestMage(TestCase):
         self.assertFalse(self.character.has_mage_history())
         self.character.avatar_description = "The Random Graph"
         self.assertTrue(self.character.has_mage_history())
-        
+
     def test_set_quiet_rating(self):
         self.assertEqual(self.character.quiet, 0)
         self.character.set_quiet_rating(3)
         self.assertEqual(self.character.quiet, 3)
-        
+
     def test_set_quiet_type(self):
         self.assertEqual(self.character.quiet_type, "none")
         self.character.set_quiet_type("denial")
         self.assertEqual(self.character.quiet_type, "denial")
-        
+
     def test_marauders_have_quiet(self):
         top_level = MageFaction.objects.create(name="TopLevel Faction", parent=None)
         marauder = MageFaction.objects.create(name="Marauders", parent=None)
@@ -1130,6 +1130,7 @@ class TestMage(TestCase):
         self.character.set_faction(marauder, None, None)
         self.assertNotEqual(self.character.quiet, 0)
         self.assertNotEqual(self.character.quiet_type, "none")
+
 
 class TestRandomMage(TestCase):
     def setUp(self):

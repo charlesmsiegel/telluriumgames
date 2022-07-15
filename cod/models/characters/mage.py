@@ -551,7 +551,7 @@ class Mage(Mortal):
                 return True
             return False
         return False
-    
+
     def random_gnosis(self):
         value = random.random()
         if value < 0.7:
