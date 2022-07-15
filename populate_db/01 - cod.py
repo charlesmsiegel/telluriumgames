@@ -1105,6 +1105,67 @@ Merit.objects.create(
     prereqs=[[("Morality Name", "Integrity"), ("morality", -5)]],
 )
 
+Merit.objects.create(
+    name="Banner-Bearer",
+    ratings=[1, 2, 3],
+    merit_type="Supernatural",
+    prereqs=[[("Sleepwalker", 1)], [("Fitful Slumber", 1)]],
+)
+Merit.objects.create(
+    name="Deadpan",
+    ratings=[3],
+    merit_type="Supernatural",
+    prereqs=[[("Sleepwalker", 1)], [("Fitful Slumber", 1)]],
+)
+Merit.objects.create(
+    name="Fitful Slumber",
+    ratings=[1],
+    merit_type="Supernatural",
+    prereqs=[],
+)
+Merit.objects.create(
+    name="Loved",
+    ratings=[3],
+    merit_type="Supernatural",
+    prereqs=[[("Sleepwalker", 1)], [("Fitful Slumber", 1)]],
+)
+Merit.objects.create(
+    name="Proxy Voice",
+    ratings=[2],
+    merit_type="Supernatural",
+    prereqs=[[("Sleepwalker", 1), ("Mentor", 1)], [("Fitful Slumber", 1), ("Mentor", 1)]],
+)
+Merit.objects.create(
+    name="Relic Attuned",
+    ratings=[3],
+    merit_type="Supernatural",
+    prereqs=[[("Sleepwalker", 1)], [("Fitful Slumber", 1)]],
+)
+Merit.objects.create(
+    name="Ritual Martyr",
+    ratings=[2],
+    merit_type="Supernatural",
+    prereqs=[[("Sleepwalker", 1)], [("Fitful Slumber", 1)]],
+)
+Merit.objects.create(
+    name="Ritual Savvy",
+    ratings=[2],
+    merit_type="Supernatural",
+    prereqs=[[("Sleepwalker", 1), ("occult", 2)], [("Fitful Slumber", 1), ("occult", 2)]],
+)
+Merit.objects.create(
+    name="Sleepwalker",
+    ratings=[1],
+    merit_type="Supernatural",
+    prereqs=[[("Morality Name", "Integrity")]],
+)
+Merit.objects.create(
+    name="Slippery",
+    ratings=[2],
+    merit_type="Supernatural",
+    prereqs=[[("Sleepwalker", 1)], [("Fitful Slumber", 1)]],
+)
+
 Rote.objects.create(
     name="Ectoplasmic Shaping",
     practice="compelling",
