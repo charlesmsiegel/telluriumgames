@@ -1074,6 +1074,36 @@ Merit.objects.create(
     merit_type="Mage",
     prereqs=[[("Free Council Status", 1)]],
 )
+Merit.objects.create(
+    name="Actively Oblivious",
+    ratings=[2],
+    merit_type="Supernatural",
+    prereqs=[[("Morality Name", "Integrity")]],
+)
+Merit.objects.create(
+    name="Communal Sleeper",
+    ratings=[1],
+    merit_type="Supernatural",
+    prereqs=[[("Morality Name", "Integrity"), ("empathy", 2)]],
+)
+Merit.objects.create(
+    name="Detail Oriented",
+    ratings=[2],
+    merit_type="Supernatural",
+    prereqs=[[("Morality Name", "Integrity")]],
+)
+Merit.objects.create(
+    name="Liar",
+    ratings=[1],
+    merit_type="Supernatural",
+    prereqs=[[("Morality Name", "Integrity")]],
+)
+Merit.objects.create(
+    name="Strained",
+    ratings=[2],
+    merit_type="Supernatural",
+    prereqs=[[("Morality Name", "Integrity"), ("morality", -5)]],
+)
 
 Rote.objects.create(
     name="Ectoplasmic Shaping",
