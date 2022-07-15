@@ -1108,7 +1108,28 @@ class TestMage(TestCase):
         self.assertFalse(self.character.has_mage_history())
         self.character.avatar_description = "The Random Graph"
         self.assertTrue(self.character.has_mage_history())
-
+        
+    def test_set_quiet_rating(self):
+        self.assertEqual(self.character.quiet, 0)
+        self.character.set_quiet_rating(3)
+        self.assertEqual(self.character.quiet, 3)
+        
+    def test_set_quiet_type(self):
+        self.assertEqual(self.character.quiet_type, "none")
+        self.character.set_quiet_type("denial")
+        self.assertEqual(self.character.quiet_type, "denial")
+        
+    def test_marauders_have_quiet(self):
+        top_level = MageFaction.objects.create(name="TopLevel Faction", parent=None)
+        marauder = MageFaction.objects.create(name="Marauders", parent=None)
+        self.assertEqual(self.character.quiet, 0)
+        self.assertEqual(self.character.quiet_type, "none")
+        self.character.set_faction(top_level, None, None)
+        self.assertEqual(self.character.quiet, 0)
+        self.assertEqual(self.character.quiet_type, "none")
+        self.character.set_faction(marauder, None, None)
+        self.assertNotEqual(self.character.quiet, 0)
+        self.assertNotEqual(self.character.quiet_type, "none")
 
 class TestRandomMage(TestCase):
     def setUp(self):
@@ -1211,6 +1232,11 @@ class TestRandomMage(TestCase):
         self.character.random_specialties()
         self.assertTrue(self.character.has_specialties())
         self.assertGreater(self.character.specialties.filter(stat="forces").count(), 0)
+
+    def test_random_quiet(self):
+        self.character.random_quiet()
+        self.assertGreater(self.character.quiet, 0)
+        self.assertNotEqual(self.character.quiet_type, "none")
 
     def test_random(self):
         self.assertFalse(self.character.has_name())

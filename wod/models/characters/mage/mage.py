@@ -245,6 +245,14 @@ class Mage(Human):
     node_owned = models.ForeignKey(
         Node, on_delete=models.CASCADE, null=True, blank=True
     )
+    
+    quiet = models.IntegerField(default=0)
+    quiet_type = models.CharField(default="none", max_length=10, choices=[
+        ("none", "None"),
+        ("denial", "Denial"),
+        ("madness", "Madness"),
+        ("morbidity", "Morbidity"),
+    ])
 
     background_points = 7
 
@@ -447,14 +455,17 @@ class Mage(Human):
         return self.faction is not None
 
     def set_faction(self, affiliation, faction, subfaction=None):
-        if faction.parent != affiliation:
-            return False
+        if faction is not None:
+            if faction.parent != affiliation:
+                return False
         if subfaction is not None:
             if subfaction.parent != faction:
                 return False
         self.affiliation = affiliation
         self.faction = faction
         self.subfaction = subfaction
+        if affiliation.name == "Marauders":
+            self.random_quiet()
         return True
 
     def random_faction(self):
@@ -473,21 +484,34 @@ class Mage(Human):
             else:
                 affiliation_weights[faction] = 1
 
-        self.affiliation = weighted_choice(affiliation_weights, ceiling=100)
-        self.faction = (
-            MageFaction.objects.filter(parent=self.affiliation).order_by("?").first()
+        affiliation = weighted_choice(affiliation_weights, ceiling=100)
+        faction = (
+            MageFaction.objects.filter(parent=affiliation).order_by("?").first()
         )
+        subfaction = None
         if (
             random.random() < 0.25
-            or self.faction.name == "Order of Hermes"
-            or self.affiliation.name == "Technocratic Union"
+            or faction.name == "Order of Hermes"
+            or affiliation.name == "Technocratic Union"
         ):
-            if MageFaction.objects.filter(parent=self.faction).exists():
-                self.subfaction = (
-                    MageFaction.objects.filter(parent=self.faction)
+            if MageFaction.objects.filter(parent=faction).exists():
+                subfaction = (
+                    MageFaction.objects.filter(parent=faction)
                     .order_by("?")
                     .first()
                 )
+        return self.set_faction(affiliation, faction, subfaction=subfaction)
+
+    def set_quiet_type(self, quiet_type):
+        self.quiet_type = quiet_type
+        return True
+    
+    def set_quiet_rating(self, quiet_rating):
+        self.quiet = quiet_rating
+        return True
+    
+    def random_quiet(self):
+        return self.set_quiet_rating(random.randint(1, 5)) and self.set_quiet_type(random.choice(["denial", "madness", "morbidity"]))
 
     def has_focus(self):
         return (

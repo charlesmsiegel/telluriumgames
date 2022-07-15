@@ -45,6 +45,16 @@
             <div class="col-sm">Subfaction</div>
             <div class="col-sm">{{ object.subfaction }}</div>
         </div>
+        {% if object.quiet != 0 %}
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">Quiet</div>
+            <div class="col-sm dots"> {{ object.quiet|dots }} </div>
+            <div class="col-sm">Quiet Type</div>
+            <div class="col-sm">{{ object.get_quiet_type_display }}</div>
+            <div class="col-sm"></div>
+        </div>
+        {% endif %}
 
         <div class="row">
             <h2 class="col-sm mtas_heading">Attributes</h2>
