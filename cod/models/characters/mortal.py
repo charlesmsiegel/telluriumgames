@@ -611,6 +611,8 @@ class Mortal(PolymorphicModel):
             return 2
         if trait_type == "morality":
             return 2
+        if trait_type == "willpower":
+            return 1
         return 10000
 
     def xp_frequencies(self):
@@ -629,7 +631,11 @@ class Mortal(PolymorphicModel):
             "specialty": self.random_xp_specialty,
             "skill": self.random_xp_skill,
             "morality": self.random_xp_morality,
+            "willpower": self.random_xp_willpower,
         }
+        
+    def random_xp_willpower(self):
+        return self.spend_xp_willpower()
 
     def random_xp_attributes(self):
         trait = weighted_choice(self.filter_attributes(maximum=4))
@@ -722,6 +728,9 @@ class Mortal(PolymorphicModel):
 
     def add_morality(self):
         return add_dot(self, "morality", 10)
+    
+    def add_willpower(self):
+        return add_dot(self, "willpower", self.resolve + self.composure)
 
     def spend_xp_morality(self):
         cost = self.xp_cost("morality")
@@ -729,6 +738,16 @@ class Mortal(PolymorphicModel):
             if self.add_morality():
                 self.xp -= cost
                 self.add_to_spend("morality", getattr(self, "morality"), cost)
+                return True
+            return False
+        return False
+    
+    def spend_xp_willpower(self):
+        cost = self.xp_cost("willpower")
+        if cost <= self.xp:
+            if self.add_willpower():
+                self.xp -= cost
+                self.add_to_spend("willpower", getattr(self, "willpower"), cost)
                 return True
             return False
         return False
@@ -744,6 +763,8 @@ class Mortal(PolymorphicModel):
             return self.spend_xp_specialty(trait)
         if trait == "morality":
             return self.spend_xp_morality()
+        if trait == "willpower":
+            return self.spend_xp_willpower()
         return False
 
     def add_condition(self, condition):

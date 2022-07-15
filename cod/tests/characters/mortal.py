@@ -2,7 +2,13 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from cod.models.characters.mage import Mage
-from cod.models.characters.mortal import Merit, MeritRating, Mortal, Specialty, Condition
+from cod.models.characters.mortal import (
+    Merit,
+    MeritRating,
+    Mortal,
+    Specialty,
+    Condition,
+)
 
 
 # Create your tests here.
@@ -567,6 +573,7 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.xp_cost("specialty"), 1)
         self.assertEqual(self.character.xp_cost("skill"), 2)
         self.assertEqual(self.character.xp_cost("morality"), 2)
+        self.assertEqual(self.character.xp_cost("willpower"), 1)
 
     def test_get_absolute_url(self):
         self.assertEqual(
@@ -592,6 +599,21 @@ class TestMortal(TestCase):
             "Strength 2 (4 XP), Strength 3 (4 XP), Occult 1 (2 XP)",
         )
 
+    def test_spend_xp_willpower(self):
+        self.character.resolve = 2
+        self.character.composure = 3
+        self.character.assign_advantages()
+        self.character.xp = 3
+        self.assertFalse(self.character.spend_xp("willpower"))
+        self.assertEqual(self.character.xp, 3)
+        self.character.willpower = 3
+        self.assertTrue(self.character.spend_xp("willpower"))
+        self.assertEqual(self.character.xp, 2)
+        self.assertTrue(self.character.spend_xp("willpower"))
+        self.assertEqual(self.character.xp, 1)
+        self.assertFalse(self.character.spend_xp("willpower"))
+        self.assertEqual(self.character.xp, 1)
+
     def test_contacts_merit(self):
         contacts = Merit.objects.create(
             name="Contacts", ratings=[1, 2, 3, 4, 5], merit_type="Physical"
@@ -603,27 +625,35 @@ class TestMortal(TestCase):
         rating.detail = "Occult Contact 1"
 
     def test_integrity_prereq(self):
-        integrity = Merit.objects.create(name="Integrity Merit", ratings=[1], prereqs=[[("Morality Name", "Integritude")]])
+        integrity = Merit.objects.create(
+            name="Integrity Merit",
+            ratings=[1],
+            prereqs=[[("Morality Name", "Integritude")]],
+        )
         self.assertFalse(integrity.check_prereqs(self.character))
         integrity.prereqs = [[("Morality Name", "Integrity")]]
         self.assertTrue(integrity.check_prereqs(self.character))
-        
+
     def test_low_integrity_prereq(self):
-        integrity = Merit.objects.create(name="Integrity Merit", ratings=[1], prereqs=[[("morality", -5)]])
+        integrity = Merit.objects.create(
+            name="Integrity Merit", ratings=[1], prereqs=[[("morality", -5)]]
+        )
         self.assertFalse(integrity.check_prereqs(self.character))
         self.character.morality = 5
         self.assertTrue(integrity.check_prereqs(self.character))
-        integrity2 = Merit.objects.create(name="Integrity Merit", ratings=[1], prereqs=[[("morality", 6)]])
+        integrity2 = Merit.objects.create(
+            name="Integrity Merit", ratings=[1], prereqs=[[("morality", 6)]]
+        )
         self.assertFalse(integrity2.check_prereqs(self.character))
         self.character.morality = 6
         self.assertTrue(integrity2.check_prereqs(self.character))
-        
+
     def test_add_condition(self):
         Condition.objects.create(name="Test Condition")
         self.assertEqual(self.character.conditions.count(), 0)
         self.character.add_condition(Condition.objects.first())
         self.assertEqual(self.character.conditions.count(), 1)
-    
+
     def test_remove_condition(self):
         Condition.objects.create(name="Test Condition")
         self.character.add_condition(Condition.objects.first())
@@ -778,7 +808,7 @@ class TestRandomMortal(TestCase):
         self.assertTrue(character.has_skills())
         self.assertTrue(character.has_specialties())
         self.assertTrue(character.has_merits())
-        
+
     def test_random_condition(self):
         self.assertEqual(self.character.conditions.count(), 0)
         self.character.random_condition()
