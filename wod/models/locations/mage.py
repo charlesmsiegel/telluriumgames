@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models import F, Q
 
 from core.utils import add_dot, weighted_choice
+from wod.models.characters.human import Human
 from wod.models.characters.mage.faction import MageFaction
 from wod.models.characters.mage.resonance import Resonance
 from wod.models.characters.mage.utils import SPHERE_LIST
@@ -327,6 +328,13 @@ class Chantry(Location):
         Library, on_delete=models.CASCADE, blank=True, null=True
     )
     nodes = models.ManyToManyField(Node, blank=True)
+    
+    members = models.ManyToManyField(Human, blank=True, related_name="member_of")
+    ambassador = models.ForeignKey(Human, blank=True, null=True, on_delete=models.CASCADE, related_name="ambassador_from")
+    node_tender = models.ForeignKey(Human, blank=True, null=True, on_delete=models.CASCADE, related_name="tends_node_at")
+    investigator = models.ManyToManyField(Human, blank=True, related_name="investigator_at")
+    guardian = models.ManyToManyField(Human, blank=True, related_name="guardian_of")
+    teacher = models.ManyToManyField(Human, blank=True, related_name="teacher_at")
 
     factional_names = {
         "Akashayana": [
