@@ -164,6 +164,9 @@ class Mage(Mortal):
     def allowed_merit_types():
         return ["Mental", "Physical", "Social", "Mage", "Fighting"]
 
+    def has_merits(self):
+        return self.total_merits() + 5 * (self.gnosis - 1) == 10
+
     def has_path(self):
         return self.path is not None
 
@@ -548,6 +551,16 @@ class Mage(Mortal):
                 return True
             return False
         return False
+    
+    def random_gnosis(self):
+        value = random.random()
+        if value < 0.7:
+            self.gnosis = 1
+        elif value < 0.9:
+            self.gnosis = 2
+        else:
+            self.gnosis = 3
+        return True
 
     def random(self, xp=0):
         self.xp = xp
@@ -560,13 +573,13 @@ class Mage(Mortal):
         self.random_nimbus()
         self.random_arcana()
         self.random_rotes()
-        self.gnosis = 1
+        self.random_gnosis()
         self.set_mana(100)
         options = ["stamina", "resolve", "composure"]
         options = [x for x in options if getattr(self, x) < 5]
         choice = random.choice(options)
         self.add_attribute(choice)
-        self.random_merits()
+        self.random_merits(total_dots=10)
         self.assign_advantages()
         self.random_spend_xp()
         self.save()

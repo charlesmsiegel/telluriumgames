@@ -570,11 +570,11 @@ class Mortal(PolymorphicModel):
             detail = random.choice(possible_details)
         return self.add_merit(choice, detail=detail)
 
-    def random_merits(self):
-        dots = 7
+    def random_merits(self, total_dots=7):
+        dots = total_dots
         while not self.has_merits():
             self.random_merit(dots=dots)
-            dots = 7 - self.total_merits()
+            dots = total_dots - self.total_merits()
 
     def assign_advantages(self):
         if self.merit_rating("Vice-Ridden") > 0:
