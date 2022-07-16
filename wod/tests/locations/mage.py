@@ -32,6 +32,9 @@ class TestNode(TestCase):
                 NodeMeritFlaw.objects.create(name=f"Node {t} {i}", ratings=[i * j])
         self.node = Node.objects.create(name="Test Node")
 
+    def test_gauntlet_rating(self):
+        self.assertEqual(self.node.gauntlet, 3)
+
     def test_add_resonance(self):
         res = Resonance.objects.order_by("?").first()
         self.assertEqual(self.node.resonance_rating(res), 0)
