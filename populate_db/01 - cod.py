@@ -243,15 +243,15 @@ Condition.objects.create(
 )
 Condition.objects.create(
     name="Blind",
-    persistent=False,
-    resolution="Limitation or difficulty that heightens immediate danger",
+    persistent=True,
+    resolution="Your character regains her sight",
 )
-Condition.objects.create(name="Broken", persistent=True, resolution="")
+Condition.objects.create(name="Broken", persistent=True, resolution="Regain a dot of Integrity or Wisdom, lose another dot of Integrity or Wisdom, or achieve an exceptional success on a breaking point or Act of Hubris")
 Condition.objects.create(
     name="Bonded", persistent=False, resolution="The bonded animal dies"
 )
 Condition.objects.create(
-    name="Connected", persistent=False, resolution="Condition shed, bridge burned"
+    name="Connected", persistent=True, resolution="Condition shed, bridge burned"
 )
 Condition.objects.create(name="Crippled", persistent=True, resolution="")
 Condition.objects.create(
@@ -262,7 +262,7 @@ Condition.objects.create(
 Condition.objects.create(
     name="Embarrassing Secret", persistent=False, resolution="The secret gets out"
 )
-Condition.objects.create(name="Fugue", persistent=True, resolution="")
+Condition.objects.create(name="Fugue", persistent=True, resolution="Regain a dot of Integrity or Wisdom, lose another dot of Integrity or Wisdom, or achieve an exceptional success on a breaking point or Act of Hubris")
 Condition.objects.create(
     name="Guilty",
     persistent=False,
@@ -284,8 +284,8 @@ Condition.objects.create(
     persistent=False,
     resolution="Abandoning the goal, successfully navigating",
 )
-Condition.objects.create(name="Madness", persistent=True, resolution="")
-Condition.objects.create(name="Mute", persistent=True, resolution="")
+Condition.objects.create(name="Madness", persistent=True, resolution="Regain a dot of Integrity or Wisdom, lose another dot of Integrity or Wisdom, or achieve an exceptional success on a breaking point or Act of Hubris")
+Condition.objects.create(name="Mute", persistent=True, resolution="Regains voice.")
 Condition.objects.create(
     name="Notoriety",
     persistent=False,
@@ -311,6 +311,78 @@ Condition.objects.create(
     persistent=False,
     resolution="Do something for the object that puts your character in danger, opt to fail a roll to resist a social action by the object",
 )
+
+Condition.objects.create(
+    name="Addicted",
+    persistent=True,
+    resolution="Regain a dot of Integrity or Wisdom, lose another dot of Integrity or Wisdom, or achieve an exceptional success on a breaking point or Act of Hubris",
+)
+Condition.objects.create(
+    name="Charmed",
+    persistent=False,
+    resolution="Your character narrowly avoids some misfortune or enjoys a lucky break; the Condition is resolved as described in MtAw page 315",
+)
+Condition.objects.create(
+    name="Defeated",
+    persistent=False,
+    resolution="This Condition lingers until the character can greatly humble himself in public at great personal cost or until the winner of the Duel takes advantage of the sympathy in a way that injures or abuses the loser.",
+)
+Condition.objects.create(
+    name="Disabled",
+    persistent=True,
+    resolution="Disability is cured in some way",
+)
+Condition.objects.create(
+    name="Enervated",
+    persistent=True,
+    resolution="Only cured if the character regains her soul.",
+)
+Condition.objects.create(
+    name="Humbled",
+    persistent=False,
+    resolution="The character sacrifices of himself in dramatic fashion in the name of the person or symbol that humbled him in the first place.",
+)
+Condition.objects.create(
+    name="Megalomaniacal",
+    persistent=False,
+    resolution="Hurt someone important to you in such a way that it risks further Wisdom loss",
+)
+Condition.objects.create(
+    name="Mystery Commands",
+    persistent=True,
+    resolution="Your character cuts off ties to her Exarch. Traitors are not tolerated, and other characters with this Condition will be sent to punish her, or kill her if she will not return to the Throne's service",
+)
+Condition.objects.create(
+    name="Rampant",
+    persistent=False,
+    resolution="Suffer a Paradox",
+)
+Condition.objects.create(
+    name="Strained",
+    persistent=False,
+    resolution="The character suffers Integrity loss. Take an additional Beat atop that of the breaking point.",
+)
+Condition.objects.create(
+    name="Soulless",
+    persistent=True,
+    resolution="Regain a soul",
+)
+Condition.objects.create(
+    name="Soul Shocked",
+    persistent=False,
+    resolution="Regain full Willpower",
+)
+Condition.objects.create(
+    name="Thrall",
+    persistent=True,
+    resolution="Regain a soul",
+)
+Condition.objects.create(
+    name="Triumphant",
+    persistent=False,
+    resolution="The first time you fail a Social roll with a member of Awakened society, take a Beat and the Condition ends.",
+)
+
 
 Merit.objects.create(
     name="Area of Expertise",
