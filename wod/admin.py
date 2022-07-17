@@ -31,7 +31,7 @@ from wod.models.characters.werewolf import (
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
 from wod.models.locations.human import City, Location
-from wod.models.locations.mage import Chantry, Node
+from wod.models.locations.mage import Chantry, Node, NodeMeritFlaw
 
 
 # Register your models here.
@@ -156,6 +156,11 @@ class CityAdmin(admin.ModelAdmin):
 @admin.register(Node)
 class NodeAdmin(admin.ModelAdmin):
     list_display = ("name", "rank", "parent")
+
+
+@admin.register(NodeMeritFlaw)
+class NodeMeritFlawAdmin(admin.ModelAdmin):
+    list_display = ("name",)
 
 
 @admin.register(Chantry)
