@@ -614,11 +614,11 @@ class Werewolf(Human):
             "attribute": 15,
             "ability": 8,
             "background": 10,
-            "willpower": 1,
+            "willpower": 2,
             "meritflaw": 50,
             "gift": 25,
-            "rage": 5,
-            "gnosis": 1,
+            "rage": 2,
+            "gnosis": 2,
         }
 
     def random_freebie_functions(self):
