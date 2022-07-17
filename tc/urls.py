@@ -34,7 +34,7 @@ urlpatterns = [
     path("megaedges/<pk>/", views.MegaEdgeDetailView.as_view(), name="megaedge"),
     path(
         "momentofinspirations/<pk>/",
-        views.MomentOfInspiration.as_view(),
+        views.MomentOfInspirationDetailView.as_view(),
         name="momentofinspiration",
     ),
     path("paths/<pk>/", views.PathDetailView.as_view(), name="path"),
