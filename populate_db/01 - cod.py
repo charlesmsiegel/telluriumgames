@@ -1030,7 +1030,7 @@ silver_ladder = Order.objects.create(
     name="Silver Ladder", rote_skills=["expression", "persuasion", "subterfuge"]
 )
 free_council = Order.objects.create(
-    name="Free Councl", rote_skills=["crafts", "persuasion", "science"]
+    name="Free Council", rote_skills=["crafts", "persuasion", "science"]
 )
 seers_of_the_throne = Order.objects.create(
     name="Seers of the Throne", rote_skills=["investigation", "occult", "persuasion"]
