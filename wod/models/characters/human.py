@@ -773,7 +773,7 @@ class Human(Character):
     def random_freebies(self):
         frequencies = self.freebie_frequencies()
         while self.freebies > 0:
-            choice = weighted_choice(frequencies)
+            choice = weighted_choice(frequencies, ceiling=100)
             self.random_freebie_functions()[choice]()
 
     def random_freebies_attributes(self):
@@ -792,8 +792,10 @@ class Human(Character):
         self.spend_freebies("willpower")
 
     def random_freebies_meritflaw(self):
-        trait = random.choice([x.name for x in self.filter_mfs()])
-        self.spend_freebies(trait)
+        options = [x.name for x in self.filter_mfs()]
+        if len(options) != 0:
+            trait = random.choice(options)
+            self.spend_freebies(trait)
 
     def xp_frequencies(self):
         return {
@@ -815,7 +817,7 @@ class Human(Character):
         frequencies = self.xp_frequencies()
         counter = 0
         while counter < 10000 and self.xp > 0:
-            choice = weighted_choice(frequencies)
+            choice = weighted_choice(frequencies, ceiling=100)
             spent = self.random_xp_functions()[choice]()
             if not spent:
                 counter += 1

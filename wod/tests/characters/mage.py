@@ -50,6 +50,10 @@ def mage_setup(player):
     for i in range(5):
         MeritFlaw.objects.create(name=f"Merit {i}", ratings=[i], human=True, mage=True)
         MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i], human=True, mage=True)
+        MeritFlaw.objects.create(name=f"Merit2 {i}", ratings=[i], human=True, mage=True)
+        MeritFlaw.objects.create(name=f"Flaw2 {i}", ratings=[-i], human=True, mage=True)
+        MeritFlaw.objects.create(name=f"Merit3 {i}", ratings=[i], human=True, mage=True)
+        MeritFlaw.objects.create(name=f"Flaw3 {i}", ratings=[-i], human=True, mage=True)
         NodeMeritFlaw.objects.create(name=f"Node Merit {i}", ratings=[i])
         NodeMeritFlaw.objects.create(name=f"Node Flaw {i}", ratings=[-i])
 
