@@ -560,15 +560,17 @@ class Mortal(PolymorphicModel):
 
     def random_merit(self, dots=7):
         merit_candidates = self.filter_merits(dots=dots)
-        choice = random.choice(merit_candidates)
-        possible_details = choice.filter_details(self)
-        if len(possible_details) == 0:
-            detail = None
-            if choice.requires_detail:
-                return False
-        else:
-            detail = random.choice(possible_details)
-        return self.add_merit(choice, detail=detail)
+        if len(merit_candidates) != 0:
+            choice = random.choice(merit_candidates)
+            possible_details = choice.filter_details(self)
+            if len(possible_details) == 0:
+                detail = None
+                if choice.requires_detail:
+                    return False
+            else:
+                detail = random.choice(possible_details)
+            return self.add_merit(choice, detail=detail)
+        return False
 
     def random_merits(self, total_dots=7):
         dots = total_dots

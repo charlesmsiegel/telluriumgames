@@ -16,4 +16,7 @@ urlpatterns = [
         name="random_character",
     ),
     path("characters/<pk>/", views.CharacterDetailView.as_view(), name="character"),
+    path("specialties/<pk>/", views.SpecialtyDetailView.as_view(), name="specialty"),
+    path("intimacies/<pk>/", views.IntimacyDetailView.as_view(), name="intimacy"),
+    path("merits/<pk>/", views.MeritDetailView.as_view(), name="merit"),
 ]

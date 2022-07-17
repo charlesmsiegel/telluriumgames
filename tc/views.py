@@ -1,9 +1,9 @@
 from django.shortcuts import redirect, render
-from django.views.generic import CreateView, View
+from django.views.generic import CreateView, View, DetailView
 
-from tc.models.characters.aberrant import Aberrant, MegaEdgeRating, PowerRating
-from tc.models.characters.human import EdgeRating, Human, PathRating
-from tc.models.characters.talent import Talent
+from tc.models.characters.aberrant import Aberrant, MegaEdgeRating, PowerRating, MegaEdge, Power, Tag, Transformation
+from tc.models.characters.human import EdgeRating, Human, PathRating, Edge, EnhancedEdge, Path, PathConnection, Trick, Specialty
+from tc.models.characters.talent import Talent, Gift, MomentOfInspiration
 
 
 # Create your views here.
@@ -134,3 +134,63 @@ class RandomCharacterView(View):
 
     def get(self, request):
         return redirect("cod:characters_index")
+
+
+class EdgeDetailView(DetailView):
+    model = Edge
+    template_name = "tc/characters/edge/detail.html"
+
+
+class EnhancedEdgeDetailView(DetailView):
+    model = EnhancedEdge
+    template_name = "tc/characters/enhancededge/detail.html"
+
+
+class GiftDetailView(DetailView):
+    model = Gift
+    template_name = "tc/characters/gift/detail.html"
+
+
+class MegaEdgeDetailView(DetailView):
+    model = MegaEdge
+    template_name = "tc/characters/megaedge/detail.html"
+
+
+class MomentOfInspirationDetailView(DetailView):
+    model = MomentOfInspiration
+    template_name = "tc/characters/momentofinspiration/detail.html"
+
+
+class PathDetailView(DetailView):
+    model = Path
+    template_name = "tc/characters/path/detail.html"
+
+
+class PathConnectionDetailView(DetailView):
+    model = PathConnection
+    template_name = "tc/characters/pathconnection/detail.html"
+
+
+class PowerDetailView(DetailView):
+    model = Power
+    template_name = "tc/characters/power/detail.html"
+
+
+class SpecialtyDetailView(DetailView):
+    model = Specialty
+    template_name = "tc/characters/specialty/detail.html"
+
+
+class TagDetailView(DetailView):
+    model = Tag
+    template_name = "tc/characters/tag/detail.html"
+
+
+class TransformationDetailView(DetailView):
+    model = Transformation
+    template_name = "tc/characters/transformation/detail.html"
+
+
+class TrickDetailView(DetailView):
+    model = Trick
+    template_name = "tc/characters/trick/detail.html"
