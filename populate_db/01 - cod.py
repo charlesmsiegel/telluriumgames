@@ -242,11 +242,13 @@ Condition.objects.create(
     resolution="Something problematic arises, such as a forgotten arrest warrant or an old enemy",
 )
 Condition.objects.create(
-    name="Blind",
-    persistent=True,
-    resolution="Your character regains her sight",
+    name="Blind", persistent=True, resolution="Your character regains her sight",
 )
-Condition.objects.create(name="Broken", persistent=True, resolution="Regain a dot of Integrity or Wisdom, lose another dot of Integrity or Wisdom, or achieve an exceptional success on a breaking point or Act of Hubris")
+Condition.objects.create(
+    name="Broken",
+    persistent=True,
+    resolution="Regain a dot of Integrity or Wisdom, lose another dot of Integrity or Wisdom, or achieve an exceptional success on a breaking point or Act of Hubris",
+)
 Condition.objects.create(
     name="Bonded", persistent=False, resolution="The bonded animal dies"
 )
@@ -262,7 +264,11 @@ Condition.objects.create(
 Condition.objects.create(
     name="Embarrassing Secret", persistent=False, resolution="The secret gets out"
 )
-Condition.objects.create(name="Fugue", persistent=True, resolution="Regain a dot of Integrity or Wisdom, lose another dot of Integrity or Wisdom, or achieve an exceptional success on a breaking point or Act of Hubris")
+Condition.objects.create(
+    name="Fugue",
+    persistent=True,
+    resolution="Regain a dot of Integrity or Wisdom, lose another dot of Integrity or Wisdom, or achieve an exceptional success on a breaking point or Act of Hubris",
+)
 Condition.objects.create(
     name="Guilty",
     persistent=False,
@@ -284,7 +290,11 @@ Condition.objects.create(
     persistent=False,
     resolution="Abandoning the goal, successfully navigating",
 )
-Condition.objects.create(name="Madness", persistent=True, resolution="Regain a dot of Integrity or Wisdom, lose another dot of Integrity or Wisdom, or achieve an exceptional success on a breaking point or Act of Hubris")
+Condition.objects.create(
+    name="Madness",
+    persistent=True,
+    resolution="Regain a dot of Integrity or Wisdom, lose another dot of Integrity or Wisdom, or achieve an exceptional success on a breaking point or Act of Hubris",
+)
 Condition.objects.create(name="Mute", persistent=True, resolution="Regains voice.")
 Condition.objects.create(
     name="Notoriety",
@@ -328,9 +338,7 @@ Condition.objects.create(
     resolution="This Condition lingers until the character can greatly humble himself in public at great personal cost or until the winner of the Duel takes advantage of the sympathy in a way that injures or abuses the loser.",
 )
 Condition.objects.create(
-    name="Disabled",
-    persistent=True,
-    resolution="Disability is cured in some way",
+    name="Disabled", persistent=True, resolution="Disability is cured in some way",
 )
 Condition.objects.create(
     name="Enervated",
@@ -353,9 +361,7 @@ Condition.objects.create(
     resolution="Your character cuts off ties to her Exarch. Traitors are not tolerated, and other characters with this Condition will be sent to punish her, or kill her if she will not return to the Throne's service",
 )
 Condition.objects.create(
-    name="Rampant",
-    persistent=False,
-    resolution="Suffer a Paradox",
+    name="Rampant", persistent=False, resolution="Suffer a Paradox",
 )
 Condition.objects.create(
     name="Strained",
@@ -363,19 +369,13 @@ Condition.objects.create(
     resolution="The character suffers Integrity loss. Take an additional Beat atop that of the breaking point.",
 )
 Condition.objects.create(
-    name="Soulless",
-    persistent=True,
-    resolution="Regain a soul",
+    name="Soulless", persistent=True, resolution="Regain a soul",
 )
 Condition.objects.create(
-    name="Soul Shocked",
-    persistent=False,
-    resolution="Regain full Willpower",
+    name="Soul Shocked", persistent=False, resolution="Regain full Willpower",
 )
 Condition.objects.create(
-    name="Thrall",
-    persistent=True,
-    resolution="Regain a soul",
+    name="Thrall", persistent=True, resolution="Regain a soul",
 )
 Condition.objects.create(
     name="Triumphant",

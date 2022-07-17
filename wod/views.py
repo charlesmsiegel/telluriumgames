@@ -6,35 +6,35 @@ from django.views.generic import CreateView, DetailView, View
 from core.utils import level_name, tree_sort
 from wod.forms import MageForm, RandomCharacterForm
 from wod.models.characters.human import (
+    Archetype,
     Character,
     Group,
     Human,
-    MeritFlawRating,
-    Archetype,
     MeritFlaw,
+    MeritFlawRating,
     Specialty,
 )
 from wod.models.characters.mage import (
     Cabal,
+    Instrument,
     Mage,
     MageFaction,
-    ResRating,
-    Instrument,
     Paradigm,
     Practice,
     Resonance,
+    ResRating,
     Rote,
 )
 from wod.models.characters.mage.utils import PRIMARY_ABILITIES
 from wod.models.characters.werewolf import (
-    Pack,
-    Werewolf,
     Camp,
     Gift,
+    Pack,
     RenownIncident,
     Rite,
     Totem,
     Tribe,
+    Werewolf,
 )
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder

@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import View, DetailView
-from core.models import Material, Medium, Language
+from django.views.generic import DetailView, View
+
+from core.models import Language, Material, Medium
 
 
 # Create your views here.

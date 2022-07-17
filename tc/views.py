@@ -1,9 +1,27 @@
 from django.shortcuts import redirect, render
-from django.views.generic import CreateView, View, DetailView
+from django.views.generic import CreateView, DetailView, View
 
-from tc.models.characters.aberrant import Aberrant, MegaEdgeRating, PowerRating, MegaEdge, Power, Tag, Transformation
-from tc.models.characters.human import EdgeRating, Human, PathRating, Edge, EnhancedEdge, Path, PathConnection, Trick, Specialty
-from tc.models.characters.talent import Talent, Gift, MomentOfInspiration
+from tc.models.characters.aberrant import (
+    Aberrant,
+    MegaEdge,
+    MegaEdgeRating,
+    Power,
+    PowerRating,
+    Tag,
+    Transformation,
+)
+from tc.models.characters.human import (
+    Edge,
+    EdgeRating,
+    EnhancedEdge,
+    Human,
+    Path,
+    PathConnection,
+    PathRating,
+    Specialty,
+    Trick,
+)
+from tc.models.characters.talent import Gift, MomentOfInspiration, Talent
 
 
 # Create your views here.

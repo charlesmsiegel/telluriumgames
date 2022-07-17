@@ -297,8 +297,10 @@ class Chantry(Location):
         ("democracy", "Democracy"),
         ("anarchy", "Anarchy"),
     ]
-    
-    leadership_type = models.CharField(max_length=20, null=True, choices=LEADERSHIP_CHOICES)
+
+    leadership_type = models.CharField(
+        max_length=20, null=True, choices=LEADERSHIP_CHOICES
+    )
 
     SEASONS = [
         ("spring", "Spring"),
