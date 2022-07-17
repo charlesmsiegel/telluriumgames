@@ -32,4 +32,11 @@ urlpatterns = [
         name="random_character",
     ),
     path("characters/<pk>/", views.CharacterDetailView.as_view(), name="character"),
+    path("conditions/<pk>/", views.ConditionDetailView.as_view(), name="condition"),
+    path("legacies/<pk>/", views.LegacyDetailView.as_view(), name="legacy"),
+    path("merits/<pk>/", views.MeritDetailView.as_view(), name="merit"),
+    path("orders/<pk>/", views.OrderDetailView.as_view(), name="order"),
+    path("paths/<pk>/", views.PathDetailView.as_view(), name="path"),
+    path("rotes/<pk>/", views.RoteDetailView.as_view(), name="rote"),
+    path("specialties/<pk>/", views.SpecialtyDetailView.as_view(), name="specialty"),
 ]

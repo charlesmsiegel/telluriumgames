@@ -1,0 +1,41 @@
+{% extends "core/base.html" %}
+{% block title %}
+    {{ object.name| safe }}
+{% endblock title %}
+<body>
+    {% block content %}
+        {% load dots %}
+        <div class="centertext">
+            <div class="row">
+                <div class="col-sm">Name</div>
+                <div class="col-sm">{{ object.name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">{{ object.get_arcanum_display }}</div>
+                <div class="col-sm dots">{{ object.level|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Practice</div>
+                <div class="col-sm">{{ object.get_practice.display }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Suggested Rote Skills</div>
+                <div class="col-sm">{{ object.suggested_rote_skills }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Primary Spell Factor</div>
+                <div class="col-sm">{{ object.get_primary_factor_display }}</div>
+            </div>
+            {% if object.withstand != "" %}
+                <div class="row">
+                    <div class="col-sm">Withstand</div>
+                    <div class="col-sm">{{ object.withstand }}</div>
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-sm">Mana Cost</div>
+                <div class="col-sm">{{ object.mana_cost }}</div>
+            </div>
+        </div>
+    {% endblock content %}
+</body>

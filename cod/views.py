@@ -3,8 +3,8 @@ from collections import namedtuple
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, View
 
-from cod.models.characters.mage import Mage, Proximi, ProximiFamily
-from cod.models.characters.mortal import MeritRating, Mortal
+from cod.models.characters.mage import Mage, Proximi, ProximiFamily, Legacy, Path, Order, Rote
+from cod.models.characters.mortal import MeritRating, Mortal, Condition, Specialty, Merit
 
 # Create your views here.
 EmptyRote = namedtuple("EmptyRote", ["name", "arcana", "level"])
@@ -177,3 +177,32 @@ class ProximiFamilyCreateView(CreateView):
     model = ProximiFamily
     fields = "__all__"
     template_name = "cod/characters/proximifamily/create.html"
+
+
+class ConditionDetailView(DetailView):
+    model = Condition
+    template_name = "cod/characters/condition/detail.html"
+
+class LegacyDetailView(DetailView):
+    model = Legacy
+    template_name = "cod/characters/legacy/detail.html"
+
+class MeritDetailView(DetailView):
+    model = Merit
+    template_name = "cod/characters/merit/detail.html"
+
+class OrderDetailView(DetailView):
+    model = Order
+    template_name = "cod/characters/order/detail.html"
+
+class PathDetailView(DetailView):
+    model = Path
+    template_name = "cod/characters/path/detail.html"
+
+class RoteDetailView(DetailView):
+    model = Rote
+    template_name = "cod/characters/rote/detail.html"
+
+class SpecialtyDetailView(DetailView):
+    model = Specialty
+    template_name = "cod/characters/specialty/detail.html"

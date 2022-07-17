@@ -5,16 +5,44 @@ from django.views.generic import CreateView, DetailView, View
 
 from core.utils import level_name, tree_sort
 from wod.forms import MageForm, RandomCharacterForm
-from wod.models.characters.human import Character, Group, Human, MeritFlawRating
-from wod.models.characters.mage import Cabal, Mage, MageFaction, ResRating
+from wod.models.characters.human import (
+    Character,
+    Group,
+    Human,
+    MeritFlawRating,
+    Archetype,
+    MeritFlaw,
+    Specialty,
+)
+from wod.models.characters.mage import (
+    Cabal,
+    Mage,
+    MageFaction,
+    ResRating,
+    Instrument,
+    Paradigm,
+    Practice,
+    Resonance,
+    Rote,
+)
 from wod.models.characters.mage.utils import PRIMARY_ABILITIES
-from wod.models.characters.werewolf import Pack, Werewolf
+from wod.models.characters.werewolf import (
+    Pack,
+    Werewolf,
+    Camp,
+    Gift,
+    RenownIncident,
+    Rite,
+    Totem,
+    Tribe,
+)
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
 from wod.models.locations.human import City, Location
 from wod.models.locations.mage import (
     Chantry,
     Node,
+    NodeMeritFlaw,
     NodeMeritFlawRating,
     NodeResonanceRating,
 )
@@ -591,3 +619,83 @@ class GenericGroupDetailView(View):
         if group.type in self.group_views:
             return self.group_views[group.type].as_view()(request, *args, **kwargs)
         return redirect("wod:characters_index")
+
+
+class NodeMeritFlawDetailView(DetailView):
+    model = NodeMeritFlaw
+    template_name = "wod/locations/nodemeritflaw/detail.html"
+
+
+class ArchetypeDetailView(DetailView):
+    model = Archetype
+    template_name = "wod/characters/archetype/detail.html"
+
+
+class CampDetailView(DetailView):
+    model = Camp
+    template_name = "wod/characters/camp/detail.html"
+
+
+class GiftDetailView(DetailView):
+    model = Gift
+    template_name = "wod/characters/gift/detail.html"
+
+
+class InstrumentDetailView(DetailView):
+    model = Instrument
+    template_name = "wod/characters/instrument/detail.html"
+
+
+class MageFactionDetailView(DetailView):
+    model = MageFaction
+    template_name = "wod/characters/magefaction/detail.html"
+
+
+class MeritFlawDetailView(DetailView):
+    model = MeritFlaw
+    template_name = "wod/characters/meritflaw/detail.html"
+
+
+class ParadigmDetailView(DetailView):
+    model = Paradigm
+    template_name = "wod/characters/paradigm/detail.html"
+
+
+class PracticeDetailView(DetailView):
+    model = Practice
+    template_name = "wod/characters/practice/detail.html"
+
+
+class RenownIncidentDetailView(DetailView):
+    model = RenownIncident
+    template_name = "wod/characters/renownincident/detail.html"
+
+
+class ResonanceDetailView(DetailView):
+    model = Resonance
+    template_name = "wod/characters/resonance/detail.html"
+
+
+class RiteDetailView(DetailView):
+    model = Rite
+    template_name = "wod/characters/rite/detail.html"
+
+
+class RoteDetailView(DetailView):
+    model = Rote
+    template_name = "wod/characters/rote/detail.html"
+
+
+class SpecialtyDetailView(DetailView):
+    model = Specialty
+    template_name = "wod/characters/specialty/detail.html"
+
+
+class TotemDetailView(DetailView):
+    model = Totem
+    template_name = "wod/characters/totem/detail.html"
+
+
+class TribeDetailView(DetailView):
+    model = Tribe
+    template_name = "wod/characters/tribe/detail.html"

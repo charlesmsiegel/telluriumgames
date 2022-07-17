@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, View
 
-from exalted.models.characters.mortals import MeritRating, Mortal
+from exalted.models.characters.mortals import MeritRating, Mortal, Specialty, Intimacy, Merit
 
 
 # Create your views here.
@@ -76,3 +76,15 @@ class RandomCharacterView(View):
 
     def get(self, request):
         return redirect("exalted:characters_index")
+
+class SpecialtyDetailView(DetailView):
+    model = Specialty
+    template_name = "exalted/characters/specialty/detail.html"
+    
+class IntimacyDetailView(DetailView):
+    model = Intimacy
+    template_name = "exalted/characters/intimacy/detail.html"
+    
+class MeritDetailView(DetailView):
+    model = Merit
+    template_name = "exalted/characters/merit/detail.html"
