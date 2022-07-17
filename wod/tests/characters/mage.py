@@ -17,7 +17,6 @@ from wod.models.characters.mage import (
     Rote,
 )
 from wod.models.characters.mage.resonance import ResRating
-from wod.models.locations.mage import NodeMeritFlaw
 
 
 # Create your tests here.
@@ -54,8 +53,8 @@ def mage_setup(player):
         MeritFlaw.objects.create(name=f"Flaw2 {i}", ratings=[-i], human=True, mage=True)
         MeritFlaw.objects.create(name=f"Merit3 {i}", ratings=[i], human=True, mage=True)
         MeritFlaw.objects.create(name=f"Flaw3 {i}", ratings=[-i], human=True, mage=True)
-        NodeMeritFlaw.objects.create(name=f"Node Merit {i}", ratings=[i])
-        NodeMeritFlaw.objects.create(name=f"Node Flaw {i}", ratings=[-i])
+        MeritFlaw.objects.create(name=f"Node Merit {i}", ratings=[i], node=True)
+        MeritFlaw.objects.create(name=f"Node Flaw {i}", ratings=[-i], node=True)
 
     for i in range(1, 11):
         Resonance.objects.create(name=f"Resonance {i}")

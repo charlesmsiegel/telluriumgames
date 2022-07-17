@@ -4,7 +4,7 @@ from django.db import models
 from django.db.models import F, Q
 
 from core.utils import add_dot, weighted_choice
-from wod.models.characters.human import Human
+from wod.models.characters.human import Human, MeritFlaw
 from wod.models.characters.mage.faction import MageFaction
 from wod.models.characters.mage.resonance import Resonance
 from wod.models.characters.mage.utils import SPHERE_LIST
@@ -41,7 +41,7 @@ class Node(Location):
 
     points = models.IntegerField(default=0)
     merits_and_flaws = models.ManyToManyField(
-        "NodeMeritFlaw", blank=True, through="NodeMeritFlawRating"
+        "MeritFlaw", blank=True, through="NodeMeritFlawRating"
     )
     resonance = models.ManyToManyField(
         Resonance, blank=True, through="NodeResonanceRating"
@@ -89,12 +89,12 @@ class Node(Location):
         return sum(x.rating for x in NodeMeritFlawRating.objects.filter(node=self))
 
     def filter_mf(self, minimum=-10, maximum=10):
-        new_mfs = NodeMeritFlaw.objects.exclude(pk__in=self.merits_and_flaws.all())
+        new_mfs = MeritFlaw.objects.filter(node=True).exclude(pk__in=self.merits_and_flaws.all())
         had_mf_ratings = NodeMeritFlawRating.objects.all()
         had_mf_ratings = had_mf_ratings.filter(rating__lt=F("mf__max_rating"))
 
-        had_mfs = NodeMeritFlaw.objects.filter(
-            pk__in=had_mf_ratings.values_list("mf", flat=True)
+        had_mfs = MeritFlaw.objects.filter(
+            pk__in=had_mf_ratings.values_list("mf", flat=True), node=True
         )
         q = new_mfs | had_mfs
         return q
@@ -257,23 +257,9 @@ class Node(Location):
         self.points = 0
 
 
-class NodeMeritFlaw(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    ratings = models.JSONField(default=list)
-    max_rating = models.IntegerField(default=0)
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name
-
-    def save(self, *args, **kwargs):
-        self.max_rating = max(self.ratings)
-        super().save(*args, **kwargs)
-
-
 class NodeMeritFlawRating(models.Model):
     node = models.ForeignKey(Node, on_delete=models.CASCADE)
-    mf = models.ForeignKey(NodeMeritFlaw, on_delete=models.CASCADE)
+    mf = models.ForeignKey(MeritFlaw, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
 
 

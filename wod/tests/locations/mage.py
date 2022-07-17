@@ -13,8 +13,9 @@ from wod.models.characters.mage import (
     Rote,
 )
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
+from wod.models.characters.human import MeritFlaw
 from wod.models.items.mage import Library
-from wod.models.locations.mage import Chantry, Node, NodeMeritFlaw
+from wod.models.locations.mage import Chantry, Node
 from wod.tests.items.mage import grimoire_setup
 
 
@@ -29,7 +30,7 @@ class TestNode(TestCase):
                     t = "Merit"
                 else:
                     t = "Flaw"
-                NodeMeritFlaw.objects.create(name=f"Node {t} {i}", ratings=[i * j])
+                MeritFlaw.objects.create(name=f"Node {t} {i}", ratings=[i * j], node=True)
         self.node = Node.objects.create(name="Test Node")
 
     def test_gauntlet_rating(self):
@@ -74,8 +75,8 @@ class TestNode(TestCase):
         self.assertNotEqual(self.node.rank, 0)
 
     def test_resonance_postprocessing(self):
-        merit1 = NodeMeritFlaw.objects.create(name="Corrupted", ratings=[0])
-        merit2 = NodeMeritFlaw.objects.create(name="Sphere Attuned", ratings=[0])
+        merit1 = MeritFlaw.objects.create(name="Corrupted", ratings=[0], node=True)
+        merit2 = MeritFlaw.objects.create(name="Sphere Attuned", ratings=[0], node=True)
         Resonance.objects.create(name="Corrupted")
         Resonance.objects.create(
             name="Sphered",
@@ -100,20 +101,20 @@ class TestNode(TestCase):
     def test_add_mf(self):
         num = self.node.total_mf()
         self.assertFalse(
-            self.node.add_mf(NodeMeritFlaw.objects.get(name="Node Merit 3"), 4)
+            self.node.add_mf(MeritFlaw.objects.get(name="Node Merit 3"), 4)
         )
         self.assertTrue(
-            self.node.add_mf(NodeMeritFlaw.objects.get(name="Node Merit 3"), 3)
+            self.node.add_mf(MeritFlaw.objects.get(name="Node Merit 3"), 3)
         )
         self.assertEqual(self.node.total_mf(), num + 3)
 
     def test_filter_mf(self):
         self.assertEqual(len(self.node.filter_mf()), 10)
-        for mf in NodeMeritFlaw.objects.all():
+        for mf in MeritFlaw.objects.all(node=True):
             if "Merit" in mf.name:
                 self.node.add_mf(mf, mf.ratings[0])
         self.assertEqual(len(self.node.filter_mf()), 5)
-        for mf in NodeMeritFlaw.objects.all():
+        for mf in MeritFlaw.objects.filter(node=True):
             if "Flaw" in mf.name:
                 self.node.add_mf(mf, mf.ratings[0])
         self.assertEqual(len(self.node.filter_mf()), 0)
@@ -126,9 +127,9 @@ class TestNode(TestCase):
 
     def test_total_mf(self):
         self.assertEqual(self.node.total_mf(), 0)
-        self.node.add_mf(NodeMeritFlaw.objects.get(name="Node Merit 3"), 3)
+        self.node.add_mf(MeritFlaw.objects.get(name="Node Merit 3"), 3)
         self.assertEqual(self.node.total_mf(), 3)
-        self.node.add_mf(NodeMeritFlaw.objects.get(name="Node Flaw 2"), -2)
+        self.node.add_mf(MeritFlaw.objects.get(name="Node Flaw 2"), -2)
         self.assertEqual(self.node.total_mf(), 1)
 
     def test_set_size(self):
@@ -224,7 +225,7 @@ class TestChantry(TestCase):
                     t = "Merit"
                 else:
                     t = "Flaw"
-                NodeMeritFlaw.objects.create(name=f"Node {t} {i}", ratings=[i * j])
+                MeritFlaw.objects.create(name=f"Node {t} {i}", ratings=[i * j], node=True)
         grimoire_setup()
 
     def test_total_points(self):
