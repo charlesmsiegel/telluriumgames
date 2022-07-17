@@ -290,6 +290,16 @@ class Chantry(Location):
         MageFaction, blank=True, null=True, on_delete=models.CASCADE
     )
 
+    LEADERSHIP_CHOICES = [
+        ("panel", "Panel of Cabal Leaders"),
+        ("teachers", "Teachers"),
+        ("triumvirate", "Triumvirate"),
+        ("democracy", "Democracy"),
+        ("anarchy", "Anarchy"),
+    ]
+    
+    leadership_type = models.CharField(max_length=20, null=True, choices=LEADERSHIP_CHOICES)
+
     SEASONS = [
         ("spring", "Spring"),
         ("winter", "Winter"),
