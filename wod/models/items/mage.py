@@ -74,8 +74,8 @@ class Grimoire(Wonder):
             if self.practices.count() > 0:
                 for practice in self.practices.all():
                     for ability in practice.abilities:
-                        ability_dict[ability] += 1
-            abilities.append(weighted_choice(ability_dict))
+                        ability_dict[ability] += 4
+            abilities.append(weighted_choice(ability_dict, ceiling=20))
             while random.random() < 0.1:
                 abilities.append(
                     weighted_choice(
