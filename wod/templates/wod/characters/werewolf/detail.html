@@ -285,6 +285,15 @@
         {% endfor %}
 
         <div class="row">
+            <h2 class="col-sm wta_heading">Fetishes</h2>
+        </div>
+        {% for fetish in object.fetishes_owned.all %}
+        <div class="row">
+            <a class="col-sm" href="{{ fetish.get_absolute_url }}">{{ fetish.name }}</a>
+        </div>
+        {% endfor %}
+
+        <div class="row">
             <h2 class="col-sm wta_heading">Merits and Flaws</h2>
         </div>
         <div class="row">

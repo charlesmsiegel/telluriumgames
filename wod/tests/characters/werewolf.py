@@ -14,6 +14,7 @@ from wod.models.characters.werewolf import (
     Tribe,
     Werewolf,
 )
+from wod.models.items.werewolf import Fetish
 
 
 # Create your tests here.
@@ -65,6 +66,12 @@ def werewolf_setup(player):
                     honor=j - 1,
                     wisdom=k - 1,
                 )
+    for i in range(6):
+        Fetish.objects.create(name=f"Fetish {i}", rank=i, gnosis=i)
+        Fetish.objects.create(name=f"Fetish {i+6}", rank=i, gnosis=i)
+        Fetish.objects.create(name=f"Fetish {i+12}", rank=i, gnosis=i)
+        Fetish.objects.create(name=f"Fetish {i+18}", rank=i, gnosis=i)
+        Fetish.objects.create(name=f"Fetish {i+24}", rank=i, gnosis=i)
 
 
 class TestWerewolf(TestCase):

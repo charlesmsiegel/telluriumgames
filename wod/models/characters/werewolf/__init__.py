@@ -1,1 +1,1 @@
-from .garou import Werewolf, Pack, RenownIncident, Rite, Gift, Camp, Tribe, Totem
+from .garou import Camp, Gift, Pack, RenownIncident, Rite, Totem, Tribe, Werewolf

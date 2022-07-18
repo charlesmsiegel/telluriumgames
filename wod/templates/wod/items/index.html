@@ -11,9 +11,11 @@
                 </div>
             </div>
             {% for obj in items %}
-                <div class="row border">
-                    <a class="col-sm border" href="{% url 'wod:item' obj.id %}">{{ obj.name }}</a>
-                </div>
+                {% if obj.display %}
+                    <div class="row border">
+                        <a class="col-sm border" href="{% url 'wod:item' obj.id %}">{{ obj.name }}</a>
+                    </div>
+                {% endif %}
             {% endfor %}
         </div>
         <form action="{% url 'wod:random_item' %}" method="post">
@@ -21,7 +23,7 @@
             <div class="row">
                 <div class="col-sm"></div>
                 <div class="col-sm">
-                        <label>
+                    <label>
                         <select name="item_type">
                             <option value="grimoire">
                                 Grimoire

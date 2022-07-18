@@ -4,7 +4,7 @@ from django.db import models
 from django.db.models import F, Q
 from django.urls import reverse
 
-from cod.models.characters.mortal import Mortal, Merit
+from cod.models.characters.mortal import Merit, Mortal
 from core.utils import add_dot, weighted_choice
 
 # Create your models here.
@@ -583,7 +583,7 @@ class Mage(Mortal):
         self.assign_advantages()
         self.random_spend_xp()
         self.save()
-        
+
     def assign_advantages(self):
         if self.order is not None:
             if Merit.objects.filter(name=f"{self.order.name} Status").exists():

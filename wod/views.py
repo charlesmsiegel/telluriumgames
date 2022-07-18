@@ -38,6 +38,7 @@ from wod.models.characters.werewolf import (
 )
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
+from wod.models.items.werewolf import Fetish
 from wod.models.locations.human import City, Location
 from wod.models.locations.mage import (
     Chantry,
@@ -337,12 +338,18 @@ class LibraryCreateView(CreateView):
     template_name = "wod/items/libtary/create.html"
 
 
+class FetishDetailView(DetailView):
+    model = Fetish
+    template_name = "wod/items/fetish/detail.html"
+
+
 class GenericItemDetailView(View):
     views = {
         "item": ItemDetailView,
         "wonder": WonderDetailView,
         "grimoire": GrimoireDetailView,
         "library": LibraryDetailView,
+        "fetish": FetishDetailView,
     }
 
     def get(self, request, *args, **kwargs):
