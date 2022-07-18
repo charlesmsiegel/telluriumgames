@@ -1320,7 +1320,7 @@ weapons = Instrument.objects.create(name="Weapons")
 writings = Instrument.objects.create(name="Writings, inscriptions and runes")
 
 abyssalism = Practice.objects.create(
-    name="Abyssalism", abilities=["cosmology", "engimas", "subterfuge"]
+    name="Abyssalism", abilities=["cosmology", "enigmas", "subterfuge"]
 )
 abyssalism.instruments.add(
     atrocity,
