@@ -7,6 +7,7 @@ from wod.models.characters.werewolf import (
     Totem,
     Tribe,
 )
+from wod.models.items.werewolf import Fetish
 
 black_furies = Tribe.objects.create(name="Black Furies", willpower=3)
 bone_gnawers = Tribe.objects.create(name="Bone Gnawers", willpower=4)
@@ -1798,3 +1799,314 @@ Camp.objects.create(name="Lazarite Movement", tribe=None)
 Camp.objects.create(name="Hakken", tribe=shadow_lords)
 Camp.objects.create(name="Boli Zousizhe", tribe=glass_walker)
 Camp.objects.create(name="Kucha Ekundu", tribe=red_talons)
+
+Fetish.objects.create(
+    name="Apeskin",
+    rank=1,
+    gnosis=6,
+    description="",
+    spirit="Homid Ancestor-Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Harmony Flute",
+    rank=1,
+    gnosis=5,
+    description="",
+    spirit="Bird Spirit or Spirit of Peace, Calm, or Water",
+    display=False,
+)
+Fetish.objects.create(
+    name="Magpie's Swag",
+    rank=1,
+    gnosis=5,
+    description="",
+    spirit="Magpie or Marsupial Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Mirrorshades",
+    rank=1,
+    gnosis=7,
+    description="",
+    spirit="Glass Elemental",
+    display=False,
+)
+Fetish.objects.create(
+    name="Nyx's Bangle",
+    rank=1,
+    gnosis=6,
+    description="",
+    spirit="Night or Darkness Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Truth Earring",
+    rank=1,
+    gnosis=6,
+    description="",
+    spirit="Servant of Falcon",
+    display=False,
+)
+Fetish.objects.create(
+    name="Cup of the Alicorn",
+    rank=2,
+    gnosis=6,
+    description="",
+    spirit="Spirit of Healing or a Snake or Bear Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Chameleon Skin",
+    rank=2,
+    gnosis=7,
+    description="",
+    spirit="Chameleon Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Dagger of Retribution",
+    rank=2,
+    gnosis=5,
+    description="",
+    spirit="Vengeance Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Dream Stealer",
+    rank=2,
+    gnosis=5,
+    description="",
+    spirit="Dream Spirit or one of Cuckoo's Brood",
+    display=False,
+)
+Fetish.objects.create(
+    name="Spirit Tracer",
+    rank=2,
+    gnosis=5,
+    description="",
+    spirit="Predator Spirit or Spirit with the Tracking Charm",
+    display=False,
+)
+Fetish.objects.create(
+    name="Baneskin",
+    rank=3,
+    gnosis=7,
+    description="",
+    spirit="Parrot or Mockingbird Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Beast Mask",
+    rank=3,
+    gnosis=8,
+    description="",
+    spirit="Appropriate Animal Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="D'siah",
+    rank=3,
+    gnosis=6,
+    description="",
+    spirit="War Spirit, usually Cobra's Brood",
+    display=False,
+)
+Fetish.objects.create(
+    name="Fang Dagger",
+    rank=3,
+    gnosis=6,
+    description="",
+    spirit="Snake Spirit or Spirit of War, Pain, or Death",
+    display=False,
+)
+Fetish.objects.create(
+    name="Partridge Wing",
+    rank=3,
+    gnosis=7,
+    description="",
+    spirit="Spirit of Water or Forgetfulness",
+    display=False,
+)
+Fetish.objects.create(
+    name="Phoebe's Veil",
+    rank=3,
+    gnosis=7,
+    description="",
+    spirit="Lune, Chameleon Spirit, Spirit of Illusion or Shadow",
+    display=False,
+)
+Fetish.objects.create(
+    name="Sanctuary Chimes",
+    rank=3,
+    gnosis=6,
+    description="",
+    spirit="Spirit of Protection or a Turtle Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Sun Whip",
+    rank=3,
+    gnosis=7,
+    description="",
+    spirit="Spirit of Flame or Sunlight",
+    display=False,
+)
+Fetish.objects.create(
+    name="Wind Whistle",
+    rank=3,
+    gnosis=5,
+    description="",
+    spirit="Wind Elemental",
+    display=False,
+)
+Fetish.objects.create(
+    name="Feathered Cloak",
+    rank=4,
+    gnosis=8,
+    description="",
+    spirit="Bird Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Ironhammer",
+    rank=4,
+    gnosis=5,
+    description="",
+    spirit="Spirit if War",
+    display=False,
+)
+Fetish.objects.create(
+    name="Klaive", rank=4, gnosis=6, description="", spirit="War Spirit", display=False,
+)
+Fetish.objects.create(
+    name="Labrys of Isthmene",
+    rank=4,
+    gnosis=7,
+    description="",
+    spirit="War Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Monkey Puzzle",
+    rank=4,
+    gnosis=6,
+    description="",
+    spirit="Ghost, Spirit of Illusion, or Trickster Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Spirit Whistle",
+    rank=4,
+    gnosis=8,
+    description="",
+    spirit="Screech-Owl Spirit, Spirit of Madness or Discord",
+    display=False,
+)
+Fetish.objects.create(
+    name="Personal Umbral Digital Application",
+    rank=4,
+    gnosis=8,
+    description="",
+    spirit="Bee Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Unbroken Cord",
+    rank=4,
+    gnosis=6,
+    description="",
+    spirit="Unity Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Grand Klaive",
+    rank=5,
+    gnosis=7,
+    description="",
+    spirit="War Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Jarlhammer",
+    rank=5,
+    gnosis=6,
+    description="",
+    spirit="Spirits of War and Silver",
+    display=False,
+)
+Fetish.objects.create(
+    name="Runestones",
+    rank=5,
+    gnosis=7,
+    description="",
+    spirit="Spirit of Time, Dream, Enigmas, or Wisdom",
+    display=False,
+)
+Fetish.objects.create(
+    name="Bane Arrows",
+    rank=0,
+    gnosis=4,
+    description="",
+    spirit="Spirit of War, Air or Pain",
+    display=False,
+)
+Fetish.objects.create(
+    name="Chiropteran Spies",
+    rank=0,
+    gnosis=6,
+    description="",
+    spirit="Bat Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Death Dust",
+    rank=0,
+    gnosis=6,
+    description="",
+    spirit="Spirit of Death, Communication, or Divination",
+    display=False,
+)
+Fetish.objects.create(
+    name="Gaia's Breath",
+    rank=0,
+    gnosis=5,
+    description="",
+    spirit="Spirit of Healing",
+    display=False,
+)
+Fetish.objects.create(
+    name="Moon Glow", rank=0, gnosis=8, description="", spirit="Lune", display=False,
+)
+Fetish.objects.create(
+    name="Moon Sign",
+    rank=0,
+    gnosis=5,
+    description="",
+    spirit="Lune, Wyld Spirit, or Wolf Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Nightshade",
+    rank=0,
+    gnosis=5,
+    description="",
+    spirit="Spirit of Night or Darkness",
+    display=False,
+)
+Fetish.objects.create(
+    name="Wind Snorkel",
+    rank=0,
+    gnosis=3,
+    description="",
+    spirit="Air Elemental",
+    display=False,
+)
+Fetish.objects.create(
+    name="Wym Scale",
+    rank=0,
+    gnosis=8,
+    description="",
+    spirit="Wyrm Spirit",
+    display=False,
+)

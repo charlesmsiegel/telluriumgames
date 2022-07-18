@@ -8,6 +8,7 @@ from django.urls import reverse
 
 from core.utils import add_dot, weighted_choice
 from wod.models.characters.human import Group, Human
+from wod.models.items.werewolf import Fetish
 
 
 class Totem(models.Model):
@@ -127,6 +128,7 @@ class Werewolf(Human):
 
     gifts = models.ManyToManyField(Gift, blank=True)
     rites_known = models.ManyToManyField(Rite, blank=True)
+    fetishes_owned = models.ManyToManyField(Fetish, blank=True)
 
     first_change = models.TextField(default="")
     battle_scars = models.TextField(default="")
@@ -741,6 +743,34 @@ class Werewolf(Human):
                 if self.increase_rank():
                     starting_xp = self.xp
 
+    def add_fetish(self, fetish):
+        if fetish in self.fetishes_owned.all():
+            return False
+        self.fetishes_owned.add(fetish)
+        return True
+
+    def filter_fetishes(self, min_rating=0, max_rating=5):
+        return Fetish.objects.filter(
+            rank__lte=max_rating, rank__gte=min_rating
+        ).exclude(pk__in=self.fetishes_owned.all())
+
+    def random_fetish(self, min_rating=0, max_rating=5):
+        options = self.filter_fetishes(min_rating=min_rating, max_rating=max_rating)
+        if options.count() != 0:
+            choice = random.choice(options)
+            return self.add_fetish(choice)
+        return False
+
+    def random_fetishes(self, total_rating=0):
+        total = self.total_fetish_rating() + total_rating
+        while self.total_fetish_rating() < total:
+            self.random_fetish(
+                max_rating=total - self.total_fetish_rating(), min_rating=1
+            )
+
+    def total_fetish_rating(self):
+        return sum(x.rank for x in self.fetishes_owned.all())
+
     def random(self, freebies=15, xp=0, ethnicity=None):
         self.freebies = freebies
         self.xp = xp
@@ -763,6 +793,7 @@ class Werewolf(Human):
         self.random_freebies()
         self.random_xp()
         self.random_specialties()
+        self.random_fetishes(total_rating=self.fetish)
         self.save()
 
 
