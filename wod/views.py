@@ -36,7 +36,6 @@ from wod.models.characters.werewolf import (
     Tribe,
     Werewolf,
 )
-from wod.models.locations.werewolf import Caern
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
 from wod.models.items.werewolf import Fetish
@@ -48,6 +47,7 @@ from wod.models.locations.mage import (
     NodeMeritFlawRating,
     NodeResonanceRating,
 )
+from wod.models.locations.werewolf import Caern
 
 EmptyRote = namedtuple("EmptyRote", ["name", "spheres"])
 empty_rote = EmptyRote("", "")

@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from wod.models.locations.werewolf import Caern
 
 
