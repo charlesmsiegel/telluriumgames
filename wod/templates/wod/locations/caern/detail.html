@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% block title %}{{ object.name }}{% endblock title %}
+<body>
+    {% block content %}
+        <h1>{{ object.name }}</h1>
+        Parent: {{ object.parent }}
+        <br/>
+        <br/>
+        {{ object.description }}
+        <br/>
+        <div class="row">
+            <div class="col-sm">Rank</div>
+            <div class="col-sm">{{ object.rank }}</div>
+            <div class="col-sm">Type</div>
+            <div class="col-sm">{{ object.get_type_display }}</div>
+        </div>
+        <br/>
+        <table>
+            <tr>
+                <td>Gauntlet</td>
+                <td>{{ object.gauntlet }}</td>
+                <td>Shroud</td>
+                <td>{{ object.shroud }}</td>
+            </tr>
+        </table>
+    </body>
+{% endblock content %}

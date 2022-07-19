@@ -654,8 +654,10 @@ class Human(PolymorphicModel):
         attributes = self.filter_attributes(maximum=4)
         self.add_attribute(weighted_choice(attributes))
         total_edges = self.total_edges()
-        while self.total_edges() - total_edges < 4:
+        attempts = 0
+        while (self.total_edges() - total_edges) < 4 and attempts < 20:
             self.random_edge(dots=4 + total_edges - self.total_edges())
+            attempts += 1
         if self.stamina >= 3:
             self.injured_levels = 2
         if self.stamina == 5:

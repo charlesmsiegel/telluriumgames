@@ -35,6 +35,8 @@ from wod.models.characters.werewolf import (
     Totem,
     Tribe,
     Werewolf,
+    SpiritCharacter,
+    Charm,
 )
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
@@ -47,6 +49,7 @@ from wod.models.locations.mage import (
     NodeMeritFlawRating,
     NodeResonanceRating,
 )
+from wod.models.locations.werewolf import Caern
 
 EmptyRote = namedtuple("EmptyRote", ["name", "spheres"])
 empty_rote = EmptyRote("", "")
@@ -217,12 +220,18 @@ class ChantryCreateView(CreateView):
     template_name = "wod/locations/chantry/create.html"
 
 
+class CaernDetailView(DetailView):
+    model = Caern
+    template_name = "wod/locations/caern/detail.html"
+
+
 class GenericLocationDetailView(View):
     views = {
         "location": LocationDetailView,
         "city": CityDetailView,
         "node": NodeDetailView,
         "chantry": ChantryDetailView,
+        "caern": CaernDetailView,
     }
 
     def get(self, request, *args, **kwargs):
@@ -531,12 +540,18 @@ class MageCreateView(CreateView):
     template_name = "wod/characters/mage/create.html"
 
 
+class SpiritDetailView(DetailView):
+    model = SpiritCharacter
+    template_name = "wod/characters/spirit/detail.html"
+
+
 class GenericCharacterDetailView(View):
     character_views = {
         "character": CharacterDetailView,
         "human": HumanDetailView,
         "garou": WerewolfDetailView,
         "mage": MageDetailView,
+        "spirit_character": SpiritDetailView,
     }
 
     def get(self, request, *args, **kwargs):
@@ -706,3 +721,7 @@ class TotemDetailView(DetailView):
 class TribeDetailView(DetailView):
     model = Tribe
     template_name = "wod/characters/tribe/detail.html"
+
+class CharmDetailView(DetailView):
+    model = Charm
+    template_name = "wod/characters/charm/detail.html"

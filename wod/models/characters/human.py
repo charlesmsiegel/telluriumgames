@@ -68,10 +68,11 @@ class Character(PolymorphicModel):
 
     name = models.CharField(max_length=100, unique=True)
     player = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="wod_characters"
+        User, on_delete=models.CASCADE, related_name="wod_characters", null=True, blank=True
     )
     concept = models.CharField(max_length=100)
     description = models.TextField(default="")
+    display = models.BooleanField(default=True)
 
     def has_concept(self):
         return self.concept != ""

@@ -6,6 +6,8 @@ from wod.models.characters.werewolf import (
     Rite,
     Totem,
     Tribe,
+    SpiritCharacter,
+    Charm,
 )
 from wod.models.items.werewolf import Fetish
 
@@ -1662,8 +1664,6 @@ RenownIncident.objects.create(
 )
 RenownIncident.objects.create(name="Repairing the Veil", glory=0, honor=3, wisdom=1)
 
-# Totem.objects.create(name="", cost=0)
-
 Archetype.objects.get_or_create(name="Alpha")
 Archetype.objects.get_or_create(name="Architect")
 Archetype.objects.get_or_create(name="Barterer")
@@ -2109,4 +2109,345 @@ Fetish.objects.create(
     description="",
     spirit="Wyrm Spirit",
     display=False,
+)
+
+Charm.objects.create(name="Airt Sense")
+Charm.objects.create(name="Materialize")
+Charm.objects.create(name="Realm Sense")
+Charm.objects.create(name="Re-form")
+Charm.objects.create(name="Armor")
+Charm.objects.create(name="Blast")
+Charm.objects.create(name="Cleanse the Blight")
+Charm.objects.create(name="Control Electrical Systems")
+Charm.objects.create(name="Create Fires")
+Charm.objects.create(name="Create Wind")
+Charm.objects.create(name="Illuminate")
+Charm.objects.create(name="Flood")
+Charm.objects.create(name="Freeze")
+Charm.objects.create(name="Healing")
+# Charm.objects.create(name="Open Moon Bridge")
+Charm.objects.create(name="Peek")
+Charm.objects.create(name="Shapeshift")
+Charm.objects.create(name="Shatter Glass")
+Charm.objects.create(name="Short Out")
+Charm.objects.create(name="Swift Flight")
+Charm.objects.create(name="Tracking")
+Charm.objects.create(name="Umbraquake")
+Charm.objects.create(name="Updraft")
+Charm.objects.create(name="Blighted Touch")
+Charm.objects.create(name="Corruption")
+Charm.objects.create(name="Incite Frenze")
+Charm.objects.create(name="Possession")
+Charm.objects.create(name="Calcify")
+Charm.objects.create(name="Solidify Reality")
+Charm.objects.create(name="Spirit Static")
+Charm.objects.create(name="Break Reality")
+Charm.objects.create(name="Disorient")
+
+for g in Gift.objects.all():
+    Charm.objects.create(name=g.name)
+
+SpiritCharacter.objects.create(
+    name="Deer", willpower=4, rage=4, gnosis=6, essence=14, display=False
+)
+x = SpiritCharacter.objects.create(
+    name="Falcon", willpower=8, rage=6, gnosis=5, essence=19, display=False
+)
+x.charms.set(Charm.objects.filter(name__in=["Swift Flight"]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Snake", willpower=5, rage=6, gnosis=8, essence=19, display=False
+)
+x.charms.set(Charm.objects.filter(name__in=["Paralyzing Stare"]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Wolf", willpower=6, rage=7, gnosis=5, essence=18, display=False
+)
+x.charms.set(Charm.objects.filter(name__in=["Tracking"]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Glade Child (Sapling)",
+    willpower=7,
+    rage=3,
+    gnosis=8,
+    essence=20,
+    display=False,
+)
+x.charms.set(Charm.objects.filter(name__in=["Cleanse the Blight", "Realm Sense"]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Glade Child (Mature)",
+    willpower=7,
+    rage=3,
+    gnosis=8,
+    essence=35,
+    display=False,
+)
+x.charms.set(Charm.objects.filter(name__in=["Cleanse the Blight", "Realm Sense"]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Glade Child (Ancient)",
+    willpower=7,
+    rage=3,
+    gnosis=8,
+    essence=50,
+    display=False,
+)
+x.charms.set(Charm.objects.filter(name__in=["Cleanse the Blight", "Realm Sense"]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Lune", willpower=8, rage=4, gnosis=7, essence=19, display=False
+)
+x.charms.set(Charm.objects.filter(name__in=["Open Moon Bridge"]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Stormcrows", willpower=9, rage=7, gnosis=6, essence=22, display=False
+)
+x.charms.set(Charm.objects.filter(name__in=["Create Wind", "Tracking"]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="The Wendigo", willpower=7, rage=10, gnosis=5, essence=32, display=False
+)
+x.charms.set(
+    Charm.objects.filter(
+        name__in=["Blast", "Create Wind", "Freeze", "Materialize", "Tracking"]
+    )
+)
+x.save()
+x = SpiritCharacter.objects.create(
+    name="The Wild Hunt (Huntsman)",
+    willpower=10,
+    rage=10,
+    gnosis=5,
+    essence=40,
+    display=False,
+)
+x.charms.set(Charm.objects.filter(name__in=["Armor", "Materialize", "Tracking"]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="The Wild Hunt (The Hounds)",
+    willpower=6,
+    rage=7,
+    gnosis=2,
+    essence=18,
+    display=False,
+)
+x.charms.set(Charm.objects.filter(name__in=["Materialize", "Tracking"]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Ancestor Spirit", willpower=6, rage=8, gnosis=7, essence=21, display=False
+)
+x.charms.set(Charm.objects.filter(name__in=[]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Earth Elemental", willpower=9, rage=4, gnosis=5, essence=20, display=False
+)
+x.charms.set(Charm.objects.filter(name__in=["Armor", "Materialize", "Umbraquake"]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Air Elemental", willpower=3, rage=8, gnosis=7, essence=18, display=False
+)
+x.charms.set(Charm.objects.filter(name__in=["Create Wind", "Updraft"]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Fire Elemental", willpower=5, rage=10, gnosis=5, essence=20, display=False
+)
+x.charms.set(Charm.objects.filter(name__in=["Blast", "Create Fires"]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Water Elemental", willpower=6, rage=4, gnosis=10, essence=20, display=False
+)
+x.charms.set(Charm.objects.filter(name__in=["Cleanse the Blight", "Flood", "Healing"]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Glass Elemental", willpower=4, rage=7, gnosis=7, essence=18, display=False
+)
+x.charms.set(Charm.objects.filter(name__in=["Blast", "Materialize", "Shatter Glass"]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Electricity Elemental",
+    willpower=6,
+    rage=7,
+    gnosis=5,
+    essence=18,
+    display=False,
+)
+x.charms.set(
+    Charm.objects.filter(name__in=["Blast", "Control Electrical Systems", "Short Out"])
+)
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Chimerling", willpower=3, rage=5, gnosis=10, essence=18, display=False
+)
+x.charms.set(Charm.objects.filter(name__in=["Shapeshift"]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Engling", willpower=5, rage=1, gnosis=10, essence=16, display=False
+)
+x.charms.set(Charm.objects.filter(name__in=[]))
+x.save()
+x = SpiritCharacter.objects.create(
+    name="Curiosi", willpower=5, rage=3, gnosis=9, essence=17, display=False
+)
+x.charms.set(Charm.objects.filter(name__in=["Illuminate"]))
+x.save()
+
+for spirit in SpiritCharacter.objects.all():
+    for x in Charm.objects.filter(
+        name__in=["Airt Sense", "Materialize", "Realm Sense", "Re-Form",]
+    ):
+        spirit.charms.add(x)
+
+
+Totem.objects.create(
+    name="Falcon",
+    cost=5,
+    totem_type="respect",
+    individual_traits="2 points of Honor Renown",
+    pack_traits="Three Dots of Leadership and 4 Willpower points per story",
+    ban="Death before Dishonor",
+)
+Totem.objects.create(
+    name="Grandfather Thunder",
+    cost=7,
+    totem_type="respect",
+    individual_traits="1 point of Honor Renown, 2 dice on intimidate rolls when invoking Thunder's name",
+    pack_traits="3 dots of Etiquette, 5 points of Willpower per Story, interest of the Shadow Lords",
+    ban="Must not show unearned respect",
+)
+Totem.objects.create(
+    name="Pegasus",
+    cost=4,
+    totem_type="respect",
+    individual_traits="2 points of Honor Renown",
+    pack_traits="3 dots of Animal Ken and 3 points of Willpower per story, friendship of the Black Furies",
+    ban="Cannot refuse to help females of any species",
+)
+Totem.objects.create(
+    name="Stag",
+    cost=6,
+    totem_type="respect",
+    individual_traits="3 points of Honor Renown, 1 point of Stamina only for long-distance running",
+    pack_traits="3 dots of Survival and 3 points of Willpower per story, Fianne and the Fae are well-disposed towards the pack",
+    ban="Cannot refuse to aid the Fae and must always respect their prey",
+)
+Totem.objects.create(
+    name="Bear",
+    cost=5,
+    totem_type="war",
+    individual_traits="1 dot of Strength, can use Mother's Touch once per day, hibernate for three months, lose 5 points of temporary Honor Renown and reduce all Honor Renown rewards by 1",
+    pack_traits="3 dots of Medicine, friendship with Gurahl",
+    ban="",
+)
+Totem.objects.create(
+    name="Boar",
+    cost=5,
+    totem_type="war",
+    individual_traits="1 dot of Stamina",
+    pack_traits="2 dots of Brawl",
+    ban="Never hunt or eat wild boars",
+)
+Totem.objects.create(
+    name="Fenris",
+    cost=5,
+    totem_type="war",
+    individual_traits="2 points of Glory Renown, increase 1 Physical Attribute by 1 dot",
+    pack_traits="Respect of the Get of Fenris",
+    ban="Never pass up a worthy fight",
+)
+Totem.objects.create(
+    name="Griffin",
+    cost=4,
+    totem_type="war",
+    individual_traits="Communicate with birds of prey, gain 2 dots of Glory Renown",
+    pack_traits="3 dots of Alertness and respect of Red Talons",
+    ban="Cannot associate with humans, has never accepted a pack with a homid",
+)
+Totem.objects.create(
+    name="Rat",
+    cost=5,
+    totem_type="war",
+    individual_traits="-1 difficulty on all bite rolls and rolls involving stealth or quiet",
+    pack_traits="5 Willpower points per story, friendship of Bone Gnawers and some Ratkin",
+    ban="Never kill vermin of any kind",
+)
+Totem.objects.create(
+    name="Wendigo",
+    cost=7,
+    totem_type="war",
+    individual_traits="Start each story with +5 points of Rage, gain two dots of Glory Renown",
+    pack_traits="Respect of the Wendigo tribe",
+    ban="Must aid animists in need",
+)
+Totem.objects.create(
+    name="Chimera",
+    cost=7,
+    totem_type="wisdom",
+    individual_traits="-2 difficulty to solve riddles, interpret dreams, or enigmas, and gain 2 points of Wisdom Renown. They can also disguise themselves as something else in the Umbra with a Gnosis roll at difficulty 7",
+    pack_traits="3 dots of Enigmas and 1 dot of Perception",
+    ban="Must seek enlightenment",
+)
+Totem.objects.create(
+    name="Cockroach",
+    cost=6,
+    totem_type="wisdom",
+    individual_traits="-2 to all difficulties involving computers, electricity, and applied science. May perceive data streams in the Umbra, parsing it with Gnosis (difficulty 6)",
+    pack_traits="3 dice to activate any Gift involving technology",
+    ban="Never kill a cockroach",
+)
+Totem.objects.create(
+    name="Owl",
+    cost=5,
+    totem_type="wisdom",
+    individual_traits="Wings in the Umbra, -2 difficulty for stealth and silence, and 2 points of Wisdom Renown",
+    pack_traits="Premonitions and prophetic dreams, 3 dice for any Gift that uses air travel, movement, or darkness. May be aided by Silent Striders but will have the enmity of followers of Rat",
+    ban="Must leave small rodents tied and helpless in the woods for Owl and his kind",
+)
+Totem.objects.create(
+    name="Raven",
+    cost=5,
+    totem_type="wisdom",
+    individual_traits="One point of Wisdom Renown",
+    pack_traits="3 dots of Survival, 1 of Subterfuge, 1 of Enigmas, friendship of Wereravens",
+    ban="Cannot carry wealth",
+)
+Totem.objects.create(
+    name="Uktena",
+    cost=7,
+    totem_type="wisdom",
+    individual_traits="3 dice to soak in the Umbra, 2 XP per story to be spent on Enigmas, Occult, Rituals, Gifts, or other mystical knowledge. Two points of Wisdom Renown. +1 difficulty on interacting with werewolves who are not Uktena or Wendigo",
+    pack_traits="Treated by the Uktena as brothers",
+    ban="Must recover mystical lore, objects, places, and animals from the minions of the Wyrm",
+)
+Totem.objects.create(
+    name="Unicorn",
+    cost=7,
+    totem_type="wisdom",
+    individual_traits="Move at double speed in the Umbra, -2 to all difficulties on healing and empathy, +2 difficulty to attempts to harm Garou who are not Wyrm-tainted, gain 3 points of Wisdom Renown",
+    pack_traits="3 dice when using Gifts of healing, strength, and protection. Children of Gaia will aid the pack.",
+    ban="Must protect and aid the weak and exploited.",
+)
+Totem.objects.create(
+    name="Coyote",
+    cost=7,
+    totem_type="cunning",
+    individual_traits="-1 from all temporary Wisdowm Renown awards",
+    pack_traits="3 dots of stealth, 3 dots of streetwise, 1 dot of subterfuge, 1 dot of survival. Coyote's avatars can always find the pack.",
+    ban="",
+)
+Totem.objects.create(
+    name="Cuckoo",
+    cost=6,
+    totem_type="cunning",
+    individual_traits="-2 from awards of temporary Honor Renown",
+    pack_traits="1 dot of Manipulation, 2 dots of Subterfuge, the ability to be overlooked",
+    ban="Never pass up a chance to improve pack's position at the expense of others",
+)
+Totem.objects.create(
+    name="Fox",
+    cost=7,
+    totem_type="cunning",
+    individual_traits="1 dot of Manipulation, -1 from awards of temporary Honor Renown",
+    pack_traits="2 dots of Stealth, 2 dots of Streetwise, and 3 dots of Subterfuge",
+    ban="May never participate in a fox hunt and must sabotage any they find",
 )
