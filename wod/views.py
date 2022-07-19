@@ -36,6 +36,7 @@ from wod.models.characters.werewolf import (
     Tribe,
     Werewolf,
 )
+from wod.models.locations.werewolf import Caern
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
 from wod.models.items.werewolf import Fetish
@@ -217,12 +218,18 @@ class ChantryCreateView(CreateView):
     template_name = "wod/locations/chantry/create.html"
 
 
+class CaernDetailView(DetailView):
+    model = Caern
+    template_name = "wod/locations/caern/detail.html"
+
+
 class GenericLocationDetailView(View):
     views = {
         "location": LocationDetailView,
         "city": CityDetailView,
         "node": NodeDetailView,
         "chantry": ChantryDetailView,
+        "caern": CaernDetailView,
     }
 
     def get(self, request, *args, **kwargs):
