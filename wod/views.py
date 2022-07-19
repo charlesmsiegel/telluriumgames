@@ -28,15 +28,15 @@ from wod.models.characters.mage import (
 from wod.models.characters.mage.utils import PRIMARY_ABILITIES
 from wod.models.characters.werewolf import (
     Camp,
+    Charm,
     Gift,
     Pack,
     RenownIncident,
     Rite,
+    SpiritCharacter,
     Totem,
     Tribe,
     Werewolf,
-    SpiritCharacter,
-    Charm,
 )
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
@@ -721,6 +721,7 @@ class TotemDetailView(DetailView):
 class TribeDetailView(DetailView):
     model = Tribe
     template_name = "wod/characters/tribe/detail.html"
+
 
 class CharmDetailView(DetailView):
     model = Charm

@@ -1,13 +1,13 @@
 from wod.models.characters.human import Archetype, MeritFlaw, Specialty
 from wod.models.characters.werewolf import (
     Camp,
+    Charm,
     Gift,
     RenownIncident,
     Rite,
+    SpiritCharacter,
     Totem,
     Tribe,
-    SpiritCharacter,
-    Charm,
 )
 from wod.models.items.werewolf import Fetish
 

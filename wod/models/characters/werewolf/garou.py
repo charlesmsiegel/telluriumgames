@@ -8,8 +8,8 @@ from django.urls import reverse
 
 from core.utils import add_dot, weighted_choice
 from wod.models.characters.human import Group, Human
-from wod.models.items.werewolf import Fetish
 from wod.models.characters.werewolf.spirits import Totem
+from wod.models.items.werewolf import Fetish
 
 
 class Tribe(models.Model):
