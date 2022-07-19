@@ -72,6 +72,7 @@ class Character(PolymorphicModel):
     )
     concept = models.CharField(max_length=100)
     description = models.TextField(default="")
+    display = models.BooleanField(default=True)
 
     def has_concept(self):
         return self.concept != ""
