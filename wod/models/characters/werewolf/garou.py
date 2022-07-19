@@ -9,15 +9,7 @@ from django.urls import reverse
 from core.utils import add_dot, weighted_choice
 from wod.models.characters.human import Group, Human
 from wod.models.items.werewolf import Fetish
-
-
-class Totem(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    cost = models.IntegerField(default=0)
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name
+from wod.models.characters.werewolf.spirits import Totem
 
 
 class Tribe(models.Model):

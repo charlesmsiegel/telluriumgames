@@ -82,6 +82,7 @@ urlpatterns = [
     path("groups/<pk>/", views.GenericGroupDetailView.as_view(), name="group"),
     path("archetypes/<pk>/", views.ArchetypeDetailView.as_view(), name="archetype"),
     path("camps/<pk>/", views.CampDetailView.as_view(), name="camp"),
+    path("charms/<pk>/", views.CharmDetailView.as_view(), name="charm"),
     path("gifts/<pk>/", views.GiftDetailView.as_view(), name="gift"),
     path("instruments/<pk>/", views.InstrumentDetailView.as_view(), name="instrument"),
     path(
