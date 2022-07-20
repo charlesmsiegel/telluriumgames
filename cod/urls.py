@@ -25,13 +25,17 @@ urlpatterns = [
         views.ProximiFamilyDetailView.as_view(),
         name="proximifamily",
     ),
-    path("characters/", views.IndexView.as_view(), name="characters_index"),
+    path("characters/", views.CharacterIndexView.as_view(), name="characters_index"),
+    path("items/", views.ItemIndexView.as_view(), name="items_index"),
     path(
         "characters/random/",
         views.RandomCharacterView.as_view(),
         name="random_character",
     ),
-    path("characters/<pk>/", views.CharacterDetailView.as_view(), name="character"),
+    path(
+        "characters/<pk>/", views.GenericCharacterDetailView.as_view(), name="character"
+    ),
+    path("items/<pk>/", views.GenericItemDetailView.as_view(), name="item"),
     path("conditions/<pk>/", views.ConditionDetailView.as_view(), name="condition"),
     path("legacies/<pk>/", views.LegacyDetailView.as_view(), name="legacy"),
     path("merits/<pk>/", views.MeritDetailView.as_view(), name="merit"),

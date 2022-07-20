@@ -585,7 +585,7 @@ class Chantry(Location):
 
 class Sector(Location):
     type = "sector"
-    
+
     SECTOR_CLASS = [
         ("virgin", "Virgin Web"),
         ("grid", "Grid"),

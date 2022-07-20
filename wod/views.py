@@ -170,6 +170,7 @@ class CityCreateView(CreateView):
     fields = "__all__"
     template_name = "wod/locations/city/create.html"
 
+
 class SectorCreateView(CreateView):
     model = Sector
     fields = "__all__"
@@ -229,6 +230,7 @@ class ChantryCreateView(CreateView):
 class CaernDetailView(DetailView):
     model = Caern
     template_name = "wod/locations/caern/detail.html"
+
 
 class SectorDetailView(DetailView):
     model = Sector

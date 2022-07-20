@@ -19,13 +19,15 @@ from cod.models.characters.mortal import (
     Mortal,
     Specialty,
 )
+from cod.models.items.mortal import Equipment, Item
+from wod.views import GenericItemDetailView
 
 # Create your views here.
 EmptyRote = namedtuple("EmptyRote", ["name", "arcana", "level"])
 empty_rote = EmptyRote("", "", "")
 
 
-class IndexView(View):
+class CharacterIndexView(View):
     """Class that manages the Index view"""
 
     def get(self, request):
@@ -122,7 +124,7 @@ class MageCreateView(CreateView):
     template_name = "cod/characters/mage/create.html"
 
 
-class CharacterDetailView(View):
+class GenericCharacterDetailView(View):
     """Class that manages Views for characters"""
 
     create_views = {
@@ -226,3 +228,44 @@ class RoteDetailView(DetailView):
 class SpecialtyDetailView(DetailView):
     model = Specialty
     template_name = "cod/characters/specialty/detail.html"
+
+
+class ItemIndexView(View):
+    """Class that manages the Index view"""
+
+    def get(self, request):
+        context = self.get_context()
+        return render(request, "cod/items/index.html", context)
+
+    def post(self, request):
+        context = self.get_context()
+        return render(request, "cod/items/index.html", context)
+
+    def get_context(self):
+        items = Item.objects.all().order_by("name")
+        context = {}
+        context["items"] = items
+        return context
+
+
+class ItemDetailView(DetailView):
+    model = Item
+    template_name = "cod/items/item/detail.html"
+
+
+class EquipmentDetailView(DetailView):
+    model = Equipment
+    template_name = "cod/items/equipment/detail.html"
+
+
+class GenericItemDetailView(View):
+    create_views = {
+        "item": ItemDetailView,
+        "equipment": EquipmentDetailView,
+    }
+
+    def get(self, request, *args, **kwargs):
+        item = Item.objects.get(pk=kwargs["pk"])
+        if item.type in self.create_views:
+            return self.create_views[item.type].as_view()(request, *args, **kwargs)
+        return redirect("cod:items_index")
