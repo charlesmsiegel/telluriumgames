@@ -581,3 +581,21 @@ class Chantry(Location):
 
     def random_faction(self):
         return self.set_faction(MageFaction.objects.order_by("?").first())
+
+
+class Sector(Location):
+    type = "sector"
+    
+    SECTOR_CLASS = [
+        ("virgin", "Virgin Web"),
+        ("grid", "Grid"),
+        ("formatted", "Formatted Web"),
+        ("corrupted", "Corrupted Web"),
+        ("junklands", "Junklands"),
+        ("haunts", "Haunts"),
+        ("trash", "Trash"),
+        ("streamland", "Streamland"),
+    ]
+
+    sector_class = models.CharField(max_length=10, choices=SECTOR_CLASS, default="")
+    constraints = models.TextField(default="")
