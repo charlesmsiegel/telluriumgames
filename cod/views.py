@@ -20,7 +20,6 @@ from cod.models.characters.mortal import (
     Specialty,
 )
 from cod.models.items.mortal import Equipment, Item
-from wod.views import GenericItemDetailView
 
 # Create your views here.
 EmptyRote = namedtuple("EmptyRote", ["name", "arcana", "level"])
