@@ -474,6 +474,8 @@ class Aberrant(Human):
                 ):
                     self.transformations_for_xp += 1
                     self.random_transformation(level=transformation)
+                if transcendence:
+                    self.add_transcendence()
                 return True
             return False
         return False
@@ -494,6 +496,8 @@ class Aberrant(Human):
                 ):
                     self.transformations_for_xp += 1
                     self.random_transformation(level=transformation)
+                if transcendence:
+                    self.add_transcendence()
                 return True
             return False
         return False
@@ -513,6 +517,8 @@ class Aberrant(Human):
                 ):
                     self.transformations_for_xp += 1
                     self.random_transformation(level=transformation)
+                if transcendence:
+                    self.add_transcendence()
                 return True
             return False
         return False

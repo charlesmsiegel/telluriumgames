@@ -559,13 +559,17 @@ class TestAberrant(TestCase):
         self.assertTrue(self.character.spend_xp("quantum"))
         self.assertEqual(self.character.xp, 904)
         self.assertEqual(self.character.quantum, 6)
+        starting_transcendence = self.character.transcendence
         self.assertTrue(self.character.spend_xp("mega_might", transcendence=True))
+        self.assertEqual(self.character.transcendence, starting_transcendence + 1)
         self.assertEqual(self.character.xp, 898)
         self.assertEqual(self.character.total_mega_attributes(), 2)
         self.assertTrue(self.character.spend_xp("MegaEdge 1", transcendence=True))
+        self.assertEqual(self.character.transcendence, starting_transcendence + 2)
         self.assertEqual(self.character.xp, 892)
         self.assertEqual(self.character.total_mega_edges(), 2)
         self.assertTrue(self.character.spend_xp("Power 1", transcendence=True))
+        self.assertEqual(self.character.transcendence, starting_transcendence + 3)
         self.assertEqual(self.character.xp, 886)
         self.assertEqual(self.character.total_powers(), 2)
         self.character.quantum = 1
