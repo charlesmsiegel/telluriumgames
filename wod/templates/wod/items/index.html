@@ -13,12 +13,12 @@
             {% for obj in items %}
                 {% if obj.display %}
                     <div class="row border">
-                        <a class="col-sm border" href="{% url 'wod:item' obj.id %}">{{ obj.name }}</a>
+                        <a class="col-sm border" href="{% url 'wod:items:item' obj.id %}">{{ obj.name }}</a>
                     </div>
                 {% endif %}
             {% endfor %}
         </div>
-        <form action="{% url 'wod:random_item' %}" method="post">
+        <form action="{% url 'wod:items:random' %}" method="post">
             {% csrf_token %}
             <div class="row">
                 <div class="col-sm"></div>

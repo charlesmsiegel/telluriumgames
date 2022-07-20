@@ -13,7 +13,7 @@
       {% for char in characters %}
         {% if char.display %}
           <div class="row border">
-            <a class="col-sm border" href="{% url 'wod:characters:character' char.id %}">{{ char.name }}</a>
+            <a class="col-sm border" href="{{ char.get_absolute_url }}">{{ char.name }}</a>
             <div class="col-sm border">{{ char.player.username }}</div>
             <div class="col-sm border">{{ char.type.title }}</div>
           </div>
@@ -44,7 +44,7 @@
       </div>
       {% for group in groups %}
         <div class="row border">
-          <a class="col-sm border" href="{% url 'wod:group' group.id %}">{{ group.name }}</a>
+          <a class="col-sm border" href="{{ group.get_absolute_url }}">{{ group.name }}</a>
           <div class="col-sm border">{{ group.type.title }}</div>
         </div>
       {% endfor %}

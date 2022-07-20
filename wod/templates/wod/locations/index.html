@@ -13,7 +13,7 @@
             {% for name, loc in names_dict.items %}
                 <div class="row">
                     <div class="col-sm"></div>
-                    <a class="col-sm" href="{% url 'wod:locations:location' loc.id %}">{{ name|safe }}</a>
+                    <a class="col-sm" href="{{ loc.get_absolute_url }}">{{ name|safe }}</a>
                     <div class="col-sm"></div>
                 </div>
             {% endfor %}
