@@ -24,6 +24,12 @@ class TestPower(TestCase):
         self.tag = Tag.objects.create(name="Reduced Cost", ratings=[2, 4, 6, 8, 10])
         self.tag.permitted_powers.add(self.power)
         self.tag.save()
+        for i in range(10):
+            Transformation.objects.create(name=f"Low Transformation {i}", level="low")
+            Transformation.objects.create(
+                name=f"Medium Transformation {i}", level="medium"
+            )
+            Transformation.objects.create(name=f"High Transformation {i}", level="high")
 
     def test_set_action_type(self):
         self.assertTrue(self.power.set_action_type("reflexive"))
@@ -307,7 +313,7 @@ class TestAberrant(TestCase):
 
     def test_add_transcendance(self):
         for i in range(3):
-            for level in ["low", "med", "high"]:
+            for level in ["low", "medium", "high"]:
                 Transformation.objects.create(
                     name=f"{level.title()} Transformation {i}", level=level
                 )
@@ -331,11 +337,15 @@ class TestAberrant(TestCase):
         self.character.quantum = 3
         self.assertTrue(self.character.add_transcendence())
         self.assertEqual(self.character.transcendence, 6)
-        self.assertEqual(self.character.transformations.filter(level="med").count(), 1)
+        self.assertEqual(
+            self.character.transformations.filter(level="medium").count(), 1
+        )
         self.assertEqual(self.character.transformations.count(), 3)
         self.assertTrue(self.character.add_transcendence())
         self.assertEqual(self.character.transcendence, 7)
-        self.assertEqual(self.character.transformations.filter(level="med").count(), 2)
+        self.assertEqual(
+            self.character.transformations.filter(level="medium").count(), 2
+        )
         self.assertEqual(self.character.transformations.count(), 4)
         self.assertTrue(self.character.add_transcendence())
         self.assertEqual(self.character.transcendence, 8)
@@ -351,9 +361,9 @@ class TestAberrant(TestCase):
         self.assertEqual(self.character.transcendence, 10)
 
     def test_add_quantum(self):
-        t = Transformation.objects.create(name="Test Transformation", level="med")
+        t = Transformation.objects.create(name="Test Transformation", level="medium")
         for i in range(10):
-            for level in ["low", "med", "high"]:
+            for level in ["low", "medium", "high"]:
                 Transformation.objects.create(
                     name=f"{level.title()} Transformation {i}", level=level
                 )
@@ -389,7 +399,7 @@ class TestAberrant(TestCase):
 
     def test_add_transformation(self):
         for i in range(10):
-            for level in ["low", "med", "high"]:
+            for level in ["low", "medium", "high"]:
                 Transformation.objects.create(
                     name=f"{level.title()} Transformation {i}", level=level
                 )
@@ -399,18 +409,11 @@ class TestAberrant(TestCase):
         for i in range(6):
             self.assertTrue(self.character.add_transformation(all_transformations[i]))
         self.assertEqual(self.character.transformations.count(), 6)
-        for i in range(6, 10):
-            self.assertFalse(self.character.add_transformation(all_transformations[i]))
-        self.assertEqual(self.character.transformations.count(), 6)
-        self.character.quantum = 5
-        for i in range(6, 10):
-            self.assertTrue(self.character.add_transformation(all_transformations[i]))
-        self.assertEqual(self.character.transformations.count(), 10)
 
     def test_filter_transformation(self):
-        transformation_dict = {"low": [], "med": [], "high": []}
+        transformation_dict = {"low": [], "medium": [], "high": []}
         for i in range(10):
-            for level in ["low", "med", "high"]:
+            for level in ["low", "medium", "high"]:
                 transformation_dict[level].append(
                     Transformation.objects.create(
                         name=f"{level.title()} Transformation {i}", level=level
@@ -419,10 +422,10 @@ class TestAberrant(TestCase):
         self.character.quantum = 3
         self.character.add_transformation(transformation_dict["low"][0])
         self.character.add_transformation(transformation_dict["low"][1])
-        self.character.add_transformation(transformation_dict["med"][0])
+        self.character.add_transformation(transformation_dict["medium"][0])
         self.assertEqual(len(self.character.filter_transformations()), 27)
         self.assertEqual(len(self.character.filter_transformations(level="low")), 8)
-        self.assertEqual(len(self.character.filter_transformations(level="med")), 9)
+        self.assertEqual(len(self.character.filter_transformations(level="medium")), 9)
         self.assertEqual(len(self.character.filter_transformations(level="high")), 10)
 
     def test_has_template(self):
@@ -565,6 +568,16 @@ class TestAberrant(TestCase):
         self.assertTrue(self.character.spend_xp("Power 1", transcendence=True))
         self.assertEqual(self.character.xp, 886)
         self.assertEqual(self.character.total_powers(), 2)
+        self.character.quantum = 1
+        self.assertTrue(self.character.spend_xp("Power 1", transformation="low"))
+        self.assertEqual(self.character.xp, 877)
+        self.assertTrue(self.character.spend_xp("Power 1", transformation="medium"))
+        self.assertEqual(self.character.xp, 871)
+        self.assertTrue(self.character.spend_xp("Power 1", transformation="low"))
+        self.assertEqual(self.character.xp, 859)
+        self.character.quantum = 2
+        self.assertTrue(self.character.spend_xp("Power 1", transformation="low"))
+        self.assertEqual(self.character.xp, 850)
 
     def test_mega_intellect_add(self):
         edges = [
@@ -660,7 +673,7 @@ class TestRandomAberrant(TestCase):
                         )
                     p.save()
         for i in range(10):
-            for level in ["low", "med", "high"]:
+            for level in ["low", "medium", "high"]:
                 Transformation.objects.create(
                     name=f"{level.title()} Transformation {i}", level=level
                 )

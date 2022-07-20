@@ -35,6 +35,8 @@ class Aberrant(Human):
     quantum_points = models.IntegerField(default=5)
     flux = models.IntegerField(default=0)
 
+    transformations_for_xp = models.IntegerField(default=0)
+
     def add_mega_attribute(self, attribute):
         if not attribute.startswith("mega_"):
             mega_attribute = "mega_" + attribute
@@ -264,17 +266,13 @@ class Aberrant(Human):
         return had_tags | new_tags
 
     def add_transformation(self, transformation, transcendence=False):
-        if not transcendence:
-            if self.transformations.count() == 2 * self.quantum:
-                return False
         if transformation not in self.transformations.all():
             self.transformations.add(transformation)
             return True
         return False
 
     def random_transformation(self, level=None):
-        transforms = self.filter_transformations(level=level)
-        t = random.choice(transforms)
+        t = self.filter_transformations(level=level).order_by("?").first()
         return self.add_transformation(t)
 
     def filter_transformations(self, level=None):
@@ -290,7 +288,7 @@ class Aberrant(Human):
                 if self.transcendence in [4, 5]:
                     self.random_transformation(level="low")
                 if self.transcendence in [6, 7]:
-                    self.random_transformation(level="med")
+                    self.random_transformation(level="medium")
                 if self.transcendence in [8, 9]:
                     self.random_transformation(level="high")
                 return True
@@ -443,15 +441,19 @@ class Aberrant(Human):
             "mega edge",
             "quantum power",
         ]:
-            cost /= 2
-        if trait_type in [
-            "mega attribute",
-            "mega edge",
-            "power tag",
-            "quantum<=5",
-            "quantum>5",
-            "quantum power",
-        ]:
+            cost -= 6
+        if (
+            trait_type
+            in [
+                "mega attribute",
+                "mega edge",
+                "power tag",
+                "quantum<=5",
+                "quantum>5",
+                "quantum power",
+            ]
+            and self.transformations_for_xp < self.quantum * 2
+        ):
             if transformation == "low":
                 cost -= 3
             if transformation == "medium":
@@ -466,6 +468,12 @@ class Aberrant(Human):
             if self.add_mega_attribute(trait):
                 self.xp -= cost
                 self.add_to_spend(trait, getattr(self, trait), cost)
+                if (
+                    transformation is not None
+                    and self.transformations_for_xp < self.quantum * 2
+                ):
+                    self.transformations_for_xp += 1
+                    self.random_transformation(level=transformation)
                 return True
             return False
         return False
@@ -480,6 +488,12 @@ class Aberrant(Human):
             if self.add_mega_edge(e):
                 self.xp -= cost
                 self.add_to_spend(trait, self.mega_edge_rating(e), cost)
+                if (
+                    transformation is not None
+                    and self.transformations_for_xp < self.quantum * 2
+                ):
+                    self.transformations_for_xp += 1
+                    self.random_transformation(level=transformation)
                 return True
             return False
         return False
@@ -493,6 +507,12 @@ class Aberrant(Human):
             if self.add_power(e):
                 self.xp -= cost
                 self.add_to_spend(trait, self.power_rating(e), cost)
+                if (
+                    transformation is not None
+                    and self.transformations_for_xp < self.quantum * 2
+                ):
+                    self.transformations_for_xp += 1
+                    self.random_transformation(level=transformation)
                 return True
             return False
         return False
@@ -515,6 +535,12 @@ class Aberrant(Human):
             if self.add_tag(power, t):
                 self.xp -= cost
                 self.add_to_spend(trait, self.tag_rating(power, t), cost)
+                if (
+                    transformation is not None
+                    and self.transformations_for_xp < self.quantum * 2
+                ):
+                    self.transformations_for_xp += 1
+                    self.random_transformation(level=transformation)
                 return True
             return False
         return False
@@ -532,6 +558,12 @@ class Aberrant(Human):
             if self.add_quantum(start=creation):
                 self.xp -= cost
                 self.add_to_spend(trait, getattr(self, trait), cost)
+                if (
+                    transformation is not None
+                    and self.transformations_for_xp < self.quantum * 2
+                ):
+                    self.transformations_for_xp += 1
+                    self.random_transformation(level=transformation)
                 return True
             return False
         return False
