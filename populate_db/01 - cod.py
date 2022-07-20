@@ -2,6 +2,7 @@ from time import time
 
 from cod.models.characters.mage import Legacy, Order, Path, ProximiFamily, Rote
 from cod.models.characters.mortal import Condition, Merit, Specialty
+from cod.models.items.mortal import Equipment
 from core.models import Language
 
 SKILLS = [
@@ -4094,3 +4095,644 @@ rotes = [
     "Gremlins",
 ]
 pf.set_possible_blessings([Rote.objects.get(name=x) for x in rotes])
+
+Equipment.objects.create(
+    name="Basic Automotive Tool Kit",
+    durability=2,
+    size=2,
+    structure=3,
+    availability=1,
+    die_bonus=1,
+    display=False,
+    description="Necessity for automobile repairs.",
+)
+Equipment.objects.create(
+    name="Garage Automotive Tool Kit",
+    durability=2,
+    size=2,
+    structure=3,
+    availability=1,
+    die_bonus=2,
+    display=False,
+    description="Necessity for automobile repairs.",
+)
+Equipment.objects.create(
+    name="Cache 1",
+    durability=2,
+    size=1,
+    structure=5,
+    availability=1,
+    die_bonus=1,
+    display=False,
+    description="Hidden storage for items, usually weapons. Must be at most half the Size of the thing containing it. Can hold two items of its Size and a reasonable number of smaller items. Die bonus adds to concealment and subtracts from rolls to find items",
+)
+Equipment.objects.create(
+    name="Cache 2",
+    durability=2,
+    size=2,
+    structure=5,
+    availability=1,
+    die_bonus=1,
+    display=False,
+    description="Hidden storage for items, usually weapons. Must be at most half the Size of the thing containing it. Can hold two items of its Size and a reasonable number of smaller items. Die bonus adds to concealment and subtracts from rolls to find items",
+)
+Equipment.objects.create(
+    name="Cache 3",
+    durability=2,
+    size=3,
+    structure=5,
+    availability=2,
+    die_bonus=1,
+    display=False,
+    description="Hidden storage for items, usually weapons. Must be at most half the Size of the thing containing it. Can hold two items of its Size and a reasonable number of smaller items. Die bonus adds to concealment and subtracts from rolls to find items",
+)
+Equipment.objects.create(
+    name="Cache 4",
+    durability=2,
+    size=4,
+    structure=5,
+    availability=2,
+    die_bonus=1,
+    display=False,
+    description="Hidden storage for items, usually weapons. Must be at most half the Size of the thing containing it. Can hold two items of its Size and a reasonable number of smaller items. Die bonus adds to concealment and subtracts from rolls to find items",
+)
+Equipment.objects.create(
+    name="Cache 5",
+    durability=2,
+    size=5,
+    structure=5,
+    availability=3,
+    die_bonus=1,
+    display=False,
+    description="Hidden storage for items, usually weapons. Must be at most half the Size of the thing containing it. Can hold two items of its Size and a reasonable number of smaller items. Die bonus adds to concealment and subtracts from rolls to find items",
+)
+Equipment.objects.create(
+    name="Communications Headset",
+    durability=0,
+    size=1,
+    structure=1,
+    availability=2,
+    die_bonus=2,
+    display=False,
+    description="Die bonus to coordinated efforts",
+)
+Equipment.objects.create(
+    name="Crime Scene Kit",
+    durability=2,
+    size=3,
+    structure=2,
+    availability=2,
+    die_bonus=2,
+    display=False,
+    description="Investigation",
+)
+Equipment.objects.create(
+    name="Code Kit",
+    durability=1,
+    size=2,
+    structure=1,
+    availability=1,
+    die_bonus=5,
+    display=False,
+    description="Encrypting and Decrypting information",
+)
+Equipment.objects.create(
+    name="Cracking Software",
+    durability=0,
+    size=0,
+    structure=0,
+    availability=3,
+    die_bonus=2,
+    display=False,
+    description="Hacking attempts",
+)
+Equipment.objects.create(
+    name="Cheap Digital Recorder",
+    durability=1,
+    size=1,
+    structure=2,
+    availability=1,
+    die_bonus=1,
+    display=False,
+    description="Bonus to concealing the device and to catching words and sounds",
+)
+Equipment.objects.create(
+    name="Digital Recorder",
+    durability=1,
+    size=1,
+    structure=2,
+    availability=2,
+    die_bonus=2,
+    display=False,
+    description="Bonus to concealing the device and to catching words and sounds",
+)
+Equipment.objects.create(
+    name="Duct Tape",
+    durability=1,
+    size=1,
+    structure=2,
+    availability=1,
+    die_bonus=1,
+    display=False,
+    description="Applies mostly to Crafts. If used as a restraint, -3 penalty to break free and must overcome Structure",
+)
+Equipment.objects.create(
+    name="Basic First-Aid Kit",
+    durability=1,
+    size=2,
+    structure=3,
+    availability=1,
+    die_bonus=0,
+    display=False,
+    description="Stabilizing injuries nad stopping wounds from getting worse.",
+)
+Equipment.objects.create(
+    name="Advanced First-Aid Kit",
+    durability=1,
+    size=2,
+    structure=3,
+    availability=2,
+    die_bonus=1,
+    display=False,
+    description="Stabilizing injuries nad stopping wounds from getting worse.",
+)
+Equipment.objects.create(
+    name="Flashlight",
+    durability=2,
+    size=1,
+    structure=3,
+    availability=1,
+    die_bonus=1,
+    display=False,
+    description="Adds die to rolls to see",
+)
+Equipment.objects.create(
+    name="Glowstick",
+    durability=1,
+    size=1,
+    structure=1,
+    availability=1,
+    die_bonus=2,
+    display=False,
+    description="Adds die to rolls to see",
+)
+Equipment.objects.create(
+    name="GPS Tracker",
+    durability=2,
+    size=2,
+    structure=2,
+    availability=2,
+    die_bonus=3,
+    display=False,
+    description="Following or tracking someone in places with a GPS signal",
+)
+Equipment.objects.create(
+    name="Keylogging Software",
+    durability=0,
+    size=0,
+    structure=0,
+    availability=2,
+    die_bonus=2,
+    display=False,
+    description="Hacking",
+)
+Equipment.objects.create(
+    name="Luminol",
+    durability=0,
+    size=1,
+    structure=1,
+    availability=1,
+    die_bonus=2,
+    display=False,
+    description="Tracking and Investigation involving body fluids",
+)
+Equipment.objects.create(
+    name="Multi-Tool",
+    durability=3,
+    size=1,
+    structure=4,
+    availability=1,
+    die_bonus=1,
+    display=False,
+    description="Crafts and related tasks",
+)
+Equipment.objects.create(
+    name="Personal Computer 1",
+    durability=2,
+    size=3,
+    structure=2,
+    availability=1,
+    die_bonus=1,
+    display=False,
+    description="Anything done on a computer",
+)
+Equipment.objects.create(
+    name="Personal Computer 2",
+    durability=2,
+    size=3,
+    structure=2,
+    availability=2,
+    die_bonus=2,
+    display=False,
+    description="Anything done on a computer",
+)
+Equipment.objects.create(
+    name="Personal Computer 3",
+    durability=2,
+    size=3,
+    structure=2,
+    availability=3,
+    die_bonus=3,
+    display=False,
+    description="Anything done on a computer",
+)
+Equipment.objects.create(
+    name="Personal Computer 4",
+    durability=2,
+    size=3,
+    structure=2,
+    availability=4,
+    die_bonus=4,
+    display=False,
+    description="Anything done on a computer",
+)
+Equipment.objects.create(
+    name="Smartphone 1",
+    durability=2,
+    size=1,
+    structure=1,
+    availability=1,
+    die_bonus=1,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Smartphone 2",
+    durability=2,
+    size=1,
+    structure=1,
+    availability=2,
+    die_bonus=1,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Smartphone 3",
+    durability=2,
+    size=1,
+    structure=1,
+    availability=3,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Special Effects",
+    durability=2,
+    size=5,
+    structure=3,
+    availability=3,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Surveillance Equipment",
+    durability=2,
+    size=2,
+    structure=2,
+    availability=3,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Basic Survival Gear",
+    durability=2,
+    size=2,
+    structure=3,
+    availability=1,
+    die_bonus=1,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Extreme Survival Gear",
+    durability=2,
+    size=3,
+    structure=3,
+    availability=3,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Talcum Powder",
+    durability=0,
+    size=1,
+    structure=0,
+    availability=1,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Ultraviolet Ink",
+    durability=1,
+    size=1,
+    structure=2,
+    availability=1,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Battering Ram",
+    durability=3,
+    size=4,
+    structure=8,
+    availability=2,
+    die_bonus=4,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Bear Trap",
+    durability=3,
+    size=2,
+    structure=5,
+    availability=2,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Caltrops",
+    durability=2,
+    size=2,
+    structure=3,
+    availability=2,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Camouflage Clothing",
+    durability=1,
+    size=2,
+    structure=3,
+    availability=2,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Climbing Gear",
+    durability=3,
+    size=2,
+    structure=2,
+    availability=2,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Crowbar",
+    durability=3,
+    size=1,
+    structure=4,
+    availability=1,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Firearm Suppressor",
+    durability=2,
+    size=1,
+    structure=2,
+    availability=2,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Gas Mask",
+    durability=1,
+    size=2,
+    structure=3,
+    availability=2,
+    die_bonus=5,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Handcuffs",
+    durability=4,
+    size=1,
+    structure=4,
+    availability=1,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Lockpicking Kit",
+    durability=2,
+    size=2,
+    structure=2,
+    availability=2,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Night Vision Goggles",
+    durability=1,
+    size=2,
+    structure=1,
+    availability=2,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Pepper Spray",
+    durability=2,
+    size=1,
+    structure=1,
+    availability=1,
+    die_bonus=1,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Rope",
+    durability=2,
+    size=3,
+    structure=2,
+    availability=1,
+    die_bonus=1,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Stun Gun 1",
+    durability=2,
+    size=1,
+    structure=2,
+    availability=1,
+    die_bonus=0,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Stun Gun 2",
+    durability=2,
+    size=1,
+    structure=2,
+    availability=2,
+    die_bonus=0,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Stun Gun 3",
+    durability=2,
+    size=1,
+    structure=2,
+    availability=3,
+    die_bonus=0,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Cash 1",
+    durability=1,
+    size=2,
+    structure=1,
+    availability=1,
+    die_bonus=1,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Cash 2",
+    durability=1,
+    size=2,
+    structure=1,
+    availability=2,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Cash 3",
+    durability=1,
+    size=2,
+    structure=1,
+    availability=3,
+    die_bonus=3,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Cash 4",
+    durability=1,
+    size=2,
+    structure=1,
+    availability=4,
+    die_bonus=4,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Cash 5",
+    durability=1,
+    size=2,
+    structure=1,
+    availability=5,
+    die_bonus=5,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Disguise 1",
+    durability=1,
+    size=3,
+    structure=2,
+    availability=1,
+    die_bonus=1,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Disguise 2",
+    durability=1,
+    size=3,
+    structure=2,
+    availability=2,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Disguise 3",
+    durability=1,
+    size=3,
+    structure=2,
+    availability=3,
+    die_bonus=3,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Fashion 1",
+    durability=1,
+    size=2,
+    structure=1,
+    availability=1,
+    die_bonus=1,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Fashion 2",
+    durability=1,
+    size=2,
+    structure=1,
+    availability=2,
+    die_bonus=1,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Fashion 3",
+    durability=1,
+    size=2,
+    structure=1,
+    availability=3,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Fashion 4",
+    durability=1,
+    size=2,
+    structure=1,
+    availability=4,
+    die_bonus=2,
+    display=False,
+    description="",
+)
+Equipment.objects.create(
+    name="Fashion 5",
+    durability=1,
+    size=2,
+    structure=1,
+    availability=5,
+    die_bonus=3,
+    display=False,
+    description="",
+)
