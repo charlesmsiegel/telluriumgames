@@ -10,24 +10,15 @@
                     <h2 class="centertext">Locations</h2>
                 </div>
             </div>
-            {% comment %} {% for loc in locations %}
-                <div class="row">
-                    <div class="col-sm"></div>
-                    <a class="col-sm border" href="{% url 'wod:location' loc.id %}">{{ loc.name }}</a>
-                    <div class="col-sm"></div>
-                </div>
-            {% endfor %} {% endcomment %}
-
             {% for name, loc in names_dict.items %}
                 <div class="row">
                     <div class="col-sm"></div>
-                    <a class="col-sm" href="{% url 'wod:location' loc.id %}">{{ name|safe }}</a>
-                    {% comment %} <div class="col-sm">{{ names_dict[loc] }}</div> {% endcomment %}
+                    <a class="col-sm" href="{% url 'wod:locations:location' loc.id %}">{{ name|safe }}</a>
                     <div class="col-sm"></div>
                 </div>
             {% endfor %}
         </div>
-        <form action="{% url 'wod:random_location' %}" method="post">
+        <form action="{% url 'wod:locations:random' %}" method="post">
             {% csrf_token %}
             <div class="row">
                 <div class="col-sm"></div>

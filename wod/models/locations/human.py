@@ -27,7 +27,7 @@ class Location(PolymorphicModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("wod:location", args=[str(self.id)])
+        return reverse("wod:locations:location", args=[str(self.id)])
 
 
 class City(Location):

@@ -13,7 +13,7 @@
       {% for char in characters %}
         {% if char.display %}
           <div class="row border">
-            <a class="col-sm border" href="{% url 'wod:character' char.id %}">{{ char.name }}</a>
+            <a class="col-sm border" href="{% url 'wod:characters:character' char.id %}">{{ char.name }}</a>
             <div class="col-sm border">{{ char.player.username }}</div>
             <div class="col-sm border">{{ char.type.title }}</div>
           </div>
@@ -22,7 +22,7 @@
     </div>
     <form id="personForm"
           data-character-type-url="{% url 'wod:ajax_load_character_types' %}"
-          action="{% url 'wod:random_character' %}"
+          action="{% url 'wod:characters:random' %}"
           method="post"
           novalidate>
       {% csrf_token %}
