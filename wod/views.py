@@ -48,6 +48,7 @@ from wod.models.locations.mage import (
     NodeMeritFlaw,
     NodeMeritFlawRating,
     NodeResonanceRating,
+    Sector,
 )
 from wod.models.locations.werewolf import Caern
 
@@ -169,6 +170,11 @@ class CityCreateView(CreateView):
     fields = "__all__"
     template_name = "wod/locations/city/create.html"
 
+class SectorCreateView(CreateView):
+    model = Sector
+    fields = "__all__"
+    template_name = "wod/locations/sector/create.html"
+
 
 class NodeDetailView(View):
     def get(self, request, *args, **kwargs):
@@ -224,6 +230,10 @@ class CaernDetailView(DetailView):
     model = Caern
     template_name = "wod/locations/caern/detail.html"
 
+class SectorDetailView(DetailView):
+    model = Sector
+    template_name = "wod/locations/sector/detail.html"
+
 
 class GenericLocationDetailView(View):
     views = {
@@ -232,6 +242,7 @@ class GenericLocationDetailView(View):
         "node": NodeDetailView,
         "chantry": ChantryDetailView,
         "caern": CaernDetailView,
+        "sector": SectorDetailView,
     }
 
     def get(self, request, *args, **kwargs):
