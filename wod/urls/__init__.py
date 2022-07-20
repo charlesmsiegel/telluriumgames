@@ -1,8 +1,8 @@
 from django.urls import include, path
 
-from . import characters, items, locations
-
 from wod import views
+
+from . import characters, items, locations
 
 # Create your URLs here
 urlpatterns = [
