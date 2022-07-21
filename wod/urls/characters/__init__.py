@@ -3,6 +3,17 @@ from django.urls import include, path
 from wod import views
 
 urls = [
+    path("ajax/load_faction_details/", views.load_factions, name="ajax_load_factions"),
+    path(
+        "ajax/load_subfaction_details/",
+        views.load_subfactions,
+        name="ajax_load_subfactions",
+    ),
+    path(
+        "ajax/load-character-types/",
+        views.load_character_types,
+        name="ajax_load_character_types",
+    ),
     path("create/cabal/", views.CabalCreateView.as_view(), name="create_cabal"),
     path(
         "create/character/",

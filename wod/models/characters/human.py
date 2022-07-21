@@ -19,10 +19,9 @@ class Archetype(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def get_absolute_url(self):
         return reverse("wod:characters:archetype", kwargs={"pk": self.pk})
-    
 
 
 class Specialty(models.Model):

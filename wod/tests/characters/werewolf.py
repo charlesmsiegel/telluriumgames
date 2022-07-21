@@ -866,9 +866,9 @@ class TestPackDetailView(TestCase):
         self.pack = Pack.objects.create(name="Test Pack")
 
     def test_pack_detail_view_status_code(self):
-        response = self.client.get(f"/wod/groups/{self.pack.id}/")
+        response = self.client.get(f"/wod/characters/groups/{self.pack.id}/")
         self.assertEqual(response.status_code, 200)
 
     def test_pack_detail_view_templates(self):
-        response = self.client.get(f"/wod/groups/{self.pack.id}/")
+        response = self.client.get(f"/wod/characters/groups/{self.pack.id}/")
         self.assertTemplateUsed(response, "wod/characters/pack/detail.html")

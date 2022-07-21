@@ -20,8 +20,8 @@
             </div>
             <form method="post"
                   id="mageForm"
-                  data-factions-url="{% url 'wod:ajax_load_factions' %}"
-                  data-subfactions-url="{% url 'wod:ajax_load_subfactions' %}"
+                  data-factions-url="{% url 'wod:characters:ajax_load_factions' %}"
+                  data-subfactions-url="{% url 'wod:characters:ajax_load_subfactions' %}"
                   action=""
                   novalidate>
                 {% csrf_token %}
@@ -1134,7 +1134,7 @@
     var factionId = $(this).val();  // get the selected affiliation ID from the HTML input
 
     $.ajax({                       // initialize an AJAX request
-      url: '{% url 'wod:ajax_load_subfactions' %}',                    // set the url of the request (= localhost:8000/hr/ajax/load-factions/) person_form.html template has this url var
+      url: '{% url 'wod:characters:ajax_load_subfactions' %}',                    // set the url of the request (= localhost:8000/hr/ajax/load-factions/) person_form.html template has this url var
       data: {
         'faction': factionId       // add the affiliation id to the GET parameters
       },
