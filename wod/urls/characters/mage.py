@@ -2,8 +2,6 @@ from django.urls import include, path
 
 from wod import views
 
-from . import human, mage, werewolf
-
 urls = [
     path("ajax/load_faction_details/", views.load_factions, name="ajax_load_factions"),
     path(

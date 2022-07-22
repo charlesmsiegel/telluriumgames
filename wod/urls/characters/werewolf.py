@@ -2,8 +2,6 @@ from django.urls import include, path
 
 from wod import views
 
-from . import human, mage, werewolf
-
 urls = [
     path("create/pack/", views.PackCreateView.as_view(), name="create_pack"),
     path(
