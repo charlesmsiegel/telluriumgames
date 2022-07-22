@@ -251,7 +251,7 @@ class GenericLocationDetailView(View):
         loc = Location.objects.get(pk=kwargs["pk"])
         if loc.type in self.views:
             return self.views[loc.type].as_view()(request, *args, **kwargs)
-        return redirect("wod:location_index")
+        return redirect("wod:locations:index")
 
 
 class RandomLocationView(View):
@@ -273,7 +273,7 @@ class RandomLocationView(View):
         return redirect(location.get_absolute_url())
 
     def get(self, request):
-        return redirect("wod:location_index")
+        return redirect("wod:locations:index")
 
 
 class ItemDetailView(DetailView):
@@ -378,7 +378,7 @@ class GenericItemDetailView(View):
         item = Item.objects.get(pk=kwargs["pk"])
         if item.type in self.views:
             return self.views[item.type].as_view()(request, *args, **kwargs)
-        return redirect("wod:item_index")
+        return redirect("wod:items:index")
 
 
 class RandomItemView(View):
@@ -399,7 +399,7 @@ class RandomItemView(View):
         return redirect(item.get_absolute_url())
 
     def get(self, request):
-        return redirect("wod:item_index")
+        return redirect("wod:items:index")
 
 
 class CharacterDetailView(DetailView):
@@ -571,7 +571,7 @@ class GenericCharacterDetailView(View):
         char = Character.objects.get(pk=kwargs["pk"])
         if char.type in self.character_views:
             return self.character_views[char.type].as_view()(request, *args, **kwargs)
-        return redirect("wod:characters_index")
+        return redirect("wod:characters:index")
 
 
 class RandomCharacterView(View):
@@ -606,7 +606,7 @@ class RandomCharacterView(View):
         return redirect(char.get_absolute_url())
 
     def get(self, request):
-        return redirect("wod:characters_index")
+        return redirect("wod:characters:index")
 
 
 class GroupDetailView(DetailView):
@@ -653,7 +653,7 @@ class GenericGroupDetailView(View):
         group = Group.objects.get(pk=kwargs["pk"])
         if group.type in self.group_views:
             return self.group_views[group.type].as_view()(request, *args, **kwargs)
-        return redirect("wod:characters_index")
+        return redirect("wod:characters:index")
 
 
 class NodeMeritFlawDetailView(DetailView):

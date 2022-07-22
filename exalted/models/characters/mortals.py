@@ -20,6 +20,7 @@ class Mortal(PolymorphicModel):
     player = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="exalted_characters"
     )
+    display = models.BooleanField(default=True)
 
     tertiary = None
 
@@ -73,7 +74,7 @@ class Mortal(PolymorphicModel):
     spent_xp = models.TextField(default="")
 
     def get_absolute_url(self):
-        return reverse("exalted:character", args=[str(self.id)])
+        return reverse("exalted:characters:character", args=[str(self.id)])
 
     def has_name(self):
         return self.name != ""

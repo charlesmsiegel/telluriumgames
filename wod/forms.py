@@ -33,7 +33,7 @@ class MageForm(forms.ModelForm):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.fields["merits_and_flaws"].queryset = MeritFlaw.objects.filter(
-            pk__in=[x.id for x in MeritFlaw.objects.all() if "mage" in x.allowed_types]
+            pk__in=[x.id for x in MeritFlaw.objects.all() if x.mage]
         )
         self.fields["affiliation"].queryset = MageFaction.objects.filter(parent=None)
         self.fields["faction"].queryset = MageFaction.objects.none()

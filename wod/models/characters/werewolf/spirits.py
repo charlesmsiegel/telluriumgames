@@ -12,7 +12,7 @@ class Charm(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("wod:charm", kwargs={"pk": self.pk})
+        return reverse("wod:characters:werewolf:charm", kwargs={"pk": self.pk})
 
 
 class SpiritCharacter(Character):
@@ -46,4 +46,4 @@ class Totem(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("wod:totem", kwargs={"pk": self.pk})
+        return reverse("wod:characters:werewolf:totem", kwargs={"pk": self.pk})

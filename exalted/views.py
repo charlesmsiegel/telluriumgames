@@ -59,7 +59,7 @@ class CharacterDetailView(View):
         char = Mortal.objects.get(pk=kwargs["pk"])
         if char.type in self.create_views:
             return self.create_views[char.type].as_view()(request, *args, **kwargs)
-        return redirect("exalted:characters_index")
+        return redirect("exalted:characters:index")
 
 
 class RandomCharacterView(View):
@@ -81,7 +81,7 @@ class RandomCharacterView(View):
         return redirect(char.get_absolute_url())
 
     def get(self, request):
-        return redirect("exalted:characters_index")
+        return redirect("exalted:characters:index")
 
 
 class SpecialtyDetailView(DetailView):

@@ -20,7 +20,6 @@ from cod.models.characters.mortal import (
     Specialty,
 )
 from cod.models.items.mortal import Equipment, Item
-from wod.views import GenericItemDetailView
 
 # Create your views here.
 EmptyRote = namedtuple("EmptyRote", ["name", "arcana", "level"])
@@ -137,7 +136,7 @@ class GenericCharacterDetailView(View):
         char = Mortal.objects.get(pk=kwargs["pk"])
         if char.type in self.create_views:
             return self.create_views[char.type].as_view()(request, *args, **kwargs)
-        return redirect("cod:characters_index")
+        return redirect("cod:characters:index")
 
 
 class RandomCharacterView(View):
@@ -161,7 +160,7 @@ class RandomCharacterView(View):
         return redirect(char.get_absolute_url())
 
     def get(self, request):
-        return redirect("cod:characters_index")
+        return redirect("cod:characters:index")
 
 
 class ProximiFamilyDetailView(DetailView):
@@ -268,4 +267,4 @@ class GenericItemDetailView(View):
         item = Item.objects.get(pk=kwargs["pk"])
         if item.type in self.create_views:
             return self.create_views[item.type].as_view()(request, *args, **kwargs)
-        return redirect("cod:items_index")
+        return redirect("cod:items:index")

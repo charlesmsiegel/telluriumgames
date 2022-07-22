@@ -11,7 +11,7 @@
             {% if object.parent != None %}
                 <div class="row">
                     <div class="col-sm">Parent</div>
-                    <a class="col-sm" href="{% url 'wod:location' object.parent.id %}">{{ object.parent.name }}</a>
+                    <a class="col-sm" href="{{ object.parent.get_absolute.url }}">{{ object.parent.name }}</a>
                 </div>
             {% endif %}
             <div class="row">
@@ -39,12 +39,12 @@
                 <div class="col-sm">{{ object.tass_form }}</div>
             </div>
             {% if merits_and_flaws.count != 0 %}
-            <div class="col-sm mtas_heading">
-                <h2>Merits and Flaws</h2>
-            </div>
-            <div class="row">
-                {% for mf in merits_and_flaws %}<div class="col-sm">{{ mf.mf }} {{ mf.rating }}</div>{% endfor %}
-            </div>
+                <div class="col-sm mtas_heading">
+                    <h2>Merits and Flaws</h2>
+                </div>
+                <div class="row">
+                    {% for mf in merits_and_flaws %}<div class="col-sm">{{ mf.mf }} {{ mf.rating }}</div>{% endfor %}
+                </div>
             {% endif %}
             <div class="col-sm mtas_heading">
                 <h2>Resonance</h2>

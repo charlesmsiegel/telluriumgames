@@ -24,7 +24,7 @@ class Mortal(PolymorphicModel):
     status = models.CharField(
         max_length=3, choices=zip(status_keys, statuses), default="Un"
     )
-    minor = models.BooleanField(default=False)
+    display = models.BooleanField(default=True)
 
     concept = models.CharField(max_length=300)
 
@@ -126,7 +126,7 @@ class Mortal(PolymorphicModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("cod:character", args=[str(self.id)])
+        return reverse("cod:characters:character", args=[str(self.id)])
 
     def add_name(self, name):
         self.name = name

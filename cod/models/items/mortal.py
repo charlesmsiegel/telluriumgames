@@ -18,7 +18,7 @@ class Item(PolymorphicModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("cod:item", kwargs={"pk": self.pk})
+        return reverse("cod:items:item", kwargs={"pk": self.pk})
 
 
 class Equipment(Item):

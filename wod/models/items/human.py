@@ -15,4 +15,4 @@ class Item(PolymorphicModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("wod:item", args=[str(self.id)])
+        return reverse("wod:items:item", args=[str(self.id)])

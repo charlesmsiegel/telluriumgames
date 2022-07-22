@@ -22,7 +22,7 @@ class Human(PolymorphicModel):
     status = models.CharField(
         max_length=3, choices=zip(status_keys, statuses), default="Un"
     )
-    minor = models.BooleanField(default=False)
+    display = models.BooleanField(default=True)
 
     concept = models.CharField(max_length=100)
 
@@ -91,7 +91,7 @@ class Human(PolymorphicModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("tc:character", args=[str(self.id)])
+        return reverse("tc:characters:character", args=[str(self.id)])
 
     def add_name(self, name):
         self.name = name
