@@ -127,7 +127,7 @@ class CharacterDetailView(View):
         char = Human.objects.get(pk=kwargs["pk"])
         if char.type in self.detail_views:
             return self.detail_views[char.type].as_view()(request, *args, **kwargs)
-        return redirect("tc:characters_index")
+        return redirect("tc:characters:index")
 
 
 class RandomCharacterView(View):
@@ -151,7 +151,7 @@ class RandomCharacterView(View):
         return redirect(char.get_absolute_url())
 
     def get(self, request):
-        return redirect("cod:characters_index")
+        return redirect("cod:characters:index")
 
 
 class EdgeDetailView(DetailView):

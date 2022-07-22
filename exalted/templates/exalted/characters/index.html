@@ -11,16 +11,16 @@
                 </div>
             </div>
             {% for char in chars %}
-                {% if not char.minor and char.name != 'Storyteller' %}
+                {% if char.display %}
                     <div class="row border">
-                        <a class="col-sm border" href="{% url 'exalted:character' char.id %}">{{ char.name| safe }}</a>
+                        <a class="col-sm border" href="{{ char.get_absolute_url }}">{{ char.name| safe }}</a>
                         <div class="col-sm border">{{ char.player.username }}</div>
                         <div class="col-sm border">{{ char.get_status_display }}</div>
                     </div>
                 {% endif %}
             {% endfor %}
         </div>
-        <form action="{% url 'exalted:random_character' %}" method="post">
+        <form action="{% url 'exalted:characters:random' %}" method="post">
             {% csrf_token %}
             <div class="row">
                 <div class="col-sm"></div>

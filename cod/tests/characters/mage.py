@@ -744,11 +744,15 @@ class TestProximiFamilyDetailView(TestCase):
         self.proximi_family.random()
 
     def test_proximi_family_detail_view_status_code(self):
-        response = self.client.get(f"/cod/proximifamily/{self.proximi_family.id}/")
+        response = self.client.get(
+            f"/cod/characters/proximifamily/{self.proximi_family.id}/"
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_proximi_family_detail_view_templates(self):
-        response = self.client.get(f"/cod/proximifamily/{self.proximi_family.id}/")
+        response = self.client.get(
+            f"/cod/characters/proximifamily/{self.proximi_family.id}/"
+        )
         self.assertTemplateUsed(response, "cod/characters/proximifamily/detail.html")
 
 
