@@ -1,0 +1,29 @@
+from django.urls import include, path
+
+from wod import views
+
+from . import human, mage, werewolf
+
+urls = [
+    path("ajax/load_faction_details/", views.load_factions, name="ajax_load_factions"),
+    path(
+        "ajax/load_subfaction_details/",
+        views.load_subfactions,
+        name="ajax_load_subfactions",
+    ),
+    path(
+        "ajax/load-character-types/",
+        views.load_character_types,
+        name="ajax_load_character_types",
+    ),
+    path("create/cabal/", views.CabalCreateView.as_view(), name="create_cabal"),
+    path("create/mage/", views.MageCreateView.as_view(), name="create_mage"),
+    path("instruments/<pk>/", views.InstrumentDetailView.as_view(), name="instrument"),
+    path(
+        "magefactions/<pk>/", views.MageFactionDetailView.as_view(), name="magefaction"
+    ),
+    path("paradigms/<pk>/", views.ParadigmDetailView.as_view(), name="paradigm"),
+    path("practices/<pk>/", views.PracticeDetailView.as_view(), name="practice"),
+    path("resonances/<pk>/", views.ResonanceDetailView.as_view(), name="resonance"),
+    path("rotes/<pk>/", views.RoteDetailView.as_view(), name="rote"),
+]

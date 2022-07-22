@@ -21,7 +21,7 @@
       {% endfor %}
     </div>
     <form id="personForm"
-          data-character-type-url="{% url 'wod:characters:ajax_load_character_types' %}"
+          data-character-type-url="{% url 'wod:characters:mage:ajax_load_character_types' %}"
           action="{% url 'wod:characters:random' %}"
           method="post"
           novalidate>

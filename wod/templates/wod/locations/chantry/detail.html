@@ -11,7 +11,7 @@
             <div class="row">
             {% if object.parent != None %}
                     <div class="col-sm">Parent</div>
-                    <a class="col-sm" href="{% url 'wod:locations:location' object.parent.id %}">{{ object.parent.name }}</a>
+                    <a class="col-sm" href="{{ object.get_absolute_url }}">{{ object.parent.name }}</a>
             {% endif %}
                 <div class="col-sm">Faction</div>
                 <div class="col-sm">{{ factions }}</div>
