@@ -6,6 +6,6 @@ from . import mortal
 
 urls = [
     path("", include((mortal.urls, "cod"), namespace="mortal")),
-    path("", views.ItemIndexView.as_view(), name="index"),
-    path("<pk>/", views.GenericItemDetailView.as_view(), name="item"),
+    path("", views.items.ItemIndexView.as_view(), name="index"),
+    path("<pk>/", views.items.GenericItemDetailView.as_view(), name="item"),
 ]

@@ -15,7 +15,7 @@ from tc.views.characters.human import HumanDetailView
 class AberrantDetailView(HumanDetailView):
     def get(self, request, pk):
         context = self.get_context(pk)
-        return render(request, "tc/characters/aberrant/detail.html", context)
+        return render(request, "tc/characters/aberrant/aberrant/detail.html", context)
 
     def get_context(self, pk):
         context = super().get_context(pk=pk)

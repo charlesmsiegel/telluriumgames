@@ -21,68 +21,68 @@ class MortalDetailView(View):
             "specialties": char.specialties.all().order_by("name"),
         }
         return render(
-            request, "exalted/characters/exalted/mortal/detail.html", context,
+            request, "exalted/characters/mortal/mortal/detail.html", context,
         )
 
 
 class MortalCreateView(CreateView):
     model = Mortal
     fields = "__all__"
-    template_name = "exalted/characters/exalted/mortal/create.html"
+    template_name = "exalted/characters/mortal/mortal/create.html"
 
 
 class MortalUpdateView(UpdateView):
     model = Mortal
     fields = "__all__"
-    template_name = "exalted/characters/exalted/mortal/update.html"
+    template_name = "exalted/characters/mortal/mortal/update.html"
 
 
 class SpecialtyDetailView(DetailView):
     model = Specialty
-    template_name = "exalted/characters/exalted/specialty/detail.html"
+    template_name = "exalted/characters/mortal/specialty/detail.html"
 
 
 class SpecialtyCreateView(CreateView):
     model = Specialty
     fields = "__all__"
-    template_name = "exalted/characters/exalted/specialty/create.html"
+    template_name = "exalted/characters/mortal/specialty/create.html"
 
 
 class SpecialtyUpdateView(UpdateView):
     model = Specialty
     fields = "__all__"
-    template_name = "exalted/characters/exalted/specialty/update.html"
+    template_name = "exalted/characters/mortal/specialty/update.html"
 
 
 class IntimacyDetailView(DetailView):
     model = Intimacy
-    template_name = "exalted/characters/exalted/intimacy/detail.html"
+    template_name = "exalted/characters/mortal/intimacy/detail.html"
 
 
 class IntimacyCreateView(CreateView):
     model = Intimacy
     fields = "__all__"
-    template_name = "exalted/characters/exalted/intimacy/create.html"
+    template_name = "exalted/characters/mortal/intimacy/create.html"
 
 
 class IntimacyUpdateView(UpdateView):
     model = Intimacy
     fields = "__all__"
-    template_name = "exalted/characters/exalted/intimacy/update.html"
+    template_name = "exalted/characters/mortal/intimacy/update.html"
 
 
 class MeritDetailView(DetailView):
     model = Merit
-    template_name = "exalted/characters/exalted/merit/detail.html"
+    template_name = "exalted/characters/mortal/merit/detail.html"
 
 
 class MeritCreateView(CreateView):
     model = Merit
     fields = "__all__"
-    template_name = "exalted/characters/exalted/merit/create.html"
+    template_name = "exalted/characters/mortal/merit/create.html"
 
 
 class MeritUpdateView(UpdateView):
     model = Merit
     fields = "__all__"
-    template_name = "exalted/characters/exalted/merit/update.html"
+    template_name = "exalted/characters/mortal/merit/update.html"
