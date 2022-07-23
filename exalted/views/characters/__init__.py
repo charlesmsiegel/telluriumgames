@@ -1,16 +1,10 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, View
 
-from exalted.models.characters.mortals import (
-    Intimacy,
-    Merit,
-    MeritRating,
-    Mortal,
-    Specialty,
-)
+from cod.models.characters.mortal import Mortal
+from . import mortal
 
 
-# Create your views here.
 class IndexView(View):
     """Class that manages the Index view"""
 
@@ -29,30 +23,11 @@ class IndexView(View):
         return context
 
 
-class MortalDetailView(View):
-    def get(self, request, *args, **kwargs):
-        char = Mortal.objects.get(pk=kwargs["pk"])
-        context = {
-            "object": char,
-            "merits": MeritRating.objects.filter(character=char).order_by(
-                "merit__name"
-            ),
-            "specialties": char.specialties.all().order_by("name"),
-        }
-        return render(request, "exalted/characters/mortal/detail.html", context,)
-
-
-class MortalCreateView(CreateView):
-    model = Mortal
-    fields = "__all__"
-    template_name = "exalted/characters/mortal/create.html"
-
-
-class CharacterDetailView(View):
+class GenericCharacterDetailView(View):
     """Class that manages Views for characters"""
 
     create_views = {
-        "mortal": MortalDetailView,
+        "mortal": mortal.MortalDetailView,
     }
 
     def get(self, request, *args, **kwargs):
@@ -82,18 +57,3 @@ class RandomCharacterView(View):
 
     def get(self, request):
         return redirect("exalted:characters:index")
-
-
-class SpecialtyDetailView(DetailView):
-    model = Specialty
-    template_name = "exalted/characters/specialty/detail.html"
-
-
-class IntimacyDetailView(DetailView):
-    model = Intimacy
-    template_name = "exalted/characters/intimacy/detail.html"
-
-
-class MeritDetailView(DetailView):
-    model = Merit
-    template_name = "exalted/characters/merit/detail.html"
