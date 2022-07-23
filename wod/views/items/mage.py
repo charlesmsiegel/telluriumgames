@@ -1,8 +1,9 @@
 from collections import namedtuple
-from django.shortcuts import render
-from django.views.generic import DetailView, CreateView, UpdateView, View
 
-from wod.models.items.mage import Grimoire, Wonder, Library
+from django.shortcuts import render
+from django.views.generic import CreateView, DetailView, UpdateView, View
+
+from wod.models.items.mage import Grimoire, Library, Wonder
 
 EmptyRote = namedtuple("EmptyRote", ["name", "spheres"])
 empty_rote = EmptyRote("", "")

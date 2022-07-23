@@ -1,10 +1,10 @@
-from django.views.generic import DetailView, CreateView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView
 
 from wod.models.characters.human import (
-    Character,
-    Human,
-    Group,
     Archetype,
+    Character,
+    Group,
+    Human,
     MeritFlaw,
     Specialty,
 )

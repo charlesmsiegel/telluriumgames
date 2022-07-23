@@ -902,7 +902,7 @@ class TestHumanDetailView(TestCase):
 
     def test_mage_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/{self.human.id}/")
-        self.assertTemplateUsed(response, "wod/characters/human/detail.html")
+        self.assertTemplateUsed(response, "wod/characters/human/human/detail.html")
 
 
 class TestGenericCharacterDetailViews(TestCase):
@@ -919,13 +919,15 @@ class TestGenericCharacterDetailViews(TestCase):
 
     def test_character_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/{self.character.id}/")
-        self.assertTemplateUsed(response, "wod/characters/character/detail.html")
+        self.assertTemplateUsed(response, "wod/characters/human/character/detail.html")
         response = self.client.get(f"/wod/characters/{self.human.id}/")
-        self.assertTemplateUsed(response, "wod/characters/human/detail.html")
+        self.assertTemplateUsed(response, "wod/characters/human/human/detail.html")
         response = self.client.get(f"/wod/characters/{self.mage.id}/")
-        self.assertTemplateUsed(response, "wod/characters/mage/detail.html")
+        self.assertTemplateUsed(response, "wod/characters/mage/mage/detail.html")
         response = self.client.get(f"/wod/characters/{self.werewolf.id}/")
-        self.assertTemplateUsed(response, "wod/characters/werewolf/detail.html")
+        self.assertTemplateUsed(
+            response, "wod/characters/werewolf/werewolf/detail.html"
+        )
 
 
 class TestGroupDetailView(TestCase):
@@ -939,7 +941,7 @@ class TestGroupDetailView(TestCase):
 
     def test_group_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/groups/{self.group.id}/")
-        self.assertTemplateUsed(response, "wod/characters/group/detail.html")
+        self.assertTemplateUsed(response, "wod/characters/human/group/detail.html")
 
 
 class TestGenericGroupDetailView(TestCase):
@@ -951,8 +953,8 @@ class TestGenericGroupDetailView(TestCase):
 
     def test_generic_group_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/groups/{self.group.id}/")
-        self.assertTemplateUsed(response, "wod/characters/group/detail.html")
+        self.assertTemplateUsed(response, "wod/characters/human/group/detail.html")
         response = self.client.get(f"/wod/characters/groups/{self.cabal.id}/")
-        self.assertTemplateUsed(response, "wod/characters/cabal/detail.html")
+        self.assertTemplateUsed(response, "wod/characters/mage/cabal/detail.html")
         response = self.client.get(f"/wod/characters/groups/{self.pack.id}/")
-        self.assertTemplateUsed(response, "wod/characters/pack/detail.html")
+        self.assertTemplateUsed(response, "wod/characters/werewolf/pack/detail.html")

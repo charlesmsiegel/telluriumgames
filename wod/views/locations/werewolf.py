@@ -1,10 +1,12 @@
-from django.views.generic import DetailView, CreateView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView
 
 from wod.models.locations.werewolf import Caern
+
 
 class CaernDetailView(DetailView):
     model = Caern
     template_name = "wod/locations/werewolf/caern/detail.html"
+
 
 class CaernCreateView(CreateView):
     model = Caern

@@ -347,7 +347,7 @@ class TestGrimoireDetailView(TestCase):
 
     def test_grimoire_detail_view_template(self):
         response = self.client.get(f"/wod/items/{self.grimoire.id}/")
-        self.assertTemplateUsed(response, "wod/items/grimoire/detail.html")
+        self.assertTemplateUsed(response, "wod/items/mage/grimoire/detail.html")
 
 
 class TestLibraryDetailView(TestCase):
@@ -360,4 +360,4 @@ class TestLibraryDetailView(TestCase):
 
     def test_library_detail_view_template(self):
         response = self.client.get(f"/wod/items/{self.library.id}/")
-        self.assertTemplateUsed(response, "wod/items/library/detail.html")
+        self.assertTemplateUsed(response, "wod/items/mage/library/detail.html")

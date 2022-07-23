@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, CreateView, UpdateView, View
-from wod.models.characters.human import MeritFlawRating
+from django.views.generic import CreateView, DetailView, UpdateView, View
 
+from wod.models.characters.human import MeritFlawRating
 from wod.models.characters.werewolf.garou import (
     Camp,
     Gift,

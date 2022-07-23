@@ -4,7 +4,23 @@ from wod import views
 
 urls = [
     path(
-        "create/location/", views.LocationCreateView.as_view(), name="create_location",
+        "location/create/",
+        views.locations.human.LocationCreateView.as_view(),
+        name="create_location",
     ),
-    path("create/city/", views.CityCreateView.as_view(), name="create_city"),
+    path(
+        "location/update/<pk>/",
+        views.locations.human.LocationUpdateView.as_view(),
+        name="update_location",
+    ),
+    path(
+        "city/create/",
+        views.locations.human.CityCreateView.as_view(),
+        name="create_city",
+    ),
+    path(
+        "city/update/<pk>/",
+        views.locations.human.CityUpdateView.as_view(),
+        name="update_city",
+    ),
 ]

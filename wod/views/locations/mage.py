@@ -1,13 +1,13 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, CreateView, UpdateView, View
+from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from wod.models.locations.mage import (
+    Chantry,
     Node,
+    NodeMeritFlaw,
     NodeMeritFlawRating,
     NodeResonanceRating,
     Sector,
-    Chantry,
-    NodeMeritFlaw,
 )
 
 
@@ -52,7 +52,7 @@ class NodeCreateView(CreateView):
     template_name = "wod/locations/mage/node/create.html"
 
 
-class SectorUpdateView(UpdateView):
+class NodeUpdateView(UpdateView):
     model = Node
     fields = "__all__"
     template_name = "wod/locations/mage/node/update.html"
@@ -84,7 +84,7 @@ class ChantryCreateView(CreateView):
     template_name = "wod/locations/mage/chantry/create.html"
 
 
-class SectorUpdateView(UpdateView):
+class ChantryUpdateView(UpdateView):
     model = Chantry
     fields = "__all__"
     template_name = "wod/locations/mage/chantry/update.html"

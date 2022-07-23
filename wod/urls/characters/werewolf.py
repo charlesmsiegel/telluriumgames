@@ -3,19 +3,138 @@ from django.urls import include, path
 from wod import views
 
 urls = [
-    path("create/pack/", views.PackCreateView.as_view(), name="create_pack"),
     path(
-        "create/werewolf/", views.WerewolfCreateView.as_view(), name="create_werewolf",
+        "pack/create/",
+        views.characters.werewolf.PackCreateView.as_view(),
+        name="create_pack",
     ),
-    path("camps/<pk>/", views.CampDetailView.as_view(), name="camp"),
-    path("charms/<pk>/", views.CharmDetailView.as_view(), name="charm"),
-    path("gifts/<pk>/", views.GiftDetailView.as_view(), name="gift"),
+    path(
+        "pack/update/<pk>/",
+        views.characters.werewolf.PackUpdateView.as_view(),
+        name="update_pack",
+    ),
+    path(
+        "werewolf/create/",
+        views.characters.werewolf.WerewolfCreateView.as_view(),
+        name="create_werewolf",
+    ),
+    path(
+        "werewolf/update/<pk>/",
+        views.characters.werewolf.WerewolfUpdateView.as_view(),
+        name="update_werewolf",
+    ),
+    path(
+        "camps/<pk>/", views.characters.werewolf.CampDetailView.as_view(), name="camp"
+    ),
+    path(
+        "camps/create/",
+        views.characters.werewolf.CampCreateView.as_view(),
+        name="create_camp",
+    ),
+    path(
+        "camps/update/<pk>/",
+        views.characters.werewolf.CampUpdateView.as_view(),
+        name="update_camp",
+    ),
+    path(
+        "charms/<pk>/",
+        views.characters.werewolf.CharmDetailView.as_view(),
+        name="charm",
+    ),
+    path(
+        "charms/create/",
+        views.characters.werewolf.CharmCreateView.as_view(),
+        name="create_charm",
+    ),
+    path(
+        "charms/update/<pk>/",
+        views.characters.werewolf.CharmUpdateView.as_view(),
+        name="update_charm",
+    ),
+    path(
+        "gifts/<pk>/", views.characters.werewolf.GiftDetailView.as_view(), name="gift"
+    ),
+    path(
+        "gifts/create/",
+        views.characters.werewolf.GiftCreateView.as_view(),
+        name="create_gift",
+    ),
+    path(
+        "gifts/update/<pk>/",
+        views.characters.werewolf.GiftUpdateView.as_view(),
+        name="update_gift",
+    ),
     path(
         "renownincidents/<pk>/",
-        views.RenownIncidentDetailView.as_view(),
+        views.characters.werewolf.RenownIncidentDetailView.as_view(),
         name="renownincident",
     ),
-    path("rites/<pk>/", views.RiteDetailView.as_view(), name="rite"),
-    path("totems/<pk>/", views.TotemDetailView.as_view(), name="totem"),
-    path("tribes/<pk>/", views.TribeDetailView.as_view(), name="tribe"),
+    path(
+        "renownincidents/create/",
+        views.characters.werewolf.RenownIncidentCreateView.as_view(),
+        name="create_renownincident",
+    ),
+    path(
+        "renownincidents/update/<pk>/",
+        views.characters.werewolf.RenownIncidentUpdateView.as_view(),
+        name="update_renownincident",
+    ),
+    path(
+        "rites/<pk>/", views.characters.werewolf.RiteDetailView.as_view(), name="rite"
+    ),
+    path(
+        "rites/create/",
+        views.characters.werewolf.RiteCreateView.as_view(),
+        name="create_rite",
+    ),
+    path(
+        "rites/update/<pk>/",
+        views.characters.werewolf.RiteUpdateView.as_view(),
+        name="update_rite",
+    ),
+    path(
+        "spirits/<pk>/",
+        views.characters.werewolf.SpiritDetailView.as_view(),
+        name="spirit",
+    ),
+    path(
+        "spirits/create/",
+        views.characters.werewolf.SpiritCreateView.as_view(),
+        name="create_spirit",
+    ),
+    path(
+        "spirits/update/<pk>/",
+        views.characters.werewolf.SpiritUpdateView.as_view(),
+        name="update_spirit",
+    ),
+    path(
+        "totems/<pk>/",
+        views.characters.werewolf.TotemDetailView.as_view(),
+        name="totem",
+    ),
+    path(
+        "totems/create/",
+        views.characters.werewolf.TotemCreateView.as_view(),
+        name="create_totem",
+    ),
+    path(
+        "totems/update/<pk>/",
+        views.characters.werewolf.TotemUpdateView.as_view(),
+        name="update_totem",
+    ),
+    path(
+        "tribes/<pk>/",
+        views.characters.werewolf.TribeDetailView.as_view(),
+        name="tribe",
+    ),
+    path(
+        "tribes/create/",
+        views.characters.werewolf.TribeCreateView.as_view(),
+        name="create_tribes",
+    ),
+    path(
+        "tribes/update/<pk>/",
+        views.characters.werewolf.TribeUpdateView.as_view(),
+        name="update_tribes",
+    ),
 ]

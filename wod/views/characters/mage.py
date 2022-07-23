@@ -1,12 +1,12 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, CreateView, UpdateView, View
+from django.views.generic import CreateView, DetailView, UpdateView, View
+
 from wod.forms import MageForm
 from wod.models.characters.human import MeritFlawRating
-
 from wod.models.characters.mage.faction import MageFaction
 from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
 from wod.models.characters.mage.mage import Cabal, Mage
-from wod.models.characters.mage.resonance import ResRating, Resonance
+from wod.models.characters.mage.resonance import Resonance, ResRating
 from wod.models.characters.mage.rote import Rote
 from wod.models.characters.mage.utils import PRIMARY_ABILITIES
 

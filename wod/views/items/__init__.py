@@ -3,6 +3,7 @@ from django.views.generic import View
 
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire
+
 from . import human, mage, werewolf
 
 

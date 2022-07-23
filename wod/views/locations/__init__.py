@@ -1,9 +1,10 @@
 from django.shortcuts import redirect, render
 from django.views.generic import View
-from core.utils import level_name, tree_sort
 
+from core.utils import level_name, tree_sort
 from wod.models.locations.human import Location
-from wod.models.locations.mage import Node, Chantry
+from wod.models.locations.mage import Chantry, Node
+
 from . import human, mage, werewolf
 
 

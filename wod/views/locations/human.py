@@ -1,6 +1,6 @@
-from django.views.generic import DetailView, CreateView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView
 
-from wod.models.locations.human import Location, City
+from wod.models.locations.human import City, Location
 
 
 class LocationDetailView(DetailView):
