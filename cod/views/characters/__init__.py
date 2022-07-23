@@ -1,9 +1,10 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, View
-from cod.models.characters.mage import Mage, Proximi
 
+from cod.models.characters.mage import Mage, Proximi
 from cod.models.characters.mortal import Mortal
-from . import mortal, mage
+
+from . import mage, mortal
 
 
 class CharacterIndexView(View):
@@ -62,4 +63,3 @@ class RandomCharacterView(View):
 
     def get(self, request):
         return redirect("cod:characters:index")
-

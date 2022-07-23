@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic import View
-from tc.models.characters.aberrant import Aberrant
 
+from tc.models.characters.aberrant import Aberrant
 from tc.models.characters.human import Human
 from tc.models.characters.talent import Talent
 

@@ -277,4 +277,3 @@ class SectorAdmin(admin.ModelAdmin):
 @admin.register(Caern)
 class CaernAdmin(admin.ModelAdmin):
     list_display = ("name",)
-

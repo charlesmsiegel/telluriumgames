@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, View
 
 from cod.models.items.mortal import Item
+
 from . import mortal
 
 

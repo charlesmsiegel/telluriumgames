@@ -753,7 +753,9 @@ class TestProximiFamilyDetailView(TestCase):
         response = self.client.get(
             f"/cod/characters/proximifamily/{self.proximi_family.id}/"
         )
-        self.assertTemplateUsed(response, "cod/characters/mage/proximifamily/detail.html")
+        self.assertTemplateUsed(
+            response, "cod/characters/mage/proximifamily/detail.html"
+        )
 
 
 class TestProximiDetailView(TestCase):

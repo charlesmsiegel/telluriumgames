@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, View
 
 from exalted.models.characters.mortals import Mortal
+
 from . import mortal
 
 

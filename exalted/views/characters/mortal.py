@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from django.views.generic import CreateView, DetailView, View, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from exalted.models.characters.mortals import (
     Intimacy,
@@ -20,9 +20,7 @@ class MortalDetailView(View):
             ),
             "specialties": char.specialties.all().order_by("name"),
         }
-        return render(
-            request, "exalted/characters/mortal/mortal/detail.html", context,
-        )
+        return render(request, "exalted/characters/mortal/mortal/detail.html", context,)
 
 
 class MortalCreateView(CreateView):

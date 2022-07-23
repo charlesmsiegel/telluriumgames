@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
+
 from tc.models.characters.aberrant import (
     Aberrant,
     MegaEdge,

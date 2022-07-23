@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
-from django.views.generic import CreateView, DetailView, View, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, View
+
 from cod.models.characters.mortal import (
     Condition,
     Merit,

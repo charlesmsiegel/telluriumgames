@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
-from tc.models.characters.talent import Gift, MomentOfInspiration, Talent
 
+from tc.models.characters.talent import Gift, MomentOfInspiration, Talent
 from tc.views.characters.human import HumanDetailView
 
 

@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView
+
 from cod.models.items.mortal import Equipment, Item
 
 
@@ -35,4 +36,3 @@ class EquipmentUpdateView(UpdateView):
     model = Equipment
     fields = "__all__"
     template_name = "cod/items/mortal/equipment/update.html"
-

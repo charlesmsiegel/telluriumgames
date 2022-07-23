@@ -1,5 +1,8 @@
+from collections import namedtuple
+
 from django.shortcuts import redirect, render
-from django.views.generic import CreateView, DetailView, View, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, View
+
 from cod.models.characters.mage import (
     Legacy,
     Mage,
@@ -9,10 +12,7 @@ from cod.models.characters.mage import (
     ProximiFamily,
     Rote,
 )
-from collections import namedtuple
-
 from cod.models.characters.mortal import MeritRating
-
 
 EmptyRote = namedtuple("EmptyRote", ["name", "arcana", "level"])
 empty_rote = EmptyRote("", "", "")
@@ -112,7 +112,9 @@ class ProximiFamilyDetailView(DetailView):
             while len(all_blessings[-1]) < row_length:
                 all_blessings[-1].append(empty_rote)
         context["blessings"] = all_blessings
-        return render(request, "cod/characters/mage/proximifamily/detail.html", context,)
+        return render(
+            request, "cod/characters/mage/proximifamily/detail.html", context,
+        )
 
 
 class ProximiFamilyCreateView(CreateView):

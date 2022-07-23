@@ -9,5 +9,7 @@ urls = [
     path("", include((mage.urls, "cod"), namespace="mage")),
     path("", views.characters.CharacterIndexView.as_view(), name="index"),
     path("random/", views.characters.RandomCharacterView.as_view(), name="random",),
-    path("<pk>/", views.characters.GenericCharacterDetailView.as_view(), name="character"),
+    path(
+        "<pk>/", views.characters.GenericCharacterDetailView.as_view(), name="character"
+    ),
 ]
