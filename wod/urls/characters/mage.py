@@ -16,6 +16,7 @@ urls = [
     ),
     path("create/cabal/", views.CabalCreateView.as_view(), name="create_cabal"),
     path("create/mage/", views.MageCreateView.as_view(), name="create_mage"),
+    path("create/rote/", views.RoteCreateView.as_view(), name="create_rote"),
     path("instruments/<pk>/", views.InstrumentDetailView.as_view(), name="instrument"),
     path(
         "magefactions/<pk>/", views.MageFactionDetailView.as_view(), name="magefaction"
@@ -23,5 +24,6 @@ urls = [
     path("paradigms/<pk>/", views.ParadigmDetailView.as_view(), name="paradigm"),
     path("practices/<pk>/", views.PracticeDetailView.as_view(), name="practice"),
     path("resonances/<pk>/", views.ResonanceDetailView.as_view(), name="resonance"),
+    path("rotes/update/<pk>/", views.RoteUpdateView.as_view(), name="update_rote"),
     path("rotes/<pk>/", views.RoteDetailView.as_view(), name="rote"),
 ]
