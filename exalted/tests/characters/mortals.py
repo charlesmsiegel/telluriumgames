@@ -636,7 +636,9 @@ class TestMortalDetailView(TestCase):
 
     def test_mortal_detail_view_template(self):
         response = self.client.get(f"/exalted/characters/{self.human.id}/")
-        self.assertTemplateUsed(response, "exalted/characters/mortal/detail.html")
+        self.assertTemplateUsed(
+            response, "exalted/characters/mortal/mortal/detail.html"
+        )
 
 
 class TestGenericCharacterDetailViews(TestCase):
@@ -646,4 +648,6 @@ class TestGenericCharacterDetailViews(TestCase):
 
     def test_character_detail_view_templates(self):
         response = self.client.get(f"/exalted/characters/{self.mortal.id}/")
-        self.assertTemplateUsed(response, "exalted/characters/mortal/detail.html")
+        self.assertTemplateUsed(
+            response, "exalted/characters/mortal/mortal/detail.html"
+        )

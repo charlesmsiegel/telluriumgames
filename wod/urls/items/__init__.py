@@ -8,7 +8,7 @@ urls = [
     path("", include((mage.urls, "wod"), namespace="mage")),
     path("", include((werewolf.urls, "wod"), namespace="werewolf")),
     path("", include((human.urls, "wod"), namespace="human")),
-    path("", views.ItemIndexView.as_view(), name="index"),
-    path("random/", views.RandomItemView.as_view(), name="random"),
-    path("<pk>/", views.GenericItemDetailView.as_view(), name="item"),
+    path("", views.items.ItemIndexView.as_view(), name="index"),
+    path("random/", views.items.RandomItemView.as_view(), name="random"),
+    path("<pk>/", views.items.GenericItemDetailView.as_view(), name="item"),
 ]

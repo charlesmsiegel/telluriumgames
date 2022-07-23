@@ -3,25 +3,125 @@ from django.urls import include, path
 from wod import views
 
 urls = [
-    path("ajax/load_faction_details/", views.load_factions, name="ajax_load_factions"),
+    path(
+        "ajax/load_faction_details/",
+        views.characters.mage.load_factions,
+        name="ajax_load_factions",
+    ),
     path(
         "ajax/load_subfaction_details/",
-        views.load_subfactions,
+        views.characters.mage.load_subfactions,
         name="ajax_load_subfactions",
     ),
     path(
         "ajax/load-character-types/",
-        views.load_character_types,
+        views.characters.load_character_types,
         name="ajax_load_character_types",
     ),
-    path("create/cabal/", views.CabalCreateView.as_view(), name="create_cabal"),
-    path("create/mage/", views.MageCreateView.as_view(), name="create_mage"),
-    path("instruments/<pk>/", views.InstrumentDetailView.as_view(), name="instrument"),
     path(
-        "magefactions/<pk>/", views.MageFactionDetailView.as_view(), name="magefaction"
+        "cabal/create/",
+        views.characters.mage.CabalCreateView.as_view(),
+        name="create_cabal",
     ),
-    path("paradigms/<pk>/", views.ParadigmDetailView.as_view(), name="paradigm"),
-    path("practices/<pk>/", views.PracticeDetailView.as_view(), name="practice"),
-    path("resonances/<pk>/", views.ResonanceDetailView.as_view(), name="resonance"),
-    path("rotes/<pk>/", views.RoteDetailView.as_view(), name="rote"),
+    path(
+        "cabal/update/<pk>/",
+        views.characters.mage.CabalUpdateView.as_view(),
+        name="update_cabal",
+    ),
+    path(
+        "mage/create/",
+        views.characters.mage.MageCreateView.as_view(),
+        name="create_mage",
+    ),
+    path(
+        "mage/update/<pk>/",
+        views.characters.mage.MageUpdateView.as_view(),
+        name="update_mage",
+    ),
+    path(
+        "instruments/create/",
+        views.characters.mage.InstrumentCreateView.as_view(),
+        name="create_instrument",
+    ),
+    path(
+        "instruments/update/<pk>/",
+        views.characters.mage.InstrumentUpdateView.as_view(),
+        name="update_instrument",
+    ),
+    path(
+        "instruments/<pk>/",
+        views.characters.mage.InstrumentDetailView.as_view(),
+        name="instrument",
+    ),
+    path(
+        "magefactions/create/",
+        views.characters.mage.MageFactionCreateView.as_view(),
+        name="create_magefaction",
+    ),
+    path(
+        "magefactions/update/<pk>/",
+        views.characters.mage.MageFactionUpdateView.as_view(),
+        name="update_magefaction",
+    ),
+    path(
+        "magefactions/<pk>/",
+        views.characters.mage.MageFactionDetailView.as_view(),
+        name="magefaction",
+    ),
+    path(
+        "paradigms/create/",
+        views.characters.mage.ParadigmCreateView.as_view(),
+        name="create_paradigm",
+    ),
+    path(
+        "paradigms/update/<pk>/",
+        views.characters.mage.ParadigmUpdateView.as_view(),
+        name="update_paradigm",
+    ),
+    path(
+        "paradigms/<pk>/",
+        views.characters.mage.ParadigmDetailView.as_view(),
+        name="paradigm",
+    ),
+    path(
+        "practices/create/",
+        views.characters.mage.PracticeCreateView.as_view(),
+        name="create_practice",
+    ),
+    path(
+        "practices/update/<pk>/",
+        views.characters.mage.PracticeUpdateView.as_view(),
+        name="update_practice",
+    ),
+    path(
+        "practices/<pk>/",
+        views.characters.mage.PracticeDetailView.as_view(),
+        name="practice",
+    ),
+    path(
+        "resonances/create/",
+        views.characters.mage.ResonanceCreateView.as_view(),
+        name="create_resonance",
+    ),
+    path(
+        "resonances/update/<pk>/",
+        views.characters.mage.ResonanceUpdateView.as_view(),
+        name="update_resonance",
+    ),
+    path(
+        "resonances/<pk>/",
+        views.characters.mage.ResonanceDetailView.as_view(),
+        name="resonance",
+    ),
+    path(
+        "rotes/create/",
+        views.characters.mage.RoteCreateView.as_view(),
+        name="create_rote",
+    ),
+    path(
+        "rotes/update/<pk>/",
+        views.characters.mage.RoteUpdateView.as_view(),
+        name="update_rote",
+    ),
+    path("rotes/<pk>/", views.characters.mage.RoteDetailView.as_view(), name="rote"),
 ]

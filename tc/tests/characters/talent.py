@@ -312,4 +312,4 @@ class TestTalentDetailView(TestCase):
 
     def test_talent_detail_view_template(self):
         response = self.client.get(f"/tc/characters/{self.character.id}/")
-        self.assertTemplateUsed(response, "tc/characters/talent/detail.html")
+        self.assertTemplateUsed(response, "tc/characters/talent/talent/detail.html")

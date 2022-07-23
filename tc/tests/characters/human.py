@@ -843,7 +843,7 @@ class TestHumanDetailView(TestCase):
 
     def test_mortal_detail_view_template(self):
         response = self.client.get(f"/tc/characters/{self.character.id}/")
-        self.assertTemplateUsed(response, "tc/characters/human/detail.html")
+        self.assertTemplateUsed(response, "tc/characters/human/human/detail.html")
 
 
 class CharacterDetailView(TestCase):
@@ -869,11 +869,11 @@ class CharacterDetailView(TestCase):
 
     def test_character_detail_view_templates(self):
         response = self.client.get(f"/tc/characters/{self.human.id}/")
-        self.assertTemplateUsed(response, "tc/characters/human/detail.html")
+        self.assertTemplateUsed(response, "tc/characters/human/human/detail.html")
         response = self.client.get(f"/tc/characters/{self.talent.id}/")
-        self.assertTemplateUsed(response, "tc/characters/talent/detail.html")
+        self.assertTemplateUsed(response, "tc/characters/talent/talent/detail.html")
         response = self.client.get(f"/tc/characters/{self.aberrant.id}/")
-        self.assertTemplateUsed(response, "tc/characters/aberrant/detail.html")
+        self.assertTemplateUsed(response, "tc/characters/aberrant/aberrant/detail.html")
 
 
 class TestIndexView(TestCase):

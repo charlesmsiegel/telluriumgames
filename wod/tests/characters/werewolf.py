@@ -857,7 +857,9 @@ class TestWerewolfDetailView(TestCase):
 
     def test_werewolf_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/{self.werewolf.id}/")
-        self.assertTemplateUsed(response, "wod/characters/werewolf/detail.html")
+        self.assertTemplateUsed(
+            response, "wod/characters/werewolf/werewolf/detail.html"
+        )
 
 
 class TestPackDetailView(TestCase):
@@ -871,4 +873,4 @@ class TestPackDetailView(TestCase):
 
     def test_pack_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/groups/{self.pack.id}/")
-        self.assertTemplateUsed(response, "wod/characters/pack/detail.html")
+        self.assertTemplateUsed(response, "wod/characters/werewolf/pack/detail.html")

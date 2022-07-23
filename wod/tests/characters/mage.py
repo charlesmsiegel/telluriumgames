@@ -1370,7 +1370,7 @@ class TestMageDetailView(TestCase):
 
     def test_mage_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/{self.mage.id}/")
-        self.assertTemplateUsed(response, "wod/characters/mage/detail.html")
+        self.assertTemplateUsed(response, "wod/characters/mage/mage/detail.html")
 
 
 class TestCabalDetailView(TestCase):
@@ -1384,4 +1384,4 @@ class TestCabalDetailView(TestCase):
 
     def test_cabal_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/groups/{self.cabal.id}/")
-        self.assertTemplateUsed(response, "wod/characters/cabal/detail.html")
+        self.assertTemplateUsed(response, "wod/characters/mage/cabal/detail.html")

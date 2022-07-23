@@ -6,7 +6,9 @@ from . import mortal
 
 urls = [
     path("", include((mortal.urls, "exalted"), namespace="mortal")),
-    path("", views.IndexView.as_view(), name="index"),
-    path("random/", views.RandomCharacterView.as_view(), name="random",),
-    path("<pk>/", views.CharacterDetailView.as_view(), name="character"),
+    path("", views.characters.IndexView.as_view(), name="index"),
+    path("random/", views.characters.RandomCharacterView.as_view(), name="random",),
+    path(
+        "<pk>/", views.characters.GenericCharacterDetailView.as_view(), name="character"
+    ),
 ]

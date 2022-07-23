@@ -817,4 +817,4 @@ class TestAberrantDetailView(TestCase):
 
     def test_mortal_detail_view_template(self):
         response = self.client.get(f"/tc/characters/{self.character.id}/")
-        self.assertTemplateUsed(response, "tc/characters/aberrant/detail.html")
+        self.assertTemplateUsed(response, "tc/characters/aberrant/aberrant/detail.html")

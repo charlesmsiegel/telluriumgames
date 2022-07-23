@@ -407,7 +407,7 @@ class TestNodeDetailView(TestCase):
 
     def test_location_detail_view_templates(self):
         response = self.client.get(f"/wod/locations/{self.location.id}/")
-        self.assertTemplateUsed(response, "wod/locations/node/detail.html")
+        self.assertTemplateUsed(response, "wod/locations/mage/node/detail.html")
 
 
 class TestChantryDetailView(TestCase):
@@ -420,4 +420,4 @@ class TestChantryDetailView(TestCase):
 
     def test_chantry_detail_view_templates(self):
         response = self.client.get(f"/wod/locations/{self.location.id}/")
-        self.assertTemplateUsed(response, "wod/locations/chantry/detail.html")
+        self.assertTemplateUsed(response, "wod/locations/mage/chantry/detail.html")

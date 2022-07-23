@@ -490,7 +490,7 @@ class TestMageDetailView(TestCase):
 
     def test_mage_detail_view_templates(self):
         response = self.client.get(f"/cod/characters/{self.mage.id}/")
-        self.assertTemplateUsed(response, "cod/characters/mage/detail.html")
+        self.assertTemplateUsed(response, "cod/characters/mage/mage/detail.html")
 
 
 class TestProximiFamily(TestCase):
@@ -753,7 +753,9 @@ class TestProximiFamilyDetailView(TestCase):
         response = self.client.get(
             f"/cod/characters/proximifamily/{self.proximi_family.id}/"
         )
-        self.assertTemplateUsed(response, "cod/characters/proximifamily/detail.html")
+        self.assertTemplateUsed(
+            response, "cod/characters/mage/proximifamily/detail.html"
+        )
 
 
 class TestProximiDetailView(TestCase):
@@ -767,4 +769,4 @@ class TestProximiDetailView(TestCase):
 
     def test_proximi_detail_view_templates(self):
         response = self.client.get(f"/cod/characters/{self.proximi.id}/")
-        self.assertTemplateUsed(response, "cod/characters/proximi/detail.html")
+        self.assertTemplateUsed(response, "cod/characters/mage/proximi/detail.html")

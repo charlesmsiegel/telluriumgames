@@ -31,4 +31,4 @@ class TestItemDetailView(TestCase):
 
     def test_object_detail_view_templates(self):
         response = self.client.get(f"/wod/items/{self.item.id}/")
-        self.assertTemplateUsed(response, "wod/items/item/detail.html")
+        self.assertTemplateUsed(response, "wod/items/human/item/detail.html")

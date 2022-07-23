@@ -1,3 +1,5 @@
+import imp
+
 from django.contrib import admin
 
 from wod.models.characters.human import (
@@ -20,18 +22,22 @@ from wod.models.characters.mage import (
 )
 from wod.models.characters.werewolf import (
     Camp,
+    Charm,
     Gift,
     Pack,
     RenownIncident,
     Rite,
+    SpiritCharacter,
     Totem,
     Tribe,
     Werewolf,
 )
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
+from wod.models.items.werewolf import Fetish
 from wod.models.locations.human import City, Location
-from wod.models.locations.mage import Chantry, Node, NodeMeritFlaw
+from wod.models.locations.mage import Chantry, Node, NodeMeritFlaw, Sector
+from wod.models.locations.werewolf import Caern
 
 
 # Register your models here.
@@ -246,3 +252,28 @@ class RenownIncidentAdmin(admin.ModelAdmin):
         "breed",
         "rite",
     )
+
+
+@admin.register(Charm)
+class CharmAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+
+
+@admin.register(SpiritCharacter)
+class SpiritCharacterAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+
+
+@admin.register(Fetish)
+class FetishAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+
+
+@admin.register(Sector)
+class SectorAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+
+
+@admin.register(Caern)
+class CaernAdmin(admin.ModelAdmin):
+    list_display = ("name",)
