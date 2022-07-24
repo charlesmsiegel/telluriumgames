@@ -17,12 +17,12 @@ urls = [
     path(
         "conditions/create/",
         views.characters.mortal.ConditionCreateView.as_view(),
-        name="create_item",
+        name="create_condition",
     ),
     path(
         "conditions/update/<pk>/",
         views.characters.mortal.ConditionUpdateView.as_view(),
-        name="update_item",
+        name="update_condition",
     ),
     path(
         "conditions/<pk>/",
@@ -32,12 +32,12 @@ urls = [
     path(
         "merits/create/",
         views.characters.mortal.MeritCreateView.as_view(),
-        name="create_item",
+        name="create_merit",
     ),
     path(
         "merits/update/<pk>/",
         views.characters.mortal.MeritUpdateView.as_view(),
-        name="update_item",
+        name="update_merit",
     ),
     path(
         "merits/<pk>/", views.characters.mortal.MeritDetailView.as_view(), name="merit"
@@ -45,16 +45,27 @@ urls = [
     path(
         "specialties/create/",
         views.characters.mortal.SpecialtyCreateView.as_view(),
-        name="create_item",
+        name="create_specialty",
     ),
     path(
         "specialties/update/<pk>/",
         views.characters.mortal.SpecialtyUpdateView.as_view(),
-        name="update_item",
+        name="update_specialty",
     ),
     path(
         "specialties/<pk>/",
         views.characters.mortal.SpecialtyDetailView.as_view(),
         name="specialty",
     ),
+    path(
+        "tilt/create/",
+        views.characters.mortal.TiltCreateView.as_view(),
+        name="create_tilt",
+    ),
+    path(
+        "tilt/update/<pk>/",
+        views.characters.mortal.TiltUpdateView.as_view(),
+        name="update_tilt",
+    ),
+    path("tilt/<pk>/", views.characters.mortal.TiltDetailView.as_view(), name="tilt",),
 ]
