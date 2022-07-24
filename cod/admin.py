@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from cod.models.characters.mage import Legacy, Mage, Order, Path, Proximi, ProximiFamily
-from cod.models.characters.mortal import Merit, Mortal, Specialty
+from cod.models.characters.mortal import Merit, Mortal, Specialty, Tilt
 
 
 # Register your models here.
@@ -48,3 +48,8 @@ class OrderAdmin(admin.ModelAdmin):
 @admin.register(Legacy)
 class LegacyAdmin(admin.ModelAdmin):
     list_display = ("name", "ruling_arcanum", "is_left_handed")
+
+
+@admin.register(Tilt)
+class TiltAdmin(admin.ModelAdmin):
+    list_display = ("name",)

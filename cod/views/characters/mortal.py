@@ -7,6 +7,7 @@ from cod.models.characters.mortal import (
     MeritRating,
     Mortal,
     Specialty,
+    Tilt,
 )
 
 
@@ -84,3 +85,20 @@ class SpecialtyUpdateView(UpdateView):
     model = Specialty
     fields = "__all__"
     template_name = "cod/characters/mortal/specialty/update.html"
+
+
+class TiltDetailView(DetailView):
+    model = Tilt
+    template_name = "cod/characters/mortal/tilt/detail.html"
+
+
+class TiltCreateView(CreateView):
+    model = Tilt
+    fields = "__all__"
+    template_name = "cod/characters/mortal/tilt/create.html"
+
+
+class TiltUpdateView(UpdateView):
+    model = Tilt
+    fields = "__all__"
+    template_name = "cod/characters/mortal/tilt/update.html"

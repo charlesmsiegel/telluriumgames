@@ -945,3 +945,15 @@ class Condition(models.Model):
     name = models.CharField(max_length=100)
     persistent = models.BooleanField(default=False)
     resolution = models.TextField(default="")
+
+
+class Tilt(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    tilt_type = models.CharField(
+        max_length=20,
+        choices=[("personal", "Personal"), ("environmental", "Environmental"),],
+    )
+    description = models.TextField(default="")
+    effect = models.TextField(default="")
+    causing = models.TextField(default="")
+    ending = models.TextField(default="")

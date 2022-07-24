@@ -1,0 +1,26 @@
+{% extends "core/base.html" %}
+{% block title %}
+    {{ object.name| safe }}
+{% endblock title %}
+<body>
+    {% block content %}
+        {% load dots %}
+        <div class="centertext">
+            <div class="row">
+                <div class="col-sm">{{ object.name }}</div>
+                <div class="col-sm">{{ object.get_tilt_type_display }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Effect</div>
+                <div class="col-sm">{{ object.effect }}</div>
+                <div class="col-sm">Cause</div>
+                <div class="col-sm">{{ object.causing }}</div>
+                <div class="col-sm">Ending</div>
+                <div class="col-sm">{{ object.ending }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">{{ object.description }}</div>
+            </div>
+        </div>
+    {% endblock content %}
+</body>

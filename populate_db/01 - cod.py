@@ -1,7 +1,7 @@
 from time import time
 
 from cod.models.characters.mage import Legacy, Order, Path, ProximiFamily, Rote
-from cod.models.characters.mortal import Condition, Merit, Specialty
+from cod.models.characters.mortal import Condition, Merit, Specialty, Tilt
 from cod.models.items.mortal import Equipment
 from core.models import Language
 
@@ -4735,4 +4735,169 @@ Equipment.objects.create(
     die_bonus=3,
     display=False,
     description="",
+)
+
+Tilt.objects.create(
+    name="Arm Wrack",
+    tilt_type="personal",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Beaten Down",
+    tilt_type="personal",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Blinded",
+    tilt_type="personal",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Deafened",
+    tilt_type="personal",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Drugged",
+    tilt_type="personal",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Immobilized",
+    tilt_type="personal",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Insane",
+    tilt_type="personal",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Insensate",
+    tilt_type="personal",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Knocked Down",
+    tilt_type="personal",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Leg Wrack",
+    tilt_type="personal",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Poisoned",
+    tilt_type="personal",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Sick", tilt_type="personal", description="", effect="", causing="", ending="",
+)
+Tilt.objects.create(
+    name="Stunned",
+    tilt_type="personal",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+
+Tilt.objects.create(
+    name="Blizzard",
+    tilt_type="environmental",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Earthquake",
+    tilt_type="environmental",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Extreme Cold",
+    tilt_type="environmental",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Extreme Heat",
+    tilt_type="environmental",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Flooded",
+    tilt_type="environmental",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Heavy Rain",
+    tilt_type="environmental",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Heavy Winds",
+    tilt_type="environmental",
+    description="",
+    effect="",
+    causing="",
+    ending="",
+)
+Tilt.objects.create(
+    name="Ice",
+    tilt_type="environmental",
+    description="",
+    effect="",
+    causing="",
+    ending="",
 )
