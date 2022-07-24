@@ -453,8 +453,11 @@ class Library(Wonder):
     def random_book(self):
         book = Grimoire.objects.create(name=f"{self.name} Book {self.num_books() + 1}")
         rank = random.randint(1, self.rank)
-        if random.random() < 0.5 and MageFaction.objects.filter(parent=self.faction).exists():
-            f = MageFaction.objects.filter(parent=self.faction).order_by("?").first()            
+        if (
+            random.random() < 0.5
+            and MageFaction.objects.filter(parent=self.faction).exists()
+        ):
+            f = MageFaction.objects.filter(parent=self.faction).order_by("?").first()
         else:
             f = self.faction
         book.random(rank=rank, faction=f)
@@ -463,7 +466,7 @@ class Library(Wonder):
     def num_books(self):
         return self.books.count()
 
-    def random(self):
-        self.random_faction()
+    def random(self, faction=None):
+        self.random_faction(faction=faction)
         while self.num_books() < self.rank:
             self.random_book()
