@@ -189,7 +189,7 @@ class GrimoireAdmin(admin.ModelAdmin):
 
 @admin.register(Library)
 class LibraryAdmin(admin.ModelAdmin):
-    list_display = ("name", "rank")
+    list_display = ("name", "rank", "faction")
 
 
 @admin.register(Totem)
