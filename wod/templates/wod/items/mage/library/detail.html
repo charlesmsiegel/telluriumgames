@@ -11,6 +11,15 @@
                         <h1>{{ object.name }}</h1>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {% if object.faction.parent is not None %}
+                            {% if object.faction.parent.parent is not None %}{{ object.faction.parent.parent }} -{% endif %}
+                            {{ object.faction.parent }} -
+                        {% endif %}
+                        {{ object.faction }}
+                    </div>
+                </div>
                 {% for book in object.books.all %}
                     <div class="row">
                         <a href={{ book.get_absolute_url }}>{{ book.name }}</a>

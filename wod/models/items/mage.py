@@ -110,9 +110,23 @@ class Grimoire(Wonder):
     def has_faction(self):
         return self.faction is not None
 
+    @staticmethod
+    def faction_probs():
+        faction_probs = {}
+        for faction in MageFaction.objects.all():
+            if faction.parent is None:
+                faction_probs[faction] = 5
+            elif faction.parent.parent is None:
+                faction_probs[faction] = 10
+            elif faction.parent.parent.parent is None:
+                faction_probs[faction] = 2
+            else:
+                faction_probs[faction] = 0
+        return weighted_choice(faction_probs, ceiling=100)
+
     def random_faction(self, faction=None):
         if faction is None:
-            faction = MageFaction.objects.order_by("?").first()
+            faction = self.faction_probs()
         self.set_faction(faction)
 
     def set_focus(self, paradigms, practices, instruments):
@@ -392,6 +406,9 @@ class Grimoire(Wonder):
 class Library(Wonder):
     type = "library"
 
+    faction = models.ForeignKey(
+        MageFaction, null=True, blank=True, on_delete=models.CASCADE
+    )
     books = models.ManyToManyField(Grimoire, blank=True)
 
     def add_book(self, grimoire):
@@ -407,15 +424,49 @@ class Library(Wonder):
             self.rank += 1
             self.add_book(book)
 
+    def set_faction(self, faction):
+        self.faction = faction
+        return True
+
+    def has_faction(self):
+        return self.faction is not None
+
+    @staticmethod
+    def faction_probs():
+        faction_probs = {}
+        for faction in MageFaction.objects.all():
+            if faction.parent is None:
+                faction_probs[faction] = 5
+            elif faction.parent.parent is None:
+                faction_probs[faction] = 10
+            elif faction.parent.parent.parent is None:
+                faction_probs[faction] = 2
+            else:
+                faction_probs[faction] = 0
+        return weighted_choice(faction_probs, ceiling=100)
+
+    def random_faction(self, faction=None):
+        if faction is None:
+            faction = self.faction_probs()
+        self.set_faction(faction)
+
     def random_book(self):
         book = Grimoire.objects.create(name=f"{self.name} Book {self.num_books() + 1}")
         rank = random.randint(1, self.rank)
-        book.random(rank=rank)
+        if (
+            random.random() < 0.5
+            and MageFaction.objects.filter(parent=self.faction).exists()
+        ):
+            f = MageFaction.objects.filter(parent=self.faction).order_by("?").first()
+        else:
+            f = self.faction
+        book.random(rank=rank, faction=f)
         return self.add_book(book)
 
     def num_books(self):
         return self.books.count()
 
-    def random(self):
+    def random(self, faction=None):
+        self.random_faction(faction=faction)
         while self.num_books() < self.rank:
             self.random_book()
