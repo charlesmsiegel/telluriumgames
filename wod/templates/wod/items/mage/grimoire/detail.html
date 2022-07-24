@@ -16,7 +16,11 @@
             </div>
             <div class="row">
                 <div class="col-sm">Created By</div>
-                <div class="col-sm">{{ object.faction }}</div>
+                <div class="col-sm">{% if object.faction.parent is not None %}
+                    {% if object.faction.parent.parent is not None %}{{ object.faction.parent.parent }} -{% endif %}
+                    {{ object.faction.parent }} -
+                {% endif %}
+                {{ object.faction }}</div>
                 <div class="col-sm">Primer</div>
                 <div class="col-sm">{{ object.is_primer }}</div>
             </div>
