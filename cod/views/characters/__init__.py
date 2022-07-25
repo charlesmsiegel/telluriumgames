@@ -3,6 +3,7 @@ from django.views.generic import CreateView, DetailView, View
 
 from cod.models.characters.mage import Mage, Proximi
 from cod.models.characters.mortal import Mortal
+from cod.forms import RandomCharacterForm
 
 from . import mage, mortal
 
@@ -22,6 +23,7 @@ class CharacterIndexView(View):
         chars = Mortal.objects.all().order_by("name")
         context = {}
         context["chars"] = chars
+        context['form'] = RandomCharacterForm
         return context
 
 
@@ -39,6 +41,21 @@ class GenericCharacterDetailView(View):
         if char.type in self.create_views:
             return self.create_views[char.type].as_view()(request, *args, **kwargs)
         return redirect("cod:characters:index")
+
+
+def load_character_types(request):
+    print("WTF?")
+    characters = {
+        "core": ["mortal"],
+        "mage": ["mage", "proximi"],
+    }
+    gameline = request.GET.get("gameline")
+    character_types = characters[gameline]
+    return render(
+        request,
+        "cod/characters/load_character_dropdown_list.html",
+        {"character_types": character_types},
+    )
 
 
 class RandomCharacterView(View):
