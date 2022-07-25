@@ -4074,9 +4074,11 @@ Legacy.objects.create(
     name="Tamers of Blood", path=thyrsus, ruling_arcanum="space", is_left_handed=True
 )
 
+c = Condition.objects.create(name="The Sisters of the Mountain family curse", persistent=True)
 pf = ProximiFamily.objects.create(
-    name="The Sisters of the Mountain", path=thyrsus, blessing_arcana="fate",
+    name="The Sisters of the Mountain", path=thyrsus, blessing_arcana="fate", curse=c
 )
+
 rotes = [
     "Oaths Fulfilled",
     "Exceptional Luck",
