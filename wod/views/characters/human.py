@@ -3,6 +3,7 @@ from django.views.generic import CreateView, DetailView, UpdateView
 from wod.models.characters.human import (
     Archetype,
     Character,
+    Derangement,
     Group,
     Human,
     MeritFlaw,
@@ -110,3 +111,20 @@ class SpecialtyUpdateView(UpdateView):
     model = Specialty
     fields = "__all__"
     template_name = "wod/characters/human/specialty/update.html"
+
+
+class DerangementDetailView(DetailView):
+    model = Derangement
+    template_name = "wod/characters/human/derangement/detail.html"
+
+
+class DerangementCreateView(CreateView):
+    model = Derangement
+    fields = "__all__"
+    template_name = "wod/characters/human/derangement/create.html"
+
+
+class DerangementUpdateView(UpdateView):
+    model = Derangement
+    fields = "__all__"
+    template_name = "wod/characters/human/derangement/update.html"

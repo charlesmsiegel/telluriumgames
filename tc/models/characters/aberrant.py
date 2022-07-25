@@ -681,11 +681,11 @@ class PowerRating(models.Model):
 
     def __str__(self):
         return f"{self.power.name}: {self.rating}"
-    
+
     def minimum_quantum_for_next_dot(self):
         if self.power.quantum_minimum != -1:
             return self.power.quantum_minimum
-        return self.rating + self.quantum_offset
+        return self.rating + self.power.quantum_offset
 
 
 class Tag(models.Model):

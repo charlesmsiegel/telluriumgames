@@ -1,4 +1,4 @@
-from wod.models.characters.human import MeritFlaw
+from wod.models.characters.human import Derangement, MeritFlaw
 
 # W20
 MeritFlaw.objects.create(
@@ -617,3 +617,10 @@ MeritFlaw.objects.create(
 MeritFlaw.objects.create(name="Spectral Presence", ratings=[-3], human=True, mage=True)
 MeritFlaw.objects.create(name="Abyssal Lunatic", ratings=[-5], human=True, mage=True)
 MeritFlaw.objects.create(name="Widderslainte", ratings=[-7], human=True, mage=True)
+
+Derangement.objects.create(name="Fugue")
+Derangement.objects.create(name="Hysteria")
+Derangement.objects.create(name="Multiple Personalities")
+Derangement.objects.create(name="Obsessive-Compulsive")
+Derangement.objects.create(name="Paranoia")
+Derangement.objects.create(name="Schizophrenia")
