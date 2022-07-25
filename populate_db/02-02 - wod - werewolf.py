@@ -1,5 +1,6 @@
 from wod.models.characters.human import Archetype, MeritFlaw, Specialty
 from wod.models.characters.werewolf import (
+    BattleScar,
     Camp,
     Charm,
     Gift,
@@ -2451,3 +2452,16 @@ Totem.objects.create(
     pack_traits="2 dots of Stealth, 2 dots of Streetwise, and 3 dots of Subterfuge",
     ban="May never participate in a fox hunt and must sabotage any they find",
 )
+
+BattleScar.objects.create(name="Superficial Scars", glory=1)
+BattleScar.objects.create(name="Deep Scar", glory=1)
+BattleScar.objects.create(name="Improper Bone Setting", glory=1)
+BattleScar.objects.create(name="Cosmetic Damage", glory=2)
+BattleScar.objects.create(name="Broken Jaw", glory=1)
+BattleScar.objects.create(name="Missing Eye", glory=2)
+BattleScar.objects.create(name="Gelded", glory=1)
+BattleScar.objects.create(name="Collapsed Lung", glory=1)
+BattleScar.objects.create(name="Missing Fingers", glory=2)
+BattleScar.objects.create(name="Maimed Limb", glory=3)
+BattleScar.objects.create(name="Spinal Damage", glory=2)
+BattleScar.objects.create(name="Brain Damage", glory=2)

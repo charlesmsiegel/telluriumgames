@@ -599,8 +599,6 @@ class TestWerewolf(TestCase):
         self.assertFalse(self.character.has_werewolf_history())
         self.character.first_change = "Young"
         self.assertFalse(self.character.has_werewolf_history())
-        self.character.battle_scars = "Several"
-        self.assertFalse(self.character.has_werewolf_history())
         self.character.age_of_first_change = 13
         self.assertTrue(self.character.has_werewolf_history())
 
