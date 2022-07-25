@@ -137,4 +137,19 @@ urls = [
         views.characters.werewolf.TribeUpdateView.as_view(),
         name="update_tribes",
     ),
+    path(
+        "battlescar/<pk>/",
+        views.characters.werewolf.BattleScarDetailView.as_view(),
+        name="battlescar",
+    ),
+    path(
+        "battlescar/create/",
+        views.characters.werewolf.BattleScarCreateView.as_view(),
+        name="create_battlescar",
+    ),
+    path(
+        "battlescar/update/<pk>/",
+        views.characters.werewolf.BattleScarUpdateView.as_view(),
+        name="update_battlescar",
+    ),
 ]

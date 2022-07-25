@@ -123,7 +123,7 @@ class Werewolf(Human):
     fetishes_owned = models.ManyToManyField(Fetish, blank=True)
 
     first_change = models.TextField(default="")
-    battle_scars = models.TextField(default="")
+    battle_scars = models.ManyToManyField("BattleScar", blank=True)
     age_of_first_change = models.IntegerField(default=0)
 
     requirements = {
@@ -555,15 +555,26 @@ class Werewolf(Human):
         return costs[trait]
 
     def has_werewolf_history(self):
-        return (
-            (self.first_change != "")
-            and (self.battle_scars != "")
-            and (self.age_of_first_change != 0)
-        )
+        return (self.first_change != "") and (self.age_of_first_change != 0)
+
+    def add_battle_scar(self, scar):
+        if scar not in self.battle_scars.all():
+            self.battle_scars.add(scar)
+            self.temporary_glory += scar.glory
+            self.update_renown()
+            self.save()
+            return True
+        return False
+
+    def random_battle_scar(self):
+        scars = BattleScar.objects.exclude(pk__in=self.battle_scars.all())
+        if scars.count() > 0:
+            choice = scars.order_by("?").first()
+            return self.add_battle_scar(choice)
+        return False
 
     def random_werewolf_history(self):
         self.first_change = "Young"
-        self.battle_scars = "Several"
         self.age_of_first_change = 13
 
     def spend_freebies(self, trait):
@@ -835,6 +846,15 @@ class RenownIncident(models.Model):
     breed = models.CharField(default="", max_length=10)
     rite = models.ForeignKey(Rite, null=True, blank=True, on_delete=models.CASCADE)
     description = models.TextField(default="")
+
+    def __str__(self):
+        return self.name
+
+
+class BattleScar(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(default="")
+    glory = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name

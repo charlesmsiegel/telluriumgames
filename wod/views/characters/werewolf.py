@@ -3,6 +3,7 @@ from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from wod.models.characters.human import MeritFlawRating
 from wod.models.characters.werewolf.garou import (
+    BattleScar,
     Camp,
     Gift,
     Pack,
@@ -217,3 +218,20 @@ class CharmUpdateView(UpdateView):
     model = Charm
     fields = "__all__"
     template_name = "wod/characters/werewolf/charm/update.html"
+
+
+class BattleScarDetailView(DetailView):
+    model = BattleScar
+    template_name = "wod/characters/werewolf/battlescar/detail.html"
+
+
+class BattleScarCreateView(CreateView):
+    model = BattleScar
+    fields = "__all__"
+    template_name = "wod/characters/werewolf/battlescar/create.html"
+
+
+class BattleScarUpdateView(UpdateView):
+    model = BattleScar
+    fields = "__all__"
+    template_name = "wod/characters/werewolf/battlescar/update.html"

@@ -19,6 +19,7 @@ from wod.models.characters.mage import (
     Rote,
 )
 from wod.models.characters.werewolf import (
+    BattleScar,
     Camp,
     Charm,
     Gift,
@@ -275,3 +276,8 @@ class SectorAdmin(admin.ModelAdmin):
 @admin.register(Caern)
 class CaernAdmin(admin.ModelAdmin):
     list_display = ("name",)
+
+
+@admin.register(BattleScar)
+class BattleScarAdmin(admin.ModelAdmin):
+    list_display = ("name", "glory")
