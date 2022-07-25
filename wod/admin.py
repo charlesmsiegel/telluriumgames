@@ -3,6 +3,7 @@ from django.contrib import admin
 from wod.models.characters.human import (
     Archetype,
     Character,
+    Derangement,
     Group,
     Human,
     MeritFlaw,
@@ -281,3 +282,8 @@ class CaernAdmin(admin.ModelAdmin):
 @admin.register(BattleScar)
 class BattleScarAdmin(admin.ModelAdmin):
     list_display = ("name", "glory")
+
+
+@admin.register(Derangement)
+class DerangementAdmin(admin.ModelAdmin):
+    list_display = ("name",)

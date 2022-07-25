@@ -43,7 +43,6 @@ class MeritFlaw(models.Model):
     name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
     max_rating = models.IntegerField(default=0)
-    # allowed_types = models.JSONField(default=list)
     human = models.BooleanField(default=False)
     garou = models.BooleanField(default=False)
     mage = models.BooleanField(default=False)
@@ -125,6 +124,8 @@ class Human(Character):
         null=True,
         related_name="demeanor_of",
     )
+
+    derangements = models.ManyToManyField("Derangement", blank=True)
 
     strength = models.IntegerField(default=1)
     dexterity = models.IntegerField(default=1)
@@ -528,8 +529,24 @@ class Human(Character):
                     num_languages *= 2
                 while self.languages.count() < num_languages:
                     self.add_random_language()
+            if mf.name == "Deranged":
+                self.random_derangement()
             return True
         return False
+
+    def add_derangement(self, derangement):
+        if derangement in self.derangements.all():
+            return False
+        self.derangements.add(derangement)
+        return True
+
+    def random_derangement(self):
+        d = (
+            Derangement.objects.exclude(pk__in=self.derangements.all())
+            .order_by("?")
+            .first()
+        )
+        return self.add_derangement(d)
 
     def filter_mfs(self):
         new_mfs = MeritFlaw.objects.exclude(pk__in=self.merits_and_flaws.all())
@@ -964,3 +981,11 @@ class Group(PolymorphicModel):
                 self.members.add(m)
         self.leader = self.members.order_by("?").first()
         self.save()
+
+
+class Derangement(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(default="")
+
+    def __str__(self):
+        return self.name

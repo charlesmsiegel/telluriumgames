@@ -78,4 +78,19 @@ urls = [
         views.characters.human.SpecialtyUpdateView.as_view(),
         name="update_specialty",
     ),
+    path(
+        "derangement/<pk>/",
+        views.characters.human.DerangementDetailView.as_view(),
+        name="derangement",
+    ),
+    path(
+        "derangement/create/",
+        views.characters.human.DerangementCreateView.as_view(),
+        name="create_derangement",
+    ),
+    path(
+        "derangement/update/<pk>/",
+        views.characters.human.DerangementUpdateView.as_view(),
+        name="update_derangement",
+    ),
 ]

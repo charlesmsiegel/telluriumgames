@@ -7,7 +7,7 @@ from django.db.models import Q
 from django.urls import reverse
 
 from core.utils import add_dot, weighted_choice
-from wod.models.characters.human import Group, Human
+from wod.models.characters.human import Derangement, Group, Human
 from wod.models.characters.werewolf.spirits import Totem
 from wod.models.items.werewolf import Fetish
 
@@ -289,6 +289,8 @@ class Werewolf(Human):
         self.willpower = tribe.willpower
         if self.tribe.name == "Silver Fangs" and self.pure_breed < 3:
             self.pure_breed = 3
+        if self.tribe.name == "Black Spiral Dancers":
+            self.random_derangement()
         self.save()
         return True
 
