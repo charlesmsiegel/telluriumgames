@@ -4,7 +4,7 @@ from django.db import models
 from django.db.models import F, Q
 from django.urls import reverse
 
-from cod.models.characters.mortal import Merit, Mortal, Condition
+from cod.models.characters.mortal import Condition, Merit, Mortal
 from core.utils import add_dot, weighted_choice
 
 # Create your models here.
@@ -79,7 +79,7 @@ class Legacy(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def prereq_satisfied(self, prereq, character):
         if prereq[0] in character.get_skills().keys():
             if character.get_skills()[prereq[0]] < prereq[1]:
@@ -639,7 +639,9 @@ class ProximiFamily(models.Model):
         ],
     )
     possible_blessings = models.ManyToManyField(Rote, blank=True)
-    curse = models.ForeignKey(Condition, blank=True, null=True, on_delete=models.CASCADE)
+    curse = models.ForeignKey(
+        Condition, blank=True, null=True, on_delete=models.CASCADE
+    )
 
     def has_parent_path(self):
         return self.path is not None
@@ -694,11 +696,11 @@ class ProximiFamily(models.Model):
         while self.total_possible_blessings() < 30:
             self.random_blessing(max_rating=30 - self.total_possible_blessings())
         return True
-    
+
     def set_curse(self, curse):
         self.curse = curse
         return True
-    
+
     def random_curse(self):
         c = Condition.objects.create(name=f"{self.name} family curse", persistent=True)
         return self.set_curse(c)

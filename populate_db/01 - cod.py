@@ -4023,7 +4023,7 @@ Legacy.objects.create(
         [("investigation", 2), ("medicine", 2)],
         [("investigation", 2), ("occult", 2)],
         [("investigation", 2), ("science", 2)],
-    ]
+    ],
 )
 Legacy.objects.create(name="Walkers in Mists", path=acanthus, ruling_arcanum="space")
 Legacy.objects.create(name="House of Ariadne", path=acanthus, ruling_arcanum="time")
@@ -4081,7 +4081,9 @@ Legacy.objects.create(
     name="Tamers of Blood", path=thyrsus, ruling_arcanum="space", is_left_handed=True
 )
 
-c = Condition.objects.create(name="The Sisters of the Mountain family curse", persistent=True)
+c = Condition.objects.create(
+    name="The Sisters of the Mountain family curse", persistent=True
+)
 pf = ProximiFamily.objects.create(
     name="The Sisters of the Mountain", path=thyrsus, blessing_arcana="fate", curse=c
 )
