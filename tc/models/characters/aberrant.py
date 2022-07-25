@@ -190,6 +190,11 @@ class Aberrant(Human):
         p, _ = PowerRating.objects.get_or_create(character=self, power=power)
         if self.quantum >= p.minimum_quantum_for_next_dot():
             p.rating += 1
+            if power.name == "Cloak" and p.rating > 1:
+                possible_tags = power.tag_set.exclude(pk__in=p.tags.all())
+                possible_tags = [x for x in possible_tags if x.ratings == [1]]
+                tag = random.choice(possible_tags)
+                self.add_tag(power, tag)
             p.save()
             return True
         return False
