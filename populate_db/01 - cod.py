@@ -4017,6 +4017,13 @@ Legacy.objects.create(
     path=moros,
     order=guardians_of_the_veil,
     ruling_arcanum="time",
+    prereqs=[
+        [("investigation", 2), ("academics", 2)],
+        [("investigation", 2), ("larceny", 2)],
+        [("investigation", 2), ("medicine", 2)],
+        [("investigation", 2), ("occult", 2)],
+        [("investigation", 2), ("science", 2)],
+    ],
 )
 Legacy.objects.create(name="Walkers in Mists", path=acanthus, ruling_arcanum="space")
 Legacy.objects.create(name="House of Ariadne", path=acanthus, ruling_arcanum="time")

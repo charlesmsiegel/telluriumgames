@@ -73,9 +73,28 @@ class Legacy(models.Model):
         ],
     )
     is_left_handed = models.BooleanField(default=False)
+    prereqs = models.JSONField(default=list)
+    yantras = models.TextField(default="")
+    oblations = models.TextField(default="")
 
     def __str__(self):
         return self.name
+
+    def prereq_satisfied(self, prereq, character):
+        if prereq[0] in character.get_skills().keys():
+            if character.get_skills()[prereq[0]] < prereq[1]:
+                return False
+            return True
+        return False
+
+    def check_prereqs(self, character):
+        if len(self.prereqs) == 0:
+            return True
+        for prereq_set in self.prereqs:
+            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
+            if all(prereqs):
+                return True
+        return False
 
 
 class Rote(models.Model):
@@ -305,7 +324,7 @@ class Mage(Mortal):
         has_order = possiblities.filter(order=self.order)
         either = has_path | has_order
         either = either.distinct()
-
+        either = [x for x in either if x.check_prereqs(self)]
         return [x for x in either if getattr(self, x.ruling_arcanum) >= 2]
 
     def has_mana(self):
