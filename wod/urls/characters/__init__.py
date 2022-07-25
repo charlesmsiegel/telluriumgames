@@ -16,4 +16,9 @@ urls = [
     path(
         "<pk>/", views.characters.GenericCharacterDetailView.as_view(), name="character"
     ),
+    path(
+        "ajax/load-character-types/",
+        views.characters.load_character_types,
+        name="ajax_load_character_types",
+    ),
 ]

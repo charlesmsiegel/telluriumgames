@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic import View
 
+from tc.forms import RandomCharacterForm
 from tc.models.characters.aberrant import Aberrant
 from tc.models.characters.human import Human
 from tc.models.characters.talent import Talent
@@ -19,7 +20,22 @@ class IndexView(View):
         chars = Human.objects.all().order_by("name")
         context = {}
         context["chars"] = chars
+        context["form"] = RandomCharacterForm
         return context
+
+
+def load_character_types(request):
+    characters = {
+        "core": ["human", "talent"],
+        "aberrant": ["aberrant"],
+    }
+    gameline = request.GET.get("gameline")
+    character_types = characters[gameline]
+    return render(
+        request,
+        "tc/characters/load_character_dropdown_list.html",
+        {"character_types": character_types},
+    )
 
 
 class CharacterDetailView(View):

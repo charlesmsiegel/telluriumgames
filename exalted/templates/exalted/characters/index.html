@@ -20,35 +20,19 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <form action="{% url 'exalted:characters:random' %}" method="post">
+        <form id="characterForm"
+              action="{% url 'exalted:characters:random' %}"
+              method="post"
+              novalidate>
             {% csrf_token %}
             <div class="row">
                 <div class="col-sm"></div>
+                <div class="col-sm">{{ form.character_type }}</div>
+                <div class="col-sm">{{ form.name }}</div>
+                <div class="col-sm">{{ form.xp }}</div>
                 <div class="col-sm">
-                    <label>
-                        <select name="char_type">
-                            <option value="mortal">
-                                Mortal
-                            </option>
-                        </select>
-                    </label>
+                    <button type="submit">Create</button>
                 </div>
-                <div class="col-sm">Name</div>
-                <div class="col-sm">
-                    <label>
-                        <input name="char_name" type="text" placeholder=""/>
-                    </label>
-                </div>
-                <div class="col-sm">XP</div>
-                <div class="col-sm">
-                    <label>
-                        <input name="xp" type="numeric" placeholder=""/>
-                    </label>
-                </div>
-                <div class="col-sm">
-                    <input type="submit" name="creator" value="Create Character"/>
-                </div>
-                <div class="col-sm"></div>
             </div>
         </form>
     </body>

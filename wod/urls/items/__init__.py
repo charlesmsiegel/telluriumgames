@@ -11,4 +11,9 @@ urls = [
     path("", views.items.ItemIndexView.as_view(), name="index"),
     path("random/", views.items.RandomItemView.as_view(), name="random"),
     path("<pk>/", views.items.GenericItemDetailView.as_view(), name="item"),
+    path(
+        "ajax/load-item-types/",
+        views.items.load_item_types,
+        name="ajax_load_item_types",
+    ),
 ]

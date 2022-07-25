@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import View
 
 from core.utils import level_name, tree_sort
+from wod.forms import RandomLocationForm
 from wod.models.locations.human import Location
 from wod.models.locations.mage import Chantry, Node
 
@@ -21,7 +22,7 @@ class LocationIndexView(View):
         locations = Location.objects.all().order_by("name")
         context = {}
         context["locations"] = locations
-
+        context["form"] = RandomLocationForm
         L1 = []
         L2 = []
         for x in Location.objects.filter(parent=None).order_by("name"):
@@ -30,6 +31,20 @@ class LocationIndexView(View):
 
         context["names_dict"] = dict(zip(L1, L2))
         return context
+
+
+def load_location_types(request):
+    locations = {
+        # "werewolf": [],
+        "mage": ["node", "chantry"],
+    }
+    gameline = request.GET.get("gameline")
+    location_types = locations[gameline]
+    return render(
+        request,
+        "wod/locations/load_location_dropdown_list.html",
+        {"location_types": location_types},
+    )
 
 
 class GenericLocationDetailView(View):

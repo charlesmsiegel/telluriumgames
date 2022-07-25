@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, View
 
+from exalted.forms import RandomCharacterForm
 from exalted.models.characters.mortals import Mortal
 
 from . import mortal
@@ -21,6 +22,7 @@ class IndexView(View):
         chars = Mortal.objects.all().order_by("name")
         context = {}
         context["chars"] = chars
+        context["form"] = RandomCharacterForm
         return context
 
 
@@ -44,8 +46,8 @@ class RandomCharacterView(View):
     }
 
     def post(self, request, *args, **kwargs):
-        char = self.chars[request.POST["char_type"]].objects.create(
-            name=request.POST["char_name"], player=request.user
+        char = self.chars[request.POST["character_type"]].objects.create(
+            name=request.POST["name"], player=request.user
         )
         try:
             xp = int(request.POST["xp"])

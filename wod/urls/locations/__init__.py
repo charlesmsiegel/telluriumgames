@@ -11,4 +11,9 @@ urls = [
     path("", views.locations.LocationIndexView.as_view(), name="index"),
     path("random/", views.locations.RandomLocationView.as_view(), name="random"),
     path("<pk>/", views.locations.GenericLocationDetailView.as_view(), name="location"),
+    path(
+        "ajax/load-location-types/",
+        views.locations.load_location_types,
+        name="ajax_load_location_types",
+    ),
 ]

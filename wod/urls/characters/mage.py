@@ -14,11 +14,6 @@ urls = [
         name="ajax_load_subfactions",
     ),
     path(
-        "ajax/load-character-types/",
-        views.characters.load_character_types,
-        name="ajax_load_character_types",
-    ),
-    path(
         "cabal/create/",
         views.characters.mage.CabalCreateView.as_view(),
         name="create_cabal",
