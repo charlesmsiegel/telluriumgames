@@ -1,0 +1,8 @@
+<option value="">
+    ---------
+</option>
+{% for itemtype in item_types %}
+    <option value="{{ itemtype }}">
+        {{ itemtype.title }}
+    </option>
+{% endfor %}

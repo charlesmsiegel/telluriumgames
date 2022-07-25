@@ -3,6 +3,7 @@ from django.views.generic import View
 
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire
+from wod.forms import RandomItemForm
 
 from . import human, mage, werewolf
 
@@ -20,7 +21,21 @@ class ItemIndexView(View):
         items = Item.objects.all().order_by("name")
         context = {}
         context["items"] = items
+        context['form'] = RandomItemForm
         return context
+
+def load_item_types(request):
+    items = {
+        # "werewolf": [],
+        "mage": ["grimoire"],
+    }
+    gameline = request.GET.get("gameline")
+    item_types = items[gameline]
+    return render(
+        request,
+        "wod/items/load_item_dropdown_list.html",
+        {"item_types": item_types},
+    )
 
 
 class GenericItemDetailView(View):
@@ -46,12 +61,12 @@ class RandomItemView(View):
 
     def post(self, request):
         item = self.items[request.POST["item_type"]].objects.create(
-            name=request.POST["item_name"]
+            name=request.POST["name"]
         )
-        if request.POST["item_rank"] is None:
+        if request.POST["rank"] is None:
             rank = None
         else:
-            rank = int(request.POST["item_rank"])
+            rank = int(request.POST["rank"])
         item.random(rank=rank)
         item.save()
         return redirect(item.get_absolute_url())
