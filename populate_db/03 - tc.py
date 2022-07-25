@@ -2003,6 +2003,7 @@ molecular_manipulation = Power.objects.create(
 morph = Power.objects.create(
     name="Morph",
     quantum_minimum=-1,
+    quantum_offset=-3,
     action_type="reflexive",
     cost=1,
     dicepool="Quantum+Power",
@@ -2085,7 +2086,8 @@ quantum_aura = Power.objects.create(
 )
 quantum_construct = Power.objects.create(
     name="Quantum Construct",
-    quantum_minimum=-1,  # Dots+1
+    quantum_minimum=-1,
+    quantum_offset=1,
     action_type="ordinary",
     cost=2,
     dicepool="",
@@ -2173,7 +2175,8 @@ remote_perception = Power.objects.create(
 )
 shrinking = Power.objects.create(
     name="Shrinking",
-    quantum_minimum=-1,  # Dots - 1
+    quantum_minimum=-1,
+    quantum_offset=-1,
     action_type="reflexive",
     cost=1,
     dicepool="",
@@ -2206,7 +2209,8 @@ dual.permitted_powers.add(shroud)
 dual.save()
 teleport = Power.objects.create(
     name="Teleport",
-    quantum_minimum=-1,  # Dots+1
+    quantum_minimum=-1,
+    quantum_offset=1,
     action_type="reflexive",
     cost=2,
     dicepool="",
@@ -2239,7 +2243,8 @@ transmutation = Power.objects.create(
 )
 warp = Power.objects.create(
     name="Warp",
-    quantum_minimum=-1,  # DOTS+2
+    quantum_minimum=-1,
+    quantum_offset=2,
     action_type="ordinary",
     cost=2,
     dicepool="",

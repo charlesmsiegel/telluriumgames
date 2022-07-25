@@ -188,7 +188,7 @@ class Aberrant(Human):
 
     def add_power(self, power):
         p, _ = PowerRating.objects.get_or_create(character=self, power=power)
-        if self.quantum >= power.quantum_minimum:
+        if self.quantum >= p.minimum_quantum_for_next_dot():
             p.rating += 1
             p.save()
             return True
@@ -618,6 +618,7 @@ class MegaEdgeRating(models.Model):
 class Power(models.Model):
     name = models.CharField(max_length=100, unique=True)
     quantum_minimum = models.IntegerField(default=0)
+    quantum_offset = models.IntegerField(default=0)
     action_type = models.CharField(
         max_length=100, choices=[("reflexive", "Reflexive"), ("ordinary", "Ordinary"),]
     )
@@ -680,6 +681,11 @@ class PowerRating(models.Model):
 
     def __str__(self):
         return f"{self.power.name}: {self.rating}"
+    
+    def minimum_quantum_for_next_dot(self):
+        if self.power.quantum_minimum != -1:
+            return self.power.quantum_minimum
+        return self.rating + self.quantum_offset
 
 
 class Tag(models.Model):
