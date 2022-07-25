@@ -74,6 +74,8 @@ class Legacy(models.Model):
     )
     is_left_handed = models.BooleanField(default=False)
     prereqs = models.JSONField(default=list)
+    yantras = models.TextField(default="")
+    oblations = models.TextField(default="")
 
     def __str__(self):
         return self.name
