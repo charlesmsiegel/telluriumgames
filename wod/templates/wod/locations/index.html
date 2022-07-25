@@ -18,57 +18,40 @@
                 </div>
             {% endfor %}
         </div>
-        <form action="{% url 'wod:locations:random' %}" method="post">
+        <form id="locationForm"
+              data-location-type-url="{% url 'wod:locations:ajax_load_location_types' %}"
+              action="{% url 'wod:locations:random' %}"
+              method="post"
+              novalidate>
             {% csrf_token %}
             <div class="row">
                 <div class="col-sm"></div>
+                <div class="col-sm">{{ form.gameline }}</div>
+                <div class="col-sm">{{ form.location_type }}</div>
+                <div class="col-sm">{{ form.name }}</div>
+                <div class="col-sm">{{ form.rank }}</div>
                 <div class="col-sm">
-                        <label>
-                        <select name="location_type">
-                            <option value="node">
-                                Node
-                            </option>
-                            <option value="chantry">
-                                Chantry
-                            </option>
-                        </select>
-                    </label>
+                    <button type="submit">Create</button>
                 </div>
-                <div class="col-sm">Name</div>
-                <div class="col-sm">
-                    <label>
-                        <input name="name" type="text" placeholder=""/>
-                    </label>
-                </div>
-                <div class="col-sm">Rank</div>
-                <div class="col-sm">
-                    <label>
-                        <select name="rank">
-                            <option value="None">
-                            </option>
-                            <option value="1">
-                                1
-                            </option>
-                            <option value="2">
-                                2
-                            </option>
-                            <option value="3">
-                                3
-                            </option>
-                            <option value="4">
-                                4
-                            </option>
-                            <option value="5">
-                                5
-                            </option>
-                        </select>
-                    </label>
-                </div>
-                <div class="col-sm">
-                    <input type="submit" name="creator" value="Create Location"/>
-                </div>
-                <div class="col-sm"></div>
             </div>
         </form>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script>
+          $("#id_gameline").change(function () {
+            var url = $("#locationForm").attr("data-location-type-url");  // get the url of the `load_character_type` view
+            var gamelineId = $(this).val();  // get the selected gameline ID from the HTML input
+      
+            $.ajax({                       // initialize an AJAX request
+              url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-character-type/)
+              data: {
+                'gameline': gamelineId       // add the gameline id to the GET parameters
+              },
+              success: function (data) {   // `data` is the return of the `load_character_type` view function
+                $("#id_location_type").html(data);  // replace the contents of the character_type input with the data that came from the server
+              }
+            });
+      
+          });
+        </script>
     {% endblock content %}
 </body>
