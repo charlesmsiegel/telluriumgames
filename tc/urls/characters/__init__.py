@@ -11,4 +11,9 @@ urls = [
     path("", views.characters.IndexView.as_view(), name="index"),
     path("random/", views.characters.RandomCharacterView.as_view(), name="random",),
     path("<pk>/", views.characters.CharacterDetailView.as_view(), name="character"),
+    path(
+        "ajax/load-character-types/",
+        views.characters.load_character_types,
+        name="ajax_load_character_types",
+    ),
 ]

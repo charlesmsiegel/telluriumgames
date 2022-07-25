@@ -3,10 +3,16 @@ from django import forms
 
 class RandomCharacterForm(forms.Form):
     gameline = forms.ChoiceField(
-        choices=[("choose", "Choose a Gameline"), ("core", "Core"), ("mage", "Mage"),],
+        choices=[
+            ("choose", "Choose a Gameline"),
+            ("core", "Core"),
+            ("aberrant", "Aberrant"),
+        ],
         initial=("gameline", "Choose a gameline"),
     )
-    character_type = forms.ChoiceField(choices=[("core", "Core"), ("mage", "Mage")])
+    character_type = forms.ChoiceField(
+        choices=[("core", "Core"), ("aberrant", "Aberrant")]
+    )
     name = forms.CharField(max_length=100, label="Name", required=False)
     xp = forms.IntegerField(initial=0, label="XP")
 

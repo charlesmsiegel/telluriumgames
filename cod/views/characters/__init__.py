@@ -1,9 +1,9 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, View
 
+from cod.forms import RandomCharacterForm
 from cod.models.characters.mage import Mage, Proximi
 from cod.models.characters.mortal import Mortal
-from cod.forms import RandomCharacterForm
 
 from . import mage, mortal
 
@@ -23,7 +23,7 @@ class CharacterIndexView(View):
         chars = Mortal.objects.all().order_by("name")
         context = {}
         context["chars"] = chars
-        context['form'] = RandomCharacterForm
+        context["form"] = RandomCharacterForm
         return context
 
 
@@ -44,7 +44,6 @@ class GenericCharacterDetailView(View):
 
 
 def load_character_types(request):
-    print("WTF?")
     characters = {
         "core": ["mortal"],
         "mage": ["mage", "proximi"],

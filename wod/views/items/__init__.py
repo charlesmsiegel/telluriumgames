@@ -1,9 +1,9 @@
 from django.shortcuts import redirect, render
 from django.views.generic import View
 
+from wod.forms import RandomItemForm
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire
-from wod.forms import RandomItemForm
 
 from . import human, mage, werewolf
 
@@ -21,8 +21,9 @@ class ItemIndexView(View):
         items = Item.objects.all().order_by("name")
         context = {}
         context["items"] = items
-        context['form'] = RandomItemForm
+        context["form"] = RandomItemForm
         return context
+
 
 def load_item_types(request):
     items = {
@@ -32,9 +33,7 @@ def load_item_types(request):
     gameline = request.GET.get("gameline")
     item_types = items[gameline]
     return render(
-        request,
-        "wod/items/load_item_dropdown_list.html",
-        {"item_types": item_types},
+        request, "wod/items/load_item_dropdown_list.html", {"item_types": item_types},
     )
 
 

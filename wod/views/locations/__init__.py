@@ -32,6 +32,7 @@ class LocationIndexView(View):
         context["names_dict"] = dict(zip(L1, L2))
         return context
 
+
 def load_location_types(request):
     locations = {
         # "werewolf": [],
@@ -44,6 +45,7 @@ def load_location_types(request):
         "wod/locations/load_location_dropdown_list.html",
         {"location_types": location_types},
     )
+
 
 class GenericLocationDetailView(View):
     views = {
