@@ -1,4 +1,5 @@
 from django.db import models
+from wod.models.characters.mage.focus import Practice
 
 
 # Create your models here.
@@ -70,3 +71,12 @@ class Effect(models.Model):
             if getattr(self, sphere) > getattr(mage, sphere):
                 return False
         return True
+
+
+class Rote(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    effect = models.ForeignKey(Effect, on_delete=models.CASCADE)
+    practice = models.ForeignKey(Practice, on_delete=models.CASCADE)
+    attribute = models.CharField(max_length=50)
+    ability = models.CharField(max_length=50)
+    description = models.TextField(default="")
