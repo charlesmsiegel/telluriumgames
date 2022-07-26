@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from wod.models.characters.mage.focus import Practice
 
@@ -33,6 +34,10 @@ class Effect(models.Model):
         filtered_dots = [f"{k.title()}: {v}" for k, v in dots.items() if v != 0]
         final_dots = ", ".join(filtered_dots)
         return f"{self.name} ({final_dots})"
+
+    def get_absolute_url(self):
+        return reverse("wod:characters:mage:effect", kwargs={"pk": self.pk})
+    
 
     def save(self, *args, **kwargs):
         self.rote_cost = self.cost()

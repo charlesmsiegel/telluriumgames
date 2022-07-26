@@ -7,7 +7,7 @@ from wod.models.characters.mage.faction import MageFaction
 from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
 from wod.models.characters.mage.mage import Cabal, Mage
 from wod.models.characters.mage.resonance import Resonance, ResRating
-from wod.models.characters.mage.rote import Effect
+from wod.models.characters.mage.rote import Effect, Rote
 from wod.models.characters.mage.utils import PRIMARY_ABILITIES
 
 
@@ -238,3 +238,19 @@ class EffectUpdateView(UpdateView):
     model = Effect
     fields = "__all__"
     template_name = "wod/characters/mage/effect/update.html"
+
+class RoteDetailView(DetailView):
+    model = Rote
+    template_name = "wod/characters/mage/rote/detail.html"
+
+
+class RoteCreateView(CreateView):
+    model = Rote
+    fields = "__all__"
+    template_name = "wod/characters/mage/rote/create.html"
+
+
+class RoteUpdateView(UpdateView):
+    model = Rote
+    fields = "__all__"
+    template_name = "wod/characters/mage/rote/update.html"

@@ -121,4 +121,17 @@ urls = [
     path(
         "effects/<pk>/", views.characters.mage.EffectDetailView.as_view(), name="effect"
     ),
+    path(
+        "rotes/create/",
+        views.characters.mage.RoteCreateView.as_view(),
+        name="create_rote",
+    ),
+    path(
+        "rotes/update/<pk>/",
+        views.characters.mage.RoteUpdateView.as_view(),
+        name="update_rote",
+    ),
+    path(
+        "rotes/<pk>/", views.characters.mage.RoteDetailView.as_view(), name="rote"
+    ),
 ]
