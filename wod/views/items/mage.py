@@ -54,19 +54,20 @@ class GrimoireDetailView(View):
             "spheres": "<br>".join(
                 [x.replace("_", " ").title() for x in grimoire.spheres]
             ),
-            "rotes": "<br>".join([str(x) for x in grimoire.rotes.all()]),
+            "effects": "<br>".join([str(x) for x in grimoire.effects.all()]),
             "date_written": grimoire.date_written,
             "faction": s,
         }
-        all_rotes = list(context["object"].rotes.all())
+        all_effects = list(context["object"].effects.all())
         row_length = 2
-        all_rotes = [
-            all_rotes[i : i + row_length] for i in range(0, len(all_rotes), row_length)
+        all_effects = [
+            all_effects[i : i + row_length]
+            for i in range(0, len(all_effects), row_length)
         ]
-        if len(all_rotes) != 0:
-            while len(all_rotes[-1]) < row_length:
-                all_rotes[-1].append(empty_rote)
-        context["rotes"] = all_rotes
+        if len(all_effects) != 0:
+            while len(all_effects[-1]) < row_length:
+                all_effects[-1].append(empty_rote)
+        context["effects"] = all_effects
         context["year"] = abs(grimoire.date_written)
         return context
 

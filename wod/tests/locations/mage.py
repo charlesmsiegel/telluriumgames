@@ -5,12 +5,12 @@ from django.test import TestCase
 
 from core.models import Language, Material, Medium
 from wod.models.characters.mage import (
+    Effect,
     Instrument,
     MageFaction,
     Paradigm,
     Practice,
     Resonance,
-    Rote,
 )
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
 from wod.models.items.mage import Library

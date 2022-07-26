@@ -4,7 +4,13 @@ from unittest.mock import Mock
 from django.test import TestCase
 
 from core.models import Language, Material, Medium
-from wod.models.characters.mage import Instrument, MageFaction, Paradigm, Practice, Rote
+from wod.models.characters.mage import (
+    Effect,
+    Instrument,
+    MageFaction,
+    Paradigm,
+    Practice,
+)
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
 from wod.models.items.mage import Grimoire, Library
 
@@ -54,8 +60,8 @@ def grimoire_setup():
                 for i in range(5):
                     for j in range(5):
                         d = {sphere_1: i, sphere_2: j}
-                        Rote.objects.create(
-                            name=f"{sphere_1}/{sphere_2} Test Rote {5*i+j}", **d
+                        Effect.objects.create(
+                            name=f"{sphere_1}/{sphere_2} Test Effect {5*i+j}", **d
                         )
 
 
@@ -79,7 +85,9 @@ class TestGrimoire(TestCase):
         self.cover_material = Material.objects.create(name="Test Cover Material")
         self.inner_material = Material.objects.create(name="Test Inner Material")
         self.medium = Medium.objects.create(name="Test Medium")
-        self.rotes = [Rote.objects.create(name=f"Test Rote {i}") for i in range(4)]
+        self.effects = [
+            Effect.objects.create(name=f"Test Effect {i}") for i in range(4)
+        ]
         self.spheres = ["correspondence", "forces", "matter"]
 
     def test_set_rank(self):
@@ -197,15 +205,15 @@ class TestGrimoire(TestCase):
         self.grimoire.set_spheres(self.spheres)
         self.assertTrue(self.grimoire.has_spheres())
 
-    def test_set_rotes(self):
-        self.assertEqual(self.grimoire.rotes.count(), 0)
-        self.assertTrue(self.grimoire.set_rotes(self.rotes))
-        self.assertEqual(set(self.grimoire.rotes.all()), set(self.rotes))
+    def test_set_effects(self):
+        self.assertEqual(self.grimoire.effects.count(), 0)
+        self.assertTrue(self.grimoire.set_effects(self.effects))
+        self.assertEqual(set(self.grimoire.effects.all()), set(self.effects))
 
-    def test_has_rotes(self):
-        self.assertFalse(self.grimoire.has_rotes())
-        self.grimoire.set_rotes(self.rotes)
-        self.assertTrue(self.grimoire.has_rotes())
+    def test_has_effects(self):
+        self.assertFalse(self.grimoire.has_effects())
+        self.grimoire.set_effects(self.effects)
+        self.assertTrue(self.grimoire.has_effects())
 
 
 class TestRandomGrimoire(TestCase):
@@ -278,10 +286,10 @@ class TestRandomGrimoire(TestCase):
         self.grimoire.random_spheres()
         self.assertTrue(self.grimoire.has_spheres())
 
-    def test_random_rotes(self):
-        self.assertFalse(self.grimoire.has_rotes())
-        self.grimoire.random_rotes()
-        self.assertTrue(self.grimoire.has_rotes())
+    def test_random_effects(self):
+        self.assertFalse(self.grimoire.has_effects())
+        self.grimoire.random_effects()
+        self.assertTrue(self.grimoire.has_effects())
 
     def test_random(self):
         self.assertFalse(self.grimoire.has_rank())
@@ -294,7 +302,7 @@ class TestRandomGrimoire(TestCase):
         self.assertFalse(self.grimoire.has_abilities())
         self.assertFalse(self.grimoire.has_language())
         self.assertFalse(self.grimoire.has_spheres())
-        self.assertFalse(self.grimoire.has_rotes())
+        self.assertFalse(self.grimoire.has_effects())
         self.grimoire.random()
         self.assertTrue(self.grimoire.has_rank())
         self.assertTrue(self.grimoire.has_faction())
@@ -306,7 +314,7 @@ class TestRandomGrimoire(TestCase):
         self.assertTrue(self.grimoire.has_abilities())
         self.assertTrue(self.grimoire.has_language())
         self.assertTrue(self.grimoire.has_spheres())
-        self.assertTrue(self.grimoire.has_rotes())
+        self.assertTrue(self.grimoire.has_effects())
 
 
 class TestLibrary(TestCase):
