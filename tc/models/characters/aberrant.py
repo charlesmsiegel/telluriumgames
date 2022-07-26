@@ -195,6 +195,19 @@ class Aberrant(Human):
                 possible_tags = [x for x in possible_tags if x.ratings == [1]]
                 tag = random.choice(possible_tags)
                 self.add_tag(power, tag)
+            if power.name == "Quantum Construct" and p.rating > 1:
+                possible_tags = Tag.objects.filter(
+                    name__in=[
+                        "Durability",
+                        "Invisibility",
+                        "Multiple",
+                        "Ranged",
+                        "Selective",
+                        "Size",
+                    ]
+                ).exclude(pk__in=p.tags.all())
+                tag = random.choice(possible_tags)
+                self.add_tag(power, tag)
             p.save()
             return True
         return False
