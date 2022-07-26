@@ -7,7 +7,7 @@ from wod.models.characters.mage.faction import MageFaction
 from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
 from wod.models.characters.mage.mage import Cabal, Mage
 from wod.models.characters.mage.resonance import Resonance, ResRating
-from wod.models.characters.mage.rote import Rote
+from wod.models.characters.mage.rote import Effect
 from wod.models.characters.mage.utils import PRIMARY_ABILITIES
 
 
@@ -61,12 +61,12 @@ class MageDetailView(View):
         context["merits_and_flaws"] = MeritFlawRating.objects.order_by(
             "mf__name"
         ).filter(character=mage)
-        all_rotes = list(context["object"].rotes.all())
+        all_effects = list(context["object"].effects.all())
         row_length = 2
-        all_rotes = [
-            all_rotes[i : i + row_length] for i in range(0, len(all_rotes), row_length)
+        all_effects = [
+            all_effects[i : i + row_length] for i in range(0, len(all_effects), row_length)
         ]
-        context["rotes"] = all_rotes
+        context["effects"] = all_effects
 
         secondary_talents = [
             [f"{k.replace('_', ' ').title()}", v, context[f"{k}_spec"]]
@@ -222,18 +222,18 @@ class ResonanceUpdateView(UpdateView):
     template_name = "wod/characters/mage/resonance/update.html"
 
 
-class RoteDetailView(DetailView):
-    model = Rote
-    template_name = "wod/characters/mage/rote/detail.html"
+class EffectDetailView(DetailView):
+    model = Effect
+    template_name = "wod/characters/mage/effect/detail.html"
 
 
-class RoteCreateView(CreateView):
-    model = Rote
+class EffectCreateView(CreateView):
+    model = Effect
     fields = "__all__"
-    template_name = "wod/characters/mage/rote/create.html"
+    template_name = "wod/characters/mage/effect/create.html"
 
 
-class RoteUpdateView(UpdateView):
-    model = Rote
+class EffectUpdateView(UpdateView):
+    model = Effect
     fields = "__all__"
-    template_name = "wod/characters/mage/rote/update.html"
+    template_name = "wod/characters/mage/effect/update.html"

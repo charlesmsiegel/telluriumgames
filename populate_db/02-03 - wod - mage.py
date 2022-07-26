@@ -8,7 +8,7 @@ from wod.models.characters.mage import (
     Paradigm,
     Practice,
     Resonance,
-    Rote,
+    Effect,
 )
 
 english, _ = Language.objects.get_or_create(name="English", frequency=141264)
@@ -17974,216 +17974,216 @@ Resonance.objects.create(name="immodest")
 Resonance.objects.create(name="all-around")
 
 # M20 Jumpstart Common Magickal Effects
-Rote.objects.create(name="Adapt to Environment (Self)", life=2)
-Rote.objects.create(name="Adapt to Environment (Other)", life=3)
-Rote.objects.create(name="Animate Corpse or Parts", life=2, prime=2)
-Rote.objects.create(name="Cause Disease (Self)", life=2)
-Rote.objects.create(name="Cure Disease (Self)", life=2)
-Rote.objects.create(name="Cause Disease (Other)", life=3)
-Rote.objects.create(name="Cure Disease (Other)", life=3)
-Rote.objects.create(name="Cosmetic Alteration", life=3)
-Rote.objects.create(name="Create Body (Simple)", life=2, prime=2)
-Rote.objects.create(name="Create Body (Complex)", life=5, prime=2)
-Rote.objects.create(name="Duplicate Body", life=5, prime=2)
-Rote.objects.create(name="Grow New Limbs or Other Features (Self)", life=3)
-Rote.objects.create(name="Grow New Limbs or Other Features (Other)", life=4)
-Rote.objects.create(name="Harm Living Being (Simple)", life=2)
-Rote.objects.create(name="Heal Living Being (Simple)", life=2)
-Rote.objects.create(name="Harm Living Being (Complex)", life=3)
-Rote.objects.create(name="Heal Living Being (Complex)", life=3)
-Rote.objects.create(name="Heal Fae", life=3, mind=3)
-Rote.objects.create(name="Harm Fae", life=3, mind=3)
-Rote.objects.create(name="Heal Vampire", life=3, matter=2)
-Rote.objects.create(name="Harm Vampire", life=3, matter=2)
-Rote.objects.create(name="Heal Werecreature", life=3, spirit=2)
-Rote.objects.create(name="Harm Werecreature", life=3, spirit=2)
-Rote.objects.create(name="Increase Physique/Traits (Self)", life=3)
-Rote.objects.create(name="Increase Physique/Traits (Other)", life=4)
-Rote.objects.create(name="Increase Speed", time=3)
-Rote.objects.create(name="Reduce Speed", time=3)
-Rote.objects.create(name="Revive Recently Dead", life=4, spirit=4, prime=3)
-Rote.objects.create(name="Rot Body (Entropy)", entropy=4)
-Rote.objects.create(name="Rot Body (Life)", life=4)
-Rote.objects.create(name="Shapeshift (Self)", life=4)
-Rote.objects.create(name="Shapeshift (Other)", life=5)
-Rote.objects.create(name="Soak Aggravated Damage", life=3)
-Rote.objects.create(
+Effect.objects.create(name="Adapt to Environment (Self)", life=2)
+Effect.objects.create(name="Adapt to Environment (Other)", life=3)
+Effect.objects.create(name="Animate Corpse or Parts", life=2, prime=2)
+Effect.objects.create(name="Cause Disease (Self)", life=2)
+Effect.objects.create(name="Cure Disease (Self)", life=2)
+Effect.objects.create(name="Cause Disease (Other)", life=3)
+Effect.objects.create(name="Cure Disease (Other)", life=3)
+Effect.objects.create(name="Cosmetic Alteration", life=3)
+Effect.objects.create(name="Create Body (Simple)", life=2, prime=2)
+Effect.objects.create(name="Create Body (Complex)", life=5, prime=2)
+Effect.objects.create(name="Duplicate Body", life=5, prime=2)
+Effect.objects.create(name="Grow New Limbs or Other Features (Self)", life=3)
+Effect.objects.create(name="Grow New Limbs or Other Features (Other)", life=4)
+Effect.objects.create(name="Harm Living Being (Simple)", life=2)
+Effect.objects.create(name="Heal Living Being (Simple)", life=2)
+Effect.objects.create(name="Harm Living Being (Complex)", life=3)
+Effect.objects.create(name="Heal Living Being (Complex)", life=3)
+Effect.objects.create(name="Heal Fae", life=3, mind=3)
+Effect.objects.create(name="Harm Fae", life=3, mind=3)
+Effect.objects.create(name="Heal Vampire", life=3, matter=2)
+Effect.objects.create(name="Harm Vampire", life=3, matter=2)
+Effect.objects.create(name="Heal Werecreature", life=3, spirit=2)
+Effect.objects.create(name="Harm Werecreature", life=3, spirit=2)
+Effect.objects.create(name="Increase Physique/Traits (Self)", life=3)
+Effect.objects.create(name="Increase Physique/Traits (Other)", life=4)
+Effect.objects.create(name="Increase Speed", time=3)
+Effect.objects.create(name="Reduce Speed", time=3)
+Effect.objects.create(name="Revive Recently Dead", life=4, spirit=4, prime=3)
+Effect.objects.create(name="Rot Body (Entropy)", entropy=4)
+Effect.objects.create(name="Rot Body (Life)", life=4)
+Effect.objects.create(name="Shapeshift (Self)", life=4)
+Effect.objects.create(name="Shapeshift (Other)", life=5)
+Effect.objects.create(name="Soak Aggravated Damage", life=3)
+Effect.objects.create(
     name="Transform into Element (Earth, Metal, Water)", life=3, matter=3
 )
-Rote.objects.create(name="Transform into Element (Wood)", life=3)
-Rote.objects.create(name="Transform into Element (Air, Fire)", life=3, forces=3)
-Rote.objects.create(name="Alter Probability", entropy=2)
-Rote.objects.create(name="Bless", entropy=3, life=3)
-Rote.objects.create(name="Curse", entropy=3, life=3)
-Rote.objects.create(name="Cause Decay", entropy=3)  # entropy 3+ variants
-Rote.objects.create(name="Spot Flaws", entropy=1)
-Rote.objects.create(name="Call Storm", forces=4, prime=2)
-Rote.objects.create(name="Conjure Element (Fire, Wind)", forces=3, prime=2)
-Rote.objects.create(name="Conjure Element (Earth, Metal, Water)", matter=3, prime=2)
-Rote.objects.create(name="Conjure Element (Wood)", life=3, prime=2)
-Rote.objects.create(name="Conjure New Object", matter=3, prime=2)  # matter 3+ variants
-Rote.objects.create(
+Effect.objects.create(name="Transform into Element (Wood)", life=3)
+Effect.objects.create(name="Transform into Element (Air, Fire)", life=3, forces=3)
+Effect.objects.create(name="Alter Probability", entropy=2)
+Effect.objects.create(name="Bless", entropy=3, life=3)
+Effect.objects.create(name="Curse", entropy=3, life=3)
+Effect.objects.create(name="Cause Decay", entropy=3)  # entropy 3+ variants
+Effect.objects.create(name="Spot Flaws", entropy=1)
+Effect.objects.create(name="Call Storm", forces=4, prime=2)
+Effect.objects.create(name="Conjure Element (Fire, Wind)", forces=3, prime=2)
+Effect.objects.create(name="Conjure Element (Earth, Metal, Water)", matter=3, prime=2)
+Effect.objects.create(name="Conjure Element (Wood)", life=3, prime=2)
+Effect.objects.create(name="Conjure New Object", matter=3, prime=2)  # matter 3+ variants
+Effect.objects.create(
     name='Conjure "Physical" Illusion', forces=2, prime=2
 )  # forces 2+ variants
-Rote.objects.create(name="Direct Existing Elements", forces=2)  # forces 2+ variants
-Rote.objects.create(name="Disintegrate Object (Matter)", matter=3)
-Rote.objects.create(name="Disintegrate Object (Entropy/Time)", entropy=3, time=3)
-Rote.objects.create(name="Invisibility Field", forces=2)
-Rote.objects.create(name="Silence Field", forces=2)
-Rote.objects.create(name="Invisibility on Living Being", forces=2, life=2)
-Rote.objects.create(name="Levitation (Forces)", forces=2)
-Rote.objects.create(name="Levitation (Correspondence)", correspondence=3, matter=2)
-Rote.objects.create(name="Flying (Forces)", forces=2)
-Rote.objects.create(name="Flying (Correspondence)", correspondence=3, life=2)
-Rote.objects.create(name="Speed Velocity", forces=2)  # forces 2+ variants
-Rote.objects.create(name="Slow Velocity", forces=2)  # forces 2+ variants
-Rote.objects.create(
+Effect.objects.create(name="Direct Existing Elements", forces=2)  # forces 2+ variants
+Effect.objects.create(name="Disintegrate Object (Matter)", matter=3)
+Effect.objects.create(name="Disintegrate Object (Entropy/Time)", entropy=3, time=3)
+Effect.objects.create(name="Invisibility Field", forces=2)
+Effect.objects.create(name="Silence Field", forces=2)
+Effect.objects.create(name="Invisibility on Living Being", forces=2, life=2)
+Effect.objects.create(name="Levitation (Forces)", forces=2)
+Effect.objects.create(name="Levitation (Correspondence)", correspondence=3, matter=2)
+Effect.objects.create(name="Flying (Forces)", forces=2)
+Effect.objects.create(name="Flying (Correspondence)", correspondence=3, life=2)
+Effect.objects.create(name="Speed Velocity", forces=2)  # forces 2+ variants
+Effect.objects.create(name="Slow Velocity", forces=2)  # forces 2+ variants
+Effect.objects.create(
     name="Transform Objects", matter=2
 )  # matter 2+ variants and other target thing spheres
-Rote.objects.create(
+Effect.objects.create(
     name="Transform Forces", forces=3
 )  # forces 3+ variants and other target thing spheres
-Rote.objects.create(name="Astral Projection", mind=4)
-Rote.objects.create(
+Effect.objects.create(name="Astral Projection", mind=4)
+Effect.objects.create(
     name="Clairvoyance", correspondence=2
 )  # Mind 3/Corr 2 variant, why?
-Rote.objects.create(name="Conceal Aura (Mind)", mind=1)
-Rote.objects.create(name="Conceal Aura (Prime)", mind=2)
-Rote.objects.create(name="Alter Aura (Mind)", mind=1)
-Rote.objects.create(name="Alter Aura (Prime)", mind=2)
-Rote.objects.create(name="Conceal Avatar", spirit=2, mind=1)
-Rote.objects.create(name="Conceal Thoughts", mind=1)
-Rote.objects.create(name="Conjure Mental Illusions", mind=2)  # Mind 2+ variants
-Rote.objects.create(name="Influence Mood", mind=2)
-Rote.objects.create(name="Influence Subconscious", mind=3)  # Mind 3+ variants
-Rote.objects.create(name="Mind Control", mind=4)
-Rote.objects.create(name="Prophecy", time=2)  # why mind 2/time 2?
-Rote.objects.create(name="Hindsight", time=2)  # why mind 2/time 2?
-Rote.objects.create(name="Scramble Thoughts", mind=3)
-Rote.objects.create(name="See Through Another's Eyes", mind=3)
-Rote.objects.create(name="Sense Energies (Correspondence)", correspondence=1)
-Rote.objects.create(name="Sense Energies (Time)", time=1)
-Rote.objects.create(name="Sense Energies (Spirit)", spirit=1)
-Rote.objects.create(name="Sense Energies (Matter)", matter=1)
-Rote.objects.create(name="Sense Energies (Forces)", forces=1)
-Rote.objects.create(name="Sense Energies (Life)", life=1)
-Rote.objects.create(name="Sense Energies (Entropy)", entropy=1)
-Rote.objects.create(name="Sense Energies (Mind)", mind=1)
-Rote.objects.create(name="Sense Energies (Prime)", prime=1)
-Rote.objects.create(
+Effect.objects.create(name="Conceal Aura (Mind)", mind=1)
+Effect.objects.create(name="Conceal Aura (Prime)", mind=2)
+Effect.objects.create(name="Alter Aura (Mind)", mind=1)
+Effect.objects.create(name="Alter Aura (Prime)", mind=2)
+Effect.objects.create(name="Conceal Avatar", spirit=2, mind=1)
+Effect.objects.create(name="Conceal Thoughts", mind=1)
+Effect.objects.create(name="Conjure Mental Illusions", mind=2)  # Mind 2+ variants
+Effect.objects.create(name="Influence Mood", mind=2)
+Effect.objects.create(name="Influence Subconscious", mind=3)  # Mind 3+ variants
+Effect.objects.create(name="Mind Control", mind=4)
+Effect.objects.create(name="Prophecy", time=2)  # why mind 2/time 2?
+Effect.objects.create(name="Hindsight", time=2)  # why mind 2/time 2?
+Effect.objects.create(name="Scramble Thoughts", mind=3)
+Effect.objects.create(name="See Through Another's Eyes", mind=3)
+Effect.objects.create(name="Sense Energies (Correspondence)", correspondence=1)
+Effect.objects.create(name="Sense Energies (Time)", time=1)
+Effect.objects.create(name="Sense Energies (Spirit)", spirit=1)
+Effect.objects.create(name="Sense Energies (Matter)", matter=1)
+Effect.objects.create(name="Sense Energies (Forces)", forces=1)
+Effect.objects.create(name="Sense Energies (Life)", life=1)
+Effect.objects.create(name="Sense Energies (Entropy)", entropy=1)
+Effect.objects.create(name="Sense Energies (Mind)", mind=1)
+Effect.objects.create(name="Sense Energies (Prime)", prime=1)
+Effect.objects.create(
     name="Share Perception", mind=1
 )  # separate variants for other spheres?
-Rote.objects.create(name="Shield Mind (Other)", mind=2)
-Rote.objects.create(name="Tear Mind Apart", mind=3)
-Rote.objects.create(name="Tear Mind Apart (Aggravated)", mind=3, life=3)
-Rote.objects.create(name="Telepathy", mind=3)
-Rote.objects.create(name="Telekinesis", forces=2)  # forces 2+ variants
-Rote.objects.create(name="Translate Languages", mind=3)
-Rote.objects.create(name="Translate Languages (Group)", mind=3, forces=2)
-Rote.objects.create(name="Absorb Quintessence", prime=3)
-Rote.objects.create(name="Channel Quintessence", prime=3)
-Rote.objects.create(name="Destroy by Draining Quintessence (Object)", prime=4)
-Rote.objects.create(name="Destroy by Draining Quintessence (Creature)", prime=5)
-Rote.objects.create(name="Drain Node", prime=4)
-Rote.objects.create(name="Drain Quintessence", prime=3)
-Rote.objects.create(
+Effect.objects.create(name="Shield Mind (Other)", mind=2)
+Effect.objects.create(name="Tear Mind Apart", mind=3)
+Effect.objects.create(name="Tear Mind Apart (Aggravated)", mind=3, life=3)
+Effect.objects.create(name="Telepathy", mind=3)
+Effect.objects.create(name="Telekinesis", forces=2)  # forces 2+ variants
+Effect.objects.create(name="Translate Languages", mind=3)
+Effect.objects.create(name="Translate Languages (Group)", mind=3, forces=2)
+Effect.objects.create(name="Absorb Quintessence", prime=3)
+Effect.objects.create(name="Channel Quintessence", prime=3)
+Effect.objects.create(name="Destroy by Draining Quintessence (Object)", prime=4)
+Effect.objects.create(name="Destroy by Draining Quintessence (Creature)", prime=5)
+Effect.objects.create(name="Drain Node", prime=4)
+Effect.objects.create(name="Drain Quintessence", prime=3)
+Effect.objects.create(
     name="Fuel New Pattern", prime=2
 )  # variants add appropriate spheres
-Rote.objects.create(name="Share/Exchange Quintessence", prime=3)
-Rote.objects.create(name="Command Spirit", mind=4, spirit=4)
-Rote.objects.create(name="Conjure Spirit", spirit=3)
-Rote.objects.create(name="Drain Spirit's Essence", prime=4, spirit=4)
-Rote.objects.create(name="Harm Spirit/Wraith", spirit=3)
-Rote.objects.create(name="Open Gateway", spirit=4)
-Rote.objects.create(name="Close Gateway", spirit=4)
-Rote.objects.create(name="See Spirits", spirit=1)
-Rote.objects.create(name="Speak to Spirits", spirit=2)
-Rote.objects.create(name="Step Sideways", spirit=3)
-Rote.objects.create(name="Touch Spirit", spirit=2)
-Rote.objects.create(
+Effect.objects.create(name="Share/Exchange Quintessence", prime=3)
+Effect.objects.create(name="Command Spirit", mind=4, spirit=4)
+Effect.objects.create(name="Conjure Spirit", spirit=3)
+Effect.objects.create(name="Drain Spirit's Essence", prime=4, spirit=4)
+Effect.objects.create(name="Harm Spirit/Wraith", spirit=3)
+Effect.objects.create(name="Open Gateway", spirit=4)
+Effect.objects.create(name="Close Gateway", spirit=4)
+Effect.objects.create(name="See Spirits", spirit=1)
+Effect.objects.create(name="Speak to Spirits", spirit=2)
+Effect.objects.create(name="Step Sideways", spirit=3)
+Effect.objects.create(name="Touch Spirit", spirit=2)
+Effect.objects.create(
     name="Affect Distant Object/Being", correspondence=2
 )  # Correspondence 2+ variants
-Rote.objects.create(name="Aging (Living Being)", time=3, life=4)  # Time 3+ variants
-Rote.objects.create(
+Effect.objects.create(name="Aging (Living Being)", time=3, life=4)  # Time 3+ variants
+Effect.objects.create(
     name="Reversing Age (Living Being)", time=3, life=4
 )  # Time 3+ variants
-Rote.objects.create(name="Aging (Object)", time=3, matter=2)  # Time 3+ variants
-Rote.objects.create(name="Reversing Age (Object)", time=3, matter=2)  # Time 3+ variants
-Rote.objects.create(name="Conjure Earthly Being", correspondence=4, life=2)
-Rote.objects.create(
+Effect.objects.create(name="Aging (Object)", time=3, matter=2)  # Time 3+ variants
+Effect.objects.create(name="Reversing Age (Object)", time=3, matter=2)  # Time 3+ variants
+Effect.objects.create(name="Conjure Earthly Being", correspondence=4, life=2)
+Effect.objects.create(
     name="Create Multiple Images (Correspondence)", correspondence=3, prime=2
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Create Multiple Images (Forces)", forces=2, prime=2
 )  # forces 2+ variants
-Rote.objects.create(name="Create Multiple Objects", correspondence=5, matter=3, prime=2)
-Rote.objects.create(name="Open Gateway Between Locations", correspondence=4)
-Rote.objects.create(name="Rewind Time", time=3)
-Rote.objects.create(name="Set Time Trigger", time=4)
-Rote.objects.create(name="Teleport (Self)", correspondence=3)
-Rote.objects.create(name="Teleport (Other)", correspondence=4)
-Rote.objects.create(name="Time Travel", time=5)
+Effect.objects.create(name="Create Multiple Objects", correspondence=5, matter=3, prime=2)
+Effect.objects.create(name="Open Gateway Between Locations", correspondence=4)
+Effect.objects.create(name="Rewind Time", time=3)
+Effect.objects.create(name="Set Time Trigger", time=4)
+Effect.objects.create(name="Teleport (Self)", correspondence=3)
+Effect.objects.create(name="Teleport (Other)", correspondence=4)
+Effect.objects.create(name="Time Travel", time=5)
 
 # M20 Effects
-Rote.objects.create(name="Bullet-Catch", time=3, forces=2, life=2)
-Rote.objects.create(name="Astral Sojourn", mind=4, spirit=3, prime=2)
-Rote.objects.create(name="Agama Re", entropy=4, life=2, spirit=3)
-Rote.objects.create(name="Agama Te", entropy=4, life=3, spirit=4)
-Rote.objects.create(name="Astral Agama", entropy=5, mind=5, spirit=3)
-Rote.objects.create(name="Suggest Sleep", mind=2)
-Rote.objects.create(name="Compel Sleep", mind=4)
-Rote.objects.create(name="Make Tired", life=3)
-Rote.objects.create(name="Create Wonder", prime=4)
-Rote.objects.create(name="Create Fetish (Willing)", prime=4)
-Rote.objects.create(name="Create Fetish (Unwilling)", spirit=4)
-Rote.objects.create(name="Create Periapt", matter=4)
-Rote.objects.create(name="Create Souflow", life=5, prime=3)
-Rote.objects.create(name="Creat Trinket", prime=2)
-Rote.objects.create(name="Mental Illusions that Inflict Damage", mind=3)
-Rote.objects.create(name="Immersive Illusions", forces=4, mind=4, prime=4)
-Rote.objects.create(name="Awaken Object's Spirit", spirit=3)
-Rote.objects.create(name="Harm Ghost", entropy=3, prime=2)
-Rote.objects.create(name="Perfect Object", matter=3)
-Rote.objects.create(name="Consecrate", prime=2)
-Rote.objects.create(
+Effect.objects.create(name="Bullet-Catch", time=3, forces=2, life=2)
+Effect.objects.create(name="Astral Sojourn", mind=4, spirit=3, prime=2)
+Effect.objects.create(name="Agama Re", entropy=4, life=2, spirit=3)
+Effect.objects.create(name="Agama Te", entropy=4, life=3, spirit=4)
+Effect.objects.create(name="Astral Agama", entropy=5, mind=5, spirit=3)
+Effect.objects.create(name="Suggest Sleep", mind=2)
+Effect.objects.create(name="Compel Sleep", mind=4)
+Effect.objects.create(name="Make Tired", life=3)
+Effect.objects.create(name="Create Wonder", prime=4)
+Effect.objects.create(name="Create Fetish (Willing)", prime=4)
+Effect.objects.create(name="Create Fetish (Unwilling)", spirit=4)
+Effect.objects.create(name="Create Periapt", matter=4)
+Effect.objects.create(name="Create Souflow", life=5, prime=3)
+Effect.objects.create(name="Creat Trinket", prime=2)
+Effect.objects.create(name="Mental Illusions that Inflict Damage", mind=3)
+Effect.objects.create(name="Immersive Illusions", forces=4, mind=4, prime=4)
+Effect.objects.create(name="Awaken Object's Spirit", spirit=3)
+Effect.objects.create(name="Harm Ghost", entropy=3, prime=2)
+Effect.objects.create(name="Perfect Object", matter=3)
+Effect.objects.create(name="Consecrate", prime=2)
+Effect.objects.create(
     name="Ward/Ban", correspondence=2, prime=2
 )  # Corr/PRime 2+ variant, plus appropriate spheres at 2+
-Rote.objects.create(name="Astral Body of Light", mind=4, spirit=3, prime=2)
-Rote.objects.create(name="Enter a Dream", mind=3)
-Rote.objects.create(name="See Avatar", mind=3, prime=2, spirit=1)
-Rote.objects.create(name="See Through Mental Illusions", mind=4)
-Rote.objects.create(name="Shield Mind (Self)", mind=1)
-Rote.objects.create(name="Create New Node", prime=5)
-Rote.objects.create(name="Create Quintessence Weapon", prime=3)
-Rote.objects.create(name="Employ Periapt", prime=2)
-Rote.objects.create(name="Enchant Object", prime=2)
-Rote.objects.create(name="Energize Periapt", prime=3)
-Rote.objects.create(name="Nullify Paradox", prime=5)
-Rote.objects.create(name="Refine Tass", prime=4)
-Rote.objects.create(name="Tap Wellspring", prime=4)
-Rote.objects.create(name="Body of Light", prime=2)
+Effect.objects.create(name="Astral Body of Light", mind=4, spirit=3, prime=2)
+Effect.objects.create(name="Enter a Dream", mind=3)
+Effect.objects.create(name="See Avatar", mind=3, prime=2, spirit=1)
+Effect.objects.create(name="See Through Mental Illusions", mind=4)
+Effect.objects.create(name="Shield Mind (Self)", mind=1)
+Effect.objects.create(name="Create New Node", prime=5)
+Effect.objects.create(name="Create Quintessence Weapon", prime=3)
+Effect.objects.create(name="Employ Periapt", prime=2)
+Effect.objects.create(name="Enchant Object", prime=2)
+Effect.objects.create(name="Energize Periapt", prime=3)
+Effect.objects.create(name="Nullify Paradox", prime=5)
+Effect.objects.create(name="Refine Tass", prime=4)
+Effect.objects.create(name="Tap Wellspring", prime=4)
+Effect.objects.create(name="Body of Light", prime=2)
 
 # How Do You DO That?
 # Book of Secrets
-Rote.objects.create(name="The Branding Rote", spirit=3, life=3, mind=2, prime=3)
-Rote.objects.create(
-    name="The Branding Rote (Expirating)", spirit=3, life=3, mind=2, prime=3, time=4
+Effect.objects.create(name="The Branding Effect", spirit=3, life=3, mind=2, prime=3)
+Effect.objects.create(
+    name="The Branding Effect (Expirating)", spirit=3, life=3, mind=2, prime=3, time=4
 )
-Rote.objects.create(
-    name="The Branding Rote (Avatar Brand)", spirit=4, life=3, mind=2, prime=3
+Effect.objects.create(
+    name="The Branding Effect (Avatar Brand)", spirit=4, life=3, mind=2, prime=3
 )
-Rote.objects.create(
-    name="The Branding Rote (Glowing)", spirit=3, life=3, mind=2, prime=3, forces=3
+Effect.objects.create(
+    name="The Branding Effect (Glowing)", spirit=3, life=3, mind=2, prime=3, forces=3
 )
 
-Rote.objects.create(name="Gilgul", spirit=5, entropy=5, mind=5, prime=5)
-Rote.objects.create(
+Effect.objects.create(name="Gilgul", spirit=5, entropy=5, mind=5, prime=5)
+Effect.objects.create(
     name="Gilgul (Aggravated Damage)", spirit=5, entropy=5, mind=5, prime=5, life=3
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Gilgul (Body to Dust)", spirit=5, entropy=5, mind=5, prime=5, life=5
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Gilgul (Scattered Body to Dust)",
     spirit=5,
     entropy=5,
@@ -18206,7 +18206,7 @@ Rote.objects.create(
 # Rouen Brûle t elle
 
 # Enlightend Grimoire
-Rote.objects.create(
+Effect.objects.create(
     name="Balance the Scales",
     correspondence=0,
     time=0,
@@ -18218,7 +18218,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Blight/Farmer's Favor",
     correspondence=0,
     time=3,
@@ -18230,7 +18230,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Luck's Blessing/Curse",
     correspondence=0,
     time=0,
@@ -18242,7 +18242,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Luck of the Lotus",
     correspondence=0,
     time=0,
@@ -18254,7 +18254,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Nanburbu",
     correspondence=2,
     time=0,
@@ -18266,7 +18266,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Threefold Return",
     correspondence=0,
     time=4,
@@ -18278,7 +18278,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ansu Ishten",
     correspondence=0,
     time=0,
@@ -18290,7 +18290,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Banishing Blessing",
     correspondence=0,
     time=0,
@@ -18302,7 +18302,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Baptism Rune",
     correspondence=0,
     time=0,
@@ -18314,7 +18314,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Beginner's Luck",
     correspondence=0,
     time=0,
@@ -18326,7 +18326,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Bless the Heavenly Flower",
     correspondence=0,
     time=0,
@@ -18338,7 +18338,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Bum a Dollar From the Universe",
     correspondence=0,
     time=0,
@@ -18350,7 +18350,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Buzzwords",
     correspondence=0,
     time=0,
@@ -18362,7 +18362,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Caesar's Due",
     correspondence=3,
     time=0,
@@ -18374,7 +18374,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Epiphany of the Muse",
     correspondence=0,
     time=0,
@@ -18386,7 +18386,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Games of Luck",
     correspondence=0,
     time=0,
@@ -18398,7 +18398,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Luck Be a Lady Tonight",
     correspondence=0,
     time=0,
@@ -18410,7 +18410,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Masquerade to Adulthood",
     correspondence=0,
     time=0,
@@ -18422,7 +18422,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Midwife's Blessing",
     correspondence=0,
     time=0,
@@ -18434,7 +18434,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Nobody Dies in Vegas",
     correspondence=4,
     time=0,
@@ -18446,7 +18446,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Reflecting Bane",
     correspondence=0,
     time=0,
@@ -18458,7 +18458,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shishipat's Favor",
     correspondence=0,
     time=0,
@@ -18470,7 +18470,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Waiting to Exhale",
     correspondence=0,
     time=0,
@@ -18482,7 +18482,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Weeping for Tammuz",
     correspondence=0,
     time=0,
@@ -18494,7 +18494,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Wurnan Blessing",
     correspondence=0,
     time=0,
@@ -18506,7 +18506,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ace of Diamonds",
     correspondence=0,
     time=0,
@@ -18518,7 +18518,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Actively Actuarial",
     correspondence=0,
     time=0,
@@ -18530,7 +18530,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Death Curse",
     correspondence=0,
     time=0,
@@ -18542,7 +18542,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Death Wish",
     correspondence=2,
     time=0,
@@ -18554,7 +18554,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Learn-It",
     correspondence=2,
     time=2,
@@ -18566,7 +18566,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Rival's Curse",
     correspondence=2,
     time=0,
@@ -18578,7 +18578,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sha'ir's Sentence",
     correspondence=0,
     time=0,
@@ -18590,7 +18590,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spoiling",
     correspondence=0,
     time=0,
@@ -18602,7 +18602,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Statistical Mechanics",
     correspondence=0,
     time=0,
@@ -18614,7 +18614,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Vext",
     correspondence=0,
     time=3,
@@ -18626,8 +18626,8 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
-    name="Brand (the Rawhide Rote)",
+Effect.objects.create(
+    name="Brand (the Rawhide Effect)",
     correspondence=0,
     time=0,
     spirit=0,
@@ -18638,7 +18638,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Create Virtual Object/Create Daemon",
     correspondence=0,
     time=0,
@@ -18650,7 +18650,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Digital Disruption",
     correspondence=0,
     time=0,
@@ -18662,7 +18662,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Doe's Password",
     correspondence=0,
     time=0,
@@ -18674,7 +18674,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Encode",
     correspondence=2,
     time=0,
@@ -18686,7 +18686,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Energy Transformation",
     correspondence=1,
     time=0,
@@ -18698,7 +18698,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Feedback",
     correspondence=0,
     time=0,
@@ -18710,7 +18710,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="FIRP",
     correspondence=0,
     time=0,
@@ -18722,7 +18722,7 @@ Rote.objects.create(
     mind=5,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Fractal Encryption",
     correspondence=0,
     time=0,
@@ -18734,7 +18734,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hardware Entry",
     correspondence=1,
     time=0,
@@ -18746,7 +18746,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Information Superhighway",
     correspondence=2,
     time=3,
@@ -18758,7 +18758,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Instant Offline",
     correspondence=3,
     time=0,
@@ -18770,7 +18770,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Online Virus Transmitter Program",
     correspondence=2,
     time=0,
@@ -18782,7 +18782,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Overwrite",
     correspondence=0,
     time=0,
@@ -18794,7 +18794,7 @@ Rote.objects.create(
     mind=0,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Parallax",
     correspondence=4,
     time=0,
@@ -18806,7 +18806,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Restrict Sector",
     correspondence=0,
     time=0,
@@ -18818,7 +18818,7 @@ Rote.objects.create(
     mind=4,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="TechnoVision",
     correspondence=1,
     time=0,
@@ -18830,7 +18830,7 @@ Rote.objects.create(
     mind=1,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Virtual Talisman Transmogrification",
     correspondence=0,
     time=0,
@@ -18842,7 +18842,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Webcrawlers",
     correspondence=3,
     time=0,
@@ -18854,7 +18854,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Boot Buzzer",
     correspondence=2,
     time=0,
@@ -18866,7 +18866,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Burn Out",
     correspondence=0,
     time=0,
@@ -18878,7 +18878,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="FOR NEXT Loop",
     correspondence=4,
     time=0,
@@ -18890,7 +18890,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Red Button",
     correspondence=0,
     time=0,
@@ -18902,7 +18902,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="System Crash",
     correspondence=2,
     time=0,
@@ -18914,7 +18914,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="System Havoc",
     correspondence=0,
     time=0,
@@ -18926,7 +18926,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="That Rascal Puff",
     correspondence=2,
     time=0,
@@ -18938,7 +18938,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Black Card/Little Black Box",
     correspondence=2,
     time=0,
@@ -18950,7 +18950,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Captain's Treasure",
     correspondence=0,
     time=0,
@@ -18962,7 +18962,7 @@ Rote.objects.create(
     mind=0,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Core Dump",
     correspondence=2,
     time=2,
@@ -18974,7 +18974,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Disk-Doctor",
     correspondence=0,
     time=0,
@@ -18986,7 +18986,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="DRM",
     correspondence=3,
     time=0,
@@ -18998,7 +18998,7 @@ Rote.objects.create(
     mind=1,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Encrypt",
     correspondence=0,
     time=3,
@@ -19010,7 +19010,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Graphic Transmission",
     correspondence=0,
     time=0,
@@ -19022,7 +19022,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hacker's Glance",
     correspondence=1,
     time=0,
@@ -19034,7 +19034,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Intel",
     correspondence=3,
     time=0,
@@ -19046,7 +19046,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mental Interface",
     correspondence=2,
     time=0,
@@ -19058,7 +19058,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Remote Access",
     correspondence=2,
     time=0,
@@ -19070,7 +19070,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Virtual Lockpick",
     correspondence=1,
     time=3,
@@ -19082,7 +19082,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="AI (Artificial Intelligence)",
     correspondence=0,
     time=0,
@@ -19094,7 +19094,7 @@ Rote.objects.create(
     mind=5,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Audience of Inanna",
     correspondence=2,
     time=1,
@@ -19106,7 +19106,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Personal Assistant Software",
     correspondence=0,
     time=0,
@@ -19118,7 +19118,7 @@ Rote.objects.create(
     mind=5,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Psychic Interface",
     correspondence=2,
     time=0,
@@ -19130,7 +19130,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Remote Programming",
     correspondence=0,
     time=0,
@@ -19142,7 +19142,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Book of Whispers",
     correspondence=0,
     time=3,
@@ -19154,7 +19154,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Crowd Surfing",
     correspondence=0,
     time=0,
@@ -19166,7 +19166,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Eavesdropper",
     correspondence=2,
     time=0,
@@ -19178,7 +19178,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="High-Definition",
     correspondence=2,
     time=0,
@@ -19190,7 +19190,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Monitor Communications",
     correspondence=0,
     time=0,
@@ -19202,7 +19202,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Nearest and Dearest",
     correspondence=2,
     time=2,
@@ -19214,7 +19214,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Phone Tap",
     correspondence=2,
     time=0,
@@ -19226,7 +19226,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="PIN Drop",
     correspondence=2,
     time=2,
@@ -19238,7 +19238,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Squaring the Circle",
     correspondence=2,
     time=0,
@@ -19250,7 +19250,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Surveillance",
     correspondence=2,
     time=0,
@@ -19262,7 +19262,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Telescreen",
     correspondence=2,
     time=0,
@@ -19274,7 +19274,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Tracking Device",
     correspondence=2,
     time=0,
@@ -19286,7 +19286,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Adad",
     correspondence=2,
     time=0,
@@ -19298,7 +19298,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Chaos Butterfly",
     correspondence=0,
     time=0,
@@ -19310,7 +19310,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Contemplation",
     correspondence=0,
     time=0,
@@ -19322,7 +19322,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dogon Divination",
     correspondence=0,
     time=2,
@@ -19334,7 +19334,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Find the Lost",
     correspondence=1,
     time=0,
@@ -19346,7 +19346,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Istar",
     correspondence=3,
     time=0,
@@ -19358,7 +19358,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Laying on of Hands",
     correspondence=0,
     time=2,
@@ -19370,7 +19370,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Lighting the Path",
     correspondence=2,
     time=0,
@@ -19382,7 +19382,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Read the Lightning",
     correspondence=0,
     time=2,
@@ -19394,7 +19394,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Samas",
     correspondence=2,
     time=0,
@@ -19406,7 +19406,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Search Engine",
     correspondence=2,
     time=0,
@@ -19418,7 +19418,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Silent Promise of the Spring Tortoise",
     correspondence=0,
     time=0,
@@ -19430,7 +19430,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sin",
     correspondence=0,
     time=0,
@@ -19442,7 +19442,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Wyrd Visions",
     correspondence=2,
     time=2,
@@ -19454,7 +19454,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Binding Oath",
     correspondence=0,
     time=0,
@@ -19466,7 +19466,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Fate Mark",
     correspondence=0,
     time=0,
@@ -19478,7 +19478,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Geasa",
     correspondence=0,
     time=0,
@@ -19490,7 +19490,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Major Geas",
     correspondence=0,
     time=0,
@@ -19502,7 +19502,7 @@ Rote.objects.create(
     mind=5,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Minor Geas",
     correspondence=0,
     time=0,
@@ -19514,7 +19514,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Secret Rune",
     correspondence=0,
     time=0,
@@ -19526,7 +19526,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sparrow's Fall",
     correspondence=0,
     time=4,
@@ -19538,7 +19538,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="All Tomorrow's Parties",
     correspondence=0,
     time=2,
@@ -19550,7 +19550,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Anunnaku",
     correspondence=0,
     time=0,
@@ -19562,7 +19562,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Biometric Holographic Recreation",
     correspondence=0,
     time=2,
@@ -19574,7 +19574,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Celestial Prediction",
     correspondence=0,
     time=2,
@@ -19586,7 +19586,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Chronopathy",
     correspondence=0,
     time=2,
@@ -19598,7 +19598,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Crime and Consequences",
     correspondence=0,
     time=2,
@@ -19610,7 +19610,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Divinations",
     correspondence=0,
     time=2,
@@ -19622,7 +19622,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Don't Cross the Streams",
     correspondence=2,
     time=2,
@@ -19634,7 +19634,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Forecasting",
     correspondence=0,
     time=2,
@@ -19646,7 +19646,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Geometry of Trade",
     correspondence=0,
     time=2,
@@ -19658,7 +19658,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hepatoscopy",
     correspondence=0,
     time=2,
@@ -19670,7 +19670,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Jung's Trick",
     correspondence=2,
     time=0,
@@ -19682,7 +19682,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Long-Range Eyes",
     correspondence=2,
     time=2,
@@ -19694,7 +19694,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Manipulate Time Fragment",
     correspondence=0,
     time=2,
@@ -19706,7 +19706,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Nonlinear Prediction",
     correspondence=0,
     time=0,
@@ -19718,7 +19718,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Peeping Tom",
     correspondence=2,
     time=2,
@@ -19730,7 +19730,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Planned Projection",
     correspondence=0,
     time=2,
@@ -19742,7 +19742,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Play Back",
     correspondence=2,
     time=2,
@@ -19754,7 +19754,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Postcognition",
     correspondence=0,
     time=2,
@@ -19766,7 +19766,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Psychometry",
     correspondence=0,
     time=2,
@@ -19778,7 +19778,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Quo Vadis? (Whither Goest Thou?)",
     correspondence=2,
     time=2,
@@ -19790,7 +19790,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Reading the Umbral Skein",
     correspondence=0,
     time=2,
@@ -19802,7 +19802,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Running Scenarios",
     correspondence=0,
     time=2,
@@ -19814,7 +19814,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Salmon of Wisdom",
     correspondence=0,
     time=2,
@@ -19826,7 +19826,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Scented Handkerchief",
     correspondence=0,
     time=2,
@@ -19838,7 +19838,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Songs of Future Days",
     correspondence=0,
     time=2,
@@ -19850,7 +19850,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Strategic Inefficiency Analysis",
     correspondence=0,
     time=2,
@@ -19862,7 +19862,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sugar Magnolias",
     correspondence=0,
     time=2,
@@ -19874,7 +19874,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Turning the Wheel of Ages",
     correspondence=0,
     time=2,
@@ -19886,7 +19886,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="View the Scattered Lotus Petals",
     correspondence=0,
     time=2,
@@ -19898,7 +19898,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Area Scan",
     correspondence=3,
     time=0,
@@ -19910,7 +19910,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Auric Trail",
     correspondence=1,
     time=0,
@@ -19922,7 +19922,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Check the Corners",
     correspondence=2,
     time=0,
@@ -19934,7 +19934,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Correspondence Sensing",
     correspondence=2,
     time=0,
@@ -19946,7 +19946,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Distant Sight",
     correspondence=2,
     time=0,
@@ -19958,7 +19958,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Divided Sight",
     correspondence=3,
     time=0,
@@ -19970,7 +19970,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Filter All-Space",
     correspondence=3,
     time=0,
@@ -19982,7 +19982,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Geometric Jars",
     correspondence=2,
     time=0,
@@ -19994,7 +19994,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Heat Seeking",
     correspondence=2,
     time=0,
@@ -20006,7 +20006,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Heat Trace",
     correspondence=0,
     time=2,
@@ -20018,7 +20018,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Map the True Way",
     correspondence=2,
     time=0,
@@ -20030,7 +20030,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Open/Close Window",
     correspondence=2,
     time=0,
@@ -20042,7 +20042,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Scan Non-Local Universe",
     correspondence=2,
     time=0,
@@ -20054,7 +20054,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Scrying",
     correspondence=2,
     time=0,
@@ -20066,7 +20066,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Seizing the Forgotten",
     correspondence=2,
     time=0,
@@ -20078,7 +20078,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Stalking the Void",
     correspondence=3,
     time=0,
@@ -20090,7 +20090,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Anger in the Land",
     correspondence=0,
     time=0,
@@ -20102,7 +20102,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Banish Elemental",
     correspondence=0,
     time=0,
@@ -20114,7 +20114,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Cycle of the Five Agents",
     correspondence=0,
     time=0,
@@ -20126,7 +20126,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Time Lock",
     correspondence=0,
     time=4,
@@ -20138,7 +20138,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="No Surrender",
     correspondence=0,
     time=0,
@@ -20150,7 +20150,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Rouse the Dragon",
     correspondence=0,
     time=0,
@@ -20162,7 +20162,7 @@ Rote.objects.create(
     mind=0,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Yao Su Dragon Thunder",
     correspondence=0,
     time=0,
@@ -20174,7 +20174,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Cuicuilco's Demise",
     correspondence=0,
     time=0,
@@ -20186,7 +20186,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Embracing the Earth Mother",
     correspondence=0,
     time=0,
@@ -20198,7 +20198,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Pele Wai'ula (Pele's Blood)",
     correspondence=3,
     time=0,
@@ -20210,7 +20210,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Pele's Wrath",
     correspondence=0,
     time=0,
@@ -20222,7 +20222,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="TWACI",
     correspondence=3,
     time=0,
@@ -20234,7 +20234,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Arc",
     correspondence=2,
     time=0,
@@ -20246,7 +20246,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Call Lightning",
     correspondence=0,
     time=0,
@@ -20258,7 +20258,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Discharge Static",
     correspondence=0,
     time=0,
@@ -20270,7 +20270,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Electrical Chaos",
     correspondence=0,
     time=0,
@@ -20282,7 +20282,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Lightning Gateway",
     correspondence=2,
     time=0,
@@ -20294,7 +20294,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Pulse of the Electro-Stream",
     correspondence=0,
     time=0,
@@ -20306,7 +20306,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Akua Kumu Haka (Guided Fireball)",
     correspondence=0,
     time=0,
@@ -20318,7 +20318,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Awaken Flame",
     correspondence=0,
     time=0,
@@ -20330,7 +20330,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Balefire",
     correspondence=0,
     time=0,
@@ -20342,7 +20342,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ball of Abysmal Flames",
     correspondence=0,
     time=4,
@@ -20354,7 +20354,7 @@ Rote.objects.create(
     mind=0,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Betrayal of the Burning Arrow",
     correspondence=1,
     time=0,
@@ -20366,7 +20366,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Devouring Gullet of Flame",
     correspondence=0,
     time=0,
@@ -20378,7 +20378,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dragonstorm",
     correspondence=0,
     time=0,
@@ -20390,7 +20390,7 @@ Rote.objects.create(
     mind=0,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Eternal Flame",
     correspondence=0,
     time=0,
@@ -20402,7 +20402,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Fire Rune",
     correspondence=0,
     time=0,
@@ -20414,7 +20414,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Friction Curse",
     correspondence=0,
     time=0,
@@ -20426,7 +20426,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Gabriel's Embrace",
     correspondence=2,
     time=0,
@@ -20438,7 +20438,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hermes' Brand",
     correspondence=0,
     time=4,
@@ -20450,7 +20450,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ignis",
     correspondence=0,
     time=0,
@@ -20462,7 +20462,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Inferno",
     correspondence=0,
     time=0,
@@ -20474,7 +20474,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Lotus Bloom",
     correspondence=0,
     time=0,
@@ -20486,7 +20486,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Phlogiston Manipulation",
     correspondence=0,
     time=0,
@@ -20498,7 +20498,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Phlogiston Flux",
     correspondence=0,
     time=0,
@@ -20510,7 +20510,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Pop Goes the Weasel",
     correspondence=0,
     time=0,
@@ -20522,7 +20522,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Possess Flame",
     correspondence=0,
     time=0,
@@ -20534,7 +20534,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Proof Against Immolation",
     correspondence=0,
     time=0,
@@ -20546,7 +20546,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shih-Huang-Ti's Marvelous Game",
     correspondence=0,
     time=0,
@@ -20558,7 +20558,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Wildfire",
     correspondence=0,
     time=0,
@@ -20570,7 +20570,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Wrath of Heaven",
     correspondence=0,
     time=0,
@@ -20582,7 +20582,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Fiat Lux",
     correspondence=0,
     time=0,
@@ -20594,7 +20594,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Filter'd Lantern-Light",
     correspondence=0,
     time=0,
@@ -20606,7 +20606,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Flash",
     correspondence=0,
     time=0,
@@ -20618,7 +20618,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Glorious Sword of Heaven",
     correspondence=2,
     time=0,
@@ -20630,7 +20630,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Laser Enhancement",
     correspondence=0,
     time=0,
@@ -20642,7 +20642,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Laser Production",
     correspondence=0,
     time=0,
@@ -20654,7 +20654,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Tsuiho - The Fires of Heaven",
     correspondence=4,
     time=0,
@@ -20666,7 +20666,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="'Ahiu Nalu (Rogue Wave)",
     correspondence=0,
     time=0,
@@ -20678,7 +20678,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Calling the Wind Lords",
     correspondence=0,
     time=0,
@@ -20690,7 +20690,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Cloud Cover",
     correspondence=0,
     time=0,
@@ -20702,7 +20702,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dousing",
     correspondence=1,
     time=0,
@@ -20714,7 +20714,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dowsing",
     correspondence=2,
     time=0,
@@ -20726,7 +20726,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Heenalu (Wave Walking)",
     correspondence=0,
     time=0,
@@ -20738,7 +20738,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mahu (Steam)",
     correspondence=0,
     time=0,
@@ -20750,7 +20750,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sing Down the Rain",
     correspondence=0,
     time=0,
@@ -20762,7 +20762,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Storm Rune",
     correspondence=0,
     time=0,
@@ -20774,7 +20774,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Tempest in a Teapot",
     correspondence=0,
     time=0,
@@ -20786,7 +20786,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Waipuilani (Waterspout)",
     correspondence=0,
     time=0,
@@ -20798,7 +20798,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Weather Working",
     correspondence=0,
     time=0,
@@ -20810,7 +20810,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Cold Water's Blessing",
     correspondence=0,
     time=0,
@@ -20822,7 +20822,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Contingent Effect",
     correspondence=0,
     time=4,
@@ -20834,7 +20834,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Counterspell Rune",
     correspondence=1,
     time=0,
@@ -20846,7 +20846,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Divert Prime Force",
     correspondence=0,
     time=0,
@@ -20858,7 +20858,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Enchant Life",
     correspondence=0,
     time=0,
@@ -20870,7 +20870,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Master's Enchantment",
     correspondence=0,
     time=0,
@@ -20882,7 +20882,7 @@ Rote.objects.create(
     mind=0,
     prime=5,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Parma Magica",
     correspondence=0,
     time=0,
@@ -20894,7 +20894,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Programmed Event",
     correspondence=0,
     time=4,
@@ -20906,7 +20906,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Watch the Weaving",
     correspondence=0,
     time=0,
@@ -20918,7 +20918,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Awaken the Sleeping Earth",
     correspondence=0,
     time=0,
@@ -20930,7 +20930,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Glorious is the Temple",
     correspondence=0,
     time=0,
@@ -20942,7 +20942,7 @@ Rote.objects.create(
     mind=2,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Leying of the Line",
     correspondence=0,
     time=0,
@@ -20954,7 +20954,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Locate Quintessence Flow",
     correspondence=0,
     time=0,
@@ -20966,7 +20966,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Node Raider",
     correspondence=0,
     time=0,
@@ -20978,7 +20978,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Primal Credit Rating",
     correspondence=3,
     time=0,
@@ -20990,7 +20990,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Prime Location",
     correspondence=1,
     time=0,
@@ -21002,7 +21002,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sense Node",
     correspondence=2,
     time=0,
@@ -21014,7 +21014,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Tap Node",
     correspondence=0,
     time=0,
@@ -21026,7 +21026,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Terminal Sanitization",
     correspondence=0,
     time=0,
@@ -21038,7 +21038,7 @@ Rote.objects.create(
     mind=0,
     prime=5,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Wellspring",
     correspondence=0,
     time=0,
@@ -21050,7 +21050,7 @@ Rote.objects.create(
     mind=0,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Bond of Blood",
     correspondence=0,
     time=0,
@@ -21062,7 +21062,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Burning Lotus",
     correspondence=0,
     time=0,
@@ -21074,7 +21074,7 @@ Rote.objects.create(
     mind=0,
     prime=5,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Convert Node to Tass",
     correspondence=0,
     time=0,
@@ -21086,7 +21086,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Cup of Joe",
     correspondence=0,
     time=0,
@@ -21098,7 +21098,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Drain Tass",
     correspondence=0,
     time=0,
@@ -21110,7 +21110,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Economic Warfare",
     correspondence=0,
     time=0,
@@ -21122,7 +21122,7 @@ Rote.objects.create(
     mind=0,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Footbind",
     correspondence=0,
     time=0,
@@ -21134,7 +21134,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Fount of Paradise",
     correspondence=0,
     time=0,
@@ -21146,7 +21146,7 @@ Rote.objects.create(
     mind=0,
     prime=5,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Hand of the Siphoner",
     correspondence=0,
     time=0,
@@ -21158,7 +21158,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hymn of Beatific Harmony",
     correspondence=3,
     time=0,
@@ -21170,7 +21170,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Primal Infusion",
     correspondence=0,
     time=0,
@@ -21182,7 +21182,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Primal Net",
     correspondence=0,
     time=0,
@@ -21194,7 +21194,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Radiate Prime Energy",
     correspondence=0,
     time=0,
@@ -21206,7 +21206,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Recharge Device",
     correspondence=0,
     time=0,
@@ -21218,7 +21218,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Recharge Gift",
     correspondence=0,
     time=0,
@@ -21230,7 +21230,7 @@ Rote.objects.create(
     mind=0,
     prime=5,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Rush",
     correspondence=0,
     time=0,
@@ -21242,7 +21242,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sense Quintessence",
     correspondence=0,
     time=0,
@@ -21254,7 +21254,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spinning Thread",
     correspondence=0,
     time=0,
@@ -21266,7 +21266,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Delay Paradox",
     correspondence=0,
     time=3,
@@ -21278,7 +21278,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Flames of Purification",
     correspondence=0,
     time=0,
@@ -21290,7 +21290,7 @@ Rote.objects.create(
     mind=0,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Healthy Skepticism",
     correspondence=0,
     time=0,
@@ -21302,7 +21302,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Holy Stroke",
     correspondence=0,
     time=0,
@@ -21314,7 +21314,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Matter-Energy Converter",
     correspondence=0,
     time=0,
@@ -21326,7 +21326,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Paradox Ward",
     correspondence=0,
     time=0,
@@ -21338,7 +21338,7 @@ Rote.objects.create(
     mind=0,
     prime=5,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Penance for the Sicarii",
     correspondence=3,
     time=0,
@@ -21350,7 +21350,7 @@ Rote.objects.create(
     mind=0,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Quintessence Blast",
     correspondence=0,
     time=0,
@@ -21362,7 +21362,7 @@ Rote.objects.create(
     mind=0,
     prime=5,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spirit Pilgrimage",
     correspondence=0,
     time=0,
@@ -21374,7 +21374,7 @@ Rote.objects.create(
     mind=0,
     prime=5,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Balancing the Furies",
     correspondence=0,
     time=0,
@@ -21386,7 +21386,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Charge the Resonance",
     correspondence=0,
     time=0,
@@ -21398,7 +21398,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Node Spike",
     correspondence=0,
     time=0,
@@ -21410,7 +21410,7 @@ Rote.objects.create(
     mind=2,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Occlude the Seal of Power",
     correspondence=0,
     time=0,
@@ -21422,7 +21422,7 @@ Rote.objects.create(
     mind=2,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Orgone Accumulator",
     correspondence=0,
     time=0,
@@ -21434,7 +21434,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Psychic Impression",
     correspondence=0,
     time=0,
@@ -21446,7 +21446,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Tag",
     correspondence=2,
     time=0,
@@ -21458,7 +21458,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Ball Game",
     correspondence=0,
     time=0,
@@ -21470,7 +21470,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Blood for the Gods",
     correspondence=0,
     time=0,
@@ -21482,7 +21482,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Blood of the Sacred King",
     correspondence=0,
     time=0,
@@ -21494,7 +21494,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Cup of Itz",
     correspondence=0,
     time=0,
@@ -21506,7 +21506,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Heart for Huitzilopochtli",
     correspondence=0,
     time=0,
@@ -21518,7 +21518,7 @@ Rote.objects.create(
     mind=0,
     prime=5,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Heart's Blood",
     correspondence=0,
     time=0,
@@ -21530,7 +21530,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Kaumaha (Sacrifice)",
     correspondence=0,
     time=0,
@@ -21542,7 +21542,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Lanbs to the Slaughter",
     correspondence=0,
     time=0,
@@ -21554,7 +21554,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Midnight Oil",
     correspondence=0,
     time=0,
@@ -21566,7 +21566,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Self-Sacrifice",
     correspondence=0,
     time=0,
@@ -21578,7 +21578,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Arrest the Flight of Arrows",
     correspondence=0,
     time=0,
@@ -21590,7 +21590,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Crowdsourced Combat",
     correspondence=2,
     time=0,
@@ -21602,7 +21602,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Infidel's Laughter",
     correspondence=0,
     time=0,
@@ -21614,7 +21614,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Lucky Blow",
     correspondence=0,
     time=0,
@@ -21626,7 +21626,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sense the Echo of the Dragon",
     correspondence=0,
     time=2,
@@ -21638,7 +21638,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spearcatcher Rune",
     correspondence=1,
     time=3,
@@ -21650,7 +21650,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Strategy",
     correspondence=0,
     time=2,
@@ -21662,7 +21662,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Targeting Computation",
     correspondence=1,
     time=0,
@@ -21674,7 +21674,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Time-Motion Study",
     correspondence=1,
     time=1,
@@ -21686,7 +21686,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Wearing the Bear Shirt",
     correspondence=0,
     time=0,
@@ -21698,7 +21698,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Wrath of God",
     correspondence=0,
     time=0,
@@ -21710,7 +21710,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Battle Rune",
     correspondence=3,
     time=0,
@@ -21722,7 +21722,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Coordinated Fire",
     correspondence=1,
     time=1,
@@ -21734,7 +21734,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hail of Bullets",
     correspondence=0,
     time=3,
@@ -21746,7 +21746,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Legion's Life",
     correspondence=0,
     time=0,
@@ -21758,7 +21758,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Marching Orders",
     correspondence=0,
     time=0,
@@ -21770,7 +21770,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mind of the Ant Hill",
     correspondence=0,
     time=0,
@@ -21782,7 +21782,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="108 Plum Blossoms",
     correspondence=2,
     time=0,
@@ -21794,7 +21794,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Arashi-Waza",
     correspondence=2,
     time=3,
@@ -21806,7 +21806,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Bullet Catch",
     correspondence=0,
     time=2,
@@ -21818,7 +21818,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dragon Fist",
     correspondence=0,
     time=0,
@@ -21830,7 +21830,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Eight Drunken Hsien",
     correspondence=0,
     time=0,
@@ -21842,7 +21842,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Final Blow",
     correspondence=0,
     time=0,
@@ -21854,7 +21854,7 @@ Rote.objects.create(
     mind=5,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Flying Dragon Kick",
     correspondence=1,
     time=0,
@@ -21866,7 +21866,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Focus of the Blow",
     correspondence=0,
     time=0,
@@ -21878,7 +21878,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hands of Death",
     correspondence=0,
     time=0,
@@ -21890,7 +21890,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Long Fist",
     correspondence=4,
     time=0,
@@ -21902,7 +21902,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Piercing Cry",
     correspondence=0,
     time=0,
@@ -21914,7 +21914,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Purifying Step",
     correspondence=0,
     time=0,
@@ -21926,7 +21926,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Repeating Blow",
     correspondence=3,
     time=0,
@@ -21938,7 +21938,7 @@ Rote.objects.create(
     mind=1,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Righteous Fist",
     correspondence=0,
     time=4,
@@ -21950,7 +21950,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Rolling Hands",
     correspondence=0,
     time=0,
@@ -21962,7 +21962,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Screech of the Owl",
     correspondence=0,
     time=0,
@@ -21974,7 +21974,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spirit Wounder",
     correspondence=0,
     time=0,
@@ -21986,7 +21986,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Blade Sense",
     correspondence=1,
     time=0,
@@ -21998,7 +21998,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Hero's Challenge",
     correspondence=0,
     time=0,
@@ -22010,7 +22010,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Iron Snake",
     correspondence=2,
     time=0,
@@ -22022,7 +22022,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Jabarut (The Darwishim Battle Trance)",
     correspondence=1,
     time=3,
@@ -22034,7 +22034,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Splitting a Cuirass",
     correspondence=0,
     time=0,
@@ -22046,7 +22046,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Swordbreaker Rune",
     correspondence=0,
     time=0,
@@ -22058,7 +22058,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Wind-Water Skein",
     correspondence=3,
     time=0,
@@ -22070,7 +22070,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Deadaim",
     correspondence=0,
     time=0,
@@ -22082,7 +22082,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Death Ray",
     correspondence=0,
     time=0,
@@ -22094,7 +22094,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Emit Beam-Ray",
     correspondence=0,
     time=0,
@@ -22106,7 +22106,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Golden Gunman",
     correspondence=0,
     time=3,
@@ -22118,7 +22118,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Grand Salvo",
     correspondence=0,
     time=0,
@@ -22130,7 +22130,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Holdout Weapon",
     correspondence=0,
     time=0,
@@ -22142,7 +22142,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hot-Shotting",
     correspondence=0,
     time=0,
@@ -22154,7 +22154,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Laserblast",
     correspondence=0,
     time=0,
@@ -22166,7 +22166,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Magic Bullet",
     correspondence=0,
     time=0,
@@ -22178,7 +22178,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ricochet",
     correspondence=1,
     time=1,
@@ -22190,7 +22190,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Rudra's Bow",
     correspondence=0,
     time=0,
@@ -22202,7 +22202,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Swift Lock",
     correspondence=0,
     time=0,
@@ -22214,7 +22214,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Tamping",
     correspondence=0,
     time=0,
@@ -22226,7 +22226,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Tension",
     correspondence=0,
     time=0,
@@ -22238,7 +22238,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Trickshot",
     correspondence=1,
     time=0,
@@ -22250,7 +22250,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Bloodsight",
     correspondence=0,
     time=0,
@@ -22262,7 +22262,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Conclave Wellness Works",
     correspondence=0,
     time=0,
@@ -22274,7 +22274,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Detect Mental Anomalies",
     correspondence=0,
     time=0,
@@ -22286,7 +22286,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Examine Humors",
     correspondence=0,
     time=0,
@@ -22298,7 +22298,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Prayer of Healing Revelation",
     correspondence=0,
     time=0,
@@ -22310,7 +22310,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Accidental Overdose",
     correspondence=0,
     time=0,
@@ -22322,7 +22322,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Adaptive Chemistry",
     correspondence=0,
     time=0,
@@ -22334,7 +22334,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Cinnabar Tears",
     correspondence=0,
     time=0,
@@ -22346,7 +22346,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="DMSO",
     correspondence=0,
     time=0,
@@ -22358,7 +22358,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Drug Enhancement",
     correspondence=0,
     time=0,
@@ -22370,7 +22370,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Experience Substance",
     correspondence=0,
     time=0,
@@ -22382,7 +22382,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Good Eatin'/Cleanse the Clown",
     correspondence=0,
     time=0,
@@ -22394,7 +22394,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Manufacture Enlightened Drugs",
     correspondence=0,
     time=0,
@@ -22406,7 +22406,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Metabolic Mastery",
     correspondence=0,
     time=0,
@@ -22418,7 +22418,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Persephone's Nectar",
     correspondence=3,
     time=0,
@@ -22430,7 +22430,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Poison Maiden",
     correspondence=0,
     time=0,
@@ -22442,7 +22442,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Polysorbate",
     correspondence=0,
     time=0,
@@ -22454,7 +22454,7 @@ Rote.objects.create(
     mind=2,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Purge",
     correspondence=0,
     time=0,
@@ -22466,7 +22466,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Purging the System",
     correspondence=0,
     time=0,
@@ -22478,7 +22478,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Purify",
     correspondence=0,
     time=0,
@@ -22490,7 +22490,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sustenance Pill",
     correspondence=0,
     time=0,
@@ -22502,7 +22502,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Taking Poison for the Enemy",
     correspondence=2,
     time=0,
@@ -22514,7 +22514,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Tolerance",
     correspondence=0,
     time=0,
@@ -22526,7 +22526,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Witch's Diplomacy",
     correspondence=0,
     time=0,
@@ -22538,7 +22538,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Accelerated Aging",
     correspondence=0,
     time=3,
@@ -22550,7 +22550,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Allergic Reaction",
     correspondence=0,
     time=0,
@@ -22562,7 +22562,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ana'ana (The Death Prayer)",
     correspondence=3,
     time=0,
@@ -22574,7 +22574,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Blight of Aging",
     correspondence=0,
     time=0,
@@ -22586,7 +22586,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Bone Twisting Palm",
     correspondence=0,
     time=0,
@@ -22598,7 +22598,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Curseof the Mayfly",
     correspondence=0,
     time=0,
@@ -22610,7 +22610,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Destructive Genegineering",
     correspondence=0,
     time=0,
@@ -22622,7 +22622,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Fluids of Death",
     correspondence=0,
     time=0,
@@ -22634,7 +22634,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Fuck Off/Fuck Off and Die",
     correspondence=0,
     time=0,
@@ -22646,7 +22646,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Heart Murmurs",
     correspondence=0,
     time=0,
@@ -22658,7 +22658,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Little Good Death",
     correspondence=0,
     time=0,
@@ -22670,7 +22670,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Rip the Man-Body",
     correspondence=0,
     time=0,
@@ -22682,7 +22682,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Simulate Inborn Errors of Metabolism",
     correspondence=0,
     time=0,
@@ -22694,7 +22694,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spy's Stigmata",
     correspondence=1,
     time=0,
@@ -22706,7 +22706,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Witch's Vengeance",
     correspondence=0,
     time=0,
@@ -22718,7 +22718,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Aphrodite's Blessing",
     correspondence=0,
     time=0,
@@ -22730,7 +22730,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Chirurgeon",
     correspondence=0,
     time=0,
@@ -22742,7 +22742,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Distill the Azoth Elixir",
     correspondence=0,
     time=0,
@@ -22754,7 +22754,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ease of Passage",
     correspondence=0,
     time=0,
@@ -22766,7 +22766,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hajjaj",
     correspondence=3,
     time=0,
@@ -22778,7 +22778,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Heal Self",
     correspondence=0,
     time=0,
@@ -22790,7 +22790,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Heal Simple Creature",
     correspondence=0,
     time=0,
@@ -22802,7 +22802,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Healer Rune",
     correspondence=0,
     time=0,
@@ -22814,7 +22814,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Healing Figurine",
     correspondence=0,
     time=0,
@@ -22826,7 +22826,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Healing Slumber",
     correspondence=0,
     time=0,
@@ -22838,7 +22838,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Massage Therapy",
     correspondence=0,
     time=0,
@@ -22850,7 +22850,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mukashuan",
     correspondence=0,
     time=0,
@@ -22862,7 +22862,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Rapid Healing",
     correspondence=0,
     time=0,
@@ -22874,7 +22874,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Serene Temple",
     correspondence=0,
     time=0,
@@ -22886,7 +22886,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Stay the God's Hand",
     correspondence=0,
     time=0,
@@ -22898,7 +22898,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Surpu",
     correspondence=0,
     time=0,
@@ -22910,7 +22910,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Trauma",
     correspondence=0,
     time=0,
@@ -22922,7 +22922,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Trauma Transmission",
     correspondence=2,
     time=0,
@@ -22934,7 +22934,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Adjust Major Anomalies",
     correspondence=0,
     time=0,
@@ -22946,7 +22946,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Adjust Minor Anomalies",
     correspondence=0,
     time=0,
@@ -22958,7 +22958,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Help Rune",
     correspondence=0,
     time=0,
@@ -22970,7 +22970,7 @@ Rote.objects.create(
     mind=1,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Physiological Rule",
     correspondence=0,
     time=0,
@@ -22982,7 +22982,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Quietsong",
     correspondence=0,
     time=0,
@@ -22994,7 +22994,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Branding the Heart",
     correspondence=0,
     time=0,
@@ -23006,7 +23006,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Buzz",
     correspondence=0,
     time=0,
@@ -23018,7 +23018,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Counter-Irritant",
     correspondence=0,
     time=0,
@@ -23030,7 +23030,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Curse of Consequences",
     correspondence=0,
     time=0,
@@ -23042,7 +23042,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Curse of Macha",
     correspondence=0,
     time=0,
@@ -23054,7 +23054,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Degree Absolute",
     correspondence=4,
     time=0,
@@ -23066,7 +23066,7 @@ Rote.objects.create(
     mind=5,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dukhamarana Moksa",
     correspondence=0,
     time=0,
@@ -23078,7 +23078,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Endless Parchment",
     correspondence=0,
     time=0,
@@ -23090,7 +23090,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="General Anesthesia",
     correspondence=0,
     time=0,
@@ -23102,7 +23102,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Knock Out",
     correspondence=0,
     time=0,
@@ -23114,7 +23114,7 @@ Rote.objects.create(
     mind=3,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Prolong Pleasure/Pain",
     correspondence=0,
     time=3,
@@ -23126,7 +23126,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Rubbing of Bones",
     correspondence=0,
     time=0,
@@ -23138,7 +23138,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Turkey Basting",
     correspondence=0,
     time=0,
@@ -23150,7 +23150,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Stop-Gap Resurrection",
     correspondence=0,
     time=0,
@@ -23162,7 +23162,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Waters of the Well of Life",
     correspondence=0,
     time=0,
@@ -23174,7 +23174,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Gift of Prana",
     correspondence=0,
     time=0,
@@ -23186,7 +23186,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hua To's Cure",
     correspondence=0,
     time=0,
@@ -23198,7 +23198,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Alloy",
     correspondence=0,
     time=0,
@@ -23210,7 +23210,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Alter State",
     correspondence=0,
     time=0,
@@ -23222,7 +23222,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Alter Weight",
     correspondence=0,
     time=0,
@@ -23234,7 +23234,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Guncotton's Blessing",
     correspondence=0,
     time=0,
@@ -23246,7 +23246,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Incredible Shrunken Machine",
     correspondence=0,
     time=0,
@@ -23258,7 +23258,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Matter Association",
     correspondence=0,
     time=0,
@@ -23270,7 +23270,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Matter Pattern Disassociation",
     correspondence=0,
     time=0,
@@ -23282,7 +23282,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Melt and Reform",
     correspondence=0,
     time=0,
@@ -23294,7 +23294,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sculpture",
     correspondence=0,
     time=0,
@@ -23306,7 +23306,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Semi Auto CAD CAM",
     correspondence=5,
     time=0,
@@ -23318,7 +23318,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Tapping the Signal",
     correspondence=0,
     time=0,
@@ -23330,7 +23330,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Transephemeration Ray Projector",
     correspondence=0,
     time=0,
@@ -23342,7 +23342,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Transformers",
     correspondence=0,
     time=0,
@@ -23354,7 +23354,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Analyze Substance",
     correspondence=0,
     time=0,
@@ -23366,7 +23366,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Evaluation",
     correspondence=0,
     time=0,
@@ -23378,7 +23378,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Machine God",
     correspondence=0,
     time=0,
@@ -23390,7 +23390,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Perfection of the Tools",
     correspondence=0,
     time=0,
@@ -23402,7 +23402,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Abundance",
     correspondence=0,
     time=0,
@@ -23414,7 +23414,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Apportation",
     correspondence=2,
     time=0,
@@ -23426,7 +23426,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Kiss of the Virtuous Maiden",
     correspondence=2,
     time=0,
@@ -23438,7 +23438,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Pickpocket",
     correspondence=2,
     time=0,
@@ -23450,7 +23450,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ripple Through Space",
     correspondence=4,
     time=0,
@@ -23462,7 +23462,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spatial Sheath",
     correspondence=2,
     time=0,
@@ -23474,7 +23474,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Summon Weapon",
     correspondence=2,
     time=0,
@@ -23486,7 +23486,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dash and a Pinch",
     correspondence=0,
     time=0,
@@ -23498,7 +23498,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Exotic Matter",
     correspondence=0,
     time=0,
@@ -23510,7 +23510,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Exotic Matter - Antimatter",
     correspondence=0,
     time=0,
@@ -23522,7 +23522,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Exotic Matter - Primium",
     correspondence=0,
     time=0,
@@ -23534,7 +23534,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Industry",
     correspondence=0,
     time=0,
@@ -23546,7 +23546,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Inscribe Amulet",
     correspondence=0,
     time=4,
@@ -23558,7 +23558,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Jury Rig",
     correspondence=2,
     time=0,
@@ -23570,7 +23570,7 @@ Rote.objects.create(
     mind=1,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Na Kua's Gift",
     correspondence=0,
     time=0,
@@ -23582,7 +23582,7 @@ Rote.objects.create(
     mind=3,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="O'Doul's Ingeniae",
     correspondence=0,
     time=0,
@@ -23594,7 +23594,7 @@ Rote.objects.create(
     mind=0,
     prime=5,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Psychiatric Compounds",
     correspondence=0,
     time=0,
@@ -23606,7 +23606,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spear of my Fathers",
     correspondence=0,
     time=0,
@@ -23618,7 +23618,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spontaneous Material Construction",
     correspondence=0,
     time=0,
@@ -23630,7 +23630,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Temple Pillars",
     correspondence=0,
     time=0,
@@ -23642,7 +23642,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Burn-Out",
     correspondence=0,
     time=0,
@@ -23654,7 +23654,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Chainbreaker Rune",
     correspondence=0,
     time=0,
@@ -23666,7 +23666,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Erode Matter",
     correspondence=0,
     time=0,
@@ -23678,7 +23678,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sabotage",
     correspondence=0,
     time=0,
@@ -23690,7 +23690,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sanitize Evidence",
     correspondence=0,
     time=0,
@@ -23702,7 +23702,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Slay Machine",
     correspondence=0,
     time=0,
@@ -23714,7 +23714,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Tulugaak's Harpoon",
     correspondence=0,
     time=0,
@@ -23726,7 +23726,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Beads on a String",
     correspondence=2,
     time=0,
@@ -23738,7 +23738,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Bottle of Smoke",
     correspondence=0,
     time=0,
@@ -23750,7 +23750,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Craft Biomechanism",
     correspondence=0,
     time=0,
@@ -23762,7 +23762,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Create Fetish",
     correspondence=0,
     time=0,
@@ -23774,7 +23774,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Create Talen",
     correspondence=0,
     time=0,
@@ -23786,7 +23786,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Create Talismans and Artifacts",
     correspondence=0,
     time=0,
@@ -23798,7 +23798,7 @@ Rote.objects.create(
     mind=0,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Enchant Weapon",
     correspondence=0,
     time=0,
@@ -23810,7 +23810,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Fits Like a Glove",
     correspondence=0,
     time=0,
@@ -23822,7 +23822,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Gorningstakkr",
     correspondence=0,
     time=0,
@@ -23834,7 +23834,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Memento Mori",
     correspondence=0,
     time=0,
@@ -23846,7 +23846,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Pretty-Shinies",
     correspondence=1,
     time=0,
@@ -23858,7 +23858,7 @@ Rote.objects.create(
     mind=1,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Talisman Tattoos",
     correspondence=0,
     time=0,
@@ -23870,7 +23870,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Talisman Transmogrification",
     correspondence=0,
     time=0,
@@ -23882,7 +23882,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Walking Chair",
     correspondence=0,
     time=0,
@@ -23894,7 +23894,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Watchdog",
     correspondence=0,
     time=0,
@@ -23906,7 +23906,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Anitquing",
     correspondence=0,
     time=0,
@@ -23918,7 +23918,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Aura Adamantium",
     correspondence=0,
     time=0,
@@ -23930,7 +23930,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Awaken the Inanimae",
     correspondence=0,
     time=0,
@@ -23942,7 +23942,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Bambolai",
     correspondence=0,
     time=0,
@@ -23954,7 +23954,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Berate the Demon",
     correspondence=0,
     time=0,
@@ -23966,7 +23966,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Caffeine Plus",
     correspondence=0,
     time=2,
@@ -23978,7 +23978,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Like Clockwork",
     correspondence=0,
     time=0,
@@ -23990,7 +23990,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Maintain Device",
     correspondence=0,
     time=0,
@@ -24002,7 +24002,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Obsidian Steel",
     correspondence=0,
     time=0,
@@ -24014,7 +24014,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Penny Dreadful's Bright New Penny",
     correspondence=0,
     time=2,
@@ -24026,7 +24026,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Perfection of the True Form",
     correspondence=0,
     time=0,
@@ -24038,7 +24038,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Perpetual Motion",
     correspondence=0,
     time=0,
@@ -24050,7 +24050,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shaman's Craft",
     correspondence=0,
     time=0,
@@ -24062,7 +24062,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Vitality",
     correspondence=0,
     time=0,
@@ -24074,7 +24074,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Back to the Earth",
     correspondence=0,
     time=0,
@@ -24086,7 +24086,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Golden Lion",
     correspondence=0,
     time=0,
@@ -24098,7 +24098,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Luster",
     correspondence=0,
     time=0,
@@ -24110,7 +24110,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Seeds of Gold",
     correspondence=0,
     time=0,
@@ -24122,7 +24122,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Simple Transmutation",
     correspondence=0,
     time=0,
@@ -24134,7 +24134,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Straw into Gold",
     correspondence=0,
     time=0,
@@ -24146,7 +24146,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Transmutation",
     correspondence=0,
     time=0,
@@ -24158,7 +24158,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Checklist",
     correspondence=0,
     time=0,
@@ -24170,7 +24170,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Confusing Apishtiss",
     correspondence=0,
     time=0,
@@ -24182,7 +24182,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Degrade Order",
     correspondence=2,
     time=3,
@@ -24194,7 +24194,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Destroy Structures",
     correspondence=0,
     time=0,
@@ -24206,7 +24206,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Disintegrator",
     correspondence=0,
     time=0,
@@ -24218,7 +24218,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ebon Dragon's Tale",
     correspondence=0,
     time=0,
@@ -24230,7 +24230,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Jolt",
     correspondence=0,
     time=0,
@@ -24242,7 +24242,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Kinetic Push",
     correspondence=0,
     time=0,
@@ -24254,7 +24254,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Lobotomize",
     correspondence=0,
     time=0,
@@ -24266,7 +24266,7 @@ Rote.objects.create(
     mind=5,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mershakushtu Qurdu",
     correspondence=0,
     time=0,
@@ -24278,7 +24278,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mutate Ephemera",
     correspondence=0,
     time=0,
@@ -24290,7 +24290,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Night Battle",
     correspondence=0,
     time=0,
@@ -24302,7 +24302,7 @@ Rote.objects.create(
     mind=4,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shango's Grave",
     correspondence=0,
     time=0,
@@ -24314,7 +24314,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sneaking Shadow",
     correspondence=0,
     time=0,
@@ -24326,7 +24326,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Unleash Nanotech Destruction",
     correspondence=3,
     time=0,
@@ -24338,7 +24338,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Unseen Arm",
     correspondence=0,
     time=0,
@@ -24350,7 +24350,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Consecration",
     correspondence=0,
     time=0,
@@ -24362,7 +24362,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Joyride",
     correspondence=2,
     time=0,
@@ -24374,7 +24374,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Pathfinding",
     correspondence=0,
     time=0,
@@ -24386,7 +24386,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Pixie Lead",
     correspondence=2,
     time=0,
@@ -24398,7 +24398,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Remebrance",
     correspondence=0,
     time=0,
@@ -24410,7 +24410,7 @@ Rote.objects.create(
     mind=2,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Remote Piloting Override",
     correspondence=0,
     time=0,
@@ -24422,7 +24422,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Teleoperate",
     correspondence=2,
     time=0,
@@ -24434,7 +24434,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Wayfarer's Reckoning",
     correspondence=2,
     time=0,
@@ -24446,7 +24446,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="We'll Get There",
     correspondence=1,
     time=0,
@@ -24458,7 +24458,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ala Wai (Short Waters)",
     correspondence=3,
     time=0,
@@ -24470,7 +24470,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Merlin's Ride",
     correspondence=3,
     time=0,
@@ -24482,7 +24482,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Seven-League Stride",
     correspondence=3,
     time=0,
@@ -24494,7 +24494,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shortcut",
     correspondence=2,
     time=0,
@@ -24506,7 +24506,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Internalize Ephemeral Object",
     correspondence=0,
     time=0,
@@ -24518,7 +24518,7 @@ Rote.objects.create(
     mind=1,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Leap Beyond",
     correspondence=0,
     time=0,
@@ -24530,7 +24530,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Untether",
     correspondence=0,
     time=0,
@@ -24542,7 +24542,7 @@ Rote.objects.create(
     mind=5,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name='Amon Maat, "Hidden Justice"',
     correspondence=3,
     time=0,
@@ -24554,7 +24554,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dingo's Touch",
     correspondence=0,
     time=0,
@@ -24566,7 +24566,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Infiltration",
     correspondence=3,
     time=0,
@@ -24578,7 +24578,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Pass the Key",
     correspondence=0,
     time=0,
@@ -24590,7 +24590,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Safecracker",
     correspondence=0,
     time=0,
@@ -24602,7 +24602,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Thief in the Night",
     correspondence=1,
     time=0,
@@ -24614,7 +24614,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Chain of Whispers",
     correspondence=2,
     time=0,
@@ -24626,7 +24626,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Cry of Distress",
     correspondence=0,
     time=0,
@@ -24638,7 +24638,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Death Song",
     correspondence=0,
     time=2,
@@ -24650,7 +24650,7 @@ Rote.objects.create(
     mind=1,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dreamcry",
     correspondence=2,
     time=0,
@@ -24662,7 +24662,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dreamline",
     correspondence=2,
     time=2,
@@ -24674,7 +24674,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Flower Gesture",
     correspondence=0,
     time=3,
@@ -24686,7 +24686,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Override Signal",
     correspondence=0,
     time=0,
@@ -24698,7 +24698,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Pirated Media Blitz",
     correspondence=3,
     time=0,
@@ -24710,7 +24710,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Point-to-Point Narrow-Band Transmission",
     correspondence=2,
     time=0,
@@ -24722,7 +24722,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Public Posting",
     correspondence=2,
     time=0,
@@ -24734,7 +24734,7 @@ Rote.objects.create(
     mind=2,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sound/Thought Transfer",
     correspondence=0,
     time=0,
@@ -24746,7 +24746,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Subliminal Impulse",
     correspondence=0,
     time=0,
@@ -24758,7 +24758,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Subliminal Transmission",
     correspondence=2,
     time=0,
@@ -24770,7 +24770,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Temper Viasilicos",
     correspondence=2,
     time=0,
@@ -24782,7 +24782,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Thunder's Gauntlet",
     correspondence=3,
     time=0,
@@ -24794,7 +24794,7 @@ Rote.objects.create(
     mind=3,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Adder's Tongue",
     correspondence=0,
     time=0,
@@ -24806,7 +24806,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Auspicious Dialogues",
     correspondence=0,
     time=0,
@@ -24818,7 +24818,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Babel",
     correspondence=0,
     time=0,
@@ -24830,7 +24830,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ravensong",
     correspondence=0,
     time=0,
@@ -24842,7 +24842,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Semiotic Communication",
     correspondence=0,
     time=0,
@@ -24854,7 +24854,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Speaking in Tongues",
     correspondence=0,
     time=0,
@@ -24866,7 +24866,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Time's Tongue",
     correspondence=0,
     time=2,
@@ -24878,7 +24878,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Tower of Babel/Speak in Tongues",
     correspondence=0,
     time=0,
@@ -24890,7 +24890,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="What Did You Say?",
     correspondence=2,
     time=0,
@@ -24902,7 +24902,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Breach Alien Gauntlet",
     correspondence=0,
     time=0,
@@ -24914,7 +24914,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Create Gauntlet",
     correspondence=0,
     time=0,
@@ -24926,7 +24926,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Create Horizon Realm Construct",
     correspondence=0,
     time=0,
@@ -24938,7 +24938,7 @@ Rote.objects.create(
     mind=0,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Corrupt Text",
     correspondence=0,
     time=0,
@@ -24950,7 +24950,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Craft Tome",
     correspondence=0,
     time=0,
@@ -24962,7 +24962,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Cypher Wheel",
     correspondence=0,
     time=0,
@@ -24974,7 +24974,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Neon-Mail",
     correspondence=0,
     time=0,
@@ -24986,7 +24986,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Unravelling the Text",
     correspondence=0,
     time=0,
@@ -24998,7 +24998,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Unseen Nomenclature",
     correspondence=0,
     time=0,
@@ -25010,7 +25010,7 @@ Rote.objects.create(
     mind=2,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Writing on the Wall",
     correspondence=0,
     time=0,
@@ -25022,7 +25022,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Agama Re Sojourn/Agama Te Sojourn",
     correspondence=0,
     time=0,
@@ -25034,7 +25034,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Death's Passage",
     correspondence=0,
     time=0,
@@ -25046,7 +25046,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Gate of Culsu",
     correspondence=0,
     time=0,
@@ -25058,7 +25058,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Going Under the Cloak",
     correspondence=0,
     time=0,
@@ -25070,7 +25070,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Wings of the Lasa",
     correspondence=0,
     time=0,
@@ -25082,7 +25082,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Liquor's Calling",
     correspondence=0,
     time=0,
@@ -25094,7 +25094,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Presentation of the Passage Stick",
     correspondence=0,
     time=0,
@@ -25106,7 +25106,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sense the Dreamsong",
     correspondence=1,
     time=0,
@@ -25118,7 +25118,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sing the Dreaming Earth",
     correspondence=0,
     time=0,
@@ -25130,7 +25130,7 @@ Rote.objects.create(
     mind=3,
     prime=5,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Songline Soaring",
     correspondence=0,
     time=0,
@@ -25142,7 +25142,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Songline Walking",
     correspondence=0,
     time=0,
@@ -25154,7 +25154,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Alley Vanish",
     correspondence=3,
     time=0,
@@ -25166,7 +25166,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Daedalus Gateway",
     correspondence=4,
     time=0,
@@ -25178,7 +25178,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Endless Pool",
     correspondence=4,
     time=0,
@@ -25190,7 +25190,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Free Conjunction",
     correspondence=5,
     time=0,
@@ -25202,7 +25202,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Heaven's Tumbling Pebbles",
     correspondence=3,
     time=0,
@@ -25214,7 +25214,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hermes Portal",
     correspondence=4,
     time=0,
@@ -25226,7 +25226,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mercury's Bridge",
     correspondence=3,
     time=0,
@@ -25238,7 +25238,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Riding the Railroad",
     correspondence=3,
     time=0,
@@ -25250,7 +25250,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shuttle",
     correspondence=3,
     time=0,
@@ -25262,7 +25262,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Voidcast",
     correspondence=4,
     time=0,
@@ -25274,7 +25274,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Breach Gauntlet Undetectably",
     correspondence=0,
     time=0,
@@ -25286,7 +25286,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Breach the Gauntlet",
     correspondence=0,
     time=0,
@@ -25298,7 +25298,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Break the Dreamshell",
     correspondence=0,
     time=0,
@@ -25310,7 +25310,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Bridge of Blood",
     correspondence=0,
     time=0,
@@ -25322,7 +25322,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Deep Umbra Travel",
     correspondence=0,
     time=0,
@@ -25334,7 +25334,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Deep Universe Survival",
     correspondence=0,
     time=0,
@@ -25346,7 +25346,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Detect the Dream Gateway",
     correspondence=1,
     time=0,
@@ -25358,7 +25358,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dream Locus",
     correspondence=0,
     time=0,
@@ -25370,7 +25370,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dreamquest",
     correspondence=0,
     time=0,
@@ -25382,7 +25382,7 @@ Rote.objects.create(
     mind=2,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Gateway Transport",
     correspondence=5,
     time=0,
@@ -25394,7 +25394,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Holopuni'au'nei",
     correspondence=0,
     time=0,
@@ -25406,7 +25406,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Karmic Inversion",
     correspondence=0,
     time=0,
@@ -25418,7 +25418,7 @@ Rote.objects.create(
     mind=0,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Leap Sideways",
     correspondence=3,
     time=0,
@@ -25430,7 +25430,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Long-Distance Universal Travel",
     correspondence=0,
     time=0,
@@ -25442,7 +25442,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Moving the World Walls",
     correspondence=0,
     time=0,
@@ -25454,7 +25454,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Reverie",
     correspondence=0,
     time=0,
@@ -25466,7 +25466,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Schedule of Heaven",
     correspondence=0,
     time=1,
@@ -25478,7 +25478,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shield of the Soul",
     correspondence=0,
     time=0,
@@ -25490,7 +25490,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spirit Cloak",
     correspondence=0,
     time=0,
@@ -25502,7 +25502,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spirit Journey",
     correspondence=2,
     time=0,
@@ -25514,7 +25514,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Stepping Sideways",
     correspondence=0,
     time=0,
@@ -25526,7 +25526,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Storm Watch",
     correspondence=0,
     time=0,
@@ -25538,7 +25538,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sucking Gate",
     correspondence=0,
     time=0,
@@ -25550,7 +25550,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Trailblazing",
     correspondence=0,
     time=0,
@@ -25562,7 +25562,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Umbral Visions",
     correspondence=2,
     time=0,
@@ -25574,7 +25574,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Universal Travel",
     correspondence=0,
     time=0,
@@ -25586,7 +25586,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Walking the Open Path",
     correspondence=0,
     time=0,
@@ -25598,7 +25598,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Aquatic Survival",
     correspondence=0,
     time=0,
@@ -25610,7 +25610,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Barrel of Iskander",
     correspondence=0,
     time=0,
@@ -25622,7 +25622,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Format Space",
     correspondence=5,
     time=0,
@@ -25634,7 +25634,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Liftoff",
     correspondence=0,
     time=0,
@@ -25646,7 +25646,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Nitrogen Narcosis",
     correspondence=0,
     time=0,
@@ -25658,7 +25658,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="VAR",
     correspondence=0,
     time=0,
@@ -25670,7 +25670,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Body of the Spirit",
     correspondence=0,
     time=0,
@@ -25682,7 +25682,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Daedalus's Wings",
     correspondence=0,
     time=0,
@@ -25694,7 +25694,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Levitation Walk",
     correspondence=0,
     time=0,
@@ -25706,7 +25706,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Navigation",
     correspondence=1,
     time=0,
@@ -25718,7 +25718,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Pilot Skyrigger",
     correspondence=5,
     time=0,
@@ -25730,7 +25730,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Rooftop Leap",
     correspondence=0,
     time=0,
@@ -25742,7 +25742,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sure Footing",
     correspondence=0,
     time=0,
@@ -25754,7 +25754,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Thunder Bridge",
     correspondence=0,
     time=0,
@@ -25766,7 +25766,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Traffic Pulse",
     correspondence=0,
     time=0,
@@ -25778,7 +25778,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Walking on Water",
     correspondence=0,
     time=0,
@@ -25790,7 +25790,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Wings of Icarus",
     correspondence=0,
     time=0,
@@ -25802,7 +25802,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Calculate Kinematics",
     correspondence=1,
     time=0,
@@ -25814,7 +25814,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Eagle Eye",
     correspondence=2,
     time=0,
@@ -25826,7 +25826,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Find the Sun",
     correspondence=1,
     time=0,
@@ -25838,7 +25838,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Information Glut",
     correspondence=2,
     time=2,
@@ -25850,7 +25850,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Information Overload",
     correspondence=2,
     time=0,
@@ -25862,7 +25862,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Landscape of the Mind",
     correspondence=1,
     time=0,
@@ -25874,7 +25874,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Lay of the Land",
     correspondence=2,
     time=0,
@@ -25886,7 +25886,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sense Connection",
     correspondence=1,
     time=0,
@@ -25898,7 +25898,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sousveillance",
     correspondence=1,
     time=0,
@@ -25910,7 +25910,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Whereami?",
     correspondence=1,
     time=0,
@@ -25922,7 +25922,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Cynical Eye",
     correspondence=0,
     time=0,
@@ -25934,7 +25934,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Danse Macabre",
     correspondence=0,
     time=0,
@@ -25946,7 +25946,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Detect Lie",
     correspondence=0,
     time=0,
@@ -25958,7 +25958,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dim Mak",
     correspondence=0,
     time=0,
@@ -25970,7 +25970,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Idealism",
     correspondence=0,
     time=0,
@@ -25982,7 +25982,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Locate Disorder and Weakness",
     correspondence=0,
     time=0,
@@ -25994,7 +25994,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Oathbreaker's Lash",
     correspondence=0,
     time=0,
@@ -26006,7 +26006,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Organize",
     correspondence=0,
     time=0,
@@ -26018,7 +26018,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ring of Truth",
     correspondence=0,
     time=0,
@@ -26030,7 +26030,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="See the Soul's Burn",
     correspondence=0,
     time=0,
@@ -26042,7 +26042,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sense Corruption",
     correspondence=0,
     time=0,
@@ -26054,7 +26054,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Audio Tap",
     correspondence=0,
     time=0,
@@ -26066,7 +26066,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Current Metering",
     correspondence=0,
     time=0,
@@ -26078,7 +26078,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Darksight",
     correspondence=0,
     time=0,
@@ -26090,7 +26090,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ear of Dionysus",
     correspondence=0,
     time=0,
@@ -26102,7 +26102,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Quantify Energy",
     correspondence=0,
     time=0,
@@ -26114,7 +26114,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Tune Psychic Radio",
     correspondence=0,
     time=0,
@@ -26126,7 +26126,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Alarm System",
     correspondence=1,
     time=0,
@@ -26138,7 +26138,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Gene Scan",
     correspondence=0,
     time=0,
@@ -26150,7 +26150,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Genetics Scan",
     correspondence=0,
     time=0,
@@ -26162,7 +26162,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Genome Mapping",
     correspondence=3,
     time=0,
@@ -26174,7 +26174,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Life Scan",
     correspondence=0,
     time=0,
@@ -26186,7 +26186,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Life Sense",
     correspondence=0,
     time=0,
@@ -26198,7 +26198,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Pattern Store",
     correspondence=0,
     time=0,
@@ -26210,7 +26210,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Scan Life Signs",
     correspondence=0,
     time=0,
@@ -26222,7 +26222,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sequencing",
     correspondence=3,
     time=0,
@@ -26234,7 +26234,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Assess Affinity",
     correspondence=0,
     time=0,
@@ -26246,7 +26246,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Fragments of Dream",
     correspondence=0,
     time=0,
@@ -26258,7 +26258,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hidden Switch",
     correspondence=0,
     time=0,
@@ -26270,7 +26270,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Holes in the Desert",
     correspondence=0,
     time=0,
@@ -26282,7 +26282,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Instant Measurement",
     correspondence=1,
     time=0,
@@ -26294,7 +26294,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Monarch's Friend",
     correspondence=0,
     time=0,
@@ -26306,7 +26306,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name='Aai-ab "Washing the Heart"',
     correspondence=0,
     time=0,
@@ -26318,7 +26318,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Cram Session",
     correspondence=0,
     time=3,
@@ -26330,7 +26330,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Deduction",
     correspondence=0,
     time=0,
@@ -26342,7 +26342,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Find the Guilty",
     correspondence=0,
     time=0,
@@ -26354,7 +26354,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Followme",
     correspondence=1,
     time=0,
@@ -26366,7 +26366,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="I Know Your Cousin",
     correspondence=3,
     time=0,
@@ -26378,7 +26378,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ishin Den Shin",
     correspondence=2,
     time=0,
@@ -26390,7 +26390,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Lip Reading",
     correspondence=0,
     time=0,
@@ -26402,7 +26402,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mind Empowerment",
     correspondence=0,
     time=0,
@@ -26414,7 +26414,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mindfulness of Wrong Thought",
     correspondence=0,
     time=0,
@@ -26426,7 +26426,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="No-Mind",
     correspondence=0,
     time=0,
@@ -26438,7 +26438,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Pathos",
     correspondence=0,
     time=0,
@@ -26450,7 +26450,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Read the Soul",
     correspondence=0,
     time=0,
@@ -26462,7 +26462,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Right-Click",
     correspondence=3,
     time=0,
@@ -26474,7 +26474,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="True Form",
     correspondence=0,
     time=0,
@@ -26486,7 +26486,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Detect Reality Deviation",
     correspondence=0,
     time=0,
@@ -26498,7 +26498,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dialectic",
     correspondence=0,
     time=0,
@@ -26510,7 +26510,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Find Reality Flaws",
     correspondence=0,
     time=0,
@@ -26522,7 +26522,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hallmark",
     correspondence=0,
     time=0,
@@ -26534,7 +26534,7 @@ Rote.objects.create(
     mind=2,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Inquisitor",
     correspondence=0,
     time=0,
@@ -26546,7 +26546,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Lore Rune",
     correspondence=1,
     time=0,
@@ -26558,7 +26558,7 @@ Rote.objects.create(
     mind=1,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Patterns of the Long Count",
     correspondence=0,
     time=0,
@@ -26570,7 +26570,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spot the Man",
     correspondence=1,
     time=0,
@@ -26582,7 +26582,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name='Hersh, "To Be Patient"',
     correspondence=1,
     time=0,
@@ -26594,7 +26594,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mirrorshades",
     correspondence=0,
     time=0,
@@ -26606,7 +26606,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="See No Evil",
     correspondence=0,
     time=0,
@@ -26618,7 +26618,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spirit Sight",
     correspondence=0,
     time=0,
@@ -26630,7 +26630,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name='Utchatti, "The Two Divine Eyes"',
     correspondence=1,
     time=0,
@@ -26642,7 +26642,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Cram",
     correspondence=0,
     time=3,
@@ -26654,7 +26654,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Download Specialization",
     correspondence=0,
     time=3,
@@ -26666,7 +26666,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Evaluate Fourth Dimensional Fabric",
     correspondence=0,
     time=1,
@@ -26678,7 +26678,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Internal Clock",
     correspondence=0,
     time=1,
@@ -26690,7 +26690,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Perfect Time",
     correspondence=0,
     time=1,
@@ -26702,7 +26702,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Perfect Timing",
     correspondence=0,
     time=1,
@@ -26714,7 +26714,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sense the Fleeting Moment",
     correspondence=0,
     time=1,
@@ -26726,7 +26726,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Time Sense",
     correspondence=0,
     time=1,
@@ -26738,7 +26738,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Kohl Sight",
     correspondence=1,
     time=0,
@@ -26750,7 +26750,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mark of the Beast",
     correspondence=3,
     time=0,
@@ -26762,7 +26762,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Smart Drink",
     correspondence=0,
     time=1,
@@ -26774,7 +26774,7 @@ Rote.objects.create(
     mind=2,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Blood from a Stone",
     correspondence=0,
     time=0,
@@ -26786,7 +26786,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Coffin for a Fisher",
     correspondence=0,
     time=0,
@@ -26798,7 +26798,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Fetter Ball",
     correspondence=0,
     time=0,
@@ -26810,7 +26810,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Voice Across the Void",
     correspondence=2,
     time=0,
@@ -26822,7 +26822,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Voice of the Jade Ancestors",
     correspondence=0,
     time=0,
@@ -26834,7 +26834,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ghost-Burning",
     correspondence=0,
     time=0,
@@ -26846,7 +26846,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shadow Sight",
     correspondence=1,
     time=0,
@@ -26858,7 +26858,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shelter from the Storm",
     correspondence=0,
     time=0,
@@ -26870,7 +26870,7 @@ Rote.objects.create(
     mind=0,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Soothe the Dead",
     correspondence=0,
     time=0,
@@ -26882,7 +26882,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Soul-Forging",
     correspondence=0,
     time=0,
@@ -26894,7 +26894,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Atitsiak",
     correspondence=0,
     time=0,
@@ -26906,7 +26906,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Kispu",
     correspondence=3,
     time=0,
@@ -26918,7 +26918,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Lichedom",
     correspondence=0,
     time=0,
@@ -26930,7 +26930,7 @@ Rote.objects.create(
     mind=1,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Song of Orpheus",
     correspondence=0,
     time=0,
@@ -26942,7 +26942,7 @@ Rote.objects.create(
     mind=2,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Walk to Too'ga",
     correspondence=0,
     time=0,
@@ -26954,7 +26954,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Eternal Discipline of the Family",
     correspondence=0,
     time=0,
@@ -26966,7 +26966,7 @@ Rote.objects.create(
     mind=2,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ghost Rune",
     correspondence=0,
     time=0,
@@ -26978,7 +26978,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hear and Obey",
     correspondence=0,
     time=0,
@@ -26990,7 +26990,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Reanimation",
     correspondence=0,
     time=0,
@@ -27002,7 +27002,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Summon Volva",
     correspondence=0,
     time=0,
@@ -27014,7 +27014,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Field of Yin",
     correspondence=0,
     time=0,
@@ -27026,7 +27026,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Goanna's Hiding",
     correspondence=0,
     time=0,
@@ -27038,7 +27038,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mindscreen",
     correspondence=0,
     time=0,
@@ -27050,7 +27050,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Passing",
     correspondence=0,
     time=0,
@@ -27062,7 +27062,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Downvote",
     correspondence=3,
     time=0,
@@ -27074,7 +27074,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Encrypt Thoughts",
     correspondence=0,
     time=0,
@@ -27086,7 +27086,7 @@ Rote.objects.create(
     mind=1,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Move Along",
     correspondence=0,
     time=0,
@@ -27098,7 +27098,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Secure the Scene",
     correspondence=0,
     time=0,
@@ -27110,7 +27110,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shield",
     correspondence=0,
     time=0,
@@ -27122,7 +27122,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Soul Cloak",
     correspondence=0,
     time=0,
@@ -27134,7 +27134,7 @@ Rote.objects.create(
     mind=2,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="At Ease",
     correspondence=0,
     time=0,
@@ -27146,7 +27146,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dontcme",
     correspondence=1,
     time=0,
@@ -27158,7 +27158,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name='Ghayba (Occultation or "Unbeingness")',
     correspondence=4,
     time=0,
@@ -27170,7 +27170,7 @@ Rote.objects.create(
     mind=2,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Non-Descript",
     correspondence=0,
     time=0,
@@ -27182,7 +27182,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Pass for Normal",
     correspondence=0,
     time=0,
@@ -27194,7 +27194,7 @@ Rote.objects.create(
     mind=2,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Selective Edit",
     correspondence=2,
     time=0,
@@ -27206,7 +27206,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name='Sjonhverfing ("Deceiving of the Sight")',
     correspondence=0,
     time=0,
@@ -27218,7 +27218,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Well, It Is Vegas",
     correspondence=0,
     time=0,
@@ -27230,7 +27230,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Antinoise",
     correspondence=0,
     time=0,
@@ -27242,7 +27242,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Being Invisible",
     correspondence=0,
     time=0,
@@ -27254,7 +27254,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Cloak of Shadows",
     correspondence=0,
     time=0,
@@ -27266,7 +27266,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dark Streets",
     correspondence=0,
     time=0,
@@ -27278,7 +27278,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dreamer's Shroud from Day",
     correspondence=4,
     time=0,
@@ -27290,7 +27290,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Energy Shield",
     correspondence=0,
     time=0,
@@ -27302,7 +27302,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name='Huli Shjalmr ("Helmet of Hiding")',
     correspondence=0,
     time=0,
@@ -27314,7 +27314,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Return to Darkness",
     correspondence=0,
     time=0,
@@ -27326,7 +27326,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shadow Project",
     correspondence=0,
     time=0,
@@ -27338,7 +27338,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shinobijutsu",
     correspondence=3,
     time=0,
@@ -27350,7 +27350,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Silent Circle",
     correspondence=0,
     time=0,
@@ -27362,7 +27362,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Smoke Screen",
     correspondence=0,
     time=0,
@@ -27374,7 +27374,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Smoke-bomb Trick",
     correspondence=0,
     time=0,
@@ -27386,7 +27386,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sulfurous Darkness",
     correspondence=0,
     time=0,
@@ -27398,7 +27398,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Summon Fog",
     correspondence=0,
     time=0,
@@ -27410,7 +27410,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Veil of Invisibility",
     correspondence=0,
     time=0,
@@ -27422,7 +27422,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ariadne's Thread",
     correspondence=1,
     time=0,
@@ -27434,7 +27434,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Chain",
     correspondence=3,
     time=0,
@@ -27446,7 +27446,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Smoker's Timing",
     correspondence=0,
     time=2,
@@ -27458,7 +27458,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Perfect Fuse",
     correspondence=0,
     time=1,
@@ -27470,7 +27470,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Synchronize Watches",
     correspondence=0,
     time=1,
@@ -27482,7 +27482,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Co-Location",
     correspondence=5,
     time=0,
@@ -27494,7 +27494,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Conference Call",
     correspondence=4,
     time=0,
@@ -27506,7 +27506,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Polyappearance",
     correspondence=4,
     time=0,
@@ -27518,7 +27518,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Simon's Petition",
     correspondence=4,
     time=0,
@@ -27530,7 +27530,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Accelerate Time",
     correspondence=0,
     time=3,
@@ -27542,7 +27542,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="An Hour in Hellfire",
     correspondence=0,
     time=3,
@@ -27554,7 +27554,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Distort Time",
     correspondence=0,
     time=3,
@@ -27566,7 +27566,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Establish and Exchange Temporal Event Fields",
     correspondence=0,
     time=5,
@@ -27578,7 +27578,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Establish Local Temporal Event Field",
     correspondence=0,
     time=4,
@@ -27590,7 +27590,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Frenzy of the Spinning Wheels",
     correspondence=0,
     time=3,
@@ -27602,7 +27602,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Moment that Stretches",
     correspondence=0,
     time=3,
@@ -27614,7 +27614,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Nick of Time",
     correspondence=3,
     time=2,
@@ -27626,7 +27626,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Quantum Temporal Travel",
     correspondence=3,
     time=3,
@@ -27638,7 +27638,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Serenity of the Stone",
     correspondence=0,
     time=5,
@@ -27650,7 +27650,7 @@ Rote.objects.create(
     mind=3,
     prime=5,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shed the Years",
     correspondence=0,
     time=2,
@@ -27662,7 +27662,7 @@ Rote.objects.create(
     mind=2,
     prime=5,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sidestep Time",
     correspondence=0,
     time=5,
@@ -27674,7 +27674,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Slow Time",
     correspondence=0,
     time=3,
@@ -27686,7 +27686,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="St. Vitus's Kiss",
     correspondence=0,
     time=3,
@@ -27698,7 +27698,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Symphony of the Soul",
     correspondence=0,
     time=3,
@@ -27710,7 +27710,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Time Warp",
     correspondence=0,
     time=3,
@@ -27722,7 +27722,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Tune In, Turn On, Drop Out",
     correspondence=0,
     time=4,
@@ -27734,7 +27734,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Zen and the Art of Panhandling",
     correspondence=0,
     time=5,
@@ -27746,7 +27746,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Blindside",
     correspondence=4,
     time=0,
@@ -27758,7 +27758,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Bubble of Reality",
     correspondence=4,
     time=0,
@@ -27770,7 +27770,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Daedalean Labyrinth",
     correspondence=5,
     time=0,
@@ -27782,7 +27782,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Maze of the Minotaur",
     correspondence=0,
     time=0,
@@ -27794,7 +27794,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Singularity",
     correspondence=4,
     time=3,
@@ -27806,7 +27806,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spatial Mutations",
     correspondence=5,
     time=0,
@@ -27818,7 +27818,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Chiminage Rune",
     correspondence=0,
     time=0,
@@ -27830,7 +27830,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dimension Bomb",
     correspondence=0,
     time=0,
@@ -27842,7 +27842,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hellfire",
     correspondence=0,
     time=0,
@@ -27854,7 +27854,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sharing the Outsider's Gaze",
     correspondence=0,
     time=0,
@@ -27866,7 +27866,7 @@ Rote.objects.create(
     mind=4,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spirit Eating",
     correspondence=0,
     time=0,
@@ -27878,7 +27878,7 @@ Rote.objects.create(
     mind=3,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spirit Slaying",
     correspondence=0,
     time=0,
@@ -27890,7 +27890,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spirit Wounding",
     correspondence=0,
     time=0,
@@ -27902,7 +27902,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Spirit's Caress",
     correspondence=0,
     time=0,
@@ -27914,7 +27914,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spiritual Persuasion",
     correspondence=0,
     time=0,
@@ -27926,7 +27926,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Binding Song",
     correspondence=4,
     time=3,
@@ -27938,7 +27938,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Bottle of Djinn",
     correspondence=0,
     time=0,
@@ -27950,7 +27950,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Circle of Binding",
     correspondence=4,
     time=0,
@@ -27962,7 +27962,7 @@ Rote.objects.create(
     mind=0,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Coerce Spirit",
     correspondence=0,
     time=0,
@@ -27974,7 +27974,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Compel the Unseen",
     correspondence=0,
     time=0,
@@ -27986,7 +27986,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Drahma Protector",
     correspondence=0,
     time=0,
@@ -27998,7 +27998,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ensure the Endless Sleep",
     correspondence=0,
     time=0,
@@ -28010,7 +28010,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Exorcism",
     correspondence=0,
     time=0,
@@ -28022,7 +28022,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Exorcism Song",
     correspondence=0,
     time=0,
@@ -28034,7 +28034,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Gauntlet Prison",
     correspondence=0,
     time=0,
@@ -28046,7 +28046,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Halt the Nagloper",
     correspondence=0,
     time=2,
@@ -28058,7 +28058,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Holy Pentacles",
     correspondence=0,
     time=0,
@@ -28070,7 +28070,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Imbue Flesh",
     correspondence=0,
     time=0,
@@ -28082,7 +28082,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Lesser Binding of Spirits",
     correspondence=0,
     time=0,
@@ -28094,7 +28094,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Living Bridge",
     correspondence=0,
     time=0,
@@ -28106,7 +28106,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Lull the Waking Dreamborn",
     correspondence=0,
     time=0,
@@ -28118,7 +28118,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Physical Exorcism",
     correspondence=0,
     time=0,
@@ -28130,7 +28130,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Weaver's Retribution",
     correspondence=3,
     time=0,
@@ -28142,7 +28142,7 @@ Rote.objects.create(
     mind=2,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Detect Possession",
     correspondence=0,
     time=0,
@@ -28154,7 +28154,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Evaluate Gauntlet/Scan Locality",
     correspondence=0,
     time=0,
@@ -28166,7 +28166,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sense the Demon's Weakness",
     correspondence=0,
     time=0,
@@ -28178,7 +28178,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sense the Nagloper",
     correspondence=0,
     time=2,
@@ -28190,7 +28190,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shadows in the Mist",
     correspondence=0,
     time=0,
@@ -28202,7 +28202,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name='Ap-Sobk "The Last Judgment of Sobk"',
     correspondence=0,
     time=0,
@@ -28214,7 +28214,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Call Forth the Forgotten",
     correspondence=0,
     time=0,
@@ -28226,7 +28226,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Call Spirit",
     correspondence=0,
     time=0,
@@ -28238,7 +28238,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Call the Dreamborn Sibling",
     correspondence=0,
     time=0,
@@ -28250,7 +28250,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Conjure the Jade Warrior",
     correspondence=0,
     time=0,
@@ -28262,7 +28262,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dreamborn Rising",
     correspondence=0,
     time=0,
@@ -28274,7 +28274,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Drums of Elemental Fire",
     correspondence=0,
     time=0,
@@ -28286,7 +28286,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Enter the Sauna",
     correspondence=0,
     time=0,
@@ -28298,7 +28298,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Free the Mad Howlers",
     correspondence=0,
     time=0,
@@ -28310,7 +28310,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Gremlins",
     correspondence=0,
     time=0,
@@ -28322,7 +28322,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Here Kitty, Kitty",
     correspondence=3,
     time=3,
@@ -28334,7 +28334,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Jack in the Green",
     correspondence=0,
     time=0,
@@ -28346,7 +28346,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Loving Scar",
     correspondence=0,
     time=0,
@@ -28358,7 +28358,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Nuzzlings",
     correspondence=0,
     time=0,
@@ -28370,7 +28370,7 @@ Rote.objects.create(
     mind=0,
     prime=5,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Protection of the Golden Race",
     correspondence=0,
     time=0,
@@ -28382,7 +28382,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Pygmalion's Paradigm",
     correspondence=0,
     time=0,
@@ -28394,7 +28394,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Satan's Song",
     correspondence=0,
     time=0,
@@ -28406,7 +28406,7 @@ Rote.objects.create(
     mind=2,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shaking Tent",
     correspondence=0,
     time=0,
@@ -28418,7 +28418,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spirit Roster",
     correspondence=2,
     time=0,
@@ -28430,7 +28430,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Summon Paradox Spirit",
     correspondence=0,
     time=0,
@@ -28442,7 +28442,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Summon the Earthly Gods",
     correspondence=4,
     time=0,
@@ -28454,7 +28454,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Visionary Bloodletting",
     correspondence=0,
     time=0,
@@ -28466,7 +28466,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Zeitgeist",
     correspondence=0,
     time=2,
@@ -28478,7 +28478,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Affix Gauntlet",
     correspondence=0,
     time=0,
@@ -28490,7 +28490,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Circle Ward",
     correspondence=0,
     time=0,
@@ -28502,7 +28502,7 @@ Rote.objects.create(
     mind=1,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Counterintelligence",
     correspondence=1,
     time=0,
@@ -28514,7 +28514,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Defense Screen vs. Higher Lifeforms",
     correspondence=0,
     time=0,
@@ -28526,7 +28526,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Defense Screen vs. Lower Lifeforms",
     correspondence=0,
     time=0,
@@ -28538,7 +28538,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Etheric Shielding",
     correspondence=0,
     time=0,
@@ -28550,7 +28550,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Fortify Gauntlet",
     correspondence=0,
     time=0,
@@ -28562,7 +28562,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Magic Circle",
     correspondence=0,
     time=0,
@@ -28574,7 +28574,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Master's Hand",
     correspondence=0,
     time=0,
@@ -28586,7 +28586,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Protection Song",
     correspondence=4,
     time=0,
@@ -28598,7 +28598,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Psychic Sterilization",
     correspondence=0,
     time=0,
@@ -28610,7 +28610,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Quahuitl",
     correspondence=4,
     time=0,
@@ -28622,7 +28622,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Quantum Interference Shielding",
     correspondence=2,
     time=0,
@@ -28634,7 +28634,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Reconstruct Gauntlet",
     correspondence=0,
     time=0,
@@ -28646,7 +28646,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Repel the Hungry Dead",
     correspondence=0,
     time=0,
@@ -28658,7 +28658,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Repel the Kuei",
     correspondence=0,
     time=0,
@@ -28670,7 +28670,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Safe Little World",
     correspondence=4,
     time=0,
@@ -28682,7 +28682,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Salt on the Earth",
     correspondence=4,
     time=0,
@@ -28694,7 +28694,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Secret Labyrinth",
     correspondence=0,
     time=0,
@@ -28706,7 +28706,7 @@ Rote.objects.create(
     mind=3,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Seven Golden Swords of the Tiger",
     correspondence=4,
     time=0,
@@ -28718,7 +28718,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spirit Wall",
     correspondence=0,
     time=0,
@@ -28730,7 +28730,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spirit Warding",
     correspondence=0,
     time=0,
@@ -28742,7 +28742,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Telltale",
     correspondence=2,
     time=0,
@@ -28754,7 +28754,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Time Wards",
     correspondence=0,
     time=2,
@@ -28766,7 +28766,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Twisted Yarrow Stalks",
     correspondence=4,
     time=0,
@@ -28778,7 +28778,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Wall of Mirrors",
     correspondence=4,
     time=0,
@@ -28790,7 +28790,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="War of the Inner Sanctum",
     correspondence=4,
     time=0,
@@ -28802,7 +28802,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ward",
     correspondence=4,
     time=0,
@@ -28814,7 +28814,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ward Rune",
     correspondence=4,
     time=0,
@@ -28826,7 +28826,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Warding Heads",
     correspondence=0,
     time=0,
@@ -28838,7 +28838,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Zisurru",
     correspondence=2,
     time=0,
@@ -28850,7 +28850,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Back Door Parole",
     correspondence=0,
     time=0,
@@ -28862,7 +28862,7 @@ Rote.objects.create(
     mind=0,
     prime=1,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Deceive the Eyes",
     correspondence=0,
     time=0,
@@ -28874,7 +28874,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Jivitamarana (Death in Life) Yoga",
     correspondence=0,
     time=0,
@@ -28886,7 +28886,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Love Me, Love Me",
     correspondence=0,
     time=0,
@@ -28898,7 +28898,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Persona",
     correspondence=0,
     time=0,
@@ -28910,7 +28910,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Rouge",
     correspondence=0,
     time=0,
@@ -28922,7 +28922,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Uther's Butchered Visage",
     correspondence=0,
     time=0,
@@ -28934,7 +28934,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Agrivelopment",
     correspondence=0,
     time=0,
@@ -28946,7 +28946,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Alter Simple Creature",
     correspondence=0,
     time=0,
@@ -28958,7 +28958,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Alter Small Sequence",
     correspondence=0,
     time=0,
@@ -28970,7 +28970,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Attach Biomechanism",
     correspondence=0,
     time=0,
@@ -28982,7 +28982,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Augment Simple Lifeform",
     correspondence=0,
     time=0,
@@ -28994,7 +28994,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Brittle Bones",
     correspondence=0,
     time=0,
@@ -29006,7 +29006,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Genetic Pattern Matching",
     correspondence=0,
     time=0,
@@ -29018,7 +29018,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Graft Alien Bio-Matter Between Aliens",
     correspondence=0,
     time=0,
@@ -29030,7 +29030,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Graft Alien Bio-Matter to Humans",
     correspondence=0,
     time=0,
@@ -29042,7 +29042,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Green Thumb",
     correspondence=0,
     time=0,
@@ -29054,7 +29054,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Higher Lifeform Grafting and Recombination",
     correspondence=0,
     time=0,
@@ -29066,7 +29066,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Limited Grafting and Recombination",
     correspondence=0,
     time=0,
@@ -29078,7 +29078,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Lower Lifeform Manipulation",
     correspondence=0,
     time=0,
@@ -29090,7 +29090,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Major Environmental Alteration",
     correspondence=0,
     time=0,
@@ -29102,7 +29102,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Minor Environmental Alteration",
     correspondence=0,
     time=0,
@@ -29114,7 +29114,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mokupuni Palahalaha Wiki",
     correspondence=0,
     time=3,
@@ -29126,7 +29126,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mold Tree",
     correspondence=0,
     time=0,
@@ -29138,7 +29138,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Personal Compression",
     correspondence=5,
     time=0,
@@ -29150,7 +29150,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Phosphoric Marker",
     correspondence=1,
     time=0,
@@ -29162,7 +29162,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Clone",
     correspondence=0,
     time=0,
@@ -29174,7 +29174,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Cloning",
     correspondence=0,
     time=0,
@@ -29186,7 +29186,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Courtesan's Draught/Blessed Heir",
     correspondence=0,
     time=0,
@@ -29198,7 +29198,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Fatherless Birth",
     correspondence=0,
     time=0,
@@ -29210,7 +29210,7 @@ Rote.objects.create(
     mind=0,
     prime=5,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Flesh Toys",
     correspondence=0,
     time=0,
@@ -29222,7 +29222,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Foundling",
     correspondence=2,
     time=0,
@@ -29234,7 +29234,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Genetic Mastery",
     correspondence=0,
     time=0,
@@ -29246,7 +29246,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Oak of Sanguine Root",
     correspondence=2,
     time=0,
@@ -29258,7 +29258,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Spontaneous Generation",
     correspondence=0,
     time=0,
@@ -29270,7 +29270,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Supporting the Brain",
     correspondence=0,
     time=0,
@@ -29282,7 +29282,7 @@ Rote.objects.create(
     mind=2,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Thorn Wall",
     correspondence=0,
     time=3,
@@ -29294,7 +29294,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Animal Form",
     correspondence=0,
     time=0,
@@ -29306,7 +29306,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Animal Shift",
     correspondence=0,
     time=0,
@@ -29318,7 +29318,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Avatar Form",
     correspondence=0,
     time=0,
@@ -29330,7 +29330,7 @@ Rote.objects.create(
     mind=2,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Circe's Enchantment",
     correspondence=0,
     time=0,
@@ -29342,7 +29342,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Deity Form",
     correspondence=0,
     time=0,
@@ -29354,7 +29354,7 @@ Rote.objects.create(
     mind=0,
     prime=4,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dionysus's Gift",
     correspondence=0,
     time=0,
@@ -29366,7 +29366,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Eagle Form",
     correspondence=0,
     time=0,
@@ -29378,7 +29378,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Holy Union",
     correspondence=0,
     time=0,
@@ -29390,7 +29390,7 @@ Rote.objects.create(
     mind=3,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Iron Avatar",
     correspondence=0,
     time=0,
@@ -29402,7 +29402,7 @@ Rote.objects.create(
     mind=2,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Jaguar Cloak",
     correspondence=0,
     time=0,
@@ -29414,7 +29414,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="LERMUization",
     correspondence=0,
     time=0,
@@ -29426,7 +29426,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Lesser Shapechanging",
     correspondence=0,
     time=0,
@@ -29438,7 +29438,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mutate Form",
     correspondence=0,
     time=0,
@@ -29450,7 +29450,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Notorious Vampiric Lawnchair",
     correspondence=0,
     time=0,
@@ -29462,7 +29462,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="One with Beasts",
     correspondence=0,
     time=0,
@@ -29474,7 +29474,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Perfect Metamorphosis",
     correspondence=0,
     time=0,
@@ -29486,7 +29486,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Qayaq's Fish",
     correspondence=0,
     time=0,
@@ -29498,7 +29498,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Rokea'ole",
     correspondence=0,
     time=0,
@@ -29510,7 +29510,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shapechange Curse",
     correspondence=0,
     time=0,
@@ -29522,7 +29522,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shapeshifter Prison",
     correspondence=0,
     time=0,
@@ -29534,7 +29534,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shapeshifting",
     correspondence=0,
     time=0,
@@ -29546,7 +29546,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Storm of Crows",
     correspondence=3,
     time=0,
@@ -29558,7 +29558,7 @@ Rote.objects.create(
     mind=1,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Vulcan's Hammer",
     correspondence=0,
     time=0,
@@ -29570,7 +29570,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Wasp-Spasm",
     correspondence=0,
     time=0,
@@ -29582,7 +29582,7 @@ Rote.objects.create(
     mind=0,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Weeping Willow",
     correspondence=0,
     time=0,
@@ -29594,7 +29594,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Wolf Form",
     correspondence=0,
     time=0,
@@ -29606,7 +29606,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Adaptation",
     correspondence=0,
     time=0,
@@ -29618,7 +29618,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Adrenal Rush",
     correspondence=0,
     time=0,
@@ -29630,7 +29630,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Advanced Therapies",
     correspondence=0,
     time=0,
@@ -29642,7 +29642,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Battery Man",
     correspondence=0,
     time=0,
@@ -29654,7 +29654,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Better Body",
     correspondence=0,
     time=0,
@@ -29666,7 +29666,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Biochemical Regulation",
     correspondence=0,
     time=0,
@@ -29678,7 +29678,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Bio-Luminescence",
     correspondence=0,
     time=0,
@@ -29690,7 +29690,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Brain Boost",
     correspondence=0,
     time=0,
@@ -29702,7 +29702,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Chakra Influence",
     correspondence=0,
     time=0,
@@ -29714,7 +29714,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Crocodile Blood",
     correspondence=0,
     time=0,
@@ -29726,7 +29726,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Go Ti Ta",
     correspondence=0,
     time=0,
@@ -29738,7 +29738,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mele Lapa'au",
     correspondence=0,
     time=0,
@@ -29750,7 +29750,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Multi-Tasking",
     correspondence=0,
     time=0,
@@ -29762,7 +29762,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Nanotech Integration",
     correspondence=0,
     time=0,
@@ -29774,7 +29774,7 @@ Rote.objects.create(
     mind=0,
     prime=5,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Our Enemies are Delicious",
     correspondence=0,
     time=0,
@@ -29786,7 +29786,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Positronic Brain",
     correspondence=0,
     time=0,
@@ -29798,7 +29798,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Simple Biochemical Manipulation",
     correspondence=0,
     time=0,
@@ -29810,7 +29810,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Strength of the Earth",
     correspondence=0,
     time=0,
@@ -29822,7 +29822,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Survivor's Charm",
     correspondence=0,
     time=0,
@@ -29834,7 +29834,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Talons",
     correspondence=0,
     time=0,
@@ -29846,7 +29846,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Thick Skin",
     correspondence=0,
     time=0,
@@ -29858,7 +29858,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Titan's Power",
     correspondence=0,
     time=0,
@@ -29870,7 +29870,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Tumo",
     correspondence=0,
     time=0,
@@ -29882,7 +29882,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Apathy",
     correspondence=0,
     time=0,
@@ -29894,7 +29894,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Olive Branch",
     correspondence=0,
     time=0,
@@ -29906,7 +29906,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Pass Calmly",
     correspondence=2,
     time=0,
@@ -29918,7 +29918,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Peace of Buddha",
     correspondence=0,
     time=0,
@@ -29930,7 +29930,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Peace Rune",
     correspondence=0,
     time=0,
@@ -29942,7 +29942,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Rat's Rage/Lost Cousin",
     correspondence=0,
     time=0,
@@ -29954,7 +29954,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Stoicism",
     correspondence=0,
     time=0,
@@ -29966,7 +29966,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name='Abh-t-ab, "Biting the Heart"',
     correspondence=2,
     time=0,
@@ -29978,7 +29978,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Argument of Princes",
     correspondence=0,
     time=0,
@@ -29990,7 +29990,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Capiche?",
     correspondence=0,
     time=0,
@@ -30002,7 +30002,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hoodoo Man's Heartbeat",
     correspondence=0,
     time=0,
@@ -30014,7 +30014,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Primal Dread",
     correspondence=0,
     time=0,
@@ -30026,7 +30026,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Show of Force",
     correspondence=0,
     time=0,
@@ -30038,7 +30038,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Bewitchment",
     correspondence=0,
     time=0,
@@ -30050,7 +30050,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Charm Rune",
     correspondence=0,
     time=0,
@@ -30062,7 +30062,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Exalted Desire",
     correspondence=0,
     time=0,
@@ -30074,7 +30074,7 @@ Rote.objects.create(
     mind=2,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Kuoha (The Passion Prayer)",
     correspondence=3,
     time=0,
@@ -30086,7 +30086,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Lecherous Kiss",
     correspondence=0,
     time=0,
@@ -30098,7 +30098,7 @@ Rote.objects.create(
     mind=2,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Romance",
     correspondence=0,
     time=0,
@@ -30110,7 +30110,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Taliesin's Song",
     correspondence=0,
     time=0,
@@ -30122,7 +30122,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Be Cool",
     correspondence=0,
     time=0,
@@ -30134,7 +30134,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Branding",
     correspondence=0,
     time=0,
@@ -30146,7 +30146,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Comp Me",
     correspondence=0,
     time=0,
@@ -30158,7 +30158,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Cool Glamour",
     correspondence=0,
     time=0,
@@ -30170,7 +30170,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Empathic Projection",
     correspondence=0,
     time=0,
@@ -30182,7 +30182,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Gatha",
     correspondence=0,
     time=0,
@@ -30194,7 +30194,7 @@ Rote.objects.create(
     mind=2,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Golden Apple",
     correspondence=0,
     time=0,
@@ -30206,7 +30206,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Grand Style",
     correspondence=0,
     time=0,
@@ -30218,7 +30218,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="High Rhetoric",
     correspondence=0,
     time=0,
@@ -30230,7 +30230,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hope's Birth",
     correspondence=0,
     time=0,
@@ -30242,7 +30242,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Incitation",
     correspondence=0,
     time=0,
@@ -30254,7 +30254,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Initiation",
     correspondence=0,
     time=0,
@@ -30266,7 +30266,7 @@ Rote.objects.create(
     mind=3,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Look/The Word",
     correspondence=0,
     time=0,
@@ -30278,7 +30278,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Loving Cup",
     correspondence=0,
     time=0,
@@ -30290,7 +30290,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mood Swing/Communion",
     correspondence=0,
     time=0,
@@ -30302,7 +30302,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Motivational Speaking",
     correspondence=0,
     time=0,
@@ -30314,7 +30314,7 @@ Rote.objects.create(
     mind=2,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Petals of Love",
     correspondence=0,
     time=0,
@@ -30326,7 +30326,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Physiological Emotion Control",
     correspondence=0,
     time=0,
@@ -30338,7 +30338,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Scent of Control",
     correspondence=0,
     time=0,
@@ -30350,7 +30350,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Shameful Outburst",
     correspondence=0,
     time=0,
@@ -30362,7 +30362,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Social Science",
     correspondence=0,
     time=0,
@@ -30374,7 +30374,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Strains of Laughter, Sleep and Sorrow",
     correspondence=0,
     time=0,
@@ -30386,7 +30386,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Subtle Persuasion",
     correspondence=0,
     time=0,
@@ -30398,7 +30398,7 @@ Rote.objects.create(
     mind=2,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Witchwind",
     correspondence=0,
     time=0,
@@ -30410,7 +30410,7 @@ Rote.objects.create(
     mind=3,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Animal Possession",
     correspondence=0,
     time=0,
@@ -30422,7 +30422,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Animal Riding",
     correspondence=0,
     time=0,
@@ -30434,7 +30434,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Bug Off",
     correspondence=0,
     time=0,
@@ -30446,7 +30446,7 @@ Rote.objects.create(
     mind=0,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Horsemaster's Bidding",
     correspondence=0,
     time=0,
@@ -30458,7 +30458,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mono Kahea 'Ai (Shark Call)",
     correspondence=3,
     time=0,
@@ -30470,7 +30470,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ratstorm",
     correspondence=2,
     time=0,
@@ -30482,7 +30482,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sedna's Blessing",
     correspondence=2,
     time=0,
@@ -30494,7 +30494,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sing to the Whales",
     correspondence=0,
     time=0,
@@ -30506,7 +30506,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Divine Aura",
     correspondence=0,
     time=0,
@@ -30518,7 +30518,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Fifteen Minutes",
     correspondence=3,
     time=0,
@@ -30530,7 +30530,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Going Viral",
     correspondence=4,
     time=0,
@@ -30542,7 +30542,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="An Uncompromising Commitment to Excellence",
     correspondence=0,
     time=0,
@@ -30554,7 +30554,7 @@ Rote.objects.create(
     mind=4,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Coordination",
     correspondence=3,
     time=0,
@@ -30566,7 +30566,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Karoshi",
     correspondence=0,
     time=0,
@@ -30578,7 +30578,7 @@ Rote.objects.create(
     mind=1,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Workflow",
     correspondence=0,
     time=3,
@@ -30590,7 +30590,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Delion's Haze",
     correspondence=0,
     time=3,
@@ -30602,7 +30602,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Destroy Thought",
     correspondence=0,
     time=0,
@@ -30614,7 +30614,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Downward Spiral",
     correspondence=0,
     time=0,
@@ -30626,7 +30626,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Magdeline's Dynamic Mind",
     correspondence=0,
     time=0,
@@ -30638,7 +30638,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Trip",
     correspondence=2,
     time=2,
@@ -30650,7 +30650,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dream Drama",
     correspondence=0,
     time=0,
@@ -30662,7 +30662,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Dream Play",
     correspondence=0,
     time=2,
@@ -30674,7 +30674,7 @@ Rote.objects.create(
     mind=3,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Nightmare Dance",
     correspondence=0,
     time=0,
@@ -30686,7 +30686,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Delirium",
     correspondence=0,
     time=0,
@@ -30698,7 +30698,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Frame Up",
     correspondence=0,
     time=0,
@@ -30710,7 +30710,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Holographic Projector",
     correspondence=2,
     time=0,
@@ -30722,7 +30722,7 @@ Rote.objects.create(
     mind=3,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="IFF",
     correspondence=2,
     time=0,
@@ -30734,7 +30734,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Imaginary Friend",
     correspondence=0,
     time=0,
@@ -30746,7 +30746,7 @@ Rote.objects.create(
     mind=4,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Painting the War Dance",
     correspondence=0,
     time=0,
@@ -30758,7 +30758,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Behavior Modification Device",
     correspondence=0,
     time=0,
@@ -30770,7 +30770,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="False Witness",
     correspondence=0,
     time=0,
@@ -30782,7 +30782,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="High Memory",
     correspondence=0,
     time=0,
@@ -30794,7 +30794,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Manipulate Memories",
     correspondence=0,
     time=0,
@@ -30806,7 +30806,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Manipulate Memory",
     correspondence=0,
     time=0,
@@ -30818,7 +30818,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Move to Clone",
     correspondence=0,
     time=0,
@@ -30830,7 +30830,7 @@ Rote.objects.create(
     mind=5,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Nostalgia",
     correspondence=0,
     time=3,
@@ -30842,7 +30842,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Plausible Denial",
     correspondence=0,
     time=0,
@@ -30854,7 +30854,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Probe Thoughts",
     correspondence=0,
     time=0,
@@ -30866,7 +30866,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Scan Memories",
     correspondence=0,
     time=0,
@@ -30878,7 +30878,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Transfer Memories",
     correspondence=0,
     time=0,
@@ -30890,7 +30890,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Worm",
     correspondence=0,
     time=0,
@@ -30902,7 +30902,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Alter Paradigm",
     correspondence=0,
     time=0,
@@ -30914,7 +30914,7 @@ Rote.objects.create(
     mind=5,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="The Blissful Discipline",
     correspondence=0,
     time=0,
@@ -30926,7 +30926,7 @@ Rote.objects.create(
     mind=4,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Consuming Thought",
     correspondence=0,
     time=0,
@@ -30938,7 +30938,7 @@ Rote.objects.create(
     mind=3,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Create Drone",
     correspondence=0,
     time=0,
@@ -30950,7 +30950,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Create Mind",
     correspondence=0,
     time=0,
@@ -30962,7 +30962,7 @@ Rote.objects.create(
     mind=5,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Deprocessing",
     correspondence=0,
     time=0,
@@ -30974,7 +30974,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Destructive Paranoia",
     correspondence=0,
     time=0,
@@ -30986,7 +30986,7 @@ Rote.objects.create(
     mind=4,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Hypernarrative Influence",
     correspondence=0,
     time=0,
@@ -30998,7 +30998,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Impulse Purchase",
     correspondence=0,
     time=0,
@@ -31010,7 +31010,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Internal Obligation",
     correspondence=0,
     time=4,
@@ -31022,7 +31022,7 @@ Rote.objects.create(
     mind=4,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Maikai (The Seaward Pull)",
     correspondence=0,
     time=0,
@@ -31034,7 +31034,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Manchurian Condidate",
     correspondence=0,
     time=0,
@@ -31046,7 +31046,7 @@ Rote.objects.create(
     mind=5,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Mind Rune",
     correspondence=0,
     time=0,
@@ -31058,7 +31058,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Morpheus's Kiss",
     correspondence=0,
     time=0,
@@ -31070,7 +31070,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Nervous Control",
     correspondence=0,
     time=0,
@@ -31082,7 +31082,7 @@ Rote.objects.create(
     mind=0,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Possession",
     correspondence=0,
     time=0,
@@ -31094,7 +31094,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Processing",
     correspondence=0,
     time=0,
@@ -31106,7 +31106,7 @@ Rote.objects.create(
     mind=5,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Programming",
     correspondence=0,
     time=0,
@@ -31118,7 +31118,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Psychic Intrusion",
     correspondence=0,
     time=0,
@@ -31130,7 +31130,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Purge Thought Crime",
     correspondence=0,
     time=0,
@@ -31142,7 +31142,7 @@ Rote.objects.create(
     mind=3,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Random Impulse",
     correspondence=0,
     time=0,
@@ -31154,7 +31154,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Recant",
     correspondence=0,
     time=0,
@@ -31166,7 +31166,7 @@ Rote.objects.create(
     mind=2,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Re-education Mode",
     correspondence=0,
     time=3,
@@ -31178,7 +31178,7 @@ Rote.objects.create(
     mind=4,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="See the Light",
     correspondence=0,
     time=0,
@@ -31190,7 +31190,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Self-Possession",
     correspondence=0,
     time=0,
@@ -31202,7 +31202,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Sinner's Redemption",
     correspondence=0,
     time=0,
@@ -31214,7 +31214,7 @@ Rote.objects.create(
     mind=5,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Social Conditioning",
     correspondence=0,
     time=0,
@@ -31226,7 +31226,7 @@ Rote.objects.create(
     mind=3,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Soul Shaping",
     correspondence=0,
     time=0,
@@ -31238,7 +31238,7 @@ Rote.objects.create(
     mind=4,
     prime=3,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Temple Gongs",
     correspondence=0,
     time=0,
@@ -31250,7 +31250,7 @@ Rote.objects.create(
     mind=4,
     prime=2,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Ultimate Argument",
     correspondence=0,
     time=0,
@@ -31262,7 +31262,7 @@ Rote.objects.create(
     mind=3,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Welcoming the Jester",
     correspondence=0,
     time=0,
@@ -31274,7 +31274,7 @@ Rote.objects.create(
     mind=4,
     prime=0,
 )
-Rote.objects.create(
+Effect.objects.create(
     name="Willful Binding",
     correspondence=0,
     time=0,

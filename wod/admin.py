@@ -17,7 +17,7 @@ from wod.models.characters.mage import (
     Paradigm,
     Practice,
     Resonance,
-    Rote,
+    Effect,
 )
 from wod.models.characters.werewolf import (
     BattleScar,
@@ -133,8 +133,8 @@ class ResonanceAdmin(admin.ModelAdmin):
     )
 
 
-@admin.register(Rote)
-class RoteAdmin(admin.ModelAdmin):
+@admin.register(Effect)
+class EffectAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "correspondence",

@@ -10,7 +10,7 @@ from core.models import Language, Material, Medium
 from core.utils import weighted_choice
 from wod.models.characters.mage.faction import MageFaction
 from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
-from wod.models.characters.mage.rote import Rote
+from wod.models.characters.mage.rote import Effect
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
 from wod.models.items.human import Item
 
@@ -56,7 +56,7 @@ class Grimoire(Wonder):
         related_name="is_inner",
     )
     medium = models.ForeignKey(Medium, null=True, blank=True, on_delete=models.CASCADE)
-    rotes = models.ManyToManyField(Rote, blank=True)
+    effects = models.ManyToManyField(Effect, blank=True)
 
     def set_abilities(self, abilities):
         if not isinstance(abilities, list):
@@ -303,17 +303,17 @@ class Grimoire(Wonder):
             rank = max(min(roll, 5), 1)
         self.set_rank(rank)
 
-    def set_rotes(self, rotes):
-        self.rotes.set(rotes)
+    def set_effects(self, effects):
+        self.effects.set(effects)
         self.save()
         return True
 
-    def has_rotes(self):
-        return self.rotes.count() != 0
+    def has_effects(self):
+        return self.effects.count() != 0
 
-    def random_rotes(self, rotes=None):
-        if rotes is None:
-            rotes = []
+    def random_effects(self, effects=None):
+        if effects is None:
+            effects = []
             spheres = []
             if len(self.spheres) != 0:
                 spheres = self.spheres
@@ -322,16 +322,16 @@ class Grimoire(Wonder):
             q_objects = Q()
             for key, value in kwargs.items():
                 q_objects |= Q(**{key: value})
-            rotes = Rote.objects.filter(q_objects)
+            effects = Effect.objects.filter(q_objects)
 
             kwargs = {f"{sphere}__lte": self.rank for sphere in SPHERE_LIST}
             for key, value in kwargs.items():
-                rotes = rotes.filter(Q(**{key: value}))
-            num_rotes = 1
-            while random.random() < 0.4 or num_rotes < self.rank:
-                num_rotes += 1
-            rotes = list(rotes.order_by("?")[:num_rotes])
-        self.set_rotes(rotes)
+                effects = effects.filter(Q(**{key: value}))
+            num_effects = 1
+            while random.random() < 0.4 or num_effects < self.rank:
+                num_effects += 1
+            effects = list(effects.order_by("?")[:num_effects])
+        self.set_effects(effects)
 
     def set_spheres(self, spheres):
         if not isinstance(spheres, list):
@@ -383,7 +383,7 @@ class Grimoire(Wonder):
         language=None,
         abilities=None,
         spheres=None,
-        rotes=None,
+        effects=None,
     ):
         self.random_rank(rank)
         self.background_cost = 2 * self.rank
@@ -399,7 +399,7 @@ class Grimoire(Wonder):
         self.random_abilities(abilities)
         self.random_language(language)
         self.random_spheres(spheres)
-        self.random_rotes(rotes)
+        self.random_effects(effects)
         self.save()
 
 

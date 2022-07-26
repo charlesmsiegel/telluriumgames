@@ -14,7 +14,7 @@ from wod.models.characters.mage import (
     Paradigm,
     Practice,
     Resonance,
-    Rote,
+    Effect,
 )
 from wod.models.characters.mage.resonance import ResRating
 from wod.models.locations.mage import NodeMeritFlaw
@@ -61,15 +61,15 @@ def mage_setup(player):
         Resonance.objects.create(name=f"Resonance {i}")
 
     for i in range(1, 6):
-        Rote.objects.create(name=f"Correspondence {i}", correspondence=i)
-        Rote.objects.create(name=f"Time {i}", time=i)
-        Rote.objects.create(name=f"Spirit {i}", spirit=i)
-        Rote.objects.create(name=f"Forces {i}", forces=i)
-        Rote.objects.create(name=f"Matter {i}", matter=i)
-        Rote.objects.create(name=f"Life {i}", life=i)
-        Rote.objects.create(name=f"Entropy {i}", entropy=i)
-        Rote.objects.create(name=f"Prime {i}", prime=i)
-        Rote.objects.create(name=f"Mind {i}", mind=i)
+        Effect.objects.create(name=f"Correspondence {i}", correspondence=i)
+        Effect.objects.create(name=f"Time {i}", time=i)
+        Effect.objects.create(name=f"Spirit {i}", spirit=i)
+        Effect.objects.create(name=f"Forces {i}", forces=i)
+        Effect.objects.create(name=f"Matter {i}", matter=i)
+        Effect.objects.create(name=f"Life {i}", life=i)
+        Effect.objects.create(name=f"Entropy {i}", entropy=i)
+        Effect.objects.create(name=f"Prime {i}", prime=i)
+        Effect.objects.create(name=f"Mind {i}", mind=i)
 
     for i in range(10):
         for trait in m.get_attributes():
@@ -1030,50 +1030,50 @@ class TestMage(TestCase):
         self.character.add_resonance(resonance[0])
         self.assertEqual(self.character.total_resonance(), 5)
 
-    def test_add_rote(self):
+    def test_add_effect(self):
         self.character.arete = 3
         self.character.forces = 3
         self.character.prime = 2
-        r1 = Rote.objects.create(name="Fireball", forces=3, prime=2)
-        r2 = Rote.objects.create(name="Teleport", correspondence=3)
-        num = self.character.rotes.count()
-        self.assertTrue(self.character.add_rote(r1))
-        self.assertEqual(self.character.rotes.count(), num + 1)
-        self.assertIn(r1, self.character.rotes.all())
-        self.assertFalse(self.character.add_rote(r2))
+        r1 = Effect.objects.create(name="Fireball", forces=3, prime=2)
+        r2 = Effect.objects.create(name="Teleport", correspondence=3)
+        num = self.character.effects.count()
+        self.assertTrue(self.character.add_effect(r1))
+        self.assertEqual(self.character.effects.count(), num + 1)
+        self.assertIn(r1, self.character.effects.all())
+        self.assertFalse(self.character.add_effect(r2))
         self.character.correspondence = 3
-        self.assertNotIn(r2, self.character.rotes.all())
-        self.assertTrue(self.character.add_rote(r2))
-        self.assertIn(r2, self.character.rotes.all())
+        self.assertNotIn(r2, self.character.effects.all())
+        self.assertTrue(self.character.add_effect(r2))
+        self.assertIn(r2, self.character.effects.all())
 
-    def test_has_rotes(self):
+    def test_has_effects(self):
         self.character.arete = 3
         self.character.forces = 3
         self.character.prime = 2
         self.character.matter = 1
-        self.assertFalse(self.character.has_rotes())
-        self.character.add_rote(Rote.objects.get(name="Forces 3"))
-        self.assertFalse(self.character.has_rotes())
-        self.character.add_rote(Rote.objects.get(name="Matter 1"))
-        self.assertFalse(self.character.has_rotes())
-        self.character.add_rote(Rote.objects.get(name="Prime 1"))
-        self.assertFalse(self.character.has_rotes())
-        self.character.add_rote(Rote.objects.get(name="Forces 1"))
-        self.assertTrue(self.character.has_rotes())
+        self.assertFalse(self.character.has_effects())
+        self.character.add_effect(Effect.objects.get(name="Forces 3"))
+        self.assertFalse(self.character.has_effects())
+        self.character.add_effect(Effect.objects.get(name="Matter 1"))
+        self.assertFalse(self.character.has_effects())
+        self.character.add_effect(Effect.objects.get(name="Prime 1"))
+        self.assertFalse(self.character.has_effects())
+        self.character.add_effect(Effect.objects.get(name="Forces 1"))
+        self.assertTrue(self.character.has_effects())
 
-    def test_total_rotes(self):
+    def test_total_effects(self):
         self.character.arete = 3
         self.character.forces = 3
         self.character.prime = 2
         self.character.correspondence = 3
-        r1 = Rote.objects.create(name="Fireball", forces=3, prime=2)
-        r2 = Rote.objects.create(name="Teleport", correspondence=3)
-        self.character.add_rote(r1)
-        self.assertEqual(self.character.total_rotes(), 5)
-        self.character.add_rote(r2)
-        self.assertEqual(self.character.total_rotes(), 8)
+        r1 = Effect.objects.create(name="Fireball", forces=3, prime=2)
+        r2 = Effect.objects.create(name="Teleport", correspondence=3)
+        self.character.add_effect(r1)
+        self.assertEqual(self.character.total_effects(), 5)
+        self.character.add_effect(r2)
+        self.assertEqual(self.character.total_effects(), 8)
 
-    def test_filter_rotes(self):
+    def test_filter_effects(self):
         self.character.arete = 5
         self.character.correspondence = 5
         self.character.time = 5
@@ -1084,11 +1084,11 @@ class TestMage(TestCase):
         self.character.entropy = 5
         self.character.prime = 5
         self.character.mind = 5
-        self.assertEqual(len(self.character.filter_rotes()), 45)
+        self.assertEqual(len(self.character.filter_effects()), 45)
         self.character.mind = 4
-        self.assertEqual(len(self.character.filter_rotes()), 44)
+        self.assertEqual(len(self.character.filter_effects()), 44)
         self.character.prime = 1
-        self.assertEqual(len(self.character.filter_rotes()), 40)
+        self.assertEqual(len(self.character.filter_effects()), 40)
         self.character.correspondence = 1
         self.character.time = 1
         self.character.spirit = 1
@@ -1098,7 +1098,7 @@ class TestMage(TestCase):
         self.character.entropy = 0
         self.character.prime = 0
         self.character.mind = 0
-        self.assertEqual(len(self.character.filter_rotes()), 5)
+        self.assertEqual(len(self.character.filter_effects()), 5)
 
     def test_has_mage_history(self):
         self.assertFalse(self.character.has_mage_history())
@@ -1202,23 +1202,23 @@ class TestRandomMage(TestCase):
         self.character.random_resonance()
         self.assertEqual(self.character.total_resonance(), 1)
 
-    def test_random_rote(self):
+    def test_random_effect(self):
         self.character.arete = 3
         self.character.forces = 3
         self.character.prime = 2
         self.character.matter = 1
-        num = self.character.rotes.count()
-        self.character.random_rote()
-        self.assertEqual(self.character.rotes.count(), num + 1)
+        num = self.character.effects.count()
+        self.character.random_effect()
+        self.assertEqual(self.character.effects.count(), num + 1)
 
-    def test_random_rotes(self):
+    def test_random_effects(self):
         self.character.arete = 3
         self.character.forces = 3
         self.character.prime = 2
         self.character.matter = 1
-        self.assertFalse(self.character.has_rotes())
-        self.character.random_rotes()
-        self.assertTrue(self.character.has_rotes())
+        self.assertFalse(self.character.has_effects())
+        self.character.random_effects()
+        self.assertTrue(self.character.has_effects())
 
     def test_created_node_when_has_node(self):
         self.character.node = 3
@@ -1257,7 +1257,7 @@ class TestRandomMage(TestCase):
         self.assertFalse(self.character.has_faction())
         self.assertFalse(self.character.has_focus())
         self.assertFalse(self.character.has_essence())
-        self.assertFalse(self.character.has_rotes())
+        self.assertFalse(self.character.has_effects())
         self.assertFalse(self.character.has_mage_history())
         self.character.random(freebies=0, xp=0)
         self.assertTrue(self.character.has_name())
@@ -1274,7 +1274,7 @@ class TestRandomMage(TestCase):
         self.assertTrue(self.character.has_faction())
         self.assertTrue(self.character.has_focus())
         self.assertTrue(self.character.has_essence())
-        self.assertTrue(self.character.has_rotes())
+        self.assertTrue(self.character.has_effects())
         self.assertTrue(self.character.has_mage_history())
         if self.character.node != 0:
             self.assertTrue(self.character.has_node())

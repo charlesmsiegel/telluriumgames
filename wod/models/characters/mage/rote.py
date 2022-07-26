@@ -2,7 +2,7 @@ from django.db import models
 
 
 # Create your models here.
-class Rote(models.Model):
+class Effect(models.Model):
     name = models.CharField(max_length=100, unique=True)
     correspondence = models.IntegerField(default=0)
     time = models.IntegerField(default=0)

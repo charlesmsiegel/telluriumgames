@@ -83,17 +83,17 @@
                 </div>
                 <div class="row">
                     <h2 class="col-sm mtas_heading">
-                        Rotes
+                        Effects
                     </h2>
                 </div>
-                {% for row in rotes %}
+                {% for row in effects %}
                     <div class="row">
-                        {% for rote in row %}
+                        {% for effect in row %}
                             <div class="col-sm">
-                                {{ rote.name }}
+                                {{ effect.name }}
                             </div>
                             <div class="col-sm dots">
-                                {{ rote.spheres }}
+                                {{ effect.spheres }}
                             </div>
                         {% endfor %}
                     </div>

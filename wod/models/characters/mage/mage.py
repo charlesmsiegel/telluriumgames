@@ -14,7 +14,7 @@ from wod.models.locations.mage import Node
 from .faction import MageFaction
 from .focus import Instrument, Paradigm, Practice
 from .resonance import Resonance, ResRating
-from .rote import Rote
+from .rote import Effect
 from .utils import PRIMARY_ABILITIES
 
 PRIMARY_ABILITY_WEIGHTING = 5
@@ -234,7 +234,7 @@ class Mage(Human):
     resonance = models.ManyToManyField("Resonance", through="ResRating")
 
     rote_points = models.IntegerField(default=6)
-    rotes = models.ManyToManyField(Rote, blank=True)
+    effects = models.ManyToManyField(Effect, blank=True)
 
     quintessence = models.IntegerField(default=0)
     paradox = models.IntegerField(default=0)
@@ -754,35 +754,35 @@ class Mage(Human):
             ability_choice = weighted_choice(possibilities, ceiling=100)
             self.add_ability(ability_choice, maximum=3)
 
-    def add_rote(self, rote):
-        if rote.is_learnable(self):
-            self.rotes.add(rote)
-            self.rote_points -= rote.cost()
+    def add_effect(self, effect):
+        if effect.is_learnable(self):
+            self.effects.add(effect)
+            self.rote_points -= effect.cost()
             return True
         return False
 
-    def has_rotes(self):
+    def has_effects(self):
         return self.rote_points == 0
 
-    def filter_rotes(self, max_cost=100):
-        rotes = Rote.objects.filter(rote_cost__lte=max_cost)
+    def filter_effects(self, max_cost=100):
+        effects = Effect.objects.filter(rote_cost__lte=max_cost)
 
         spheres = self.get_spheres()
         spheres = {k + "__lte": v for k, v in spheres.items()}
         q = Q(**spheres)
-        return rotes.filter(q)
+        return effects.filter(q)
 
-    def random_rote(self):
-        options = self.filter_rotes(max_cost=self.rote_points)
-        rote = random.choice(options)
-        self.add_rote(rote)
+    def random_effect(self):
+        options = self.filter_effects(max_cost=self.rote_points)
+        effect = random.choice(options)
+        self.add_effect(effect)
 
-    def random_rotes(self):
+    def random_effects(self):
         while self.rote_points > 0:
-            self.random_rote()
+            self.random_effect()
 
-    def total_rotes(self):
-        return sum(x.cost() for x in self.rotes.all())
+    def total_effects(self):
+        return sum(x.cost() for x in self.effects.all())
 
     def has_specialties(self):
         output = super().has_specialties()
@@ -1050,7 +1050,7 @@ class Mage(Human):
         self.random_mage_history()
         self.random_freebies()
         self.random_xp()
-        self.random_rotes()
+        self.random_effects()
         self.random_specialties()
         self.random_node(favored_list=self.resonance.all())
         self.random_library()

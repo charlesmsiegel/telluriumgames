@@ -10,7 +10,7 @@ from wod.models.characters.mage import (
     Paradigm,
     Practice,
     Resonance,
-    Rote,
+    Effect,
 )
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
 from wod.models.items.mage import Library

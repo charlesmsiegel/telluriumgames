@@ -109,14 +109,14 @@ urls = [
         name="resonance",
     ),
     path(
-        "rotes/create/",
-        views.characters.mage.RoteCreateView.as_view(),
-        name="create_rote",
+        "effects/create/",
+        views.characters.mage.EffectCreateView.as_view(),
+        name="create_effect",
     ),
     path(
-        "rotes/update/<pk>/",
-        views.characters.mage.RoteUpdateView.as_view(),
-        name="update_rote",
+        "effects/update/<pk>/",
+        views.characters.mage.EffectUpdateView.as_view(),
+        name="update_effect",
     ),
-    path("rotes/<pk>/", views.characters.mage.RoteDetailView.as_view(), name="rote"),
+    path("effects/<pk>/", views.characters.mage.EffectDetailView.as_view(), name="effect"),
 ]
