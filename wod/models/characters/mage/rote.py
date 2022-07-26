@@ -1,4 +1,5 @@
 from django.db import models
+
 from wod.models.characters.mage.focus import Practice
 
 

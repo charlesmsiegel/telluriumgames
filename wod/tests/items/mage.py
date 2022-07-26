@@ -4,7 +4,13 @@ from unittest.mock import Mock
 from django.test import TestCase
 
 from core.models import Language, Material, Medium
-from wod.models.characters.mage import Instrument, MageFaction, Paradigm, Practice, Effect
+from wod.models.characters.mage import (
+    Effect,
+    Instrument,
+    MageFaction,
+    Paradigm,
+    Practice,
+)
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
 from wod.models.items.mage import Grimoire, Library
 
@@ -79,7 +85,9 @@ class TestGrimoire(TestCase):
         self.cover_material = Material.objects.create(name="Test Cover Material")
         self.inner_material = Material.objects.create(name="Test Inner Material")
         self.medium = Medium.objects.create(name="Test Medium")
-        self.effects = [Effect.objects.create(name=f"Test Effect {i}") for i in range(4)]
+        self.effects = [
+            Effect.objects.create(name=f"Test Effect {i}") for i in range(4)
+        ]
         self.spheres = ["correspondence", "forces", "matter"]
 
     def test_set_rank(self):

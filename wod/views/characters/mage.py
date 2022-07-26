@@ -64,7 +64,8 @@ class MageDetailView(View):
         all_effects = list(context["object"].effects.all())
         row_length = 2
         all_effects = [
-            all_effects[i : i + row_length] for i in range(0, len(all_effects), row_length)
+            all_effects[i : i + row_length]
+            for i in range(0, len(all_effects), row_length)
         ]
         context["effects"] = all_effects
 

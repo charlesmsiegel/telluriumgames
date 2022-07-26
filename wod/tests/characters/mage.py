@@ -8,13 +8,13 @@ from core.models import Language
 from wod.models.characters.human import Archetype, MeritFlaw, Specialty
 from wod.models.characters.mage import (
     Cabal,
+    Effect,
     Instrument,
     Mage,
     MageFaction,
     Paradigm,
     Practice,
     Resonance,
-    Effect,
 )
 from wod.models.characters.mage.resonance import ResRating
 from wod.models.locations.mage import NodeMeritFlaw

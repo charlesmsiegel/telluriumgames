@@ -3,12 +3,12 @@ from time import time
 from core.models import Language, Material, Medium
 from wod.models.characters.human import Archetype, MeritFlaw, Specialty
 from wod.models.characters.mage import (
+    Effect,
     Instrument,
     MageFaction,
     Paradigm,
     Practice,
     Resonance,
-    Effect,
 )
 
 english, _ = Language.objects.get_or_create(name="English", frequency=141264)

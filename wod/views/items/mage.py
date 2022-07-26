@@ -61,7 +61,8 @@ class GrimoireDetailView(View):
         all_effects = list(context["object"].effects.all())
         row_length = 2
         all_effects = [
-            all_effects[i : i + row_length] for i in range(0, len(all_effects), row_length)
+            all_effects[i : i + row_length]
+            for i in range(0, len(all_effects), row_length)
         ]
         if len(all_effects) != 0:
             while len(all_effects[-1]) < row_length:

@@ -11,13 +11,13 @@ from wod.models.characters.human import (
 )
 from wod.models.characters.mage import (
     Cabal,
+    Effect,
     Instrument,
     Mage,
     MageFaction,
     Paradigm,
     Practice,
     Resonance,
-    Effect,
 )
 from wod.models.characters.werewolf import (
     BattleScar,

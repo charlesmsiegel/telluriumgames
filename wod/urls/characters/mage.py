@@ -118,5 +118,7 @@ urls = [
         views.characters.mage.EffectUpdateView.as_view(),
         name="update_effect",
     ),
-    path("effects/<pk>/", views.characters.mage.EffectDetailView.as_view(), name="effect"),
+    path(
+        "effects/<pk>/", views.characters.mage.EffectDetailView.as_view(), name="effect"
+    ),
 ]
