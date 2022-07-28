@@ -425,13 +425,13 @@
             <div class="col-sm dots">{{ object.time|dots }}</div>
         </div>
         <div class="row">
-            <h2 class="col-sm mtas_heading">Effects</h2>
+            <h2 class="col-sm mtas_heading">Rotes</h2>
         </div>
-        {% for row in effects %}
+        {% for row in rotes %}
         <div class="row">
-            {% for effect in row %}
-            <div class="col-sm">{{ effect.name }}</div>
-            <div class="col-sm dots">{{ effect.spheres }}</div>
+            {% for rote in row %}
+            <a class="col-sm" href={{ rote.get_absolute_url }}>{{ rote.name }}</a>
+            <div class="col-sm dots">{{ rote.effect.spheres }}</div>
             {% endfor %}
         </div>
         {% endfor %}

@@ -5,7 +5,7 @@ from wod.forms import MageForm
 from wod.models.characters.human import MeritFlawRating
 from wod.models.characters.mage.faction import MageFaction
 from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
-from wod.models.characters.mage.mage import Cabal, Mage
+from wod.models.characters.mage.mage import Cabal, Mage, Rote
 from wod.models.characters.mage.resonance import Resonance, ResRating
 from wod.models.characters.mage.rote import Effect
 from wod.models.characters.mage.utils import PRIMARY_ABILITIES
@@ -61,13 +61,14 @@ class MageDetailView(View):
         context["merits_and_flaws"] = MeritFlawRating.objects.order_by(
             "mf__name"
         ).filter(character=mage)
-        all_effects = list(context["object"].effects.all())
+        all_effects = list(Rote.objects.filter(mage=context["object"]))
+        # all_effects = list(context["object"].effects.all())
         row_length = 2
         all_effects = [
             all_effects[i : i + row_length]
             for i in range(0, len(all_effects), row_length)
         ]
-        context["effects"] = all_effects
+        context["rotes"] = all_effects
 
         secondary_talents = [
             [f"{k.replace('_', ' ').title()}", v, context[f"{k}_spec"]]
@@ -238,3 +239,20 @@ class EffectUpdateView(UpdateView):
     model = Effect
     fields = "__all__"
     template_name = "wod/characters/mage/effect/update.html"
+
+
+class RoteDetailView(DetailView):
+    model = Rote
+    template_name = "wod/characters/mage/rote/detail.html"
+
+
+class RoteCreateView(CreateView):
+    model = Rote
+    fields = "__all__"
+    template_name = "wod/characters/mage/rote/create.html"
+
+
+class RoteUpdateView(UpdateView):
+    model = Rote
+    fields = "__all__"
+    template_name = "wod/characters/mage/rote/update.html"

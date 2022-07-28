@@ -1,6 +1,5 @@
 from django.db import models
-
-from wod.models.characters.mage.focus import Practice
+from django.urls import reverse
 
 
 # Create your models here.
@@ -33,6 +32,9 @@ class Effect(models.Model):
         filtered_dots = [f"{k.title()}: {v}" for k, v in dots.items() if v != 0]
         final_dots = ", ".join(filtered_dots)
         return f"{self.name} ({final_dots})"
+
+    def get_absolute_url(self):
+        return reverse("wod:characters:mage:effect", kwargs={"pk": self.pk})
 
     def save(self, *args, **kwargs):
         self.rote_cost = self.cost()
@@ -72,12 +74,3 @@ class Effect(models.Model):
             if getattr(self, sphere) > getattr(mage, sphere):
                 return False
         return True
-
-
-class Rote(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    effect = models.ForeignKey(Effect, on_delete=models.CASCADE)
-    practice = models.ForeignKey(Practice, on_delete=models.CASCADE)
-    attribute = models.CharField(max_length=50)
-    ability = models.CharField(max_length=50)
-    description = models.TextField(default="")

@@ -1,3 +1,4 @@
+import random
 from unittest import mock
 from unittest.mock import Mock
 
@@ -17,6 +18,7 @@ from wod.models.characters.mage import (
     Resonance,
 )
 from wod.models.characters.mage.resonance import ResRating
+from wod.models.characters.mage.utils import ABILITY_LIST
 from wod.models.locations.mage import NodeMeritFlaw
 
 
@@ -29,7 +31,9 @@ def mage_setup(player):
         Instrument.objects.create(name=f"Instrument {i}")
 
     for i in range(5):
-        practice = Practice.objects.create(name=f"Practice {i}")
+        practice = Practice.objects.create(
+            name=f"Practice {i}", abilities=list(random.sample(ABILITY_LIST, k=4))
+        )
         practice.instruments.set(Instrument.objects.all())
         practice.save()
 
@@ -1034,6 +1038,7 @@ class TestMage(TestCase):
         self.character.arete = 3
         self.character.forces = 3
         self.character.prime = 2
+        self.character.random_focus()
         r1 = Effect.objects.create(name="Fireball", forces=3, prime=2)
         r2 = Effect.objects.create(name="Teleport", correspondence=3)
         num = self.character.effects.count()
@@ -1051,6 +1056,7 @@ class TestMage(TestCase):
         self.character.forces = 3
         self.character.prime = 2
         self.character.matter = 1
+        self.character.random_focus()
         self.assertFalse(self.character.has_effects())
         self.character.add_effect(Effect.objects.get(name="Forces 3"))
         self.assertFalse(self.character.has_effects())
@@ -1066,6 +1072,7 @@ class TestMage(TestCase):
         self.character.forces = 3
         self.character.prime = 2
         self.character.correspondence = 3
+        self.character.random_focus()
         r1 = Effect.objects.create(name="Fireball", forces=3, prime=2)
         r2 = Effect.objects.create(name="Teleport", correspondence=3)
         self.character.add_effect(r1)
@@ -1207,6 +1214,7 @@ class TestRandomMage(TestCase):
         self.character.forces = 3
         self.character.prime = 2
         self.character.matter = 1
+        self.character.random_focus()
         num = self.character.effects.count()
         self.character.random_effect()
         self.assertEqual(self.character.effects.count(), num + 1)
@@ -1216,6 +1224,7 @@ class TestRandomMage(TestCase):
         self.character.forces = 3
         self.character.prime = 2
         self.character.matter = 1
+        self.character.random_focus()
         self.assertFalse(self.character.has_effects())
         self.character.random_effects()
         self.assertTrue(self.character.has_effects())
@@ -1343,7 +1352,9 @@ class TestPractice(TestCase):
         self.assertEqual(len(practice.abilities), 2)
 
     def test_str(self):
-        practice = Practice.objects.create(name="Practice 1")
+        practice = Practice.objects.create(
+            name="Practice 1", abilities=list(random.sample(ABILITY_LIST, k=4))
+        )
         self.assertEqual(str(practice), "Practice 1")
 
 
