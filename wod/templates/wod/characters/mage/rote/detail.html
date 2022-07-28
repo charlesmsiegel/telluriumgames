@@ -12,7 +12,7 @@
             </div>
             <div class="row">
                 <div class="col-sm">Effect</div>
-                <a class="col-sm">{{ object.effect }}</a>
+                <a class="col-sm" href={{ object.effect.get_absolute_url }}>{{ object.effect }}</a>
             </div>
             <div class="row">
                 <div class="col-sm">Practice</div>
@@ -20,7 +20,7 @@
             </div>
             <div class="row">
                 <div class="col-sm">Dicepool</div>
-                <div class="col-sm">{{ object.attribute.title() }} + {{ object.ability.title() }}</div>
+                <div class="col-sm">{{ object.attribute.title }} + {{ object.ability.title }}</div>
             </div>
             <div class="row">
                 <div class="col-sm">Description</div>

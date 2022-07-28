@@ -22,6 +22,38 @@ PRACTICE_ABILITY_WEIGHTING = 3
 
 
 # Create your models here.
+class Rote(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    mage = models.ForeignKey("Mage", on_delete=models.CASCADE)
+    effect = models.ForeignKey(Effect, on_delete=models.CASCADE)
+    practice = models.ForeignKey(
+        Practice, on_delete=models.CASCADE, null=True, blank=True
+    )
+    attribute = models.CharField(max_length=50)
+    ability = models.CharField(max_length=50)
+    description = models.TextField(default="")
+
+    def get_absolute_url(self):
+        return reverse("wod:characters:mage:rote", kwargs={"pk": self.pk})
+
+    def random(self):
+        self.name = f"{self.effect.name} Rote {Rote.objects.filter(effect=self.effect).count() + 1}"
+        self.practice = self.mage.practices.order_by("?").first()
+        self.attribute = weighted_choice(self.mage.get_attributes())
+        self.ability = weighted_choice(
+            {
+                k: v
+                for k, v in self.mage.get_abilities().items()
+                if k in self.practice.abilities
+            }
+        )
+
+    def save(self, *args, **kwargs):
+        if self.practice is None:
+            self.random()
+        return super().save(*args, **kwargs)
+
+
 class Mage(Human):
     type = "mage"
 
@@ -234,7 +266,7 @@ class Mage(Human):
     resonance = models.ManyToManyField("Resonance", through="ResRating")
 
     rote_points = models.IntegerField(default=6)
-    effects = models.ManyToManyField(Effect, blank=True)
+    effects = models.ManyToManyField(Effect, blank=True, through=Rote)
 
     quintessence = models.IntegerField(default=0)
     paradox = models.IntegerField(default=0)
@@ -756,7 +788,9 @@ class Mage(Human):
 
     def add_effect(self, effect):
         if effect.is_learnable(self):
-            self.effects.add(effect)
+            r = Rote.objects.create(effect=effect, mage=self)
+            # r.random()
+            # self.effects.add(effect)
             self.rote_points -= effect.cost()
             return True
         return False

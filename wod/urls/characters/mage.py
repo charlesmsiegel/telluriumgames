@@ -131,7 +131,5 @@ urls = [
         views.characters.mage.RoteUpdateView.as_view(),
         name="update_rote",
     ),
-    path(
-        "rotes/<pk>/", views.characters.mage.RoteDetailView.as_view(), name="rote"
-    ),
+    path("rotes/<pk>/", views.characters.mage.RoteDetailView.as_view(), name="rote"),
 ]

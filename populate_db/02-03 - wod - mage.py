@@ -18021,7 +18021,9 @@ Effect.objects.create(name="Call Storm", forces=4, prime=2)
 Effect.objects.create(name="Conjure Element (Fire, Wind)", forces=3, prime=2)
 Effect.objects.create(name="Conjure Element (Earth, Metal, Water)", matter=3, prime=2)
 Effect.objects.create(name="Conjure Element (Wood)", life=3, prime=2)
-Effect.objects.create(name="Conjure New Object", matter=3, prime=2)  # matter 3+ variants
+Effect.objects.create(
+    name="Conjure New Object", matter=3, prime=2
+)  # matter 3+ variants
 Effect.objects.create(
     name='Conjure "Physical" Illusion', forces=2, prime=2
 )  # forces 2+ variants
@@ -18108,7 +18110,9 @@ Effect.objects.create(
     name="Reversing Age (Living Being)", time=3, life=4
 )  # Time 3+ variants
 Effect.objects.create(name="Aging (Object)", time=3, matter=2)  # Time 3+ variants
-Effect.objects.create(name="Reversing Age (Object)", time=3, matter=2)  # Time 3+ variants
+Effect.objects.create(
+    name="Reversing Age (Object)", time=3, matter=2
+)  # Time 3+ variants
 Effect.objects.create(name="Conjure Earthly Being", correspondence=4, life=2)
 Effect.objects.create(
     name="Create Multiple Images (Correspondence)", correspondence=3, prime=2
@@ -18116,7 +18120,9 @@ Effect.objects.create(
 Effect.objects.create(
     name="Create Multiple Images (Forces)", forces=2, prime=2
 )  # forces 2+ variants
-Effect.objects.create(name="Create Multiple Objects", correspondence=5, matter=3, prime=2)
+Effect.objects.create(
+    name="Create Multiple Objects", correspondence=5, matter=3, prime=2
+)
 Effect.objects.create(name="Open Gateway Between Locations", correspondence=4)
 Effect.objects.create(name="Rewind Time", time=3)
 Effect.objects.create(name="Set Time Trigger", time=4)
