@@ -639,6 +639,20 @@
             </div>
             <div class="row">
                 <h3 class="col-sm cod_heading">
+                    Praxes
+                </h3>
+            </div>
+            {% for row in praxes %}
+            <div class="row">
+                {% for praxis in row %}
+                <div class="col-sm">{{ praxis.name }}</div>
+                <div class="col-sm">{{ praxis.arcanum.title }}</div>
+                <div class="col-sm dots">{{ praxis.level|dots }}</div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            <div class="row">
+                <h3 class="col-sm cod_heading">
                     Rotes
                 </h3>
             </div>

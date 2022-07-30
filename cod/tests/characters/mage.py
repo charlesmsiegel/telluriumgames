@@ -394,6 +394,33 @@ class TestMage(TestCase):
         self.assertEqual(self.mage.practices_at_level(4), ["patterning", "unraveling"])
         self.assertEqual(self.mage.practices_at_level(5), ["making", "unmaking"])
 
+    def test_arcane_xp(self):
+        self.assertEqual(self.mage.arcane_xp, 0)
+        self.mage.arcane_xp = 100
+        self.assertTrue(self.mage.spend_xp("gnosis"))
+        self.assertEqual(self.mage.arcane_xp, 95)
+        self.assertTrue(self.mage.spend_xp("life"))
+        self.assertEqual(self.mage.arcane_xp, 91)
+        self.assertTrue(self.mage.spend_xp("Compelling Life Rote 0", praxis=True))
+        self.assertEqual(self.mage.arcane_xp, 90)
+        self.assertTrue(self.mage.spend_xp("wisdom"))
+        self.assertEqual(self.mage.arcane_xp, 88)
+        # Legacy Attainment should cost 1 Arcane XP both tutored and untutored
+
+        self.mage.xp = 100
+        self.mage.arcane_xp = 0
+        self.assertFalse(self.mage.spend_xp("Compelling Life Rote 1", praxis=True))
+        self.assertFalse(self.mage.spend_xp("wisdom"))
+        # Legacy Attainment should fail if untutored and no arcane xp
+        self.mage.arcane_xp = 3
+        self.assertTrue(self.mage.spend_xp("gnosis"))
+        self.assertEqual(self.mage.xp, 98)
+        self.assertEqual(self.mage.arcane_xp, 0)
+        self.mage.arcane_xp = 3
+        self.assertTrue(self.mage.spend_xp("life"))
+        self.assertEqual(self.mage.xp, 97)
+        self.assertEqual(self.mage.arcane_xp, 0)
+
 
 class TestRandomMage(TestCase):
     def setUp(self):
@@ -433,7 +460,7 @@ class TestRandomMage(TestCase):
     def test_random_rote(self):
         self.mage.death = 3
         num = self.mage.rotes.count()
-        self.assertTrue(self.mage.random_rote())
+        self.assertTrue(self.mage.random_rote(praxis=False))
         self.assertEqual(self.mage.rotes.count(), num + 1)
 
     def test_random_rotes(self):

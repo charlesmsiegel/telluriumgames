@@ -169,11 +169,16 @@ class Mage(Mortal):
     forces = models.IntegerField(default=0)
 
     rotes = models.ManyToManyField(Rote, blank=True, through="KnownRote")
+    praxes = models.ManyToManyField(
+        Rote, blank=True, through="KnownPraxis", related_name="praxis"
+    )
 
     wisdom = models.IntegerField(default=7)
 
     nimbus = models.TextField(default="")
     mana = models.IntegerField(default=0)
+
+    arcane_xp = models.IntegerField(default=0)
 
     def __init__(self, *args, **kwargs):
         kwargs["morality_name"] = "Wisdom"
@@ -353,11 +358,14 @@ class Mage(Mortal):
     def has_rotes(self):
         return self.total_rotes() == 3
 
-    def add_rote(self, rote):
+    def add_rote(self, rote, praxis=False):
         if getattr(self, rote.arcanum) >= rote.level:
-            k = KnownRote.objects.create(mage=self, rote=rote)
-            if len(rote.suggested_rote_skills) != 0:
-                k.rote_skill = random.choice(rote.suggested_rote_skills)
+            if praxis:
+                k = KnownPraxis.objects.create(mage=self, rote=rote)
+            else:
+                k = KnownRote.objects.create(mage=self, rote=rote)
+                if len(rote.suggested_rote_skills) != 0:
+                    k.rote_skill = random.choice(rote.suggested_rote_skills)
             k.save()
             return True
         return False
@@ -365,10 +373,13 @@ class Mage(Mortal):
     def total_rotes(self):
         return self.rotes.count()
 
-    def random_rote(self):
+    def random_rote(self, praxis=None):
         options = self.filter_rotes()
         choice = random.choice(options)
-        return self.add_rote(choice)
+        if praxis is None:
+            return self.add_rote(choice, praxis=random.choice([True, False]))
+        else:
+            return self.add_rote(choice, praxis=praxis)
 
     def random_rotes(self):
         while self.total_rotes() < 3:
@@ -445,7 +456,7 @@ class Mage(Mortal):
             return 1
         return 10000
 
-    def spend_xp(self, trait):
+    def spend_xp(self, trait, praxis=False):
         if super().spend_xp(trait):
             return True
         if trait in ARCANA:
@@ -455,7 +466,7 @@ class Mage(Mortal):
         if trait == "wisdom":
             return self.spend_xp_wisdom()
         if Rote.objects.filter(name=trait).exists():
-            return self.spend_xp_rote(trait)
+            return self.spend_xp_rote(trait, praxis=praxis)
         if trait == "willpower":
             return self.spend_xp_willpower()
         if Legacy.objects.filter(name=trait).exists():
@@ -499,7 +510,7 @@ class Mage(Mortal):
     def random_xp_rote(self):
         options = self.filter_rotes()
         trait = random.choice(options).name
-        return self.spend_xp_rote(trait)
+        return self.spend_xp_rote(trait, praxis=random.choice([True, False]))
 
     def spend_xp_arcana(self, trait):
         arcana = self.get_arcana()
@@ -532,20 +543,32 @@ class Mage(Mortal):
                 cost = self.xp_cost("arcanum (to limit)")
             else:
                 cost = self.xp_cost("arcanum (above limit)")
-        if cost <= self.xp:
+        if cost <= self.xp + self.arcane_xp:
             if self.add_arcanum(trait):
-                self.xp -= cost
+                if cost <= self.arcane_xp:
+                    self.arcane_xp -= cost
+                else:
+                    remnant = cost - self.arcane_xp
+                    self.xp -= remnant
+                    self.arcane_xp = 0
                 self.add_to_spend(trait, getattr(self, trait), cost)
                 return True
             return False
         return False
 
-    def spend_xp_rote(self, trait):
+    def spend_xp_rote(self, trait, praxis=False):
         cost = self.xp_cost("rote")
-        if cost <= self.xp:
+        if praxis:
+            test = cost <= self.arcane_xp
+        else:
+            test = cost <= self.xp
+        if test:
             r = Rote.objects.get(name=trait)
-            if self.add_rote(r):
-                self.xp -= cost
+            if self.add_rote(r, praxis=praxis):
+                if praxis:
+                    self.arcane_xp -= cost
+                else:
+                    self.xp -= cost
                 self.add_to_spend(trait, r.level, cost)
                 return True
             return False
@@ -553,9 +576,14 @@ class Mage(Mortal):
 
     def spend_xp_gnosis(self):
         cost = self.xp_cost("gnosis")
-        if cost <= self.xp:
+        if cost <= self.xp + self.arcane_xp:
             if self.add_gnosis():
-                self.xp -= cost
+                if cost <= self.arcane_xp:
+                    self.arcane_xp -= cost
+                else:
+                    remnant = cost - self.arcane_xp
+                    self.xp -= remnant
+                    self.arcane_xp = 0
                 self.add_to_spend("gnosis", self.gnosis, cost)
                 return True
             return False
@@ -563,9 +591,9 @@ class Mage(Mortal):
 
     def spend_xp_wisdom(self):
         cost = self.xp_cost("wisdom")
-        if cost <= self.xp:
+        if cost <= self.arcane_xp:
             if self.add_wisdom():
-                self.xp -= cost
+                self.arcane_xp -= cost
                 self.add_to_spend("wisdom", self.wisdom, cost)
                 return True
             return False
@@ -618,6 +646,11 @@ class KnownRote(models.Model):
     mage = models.ForeignKey(Mage, on_delete=models.CASCADE)
     rote = models.ForeignKey(Rote, on_delete=models.CASCADE)
     rote_skill = models.CharField(default="", max_length=20, blank=True, null=True)
+
+
+class KnownPraxis(models.Model):
+    mage = models.ForeignKey(Mage, on_delete=models.CASCADE)
+    rote = models.ForeignKey(Rote, on_delete=models.CASCADE)
 
 
 class ProximiFamily(models.Model):
