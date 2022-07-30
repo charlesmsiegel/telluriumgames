@@ -44,20 +44,48 @@
                 <div class="col-sm">{{ object.legacy }}</div>
             </div>
             <div class="row">
-                <h3 class="col-sm cod_heading">Aspirations</h3>
+                <h3 class="col-sm cod_heading">Obsessions</h3>
             </div>
             <div class="row">
-                <div class="col-sm">{{ object.short_term_aspiration_1 }}</div>
-                <div class="col-sm">{{ object.short_term_aspiration_2 }}</div>
-                <div class="col-sm">{{ object.long_term_aspiration }}</div>
+                {% for obsession in object.obsessions %}
+                    {% if obession is not None %}
+                        <div class="col-sm">
+                            {{ obsession }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
             </div>
             <div class="row">
-                <h3 class="col-sm cod_heading">Attributes</h3>
+                <h3 class="col-sm cod_heading">
+                    Aspirations
+                </h3>
             </div>
             <div class="row">
-                <h4 class="col-sm-4 cod_heading">Mental</h4>
-                <h4 class="col-sm-4 cod_heading">Physical</h4>
-                <h4 class="col-sm-4 cod_heading">Social</h4>
+                <div class="col-sm">
+                    {{ object.short_term_aspiration_1 }}
+                </div>
+                <div class="col-sm">
+                    {{ object.short_term_aspiration_2 }}
+                </div>
+                <div class="col-sm">
+                    {{ object.long_term_aspiration }}
+                </div>
+            </div>
+            <div class="row">
+                <h3 class="col-sm cod_heading">
+                    Attributes
+                </h3>
+            </div>
+            <div class="row">
+                <h4 class="col-sm-4 cod_heading">
+                    Mental
+                </h4>
+                <h4 class="col-sm-4 cod_heading">
+                    Physical
+                </h4>
+                <h4 class="col-sm-4 cod_heading">
+                    Social
+                </h4>
             </div>
             <div class="row">
                 <div class="col-sm">
@@ -147,9 +175,9 @@
             <div class="row">
                 <div class="col-sm">
                     {% if 'academics' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -160,9 +188,9 @@
                 </div>
                 <div class="col-sm">
                     {% if 'athletics' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -173,9 +201,9 @@
                 </div>
                 <div class="col-sm">
                     {% if 'animal_ken' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -188,9 +216,9 @@
             <div class="row">
                 <div class="col-sm">
                     {% if 'computer' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -201,9 +229,9 @@
                 </div>
                 <div class="col-sm">
                     {% if 'brawl' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -214,9 +242,9 @@
                 </div>
                 <div class="col-sm">
                     {% if 'empathy' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -229,9 +257,9 @@
             <div class="row">
                 <div class="col-sm">
                     {% if 'crafts' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -242,9 +270,9 @@
                 </div>
                 <div class="col-sm">
                     {% if 'drive' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -255,9 +283,9 @@
                 </div>
                 <div class="col-sm">
                     {% if 'expression' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -270,9 +298,9 @@
             <div class="row">
                 <div class="col-sm">
                     {% if 'investigation' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -283,9 +311,9 @@
                 </div>
                 <div class="col-sm">
                     {% if 'firearms' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -296,9 +324,9 @@
                 </div>
                 <div class="col-sm">
                     {% if 'intimidation' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -311,9 +339,9 @@
             <div class="row">
                 <div class="col-sm">
                     {% if 'medicine' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -324,9 +352,9 @@
                 </div>
                 <div class="col-sm">
                     {% if 'larceny' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -337,9 +365,9 @@
                 </div>
                 <div class="col-sm">
                     {% if 'persuasion' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -352,9 +380,9 @@
             <div class="row">
                 <div class="col-sm">
                     {% if 'occult' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -365,9 +393,9 @@
                 </div>
                 <div class="col-sm">
                     {% if 'stealth' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -378,9 +406,9 @@
                 </div>
                 <div class="col-sm">
                     {% if 'socialize' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -393,9 +421,9 @@
             <div class="row">
                 <div class="col-sm">
                     {% if 'politics' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -406,9 +434,9 @@
                 </div>
                 <div class="col-sm">
                     {% if 'survival' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -419,9 +447,9 @@
                 </div>
                 <div class="col-sm">
                     {% if 'streetwise' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -434,9 +462,9 @@
             <div class="row">
                 <div class="col-sm">
                     {% if 'science' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -447,9 +475,9 @@
                 </div>
                 <div class="col-sm">
                     {% if 'weaponry' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -460,9 +488,9 @@
                 </div>
                 <div class="col-sm">
                     {% if 'subterfuge' in object.rote_skills %}
-                    ☑
+                        ☑
                     {% else %}
-                    ☐
+                        ☐
                     {% endif %}
                 </div>
                 <div class="col-sm">
@@ -614,28 +642,68 @@
                 </h3>
             </div>
             <div class="row">
-                <div class="col-sm">Death</div>
-                <div class="col-sm dots">{{ object.death|dots }}</div>
-                <div class="col-sm">Fate</div>
-                <div class="col-sm dots">{{ object.fate|dots }}</div>
-                <div class="col-sm">Forces</div>
-                <div class="col-sm dots">{{ object.forces|dots }}</div>
-                <div class="col-sm">Life</div>
-                <div class="col-sm dots">{{ object.life|dots }}</div>
-                <div class="col-sm">Matter</div>
-                <div class="col-sm dots">{{ object.matter|dots }}</div>
+                <div class="col-sm">
+                    Death
+                </div>
+                <div class="col-sm dots">
+                    {{ object.death|dots }}
+                </div>
+                <div class="col-sm">
+                    Fate
+                </div>
+                <div class="col-sm dots">
+                    {{ object.fate|dots }}
+                </div>
+                <div class="col-sm">
+                    Forces
+                </div>
+                <div class="col-sm dots">
+                    {{ object.forces|dots }}
+                </div>
+                <div class="col-sm">
+                    Life
+                </div>
+                <div class="col-sm dots">
+                    {{ object.life|dots }}
+                </div>
+                <div class="col-sm">
+                    Matter
+                </div>
+                <div class="col-sm dots">
+                    {{ object.matter|dots }}
+                </div>
             </div>
             <div class="row">
-                <div class="col-sm">Mind</div>
-                <div class="col-sm dots">{{ object.mind|dots }}</div>
-                <div class="col-sm">Prime</div>
-                <div class="col-sm dots">{{ object.prime|dots }}</div>
-                <div class="col-sm">Space</div>
-                <div class="col-sm dots">{{ object.space|dots }}</div>
-                <div class="col-sm">Spirit</div>
-                <div class="col-sm dots">{{ object.spirit|dots }}</div>
-                <div class="col-sm">Time</div>
-                <div class="col-sm dots">{{ object.time|dots }}</div>
+                <div class="col-sm">
+                    Mind
+                </div>
+                <div class="col-sm dots">
+                    {{ object.mind|dots }}
+                </div>
+                <div class="col-sm">
+                    Prime
+                </div>
+                <div class="col-sm dots">
+                    {{ object.prime|dots }}
+                </div>
+                <div class="col-sm">
+                    Space
+                </div>
+                <div class="col-sm dots">
+                    {{ object.space|dots }}
+                </div>
+                <div class="col-sm">
+                    Spirit
+                </div>
+                <div class="col-sm dots">
+                    {{ object.spirit|dots }}
+                </div>
+                <div class="col-sm">
+                    Time
+                </div>
+                <div class="col-sm dots">
+                    {{ object.time|dots }}
+                </div>
             </div>
             <div class="row">
                 <h3 class="col-sm cod_heading">
@@ -643,13 +711,19 @@
                 </h3>
             </div>
             {% for row in praxes %}
-            <div class="row">
-                {% for praxis in row %}
-                <div class="col-sm">{{ praxis.name }}</div>
-                <div class="col-sm">{{ praxis.arcanum.title }}</div>
-                <div class="col-sm dots">{{ praxis.level|dots }}</div>
-                {% endfor %}
-            </div>
+                <div class="row">
+                    {% for praxis in row %}
+                        <div class="col-sm">
+                            {{ praxis.name }}
+                        </div>
+                        <div class="col-sm">
+                            {{ praxis.arcanum.title }}
+                        </div>
+                        <div class="col-sm dots">
+                            {{ praxis.level|dots }}
+                        </div>
+                    {% endfor %}
+                </div>
             {% endfor %}
             <div class="row">
                 <h3 class="col-sm cod_heading">
@@ -657,13 +731,19 @@
                 </h3>
             </div>
             {% for row in rotes %}
-            <div class="row">
-                {% for rote in row %}
-                <div class="col-sm">{{ rote.name }}</div>
-                <div class="col-sm">{{ rote.arcanum.title }}</div>
-                <div class="col-sm dots">{{ rote.level|dots }}</div>
-                {% endfor %}
-            </div>
+                <div class="row">
+                    {% for rote in row %}
+                        <div class="col-sm">
+                            {{ rote.name }}
+                        </div>
+                        <div class="col-sm">
+                            {{ rote.arcanum.title }}
+                        </div>
+                        <div class="col-sm dots">
+                            {{ rote.level|dots }}
+                        </div>
+                    {% endfor %}
+                </div>
             {% endfor %}
             <div class="row">
                 <h3 class="col-sm cod_heading">
@@ -671,23 +751,28 @@
                 </h3>
             </div>
             <div class="row">
-                <div class="col-sm">{{ object.breaking_point_1 }}
+                <div class="col-sm">
+                    {{ object.breaking_point_1 }}
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm">{{ object.breaking_point_2 }}
+                <div class="col-sm">
+                    {{ object.breaking_point_2 }}
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm">{{ object.breaking_point_3 }}
+                <div class="col-sm">
+                    {{ object.breaking_point_3 }}
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm">{{ object.breaking_point_4 }}
+                <div class="col-sm">
+                    {{ object.breaking_point_4 }}
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm">{{ object.breaking_point_5 }}
+                <div class="col-sm">
+                    {{ object.breaking_point_5 }}
                 </div>
             </div>
         </div>

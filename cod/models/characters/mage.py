@@ -173,6 +173,8 @@ class Mage(Mortal):
         Rote, blank=True, through="KnownPraxis", related_name="praxis"
     )
 
+    obsessions = models.JSONField(default=list)
+
     wisdom = models.IntegerField(default=7)
 
     nimbus = models.TextField(default="")
@@ -182,11 +184,35 @@ class Mage(Mortal):
 
     def __init__(self, *args, **kwargs):
         kwargs["morality_name"] = "Wisdom"
+        kwargs["obsessions"] = [None, None, None, None]
         super().__init__(*args, **kwargs)
 
     @staticmethod
     def allowed_merit_types():
         return ["Mental", "Physical", "Social", "Mage", "Fighting"]
+
+    def set_obsession(self, obsession, index):
+        try:
+            self.obsessions[index] = obsession
+        except IndexError:
+            return False
+        return True
+
+    def has_obsessions(self):
+        if self.gnosis < 3:
+            return len([x for x in self.obsessions if x is not None]) == 1
+        elif self.gnosis < 6:
+            return len([x for x in self.obsessions if x is not None]) == 2
+        elif self.gnosis < 9:
+            return len([x for x in self.obsessions if x is not None]) == 3
+        return len([x for x in self.obsessions if x is not None]) == 4
+
+    def random_obsessions(self):
+        counter = 0
+        while not self.has_obsessions():
+            self.obsessions[counter] = "Obsession"
+            counter += 1
+        return True
 
     def has_merits(self):
         return self.total_merits() + 5 * (self.gnosis - 1) == 10
@@ -628,6 +654,7 @@ class Mage(Mortal):
         self.random_merits(total_dots=10)
         self.assign_advantages()
         self.random_spend_xp()
+        self.random_obsessions()
         self.save()
 
     def assign_advantages(self):
