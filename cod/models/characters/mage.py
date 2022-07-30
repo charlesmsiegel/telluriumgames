@@ -378,8 +378,7 @@ class Mage(Mortal):
         choice = random.choice(options)
         if praxis is None:
             return self.add_rote(choice, praxis=random.choice([True, False]))
-        else:
-            return self.add_rote(choice, praxis=praxis)
+        return self.add_rote(choice, praxis=praxis)
 
     def random_rotes(self):
         while self.total_rotes() < 3:

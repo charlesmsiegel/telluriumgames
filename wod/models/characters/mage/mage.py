@@ -788,9 +788,7 @@ class Mage(Human):
 
     def add_effect(self, effect):
         if effect.is_learnable(self):
-            r = Rote.objects.create(effect=effect, mage=self)
-            # r.random()
-            # self.effects.add(effect)
+            Rote.objects.create(effect=effect, mage=self)
             self.rote_points -= effect.cost()
             return True
         return False
