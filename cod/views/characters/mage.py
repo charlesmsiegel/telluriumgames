@@ -75,6 +75,17 @@ class MageDetailView(View):
                 all_rotes[-1].append(empty_rote)
         context["rotes"] = all_rotes
 
+        all_praxes = list(context["object"].praxes.all())
+        row_length = 2
+        all_praxes = [
+            all_praxes[i : i + row_length]
+            for i in range(0, len(all_praxes), row_length)
+        ]
+        if len(all_praxes) != 0:
+            while len(all_praxes[-1]) < row_length:
+                all_praxes[-1].append(empty_rote)
+        context["praxes"] = all_praxes
+
         return render(request, "cod/characters/mage/mage/detail.html", context,)
 
 
