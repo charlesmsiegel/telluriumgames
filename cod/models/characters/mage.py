@@ -189,6 +189,8 @@ class Rote(models.Model):
 class Mage(Mortal):
     type = "mage"
 
+    shadow_name = models.CharField(max_length=100, default="")
+
     order = models.ForeignKey(Order, blank=True, null=True, on_delete=models.CASCADE)
     path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.CASCADE)
     legacy = models.ForeignKey(Legacy, blank=True, null=True, on_delete=models.CASCADE)
@@ -770,6 +772,12 @@ class Mage(Mortal):
                 m = Merit.objects.get(name="High Speech")
                 self.add_merit(m)
         return super().assign_advantages()
+
+    def __str__(self):
+        if self.shadow_name != "":
+            return self.shadow_name
+        else:
+            return self.name
 
 
 class KnownRote(models.Model):
