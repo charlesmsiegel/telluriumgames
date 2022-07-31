@@ -31,6 +31,14 @@
                     <div class="col-sm">Left-Handed</div>
                 </div>
             {% endif %}
+            <div class="row">
+                <h2 class="col-sm">Attainments</h2>
+            </div>
+            {% for attainment in object.attainments.all %}
+            <div class="row">
+                <div class="col-sm">{{ attainment }}</div>
+            </div>
+            {% endfor %}
         </div>
     {% endblock content %}
 </body>

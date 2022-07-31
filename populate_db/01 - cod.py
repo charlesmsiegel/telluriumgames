@@ -1,6 +1,13 @@
 from time import time
 
-from cod.models.characters.mage import Legacy, Order, Path, ProximiFamily, Rote
+from cod.models.characters.mage import (
+    Attainment,
+    Legacy,
+    Order,
+    Path,
+    ProximiFamily,
+    Rote,
+)
 from cod.models.characters.mortal import Condition, Merit, Specialty, Tilt
 from cod.models.items.mortal import Equipment
 from core.models import Language
@@ -4012,7 +4019,7 @@ Rote.objects.create(
     suggested_rote_skills=["occult", "science", "stealth"],
 )
 
-Legacy.objects.create(
+x = Legacy.objects.create(
     name="The Eleventh Question",
     path=moros,
     order=guardians_of_the_veil,
@@ -4025,6 +4032,236 @@ Legacy.objects.create(
         [("investigation", 2), ("science", 2)],
     ],
 )
+
+a1 = Attainment.objects.create(
+    name="The Undisturbed Scene", prereqs=[[("legacy", "The Eleventh Question")]]
+)
+a2 = Attainment.objects.create(
+    name="The Unobvious Answer",
+    prereqs=[
+        [("time", 2), ("investigation", 3), ("attainment", "The Undisturbed Scene")]
+    ],
+)
+a3 = Attainment.objects.create(
+    name="The Chance Answer",
+    prereqs=[
+        [("time", 3), ("attainment", "The Unobvious Answer"), ("academics", 3)],
+        [("time", 3), ("attainment", "The Unobvious Answer"), ("larceny", 3)],
+        [("time", 3), ("attainment", "The Unobvious Answer"), ("medicine", 3)],
+        [("time", 3), ("attainment", "The Unobvious Answer"), ("occult", 2)],
+        [("time", 3), ("attainment", "The Unobvious Answer"), ("science", 2)],
+        [
+            ("time", 3),
+            ("attainment", "The Unobvious Answer"),
+            ("academics", 2),
+            ("larceny", 2),
+        ],
+        [
+            ("time", 3),
+            ("attainment", "The Unobvious Answer"),
+            ("academics", 2),
+            ("medicine", 2),
+        ],
+        [
+            ("time", 3),
+            ("attainment", "The Unobvious Answer"),
+            ("academics", 2),
+            ("occult", 2),
+        ],
+        [
+            ("time", 3),
+            ("attainment", "The Unobvious Answer"),
+            ("academics", 2),
+            ("science", 2),
+        ],
+        [
+            ("time", 3),
+            ("attainment", "The Unobvious Answer"),
+            ("larceny", 2),
+            ("medicine", 2),
+        ],
+        [
+            ("time", 3),
+            ("attainment", "The Unobvious Answer"),
+            ("larceny", 2),
+            ("occult", 2),
+        ],
+        [
+            ("time", 3),
+            ("attainment", "The Unobvious Answer"),
+            ("larceny", 2),
+            ("science", 2),
+        ],
+        [
+            ("time", 3),
+            ("attainment", "The Unobvious Answer"),
+            ("medicine", 2),
+            ("occult", 2),
+        ],
+        [
+            ("time", 3),
+            ("attainment", "The Unobvious Answer"),
+            ("medicine", 2),
+            ("science", 2),
+        ],
+        [
+            ("time", 3),
+            ("attainment", "The Unobvious Answer"),
+            ("occult", 2),
+            ("science", 2),
+        ],
+    ],
+)
+a4 = Attainment.objects.create(
+    name="The Timely Answer",
+    prereqs=[[("time", 4), ("investigation", 4), ("attainment", "The Chance Answer")]],
+)
+a5 = Attainment.objects.create(
+    name="The Penultimate Answer",
+    prereqs=[
+        [("time", 5), ("attainment", "The Timely Answer"), ("academics", 4)],
+        [("time", 5), ("attainment", "The Timely Answer"), ("larceny", 4)],
+        [("time", 5), ("attainment", "The Timely Answer"), ("medicine", 4)],
+        [("time", 5), ("attainment", "The Timely Answer"), ("occult", 4)],
+        [("time", 5), ("attainment", "The Timely Answer"), ("science", 4)],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("academics", 3),
+            ("larceny", 3),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("academics", 3),
+            ("medicine", 3),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("academics", 3),
+            ("occult", 3),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("academics", 3),
+            ("science", 3),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("larceny", 3),
+            ("medicine", 3),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("larceny", 3),
+            ("occult", 3),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("larceny", 3),
+            ("science", 3),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("medicine", 3),
+            ("occult", 3),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("medicine", 3),
+            ("science", 3),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("occult", 3),
+            ("science", 3),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("academics", 2),
+            ("larceny", 2),
+            ("medicine", 2),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("academics", 2),
+            ("larceny", 2),
+            ("occult", 2),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("academics", 2),
+            ("larceny", 2),
+            ("science", 2),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("academics", 2),
+            ("medicine", 2),
+            ("occult", 2),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("academics", 2),
+            ("medicine", 2),
+            ("science", 2),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("academics", 2),
+            ("occult", 2),
+            ("science", 2),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("larceny", 2),
+            ("medicine", 2),
+            ("occult", 2),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("larceny", 2),
+            ("medicine", 2),
+            ("science", 2),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("larceny", 2),
+            ("occult", 2),
+            ("science", 2),
+        ],
+        [
+            ("time", 5),
+            ("attainment", "The Timely Answer"),
+            ("medicine", 2),
+            ("occult", 2),
+            ("science", 2),
+        ],
+    ],
+)
+
+x.attainments.add(a1)
+x.attainments.add(a2)
+x.attainments.add(a3)
+x.attainments.add(a4)
+x.attainments.add(a5)
 Legacy.objects.create(name="Walkers in Mists", path=acanthus, ruling_arcanum="space")
 Legacy.objects.create(name="House of Ariadne", path=acanthus, ruling_arcanum="time")
 Legacy.objects.create(

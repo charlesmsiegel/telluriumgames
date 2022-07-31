@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from cod.models.characters.mage import (
+    Attainment,
     Legacy,
     Mage,
     Order,
@@ -206,3 +207,20 @@ class RoteUpdateView(UpdateView):
     model = Rote
     fields = "__all__"
     template_name = "cod/characters/mage/rote/update.html"
+
+
+class AttainmentDetailView(DetailView):
+    model = Attainment
+    template_name = "cod/characters/mage/attainment/detail.html"
+
+
+class AttainmentCreateView(CreateView):
+    model = Attainment
+    fields = "__all__"
+    template_name = "cod/characters/mage/attainment/create.html"
+
+
+class AttainmentUpdateView(UpdateView):
+    model = Attainment
+    fields = "__all__"
+    template_name = "cod/characters/mage/attainment/update.html"
