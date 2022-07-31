@@ -53,6 +53,42 @@ class Order(models.Model):
         return self.name
 
 
+class Attainment(models.Model):
+    name = models.CharField(max_length=100)
+    prereqs = models.JSONField(default=list)
+    description = models.TextField(default="")
+
+    def prereq_satisfied(self, prereq, character):
+        if prereq[0] in character.get_skills().keys():
+            if character.get_skills()[prereq[0]] < prereq[1]:
+                return False
+            return True
+        if prereq[0] in character.get_arcana().keys():
+            if character.get_arcana()[prereq[0]] < prereq[1]:
+                return False
+            return True
+        if prereq[0] == "attainment":
+            if not character.attainments.filter(name=prereq[1]).exists():
+                return False
+            return True
+        if prereq[0] == "legacy":
+            if character.legacy is not None:
+                if character.legacy.name != prereq[1]:
+                    return False
+                return True
+            return False
+        return False
+
+    def check_prereqs(self, character):
+        if len(self.prereqs) == 0:
+            return True
+        for prereq_set in self.prereqs:
+            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
+            if all(prereqs):
+                return True
+        return False
+
+
 class Legacy(models.Model):
     name = models.CharField(max_length=100)
     path = models.ForeignKey(Path, null=True, blank=True, on_delete=models.CASCADE)
@@ -76,6 +112,7 @@ class Legacy(models.Model):
     prereqs = models.JSONField(default=list)
     yantras = models.TextField(default="")
     oblations = models.TextField(default="")
+    attainments = models.ManyToManyField(Attainment, blank=True)
 
     def __str__(self):
         return self.name
@@ -174,6 +211,7 @@ class Mage(Mortal):
     )
 
     obsessions = models.JSONField(default=list)
+    attainments = models.ManyToManyField(Attainment, blank=True)
 
     wisdom = models.IntegerField(default=7)
 
@@ -190,6 +228,15 @@ class Mage(Mortal):
     @staticmethod
     def allowed_merit_types():
         return ["Mental", "Physical", "Social", "Mage", "Fighting"]
+
+    def add_attainment(self, attainment):
+        if isinstance(attainment, str):
+            if Attainment.objects.filter(name=attainment).exists():
+                attainment = Attainment.objects.get(name=attainment)
+            else:
+                return False
+        self.attainments.add(attainment)
+        return True
 
     def set_obsession(self, obsession, index):
         try:
@@ -481,7 +528,7 @@ class Mage(Mortal):
             return 1
         return 10000
 
-    def spend_xp(self, trait, praxis=False):
+    def spend_xp(self, trait, praxis=False, tutored=True):
         if super().spend_xp(trait):
             return True
         if trait in ARCANA:
@@ -496,6 +543,8 @@ class Mage(Mortal):
             return self.spend_xp_willpower()
         if Legacy.objects.filter(name=trait).exists():
             return self.spend_xp_legacy(trait)
+        if Attainment.objects.filter(name=trait).exists():
+            return self.spend_xp_attainment(trait, tutored=tutored)
         return False
 
     def xp_frequencies(self):
@@ -508,6 +557,7 @@ class Mage(Mortal):
             "arcanum": 1,
             "gnosis": 1,
             "rote": 1,
+            "attainment": 1,
         }
 
     def random_xp_functions(self):
@@ -520,7 +570,22 @@ class Mage(Mortal):
             "arcanum": self.random_xp_arcanum,
             "gnosis": self.random_xp_gnosis,
             "rote": self.random_xp_rote,
+            "attainment": self.random_xp_attainment,
         }
+
+    def random_xp_attainment(self):
+        if self.legacy is None:
+            return False
+        options = [
+            x
+            for x in self.legacy.attainments.exclude(pk__in=self.attainments.all())
+            if x.check_prereqs(self)
+        ]
+        if len(options) == 0:
+            return False
+        choice = random.choice(options)
+        tutored = random.choice(True, False)
+        return self.spend_xp_attainment(choice, tutored=tutored)
 
     def random_xp_wisdom(self):
         return self.spend_xp_wisdom()
@@ -578,6 +643,28 @@ class Mage(Mortal):
                     self.arcane_xp = 0
                 self.add_to_spend(trait, getattr(self, trait), cost)
                 return True
+            return False
+        return False
+
+    def spend_xp_attainment(self, trait, tutored=True):
+        if tutored:
+            cost = self.xp_cost("legacy attainment (tutored)")
+            affordable = cost <= self.xp + self.arcane_xp
+        else:
+            cost = self.xp_cost("legacy attainment (untutored)")
+            affordable = cost <= self.arcane_xp
+        if affordable:
+            if self.add_attainment(trait):
+                if tutored:
+                    if self.arcane_xp >= cost:
+                        self.arcane_xp -= cost
+                    else:
+                        remnant = cost - self.arcane_xp
+                        self.xp -= remnant
+                        self.arcane_xp = 0
+                else:
+                    self.arcane_xp -= cost
+                self.add_to_spend(trait, getattr(self, trait), cost)
             return False
         return False
 

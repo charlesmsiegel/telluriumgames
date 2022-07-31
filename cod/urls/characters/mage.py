@@ -86,4 +86,19 @@ urls = [
         name="update_rote",
     ),
     path("rotes/<pk>/", views.characters.mage.RoteDetailView.as_view(), name="rote"),
+    path(
+        "attainments/create/",
+        views.characters.mage.AttainmentCreateView.as_view(),
+        name="create_attainment",
+    ),
+    path(
+        "attainments/update/<pk>/",
+        views.characters.mage.AttainmentUpdateView.as_view(),
+        name="update_attainment",
+    ),
+    path(
+        "attainments/<pk>/",
+        views.characters.mage.AttainmentDetailView.as_view(),
+        name="attainment",
+    ),
 ]
