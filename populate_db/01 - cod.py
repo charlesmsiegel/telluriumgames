@@ -10,7 +10,7 @@ from cod.models.characters.mage import (
 )
 from cod.models.characters.mortal import Condition, Merit, Specialty, Tilt
 from cod.models.items.mortal import Equipment
-from core.models import Language
+from core.models import Language, Material
 
 SKILLS = [
     "Academics",
@@ -1010,20 +1010,53 @@ Merit.objects.create(
 
 
 acanthus = Path.objects.create(
-    name="Acanthus", ruling_arcana=["fate", "time"], inferior_arcanum="forces"
+    name="Acanthus",
+    ruling_arcana=["fate", "time"],
+    inferior_arcanum="forces",
+    path_weapons=["Knife", "Rapier", "Bow"],
 )
+acanthus.path_materials.set(
+    Material.objects.filter(name__in=["Glass", "Crystal", "Silver"])
+)
+acanthus.save()
 mastigos = Path.objects.create(
-    name="Mastigos", ruling_arcana=["mind", "space"], inferior_arcanum="matter"
+    name="Mastigos",
+    ruling_arcana=["mind", "space"],
+    inferior_arcanum="matter",
+    path_weapons=["Knife", "Curved Sword", "Whip"],
 )
+mastigos.path_materials.set(
+    Material.objects.filter(name__in=["Iron", "Brass", "Leather"])
+)
+mastigos.save()
 moros = Path.objects.create(
-    name="Moros", ruling_arcana=["death", "matter"], inferior_arcanum="spirit"
+    name="Moros",
+    ruling_arcana=["death", "matter"],
+    inferior_arcanum="spirit",
+    path_weapons=["Knife", "Hammer", "Mace"],
 )
+moros.path_materials.set(Material.objects.filter(name__in=["Lead", "Bone", "Gems"]))
+moros.save()
 obrimos = Path.objects.create(
-    name="Obrimos", ruling_arcana=["forces", "prime"], inferior_arcanum="death"
+    name="Obrimos",
+    ruling_arcana=["forces", "prime"],
+    inferior_arcanum="death",
+    path_weapons=["Knife", "Double-Edged Sword", "Spear"],
 )
+obrimos.path_materials.set(
+    Material.objects.filter(name__in=["Steel", "Petrified Wood", "Gold"])
+)
+obrimos.save()
 thyrsus = Path.objects.create(
-    name="Thyrsus", ruling_arcana=["life", "spirit"], inferior_arcanum="mind"
+    name="Thyrsus",
+    ruling_arcana=["life", "spirit"],
+    inferior_arcanum="mind",
+    path_weapons=["Knife", "Axe", "Sling"],
 )
+thyrsus.path_materials.set(
+    Material.objects.filter(name__in=["Wood", "Copper", "Stone"])
+)
+thyrsus.save()
 
 adamantine_arrow = Order.objects.create(
     name="Adamantine Arrow", rote_skills=["athletics", "intimidation", "medicine"]

@@ -5,6 +5,7 @@ from django.db.models import F, Q
 from django.urls import reverse
 
 from cod.models.characters.mortal import Condition, Merit, Mortal
+from core.models import Material
 from core.utils import add_dot, weighted_choice
 
 # Create your models here.
@@ -40,6 +41,8 @@ class Path(models.Model):
             ("forces", "Forces"),
         ],
     )
+    path_materials = models.ManyToManyField(Material, blank=True)
+    path_weapons = models.JSONField(default=list)
 
     def __str__(self):
         return self.name
@@ -217,6 +220,7 @@ class Mage(Mortal):
 
     nimbus = models.TextField(default="")
     mana = models.IntegerField(default=0)
+    dedicated_tool = models.CharField(max_length=100, default="")
 
     arcane_xp = models.IntegerField(default=0)
 
@@ -237,6 +241,18 @@ class Mage(Mortal):
                 return False
         self.attainments.add(attainment)
         return True
+
+    def set_dedicated_tool(self, tool):
+        self.dedicated_tool = tool
+        return True
+
+    def has_dedicated_tool(self):
+        return self.dedicated_tool != ""
+
+    def random_dedicated_tool(self):
+        material = random.choice(self.path.path_materials.all()).name
+        tool_type = random.choice(["Coin", "Cup", "Mirror", "Rod", "Weapon"])
+        return self.set_dedicated_tool(" ".join([material, tool_type]))
 
     def set_obsession(self, obsession, index):
         try:
@@ -742,6 +758,7 @@ class Mage(Mortal):
         self.assign_advantages()
         self.random_spend_xp()
         self.random_obsessions()
+        self.random_dedicated_tool()
         self.save()
 
     def assign_advantages(self):

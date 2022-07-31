@@ -13,6 +13,7 @@ from cod.models.characters.mage import (
     Rote,
 )
 from cod.models.characters.mortal import Merit, Specialty
+from core.models import Material
 
 # Create your tests here.
 ARCANA = [
@@ -31,11 +32,13 @@ ARCANA = [
 
 def mage_setup(mage):
     for i in range(5):
-        Path.objects.create(
+        x = Path.objects.create(
             name=f"Path {i}",
             ruling_arcana=[ARCANA[2 * i], ARCANA[2 * i + 1]],
             inferior_arcanum=ARCANA[(3 * i + 2) % 10],
         )
+        x.path_materials.add(Material.objects.create(name=f"{x.name} material"))
+        x.save()
         Order.objects.create(
             name=f"Order {i}", rote_skills=["athletics", "science", "occult"]
         )
@@ -495,6 +498,8 @@ class TestRandomMage(TestCase):
         self.assertFalse(self.mage.has_mana())
         self.assertFalse(self.mage.has_rotes())
         self.assertFalse(self.mage.has_nimbus())
+        self.assertFalse(self.mage.has_dedicated_tool())
+        self.assertFalse(self.mage.has_obsessions())
         self.mage.random(xp=0)
         self.assertTrue(self.mage.has_path())
         self.assertTrue(self.mage.has_order())
@@ -504,6 +509,8 @@ class TestRandomMage(TestCase):
         self.assertTrue(self.mage.has_mana())
         self.assertTrue(self.mage.has_rotes())
         self.assertTrue(self.mage.has_nimbus())
+        self.assertTrue(self.mage.has_dedicated_tool())
+        self.assertTrue(self.mage.has_obsessions())
 
 
 class TestMageDetailView(TestCase):
