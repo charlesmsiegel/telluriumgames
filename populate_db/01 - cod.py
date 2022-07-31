@@ -1184,7 +1184,7 @@ Merit.objects.create(
     name="Infamous Mentor",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
-    prereqs=[[("Mentor", 1)]],
+    prereqs=[[("Mentor", "same")]],
 )
 Merit.objects.create(
     name="Lex Magica",

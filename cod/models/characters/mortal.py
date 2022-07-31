@@ -844,8 +844,12 @@ class Merit(models.Model):
             if len(applicable_specialties) == 0:
                 return False
             return True
-        if prereq[0] in [x.name for x in Merit.objects.all()]:
+        if Merit.objects.filter(name=prereq[0]).exists():
             m = Merit.objects.get(name=prereq[0])
+            if prereq[1] == "same":
+                minval = character.merit_rating(self)
+            else:
+                minval = prereq[1]
             if m in character.merits.all():
                 if (
                     len(
@@ -854,7 +858,7 @@ class Merit(models.Model):
                             for x in MeritRating.objects.filter(
                                 character=character, merit=m
                             )
-                            if x.rating >= prereq[1]
+                            if x.rating >= minval
                         ]
                     )
                     == 0
