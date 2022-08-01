@@ -1350,6 +1350,12 @@ Rote.objects.create(
     level=1,
     suggested_rote_skills=["occult", "intimidation", "expression"],
     primary_factor="duration",
+    reach_options=[
+        (
+            1,
+            "Apply the Blinded Tilt to anyone within the spell's area of effect for the Duration of the spell",
+        )
+    ],
 )
 Rote.objects.create(
     name="Forensic Gaze",
@@ -1358,6 +1364,12 @@ Rote.objects.create(
     level=1,
     suggested_rote_skills=["medicine", "investigation", "expression"],
     primary_factor="potency",
+    reach_options=[
+        (
+            1,
+            "The mage can witness the final moments of a corpse's life just leading up to the death as though seeing through the corpse's eyes. Each rank of Potency reveals a minute of time prior to the corpse's demise.",
+        )
+    ],
 )
 Rote.objects.create(
     name="Shadow Sculpting",
@@ -1366,6 +1378,7 @@ Rote.objects.create(
     level=1,
     suggested_rote_skills=["crafts", "science", "expression"],
     primary_factor="duration",
+    reach_options=[(1, "Both change the shape of shadows and animate them")],
 )
 Rote.objects.create(
     name="Soul Marks",
@@ -1375,6 +1388,8 @@ Rote.objects.create(
     suggested_rote_skills=["medicine", "occult", "empathy"],
     primary_factor="potency",
     withstand="resolve",
+    reach_options=[(1, "Can perform spell on an unattached soul")],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Speak with the Dead",
@@ -1383,6 +1398,14 @@ Rote.objects.create(
     level=1,
     suggested_rote_skills=["socialize", "expression", "investigation"],
     primary_factor="duration",
+    reach_options=[
+        (1, "Caster can determine if Anchors are temporary"),
+        (
+            1,
+            "Caster can make themself understoof by Rank 2+ Ghosts, even without a common language",
+        ),
+    ],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Corpse Mask",
@@ -1391,6 +1414,11 @@ Rote.objects.create(
     level=2,
     suggested_rote_skills=["subterfuge", "crafts", "medicine"],
     primary_factor="duration",
+    reach_options=[
+        (1, "Can cast on a living subject with injuries"),
+        (1, "May completely chnage the corpse's appearance"),
+    ],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Decay",
@@ -1399,6 +1427,8 @@ Rote.objects.create(
     level=2,
     suggested_rote_skills=["subterfuge", "science", "occult"],
     primary_factor="potency",
+    reach_options=[(1, "Decrease object's Structure as well")],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Ectoplasm",
@@ -1407,6 +1437,8 @@ Rote.objects.create(
     level=2,
     suggested_rote_skills=["occult", "expression", "academics"],
     primary_factor="duration",
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Ghost Shield",
@@ -1415,6 +1447,8 @@ Rote.objects.create(
     level=2,
     suggested_rote_skills=["streetwise", "subterfuge", "survival"],
     primary_factor="potency",
+    reach_options=[(1, "Also protects from physical attacks by the ghost")],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Shape Ephemera",
@@ -1424,6 +1458,8 @@ Rote.objects.create(
     suggested_rote_skills=["crafts", "expression", "science"],
     primary_factor="duration",
     withstand="stamina",
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Soul Armor",
@@ -1432,6 +1468,8 @@ Rote.objects.create(
     level=2,
     suggested_rote_skills=["academics", "occult", "survival"],
     primary_factor="duration",
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Soul Jar",
@@ -1441,6 +1479,14 @@ Rote.objects.create(
     suggested_rote_skills=["crafts", "occult", "persuasion"],
     primary_factor="duration",
     withstand="resolve",
+    reach_options=[
+        (1, "The mage may bind the soul to a person"),
+        (
+            2,
+            "Spend a point of Mana. The spell is Lasting, and soul remains bound even when Duration ends",
+        ),
+    ],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Suppress Aura",
@@ -1450,6 +1496,8 @@ Rote.objects.create(
     suggested_rote_skills=["subterfuge", "intimidation", "medicine"],
     primary_factor="duration",
     withstand="resolve",
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Suppress Life",
@@ -1458,6 +1506,13 @@ Rote.objects.create(
     level=2,
     suggested_rote_skills=["subterfuge", "medicine", "academics"],
     primary_factor="duration",
+    reach_options=[
+        (
+            2,
+            "Spend a point of Mana, spell can be cast reflexively to respond to something that would be reasonably likely to cause death",
+        )
+    ],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Touch of the Grave",
@@ -1466,6 +1521,8 @@ Rote.objects.create(
     level=2,
     suggested_rote_skills=["survival", "crafts", "persuasion"],
     primary_factor="duration",
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Without a Trace",
@@ -1474,6 +1531,8 @@ Rote.objects.create(
     level=2,
     suggested_rote_skills=["science", "stealth", "subterfuge"],
     primary_factor="duration",
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Cold Snap",
@@ -1483,6 +1542,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["survival", "intimidation", "science"],
+    reach_options=[(1, "Causes the Extreme Cold Tilt")],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Damage Ghost",
@@ -1492,6 +1553,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["occult", "intimidation", "brawl"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Devouring the Slain",
@@ -1501,6 +1564,12 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="resolve",
     suggested_rote_skills=["intimidation", "medicine", "persuasion"],
+    reach_options=[
+        (1, "May affect a healthy target"),
+        (1, "Does not count towards Scouring limit"),
+        (1, "May affect a ghost with this spell"),
+    ],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Ghost Gate",
@@ -1510,6 +1579,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["occult", "academics", "expression"],
+    reach_options=[(1, "Transforms subject to Twilight state without a gate")],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Ghost Summons",
@@ -1519,6 +1590,16 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="rank",
     suggested_rote_skills=["persusion", "socialize", "occult"],
+    reach_options=[
+        (1, "Creates Open Condition on the area"),
+        (1, "May give the ghost a single one-word command to follow"),
+        (
+            1,
+            "Near an Openb Iris to the Underworld, can summon ghosts from the underworld",
+        ),
+        (2, "May give the ghost a complex command to follow"),
+    ],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Quicken Corpse",
@@ -1528,6 +1609,11 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["medicine", "crafts", "persuasion"],
+    reach_options=[
+        (1, "May create a zombie suitable for combat"),
+        (2, "Spend a point of Mana to make zombie stronger"),
+    ],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Quicken Ghost",
@@ -1537,6 +1623,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["persuasion", "socialize", "medicine"],
+    reach_options=[(2, "Increase ghost's rank by 1.")],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Rotting Flesh",
@@ -1546,6 +1634,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["intimidation", "occult", "empathy"],
+    reach_options=[(1, "Additional -1 to Social rolls per Potency")],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Sever Soul",
@@ -1555,6 +1645,13 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="resolve",
     suggested_rote_skills=["intimidation", "athletics", "expression"],
+    reach_options=[
+        (
+            1,
+            "Soul leaves body and enters Twilight and target skips Soulless Condition going straight to Enervated",
+        )
+    ],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Shadow Crafting",
@@ -1564,6 +1661,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["academics", "intimidation", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Enervation",
@@ -1573,6 +1672,10 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="stamina",
     suggested_rote_skills=["occult", "intimidation", "subterfuge"],
+    reach_options=[
+        (1, "Target's body seizes up with the Immobilized Tilt for the duration")
+    ],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Exorcism",
@@ -1582,6 +1685,16 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="rank",
     suggested_rote_skills=["brawl", "expression", "occult"],
+    reach_options=[
+        (
+            1,
+            "Target cannot recreate the destroyed Conditions on the same victim or location until Duration ends",
+        )
+    ],
+    optional_arcana=[
+        ("Mind 4", "Also applies to Goetia"),
+        ("Spirit 4", "Also applies to Spirits"),
+    ],
 )
 Rote.objects.create(
     name="Revenant",
@@ -1591,6 +1704,11 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="rank",
     suggested_rote_skills=["crafts", "brawl", "intimidation"],
+    reach_options=[],
+    optional_arcana=[
+        ("Mind 4", "Also applies to Goetia"),
+        ("Spirit 4", "Also applies to Spirits"),
+    ],
 )
 Rote.objects.create(
     name="Shadow Flesh",
@@ -1600,6 +1718,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="stamina",
     suggested_rote_skills=["occult", "medicine", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Withering",
@@ -1609,6 +1729,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["intimidation", "medicine", "science"],
+    reach_options=[(1, "Spend one mana, inflict Aggravatated")],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Create Anchor",
@@ -1618,6 +1740,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="resolve",
     suggested_rote_skills=["crafts", "occult", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Create Avernian Gate",
@@ -1627,6 +1751,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["occult", "crafts", "persuasion"],
+    reach_options=[(1, "The Iris leads anywhere they have been in the Underwr=orld")],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Create Ghost",
@@ -1636,6 +1762,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["occult", "expression", "academics"],
+    reach_options=[(1, "For one mana, the ghost is rank 2.")],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Deny the Reaper",
@@ -1645,6 +1773,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["medicine", "occult", "subterfuge"],
+    reach_options=[(1, "")],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Empty Presence",
@@ -1655,6 +1785,8 @@ Rote.objects.create(
     mana_cost=1,
     withstand="composure",
     suggested_rote_skills=["subterfuge", "persuasion", "stealth"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Sever the Awakened Soul",
@@ -1664,6 +1796,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="resolve",
     suggested_rote_skills=["crafts", "intimidation", "medicine"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Interconnection",
@@ -1673,6 +1807,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["empathy", "investigation", "medicine"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Oaths Fulfilled",
@@ -1682,6 +1818,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["occult", "politics", "investigation"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Quantum Flux",
@@ -1691,6 +1829,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "firearms", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Reading the Outmost Eddies",
@@ -1700,6 +1840,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["computer", "persuasion", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Serendipity",
@@ -1709,6 +1851,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["intimidation", "occult", "socialize"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Exceptional Luck",
@@ -1718,6 +1862,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["intimidation", "occult", "socialize"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Fabricate Fortune",
@@ -1727,6 +1873,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["larceny", "occult", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Fools Rush In",
@@ -1736,6 +1884,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "socialize", "streetwise"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Lucky Number",
@@ -1745,6 +1895,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["investigation", "larceny", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Shifting the Odds",
@@ -1754,6 +1906,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["investigation", "politics", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Warding Gesture",
@@ -1763,6 +1917,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["brawl", "occult", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Grave Misfortune",
@@ -1772,6 +1928,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["intimidation", "occult", "weaponry"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Monkey's Paw",
@@ -1781,6 +1939,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["drive", "crafts", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Shared Fate",
@@ -1790,6 +1950,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["medicine", "persuasion", "politics"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Superlative Luck",
@@ -1800,6 +1962,8 @@ Rote.objects.create(
     withstand="",
     mana_cost=1,
     suggested_rote_skills=["athletics", "crafts", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Sworn Oaths",
@@ -1809,6 +1973,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["expression", "occult", "politics"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Atonement",
@@ -1818,6 +1984,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="potency",
     suggested_rote_skills=["academics", "empathy", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Chaos Mastery",
@@ -1827,6 +1995,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["empathy", "occult", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Divine Intervention",
@@ -1836,6 +2006,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="resolve",
     suggested_rote_skills=["intimidation", "occult", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Strings of Fate",
@@ -1845,6 +2017,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="resolve",
     suggested_rote_skills=["academics", "persuasion", "stealth"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Sever Oaths",
@@ -1854,6 +2028,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="composure",
     suggested_rote_skills=["occult", "subterfuge", "weaponry"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Forge Destiny",
@@ -1863,6 +2039,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="composure",
     suggested_rote_skills=["intimidation", "occult", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Pariah",
@@ -1872,6 +2050,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["investigation", "medicine", "politics"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Miracle",
@@ -1881,6 +2061,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["academics", "persuasion", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Swarm of Locusts",
@@ -1890,6 +2072,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["intimidation", "occult", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Influence Electricity",
@@ -1899,6 +2083,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["computers", "crafts", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Influence Fire",
@@ -1908,6 +2094,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Kinetic Efficiency",
@@ -1917,6 +2105,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Influence Heat",
@@ -1926,6 +2116,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["occult", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Nightvision",
@@ -1935,6 +2127,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["investigation", "science", "stealth"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Receiver",
@@ -1944,6 +2138,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["empathy", "investigation", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Tune In",
@@ -1953,6 +2149,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["computers", "empathy", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Control Electricity",
@@ -1962,6 +2160,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "computers", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Control Fire",
@@ -1971,6 +2171,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Control Gravity",
@@ -1980,6 +2182,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "occult", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Control Heat",
@@ -1989,6 +2193,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Control Light",
@@ -1998,6 +2204,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "investigation", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Control Sound",
@@ -2007,6 +2215,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["expression", "stealth", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Control Weather",
@@ -2016,6 +2226,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["academics", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Environmental Shield",
@@ -2025,6 +2237,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["occult", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Invisibility",
@@ -2034,6 +2248,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["larceny", "science", "stealth"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Kinetic Blow",
@@ -2043,6 +2259,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "brawl", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Transmission",
@@ -2052,6 +2270,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "expression", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Zoom In",
@@ -2061,6 +2281,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["investigation", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Call Lightning",
@@ -2070,6 +2292,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["athletics", "firearms", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Gravitic Supremacy (Increase)",
@@ -2079,6 +2303,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Gravitic Supremacy (Decrease)",
@@ -2088,6 +2314,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Telekinesis",
@@ -2097,6 +2325,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "brawl", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Telekinetic Strike",
@@ -2106,6 +2336,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["athletics", "firearms", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Turn Momentum",
@@ -2115,6 +2347,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["athletics", "firearms", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Velocity Control (Decrease)",
@@ -2124,6 +2358,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["athletics", "drive", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Velocity Control (Increase)",
@@ -2133,6 +2369,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["athletics", "drive", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Electromagnetic Pulse",
@@ -2142,6 +2380,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["crafts", "computers", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Levitation",
@@ -2151,6 +2391,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="stamina",
     suggested_rote_skills=["athletics", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Rend Friction",
@@ -2160,6 +2402,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["crafts", "drive", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Thunderbolt",
@@ -2169,6 +2413,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["athletics", "firearms", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Transform Energy",
@@ -2178,6 +2424,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "occult", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Adverse Weather",
@@ -2187,6 +2435,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "occult", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Create Energy",
@@ -2196,6 +2446,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "occult", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Eradicate Energy",
@@ -2205,6 +2457,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["intimidation", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Earthquake",
@@ -2214,6 +2468,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["crafts", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Analyze Life",
@@ -2223,6 +2479,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["animal_ken", "medicine", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Cleanse the Body",
@@ -2232,6 +2490,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["athletics", "medicine", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Heightened Senses",
@@ -2241,6 +2501,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["empathy", "investigation", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Speak With Beasts",
@@ -2250,6 +2512,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["animal_ken", "empathy", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Web of Life",
@@ -2259,6 +2523,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["investigation", "medicine", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Body Control",
@@ -2268,6 +2534,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "medicine", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Control Instincts",
@@ -2277,6 +2545,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="composure",
     suggested_rote_skills=["animal_ken", "intimidation", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Lure and Repel",
@@ -2286,6 +2556,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="resolve",
     suggested_rote_skills=["animal_ken", "persuasion", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Mutable Mask",
@@ -2295,6 +2567,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="stamina",
     suggested_rote_skills=["medicine", "stealth", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Purge Illness",
@@ -2304,6 +2578,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["athletics", "medicine", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Bruise Flesh",
@@ -2313,6 +2589,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["brawl", "intimidation", "medicine"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Degrading the Form",
@@ -2322,6 +2600,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="stamina",
     suggested_rote_skills=["brawl", "medicine", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Honing the Form",
@@ -2331,6 +2611,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "medicine", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Knit",
@@ -2340,6 +2622,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["empathy", "medicine", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Many Faces",
@@ -2349,6 +2633,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="stamina",
     suggested_rote_skills=["medicine", "stealth", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Transform Life",
@@ -2358,6 +2644,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="stamina",
     suggested_rote_skills=["animal_ken", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Accelerate Growth",
@@ -2367,6 +2655,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="stamina",
     suggested_rote_skills=["animal_ken", "medicine", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Animal Minion",
@@ -2376,6 +2666,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="stamina",
     suggested_rote_skills=["animal_ken", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Life-Force Assault",
@@ -2385,6 +2677,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["brawl", "intimidation", "medicine"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Mend",
@@ -2394,6 +2688,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["empathy", "medicine", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Regeneration",
@@ -2404,6 +2700,8 @@ Rote.objects.create(
     withstand="",
     mana_cost=1,
     suggested_rote_skills=["athletics", "medicine", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Shapechanging",
@@ -2413,6 +2711,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="stamina",
     suggested_rote_skills=["animal_ken", "athletics", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Create Life",
@@ -2422,6 +2722,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["medicine", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Contagion",
@@ -2431,6 +2733,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["medicine", "occult", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Salt the Earth",
@@ -2440,6 +2744,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["medicine", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Craftsman's Eye",
@@ -2449,6 +2755,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "investigation", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Detect Substance",
@@ -2458,6 +2766,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "investigation", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Discern Composition",
@@ -2467,6 +2777,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["crafts", "investigation", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Lodestone",
@@ -2476,6 +2788,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "larceny", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Remote Control",
@@ -2485,6 +2799,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["crafts", "drive", "intimidate"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Alchemist's Touch",
@@ -2494,6 +2810,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["crafts", "survival", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Find the Balance",
@@ -2503,6 +2821,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "persuasion", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Hidden Hoard",
@@ -2512,6 +2832,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["larceny", "occult", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Machine Invisibility",
@@ -2521,6 +2843,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["larceny", "science", "stealth"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Shaping",
@@ -2530,6 +2854,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="durability",
     suggested_rote_skills=["crafts", "expression", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Aegis",
@@ -2539,6 +2865,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "crafts", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Alter Conductivity",
@@ -2548,6 +2876,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["computers", "science", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Alter Integrity (Weaken)",
@@ -2557,6 +2887,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="durability",
     suggested_rote_skills=["crafts", "medicine", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Alter Integrity (Strengthen)",
@@ -2566,6 +2898,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="durability",
     suggested_rote_skills=["crafts", "medicine", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Crucible",
@@ -2575,6 +2909,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["crafts", "occult", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Nigredo and Albedo (Repair)",
@@ -2584,6 +2920,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["crafts", "brawl", "medicine"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Nigredo and Albedo (Destroy)",
@@ -2593,6 +2931,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["crafts", "brawl", "medicine"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Shrink and Grow",
@@ -2602,6 +2942,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="durability",
     suggested_rote_skills=["crafts", "expression", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="State Change",
@@ -2611,6 +2953,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="durability",
     suggested_rote_skills=["crafts", "persuasion", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Windstrike",
@@ -2620,6 +2964,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["athletics", "brawl", "crafts"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Wonderful Machine",
@@ -2629,6 +2975,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["crafts", "politics", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Ghostwall",
@@ -2638,6 +2986,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "occult", "stealth"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Golem",
@@ -2647,6 +2997,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["crafts", "expression", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Piercing Earth",
@@ -2656,6 +3008,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["athletics", "brawl", "crafts"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Transubstantiation",
@@ -2665,6 +3019,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "empathy", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Annihilate Matter",
@@ -2674,6 +3030,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="durability",
     suggested_rote_skills=["athletics", "intimidation", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Ex Nihilo",
@@ -2683,6 +3041,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["crafts", "expression", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Self-Repairing Machine",
@@ -2692,6 +3052,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["crafts", "medicine", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Know Nature",
@@ -2701,6 +3063,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["empathy", "science", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Mental Scan",
@@ -2710,6 +3074,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["empathy", "investigation", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="One Mind, Two Thoughts",
@@ -2719,6 +3085,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["academics", "expression", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Perfect Recall",
@@ -2728,6 +3096,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["academics", "expression", "investigation"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Alter Mental Pattern",
@@ -2737,6 +3107,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["science", "stealth", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Dream Reaching",
@@ -2746,6 +3118,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="composure",
     suggested_rote_skills=["empathy", "medicine", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Emotional Urging",
@@ -2755,6 +3129,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["empathy", "intimidation", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="First Impressions",
@@ -2764,6 +3140,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="composure",
     suggested_rote_skills=["crafts", "socialize", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Incognito Presence",
@@ -2774,6 +3152,8 @@ Rote.objects.create(
     withstand="resolve",
     mana_cost=1,
     suggested_rote_skills=["empathy", "stealth", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Memory Hole",
@@ -2783,6 +3163,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["academics", "medicine", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Mental Shield",
@@ -2792,6 +3174,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["academics", "intimidation", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Psychic Domination",
@@ -2801,6 +3185,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="resolve",
     suggested_rote_skills=["expression", "intimidation", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Telepathy",
@@ -2810,6 +3196,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["crafts", "empathy", "socialize"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Augment Mind",
@@ -2819,6 +3207,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["academics", "expression", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Befuddle (Social)",
@@ -2828,6 +3218,8 @@ Rote.objects.create(
     primary_factor="potence",
     withstand="composure",
     suggested_rote_skills=["intimidation", "persuasion", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Befuddle (Mental)",
@@ -2837,6 +3229,8 @@ Rote.objects.create(
     primary_factor="potence",
     withstand="resolve",
     suggested_rote_skills=["intimidation", "persuasion", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Clear Thoughts",
@@ -2846,6 +3240,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="composure",
     suggested_rote_skills=["empathy", "intimidation", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Enhance Skill",
@@ -2855,6 +3251,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["academics", "expression", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Goetic Summons",
@@ -2864,6 +3262,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="rank",
     suggested_rote_skills=["persuasion", "socialize", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Imposter",
@@ -2873,6 +3273,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="composure",
     suggested_rote_skills=["persuasion", "stealth", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Psychic Assault",
@@ -2882,6 +3284,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["academics", "intimidation", "medicine"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Sleep of the Just",
@@ -2891,6 +3295,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="composure",
     suggested_rote_skills=["academics", "athletics", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Read the Depths",
@@ -2900,6 +3306,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="resolve",
     suggested_rote_skills=["empathy", "investigation", "medicine"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Universal Language",
@@ -2909,6 +3317,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["academics", "investigation", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Gain Skill",
@@ -2918,6 +3328,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "expression", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Hallucination",
@@ -2927,6 +3339,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["academics", "persuasion", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Mind Flay",
@@ -2936,6 +3350,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["expression", "intimidation", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Possession",
@@ -2945,6 +3361,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="resolve",
     suggested_rote_skills=["medicine", "persuasion", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Psychic Projection",
@@ -2954,6 +3372,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="resolve",
     suggested_rote_skills=["academics", "occult", "socialize"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Psychic Reprogramming",
@@ -2963,6 +3383,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="resolve",
     suggested_rote_skills=["intimidation", "medicine", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Terrorize",
@@ -2972,6 +3394,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["expression", "intimidation", "medicine"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Amorality",
@@ -2981,6 +3405,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="resolve",
     suggested_rote_skills=["crafts", "empathy", "expression"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="No Exit",
@@ -2990,6 +3416,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="resolve",
     suggested_rote_skills=["expression", "persuasion", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Mind Wipe",
@@ -2999,6 +3427,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="resolve",
     suggested_rote_skills=["academics", "intimidation", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Psychic Genesis",
@@ -3008,6 +3438,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["academics", "expression", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Social Networking",
@@ -3017,6 +3449,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["persuasion", "politics", "socialize"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Dispel Magic",
@@ -3026,6 +3460,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="arcana",
     suggested_rote_skills=["athletics", "intimidation", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Pierce Deception",
@@ -3035,6 +3471,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["investigation", "medicine", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Supernal Vision",
@@ -3044,6 +3482,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["empathy", "occult", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Sacred Geometry",
@@ -3053,6 +3493,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["academics", "occult", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Scribe Grimoire",
@@ -3063,6 +3505,8 @@ Rote.objects.create(
     mana_cost=1,
     withstand="arcanum_dots",
     suggested_rote_skills=["crafts", "expression", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Word of Command",
@@ -3072,6 +3516,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["craft", "occult", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="As Above, So Below",
@@ -3081,6 +3527,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["academics", "occult", "politics"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Cloak Nimbus",
@@ -3090,6 +3538,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["politics", "stealth", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Invisible Runes",
@@ -3099,6 +3549,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["expression", "intimidation", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Supernal Veil",
@@ -3108,6 +3560,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["occult", "subterfuge", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Wards and Signs",
@@ -3117,6 +3571,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["intimidation", "occult", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Words of Truth",
@@ -3126,6 +3582,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["expression", "intimidation", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Aetheric Winds",
@@ -3135,6 +3593,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["athletics", "expression", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Channel Mana",
@@ -3144,6 +3604,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["occult", "politics", "socialize"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Cleanse Pattern",
@@ -3153,6 +3615,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["investigation", "occult", "stealth"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Display of Power",
@@ -3162,6 +3626,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["brawl", "occult", "socialize"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Ephemeral Enchantment",
@@ -3171,6 +3637,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "occult", "weaponry"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Geomancy",
@@ -3180,6 +3648,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["academia", "expression", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Platonic Form",
@@ -3190,6 +3660,8 @@ Rote.objects.create(
     mana_cost=1,
     withstand="",
     suggested_rote_skills=["academics", "crafts", "expression"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Stealing Fire",
@@ -3199,6 +3671,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="resolve",
     suggested_rote_skills=["expression", "larceny", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Apocalypse",
@@ -3208,6 +3682,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="resolve",
     suggested_rote_skills=["occult", "persuasion", "socialize"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Celestial Fire",
@@ -3217,6 +3693,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["athletics", "expression", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Destroy Tass",
@@ -3226,6 +3704,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="durability",
     suggested_rote_skills=["brawl", "intimidation", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Hallow Dance",
@@ -3235,6 +3715,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="hallow_rating",
     suggested_rote_skills=["expression", "occult", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Supernal Dispellation",
@@ -3244,6 +3726,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="arcanum",
     suggested_rote_skills=["athletics", "intimidation", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Blasphemy",
@@ -3253,6 +3737,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="hallow_rating",
     suggested_rote_skills=["athletics", "occult", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Create Truth",
@@ -3263,6 +3749,8 @@ Rote.objects.create(
     withstand="hallow_rating",
     mana_cost=5,
     suggested_rote_skills=["expression", "occult", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Eidolon",
@@ -3273,6 +3761,8 @@ Rote.objects.create(
     mana_cost=1,
     withstand="",
     suggested_rote_skills=["academics", "crafts", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Forge Purpose",
@@ -3282,6 +3772,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="resolve",
     suggested_rote_skills=["empathy", "expression", "medicine"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Word of Unmaking",
@@ -3291,6 +3783,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="merit_rating",
     suggested_rote_skills=["intimidation", "occult", "weaponry"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Correspondence",
@@ -3300,6 +3794,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["academics", "empathy", "medicine"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Ground-Eater",
@@ -3309,6 +3805,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="stamina",
     suggested_rote_skills=["athletics", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Isolation",
@@ -3318,6 +3816,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["academics", "intimidation", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Locate Object",
@@ -3327,6 +3827,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["empathy", "occult", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="The Outward and Inward Eye",
@@ -3336,6 +3838,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["firearms", "investigation", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Borrow Threads",
@@ -3345,6 +3849,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="connection",
     suggested_rote_skills=["larceny", "occult", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Break Boundary",
@@ -3354,6 +3860,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["athletics", "larceny", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Lying Maps",
@@ -3363,6 +3871,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="resolve",
     suggested_rote_skills=["academics", "politics", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Scrying",
@@ -3372,6 +3882,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["computers", "occult", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Secret Door",
@@ -3381,6 +3893,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["occult", "stealth", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Veil Sympathy",
@@ -3390,6 +3904,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="sympathy_connection",
     suggested_rote_skills=["politics", "subterfuge", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Ward",
@@ -3399,6 +3915,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "subterfuge", "weaponry"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Ban",
@@ -3408,6 +3926,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["intimidation", "science", "stealth"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Co-Location",
@@ -3417,6 +3937,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "firearms", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Perfect Sympathy",
@@ -3426,6 +3948,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["academics", "empathy", "larceny"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Warp",
@@ -3435,6 +3959,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["athletics", "brawl", "medicine"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Web-Weaver",
@@ -3444,6 +3970,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="composure",
     suggested_rote_skills=["crafts", "empathy", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Alter Direction",
@@ -3453,6 +3981,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["academics", "firearms", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Collapse",
@@ -3462,6 +3992,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["academics", "firearms", "intimidation"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Cut Threads",
@@ -3471,6 +4003,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="symapthy_connection",
     suggested_rote_skills=["persuasion", "politics", "weaponry"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Secret Room",
@@ -3480,6 +4014,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["expression", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Teleportation",
@@ -3489,6 +4025,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["larceny", "persuasion", "science"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Create Sympathy",
@@ -3498,6 +4036,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="connection",
     suggested_rote_skills=["empathy", "persuasion", "poltiics"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Forge No Chains",
@@ -3507,6 +4047,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["occult", "subterfuge", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Pocket Dimension",
@@ -3516,6 +4058,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "expression", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Quarantine",
@@ -3525,6 +4069,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["academics", "larceny", "socialize"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Coaxing the Spirits",
@@ -3534,6 +4080,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["politics", "athletics", "expression"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Exorcist's Eye",
@@ -3543,6 +4091,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["occult", "survival", "socialize"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Gremlins",
@@ -3552,6 +4102,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["larceny", "politics", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Invoke Bane",
@@ -3561,6 +4113,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="rank",
     suggested_rote_skills=["brawl", "intimidation", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Know Spirit",
@@ -3570,6 +4124,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="rank",
     suggested_rote_skills=["academics", "brawl", "socialize"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Cap the Well",
@@ -3579,6 +4135,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["politics", "survival", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Channel Essence",
@@ -3588,6 +4146,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["occult", "persuasion", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Command Spirit",
@@ -3597,6 +4157,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="rank",
     suggested_rote_skills=["medicine", "athletics", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Ephemeral Shield",
@@ -3606,6 +4168,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["animal_ken", "medicine", "stealth"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Gossamer Touch",
@@ -3615,6 +4179,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["brawl", "crafts", "intimidation"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Opener of the Way",
@@ -3624,6 +4190,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "computers", "socialize"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Shadow Walk",
@@ -3633,6 +4201,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["occult", "stealth", "streetwise"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Slumber",
@@ -3642,6 +4212,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="rank",
     suggested_rote_skills=["expression", "occult", "weaponry"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Bolster Spirit",
@@ -3651,6 +4223,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["medicine", "occult", "expression"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Erode Resonance",
@@ -3660,6 +4234,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "brawl", "intimidation"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Howl From Beyond",
@@ -3669,6 +4245,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["expression", "firearms", "medicine"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Place of Power (Lower Gauntlet)",
@@ -3678,6 +4256,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="gauntlet",
     suggested_rote_skills=["academics", "expression", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Place of Power (Raise Gauntlet)",
@@ -3687,6 +4267,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="gauntlet",
     suggested_rote_skills=["academics", "expression", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Reaching",
@@ -3696,6 +4278,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="gauntlet",
     suggested_rote_skills=["athletics", "medicine", "socialize"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Rouse Spirit",
@@ -3705,6 +4289,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="rank",
     suggested_rote_skills=["athletics", "expression", "investigation"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Spirit Summoning",
@@ -3714,6 +4300,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="rank",
     suggested_rote_skills=["persuasion", "socialize", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Banishment",
@@ -3723,6 +4311,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="rank",
     suggested_rote_skills=["brawl", "expression", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Bind Spirit",
@@ -3732,6 +4322,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="rank",
     suggested_rote_skills=["crafts", "brawl", "intimidation"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Craft Fetish",
@@ -3741,6 +4333,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="rank",
     suggested_rote_skills=["crafts", "occult", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Familiar",
@@ -3750,6 +4344,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "expression", "intimidate"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Shadow Scream",
@@ -3759,6 +4355,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["expression", "firearms", "medicine"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Shape Spirit",
@@ -3768,6 +4366,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="rank",
     suggested_rote_skills=["crafts", "medicine", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Twilit Body",
@@ -3777,6 +4377,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["occult", "subterfuge", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="World Walker",
@@ -3786,6 +4388,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="gaunlet",
     suggested_rote_skills=["athletics", "persuasion", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Annihilate Spirit",
@@ -3795,6 +4399,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="rank",
     suggested_rote_skills=["intimidation", "science", "weaponry"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Birth Spirit",
@@ -3804,6 +4410,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "medicine", "expression"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Create Locus",
@@ -3813,6 +4421,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="gauntlet",
     suggested_rote_skills=["crafts", "empathy", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Essence Fountain",
@@ -3822,6 +4432,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["empathy", "expression", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Spirit Manse",
@@ -3831,6 +4443,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "expression", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Divination",
@@ -3840,6 +4454,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["academics", "empathy", "investigation"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Green Light/Red Light",
@@ -3849,6 +4465,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["computer", "larceny", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Momentary Flux",
@@ -3858,6 +4476,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["investigation", "streetwise", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Perfect Timing",
@@ -3867,6 +4487,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["empathy", "socialize", "streetwise"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Postcognition",
@@ -3876,6 +4498,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["academics", "empathy", "investigation"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Choose the Thread",
@@ -3885,6 +4509,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="resolve",
     suggested_rote_skills=["occult", "science", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Constance Presence",
@@ -3894,6 +4520,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["occult", "persuasion", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Hung Spell",
@@ -3903,6 +4531,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["crafts", "occult", "expression"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Shield of Chronos",
@@ -3912,6 +4542,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["academics", "stealth", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Tipping the Hourglass",
@@ -3921,6 +4553,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="resolve",
     suggested_rote_skills=["athletics", "crafts", "investigation"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Veil of Moments",
@@ -3930,6 +4564,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["medicine", "investigation", "subterfuge"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Acceleration",
@@ -3940,6 +4576,8 @@ Rote.objects.create(
     withstand="",
     mana_cost=1,
     suggested_rote_skills=["athletics", "drive", "stealth"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Chronos' Curse",
@@ -3950,6 +4588,8 @@ Rote.objects.create(
     mana_cost=1,
     withstand="stamina",
     suggested_rote_skills=["academics", "occult", "intimidation"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Shifting Sands",
@@ -3959,6 +4599,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["academics", "occult", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Temporal Summoning",
@@ -3968,6 +4610,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["athletics", "investigation", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Weight of Years",
@@ -3977,6 +4621,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["crafts", "intimidation", "medicine"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Present as Past",
@@ -3987,6 +4633,8 @@ Rote.objects.create(
     mana_cost=1,
     withstand="",
     suggested_rote_skills=["empathy", "investigation", "streetwise"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Prophecy",
@@ -3996,6 +4644,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["academics", "expression", "investigation"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Rend Lifespan",
@@ -4005,6 +4655,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["athletics", "medicine", "intimidation"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Rewrite History",
@@ -4014,6 +4666,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="resolve",
     suggested_rote_skills=["expression", "investigation", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Temporal Stutter",
@@ -4023,6 +4677,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="stamina",
     suggested_rote_skills=["intimidation", "science", "survival"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Blink of an Eye",
@@ -4032,6 +4688,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["academics", "crafts", "occult"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Corridors of Time",
@@ -4041,6 +4699,8 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["academics", "investigation", "persuasion"],
+    reach_options=[],
+    optional_arcana=[],
 )
 Rote.objects.create(
     name="Temporal Pocket",
@@ -4050,6 +4710,8 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["occult", "science", "stealth"],
+    reach_options=[],
+    optional_arcana=[],
 )
 
 x = Legacy.objects.create(

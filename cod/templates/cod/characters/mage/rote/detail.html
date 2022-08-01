@@ -36,6 +36,21 @@
                 <div class="col-sm">Mana Cost</div>
                 <div class="col-sm">{{ object.mana_cost }}</div>
             </div>
+            {% for reach in object.reach_options %}
+            <div class="row">
+                <div class="col-sm">+{{ reach|first }} Reach: {{ reach||last }}</div>
+            </div>
+            {% endfor %}
+            {% if object.optional_arcana %}
+            <div class="row">
+                <h3 class="col-sm">Optional Arcana</h3>
+            </div>
+            {% for arcana in object.optional_arcana %}
+            <div class="row">
+                <div class="col-sm">+{{ arcana|first }}: {{ arcana||last }}</div>
+            </div>
+            {% endfro %}
+            {% endif %}
         </div>
     {% endblock content %}
 </body>
