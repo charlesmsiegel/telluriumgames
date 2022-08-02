@@ -537,26 +537,35 @@ class Mortal(PolymorphicModel):
         return ["Mental", "Physical", "Social", "Supernatural", "Fighting"]
 
     def filter_merits(self, dots=None):
-        all_merits = Merit.objects.all()
-        all_merits = all_merits.filter(merit_type__in=self.allowed_merit_types())
-        pairs = [(m, r) for m in all_merits for r in m.ratings]
-        pairs = [p for p in pairs if p[1] <= dots]
-        output = []
-        for merit, rating in pairs:
-            if merit in self.merits.all():
-                merit_with_details = MeritRating.objects.filter(
-                    character=self, merit=merit
-                )
-                rs = [x.rating for x in merit_with_details]
-                # r = MeritRating.objects.get(character=self, merit=merit).rating
-                r = min(rs)
-                if rating > r:
-                    output.append(merit)
+        ratings = MeritRating.objects.filter(character=self)
+        had_merits = [x.merit.id for x in ratings]
+        had_merits = Merit.objects.filter(pk__in=had_merits)
+
+        new_merits = Merit.objects.filter(
+            merit_type__in=self.allowed_merit_types()
+        ).exclude(pk__in=[x.id for x in had_merits])
+        new_merits = new_merits.filter(min_rating__lte=dots)
+
+        tmp = []
+        for merit in had_merits:
+            merits = ratings.filter(merit=merit)
+            r = min(merits.values_list("rating", flat=True))
+            if len([x for x in merit.ratings if x > r]) != 0:
+                rprime = min([x for x in merit.ratings if x > r])
             else:
-                output.append(merit)
-        output = list(set(output))
-        output = [x for x in output if x.check_prereqs(self)]
-        return output
+                rprime = 100000
+            if r != merit.max_rating:
+                if merit.is_style:
+                    if rprime <= dots:
+                        tmp.append(merit)
+                else:
+                    if rprime - r <= dots:
+                        tmp.append(merit)
+        had_merits = Merit.objects.filter(pk__in=[x.id for x in tmp])
+
+        all_merits = new_merits | had_merits
+
+        return [x for x in all_merits if x.check_prereqs(self)]
 
     def random_merit(self, dots=7):
         merit_candidates = self.filter_merits(dots=dots)
@@ -800,6 +809,7 @@ class Mortal(PolymorphicModel):
 class Merit(models.Model):
     name = models.CharField(max_length=100)
     ratings = models.JSONField(default=list)
+    min_rating = models.IntegerField(default=0)
     max_rating = models.IntegerField(default=0)
     prereqs = models.JSONField(default=list)
     requires_detail = models.BooleanField(default=False)
@@ -814,6 +824,7 @@ class Merit(models.Model):
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)
+        self.min_rating = min(self.ratings)
         super().save(*args, **kwargs)
 
     def __str__(self):

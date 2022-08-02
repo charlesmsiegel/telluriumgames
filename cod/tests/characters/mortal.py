@@ -367,7 +367,9 @@ class TestMortal(TestCase):
     def test_filter_merits(self):
         m1 = Merit.objects.create(name="Merit 1", ratings=[1, 2], merit_type="Physical")
         m2 = Merit.objects.create(name="Merit 2", ratings=[2, 3], merit_type="Mental")
-        m3 = Merit.objects.create(name="Merit 3", ratings=[3, 4], merit_type="Social")
+        m3 = Merit.objects.create(
+            name="Merit 3", ratings=[3, 4], merit_type="Social", is_style=True
+        )
         m4 = Merit.objects.create(name="Merit 4", ratings=[1, 4], merit_type="Fighting")
         m5 = Merit.objects.create(
             name="Merit 5", ratings=[2, 4], merit_type="Supernatural"
