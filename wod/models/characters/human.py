@@ -950,10 +950,12 @@ class Group(PolymorphicModel):
         self,
         num_chars=None,
         new_characters=True,
+        random_names=True,
         freebies=15,
         xp=0,
         user=None,
         member_type=Human,
+        character_kwargs=dict(),
     ):
         if self.name == "":
             self.random_name()
@@ -974,10 +976,12 @@ class Group(PolymorphicModel):
                     user.profile.wod_st = True
                     user.save()
             for _ in range(num_chars):
-                m = member_type.objects.create(
-                    name=f"{self.name} {self.members.count() + 1}", player=user,
-                )
-                m.random(freebies=freebies, xp=xp)
+                if not random_names:
+                    name = f"{self.name} {self.members.count() + 1}"
+                else:
+                    name = ""
+                m = member_type.objects.create(name=name, player=user,)
+                m.random(freebies=freebies, xp=xp, **character_kwargs)
                 self.members.add(m)
         self.leader = self.members.order_by("?").first()
         self.save()

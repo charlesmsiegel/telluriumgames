@@ -504,7 +504,7 @@ class Mage(Human):
             self.random_quiet()
         return True
 
-    def random_faction(self):
+    def get_affiliation_weights(self):
         affiliation_weights = defaultdict(int)
         for faction in MageFaction.objects.filter(parent=None):
             if faction.name == "Traditions":
@@ -519,19 +519,32 @@ class Mage(Human):
                 affiliation_weights[faction] = 5
             else:
                 affiliation_weights[faction] = 1
+        return affiliation_weights
 
-        affiliation = weighted_choice(affiliation_weights, ceiling=100)
-        faction = MageFaction.objects.filter(parent=affiliation).order_by("?").first()
-        subfaction = None
-        if (
-            random.random() < 0.25
-            or faction.name == "Order of Hermes"
-            or affiliation.name == "Technocratic Union"
-        ):
-            if MageFaction.objects.filter(parent=faction).exists():
-                subfaction = (
-                    MageFaction.objects.filter(parent=faction).order_by("?").first()
-                )
+    def random_faction(self, affiliation=None, faction=None, subfaction=None):
+        if affiliation is None:
+            affiliation_weights = self.get_affiliation_weights()
+            affiliation = weighted_choice(affiliation_weights, ceiling=100)
+            if subfaction is not None:
+                faction = subfaction.parent
+            if faction is not None:
+                affiliation = faction.parent
+        if faction is None:
+            faction = (
+                MageFaction.objects.filter(parent=affiliation).order_by("?").first()
+            )
+            if subfaction is not None:
+                faction = subfaction.parent
+        if subfaction is None:
+            if (
+                random.random() < 0.25
+                or faction.name == "Order of Hermes"
+                or affiliation.name == "Technocratic Union"
+            ):
+                if MageFaction.objects.filter(parent=faction).exists():
+                    subfaction = (
+                        MageFaction.objects.filter(parent=faction).order_by("?").first()
+                    )
         return self.set_faction(affiliation, faction, subfaction=subfaction)
 
     def set_quiet_type(self, quiet_type):
@@ -1061,14 +1074,24 @@ class Mage(Human):
             self.node_owned = n
             self.save()
 
-    def random(self, freebies=15, xp=0, ethnicity=None):
+    def random(
+        self,
+        freebies=15,
+        xp=0,
+        ethnicity=None,
+        affiliation=None,
+        faction=None,
+        subfaction=None,
+    ):
         self.freebies = freebies
         self.xp = xp
         self.random_name(ethnicity=ethnicity)
         self.random_concept()
         self.random_archetypes()
         self.random_essence()
-        self.random_faction()
+        self.random_faction(
+            affiliation=affiliation, faction=faction, subfaction=subfaction
+        )
         self.random_focus()
         self.random_attributes()
         self.random_abilities()
@@ -1091,12 +1114,40 @@ class Mage(Human):
 class Cabal(Group):
     type = "cabal"
 
-    def random(self, num_chars=None, new_characters=True, freebies=15, xp=0, user=None):
+    def random(
+        self,
+        num_chars=None,
+        new_characters=True,
+        random_names=True,
+        freebies=15,
+        xp=0,
+        user=None,
+        faction=None,
+    ):
+        if faction is None:
+            mage_faction = MageFaction.objects.order_by("?").first()
+        else:
+            mage_faction = faction
+        affiliation = None
+        faction = None
+        subfaction = None
+        if mage_faction.parent is None:
+            affiliation = mage_faction
+        elif mage_faction.parent.parent is None:
+            faction = mage_faction
+        else:
+            subfaction = mage_faction
         super().random(
             num_chars=num_chars,
             new_characters=new_characters,
+            random_names=random_names,
             freebies=freebies,
             xp=xp,
             user=user,
             member_type=Mage,
+            character_kwargs={
+                "affiliation": affiliation,
+                "faction": faction,
+                "subfaction": subfaction,
+            },
         )
