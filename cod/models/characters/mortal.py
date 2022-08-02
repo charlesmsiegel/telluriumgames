@@ -551,7 +551,7 @@ class Mortal(PolymorphicModel):
             merits = ratings.filter(merit=merit)
             r = min(merits.values_list("rating", flat=True))
             if len([x for x in merit.ratings if x > r]) != 0:
-                rprime = min([x for x in merit.ratings if x > r])
+                rprime = min(x for x in merit.ratings if x > r)
             else:
                 rprime = 100000
             if r != merit.max_rating:

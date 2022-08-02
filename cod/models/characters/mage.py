@@ -269,9 +269,9 @@ class Mage(Mortal):
     def has_obsessions(self):
         if self.gnosis < 3:
             return len([x for x in self.obsessions if x is not None]) == 1
-        elif self.gnosis < 6:
+        if self.gnosis < 6:
             return len([x for x in self.obsessions if x is not None]) == 2
-        elif self.gnosis < 9:
+        if self.gnosis < 9:
             return len([x for x in self.obsessions if x is not None]) == 3
         return len([x for x in self.obsessions if x is not None]) == 4
 
@@ -605,7 +605,7 @@ class Mage(Mortal):
         if len(options) == 0:
             return False
         choice = random.choice(options)
-        tutored = random.choice(True, False)
+        tutored = random.choice([True, False])
         return self.spend_xp_attainment(choice, tutored=tutored)
 
     def random_xp_wisdom(self):
@@ -779,8 +779,7 @@ class Mage(Mortal):
     def __str__(self):
         if self.shadow_name != "":
             return self.shadow_name
-        else:
-            return self.name
+        return self.name
 
 
 class KnownRote(models.Model):
