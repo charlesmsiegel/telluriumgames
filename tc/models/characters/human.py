@@ -2,6 +2,7 @@ import random
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import F
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
 
@@ -549,27 +550,26 @@ class Human(PolymorphicModel):
         return total
 
     def filter_edges(self, dots=100):
-        all_edges = [x for x in Edge.objects.all() if x.type == "edge"]
-        possible_edges = []
-        for edge in all_edges:
-            if edge in self.edges.all():
-                er = EdgeRating.objects.get(character=self, edge=edge)
-                if (
-                    len(
-                        [
-                            x
-                            for x in edge.ratings
-                            if x > er.rating and x - er.rating <= dots
-                        ]
-                    )
-                    != 0
-                ):
-                    if edge.check_prereqs(self):
-                        possible_edges.append(edge)
-            else:
-                if edge.check_prereqs(self) and min(edge.ratings) <= dots:
-                    possible_edges.append(edge)
-        return possible_edges
+        ratings = EdgeRating.objects.filter(character=self)
+        had_edges_id = [x.edge.id for x in ratings]
+        ratings = [
+            er
+            for er in ratings
+            if len(
+                [x for x in er.edge.ratings if x > er.rating and x - er.rating <= dots]
+            )
+            != 0
+        ]
+        ratings = [er for er in ratings if er.rating < er.edge.max_rating]
+        had_edges = Edge.objects.filter(pk__in=[x.edge.id for x in ratings])
+
+        new_edges = Edge.objects.exclude(pk__in=had_edges_id)
+        new_edges = new_edges.filter(min_rating__lte=dots)
+
+        all_edges = had_edges | new_edges
+        all_edges = [x for x in all_edges if x.type == "edge" and x.check_prereqs(self)]
+
+        return all_edges
 
     def filter_enhanced_edges(self):
         return [
@@ -913,6 +913,7 @@ class Edge(PolymorphicModel):
 
     name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
+    min_rating = models.IntegerField(default=0)
     max_rating = models.IntegerField(default=0)
     prereqs = models.JSONField(default=list)
     description = models.TextField(default="")
@@ -922,6 +923,7 @@ class Edge(PolymorphicModel):
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)
+        self.min_rating = min(self.ratings)
         super().save(*args, **kwargs)
 
     def __str__(self):
