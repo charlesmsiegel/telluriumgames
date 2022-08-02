@@ -759,7 +759,7 @@ class Mage(Mortal):
         options = [x for x in options if getattr(self, x) < 5]
         choice = random.choice(options)
         self.add_attribute(choice)
-        self.random_merits(total_dots=10)
+        self.random_merits(total_dots=10 - 5 * (self.gnosis - 1))
         self.assign_advantages()
         self.random_spend_xp()
         self.random_obsessions()
