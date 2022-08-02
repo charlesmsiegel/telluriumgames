@@ -14,17 +14,17 @@ from wod.models.items.mage import Grimoire
 from wod.models.locations.mage import Chantry, Node
 
 
-def time_test(cls, character=True):
+def time_test(cls, character=True, xp=0):
     start = time()
     for _ in range(10):
-        create_character(cls, character=character)
+        create_character(cls, character=character, xp=xp)
     print(f"Average Random {cls.__name__} Time:", (time() - start) / 10)
 
 
-def create_character(cls, character=True):
+def create_character(cls, character=True, xp=0):
     if character:
         obj = cls.objects.create(
-            name=f"{cls.__name__} {cls.objects.count()}", player=player
+            name=f"{cls.__name__} {cls.objects.count()}", player=player, xp=xp
         )
     else:
         obj = cls.objects.create(name=f"{cls.__name__} {cls.objects.count()}")
@@ -32,8 +32,8 @@ def create_character(cls, character=True):
     obj.save()
 
 
-def profile(cls, character=True, num_rows=10):
-    cProfile.run(f"create_character({cls.__name__}, character={character})", "tmp")
+def profile(cls, character=True, num_rows=10, xp=0):
+    cProfile.run(f"create_character({cls.__name__}, character={character}, xp={xp})", "tmp")
     p = pstats.Stats("tmp")
     p.sort_stats(SortKey.CUMULATIVE).print_stats(num_rows)
 
@@ -58,8 +58,8 @@ from tc.models.characters.human import Human
 from tc.models.characters.talent import Talent
 
 time_test(Human)
-time_test(Talent)
-time_test(Aberrant)
+time_test(Talent, xp=50)
+time_test(Aberrant, xp=150)
 
 from exalted.models.characters.mortals import ExMortal
 
