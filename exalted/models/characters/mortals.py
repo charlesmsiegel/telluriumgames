@@ -9,7 +9,7 @@ from core.utils import add_dot, weighted_choice
 
 
 # Create your models here.
-class Mortal(PolymorphicModel):
+class ExMortal(PolymorphicModel):
     type = "mortal"
 
     bonus_points = 21
@@ -84,7 +84,7 @@ class Mortal(PolymorphicModel):
         return True
 
     def random_name(self):
-        return self.set_name(f"Mortal {Mortal.objects.count()}")
+        return self.set_name(f"Mortal {ExMortal.objects.count()}")
 
     def has_concept(self):
         return self.concept != ""
@@ -375,6 +375,8 @@ class Mortal(PolymorphicModel):
             merits = Merit.objects.all()
         else:
             merits = Merit.objects.filter(type=merit_type)
+        if not supernatural_permitted:
+            merits = merits.exclude(merit_class="supernatural")
 
         new_merits = merits.exclude(pk__in=self.merits.all())
         old_merits = [
@@ -389,8 +391,8 @@ class Mortal(PolymorphicModel):
             for x in valid_merits
             if len([y for y in x.ratings if dots >= y > self.merit_rating(x)]) != 0
         ]
-        if not supernatural_permitted:
-            output = [x for x in output if x.merit_class == "standard"]
+        # if not supernatural_permitted:
+        # output = [x for x in output if x.merit_class == "standard"]
         return output
 
     def merit_rating(self, name):
@@ -742,6 +744,6 @@ class Merit(models.Model):
 
 
 class MeritRating(models.Model):
-    character = models.ForeignKey(Mortal, on_delete=models.CASCADE)
+    character = models.ForeignKey(ExMortal, on_delete=models.CASCADE)
     merit = models.ForeignKey(Merit, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)

@@ -6,7 +6,7 @@ from django.views.generic import CreateView, View
 
 from accounts.models import Profile
 from cod.models.characters.mortal import Mortal
-from exalted.models.characters.mortals import Mortal as ExMortal
+from exalted.models.characters.mortals import ExMortal
 from tc.models.characters.human import Human
 from wod.models.characters.human import Character
 

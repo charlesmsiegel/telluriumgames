@@ -2,17 +2,17 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from exalted.models.characters.mortals import (
+    ExMortal,
     Intimacy,
     Merit,
     MeritRating,
-    Mortal,
     Specialty,
 )
 
 
 class MortalDetailView(View):
     def get(self, request, *args, **kwargs):
-        char = Mortal.objects.get(pk=kwargs["pk"])
+        char = ExMortal.objects.get(pk=kwargs["pk"])
         context = {
             "object": char,
             "merits": MeritRating.objects.filter(character=char).order_by(
@@ -24,13 +24,13 @@ class MortalDetailView(View):
 
 
 class MortalCreateView(CreateView):
-    model = Mortal
+    model = ExMortal
     fields = "__all__"
     template_name = "exalted/characters/mortal/mortal/create.html"
 
 
 class MortalUpdateView(UpdateView):
-    model = Mortal
+    model = ExMortal
     fields = "__all__"
     template_name = "exalted/characters/mortal/mortal/update.html"
 

@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, View
 
 from exalted.forms import RandomCharacterForm
-from exalted.models.characters.mortals import Mortal
+from exalted.models.characters.mortals import ExMortal
 
 from . import mortal
 
@@ -19,7 +19,7 @@ class IndexView(View):
         return render(request, "exalted/characters/index.html", context)
 
     def get_context(self):
-        chars = Mortal.objects.all().order_by("name")
+        chars = ExMortal.objects.all().order_by("name")
         context = {}
         context["chars"] = chars
         context["form"] = RandomCharacterForm
@@ -34,7 +34,7 @@ class GenericCharacterDetailView(View):
     }
 
     def get(self, request, *args, **kwargs):
-        char = Mortal.objects.get(pk=kwargs["pk"])
+        char = ExMortal.objects.get(pk=kwargs["pk"])
         if char.type in self.create_views:
             return self.create_views[char.type].as_view()(request, *args, **kwargs)
         return redirect("exalted:characters:index")
@@ -42,7 +42,7 @@ class GenericCharacterDetailView(View):
 
 class RandomCharacterView(View):
     chars = {
-        "mortal": Mortal,
+        "mortal": ExMortal,
     }
 
     def post(self, request, *args, **kwargs):

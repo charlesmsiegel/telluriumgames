@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from exalted.models.characters.mortals import Intimacy, Merit, Mortal, Specialty
+from exalted.models.characters.mortals import ExMortal, Intimacy, Merit, Specialty
 
 
 # Register your models here.
-@admin.register(Mortal)
+@admin.register(ExMortal)
 class MortalAdmin(admin.ModelAdmin):
     list_display = ("name", "player")
 
