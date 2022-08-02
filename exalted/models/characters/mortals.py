@@ -391,8 +391,6 @@ class ExMortal(PolymorphicModel):
             for x in valid_merits
             if len([y for y in x.ratings if dots >= y > self.merit_rating(x)]) != 0
         ]
-        # if not supernatural_permitted:
-        # output = [x for x in output if x.merit_class == "standard"]
         return output
 
     def merit_rating(self, name):
