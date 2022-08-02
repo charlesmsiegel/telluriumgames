@@ -24,16 +24,19 @@ def time_test(cls, character=True, xp=0):
 def create_character(cls, character=True, xp=0):
     if character:
         obj = cls.objects.create(
-            name=f"{cls.__name__} {cls.objects.count()}", player=player, xp=xp
+            name=f"{cls.__name__} {cls.objects.count()}", player=player
         )
+        obj.random(xp=xp)
     else:
         obj = cls.objects.create(name=f"{cls.__name__} {cls.objects.count()}")
-    obj.random()
+        obj.random()
     obj.save()
 
 
 def profile(cls, character=True, num_rows=10, xp=0):
-    cProfile.run(f"create_character({cls.__name__}, character={character}, xp={xp})", "tmp")
+    cProfile.run(
+        f"create_character({cls.__name__}, character={character}, xp={xp})", "tmp"
+    )
     p = pstats.Stats("tmp")
     p.sort_stats(SortKey.CUMULATIVE).print_stats(num_rows)
 
