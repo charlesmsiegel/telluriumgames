@@ -3,6 +3,7 @@ import random
 from django.db import models
 from django.db.models import F, Q
 
+from core.models import Noun
 from core.utils import weighted_choice
 from wod.models.characters.mage.resonance import Resonance
 from wod.models.characters.mage.utils import SPHERE_LIST
@@ -207,7 +208,8 @@ class Node(Location):
         return True
 
     def random_forms(self):
-        self.set_output_forms("Quintessence", "Tass")
+        quintessence, tass = Noun.objects.order_by("?")[:2]
+        self.set_output_forms(quintessence.name.title(), tass.name.title())
 
     def has_output(self):
         return self.quintessence_per_week != 0 or self.tass_per_week != 0

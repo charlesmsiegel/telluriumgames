@@ -3,7 +3,7 @@ from unittest.mock import Mock
 
 from django.test import TestCase
 
-from core.models import Language, Material, Medium
+from core.models import Language, Material, Medium, Noun
 from wod.models.characters.mage import (
     Effect,
     Instrument,
@@ -17,6 +17,9 @@ from wod.models.items.mage import Grimoire, Library
 
 # Create your tests here.
 def grimoire_setup():
+    for i in range(10):
+        Noun.objects.create(name=f"Grimoire Noun {i}")
+
     abilities = ABILITY_LIST
     spheres = SPHERE_LIST
     for i in range(40):

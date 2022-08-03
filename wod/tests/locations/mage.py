@@ -4,7 +4,7 @@ from unittest.mock import Mock
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from core.models import Language, Material, Medium
+from core.models import Language, Material, Medium, Noun
 from wod.models.characters.mage import (
     Effect,
     Instrument,
@@ -33,6 +33,8 @@ class TestNode(TestCase):
                     t = "Flaw"
                 NodeMeritFlaw.objects.create(name=f"Node {t} {i}", ratings=[i * j])
         self.node = Node.objects.create(name="Test Node")
+        for i in range(10):
+            Noun.objects.create(name=f"Node Noun {i}")
 
     def test_gauntlet_rating(self):
         self.assertEqual(self.node.gauntlet, 3)
