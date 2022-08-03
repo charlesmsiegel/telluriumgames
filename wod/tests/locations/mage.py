@@ -1,6 +1,7 @@
 from unittest import mock
 from unittest.mock import Mock
 
+from django.contrib.auth.models import User
 from django.test import TestCase
 
 from core.models import Language, Material, Medium
@@ -15,6 +16,7 @@ from wod.models.characters.mage import (
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
 from wod.models.items.mage import Library
 from wod.models.locations.mage import Chantry, Node, NodeMeritFlaw
+from wod.tests.characters.mage import mage_setup
 from wod.tests.items.mage import grimoire_setup
 
 
@@ -216,15 +218,17 @@ class TestNode(TestCase):
 class TestChantry(TestCase):
     def setUp(self) -> None:
         self.chantry = Chantry.objects.create(name="")
-        for i in range(1, 11):
-            Resonance.objects.create(name=f"Resonance {i}")
-        for i in range(1, 6):
-            for j in [1, -1]:
-                if j == 1:
-                    t = "Merit"
-                else:
-                    t = "Flaw"
-                NodeMeritFlaw.objects.create(name=f"Node {t} {i}", ratings=[i * j])
+        # for i in range(1, 11):
+        #     Resonance.objects.create(name=f"Resonance {i}")
+        # for i in range(1, 6):
+        #     for j in [1, -1]:
+        #         if j == 1:
+        #             t = "Merit"
+        #         else:
+        #             t = "Flaw"
+        #         NodeMeritFlaw.objects.create(name=f"Node {t} {i}", ratings=[i * j])
+        self.player = User.objects.create_user(username="Test")
+        mage_setup(self.player)
         grimoire_setup()
 
     def test_total_points(self):

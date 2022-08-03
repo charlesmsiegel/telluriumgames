@@ -212,7 +212,15 @@ class Human(Character):
                 self.sex = "Other"
                 gender = "mf"
         if not self.has_name():
-            self.set_name(random_name(gender, self.ethnicity))
+            name = random_name(gender, self.ethnicity)
+            count = 0
+            while Character.objects.filter(name=name).exists() and count < 20:
+                self.ethnicity = random_ethnicity()
+                name = random_name(gender, self.ethnicity)
+                count += 1
+            if count == 20:
+                name = f"Random Name {random.randint(1, 10000000000)}"
+            self.set_name(name)
 
     def has_archetypes(self):
         return self.nature is not None and self.demeanor is not None
@@ -497,7 +505,9 @@ class Human(Character):
         choice = weighted_choice(self.get_backgrounds())
         return self.add_background(choice)
 
-    def random_backgrounds(self):
+    def random_backgrounds(self, backgrounds=dict()):
+        for trait, value in backgrounds.items():
+            setattr(self, trait, value)
         while not self.has_backgrounds():
             self.random_background()
 

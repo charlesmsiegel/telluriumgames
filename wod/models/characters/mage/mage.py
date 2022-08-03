@@ -1,15 +1,14 @@
 import random
 from collections import defaultdict
 
-from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
 
 from core.utils import add_dot, weighted_choice
-from wod.models.characters.human import Character, Group, Human
-from wod.models.items.mage import Grimoire, Library
-from wod.models.locations.mage import Node
+from wod.models.characters.human import Human
+from wod.models.items.mage import Library
+from wod.models.locations.mage.nodes import Node
 
 from .faction import MageFaction
 from .focus import Instrument, Paradigm, Practice
@@ -1082,6 +1081,7 @@ class Mage(Human):
         affiliation=None,
         faction=None,
         subfaction=None,
+        backgrounds=dict(),
     ):
         self.freebies = freebies
         self.xp = xp
@@ -1095,7 +1095,7 @@ class Mage(Human):
         self.random_focus()
         self.random_attributes()
         self.random_abilities()
-        self.random_backgrounds()
+        self.random_backgrounds(backgrounds)
         self.random_arete()
         self.random_affinity_sphere()
         self.random_spheres()
@@ -1109,59 +1109,3 @@ class Mage(Human):
         self.random_specialties()
         self.random_node(favored_list=self.resonance.all())
         self.random_library()
-
-
-class Cabal(Group):
-    type = "cabal"
-
-    @staticmethod
-    def faction_probs():
-        faction_probs = {}
-        for faction in MageFaction.objects.all():
-            if faction.parent is None:
-                faction_probs[faction] = 5
-            elif faction.parent.parent is None:
-                faction_probs[faction] = 10
-            elif faction.parent.parent.parent is None:
-                faction_probs[faction] = 2
-            else:
-                faction_probs[faction] = 0
-        return weighted_choice(faction_probs, ceiling=100)
-
-    def random(
-        self,
-        num_chars=None,
-        new_characters=True,
-        random_names=True,
-        freebies=15,
-        xp=0,
-        user=None,
-        faction=None,
-    ):
-        if faction is None:
-            mage_faction = self.faction_probs()
-        else:
-            mage_faction = faction
-        affiliation = None
-        faction = None
-        subfaction = None
-        if mage_faction.parent is None:
-            affiliation = mage_faction
-        elif mage_faction.parent.parent is None:
-            faction = mage_faction
-        else:
-            subfaction = mage_faction
-        super().random(
-            num_chars=num_chars,
-            new_characters=new_characters,
-            random_names=random_names,
-            freebies=freebies,
-            xp=xp,
-            user=user,
-            member_type=Mage,
-            character_kwargs={
-                "affiliation": affiliation,
-                "faction": faction,
-                "subfaction": subfaction,
-            },
-        )
