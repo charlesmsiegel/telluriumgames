@@ -1114,6 +1114,20 @@ class Mage(Human):
 class Cabal(Group):
     type = "cabal"
 
+    @staticmethod
+    def faction_probs():
+        faction_probs = {}
+        for faction in MageFaction.objects.all():
+            if faction.parent is None:
+                faction_probs[faction] = 5
+            elif faction.parent.parent is None:
+                faction_probs[faction] = 10
+            elif faction.parent.parent.parent is None:
+                faction_probs[faction] = 2
+            else:
+                faction_probs[faction] = 0
+        return weighted_choice(faction_probs, ceiling=100)
+
     def random(
         self,
         num_chars=None,
@@ -1125,7 +1139,7 @@ class Cabal(Group):
         faction=None,
     ):
         if faction is None:
-            mage_faction = MageFaction.objects.order_by("?").first()
+            mage_faction = self.faction_probs()
         else:
             mage_faction = faction
         affiliation = None
