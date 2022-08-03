@@ -227,10 +227,13 @@ class Chantry(Location):
             node_ranks.append(x)
 
         for i, rank in enumerate(node_ranks):
-            n = Node.objects.create(name=f"{self.name}'s Node {i}", parent=self)
+            n = Node.objects.create(name=f"", parent=self)
             n.random(rank=rank)
+            if not n.has_name():
+                n.set_name(f"{self.name}'s Node {i}")
             n.save()
             self.add_node(n)
+            print("Node Name is:", n.name)
 
     def total_node(self):
         return sum(x.rank for x in self.nodes.all())

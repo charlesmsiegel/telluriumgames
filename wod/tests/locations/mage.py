@@ -220,15 +220,6 @@ class TestNode(TestCase):
 class TestChantry(TestCase):
     def setUp(self) -> None:
         self.chantry = Chantry.objects.create(name="")
-        # for i in range(1, 11):
-        #     Resonance.objects.create(name=f"Resonance {i}")
-        # for i in range(1, 6):
-        #     for j in [1, -1]:
-        #         if j == 1:
-        #             t = "Merit"
-        #         else:
-        #             t = "Flaw"
-        #         NodeMeritFlaw.objects.create(name=f"Node {t} {i}", ratings=[i * j])
         self.player = User.objects.create_user(username="Test")
         mage_setup(self.player)
         grimoire_setup()
@@ -272,6 +263,8 @@ class TestChantry(TestCase):
         self.assertEqual(self.chantry.trait_cost("reality_zone_rating"), 5)
 
     def test_creation_of_nodes(self):
+        self.chantry.random_faction()
+        self.chantry.random_name()
         self.chantry.node_rating = 0
         self.chantry.create_nodes()
         self.assertEqual(self.chantry.nodes.count(), 0)
