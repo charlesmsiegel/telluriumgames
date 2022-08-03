@@ -236,20 +236,24 @@ class Node(Location):
         self.quintessence_per_week = int(self.points * float(self.get_ratio_display()))
         self.tass_per_week = self.points - self.quintessence_per_week
         return True
-    
+
     def set_name(self, name):
         self.name = name
         self.save()
         return True
-    
+
     def random_name(self):
         if not self.has_name():
-            highest_res_rating = NodeResonanceRating.objects.filter(node=self).order_by("-rating").first()
+            highest_res_rating = (
+                NodeResonanceRating.objects.filter(node=self)
+                .order_by("-rating")
+                .first()
+            )
             n = Noun.objects.order_by("?").first()
             name = f"{highest_res_rating.resonance.name.title()} {n.name.title()}"
             return self.set_name(name)
         return True
-    
+
     def has_name(self):
         return self.name != ""
 

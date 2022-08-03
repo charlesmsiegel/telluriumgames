@@ -5,7 +5,12 @@
 <body>
     {% block content %}
         <h1>{{ object.name }}</h1>
-        Parent: {{ object.parent }}
+        {% if object.parent != None %}
+            <div class="row">
+                <div class="col-sm">Parent</div>
+                <a class="col-sm" href="{{ object.parent.get_absolute_url }}">{{ object.parent.name }}</a>
+            </div>
+        {% endif %}
         <br />
         <br />
         {{ object.description }}

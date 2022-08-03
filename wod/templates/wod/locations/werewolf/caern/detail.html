@@ -1,20 +1,27 @@
 {% extends "core/base.html" %}
-{% block title %}{{ object.name }}{% endblock title %}
+{% block title %}
+    {{ object.name }}
+{% endblock title %}
 <body>
     {% block content %}
         <h1>{{ object.name }}</h1>
-        Parent: {{ object.parent }}
-        <br/>
-        <br/>
+        {% if object.parent != None %}
+            <div class="row">
+                <div class="col-sm">Parent</div>
+                <a class="col-sm" href="{{ object.parent.get_absolute_url }}">{{ object.parent.name }}</a>
+            </div>
+        {% endif %}
+        <br />
+        <br />
         {{ object.description }}
-        <br/>
+        <br />
         <div class="row">
             <div class="col-sm">Rank</div>
             <div class="col-sm">{{ object.rank }}</div>
             <div class="col-sm">Type</div>
             <div class="col-sm">{{ object.get_type_display }}</div>
         </div>
-        <br/>
+        <br />
         <table>
             <tr>
                 <td>Gauntlet</td>
