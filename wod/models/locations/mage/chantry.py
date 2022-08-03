@@ -302,7 +302,8 @@ class Chantry(Location):
             for cabal in self.cabals.all():
                 self.leaders.add(cabal.leader)
         elif self.leadership_type == "triumvirate":
-            all_characters.order_by("-arete")
+            all_characters = [x for x in all_characters]
+            all_characters.sort(key=lambda x: -x.arete)
             self.leaders.set(all_characters[:3])
         self.save()
 

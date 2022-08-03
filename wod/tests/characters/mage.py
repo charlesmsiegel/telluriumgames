@@ -5,7 +5,7 @@ from unittest.mock import Mock
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from core.models import Language
+from core.models import Language, Noun
 from wod.models.characters.human import Archetype, MeritFlaw, Specialty
 from wod.models.characters.mage import (
     Cabal,
@@ -24,6 +24,9 @@ from wod.models.locations.mage import NodeMeritFlaw
 
 # Create your tests here.
 def mage_setup(player):
+    for i in range(10):
+        Noun.objects.create(name=f"Mage Noun {i}")
+
     for i in range(5):
         m = Mage.objects.create(name=f"Character {i}", player=player)
 
