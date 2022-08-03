@@ -1067,8 +1067,10 @@ class Mage(Human):
 
     def random_node(self, favored_list=None):
         if self.node > 0:
-            n = Node.objects.create(name=f"{self.name}'s Node")
+            n = Node.objects.create(name=f"")
             n.random(rank=self.node, favored_list=favored_list)
+            if not n.has_name():
+                n.set_name(f"{self.name}'s Node")
             n.save()
             self.node_owned = n
             self.save()
