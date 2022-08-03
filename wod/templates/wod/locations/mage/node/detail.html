@@ -11,9 +11,19 @@
             {% if object.parent != None %}
                 <div class="row">
                     <div class="col-sm">Parent</div>
-                    <a class="col-sm" href="{{ object.parent.get_absolute.url }}">{{ object.parent.name }}</a>
+                    <a class="col-sm" href="{{ object.parent.get_absolute_url }}">{{ object.parent.name }}</a>
                 </div>
             {% endif %}
+
+            {% if object.mage_set.count != 0 %}
+                <div class="row">
+                    {% for mage in object.mage_set.all %}
+                    <div class="col-sm">Owner</div>
+                    <a class="col-sm" href="{{ mage.get_absolute_url }}">{{ mage.name }}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
             <div class="row">
                 <div class="col-sm">Rank</div>
                 <div class="col-sm">{{ object.rank }}</div>
