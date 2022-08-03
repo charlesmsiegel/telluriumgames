@@ -161,11 +161,11 @@ def weighted_random_faction():
     faction_probs = {}
     for faction in MageFaction.objects.all():
         if faction.parent is None:
-            faction_probs[faction] = 5
+            faction_probs[faction] = 30
         elif faction.parent.parent is None:
             faction_probs[faction] = 10
         elif faction.parent.parent.parent is None:
-            faction_probs[faction] = 2
+            faction_probs[faction] = 1
         else:
             faction_probs[faction] = 0
     return weighted_choice(faction_probs, ceiling=100)

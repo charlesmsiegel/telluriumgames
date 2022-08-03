@@ -1081,8 +1081,10 @@ class Mage(Human):
         affiliation=None,
         faction=None,
         subfaction=None,
-        backgrounds=dict(),
+        backgrounds=None,
     ):
+        if backgrounds is None:
+            backgrounds = {}
         self.freebies = freebies
         self.xp = xp
         self.random_name(ethnicity=ethnicity)

@@ -288,7 +288,7 @@ class Chantry(Location):
             self.cabals.add(c)
             for member in c.members.all():
                 self.members.add(member)
-        all_characters = [x for x in self.members.all()]
+        all_characters = self.members.all()
         self.ambassador = max(all_characters, key=lambda x: x.charisma + x.expression)
         self.node_tender = max(all_characters, key=lambda x: x.prime)
         self.investigator.add(
@@ -302,7 +302,7 @@ class Chantry(Location):
             for cabal in self.cabals.all():
                 self.leaders.add(cabal.leader)
         elif self.leadership_type == "triumvirate":
-            all_characters.sort(key=lambda x: -x.arete)
+            all_characters.order_by("-arete")
             self.leaders.set(all_characters[:3])
         self.save()
 

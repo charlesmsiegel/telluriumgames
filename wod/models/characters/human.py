@@ -505,7 +505,9 @@ class Human(Character):
         choice = weighted_choice(self.get_backgrounds())
         return self.add_background(choice)
 
-    def random_backgrounds(self, backgrounds=dict()):
+    def random_backgrounds(self, backgrounds=None):
+        if backgrounds is None:
+            backgrounds = {}
         for trait, value in backgrounds.items():
             setattr(self, trait, value)
         while not self.has_backgrounds():
@@ -965,8 +967,10 @@ class Group(PolymorphicModel):
         xp=0,
         user=None,
         member_type=Human,
-        character_kwargs=dict(),
+        character_kwargs=None,
     ):
+        if character_kwargs is None:
+            character_kwargs = {}
         if self.name == "":
             self.random_name()
         if num_chars is None:
