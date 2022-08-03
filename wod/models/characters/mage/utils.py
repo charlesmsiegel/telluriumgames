@@ -1,3 +1,7 @@
+from core.utils import weighted_choice
+
+from .faction import MageFaction
+
 SPHERE_LIST = [
     "correspondence",
     "spirit",
@@ -151,3 +155,17 @@ PRIMARY_ABILITIES = [
     "medicine",
     "science",
 ]
+
+
+def weighted_random_faction():
+    faction_probs = {}
+    for faction in MageFaction.objects.all():
+        if faction.parent is None:
+            faction_probs[faction] = 5
+        elif faction.parent.parent is None:
+            faction_probs[faction] = 10
+        elif faction.parent.parent.parent is None:
+            faction_probs[faction] = 2
+        else:
+            faction_probs[faction] = 0
+    return weighted_choice(faction_probs, ceiling=100)

@@ -3,7 +3,8 @@ from django.views.generic import View
 
 from wod.forms import RandomCharacterForm
 from wod.models.characters.human import Character, Group
-from wod.models.characters.mage.mage import Cabal, Mage
+from wod.models.characters.mage.cabal import Cabal
+from wod.models.characters.mage.mage import Mage
 from wod.models.characters.werewolf.garou import Pack, Werewolf
 
 from . import human, mage, werewolf

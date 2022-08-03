@@ -39,6 +39,19 @@ def grimoire_setup():
         m = MageFaction.objects.create(
             name=f"Test Faction {i}", affinities=spheres[i : i + 4],
         )
+        for j in range(3):
+            m1 = MageFaction.objects.create(
+                name=f"Test SubFaction {i}, {j}",
+                affinities=spheres[i : i + 4],
+                parent=m,
+            )
+            m1.languages.add(Language.objects.get(name=f"Test Language {i}"))
+            m1.languages.add(Language.objects.get(name=f"Test Language {5+i}"))
+            m1.save()
+            m1.paradigms.add(Paradigm.objects.get(name=f"Test Paradigm {i}"))
+            m1.paradigms.add(Paradigm.objects.get(name=f"Test Paradigm {5+i}"))
+            m1.save()
+
         m.languages.add(Language.objects.get(name=f"Test Language {i}"))
         m.languages.add(Language.objects.get(name=f"Test Language {5+i}"))
         m.save()

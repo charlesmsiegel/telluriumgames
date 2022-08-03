@@ -11,7 +11,11 @@ from core.utils import weighted_choice
 from wod.models.characters.mage.faction import MageFaction
 from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
 from wod.models.characters.mage.rote import Effect
-from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
+from wod.models.characters.mage.utils import (
+    ABILITY_LIST,
+    SPHERE_LIST,
+    weighted_random_faction,
+)
 from wod.models.items.human import Item
 
 
@@ -110,23 +114,9 @@ class Grimoire(Wonder):
     def has_faction(self):
         return self.faction is not None
 
-    @staticmethod
-    def faction_probs():
-        faction_probs = {}
-        for faction in MageFaction.objects.all():
-            if faction.parent is None:
-                faction_probs[faction] = 5
-            elif faction.parent.parent is None:
-                faction_probs[faction] = 10
-            elif faction.parent.parent.parent is None:
-                faction_probs[faction] = 2
-            else:
-                faction_probs[faction] = 0
-        return weighted_choice(faction_probs, ceiling=100)
-
     def random_faction(self, faction=None):
         if faction is None:
-            faction = self.faction_probs()
+            faction = weighted_random_faction()
         self.set_faction(faction)
 
     def set_focus(self, paradigms, practices, instruments):
@@ -431,23 +421,9 @@ class Library(Wonder):
     def has_faction(self):
         return self.faction is not None
 
-    @staticmethod
-    def faction_probs():
-        faction_probs = {}
-        for faction in MageFaction.objects.all():
-            if faction.parent is None:
-                faction_probs[faction] = 5
-            elif faction.parent.parent is None:
-                faction_probs[faction] = 10
-            elif faction.parent.parent.parent is None:
-                faction_probs[faction] = 2
-            else:
-                faction_probs[faction] = 0
-        return weighted_choice(faction_probs, ceiling=100)
-
     def random_faction(self, faction=None):
         if faction is None:
-            faction = self.faction_probs()
+            faction = weighted_random_faction()
         self.set_faction(faction)
 
     def random_book(self):

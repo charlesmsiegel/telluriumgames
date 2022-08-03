@@ -3,9 +3,10 @@ from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from wod.forms import MageForm
 from wod.models.characters.human import MeritFlawRating
+from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.faction import MageFaction
 from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
-from wod.models.characters.mage.mage import Cabal, Mage, Rote
+from wod.models.characters.mage.mage import Mage, Rote
 from wod.models.characters.mage.resonance import Resonance, ResRating
 from wod.models.characters.mage.rote import Effect
 from wod.models.characters.mage.utils import PRIMARY_ABILITIES
