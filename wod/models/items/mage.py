@@ -6,10 +6,11 @@ from tkinter import N
 from django.db import models
 from django.db.models import Q
 
-from core.models import Language, Material, Medium
+from core.models import Language, Material, Medium, Noun
 from core.utils import weighted_choice
 from wod.models.characters.mage.faction import MageFaction
 from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
+from wod.models.characters.mage.resonance import Resonance
 from wod.models.characters.mage.rote import Effect
 from wod.models.characters.mage.utils import (
     ABILITY_LIST,
@@ -357,6 +358,38 @@ class Grimoire(Wonder):
             is_primer = random.random() < 0.1
         self.set_is_primer(is_primer)
 
+    def set_name(self, name):
+        self.name = name
+        self.save()
+        return True
+
+    def random_name(self):
+        name = ""
+        if not self.has_name():
+            while Grimoire.objects.filter(name=name).exists() or name == "":
+                sphere = random.choice(self.spheres)
+                noun = Noun.objects.order_by("?").first().name.title()
+                noun2 = Noun.objects.order_by("?").first().name.title()
+                resonance = (
+                    Resonance.objects.filter(Q(**{sphere: True}))
+                    .order_by("?")
+                    .first()
+                    .name.title()
+                )
+                sphere = sphere.title()
+                forms = [
+                    f"Book of {resonance} {noun}",
+                    f"{resonance} {sphere} Grmoire",
+                    f"{resonance} {self.medium} of {sphere}",
+                    f"{noun} of {resonance} {noun2}",
+                ]
+                name = random.choice(forms)
+            return self.set_name(name)
+        return False
+
+    def has_name(self):
+        return self.name != ""
+
     def random(
         self,
         rank=None,
@@ -390,6 +423,7 @@ class Grimoire(Wonder):
         self.random_language(language)
         self.random_spheres(spheres)
         self.random_effects(effects)
+        self.random_name()
         self.save()
 
 
@@ -427,7 +461,7 @@ class Library(Wonder):
         self.set_faction(faction)
 
     def random_book(self):
-        book = Grimoire.objects.create(name=f"{self.name} Book {self.num_books() + 1}")
+        book = Grimoire.objects.create(name="")
         rank = random.randint(1, self.rank)
         if (
             random.random() < 0.5

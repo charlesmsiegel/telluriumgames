@@ -93,6 +93,10 @@ def mage_setup(player):
             Specialty.objects.create(
                 name=f"{trait.replace('_', ' ').title()} {i}", stat=trait
             )
+            for i in range(5):
+                Resonance.objects.get_or_create(
+                    name=f"{trait.title()} Resonance {i}", **{trait: True}
+                )
 
     for i in range(20):
         Archetype.objects.create(name=f"Archetype {i}")
@@ -1022,10 +1026,10 @@ class TestMage(TestCase):
         self.assertEqual(self.character.resonance_rating(res), 1)
 
     def test_filter_resonance(self):
-        self.assertEqual(len(self.character.filter_resonance()), 10)
+        self.assertEqual(len(self.character.filter_resonance()), 55)
         for res in Resonance.objects.order_by("?")[:3]:
             self.assertTrue(self.character.add_resonance(res))
-        self.assertEqual(len(self.character.filter_resonance(maximum=0)), 7)
+        self.assertEqual(len(self.character.filter_resonance(maximum=0)), 52)
 
     def test_total_resonance(self):
         resonance = Resonance.objects.order_by("?")[:2]
