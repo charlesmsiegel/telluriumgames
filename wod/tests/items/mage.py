@@ -10,6 +10,7 @@ from wod.models.characters.mage import (
     MageFaction,
     Paradigm,
     Practice,
+    Resonance,
 )
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
 from wod.models.items.mage import Grimoire, Library
@@ -79,6 +80,10 @@ def grimoire_setup():
                         Effect.objects.create(
                             name=f"{sphere_1}/{sphere_2} Test Effect {5*i+j}", **d
                         )
+        for i in range(5):
+            Resonance.objects.get_or_create(
+                name=f"{sphere_1.title()} Resonance {i}", **{sphere_1: True}
+            )
 
 
 class TestGrimoire(TestCase):

@@ -1,14 +1,21 @@
 {% extends "core/base.html" %}
-{% block title %}{{ loc_name }}{% endblock title %}
+{% block title %}
+    {{ loc_name }}
+{% endblock title %}
 <body>
     {% block content %}
         <h1>{{ location.name }}</h1>
-        Parent: {{ location.parent }}
-        <br/>
-        <br/>
+        {% if object.parent != None %}
+            <div class="row">
+                <div class="col-sm">Parent</div>
+                <a class="col-sm" href="{{ object.parent.get_absolute_url }}">{{ object.parent.name }}</a>
+            </div>
+        {% endif %}
+        <br />
+        <br />
         {{ location.description }}
-        <br/>
-        <br/>
+        <br />
+        <br />
         <table>
             <tr>
                 <td>Gauntlet</td>

@@ -38,16 +38,16 @@
             {% endfor %}
             <div class="row">
                 <div class="col-sm">Ambassador</div>
-                <div class="col-sm">{{ object.ambassador.name }}</div>
+                <a class="col-sm" href="{{ object.ambassador.get_absolute_url }}">{{ object.ambassador.name }}</a>
                 <div class="col-sm">Node Tender</div>
-                <div class="col-sm">{{ object.node_tender.name }}</div>
+                <a class="col-sm" href="{{ object.node_tender.get_absolute_url }}">{{ object.node_tender.name }}</a>
             </div>
             <div class="row">
                 <div class="col-sm">Investigators</div>
             </div>
             {% for character in object.investigator.all %}
                 <div class="row">
-                    <div class="col-sm">{{ character.name }}</div>
+                    <a class="col-sm" href={{ character.get_absolute_url }}>{{ character.name }}</a>
                 </div>
             {% endfor %}
             <div class="row">
@@ -55,7 +55,7 @@
             </div>
             {% for character in object.guardian.all %}
                 <div class="row">
-                    <div class="col-sm">{{ character.name }}</div>
+                    <a class="col-sm" href={{ character.get_absolute_url }}>{{ character.name }}</a>
                 </div>
             {% endfor %}
             <div class="row">
@@ -63,16 +63,12 @@
             </div>
             {% for character in object.teacher.all %}
                 <div class="row">
-                    <div class="col-sm">
-                        {{ character.name }}
-                    </div>
+                    <a class="col-sm" href={{ character.get_absolute_url }}>{{ character.name }}</a>
                 </div>
             {% endfor %}
             <div class="row">
-                <div class="col-sm">
-                </div>
-                <div class="col-sm">
-                </div>
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
                 <div class="col-sm">
                     Reality Zone
                 </div>
@@ -183,7 +179,11 @@
             </h2>
             {% for cabal in object.cabals.all %}
                 <div class="row">
-                    <a class="col-sm" href={{ cabal.get_absolute_url }}><h3 class="mtas_heading">{{ cabal.name }}</h3></a>
+                    <a class="col-sm" href={{ cabal.get_absolute_url }}>
+                        <h3 class="mtas_heading">
+                            {{ cabal.name }}
+                        </h3>
+                    </a>
                 </div>
                 {% for member in cabal.members.all %}
                     <div class="row">

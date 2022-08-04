@@ -14,21 +14,23 @@ from wod.models.items.mage import Grimoire
 from wod.models.locations.mage import Chantry, Node
 
 
-def time_test(cls, character=True, xp=0):
+def time_test(cls, character=True, xp=0, random_name=True):
     start = time()
     for _ in range(10):
-        create_character(cls, character=character, xp=xp)
+        create_character(cls, character=character, xp=xp, random_name=random_name)
     print(f"Average Random {cls.__name__} Time:", (time() - start) / 10)
 
 
-def create_character(cls, character=True, xp=0):
+def create_character(cls, character=True, xp=0, random_name=True):
+    if random_name:
+        name = ""
+    else:
+        name = f"{cls.__name__} {cls.objects.count()}"
     if character:
-        obj = cls.objects.create(
-            name=f"{cls.__name__} {cls.objects.count()}", player=player
-        )
+        obj = cls.objects.create(name=name, player=player)
         obj.random(xp=xp)
     else:
-        obj = cls.objects.create(name=f"{cls.__name__} {cls.objects.count()}")
+        obj = cls.objects.create(name=name)
         obj.random()
     obj.save()
 
