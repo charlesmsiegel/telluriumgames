@@ -665,7 +665,12 @@ class Human(Character):
     def spend_freebies_attribute(self, trait):
         cost = self.freebie_cost("attribute")
         if cost <= self.freebies:
-            if self.add_attribute(trait):
+            maximum = 5
+            if self.merits_and_flaws.filter(
+                name=f"Legendary Attributes - {trait.title()}"
+            ).exists():
+                maximum = 6
+            if self.add_attribute(trait, maximum=maximum):
                 self.freebies -= cost
                 return True
             return False
@@ -747,7 +752,12 @@ class Human(Character):
         if trait in self.get_attributes():
             cost = self.xp_cost("attribute") * getattr(self, trait)
             if cost <= self.xp:
-                if self.add_attribute(trait):
+                maximum = 5
+                if self.merits_and_flaws.filter(
+                    name=f"Legendary Attributes - {trait.title()}"
+                ).exists():
+                    maximum = 6
+                if self.add_attribute(trait, maximum=maximum):
                     self.xp -= cost
                     self.add_to_spend(trait, getattr(self, trait), cost)
                     return True
@@ -874,6 +884,29 @@ class Human(Character):
     def random_xp_willpower(self):
         return self.spend_xp("willpower")
 
+    def mf_based_corrections(self):
+        if self.merits_and_flaws.filter(name="Ability Deficit").exists():
+            stats_to_lose = random.choice(
+                [self.get_talents(), self.get_skills(), self.get_knowledges()]
+            )
+            total_removed = 0
+            for key, value in stats_to_lose.items():
+                if value > 3:
+                    total_removed += value - 3
+                    stats_to_lose[key] = 3
+                    setattr(self, key, 3)
+            while total_removed > 5:
+                tmp = {k: v for k, v in stats_to_lose.item() if v < 3}
+                new_stat = weighted_choice(tmp)
+                if self.add_ability(new_stat):
+                    stats_to_lose[key] += 1
+                    total_removed -= 1
+            while total_removed < 5:
+                new_stat = weighted_choice(stats_to_lose)
+                stats_to_lose[new_stat] += 1
+                setattr(self, new_stat, stats_to_lose[new_stat])
+                total_removed += 1
+
     def random(self, freebies=15, xp=0, ethnicity=None):
         self.freebies = freebies
         self.xp = xp
@@ -884,6 +917,7 @@ class Human(Character):
         self.random_abilities()
         self.random_backgrounds()
         self.random_freebies()
+        self.mf_based_corrections()
         self.random_xp()
         self.random_specialties()
         self.random_finishing_touches()

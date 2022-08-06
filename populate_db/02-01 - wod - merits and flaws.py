@@ -337,7 +337,31 @@ MeritFlaw.objects.create(name="Insensate to Pain", ratings=[5], human=True, mage
 MeritFlaw.objects.create(name="Jack-of-All-Trades", ratings=[3], human=True, mage=True)
 MeritFlaw.objects.create(name="Judge's Wisdom", ratings=[4], human=True, mage=True)
 MeritFlaw.objects.create(
-    name="Legendary Attributes", ratings=[5], human=True, mage=True
+    name="Legendary Attributes - Strength", ratings=[5], human=True, mage=True
+)
+MeritFlaw.objects.create(
+    name="Legendary Attributes - Dexterity", ratings=[5], human=True, mage=True
+)
+MeritFlaw.objects.create(
+    name="Legendary Attributes - Stamina", ratings=[5], human=True, mage=True
+)
+MeritFlaw.objects.create(
+    name="Legendary Attributes - Charisma", ratings=[5], human=True, mage=True
+)
+MeritFlaw.objects.create(
+    name="Legendary Attributes - Manipulation", ratings=[5], human=True, mage=True
+)
+MeritFlaw.objects.create(
+    name="Legendary Attributes - Appearance", ratings=[5], human=True, mage=True
+)
+MeritFlaw.objects.create(
+    name="Legendary Attributes - Perception", ratings=[5], human=True, mage=True
+)
+MeritFlaw.objects.create(
+    name="Legendary Attributes - Intelligence", ratings=[5], human=True, mage=True
+)
+MeritFlaw.objects.create(
+    name="Legendary Attributes - Wits", ratings=[5], human=True, mage=True
 )
 MeritFlaw.objects.create(name="Light Sleeper", ratings=[1], human=True, mage=True)
 # MeritFlaw.objects.create(name="Lightning Calculator", ratings=[1], human=True, mage=True)
@@ -388,7 +412,33 @@ MeritFlaw.objects.create(name="Shapechanger Kin", ratings=[4], human=True, mage=
 MeritFlaw.objects.create(name="Shattered Avatar", ratings=[5], human=True, mage=True)
 MeritFlaw.objects.create(name="Socially Networked", ratings=[2], human=True, mage=True)
 MeritFlaw.objects.create(name="Spark of Life", ratings=[5], human=True, mage=True)
-MeritFlaw.objects.create(name="Sphere Natural", ratings=[6], human=True, mage=True)
+MeritFlaw.objects.create(
+    name="Sphere Natural - Correspondence", ratings=[6], human=True, mage=True
+)
+MeritFlaw.objects.create(
+    name="Sphere Natural - Time", ratings=[6], human=False, mage=True
+)
+MeritFlaw.objects.create(
+    name="Sphere Natural - Spirit", ratings=[6], human=False, mage=True
+)
+MeritFlaw.objects.create(
+    name="Sphere Natural - Life", ratings=[6], human=False, mage=True
+)
+MeritFlaw.objects.create(
+    name="Sphere Natural - Matter", ratings=[6], human=False, mage=True
+)
+MeritFlaw.objects.create(
+    name="Sphere Natural - Forces", ratings=[6], human=False, mage=True
+)
+MeritFlaw.objects.create(
+    name="Sphere Natural - Entropy", ratings=[6], human=False, mage=True
+)
+MeritFlaw.objects.create(
+    name="Sphere Natural - Prime", ratings=[6], human=False, mage=True
+)
+MeritFlaw.objects.create(
+    name="Sphere Natural - Mind", ratings=[6], human=False, mage=True
+)
 MeritFlaw.objects.create(
     name="Spirit Magnet (Mage)", ratings=[3, 4, 5, 6, 7], human=True, mage=True,
 )
@@ -583,7 +633,33 @@ MeritFlaw.objects.create(
     name="Special Responsibility", ratings=[-1], human=True, mage=True
 )
 # MeritFlaw.objects.create(name="Speech Impediment", ratings=[-1], human=True, mage=True)
-MeritFlaw.objects.create(name="Sphere Inept", ratings=[-6], human=True, mage=True)
+MeritFlaw.objects.create(
+    name="Sphere Inept - Correspondence", ratings=[-6], human=False, mage=True
+)
+MeritFlaw.objects.create(
+    name="Sphere Inept - Spirit", ratings=[-6], human=False, mage=True
+)
+MeritFlaw.objects.create(
+    name="Sphere Inept - Time", ratings=[-6], human=False, mage=True
+)
+MeritFlaw.objects.create(
+    name="Sphere Inept - Life", ratings=[-6], human=False, mage=True
+)
+MeritFlaw.objects.create(
+    name="Sphere Inept - Forces", ratings=[-6], human=False, mage=True
+)
+MeritFlaw.objects.create(
+    name="Sphere Inept - Matter", ratings=[-6], human=False, mage=True
+)
+MeritFlaw.objects.create(
+    name="Sphere Inept - Mind", ratings=[-6], human=False, mage=True
+)
+MeritFlaw.objects.create(
+    name="Sphere Inept - Entropy", ratings=[-6], human=False, mage=True
+)
+MeritFlaw.objects.create(
+    name="Sphere Inept - Prime", ratings=[-6], human=False, mage=True
+)
 MeritFlaw.objects.create(name="Strangeness", ratings=[-1], human=True, mage=True)
 MeritFlaw.objects.create(name="Sympathizer", ratings=[-1], human=True, mage=True)
 # MeritFlaw.objects.create(name="Taint of Corruption", ratings=[-7], human=True, mage=True)
