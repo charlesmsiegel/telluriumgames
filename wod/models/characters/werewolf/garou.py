@@ -796,6 +796,7 @@ class Werewolf(Human):
         self.random_finishing_touches()
         self.random_werewolf_history()
         self.random_freebies()
+        self.mf_based_corrections()
         self.random_xp()
         self.random_specialties()
         self.random_fetishes(total_rating=self.fetish)

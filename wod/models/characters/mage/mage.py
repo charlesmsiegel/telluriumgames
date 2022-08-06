@@ -907,6 +907,20 @@ class Mage(Human):
                 cost = self.xp_cost("sphere") * getattr(self, trait)
             if cost == 0:
                 cost = 10
+            if self.merits_and_flaws.filter(
+                name=f"Sphere Natural - {trait.title()}"
+            ).exists():
+                cost *= 0.7
+                if cost % 1 != 0:
+                    cost += 1
+                cost = int(cost)
+            if self.merits_and_flaws.filter(
+                name=f"Sphere Inept - {trait.title()}"
+            ).exists():
+                cost *= 1.3
+                if cost % 1 != 0:
+                    cost += 1
+                cost = int(cost)
             if cost <= self.xp:
                 if self.add_sphere(trait):
                     self.xp -= cost
@@ -1108,6 +1122,7 @@ class Mage(Human):
         self.random_finishing_touches()
         self.random_mage_history()
         self.random_freebies()
+        self.mf_based_corrections()
         self.random_xp()
         self.random_effects()
         self.random_specialties()
