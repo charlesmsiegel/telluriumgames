@@ -899,7 +899,7 @@ class Human(Character):
                 tmp = {k: v for k, v in stats_to_lose.item() if v < 3}
                 new_stat = weighted_choice(tmp)
                 if self.add_ability(new_stat):
-                    stats_to_lose[key] += 1
+                    stats_to_lose[new_stat] += 1
                     total_removed -= 1
             while total_removed < 5:
                 new_stat = weighted_choice(stats_to_lose)

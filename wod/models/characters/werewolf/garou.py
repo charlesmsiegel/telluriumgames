@@ -348,7 +348,7 @@ class Werewolf(WtAHuman):
                         x
                         for x in possible_gifts
                         if len(
-                            set([x.name for x in self.camps.all()]).intersection(
+                            set(x.name for x in self.camps.all()).intersection(
                                 set(x.allowed["garou"])
                             )
                         )
