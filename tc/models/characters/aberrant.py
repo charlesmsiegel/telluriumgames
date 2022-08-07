@@ -236,6 +236,9 @@ class Aberrant(Human):
         return []
 
     def add_tag(self, power, tag):
+        if tag.name == "Multiple":
+            if self.tag_rating(power, tag) >= self.power_rating(power):
+                return False
         if power not in self.powers.all():
             return False
         if power not in tag.permitted_powers.all():
