@@ -24,7 +24,7 @@ class WtAHuman(Human):
     ancestors = models.IntegerField(default=0)
     fate = models.IntegerField(default=0)
     fetish = models.IntegerField(default=0)
-    kinfolk = models.IntegerField(default=0)
+    kinfolk_rating = models.IntegerField(default=0)
     pure_breed = models.IntegerField(default=0)
     resources = models.IntegerField(default=0)
     rites = models.IntegerField(default=0)
@@ -39,7 +39,7 @@ class WtAHuman(Human):
                 "ancestors": self.ancestors,
                 "fate": self.fate,
                 "fetish": self.fetish,
-                "kinfolk": self.kinfolk,
+                "kinfolk_rating": self.kinfolk_rating,
                 "pure_breed": self.pure_breed,
                 "resources": self.resources,
                 "rites": self.rites,

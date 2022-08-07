@@ -309,6 +309,8 @@ class Werewolf(WtAHuman):
             if Gift.objects.filter(pk=index).exists():
                 choice = Gift.objects.get(pk=index)
                 correct = True
+                if "kinfolk" in choice.allowed["garou"]:
+                    return False
                 if breed and self.breed not in choice.allowed["garou"]:
                     correct = False
                 if auspice and self.auspice not in choice.allowed["garou"]:

@@ -46,6 +46,7 @@ class MeritFlaw(models.Model):
     human = models.BooleanField(default=False)
     garou = models.BooleanField(default=False)
     mage = models.BooleanField(default=False)
+    kinfolk = models.BooleanField(default=False)
     description = models.TextField(default="")
 
     def save(self, *args, **kwargs):
@@ -277,8 +278,8 @@ class Human(Character):
     def total_attributes(self):
         return sum(self.get_attributes().values())
 
-    def random_attributes(self):
-        attribute_types = [7, 5, 3]
+    def random_attributes(self, primary=7, secondary=5, tertiary=3):
+        attribute_types = [primary, secondary, tertiary]
         random.shuffle(attribute_types)
         while self.total_physical_attributes() < attribute_types[0] + 3:
             attribute_choice = weighted_choice(
@@ -296,14 +297,14 @@ class Human(Character):
             )
             add_dot(self, attribute_choice, 5)
 
-    def has_attributes(self):
+    def has_attributes(self, primary=7, secondary=5, tertiary=3):
         triple = [
             self.total_physical_attributes(),
             self.total_mental_attributes(),
             self.total_social_attributes(),
         ]
         triple.sort()
-        return triple == [6, 8, 10]
+        return triple == [3 + tertiary, 3 + secondary, 3 + primary]
 
     def filter_attributes(self, minimum=0, maximum=5):
         return {
@@ -375,8 +376,8 @@ class Human(Character):
     def total_knowledges(self):
         return sum(self.get_knowledges().values())
 
-    def random_abilities(self):
-        ability_types = [13, 9, 5]
+    def random_abilities(self, primary=13, secondary=9, tertiary=5):
+        ability_types = [primary, secondary, tertiary]
         random.shuffle(ability_types)
         while self.total_talents() < ability_types[0]:
             ability_choice = weighted_choice(self.get_talents())
@@ -391,10 +392,10 @@ class Human(Character):
     def total_abilities(self):
         return sum(self.get_abilities().values())
 
-    def has_abilities(self):
+    def has_abilities(self, primary=13, secondary=9, tertiary=5):
         triple = [self.total_talents(), self.total_skills(), self.total_knowledges()]
         triple.sort()
-        return triple == [5, 9, 13]
+        return triple == [tertiary, secondary, primary]
 
     def add_specialty(self, specialty):
         if getattr(self, specialty.stat) < 4 and specialty.stat not in [
