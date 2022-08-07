@@ -24,6 +24,16 @@ class Tribe(models.Model):
 class Camp(models.Model):
     name = models.CharField(max_length=100, unique=True)
     tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.CASCADE)
+    camp_type = models.CharField(
+        max_length=100,
+        default="camp",
+        choices=[
+            ("camp", "Camp"),
+            ("lodge", "Lodge"),
+            ("house", "House"),
+            ("philosophy", "Philosophy"),
+        ],
+    )
     description = models.TextField(default="")
 
     def __str__(self):
@@ -79,7 +89,11 @@ class Werewolf(Human):
         choices=[("homid", "Homid"), ("metis", "Metis"), ("lupus", "Lupus"),],
     )
     tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.CASCADE)
-    camp = models.ForeignKey(Camp, blank=True, null=True, on_delete=models.CASCADE)
+    # camp = models.ForeignKey(Camp, blank=True, null=True, on_delete=models.CASCADE)
+    # lodge = models.ForeignKey(Camp, blank=True, null=True, on_delete=models.CASCADE)
+    # house = models.ForeignKey(Camp, blank=True, null=True, on_delete=models.CASCADE)
+    # philosophy = models.ForeignKey(Camp, blank=True, null=True, on_delete=models.CASCADE)
+    camps = models.ManyToManyField(Camp, blank=True)
 
     leadership = models.IntegerField(default=0)
     primal_urge = models.IntegerField(default=0)
@@ -301,16 +315,39 @@ class Werewolf(Human):
         return value
 
     def has_camp(self):
-        return self.camp is not None
+        return self.camps.count() != 0
 
-    def set_camp(self, camp):
-        self.camp = camp
+    def add_camp(self, camp):
+        self.camps.add(camp)
         self.save()
         return True
 
-    def random_camp(self):
+    def random_camp(self, camp_type="camp"):
+        if self.tribe.name == "Silver Fangs":
+            lodge = (
+                Camp.objects.filter(camp_type="lodge", tribe=self.tribe)
+                .order_by("?")
+                .first()
+            )
+            house = (
+                Camp.objects.filter(camp_type="house", tribe=self.tribe)
+                .order_by("?")
+                .first()
+            )
+            philosophy = (
+                Camp.objects.filter(camp_type="philosophy", tribe=self.tribe)
+                .order_by("?")
+                .first()
+            )
+            return (
+                self.add_camp(lodge)
+                and self.add_camp(house)
+                and self.add_camp(philosophy)
+            )
         fltr = Q(tribe=self.tribe) | Q(tribe=None)
-        return self.set_camp(Camp.objects.filter(fltr).order_by("?").first())
+        return self.add_camp(
+            Camp.objects.filter(fltr).filter(camp_type=camp_type).order_by("?").first()
+        )
 
     def add_gift(self, gift):
         self.gifts.add(gift)
@@ -382,9 +419,18 @@ class Werewolf(Human):
             possible_gifts = [
                 x for x in possible_gifts if self.tribe.name in x.allowed["garou"]
             ]
-            if self.camp is not None:
+            if self.camps.count() != 0:
                 possible_gifts.extend(
-                    [x for x in possible_gifts if self.camp.name in x.allowed["garou"]]
+                    [
+                        x
+                        for x in possible_gifts
+                        if len(
+                            set([x.name for x in self.camps.all()]).intersection(
+                                set(x.allowed["garou"])
+                            )
+                        )
+                        != 0
+                    ]
                 )
         if auspice:
             possible_gifts = [

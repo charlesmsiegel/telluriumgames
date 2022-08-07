@@ -350,12 +350,12 @@ class TestWerewolf(TestCase):
         self.character.set_breed("lupus")
         self.assertEqual(self.character.gnosis, 5)
 
-    def test_set_camp(self):
+    def test_add_camp(self):
         t = Tribe.objects.get(name="Test Tribe")
         self.character.set_tribe(t)
         c = Camp.objects.get(name="Test Camp")
         self.assertFalse(self.character.has_camp())
-        self.assertTrue(self.character.set_camp(c))
+        self.assertTrue(self.character.add_camp(c))
         self.assertTrue(self.character.has_camp())
 
     def test_has_camp(self):
@@ -363,7 +363,7 @@ class TestWerewolf(TestCase):
         self.character.set_tribe(t)
         c = Camp.objects.get(name="Test Camp", tribe=t)
         self.assertFalse(self.character.has_camp())
-        self.character.set_camp(c)
+        self.character.add_camp(c)
         self.assertTrue(self.character.has_camp())
 
     def test_add_gnosis(self):
