@@ -31,6 +31,7 @@ from wod.models.characters.werewolf import (
     Totem,
     Tribe,
     Werewolf,
+    Kinfolk,
 )
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder
@@ -232,6 +233,15 @@ class WerewolfAdmin(admin.ModelAdmin):
         "glory",
         "wisdom",
         "honor",
+    )
+
+
+@admin.register(Kinfolk)
+class KinfolkAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "breed",
+        "tribe",
     )
 
 

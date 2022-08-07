@@ -1016,6 +1016,10 @@ Gift.objects.create(
 Gift.objects.create(name="Maddening Howl", rank=4, allowed={"garou": ["White Howlers"]})
 Gift.objects.create(name="Mad Strength", rank=5, allowed={"garou": ["White Howlers"]})
 
+Gift.objects.create(name="Eve's Touch", rank=1, allowed={"garou": ["kinfolk"]})
+Gift.objects.create(name="Dona Nobis Pacem", rank=1, allowed={"garou": ["kinfolk"]})
+Gift.objects.create(name="Echoes", rank=1, allowed={"garou": ["kinfolk"]})
+
 
 Rite.objects.create(name="Rite of Cleansing", level=1, type="accord")
 Rite.objects.create(name="Rite of Contrition", level=1, type="accord")
@@ -2124,6 +2128,58 @@ Fetish.objects.create(
     description="",
     spirit="Wyrm Spirit",
     display=False,
+)
+
+Fetish.objects.create(
+    name="Horn of Distress",
+    rank=1,
+    gnosis=3,
+    description="",
+    spirit="Peacock or Air Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Amulet of Kinship",
+    rank=2,
+    gnosis=5,
+    description="",
+    spirit="Ancestor Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Klaive Hammer",
+    rank=3,
+    gnosis=5,
+    description="",
+    spirit="Balance, Light, or Fire Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Test Vial",
+    rank=0,
+    gnosis=3,
+    description="",
+    spirit="Ancestor, Divination, or Crow Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Hero's Mead",
+    rank=0,
+    gnosis=5,
+    description="",
+    spirit="Thunder Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Long Whispers",
+    rank=0,
+    gnosis=7,
+    description="",
+    spirit="Dove or Pigeon Spirit",
+    display=False,
+)
+Fetish.objects.create(
+    name="Dire Call", rank=0, gnosis=9, description="", spirit="Lune", display=False,
 )
 
 Charm.objects.create(name="Airt Sense")

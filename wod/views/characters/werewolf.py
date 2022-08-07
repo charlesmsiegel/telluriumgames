@@ -13,7 +13,7 @@ from wod.models.characters.werewolf.garou import (
     Werewolf,
 )
 from wod.models.characters.werewolf.spirits import Charm, SpiritCharacter, Totem
-
+from wod.models.characters.werewolf.kinfolk import Kinfolk
 
 class WerewolfDetailView(View):
     def get(self, request, *args, **kwargs):
@@ -66,6 +66,50 @@ class WerewolfUpdateView(UpdateView):
     fields = "__all__"
     template_name = "wod/characters/werewolf/werewolf/update.html"
 
+
+class KinfolkDetailView(View):
+    def get(self, request, *args, **kwargs):
+        kinfolk = Kinfolk.objects.get(pk=kwargs["pk"])
+        context = self.get_context(kinfolk)
+        return render(request, "wod/characters/werewolf/kinfolk/detail.html", context)
+
+    def get_context(self, kinfolk):
+        context = {"object": kinfolk}
+        specialties = {}
+        for attribute in kinfolk.get_attributes():
+            specialties[attribute] = ", ".join(
+                [x.name for x in kinfolk.specialties.filter(stat=attribute)]
+            )
+        for ability in kinfolk.get_abilities():
+            specialties[ability] = ", ".join(
+                [x.name for x in kinfolk.specialties.filter(stat=ability)]
+            )
+        for key, value in specialties.items():
+            context[f"{key}_spec"] = value
+
+        context["merits_and_flaws"] = MeritFlawRating.objects.order_by(
+            "mf__name"
+        ).filter(character=kinfolk)
+        all_gifts = list(context["object"].gifts.all())
+        row_length = 3
+        all_gifts = [
+            all_gifts[i : i + row_length] for i in range(0, len(all_gifts), row_length)
+        ]
+        context["gifts"] = all_gifts
+
+        return context
+
+
+class KinfolkCreateView(CreateView):
+    model = Kinfolk
+    fields = "__all__"
+    template_name = "wod/characters/werewolf/kinfolk/create.html"
+
+
+class KinfolkUpdateView(UpdateView):
+    model = Kinfolk
+    fields = "__all__"
+    template_name = "wod/characters/werewolf/kinfolk/update.html"
 
 class SpiritDetailView(DetailView):
     model = SpiritCharacter

@@ -396,7 +396,7 @@ class TestWerewolf(TestCase):
                 "ancestors": 0,
                 "fate": 0,
                 "fetish": 0,
-                "kinfolk": 0,
+                "kinfolk_rating": 0,
                 "pure_breed": 0,
                 "contacts": 0,
                 "rites": 0,
@@ -408,7 +408,7 @@ class TestWerewolf(TestCase):
         )
         self.character.allies = 1
         self.character.ancestors = 3
-        self.character.kinfolk = 3
+        self.character.kinfolk_rating = 3
         self.character.pure_breed = 2
         self.character.mentor = 2
         self.assertEqual(
@@ -418,7 +418,7 @@ class TestWerewolf(TestCase):
                 "ancestors": 3,
                 "fate": 0,
                 "fetish": 0,
-                "kinfolk": 3,
+                "kinfolk_rating": 3,
                 "pure_breed": 2,
                 "contacts": 0,
                 "rites": 0,

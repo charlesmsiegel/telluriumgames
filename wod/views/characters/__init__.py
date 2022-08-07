@@ -7,6 +7,7 @@ from wod.models.characters.human import Character, Group
 from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.mage import Mage
 from wod.models.characters.werewolf.garou import Pack, Werewolf
+from wod.models.characters.werewolf.kinfolk import Kinfolk
 
 from . import human, mage, werewolf
 
@@ -47,6 +48,7 @@ class GenericCharacterDetailView(View):
     character_views = {
         "character": human.CharacterDetailView,
         "human": human.HumanDetailView,
+        "kinfolk": werewolf.KinfolkDetailView,
         "garou": werewolf.WerewolfDetailView,
         "mage": mage.MageDetailView,
         "spirit_character": werewolf.SpiritDetailView,
@@ -61,6 +63,7 @@ class GenericCharacterDetailView(View):
 
 class RandomCharacterView(View):
     chars = {
+        "kinfolk": Kinfolk,
         "werewolf": Werewolf,
         "mage": Mage,
         "cabal": Cabal,
