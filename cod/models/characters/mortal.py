@@ -925,6 +925,95 @@ class Merit(models.Model):
         elif self.name == "Multilingual":
             possible_details = product(Language.objects.all(), Language.objects.all())
             possible_details = [x for x in possible_details if x[0] != x[1]]
+        elif self.name == "Contacts":
+            detail_dict = {
+                "academics": ["Rare Book Dealer", "Law Professor", "Head Librarian"],
+                "computer": [
+                    "AI Researcher",
+                    "Hardcore Computer Gamer",
+                    "White Hat Hacker",
+                ],
+                "crafts": [
+                    "Automotive Engineer",
+                    "Makerspace Enthusiast",
+                    "Police Sketch Artist",
+                ],
+                "investigation": [
+                    "Conspiracy Buff",
+                    "Medical Examiner",
+                    "Private Investigator",
+                ],
+                "medicine": ["Bio-Tech Company Researcher", "Chronic Patient", "EMT"],
+                "occult": [
+                    "Anthropology Professor",
+                    "Neo-Pagan Author",
+                    "Weird Hermit Down the Street",
+                ],
+                "politics": [
+                    "Personal Assistant to the Governor",
+                    "Political Blogger",
+                    "Union Leader",
+                ],
+                "science": [
+                    "Experimental Physicist",
+                    "Geology Professor",
+                    "Mad Inventor",
+                ],
+                "athletics": [
+                    "Parkour Enthusiast",
+                    "Physical Therapist",
+                    "Running Club Buddy",
+                ],
+                "brawl": ["Club Bouncer", "Self-defense Teacher", "Sparring Partner"],
+                "drive": ["Bush Pilot", "Mechanic", "Street Racer"],
+                "firearms": [
+                    "Gun store owner",
+                    "Local law enforcement",
+                    "Sharpshooter",
+                ],
+                "larceny": [
+                    "Shady Pawn Shop Owner",
+                    "Parole Officer",
+                    "Three-Card Monte Dealer",
+                ],
+                "stealth": ["Bow Hunter", "Burglar", "Lookout from a Former Job"],
+                "survival": [
+                    "Homeless Person",
+                    "Off-the-grid Survivalist",
+                    "Scout Master",
+                ],
+                "weaponry": [
+                    "Fencing Instructor",
+                    "Gang Member",
+                    "Western Martial Arts Enthusiast",
+                ],
+                "animal_ken": [
+                    "Crazy Cat Lady",
+                    "Rodeo Horse Trainer",
+                    "Zoo Veterinarian",
+                ],
+                "empathy": ["Shoulder to Cry On", "Police Profiler", "Psych Student"],
+                "expression": [
+                    "Investigative Journalist",
+                    "Political Speech Writer",
+                    "Reclusive Poet",
+                ],
+                "intimidation": [
+                    "Barroom Tough Guy",
+                    "High-Powered Executive",
+                    "Police Interrogator",
+                ],
+                "persuasion": ["Car Salesman", "Speech Coach", "Trial Lawyer"],
+                "socialize": ["Diplomat", "Drinking Buddy", "Society Matron"],
+                "streetwise": [
+                    "Bartender in a Rough Part of Town",
+                    "Drug Dealer",
+                    "Undercover Cop",
+                ],
+                "subterfuge": ["Con Artist", "Crooked Politician", "Out-of-work Actor"],
+            }
+            skill = weighted_choice(character.get_skills())
+            possible_details = detail_dict[skill]
         elif self.name.startswith("Fighting Finesse"):
             possible_details = character.specialties.filter(skill=self.prereqs[-1][0])
         return possible_details
