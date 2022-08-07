@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.views.generic import View
 
@@ -87,6 +88,8 @@ class RandomCharacterView(View):
         freebies = max(freebies, 0)
         char.random(freebies=freebies, xp=xp)
         char.save()
+        messages.success(request, "Character Created!")
+        # messages.error(request, "Character Not Created")
         return redirect(char.get_absolute_url())
 
     def get(self, request):
