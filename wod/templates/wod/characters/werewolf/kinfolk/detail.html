@@ -27,23 +27,19 @@
             <div class="col-sm">Nature</div>
             <a class="col-sm" href="{{ object.nature.get_absolute_url }}">{{ object.nature }}</a>
             <div class="col-sm">Tribe</div>
-            <div class="col-sm">{{ object.tribe.name }}
-                {% for camp in object.camps.all %}
-                 - {{ camp.name }}
-                {% endfor %}
-            </div>
+            <div class="col-sm">{{ object.tribe.name }}</div>
         </div>
         <div class="row">
             <div class="col-sm">Player</div>
             <div class="col-sm">{{ object.player }}</div>
             <div class="col-sm">Demeanor</div>
             <a class="col-sm" href="{{ object.demeanor.get_absolute_url }}">{{ object.demeanor }}</a>
-            <div class="col-sm">Auspice</div>
-            <div class="col-sm">{{ object.get_auspice_display }}</div>
+            <div class="col-sm">Relation</div>
+            <div class="col-sm">{{ object.relation }}</div>
         </div>
         <div class="row">
-            <div class="col-sm">Rank</div>
-            <div class="col-sm">{{ rank_name }}</div>
+            <div class="col-sm"></div>
+            <div class="col-sm"></div>
             <div class="col-sm">Concept</div>
             <div class="col-sm">{{ object.concept }}</div>
             <div class="col-sm">Breed</div>
@@ -205,8 +201,6 @@
             <div class="col-sm dots">{{ object.willpower|dots:10 }}</div>
             <div class="col-sm">Gnosis</div>
             <div class="col-sm dots">{{ object.gnosis|dots:10 }}</div>
-            <div class="col-sm">Rage</div>
-            <div class="col-sm dots">{{ object.rage|dots:10 }}</div>
         </div>
         <div class="row">
             <h2 class="col-sm wta_heading">Renown</h2>
@@ -233,34 +227,18 @@
         <div class="row">
             <div class="col-sm">Allies</div>
             <div class="col-sm dots">{{ object.allies|dots }}</div>
-            <div class="col-sm">Ancestors</div>
-            <div class="col-sm dots">{{ object.ancestors|dots }}</div>
             <div class="col-sm">Contacts</div>
             <div class="col-sm dots">{{ object.contacts|dots }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Fate</div>
-            <div class="col-sm dots">{{ object.fate|dots }}</div>
-            <div class="col-sm">Fetish</div>
-            <div class="col-sm dots">{{ object.fetish|dots }}</div>
-            <div class="col-sm">Kinfolk</div>
-            <div class="col-sm dots">{{ object.kinfolk_rating|dots }}</div>
-        </div>
-        <div class="row">
             <div class="col-sm">Mentor</div>
             <div class="col-sm dots">{{ object.mentor|dots }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm"></div>
             <div class="col-sm">Pure Breed</div>
             <div class="col-sm dots">{{ object.pure_breed|dots }}</div>
             <div class="col-sm">Resources</div>
             <div class="col-sm dots">{{ object.resources|dots }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Rites</div>
-            <div class="col-sm dots">{{ object.rites|dots }}</div>
-            <div class="col-sm">Spirit Heritage</div>
-            <div class="col-sm dots">{{ object.spirit_heritage|dots }}</div>
-            <div class="col-sm">Totem</div>
-            <div class="col-sm dots">{{ object.totem|dots }}</div>
+            <div class="col-sm"></div>
         </div>
         <div class="row">
             <h2 class="col-sm wta_heading">Gifts</h2>
@@ -269,17 +247,6 @@
         <div class="row">
             {% for gift in row %}
             <div class="col-sm">{{ gift.name }}</div>
-            {% endfor %}
-        </div>
-        {% endfor %}
-
-        <div class="row">
-            <h2 class="col-sm wta_heading">Rites</h2>
-        </div>
-        {% for row in rites %}
-        <div class="row">
-            {% for rite in row %}
-            <div class="col-sm">{{ rite.name }}</div>
             {% endfor %}
         </div>
         {% endfor %}
@@ -315,8 +282,6 @@
             <div class="col-sm">{{ object.date_of_birth }}</div>
             <div class="col-sm">Apparent Age</div>
             <div class="col-sm">{{ object.apparent_age }}</div>
-            <div class="col-sm">Age of First Change</div>
-            <div class="col-sm">{{ object.age_of_first_change }}</div>
         </div>
         <div class="row">
             <div class="col-sm">Hair</div>
@@ -358,12 +323,6 @@
             <div class="col-sm">{{ object.history }}</div>
         </div>
         <div class="row">
-            <div class="col-sm">First Change</div>
-            <div class="col-sm">{{ object.first_change }}</div>
-            <div class="col-sm">Battle Scars</div>
-            <div class="col-sm">{{ object.battle_scars }}</div>
-        </div>
-        <div class="row">
             <div class="col-sm">Goals</div>
             <div class="col-sm">{{ object.goals }}</div>
             <div class="col-sm">Notes</div>
@@ -378,16 +337,6 @@
             <div class="col-sm">Spent XP</div>
             <div class="col-sm">{{ object.spent_xp }}</div>
         </div>
-        <div class="row">
-            <h2 class="col-sm wta_heading">Renown Incidents</h2>
-        </div>
-        {% for incident in object.renown_incidents %}
-        <div class="row">
-            <div class="col-sm"></div>
-            <div class="col-sm">{{ incident }}</div>
-            <div class="col-sm"></div>
-        </div>
-        {% endfor %}
     </div>
 </div>
 {% endblock content %}

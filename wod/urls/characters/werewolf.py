@@ -24,6 +24,16 @@ urls = [
         name="update_werewolf",
     ),
     path(
+        "kinfolk/create/",
+        views.characters.werewolf.KinfolkCreateView.as_view(),
+        name="create_kinfolk",
+    ),
+    path(
+        "kinfolk/update/<pk>/",
+        views.characters.werewolf.KinfolkUpdateView.as_view(),
+        name="update_kinfolk",
+    ),
+    path(
         "camps/<pk>/", views.characters.werewolf.CampDetailView.as_view(), name="camp"
     ),
     path(
