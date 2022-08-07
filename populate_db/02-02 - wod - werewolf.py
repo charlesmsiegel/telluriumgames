@@ -1801,6 +1801,20 @@ Camp.objects.create(name="Hakken", tribe=shadow_lords)
 Camp.objects.create(name="Boli Zousizhe", tribe=glass_walker)
 Camp.objects.create(name="Kucha Ekundu", tribe=red_talons)
 
+Camp.objects.create(name="Lodge of the Moon", tribe=silver_fangs, camp_type="lodge")
+Camp.objects.create(name="Lodge of the Sun", tribe=silver_fangs, camp_type="lodge")
+Camp.objects.create(name="House Austere Howl", tribe=silver_fangs, camp_type="house")
+Camp.objects.create(name="The Blood-Red Crest", tribe=silver_fangs, camp_type="house")
+Camp.objects.create(name="Clan Crescent Moon", tribe=silver_fangs, camp_type="house")
+Camp.objects.create(name="House Gleaming Eye", tribe=silver_fangs, camp_type="house")
+Camp.objects.create(
+    name="House Unbreakable Hearth", tribe=silver_fangs, camp_type="house"
+)
+Camp.objects.create(name="House Wise Heart", tribe=silver_fangs, camp_type="house")
+Camp.objects.create(name="House Wyrmfoe", tribe=silver_fangs, camp_type="house")
+Camp.objects.create(name="Renewalists", tribe=silver_fangs, camp_type="philosophy")
+Camp.objects.create(name="Royalists", tribe=silver_fangs, camp_type="philosophy")
+
 Fetish.objects.create(
     name="Apeskin",
     rank=1,
