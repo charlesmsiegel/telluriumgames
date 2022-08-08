@@ -12,8 +12,9 @@ from wod.models.characters.werewolf.garou import (
     Tribe,
     Werewolf,
 )
-from wod.models.characters.werewolf.spirits import Charm, SpiritCharacter, Totem
 from wod.models.characters.werewolf.kinfolk import Kinfolk
+from wod.models.characters.werewolf.spirits import Charm, SpiritCharacter, Totem
+
 
 class WerewolfDetailView(View):
     def get(self, request, *args, **kwargs):
@@ -110,6 +111,7 @@ class KinfolkUpdateView(UpdateView):
     model = Kinfolk
     fields = "__all__"
     template_name = "wod/characters/werewolf/kinfolk/update.html"
+
 
 class SpiritDetailView(DetailView):
     model = SpiritCharacter

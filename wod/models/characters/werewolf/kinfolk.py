@@ -172,6 +172,11 @@ class Kinfolk(WtAHuman):
         trait = self.choose_random_gift()
         return self.spend_xp(trait)
 
+    def add_gift(self, gift):
+        self.gifts.add(gift)
+        self.save()
+        return True
+
     def set_relation(self, relation):
         self.relation = relation
         return True

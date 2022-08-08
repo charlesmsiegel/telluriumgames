@@ -24,6 +24,7 @@ from wod.models.characters.werewolf import (
     Camp,
     Charm,
     Gift,
+    Kinfolk,
     Pack,
     RenownIncident,
     Rite,
@@ -31,7 +32,6 @@ from wod.models.characters.werewolf import (
     Totem,
     Tribe,
     Werewolf,
-    Kinfolk,
 )
 from wod.models.items.human import Item
 from wod.models.items.mage import Grimoire, Library, Wonder

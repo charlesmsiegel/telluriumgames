@@ -32,7 +32,7 @@ class CharacterIndexView(View):
 
 def load_character_types(request):
     characters = {
-        "werewolf": ["werewolf", "pack"],
+        "werewolf": ["werewolf", "pack", "kinfolk"],
         "mage": ["mage", "cabal"],
     }
     gameline = request.GET.get("gameline")
