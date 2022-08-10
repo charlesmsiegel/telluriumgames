@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models import F, Q
 from django.urls import reverse
 
+from cod.models.characters.ephemera import Ephemera
 from cod.models.characters.mortal import Condition, Merit, Mortal
 from core.models import Material
 from core.utils import add_dot, weighted_choice
@@ -226,6 +227,10 @@ class Mage(Mortal):
     nimbus = models.TextField(default="")
     mana = models.IntegerField(default=0)
     dedicated_tool = models.CharField(max_length=100, default="")
+
+    familiar = models.ForeignKey(
+        Ephemera, blank=True, null=True, on_delete=models.SET_NULL
+    )
 
     arcane_xp = models.IntegerField(default=0)
 
@@ -742,6 +747,18 @@ class Mage(Mortal):
             self.gnosis = 3
         return True
 
+    def set_familiar(self, familiar):
+        self.familiar = familiar
+        return True
+
+    def random_familiar(self):
+        if self.merits.filter(name="Familiar").exists():
+            rank = self.merit_rating("Familiar") // 2
+            e = Ephemera.objects.create(name="")
+            e.random(rank=rank)
+            return self.set_familiar(e)
+        return False
+
     def random(self, xp=0):
         self.xp = xp
         self.random_basis()
@@ -764,6 +781,7 @@ class Mage(Mortal):
         self.random_spend_xp()
         self.random_obsessions()
         self.random_dedicated_tool()
+        self.random_familiar()
         self.save()
 
     def assign_advantages(self):

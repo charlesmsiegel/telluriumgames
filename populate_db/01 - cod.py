@@ -1,5 +1,6 @@
 from time import time
 
+from cod.models.characters.ephemera import Numina
 from cod.models.characters.mage import (
     Attainment,
     Legacy,
@@ -9,7 +10,6 @@ from cod.models.characters.mage import (
     Rote,
 )
 from cod.models.characters.mortal import Condition, Merit, Specialty, Tilt
-from cod.models.characters.ephemera import Numina
 from cod.models.items.mortal import Equipment
 from core.models import Language, Material
 

@@ -3,6 +3,7 @@ import random
 from django.contrib.auth.models import User
 from django.test import TestCase
 
+from cod.models.characters.ephemera import Numina
 from cod.models.characters.mage import (
     Legacy,
     Mage,
@@ -88,6 +89,9 @@ def mage_setup(mage):
     for skill in mage.get_skills():
         for i in range(5):
             Specialty.objects.create(name=f"{skill.title()} {i}", skill=skill)
+
+    for i in range(10):
+        Numina.objects.create(name=f"Numina {i}")
 
 
 class TestMage(TestCase):
