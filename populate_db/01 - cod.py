@@ -9,6 +9,7 @@ from cod.models.characters.mage import (
     Rote,
 )
 from cod.models.characters.mortal import Condition, Merit, Specialty, Tilt
+from cod.models.characters.ephemera import Numina
 from cod.models.items.mortal import Equipment
 from core.models import Language, Material
 
@@ -5844,3 +5845,22 @@ Tilt.objects.create(
     causing="",
     ending="",
 )
+
+Numina.objects.create(name="Awe")
+Numina.objects.create(name="Blast")
+Numina.objects.create(name="Dement")
+Numina.objects.create(name="Drain")
+Numina.objects.create(name="Emotional Aura")
+Numina.objects.create(name="Entropic Decay")
+Numina.objects.create(name="Firestarter")
+Numina.objects.create(name="Hallucination")
+Numina.objects.create(name="Implant Mission")
+Numina.objects.create(name="Left-Handed Spanner")
+Numina.objects.create(name="Mortal Mask")
+Numina.objects.create(name="Pathfinder")
+Numina.objects.create(name="Regenerate")
+Numina.objects.create(name="Seek")
+Numina.objects.create(name="Speed")
+Numina.objects.create(name="Sign")
+Numina.objects.create(name="Stalwart")
+Numina.objects.create(name="Telekinesis")
