@@ -2,11 +2,12 @@ from django.urls import include, path
 
 from cod import views
 
-from . import mage, mortal
+from . import ephemera, mage, mortal
 
 urls = [
     path("", include((mortal.urls, "cod"), namespace="mortal")),
     path("", include((mage.urls, "cod"), namespace="mage")),
+    path("", include((ephemera.urls, "cod"), namespace="ephemera")),
     path("", views.characters.CharacterIndexView.as_view(), name="index"),
     path("random/", views.characters.RandomCharacterView.as_view(), name="random",),
     path(

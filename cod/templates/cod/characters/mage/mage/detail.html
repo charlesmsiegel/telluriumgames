@@ -545,7 +545,11 @@
                     <div class="col-sm">
                     </div>
                     <div class="col-sm">
-                        {{ merit.merit.name }}
+                        {% if merit.merit.name == "Familiar" %}
+                            <a href="{{ object.familiar.get_absolute_url }}">{{ merit.merit.name }}</a>
+                        {% else %}
+                            {{ merit.merit.name }}
+                        {% endif %}
                         {% if merit.merit.needs_detail %}({{ merit.detail }}){% endif %}
                     </div>
                     <div class="col-sm dots">
@@ -706,12 +710,16 @@
                 </div>
             </div>
             <div class="row">
-                <h3 class="col-sm">Attainments</h3>
+                <h3 class="col-sm">
+                    Attainments
+                </h3>
             </div>
             {% for attainment in object.attainments.all %}
-            <div class="row">
-                <div class="col-sm">{{ attainment }}</div>
-            </div>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ attainment }}
+                    </div>
+                </div>
             {% endfor %}
             <div class="row">
                 <h3 class="col-sm cod_heading">

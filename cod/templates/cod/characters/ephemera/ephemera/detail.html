@@ -1,0 +1,77 @@
+{% extends "core/base.html" %}
+{% block title %}
+    {{ object.name }}
+{% endblock title %}
+<body>
+    {% block content %}
+        {% load dots %}
+        <div class="centertext">
+            <div class="row">
+                <div class="col-sm cod_heading">
+                    <h1>{{ object.name }}</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Name</div>
+                <div class="col-sm">{{ object.name }}</div>
+                <div class="col-sm">Rank</div>
+                <div class="col-sm">{{ object.rank }}</div>
+                <div class="col-sm">Type</div>
+                <div class="col-sm">{{ object.get_type_display }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Power</div>
+                <div class="col-sm dots">{{ object.power|dots }}</div>
+                <div class="col-sm">Finesse</div>
+                <div class="col-sm dots">{{ object.finesse|dots }}</div>
+                <div class="col-sm">Resistance</div>
+                <div class="col-sm dots">{{ object.resistance|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm">Maximum Essence</div>
+                <div class="col-sm">{{ object.maximum_essence }}</div>
+                <div class="col-sm">Size</div>
+                <div class="col-sm">{{ object.size }}</div>
+                <div class="col-sm"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm">Corpus</div>
+                <div class="col-sm">{{ object.corpus }}</div>
+                <div class="col-sm">Willpower</div>
+                <div class="col-sm">{{ object.willpower }}</div>
+                <div class="col-sm"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Initiative</div>
+                <div class="col-sm">
+                    {{ object.initiative }}
+                </div>
+                <div class="col-sm">
+                    Defense
+                </div>
+                <div class="col-sm">
+                    {{ object.defense }}
+                </div>
+                <div class="col-sm">
+                    Speed
+                </div>
+                <div class="col-sm">
+                    {{ object.speed }}
+                </div>
+            </div>
+            <div class="row">
+                <h3 class="col-sm cod_heading">
+                    Numina
+                </h3>
+            </div>
+            {% for numen in object.numina.all %}
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <a class="col-sm" href="{{ numen.get_absolute_url }}">{{ numen.name }}</a>
+                    <div class="col-sm"></div>
+                </div>
+            {% endfor %}
+        </body>
+    {% endblock content %}

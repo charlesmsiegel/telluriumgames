@@ -1,7 +1,7 @@
 import random
-from ast import Num
 
 from django.db import models
+from django.shortcuts import reverse
 
 from core.utils import add_dot, weighted_choice
 
@@ -10,6 +10,9 @@ from core.utils import add_dot, weighted_choice
 class Numina(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(default="")
+
+    def get_absolute_url(self):
+        return reverse("cod:characters:ephemera:numina", kwargs={"pk": self.pk})
 
 
 class Ephemera(models.Model):
@@ -46,6 +49,9 @@ class Ephemera(models.Model):
     speed = models.IntegerField(default=0)
 
     numina = models.ManyToManyField(Numina, blank=True)
+
+    def get_absolute_url(self):
+        return reverse("cod:characters:ephemera:ephemera", kwargs={"pk": self.pk})
 
     def has_rank(self):
         return self.rank != 0
