@@ -14,6 +14,8 @@
         <div class="row">
             <div class="col-sm">Maximum Quintessence</div>
             <div class="col-sm">{{ object.quintessence_max }}</div>
+            <div class="col-sm">Arete</div>
+            <div class="col-sm">{{ object.arete }}</div>
         </div>
         <div class="col-sm mtas_heading">
             <h2>Resonance</h2>
@@ -21,6 +23,14 @@
         <div class="row">
             {% for res in resonance %}
                 <a class="col-sm" href={{ res.resonance.get_absolute_url }}>{{ res.resonance }}: {{ res.rating }}</a>
+            {% endfor %}
+        </div>
+        <div class="col-sm mtas_heading">
+            <h2>Powers</h2>
+        </div>
+        <div class="row">
+            {% for power in object.powers.all %}
+            <a class="col-sm" href={{ power.get_absolute_url }}>{{ power.name }}</a>
             {% endfor %}
         </div>
     </div>

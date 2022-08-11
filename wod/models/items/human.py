@@ -16,3 +16,14 @@ class Item(PolymorphicModel):
 
     def get_absolute_url(self):
         return reverse("wod:items:item", args=[str(self.id)])
+
+    def has_name(self):
+        return self.name != ""
+
+    def set_name(self, name):
+        self.name = name
+        return True
+
+    def random_name(self):
+        name = f"Random Item {Item.objects.count()}"
+        return self.set_name(name)

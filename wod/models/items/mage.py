@@ -21,12 +21,179 @@ from wod.models.items.human import Item
 
 
 # Create your models here.
+class WonderResonanceRating(models.Model):
+    wonder = models.ForeignKey("Wonder", on_delete=models.CASCADE)
+    resonance = models.ForeignKey(Resonance, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0)
+
+
 class Wonder(Item):
     type = "wonder"
 
     rank = models.IntegerField(default=0)
     background_cost = models.IntegerField(default=0)
     quintessence_max = models.IntegerField(default=0)
+
+    resonance = models.ManyToManyField(
+        Resonance, blank=True, through=WonderResonanceRating
+    )
+
+    def random_points(self):
+        return 3 * (self.rank - 1) + random.randint(1, 3)
+
+    def set_rank(self, rank):
+        self.rank = rank
+        return True
+
+    def has_rank(self):
+        return self.rank != 0
+
+    def random_rank(self):
+        return self.set_rank(random.randint(1, 5))
+
+    def add_resonance(self, resonance):
+        r, _ = WonderResonanceRating.objects.get_or_create(
+            resonance=resonance, wonder=self
+        )
+        if r.rating == 5:
+            return False
+        r.rating += 1
+        r.save()
+        return True
+
+    def resonance_rating(self, resonance):
+        if resonance in self.resonance.all():
+            return WonderResonanceRating.objects.get(
+                wonder=self, resonance=resonance
+            ).rating
+        return 0
+
+    def filter_resonance(self, minimum=0, maximum=5):
+        all_res = Resonance.objects.all()
+
+        maxed_resonance = [
+            x.id
+            for x in WonderResonanceRating.objects.filter(
+                wonder=self, rating__gt=maximum
+            )
+        ]
+        mined_resonance = [
+            x.id
+            for x in WonderResonanceRating.objects.filter(
+                wonder=self, rating__lt=minimum
+            )
+        ]
+        all_res = all_res.exclude(pk__in=maxed_resonance)
+        all_res = all_res.exclude(pk__in=mined_resonance)
+        return all_res
+
+    def total_resonance(self):
+        return sum(x.rating for x in WonderResonanceRating.objects.filter(wonder=self))
+
+    def random_resonance(self):
+        if random.random() < 0.7:
+            possible = self.filter_resonance(minimum=1, maximum=4)
+            if len(possible) > 0:
+                choice = random.choice(possible)
+                if self.add_resonance(choice):
+                    return True
+        while True:
+            index = random.randint(1, Resonance.objects.last().id)
+            if Resonance.objects.filter(pk=index).exists():
+                choice = Resonance.objects.get(pk=index)
+                if self.add_resonance(choice):
+                    return True
+
+    def has_resonance(self):
+        return self.total_resonance() >= self.rank
+
+    def random(self):
+        self.random_name()
+        self.random_rank()
+        while not self.has_resonance():
+            self.random_resonance()
+        self.background_cost = 2 * self.rank
+
+
+class Charm(Wonder):
+    type = "charm"
+
+    arete = models.IntegerField(default=0)
+    power = models.ForeignKey(Effect, blank=True, null=True, on_delete=models.CASCADE)
+
+    def set_power(self, power):
+        self.power = power
+        return True
+
+    def has_power(self):
+        return self.power is not None
+
+    def random_power(self):
+        e = Effect.objects.filter(max_sphere=self.rank).order_by("?").first()
+        return self.set_power(e)
+
+    def random(self):
+        super().random()
+        self.random_power()
+        self.arete = self.rank
+        self.background_cost = self.rank
+
+
+class Artifact(Wonder):
+    type = "artifact"
+
+    power = models.ForeignKey(Effect, blank=True, null=True, on_delete=models.CASCADE)
+
+    def set_power(self, power):
+        self.power = power
+        return True
+
+    def has_power(self):
+        return self.power is not None
+
+    def random_power(self):
+        e = Effect.objects.filter(max_sphere=self.rank).order_by("?").first()
+        return self.set_power(e)
+
+    def random(self):
+        super().random()
+        self.random_power()
+        self.quintessence_max = 5 * self.rank
+        self.background_cost = 2 * self.rank
+
+
+class Talisman(Wonder):
+    type = "talisman"
+
+    arete = models.IntegerField(default=0)
+    powers = models.ManyToManyField(Effect, blank=True)
+
+    def add_power(self, power):
+        self.powers.add(power)
+        return True
+
+    def has_powers(self):
+        return self.powers.count() == self.rank
+
+    def random_power(self, rank):
+        e = Effect.objects.filter(max_sphere=rank).order_by("?").first()
+        return self.add_power(e)
+
+    def random_powers(self):
+        self.random_power(self.rank)
+        while not self.has_powers():
+            self.random_power(random.randint(1, self.rank))
+
+    def random(self):
+        super().random()
+        self.random_powers()
+        self.quintessence_max = 5 * self.rank
+        self.background_cost = 2 * self.rank
+        self.arete = self.rank
+        while random.random() < 0.3:
+            self.arete += 1
+            self.background_cost += 1
+            self.quintessence_max += 5
 
 
 class Grimoire(Wonder):

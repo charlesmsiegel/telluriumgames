@@ -15,6 +15,7 @@ class Effect(models.Model):
     mind = models.IntegerField(default=0)
     prime = models.IntegerField(default=0)
     rote_cost = models.IntegerField(default=0)
+    max_sphere = models.IntegerField(default=0)
     description = models.TextField(default="")
 
     def __str__(self):
@@ -38,6 +39,17 @@ class Effect(models.Model):
 
     def save(self, *args, **kwargs):
         self.rote_cost = self.cost()
+        self.max_sphere = max(
+            self.correspondence,
+            self.time,
+            self.spirit,
+            self.matter,
+            self.forces,
+            self.life,
+            self.entropy,
+            self.mind,
+            self.prime,
+        )
         return super().save(*args, **kwargs)
 
     def spheres(self):

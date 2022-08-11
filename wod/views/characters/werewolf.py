@@ -13,7 +13,7 @@ from wod.models.characters.werewolf.garou import (
     Werewolf,
 )
 from wod.models.characters.werewolf.kinfolk import Kinfolk
-from wod.models.characters.werewolf.spirits import Charm, SpiritCharacter, Totem
+from wod.models.characters.werewolf.spirits import SpiritCharacter, SpiritCharm, Totem
 
 
 class WerewolfDetailView(View):
@@ -250,18 +250,18 @@ class TribeUpdateView(UpdateView):
 
 
 class CharmDetailView(DetailView):
-    model = Charm
+    model = SpiritCharm
     template_name = "wod/characters/werewolf/charm/detail.html"
 
 
 class CharmCreateView(CreateView):
-    model = Charm
+    model = SpiritCharm
     fields = "__all__"
     template_name = "wod/characters/werewolf/charm/create.html"
 
 
 class CharmUpdateView(UpdateView):
-    model = Charm
+    model = SpiritCharm
     fields = "__all__"
     template_name = "wod/characters/werewolf/charm/update.html"
 

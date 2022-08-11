@@ -33,7 +33,9 @@ class Ephemera(models.Model):
 
     name = models.CharField(max_length=100, unique=True)
     rank = models.IntegerField(default=0)
-    ephemera_type = models.CharField(max_length=100, default="spirit", choices=TYPE_CHOICES)
+    ephemera_type = models.CharField(
+        max_length=100, default="spirit", choices=TYPE_CHOICES
+    )
 
     maximum_essence = models.IntegerField(default=0)
 

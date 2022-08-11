@@ -1774,7 +1774,12 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["medicine", "occult", "subterfuge"],
-    reach_options=[(1, "The mage may return the recently dead to life for the duration. The subject suffers Soul Loss.")],
+    reach_options=[
+        (
+            1,
+            "The mage may return the recently dead to life for the duration. The subject suffers Soul Loss.",
+        )
+    ],
     optional_arcana=[],
 )
 Rote.objects.create(
@@ -1797,7 +1802,10 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="resolve",
     suggested_rote_skills=["crafts", "intimidation", "medicine"],
-    reach_options=[(1, "Subject is immediately Enervated"), (2, "Subject is under Thrall Condition")],
+    reach_options=[
+        (1, "Subject is immediately Enervated"),
+        (2, "Subject is under Thrall Condition"),
+    ],
     optional_arcana=[],
 )
 Rote.objects.create(
@@ -1808,7 +1816,16 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["empathy", "investigation", "medicine"],
-    reach_options=[(1, "Mage can also detect possession, mind control, and alterations of destiny"), (2, "The mage can also get information about the subject's destiny, including the Destiny merit or conditional durations")],
+    reach_options=[
+        (
+            1,
+            "Mage can also detect possession, mind control, and alterations of destiny",
+        ),
+        (
+            2,
+            "The mage can also get information about the subject's destiny, including the Destiny merit or conditional durations",
+        ),
+    ],
     optional_arcana=[],
 )
 Rote.objects.create(
@@ -1819,7 +1836,11 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["occult", "politics", "investigation"],
-    reach_options=[(1, "Brief vision when the oath is fulfilled"), (1, "Track until spell expires"), (1, "May be triggered on things only Mage Sight can detect")],
+    reach_options=[
+        (1, "Brief vision when the oath is fulfilled"),
+        (1, "Track until spell expires"),
+        (1, "May be triggered on things only Mage Sight can detect"),
+    ],
     optional_arcana=[],
 )
 Rote.objects.create(
@@ -1852,7 +1873,10 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["intimidation", "occult", "socialize"],
-    reach_options=[(1, "May substitute any skill of the same type for the roll"), (2, "May substitute any skill.")],
+    reach_options=[
+        (1, "May substitute any skill of the same type for the roll"),
+        (2, "May substitute any skill."),
+    ],
     optional_arcana=[],
 )
 Rote.objects.create(
@@ -1863,7 +1887,13 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["intimidation", "occult", "socialize"],
-    reach_options=[(2, ("Boon or hex can affect spellcasting"), (2, "Spend a point of mana to cast as reflexive action"))],
+    reach_options=[
+        (
+            2,
+            ("Boon or hex can affect spellcasting"),
+            (2, "Spend a point of mana to cast as reflexive action"),
+        )
+    ],
     optional_arcana=[],
 )
 Rote.objects.create(
@@ -1885,7 +1915,13 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["athletics", "socialize", "streetwise"],
-    reach_options=[(1, "Subject gets Potency as dice bonus on Potency number of rolls until duration"), (3, "Can also affect spellcasting")],
+    reach_options=[
+        (
+            1,
+            "Subject gets Potency as dice bonus on Potency number of rolls until duration",
+        ),
+        (3, "Can also affect spellcasting"),
+    ],
     optional_arcana=[],
 )
 Rote.objects.create(
@@ -1918,7 +1954,13 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="",
     suggested_rote_skills=["brawl", "occult", "subterfuge"],
-    reach_options=[(1, "May selectively exclude subject from any spell they cast or Attainment used"), (2, "May selectively grant protection")],
+    reach_options=[
+        (
+            1,
+            "May selectively exclude subject from any spell they cast or Attainment used",
+        ),
+        (2, "May selectively grant protection"),
+    ],
     optional_arcana=[],
 )
 Rote.objects.create(
@@ -1940,7 +1982,10 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="",
     suggested_rote_skills=["drive", "crafts", "science"],
-    reach_options=[(1, "User of object gains boon or hex"), (1, "Spend a point of Mana, bonus or penalty can exceed five dice")],
+    reach_options=[
+        (1, "User of object gains boon or hex"),
+        (1, "Spend a point of Mana, bonus or penalty can exceed five dice"),
+    ],
     optional_arcana=[],
 )
 Rote.objects.create(
@@ -1951,7 +1996,10 @@ Rote.objects.create(
     primary_factor="potency",
     withstand="composure",
     suggested_rote_skills=["medicine", "persuasion", "politics"],
-    reach_options=[(1, "Link only works one way for one of the subjects"), (2, "Subject isn't linked specifically, but has harm rebound")],
+    reach_options=[
+        (1, "Link only works one way for one of the subjects"),
+        (2, "Subject isn't linked specifically, but has harm rebound"),
+    ],
     optional_arcana=[],
 )
 Rote.objects.create(
@@ -1963,7 +2011,9 @@ Rote.objects.create(
     withstand="",
     mana_cost=1,
     suggested_rote_skills=["athletics", "crafts", "occult"],
-    reach_options=[(2, "Spell's effects may affect ritual spellcasting, doubling casting time")],
+    reach_options=[
+        (2, "Spell's effects may affect ritual spellcasting, doubling casting time")
+    ],
     optional_arcana=[],
 )
 Rote.objects.create(

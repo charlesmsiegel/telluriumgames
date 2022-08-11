@@ -3,7 +3,7 @@ from django.views.generic import View
 
 from wod.forms import RandomItemForm
 from wod.models.items.human import Item
-from wod.models.items.mage import Grimoire
+from wod.models.items.mage import Artifact, Charm, Grimoire, Talisman
 
 from . import human, mage, werewolf
 
@@ -28,7 +28,7 @@ class ItemIndexView(View):
 def load_item_types(request):
     items = {
         # "werewolf": [],
-        "mage": ["grimoire"],
+        "mage": ["charm", "artifact", "talisman", "grimoire"],
     }
     gameline = request.GET.get("gameline")
     item_types = items[gameline]
@@ -44,6 +44,9 @@ class GenericItemDetailView(View):
         "grimoire": mage.GrimoireDetailView,
         "library": mage.LibraryDetailView,
         "fetish": werewolf.FetishDetailView,
+        "charm": mage.CharmDetailView,
+        "artifact": mage.ArtifactDetailView,
+        "talisman": mage.TalismanDetailView,
     }
 
     def get(self, request, *args, **kwargs):
@@ -56,6 +59,9 @@ class GenericItemDetailView(View):
 class RandomItemView(View):
     items = {
         "grimoire": Grimoire,
+        "charm": Charm,
+        "artifact": Artifact,
+        "talisman": Talisman,
     }
 
     def post(self, request):
