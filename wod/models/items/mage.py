@@ -48,8 +48,10 @@ class Wonder(Item):
     def has_rank(self):
         return self.rank != 0
 
-    def random_rank(self):
-        return self.set_rank(random.randint(1, 5))
+    def random_rank(self, rank=None):
+        if rank is None:
+            rank = random.randint(1, 5)
+        return self.set_rank(rank)
 
     def add_resonance(self, resonance):
         r, _ = WonderResonanceRating.objects.get_or_create(
@@ -107,9 +109,9 @@ class Wonder(Item):
     def has_resonance(self):
         return self.total_resonance() >= self.rank
 
-    def random(self):
-        self.random_name()
-        self.random_rank()
+    def random(self, rank=None, name=None):
+        self.random_name(name=name)
+        self.random_rank(rank=rank)
         while not self.has_resonance():
             self.random_resonance()
         self.background_cost = 2 * self.rank
@@ -132,8 +134,8 @@ class Charm(Wonder):
         e = Effect.objects.filter(max_sphere=self.rank).order_by("?").first()
         return self.set_power(e)
 
-    def random(self):
-        super().random()
+    def random(self, name=None, rank=None):
+        super().random(rank=rank, name=name)
         self.random_power()
         self.arete = self.rank
         self.background_cost = self.rank
@@ -155,8 +157,8 @@ class Artifact(Wonder):
         e = Effect.objects.filter(max_sphere=self.rank).order_by("?").first()
         return self.set_power(e)
 
-    def random(self):
-        super().random()
+    def random(self, name=None, rank=None):
+        super().random(rank=rank, name=name)
         self.random_power()
         self.quintessence_max = 5 * self.rank
         self.background_cost = 2 * self.rank
@@ -184,8 +186,8 @@ class Talisman(Wonder):
         while not self.has_powers():
             self.random_power(random.randint(1, self.rank))
 
-    def random(self):
-        super().random()
+    def random(self, name=None, rank=None):
+        super().random(rank=rank, name=name)
         self.random_powers()
         self.quintessence_max = 5 * self.rank
         self.background_cost = 2 * self.rank

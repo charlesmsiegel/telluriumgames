@@ -24,6 +24,9 @@ class Item(PolymorphicModel):
         self.name = name
         return True
 
-    def random_name(self):
-        name = f"Random Item {Item.objects.count()}"
+    def random_name(self, name=None):
+        if self.has_name():
+            return False
+        if name is None:
+            name = f"Random Item {Item.objects.count()}"
         return self.set_name(name)
