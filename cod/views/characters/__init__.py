@@ -2,10 +2,11 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, View
 
 from cod.forms import RandomCharacterForm
+from cod.models.characters.ephemera import Ephemera
 from cod.models.characters.mage import Mage, Proximi
 from cod.models.characters.mortal import Mortal
 
-from . import mage, mortal
+from . import ephemera, mage, mortal
 
 
 class CharacterIndexView(View):
@@ -23,6 +24,7 @@ class CharacterIndexView(View):
         chars = Mortal.objects.all().order_by("name")
         context = {}
         context["chars"] = chars
+        context["ephemera"] = Ephemera.objects.all().order_by("name")
         context["form"] = RandomCharacterForm
         return context
 

@@ -51,10 +51,12 @@ time_test(Node, character=False)
 time_test(Chantry, character=False)
 time_test(Grimoire, character=False)
 
+from cod.models.characters.ephemera import Ephemera
 from cod.models.characters.mage import Mage, Proximi, ProximiFamily
 from cod.models.characters.mortal import Mortal
 
 time_test(Mortal)
+time_test(Ephemera, character=False)
 time_test(Mage)
 time_test(ProximiFamily, character=False)
 time_test(Proximi)
