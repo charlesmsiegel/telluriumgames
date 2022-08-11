@@ -33,7 +33,7 @@ class Ephemera(models.Model):
 
     name = models.CharField(max_length=100, unique=True)
     rank = models.IntegerField(default=0)
-    type = models.CharField(max_length=100, default="spirit", choices=TYPE_CHOICES)
+    ephemera_type = models.CharField(max_length=100, default="spirit", choices=TYPE_CHOICES)
 
     maximum_essence = models.IntegerField(default=0)
 
@@ -68,14 +68,14 @@ class Ephemera(models.Model):
     def has_type(self):
         return self.type != ""
 
-    def set_type(self, type):
-        self.type = type
+    def set_type(self, ephemera_type):
+        self.ephemera_type = ephemera_type
         return True
 
-    def random_type(self, type=None):
-        if type is None:
-            type = random.choice(self.TYPE_CHOICES)[-1]
-        return self.set_type(type)
+    def random_type(self, ephemera_type=None):
+        if ephemera_type is None:
+            ephemera_type = random.choice(self.TYPE_CHOICES)[-1]
+        return self.set_type(ephemera_type)
 
     def compute_maximum_essence(self):
         rank_to_essence = {

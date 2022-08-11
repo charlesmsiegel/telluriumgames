@@ -80,7 +80,7 @@ class Kinfolk(WtAHuman):
             if background == "resources" and self.resources == 3:
                 return False
         if self.tribe.name == "Glass Walkers":
-            if background == "pure_breed" or background == "mentor":
+            if background in ["pure_breed", "mentor"]:
                 return False
         if self.tribe.name == "Red Talons":
             if background == "resources":
