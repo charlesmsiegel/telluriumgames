@@ -22,13 +22,13 @@ from wod.models.characters.mage import (
 from wod.models.characters.werewolf import (
     BattleScar,
     Camp,
-    Charm,
     Gift,
     Kinfolk,
     Pack,
     RenownIncident,
     Rite,
     SpiritCharacter,
+    SpiritCharm,
     Totem,
     Tribe,
     Werewolf,
@@ -264,8 +264,8 @@ class RenownIncidentAdmin(admin.ModelAdmin):
     )
 
 
-@admin.register(Charm)
-class CharmAdmin(admin.ModelAdmin):
+@admin.register(SpiritCharm)
+class SpiritCharmAdmin(admin.ModelAdmin):
     list_display = ("name",)
 
 

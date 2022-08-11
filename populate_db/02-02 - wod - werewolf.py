@@ -2,11 +2,11 @@ from wod.models.characters.human import Archetype, MeritFlaw, Specialty
 from wod.models.characters.werewolf import (
     BattleScar,
     Camp,
-    Charm,
     Gift,
     RenownIncident,
     Rite,
     SpiritCharacter,
+    SpiritCharm,
     Totem,
     Tribe,
 )
@@ -2182,41 +2182,40 @@ Fetish.objects.create(
     name="Dire Call", rank=0, gnosis=9, description="", spirit="Lune", display=False,
 )
 
-Charm.objects.create(name="Airt Sense")
-Charm.objects.create(name="Materialize")
-Charm.objects.create(name="Realm Sense")
-Charm.objects.create(name="Re-form")
-Charm.objects.create(name="Armor")
-Charm.objects.create(name="Blast")
-Charm.objects.create(name="Cleanse the Blight")
-Charm.objects.create(name="Control Electrical Systems")
-Charm.objects.create(name="Create Fires")
-Charm.objects.create(name="Create Wind")
-Charm.objects.create(name="Illuminate")
-Charm.objects.create(name="Flood")
-Charm.objects.create(name="Freeze")
-Charm.objects.create(name="Healing")
-# Charm.objects.create(name="Open Moon Bridge")
-Charm.objects.create(name="Peek")
-Charm.objects.create(name="Shapeshift")
-Charm.objects.create(name="Shatter Glass")
-Charm.objects.create(name="Short Out")
-Charm.objects.create(name="Swift Flight")
-Charm.objects.create(name="Tracking")
-Charm.objects.create(name="Umbraquake")
-Charm.objects.create(name="Updraft")
-Charm.objects.create(name="Blighted Touch")
-Charm.objects.create(name="Corruption")
-Charm.objects.create(name="Incite Frenze")
-Charm.objects.create(name="Possession")
-Charm.objects.create(name="Calcify")
-Charm.objects.create(name="Solidify Reality")
-Charm.objects.create(name="Spirit Static")
-Charm.objects.create(name="Break Reality")
-Charm.objects.create(name="Disorient")
+SpiritCharm.objects.create(name="Airt Sense")
+SpiritCharm.objects.create(name="Materialize")
+SpiritCharm.objects.create(name="Realm Sense")
+SpiritCharm.objects.create(name="Re-form")
+SpiritCharm.objects.create(name="Armor")
+SpiritCharm.objects.create(name="Blast")
+SpiritCharm.objects.create(name="Cleanse the Blight")
+SpiritCharm.objects.create(name="Control Electrical Systems")
+SpiritCharm.objects.create(name="Create Fires")
+SpiritCharm.objects.create(name="Create Wind")
+SpiritCharm.objects.create(name="Illuminate")
+SpiritCharm.objects.create(name="Flood")
+SpiritCharm.objects.create(name="Freeze")
+SpiritCharm.objects.create(name="Healing")
+SpiritCharm.objects.create(name="Peek")
+SpiritCharm.objects.create(name="Shapeshift")
+SpiritCharm.objects.create(name="Shatter Glass")
+SpiritCharm.objects.create(name="Short Out")
+SpiritCharm.objects.create(name="Swift Flight")
+SpiritCharm.objects.create(name="Tracking")
+SpiritCharm.objects.create(name="Umbraquake")
+SpiritCharm.objects.create(name="Updraft")
+SpiritCharm.objects.create(name="Blighted Touch")
+SpiritCharm.objects.create(name="Corruption")
+SpiritCharm.objects.create(name="Incite Frenze")
+SpiritCharm.objects.create(name="Possession")
+SpiritCharm.objects.create(name="Calcify")
+SpiritCharm.objects.create(name="Solidify Reality")
+SpiritCharm.objects.create(name="Spirit Static")
+SpiritCharm.objects.create(name="Break Reality")
+SpiritCharm.objects.create(name="Disorient")
 
 for g in Gift.objects.all():
-    Charm.objects.create(name=g.name)
+    SpiritCharm.objects.create(name=g.name)
 
 SpiritCharacter.objects.create(
     name="Deer", willpower=4, rage=4, gnosis=6, essence=14, display=False
@@ -2224,17 +2223,17 @@ SpiritCharacter.objects.create(
 x = SpiritCharacter.objects.create(
     name="Falcon", willpower=8, rage=6, gnosis=5, essence=19, display=False
 )
-x.charms.set(Charm.objects.filter(name__in=["Swift Flight"]))
+x.charms.set(SpiritCharm.objects.filter(name__in=["Swift Flight"]))
 x.save()
 x = SpiritCharacter.objects.create(
     name="Snake", willpower=5, rage=6, gnosis=8, essence=19, display=False
 )
-x.charms.set(Charm.objects.filter(name__in=["Paralyzing Stare"]))
+x.charms.set(SpiritCharm.objects.filter(name__in=["Paralyzing Stare"]))
 x.save()
 x = SpiritCharacter.objects.create(
     name="Wolf", willpower=6, rage=7, gnosis=5, essence=18, display=False
 )
-x.charms.set(Charm.objects.filter(name__in=["Tracking"]))
+x.charms.set(SpiritCharm.objects.filter(name__in=["Tracking"]))
 x.save()
 x = SpiritCharacter.objects.create(
     name="Glade Child (Sapling)",
@@ -2244,7 +2243,7 @@ x = SpiritCharacter.objects.create(
     essence=20,
     display=False,
 )
-x.charms.set(Charm.objects.filter(name__in=["Cleanse the Blight", "Realm Sense"]))
+x.charms.set(SpiritCharm.objects.filter(name__in=["Cleanse the Blight", "Realm Sense"]))
 x.save()
 x = SpiritCharacter.objects.create(
     name="Glade Child (Mature)",
@@ -2254,7 +2253,7 @@ x = SpiritCharacter.objects.create(
     essence=35,
     display=False,
 )
-x.charms.set(Charm.objects.filter(name__in=["Cleanse the Blight", "Realm Sense"]))
+x.charms.set(SpiritCharm.objects.filter(name__in=["Cleanse the Blight", "Realm Sense"]))
 x.save()
 x = SpiritCharacter.objects.create(
     name="Glade Child (Ancient)",
@@ -2264,23 +2263,23 @@ x = SpiritCharacter.objects.create(
     essence=50,
     display=False,
 )
-x.charms.set(Charm.objects.filter(name__in=["Cleanse the Blight", "Realm Sense"]))
+x.charms.set(SpiritCharm.objects.filter(name__in=["Cleanse the Blight", "Realm Sense"]))
 x.save()
 x = SpiritCharacter.objects.create(
     name="Lune", willpower=8, rage=4, gnosis=7, essence=19, display=False
 )
-x.charms.set(Charm.objects.filter(name__in=["Open Moon Bridge"]))
+x.charms.set(SpiritCharm.objects.filter(name__in=["Open Moon Bridge"]))
 x.save()
 x = SpiritCharacter.objects.create(
     name="Stormcrows", willpower=9, rage=7, gnosis=6, essence=22, display=False
 )
-x.charms.set(Charm.objects.filter(name__in=["Create Wind", "Tracking"]))
+x.charms.set(SpiritCharm.objects.filter(name__in=["Create Wind", "Tracking"]))
 x.save()
 x = SpiritCharacter.objects.create(
     name="The Wendigo", willpower=7, rage=10, gnosis=5, essence=32, display=False
 )
 x.charms.set(
-    Charm.objects.filter(
+    SpiritCharm.objects.filter(
         name__in=["Blast", "Create Wind", "Freeze", "Materialize", "Tracking"]
     )
 )
@@ -2293,7 +2292,7 @@ x = SpiritCharacter.objects.create(
     essence=40,
     display=False,
 )
-x.charms.set(Charm.objects.filter(name__in=["Armor", "Materialize", "Tracking"]))
+x.charms.set(SpiritCharm.objects.filter(name__in=["Armor", "Materialize", "Tracking"]))
 x.save()
 x = SpiritCharacter.objects.create(
     name="The Wild Hunt (The Hounds)",
@@ -2303,37 +2302,43 @@ x = SpiritCharacter.objects.create(
     essence=18,
     display=False,
 )
-x.charms.set(Charm.objects.filter(name__in=["Materialize", "Tracking"]))
+x.charms.set(SpiritCharm.objects.filter(name__in=["Materialize", "Tracking"]))
 x.save()
 x = SpiritCharacter.objects.create(
     name="Ancestor Spirit", willpower=6, rage=8, gnosis=7, essence=21, display=False
 )
-x.charms.set(Charm.objects.filter(name__in=[]))
+x.charms.set(SpiritCharm.objects.filter(name__in=[]))
 x.save()
 x = SpiritCharacter.objects.create(
     name="Earth Elemental", willpower=9, rage=4, gnosis=5, essence=20, display=False
 )
-x.charms.set(Charm.objects.filter(name__in=["Armor", "Materialize", "Umbraquake"]))
+x.charms.set(
+    SpiritCharm.objects.filter(name__in=["Armor", "Materialize", "Umbraquake"])
+)
 x.save()
 x = SpiritCharacter.objects.create(
     name="Air Elemental", willpower=3, rage=8, gnosis=7, essence=18, display=False
 )
-x.charms.set(Charm.objects.filter(name__in=["Create Wind", "Updraft"]))
+x.charms.set(SpiritCharm.objects.filter(name__in=["Create Wind", "Updraft"]))
 x.save()
 x = SpiritCharacter.objects.create(
     name="Fire Elemental", willpower=5, rage=10, gnosis=5, essence=20, display=False
 )
-x.charms.set(Charm.objects.filter(name__in=["Blast", "Create Fires"]))
+x.charms.set(SpiritCharm.objects.filter(name__in=["Blast", "Create Fires"]))
 x.save()
 x = SpiritCharacter.objects.create(
     name="Water Elemental", willpower=6, rage=4, gnosis=10, essence=20, display=False
 )
-x.charms.set(Charm.objects.filter(name__in=["Cleanse the Blight", "Flood", "Healing"]))
+x.charms.set(
+    SpiritCharm.objects.filter(name__in=["Cleanse the Blight", "Flood", "Healing"])
+)
 x.save()
 x = SpiritCharacter.objects.create(
     name="Glass Elemental", willpower=4, rage=7, gnosis=7, essence=18, display=False
 )
-x.charms.set(Charm.objects.filter(name__in=["Blast", "Materialize", "Shatter Glass"]))
+x.charms.set(
+    SpiritCharm.objects.filter(name__in=["Blast", "Materialize", "Shatter Glass"])
+)
 x.save()
 x = SpiritCharacter.objects.create(
     name="Electricity Elemental",
@@ -2344,27 +2349,29 @@ x = SpiritCharacter.objects.create(
     display=False,
 )
 x.charms.set(
-    Charm.objects.filter(name__in=["Blast", "Control Electrical Systems", "Short Out"])
+    SpiritCharm.objects.filter(
+        name__in=["Blast", "Control Electrical Systems", "Short Out"]
+    )
 )
 x.save()
 x = SpiritCharacter.objects.create(
     name="Chimerling", willpower=3, rage=5, gnosis=10, essence=18, display=False
 )
-x.charms.set(Charm.objects.filter(name__in=["Shapeshift"]))
+x.charms.set(SpiritCharm.objects.filter(name__in=["Shapeshift"]))
 x.save()
 x = SpiritCharacter.objects.create(
     name="Engling", willpower=5, rage=1, gnosis=10, essence=16, display=False
 )
-x.charms.set(Charm.objects.filter(name__in=[]))
+x.charms.set(SpiritCharm.objects.filter(name__in=[]))
 x.save()
 x = SpiritCharacter.objects.create(
     name="Curiosi", willpower=5, rage=3, gnosis=9, essence=17, display=False
 )
-x.charms.set(Charm.objects.filter(name__in=["Illuminate"]))
+x.charms.set(SpiritCharm.objects.filter(name__in=["Illuminate"]))
 x.save()
 
 for spirit in SpiritCharacter.objects.all():
-    for x in Charm.objects.filter(
+    for x in SpiritCharm.objects.filter(
         name__in=["Airt Sense", "Materialize", "Realm Sense", "Re-Form",]
     ):
         spirit.charms.add(x)

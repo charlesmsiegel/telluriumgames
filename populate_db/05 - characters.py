@@ -10,7 +10,7 @@ player, _ = User.objects.get_or_create(username="Test")
 from wod.models.characters.human import Human
 from wod.models.characters.mage import Mage
 from wod.models.characters.werewolf import Kinfolk, Werewolf
-from wod.models.items.mage import Grimoire
+from wod.models.items.mage import Artifact, Charm, Grimoire, Talisman
 from wod.models.locations.mage import Chantry, Node
 
 
@@ -50,6 +50,9 @@ time_test(Mage)
 time_test(Node, character=False)
 time_test(Chantry, character=False)
 time_test(Grimoire, character=False)
+time_test(Charm, character=False)
+time_test(Artifact, character=False)
+time_test(Talisman, character=False)
 
 from cod.models.characters.ephemera import Ephemera
 from cod.models.characters.mage import Mage, Proximi, ProximiFamily

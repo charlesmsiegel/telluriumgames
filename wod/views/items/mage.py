@@ -3,15 +3,33 @@ from collections import namedtuple
 from django.shortcuts import render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
-from wod.models.items.mage import Grimoire, Library, Wonder
+from wod.models.items.mage import (
+    Artifact,
+    Charm,
+    Grimoire,
+    Library,
+    Talisman,
+    Wonder,
+    WonderResonanceRating,
+)
 
 EmptyRote = namedtuple("EmptyRote", ["name", "spheres"])
 empty_rote = EmptyRote("", "")
 
 
-class WonderDetailView(DetailView):
-    model = Wonder
-    template_name = "wod/items/mage/wonder/detail.html"
+class WonderDetailView(View):
+    def get(self, request, *args, **kwargs):
+        wonder = Wonder.objects.get(pk=kwargs["pk"])
+        context = self.get_context(wonder)
+        return render(request, "wod/items/mage/wonder/detail.html", context)
+
+    def get_context(self, wonder):
+        return {
+            "object": wonder,
+            "resonance": WonderResonanceRating.objects.filter(wonder=wonder).order_by(
+                "resonance__name"
+            ),
+        }
 
 
 class WonderCreateView(CreateView):
@@ -99,3 +117,84 @@ class LibraryUpdateView(UpdateView):
     model = Library
     fields = "__all__"
     template_name = "wod/items/mage/library/update.html"
+
+
+class CharmDetailView(View):
+    def get(self, request, *args, **kwargs):
+        charm = Charm.objects.get(pk=kwargs["pk"])
+        context = self.get_context(charm)
+        return render(request, "wod/items/mage/charm/detail.html", context)
+
+    def get_context(self, charm):
+        return {
+            "object": charm,
+            "resonance": WonderResonanceRating.objects.filter(wonder=charm).order_by(
+                "resonance__name"
+            ),
+        }
+
+
+class CharmCreateView(CreateView):
+    model = Charm
+    fields = "__all__"
+    template_name = "wod/items/mage/charm/create.html"
+
+
+class CharmUpdateView(UpdateView):
+    model = Charm
+    fields = "__all__"
+    template_name = "wod/items/mage/charm/update.html"
+
+
+class ArtifactDetailView(View):
+    def get(self, request, *args, **kwargs):
+        artifact = Artifact.objects.get(pk=kwargs["pk"])
+        context = self.get_context(artifact)
+        return render(request, "wod/items/mage/artifact/detail.html", context)
+
+    def get_context(self, artifact):
+        return {
+            "object": artifact,
+            "resonance": WonderResonanceRating.objects.filter(wonder=artifact).order_by(
+                "resonance__name"
+            ),
+        }
+
+
+class ArtifactCreateView(CreateView):
+    model = Artifact
+    fields = "__all__"
+    template_name = "wod/items/mage/artifact/create.html"
+
+
+class ArtifactUpdateView(UpdateView):
+    model = Artifact
+    fields = "__all__"
+    template_name = "wod/items/mage/artifact/update.html"
+
+
+class TalismanDetailView(View):
+    def get(self, request, *args, **kwargs):
+        talisman = Talisman.objects.get(pk=kwargs["pk"])
+        context = self.get_context(talisman)
+        return render(request, "wod/items/mage/talisman/detail.html", context)
+
+    def get_context(self, talisman):
+        return {
+            "object": talisman,
+            "resonance": WonderResonanceRating.objects.filter(wonder=talisman).order_by(
+                "resonance__name"
+            ),
+        }
+
+
+class TalismanCreateView(CreateView):
+    model = Talisman
+    fields = "__all__"
+    template_name = "wod/items/mage/talisman/create.html"
+
+
+class TalismanUpdateView(UpdateView):
+    model = Talisman
+    fields = "__all__"
+    template_name = "wod/items/mage/talisman/update.html"

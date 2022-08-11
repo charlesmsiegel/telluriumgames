@@ -33,4 +33,34 @@ urls = [
         views.items.mage.LibraryUpdateView.as_view(),
         name="update_library",
     ),
+    path(
+        "charm/create/",
+        views.items.mage.CharmCreateView.as_view(),
+        name="create_charm",
+    ),
+    path(
+        "charm/update/<pk>/",
+        views.items.mage.CharmUpdateView.as_view(),
+        name="update_charm",
+    ),
+    path(
+        "artifact/create/",
+        views.items.mage.ArtifactCreateView.as_view(),
+        name="create_artifact",
+    ),
+    path(
+        "artifact/update/<pk>/",
+        views.items.mage.ArtifactUpdateView.as_view(),
+        name="update_artifact",
+    ),
+    path(
+        "talisman/create/",
+        views.items.mage.TalismanCreateView.as_view(),
+        name="create_talisman",
+    ),
+    path(
+        "talisman/update/<pk>/",
+        views.items.mage.TalismanUpdateView.as_view(),
+        name="update_talisman",
+    ),
 ]

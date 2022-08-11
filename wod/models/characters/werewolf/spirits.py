@@ -4,7 +4,7 @@ from django.urls import reverse
 from wod.models.characters.human import Character
 
 
-class Charm(models.Model):
+class SpiritCharm(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(default="")
 
@@ -23,7 +23,7 @@ class SpiritCharacter(Character):
     gnosis = models.IntegerField(default=0)
     essence = models.IntegerField(default=0)
 
-    charms = models.ManyToManyField(Charm, blank=True)
+    charms = models.ManyToManyField(SpiritCharm, blank=True)
 
 
 class Totem(models.Model):
