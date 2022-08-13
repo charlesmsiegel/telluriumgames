@@ -30,3 +30,24 @@ class Item(PolymorphicModel):
         if name is None:
             name = f"Random Item {Item.objects.count()}"
         return self.set_name(name)
+
+class Weapon(Item):
+    type = 'weapon'
+    
+    difficulty = models.IntegerField(default=0)
+    damage = models.IntegerField(default=0)
+    damage_type = models.CharField(default="L", choices=[("B", "Bashing"), ("L", "Lethal"), ("A", "Aggravated")])
+    conceal = models.CharField(default="P", choices=[("P", "Pocket"), ("J", "Jacket"), ("T", "Trenchcoat"), ("N", "Not Applicable")])
+    
+class MeleeWeapon(Weapon):
+    type = 'melee_weapon'
+    
+class ThrownWeapon(Weapon):
+    type = 'thrown_weapon'
+    
+class RangedWeapon(Weapon):
+    type = 'ranged_weapon'
+    
+    range = models.IntegerField(default=0)
+    rate = models.IntegerField(default=0)
+    clip = models.IntegerField(default=0)
