@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     "exalted",
     "tc",
     "wod",
-    "tinymce",
+    # "tinymce",
     "polymorphic",
     "channels",
 ]
