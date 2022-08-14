@@ -6,8 +6,7 @@ from wod.forms import RandomCharacterForm
 from wod.models.characters.human import Character, Group
 from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.mage import Mage
-from wod.models.characters.werewolf.garou import Pack, Werewolf
-from wod.models.characters.werewolf.kinfolk import Kinfolk
+from wod.models.characters.werewolf import Fomor, Kinfolk, Pack, Werewolf
 
 from . import human, mage, werewolf
 
@@ -32,7 +31,7 @@ class CharacterIndexView(View):
 
 def load_character_types(request):
     characters = {
-        "werewolf": ["werewolf", "pack", "kinfolk"],
+        "werewolf": ["werewolf", "pack", "kinfolk", "fomor"],
         "mage": ["mage", "cabal"],
     }
     gameline = request.GET.get("gameline")
@@ -52,6 +51,7 @@ class GenericCharacterDetailView(View):
         "garou": werewolf.WerewolfDetailView,
         "mage": mage.MageDetailView,
         "spirit_character": werewolf.SpiritDetailView,
+        "fomor": werewolf.FomorDetailView,
     }
 
     def get(self, request, *args, **kwargs):
@@ -68,12 +68,17 @@ class RandomCharacterView(View):
         "mage": Mage,
         "cabal": Cabal,
         "pack": Pack,
+        "fomor": Fomor,
     }
 
     def post(self, request, *args, **kwargs):
         if request.POST["character_type"] in ["werewolf", "mage"]:
+            if request.user.is_authenticated:
+                user = request.user
+            else:
+                user = None
             char = self.chars[request.POST["character_type"]].objects.create(
-                name=request.POST["character_name"], player=request.user
+                name=request.POST["character_name"], player=user
             )
         else:
             char = self.chars[request.POST["character_type"]].objects.create(

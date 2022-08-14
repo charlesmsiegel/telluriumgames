@@ -22,6 +22,8 @@ from wod.models.characters.mage import (
 from wod.models.characters.werewolf import (
     BattleScar,
     Camp,
+    Fomor,
+    FomoriPower,
     Gift,
     Kinfolk,
     Pack,
@@ -296,4 +298,14 @@ class BattleScarAdmin(admin.ModelAdmin):
 
 @admin.register(Derangement)
 class DerangementAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+
+
+@admin.register(Fomor)
+class FomorAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+
+
+@admin.register(FomoriPower)
+class FomoriPowerAdmin(admin.ModelAdmin):
     list_display = ("name",)

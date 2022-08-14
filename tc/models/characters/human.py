@@ -15,7 +15,11 @@ class Human(PolymorphicModel):
 
     name = models.CharField(max_length=100)
     player = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="tc_characters"
+        User,
+        on_delete=models.CASCADE,
+        related_name="tc_characters",
+        blank=True,
+        null=True,
     )
 
     status_keys = ["Un", "Sub", "App", "Ret", "Dec"]

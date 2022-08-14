@@ -46,8 +46,12 @@ class RandomCharacterView(View):
     }
 
     def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            user = request.user
+        else:
+            user = None
         char = self.chars[request.POST["character_type"]].objects.create(
-            name=request.POST["name"], player=request.user
+            name=request.POST["name"], player=user
         )
         try:
             xp = int(request.POST["xp"])

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from wod.models.characters.human import MeritFlawRating
+from wod.models.characters.werewolf.fomori import Fomor, FomoriPower
 from wod.models.characters.werewolf.garou import (
     BattleScar,
     Camp,
@@ -281,3 +282,37 @@ class BattleScarUpdateView(UpdateView):
     model = BattleScar
     fields = "__all__"
     template_name = "wod/characters/werewolf/battlescar/update.html"
+
+
+class FomorDetailView(DetailView):
+    model = Fomor
+    template_name = "wod/characters/werewolf/fomor/detail.html"
+
+
+class FomorCreateView(CreateView):
+    model = Fomor
+    fields = "__all__"
+    template_name = "wod/characters/werewolf/fomor/create.html"
+
+
+class FomorUpdateView(UpdateView):
+    model = Fomor
+    fields = "__all__"
+    template_name = "wod/characters/werewolf/fomor/update.html"
+
+
+class FomoriPowerDetailView(DetailView):
+    model = FomoriPower
+    template_name = "wod/characters/werewolf/fomoripower/detail.html"
+
+
+class FomoriPowerCreateView(CreateView):
+    model = FomoriPower
+    fields = "__all__"
+    template_name = "wod/characters/werewolf/fomoripower/create.html"
+
+
+class FomoriPowerUpdateView(UpdateView):
+    model = FomoriPower
+    fields = "__all__"
+    template_name = "wod/characters/werewolf/fomoripower/update.html"
