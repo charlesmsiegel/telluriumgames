@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
-from core.models import Model
 
+from core.models import Model
 from core.utils import add_dot, weighted_choice
 from wod.models.characters.human import Derangement, Group, Human
 from wod.models.characters.werewolf.spirits import Totem
@@ -17,13 +17,13 @@ from .wtahuman import WtAHuman
 
 class Tribe(Model):
     type = "tribe"
-    
+
     willpower = models.IntegerField(default=3)
 
 
 class Camp(Model):
     type = "camp"
-    
+
     tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.CASCADE)
     camp_type = models.CharField(
         max_length=100,
@@ -39,17 +39,17 @@ class Camp(Model):
 
 class Gift(Model):
     type = "gift"
-    
+
     rank = models.IntegerField(default=0)
     allowed = models.JSONField(default=dict)
 
 
 class Rite(Model):
     type = "rite"
-    
+
     level = models.IntegerField(default=0)
     rite_type = models.CharField(max_length=100, default="")
-    
+
 
 class Werewolf(WtAHuman):
     type = "garou"
@@ -799,7 +799,7 @@ class Pack(Group):
 
 class RenownIncident(Model):
     type = "renown_incident"
-    
+
     glory = models.IntegerField(default=0)
     honor = models.IntegerField(default=0)
     wisdom = models.IntegerField(default=0)
@@ -809,7 +809,8 @@ class RenownIncident(Model):
     breed = models.CharField(default="", max_length=10)
     rite = models.ForeignKey(Rite, null=True, blank=True, on_delete=models.CASCADE)
 
+
 class BattleScar(Model):
     type = "battle_scar"
-    
+
     glory = models.IntegerField(default=0)

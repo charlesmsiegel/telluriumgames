@@ -2,8 +2,8 @@ import random
 
 from django.db import models
 from django.shortcuts import reverse
-from core.models import Model
 
+from core.models import Model
 from core.utils import add_dot, weighted_choice
 
 
@@ -138,13 +138,6 @@ class Ephemera(Model):
             options = self.filter_numina()
             choice = random.choice(options)
             self.add_numina(choice)
-
-    def has_name(self):
-        return self.name != ""
-
-    def set_name(self, name):
-        self.name = name
-        return True
 
     def random_name(self, name=None):
         if name is None:

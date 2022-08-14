@@ -6,10 +6,10 @@ from tc.models.characters.human import (
     EdgeRating,
     EnhancedEdge,
     Human,
-    TCPath,
     PathConnection,
     PathRating,
     Specialty,
+    TCPath,
     Trick,
 )
 

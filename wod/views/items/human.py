@@ -1,6 +1,12 @@
 from django.views.generic import CreateView, DetailView, UpdateView
 
-from wod.models.items.human import WoDItem, MeleeWeapon, RangedWeapon, ThrownWeapon, Weapon
+from wod.models.items.human import (
+    MeleeWeapon,
+    RangedWeapon,
+    ThrownWeapon,
+    Weapon,
+    WoDItem,
+)
 
 
 class ItemDetailView(DetailView):

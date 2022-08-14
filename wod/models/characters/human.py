@@ -7,23 +7,22 @@ from django.db import models
 from django.db.models import F, Q
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
-from core.models import Model
 
-from core.models import Language
+from core.models import Language, Model
 from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
 
 # Create your models here.
 class Archetype(Model):
     type = "archetype"
-    
+
     def get_absolute_url(self):
         return reverse("wod:characters:human:archetype", kwargs={"pk": self.pk})
 
 
 class WoDSpecialty(Model):
     type = "specialty"
-    
+
     stat = models.CharField(max_length=100)
 
     class Meta:
@@ -39,7 +38,7 @@ class WoDSpecialty(Model):
 
 class MeritFlaw(Model):
     type = "merit_flaw"
-    
+
     ratings = models.JSONField(default=list)
     max_rating = models.IntegerField(default=0)
     human = models.BooleanField(default=False)
@@ -75,13 +74,6 @@ class Character(Model):
 
     def random_concept(self):
         self.set_concept("Random")
-
-    def has_name(self):
-        return self.name != ""
-
-    def set_name(self, name):
-        self.name = name
-        return True
 
     def random_name(self):
         self.set_name(f"Random Character {Character.objects.count()}")

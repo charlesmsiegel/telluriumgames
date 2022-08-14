@@ -3,9 +3,9 @@ import random
 from django.db import models
 from django.db.models import F, Q
 
-from core.utils import add_dot, weighted_choice
-from tc.models.characters.human import Edge, EnhancedEdge, Human, TCPath, PathRating
 from core.models import Model
+from core.utils import add_dot, weighted_choice
+from tc.models.characters.human import Edge, EnhancedEdge, Human, PathRating, TCPath
 
 
 # Create your models here.
@@ -639,7 +639,7 @@ class MegaEdgeRating(models.Model):
 
 class Power(Model):
     type = "power"
-    
+
     quantum_minimum = models.IntegerField(default=0)
     quantum_offset = models.IntegerField(default=0)
     action_type = models.CharField(
@@ -729,7 +729,7 @@ class TagRating(models.Model):
 
 class Transformation(Model):
     type = "transformation"
-    
+
     level = models.CharField(
         max_length=10,
         choices=[("low", "low"), ("medium", "medium"), ("high", "high"),],

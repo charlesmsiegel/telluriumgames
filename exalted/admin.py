@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from exalted.models.characters.mortals import ExMortal, Intimacy, ExMerit, ExSpecialty
+from exalted.models.characters.mortals import ExMerit, ExMortal, ExSpecialty, Intimacy
 
 
 # Register your models here.

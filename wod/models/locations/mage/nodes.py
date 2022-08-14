@@ -3,12 +3,11 @@ import random
 from django.db import models
 from django.db.models import F, Q
 
-from core.models import Noun
+from core.models import Model, Noun
 from core.utils import weighted_choice
 from wod.models.characters.mage.resonance import Resonance
 from wod.models.characters.mage.utils import SPHERE_LIST
 from wod.models.locations.human import Location
-from core.models import Model
 
 
 # Create your models here.
@@ -238,11 +237,6 @@ class Node(Location):
         self.tass_per_week = self.points - self.quintessence_per_week
         return True
 
-    def set_name(self, name):
-        self.name = name
-        self.save()
-        return True
-
     def random_name(self):
         if not self.has_name():
             highest_res_rating = (
@@ -254,9 +248,6 @@ class Node(Location):
             name = f"{highest_res_rating.resonance.name.title()} {n.name.title()}"
             return self.set_name(name)
         return True
-
-    def has_name(self):
-        return self.name != ""
 
     def random(self, rank=None, favored_list=None):
         self.gauntlet = 3

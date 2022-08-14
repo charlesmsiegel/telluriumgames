@@ -5,12 +5,12 @@ from tc.models.characters.human import (
     Edge,
     EnhancedEdge,
     Human,
-    TCPath,
     PathConnection,
     Specialty,
+    TCPath,
     Trick,
 )
-from tc.models.characters.talent import TCGift, MomentOfInspiration, Talent
+from tc.models.characters.talent import MomentOfInspiration, Talent, TCGift
 
 
 # Register your models here.

@@ -2,12 +2,12 @@ from tc.models.characters.aberrant import MegaEdge, Power, Tag, Transformation
 from tc.models.characters.human import (
     Edge,
     EnhancedEdge,
-    TCPath,
     PathConnection,
     Specialty,
+    TCPath,
     Trick,
 )
-from tc.models.characters.talent import TCGift, MomentOfInspiration
+from tc.models.characters.talent import MomentOfInspiration, TCGift
 
 Specialty.objects.create(skill="aim", name="Rifle")
 Specialty.objects.create(skill="aim", name="Pistol")
@@ -1331,7 +1331,9 @@ TCGift.objects.create(name="Steady Hands", keywords=["constant", "aim"])
 TCGift.objects.create(
     name="Trigger Discipline", keywords=["constant", "aim"], prereqs=[[("aim", 2)]]
 )
-TCGift.objects.create(name="Warrior's Eye", keywords=["momentary", "aim", "close_combat"])
+TCGift.objects.create(
+    name="Warrior's Eye", keywords=["momentary", "aim", "close_combat"]
+)
 TCGift.objects.create(name="Contortionist", keywords=["constant", "athletics"])
 TCGift.objects.create(
     name="Fight Choreographer",
@@ -1413,7 +1415,9 @@ TCGift.objects.create(
     keywords=["momentary", "culture", "empathy"],
     prereqs=[[("culture", 3)], [("empathy", 3)]],
 )
-TCGift.objects.create(name="Ripped From the Headlines", keywords=["constant", "culture"])
+TCGift.objects.create(
+    name="Ripped From the Headlines", keywords=["constant", "culture"]
+)
 TCGift.objects.create(name="That's Bad Luck", keywords=["constant", "culture"])
 TCGift.objects.create(name="The Hook", keywords=["constant", "empathy"])
 TCGift.objects.create(

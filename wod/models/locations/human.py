@@ -2,8 +2,8 @@ from django.db import models
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
-from wod.models.characters.human import Character
 from core.models import Model
+from wod.models.characters.human import Character
 
 
 # Create your models here.

@@ -128,14 +128,6 @@ class Chantry(Location):
         "Kopa Loei": ["He'iau"],
     }
 
-    def has_name(self):
-        return self.name != ""
-
-    def set_name(self, name):
-        self.name = name
-        self.save()
-        return True
-
     def random_name(self):
         options = []
         current = self.faction

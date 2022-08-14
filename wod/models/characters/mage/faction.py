@@ -8,7 +8,7 @@ from .focus import Paradigm, Practice
 # Create your models here.
 class MageFaction(Model):
     type = "mage_faction"
-    
+
     languages = models.ManyToManyField(Language, blank=True)
     affinities = models.JSONField(default=list)
     paradigms = models.ManyToManyField(Paradigm, blank=True)

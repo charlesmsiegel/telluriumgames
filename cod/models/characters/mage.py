@@ -5,10 +5,9 @@ from django.db.models import F, Q
 from django.urls import reverse
 
 from cod.models.characters.ephemera import Ephemera
-from cod.models.characters.mortal import Condition, CoDMerit, Mortal
-from core.models import Material
+from cod.models.characters.mortal import CoDMerit, Condition, Mortal
+from core.models import Material, Model
 from core.utils import add_dot, weighted_choice
-from core.models import Model
 
 # Create your models here.
 ARCANA = [
@@ -26,8 +25,8 @@ ARCANA = [
 
 
 class Path(Model):
-    type = 'path'
-    
+    type = "path"
+
     ruling_arcana = models.JSONField(default=list)
     inferior_arcanum = models.CharField(
         max_length=10,
@@ -47,14 +46,15 @@ class Path(Model):
     path_materials = models.ManyToManyField(Material, blank=True)
     path_weapons = models.JSONField(default=list)
 
+
 class Order(Model):
-    type = 'order'
-    
+    type = "order"
+
     rote_skills = models.JSONField(default=list)
 
 
 class Attainment(Model):
-    type = 'attainment'
+    type = "attainment"
 
     prereqs = models.JSONField(default=list)
 
@@ -90,8 +90,8 @@ class Attainment(Model):
 
 
 class Legacy(Model):
-    type = 'legacy'
-    
+    type = "legacy"
+
     path = models.ForeignKey(Path, null=True, blank=True, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, null=True, blank=True, on_delete=models.CASCADE)
     ruling_arcanum = models.CharField(
@@ -134,7 +134,7 @@ class Legacy(Model):
 
 class CoDRote(Model):
     type = "rote"
-    
+
     practice = models.CharField(
         max_length=40,
         choices=[
@@ -809,7 +809,7 @@ class KnownPraxis(models.Model):
 
 class ProximiFamily(Model):
     type = "proximi_family"
-    
+
     path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.CASCADE)
     blessing_arcana = models.CharField(
         max_length=10,

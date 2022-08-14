@@ -2,6 +2,7 @@ import random
 
 from django.db import models
 from django.urls import reverse
+
 from core.models import Model
 
 from .wtahuman import WtAHuman
@@ -9,7 +10,7 @@ from .wtahuman import WtAHuman
 
 class FomoriPower(Model):
     type = "fomoripower"
-    
+
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:fomoripower", kwargs={"pk": self.pk})
 

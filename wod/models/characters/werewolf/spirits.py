@@ -1,8 +1,7 @@
 from django.db import models
 from django.urls import reverse
+
 from core.models import Model
-
-
 from wod.models.characters.human import Character
 
 
@@ -26,7 +25,7 @@ class SpiritCharacter(Character):
 
 class Totem(Model):
     type = "totem"
-    
+
     TYPES = [
         ("respect", "Respect"),
         ("war", "War"),

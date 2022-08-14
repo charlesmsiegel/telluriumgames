@@ -5,13 +5,13 @@ from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from cod.models.characters.mage import (
     Attainment,
+    CoDRote,
     Legacy,
     Mage,
     Order,
     Path,
     Proximi,
     ProximiFamily,
-    CoDRote,
 )
 from cod.models.characters.mortal import MeritRating
 

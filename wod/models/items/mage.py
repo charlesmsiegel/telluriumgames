@@ -527,11 +527,6 @@ class Grimoire(Wonder):
             is_primer = random.random() < 0.1
         self.set_is_primer(is_primer)
 
-    def set_name(self, name):
-        self.name = name
-        self.save()
-        return True
-
     def random_name(self):
         name = ""
         if not self.has_name():
@@ -555,9 +550,6 @@ class Grimoire(Wonder):
                 name = random.choice(forms)
             return self.set_name(name)
         return False
-
-    def has_name(self):
-        return self.name != ""
 
     def random(
         self,

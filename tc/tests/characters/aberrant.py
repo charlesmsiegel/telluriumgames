@@ -10,7 +10,7 @@ from tc.models.characters.aberrant import (
     Tag,
     Transformation,
 )
-from tc.models.characters.human import Edge, EnhancedEdge, TCPath, Specialty, Trick
+from tc.models.characters.human import Edge, EnhancedEdge, Specialty, TCPath, Trick
 
 
 # Create your tests here.

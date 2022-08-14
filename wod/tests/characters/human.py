@@ -912,9 +912,7 @@ class TestGenericCharacterDetailViews(TestCase):
             name="Test Character", owner=self.player
         )
         self.human = Human.objects.create(name="Test Human", owner=self.player)
-        self.werewolf = Werewolf.objects.create(
-            name="Test Werewolf", owner=self.player
-        )
+        self.werewolf = Werewolf.objects.create(name="Test Werewolf", owner=self.player)
         self.mage = Mage.objects.create(name="Test Mage", owner=self.player)
 
     def test_character_detail_view_templates(self):

@@ -2,11 +2,11 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from cod.models.characters.mortal import (
-    Condition,
     CoDMerit,
+    CoDSpecialty,
+    Condition,
     MeritRating,
     Mortal,
-    CoDSpecialty,
     Tilt,
 )
 

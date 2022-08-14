@@ -2,11 +2,11 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from exalted.models.characters.mortals import (
-    ExMortal,
-    Intimacy,
     ExMerit,
-    MeritRating,
+    ExMortal,
     ExSpecialty,
+    Intimacy,
+    MeritRating,
 )
 
 

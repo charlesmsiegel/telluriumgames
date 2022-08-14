@@ -79,7 +79,10 @@ ExMerit.objects.create(
     name="Hideous", merit_type="innate", ratings=[0], merit_class="standard",
 )
 ExMerit.objects.create(
-    name="Influence", merit_type="story", ratings=[1, 2, 3, 4, 5], merit_class="standard",
+    name="Influence",
+    merit_type="story",
+    ratings=[1, 2, 3, 4, 5],
+    merit_class="standard",
 )
 ExMerit.objects.create(
     name="Iron Stomach",
@@ -142,10 +145,16 @@ ExMerit.objects.create(
     name="Retainers", merit_type="story", ratings=[2, 4], merit_class="standard",
 )
 ExMerit.objects.create(
-    name="Resources", merit_type="story", ratings=[1, 2, 3, 4, 5], merit_class="standard",
+    name="Resources",
+    merit_type="story",
+    ratings=[1, 2, 3, 4, 5],
+    merit_class="standard",
 )
 ExMerit.objects.create(
-    name="Selective Conception", merit_type="innate", ratings=[1], merit_class="standard",
+    name="Selective Conception",
+    merit_type="innate",
+    ratings=[1],
+    merit_class="standard",
 )
 ExMerit.objects.create(
     name="Strong Lungs",
@@ -174,7 +183,10 @@ ExMerit.objects.create(
     name="Enhanced Sense", merit_type="innate", ratings=[3], merit_class="supernatural",
 )
 ExMerit.objects.create(
-    name="Exalted Healing", merit_type="innate", ratings=[5], merit_class="supernatural",
+    name="Exalted Healing",
+    merit_type="innate",
+    ratings=[5],
+    merit_class="supernatural",
 )
 ExMerit.objects.create(
     name="Extra Limbs", merit_type="innate", ratings=[3], merit_class="supernatural",
@@ -183,7 +195,10 @@ ExMerit.objects.create(
     name="Gills", merit_type="innate", ratings=[0], merit_class="supernatural",
 )
 ExMerit.objects.create(
-    name="Poisoned Body", merit_type="innate", ratings=[1, 2, 5], merit_class="supernatural",
+    name="Poisoned Body",
+    merit_type="innate",
+    ratings=[1, 2, 5],
+    merit_class="supernatural",
 )
 ExMerit.objects.create(
     name="Quills", merit_type="innate", ratings=[5], merit_class="supernatural",

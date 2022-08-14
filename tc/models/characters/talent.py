@@ -2,9 +2,9 @@ import random
 
 from django.db import models
 
+from core.models import Model
 from core.utils import add_dot, weighted_choice
 from tc.models.characters.human import Edge, EdgeRating, Human, TCPath, check_prereqs
-from core.models import Model
 
 
 # Create your models here.
@@ -275,5 +275,5 @@ class TCGift(Model):
 
 class MomentOfInspiration(Model):
     type = "moment_of_inspiration"
-    
+
     attributes = models.JSONField(default=list)

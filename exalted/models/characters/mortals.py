@@ -1,12 +1,11 @@
 import random
 
-from core.models import Model
-
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
+from core.models import Model
 from core.utils import add_dot, weighted_choice
 
 
@@ -72,13 +71,6 @@ class ExMortal(Model):
 
     def get_absolute_url(self):
         return reverse("exalted:characters:character", args=[str(self.id)])
-
-    def has_name(self):
-        return self.name != ""
-
-    def set_name(self, name):
-        self.name = name
-        return True
 
     def random_name(self):
         return self.set_name(f"Mortal {ExMortal.objects.count()}")
@@ -674,8 +666,8 @@ class ExMortal(Model):
 
 
 class ExSpecialty(Model):
-    type = 'specialty'
-    
+    type = "specialty"
+
     ability = models.CharField(max_length=20)
 
     def __str__(self):
@@ -683,8 +675,8 @@ class ExSpecialty(Model):
 
 
 class Intimacy(Model):
-    type = 'intimacy'
-    
+    type = "intimacy"
+
     intimacy_type = models.CharField(
         max_length=20, choices=[("tie", "Tie"), ("principle", "Principle"),]
     )
@@ -696,8 +688,8 @@ class Intimacy(Model):
 
 
 class ExMerit(Model):
-    type = 'merit'
-    
+    type = "merit"
+
     merit_type = models.CharField(
         max_length=20,
         choices=[("innate", "Innate"), ("purchased", "Purchased"), ("story", "Story"),],

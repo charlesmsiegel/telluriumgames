@@ -3,13 +3,13 @@ from time import time
 from cod.models.characters.ephemera import Numina
 from cod.models.characters.mage import (
     Attainment,
+    CoDRote,
     Legacy,
     Order,
     Path,
     ProximiFamily,
-    CoDRote,
 )
-from cod.models.characters.mortal import Condition, CoDMerit, CoDSpecialty, Tilt
+from cod.models.characters.mortal import CoDMerit, CoDSpecialty, Condition, Tilt
 from cod.models.items.mortal import Equipment
 from core.models import Language, Material
 

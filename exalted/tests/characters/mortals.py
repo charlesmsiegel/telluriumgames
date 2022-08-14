@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from exalted.models.characters.mortals import ExMortal, Intimacy, ExMerit, ExSpecialty
+from exalted.models.characters.mortals import ExMerit, ExMortal, ExSpecialty, Intimacy
 from exalted.models.characters.utils import ABILITIES
 
 
@@ -379,7 +379,9 @@ class TestMortal(TestCase):
         self.assertEqual(len(self.character.filter_specialties()), 139)
 
     def test_add_merit(self):
-        m = ExMerit.objects.create(name="Merit 1", ratings=[1, 2, 4], merit_type="innate")
+        m = ExMerit.objects.create(
+            name="Merit 1", ratings=[1, 2, 4], merit_type="innate"
+        )
         self.assertNotIn(m, self.character.merits.all())
         self.assertTrue(self.character.add_merit(m))
         self.assertIn(m, self.character.merits.all())

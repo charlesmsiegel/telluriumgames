@@ -845,9 +845,7 @@ class TestPack(TestCase):
 class TestWerewolfDetailView(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="User1", password="12345")
-        self.werewolf = Werewolf.objects.create(
-            name="Test Werewolf", owner=self.player
-        )
+        self.werewolf = Werewolf.objects.create(name="Test Werewolf", owner=self.player)
 
     def test_werewolf_detail_view_status_code(self):
         response = self.client.get(f"/wod/characters/{self.werewolf.id}/")

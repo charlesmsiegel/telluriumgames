@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from cod.models.characters.mage import Legacy, Mage, Order, Path, Proximi, ProximiFamily
-from cod.models.characters.mortal import CoDMerit, Mortal, CoDSpecialty, Tilt
+from cod.models.characters.mortal import CoDMerit, CoDSpecialty, Mortal, Tilt
 
 
 # Register your models here.

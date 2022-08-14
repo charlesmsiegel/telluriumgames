@@ -5,12 +5,11 @@ from django.db import models
 from django.db.models import Q
 from django.urls import reverse
 
+from core.models import Model
 from core.utils import add_dot, weighted_choice
 from wod.models.characters.human import Human
 from wod.models.items.mage import Library
 from wod.models.locations.mage.nodes import Node
-
-from core.models import Model
 
 from .faction import MageFaction
 from .focus import Instrument, Paradigm, Practice
@@ -26,7 +25,7 @@ PRACTICE_ABILITY_WEIGHTING = 3
 # Create your models here.
 class Rote(Model):
     type = "rote"
-    
+
     mage = models.ForeignKey("Mage", on_delete=models.CASCADE)
     effect = models.ForeignKey(Effect, on_delete=models.CASCADE)
     practice = models.ForeignKey(

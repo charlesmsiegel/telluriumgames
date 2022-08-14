@@ -247,7 +247,9 @@ WoDSpecialty.objects.get_or_create(name="Sex Trade", stat="streetwise")
 WoDSpecialty.objects.get_or_create(name="Drug Trade", stat="streetwise")
 WoDSpecialty.objects.get_or_create(name="Music Culture", stat="streetwise")
 WoDSpecialty.objects.get_or_create(name="Gangs", stat="streetwise")
-WoDSpecialty.objects.get_or_create(name="Seeing Nothing Yet Everything", stat="streetwise")
+WoDSpecialty.objects.get_or_create(
+    name="Seeing Nothing Yet Everything", stat="streetwise"
+)
 WoDSpecialty.objects.get_or_create(name="Con Games", stat="subterfuge")
 WoDSpecialty.objects.get_or_create(name="Sexual Manipulation", stat="subterfuge")
 WoDSpecialty.objects.get_or_create(name="False Innocence", stat="subterfuge")
@@ -428,7 +430,9 @@ WoDSpecialty.objects.get_or_create(name="Data Sorting", stat="investigation")
 WoDSpecialty.objects.get_or_create(name="Criminal Psychology", stat="investigation")
 WoDSpecialty.objects.get_or_create(name="Spotting Clues", stat="investigation")
 WoDSpecialty.objects.get_or_create(name="Personal Details", stat="investigation")
-WoDSpecialty.objects.get_or_create(name="Paranormal Investigation", stat="investigation")
+WoDSpecialty.objects.get_or_create(
+    name="Paranormal Investigation", stat="investigation"
+)
 WoDSpecialty.objects.get_or_create(name="Local Beat", stat="law")
 WoDSpecialty.objects.get_or_create(name="Crimes", stat="law")
 WoDSpecialty.objects.get_or_create(name="Customs", stat="law")
@@ -517,7 +521,9 @@ WoDSpecialty.objects.get_or_create(name="Calming", stat="animal_kinship")
 WoDSpecialty.objects.get_or_create(name="Bonding", stat="animal_kinship")
 WoDSpecialty.objects.get_or_create(name="Reading Signs", stat="animal_kinship")
 WoDSpecialty.objects.get_or_create(name='"Talk to the Animals"', stat="animal_kinship")
-WoDSpecialty.objects.get_or_create(name="Training Specific Animals", stat="animal_kinship")
+WoDSpecialty.objects.get_or_create(
+    name="Training Specific Animals", stat="animal_kinship"
+)
 WoDSpecialty.objects.get_or_create(name="Religious Appeal", stat="blatancy")
 WoDSpecialty.objects.get_or_create(name="Political Paranoia", stat="blatancy")
 WoDSpecialty.objects.get_or_create(name="Stage Magic", stat="blatancy")
@@ -930,7 +936,9 @@ WoDSpecialty.objects.get_or_create(name="Crowds", stat="elusion")
 WoDSpecialty.objects.get_or_create(name="Strange Terrain", stat="elusion")
 WoDSpecialty.objects.get_or_create(name="Misdirection", stat="elusion")
 WoDSpecialty.objects.get_or_create(name="Manhunts", stat="elusion")
-WoDSpecialty.objects.get_or_create(name="Nowhere to Hide...Except There!", stat="elusion")
+WoDSpecialty.objects.get_or_create(
+    name="Nowhere to Hide...Except There!", stat="elusion"
+)
 WoDSpecialty.objects.get_or_create(name="Handcuffs", stat="escapology")
 WoDSpecialty.objects.get_or_create(name="Ropes", stat="escapology")
 WoDSpecialty.objects.get_or_create(name="Magic Tricks", stat="escapology")
@@ -968,9 +976,13 @@ WoDSpecialty.objects.get_or_create(name="Tarot", stat="fortune_telling")
 WoDSpecialty.objects.get_or_create(name="Palm-Reading", stat="fortune_telling")
 WoDSpecialty.objects.get_or_create(name="Bibliomancy", stat="fortune_telling")
 WoDSpecialty.objects.get_or_create(name="Astrology", stat="fortune_telling")
-WoDSpecialty.objects.get_or_create(name="Threat/Risk Assessment", stat="fortune_telling")
+WoDSpecialty.objects.get_or_create(
+    name="Threat/Risk Assessment", stat="fortune_telling"
+)
 WoDSpecialty.objects.get_or_create(name="Deductive Reasoning", stat="fortune_telling")
-WoDSpecialty.objects.get_or_create(name="Probability Calculation", stat="fortune_telling")
+WoDSpecialty.objects.get_or_create(
+    name="Probability Calculation", stat="fortune_telling"
+)
 WoDSpecialty.objects.get_or_create(name="Uncanny Hunch", stat="fortune_telling")
 WoDSpecialty.objects.get_or_create(name="Poker", stat="gambling")
 WoDSpecialty.objects.get_or_create(name="Roulette", stat="gambling")
@@ -991,7 +1003,9 @@ WoDSpecialty.objects.get_or_create(name="Improvised Gear", stat="gunsmith")
 WoDSpecialty.objects.get_or_create(name="Original Designs", stat="gunsmith")
 WoDSpecialty.objects.get_or_create(name="Specialty Ammo", stat="gunsmith")
 WoDSpecialty.objects.get_or_create(name="Technomagickal Improvements", stat="gunsmith")
-WoDSpecialty.objects.get_or_create(name="Shoulder-Mounted Missiles", stat="heavy_weapons")
+WoDSpecialty.objects.get_or_create(
+    name="Shoulder-Mounted Missiles", stat="heavy_weapons"
+)
 WoDSpecialty.objects.get_or_create(name="Machine-Guns", stat="heavy_weapons")
 WoDSpecialty.objects.get_or_create(name="Mortars", stat="heavy_weapons")
 WoDSpecialty.objects.get_or_create(name="Desert Operations", stat="heavy_weapons")
@@ -1093,7 +1107,9 @@ WoDSpecialty.objects.get_or_create(name="Blogs", stat="conspiracy_theory")
 WoDSpecialty.objects.get_or_create(name="Newspapers", stat="conspiracy_theory")
 WoDSpecialty.objects.get_or_create(name="Aliens", stat="conspiracy_theory")
 WoDSpecialty.objects.get_or_create(name="Megacorps", stat="conspiracy_theory")
-WoDSpecialty.objects.get_or_create(name="Manufacturing Consent", stat="conspiracy_theory")
+WoDSpecialty.objects.get_or_create(
+    name="Manufacturing Consent", stat="conspiracy_theory"
+)
 WoDSpecialty.objects.get_or_create(name="Hidden History", stat="conspiracy_theory")
 WoDSpecialty.objects.get_or_create(name="Cults", stat="conspiracy_theory")
 WoDSpecialty.objects.get_or_create(name="Satanic Underground", stat="conspiracy_theory")
@@ -1101,7 +1117,9 @@ WoDSpecialty.objects.get_or_create(name="The Catholic Church", stat="conspiracy_
 WoDSpecialty.objects.get_or_create(name="Zionist Cabals", stat="conspiracy_theory")
 WoDSpecialty.objects.get_or_create(name="Reality Deviants", stat="conspiracy_theory")
 WoDSpecialty.objects.get_or_create(name="Technocratic Plots", stat="conspiracy_theory")
-WoDSpecialty.objects.get_or_create(name="Government Cover-Ups", stat="conspiracy_theory")
+WoDSpecialty.objects.get_or_create(
+    name="Government Cover-Ups", stat="conspiracy_theory"
+)
 WoDSpecialty.objects.get_or_create(name="Big Money", stat="conspiracy_theory")
 WoDSpecialty.objects.get_or_create(name="Big Media", stat="conspiracy_theory")
 WoDSpecialty.objects.get_or_create(name="Follow the Money", stat="conspiracy_theory")
@@ -1156,8 +1174,12 @@ WoDSpecialty.objects.get_or_create(name="Shadow History", stat="history_knowledg
 WoDSpecialty.objects.get_or_create(name="Suppressed History", stat="history_knowledge")
 WoDSpecialty.objects.get_or_create(name="Alternate Sources", stat="history_knowledge")
 WoDSpecialty.objects.get_or_create(name="Marginalized Groups", stat="history_knowledge")
-WoDSpecialty.objects.get_or_create(name="Ascension War Events", stat="history_knowledge")
-WoDSpecialty.objects.get_or_create(name="Supernatural Influence", stat="history_knowledge")
+WoDSpecialty.objects.get_or_create(
+    name="Ascension War Events", stat="history_knowledge"
+)
+WoDSpecialty.objects.get_or_create(
+    name="Supernatural Influence", stat="history_knowledge"
+)
 WoDSpecialty.objects.get_or_create(name="Media", stat="power_brokering")
 WoDSpecialty.objects.get_or_create(name="Politics", stat="power_brokering")
 WoDSpecialty.objects.get_or_create(name="High Finance", stat="power_brokering")
@@ -1211,9 +1233,15 @@ WoDSpecialty.objects.get_or_create(
 )
 WoDSpecialty.objects.get_or_create(name="End-Times Theology", stat="theology")
 WoDSpecialty.objects.get_or_create(name="Specific Religious Creeds", stat="theology")
-WoDSpecialty.objects.get_or_create(name="Domestic Terror", stat="unconventional_warface")
-WoDSpecialty.objects.get_or_create(name="Ethnic Conflicts", stat="unconventional_warface")
-WoDSpecialty.objects.get_or_create(name="History of Terror", stat="unconventional_warface")
+WoDSpecialty.objects.get_or_create(
+    name="Domestic Terror", stat="unconventional_warface"
+)
+WoDSpecialty.objects.get_or_create(
+    name="Ethnic Conflicts", stat="unconventional_warface"
+)
+WoDSpecialty.objects.get_or_create(
+    name="History of Terror", stat="unconventional_warface"
+)
 WoDSpecialty.objects.get_or_create(name="Media Effects", stat="unconventional_warface")
 WoDSpecialty.objects.get_or_create(name="Watchdogs", stat="unconventional_warface")
 WoDSpecialty.objects.get_or_create(
@@ -1226,7 +1254,9 @@ WoDSpecialty.objects.get_or_create(name="Kidnapping", stat="unconventional_warfa
 WoDSpecialty.objects.get_or_create(name="Ideology", stat="unconventional_warface")
 WoDSpecialty.objects.get_or_create(name="Secrets", stat="unconventional_warface")
 WoDSpecialty.objects.get_or_create(name="Networks", stat="unconventional_warface")
-WoDSpecialty.objects.get_or_create(name="Celebrity Figures", stat="unconventional_warface")
+WoDSpecialty.objects.get_or_create(
+    name="Celebrity Figures", stat="unconventional_warface"
+)
 WoDSpecialty.objects.get_or_create(name="Alliances", stat="unconventional_warface")
 WoDSpecialty.objects.get_or_create(name="Sponsors", stat="unconventional_warface")
 WoDSpecialty.objects.get_or_create(name="Weaponry", stat="unconventional_warface")

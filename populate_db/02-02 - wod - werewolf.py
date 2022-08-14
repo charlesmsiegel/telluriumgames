@@ -53,7 +53,9 @@ WoDSpecialty.objects.get_or_create(name="Genial", stat="appearance")
 WoDSpecialty.objects.get_or_create(name="Exotic", stat="appearance")
 WoDSpecialty.objects.get_or_create(name="Alluring", stat="appearance")
 WoDSpecialty.objects.get_or_create(name="Noble Bearing", stat="appearance")
-WoDSpecialty.objects.get_or_create(name="Eyes in the Back of Your Head", stat="perception")
+WoDSpecialty.objects.get_or_create(
+    name="Eyes in the Back of Your Head", stat="perception"
+)
 WoDSpecialty.objects.get_or_create(name="Farsighted", stat="perception")
 WoDSpecialty.objects.get_or_create(name="Uncanny Instincts", stat="perception")
 WoDSpecialty.objects.get_or_create(name="Detail-Oriented", stat="perception")
@@ -1058,7 +1060,9 @@ Rite.objects.create(name="Rite of the Jackdaw", level=1, rite_type="punishment")
 rite_of_ostracism = Rite.objects.create(
     name="Rite of Ostracism", level=2, rite_type="punishment"
 )
-stone_of_scorn = Rite.objects.create(name="Stone of Scorn", level=2, rite_type="punishment")
+stone_of_scorn = Rite.objects.create(
+    name="Stone of Scorn", level=2, rite_type="punishment"
+)
 rite_of_the_jackal = Rite.objects.create(
     name="Voice of the Jackal", level=2, rite_type="punishment"
 )
@@ -1068,9 +1072,13 @@ Rite.objects.create(name="Satire Rite", level=3, rite_type="punishment")
 Rite.objects.create(name="The Rending of the Veil", level=4, rite_type="punishment")
 Rite.objects.create(name="Gaia's Vengeful Teeth", level=5, rite_type="punishment")
 Rite.objects.create(name="Rite of Boasting", level=1, rite_type="renown")
-rite_of_wounding = Rite.objects.create(name="Rite of Wounding", level=1, rite_type="renown")
+rite_of_wounding = Rite.objects.create(
+    name="Rite of Wounding", level=1, rite_type="renown"
+)
 Rite.objects.create(name="Rite of Accomplishment", level=2, rite_type="renown")
-rite_of_passage = Rite.objects.create(name="Rite of Passage", level=2, rite_type="renown")
+rite_of_passage = Rite.objects.create(
+    name="Rite of Passage", level=2, rite_type="renown"
+)
 Rite.objects.create(name="Rite of Praise", level=2, rite_type="renown")
 Rite.objects.create(name="Rite of the Winter Winds", level=2, rite_type="seasonal")
 Rite.objects.create(name="Rite of Reawakening", level=2, rite_type="seasonal")

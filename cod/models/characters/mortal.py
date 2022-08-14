@@ -111,10 +111,6 @@ class Mortal(Model):
     def get_absolute_url(self):
         return reverse("cod:characters:character", args=[str(self.id)])
 
-    def add_name(self, name):
-        self.name = name
-        return True
-
     def random_name(self, ethnicity=None):
         if ethnicity is not None:
             self.ethnicity = ethnicity
@@ -132,10 +128,7 @@ class Mortal(Model):
                 self.sex = "Other"
                 gender = "mf"
         if not self.has_name():
-            self.add_name(random_name(gender, self.ethnicity))
-
-    def has_name(self):
-        return self.name != ""
+            self.set_name(random_name(gender, self.ethnicity))
 
     def add_concept(self, concept):
         self.concept = concept
@@ -1001,7 +994,7 @@ class CoDMerit(Model):
 
 class CoDSpecialty(Model):
     type = "specialty"
-    
+
     skill = models.CharField(max_length=100)
 
     class Meta:
@@ -1016,22 +1009,26 @@ class CoDSpecialty(Model):
 
 
 class MeritRating(models.Model):
-    character = models.ForeignKey("Mortal", null=False, blank=False, on_delete=models.CASCADE)
-    merit = models.ForeignKey("CoDMerit", null=False, blank=False, on_delete=models.CASCADE)
+    character = models.ForeignKey(
+        "Mortal", null=False, blank=False, on_delete=models.CASCADE
+    )
+    merit = models.ForeignKey(
+        "CoDMerit", null=False, blank=False, on_delete=models.CASCADE
+    )
     rating = models.IntegerField(default=0)
     detail = models.CharField(max_length=100, null=True, blank=True)
 
 
 class Condition(Model):
     type = "condition"
-    
+
     persistent = models.BooleanField(default=False)
     resolution = models.TextField(default="")
 
 
 class Tilt(Model):
     type = "tilt"
-    
+
     tilt_type = models.CharField(
         max_length=20,
         choices=[("personal", "Personal"), ("environmental", "Environmental"),],

@@ -5,13 +5,13 @@ from django.test import TestCase
 
 from cod.models.characters.ephemera import Numina
 from cod.models.characters.mage import (
+    CoDRote,
     Legacy,
     Mage,
     Order,
     Path,
     Proximi,
     ProximiFamily,
-    CoDRote,
 )
 from cod.models.characters.mortal import CoDMerit, CoDSpecialty
 from core.models import Material

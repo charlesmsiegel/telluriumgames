@@ -6,10 +6,10 @@ from tc.models.characters.human import (
     Edge,
     EnhancedEdge,
     Human,
-    TCPath,
     PathConnection,
     PathRating,
     Specialty,
+    TCPath,
     Trick,
 )
 from tc.models.characters.talent import Talent
@@ -46,9 +46,9 @@ class TestHuman(TestCase):
         self.player = User.objects.create(username="Test User")
         self.character = Human.objects.create(name="", owner=self.player)
 
-    def test_add_name(self):
+    def test_set_name(self):
         self.assertEqual(self.character.name, "")
-        self.assertTrue(self.character.add_name("Test Name"))
+        self.assertTrue(self.character.set_name("Test Name"))
         self.assertEqual(self.character.name, "Test Name")
 
     def test_has_name(self):
@@ -77,7 +77,7 @@ class TestHuman(TestCase):
 
     def test_has_basics(self):
         self.assertFalse(self.character.has_basics())
-        self.character.add_name("Test Name")
+        self.character.set_name("Test Name")
         self.character.add_concept("Test Concept")
         self.character.add_aspiration("Test Asp 1", aspiration_type="short", number=1)
         self.character.add_aspiration("Test Asp 2", aspiration_type="short", number=2)
@@ -326,7 +326,9 @@ class TestHuman(TestCase):
 
     def test_has_skills(self):
         self.character.add_path(
-            TCPath.objects.create(name="TestPath 1", type="origin", skills=["technology"])
+            TCPath.objects.create(
+                name="TestPath 1", type="origin", skills=["technology"]
+            )
         )
         self.character.add_path(
             TCPath.objects.create(name="TestPath 2", type="role", skills=["survival"])

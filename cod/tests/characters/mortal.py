@@ -3,11 +3,11 @@ from django.test import TestCase
 
 from cod.models.characters.mage import Mage
 from cod.models.characters.mortal import (
-    Condition,
     CoDMerit,
+    CoDSpecialty,
+    Condition,
     MeritRating,
     Mortal,
-    CoDSpecialty,
 )
 
 
@@ -17,9 +17,9 @@ class TestMortal(TestCase):
         self.player = User.objects.create(username="Test User")
         self.character = Mortal.objects.create(name="", owner=self.player)
 
-    def test_add_name(self):
+    def test_set_name(self):
         self.assertEqual(self.character.name, "")
-        self.assertTrue(self.character.add_name("Test Name"))
+        self.assertTrue(self.character.set_name("Test Name"))
         self.assertEqual(self.character.name, "Test Name")
 
     def test_has_name(self):
@@ -365,16 +365,24 @@ class TestMortal(TestCase):
         )
 
     def test_filter_merits(self):
-        m1 = CoDMerit.objects.create(name="Merit 1", ratings=[1, 2], merit_type="Physical")
-        m2 = CoDMerit.objects.create(name="Merit 2", ratings=[2, 3], merit_type="Mental")
+        m1 = CoDMerit.objects.create(
+            name="Merit 1", ratings=[1, 2], merit_type="Physical"
+        )
+        m2 = CoDMerit.objects.create(
+            name="Merit 2", ratings=[2, 3], merit_type="Mental"
+        )
         m3 = CoDMerit.objects.create(
             name="Merit 3", ratings=[3, 4], merit_type="Social", is_style=True
         )
-        m4 = CoDMerit.objects.create(name="Merit 4", ratings=[1, 4], merit_type="Fighting")
+        m4 = CoDMerit.objects.create(
+            name="Merit 4", ratings=[1, 4], merit_type="Fighting"
+        )
         m5 = CoDMerit.objects.create(
             name="Merit 5", ratings=[2, 4], merit_type="Supernatural"
         )
-        m6 = CoDMerit.objects.create(name="Merit 6", ratings=[3, 4], merit_type="Physical")
+        m6 = CoDMerit.objects.create(
+            name="Merit 6", ratings=[3, 4], merit_type="Physical"
+        )
         CoDMerit.objects.create(name="Merit 7", ratings=[3, 4], merit_type="Mage")
         merit_list = self.character.filter_merits(
             dots=3
@@ -392,9 +400,15 @@ class TestMortal(TestCase):
         )
 
     def test_has_merits(self):
-        m1 = CoDMerit.objects.create(name="Merit 1", ratings=[1, 2], merit_type="Physical")
-        m2 = CoDMerit.objects.create(name="Merit 2", ratings=[2, 3], merit_type="Physical")
-        m3 = CoDMerit.objects.create(name="Merit 3", ratings=[3, 4], merit_type="Physical")
+        m1 = CoDMerit.objects.create(
+            name="Merit 1", ratings=[1, 2], merit_type="Physical"
+        )
+        m2 = CoDMerit.objects.create(
+            name="Merit 2", ratings=[2, 3], merit_type="Physical"
+        )
+        m3 = CoDMerit.objects.create(
+            name="Merit 3", ratings=[3, 4], merit_type="Physical"
+        )
         self.assertFalse(self.character.has_merits())
         self.character.add_merit(m1)
         self.assertFalse(self.character.has_merits())
@@ -445,7 +459,9 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.defense, 6)
 
     def test_giant_merit(self):
-        giant = CoDMerit.objects.create(name="Giant", ratings=[1], merit_type="Physical")
+        giant = CoDMerit.objects.create(
+            name="Giant", ratings=[1], merit_type="Physical"
+        )
         self.character.stamina = 2
         self.character.assign_advantages()
         self.assertEqual(self.character.size, 5)

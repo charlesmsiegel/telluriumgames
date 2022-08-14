@@ -1,11 +1,12 @@
 from django.db import models
+
 from core.models import Model
 
 
 # Create your models here.
 class Resonance(Model):
     type = "resonance"
-    
+
     correspondence = models.BooleanField(default=False)
     time = models.BooleanField(default=False)
     spirit = models.BooleanField(default=False)

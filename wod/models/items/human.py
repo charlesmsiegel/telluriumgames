@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
+
 from core.models import Model
 
 
@@ -10,13 +11,6 @@ class WoDItem(Model):
 
     def get_absolute_url(self):
         return reverse("wod:items:item", args=[str(self.id)])
-
-    def has_name(self):
-        return self.name != ""
-
-    def set_name(self, name):
-        self.name = name
-        return True
 
     def random_name(self, name=None):
         if self.has_name():

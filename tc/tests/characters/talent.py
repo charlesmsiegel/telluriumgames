@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from tc.models.characters.human import Edge, EnhancedEdge, TCPath, Specialty, Trick
-from tc.models.characters.talent import TCGift, MomentOfInspiration, Talent
+from tc.models.characters.human import Edge, EnhancedEdge, Specialty, TCPath, Trick
+from tc.models.characters.talent import MomentOfInspiration, Talent, TCGift
 
 
 # Create your tests here.

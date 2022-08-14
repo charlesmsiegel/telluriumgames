@@ -1,12 +1,13 @@
 from django.db import models
 from django.urls import reverse
+
 from core.models import Model
 
 
 # Create your models here.
 class Effect(Model):
     type = "effect"
-    
+
     correspondence = models.IntegerField(default=0)
     time = models.IntegerField(default=0)
     spirit = models.IntegerField(default=0)

@@ -5,8 +5,8 @@ from django.db import models
 from django.db.models import F
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
-from core.models import Model
 
+from core.models import Model
 from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
 
@@ -78,13 +78,6 @@ class Human(Model):
     def get_absolute_url(self):
         return reverse("tc:characters:character", args=[str(self.id)])
 
-    def add_name(self, name):
-        self.name = name
-        return True
-
-    def has_name(self):
-        return self.name != ""
-
     def random_name(self, ethnicity=None):
         if ethnicity is not None:
             self.ethnicity = ethnicity
@@ -102,7 +95,7 @@ class Human(Model):
                 self.sex = "Other"
                 gender = "mf"
         if not self.has_name():
-            self.add_name(random_name(gender, self.ethnicity))
+            self.set_name(random_name(gender, self.ethnicity))
 
     def add_concept(self, concept):
         self.concept = concept
@@ -848,7 +841,7 @@ class Human(Model):
 
 class TCPath(Model):
     type = "path"
-    
+
     type = models.CharField(
         max_length=100,
         choices=[("origin", "origin"), ("role", "role"), ("society", "society")],
@@ -880,7 +873,7 @@ class Specialty(Model):
 
 class Trick(Model):
     type = "trick"
-    
+
     skill = models.CharField(max_length=100)
 
     class Meta:
@@ -943,7 +936,7 @@ class PathRating(models.Model):
 
 class PathConnection(Model):
     type = "path_connection"
-    
+
     path = models.ForeignKey(TCPath, blank=True, null=True, on_delete=models.CASCADE)
 
 
