@@ -174,9 +174,9 @@ class Mage(MtAHuman):
 
     background_points = 7
 
-    def __init__(self, *args, **kwargs):
-        kwargs["willpower"] = kwargs.get("willpower") or 5
-        super().__init__(*args, **kwargs)
+    # def __init__(self, *args, **kwargs):
+    #     kwargs["willpower"] = kwargs.get("willpower") or 5
+    #     super().__init__(*args, **kwargs)
 
     def add_ability(self, ability, maximum=4):
         if ability == "do":
@@ -835,6 +835,7 @@ class Mage(MtAHuman):
         subfaction=None,
         backgrounds=None,
     ):
+        self.willpower = 5
         if backgrounds is None:
             backgrounds = {}
         self.freebies = freebies

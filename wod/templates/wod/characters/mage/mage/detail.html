@@ -238,7 +238,7 @@
             </div>
         {% endfor %}
         
-        {% ifequal object.faction.name "Akashayana" %}
+        {% if object.faction.name == "Akashayana" %}
         <div class="row">
             <div class="col-sm">Do {% if do_spec %}({{ do_spec }}){% endif %}</div>
             <div class="col-sm dots">{{ object.do|dots }}</div>
@@ -247,7 +247,7 @@
             <div class="col-sm"></div>
             <div class="col-sm"></div>
         </div>
-        {% endifequal %}
+        {% endif %}
         <div class="row">
             <h2 class="col-sm mtas_heading">Advantages</h2>
         </div>

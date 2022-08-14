@@ -50,9 +50,9 @@ class Node(Location):
     tass_form = models.CharField(default="", max_length=100)
     quintessence_form = models.CharField(default="", max_length=100)
 
-    def __init__(self, *args, **kwargs):
-        kwargs["gauntlet"] = 3
-        super().__init__(*args, **kwargs)
+    # def __init__(self, *args, **kwargs):
+    #     kwargs["gauntlet"] = 3
+    #     super().__init__(*args, **kwargs)
 
     def random_rank(self, rank=None):
         if rank is None:
@@ -258,6 +258,7 @@ class Node(Location):
         return self.name != ""
 
     def random(self, rank=None, favored_list=None):
+        self.gauntlet = 3
         self.random_rank(rank=rank)
         while not self.has_resonance():
             self.random_resonance(favored_list=favored_list)

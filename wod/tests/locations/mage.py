@@ -36,8 +36,8 @@ class TestNode(TestCase):
         for i in range(10):
             Noun.objects.create(name=f"Node Noun {i}")
 
-    def test_gauntlet_rating(self):
-        self.assertEqual(self.node.gauntlet, 3)
+    # def test_gauntlet_rating(self):
+    #     self.assertEqual(self.node.gauntlet, 3)
 
     def test_add_resonance(self):
         res = Resonance.objects.order_by("?").first()

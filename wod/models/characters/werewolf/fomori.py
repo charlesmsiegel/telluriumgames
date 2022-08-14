@@ -22,9 +22,9 @@ class Fomor(WtAHuman):
 
     background_points = 3
 
-    def __init__(self, *args, **kwargs):
-        kwargs["willpower"] = kwargs.get("willpower") or 3
-        super().__init__(*args, **kwargs)
+    # def __init__(self, *args, **kwargs):
+    #     kwargs["willpower"] = kwargs.get("willpower") or 3
+    #     super().__init__(*args, **kwargs)
 
     def get_backgrounds(self):
         return {
@@ -59,6 +59,7 @@ class Fomor(WtAHuman):
         self.add_power(FomoriPower.objects.get(name="Immunity to the Delirium"))
 
     def random(self, freebies=15, xp=0, ethnicity=None):
+        self.willpower = 3
         self.freebies = freebies
         self.xp = xp
         self.random_name(ethnicity=ethnicity)

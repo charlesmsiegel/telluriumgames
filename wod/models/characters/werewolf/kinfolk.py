@@ -31,9 +31,9 @@ class Kinfolk(WtAHuman):
     honor = models.IntegerField(default=0)
     temporary_honor = models.IntegerField(default=0)
 
-    def __init__(self, *args, **kwargs):
-        kwargs["willpower"] = kwargs.get("willpower") or 3
-        super().__init__(*args, **kwargs)
+    # def __init__(self, *args, **kwargs):
+    #     kwargs["willpower"] = kwargs.get("willpower") or 3
+    #     super().__init__(*args, **kwargs)
 
     def has_breed(self):
         return self.breed != ""
@@ -220,6 +220,7 @@ class Kinfolk(WtAHuman):
         return False
 
     def random(self, freebies=15, xp=0, ethnicity=None):
+        self.willpower = 3
         self.freebies = freebies
         self.xp = xp
         self.random_name(ethnicity=ethnicity)

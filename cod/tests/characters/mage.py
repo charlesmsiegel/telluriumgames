@@ -100,8 +100,8 @@ class TestMage(TestCase):
         self.mage = Mage.objects.create(name="", player=self.player)
         mage_setup(self.mage)
 
-    def test_wisdom(self):
-        self.assertEqual(self.mage.morality_name, "Wisdom")
+    # def test_wisdom(self):
+    #     self.assertEqual(self.mage.morality_name, "Wisdom")
 
     def test_has_path(self):
         self.assertFalse(self.mage.has_path())

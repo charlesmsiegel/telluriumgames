@@ -234,10 +234,10 @@ class Mage(Mortal):
 
     arcane_xp = models.IntegerField(default=0)
 
-    def __init__(self, *args, **kwargs):
-        kwargs["morality_name"] = "Wisdom"
-        kwargs["obsessions"] = [None, None, None, None]
-        super().__init__(*args, **kwargs)
+    # def __init__(self, *args, **kwargs):
+    #     kwargs["morality_name"] = "Wisdom"
+    #     kwargs["obsessions"] = [None, None, None, None]
+    #     super().__init__(*args, **kwargs)
 
     @staticmethod
     def allowed_merit_types():
@@ -760,6 +760,8 @@ class Mage(Mortal):
         return False
 
     def random(self, xp=0):
+        self.morality_name = "Wisdom"
+        self.obsessions = [None, None, None, None]
         self.xp = xp
         self.random_basis()
         self.random_attributes()
