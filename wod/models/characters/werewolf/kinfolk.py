@@ -1,6 +1,5 @@
 import random
 from collections import defaultdict
-from readline import set_history_length
 
 from django.db import models
 
@@ -32,6 +31,10 @@ class Kinfolk(WtAHuman):
     honor = models.IntegerField(default=0)
     temporary_honor = models.IntegerField(default=0)
 
+    def __init__(self, *args, **kwargs):
+        kwargs["willpower"] = kwargs.get("willpower") or 3
+        super().__init__(*args, **kwargs)
+
     def has_breed(self):
         return self.breed != ""
 
@@ -50,7 +53,6 @@ class Kinfolk(WtAHuman):
         if tribe.name == "Red Talons" and self.breed == "homid":
             return False
         self.tribe = tribe
-        self.willpower = tribe.willpower
         if self.tribe.name == "Silver Fangs" and self.pure_breed < 1:
             self.pure_breed = 1
         if self.tribe.name == "Black Spiral Dancers":
@@ -191,11 +193,11 @@ class Kinfolk(WtAHuman):
     def mf_based_corrections(self):
         if self.merits_and_flaws.filter(name="Gnosis").exists():
             gnosis = MeritFlaw.objects.get(name="Gnosis")
-            rating = MeritFlawRating.objects.get(merit=gnosis, character=self).rating
+            rating = MeritFlawRating.objects.get(mf=gnosis, character=self).rating
             self.gnosis = rating - 4
         if self.merits_and_flaws.filter(name="Fetish").exists():
             fetish = MeritFlaw.objects.get(name="Fetish")
-            rating = MeritFlawRating.objects.get(merit=fetish, character=self).rating
+            rating = MeritFlawRating.objects.get(mf=fetish, character=self).rating
             self.random_fetish(min_rating=rating - 4, max_rating=rating - 4)
         return super().mf_based_corrections()
 

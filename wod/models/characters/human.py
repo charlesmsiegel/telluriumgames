@@ -562,6 +562,10 @@ class Human(Character):
         return self.add_derangement(d)
 
     def filter_mfs(self):
+        character_type = self.type
+        if character_type in ["fomor"]:
+            character_type = "human"
+
         new_mfs = MeritFlaw.objects.exclude(pk__in=self.merits_and_flaws.all())
 
         non_max_mf = MeritFlawRating.objects.filter(character=self).exclude(
@@ -572,7 +576,7 @@ class Human(Character):
         mf = new_mfs | had_mfs
         if self.has_max_flaws():
             mf = mf.filter(max_rating__gt=0)
-        return mf.filter(Q(**{self.type: True}))
+        return mf.filter(Q(**{character_type: True}))
 
     def mf_rating(self, mf):
         if mf not in self.merits_and_flaws.all():

@@ -1,6 +1,6 @@
 from django.views.generic import CreateView, DetailView, UpdateView
 
-from wod.models.items.human import Item, Weapon, MeleeWeapon, RangedWeapon, ThrownWeapon
+from wod.models.items.human import Item, MeleeWeapon, RangedWeapon, ThrownWeapon, Weapon
 
 
 class ItemDetailView(DetailView):
@@ -20,7 +20,6 @@ class ItemUpdateView(UpdateView):
     template_name = "wod/items/human/item/create.html"
 
 
-
 class WeaponDetailView(DetailView):
     model = Weapon
     template_name = "wod/items/human/weapon/detail.html"
@@ -36,6 +35,7 @@ class WeaponUpdateView(UpdateView):
     model = Weapon
     fields = "__all__"
     template_name = "wod/items/human/weapon/create.html"
+
 
 class MeleeWeaponDetailView(DetailView):
     model = MeleeWeapon
@@ -53,6 +53,7 @@ class MeleeWeaponUpdateView(UpdateView):
     fields = "__all__"
     template_name = "wod/items/human/meleeweapon/create.html"
 
+
 class RangedWeaponDetailView(DetailView):
     model = RangedWeapon
     template_name = "wod/items/human/rangedweapon/detail.html"
@@ -68,6 +69,7 @@ class RangedWeaponUpdateView(UpdateView):
     model = RangedWeapon
     fields = "__all__"
     template_name = "wod/items/human/rangedweapon/create.html"
+
 
 class ThrownWeaponDetailView(DetailView):
     model = ThrownWeapon

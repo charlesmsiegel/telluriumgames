@@ -162,4 +162,19 @@ urls = [
         views.characters.werewolf.BattleScarUpdateView.as_view(),
         name="update_battlescar",
     ),
+    path(
+        "fomoripower/<pk>/",
+        views.characters.werewolf.FomoriPowerDetailView.as_view(),
+        name="fomoripower",
+    ),
+    path(
+        "fomoripower/create/",
+        views.characters.werewolf.FomoriPowerCreateView.as_view(),
+        name="create_fomoripower",
+    ),
+    path(
+        "fomoripower/update/<pk>/",
+        views.characters.werewolf.FomoriPowerUpdateView.as_view(),
+        name="update_fomoripower",
+    ),
 ]

@@ -18,7 +18,11 @@ class ExMortal(PolymorphicModel):
     name = models.CharField(max_length=100, unique=True)
     concept = models.CharField(max_length=100)
     player = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="exalted_characters", blank=True, null=True
+        User,
+        on_delete=models.CASCADE,
+        related_name="exalted_characters",
+        blank=True,
+        null=True,
     )
     display = models.BooleanField(default=True)
 

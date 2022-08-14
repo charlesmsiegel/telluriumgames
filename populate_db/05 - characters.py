@@ -9,7 +9,7 @@ player, _ = User.objects.get_or_create(username="Test")
 
 from wod.models.characters.human import Human
 from wod.models.characters.mage import Mage
-from wod.models.characters.werewolf import Kinfolk, Werewolf
+from wod.models.characters.werewolf import Fomor, Kinfolk, Werewolf
 from wod.models.items.mage import Artifact, Charm, Grimoire, Talisman
 from wod.models.locations.mage import Chantry, Node
 
@@ -45,6 +45,7 @@ def profile(cls, character=True, num_rows=10, xp=0):
 
 time_test(Human)
 time_test(Kinfolk)
+time_test(Fomor)
 time_test(Werewolf)
 time_test(Mage)
 time_test(Node, character=False)
