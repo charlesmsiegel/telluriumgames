@@ -72,11 +72,11 @@ class RandomCharacterView(View):
     }
 
     def post(self, request, *args, **kwargs):
-        if request.POST["character_type"] in ["werewolf", "mage"]:
-            if request.user.is_authenticated:
-                user = request.user
-            else:
-                user = None
+        if request.user.is_authenticated:
+            user = request.user
+        else:
+            user = None
+        if request.POST["character_type"] in ["werewolf", "mage", "kinfolk", "fomor"]:
             char = self.chars[request.POST["character_type"]].objects.create(
                 name=request.POST["character_name"], player=user
             )
