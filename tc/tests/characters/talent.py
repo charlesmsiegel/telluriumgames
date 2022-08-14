@@ -1,15 +1,15 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from tc.models.characters.human import Edge, EnhancedEdge, Path, Specialty, Trick
-from tc.models.characters.talent import Gift, MomentOfInspiration, Talent
+from tc.models.characters.human import Edge, EnhancedEdge, TCPath, Specialty, Trick
+from tc.models.characters.talent import TCGift, MomentOfInspiration, Talent
 
 
 # Create your tests here.
 class TestTalent(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Talent.objects.create(name="", player=self.player)
+        self.character = Talent.objects.create(name="", owner=self.player)
 
     def test_add_moment_of_inspiration(self):
         m = MomentOfInspiration.objects.create(
@@ -88,7 +88,7 @@ class TestTalent(TestCase):
         self.assertTrue(self.character.has_facets())
 
     def test_add_gift(self):
-        g = Gift.objects.create(name="Test Gift")
+        g = TCGift.objects.create(name="Test Gift")
         self.assertEqual(self.character.total_gifts(), 0)
         self.assertTrue(self.character.add_gift(g))
         self.assertEqual(self.character.total_gifts(), 1)
@@ -96,40 +96,40 @@ class TestTalent(TestCase):
         self.assertEqual(self.character.total_gifts(), 1)
 
     def test_has_gifts(self):
-        p1 = Path.objects.create(
+        p1 = TCPath.objects.create(
             name="Path 1", type="origin", gift_keywords=["science"]
         )
-        p2 = Path.objects.create(
+        p2 = TCPath.objects.create(
             name="Path 2", type="role", gift_keywords=["science", "larceny"]
         )
-        p3 = Path.objects.create(
+        p3 = TCPath.objects.create(
             name="Path 3", type="society", gift_keywords=["science", "command"]
         )
         self.character.add_path(p1)
         self.character.add_path(p2)
         self.character.add_path(p3)
-        g1 = Gift.objects.create(name="Gift 1", keywords=["science"])
+        g1 = TCGift.objects.create(name="Gift 1", keywords=["science"])
         self.character.add_gift(g1)
         self.assertFalse(self.character.has_gifts())
-        g2 = Gift.objects.create(name="Gift 2", keywords=["larceny"])
+        g2 = TCGift.objects.create(name="Gift 2", keywords=["larceny"])
         self.character.add_gift(g2)
         self.assertFalse(self.character.has_gifts())
-        g3 = Gift.objects.create(name="Gift 3", keywords=["command"])
+        g3 = TCGift.objects.create(name="Gift 3", keywords=["command"])
         self.character.add_gift(g3)
         self.assertFalse(self.character.has_gifts())
-        g4 = Gift.objects.create(name="Gift 4", keywords=["science"])
+        g4 = TCGift.objects.create(name="Gift 4", keywords=["science"])
         self.character.add_gift(g4)
         self.assertTrue(self.character.has_gifts())
 
     def test_filter_gifts(self):
-        g = Gift.objects.create(name="Gift 1", keywords=["science"])
-        Gift.objects.create(name="Gift 2", prereqs=[[("might", 3)]])
-        Gift.objects.create(name="Gift 3", keywords=["dexterity"])
-        Gift.objects.create(name="Gift 4", keywords=["luck"])
-        Gift.objects.create(name="Gift 5")
-        Gift.objects.create(name="Gift 6", keywords=["dexterity", "science"])
+        g = TCGift.objects.create(name="Gift 1", keywords=["science"])
+        TCGift.objects.create(name="Gift 2", prereqs=[[("might", 3)]])
+        TCGift.objects.create(name="Gift 3", keywords=["dexterity"])
+        TCGift.objects.create(name="Gift 4", keywords=["luck"])
+        TCGift.objects.create(name="Gift 5")
+        TCGift.objects.create(name="Gift 6", keywords=["dexterity", "science"])
 
-        p = Path.objects.create(name="Path", gift_keywords=["science"])
+        p = TCPath.objects.create(name="Path", gift_keywords=["science"])
 
         self.assertEqual(len(self.character.filter_gifts(keyword=None, path=None)), 4)
         self.character.add_skill("science")
@@ -173,7 +173,7 @@ class TestTalent(TestCase):
             name="XP Enhanced Edge", prereqs=[[("XP Edge 1", 2)]]
         )
 
-        p = Path.objects.create(
+        p = TCPath.objects.create(
             name="XP Path",
             skills=["science", "technology", "command", "close_combat"],
             gift_keywords=["science"],
@@ -181,8 +181,8 @@ class TestTalent(TestCase):
         p.edges.add(pe)
         p.save()
 
-        Gift.objects.create(name="Test Path Gift", keywords=["science"])
-        Gift.objects.create(name="Test Gift", keywords=["athletics"])
+        TCGift.objects.create(name="Test Path Gift", keywords=["science"])
+        TCGift.objects.create(name="Test Gift", keywords=["athletics"])
 
         self.character.approach = "RES"
 
@@ -206,15 +206,15 @@ class TestTalent(TestCase):
 class TestRandomTalent(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Talent.objects.create(name="", player=self.player)
+        self.character = Talent.objects.create(name="", owner=self.player)
         for skill in self.character.get_skills().keys():
             for i in range(5):
                 Specialty.objects.create(name=f"{skill} Specialty {i}", skill=skill)
                 Trick.objects.create(name=f"{skill} Trick {i}", skill=skill)
-                Gift.objects.create(name=f"{skill} Gift {i}", keywords=[skill])
+                TCGift.objects.create(name=f"{skill} Gift {i}", keywords=[skill])
         for t in ["origin", "role", "society"]:
             for k in range(3):
-                p = Path.objects.create(name=f"{t} Path {k}", type=t)
+                p = TCPath.objects.create(name=f"{t} Path {k}", type=t)
                 for i in range(4):
                     for j in range(4):
                         p.skills.append(
@@ -272,7 +272,7 @@ class TestRandomTalent(TestCase):
         self.assertTrue(self.character.has_moment_of_inspiration())
 
     def test_random(self):
-        character = Talent.objects.create(player=self.player)
+        character = Talent.objects.create(owner=self.player)
         self.assertFalse(character.has_name())
         self.assertFalse(character.has_concept())
         self.assertFalse(character.has_paths())
@@ -303,7 +303,7 @@ class TestTalentDetailView(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Talent.objects.create(
-            name="Test Character", player=User.objects.get(username="Test User"),
+            name="Test Character", owner=User.objects.get(username="Test User"),
         )
 
     def test_talent_detail_view_status_code(self):

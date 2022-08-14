@@ -8,6 +8,7 @@ from core.utils import weighted_choice
 from wod.models.characters.mage.resonance import Resonance
 from wod.models.characters.mage.utils import SPHERE_LIST
 from wod.models.locations.human import Location
+from core.models import Model
 
 
 # Create your models here.
@@ -278,14 +279,9 @@ class Node(Location):
         self.random_name()
 
 
-class NodeMeritFlaw(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class NodeMeritFlaw(Model):
     ratings = models.JSONField(default=list)
     max_rating = models.IntegerField(default=0)
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)

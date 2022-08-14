@@ -7,25 +7,23 @@ from django.db import models
 from django.db.models import F, Q
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
+from core.models import Model
 
 from core.models import Language
 from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
 
 # Create your models here.
-class Archetype(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name
-
+class Archetype(Model):
+    type = "archetype"
+    
     def get_absolute_url(self):
         return reverse("wod:characters:human:archetype", kwargs={"pk": self.pk})
 
 
-class Specialty(models.Model):
-    name = models.CharField(max_length=100)
+class WoDSpecialty(Model):
+    type = "specialty"
+    
     stat = models.CharField(max_length=100)
 
     class Meta:
@@ -39,22 +37,19 @@ class Specialty(models.Model):
         return f"{self.name} ({self.display_stat()})"
 
 
-class MeritFlaw(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class MeritFlaw(Model):
+    type = "merit_flaw"
+    
     ratings = models.JSONField(default=list)
     max_rating = models.IntegerField(default=0)
     human = models.BooleanField(default=False)
     garou = models.BooleanField(default=False)
     mage = models.BooleanField(default=False)
     kinfolk = models.BooleanField(default=False)
-    description = models.TextField(default="")
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)
         super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
 
 
 class MeritFlawRating(models.Model):
@@ -66,20 +61,10 @@ class MeritFlawRating(models.Model):
         return f"{self.mf}: {self.rating}"
 
 
-class Character(PolymorphicModel):
+class Character(Model):
     type = "character"
 
-    name = models.CharField(max_length=100, unique=True)
-    player = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="wod_characters",
-        null=True,
-        blank=True,
-    )
     concept = models.CharField(max_length=100)
-    description = models.TextField(default="")
-    display = models.BooleanField(default=True)
 
     def has_concept(self):
         return self.concept != ""
@@ -100,9 +85,6 @@ class Character(PolymorphicModel):
 
     def random_name(self):
         self.set_name(f"Random Character {Character.objects.count()}")
-
-    def __str__(self):
-        return self.name
 
     def get_absolute_url(self):
         return reverse("wod:characters:character", kwargs={"pk": self.pk})
@@ -160,7 +142,7 @@ class Human(Character):
     medicine = models.IntegerField(default=0)
     science = models.IntegerField(default=0)
 
-    specialties = models.ManyToManyField(Specialty, blank=True)
+    specialties = models.ManyToManyField(WoDSpecialty, blank=True)
 
     contacts = models.IntegerField(default=0)
     mentor = models.IntegerField(default=0)
@@ -446,8 +428,8 @@ class Human(Character):
 
     def filter_specialties(self, stat=None):
         if stat is None:
-            return Specialty.objects.all().exclude(pk__in=self.specialties.all())
-        return Specialty.objects.filter(stat=stat).exclude(
+            return WoDSpecialty.objects.all().exclude(pk__in=self.specialties.all())
+        return WoDSpecialty.objects.filter(stat=stat).exclude(
             pk__in=self.specialties.all()
         )
 
@@ -973,10 +955,9 @@ class Human(Character):
         )
 
 
-class Group(PolymorphicModel):
+class Group(Model):
     type = "group"
 
-    name = models.CharField(max_length=100, unique=True)
     members = models.ManyToManyField(Human, blank=True)
     leader = models.ForeignKey(
         Human,
@@ -985,10 +966,6 @@ class Group(PolymorphicModel):
         on_delete=models.CASCADE,
         null=True,
     )
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name
 
     def random_name(self):
         self.name = f"Random Group {Group.objects.count()}"
@@ -1033,16 +1010,12 @@ class Group(PolymorphicModel):
                     name = f"{self.name} {self.members.count() + 1}"
                 else:
                     name = ""
-                m = member_type.objects.create(name=name, player=user,)
+                m = member_type.objects.create(name=name, owner=user,)
                 m.random(freebies=freebies, xp=xp, **character_kwargs)
                 self.members.add(m)
         self.leader = self.members.order_by("?").first()
         self.save()
 
 
-class Derangement(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name
+class Derangement(Model):
+    type = "derangement"

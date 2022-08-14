@@ -1,5 +1,7 @@
 import random
 
+from core.models import Model
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
@@ -9,22 +11,13 @@ from core.utils import add_dot, weighted_choice
 
 
 # Create your models here.
-class ExMortal(PolymorphicModel):
+class ExMortal(Model):
     type = "mortal"
 
     bonus_points = 21
     num_merits = 7
 
-    name = models.CharField(max_length=100, unique=True)
     concept = models.CharField(max_length=100)
-    player = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="exalted_characters",
-        blank=True,
-        null=True,
-    )
-    display = models.BooleanField(default=True)
 
     tertiary = None
 
@@ -69,9 +62,9 @@ class ExMortal(PolymorphicModel):
     health_levels = models.IntegerField(default=0)
     essence = models.IntegerField(default=0)
 
-    specialties = models.ManyToManyField("Specialty", blank=True)
+    specialties = models.ManyToManyField("ExSpecialty", blank=True)
     intimacies = models.ManyToManyField("Intimacy", blank=True)
-    merits = models.ManyToManyField("Merit", blank=True, through="MeritRating")
+    merits = models.ManyToManyField("ExMerit", blank=True, through="MeritRating")
 
     xp = models.IntegerField(default=0)
 
@@ -295,7 +288,7 @@ class ExMortal(PolymorphicModel):
 
     def filter_specialties(self):
         possible_abilities = self.filter_abilities(minimum=1)
-        return Specialty.objects.filter(ability__in=possible_abilities).exclude(
+        return ExSpecialty.objects.filter(ability__in=possible_abilities).exclude(
             pk__in=self.specialties.all()
         )
 
@@ -339,7 +332,7 @@ class ExMortal(PolymorphicModel):
             is_negative = random.choice([True, False])
         i = Intimacy.objects.create(
             name=f"Intimacy {Intimacy.objects.count()}",
-            type=intimacy_type,
+            intimacy_type=intimacy_type,
             strength=strength,
             is_negative=is_negative,
         )
@@ -376,9 +369,9 @@ class ExMortal(PolymorphicModel):
 
     def filter_merits(self, dots=1000, merit_type=None, supernatural_permitted=False):
         if merit_type is None:
-            merits = Merit.objects.all()
+            merits = ExMerit.objects.all()
         else:
-            merits = Merit.objects.filter(type=merit_type)
+            merits = ExMerit.objects.filter(merit_type=merit_type)
         if not supernatural_permitted:
             merits = merits.exclude(merit_class="supernatural")
 
@@ -388,7 +381,7 @@ class ExMortal(PolymorphicModel):
             for x in MeritRating.objects.filter(character=self)
             if x.rating < x.merit.max_rating
         ]
-        old_merits = Merit.objects.filter(pk__in=old_merits)
+        old_merits = ExMerit.objects.filter(pk__in=old_merits)
         valid_merits = new_merits | old_merits
         output = [
             x
@@ -400,7 +393,7 @@ class ExMortal(PolymorphicModel):
     def merit_rating(self, name):
         if not self.merits.filter(name=name).exists():
             return 0
-        merit = Merit.objects.get(name=name)
+        merit = ExMerit.objects.get(name=name)
         merit_rating = MeritRating.objects.get(character=self, merit=merit)
         return merit_rating.rating
 
@@ -504,17 +497,17 @@ class ExMortal(PolymorphicModel):
                     return True
                 return False
             return False
-        if Specialty.objects.filter(name=trait).exists():
+        if ExSpecialty.objects.filter(name=trait).exists():
             cost = self.bonus_cost("specialty")
             if cost <= self.bonus_points:
-                trait = Specialty.objects.get(name=trait)
+                trait = ExSpecialty.objects.get(name=trait)
                 if self.add_specialty(trait):
                     self.bonus_points -= cost
                     return True
                 return False
             return False
-        if Merit.objects.filter(name=trait).exists():
-            trait = Merit.objects.get(name=trait)
+        if ExMerit.objects.filter(name=trait).exists():
+            trait = ExMerit.objects.get(name=trait)
             new_rating = min(x for x in trait.ratings if x > self.merit_rating(trait))
             cost = self.bonus_cost("merit") * new_rating
             if cost <= self.bonus_points:
@@ -625,17 +618,17 @@ class ExMortal(PolymorphicModel):
                     return True
                 return False
             return False
-        if Specialty.objects.filter(name=trait).exists():
+        if ExSpecialty.objects.filter(name=trait).exists():
             cost = self.xp_cost("specialty")
             if cost <= self.xp:
-                if self.add_specialty(Specialty.objects.get(name=trait)):
+                if self.add_specialty(ExSpecialty.objects.get(name=trait)):
                     self.xp -= cost
                     self.add_to_spend(trait, 3, cost)
                     return True
                 return False
             return False
-        if Merit.objects.filter(name=trait).exists():
-            merit = Merit.objects.get(name=trait)
+        if ExMerit.objects.filter(name=trait).exists():
+            merit = ExMerit.objects.get(name=trait)
             new_rating = min(x for x in merit.ratings if x > self.merit_rating(merit))
             cost = new_rating * self.xp_cost("merit")
             if cost <= self.xp:
@@ -680,17 +673,19 @@ class ExMortal(PolymorphicModel):
         self.apply_finishing_touches()
 
 
-class Specialty(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class ExSpecialty(Model):
+    type = 'specialty'
+    
     ability = models.CharField(max_length=20)
 
     def __str__(self):
         return f"{self.name} ({self.ability})"
 
 
-class Intimacy(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    type = models.CharField(
+class Intimacy(Model):
+    type = 'intimacy'
+    
+    intimacy_type = models.CharField(
         max_length=20, choices=[("tie", "Tie"), ("principle", "Principle"),]
     )
     strength = models.CharField(
@@ -700,9 +695,10 @@ class Intimacy(models.Model):
     is_negative = models.BooleanField(default=False)
 
 
-class Merit(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    type = models.CharField(
+class ExMerit(Model):
+    type = 'merit'
+    
+    merit_type = models.CharField(
         max_length=20,
         choices=[("innate", "Innate"), ("purchased", "Purchased"), ("story", "Story"),],
     )
@@ -728,8 +724,8 @@ class Merit(models.Model):
             if character.get_abilities()[prereq[0]] < prereq[1]:
                 return False
             return True
-        if Merit.objects.filter(name=prereq[0]).exists():
-            m = Merit.objects.get(name=prereq[0])
+        if ExMerit.objects.filter(name=prereq[0]).exists():
+            m = ExMerit.objects.get(name=prereq[0])
             if character.merit_rating(m) < prereq[1]:
                 return False
             return True
@@ -747,5 +743,5 @@ class Merit(models.Model):
 
 class MeritRating(models.Model):
     character = models.ForeignKey(ExMortal, on_delete=models.CASCADE)
-    merit = models.ForeignKey(Merit, on_delete=models.CASCADE)
+    merit = models.ForeignKey(ExMerit, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)

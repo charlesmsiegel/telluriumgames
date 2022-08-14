@@ -5,9 +5,10 @@ from django.db.models import F, Q
 from django.urls import reverse
 
 from cod.models.characters.ephemera import Ephemera
-from cod.models.characters.mortal import Condition, Merit, Mortal
+from cod.models.characters.mortal import Condition, CoDMerit, Mortal
 from core.models import Material
 from core.utils import add_dot, weighted_choice
+from core.models import Model
 
 # Create your models here.
 ARCANA = [
@@ -24,8 +25,9 @@ ARCANA = [
 ]
 
 
-class Path(models.Model):
-    name = models.CharField(max_length=100)
+class Path(Model):
+    type = 'path'
+    
     ruling_arcana = models.JSONField(default=list)
     inferior_arcanum = models.CharField(
         max_length=10,
@@ -45,22 +47,16 @@ class Path(models.Model):
     path_materials = models.ManyToManyField(Material, blank=True)
     path_weapons = models.JSONField(default=list)
 
-    def __str__(self):
-        return self.name
-
-
-class Order(models.Model):
-    name = models.CharField(max_length=100)
+class Order(Model):
+    type = 'order'
+    
     rote_skills = models.JSONField(default=list)
 
-    def __str__(self):
-        return self.name
 
+class Attainment(Model):
+    type = 'attainment'
 
-class Attainment(models.Model):
-    name = models.CharField(max_length=100)
     prereqs = models.JSONField(default=list)
-    description = models.TextField(default="")
 
     def prereq_satisfied(self, prereq, character):
         if prereq[0] in character.get_skills().keys():
@@ -93,8 +89,9 @@ class Attainment(models.Model):
         return False
 
 
-class Legacy(models.Model):
-    name = models.CharField(max_length=100)
+class Legacy(Model):
+    type = 'legacy'
+    
     path = models.ForeignKey(Path, null=True, blank=True, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, null=True, blank=True, on_delete=models.CASCADE)
     ruling_arcanum = models.CharField(
@@ -118,9 +115,6 @@ class Legacy(models.Model):
     oblations = models.TextField(default="")
     attainments = models.ManyToManyField(Attainment, blank=True)
 
-    def __str__(self):
-        return self.name
-
     def prereq_satisfied(self, prereq, character):
         if prereq[0] in character.get_skills().keys():
             if character.get_skills()[prereq[0]] < prereq[1]:
@@ -138,8 +132,9 @@ class Legacy(models.Model):
         return False
 
 
-class Rote(models.Model):
-    name = models.CharField(max_length=100)
+class CoDRote(Model):
+    type = "rote"
+    
     practice = models.CharField(
         max_length=40,
         choices=[
@@ -184,7 +179,6 @@ class Rote(models.Model):
     mana_cost = models.IntegerField(default=0)
     reach_options = models.JSONField(default=list)
     optional_arcana = models.JSONField(default=list)
-    description = models.TextField(default="")
 
     def __str__(self):
         return f"{self.name} ({self.arcanum.title()} {self.level})"
@@ -214,9 +208,9 @@ class Mage(Mortal):
     prime = models.IntegerField(default=0)
     forces = models.IntegerField(default=0)
 
-    rotes = models.ManyToManyField(Rote, blank=True, through="KnownRote")
+    rotes = models.ManyToManyField(CoDRote, blank=True, through="KnownRote")
     praxes = models.ManyToManyField(
-        Rote, blank=True, through="KnownPraxis", related_name="praxis"
+        CoDRote, blank=True, through="KnownPraxis", related_name="praxis"
     )
 
     obsessions = models.JSONField(default=list)
@@ -489,7 +483,7 @@ class Mage(Mortal):
         q = Q()
         for arcana, level in arcana_dict.items():
             q |= Q(arcanum=arcana, level__lte=level)
-        allowed_rotes = Rote.objects.filter(q)
+        allowed_rotes = CoDRote.objects.filter(q)
         return allowed_rotes.exclude(pk__in=self.rotes.all())
 
     def has_nimbus(self):
@@ -563,7 +557,7 @@ class Mage(Mortal):
             return self.spend_xp_gnosis()
         if trait == "wisdom":
             return self.spend_xp_wisdom()
-        if Rote.objects.filter(name=trait).exists():
+        if CoDRote.objects.filter(name=trait).exists():
             return self.spend_xp_rote(trait, praxis=praxis)
         if trait == "willpower":
             return self.spend_xp_willpower()
@@ -701,7 +695,7 @@ class Mage(Mortal):
         else:
             test = cost <= self.xp
         if test:
-            r = Rote.objects.get(name=trait)
+            r = CoDRote.objects.get(name=trait)
             if self.add_rote(r, praxis=praxis):
                 if praxis:
                     self.arcane_xp -= cost
@@ -788,11 +782,11 @@ class Mage(Mortal):
 
     def assign_advantages(self):
         if self.order is not None:
-            if Merit.objects.filter(name=f"{self.order.name} Status").exists():
-                m = Merit.objects.get(name=f"{self.order.name} Status")
+            if CoDMerit.objects.filter(name=f"{self.order.name} Status").exists():
+                m = CoDMerit.objects.get(name=f"{self.order.name} Status")
                 self.add_merit(m)
-            if Merit.objects.filter(name="High Speech").exists():
-                m = Merit.objects.get(name="High Speech")
+            if CoDMerit.objects.filter(name="High Speech").exists():
+                m = CoDMerit.objects.get(name="High Speech")
                 self.add_merit(m)
         return super().assign_advantages()
 
@@ -804,17 +798,18 @@ class Mage(Mortal):
 
 class KnownRote(models.Model):
     mage = models.ForeignKey(Mage, on_delete=models.CASCADE)
-    rote = models.ForeignKey(Rote, on_delete=models.CASCADE)
+    rote = models.ForeignKey(CoDRote, on_delete=models.CASCADE)
     rote_skill = models.CharField(default="", max_length=20, blank=True, null=True)
 
 
 class KnownPraxis(models.Model):
     mage = models.ForeignKey(Mage, on_delete=models.CASCADE)
-    rote = models.ForeignKey(Rote, on_delete=models.CASCADE)
+    rote = models.ForeignKey(CoDRote, on_delete=models.CASCADE)
 
 
-class ProximiFamily(models.Model):
-    name = models.CharField(max_length=100)
+class ProximiFamily(Model):
+    type = "proximi_family"
+    
     path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.CASCADE)
     blessing_arcana = models.CharField(
         max_length=10,
@@ -831,7 +826,7 @@ class ProximiFamily(models.Model):
             ("forces", "Forces"),
         ],
     )
-    possible_blessings = models.ManyToManyField(Rote, blank=True)
+    possible_blessings = models.ManyToManyField(CoDRote, blank=True)
     curse = models.ForeignKey(
         Condition, blank=True, null=True, on_delete=models.CASCADE
     )
@@ -879,7 +874,7 @@ class ProximiFamily(models.Model):
         arcana_list = []
         arcana_list.extend(self.path.ruling_arcana)
         arcana_list.append(self.blessing_arcana)
-        options = Rote.objects.filter(
+        options = CoDRote.objects.filter(
             level__lte=min(max_rating, 3), arcanum__in=arcana_list
         )
         choice = random.choice(options)
@@ -918,7 +913,7 @@ class Proximi(Mortal):
     family = models.ForeignKey(
         ProximiFamily, null=True, blank=True, on_delete=models.CASCADE
     )
-    blessings = models.ManyToManyField(Rote, blank=True)
+    blessings = models.ManyToManyField(CoDRote, blank=True)
 
     mana = models.IntegerField(default=0)
 

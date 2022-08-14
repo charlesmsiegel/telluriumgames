@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from core.models import Language, Noun
-from wod.models.characters.human import Archetype, MeritFlaw, Specialty
+from wod.models.characters.human import Archetype, MeritFlaw, WoDSpecialty
 from wod.models.characters.mage import (
     Cabal,
     Effect,
@@ -28,7 +28,7 @@ def mage_setup(player):
         Noun.objects.create(name=f"Mage Noun {i}")
 
     for i in range(5):
-        m = Mage.objects.create(name=f"Character {i}", player=player)
+        m = Mage.objects.create(name=f"Character {i}", owner=player)
 
     for i in range(15):
         Instrument.objects.create(name=f"Instrument {i}")
@@ -80,17 +80,17 @@ def mage_setup(player):
 
     for i in range(10):
         for trait in m.get_attributes():
-            Specialty.objects.create(
+            WoDSpecialty.objects.create(
                 name=f"{trait.replace('_', ' ').title()} {i}", stat=trait
             )
 
         for trait in m.get_abilities():
-            Specialty.objects.create(
+            WoDSpecialty.objects.create(
                 name=f"{trait.replace('_', ' ').title()} {i}", stat=trait
             )
 
         for trait in m.get_spheres():
-            Specialty.objects.create(
+            WoDSpecialty.objects.create(
                 name=f"{trait.replace('_', ' ').title()} {i}", stat=trait
             )
             for i in range(5):
@@ -108,7 +108,7 @@ def mage_setup(player):
 class TestMage(TestCase):
     def setUp(self):
         self.player = User.objects.create_user(username="Test")
-        self.character = Mage.objects.create(name="", player=self.player)
+        self.character = Mage.objects.create(name="", owner=self.player)
         mage_setup(self.player)
 
     def set_abilities(self):
@@ -787,7 +787,7 @@ class TestMage(TestCase):
                 "sanctum": 0,
                 "secret_weapons": 0,
                 "spies": 0,
-                "status": 0,
+                "status_background": 0,
                 "totem": 0,
                 "wonder": 0,
             },
@@ -830,7 +830,7 @@ class TestMage(TestCase):
                 "sanctum": 0,
                 "secret_weapons": 0,
                 "spies": 0,
-                "status": 0,
+                "status_background": 0,
                 "totem": 0,
                 "wonder": 0,
             },
@@ -846,9 +846,9 @@ class TestMage(TestCase):
         self.assertEqual(self.character.total_backgrounds(), 14)
 
     def test_technocracy_only_backgrounds(self):
-        tech_char = Mage.objects.create(name="Tech", player=self.player)
+        tech_char = Mage.objects.create(name="Tech", owner=self.player)
         tech_char.affiliation = MageFaction.objects.create(name="Technocratic Union")
-        trad_char = Mage.objects.create(name="Trad", player=self.player)
+        trad_char = Mage.objects.create(name="Trad", owner=self.player)
         trad_char.affiliation = MageFaction.objects.get(name="Traditions")
         self.assertTrue(tech_char.add_background("secret_weapons"))
         self.assertFalse(trad_char.add_background("secret_weapons"))
@@ -1154,7 +1154,7 @@ class TestMage(TestCase):
 class TestRandomMage(TestCase):
     def setUp(self):
         self.player = User.objects.create_user(username="Test")
-        self.character = Mage.objects.create(name="", player=self.player)
+        self.character = Mage.objects.create(name="", owner=self.player)
         mage_setup(self.player)
 
     def test_random_affinity_sphere(self):
@@ -1166,7 +1166,7 @@ class TestRandomMage(TestCase):
         self.assertFalse(self.character.has_faction())
         self.character.random_faction()
         self.assertTrue(self.character.has_faction())
-        mage = Mage.objects.create(name="Random Character", player=self.player)
+        mage = Mage.objects.create(name="Random Character", owner=self.player)
         mocker = Mock()
         mocker.side_effect = [0.01]
         with mock.patch("random.random", mocker):
@@ -1381,7 +1381,7 @@ class TestParadigm(TestCase):
 class TestMageDetailView(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="User1", password="12345")
-        self.mage = Mage.objects.create(name="Test Mage", player=self.player)
+        self.mage = Mage.objects.create(name="Test Mage", owner=self.player)
 
     def test_mage_detail_view_status_code(self):
         response = self.client.get(f"/wod/characters/{self.mage.id}/")

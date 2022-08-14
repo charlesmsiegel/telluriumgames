@@ -1,33 +1,33 @@
 from django.contrib import admin
 
 from cod.models.characters.mage import Legacy, Mage, Order, Path, Proximi, ProximiFamily
-from cod.models.characters.mortal import Merit, Mortal, Specialty, Tilt
+from cod.models.characters.mortal import CoDMerit, Mortal, CoDSpecialty, Tilt
 
 
 # Register your models here.
 @admin.register(Mortal)
 class MortalAdmin(admin.ModelAdmin):
-    list_display = ("name", "player")
+    list_display = ("name", "owner")
 
 
-@admin.register(Specialty)
+@admin.register(CoDSpecialty)
 class SpecialtyAdmin(admin.ModelAdmin):
     list_display = ("name", "skill")
 
 
-@admin.register(Merit)
+@admin.register(CoDMerit)
 class MeritAdmin(admin.ModelAdmin):
     list_display = ("name", "ratings")
 
 
 @admin.register(Mage)
 class MageAdmin(admin.ModelAdmin):
-    list_display = ("name", "player", "path", "order", "gnosis")
+    list_display = ("name", "owner", "path", "order", "gnosis")
 
 
 @admin.register(Proximi)
 class ProximiAdmin(admin.ModelAdmin):
-    list_display = ("name", "player", "family")
+    list_display = ("name", "owner", "family")
 
 
 @admin.register(ProximiFamily)

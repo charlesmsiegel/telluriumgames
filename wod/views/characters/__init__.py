@@ -78,7 +78,7 @@ class RandomCharacterView(View):
             user = None
         if request.POST["character_type"] in ["werewolf", "mage", "kinfolk", "fomor"]:
             char = self.chars[request.POST["character_type"]].objects.create(
-                name=request.POST["character_name"], player=user
+                name=request.POST["character_name"], owner=user
             )
         else:
             char = self.chars[request.POST["character_type"]].objects.create(

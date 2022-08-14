@@ -7,9 +7,9 @@ from cod.models.characters.mage import (
     Order,
     Path,
     ProximiFamily,
-    Rote,
+    CoDRote,
 )
-from cod.models.characters.mortal import Condition, Merit, Specialty, Tilt
+from cod.models.characters.mortal import Condition, CoDMerit, CoDSpecialty, Tilt
 from cod.models.items.mortal import Equipment
 from core.models import Language, Material
 
@@ -40,210 +40,210 @@ SKILLS = [
     "Subterfuge",
 ]
 
-Specialty.objects.create(skill="academics", name="English Literature")
-Specialty.objects.create(skill="academics", name="History")
-Specialty.objects.create(skill="academics", name="Law")
-Specialty.objects.create(skill="academics", name="Linguistics")
-Specialty.objects.create(skill="academics", name="Research")
-Specialty.objects.create(skill="academics", name="Anthropology")
-Specialty.objects.create(skill="academics", name="Art History")
-Specialty.objects.create(skill="academics", name="Literature")
-Specialty.objects.create(skill="academics", name="Religion")
-Specialty.objects.create(skill="academics", name="Translation")
-Specialty.objects.create(skill="computer", name="Data Retrieval")
-Specialty.objects.create(skill="computer", name="Digital Security")
-Specialty.objects.create(skill="computer", name="Hacking")
-Specialty.objects.create(skill="computer", name="Programming")
-Specialty.objects.create(skill="computer", name="User Interface Design")
-Specialty.objects.create(skill="computer", name="Graphics")
-Specialty.objects.create(skill="computer", name="Internet")
-Specialty.objects.create(skill="computer", name="Security")
-Specialty.objects.create(skill="computer", name="Social Media")
-Specialty.objects.create(skill="crafts", name="Automotive")
-Specialty.objects.create(skill="crafts", name="Carpentry")
-Specialty.objects.create(skill="crafts", name="Jury Rigging")
-Specialty.objects.create(skill="crafts", name="Sculpting")
-Specialty.objects.create(skill="crafts", name="Welding")
-Specialty.objects.create(skill="crafts", name="Cosmetics")
-Specialty.objects.create(skill="crafts", name="Fashion")
-Specialty.objects.create(skill="crafts", name="Forging")
-Specialty.objects.create(skill="crafts", name="Graffiti")
-Specialty.objects.create(skill="crafts", name="Painting")
-Specialty.objects.create(skill="crafts", name="Perfumery")
-Specialty.objects.create(skill="crafts", name="Repair")
-Specialty.objects.create(skill="crafts", name="Sculpting")
-Specialty.objects.create(skill="investigation", name="Crime Scenes")
-Specialty.objects.create(skill="investigation", name="Cryptography")
-Specialty.objects.create(skill="investigation", name="Dreams")
-Specialty.objects.create(skill="investigation", name="Forensic Accounting")
-Specialty.objects.create(skill="investigation", name="Riddles")
-Specialty.objects.create(skill="investigation", name="Artifacts")
-Specialty.objects.create(skill="investigation", name="Autopsy")
-Specialty.objects.create(skill="investigation", name="Body Language")
-Specialty.objects.create(skill="investigation", name="Lab Work")
-Specialty.objects.create(skill="medicine", name="Cardiology")
-Specialty.objects.create(skill="medicine", name="First Aid")
-Specialty.objects.create(skill="medicine", name="Pathology")
-Specialty.objects.create(skill="medicine", name="Pharmacology")
-Specialty.objects.create(skill="medicine", name="Surgery")
-Specialty.objects.create(skill="medicine", name="Physical Therapy")
-Specialty.objects.create(skill="occult", name="Eastern European Folktales")
-Specialty.objects.create(skill="occult", name="Ghosts")
-Specialty.objects.create(skill="occult", name="Mothman Sightings")
-Specialty.objects.create(skill="occult", name="Psychic Phenomena")
-Specialty.objects.create(skill="occult", name="Urban Legends")
-Specialty.objects.create(skill="occult", name="The Astral Realm")
-Specialty.objects.create(skill="occult", name="Casting Lots")
-Specialty.objects.create(skill="occult", name="Cryptids")
-Specialty.objects.create(skill="occult", name="Fortean Phenomena")
-Specialty.objects.create(skill="occult", name="Proximi")
-Specialty.objects.create(skill="occult", name="Sleepwalkers")
-Specialty.objects.create(skill="occult", name="Goetia")
-Specialty.objects.create(skill="occult", name="Phrenology")
-Specialty.objects.create(skill="occult", name="Spirits")
-Specialty.objects.create(skill="occult", name="Superstition")
-Specialty.objects.create(skill="politics", name="Bureaucracy")
-Specialty.objects.create(skill="politics", name="Local Politics")
-Specialty.objects.create(skill="politics", name="National Politics")
-Specialty.objects.create(skill="politics", name="Scandals")
-Specialty.objects.create(skill="politics", name="Specific Political Party")
-Specialty.objects.create(skill="politics", name="Church")
-Specialty.objects.create(skill="politics", name="Consilium")
-Specialty.objects.create(skill="politics", name="Democratic")
-Specialty.objects.create(skill="politics", name="Local")
-Specialty.objects.create(skill="politics", name="Order")
-Specialty.objects.create(skill="politics", name="Organized Crime")
-Specialty.objects.create(skill="science", name="Biology")
-Specialty.objects.create(skill="science", name="Chemistry")
-Specialty.objects.create(skill="science", name="Genetics")
-Specialty.objects.create(skill="science", name="Optics")
-Specialty.objects.create(skill="science", name="Particle Physics")
-Specialty.objects.create(skill="science", name="Physics")
-Specialty.objects.create(skill="science", name="Neuroscience")
-Specialty.objects.create(skill="science", name="Virology")
-Specialty.objects.create(skill="science", name="Alchemy")
-Specialty.objects.create(skill="science", name="Hematology")
-Specialty.objects.create(skill="athletics", name="Acrobatics")
-Specialty.objects.create(skill="athletics", name="Basketball")
-Specialty.objects.create(skill="athletics", name="Marathon Running")
-Specialty.objects.create(skill="athletics", name="Rock Climbing")
-Specialty.objects.create(skill="athletics", name="Throwing")
-Specialty.objects.create(skill="athletics", name="Aimed Spells")
-Specialty.objects.create(skill="athletics", name="Archery")
-Specialty.objects.create(skill="athletics", name="Climbing")
-Specialty.objects.create(skill="athletics", name="Jumping")
-Specialty.objects.create(skill="athletics", name="Parkour")
-Specialty.objects.create(skill="athletics", name="Swimming")
-Specialty.objects.create(skill="brawl", name="Blocking")
-Specialty.objects.create(skill="brawl", name="Boxing")
-Specialty.objects.create(skill="brawl", name="Grappling")
-Specialty.objects.create(skill="brawl", name="Muay Thai")
-Specialty.objects.create(skill="brawl", name="Throws")
-Specialty.objects.create(skill="brawl", name="Biting")
-Specialty.objects.create(skill="brawl", name="Claws")
-Specialty.objects.create(skill="brawl", name="Dirty Fighting")
-Specialty.objects.create(skill="brawl", name="Martial Arts")
-Specialty.objects.create(skill="brawl", name="Threats")
-Specialty.objects.create(skill="drive", name="Evasion")
-Specialty.objects.create(skill="drive", name="Motorcycles")
-Specialty.objects.create(skill="drive", name="Piloting")
-Specialty.objects.create(skill="drive", name="Racing")
-Specialty.objects.create(skill="drive", name="Stunts")
-Specialty.objects.create(skill="drive", name="Defensive Driving")
-Specialty.objects.create(skill="drive", name="Off-Road Driving")
-Specialty.objects.create(skill="drive", name="Pursuit")
-Specialty.objects.create(skill="firearms", name="Fast-Draw")
-Specialty.objects.create(skill="firearms", name="Handguns")
-Specialty.objects.create(skill="firearms", name="Rifles")
-Specialty.objects.create(skill="firearms", name="Shotguns")
-Specialty.objects.create(skill="firearms", name="Sniping")
-Specialty.objects.create(skill="firearms", name="Trick Shots")
-Specialty.objects.create(skill="larceny", name="Alarm Systems")
-Specialty.objects.create(skill="larceny", name="Breaking and Entering")
-Specialty.objects.create(skill="larceny", name="Lock Picking")
-Specialty.objects.create(skill="larceny", name="Safecracking")
-Specialty.objects.create(skill="larceny", name="Sleight of Hand")
-Specialty.objects.create(skill="larceny", name="Concealment")
-Specialty.objects.create(skill="larceny", name="Pickpocketing")
-Specialty.objects.create(skill="larceny", name="Security Systems")
-Specialty.objects.create(skill="stealth", name="Crowds")
-Specialty.objects.create(skill="stealth", name="Hiding")
-Specialty.objects.create(skill="stealth", name="Moving Quietly")
-Specialty.objects.create(skill="stealth", name="Shadowing")
-Specialty.objects.create(skill="stealth", name="Stakeouts")
-Specialty.objects.create(skill="stealth", name="Camouflage")
-Specialty.objects.create(skill="stealth", name="In Plain Sight")
-Specialty.objects.create(skill="stealth", name="Rural")
-Specialty.objects.create(skill="stealth", name="Staying Motionless")
-Specialty.objects.create(skill="survival", name="Foraging")
-Specialty.objects.create(skill="survival", name="Hunting")
-Specialty.objects.create(skill="survival", name="Navigation")
-Specialty.objects.create(skill="survival", name="Shelter")
-Specialty.objects.create(skill="survival", name="Weather")
-Specialty.objects.create(skill="weaponry", name="Clubs")
-Specialty.objects.create(skill="weaponry", name="Duels")
-Specialty.objects.create(skill="weaponry", name="Improvised Weapons")
-Specialty.objects.create(skill="weaponry", name="Knives")
-Specialty.objects.create(skill="weaponry", name="Swords")
-Specialty.objects.create(skill="weaponry", name="Chains")
-Specialty.objects.create(skill="weaponry", name="Spears")
-Specialty.objects.create(skill="animal_ken", name="Dogs")
-Specialty.objects.create(skill="animal_ken", name="Exotic Pets")
-Specialty.objects.create(skill="animal_ken", name="Horses")
-Specialty.objects.create(skill="animal_ken", name="Training")
-Specialty.objects.create(skill="animal_ken", name="Wild Animals")
-Specialty.objects.create(skill="animal_ken", name="Cats")
-Specialty.objects.create(skill="animal_ken", name="Reptiles")
-Specialty.objects.create(skill="animal_ken", name="Soothing")
-Specialty.objects.create(skill="animal_ken", name="Threatening")
-Specialty.objects.create(skill="empathy", name="Buried Feelings")
-Specialty.objects.create(skill="empathy", name="Calming")
-Specialty.objects.create(skill="empathy", name="Emotions")
-Specialty.objects.create(skill="empathy", name="Lies")
-Specialty.objects.create(skill="empathy", name="Motives")
-Specialty.objects.create(skill="empathy", name="Personalities")
-Specialty.objects.create(skill="expression", name="Dance")
-Specialty.objects.create(skill="expression", name="Journalism")
-Specialty.objects.create(skill="expression", name="Music Composition")
-Specialty.objects.create(skill="expression", name="Painting")
-Specialty.objects.create(skill="expression", name="Speeches")
-Specialty.objects.create(skill="expression", name="Drama")
-Specialty.objects.create(skill="expression", name="Musical Instrument")
-Specialty.objects.create(skill="expression", name="Performance Art")
-Specialty.objects.create(skill="expression", name="Singing")
-Specialty.objects.create(skill="intimidation", name="Direct Threats")
-Specialty.objects.create(skill="intimidation", name="Interrogation")
-Specialty.objects.create(skill="intimidation", name="Murderous Stare")
-Specialty.objects.create(skill="intimidation", name="Torture")
-Specialty.objects.create(skill="intimidation", name="Veiled Threats")
-Specialty.objects.create(skill="intimidation", name="Stare Down")
-Specialty.objects.create(skill="persuasion", name="Fast Talking")
-Specialty.objects.create(skill="persuasion", name="Inspiring")
-Specialty.objects.create(skill="persuasion", name="Sales Pitches")
-Specialty.objects.create(skill="persuasion", name="Seduction")
-Specialty.objects.create(skill="persuasion", name="Sermons")
-Specialty.objects.create(skill="persuasion", name="Confidence Scam")
-Specialty.objects.create(skill="socialize", name="Bar hopping")
-Specialty.objects.create(skill="socialize", name="College parties")
-Specialty.objects.create(skill="socialize", name="Formal events")
-Specialty.objects.create(skill="socialize", name="Political Fundraisers")
-Specialty.objects.create(skill="socialize", name="Private clubs")
-Specialty.objects.create(skill="socialize", name="Church Lock-In")
-Specialty.objects.create(skill="socialize", name="Dress Balls")
-Specialty.objects.create(skill="socialize", name="Frat Parties")
-Specialty.objects.create(skill="socialize", name="The Club")
-Specialty.objects.create(skill="streetwise", name="Black market")
-Specialty.objects.create(skill="streetwise", name="Gangs")
-Specialty.objects.create(skill="streetwise", name="Navigation")
-Specialty.objects.create(skill="streetwise", name="Rumors")
-Specialty.objects.create(skill="streetwise", name="Undercover work")
-Specialty.objects.create(skill="subterfuge", name="Detecting lies")
-Specialty.objects.create(skill="subterfuge", name="Hidden meanings")
-Specialty.objects.create(skill="subterfuge", name="Hiding emotions")
-Specialty.objects.create(skill="subterfuge", name="Long cons")
-Specialty.objects.create(skill="subterfuge", name="Misdirection")
-Specialty.objects.create(skill="subterfuge", name="Doublespeak")
-Specialty.objects.create(skill="subterfuge", name="Little White Lies")
+CoDSpecialty.objects.create(skill="academics", name="English Literature")
+CoDSpecialty.objects.create(skill="academics", name="History")
+CoDSpecialty.objects.create(skill="academics", name="Law")
+CoDSpecialty.objects.create(skill="academics", name="Linguistics")
+CoDSpecialty.objects.create(skill="academics", name="Research")
+CoDSpecialty.objects.create(skill="academics", name="Anthropology")
+CoDSpecialty.objects.create(skill="academics", name="Art History")
+CoDSpecialty.objects.create(skill="academics", name="Literature")
+CoDSpecialty.objects.create(skill="academics", name="Religion")
+CoDSpecialty.objects.create(skill="academics", name="Translation")
+CoDSpecialty.objects.create(skill="computer", name="Data Retrieval")
+CoDSpecialty.objects.create(skill="computer", name="Digital Security")
+CoDSpecialty.objects.create(skill="computer", name="Hacking")
+CoDSpecialty.objects.create(skill="computer", name="Programming")
+CoDSpecialty.objects.create(skill="computer", name="User Interface Design")
+CoDSpecialty.objects.create(skill="computer", name="Graphics")
+CoDSpecialty.objects.create(skill="computer", name="Internet")
+CoDSpecialty.objects.create(skill="computer", name="Security")
+CoDSpecialty.objects.create(skill="computer", name="Social Media")
+CoDSpecialty.objects.create(skill="crafts", name="Automotive")
+CoDSpecialty.objects.create(skill="crafts", name="Carpentry")
+CoDSpecialty.objects.create(skill="crafts", name="Jury Rigging")
+CoDSpecialty.objects.create(skill="crafts", name="Sculpting")
+CoDSpecialty.objects.create(skill="crafts", name="Welding")
+CoDSpecialty.objects.create(skill="crafts", name="Cosmetics")
+CoDSpecialty.objects.create(skill="crafts", name="Fashion")
+CoDSpecialty.objects.create(skill="crafts", name="Forging")
+CoDSpecialty.objects.create(skill="crafts", name="Graffiti")
+CoDSpecialty.objects.create(skill="crafts", name="Painting")
+CoDSpecialty.objects.create(skill="crafts", name="Perfumery")
+CoDSpecialty.objects.create(skill="crafts", name="Repair")
+CoDSpecialty.objects.create(skill="crafts", name="Sculpting")
+CoDSpecialty.objects.create(skill="investigation", name="Crime Scenes")
+CoDSpecialty.objects.create(skill="investigation", name="Cryptography")
+CoDSpecialty.objects.create(skill="investigation", name="Dreams")
+CoDSpecialty.objects.create(skill="investigation", name="Forensic Accounting")
+CoDSpecialty.objects.create(skill="investigation", name="Riddles")
+CoDSpecialty.objects.create(skill="investigation", name="Artifacts")
+CoDSpecialty.objects.create(skill="investigation", name="Autopsy")
+CoDSpecialty.objects.create(skill="investigation", name="Body Language")
+CoDSpecialty.objects.create(skill="investigation", name="Lab Work")
+CoDSpecialty.objects.create(skill="medicine", name="Cardiology")
+CoDSpecialty.objects.create(skill="medicine", name="First Aid")
+CoDSpecialty.objects.create(skill="medicine", name="Pathology")
+CoDSpecialty.objects.create(skill="medicine", name="Pharmacology")
+CoDSpecialty.objects.create(skill="medicine", name="Surgery")
+CoDSpecialty.objects.create(skill="medicine", name="Physical Therapy")
+CoDSpecialty.objects.create(skill="occult", name="Eastern European Folktales")
+CoDSpecialty.objects.create(skill="occult", name="Ghosts")
+CoDSpecialty.objects.create(skill="occult", name="Mothman Sightings")
+CoDSpecialty.objects.create(skill="occult", name="Psychic Phenomena")
+CoDSpecialty.objects.create(skill="occult", name="Urban Legends")
+CoDSpecialty.objects.create(skill="occult", name="The Astral Realm")
+CoDSpecialty.objects.create(skill="occult", name="Casting Lots")
+CoDSpecialty.objects.create(skill="occult", name="Cryptids")
+CoDSpecialty.objects.create(skill="occult", name="Fortean Phenomena")
+CoDSpecialty.objects.create(skill="occult", name="Proximi")
+CoDSpecialty.objects.create(skill="occult", name="Sleepwalkers")
+CoDSpecialty.objects.create(skill="occult", name="Goetia")
+CoDSpecialty.objects.create(skill="occult", name="Phrenology")
+CoDSpecialty.objects.create(skill="occult", name="Spirits")
+CoDSpecialty.objects.create(skill="occult", name="Superstition")
+CoDSpecialty.objects.create(skill="politics", name="Bureaucracy")
+CoDSpecialty.objects.create(skill="politics", name="Local Politics")
+CoDSpecialty.objects.create(skill="politics", name="National Politics")
+CoDSpecialty.objects.create(skill="politics", name="Scandals")
+CoDSpecialty.objects.create(skill="politics", name="Specific Political Party")
+CoDSpecialty.objects.create(skill="politics", name="Church")
+CoDSpecialty.objects.create(skill="politics", name="Consilium")
+CoDSpecialty.objects.create(skill="politics", name="Democratic")
+CoDSpecialty.objects.create(skill="politics", name="Local")
+CoDSpecialty.objects.create(skill="politics", name="Order")
+CoDSpecialty.objects.create(skill="politics", name="Organized Crime")
+CoDSpecialty.objects.create(skill="science", name="Biology")
+CoDSpecialty.objects.create(skill="science", name="Chemistry")
+CoDSpecialty.objects.create(skill="science", name="Genetics")
+CoDSpecialty.objects.create(skill="science", name="Optics")
+CoDSpecialty.objects.create(skill="science", name="Particle Physics")
+CoDSpecialty.objects.create(skill="science", name="Physics")
+CoDSpecialty.objects.create(skill="science", name="Neuroscience")
+CoDSpecialty.objects.create(skill="science", name="Virology")
+CoDSpecialty.objects.create(skill="science", name="Alchemy")
+CoDSpecialty.objects.create(skill="science", name="Hematology")
+CoDSpecialty.objects.create(skill="athletics", name="Acrobatics")
+CoDSpecialty.objects.create(skill="athletics", name="Basketball")
+CoDSpecialty.objects.create(skill="athletics", name="Marathon Running")
+CoDSpecialty.objects.create(skill="athletics", name="Rock Climbing")
+CoDSpecialty.objects.create(skill="athletics", name="Throwing")
+CoDSpecialty.objects.create(skill="athletics", name="Aimed Spells")
+CoDSpecialty.objects.create(skill="athletics", name="Archery")
+CoDSpecialty.objects.create(skill="athletics", name="Climbing")
+CoDSpecialty.objects.create(skill="athletics", name="Jumping")
+CoDSpecialty.objects.create(skill="athletics", name="Parkour")
+CoDSpecialty.objects.create(skill="athletics", name="Swimming")
+CoDSpecialty.objects.create(skill="brawl", name="Blocking")
+CoDSpecialty.objects.create(skill="brawl", name="Boxing")
+CoDSpecialty.objects.create(skill="brawl", name="Grappling")
+CoDSpecialty.objects.create(skill="brawl", name="Muay Thai")
+CoDSpecialty.objects.create(skill="brawl", name="Throws")
+CoDSpecialty.objects.create(skill="brawl", name="Biting")
+CoDSpecialty.objects.create(skill="brawl", name="Claws")
+CoDSpecialty.objects.create(skill="brawl", name="Dirty Fighting")
+CoDSpecialty.objects.create(skill="brawl", name="Martial Arts")
+CoDSpecialty.objects.create(skill="brawl", name="Threats")
+CoDSpecialty.objects.create(skill="drive", name="Evasion")
+CoDSpecialty.objects.create(skill="drive", name="Motorcycles")
+CoDSpecialty.objects.create(skill="drive", name="Piloting")
+CoDSpecialty.objects.create(skill="drive", name="Racing")
+CoDSpecialty.objects.create(skill="drive", name="Stunts")
+CoDSpecialty.objects.create(skill="drive", name="Defensive Driving")
+CoDSpecialty.objects.create(skill="drive", name="Off-Road Driving")
+CoDSpecialty.objects.create(skill="drive", name="Pursuit")
+CoDSpecialty.objects.create(skill="firearms", name="Fast-Draw")
+CoDSpecialty.objects.create(skill="firearms", name="Handguns")
+CoDSpecialty.objects.create(skill="firearms", name="Rifles")
+CoDSpecialty.objects.create(skill="firearms", name="Shotguns")
+CoDSpecialty.objects.create(skill="firearms", name="Sniping")
+CoDSpecialty.objects.create(skill="firearms", name="Trick Shots")
+CoDSpecialty.objects.create(skill="larceny", name="Alarm Systems")
+CoDSpecialty.objects.create(skill="larceny", name="Breaking and Entering")
+CoDSpecialty.objects.create(skill="larceny", name="Lock Picking")
+CoDSpecialty.objects.create(skill="larceny", name="Safecracking")
+CoDSpecialty.objects.create(skill="larceny", name="Sleight of Hand")
+CoDSpecialty.objects.create(skill="larceny", name="Concealment")
+CoDSpecialty.objects.create(skill="larceny", name="Pickpocketing")
+CoDSpecialty.objects.create(skill="larceny", name="Security Systems")
+CoDSpecialty.objects.create(skill="stealth", name="Crowds")
+CoDSpecialty.objects.create(skill="stealth", name="Hiding")
+CoDSpecialty.objects.create(skill="stealth", name="Moving Quietly")
+CoDSpecialty.objects.create(skill="stealth", name="Shadowing")
+CoDSpecialty.objects.create(skill="stealth", name="Stakeouts")
+CoDSpecialty.objects.create(skill="stealth", name="Camouflage")
+CoDSpecialty.objects.create(skill="stealth", name="In Plain Sight")
+CoDSpecialty.objects.create(skill="stealth", name="Rural")
+CoDSpecialty.objects.create(skill="stealth", name="Staying Motionless")
+CoDSpecialty.objects.create(skill="survival", name="Foraging")
+CoDSpecialty.objects.create(skill="survival", name="Hunting")
+CoDSpecialty.objects.create(skill="survival", name="Navigation")
+CoDSpecialty.objects.create(skill="survival", name="Shelter")
+CoDSpecialty.objects.create(skill="survival", name="Weather")
+CoDSpecialty.objects.create(skill="weaponry", name="Clubs")
+CoDSpecialty.objects.create(skill="weaponry", name="Duels")
+CoDSpecialty.objects.create(skill="weaponry", name="Improvised Weapons")
+CoDSpecialty.objects.create(skill="weaponry", name="Knives")
+CoDSpecialty.objects.create(skill="weaponry", name="Swords")
+CoDSpecialty.objects.create(skill="weaponry", name="Chains")
+CoDSpecialty.objects.create(skill="weaponry", name="Spears")
+CoDSpecialty.objects.create(skill="animal_ken", name="Dogs")
+CoDSpecialty.objects.create(skill="animal_ken", name="Exotic Pets")
+CoDSpecialty.objects.create(skill="animal_ken", name="Horses")
+CoDSpecialty.objects.create(skill="animal_ken", name="Training")
+CoDSpecialty.objects.create(skill="animal_ken", name="Wild Animals")
+CoDSpecialty.objects.create(skill="animal_ken", name="Cats")
+CoDSpecialty.objects.create(skill="animal_ken", name="Reptiles")
+CoDSpecialty.objects.create(skill="animal_ken", name="Soothing")
+CoDSpecialty.objects.create(skill="animal_ken", name="Threatening")
+CoDSpecialty.objects.create(skill="empathy", name="Buried Feelings")
+CoDSpecialty.objects.create(skill="empathy", name="Calming")
+CoDSpecialty.objects.create(skill="empathy", name="Emotions")
+CoDSpecialty.objects.create(skill="empathy", name="Lies")
+CoDSpecialty.objects.create(skill="empathy", name="Motives")
+CoDSpecialty.objects.create(skill="empathy", name="Personalities")
+CoDSpecialty.objects.create(skill="expression", name="Dance")
+CoDSpecialty.objects.create(skill="expression", name="Journalism")
+CoDSpecialty.objects.create(skill="expression", name="Music Composition")
+CoDSpecialty.objects.create(skill="expression", name="Painting")
+CoDSpecialty.objects.create(skill="expression", name="Speeches")
+CoDSpecialty.objects.create(skill="expression", name="Drama")
+CoDSpecialty.objects.create(skill="expression", name="Musical Instrument")
+CoDSpecialty.objects.create(skill="expression", name="Performance Art")
+CoDSpecialty.objects.create(skill="expression", name="Singing")
+CoDSpecialty.objects.create(skill="intimidation", name="Direct Threats")
+CoDSpecialty.objects.create(skill="intimidation", name="Interrogation")
+CoDSpecialty.objects.create(skill="intimidation", name="Murderous Stare")
+CoDSpecialty.objects.create(skill="intimidation", name="Torture")
+CoDSpecialty.objects.create(skill="intimidation", name="Veiled Threats")
+CoDSpecialty.objects.create(skill="intimidation", name="Stare Down")
+CoDSpecialty.objects.create(skill="persuasion", name="Fast Talking")
+CoDSpecialty.objects.create(skill="persuasion", name="Inspiring")
+CoDSpecialty.objects.create(skill="persuasion", name="Sales Pitches")
+CoDSpecialty.objects.create(skill="persuasion", name="Seduction")
+CoDSpecialty.objects.create(skill="persuasion", name="Sermons")
+CoDSpecialty.objects.create(skill="persuasion", name="Confidence Scam")
+CoDSpecialty.objects.create(skill="socialize", name="Bar hopping")
+CoDSpecialty.objects.create(skill="socialize", name="College parties")
+CoDSpecialty.objects.create(skill="socialize", name="Formal events")
+CoDSpecialty.objects.create(skill="socialize", name="Political Fundraisers")
+CoDSpecialty.objects.create(skill="socialize", name="Private clubs")
+CoDSpecialty.objects.create(skill="socialize", name="Church Lock-In")
+CoDSpecialty.objects.create(skill="socialize", name="Dress Balls")
+CoDSpecialty.objects.create(skill="socialize", name="Frat Parties")
+CoDSpecialty.objects.create(skill="socialize", name="The Club")
+CoDSpecialty.objects.create(skill="streetwise", name="Black market")
+CoDSpecialty.objects.create(skill="streetwise", name="Gangs")
+CoDSpecialty.objects.create(skill="streetwise", name="Navigation")
+CoDSpecialty.objects.create(skill="streetwise", name="Rumors")
+CoDSpecialty.objects.create(skill="streetwise", name="Undercover work")
+CoDSpecialty.objects.create(skill="subterfuge", name="Detecting lies")
+CoDSpecialty.objects.create(skill="subterfuge", name="Hidden meanings")
+CoDSpecialty.objects.create(skill="subterfuge", name="Hiding emotions")
+CoDSpecialty.objects.create(skill="subterfuge", name="Long cons")
+CoDSpecialty.objects.create(skill="subterfuge", name="Misdirection")
+CoDSpecialty.objects.create(skill="subterfuge", name="Doublespeak")
+CoDSpecialty.objects.create(skill="subterfuge", name="Little White Lies")
 
 Condition.objects.create(
     name="Amnesia",
@@ -393,7 +393,7 @@ Condition.objects.create(
 )
 
 
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Area of Expertise",
     requires_detail=True,
     ratings=[1],
@@ -401,56 +401,56 @@ Merit.objects.create(
     merit_type="Mental",
     possible_details=[],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Common Sense", ratings=[3], merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Danger Sense", ratings=[2], merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Direction Sense", ratings=[1], merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Eidetic Memory", ratings=[2], merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Encyclopedia Knowledge",
     requires_detail=True,
     ratings=[2],
     possible_details=SKILLS,
     merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Eye for the Strange",
     ratings=[2],
     prereqs=[[("resolve", 2), ("occult", 1)]],
     merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Fast Reflexes",
     ratings=[1, 2, 3],
     prereqs=[[("wits", 3)], [("dexterity", 3)]],
     merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Good Time Management",
     ratings=[1],
     prereqs=[[("academics", 2)]],
     merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Good Time Management",
     ratings=[1],
     prereqs=[[("science", 2)]],
     merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Holistic Awareness", ratings=[1], merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Indomitable", ratings=[2], merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Interdisciplinary Specialty",
     requires_detail=True,
     ratings=[1],
@@ -458,7 +458,7 @@ Merit.objects.create(
     possible_details=[],
     merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Investigative Aide",
     requires_detail=True,
     ratings=[1],
@@ -466,14 +466,14 @@ Merit.objects.create(
     possible_details=[],
     merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Language",
     requires_detail=True,
     ratings=[1],
     possible_details=[x.name for x in Language.objects.all()],
     merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Library",
     requires_detail=True,
     ratings=[1, 2, 3],
@@ -489,26 +489,26 @@ Merit.objects.create(
     ],
     merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Library, Advanced",
     ratings=[1, 2, 3],
     prereqs=[[("Library", 3), ("Safe Place", 1)]],
     merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Meditative Mind", ratings=[1, 2, 4], merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Multilingual",
     requires_detail=True,
     ratings=[1],
     possible_details=[],
     merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Patient", ratings=[1], merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Professional Training",
     requires_detail=True,
     ratings=[1, 2, 3, 4, 5],
@@ -540,83 +540,83 @@ Merit.objects.create(
     ],
     merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Tolerance for Biology",
     ratings=[1],
     prereqs=[[("resolve", 3)]],
     merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Trained Observer",
     ratings=[1, 3],
     prereqs=[[("wits", 3)], [("composure", 3)]],
     merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Vice-Ridden", ratings=[2], merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Virtuous", ratings=[2], merit_type="Mental",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Ambidextrous", ratings=[3], merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Automotive Genius",
     ratings=[1],
     prereqs=[[("crafts", 3), ("drive", 1), ("science", 1)]],
     merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Crack Driver",
     ratings=[2, 3],
     prereqs=[[("drive", 3)]],
     merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Demolisher",
     ratings=[1, 2, 3],
     prereqs=[[("strength", 3)], [("intelligence", 3)]],
     merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Double Jointed",
     ratings=[2],
     prereqs=[[("dexterity", 3)]],
     merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Fleet of Foot",
     ratings=[1, 2, 3],
     prereqs=[[("athletics", 2)]],
     merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Giant", ratings=[4], merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Hardy", ratings=[1, 2, 3], prereqs=[[("stamina", 3)]], merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Greyhound",
     ratings=[1],
     prereqs=[[("athletics", 3), ("wits", 3), ("stamina", 3)]],
     merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Iron Stamina",
     ratings=[1, 2, 3],
     prereqs=[[("stamina", 3)], [("resolve", 3)]],
     merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Parkour",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
     prereqs=[[("dexterity", 3), ("athletics", 2)]],
     merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Quick Draw (Weaponry)",
     requires_detail=False,
     ratings=[1],
@@ -624,7 +624,7 @@ Merit.objects.create(
     possible_details=[],
     merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Quick Draw (Firearms)",
     requires_detail=False,
     ratings=[1],
@@ -632,146 +632,146 @@ Merit.objects.create(
     possible_details=[],
     merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Relentless",
     ratings=[1],
     prereqs=[[("athletics", 2), ("stamina", 3)]],
     merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Seizing the Edge",
     ratings=[2],
     prereqs=[[("wits", 3), ("composure", 3)]],
     merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Sleight of Hand",
     ratings=[2],
     prereqs=[[("larceny", 3)]],
     merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Small-Framed", ratings=[2], merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Stunt Driver",
     is_style=True,
     ratings=[1, 2, 3, 4],
     prereqs=[[("dexterity", 3), ("drive", 3), ("wits", 3)]],
     merit_type="Physical",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Allies",
     requires_detail=True,
     ratings=[1, 2, 3, 4, 5],
     possible_details=[],
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Alternate Identity",
     requires_detail=True,
     ratings=[1, 2, 3],
     possible_details=[],
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Anonymity", ratings=[1, 2, 3, 4, 5], merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Barfly", ratings=[2], prereqs=[[("socialize", 2)]], merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Closed Book",
     ratings=[1, 2, 3, 4, 5],
     prereqs=[[("manipulation", 3), ("resolve", 3)]],
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Contacts",
     requires_detail=True,
     ratings=[1, 2, 3, 4, 5],
     possible_details=[],
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Fame", ratings=[1, 2, 3], merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Fast-Talking",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
     prereqs=[[("manipulation", 3), ("subterfuge", 2)]],
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Fixer",
     ratings=[2],
     prereqs=[[("wits", 3), ("Contacts", 2)]],
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Hobbyist Clique",
     requires_detail=True,
     ratings=[2],
     prereqs=[[("skill", 2)]],
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Inspiring", ratings=[3], prereqs=[[("presence", 3)]], merit_type="Social",
 )
-iron_will = Merit.objects.create(
+iron_will = CoDMerit.objects.create(
     name="Iron Will", ratings=[2], prereqs=[[("resolve", 4)]], merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Mystery Cult Initiation",
     requires_detail=True,
     ratings=[1, 2, 3, 4, 5],
     possible_details=[],
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Mentor",
     requires_detail=False,
     ratings=[1, 2, 3, 4, 5],
     possible_details=SKILLS,
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Pusher", ratings=[1], prereqs=[[("persuasion", 2)]], merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Resources", ratings=[1, 2, 3, 4,], merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Retainer",
     requires_detail=True,
     ratings=[1, 2, 3, 4, 5],
     possible_details=[],
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Safe Place", ratings=[1, 2, 3, 4, 5], merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Small Unit Tactics",
     ratings=[2],
     prereqs=[[("presence", 3)]],
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Spin Doctor",
     ratings=[1],
     prereqs=[[("manipulation", 3), ("subterfuge", 2)]],
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Staff",
     requires_detail=True,
     ratings=[1],
     possible_details=SKILLS,
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Status",
     requires_detail=True,
     ratings=[1, 2, 3, 4, 5],
@@ -785,22 +785,22 @@ Merit.objects.create(
     ],
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Striking Looks", ratings=[1, 2], merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Sympathetic", ratings=[2], merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Table Turner",
     ratings=[1],
     prereqs=[[("composure", 3), ("manipulation", 3), ("wits", 3)]],
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Takes One to Know One", ratings=[1], merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Taste",
     ratings=[1],
     prereqs=[
@@ -809,102 +809,102 @@ Merit.objects.create(
     ],
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="True Friend", ratings=[3], merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Untouchable",
     ratings=[1],
     prereqs=[[("manipulation", 3), ("subterfuge", 2)]],
     merit_type="Social",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Aura Reading", ratings=[3], merit_type="Supernatural",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Automatic Writing", ratings=[2], merit_type="Supernatural",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Biokinesis", ratings=[1, 2, 3, 4, 5], merit_type="Supernatural",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Clairvoyance", ratings=[3], merit_type="Supernatural",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Cursed", ratings=[2], merit_type="Supernatural",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Laying on Hands", ratings=[3], merit_type="Supernatural",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Medium", ratings=[3], merit_type="Supernatural",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Mind of a Madman",
     ratings=[2],
     prereqs=[[("empathy", 3)]],
     merit_type="Supernatural",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Omen Sensitivity", ratings=[3], merit_type="Supernatural",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Numbing Touch", ratings=[1, 2, 3, 4, 5], merit_type="Supernatural",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Psychokinesis", ratings=[3, 5], merit_type="Supernatural",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Psychometry", ratings=[3], merit_type="Supernatural",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Telekinesis", ratings=[1, 2, 3, 4, 5], merit_type="Supernatural",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Telepathy", ratings=[3, 5], merit_type="Supernatural",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Thief of Fate", ratings=[3], merit_type="Supernatural",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Unseen Sense", ratings=[2], merit_type="Supernatural",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Armed Defense",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
     prereqs=[[("dexterity", 3), ("weaponry", 2), ("Defensive Combat (Weaponry)", 1)]],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Cheap Shot",
     ratings=[2],
     prereqs=[[("subterfuge", 2), ("Street Fighting", 3)]],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Choke Hold", ratings=[2], prereqs=[[("brawl", 2)]], merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Close Quarters Combat",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
     prereqs=[[("wits", 3), ("athletics", 2), ("brawl", 3)]],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Defensive Combat (Weaponry)",
     ratings=[1],
     prereqs=[[("weaponry", 1)]],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Defensive Combat (Brawl)",
     ratings=[1],
     prereqs=[[("brawl", 1)]],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Fighting Finesse (Weaponry)",
     requires_detail=True,
     ratings=[2],
@@ -912,7 +912,7 @@ Merit.objects.create(
     possible_details=[],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Fighting Finesse (Brawl)",
     requires_detail=True,
     ratings=[2],
@@ -920,35 +920,35 @@ Merit.objects.create(
     possible_details=[],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Firefight",
     is_style=True,
     ratings=[1, 2, 3],
     prereqs=[[("composure", 3), ("dexterity", 3), ("athletics", 2), ("firearms", 2),]],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Grappling",
     is_style=True,
     ratings=[1, 2, 3],
     prereqs=[[("stamina", 3), ("strength", 2), ("athletics", 2), ("brawl", 2),]],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Heavy Weapons",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
     prereqs=[[("stamina", 3), ("strength", 3), ("athletics", 2), ("weaponry", 2),]],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Improvised Weaponry",
     is_style=True,
     ratings=[1, 2, 3],
     prereqs=[[("wits", 3), ("weaponry", 1)]],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Iron Skin",
     ratings=[2, 4],
     prereqs=[
@@ -957,7 +957,7 @@ Merit.objects.create(
     ],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Light Weapons",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
@@ -967,41 +967,41 @@ Merit.objects.create(
     ],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Marksmanship",
     is_style=True,
     ratings=[1, 2, 3, 4],
     prereqs=[[("composure", 3), ("resolve", 3), ("firearms", 2)]],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Martial Arts",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
     prereqs=[[("resolve", 3), ("dexterity", 3), ("athletics", 2), ("brawl", 2),]],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Police Tactics",
     is_style=True,
     ratings=[1, 2, 3],
     prereqs=[[("brawl", 2), ("weaponry", 1)]],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Shiv",
     ratings=[1, 2],
     prereqs=[[("weaponry", 1), ("Street Fighting", 2)]],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Street Fighting",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
     prereqs=[[("stamina", 3), ("composure", 3), ("brawl", 2), ("streetwise", 2),]],
     merit_type="Fighting",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Unarmed Defense",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
@@ -1091,7 +1091,7 @@ praetorian = Order.objects.create(
     name="Praetorian", rote_skills=["athletics", "larceny", "intimidation"]
 )
 
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Adamant Hand",
     requires_detail=True,
     possible_details=["Athletics", "Weaponry", "Brawl"],
@@ -1103,196 +1103,196 @@ Merit.objects.create(
     ],
     merit_type="Mage",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Artifact", ratings=[3, 4, 5], merit_type="Mage",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Astral Adept", ratings=[4], merit_type="Mage",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Between the Ticks",
     ratings=[2],
     merit_type="Mage",
     prereqs=[[("wits", 3), ("time", 1)]],
 )
-Merit.objects.create(name="Cabal Theme", ratings=[1], merit_type="Mage", prereqs=[])
-Merit.objects.create(
+CoDMerit.objects.create(name="Cabal Theme", ratings=[1], merit_type="Mage", prereqs=[])
+CoDMerit.objects.create(
     name="Consilium Status", ratings=[1, 2, 3, 4, 5], merit_type="Mage",
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Adamantine Arrow Status",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
     prereqs=[],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Mysterium Status", ratings=[1, 2, 3, 4, 5], merit_type="Mage", prereqs=[]
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Guardians of the Veil Status",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
     prereqs=[],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Silver Ladder Status", ratings=[1, 2, 3, 4, 5], merit_type="Mage", prereqs=[]
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Free Council Status", ratings=[1, 2, 3, 4, 5], merit_type="Mage", prereqs=[]
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Seers pf the Throne Status",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
     prereqs=[],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Destiny", ratings=[1, 2, 3, 4, 5], merit_type="Mage", prereqs=[]
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Dream",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
     prereqs=[[("composure", 3), ("wits", 3)]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Egregore",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
     prereqs=[[("Mysterium Status", 1)]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Enhanced Item", ratings=[1, 2, 3, 4, 5], merit_type="Mage", prereqs=[]
 )
-Merit.objects.create(name="Familiar", ratings=[2, 4], merit_type="Mage", prereqs=[])
-Merit.objects.create(
+CoDMerit.objects.create(name="Familiar", ratings=[2, 4], merit_type="Mage", prereqs=[])
+CoDMerit.objects.create(
     name="Fast Spells",
     ratings=[2],
     merit_type="Mage",
     prereqs=[[("firearms", 2), ("time", 1)]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Grimoire", ratings=[1, 2, 3, 4, 5], merit_type="Mage", prereqs=[]
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Hallow", ratings=[1, 2, 3, 4, 5], merit_type="Mage", prereqs=[]
 )
-Merit.objects.create(name="High Speech", ratings=[1], merit_type="Mage", prereqs=[])
-Merit.objects.create(
+CoDMerit.objects.create(name="High Speech", ratings=[1], merit_type="Mage", prereqs=[])
+CoDMerit.objects.create(
     name="Imbued Item", ratings=[1, 2, 3, 4, 5], merit_type="Mage", prereqs=[]
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Infamous Mentor",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
     prereqs=[[("Mentor", "same")]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Lex Magica",
     ratings=[2],
     merit_type="Mage",
     prereqs=[[("Silver Ladder Status", 1)]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Mana Sensitivity",
     ratings=[1],
     merit_type="Mage",
     prereqs=[[("wits", 3), ("prime", 1)]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Masque",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
     prereqs=[[("Guardians of the Veil Status", 1)]],
     is_style=True,
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Mystery Cult Influence", ratings=[3, 4, 5], merit_type="Mage", prereqs=[]
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Occultation", ratings=[1, 2, 3], merit_type="Mage", prereqs=[]
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Potent Nimbus", ratings=[1, 2], merit_type="Mage", prereqs=[]
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Potent Resonance", ratings=[2], merit_type="Mage", prereqs=[[("gnosis", 3)]]
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Prelacy",
     ratings=[1, 2, 3, 4],
     merit_type="Mage",
     prereqs=[[("Seers of the Throne Status", 3)]],
     is_style=True,
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Sanctum",
     ratings=[1, 2, 3, 4, 5],
     merit_type="Mage",
     prereqs=[[("Safe Place", 1)]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Shadow Name", ratings=[1, 2, 3], merit_type="Mage", prereqs=[]
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Techne",
     ratings=[2],
     merit_type="Mage",
     prereqs=[[("Free Council Status", 1)]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Actively Oblivious",
     ratings=[2],
     merit_type="Supernatural",
     prereqs=[[("Morality Name", "Integrity")]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Communal Sleeper",
     ratings=[1],
     merit_type="Supernatural",
     prereqs=[[("Morality Name", "Integrity"), ("empathy", 2)]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Detail Oriented",
     ratings=[2],
     merit_type="Supernatural",
     prereqs=[[("Morality Name", "Integrity")]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Liar",
     ratings=[1],
     merit_type="Supernatural",
     prereqs=[[("Morality Name", "Integrity")]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Strained",
     ratings=[2],
     merit_type="Supernatural",
     prereqs=[[("Morality Name", "Integrity"), ("morality", -5)]],
 )
 
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Banner-Bearer",
     ratings=[1, 2, 3],
     merit_type="Supernatural",
     prereqs=[[("Sleepwalker", 1)], [("Fitful Slumber", 1)]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Deadpan",
     ratings=[3],
     merit_type="Supernatural",
     prereqs=[[("Sleepwalker", 1)], [("Fitful Slumber", 1)]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Fitful Slumber", ratings=[1], merit_type="Supernatural", prereqs=[],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Loved",
     ratings=[3],
     merit_type="Supernatural",
     prereqs=[[("Sleepwalker", 1)], [("Fitful Slumber", 1)]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Proxy Voice",
     ratings=[2],
     merit_type="Supernatural",
@@ -1301,19 +1301,19 @@ Merit.objects.create(
         [("Fitful Slumber", 1), ("Mentor", 1)],
     ],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Relic Attuned",
     ratings=[3],
     merit_type="Supernatural",
     prereqs=[[("Sleepwalker", 1)], [("Fitful Slumber", 1)]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Ritual Martyr",
     ratings=[2],
     merit_type="Supernatural",
     prereqs=[[("Sleepwalker", 1)], [("Fitful Slumber", 1)]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Ritual Savvy",
     ratings=[2],
     merit_type="Supernatural",
@@ -1322,20 +1322,20 @@ Merit.objects.create(
         [("Fitful Slumber", 1), ("occult", 2)],
     ],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Sleepwalker",
     ratings=[1],
     merit_type="Supernatural",
     prereqs=[[("Morality Name", "Integrity")]],
 )
-Merit.objects.create(
+CoDMerit.objects.create(
     name="Slippery",
     ratings=[2],
     merit_type="Supernatural",
     prereqs=[[("Sleepwalker", 1)], [("Fitful Slumber", 1)]],
 )
 
-Rote.objects.create(
+CoDRote.objects.create(
     name="Ectoplasmic Shaping",
     practice="compelling",
     arcanum="death",
@@ -1344,7 +1344,7 @@ Rote.objects.create(
     primary_factor="duration",
     withstand="resolve",
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Deepen Shadows",
     practice="compelling",
     arcanum="death",
@@ -1358,7 +1358,7 @@ Rote.objects.create(
         )
     ],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Forensic Gaze",
     practice="knowing",
     arcanum="death",
@@ -1372,7 +1372,7 @@ Rote.objects.create(
         )
     ],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Shadow Sculpting",
     practice="compelling",
     arcanum="death",
@@ -1381,7 +1381,7 @@ Rote.objects.create(
     primary_factor="duration",
     reach_options=[(1, "Both change the shape of shadows and animate them")],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Soul Marks",
     practice="unveiling",
     arcanum="death",
@@ -1392,7 +1392,7 @@ Rote.objects.create(
     reach_options=[(1, "Can perform spell on an unattached soul")],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Speak with the Dead",
     practice="unveiling",
     arcanum="death",
@@ -1408,7 +1408,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Corpse Mask",
     practice="veiling",
     arcanum="death",
@@ -1421,7 +1421,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Decay",
     practice="ruling",
     arcanum="death",
@@ -1431,7 +1431,7 @@ Rote.objects.create(
     reach_options=[(1, "Decrease object's Structure as well")],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Ectoplasm",
     practice="ruling",
     arcanum="death",
@@ -1441,7 +1441,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Ghost Shield",
     practice="shielding",
     arcanum="death",
@@ -1451,7 +1451,7 @@ Rote.objects.create(
     reach_options=[(1, "Also protects from physical attacks by the ghost")],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Shape Ephemera",
     practice="ruling",
     arcanum="death",
@@ -1462,7 +1462,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Soul Armor",
     practice="shielding",
     arcanum="death",
@@ -1472,7 +1472,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Soul Jar",
     practice="ruling",
     arcanum="death",
@@ -1489,7 +1489,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Suppress Aura",
     practice="veiling",
     arcanum="death",
@@ -1500,7 +1500,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Suppress Life",
     practice="veiling",
     arcanum="death",
@@ -1515,7 +1515,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Touch of the Grave",
     practice="ruling",
     arcanum="death",
@@ -1525,7 +1525,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Without a Trace",
     practice="veiling",
     arcanum="death",
@@ -1535,7 +1535,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Cold Snap",
     arcanum="death",
     level=3,
@@ -1546,7 +1546,7 @@ Rote.objects.create(
     reach_options=[(1, "Causes the Extreme Cold Tilt")],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Damage Ghost",
     arcanum="death",
     level=3,
@@ -1557,7 +1557,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Devouring the Slain",
     arcanum="death",
     level=3,
@@ -1572,7 +1572,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Ghost Gate",
     arcanum="death",
     level=3,
@@ -1583,7 +1583,7 @@ Rote.objects.create(
     reach_options=[(1, "Transforms subject to Twilight state without a gate")],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Ghost Summons",
     arcanum="death",
     level=3,
@@ -1602,7 +1602,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Quicken Corpse",
     arcanum="death",
     level=3,
@@ -1616,7 +1616,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Quicken Ghost",
     arcanum="death",
     level=3,
@@ -1627,7 +1627,7 @@ Rote.objects.create(
     reach_options=[(2, "Increase ghost's rank by 1.")],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Rotting Flesh",
     arcanum="death",
     level=3,
@@ -1638,7 +1638,7 @@ Rote.objects.create(
     reach_options=[(1, "Additional -1 to Social rolls per Potency")],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Sever Soul",
     arcanum="death",
     level=3,
@@ -1654,7 +1654,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Shadow Crafting",
     arcanum="death",
     level=3,
@@ -1665,7 +1665,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Enervation",
     arcanum="death",
     level=4,
@@ -1678,7 +1678,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Exorcism",
     arcanum="death",
     level=4,
@@ -1697,7 +1697,7 @@ Rote.objects.create(
         ("Spirit 4", "Also applies to Spirits"),
     ],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Revenant",
     arcanum="death",
     level=4,
@@ -1711,7 +1711,7 @@ Rote.objects.create(
         ("Spirit 4", "Also applies to Spirits"),
     ],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Shadow Flesh",
     arcanum="death",
     level=4,
@@ -1722,7 +1722,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Withering",
     arcanum="death",
     level=4,
@@ -1733,7 +1733,7 @@ Rote.objects.create(
     reach_options=[(1, "Spend one mana, inflict Aggravatated")],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Create Anchor",
     arcanum="death",
     level=5,
@@ -1744,7 +1744,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Create Avernian Gate",
     arcanum="death",
     level=5,
@@ -1755,7 +1755,7 @@ Rote.objects.create(
     reach_options=[(1, "The Iris leads anywhere they have been in the Underwr=orld")],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Create Ghost",
     arcanum="death",
     level=5,
@@ -1766,7 +1766,7 @@ Rote.objects.create(
     reach_options=[(1, "For one mana, the ghost is rank 2.")],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Deny the Reaper",
     arcanum="death",
     level=5,
@@ -1782,7 +1782,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Empty Presence",
     arcanum="death",
     level=5,
@@ -1794,7 +1794,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Sever the Awakened Soul",
     arcanum="death",
     level=5,
@@ -1808,7 +1808,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Interconnection",
     arcanum="fate",
     level=1,
@@ -1828,7 +1828,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Oaths Fulfilled",
     arcanum="fate",
     level=1,
@@ -1843,7 +1843,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Quantum Flux",
     arcanum="fate",
     level=1,
@@ -1854,7 +1854,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Reading the Outmost Eddies",
     arcanum="fate",
     level=1,
@@ -1865,7 +1865,7 @@ Rote.objects.create(
     reach_options=[(1, "Twist of fate occurs within an hour")],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Serendipity",
     arcanum="fate",
     level=1,
@@ -1879,7 +1879,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Exceptional Luck",
     arcanum="fate",
     level=2,
@@ -1896,7 +1896,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Fabricate Fortune",
     arcanum="fate",
     level=2,
@@ -1907,7 +1907,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Fools Rush In",
     arcanum="fate",
     level=2,
@@ -1924,7 +1924,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Lucky Number",
     arcanum="fate",
     level=2,
@@ -1935,7 +1935,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Shifting the Odds",
     arcanum="fate",
     level=2,
@@ -1946,7 +1946,7 @@ Rote.objects.create(
     reach_options=[(1, "Object is located within an hour")],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Warding Gesture",
     arcanum="fate",
     level=2,
@@ -1963,7 +1963,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Grave Misfortune",
     arcanum="fate",
     level=3,
@@ -1974,7 +1974,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Monkey's Paw",
     arcanum="fate",
     level=3,
@@ -1988,7 +1988,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Shared Fate",
     arcanum="fate",
     level=3,
@@ -2002,7 +2002,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Superlative Luck",
     arcanum="fate",
     level=3,
@@ -2016,7 +2016,7 @@ Rote.objects.create(
     ],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Sworn Oaths",
     arcanum="fate",
     level=3,
@@ -2027,7 +2027,7 @@ Rote.objects.create(
     reach_options=[(1, "Mage is aware if spell switches from boon to hex")],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Atonement",
     arcanum="fate",
     level=4,
@@ -2038,7 +2038,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Chaos Mastery",
     arcanum="fate",
     level=4,
@@ -2049,7 +2049,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Divine Intervention",
     arcanum="fate",
     level=4,
@@ -2060,7 +2060,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Strings of Fate",
     arcanum="fate",
     level=4,
@@ -2071,7 +2071,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Sever Oaths",
     arcanum="fate",
     level=4,
@@ -2082,7 +2082,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Forge Destiny",
     arcanum="fate",
     level=5,
@@ -2093,7 +2093,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Pariah",
     arcanum="fate",
     level=5,
@@ -2104,7 +2104,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Miracle",
     arcanum="fate",
     level=5,
@@ -2115,7 +2115,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Swarm of Locusts",
     arcanum="fate",
     level=5,
@@ -2126,7 +2126,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Influence Electricity",
     arcanum="forces",
     level=1,
@@ -2137,7 +2137,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Influence Fire",
     arcanum="forces",
     level=1,
@@ -2148,7 +2148,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Kinetic Efficiency",
     arcanum="forces",
     level=1,
@@ -2159,7 +2159,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Influence Heat",
     arcanum="forces",
     level=1,
@@ -2170,7 +2170,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Nightvision",
     arcanum="forces",
     level=1,
@@ -2181,7 +2181,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Receiver",
     arcanum="forces",
     level=1,
@@ -2192,7 +2192,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Tune In",
     arcanum="forces",
     level=1,
@@ -2203,7 +2203,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Control Electricity",
     arcanum="forces",
     level=2,
@@ -2214,7 +2214,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Control Fire",
     arcanum="forces",
     level=2,
@@ -2225,7 +2225,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Control Gravity",
     arcanum="forces",
     level=2,
@@ -2236,7 +2236,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Control Heat",
     arcanum="forces",
     level=2,
@@ -2247,7 +2247,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Control Light",
     arcanum="forces",
     level=2,
@@ -2258,7 +2258,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Control Sound",
     arcanum="forces",
     level=2,
@@ -2269,7 +2269,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Control Weather",
     arcanum="forces",
     level=2,
@@ -2280,7 +2280,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Environmental Shield",
     arcanum="forces",
     level=2,
@@ -2291,7 +2291,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Invisibility",
     arcanum="forces",
     level=2,
@@ -2302,7 +2302,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Kinetic Blow",
     arcanum="forces",
     level=2,
@@ -2313,7 +2313,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Transmission",
     arcanum="forces",
     level=2,
@@ -2324,7 +2324,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Zoom In",
     arcanum="forces",
     level=2,
@@ -2335,7 +2335,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Call Lightning",
     arcanum="forces",
     level=3,
@@ -2346,7 +2346,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Gravitic Supremacy (Increase)",
     arcanum="forces",
     level=3,
@@ -2357,7 +2357,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Gravitic Supremacy (Decrease)",
     arcanum="forces",
     level=3,
@@ -2368,7 +2368,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Telekinesis",
     arcanum="forces",
     level=3,
@@ -2379,7 +2379,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Telekinetic Strike",
     arcanum="forces",
     level=3,
@@ -2390,7 +2390,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Turn Momentum",
     arcanum="forces",
     level=3,
@@ -2401,7 +2401,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Velocity Control (Decrease)",
     arcanum="forces",
     level=3,
@@ -2412,7 +2412,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Velocity Control (Increase)",
     arcanum="forces",
     level=3,
@@ -2423,7 +2423,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Electromagnetic Pulse",
     arcanum="forces",
     level=4,
@@ -2434,7 +2434,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Levitation",
     arcanum="forces",
     level=4,
@@ -2445,7 +2445,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Rend Friction",
     arcanum="forces",
     level=4,
@@ -2456,7 +2456,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Thunderbolt",
     arcanum="forces",
     level=4,
@@ -2467,7 +2467,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Transform Energy",
     arcanum="forces",
     level=4,
@@ -2478,7 +2478,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Adverse Weather",
     arcanum="forces",
     level=5,
@@ -2489,7 +2489,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Create Energy",
     arcanum="forces",
     level=5,
@@ -2500,7 +2500,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Eradicate Energy",
     arcanum="forces",
     level=5,
@@ -2511,7 +2511,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Earthquake",
     arcanum="forces",
     level=5,
@@ -2522,7 +2522,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Analyze Life",
     arcanum="life",
     level=1,
@@ -2533,7 +2533,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Cleanse the Body",
     arcanum="life",
     level=1,
@@ -2544,7 +2544,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Heightened Senses",
     arcanum="life",
     level=1,
@@ -2555,7 +2555,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Speak With Beasts",
     arcanum="life",
     level=1,
@@ -2566,7 +2566,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Web of Life",
     arcanum="life",
     level=1,
@@ -2577,7 +2577,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Body Control",
     arcanum="life",
     level=2,
@@ -2588,7 +2588,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Control Instincts",
     arcanum="life",
     level=2,
@@ -2599,7 +2599,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Lure and Repel",
     arcanum="life",
     level=2,
@@ -2610,7 +2610,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Mutable Mask",
     arcanum="life",
     level=2,
@@ -2621,7 +2621,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Purge Illness",
     arcanum="life",
     level=2,
@@ -2632,7 +2632,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Bruise Flesh",
     arcanum="life",
     level=3,
@@ -2643,7 +2643,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Degrading the Form",
     arcanum="life",
     level=3,
@@ -2654,7 +2654,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Honing the Form",
     arcanum="life",
     level=3,
@@ -2665,7 +2665,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Knit",
     arcanum="life",
     level=3,
@@ -2676,7 +2676,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Many Faces",
     arcanum="life",
     level=3,
@@ -2687,7 +2687,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Transform Life",
     arcanum="life",
     level=3,
@@ -2698,7 +2698,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Accelerate Growth",
     arcanum="life",
     level=4,
@@ -2709,7 +2709,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Animal Minion",
     arcanum="life",
     level=4,
@@ -2720,7 +2720,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Life-Force Assault",
     arcanum="life",
     level=4,
@@ -2731,7 +2731,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Mend",
     arcanum="life",
     level=4,
@@ -2742,7 +2742,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Regeneration",
     arcanum="life",
     level=4,
@@ -2754,7 +2754,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Shapechanging",
     arcanum="life",
     level=4,
@@ -2765,7 +2765,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Create Life",
     arcanum="life",
     level=5,
@@ -2776,7 +2776,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Contagion",
     arcanum="life",
     level=5,
@@ -2787,7 +2787,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Salt the Earth",
     arcanum="life",
     level=5,
@@ -2798,7 +2798,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Craftsman's Eye",
     arcanum="matter",
     level=1,
@@ -2809,7 +2809,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Detect Substance",
     arcanum="matter",
     level=1,
@@ -2820,7 +2820,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Discern Composition",
     arcanum="matter",
     level=1,
@@ -2831,7 +2831,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Lodestone",
     arcanum="matter",
     level=1,
@@ -2842,7 +2842,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Remote Control",
     arcanum="matter",
     level=1,
@@ -2853,7 +2853,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Alchemist's Touch",
     arcanum="matter",
     level=2,
@@ -2864,7 +2864,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Find the Balance",
     arcanum="matter",
     level=2,
@@ -2875,7 +2875,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Hidden Hoard",
     arcanum="matter",
     level=2,
@@ -2886,7 +2886,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Machine Invisibility",
     arcanum="matter",
     level=2,
@@ -2897,7 +2897,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Shaping",
     arcanum="matter",
     level=2,
@@ -2908,7 +2908,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Aegis",
     arcanum="matter",
     level=3,
@@ -2919,7 +2919,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Alter Conductivity",
     arcanum="matter",
     level=3,
@@ -2930,7 +2930,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Alter Integrity (Weaken)",
     arcanum="matter",
     level=3,
@@ -2941,7 +2941,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Alter Integrity (Strengthen)",
     arcanum="matter",
     level=3,
@@ -2952,7 +2952,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Crucible",
     arcanum="matter",
     level=3,
@@ -2963,7 +2963,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Nigredo and Albedo (Repair)",
     arcanum="matter",
     level=3,
@@ -2974,7 +2974,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Nigredo and Albedo (Destroy)",
     arcanum="matter",
     level=3,
@@ -2985,7 +2985,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Shrink and Grow",
     arcanum="matter",
     level=3,
@@ -2996,7 +2996,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="State Change",
     arcanum="matter",
     level=3,
@@ -3007,7 +3007,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Windstrike",
     arcanum="matter",
     level=3,
@@ -3018,7 +3018,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Wonderful Machine",
     arcanum="matter",
     level=3,
@@ -3029,7 +3029,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Ghostwall",
     arcanum="matter",
     level=4,
@@ -3040,7 +3040,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Golem",
     arcanum="matter",
     level=4,
@@ -3051,7 +3051,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Piercing Earth",
     arcanum="matter",
     level=4,
@@ -3062,7 +3062,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Transubstantiation",
     arcanum="matter",
     level=4,
@@ -3073,7 +3073,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Annihilate Matter",
     arcanum="matter",
     level=5,
@@ -3084,7 +3084,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Ex Nihilo",
     arcanum="matter",
     level=5,
@@ -3095,7 +3095,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Self-Repairing Machine",
     arcanum="matter",
     level=5,
@@ -3106,7 +3106,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Know Nature",
     arcanum="mind",
     level=1,
@@ -3117,7 +3117,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Mental Scan",
     arcanum="mind",
     level=1,
@@ -3128,7 +3128,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="One Mind, Two Thoughts",
     arcanum="mind",
     level=1,
@@ -3139,7 +3139,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Perfect Recall",
     arcanum="mind",
     level=1,
@@ -3150,7 +3150,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Alter Mental Pattern",
     arcanum="mind",
     level=2,
@@ -3161,7 +3161,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Dream Reaching",
     arcanum="mind",
     level=2,
@@ -3172,7 +3172,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Emotional Urging",
     arcanum="mind",
     level=2,
@@ -3183,7 +3183,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="First Impressions",
     arcanum="mind",
     level=2,
@@ -3194,7 +3194,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Incognito Presence",
     arcanum="mind",
     level=2,
@@ -3206,7 +3206,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Memory Hole",
     arcanum="mind",
     level=2,
@@ -3217,7 +3217,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Mental Shield",
     arcanum="mind",
     level=2,
@@ -3228,7 +3228,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Psychic Domination",
     arcanum="mind",
     level=2,
@@ -3239,7 +3239,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Telepathy",
     arcanum="mind",
     level=2,
@@ -3250,7 +3250,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Augment Mind",
     arcanum="mind",
     level=3,
@@ -3261,7 +3261,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Befuddle (Social)",
     arcanum="mind",
     level=3,
@@ -3272,7 +3272,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Befuddle (Mental)",
     arcanum="mind",
     level=3,
@@ -3283,7 +3283,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Clear Thoughts",
     arcanum="mind",
     level=3,
@@ -3294,7 +3294,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Enhance Skill",
     arcanum="mind",
     level=3,
@@ -3305,7 +3305,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Goetic Summons",
     arcanum="mind",
     level=3,
@@ -3316,7 +3316,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Imposter",
     arcanum="mind",
     level=3,
@@ -3327,7 +3327,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Psychic Assault",
     arcanum="mind",
     level=3,
@@ -3338,7 +3338,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Sleep of the Just",
     arcanum="mind",
     level=3,
@@ -3349,7 +3349,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Read the Depths",
     arcanum="mind",
     level=3,
@@ -3360,7 +3360,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Universal Language",
     arcanum="mind",
     level=3,
@@ -3371,7 +3371,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Gain Skill",
     arcanum="mind",
     level=4,
@@ -3382,7 +3382,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Hallucination",
     arcanum="mind",
     level=4,
@@ -3393,7 +3393,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Mind Flay",
     arcanum="mind",
     level=4,
@@ -3404,7 +3404,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Possession",
     arcanum="mind",
     level=4,
@@ -3415,7 +3415,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Psychic Projection",
     arcanum="mind",
     level=4,
@@ -3426,7 +3426,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Psychic Reprogramming",
     arcanum="mind",
     level=4,
@@ -3437,7 +3437,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Terrorize",
     arcanum="mind",
     level=4,
@@ -3448,7 +3448,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Amorality",
     arcanum="mind",
     level=5,
@@ -3459,7 +3459,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="No Exit",
     arcanum="mind",
     level=5,
@@ -3470,7 +3470,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Mind Wipe",
     arcanum="mind",
     level=5,
@@ -3481,7 +3481,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Psychic Genesis",
     arcanum="mind",
     level=5,
@@ -3492,7 +3492,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Social Networking",
     arcanum="mind",
     level=5,
@@ -3503,7 +3503,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Dispel Magic",
     arcanum="prime",
     level=1,
@@ -3514,7 +3514,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Pierce Deception",
     arcanum="prime",
     level=1,
@@ -3525,7 +3525,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Supernal Vision",
     arcanum="prime",
     level=1,
@@ -3536,7 +3536,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Sacred Geometry",
     arcanum="prime",
     level=1,
@@ -3547,7 +3547,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Scribe Grimoire",
     arcanum="prime",
     level=1,
@@ -3559,7 +3559,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Word of Command",
     arcanum="prime",
     level=1,
@@ -3570,7 +3570,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="As Above, So Below",
     arcanum="prime",
     level=2,
@@ -3581,7 +3581,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Cloak Nimbus",
     arcanum="prime",
     level=2,
@@ -3592,7 +3592,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Invisible Runes",
     arcanum="prime",
     level=2,
@@ -3603,7 +3603,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Supernal Veil",
     arcanum="prime",
     level=2,
@@ -3614,7 +3614,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Wards and Signs",
     arcanum="prime",
     level=2,
@@ -3625,7 +3625,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Words of Truth",
     arcanum="prime",
     level=2,
@@ -3636,7 +3636,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Aetheric Winds",
     arcanum="prime",
     level=3,
@@ -3647,7 +3647,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Channel Mana",
     arcanum="prime",
     level=3,
@@ -3658,7 +3658,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Cleanse Pattern",
     arcanum="prime",
     level=3,
@@ -3669,7 +3669,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Display of Power",
     arcanum="prime",
     level=3,
@@ -3680,7 +3680,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Ephemeral Enchantment",
     arcanum="prime",
     level=3,
@@ -3691,7 +3691,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Geomancy",
     arcanum="prime",
     level=3,
@@ -3702,7 +3702,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Platonic Form",
     arcanum="prime",
     level=3,
@@ -3714,7 +3714,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Stealing Fire",
     arcanum="prime",
     level=3,
@@ -3725,7 +3725,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Apocalypse",
     arcanum="prime",
     level=4,
@@ -3736,7 +3736,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Celestial Fire",
     arcanum="prime",
     level=4,
@@ -3747,7 +3747,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Destroy Tass",
     arcanum="prime",
     level=4,
@@ -3758,7 +3758,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Hallow Dance",
     arcanum="prime",
     level=4,
@@ -3769,7 +3769,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Supernal Dispellation",
     arcanum="prime",
     level=4,
@@ -3780,7 +3780,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Blasphemy",
     arcanum="prime",
     level=5,
@@ -3791,7 +3791,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Create Truth",
     arcanum="prime",
     level=5,
@@ -3803,7 +3803,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Eidolon",
     arcanum="prime",
     level=5,
@@ -3815,7 +3815,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Forge Purpose",
     arcanum="prime",
     level=5,
@@ -3826,7 +3826,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Word of Unmaking",
     arcanum="prime",
     level=5,
@@ -3837,7 +3837,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Correspondence",
     arcanum="space",
     level=1,
@@ -3848,7 +3848,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Ground-Eater",
     arcanum="space",
     level=1,
@@ -3859,7 +3859,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Isolation",
     arcanum="space",
     level=1,
@@ -3870,7 +3870,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Locate Object",
     arcanum="space",
     level=1,
@@ -3881,7 +3881,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="The Outward and Inward Eye",
     arcanum="space",
     level=1,
@@ -3892,7 +3892,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Borrow Threads",
     arcanum="space",
     level=2,
@@ -3903,7 +3903,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Break Boundary",
     arcanum="space",
     level=2,
@@ -3914,7 +3914,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Lying Maps",
     arcanum="space",
     level=2,
@@ -3925,7 +3925,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Scrying",
     arcanum="space",
     level=2,
@@ -3936,7 +3936,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Secret Door",
     arcanum="space",
     level=2,
@@ -3947,7 +3947,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Veil Sympathy",
     arcanum="space",
     level=2,
@@ -3958,7 +3958,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Ward",
     arcanum="space",
     level=2,
@@ -3969,7 +3969,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Ban",
     arcanum="space",
     level=3,
@@ -3980,7 +3980,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Co-Location",
     arcanum="space",
     level=3,
@@ -3991,7 +3991,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Perfect Sympathy",
     arcanum="space",
     level=3,
@@ -4002,7 +4002,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Warp",
     arcanum="space",
     level=3,
@@ -4013,7 +4013,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Web-Weaver",
     arcanum="space",
     level=3,
@@ -4024,7 +4024,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Alter Direction",
     arcanum="space",
     level=4,
@@ -4035,7 +4035,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Collapse",
     arcanum="space",
     level=4,
@@ -4046,7 +4046,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Cut Threads",
     arcanum="space",
     level=4,
@@ -4057,7 +4057,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Secret Room",
     arcanum="space",
     level=4,
@@ -4068,7 +4068,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Teleportation",
     arcanum="space",
     level=4,
@@ -4079,7 +4079,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Create Sympathy",
     arcanum="space",
     level=5,
@@ -4090,7 +4090,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Forge No Chains",
     arcanum="space",
     level=5,
@@ -4101,7 +4101,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Pocket Dimension",
     arcanum="space",
     level=5,
@@ -4112,7 +4112,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Quarantine",
     arcanum="space",
     level=5,
@@ -4123,7 +4123,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Coaxing the Spirits",
     arcanum="spirit",
     level=1,
@@ -4134,7 +4134,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Exorcist's Eye",
     arcanum="spirit",
     level=1,
@@ -4145,7 +4145,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Gremlins",
     arcanum="spirit",
     level=1,
@@ -4156,7 +4156,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Invoke Bane",
     arcanum="spirit",
     level=1,
@@ -4167,7 +4167,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Know Spirit",
     arcanum="spirit",
     level=1,
@@ -4178,7 +4178,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Cap the Well",
     arcanum="spirit",
     level=2,
@@ -4189,7 +4189,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Channel Essence",
     arcanum="spirit",
     level=2,
@@ -4200,7 +4200,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Command Spirit",
     arcanum="spirit",
     level=2,
@@ -4211,7 +4211,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Ephemeral Shield",
     arcanum="spirit",
     level=2,
@@ -4222,7 +4222,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Gossamer Touch",
     arcanum="spirit",
     level=2,
@@ -4233,7 +4233,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Opener of the Way",
     arcanum="spirit",
     level=2,
@@ -4244,7 +4244,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Shadow Walk",
     arcanum="spirit",
     level=2,
@@ -4255,7 +4255,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Slumber",
     arcanum="spirit",
     level=2,
@@ -4266,7 +4266,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Bolster Spirit",
     arcanum="spirit",
     level=3,
@@ -4277,7 +4277,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Erode Resonance",
     arcanum="spirit",
     level=3,
@@ -4288,7 +4288,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Howl From Beyond",
     arcanum="spirit",
     level=3,
@@ -4299,7 +4299,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Place of Power (Lower Gauntlet)",
     arcanum="spirit",
     level=3,
@@ -4310,7 +4310,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Place of Power (Raise Gauntlet)",
     arcanum="spirit",
     level=3,
@@ -4321,7 +4321,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Reaching",
     arcanum="spirit",
     level=3,
@@ -4332,7 +4332,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Rouse Spirit",
     arcanum="spirit",
     level=3,
@@ -4343,7 +4343,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Spirit Summoning",
     arcanum="spirit",
     level=3,
@@ -4354,7 +4354,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Banishment",
     arcanum="spirit",
     level=4,
@@ -4365,7 +4365,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Bind Spirit",
     arcanum="spirit",
     level=4,
@@ -4376,7 +4376,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Craft Fetish",
     arcanum="spirit",
     level=4,
@@ -4387,7 +4387,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Familiar",
     arcanum="spirit",
     level=4,
@@ -4398,7 +4398,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Shadow Scream",
     arcanum="spirit",
     level=4,
@@ -4409,7 +4409,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Shape Spirit",
     arcanum="spirit",
     level=4,
@@ -4420,7 +4420,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Twilit Body",
     arcanum="spirit",
     level=4,
@@ -4431,7 +4431,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="World Walker",
     arcanum="spirit",
     level=4,
@@ -4442,7 +4442,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Annihilate Spirit",
     arcanum="spirit",
     level=5,
@@ -4453,7 +4453,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Birth Spirit",
     arcanum="spirit",
     level=5,
@@ -4464,7 +4464,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Create Locus",
     arcanum="spirit",
     level=5,
@@ -4475,7 +4475,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Essence Fountain",
     arcanum="spirit",
     level=5,
@@ -4486,7 +4486,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Spirit Manse",
     arcanum="spirit",
     level=5,
@@ -4497,7 +4497,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Divination",
     arcanum="time",
     level=1,
@@ -4508,7 +4508,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Green Light/Red Light",
     arcanum="time",
     level=1,
@@ -4519,7 +4519,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Momentary Flux",
     arcanum="time",
     level=1,
@@ -4530,7 +4530,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Perfect Timing",
     arcanum="time",
     level=1,
@@ -4541,7 +4541,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Postcognition",
     arcanum="time",
     level=1,
@@ -4552,7 +4552,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Choose the Thread",
     arcanum="time",
     level=2,
@@ -4563,7 +4563,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Constance Presence",
     arcanum="time",
     level=2,
@@ -4574,7 +4574,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Hung Spell",
     arcanum="time",
     level=2,
@@ -4585,7 +4585,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Shield of Chronos",
     arcanum="time",
     level=2,
@@ -4596,7 +4596,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Tipping the Hourglass",
     arcanum="time",
     level=2,
@@ -4607,7 +4607,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Veil of Moments",
     arcanum="time",
     level=2,
@@ -4618,7 +4618,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Acceleration",
     arcanum="time",
     level=3,
@@ -4630,7 +4630,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Chronos' Curse",
     arcanum="time",
     level=3,
@@ -4642,7 +4642,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Shifting Sands",
     arcanum="time",
     level=3,
@@ -4653,7 +4653,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Temporal Summoning",
     arcanum="time",
     level=3,
@@ -4664,7 +4664,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Weight of Years",
     arcanum="time",
     level=3,
@@ -4675,7 +4675,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Present as Past",
     arcanum="time",
     level=4,
@@ -4687,7 +4687,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Prophecy",
     arcanum="time",
     level=4,
@@ -4698,7 +4698,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Rend Lifespan",
     arcanum="time",
     level=4,
@@ -4709,7 +4709,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Rewrite History",
     arcanum="time",
     level=4,
@@ -4720,7 +4720,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Temporal Stutter",
     arcanum="time",
     level=4,
@@ -4731,7 +4731,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Blink of an Eye",
     arcanum="time",
     level=5,
@@ -4742,7 +4742,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Corridors of Time",
     arcanum="time",
     level=5,
@@ -4753,7 +4753,7 @@ Rote.objects.create(
     reach_options=[],
     optional_arcana=[],
 )
-Rote.objects.create(
+CoDRote.objects.create(
     name="Temporal Pocket",
     arcanum="time",
     level=5,
@@ -5088,7 +5088,7 @@ rotes = [
     "Coaxing the Spirits",
     "Gremlins",
 ]
-pf.set_possible_blessings([Rote.objects.get(name=x) for x in rotes])
+pf.set_possible_blessings([CoDRote.objects.get(name=x) for x in rotes])
 
 Equipment.objects.create(
     name="Basic Automotive Tool Kit",

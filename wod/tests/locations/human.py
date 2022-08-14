@@ -22,7 +22,7 @@ class TestCity(TestCase):
     def test_add_character(self):
         city = City.objects.create(name="New York City", population=28000000)
         player = User.objects.create_user(username="User")
-        char = Character.objects.create(name="NPC 1", player=player)
+        char = Character.objects.create(name="NPC 1", owner=player)
         city.add_character(char)
         self.assertIn(char, city.characters.all())
 

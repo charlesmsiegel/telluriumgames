@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from exalted.models.characters.mortals import ExMortal, Intimacy, Merit, Specialty
+from exalted.models.characters.mortals import ExMortal, Intimacy, ExMerit, ExSpecialty
 from exalted.models.characters.utils import ABILITIES
 
 
@@ -9,7 +9,7 @@ from exalted.models.characters.utils import ABILITIES
 def setup():
     for ability in ABILITIES:
         for i in range(10):
-            Specialty.objects.create(
+            ExSpecialty.objects.create(
                 name=f"{ability.replace('_', ' ').title()} Specialty {i}",
                 ability=ability,
             )
@@ -21,15 +21,15 @@ def setup():
                     name = "Negative " + name
                 Intimacy.objects.create(
                     name=name,
-                    type=intimacy_type,
+                    intimacy_type=intimacy_type,
                     strength=strength,
                     is_negative=is_negative,
                 )
     for merit_type in ["innate", "purchased", "story"]:
         for i in range(1, 5):
-            Merit.objects.create(
+            ExMerit.objects.create(
                 name=f"{merit_type.title()} Merit {i}",
-                type=merit_type,
+                merit_type=merit_type,
                 ratings=[i, i + 1],
             )
 
@@ -37,7 +37,7 @@ def setup():
 class TestMortal(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = ExMortal.objects.create(name="", player=self.player)
+        self.character = ExMortal.objects.create(name="", owner=self.player)
         setup()
 
     def test_absolute_url(self):
@@ -353,7 +353,7 @@ class TestMortal(TestCase):
 
     def test_add_specialty(self):
         num = self.character.specialties.count()
-        spec = Specialty.objects.filter(ability="occult").first()
+        spec = ExSpecialty.objects.filter(ability="occult").first()
         self.assertFalse(self.character.add_specialty(spec))
         self.assertEqual(self.character.specialties.count(), num)
         self.character.occult = 1
@@ -366,7 +366,7 @@ class TestMortal(TestCase):
             setattr(self.character, ability, 1)
             self.assertTrue(
                 self.character.add_specialty(
-                    Specialty.objects.filter(ability=ability).first()
+                    ExSpecialty.objects.filter(ability=ability).first()
                 )
             )
         self.assertTrue(self.character.has_specialties())
@@ -375,11 +375,11 @@ class TestMortal(TestCase):
         self.assertEqual(len(self.character.filter_specialties()), 0)
         self.set_abilities()
         self.assertEqual(len(self.character.filter_specialties()), 140)
-        self.character.add_specialty(Specialty.objects.filter(ability="war").first())
+        self.character.add_specialty(ExSpecialty.objects.filter(ability="war").first())
         self.assertEqual(len(self.character.filter_specialties()), 139)
 
     def test_add_merit(self):
-        m = Merit.objects.create(name="Merit 1", ratings=[1, 2, 4], type="innate")
+        m = ExMerit.objects.create(name="Merit 1", ratings=[1, 2, 4], merit_type="innate")
         self.assertNotIn(m, self.character.merits.all())
         self.assertTrue(self.character.add_merit(m))
         self.assertIn(m, self.character.merits.all())
@@ -393,8 +393,8 @@ class TestMortal(TestCase):
 
     def test_has_merits(self):
         self.assertFalse(self.character.has_merits())
-        self.character.add_merit(Merit.objects.get(name="Story Merit 3"))
-        self.character.add_merit(Merit.objects.get(name="Innate Merit 4"))
+        self.character.add_merit(ExMerit.objects.get(name="Story Merit 3"))
+        self.character.add_merit(ExMerit.objects.get(name="Innate Merit 4"))
         self.assertTrue(self.character.has_merits())
 
     def test_filter_merits(self):
@@ -488,7 +488,7 @@ class TestMortal(TestCase):
 class TestRandomMortal(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = ExMortal.objects.create(name="", player=self.player)
+        self.character = ExMortal.objects.create(name="", owner=self.player)
         setup()
 
     def test_random_name(self):
@@ -619,7 +619,7 @@ class TestCharacterIndexView(TestCase):
     def test_index_content(self):
         player = User.objects.create_user(username="User1", password="12345")
         for i in range(10):
-            ExMortal.objects.create(name=f"Mortal {i}", player=player)
+            ExMortal.objects.create(name=f"Mortal {i}", owner=player)
         response = self.client.post("/exalted/characters/")
         for i in range(10):
             self.assertContains(response, f"Mortal {i}")
@@ -628,7 +628,7 @@ class TestCharacterIndexView(TestCase):
 class TestMortalDetailView(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="Test")
-        self.human = ExMortal.objects.create(name="Test Mortal", player=self.player)
+        self.human = ExMortal.objects.create(name="Test Mortal", owner=self.player)
 
     def test_mortal_detail_view_status_code(self):
         response = self.client.get(f"/exalted/characters/{self.human.id}/")
@@ -644,7 +644,7 @@ class TestMortalDetailView(TestCase):
 class TestGenericCharacterDetailViews(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="Test")
-        self.mortal = ExMortal.objects.create(name="Test Mortal", player=self.player)
+        self.mortal = ExMortal.objects.create(name="Test Mortal", owner=self.player)
 
     def test_character_detail_view_templates(self):
         response = self.client.get(f"/exalted/characters/{self.mortal.id}/")

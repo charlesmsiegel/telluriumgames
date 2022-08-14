@@ -3,7 +3,8 @@ import random
 from django.db import models
 
 from core.utils import add_dot, weighted_choice
-from tc.models.characters.human import Edge, EdgeRating, Human, Path, check_prereqs
+from tc.models.characters.human import Edge, EdgeRating, Human, TCPath, check_prereqs
+from core.models import Model
 
 
 # Create your models here.
@@ -16,7 +17,7 @@ class Talent(Human):
 
     inspiration = models.IntegerField(default=1)
 
-    gifts = models.ManyToManyField("Gift", blank=None)
+    gifts = models.ManyToManyField("TCGift", blank=None)
 
     intuitive = models.IntegerField(default=0)
     reflective = models.IntegerField(default=0)
@@ -107,7 +108,7 @@ class Talent(Human):
             self.add_gift(random.choice(possible_gifts))
 
     def filter_gifts(self, keyword=None, path=None):
-        gifts = Gift.objects.all().exclude(pk__in=self.gifts.all())
+        gifts = TCGift.objects.all().exclude(pk__in=self.gifts.all())
         if keyword is not None:
             gifts = [x for x in gifts if keyword in x.keywords]
         if path is not None:
@@ -134,9 +135,9 @@ class Talent(Human):
 
     def random_path(self, path_type=None):
         if path_type is None:
-            paths = Path.objects.all()
+            paths = TCPath.objects.all()
         else:
-            paths = Path.objects.filter(type=path_type)
+            paths = TCPath.objects.filter(type=path_type)
         paths = [
             x for x in paths if self.path_rating(x) != 5 and len(x.gift_keywords) != 0
         ]
@@ -189,7 +190,7 @@ class Talent(Human):
                 trait = random.choice(self.filter_tricks()).name
             elif trait_type == "paths":
                 trait = weighted_choice(
-                    {p.name: self.path_rating(p) for p in Path.objects.all()}
+                    {p.name: self.path_rating(p) for p in TCPath.objects.all()}
                 )
             elif trait_type == "approach":
                 trait = random.choice(["Favor FIN", "Favor FOR", "Favor RES"])
@@ -226,14 +227,14 @@ class Talent(Human):
         ]:
             cost = self.xp_cost("path gift")
             if self.xp >= cost:
-                if self.add_gift(Gift.objects.get(name=trait)):
+                if self.add_gift(TCGift.objects.get(name=trait)):
                     self.xp -= cost
                     self.add_to_spend(trait, 1, cost)
                     return True
         elif trait in [x.name for x in self.filter_gifts()]:
             cost = self.xp_cost("gift")
             if self.xp >= cost:
-                if self.add_gift(Gift.objects.get(name=trait)):
+                if self.add_gift(TCGift.objects.get(name=trait)):
                     self.xp -= cost
                     self.add_to_spend(trait, 1, cost)
                     return True
@@ -248,11 +249,11 @@ class Talent(Human):
         return False
 
 
-class Gift(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class TCGift(Model):
+    type = "gift"
+
     keywords = models.JSONField(default=list)
     prereqs = models.JSONField(default=list)
-    description = models.TextField(default="")
 
     def __str__(self):
         return f"{self.name} ({', '.join(self.keywords)})"
@@ -272,10 +273,7 @@ class Gift(models.Model):
         return check_prereqs(self, character) and keyword_prereq
 
 
-class MomentOfInspiration(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class MomentOfInspiration(Model):
+    type = "moment_of_inspiration"
+    
     attributes = models.JSONField(default=list)
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name

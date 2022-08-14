@@ -14,7 +14,7 @@
                 {% if char.display %}
                     <div class="row border">
                         <a class="col-sm border" href="{{ char.get_absolute_url }}">{{ char.name| safe }}</a>
-                        <div class="col-sm border">{{ char.player.username }}</div>
+                        <div class="col-sm border">{{ char.owner.username }}</div>
                         <div class="col-sm border">{{ char.get_status_display }}</div>
                     </div>
                 {% endif %}

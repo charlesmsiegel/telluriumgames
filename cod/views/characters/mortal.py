@@ -3,10 +3,10 @@ from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from cod.models.characters.mortal import (
     Condition,
-    Merit,
+    CoDMerit,
     MeritRating,
     Mortal,
-    Specialty,
+    CoDSpecialty,
     Tilt,
 )
 
@@ -54,35 +54,35 @@ class ConditionUpdateView(UpdateView):
 
 
 class MeritDetailView(DetailView):
-    model = Merit
+    model = CoDMerit
     template_name = "cod/characters/mortal/merit/detail.html"
 
 
 class MeritCreateView(CreateView):
-    model = Merit
+    model = CoDMerit
     fields = "__all__"
     template_name = "cod/characters/mortal/merit/create.html"
 
 
 class MeritUpdateView(UpdateView):
-    model = Merit
+    model = CoDMerit
     fields = "__all__"
     template_name = "cod/characters/mortal/merit/update.html"
 
 
 class SpecialtyDetailView(DetailView):
-    model = Specialty
+    model = CoDSpecialty
     template_name = "cod/characters/mortal/specialty/detail.html"
 
 
 class SpecialtyCreateView(CreateView):
-    model = Specialty
+    model = CoDSpecialty
     fields = "__all__"
     template_name = "cod/characters/mortal/specialty/create.html"
 
 
 class SpecialtyUpdateView(UpdateView):
-    model = Specialty
+    model = CoDSpecialty
     fields = "__all__"
     template_name = "cod/characters/mortal/specialty/update.html"
 

@@ -35,10 +35,10 @@ class ProfileView(View):
             to_approve = []
             xp_requests = []
             characters = []
-            characters.extend(Mortal.objects.filter(player=request.user))
-            characters.extend(Character.objects.filter(player=request.user))
-            characters.extend(Human.objects.filter(player=request.user))
-            characters.extend(ExMortal.objects.filter(player=request.user))
+            characters.extend(Mortal.objects.filter(owner=request.user))
+            characters.extend(Character.objects.filter(owner=request.user))
+            characters.extend(Human.objects.filter(owner=request.user))
+            characters.extend(ExMortal.objects.filter(owner=request.user))
             characters.sort(key=lambda x: x.name)
             if profile.cod_st:
                 to_approve.extend(Mortal.objects.filter(status__in=["Un", "Sub"]))

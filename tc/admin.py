@@ -5,21 +5,21 @@ from tc.models.characters.human import (
     Edge,
     EnhancedEdge,
     Human,
-    Path,
+    TCPath,
     PathConnection,
     Specialty,
     Trick,
 )
-from tc.models.characters.talent import Gift, MomentOfInspiration, Talent
+from tc.models.characters.talent import TCGift, MomentOfInspiration, Talent
 
 
 # Register your models here.
 @admin.register(Human)
 class HumanAdmin(admin.ModelAdmin):
-    list_display = ("name", "player")
+    list_display = ("name", "owner")
 
 
-@admin.register(Path)
+@admin.register(TCPath)
 class PathAdmin(admin.ModelAdmin):
     list_display = ("name", "type")
 
@@ -51,10 +51,10 @@ class PathConnectionAdmin(admin.ModelAdmin):
 
 @admin.register(Talent)
 class TalentAdmin(admin.ModelAdmin):
-    list_display = ("name", "player", "intuitive", "reflective", "destructive")
+    list_display = ("name", "owner", "intuitive", "reflective", "destructive")
 
 
-@admin.register(Gift)
+@admin.register(TCGift)
 class GiftAdmin(admin.ModelAdmin):
     list_display = ("name",)
 
@@ -66,7 +66,7 @@ class MomentOfInspirationAdmin(admin.ModelAdmin):
 
 @admin.register(Aberrant)
 class AberrantAdmin(admin.ModelAdmin):
-    list_display = ("name", "player", "quantum", "flux", "transcendence")
+    list_display = ("name", "owner", "quantum", "flux", "transcendence")
 
 
 @admin.register(MegaEdge)

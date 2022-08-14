@@ -27,7 +27,7 @@ def create_character(cls, character=True, xp=0, random_name=True):
     else:
         name = f"{cls.__name__} {cls.objects.count()}"
     if character:
-        obj = cls.objects.create(name=name, player=player)
+        obj = cls.objects.create(name=name, owner=player)
         obj.random(xp=xp)
     else:
         obj = cls.objects.create(name=name)

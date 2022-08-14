@@ -124,7 +124,7 @@ class MtAHuman(Human):
     sanctum = models.IntegerField(default=0)
     secret_weapons = models.IntegerField(default=0)
     spies = models.IntegerField(default=0)
-    status = models.IntegerField(default=0)
+    status_background = models.IntegerField(default=0)
     totem = models.IntegerField(default=0)
     wonder = models.IntegerField(default=0)
 
@@ -270,7 +270,7 @@ class MtAHuman(Human):
                 "sanctum": self.sanctum,
                 "secret_weapons": self.secret_weapons,
                 "spies": self.spies,
-                "status": self.status,
+                "status_background": self.status_background,
                 "totem": self.totem,
                 "wonder": self.wonder,
             }

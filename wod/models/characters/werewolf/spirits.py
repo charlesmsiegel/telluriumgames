@@ -1,15 +1,13 @@
 from django.db import models
 from django.urls import reverse
+from core.models import Model
+
 
 from wod.models.characters.human import Character
 
 
-class SpiritCharm(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name
+class SpiritCharm(Model):
+    type = "spirit_charm"
 
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:charm", kwargs={"pk": self.pk})
@@ -26,7 +24,9 @@ class SpiritCharacter(Character):
     charms = models.ManyToManyField(SpiritCharm, blank=True)
 
 
-class Totem(models.Model):
+class Totem(Model):
+    type = "totem"
+    
     TYPES = [
         ("respect", "Respect"),
         ("war", "War"),
@@ -34,16 +34,11 @@ class Totem(models.Model):
         ("cunning", "Cunning"),
     ]
 
-    name = models.CharField(max_length=100, unique=True)
     cost = models.IntegerField(default=0)
     totem_type = models.CharField(max_length=20, choices=TYPES)
     individual_traits = models.TextField(default="")
     pack_traits = models.TextField(default="")
     ban = models.TextField(default="")
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name
 
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:totem", kwargs={"pk": self.pk})

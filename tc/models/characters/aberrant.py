@@ -4,7 +4,8 @@ from django.db import models
 from django.db.models import F, Q
 
 from core.utils import add_dot, weighted_choice
-from tc.models.characters.human import Edge, EnhancedEdge, Human, Path, PathRating
+from tc.models.characters.human import Edge, EnhancedEdge, Human, TCPath, PathRating
+from core.models import Model
 
 
 # Create your models here.
@@ -418,7 +419,7 @@ class Aberrant(Human):
                 trait = random.choice(self.filter_specialties()).name
             elif trait_type == "paths":
                 trait = weighted_choice(
-                    {p.name: self.path_rating(p) for p in Path.objects.all()}
+                    {p.name: self.path_rating(p) for p in TCPath.objects.all()}
                 )
             elif trait_type == "approach":
                 trait = random.choice(["Favor FIN", "Favor FOR", "Favor RES"])
@@ -636,8 +637,9 @@ class MegaEdgeRating(models.Model):
     rating = models.IntegerField(default=0)
 
 
-class Power(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class Power(Model):
+    type = "power"
+    
     quantum_minimum = models.IntegerField(default=0)
     quantum_offset = models.IntegerField(default=0)
     action_type = models.CharField(
@@ -666,7 +668,6 @@ class Power(models.Model):
             ("continuous", "Continuous"),
         ],
     )
-    description = models.TextField(default="")
 
     def set_dicepool(self, dicepool):
         self.dicepool = dicepool
@@ -688,9 +689,6 @@ class Power(models.Model):
         self.dicepool += trait
         return True
 
-    def __str__(self):
-        return self.name
-
 
 class PowerRating(models.Model):
     character = models.ForeignKey(
@@ -709,15 +707,12 @@ class PowerRating(models.Model):
         return self.rating + self.power.quantum_offset
 
 
-class Tag(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class Tag(Model):
+    type = "tag"
+
     ratings = models.JSONField(default=list)
     max_rating = models.IntegerField(default=0)
     permitted_powers = models.ManyToManyField(Power, blank=True)
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)
@@ -732,13 +727,13 @@ class TagRating(models.Model):
     rating = models.IntegerField(default=0)
 
 
-class Transformation(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class Transformation(Model):
+    type = "transformation"
+    
     level = models.CharField(
         max_length=10,
         choices=[("low", "low"), ("medium", "medium"), ("high", "high"),],
     )
-    description = models.TextField(default="")
 
     def __str__(self):
         return f"{self.name} ({self.level})"

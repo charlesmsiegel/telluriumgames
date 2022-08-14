@@ -6,29 +6,13 @@ from django.db import models
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
 
-from core.models import Language
+from core.models import Language, Model
 from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
 
 # Create your models here.
-class Mortal(PolymorphicModel):
+class Mortal(Model):
     type = "mortal"
-
-    name = models.CharField(max_length=100)
-    player = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="cod_characters",
-        blank=True,
-        null=True,
-    )
-
-    status_keys = ["Un", "Sub", "App", "Ret", "Dec"]
-    statuses = ["Unfinished", "Submitted", "Approved", "Retired", "Deceased"]
-    status = models.CharField(
-        max_length=3, choices=zip(status_keys, statuses), default="Un"
-    )
-    display = models.BooleanField(default=True)
 
     concept = models.CharField(max_length=300)
 
@@ -79,10 +63,10 @@ class Mortal(PolymorphicModel):
     streetwise = models.IntegerField(default=0)
     subterfuge = models.IntegerField(default=0)
 
-    merits = models.ManyToManyField("Merit", through="MeritRating")
+    merits = models.ManyToManyField("CoDMerit", through="MeritRating")
 
     # Add 1 die to rolls when relevant - specialy
-    specialties = models.ManyToManyField("Specialty", blank=True)
+    specialties = models.ManyToManyField("CoDSpecialty", blank=True)
 
     willpower = models.IntegerField(default=1)
 
@@ -113,8 +97,6 @@ class Mortal(PolymorphicModel):
     )
     breaking_point_5 = models.CharField(max_length=300, default="Most traumatic thing")
 
-    description = models.TextField(default="")
-
     conditions = models.ManyToManyField("Condition", blank=True)
 
     xp = models.IntegerField(default=0)
@@ -125,9 +107,6 @@ class Mortal(PolymorphicModel):
     class Meta:
         verbose_name = "Mortal"
         verbose_name_plural = "Mortals"
-
-    def __str__(self):
-        return self.name
 
     def get_absolute_url(self):
         return reverse("cod:characters:character", args=[str(self.id)])
@@ -440,8 +419,8 @@ class Mortal(PolymorphicModel):
 
     def filter_specialties(self, skill=None):
         if skill is None:
-            return Specialty.objects.all().exclude(pk__in=self.specialties.all())
-        return Specialty.objects.filter(skill=skill).exclude(
+            return CoDSpecialty.objects.all().exclude(pk__in=self.specialties.all())
+        return CoDSpecialty.objects.filter(skill=skill).exclude(
             pk__in=self.specialties.all()
         )
 
@@ -513,9 +492,9 @@ class Mortal(PolymorphicModel):
         return False
 
     def merit_rating(self, name, detail=None):
-        if not Merit.objects.filter(name=name).exists():
+        if not CoDMerit.objects.filter(name=name).exists():
             return 0
-        merit = Merit.objects.get(name=name)
+        merit = CoDMerit.objects.get(name=name)
         if merit not in self.merits.all():
             return 0
         if merit.requires_detail:
@@ -543,9 +522,9 @@ class Mortal(PolymorphicModel):
     def filter_merits(self, dots=None):
         ratings = MeritRating.objects.filter(character=self)
         had_merits = [x.merit.id for x in ratings]
-        had_merits = Merit.objects.filter(pk__in=had_merits)
+        had_merits = CoDMerit.objects.filter(pk__in=had_merits)
 
-        new_merits = Merit.objects.filter(
+        new_merits = CoDMerit.objects.filter(
             merit_type__in=self.allowed_merit_types()
         ).exclude(pk__in=[x.id for x in had_merits])
         new_merits = new_merits.filter(min_rating__lte=dots)
@@ -565,7 +544,7 @@ class Mortal(PolymorphicModel):
                 else:
                     if rprime - r <= dots:
                         tmp.append(merit)
-        had_merits = Merit.objects.filter(pk__in=[x.id for x in tmp])
+        had_merits = CoDMerit.objects.filter(pk__in=[x.id for x in tmp])
 
         all_merits = new_merits | had_merits
 
@@ -772,9 +751,9 @@ class Mortal(PolymorphicModel):
             return self.spend_xp_attribute(trait)
         if trait in self.get_skills():
             return self.spend_xp_skill(trait)
-        if Merit.objects.filter(name=trait).exists():
+        if CoDMerit.objects.filter(name=trait).exists():
             return self.spend_xp_merit(trait)
-        if Specialty.objects.filter(name=trait).exists():
+        if CoDSpecialty.objects.filter(name=trait).exists():
             return self.spend_xp_specialty(trait)
         if trait == "morality":
             return self.spend_xp_morality()
@@ -810,8 +789,9 @@ class Mortal(PolymorphicModel):
         self.save()
 
 
-class Merit(models.Model):
-    name = models.CharField(max_length=100)
+class CoDMerit(Model):
+    type = "merit"
+
     ratings = models.JSONField(default=list)
     min_rating = models.IntegerField(default=0)
     max_rating = models.IntegerField(default=0)
@@ -820,7 +800,6 @@ class Merit(models.Model):
     possible_details = models.JSONField(default=list)
     merit_type = models.CharField(max_length=100, default="")
     is_style = models.BooleanField(default=False)
-    description = models.TextField(default="")
 
     class Meta:
         verbose_name = "Merit"
@@ -830,9 +809,6 @@ class Merit(models.Model):
         self.max_rating = max(self.ratings)
         self.min_rating = min(self.ratings)
         super().save(*args, **kwargs)
-
-    def __str__(self):
-        return f"{self.name}"
 
     def prereq_satisfied(self, prereq, character):
         if prereq[0] in character.get_attributes().keys():
@@ -859,8 +835,8 @@ class Merit(models.Model):
             if len(applicable_specialties) == 0:
                 return False
             return True
-        if Merit.objects.filter(name=prereq[0]).exists():
-            m = Merit.objects.get(name=prereq[0])
+        if CoDMerit.objects.filter(name=prereq[0]).exists():
+            m = CoDMerit.objects.get(name=prereq[0])
             if prereq[1] == "same":
                 minval = character.merit_rating(self)
             else:
@@ -1023,8 +999,9 @@ class Merit(models.Model):
         return possible_details
 
 
-class Specialty(models.Model):
-    name = models.CharField(max_length=100)
+class CoDSpecialty(Model):
+    type = "specialty"
+    
     skill = models.CharField(max_length=100)
 
     class Meta:
@@ -1039,29 +1016,26 @@ class Specialty(models.Model):
 
 
 class MeritRating(models.Model):
-    character = models.ForeignKey(
-        "Mortal", null=False, blank=False, on_delete=models.CASCADE
-    )
-    merit = models.ForeignKey(
-        "Merit", null=False, blank=False, on_delete=models.CASCADE
-    )
+    character = models.ForeignKey("Mortal", null=False, blank=False, on_delete=models.CASCADE)
+    merit = models.ForeignKey("CoDMerit", null=False, blank=False, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
     detail = models.CharField(max_length=100, null=True, blank=True)
 
 
-class Condition(models.Model):
-    name = models.CharField(max_length=100)
+class Condition(Model):
+    type = "condition"
+    
     persistent = models.BooleanField(default=False)
     resolution = models.TextField(default="")
 
 
-class Tilt(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class Tilt(Model):
+    type = "tilt"
+    
     tilt_type = models.CharField(
         max_length=20,
         choices=[("personal", "Personal"), ("environmental", "Environmental"),],
     )
-    description = models.TextField(default="")
     effect = models.TextField(default="")
     causing = models.TextField(default="")
     ending = models.TextField(default="")

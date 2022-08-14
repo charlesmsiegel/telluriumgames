@@ -2,14 +2,14 @@ import random
 
 from django.db import models
 from django.urls import reverse
+from core.models import Model
 
 from .wtahuman import WtAHuman
 
 
-class FomoriPower(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    description = models.TextField(default="")
-
+class FomoriPower(Model):
+    type = "fomoripower"
+    
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:fomoripower", kwargs={"pk": self.pk})
 

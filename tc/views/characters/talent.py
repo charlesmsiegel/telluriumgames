@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
-from tc.models.characters.talent import Gift, MomentOfInspiration, Talent
+from tc.models.characters.talent import TCGift, MomentOfInspiration, Talent
 from tc.views.characters.human import HumanDetailView
 
 
@@ -28,18 +28,18 @@ class TalentUpdateView(UpdateView):
 
 
 class GiftDetailView(DetailView):
-    model = Gift
+    model = TCGift
     template_name = "tc/characters/talent/gift/detail.html"
 
 
 class GiftCreateView(CreateView):
-    model = Gift
+    model = TCGift
     fields = "__all__"
     template_name = "tc/characters/talent/gift/create.html"
 
 
 class GiftUpdateView(UpdateView):
-    model = Gift
+    model = TCGift
     fields = "__all__"
     template_name = "tc/characters/talent/gift/update.html"
 

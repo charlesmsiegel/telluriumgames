@@ -6,7 +6,7 @@ from tc.models.characters.human import (
     Edge,
     EnhancedEdge,
     Human,
-    Path,
+    TCPath,
     PathConnection,
     PathRating,
     Specialty,
@@ -18,10 +18,10 @@ from tc.models.characters.talent import Talent
 # Create your tests here.
 class TestPath(TestCase):
     def setUp(self) -> None:
-        self.p = Path.objects.create(name="Path")
+        self.p = TCPath.objects.create(name="Path")
         self.c = PathConnection.objects.create(name="Connection", path=self.p)
         self.player = User.objects.create(username="Test User")
-        self.h = Human.objects.create(name="Test", player=self.player)
+        self.h = Human.objects.create(name="Test", owner=self.player)
         PathRating.objects.create(path=self.p, character=self.h, rating=1)
 
     def test_has_connection(self):
@@ -35,7 +35,7 @@ class TestPath(TestCase):
         self.assertTrue(self.h.has_connection(self.p))
 
     def test_connection_added_at_first_dot(self):
-        p = Path.objects.create(name="Path 2")
+        p = TCPath.objects.create(name="Path 2")
         PathConnection.objects.create(path=p, name="Connection 2")
         self.h.add_path(p)
         self.assertTrue(self.h.has_connection(p))
@@ -44,7 +44,7 @@ class TestPath(TestCase):
 class TestHuman(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Human.objects.create(name="", player=self.player)
+        self.character = Human.objects.create(name="", owner=self.player)
 
     def test_add_name(self):
         self.assertEqual(self.character.name, "")
@@ -86,14 +86,14 @@ class TestHuman(TestCase):
 
     def test_add_path(self):
         self.assertEqual(self.character.paths.count(), 0)
-        path = Path.objects.create(name="Path")
+        path = TCPath.objects.create(name="Path")
         self.assertTrue(self.character.add_path(path))
         self.assertEqual(self.character.paths.count(), 1)
 
     def test_has_paths(self):
-        path_origin = Path.objects.create(name="Origin Path", type="origin")
-        path_role = Path.objects.create(name="Role Path", type="role")
-        path_society = Path.objects.create(name="Society Path", type="society")
+        path_origin = TCPath.objects.create(name="Origin Path", type="origin")
+        path_role = TCPath.objects.create(name="Role Path", type="role")
+        path_society = TCPath.objects.create(name="Society Path", type="society")
         self.character.add_path(path_origin)
         self.assertFalse(self.character.has_paths())
         self.character.add_path(path_role)
@@ -155,7 +155,7 @@ class TestHuman(TestCase):
     def test_has_edges(self):
         types = ["origin", "role", "society"]
         for i in range(3):
-            p = Path.objects.create(name=f"{types[i].title} Path", type=types[i])
+            p = TCPath.objects.create(name=f"{types[i].title} Path", type=types[i])
             for j in range(4):
                 e = Edge.objects.create(name=f"Path {i} Edge {j}", ratings=[1, 2])
                 p.edges.add(e)
@@ -326,13 +326,13 @@ class TestHuman(TestCase):
 
     def test_has_skills(self):
         self.character.add_path(
-            Path.objects.create(name="TestPath 1", type="origin", skills=["technology"])
+            TCPath.objects.create(name="TestPath 1", type="origin", skills=["technology"])
         )
         self.character.add_path(
-            Path.objects.create(name="TestPath 2", type="role", skills=["survival"])
+            TCPath.objects.create(name="TestPath 2", type="role", skills=["survival"])
         )
         self.character.add_path(
-            Path.objects.create(name="TestPath 3", type="society", skills=["science"])
+            TCPath.objects.create(name="TestPath 3", type="society", skills=["science"])
         )
         self.assertFalse(self.character.has_skills())
         self.set_starting_skills()
@@ -600,7 +600,7 @@ class TestHuman(TestCase):
             name="XP Enhanced Edge", prereqs=[[("XP Edge 1", 2)]]
         )
 
-        p = Path.objects.create(
+        p = TCPath.objects.create(
             name="XP Path", skills=["science", "technology", "command", "close_combat"]
         )
         p.edges.add(pe)
@@ -672,13 +672,13 @@ class TestHuman(TestCase):
 class TestRandomHuman(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Human.objects.create(name="", player=self.player)
+        self.character = Human.objects.create(name="", owner=self.player)
         for skill in self.character.get_skills().keys():
             for i in range(5):
                 Specialty.objects.create(name=f"{skill} Specialty {i}", skill=skill)
                 Trick.objects.create(name=f"{skill} Trick {i}", skill=skill)
         for t in ["origin", "role", "society"]:
-            p = Path.objects.create(name=f"{t} Path", type=t)
+            p = TCPath.objects.create(name=f"{t} Path", type=t)
             for i in range(4):
                 for j in range(4):
                     p.skills.append(list(self.character.get_skills().keys())[4 * i + j])
@@ -789,7 +789,7 @@ class TestRandomHuman(TestCase):
         self.assertLess(self.character.xp, 15)
 
     def test_random(self):
-        character = Human.objects.create(player=self.player)
+        character = Human.objects.create(owner=self.player)
         self.assertFalse(character.has_name())
         self.assertFalse(character.has_concept())
         self.assertFalse(character.has_paths())
@@ -816,7 +816,7 @@ class TestEdge(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Human.objects.create(
-            name="Test Character", player=User.objects.get(username="Test User"),
+            name="Test Character", owner=User.objects.get(username="Test User"),
         )
 
     def test_prereq_or(self):
@@ -838,7 +838,7 @@ class TestHumanDetailView(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Human.objects.create(
-            name="Test Character", player=User.objects.get(username="Test User"),
+            name="Test Character", owner=User.objects.get(username="Test User"),
         )
 
     def test_mortal_detail_view_status_code(self):
@@ -854,13 +854,13 @@ class CharacterDetailView(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.human = Human.objects.create(
-            name="Test Human", player=User.objects.get(username="Test User"),
+            name="Test Human", owner=User.objects.get(username="Test User"),
         )
         self.talent = Talent.objects.create(
-            name="Test Talent", player=User.objects.get(username="Test User"),
+            name="Test Talent", owner=User.objects.get(username="Test User"),
         )
         self.aberrant = Aberrant.objects.create(
-            name="Test Aberrant", player=User.objects.get(username="Test User"),
+            name="Test Aberrant", owner=User.objects.get(username="Test User"),
         )
 
     def test_character_detail_view_status_code(self):
@@ -898,14 +898,14 @@ class TestIndexView(TestCase):
             player = User.objects.get(username=f"Player {i}")
             for j in range(3):
                 Human.objects.create(
-                    name=f"Human {5*j+i}", player=player, status=Human.status_keys[i],
+                    name=f"Human {5*j+i}", owner=player, status=Human.status_keys[i],
                 )
                 Talent.objects.create(
-                    name=f"Talent {5*j+i}", player=player, status=Talent.status_keys[i],
+                    name=f"Talent {5*j+i}", owner=player, status=Talent.status_keys[i],
                 )
                 Aberrant.objects.create(
                     name=f"Aberrant {5*j+i}",
-                    player=player,
+                    owner=player,
                     status=Aberrant.status_keys[i],
                 )
         response = self.client.get("/tc/characters/")

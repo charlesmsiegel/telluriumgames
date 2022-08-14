@@ -1,13 +1,14 @@
 from django.db import models
 
-from core.models import Language, Material, Medium
+from core.models import Language, Material, Medium, Model
 
 from .focus import Paradigm, Practice
 
 
 # Create your models here.
-class MageFaction(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class MageFaction(Model):
+    type = "mage_faction"
+    
     languages = models.ManyToManyField(Language, blank=True)
     affinities = models.JSONField(default=list)
     paradigms = models.ManyToManyField(Paradigm, blank=True)
@@ -16,10 +17,6 @@ class MageFaction(models.Model):
     materials = models.ManyToManyField(Material, blank=True)
     founded = models.IntegerField(default=-5000)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name
 
     def get_all_paradigms(self):
         factions = [self]

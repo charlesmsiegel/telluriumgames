@@ -17,7 +17,7 @@ from wod.models.characters.mage.utils import (
     SPHERE_LIST,
     weighted_random_faction,
 )
-from wod.models.items.human import Item
+from wod.models.items.human import WoDItem
 
 
 # Create your models here.
@@ -27,7 +27,7 @@ class WonderResonanceRating(models.Model):
     rating = models.IntegerField(default=0)
 
 
-class Wonder(Item):
+class Wonder(WoDItem):
     type = "wonder"
 
     rank = models.IntegerField(default=0)

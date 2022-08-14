@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import View
 
 from wod.forms import RandomItemForm
-from wod.models.items.human import Item
+from wod.models.items.human import WoDItem
 from wod.models.items.mage import Artifact, Charm, Grimoire, Talisman
 
 from . import human, mage, werewolf
@@ -18,7 +18,7 @@ class ItemIndexView(View):
         return render(request, "wod/items/index.html", context)
 
     def get_context(self):
-        items = Item.objects.all().order_by("name")
+        items = WoDItem.objects.all().order_by("name")
         context = {}
         context["items"] = items
         context["form"] = RandomItemForm
@@ -50,7 +50,7 @@ class GenericItemDetailView(View):
     }
 
     def get(self, request, *args, **kwargs):
-        item = Item.objects.get(pk=kwargs["pk"])
+        item = WoDItem.objects.get(pk=kwargs["pk"])
         if item.type in self.views:
             return self.views[item.type].as_view()(request, *args, **kwargs)
         return redirect("wod:items:index")

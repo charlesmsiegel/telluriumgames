@@ -11,7 +11,7 @@ from cod.models.characters.mage import (
     Path,
     Proximi,
     ProximiFamily,
-    Rote,
+    CoDRote,
 )
 from cod.models.characters.mortal import MeritRating
 
@@ -193,18 +193,18 @@ class PathUpdateView(UpdateView):
 
 
 class RoteDetailView(DetailView):
-    model = Rote
+    model = CoDRote
     template_name = "cod/characters/mage/rote/detail.html"
 
 
 class RoteCreateView(CreateView):
-    model = Rote
+    model = CoDRote
     fields = "__all__"
     template_name = "cod/characters/mage/rote/create.html"
 
 
 class RoteUpdateView(UpdateView):
-    model = Rote
+    model = CoDRote
     fields = "__all__"
     template_name = "cod/characters/mage/rote/update.html"
 

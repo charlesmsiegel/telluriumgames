@@ -1,21 +1,21 @@
 from django.views.generic import CreateView, DetailView, UpdateView
 
-from wod.models.items.human import Item, MeleeWeapon, RangedWeapon, ThrownWeapon, Weapon
+from wod.models.items.human import WoDItem, MeleeWeapon, RangedWeapon, ThrownWeapon, Weapon
 
 
 class ItemDetailView(DetailView):
-    model = Item
+    model = WoDItem
     template_name = "wod/items/human/item/detail.html"
 
 
 class ItemCreateView(CreateView):
-    model = Item
+    model = WoDItem
     fields = "__all__"
     template_name = "wod/items/human/item/create.html"
 
 
 class ItemUpdateView(UpdateView):
-    model = Item
+    model = WoDItem
     fields = "__all__"
     template_name = "wod/items/human/item/create.html"
 

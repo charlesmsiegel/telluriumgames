@@ -6,7 +6,7 @@ from tc.models.characters.human import (
     EdgeRating,
     EnhancedEdge,
     Human,
-    Path,
+    TCPath,
     PathConnection,
     PathRating,
     Specialty,
@@ -96,18 +96,18 @@ class EnhancedEdgeUpdateView(UpdateView):
 
 
 class PathDetailView(DetailView):
-    model = Path
+    model = TCPath
     template_name = "tc/characters/human/path/detail.html"
 
 
 class PathCreateView(CreateView):
-    model = Path
+    model = TCPath
     fields = "__all__"
     template_name = "tc/characters/human/path/create.html"
 
 
 class PathUpdateView(UpdateView):
-    model = Path
+    model = TCPath
     fields = "__all__"
     template_name = "tc/characters/human/path/update.html"
 

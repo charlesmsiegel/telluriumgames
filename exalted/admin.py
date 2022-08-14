@@ -1,15 +1,15 @@
 from django.contrib import admin
 
-from exalted.models.characters.mortals import ExMortal, Intimacy, Merit, Specialty
+from exalted.models.characters.mortals import ExMortal, Intimacy, ExMerit, ExSpecialty
 
 
 # Register your models here.
 @admin.register(ExMortal)
 class MortalAdmin(admin.ModelAdmin):
-    list_display = ("name", "player")
+    list_display = ("name", "owner")
 
 
-@admin.register(Specialty)
+@admin.register(ExSpecialty)
 class SpecialtyAdmin(admin.ModelAdmin):
     list_display = ("name", "ability")
 
@@ -19,6 +19,6 @@ class IntimacyAdmin(admin.ModelAdmin):
     list_display = ("name", "type", "strength", "is_negative")
 
 
-@admin.register(Merit)
+@admin.register(ExMerit)
 class MeritAdmin(admin.ModelAdmin):
     list_display = ("name", "type", "merit_class")

@@ -65,7 +65,7 @@ class RandomCharacterView(View):
         else:
             user = None
         char = self.chars[request.POST["char_type"]].objects.create(
-            name=request.POST["char_name"], player=user
+            name=request.POST["char_name"], owner=user
         )
         try:
             xp = int(request.POST["xp"])

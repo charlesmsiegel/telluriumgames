@@ -7,7 +7,7 @@ from wod.models.characters.human import (
     Group,
     Human,
     MeritFlaw,
-    Specialty,
+    WoDSpecialty,
 )
 
 
@@ -97,18 +97,18 @@ class MeritFlawUpdateView(UpdateView):
 
 
 class SpecialtyDetailView(DetailView):
-    model = Specialty
+    model = WoDSpecialty
     template_name = "wod/characters/human/specialty/detail.html"
 
 
 class SpecialtyCreateView(CreateView):
-    model = Specialty
+    model = WoDSpecialty
     fields = "__all__"
     template_name = "wod/characters/human/specialty/create.html"
 
 
 class SpecialtyUpdateView(UpdateView):
-    model = Specialty
+    model = WoDSpecialty
     fields = "__all__"
     template_name = "wod/characters/human/specialty/update.html"
 

@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
+from core.models import Model
 
 from core.utils import add_dot, weighted_choice
 from wod.models.characters.human import Derangement, Group, Human
@@ -14,17 +15,15 @@ from wod.models.items.werewolf import Fetish
 from .wtahuman import WtAHuman
 
 
-class Tribe(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class Tribe(Model):
+    type = "tribe"
+    
     willpower = models.IntegerField(default=3)
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name
 
 
-class Camp(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class Camp(Model):
+    type = "camp"
+    
     tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.CASCADE)
     camp_type = models.CharField(
         max_length=100,
@@ -36,31 +35,21 @@ class Camp(models.Model):
             ("philosophy", "Philosophy"),
         ],
     )
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name
 
 
-class Gift(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class Gift(Model):
+    type = "gift"
+    
     rank = models.IntegerField(default=0)
     allowed = models.JSONField(default=dict)
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name
 
 
-class Rite(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class Rite(Model):
+    type = "rite"
+    
     level = models.IntegerField(default=0)
-    type = models.CharField(max_length=100, default="")
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name
-
+    rite_type = models.CharField(max_length=100, default="")
+    
 
 class Werewolf(WtAHuman):
     type = "garou"
@@ -808,9 +797,9 @@ class Pack(Group):
         return sum(x.totem for x in self.members.all())
 
 
-class RenownIncident(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-
+class RenownIncident(Model):
+    type = "renown_incident"
+    
     glory = models.IntegerField(default=0)
     honor = models.IntegerField(default=0)
     wisdom = models.IntegerField(default=0)
@@ -819,16 +808,8 @@ class RenownIncident(models.Model):
     only_once = models.BooleanField(default=False)
     breed = models.CharField(default="", max_length=10)
     rite = models.ForeignKey(Rite, null=True, blank=True, on_delete=models.CASCADE)
-    description = models.TextField(default="")
 
-    def __str__(self):
-        return self.name
-
-
-class BattleScar(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    description = models.TextField(default="")
+class BattleScar(Model):
+    type = "battle_scar"
+    
     glory = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.name

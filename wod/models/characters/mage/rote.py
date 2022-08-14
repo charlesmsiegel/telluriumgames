@@ -1,10 +1,12 @@
 from django.db import models
 from django.urls import reverse
+from core.models import Model
 
 
 # Create your models here.
-class Effect(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class Effect(Model):
+    type = "effect"
+    
     correspondence = models.IntegerField(default=0)
     time = models.IntegerField(default=0)
     spirit = models.IntegerField(default=0)
@@ -16,7 +18,6 @@ class Effect(models.Model):
     prime = models.IntegerField(default=0)
     rote_cost = models.IntegerField(default=0)
     max_sphere = models.IntegerField(default=0)
-    description = models.TextField(default="")
 
     def __str__(self):
         dots = {

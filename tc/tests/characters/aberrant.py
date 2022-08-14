@@ -10,7 +10,7 @@ from tc.models.characters.aberrant import (
     Tag,
     Transformation,
 )
-from tc.models.characters.human import Edge, EnhancedEdge, Path, Specialty, Trick
+from tc.models.characters.human import Edge, EnhancedEdge, TCPath, Specialty, Trick
 
 
 # Create your tests here.
@@ -18,7 +18,7 @@ class TestPower(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
         self.character = Aberrant.objects.create(
-            name="", player=self.player, might=3, dexterity=2, science=1
+            name="", owner=self.player, might=3, dexterity=2, science=1
         )
         self.power = Power.objects.create(name="Test", cost=4)
         self.tag = Tag.objects.create(name="Reduced Cost", ratings=[2, 4, 6, 8, 10])
@@ -89,7 +89,7 @@ class TestPower(TestCase):
 class TestAberrant(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Aberrant.objects.create(name="", player=self.player)
+        self.character = Aberrant.objects.create(name="", owner=self.player)
         for i in range(1, 5):
             for j in range(5):
                 MegaEdge.objects.create(name=f"MegaEdge {5*i+j}", ratings=[i, i + 1])
@@ -654,14 +654,14 @@ class TestAberrant(TestCase):
 class TestRandomAberrant(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = Aberrant.objects.create(name="", player=self.player)
+        self.character = Aberrant.objects.create(name="", owner=self.player)
         for skill in self.character.get_skills().keys():
             for i in range(5):
                 Specialty.objects.create(name=f"{skill} Specialty {i}", skill=skill)
                 Trick.objects.create(name=f"{skill} Trick {i}", skill=skill)
         for t in ["origin", "role", "society"]:
             for k in range(3):
-                p = Path.objects.create(name=f"{t} Path {k}", type=t)
+                p = TCPath.objects.create(name=f"{t} Path {k}", type=t)
                 for i in range(4):
                     for j in range(4):
                         p.skills.append(
@@ -781,7 +781,7 @@ class TestRandomAberrant(TestCase):
         self.assertLess(self.character.xp, 15)
 
     def test_random(self):
-        character = Aberrant.objects.create(player=self.player)
+        character = Aberrant.objects.create(owner=self.player)
         self.assertFalse(character.has_name())
         self.assertFalse(character.has_concept())
         self.assertFalse(character.has_paths())
@@ -808,7 +808,7 @@ class TestAberrantDetailView(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Aberrant.objects.create(
-            name="Test Character", player=User.objects.get(username="Test User"),
+            name="Test Character", owner=User.objects.get(username="Test User"),
         )
 
     def test_mortal_detail_view_status_code(self):

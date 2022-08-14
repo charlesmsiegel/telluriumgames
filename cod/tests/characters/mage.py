@@ -11,9 +11,9 @@ from cod.models.characters.mage import (
     Path,
     Proximi,
     ProximiFamily,
-    Rote,
+    CoDRote,
 )
-from cod.models.characters.mortal import Merit, Specialty
+from cod.models.characters.mortal import CoDMerit, CoDSpecialty
 from core.models import Material
 
 # Create your tests here.
@@ -61,7 +61,7 @@ def mage_setup(mage):
             (5, "making"),
         ]:
             for i in range(10):
-                Rote.objects.create(
+                CoDRote.objects.create(
                     name=f"{practice.title()} {arcana.title()} Rote {i}",
                     practice=practice,
                     arcanum=arcana,
@@ -70,17 +70,17 @@ def mage_setup(mage):
 
     for i in range(1, 5):
         for merit_type in ["Physical", "Social", "Mental", "Fighting", "Mage"]:
-            Merit.objects.create(
+            CoDMerit.objects.create(
                 name=f"{merit_type} Merit {i}",
                 ratings=[i, i + 1],
                 merit_type=merit_type,
             )
-            Merit.objects.create(
+            CoDMerit.objects.create(
                 name=f"{merit_type} Merit {i + 5}",
                 ratings=[i, i + 1],
                 merit_type=merit_type,
             )
-            Merit.objects.create(
+            CoDMerit.objects.create(
                 name=f"{merit_type} Merit {i + 10}",
                 ratings=[i, i + 1],
                 merit_type=merit_type,
@@ -88,7 +88,7 @@ def mage_setup(mage):
 
     for skill in mage.get_skills():
         for i in range(5):
-            Specialty.objects.create(name=f"{skill.title()} {i}", skill=skill)
+            CoDSpecialty.objects.create(name=f"{skill.title()} {i}", skill=skill)
 
     for i in range(10):
         Numina.objects.create(name=f"Numina {i}")
@@ -97,7 +97,7 @@ def mage_setup(mage):
 class TestMage(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.mage = Mage.objects.create(name="", player=self.player)
+        self.mage = Mage.objects.create(name="", owner=self.player)
         mage_setup(self.mage)
 
     # def test_wisdom(self):
@@ -142,9 +142,9 @@ class TestMage(TestCase):
         self.assertTrue(self.mage.has_legacy())
 
     def test_filter_legacy(self):
-        both_wrong = Mage.objects.create(name="Neither Character", player=self.player)
-        path_right = Mage.objects.create(name="Path Character", player=self.player)
-        order_right = Mage.objects.create(name="Order Character", player=self.player)
+        both_wrong = Mage.objects.create(name="Neither Character", owner=self.player)
+        path_right = Mage.objects.create(name="Path Character", owner=self.player)
+        order_right = Mage.objects.create(name="Order Character", owner=self.player)
         legacy = Legacy.objects.get(name="Path 0 Order 0 Death Legacy")
         right_order = Order.objects.get(name="Order 0")
         wrong_order = Order.objects.get(name="Order 1")
@@ -182,15 +182,15 @@ class TestMage(TestCase):
         self.assertTrue(self.mage.has_merits())
         self.mage.gnosis = 2
         self.assertFalse(self.mage.has_merits())
-        m1 = Merit.objects.get(name="Mage Merit 3")
-        m2 = Merit.objects.get(name="Mage Merit 2")
+        m1 = CoDMerit.objects.get(name="Mage Merit 3")
+        m2 = CoDMerit.objects.get(name="Mage Merit 2")
         self.mage.add_merit(m1)
         self.mage.add_merit(m2)
         self.assertTrue(self.mage.has_merits())
         self.mage.gnosis = 1
         self.assertFalse(self.mage.has_merits())
-        m3 = Merit.objects.get(name="Physical Merit 3")
-        m4 = Merit.objects.get(name="Physical Merit 2")
+        m3 = CoDMerit.objects.get(name="Physical Merit 3")
+        m4 = CoDMerit.objects.get(name="Physical Merit 2")
         self.mage.add_merit(m3)
         self.mage.add_merit(m4)
         self.assertTrue(self.mage.has_merits())
@@ -321,9 +321,9 @@ class TestMage(TestCase):
         self.mage.matter = 2
         self.mage.life = 1
         self.assertFalse(self.mage.has_rotes())
-        self.mage.add_rote(Rote.objects.get(name="Compelling Death Rote 0"))
-        self.mage.add_rote(Rote.objects.get(name="Compelling Matter Rote 0"))
-        self.mage.add_rote(Rote.objects.get(name="Compelling Life Rote 0"))
+        self.mage.add_rote(CoDRote.objects.get(name="Compelling Death Rote 0"))
+        self.mage.add_rote(CoDRote.objects.get(name="Compelling Matter Rote 0"))
+        self.mage.add_rote(CoDRote.objects.get(name="Compelling Life Rote 0"))
         self.assertTrue(self.mage.has_rotes())
 
     def test_add_rote(self):
@@ -331,10 +331,10 @@ class TestMage(TestCase):
         self.mage.save()
         num = self.mage.rotes.count()
         self.assertTrue(
-            self.mage.add_rote(Rote.objects.get(name="Compelling Death Rote 0"))
+            self.mage.add_rote(CoDRote.objects.get(name="Compelling Death Rote 0"))
         )
         self.assertFalse(
-            self.mage.add_rote(Rote.objects.get(name="Compelling Matter Rote 0"))
+            self.mage.add_rote(CoDRote.objects.get(name="Compelling Matter Rote 0"))
         )
         self.assertEqual(self.mage.rotes.count(), num + 1)
 
@@ -343,11 +343,11 @@ class TestMage(TestCase):
         self.mage.matter = 2
         self.mage.life = 1
         self.assertEqual(self.mage.total_rotes(), 0)
-        self.mage.add_rote(Rote.objects.get(name="Compelling Death Rote 0"))
+        self.mage.add_rote(CoDRote.objects.get(name="Compelling Death Rote 0"))
         self.assertEqual(self.mage.total_rotes(), 1)
-        self.mage.add_rote(Rote.objects.get(name="Compelling Matter Rote 0"))
+        self.mage.add_rote(CoDRote.objects.get(name="Compelling Matter Rote 0"))
         self.assertEqual(self.mage.total_rotes(), 2)
-        self.mage.add_rote(Rote.objects.get(name="Compelling Life Rote 0"))
+        self.mage.add_rote(CoDRote.objects.get(name="Compelling Life Rote 0"))
         self.assertEqual(self.mage.total_rotes(), 3)
 
     def test_filter_rotes(self):
@@ -358,7 +358,7 @@ class TestMage(TestCase):
         self.assertEqual(len(self.mage.filter_rotes()), 50)
         self.mage.spirit = 1
         self.assertEqual(len(self.mage.filter_rotes()), 60)
-        r = Rote.objects.get(name="Compelling Death Rote 0")
+        r = CoDRote.objects.get(name="Compelling Death Rote 0")
         self.assertIn(r, self.mage.filter_rotes())
         self.mage.add_rote(r)
         self.assertNotIn(r, self.mage.filter_rotes())
@@ -432,7 +432,7 @@ class TestMage(TestCase):
 class TestRandomMage(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.mage = Mage.objects.create(name="", player=self.player)
+        self.mage = Mage.objects.create(name="", owner=self.player)
         mage_setup(self.mage)
 
     def test_random_path(self):
@@ -520,7 +520,7 @@ class TestRandomMage(TestCase):
 class TestMageDetailView(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.mage = Mage.objects.create(name="", player=self.player)
+        self.mage = Mage.objects.create(name="", owner=self.player)
 
     def test_mage_detail_view_status_code(self):
         response = self.client.get(f"/cod/characters/{self.mage.id}/")
@@ -534,7 +534,7 @@ class TestMageDetailView(TestCase):
 class TestProximiFamily(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.mage = Mage.objects.create(name="", player=self.player)
+        self.mage = Mage.objects.create(name="", owner=self.player)
         mage_setup(self.mage)
         self.proximi_family = ProximiFamily.objects.create(name="Test Family")
 
@@ -563,7 +563,7 @@ class TestProximiFamily(TestCase):
     def test_has_possible_blessings(self):
         self.assertFalse(self.proximi_family.has_possible_blessings())
         while sum(x.level for x in self.proximi_family.possible_blessings.all()) < 30:
-            options = Rote.objects.filter(
+            options = CoDRote.objects.filter(
                 level__lte=3, arcanum__in=["death", "space", "time"]
             )
             choice = random.choice(options)
@@ -579,7 +579,7 @@ class TestProximiFamily(TestCase):
         self.assertFalse(self.proximi_family.has_possible_blessings())
         L = []
         while sum(x.level for x in L) < 30:
-            options = Rote.objects.filter(
+            options = CoDRote.objects.filter(
                 level__lte=3, arcanum__in=["death", "space", "time"]
             ).exclude(pk__in=[x.id for x in L])
             choice = random.choice(options)
@@ -592,7 +592,7 @@ class TestProximiFamily(TestCase):
 class TestProximi(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.mage = Mage.objects.create(name="", player=self.player)
+        self.mage = Mage.objects.create(name="", owner=self.player)
         mage_setup(self.mage)
         for path in Path.objects.all():
             for arcana in ARCANA:
@@ -604,7 +604,7 @@ class TestProximi(TestCase):
                     )
                     L = []
                     while sum(x.level for x in L) < 30:
-                        options = Rote.objects.filter(
+                        options = CoDRote.objects.filter(
                             level__lte=3, arcanum__in=["death", "space", "time"]
                         )
                         choice = random.choice(options)
@@ -617,7 +617,7 @@ class TestProximi(TestCase):
                         ):
                             L.append(choice)
                     proximi_family.set_possible_blessings(L)
-        self.proximi = Proximi.objects.create(name="Test Proximi", player=self.player)
+        self.proximi = Proximi.objects.create(name="Test Proximi", owner=self.player)
 
     def test_has_family(self):
         self.assertFalse(self.proximi.has_family())
@@ -671,7 +671,7 @@ class TestProximi(TestCase):
 class TestRandomProximiFamily(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.mage = Mage.objects.create(name="", player=self.player)
+        self.mage = Mage.objects.create(name="", owner=self.player)
         mage_setup(self.mage)
         self.proximi_family = ProximiFamily.objects.create(name="Test Family")
 
@@ -706,7 +706,7 @@ class TestRandomProximiFamily(TestCase):
 class TestRandomProximi(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.mage = Mage.objects.create(name="", player=self.player)
+        self.mage = Mage.objects.create(name="", owner=self.player)
         mage_setup(self.mage)
         for path in Path.objects.all():
             for arcana in ARCANA:
@@ -718,7 +718,7 @@ class TestRandomProximi(TestCase):
                     )
                     L = []
                     while sum(x.level for x in L) < 30:
-                        options = Rote.objects.filter(
+                        options = CoDRote.objects.filter(
                             level__lte=3, arcanum__in=["death", "space", "time"]
                         )
                         choice = random.choice(options)
@@ -731,7 +731,7 @@ class TestRandomProximi(TestCase):
                         ):
                             L.append(choice)
                     proximi_family.set_possible_blessings(L)
-        self.proximi = Proximi.objects.create(name="", player=self.player)
+        self.proximi = Proximi.objects.create(name="", owner=self.player)
 
     def test_random_family(self):
         self.assertFalse(self.proximi.has_family())
@@ -776,7 +776,7 @@ class TestRandomProximi(TestCase):
 class TestProximiFamilyDetailView(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.mage = Mage.objects.create(name="", player=self.player)
+        self.mage = Mage.objects.create(name="", owner=self.player)
         mage_setup(self.mage)
         self.proximi_family = ProximiFamily.objects.create(name="Test Family")
         self.proximi_family.random()
@@ -799,7 +799,7 @@ class TestProximiFamilyDetailView(TestCase):
 class TestProximiDetailView(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.proximi = Proximi.objects.create(name="Test Proximus", player=self.player)
+        self.proximi = Proximi.objects.create(name="Test Proximus", owner=self.player)
 
     def test_proximi_detail_view_status_code(self):
         response = self.client.get(f"/cod/characters/{self.proximi.id}/")

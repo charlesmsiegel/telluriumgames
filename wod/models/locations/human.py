@@ -3,13 +3,13 @@ from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
 from wod.models.characters.human import Character
+from core.models import Model
 
 
 # Create your models here.
-class Location(PolymorphicModel):
+class Location(Model):
     type = "location"
 
-    name = models.CharField(max_length=100, unique=True)
     parent = models.ForeignKey(
         "Location",
         blank=True,
@@ -21,10 +21,6 @@ class Location(PolymorphicModel):
     shroud = models.IntegerField(default=7)
     dimension_barrier = models.IntegerField(default=6)
     reality_zone = models.TextField(blank=True, null=True)
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name
 
     def get_absolute_url(self):
         return reverse("wod:locations:location", args=[str(self.id)])

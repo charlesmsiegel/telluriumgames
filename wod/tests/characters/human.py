@@ -9,7 +9,7 @@ from wod.models.characters.human import (
     Group,
     Human,
     MeritFlaw,
-    Specialty,
+    WoDSpecialty,
 )
 from wod.models.characters.mage import Cabal, Mage
 from wod.models.characters.werewolf import Pack, Werewolf
@@ -19,7 +19,7 @@ from wod.models.characters.werewolf import Pack, Werewolf
 class TestCharacter(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="User1", password="12345")
-        self.character = Character.objects.create(player=self.player, name="")
+        self.character = Character.objects.create(owner=self.player, name="")
 
     def test_has_name(self):
         self.assertFalse(self.character.has_name())
@@ -50,7 +50,7 @@ class TestCharacter(TestCase):
 class TestHuman(TestCase):
     def setUp(self) -> None:
         self.user = User.objects.create_user(username="Test")
-        self.character = Human.objects.create(name="", player=self.user)
+        self.character = Human.objects.create(name="", owner=self.user)
         for i in range(10):
             Archetype.objects.create(name=f"Archetype {i}")
         for i in range(1, 6):
@@ -61,12 +61,12 @@ class TestHuman(TestCase):
                     MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i], human=True)
         for i in range(10):
             for stat in self.character.get_abilities():
-                Specialty.objects.create(
+                WoDSpecialty.objects.create(
                     name=f"{stat.replace('_', ' ').title()} Specialty {i}", stat=stat,
                 )
         for i in range(10):
             for stat in self.character.get_attributes():
-                Specialty.objects.create(
+                WoDSpecialty.objects.create(
                     name=f"{stat.replace('_', ' ').title()} Specialty {i}", stat=stat,
                 )
         for i in range(20):
@@ -457,7 +457,7 @@ class TestHuman(TestCase):
         num = self.character.specialties.count()
         self.assertTrue(
             self.character.add_specialty(
-                Specialty.objects.get(name="Athletics Specialty 3", stat="athletics")
+                WoDSpecialty.objects.get(name="Athletics Specialty 3", stat="athletics")
             )
         )
         self.assertEqual(self.character.specialties.count(), num + 1)
@@ -467,7 +467,7 @@ class TestHuman(TestCase):
         self.assertEqual(len(self.character.filter_specialties(stat="strength")), 10)
         self.assertEqual(len(self.character.filter_specialties(stat="athletics")), 10)
         self.character.add_specialty(
-            Specialty.objects.get(name="Athletics Specialty 3", stat="athletics")
+            WoDSpecialty.objects.get(name="Athletics Specialty 3", stat="athletics")
         )
         self.assertEqual(len(self.character.filter_specialties(stat="athletics")), 9)
 
@@ -738,7 +738,7 @@ class TestHuman(TestCase):
         for i in range(5):
             self.character.add_mf(m, i + 1)
             self.assertEqual(self.character.languages.count(), 2 * (i + 1))
-        lt = Human.objects.create(name="language tester", player=self.user)
+        lt = Human.objects.create(name="language tester", owner=self.user)
         self.assertEqual(lt.languages.count(), 0)
         lt.add_mf(m, 1)
         self.assertEqual(lt.languages.count(), 1)
@@ -749,18 +749,18 @@ class TestHuman(TestCase):
 class TestRandomHuman(TestCase):
     def setUp(self) -> None:
         self.user = User.objects.create_user(username="Test")
-        self.character = Human.objects.create(name="", player=self.user)
+        self.character = Human.objects.create(name="", owner=self.user)
         for i in range(10):
             Archetype.objects.create(name=f"Archetype {i}")
         for i in range(10):
             for ability in self.character.get_abilities():
-                Specialty.objects.create(
+                WoDSpecialty.objects.create(
                     name=f"{ability.replace('_', ' ').title()} Specialty {i}",
                     stat=ability,
                 )
         for i in range(10):
             for attribute in self.character.get_attributes():
-                Specialty.objects.create(
+                WoDSpecialty.objects.create(
                     name=f"{attribute.replace('_', ' ').title()} Specialty {i}",
                     stat=attribute,
                 )
@@ -885,7 +885,7 @@ class TestCharacterIndexView(TestCase):
     def test_index_content(self):
         player = User.objects.create_user(username="User1", password="12345")
         for i in range(10):
-            Human.objects.create(name=f"Human {i}", player=player)
+            Human.objects.create(name=f"Human {i}", owner=player)
         response = self.client.post("/wod/characters/")
         for i in range(10):
             self.assertContains(response, f"Human {i}")
@@ -894,7 +894,7 @@ class TestCharacterIndexView(TestCase):
 class TestHumanDetailView(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="Test")
-        self.human = Human.objects.create(name="Test Human", player=self.player)
+        self.human = Human.objects.create(name="Test Human", owner=self.player)
 
     def test_mage_detail_view_status_code(self):
         response = self.client.get(f"/wod/characters/{self.human.id}/")
@@ -909,13 +909,13 @@ class TestGenericCharacterDetailViews(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="Test")
         self.character = Character.objects.create(
-            name="Test Character", player=self.player
+            name="Test Character", owner=self.player
         )
-        self.human = Human.objects.create(name="Test Human", player=self.player)
+        self.human = Human.objects.create(name="Test Human", owner=self.player)
         self.werewolf = Werewolf.objects.create(
-            name="Test Werewolf", player=self.player
+            name="Test Werewolf", owner=self.player
         )
-        self.mage = Mage.objects.create(name="Test Mage", player=self.player)
+        self.mage = Mage.objects.create(name="Test Mage", owner=self.player)
 
     def test_character_detail_view_templates(self):
         response = self.client.get(f"/wod/characters/{self.character.id}/")

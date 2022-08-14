@@ -3,7 +3,7 @@ from glob import glob1
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from wod.models.characters.human import Archetype, MeritFlaw, Specialty
+from wod.models.characters.human import Archetype, MeritFlaw, WoDSpecialty
 from wod.models.characters.werewolf import (
     Camp,
     Gift,
@@ -20,7 +20,7 @@ from wod.models.items.werewolf import Fetish
 # Create your tests here.
 def werewolf_setup(player):
     for i in range(5):
-        w = Werewolf.objects.create(name=f"Character {i}", player=player)
+        w = Werewolf.objects.create(name=f"Character {i}", owner=player)
     for i in range(5):
         Totem.objects.create(name=f"Totem {i}", cost=(10 + i))
     for i in range(1, 6):
@@ -47,12 +47,12 @@ def werewolf_setup(player):
         MeritFlaw.objects.create(name=f"Flaw {i}", ratings=[-i], garou=True)
     for i in range(10):
         for trait in w.get_attributes():
-            Specialty.objects.create(
+            WoDSpecialty.objects.create(
                 name=f"{trait.replace('_', ' ').title()} {i}", stat=trait
             )
 
         for trait in w.get_abilities():
-            Specialty.objects.create(
+            WoDSpecialty.objects.create(
                 name=f"{trait.replace('_', ' ').title()} {i}", stat=trait
             )
     for i in range(20):
@@ -78,7 +78,7 @@ class TestWerewolf(TestCase):
     def setUp(self):
         self.player = User.objects.create_user(username="Player")
         self.character = Werewolf.objects.create(
-            name="Test Werewolf", player=self.player
+            name="Test Werewolf", owner=self.player
         )
         werewolf_setup(self.player)
 
@@ -692,7 +692,7 @@ class TestRandomTotem(TestCase):
 class TestRandomWerewolf(TestCase):
     def setUp(self):
         self.player = User.objects.create_user(username="Player")
-        self.character = Werewolf.objects.create(name="", player=self.player)
+        self.character = Werewolf.objects.create(name="", owner=self.player)
         werewolf_setup(self.player)
 
     def test_random_tribe(self):
@@ -804,7 +804,7 @@ class TestPack(TestCase):
         p = Pack.objects.create(name="Pack")
         self.assertEqual(p.total_totem(), 0)
         for i in range(4):
-            w = Werewolf.objects.create(name=f"Werewolf {i}", player=self.player)
+            w = Werewolf.objects.create(name=f"Werewolf {i}", owner=self.player)
             w.totem = i + 1
             w.save()
             p.members.add(w)
@@ -828,7 +828,7 @@ class TestPack(TestCase):
     def test_random_totem(self):
         p = Pack.objects.create(name="Pack")
         for i in range(4):
-            w = Werewolf.objects.create(name=f"Werewolf {i}", player=self.player)
+            w = Werewolf.objects.create(name=f"Werewolf {i}", owner=self.player)
             w.totem = i + 1
             w.save()
             p.members.add(w)
@@ -846,7 +846,7 @@ class TestWerewolfDetailView(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="User1", password="12345")
         self.werewolf = Werewolf.objects.create(
-            name="Test Werewolf", player=self.player
+            name="Test Werewolf", owner=self.player
         )
 
     def test_werewolf_detail_view_status_code(self):

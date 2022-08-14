@@ -5,29 +5,14 @@ from django.db import models
 from django.db.models import F
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
+from core.models import Model
 
 from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
 
 # Create your models here.
-class Human(PolymorphicModel):
+class Human(Model):
     type = "human"
-
-    name = models.CharField(max_length=100)
-    player = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="tc_characters",
-        blank=True,
-        null=True,
-    )
-
-    status_keys = ["Un", "Sub", "App", "Ret", "Dec"]
-    statuses = ["Unfinished", "Submitted", "Approved", "Retired", "Deceased"]
-    status = models.CharField(
-        max_length=3, choices=zip(status_keys, statuses), default="Un"
-    )
-    display = models.BooleanField(default=True)
 
     concept = models.CharField(max_length=100)
 
@@ -35,7 +20,7 @@ class Human(PolymorphicModel):
     short_term_aspiration_2 = models.CharField(max_length=100, default="")
     long_term_aspiration = models.CharField(max_length=100, default="")
 
-    paths = models.ManyToManyField("Path", blank=True, through="PathRating")
+    paths = models.ManyToManyField("TCPath", blank=True, through="PathRating")
 
     intellect = models.IntegerField(default=1)
     cunning = models.IntegerField(default=1)
@@ -82,8 +67,6 @@ class Human(PolymorphicModel):
     ethnicity = models.CharField(blank=True, null=True, max_length=100)
     sex = models.CharField(blank=True, null=True, max_length=100)
 
-    description = models.TextField(default="")
-
     defense = models.IntegerField(default=1)
     xp = models.IntegerField(default=0)
 
@@ -91,9 +74,6 @@ class Human(PolymorphicModel):
 
     class Meta:
         ordering = ("name",)
-
-    def __str__(self):
-        return self.name
 
     def get_absolute_url(self):
         return reverse("tc:characters:character", args=[str(self.id)])
@@ -479,9 +459,9 @@ class Human(PolymorphicModel):
 
     def random_path(self, path_type=None):
         if path_type is None:
-            paths = Path.objects.all()
+            paths = TCPath.objects.all()
         else:
-            paths = Path.objects.filter(type=path_type)
+            paths = TCPath.objects.filter(type=path_type)
         paths = [x for x in paths if self.path_rating(x) != 5]
         d = {p: self.path_rating(p) for p in paths}
         choice = weighted_choice(d)
@@ -493,14 +473,14 @@ class Human(PolymorphicModel):
         self.random_path(path_type="society")
 
     def path_rating(self, path):
-        if not isinstance(path, Path):
-            path = Path.objects.get(name=path)
+        if not isinstance(path, TCPath):
+            path = TCPath.objects.get(name=path)
         if path not in self.paths.all():
             return 0
         return PathRating.objects.get(character=self, path=path).rating
 
     def total_path_rating(self):
-        return sum(self.path_rating(x) for x in Path.objects.all())
+        return sum(self.path_rating(x) for x in TCPath.objects.all())
 
     def has_connection(self, path):
         if self.path_rating(path) == 0:
@@ -713,7 +693,7 @@ class Human(PolymorphicModel):
             return self.spend_xp_trick(trait)
         if trait in [x.name for x in self.filter_specialties()]:
             return self.spend_xp_specialty(trait)
-        if trait in [x.name for x in Path.objects.all() if self.path_rating(x) < 5]:
+        if trait in [x.name for x in TCPath.objects.all() if self.path_rating(x) < 5]:
             return self.spend_xp_path(trait)
         if trait in ["Favor FIN", "Favor FOR", "Favor RES"]:
             return self.spend_xp_approach(trait)
@@ -787,10 +767,10 @@ class Human(PolymorphicModel):
     def spend_xp_path(self, trait):
         cost = self.xp_cost("path")
         if self.xp >= cost:
-            if self.add_path(Path.objects.get(name=trait)):
+            if self.add_path(TCPath.objects.get(name=trait)):
                 self.xp -= cost
                 self.add_to_spend(
-                    trait, self.path_rating(Path.objects.get(name=trait)), cost
+                    trait, self.path_rating(TCPath.objects.get(name=trait)), cost
                 )
                 return True
             return False
@@ -844,7 +824,7 @@ class Human(PolymorphicModel):
                 trait = random.choice(self.filter_specialties()).name
             elif trait_type == "paths":
                 trait = weighted_choice(
-                    {p.name: self.path_rating(p) for p in Path.objects.all()}
+                    {p.name: self.path_rating(p) for p in TCPath.objects.all()}
                 )
             elif trait_type == "approach":
                 trait = random.choice(["Favor FIN", "Favor FOR", "Favor RES"])
@@ -866,8 +846,9 @@ class Human(PolymorphicModel):
         self.save()
 
 
-class Path(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class TCPath(Model):
+    type = "path"
+    
     type = models.CharField(
         max_length=100,
         choices=[("origin", "origin"), ("role", "role"), ("society", "society")],
@@ -876,17 +857,14 @@ class Path(models.Model):
     skills = models.JSONField(default=list)
     edges = models.ManyToManyField("Edge", blank=True)
     gift_keywords = models.JSONField(default=list)
-    description = models.TextField(default="")
 
     class Meta:
         ordering = ("name",)
 
-    def __str__(self):
-        return self.name
 
+class Specialty(Model):
+    type = "specialty"
 
-class Specialty(models.Model):
-    name = models.CharField(max_length=100, unique=True)
     skill = models.CharField(max_length=100)
 
     class Meta:
@@ -900,27 +878,22 @@ class Specialty(models.Model):
         return f"{self.name} ({self.display_skill()})"
 
 
-class Trick(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class Trick(Model):
+    type = "trick"
+    
     skill = models.CharField(max_length=100)
-    description = models.TextField(default="")
 
     class Meta:
         ordering = ("name",)
 
-    def __str__(self):
-        return self.name
 
-
-class Edge(PolymorphicModel):
+class Edge(Model):
     type = "edge"
 
-    name = models.CharField(max_length=100, unique=True)
     ratings = models.JSONField(default=list)
     min_rating = models.IntegerField(default=0)
     max_rating = models.IntegerField(default=0)
     prereqs = models.JSONField(default=list)
-    description = models.TextField(default="")
 
     class Meta:
         ordering = ("name",)
@@ -930,23 +903,17 @@ class Edge(PolymorphicModel):
         self.min_rating = min(self.ratings)
         super().save(*args, **kwargs)
 
-    def __str__(self):
-        return self.name
-
     def check_prereqs(self, character):
         return check_prereqs(self, character)
 
 
-class EnhancedEdge(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class EnhancedEdge(Model):
+    type = "enhanced_edge"
+
     prereqs = models.JSONField(default=list)
-    description = models.TextField(default="")
 
     def check_prereqs(self, character):
         return check_prereqs(self, character)
-
-    def __str__(self):
-        return self.name
 
 
 class EdgeRating(models.Model):
@@ -964,7 +931,7 @@ class PathRating(models.Model):
     character = models.ForeignKey(
         Human, null=False, blank=False, on_delete=models.CASCADE
     )
-    path = models.ForeignKey(Path, null=False, blank=False, on_delete=models.CASCADE)
+    path = models.ForeignKey(TCPath, null=False, blank=False, on_delete=models.CASCADE)
     connection = models.ForeignKey(
         "PathConnection", null=True, blank=True, on_delete=models.CASCADE
     )
@@ -974,10 +941,10 @@ class PathRating(models.Model):
         return f"{self.path.name}: {self.rating}"
 
 
-class PathConnection(models.Model):
-    name = models.CharField(max_length=100)
-    path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.CASCADE)
-    description = models.TextField(default="")
+class PathConnection(Model):
+    type = "path_connection"
+    
+    path = models.ForeignKey(TCPath, blank=True, null=True, on_delete=models.CASCADE)
 
 
 def prereq_satisfied(prereq, character, obj):

@@ -1,29 +1,19 @@
 from django.db import models
+from core.models import Model
 
 
 # Create your models here.
-class Instrument(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    description = models.TextField(default="")
+class Instrument(Model):
+    type = "instrumnet"
 
-    def __str__(self):
-        return self.name
-
-
-class Practice(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class Practice(Model):
+    type = "practice"
+    
     abilities = models.JSONField(default=list)
     instruments = models.ManyToManyField(Instrument, blank=True)
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name
 
 
-class Paradigm(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class Paradigm(Model):
+    type = 'paradigm'
+
     practices = models.ManyToManyField(Practice, blank=True)
-    description = models.TextField(default="")
-
-    def __str__(self):
-        return self.name

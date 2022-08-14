@@ -4,9 +4,9 @@ from django.views.generic import CreateView, DetailView, UpdateView, View
 from exalted.models.characters.mortals import (
     ExMortal,
     Intimacy,
-    Merit,
+    ExMerit,
     MeritRating,
-    Specialty,
+    ExSpecialty,
 )
 
 
@@ -36,18 +36,18 @@ class MortalUpdateView(UpdateView):
 
 
 class SpecialtyDetailView(DetailView):
-    model = Specialty
+    model = ExSpecialty
     template_name = "exalted/characters/mortal/specialty/detail.html"
 
 
 class SpecialtyCreateView(CreateView):
-    model = Specialty
+    model = ExSpecialty
     fields = "__all__"
     template_name = "exalted/characters/mortal/specialty/create.html"
 
 
 class SpecialtyUpdateView(UpdateView):
-    model = Specialty
+    model = ExSpecialty
     fields = "__all__"
     template_name = "exalted/characters/mortal/specialty/update.html"
 
@@ -70,17 +70,17 @@ class IntimacyUpdateView(UpdateView):
 
 
 class MeritDetailView(DetailView):
-    model = Merit
+    model = ExMerit
     template_name = "exalted/characters/mortal/merit/detail.html"
 
 
 class MeritCreateView(CreateView):
-    model = Merit
+    model = ExMerit
     fields = "__all__"
     template_name = "exalted/characters/mortal/merit/create.html"
 
 
 class MeritUpdateView(UpdateView):
-    model = Merit
+    model = ExMerit
     fields = "__all__"
     template_name = "exalted/characters/mortal/merit/update.html"

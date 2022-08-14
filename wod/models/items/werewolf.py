@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
 
-from wod.models.items.human import Item
 from wod.models.items.mage import Wonder
 
 

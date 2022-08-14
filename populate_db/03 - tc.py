@@ -2,12 +2,12 @@ from tc.models.characters.aberrant import MegaEdge, Power, Tag, Transformation
 from tc.models.characters.human import (
     Edge,
     EnhancedEdge,
-    Path,
+    TCPath,
     PathConnection,
     Specialty,
     Trick,
 )
-from tc.models.characters.talent import Gift, MomentOfInspiration
+from tc.models.characters.talent import TCGift, MomentOfInspiration
 
 Specialty.objects.create(skill="aim", name="Rifle")
 Specialty.objects.create(skill="aim", name="Pistol")
@@ -406,7 +406,7 @@ wondrous_item = EnhancedEdge.objects.create(
     name="Wondrous Item", prereqs=[[("Artifact", 3)]]
 )
 
-adventurer = Path.objects.create(
+adventurer = TCPath.objects.create(
     name="Adventurer",
     type="origin",
     skills=["aim", "athletics", "pilot", "survival"],
@@ -426,7 +426,7 @@ adventurer.save()
 PathConnection.objects.create(name="High-risk Hobbyists", path=adventurer)
 PathConnection.objects.create(name="Bomb Disposal Experts", path=adventurer)
 PathConnection.objects.create(name="Travel Enthusiasts", path=adventurer)
-life_of_privilege = Path.objects.create(
+life_of_privilege = TCPath.objects.create(
     name="Life of Privilege",
     type="origin",
     skills=["command", "culture", "integrity", "persuasion"],
@@ -437,7 +437,7 @@ life_of_privilege.save()
 PathConnection.objects.create(name="School Alumni", path=life_of_privilege)
 PathConnection.objects.create(name="College Club Membership", path=life_of_privilege)
 PathConnection.objects.create(name="Local Political Affiliates", path=life_of_privilege)
-military_brat = Path.objects.create(
+military_brat = TCPath.objects.create(
     name="Military Brat",
     type="origin",
     skills=["command", "enigmas", "integrity", "technology"],
@@ -460,7 +460,7 @@ military_brat.save()
 x = PathConnection.objects.create(name="Past Teacher", path=military_brat)
 x = PathConnection.objects.create(name="Military Commander", path=military_brat)
 x = PathConnection.objects.create(name="Steadfast Friend", path=military_brat)
-street_rat = Path.objects.create(
+street_rat = TCPath.objects.create(
     name="Street Rat",
     type="origin",
     skills=["athletics", "enigmas", "larceny", "survival"],
@@ -481,7 +481,7 @@ x = PathConnection.objects.create(name="Street Gangs", path=street_rat)
 x = PathConnection.objects.create(name="Street Mentor", path=street_rat)
 x = PathConnection.objects.create(name="Helpful Family Member", path=street_rat)
 x = PathConnection.objects.create(name="Store Clerks", path=street_rat)
-suburbia = Path.objects.create(
+suburbia = TCPath.objects.create(
     name="Suburbia",
     type="origin",
     skills=["culture", "empathy", "humanities", "technology"],
@@ -492,7 +492,7 @@ suburbia.save()
 x = PathConnection.objects.create(name="Favorite Professor", path=suburbia)
 x = PathConnection.objects.create(name="Neighbor Friend", path=suburbia)
 x = PathConnection.objects.create(name="Influential Teacher", path=suburbia)
-survivalist = Path.objects.create(
+survivalist = TCPath.objects.create(
     name="Survivalist",
     type="origin",
     skills=["aim", "close_combat", "medicine", "survival"],
@@ -515,7 +515,7 @@ survivalist.save()
 x = PathConnection.objects.create(name="Park Ranger", path=survivalist)
 x = PathConnection.objects.create(name="Conspiracy Groups", path=survivalist)
 x = PathConnection.objects.create(name="RV Neighborhood", path=survivalist)
-charismatic_leader = Path.objects.create(
+charismatic_leader = TCPath.objects.create(
     name="Charismatic Leader",
     type="role",
     skills=["command", "empathy", "humanities", "persuasion"],
@@ -526,7 +526,7 @@ charismatic_leader.save()
 x = PathConnection.objects.create(name="Corporate Board", path=charismatic_leader)
 x = PathConnection.objects.create(name="Megachurch", path=charismatic_leader)
 x = PathConnection.objects.create(name="Political Allies", path=charismatic_leader)
-combat_specialist = Path.objects.create(
+combat_specialist = TCPath.objects.create(
     name="Combat Specialist",
     type="role",
     skills=["aim", "athletics", "close_combat", "integrity"],
@@ -551,7 +551,7 @@ combat_specialist.save()
 x = PathConnection.objects.create(name="Military Unit", path=combat_specialist,)
 x = PathConnection.objects.create(name="Police Officers", path=combat_specialist,)
 x = PathConnection.objects.create(name="Training Master", path=combat_specialist,)
-detective = Path.objects.create(
+detective = TCPath.objects.create(
     name="Detective",
     type="role",
     skills=["aim", "enigmas", "integrity", "persuasion"],
@@ -575,7 +575,7 @@ x = PathConnection.objects.create(name="Police Officers", path=detective)
 x = PathConnection.objects.create(name="Paid Informant", path=detective)
 x = PathConnection.objects.create(name="News Reporter", path=detective)
 x = PathConnection.objects.create(name="Friendly Neighborhood Watch", path=detective)
-medical_practitioner = Path.objects.create(
+medical_practitioner = TCPath.objects.create(
     name="Medical Practitioner",
     type="role",
     skills=["empathy", "medicine", "science", "survival"],
@@ -598,7 +598,7 @@ x = PathConnection.objects.create(name="Surgeon", path=medical_practitioner)
 x = PathConnection.objects.create(name="Pharmacists", path=medical_practitioner)
 x = PathConnection.objects.create(name="Thankful Patient", path=medical_practitioner)
 x = PathConnection.objects.create(name="EMTs", path=medical_practitioner)
-pilot_path = Path.objects.create(
+pilot_path = TCPath.objects.create(
     name="Pilot",
     type="role",
     skills=["aim", "close_combat", "pilot", "technology"],
@@ -618,7 +618,7 @@ pilot_path.save()
 x = PathConnection.objects.create(name="Important Client", path=pilot_path)
 x = PathConnection.objects.create(name="Criminal Organization", path=pilot_path)
 x = PathConnection.objects.create(name="Indebted Passenger", path=pilot_path)
-sneak = Path.objects.create(
+sneak = TCPath.objects.create(
     name="The Sneak",
     type="role",
     skills=["athletics", "enigmas", "larceny", "technology"],
@@ -636,7 +636,7 @@ sneak.save()
 x = PathConnection.objects.create(name="Criminal Organization", path=sneak)
 x = PathConnection.objects.create(name="Best Friend", path=sneak)
 x = PathConnection.objects.create(name="Police Insider", path=sneak)
-technology_expert = Path.objects.create(
+technology_expert = TCPath.objects.create(
     name="Technology Expert",
     type="role",
     skills=["culture", "enigmas", "science", "technology"],
@@ -656,7 +656,7 @@ x = PathConnection.objects.create(name="Chop Shop Worker", path=technology_exper
 x = PathConnection.objects.create(name="Research Scientists", path=technology_expert)
 x = PathConnection.objects.create(name="Machinist Friend", path=technology_expert)
 
-athlete = Path.objects.create(
+athlete = TCPath.objects.create(
     name="Athlete", type="role", skills=["aim", "athletics", "culture", "integrity"]
 )
 athlete.edges.add(adrenaline_spike, ambidextrous, fame, hardy, swift, wealth)
@@ -666,7 +666,7 @@ x = PathConnection.objects.create(name="Fans", path=athlete)
 x = PathConnection.objects.create(name="Manager", path=athlete)
 x = PathConnection.objects.create(name="Sports Journalist", path=athlete)
 x = PathConnection.objects.create(name="Teammates", path=athlete)
-celebrity = Path.objects.create(
+celebrity = TCPath.objects.create(
     name="Celebrity",
     type="role",
     skills=["culture", "empathy", "humanities", "persuasion"],
@@ -687,7 +687,7 @@ x = PathConnection.objects.create(name="Fellow Celebrities", path=celebrity)
 x = PathConnection.objects.create(name="Legal Counsel", path=celebrity)
 x = PathConnection.objects.create(name="Manager", path=celebrity)
 x = PathConnection.objects.create(name="Politicians", path=celebrity)
-consultant = Path.objects.create(
+consultant = TCPath.objects.create(
     name="Consultant",
     type="role",
     skills=[
@@ -708,7 +708,7 @@ x = PathConnection.objects.create(name="Elite Agency", path=consultant)
 x = PathConnection.objects.create(name="Government Official", path=consultant)
 x = PathConnection.objects.create(name="Media Agent or Personality", path=consultant)
 x = PathConnection.objects.create(name="Policy Wonk", path=consultant)
-corporate = Path.objects.create(
+corporate = TCPath.objects.create(
     name="Corporate",
     type="role",
     skills=["command", "humanities", "integrity", "persuasion"],
@@ -721,7 +721,7 @@ x = PathConnection.objects.create(name="Lawyers", path=corporate)
 x = PathConnection.objects.create(name="Financiers", path=corporate)
 x = PathConnection.objects.create(name="Investors", path=corporate)
 
-aeon_society = Path.objects.create(
+aeon_society = TCPath.objects.create(
     name="&AElig;on Society",
     type="society",
     skills=["humanities", "persuasion", "science", "larceny"],
@@ -746,7 +746,7 @@ x = PathConnection.objects.create(
     name="Allies in Government positions", path=aeon_society
 )
 x = PathConnection.objects.create(name="Grateful Citizens", path=aeon_society)
-project_utopia = Path.objects.create(
+project_utopia = TCPath.objects.create(
     name="Project Utopia",
     type="society",
     skills=["athletics", "close_combat", "command", "integrity"],
@@ -768,7 +768,7 @@ x = PathConnection.objects.create(name="Team Tomorrow", path=project_utopia)
 x = PathConnection.objects.create(name="Squad of Peacekeepers", path=project_utopia)
 x = PathConnection.objects.create(name="Doctor from Nova Affairs", path=project_utopia)
 x = PathConnection.objects.create(name="DeVries Recruiter", path=project_utopia)
-teragen = Path.objects.create(
+teragen = TCPath.objects.create(
     name="Teragen",
     type="society",
     skills=["command", "culture", "integrity", "persuasion"],
@@ -792,7 +792,7 @@ x = PathConnection.objects.create(name="Mystic Seeker", path=teragen)
 x = PathConnection.objects.create(name="Nova Rights Activist", path=teragen)
 x = PathConnection.objects.create(name="Salon Philosopher", path=teragen)
 x = PathConnection.objects.create(name="Would-be Cult Leader", path=teragen)
-directive = Path.objects.create(
+directive = TCPath.objects.create(
     name="The Directive",
     type="society",
     skills=["aim", "larceny", "integrity", "technology"],
@@ -811,7 +811,7 @@ x = PathConnection.objects.create(name="Government Intelligence Agent", path=dir
 x = PathConnection.objects.create(name="Law Enforcement Officer", path=directive)
 x = PathConnection.objects.create(name="Military Special Ops", path=directive)
 x = PathConnection.objects.create(name="Scientific or Technical Expert", path=directive)
-elites = Path.objects.create(
+elites = TCPath.objects.create(
     name="Elites",
     type="society",
     skills=["aim", "athletics", "close_combat", "integrity"],
@@ -823,7 +823,7 @@ x = PathConnection.objects.create(name="Former Soldier", path=elites)
 x = PathConnection.objects.create(name="Nova Ronin", path=elites)
 x = PathConnection.objects.create(name="Paramilitary Commander", path=elites)
 x = PathConnection.objects.create(name="Security Consultant", path=elites)
-daedalus_league = Path.objects.create(
+daedalus_league = TCPath.objects.create(
     name="The Daedalus League",
     type="society",
     skills=["athletics", "pilot", "science", "technology"],
@@ -852,7 +852,7 @@ x = PathConnection.objects.create(name="Astronomy Hobbyist", path=daedalus_leagu
 x = PathConnection.objects.create(name="Astrophysics Professor", path=daedalus_league)
 x = PathConnection.objects.create(name="Test Pilot", path=daedalus_league)
 
-nine = Path.objects.create(
+nine = TCPath.objects.create(
     name="9",
     type="society",
     skills=["aim", "larceny", "integrity", "technology"],
@@ -867,7 +867,7 @@ PathConnection.objects.create(name="Safe House Owner", path=nine)
 PathConnection.objects.create(name="Weapons Dealer", path=nine)
 PathConnection.objects.create(name="Lab Worker", path=nine)
 
-aeon_society = Path.objects.create(
+aeon_society = TCPath.objects.create(
     name="Aeon Society",
     type="society",
     skills=["aim", "close_combat", "enigmas", "pilot"],
@@ -879,7 +879,7 @@ PathConnection.objects.create(name="High Political Figure", path=aeon_society)
 PathConnection.objects.create(name="Military Advisor", path=aeon_society)
 PathConnection.objects.create(name="Large Charity Fund Manager", path=aeon_society)
 
-archangel = Path.objects.create(
+archangel = TCPath.objects.create(
     name="Archangel",
     type="society",
     skills=["close_combat", "empathy", "integrity", "persuasion"],
@@ -901,7 +901,7 @@ PathConnection.objects.create(name="Homeland Security Officer", path=archangel)
 PathConnection.objects.create(name="Criminal with a Heart of Gold", path=archangel)
 PathConnection.objects.create(name="Hactivist", path=archangel)
 
-global_cartography_initiative = Path.objects.create(
+global_cartography_initiative = TCPath.objects.create(
     name="The Global Cartography Initiative",
     type="society",
     skills=["enigmas", "humanities", "larceny", "survival"],
@@ -920,7 +920,7 @@ PathConnection.objects.create(name="Mercenery", path=global_cartography_initiati
 PathConnection.objects.create(name="Pirate", path=global_cartography_initiative)
 PathConnection.objects.create(name="Pirate Hunter", path=global_cartography_initiative)
 
-neptune_foundation = Path.objects.create(
+neptune_foundation = TCPath.objects.create(
     name="The Neptune Foundation",
     type="society",
     skills=["command", "integrity", "medicine", "persuasion"],
@@ -954,7 +954,7 @@ PathConnection.objects.create(
     name="Local Government Representative", path=neptune_foundation
 )
 
-pharoahs_lightkeepers = Path.objects.create(
+pharoahs_lightkeepers = TCPath.objects.create(
     name="The Pharoah's Lightkeepers",
     type="society",
     skills=["aim", "close_combat", "enigmas", "pilot"],
@@ -972,7 +972,7 @@ PathConnection.objects.create(
 PathConnection.objects.create(name="Police Officers", path=pharoahs_lightkeepers)
 
 
-alert_status_1 = Path.objects.create(
+alert_status_1 = TCPath.objects.create(
     name="Alert Status 1",
     type="society",
     skills=["aim", "enigmas", "persuasion", "technology"],
@@ -996,7 +996,7 @@ PathConnection.objects.create(
     name="Friendly Agent of a Rival Nation", path=alert_status_1
 )
 
-la_revolte_eclatante = Path.objects.create(
+la_revolte_eclatante = TCPath.objects.create(
     name="La Revolte Eclatante",
     type="society",
     skills=["aim", "medicine", "pilot", "technology"],
@@ -1021,7 +1021,7 @@ PathConnection.objects.create(
 PathConnection.objects.create(name="Street Gangs", path=la_revolte_eclatante)
 PathConnection.objects.create(name="Violent Anarchists", path=la_revolte_eclatante)
 
-les_fantomes = Path.objects.create(
+les_fantomes = TCPath.objects.create(
     name="Les Fantomes",
     type="society",
     skills=["athletics", "culture", "larceny", "technology"],
@@ -1036,7 +1036,7 @@ PathConnection.objects.create(
     name="Grudgingly Respectful Interpol Agent", path=les_fantomes
 )
 
-noer = Path.objects.create(
+noer = TCPath.objects.create(
     name="National Office of Emergency Research",
     type="society",
     skills=["command", "enigmas", "humanities", "persuasion"],
@@ -1051,7 +1051,7 @@ PathConnection.objects.create(name="Off-Record Inside Informant", path=noer)
 PathConnection.objects.create(name="Paraphysical Research Study Group", path=noer)
 PathConnection.objects.create(name="UFO Witness", path=noer)
 
-theseus_club = Path.objects.create(
+theseus_club = TCPath.objects.create(
     name="The Theseus Club",
     type="society",
     skills=["aim", "athletics", "larceny", "technology"],
@@ -1071,7 +1071,7 @@ PathConnection.objects.create(name="FBI Agent", path=theseus_club)
 PathConnection.objects.create(name="Local Hunting-Club President", path=theseus_club)
 PathConnection.objects.create(name="Wealthy Do-Gooder", path=theseus_club)
 
-transcendant_alliance = Path.objects.create(
+transcendant_alliance = TCPath.objects.create(
     name="The Transcendent Alliance",
     type="society",
     skills=["culture", "medicine", "science", "technology"],
@@ -1105,7 +1105,7 @@ PathConnection.objects.create(
 )
 PathConnection.objects.create(name="Skilled Programmers", path=transcendant_alliance)
 
-triton_foundation = Path.objects.create(
+triton_foundation = TCPath.objects.create(
     name="Triton Foundation",
     type="society",
     skills=["enigmas", "medicine", "persuasion", "science"],
@@ -1167,222 +1167,222 @@ MomentOfInspiration.objects.create(
 )
 MomentOfInspiration.objects.create(name="Violence", attributes=["might"])
 
-Gift.objects.create(name="A Friend in Every Port", keywords=["constant", "luck"])
-Gift.objects.create(name="A Great Memory for Faces", keywords=["constant", "luck"])
-Gift.objects.create(name="Always Connected", keywords=["constant", "luck"])
-Gift.objects.create(name="Armor of Fate", keywords=["constant", "luck"])
-Gift.objects.create(name="Battlefield Entanglement", keywords=["constant", "luck"])
-Gift.objects.create(name="I Respect You", keywords=["momentary", "luck"])
-Gift.objects.create(name="Determined Defender", keywords=["constant", "luck"])
-Gift.objects.create(name="Device Mogul", keywords=["momentary", "luck"])
-Gift.objects.create(name="Don't Scratch the Paint!", keywords=["momentary", "luck"])
-Gift.objects.create(name="Easily Dismissed", keywords=["constant", "luck"])
-Gift.objects.create(name="Fairweather Friend", keywords=["momentary", "luck"])
-Gift.objects.create(name="For You", keywords=["momentary", "luck"])
-Gift.objects.create(name="Destined for Damage", keywords=["momentary", "luck"])
-Gift.objects.create(name="Impeccable Timing", keywords=["constant", "luck"])
-Gift.objects.create(name="Knee Deep in Brass", keywords=["momentary", "luck"])
-Gift.objects.create(name="Love and Loss", keywords=["momentary", "luck"])
-Gift.objects.create(name="Navigation Hazard", keywords=["constant", "luck"])
-Gift.objects.create(name="Roll the Dice", keywords=["momentary", "luck"])
-Gift.objects.create(name="Name in the Lights", keywords=["constant", "luck"])
-Gift.objects.create(
+TCGift.objects.create(name="A Friend in Every Port", keywords=["constant", "luck"])
+TCGift.objects.create(name="A Great Memory for Faces", keywords=["constant", "luck"])
+TCGift.objects.create(name="Always Connected", keywords=["constant", "luck"])
+TCGift.objects.create(name="Armor of Fate", keywords=["constant", "luck"])
+TCGift.objects.create(name="Battlefield Entanglement", keywords=["constant", "luck"])
+TCGift.objects.create(name="I Respect You", keywords=["momentary", "luck"])
+TCGift.objects.create(name="Determined Defender", keywords=["constant", "luck"])
+TCGift.objects.create(name="Device Mogul", keywords=["momentary", "luck"])
+TCGift.objects.create(name="Don't Scratch the Paint!", keywords=["momentary", "luck"])
+TCGift.objects.create(name="Easily Dismissed", keywords=["constant", "luck"])
+TCGift.objects.create(name="Fairweather Friend", keywords=["momentary", "luck"])
+TCGift.objects.create(name="For You", keywords=["momentary", "luck"])
+TCGift.objects.create(name="Destined for Damage", keywords=["momentary", "luck"])
+TCGift.objects.create(name="Impeccable Timing", keywords=["constant", "luck"])
+TCGift.objects.create(name="Knee Deep in Brass", keywords=["momentary", "luck"])
+TCGift.objects.create(name="Love and Loss", keywords=["momentary", "luck"])
+TCGift.objects.create(name="Navigation Hazard", keywords=["constant", "luck"])
+TCGift.objects.create(name="Roll the Dice", keywords=["momentary", "luck"])
+TCGift.objects.create(name="Name in the Lights", keywords=["constant", "luck"])
+TCGift.objects.create(
     name="Stash in Every City",
     keywords=["momentary", "luck"],
     prereqs=[[("Wealth", 3)]],
 )
-Gift.objects.create(name="Untouchable", keywords=["momentary", "luck"])
-Gift.objects.create(name="Voiding the Warranty", keywords=["momentary", "luck"])
-Gift.objects.create(name="Whodunnit", keywords=["momentary", "luck"])
-Gift.objects.create(name="X Marks the Spot", keywords=["momentary", "luck"])
-Gift.objects.create(
+TCGift.objects.create(name="Untouchable", keywords=["momentary", "luck"])
+TCGift.objects.create(name="Voiding the Warranty", keywords=["momentary", "luck"])
+TCGift.objects.create(name="Whodunnit", keywords=["momentary", "luck"])
+TCGift.objects.create(name="X Marks the Spot", keywords=["momentary", "luck"])
+TCGift.objects.create(
     name="Acme of Unchallenged Reason",
     keywords=["intellect", "momentary"],
     prereqs=[[("intellect", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Instant Expert",
     keywords=["intellect", "momentary"],
     prereqs=[[("intellect", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Rosetta Stone",
     keywords=["intellect", "constant"],
     prereqs=[[("humanities", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Apex Cunning", keywords=["cunning", "momentary"], prereqs=[[("cunning", 4)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Behold the Halo",
     keywords=["cunning", "momentary", "manipulation"],
     prereqs=[[("cunning", 3)], [("manipulation", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Mirrored Sunglasses",
     keywords=["cunning", "constant"],
     prereqs=[[("cunning", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Don't Mess With Me",
     keywords=["composure", "momentary"],
     prereqs=[[("composure", 5)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Internal Thermostat",
     keywords=["composure", "resolve", "stamina", "constant"],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="The Late, Late Shift",
     keywords=["composure", "constant", "resolve", "stamina"],
     prereqs=[[("composure", 2)], [("resolve", 2)], [("stamina", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Superlative Poise",
     keywords=["composure", "constant"],
     prereqs=[[("composure", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Fists of Stone", keywords=["might", "constant"], prereqs=[[("might", 3)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Last-Ditch Effort", keywords=["might", "momentary"], prereqs=[[("might", 4)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Speak Softly", keywords=["might", "constant"], prereqs=[[("might", 3)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Eyes Life a Cat",
     keywords=["dexterity", "constant"],
     prereqs=[[("larceny", 1)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="On the Head of a Pin",
     keywords=["dexterity", "constant"],
     prereqs=[[("dexterity", 2)]],
 )
-Gift.objects.create(name="Pretty Damned Fast", keywords=["dexterity", "momentary"])
-Gift.objects.create(
+TCGift.objects.create(name="Pretty Damned Fast", keywords=["dexterity", "momentary"])
+TCGift.objects.create(
     name="Cast-Iron Stomach",
     keywords=["stamina", "constant"],
     prereqs=[[("stamina", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Iron Lungs", keywords=["stamina", "constant"], prereqs=[[("stamina", 2)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Unrelenting", keywords=["stamina", "momentary"], prereqs=[[("stamina", 3)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Evil Overlord", keywords=["presence", "momentary"], prereqs=[[("command", 2)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Love Me and Despair",
     keywords=["presence", "constant"],
     prereqs=[[("presence", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="The Room Where It Happens", keywords=["presence", "momentary"]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="But Before I Die",
     keywords=["manipulation", "momentary"],
     prereqs=[[("manipulation", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Contain the Calamity",
     keywords=["manipulation", "momentary"],
     prereqs=[[("manipulation", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Never a Stranger",
     keywords=["manipulation", "constant"],
     prereqs=[[("manipulation", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Second Chance, First Impression",
     keywords=["manipulation", "momentary"],
     prereqs=[[("manipulation", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Calm Blue Ocean",
     keywords=["resolve", "momentary"],
     prereqs=[[("resolve", 4)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Indomitable Will",
     keywords=["resolve", "constant", "integrity"],
     prereqs=[[("resolve", 2)], [("integrity", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="An Extension of Myself",
     keywords=["constant", "aim", "close_combat"],
     prereqs=[[("aim", 3)], [("close_combat", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Murderous Totality",
     keywords=["aim", "momentary", "close_combat"],
     prereqs=[[("aim", 3)], [("close_combat", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Sharpshooter", keywords=["momentary", "aim"], prereqs=[[("aim", 4)]]
 )
-Gift.objects.create(name="Steady Hands", keywords=["constant", "aim"])
-Gift.objects.create(
+TCGift.objects.create(name="Steady Hands", keywords=["constant", "aim"])
+TCGift.objects.create(
     name="Trigger Discipline", keywords=["constant", "aim"], prereqs=[[("aim", 2)]]
 )
-Gift.objects.create(name="Warrior's Eye", keywords=["momentary", "aim", "close_combat"])
-Gift.objects.create(name="Contortionist", keywords=["constant", "athletics"])
-Gift.objects.create(
+TCGift.objects.create(name="Warrior's Eye", keywords=["momentary", "aim", "close_combat"])
+TCGift.objects.create(name="Contortionist", keywords=["constant", "athletics"])
+TCGift.objects.create(
     name="Fight Choreographer",
     keywords=["constant", "athletics", "close_combat"],
     prereqs=[[("athletics", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Lightning Reflexes",
     keywords=["constant", "athletics", "empathy"],
     prereqs=[[("athletics", 2)], [("empathy", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Moving Target",
     keywords=["constant", "athletics"],
     prereqs=[[("athletics", 2)]],
 )
-Gift.objects.create(name="Swan Dive", keywords=["momentary", "athletics"])
-Gift.objects.create(
+TCGift.objects.create(name="Swan Dive", keywords=["momentary", "athletics"])
+TCGift.objects.create(
     name="Enhanced Impact",
     keywords=["momentary", "close_combat"],
     prereqs=[[("close_combat", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Hidden Advantage",
     keywords=["momentary", "close_combat", "larceny"],
     prereqs=[[("close_combat", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Say That To My Face",
     keywords=["momentary", "close_combat", "command"],
     prereqs=[[("close_combat", 2)], [("command", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="After School Special",
     keywords=["momentary", "command", "persuasion"],
     prereqs=[[("command", 4)], [("persuasion", 4)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Chess Master", keywords=["momentary", "command"], prereqs=[[("command", 3)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Curses!",
     keywords=["momentary", "command", "persuasion"],
     prereqs=[[("command", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="The In and In",
     keywords=["constant", "command", "larceny"],
     prereqs=[[("larceny", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Public Education",
     keywords=["momentary", "command", "culture", "humanities", "science", "technology"],
     prereqs=[
@@ -1392,60 +1392,60 @@ Gift.objects.create(
         [("command", 2), ("technology", 3)],
     ],
 )
-Gift.objects.create(name="Rousing Speech", keywords=["momentary", "command"])
-Gift.objects.create(name="Theatre of Conflict", keywords=["momentary", "command"])
-Gift.objects.create(
+TCGift.objects.create(name="Rousing Speech", keywords=["momentary", "command"])
+TCGift.objects.create(name="Theatre of Conflict", keywords=["momentary", "command"])
+TCGift.objects.create(
     name="Disposable Minion",
     keywords=["momentary", "command"],
     prereqs=[[("command", 3)]],
 )
-Gift.objects.create(name="Cold Read", keywords=["constant", "culture", "empathy"])
-Gift.objects.create(
+TCGift.objects.create(name="Cold Read", keywords=["constant", "culture", "empathy"])
+TCGift.objects.create(
     name="Forgettable",
     keywords=["momentary", "culture", "larceny"],
     prereqs=[[("culture", 3)], [("larceny", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Politico", keywords=["momentary", "culture"], prereqs=[[("culture", 3)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="The Right Climate",
     keywords=["momentary", "culture", "empathy"],
     prereqs=[[("culture", 3)], [("empathy", 3)]],
 )
-Gift.objects.create(name="Ripped From the Headlines", keywords=["constant", "culture"])
-Gift.objects.create(name="That's Bad Luck", keywords=["constant", "culture"])
-Gift.objects.create(name="The Hook", keywords=["constant", "empathy"])
-Gift.objects.create(
+TCGift.objects.create(name="Ripped From the Headlines", keywords=["constant", "culture"])
+TCGift.objects.create(name="That's Bad Luck", keywords=["constant", "culture"])
+TCGift.objects.create(name="The Hook", keywords=["constant", "empathy"])
+TCGift.objects.create(
     name="I Know That Feel",
     keywords=["momentary", "empathy"],
     prereqs=[[("empathy", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Know Thine Enemy",
     keywords=["momentary", "empathy"],
     prereqs=[[("empathy", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Method Actor", keywords=["momentary", "empathy"], prereqs=[[("empathy", 3)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="True Friendship", keywords=["constant", "empathy"], prereqs=[[("empathy", 5)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Code Talker", keywords=["momentary", "enigmas"], prereqs=[[("enigmas", 2)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Deep System Scan",
     keywords=["momentary", "enigmas", "technology"],
     prereqs=[[("enigmas", 3)], [("technology", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Fortean Experience",
     keywords=["momentary", "enigmas", "science"],
     prereqs=[[("enigmas", 1), ("science", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Irons in the Fire",
     keywords=[
         "momentary",
@@ -1463,100 +1463,100 @@ Gift.objects.create(
         [("technology", 3)],
     ],
 )
-Gift.objects.create(name="Mystery Archaeology", keywords=["constant", "enigmas"])
-Gift.objects.create(
+TCGift.objects.create(name="Mystery Archaeology", keywords=["constant", "enigmas"])
+TCGift.objects.create(
     name="Plot Twist", keywords=["momentary", "enigmas"], prereqs=[[("enigmas", 3)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Loophole", keywords=["momentary", "humanities"], prereqs=[[("humanities", 3)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="No Stone Unturned", keywords=["constant", "humanities", "science"]
 )
-Gift.objects.create(name="Repeating History", keywords=["momentary", "humanities"])
-Gift.objects.create(
+TCGift.objects.create(name="Repeating History", keywords=["momentary", "humanities"])
+TCGift.objects.create(
     name="Steganographer",
     keywords=["constant", "humanities"],
     prereqs=[[("humanities", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Don't Lie to Me",
     keywords=["constant", "integrity"],
     prereqs=[[("integrity", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Reverse-Engineering Calamity", keywords=["momentary", "integrity"]
 )
-Gift.objects.create(name="Self-Sense", keywords=["constant", "integrity", "medicine"])
-Gift.objects.create(
+TCGift.objects.create(name="Self-Sense", keywords=["constant", "integrity", "medicine"])
+TCGift.objects.create(
     name="Shameless Lying Smile",
     keywords=["momentary", "integrity", "persuasion"],
     prereqs=[[("integrity", 2)], [("persuasion", 2)]],
 )
-Gift.objects.create(name="Take it on the Chin", keywords=["momentary", "integrity"])
-Gift.objects.create(
+TCGift.objects.create(name="Take it on the Chin", keywords=["momentary", "integrity"])
+TCGift.objects.create(
     name="Unquestionable",
     keywords=["momentary", "integrity"],
     prereqs=[[("integrity", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="A Special Present",
     keywords=["momentary", "larceny"],
     prereqs=[[("larceny", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="What Tripwire?", keywords=["momentary", "larceny"], prereqs=[[("larceny", 3)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Listen In", keywords=["momentary", "larceny"], prereqs=[[("larceny", 3)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Nimble-Fingered",
     keywords=["momentary", "larceny"],
     prereqs=[[("larceny", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Slip the Cuffs",
     keywords=["momentary", "larceny", "technology"],
     prereqs=[[("larceny", 2)], [("technology", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Doctor of Destruction",
     keywords=["constant", "aim", "close_combat", "medicine"],
     prereqs=[[("medicine", 4)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Home-Cooked Meal",
     keywords=["constant", "medicine"],
     prereqs=[[("medicine", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Instant Diagnosis",
     keywords=["momentary", "medicine"],
     prereqs=[[("medicine", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Shot Caller",
     keywords=["momentary", "aim", "close_combat", "medicine"],
     prereqs=[[("medicine", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Worse Than It Looks",
     keywords=["momentary", "medicine"],
     prereqs=[[("medicine", 3)]],
 )
-Gift.objects.create(name="Disarming Candor", keywords=["momentary", "persuasion"])
-Gift.objects.create(
+TCGift.objects.create(name="Disarming Candor", keywords=["momentary", "persuasion"])
+TCGift.objects.create(
     name="I'm On The List",
     keywords=["momentary", "persuasion"],
     prereqs=[[("persuasion", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Scathing Insult",
     keywords=["constant", "persusion"],
     prereqs=[[("persuasion", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Steely Gaze",
     keywords=["momentary", "persuasion", "manipulation", "composure"],
     prereqs=[
@@ -1565,55 +1565,55 @@ Gift.objects.create(
         [("persuasion", 2), ("composure", 3)],
     ],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Daredevil", keywords=["momentary", "pilot"], prereqs=[[("pilot", 3)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Greased Lightning", keywords=["momentary", "pilot"], prereqs=[[("pilot", 3)]]
 )
-Gift.objects.create(name="Head 'Em Off At The Pass", keywords=["constant", "pilot"])
-Gift.objects.create(
+TCGift.objects.create(name="Head 'Em Off At The Pass", keywords=["constant", "pilot"])
+TCGift.objects.create(
     name="Look Ma, No Hands!", keywords=["momentary", "pilot"], prereqs=[[("pilot", 3)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Wheelman", keywords=["constant", "pilot"], prereqs=[[("pilot", 2)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Eureka!", keywords=["constant", "science"], prereqs=[[("science", 3)]]
 )
-Gift.objects.create(name="Discovery Rush", keywords=["momentary", "science"])
-Gift.objects.create(
+TCGift.objects.create(name="Discovery Rush", keywords=["momentary", "science"])
+TCGift.objects.create(
     name="Blind Spots", keywords=["constant", "survival"], prereqs=[[("survival", 2)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Get the Drop", keywords=["momentary", "survival"], prereqs=[[("survival", 2)]]
 )
-Gift.objects.create(name="Internal Compass", keywords=["constant", "survival"])
-Gift.objects.create(
+TCGift.objects.create(name="Internal Compass", keywords=["constant", "survival"])
+TCGift.objects.create(
     name="Know Your Quarry",
     keywords=["momentary", "survival"],
     prereqs=[[("survival", 2)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Savage Beast", keywords=["momentary", "survival"], prereqs=[[("survival", 2)]]
 )
-Gift.objects.create(name="Through Wild Eyes", keywords=["momentary", "survival"])
-Gift.objects.create(
+TCGift.objects.create(name="Through Wild Eyes", keywords=["momentary", "survival"])
+TCGift.objects.create(
     name="Whisperer", keywords=["constant", "survival"], prereqs=[[("survival", 2)]]
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Wilderness Guide",
     keywords=["momentary", "survival"],
     prereqs=[[("survival", 3)]],
 )
-Gift.objects.create(name="Cut the Red Wire", keywords=["momentary", "technology"])
-Gift.objects.create(name="Digital Crackerjack", keywords=["momentary", "technology"])
-Gift.objects.create(
+TCGift.objects.create(name="Cut the Red Wire", keywords=["momentary", "technology"])
+TCGift.objects.create(name="Digital Crackerjack", keywords=["momentary", "technology"])
+TCGift.objects.create(
     name="Quick Fix",
     keywords=["momentary", "technology"],
     prereqs=[[("technology", 3)]],
 )
-Gift.objects.create(
+TCGift.objects.create(
     name="Sawed Off",
     keywords=["momentary", "technology"],
     prereqs=[[("technology", 3)]],

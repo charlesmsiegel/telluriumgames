@@ -7,7 +7,7 @@ from wod.models.characters.human import (
     Group,
     Human,
     MeritFlaw,
-    Specialty,
+    WoDSpecialty,
 )
 from wod.models.characters.mage import (
     Cabal,
@@ -35,7 +35,7 @@ from wod.models.characters.werewolf import (
     Tribe,
     Werewolf,
 )
-from wod.models.items.human import Item
+from wod.models.items.human import WoDItem
 from wod.models.items.mage import Grimoire, Library, Wonder
 from wod.models.items.werewolf import Fetish
 from wod.models.locations.human import City, Location
@@ -46,12 +46,12 @@ from wod.models.locations.werewolf import Caern
 # Register your models here.
 @admin.register(Character)
 class CharacterAdmin(admin.ModelAdmin):
-    list_display = ("name", "player")
+    list_display = ("name", "owner")
 
 
 @admin.register(Human)
 class HumanCharacterAdmin(admin.ModelAdmin):
-    list_display = ("name", "player")
+    list_display = ("name", "owner")
 
 
 @admin.register(Archetype)
@@ -65,7 +65,7 @@ class MeritFlawAdmin(admin.ModelAdmin):
     list_filter = ("human", "garou", "mage")
 
 
-@admin.register(Specialty)
+@admin.register(WoDSpecialty)
 class SpecialtyAdmin(admin.ModelAdmin):
     list_display = ("name", "stat")
 
@@ -79,7 +79,7 @@ class GroupAdmin(admin.ModelAdmin):
 class MageAdmin(admin.ModelAdmin):
     list_display = (
         "name",
-        "player",
+        "owner",
         "arete",
         "affiliation",
         "faction",
@@ -88,7 +88,7 @@ class MageAdmin(admin.ModelAdmin):
         "affinity_sphere",
     )
     list_filter = (
-        "player",
+        "owner",
         "arete",
         "essence",
         "affinity_sphere",
@@ -177,7 +177,7 @@ class ChantryAdmin(admin.ModelAdmin):
     list_display = ("name", "rank", "parent", "faction")
 
 
-@admin.register(Item)
+@admin.register(WoDItem)
 class ItemAdmin(admin.ModelAdmin):
     list_display = ("name",)
 

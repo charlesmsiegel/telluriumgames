@@ -2,20 +2,20 @@ import random
 
 from django.db import models
 from django.shortcuts import reverse
+from core.models import Model
 
 from core.utils import add_dot, weighted_choice
 
 
 # Create your models here.
-class Numina(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    description = models.TextField(default="")
+class Numina(Model):
+    type = "numina"
 
     def get_absolute_url(self):
         return reverse("cod:characters:ephemera:numina", kwargs={"pk": self.pk})
 
 
-class Ephemera(models.Model):
+class Ephemera(Model):
     RANK_TO_TRAIT_MAX = {
         1: 5,
         2: 7,
@@ -31,7 +31,6 @@ class Ephemera(models.Model):
         ("supernal being", "Supernal Being"),
     ]
 
-    name = models.CharField(max_length=100, unique=True)
     rank = models.IntegerField(default=0)
     ephemera_type = models.CharField(
         max_length=100, default="spirit", choices=TYPE_CHOICES
