@@ -598,8 +598,7 @@ class Human(Model):
                     0, choice.count_prereqs(self) + 1
                 ) <= choice.count_prereqs(self):
                     return self.add_edge(choice)
-                else:
-                    return False
+                return False
             return False
         return False
 

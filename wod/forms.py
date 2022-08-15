@@ -105,7 +105,7 @@ class ResonanceForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         _resonance_list = kwargs.pop("data_list", None)
-        super(ResonanceForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         # the "name" parameter will allow you to use the same widget more than once in the same
         # form, not setting this parameter differently will cause all inputs display the
         # same list.
