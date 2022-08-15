@@ -271,6 +271,16 @@ class TCGift(Model):
         else:
             keyword_prereq = True
         return check_prereqs(self, character) and keyword_prereq
+    
+    def count_prereqs(self, character):
+        if len(self.prereqs) == 0:
+            return 0
+        sets = []
+        for prereq_set in self.prereqs:
+            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
+            prereqs = [x for x in prereqs if x]
+            sets.append(len(prereqs))
+        return max(sets)
 
 
 class MomentOfInspiration(Model):

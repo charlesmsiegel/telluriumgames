@@ -898,6 +898,16 @@ class Edge(Model):
 
     def check_prereqs(self, character):
         return check_prereqs(self, character)
+    
+    def count_prereqs(self, character):
+        if len(self.prereqs) == 0:
+            return 0
+        sets = []
+        for prereq_set in self.prereqs:
+            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
+            prereqs = [x for x in prereqs if x]
+            sets.append(len(prereqs))
+        return max(sets)
 
 
 class EnhancedEdge(Model):
@@ -907,6 +917,16 @@ class EnhancedEdge(Model):
 
     def check_prereqs(self, character):
         return check_prereqs(self, character)
+    
+    def count_prereqs(self, character):
+        if len(self.prereqs) == 0:
+            return 0
+        sets = []
+        for prereq_set in self.prereqs:
+            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
+            prereqs = [x for x in prereqs if x]
+            sets.append(len(prereqs))
+        return max(sets)
 
 
 class EdgeRating(models.Model):

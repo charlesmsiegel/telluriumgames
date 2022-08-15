@@ -871,6 +871,16 @@ class CoDMerit(Model):
             if all(prereqs):
                 return True
         return False
+    
+    def count_prereqs(self, character):
+        if len(self.prereqs) == 0:
+            return 0
+        sets = []
+        for prereq_set in self.prereqs:
+            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
+            prereqs = [x for x in prereqs if x]
+            sets.append(len(prereqs))
+        return max(sets)
 
     def filter_details(self, character):
         possible_details = self.possible_details
