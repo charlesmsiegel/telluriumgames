@@ -87,7 +87,7 @@ class Attainment(Model):
             if all(prereqs):
                 return True
         return False
-    
+
     def count_prereqs(self, character):
         if len(self.prereqs) == 0:
             return 0
@@ -140,7 +140,7 @@ class Legacy(Model):
             if all(prereqs):
                 return True
         return False
-    
+
     def count_prereqs(self, character):
         if len(self.prereqs) == 0:
             return 0
@@ -433,7 +433,8 @@ class Mage(Mortal):
 
     def random_legacy(self):
         options = self.filter_legacies()
-        choice = random.choice(options)
+        options = {k: k.count_prereqs(self) for k in options}
+        choice = weighted_choice(options, floor=0, ceiling=100)
         return self.set_legacy(choice)
 
     def filter_legacies(self):

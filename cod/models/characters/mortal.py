@@ -546,7 +546,8 @@ class Mortal(Model):
     def random_merit(self, dots=7):
         merit_candidates = self.filter_merits(dots=dots)
         if len(merit_candidates) != 0:
-            choice = random.choice(merit_candidates)
+            merit_candidates = {k: k.count_prereqs(self) for k in merit_candidates}
+            choice = weighted_choice(merit_candidates, floor=0, ceiling=100)
             possible_details = choice.filter_details(self)
             if len(possible_details) == 0:
                 detail = None
@@ -871,7 +872,7 @@ class CoDMerit(Model):
             if all(prereqs):
                 return True
         return False
-    
+
     def count_prereqs(self, character):
         if len(self.prereqs) == 0:
             return 0
