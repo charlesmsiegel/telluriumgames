@@ -1,8 +1,8 @@
 from django import forms
 
+from core.fields import ListTextWidget
 from wod.models.characters.human import MeritFlaw
 from wod.models.characters.mage import Mage, MageFaction
-from core.fields import ListTextWidget
 
 
 class RandomCharacterForm(forms.Form):
@@ -98,14 +98,17 @@ class MageForm(forms.ModelForm):
             except (ValueError, TypeError):
                 pass
 
+
 class ResonanceForm(forms.Form):
     char_field_with_list = forms.CharField(required=True)
     rating = forms.IntegerField(max_value=5, min_value=1, initial=1)
 
     def __init__(self, *args, **kwargs):
-        _resonance_list = kwargs.pop('data_list', None)
+        _resonance_list = kwargs.pop("data_list", None)
         super(ResonanceForm, self).__init__(*args, **kwargs)
         # the "name" parameter will allow you to use the same widget more than once in the same
         # form, not setting this parameter differently will cause all inputs display the
         # same list.
-        self.fields['char_field_with_list'].widget = ListTextWidget(data_list=_resonance_list, name='resonance-list')
+        self.fields["char_field_with_list"].widget = ListTextWidget(
+            data_list=_resonance_list, name="resonance-list"
+        )

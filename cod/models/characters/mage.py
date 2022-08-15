@@ -88,6 +88,16 @@ class Attainment(Model):
                 return True
         return False
 
+    def count_prereqs(self, character):
+        if len(self.prereqs) == 0:
+            return 0
+        sets = []
+        for prereq_set in self.prereqs:
+            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
+            prereqs = [x for x in prereqs if x]
+            sets.append(len(prereqs))
+        return max(sets)
+
 
 class Legacy(Model):
     type = "legacy"
@@ -130,6 +140,16 @@ class Legacy(Model):
             if all(prereqs):
                 return True
         return False
+
+    def count_prereqs(self, character):
+        if len(self.prereqs) == 0:
+            return 0
+        sets = []
+        for prereq_set in self.prereqs:
+            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
+            prereqs = [x for x in prereqs if x]
+            sets.append(len(prereqs))
+        return max(sets)
 
 
 class CoDRote(Model):
@@ -413,7 +433,8 @@ class Mage(Mortal):
 
     def random_legacy(self):
         options = self.filter_legacies()
-        choice = random.choice(options)
+        options = {k: k.count_prereqs(self) for k in options}
+        choice = weighted_choice(options, floor=0, ceiling=100)
         return self.set_legacy(choice)
 
     def filter_legacies(self):

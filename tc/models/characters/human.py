@@ -580,7 +580,8 @@ class Human(Model):
                 if len([y for y in x.ratings if self.edge_rating(x) < y <= dots]) != 0
             ]
             if len(sublist) != 0:
-                choice = random.choice(sublist)
+                sublist = {k: k.count_prereqs(self) for k in sublist}
+                choice = weighted_choice(sublist, floor=0, ceiling=100)
                 num_dots = [
                     x for x in choice.ratings if self.edge_rating(choice) < x <= dots
                 ]
@@ -593,7 +594,12 @@ class Human(Model):
                 x for x in choice.ratings if self.edge_rating(choice) < x <= dots
             ]
             if choice.type == "edge" and len(num_dots) != 0:
-                return self.add_edge(choice)
+                if random.randint(
+                    0, choice.count_prereqs(self) + 1
+                ) <= choice.count_prereqs(self):
+                    return self.add_edge(choice)
+                else:
+                    return False
             return False
         return False
 
@@ -899,6 +905,16 @@ class Edge(Model):
     def check_prereqs(self, character):
         return check_prereqs(self, character)
 
+    def count_prereqs(self, character):
+        if len(self.prereqs) == 0:
+            return 0
+        sets = []
+        for prereq_set in self.prereqs:
+            prereqs = [prereq_satisfied(x, character, self) for x in prereq_set]
+            prereqs = [x for x in prereqs if x]
+            sets.append(len(prereqs))
+        return max(sets)
+
 
 class EnhancedEdge(Model):
     type = "enhanced_edge"
@@ -907,6 +923,16 @@ class EnhancedEdge(Model):
 
     def check_prereqs(self, character):
         return check_prereqs(self, character)
+
+    def count_prereqs(self, character):
+        if len(self.prereqs) == 0:
+            return 0
+        sets = []
+        for prereq_set in self.prereqs:
+            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
+            prereqs = [x for x in prereqs if x]
+            sets.append(len(prereqs))
+        return max(sets)
 
 
 class EdgeRating(models.Model):

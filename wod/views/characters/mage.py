@@ -114,10 +114,10 @@ class MageCreateView(CreateView):
     model = Mage
     form_class = MageForm
     template_name = "wod/characters/mage/mage/create.html"
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['resform'] = ResonanceForm(data_list=Resonance.objects.all())
+        context["resform"] = ResonanceForm(data_list=Resonance.objects.all())
         return context
 
 
