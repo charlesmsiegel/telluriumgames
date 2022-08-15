@@ -1,9 +1,10 @@
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, View
 
+from accounts.forms import CustomUSerCreationForm
 from accounts.models import Profile
 from cod.models.characters.mortal import Mortal
 from exalted.models.characters.mortals import ExMortal
@@ -20,7 +21,7 @@ from wod.models.characters.human import Character
 class SignUp(CreateView):
     """View for the Sign Up Page"""
 
-    form_class = UserCreationForm
+    form_class = CustomUSerCreationForm
     success_url = reverse_lazy("login")
     template_name = "accounts/signup.html"
 
