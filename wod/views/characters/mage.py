@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
-from wod.forms import MageForm
+from wod.forms import MageForm, ResonanceForm
 from wod.models.characters.human import MeritFlawRating
 from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.faction import MageFaction
@@ -113,8 +113,12 @@ class MageDetailView(View):
 class MageCreateView(CreateView):
     model = Mage
     form_class = MageForm
-    # fields = "__all__"
     template_name = "wod/characters/mage/mage/create.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['resform'] = ResonanceForm(data_list=Resonance.objects.all())
+        return context
 
 
 class MageUpdateView(UpdateView):
