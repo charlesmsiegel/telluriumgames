@@ -15,24 +15,24 @@ class TestSolar(TestCase):
     
     def test_set_caste(self):
         self.assertFalse(self.solar.has_caste())
-        self.assertTrue(self.solar.set_cast("dawn"))
+        self.assertTrue(self.solar.set_caste("dawn"))
         self.assertTrue(self.solar.has_caste())
 
     def test_has_caste(self):
         self.assertFalse(self.solar.has_caste())
-        self.solar.set_cast("dawn")
+        self.solar.set_caste("dawn")
         self.assertTrue(self.solar.has_caste())
         
     def test_caste_abilities(self):
-        self.solar.set_cast("dawn")
+        self.solar.set_caste("dawn")
         self.assertEqual(self.solar.caste_abilities, ["archery", "awareness", "brawl", "martial arts", "dodge", "melee", "resistance", "thrown", "war"])
-        self.solar.set_cast("zenith")
+        self.solar.set_caste("zenith")
         self.assertEqual(self.solar.caste_abilities, ["athletics", "integrity", "performance", "lore", "presence", "resistance", "survival", "war"])
-        self.solar.set_cast("twilight")
+        self.solar.set_caste("twilight")
         self.assertEqual(self.solar.caste_abilities, ["bureaucracy", "craft", "integrity", "investigation", "linguistics", "lore", "medicine", "occult"])
-        self.solar.set_cast("night")
+        self.solar.set_caste("night")
         self.assertEqual(self.solar.caste_abilities, ["athletics", "awareness", "dodge", "investigation", "larceny", "ride", "stealth", "socialize"])
-        self.solar.set_cast("eclipse")
+        self.solar.set_caste("eclipse")
         self.assertEqual(self.solar.caste_abilities, ["bureaucracy", "larceny", "linguistics", "occult", "presence", "ride", "sail", "socialize"])
         
     def test_add_favored_ability(self):
@@ -60,7 +60,7 @@ class TestSolar(TestCase):
         
     def test_set_supernal_ability(self):
         self.assertFalse(self.solar.has_supernal_ability())
-        self.solar.set_cast("dawn")
+        self.solar.set_caste("dawn")
         self.assertFalse(self.solar.has_supernal_ability())
         self.assertFalse(self.solar.set_supernal_ability("occult"))
         self.assertTrue(self.solar.set_supernal_ability("archery"))
@@ -68,7 +68,7 @@ class TestSolar(TestCase):
         
     def test_has_supernal_ability(self):
         self.assertFalse(self.solar.has_supernal_ability())
-        self.solar.set_cast("dawn")
+        self.solar.set_caste("dawn")
         self.assertFalse(self.solar.has_supernal_ability())
         self.solar.set_supernal_ability("archery")
         self.assertTrue(self.solar.has_supernal_ability())
@@ -115,20 +115,21 @@ class TestSolar(TestCase):
         self.assertTrue(self.solar.has_limit_trigger())
         
     def test_bonus_point_costs(self):
-        self.assertEqual(self.character.bonus_cost("primary attribute"), 4)
-        self.assertEqual(self.character.bonus_cost("secondary attribute"), 4)
-        self.assertEqual(self.character.bonus_cost("tertiary attribute"), 3)
-        self.assertEqual(self.character.bonus_cost("ability"), 2)
+        self.assertEqual(self.solar.bonus_cost("primary attribute"), 4)
+        self.assertEqual(self.solar.bonus_cost("secondary attribute"), 4)
+        self.assertEqual(self.solar.bonus_cost("tertiary attribute"), 3)
+        self.assertEqual(self.solar.bonus_cost("ability"), 2)
         self.assertEqual(self.solar.bonus_cost("caste ability"), 1)
         self.assertEqual(self.solar.bonus_cost("favored ability"), 1)
-        self.assertEqual(self.character.bonus_cost("specialty"), 1)
-        self.assertEqual(self.character.bonus_cost("merit"), 1)
-        self.assertEqual(self.character.bonus_cost("willpower"), 2)
+        self.assertEqual(self.solar.bonus_cost("specialty"), 1)
+        self.assertEqual(self.solar.bonus_cost("merit"), 1)
+        self.assertEqual(self.solar.bonus_cost("willpower"), 2)
         self.assertEqual(self.solar.bonus_cost("caste charm"), 4)
         self.assertEqual(self.solar.bonus_cost("favored charm"), 4)
         self.assertEqual(self.solar.bonus_cost("charm"), 5)
-        self.assertEqual(self.solar.bonus_cost("spell (favored)"), 4)
         self.assertEqual(self.solar.bonus_cost("spell"), 5)
+        self.solar.add_favored_ability("occult")
+        self.assertEqual(self.solar.bonus_cost("spell"), 4)
         self.assertEqual(self.solar.bonus_cost("evocation"), 4)
         
 
@@ -174,7 +175,7 @@ class TestRandomSolar(TestCase):
         
     def test_random(self):
         xp = 0
-        
+        self.solar.name = ""
         self.assertFalse(self.solar.has_name())
         self.assertFalse(self.solar.has_concept())
         self.assertFalse(self.solar.has_caste())
