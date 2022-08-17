@@ -10,10 +10,8 @@ class TestSolar(TestCase):
     def setUp(self):
         self.solar = Solar.objects.create(name="Test Solar")
         for i in range(10):
-            for min_ability in range(5):
-                for min_essence in range(5):
-                    for ability in ABILITIES:
-                        Charm.objects.create(name=f"{ability.title()} Charm {i}", ability=ability, min_ability=min_ability, min_essence=min_essence)
+            for ability in ABILITIES:
+                Charm.objects.create(name=f"{ability.title()} Charm {i}", ability=ability, min_ability=i % 5, min_essence=i % 5)
     
     def test_set_caste(self):
         self.assertFalse(self.solar.has_caste())
@@ -76,22 +74,63 @@ class TestSolar(TestCase):
         self.assertTrue(self.solar.has_supernal_ability())
         
     def test_add_charm(self):
-        self.fail()
+        c1 = Charm.objects.get(name="War Charm 0")
+        c2 = Charm.objects.get(name="War Charm 1")
+        count = self.solar.charms.count()
+        self.assertTrue(self.solar.add_charm(c1))
+        self.assertEqual(self.solar.charms.count(), count + 1)
+        self.assertFalse(self.solar.add_charm(c2))
         
     def test_has_charms(self):
-        self.fail()
+        self.assertFalse(self.solar.has_charms())
+        self.solar.essence = 5
+        self.solar.war = 5
+        self.solar.archery = 5
+        self.solar.melee = 5
+        for i in range(5):
+            c = Charm.objects.get(name=f"Archery Charm {i}")
+            self.solar.add_charm(c)
+            c = Charm.objects.get(name=f"War Charm {i}")
+            self.solar.add_charm(c)
+            c = Charm.objects.get(name=f"Melee Charm {i}")
+            self.solar.add_charm(c)
+        self.assertTrue(self.solar.has_charms())
         
     def test_filter_charms(self):
-        self.fail()
+        self.assertEqual(len(self.solar.filter_charms()), 52)
+        self.solar.war = 2
+        self.solar.essence = 1
+        self.assertEqual(len(self.solar.filter_charms()), 54)
+        self.solar.essence = 2
+        self.assertEqual(len(self.solar.filter_charms()), 56)
         
     def test_set_limit_trigger(self):
-        self.fail()
+        self.assertFalse(self.solar.has_limit_trigger())
+        self.assertTrue(self.solar.set_limit_trigger("Test"))
+        self.assertTrue(self.solar.has_limit_trigger())
         
     def test_has_limit_trigger(self):
-        self.fail()
+        self.assertFalse(self.solar.has_limit_trigger())
+        self.solar.set_limit_trigger("Test")
+        self.assertTrue(self.solar.has_limit_trigger())
         
     def test_bonus_point_costs(self):
-        self.fail()
+        self.assertEqual(self.character.bonus_cost("primary attribute"), 4)
+        self.assertEqual(self.character.bonus_cost("secondary attribute"), 4)
+        self.assertEqual(self.character.bonus_cost("tertiary attribute"), 3)
+        self.assertEqual(self.character.bonus_cost("ability"), 2)
+        self.assertEqual(self.solar.bonus_cost("caste ability"), 1)
+        self.assertEqual(self.solar.bonus_cost("favored ability"), 1)
+        self.assertEqual(self.character.bonus_cost("specialty"), 1)
+        self.assertEqual(self.character.bonus_cost("merit"), 1)
+        self.assertEqual(self.character.bonus_cost("willpower"), 2)
+        self.assertEqual(self.solar.bonus_cost("caste charm"), 4)
+        self.assertEqual(self.solar.bonus_cost("favored charm"), 4)
+        self.assertEqual(self.solar.bonus_cost("charm"), 5)
+        self.assertEqual(self.solar.bonus_cost("spell (favored)"), 4)
+        self.assertEqual(self.solar.bonus_cost("spell"), 5)
+        self.assertEqual(self.solar.bonus_cost("evocation"), 4)
+        
 
 
 class TestRandomSolar(TestCase):
