@@ -1,9 +1,10 @@
 import random
 from django.db import models
-from django.db.models import F
+from django.db.models import F, Q
 from core.models import Model
 from exalted.models.characters.mortals import ExMortal
 from exalted.models.characters.utils import ABILITIES
+from core.utils import add_dot
 
 # Create your models here.
 class Charm(Model):
@@ -19,11 +20,23 @@ class Charm(Model):
 
 class Solar(ExMortal):
     type = "solar"
+    
+    CASTE_CHOICES = [
+        "dawn", "zenith", "twilight", "eclipse", "night"
+    ]
+    
+    caste = models.CharField(max_length=15, choices=zip(CASTE_CHOICES, [x.title() for x in CASTE_CHOICES]))
 
     caste_abilities = models.JSONField(default=list)
     favored_abilites = models.JSONField(default=list)
+    supernal_ability = models.CharField(
+        max_length=20,
+        choices=zip(ABILITIES, [x.replace("_", " ").title() for x in ABILITIES]),
+    )
 
     charms = models.ManyToManyField(Charm, blank=True)
+    
+    limit_trigger = models.CharField(max_length=100, default="")
 
     def has_caste(self):
         return self.caste != ""
@@ -100,6 +113,7 @@ class Solar(ExMortal):
         elif ability in self.favored_abilites:
             return False
         self.favored_abilites.append(ability)
+        add_dot(self, ability, maximum=1)
         return True
 
     def random_favored_ability(self):
@@ -129,9 +143,13 @@ class Solar(ExMortal):
         return self.charms.count() == 15
 
     def filter_charms(self):
-        filtered_charms = Charm.objects.filter(
-            min_essence__lte=self.essence, min_ability__lte=getattr(self, F("ability"))
-        )
+        q = Q()
+        for ability in ABILITIES:
+            q |= Q(ability=ability, min_ability__lte=getattr(self, ability))
+        
+        q &= Q(min_essence__lte=self.essence)
+        
+        filtered_charms = Charm.objects.filter(q)
         filtered_charms = filtered_charms.exclude(pk__in=self.charms.all())
         return filtered_charms
 
@@ -180,3 +198,19 @@ class Solar(ExMortal):
         if trait_type == "evocation":
             return 4
         return 10000
+    
+    def random(self, bonus_points=21, xp=0):
+        self.bonus_points = bonus_points
+        self.xp = xp
+        self.random_name()
+        self.random_concept()
+        self.random_caste()
+        self.random_favored_abilities()
+        self.random_attributes()
+        self.random_abilities()
+        self.random_specialties()
+        self.random_merits()
+        self.random_intimacies()
+        self.random_spend_bonus_points()
+        self.random_spend_xp()
+        self.apply_finishing_touches()
