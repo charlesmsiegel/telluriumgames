@@ -176,7 +176,6 @@ class TestRandomSolar(TestCase):
         self.assertTrue(self.solar.has_limit_trigger())
         
     def test_random(self):
-        xp = 0
         self.solar.name = ""
         self.assertFalse(self.solar.has_name())
         self.assertFalse(self.solar.has_concept())
@@ -192,7 +191,7 @@ class TestRandomSolar(TestCase):
         self.assertFalse(self.solar.has_limit_trigger())
         self.assertEqual(self.solar.bonus_points, 21)
         self.assertFalse(self.solar.has_finishing_touches())
-        self.solar.random(xp=xp)
+        self.solar.random(bonus_points=0, xp=0)
         self.assertTrue(self.solar.has_caste())
         self.assertTrue(self.solar.has_name())
         self.assertTrue(self.solar.has_concept())
