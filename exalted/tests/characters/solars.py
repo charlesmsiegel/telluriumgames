@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from exalted.models.characters.solars import Solar, Charm
+from exalted.models.characters.solars import Solar, SolarCharm
 from exalted.models.characters.utils import ABILITIES
 from exalted.tests.characters.mortals import setup
 
@@ -9,7 +9,7 @@ def solar_setup():
     setup()
     for i in range(10):
         for ability in ABILITIES:
-            Charm.objects.create(name=f"{ability.title()} Charm {i}", ability=ability, min_ability=i % 5, min_essence=i % 5)
+            SolarCharm.objects.create(name=f"{ability.title()} Charm {i}", ability=ability, min_ability=i % 5, min_essence=i % 5)
 
 
 # Create your tests here.
@@ -79,8 +79,8 @@ class TestSolar(TestCase):
         self.assertTrue(self.solar.has_supernal_ability())
         
     def test_add_charm(self):
-        c1 = Charm.objects.get(name="War Charm 0")
-        c2 = Charm.objects.get(name="War Charm 1")
+        c1 = SolarCharm.objects.get(name="War Charm 0")
+        c2 = SolarCharm.objects.get(name="War Charm 1")
         count = self.solar.charms.count()
         self.assertTrue(self.solar.add_charm(c1))
         self.assertEqual(self.solar.charms.count(), count + 1)
@@ -93,11 +93,11 @@ class TestSolar(TestCase):
         self.solar.archery = 5
         self.solar.melee = 5
         for i in range(5):
-            c = Charm.objects.get(name=f"Archery Charm {i}")
+            c = SolarCharm.objects.get(name=f"Archery Charm {i}")
             self.solar.add_charm(c)
-            c = Charm.objects.get(name=f"War Charm {i}")
+            c = SolarCharm.objects.get(name=f"War Charm {i}")
             self.solar.add_charm(c)
-            c = Charm.objects.get(name=f"Melee Charm {i}")
+            c = SolarCharm.objects.get(name=f"Melee Charm {i}")
             self.solar.add_charm(c)
         self.assertTrue(self.solar.has_charms())
         
@@ -137,6 +137,29 @@ class TestSolar(TestCase):
         self.assertEqual(self.solar.bonus_cost("spell"), 4)
         self.assertEqual(self.solar.bonus_cost("evocation"), 4)
         
+    def test_xp_costs(self):
+        self.assertEqual(self.solar.xp_cost("attribute"), 4)
+        self.assertEqual(self.solar.xp_cost("new ability"), 3)
+        self.assertEqual(self.solar.xp_cost("ability"), 2)
+        self.assertEqual(self.solar.xp_cost("specialty"), 3)
+        self.assertEqual(self.solar.xp_cost("merit"), 3)
+        self.assertEqual(self.solar.xp_cost("willpower"), 8)
+
+        self.assertEqual(self.solar.xp_cost("evocation"), 10)
+        
+        self.assertEqual(self.solar.xp_cost("spell"), 10)
+        self.solar.add_favored_ability("occult")
+        self.assertEqual(self.solar.xp_cost("spell"), 8)
+        
+        self.assertEqual(self.solar.xp_cost("martial arts charm"), 10)
+        self.solar.add_favored_ability("brawl")
+        self.assertEqual(self.solar.xp_cost("martial arts charm"), 8)
+        
+        self.assertEqual(self.solar.xp_cost("caste charm"), 8)
+        self.assertEqual(self.solar.xp_cost("favored charm"), 8)
+        self.assertEqual(self.solar.xp_cost("charm"), 10)
+        
+
 
 
 class TestRandomSolar(TestCase):

@@ -4,11 +4,11 @@ from django.db.models import F, Q
 from core.models import Model
 from exalted.models.characters.mortals import ExMortal
 from exalted.models.characters.utils import ABILITIES
-from core.utils import add_dot
+from core.utils import add_dot, weighted_choice
 
 # Create your models here.
-class Charm(Model):
-    type = "charm"
+class SolarCharm(Model):
+    type = "solar_charm"
 
     ability = models.CharField(
         max_length=20,
@@ -34,7 +34,7 @@ class Solar(ExMortal):
         choices=zip(ABILITIES, [x.replace("_", " ").title() for x in ABILITIES]),
     )
 
-    charms = models.ManyToManyField(Charm, blank=True)
+    charms = models.ManyToManyField(SolarCharm, blank=True)
     
     limit_trigger = models.CharField(max_length=100, default="")
 
@@ -149,7 +149,7 @@ class Solar(ExMortal):
         
         q &= Q(min_essence__lte=self.essence)
         
-        filtered_charms = Charm.objects.filter(q)
+        filtered_charms = SolarCharm.objects.filter(q)
         filtered_charms = filtered_charms.exclude(pk__in=self.charms.all())
         return filtered_charms
 
@@ -198,6 +198,173 @@ class Solar(ExMortal):
         if trait_type == "evocation":
             return 4
         return 10000
+    
+    def bonus_frequencies(self):
+        return {
+            "attribute": 1,
+            "ability": 1,
+            "specialty": 1,
+            "merit": 1,
+            "willpower": 1,
+            "charm": 1,
+        }
+    
+    def random_bonus_functions(self):
+        d = super().random_bonus_functions()
+        d.update({
+            "charm": self.random_bonus_charm,
+        })
+        return d
+    
+    def random_bonus_charm(self):
+        filtered_list = self.filter_charms()
+        d = {k.name: max(k.min_essence, k.min_ability) for k in filtered_list}
+        trait = weighted_choice(d)
+        return self.spend_bonus_points(trait)
+    
+    def spend_bonus_points(self, trait):
+        if trait in self.favored_abilites:
+            cost = self.bonus_cost("favored ability")
+            if cost <= self.bonus_points:
+                if self.add_ability(trait):
+                    self.bonus_points -= cost
+                    return True
+                return False
+            return False
+        if trait in self.caste_abilities:
+            cost = self.bonus_cost("caste ability")
+            if cost <= self.bonus_points:
+                if self.add_ability(trait):
+                    self.bonus_points -= cost
+                    return True
+                return False
+            return False
+        if SolarCharm.objects.filter(name=trait).exists():
+            charm = SolarCharm.objects.get(name=trait)
+            if charm.ability in self.favored_abilites:
+                cost = self.bonus_cost("favored charm")
+                if cost <= self.bonus_points:
+                    if self.add_charm(charm):
+                        self.bonus_points -= cost
+                        return True
+                    return False
+                return False
+            if charm.ability in self.caste_abilities:
+                cost = self.bonus_cost("caste charm")
+                if cost <= self.bonus_points:
+                    if self.add_charm(charm):
+                        self.bonus_points -= cost
+                        return True
+                    return False
+                return False
+            cost = self.bonus_cost("charm")
+            if cost <= self.bonus_points:
+                if self.add_charm(charm):
+                    self.bonus_points -= cost
+                    return True
+                return False
+            return False
+        return super().spend_bonus_points(trait)
+    
+    def xp_cost(self, trait_type):
+        if trait_type == "evocation":
+            return 10
+        if trait_type == "spell" and "occult" in self.favored_abilites + self.caste_abilities:
+            return 8
+        if trait_type == "spell":
+            return 10
+        if trait_type == "martial arts charm" and "brawl" in self.favored_abilites + self.caste_abilities:
+            return 8
+        if trait_type == "martial arts charm":
+            return 10
+        if trait_type in ["caste charm", "favored charm"]:
+            return 8
+        if trait_type == "charm":
+            return 10
+        return super().xp_cost(trait_type)
+    
+    def xp_frequencies(self):
+        return {
+            "attribute": 1,
+            "ability": 1,
+            "specialty": 1,
+            "merit": 1,
+            "willpower": 1,
+            "charm": 1,
+        }
+    
+    def random_xp_functions(self):
+        d = super().random_xp_functions()
+        d.update({
+            "charm": self.random_xp_charm,
+        })
+        return d
+    
+    def random_xp_charm(self):
+        filtered_list = self.filter_charms()
+        d = {k.name: max(k.min_essence, k.min_ability) for k in filtered_list}
+        trait = weighted_choice(d)
+        return self.spend_xp(trait)
+    
+    def spend_xp(self, trait):
+        if trait in self.favored_abilites:
+            current_rating = self.get_abilities()[trait]
+            cost = self.xp_cost("ability") * current_rating - 1
+            if cost <= self.xp:
+                if self.add_ability(trait):
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        if trait in self.caste_abilities:
+            current_rating = self.get_abilities()[trait]
+            cost = self.xp_cost("ability") * current_rating - 1
+            if cost <= self.xp:
+                if self.add_ability(trait):
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        if SolarCharm.objects.filter(name=trait).exists():
+            charm = SolarCharm.objects.get(name=trait)
+            if charm.is_martial_arts:
+                cost = self.xp_cost("martial arts charm")
+                if cost <= self.xp:
+                    if self.add_charm(charm):
+                        self.xp -= cost
+                        self.add_to_spend(trait, 1, cost)
+                        return True
+                    return False
+                return False
+            if charm.ability in self.favored_abilites:
+                cost = self.xp_cost("favored charm")
+                if cost <= self.xp:
+                    if self.add_charm(charm):
+                        self.xp -= cost
+                        self.add_to_spend(trait, 1, cost)
+                        return True
+                    return False
+                return False
+            if charm.ability in self.caste_abilities:
+                cost = self.xp_cost("caste charm")
+                if cost <= self.xp:
+                    if self.add_charm(charm):
+                        self.xp -= cost
+                        self.add_to_spend(trait, 1, cost)
+                        return True
+                    return False
+                return False
+            cost = self.xp_cost("charm")
+            if cost <= self.xp:
+                if self.add_charm(charm):
+                    self.xp -= cost
+                    self.add_to_spend(trait, 1, cost)
+                    return True
+                return False
+            return False
+        return super().spend_xp(trait)
     
     def random(self, bonus_points=21, xp=0):
         self.bonus_points = bonus_points
