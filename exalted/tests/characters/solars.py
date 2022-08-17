@@ -3,15 +3,20 @@ from django.test import TestCase
 
 from exalted.models.characters.solars import Solar, Charm
 from exalted.models.characters.utils import ABILITIES
+from exalted.tests.characters.mortals import setup
+
+def solar_setup():
+    setup()
+    for i in range(10):
+        for ability in ABILITIES:
+            Charm.objects.create(name=f"{ability.title()} Charm {i}", ability=ability, min_ability=i % 5, min_essence=i % 5)
 
 
 # Create your tests here.
 class TestSolar(TestCase):
     def setUp(self):
         self.solar = Solar.objects.create(name="Test Solar")
-        for i in range(10):
-            for ability in ABILITIES:
-                Charm.objects.create(name=f"{ability.title()} Charm {i}", ability=ability, min_ability=i % 5, min_essence=i % 5)
+        solar_setup()
     
     def test_set_caste(self):
         self.assertFalse(self.solar.has_caste())
@@ -137,11 +142,7 @@ class TestSolar(TestCase):
 class TestRandomSolar(TestCase):
     def setUp(self):
         self.solar = Solar.objects.create(name="Test Solar")
-        for i in range(10):
-            for min_ability in range(5):
-                for min_essence in range(5):
-                    for ability in ABILITIES:
-                        Charm.objects.create(name=f"{ability.title()} Charm {i}", ability=ability, min_ability=min_ability, min_essence=min_essence)
+        solar_setup()
 
     def test_random_caste(self):
         self.assertFalse(self.solar.has_caste())
@@ -154,6 +155,7 @@ class TestRandomSolar(TestCase):
         self.assertTrue(self.solar.has_favored_abilities())
         
     def test_random_supernal_ability(self):
+        self.solar.set_caste("dawn")
         self.assertFalse(self.solar.has_supernal_ability())
         self.solar.random_supernal_ability()
         self.assertTrue(self.solar.has_supernal_ability())
