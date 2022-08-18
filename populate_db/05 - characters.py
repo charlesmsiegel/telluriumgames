@@ -74,5 +74,7 @@ time_test(Talent, xp=50)
 time_test(Aberrant, xp=150)
 
 from exalted.models.characters.mortals import ExMortal
+from exalted.models.characters.solars import Solar
 
 time_test(ExMortal)
+time_test(Solar)

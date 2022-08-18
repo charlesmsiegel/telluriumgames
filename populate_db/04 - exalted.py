@@ -1,4 +1,5 @@
 from exalted.models.characters.mortals import ExMerit, ExSpecialty
+from exalted.models.characters.solars import SolarCharm
 from exalted.models.characters.utils import ABILITIES
 
 ExMerit.objects.create(
@@ -244,3 +245,1724 @@ for ability in ABILITIES:
         ExSpecialty.objects.create(
             name=f"{ability.replace('_', ' ').title()} Specialty {i}", ability=ability,
         )
+
+wise_arrow = SolarCharm.objects.create(
+    name="Wise Arrow",
+    mote_cost=1,
+    ability="archery",
+    min_ability=2,
+    min_essence=1,
+    charm_type="supplemental",
+    keywords=['uniform'],
+    duration="instant",
+)
+wise_arrow.add_source("Exalted 3rd Edition", 225)
+sight_without_eyes = SolarCharm.objects.create(
+    name="Sight Without Eyes",
+    mote_cost=1,
+    ability="archery",
+    min_ability=3,
+    min_essence=1,
+    charm_type="reflexive",
+    keywords=[],
+    duration="tick",
+)
+sight_without_eyes.prerequisites.add(wise_arrow)
+sight_without_eyes.add_source("Exalted 3rd Edition", 225)
+blood_without_balance = SolarCharm.objects.create(
+    name="Blood Without Balance",
+    mote_cost=3,
+    ability="archery",
+    min_ability=4,
+    min_essence=1,
+    charm_type="reflexive",
+    keywords=['decisive-only'],
+    duration="instant",
+)
+blood_without_balance.prerequisites.add(sight_without_eyes)
+blood_without_balance.add_source("Exalted 3rd Edition", 226)
+force_without_fire = SolarCharm.objects.create(
+    name="Force Without Fire",
+    mote_cost=3,
+    ability="archery",
+    min_ability=4,
+    min_essence=1,
+    charm_type="supplemental",
+    keywords=['withering-only'],
+    duration="instant",
+)
+force_without_fire.prerequisites.add(sight_without_eyes)
+force_without_fire.add_source("Exalted 3rd Edition", 226)
+trance_of_unhesitating_speed = SolarCharm.objects.create(
+    name="Trance of Unhesitating Speed",
+    mote_cost=4,
+    willpower_cost=1,
+    ability="archery",
+    min_ability=3,
+    min_essence=1,
+    charm_type="simple",
+    keywords=["decisive-only"],
+    duration="instant",
+)
+trance_of_unhesitating_speed.prerequisites.add(wise_arrow)
+trance_of_unhesitating_speed.add_source("Exalted 3rd Edition", 226)
+phantom_arrow_technique = SolarCharm.objects.create(
+    name="Phantom Arrow Technique",
+    mote_cost=1,
+    ability="archery",
+    min_ability=3,
+    min_essence=1,
+    charm_type="reflexive",
+    keywords=[],
+    duration="instant",
+)
+phantom_arrow_technique.add_source("Exalted 3rd Edition", 227)
+fiery_arrow_attack = SolarCharm.objects.create(
+    name="Fiery Arrow Attack",
+    mote_cost=2,
+    ability="archery",
+    min_ability=4,
+    min_essence=1,
+    charm_type="supplemental",
+    keywords=["decisive-only"],
+    duration="instant",
+)
+fiery_arrow_attack.prerequisites.add(phantom_arrow_technique)
+fiery_arrow_attack.add_source("Exalted 3rd Edition", 227)
+there_is_no_wind = SolarCharm.objects.create(
+    name="There Is No Wing",
+    mote_cost=3,
+    ability="archery",
+    min_ability=5,
+    min_essence=2,
+    charm_type="reflexive",
+    keywords=["dual"],
+    duration="instant",
+)
+there_is_no_wind.prerequisites.add(sight_without_eyes)
+there_is_no_wind.add_source("Exalted 3rd Edition", 227)
+accuracy_without_distance = SolarCharm.objects.create(
+    name="Accuracy Without Distance",
+    mote_cost=1,
+    willpower_cost=1,
+    ability="archery",
+    min_ability=5,
+    min_essence=2,
+    charm_type="reflexive",
+    keywords=["decisive-only"],
+    duration="instant",
+)
+accuracy_without_distance.prerequisites.add(force_without_fire)
+accuracy_without_distance.add_source("Exalted 3rd Edition", 227)
+arrow_storm_technique = SolarCharm.objects.create(
+    name="Arrow Storm Technique",
+    mote_cost=5,
+    willpower_cost=1,
+    ability="archery",
+    min_ability=5,
+    min_essence=2,
+    charm_type="simple",
+    keywords=["decisive-only"],
+    duration="instant",
+)
+arrow_storm_technique.prerequisites.add(trance_of_unhesitating_speed)
+arrow_storm_technique.add_source("Exalted 3rd Edition", 227)
+flashing_vengeance_draw = SolarCharm.objects.create(
+    name="Flashing Vengeance Draw",
+    mote_cost=3,
+    willpower_cost=0,
+    ability="archery",
+    min_ability=5,
+    min_essence=2,
+    charm_type="supplemental",
+    keywords=[],
+    duration="instant",
+)
+flashing_vengeance_draw.prerequisites.add(trance_of_unhesitating_speed)
+flashing_vengeance_draw.add_source("Exalted 3rd Edition", 228)
+hunters_swift_answer = SolarCharm.objects.create(
+    name="Hunter's Swift Answer",
+    mote_cost=5,
+    willpower_cost=1,
+    ability="archery",
+    min_ability=5,
+    min_essence=2,
+    charm_type="reflexive",
+    keywords=["uniform"],
+    duration="instant",
+)
+hunters_swift_answer.prerequisites.add(flashing_vengeance_draw)
+hunters_swift_answer.add_source("Exalted 3rd Edition", 228)
+immaculate_golden_bow = SolarCharm.objects.create(
+    name="Immaculate Golden Bow",
+    mote_cost=5,
+    willpower_cost=1,
+    ability="archery",
+    min_ability=4,
+    min_essence=2,
+    charm_type="simple",
+    keywords=[],
+    duration="scene",
+)
+immaculate_golden_bow.prerequisites.add(phantom_arrow_technique)
+immaculate_golden_bow.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
+x = SolarCharm.objects.create(
+    name="",
+    mote_cost=0,
+    willpower_cost=0,
+    ability="",
+    min_ability=0,
+    min_essence=0,
+    charm_type="",
+    keywords=[],
+    duration="",
+)
+x.prerequisites.add()
+x.add_source("Exalted 3rd Edition", 228)
