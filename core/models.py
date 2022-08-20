@@ -68,9 +68,7 @@ class Model(PolymorphicModel):
     )
     display = models.BooleanField(default=True)
     description = models.TextField(default="")
-    sources = models.ForeignKey(
-        BookReference, null=True, blank=True, on_delete=models.CASCADE
-    )
+    sources = models.ManyToManyField(BookReference, blank=True)
 
     class Meta:
         abstract = True
@@ -110,7 +108,7 @@ class Model(PolymorphicModel):
         return self.sources.count() > 0
 
     def add_source(self, book_title, page_number):
-        book = Book.objects.get(name=book_title)
+        book = Book.objects.get_or_create(name=book_title)[0]
         bookref = BookReference.objects.create(book=book, page=page_number)
         self.sources.add(bookref)
         return True

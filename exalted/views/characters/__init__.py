@@ -3,8 +3,9 @@ from django.views.generic import CreateView, DetailView, View
 
 from exalted.forms import RandomCharacterForm
 from exalted.models.characters.mortals import ExMortal
+from exalted.models.characters.solars import Solar
 
-from . import mortal
+from . import mortal, solars
 
 
 class IndexView(View):
@@ -31,6 +32,7 @@ class GenericCharacterDetailView(View):
 
     create_views = {
         "mortal": mortal.MortalDetailView,
+        "solar": solars.SolarDetailView,
     }
 
     def get(self, request, *args, **kwargs):
@@ -43,6 +45,7 @@ class GenericCharacterDetailView(View):
 class RandomCharacterView(View):
     chars = {
         "mortal": ExMortal,
+        "solar": Solar,
     }
 
     def post(self, request, *args, **kwargs):
