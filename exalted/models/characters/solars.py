@@ -2,6 +2,7 @@ import random
 
 from django.db import models
 from django.db.models import F, Q
+from django.urls import reverse
 
 from core.models import Model
 from core.utils import add_dot, weighted_choice
@@ -25,7 +26,7 @@ class SolarCharm(Model):
     willpower_cost = models.IntegerField(default=0)
     silverxp_cost = models.IntegerField(default=0)
     goldxp_cost = models.IntegerField(default=0)
-    whilexp_cost = models.IntegerField(default=0)
+    whitexp_cost = models.IntegerField(default=0)
     xp_cost = models.IntegerField(default=0)
     lhl_cost = models.IntegerField(default=0)
     hl_cost = models.IntegerField(default=0)
@@ -35,6 +36,29 @@ class SolarCharm(Model):
 
     keywords = models.JSONField(default=list)
     prerequisites = models.ManyToManyField("SolarCharm", blank=True)
+
+    def get_absolute_url(self):
+        return reverse("exalted:characters:solars:solarcharm", kwargs={"pk": self.pk})
+
+    def keyword_display(self):
+        return ", ".join(self.keywords)
+
+    def get_cost(self):
+        costs = [
+            (self.mote_cost, "motes"),
+            (self.initiative_cost, "initiative"),
+            (self.anima_cost, "anima"),
+            (self.willpower_cost, "willpower"),
+            (self.silverxp_cost, "silver xp"),
+            (self.goldxp_cost, "gold xp"),
+            (self.whitexp_cost, "white xp"),
+            (self.xp_cost, "xp"),
+            (self.lhl_cost, "lethal health levels"),
+            (self.hl_cost, "health levels"),
+        ]
+        costs = [x for x in costs if x[0] != 0]
+        costs = [f"{x[0]} {x[1]}" for x in costs]
+        return ", ".join(costs)
 
 
 class Solar(ExMortal):

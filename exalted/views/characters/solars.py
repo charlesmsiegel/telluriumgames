@@ -1,9 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
-from exalted.models.characters.mortals import (
-    MeritRating,
-)
+from exalted.models.characters.mortals import MeritRating
 from exalted.models.characters.solars import Solar, SolarCharm
 
 
