@@ -68,9 +68,7 @@ class Model(PolymorphicModel):
     )
     display = models.BooleanField(default=True)
     description = models.TextField(default="")
-    sources = models.ForeignKey(
-        BookReference, null=True, blank=True, on_delete=models.CASCADE
-    )
+    sources = models.ManyToManyField(BookReference, blank=True)
 
     class Meta:
         abstract = True

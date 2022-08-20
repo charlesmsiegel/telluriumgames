@@ -1,10 +1,13 @@
 import random
+
 from django.db import models
 from django.db.models import F, Q
+
 from core.models import Model
+from core.utils import add_dot, weighted_choice
 from exalted.models.characters.mortals import ExMortal
 from exalted.models.characters.utils import ABILITIES
-from core.utils import add_dot, weighted_choice
+
 
 # Create your models here.
 class SolarCharm(Model):
@@ -16,16 +19,32 @@ class SolarCharm(Model):
     )
     min_ability = models.IntegerField(default=0)
     min_essence = models.IntegerField(default=0)
+    mote_cost = models.IntegerField(default=0)
+    initiative_cost = models.IntegerField(default=0)
+    anima_cost = models.IntegerField(default=0)
+    willpower_cost = models.IntegerField(default=0)
+    silverxp_cost = models.IntegerField(default=0)
+    goldxp_cost = models.IntegerField(default=0)
+    whilexp_cost = models.IntegerField(default=0)
+    xp_cost = models.IntegerField(default=0)
+    lhl_cost = models.IntegerField(default=0)
+    hl_cost = models.IntegerField(default=0)
+
+    charm_type = models.CharField(max_length=20, default="")
+    duration = models.CharField(max_length=20, default="")
+
+    keywords = models.JSONField(default=list)
+    prerequisites = models.ManyToManyField("SolarCharm", blank=True)
 
 
 class Solar(ExMortal):
     type = "solar"
-    
-    CASTE_CHOICES = [
-        "dawn", "zenith", "twilight", "eclipse", "night"
-    ]
-    
-    caste = models.CharField(max_length=15, choices=zip(CASTE_CHOICES, [x.title() for x in CASTE_CHOICES]))
+
+    CASTE_CHOICES = ["dawn", "zenith", "twilight", "eclipse", "night"]
+
+    caste = models.CharField(
+        max_length=15, choices=zip(CASTE_CHOICES, [x.title() for x in CASTE_CHOICES])
+    )
 
     caste_abilities = models.JSONField(default=list)
     favored_abilites = models.JSONField(default=list)
@@ -35,7 +54,7 @@ class Solar(ExMortal):
     )
 
     charms = models.ManyToManyField(SolarCharm, blank=True)
-    
+
     limit_trigger = models.CharField(max_length=100, default="")
 
     def has_caste(self):
@@ -121,7 +140,7 @@ class Solar(ExMortal):
         options = [x for x in options if x not in self.favored_abilites]
         choice = random.choice(options)
         return self.add_favored_ability(choice)
-    
+
     def random_favored_abilities(self):
         while not self.has_favored_abilities():
             self.random_favored_ability()
@@ -145,22 +164,27 @@ class Solar(ExMortal):
     def filter_charms(self):
         q = Q()
         for ability in ABILITIES:
-            q |= Q(ability=ability, min_ability__lte=getattr(self, ability))
-        
-        q &= Q(min_essence__lte=self.essence)
-        
+            q |= Q(
+                ability=ability,
+                min_ability__lte=getattr(self, ability),
+                min_essence__lte=self.essence,
+            )
+            # print(ability, SolarCharm.objects.filter(ability=ability, min_ability__lte=getattr(self, ability), min_essence__lte=self.essence).count())
+
         filtered_charms = SolarCharm.objects.filter(q)
         filtered_charms = filtered_charms.exclude(pk__in=self.charms.all())
+        # print(filtered_charms.count())
         return filtered_charms
 
     def add_charm(self, charm):
-        if self.essence < charm.min_essence:
-            return False
-        if getattr(self, charm.ability) < charm.min_ability:
-            return False
-        if charm not in self.charms.all():
-            self.charms.add(charm)
-            return True
+        if charm is not None:
+            if self.essence < charm.min_essence:
+                return False
+            if getattr(self, charm.ability) < charm.min_ability:
+                return False
+            if charm not in self.charms.all():
+                self.charms.add(charm)
+                return True
         return False
 
     def random_charm(self):
@@ -185,11 +209,11 @@ class Solar(ExMortal):
         c = super().bonus_cost(trait_type)
         if c != 10000:
             return c
-        if trait_type in ['caste ability', 'favored ability']:
+        if trait_type in ["caste ability", "favored ability"]:
             return 1
-        if trait_type in ['caste charm', 'favored charm']:
+        if trait_type in ["caste charm", "favored charm"]:
             return 4
-        if trait_type == 'charm':
+        if trait_type == "charm":
             return 5
         if trait_type == "spell":
             if "occult" in self.favored_abilites + self.caste_abilities:
@@ -198,7 +222,7 @@ class Solar(ExMortal):
         if trait_type == "evocation":
             return 4
         return 10000
-    
+
     def bonus_frequencies(self):
         return {
             "attribute": 1,
@@ -208,20 +232,20 @@ class Solar(ExMortal):
             "willpower": 1,
             "charm": 1,
         }
-    
+
     def random_bonus_functions(self):
         d = super().random_bonus_functions()
-        d.update({
-            "charm": self.random_bonus_charm,
-        })
+        d.update(
+            {"charm": self.random_bonus_charm,}
+        )
         return d
-    
+
     def random_bonus_charm(self):
         filtered_list = self.filter_charms()
         d = {k.name: max(k.min_essence, k.min_ability) for k in filtered_list}
         trait = weighted_choice(d)
         return self.spend_bonus_points(trait)
-    
+
     def spend_bonus_points(self, trait):
         if trait in self.favored_abilites:
             cost = self.bonus_cost("favored ability")
@@ -265,15 +289,21 @@ class Solar(ExMortal):
                 return False
             return False
         return super().spend_bonus_points(trait)
-    
+
     def xp_cost(self, trait_type):
         if trait_type == "evocation":
             return 10
-        if trait_type == "spell" and "occult" in self.favored_abilites + self.caste_abilities:
+        if (
+            trait_type == "spell"
+            and "occult" in self.favored_abilites + self.caste_abilities
+        ):
             return 8
         if trait_type == "spell":
             return 10
-        if trait_type == "martial arts charm" and "brawl" in self.favored_abilites + self.caste_abilities:
+        if (
+            trait_type == "martial arts charm"
+            and "brawl" in self.favored_abilites + self.caste_abilities
+        ):
             return 8
         if trait_type == "martial arts charm":
             return 10
@@ -282,7 +312,7 @@ class Solar(ExMortal):
         if trait_type == "charm":
             return 10
         return super().xp_cost(trait_type)
-    
+
     def xp_frequencies(self):
         return {
             "attribute": 1,
@@ -292,20 +322,20 @@ class Solar(ExMortal):
             "willpower": 1,
             "charm": 1,
         }
-    
+
     def random_xp_functions(self):
         d = super().random_xp_functions()
-        d.update({
-            "charm": self.random_xp_charm,
-        })
+        d.update(
+            {"charm": self.random_xp_charm,}
+        )
         return d
-    
+
     def random_xp_charm(self):
         filtered_list = self.filter_charms()
         d = {k.name: max(k.min_essence, k.min_ability) for k in filtered_list}
         trait = weighted_choice(d)
         return self.spend_xp(trait)
-    
+
     def spend_xp(self, trait):
         if trait in self.favored_abilites:
             current_rating = self.get_abilities()[trait]
@@ -365,10 +395,11 @@ class Solar(ExMortal):
                 return False
             return False
         return super().spend_xp(trait)
-    
+
     def random(self, bonus_points=21, xp=0):
         self.bonus_points = bonus_points
         self.xp = xp
+        self.essence = 1
         self.random_name()
         self.random_concept()
         self.random_caste()

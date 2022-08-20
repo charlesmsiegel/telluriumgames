@@ -7,12 +7,6 @@ from django.contrib.auth.models import User
 
 player, _ = User.objects.get_or_create(username="Test")
 
-from wod.models.characters.human import Human
-from wod.models.characters.mage import Mage
-from wod.models.characters.werewolf import Fomor, Kinfolk, Werewolf
-from wod.models.items.mage import Artifact, Charm, Grimoire, Talisman
-from wod.models.locations.mage import Chantry, Node
-
 
 def time_test(cls, character=True, xp=0, random_name=True):
     start = time()
@@ -42,6 +36,12 @@ def profile(cls, character=True, num_rows=10, xp=0):
     p = pstats.Stats("tmp")
     p.sort_stats(SortKey.CUMULATIVE).print_stats(num_rows)
 
+
+from wod.models.characters.human import Human
+from wod.models.characters.mage import Mage
+from wod.models.characters.werewolf import Fomor, Kinfolk, Werewolf
+from wod.models.items.mage import Artifact, Charm, Grimoire, Talisman
+from wod.models.locations.mage import Chantry, Node
 
 time_test(Human)
 time_test(Kinfolk)
