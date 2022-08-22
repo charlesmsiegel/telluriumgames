@@ -476,6 +476,13 @@ class Mage(MtAHuman):
         ]
         all_res = all_res.exclude(pk__in=maxed_resonance)
         all_res = all_res.exclude(pk__in=mined_resonance)
+        if minimum > 0:
+            all_res = all_res.filter(
+                pk__in=[
+                    x.resonance.id
+                    for x in ResRating.objects.filter(node=self, rating__gt=0)
+                ]
+            )
         return all_res
 
     def random_resonance(self):
