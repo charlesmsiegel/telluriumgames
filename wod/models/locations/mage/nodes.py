@@ -145,15 +145,17 @@ class Node(Location):
         all_res = all_res.filter(q)
 
         maxed_resonance = [
-            x.id
+            x.resonance.id
             for x in NodeResonanceRating.objects.filter(node=self, rating__gt=maximum)
         ]
         mined_resonance = [
-            x.id
+            x.resonance.id
             for x in NodeResonanceRating.objects.filter(node=self, rating__lt=minimum)
         ]
         all_res = all_res.exclude(pk__in=maxed_resonance)
         all_res = all_res.exclude(pk__in=mined_resonance)
+        if minimum > 0:
+            all_res = all_res.filter(pk__in=[x.resonance.id for x in NodeResonanceRating.objects.filter(node=self, rating__gt=0)])
         return all_res
 
     def total_resonance(self):
