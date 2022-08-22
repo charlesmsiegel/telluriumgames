@@ -480,7 +480,7 @@ class Mage(MtAHuman):
             all_res = all_res.filter(
                 pk__in=[
                     x.resonance.id
-                    for x in ResRating.objects.filter(node=self, rating__gt=0)
+                    for x in ResRating.objects.filter(mage=self, rating__gt=0)
                 ]
             )
         return all_res

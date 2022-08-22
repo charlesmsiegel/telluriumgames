@@ -92,7 +92,7 @@ class Wonder(WoDItem):
                 pk__in=[
                     x.resonance.id
                     for x in WonderResonanceRating.objects.filter(
-                        node=self, rating__gt=0
+                        wonder=self, rating__gt=0
                     )
                 ]
             )
