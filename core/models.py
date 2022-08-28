@@ -74,6 +74,7 @@ class Model(PolymorphicModel):
     chronicle = models.ForeignKey(
         Chronicle, blank=True, null=True, on_delete=models.CASCADE
     )
+    image = models.ImageField(upload_to="uploads/", blank=True)
 
     class Meta:
         abstract = True
