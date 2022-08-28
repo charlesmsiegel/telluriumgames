@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     # "tinymce",
     "polymorphic",
     "channels",
+    "game",
 ]
 
 MIDDLEWARE = [

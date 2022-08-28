@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from polymorphic.models import PolymorphicModel
 
+from game.models import Chronicle
+
 
 # Create your models here.
 class Language(models.Model):
@@ -69,6 +71,9 @@ class Model(PolymorphicModel):
     display = models.BooleanField(default=True)
     description = models.TextField(default="")
     sources = models.ManyToManyField(BookReference, blank=True)
+    chronicle = models.ForeignKey(
+        Chronicle, blank=True, null=True, on_delete=models.CASCADE
+    )
 
     class Meta:
         abstract = True
