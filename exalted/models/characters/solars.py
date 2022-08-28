@@ -158,6 +158,9 @@ class Solar(ExMortal):
             ]
         return True
 
+    def random_name(self):
+        return self.set_name(f"Solar {Solar.objects.count()}")
+
     def random_caste(self):
         return self.set_caste(random.choice(self.CASTE_CHOICES))
 

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
 from game.models import Chronicle
@@ -11,6 +12,9 @@ class Language(models.Model):
 
     name = models.CharField(max_length=100)
     frequency = models.IntegerField(default=0)
+
+    def get_absolute_url(self):
+        return reverse("core:language", kwargs={"pk": self.pk})
 
     def __str__(self):
         return f"{self.name}"
@@ -25,6 +29,9 @@ class Medium(models.Model):
     )
     length_modifier = models.IntegerField(default=1, blank=True, null=True)
 
+    def get_absolute_url(self):
+        return reverse("core:medium", kwargs={"pk": self.pk})
+
     def __str__(self):
         return f"{self.name}"
 
@@ -33,6 +40,9 @@ class Material(models.Model):
     """Class managing Material data"""
 
     name = models.TextField(default="")
+
+    def get_absolute_url(self):
+        return reverse("core:material", kwargs={"pk": self.pk})
 
     def __str__(self):
         return f"{self.name}"
@@ -47,6 +57,9 @@ class Noun(models.Model):
 
 class Book(models.Model):
     name = models.TextField(default="")
+
+    def get_absolute_url(self):
+        return reverse("core:book", kwargs={"pk": self.pk})
 
     def __str__(self):
         return self.name

@@ -37,11 +37,11 @@
             </div>
             <div class="row">
                 <div class="col-sm">Path</div>
-                <div class="col-sm">{{ object.path }}</div>
+                <a class="col-sm" href="{{ object.path.get_absolute_url }}">{{ object.path }}</a>
                 <div class="col-sm">Order</div>
-                <div class="col-sm">{{ object.order }}</div>
+                <a class="col-sm" href="{{ object.order.get_absolute_url }}">{{ object.order }}</a>
                 <div class="col-sm">Legacy</div>
-                <div class="col-sm">{{ object.legacy }}</div>
+                <a class="col-sm" href="{{ object.legacy.get_absolute_url }}">{{ object.legacy }}</a>
             </div>
             <div class="row">
                 <h3 class="col-sm cod_heading">Obsessions</h3>
@@ -548,7 +548,7 @@
                         {% if merit.merit.name == "Familiar" %}
                             <a href="{{ object.familiar.get_absolute_url }}">{{ merit.merit.name }}</a>
                         {% else %}
-                            {{ merit.merit.name }}
+                            <a href="{{ merit.merit.get_absolute_url }}">{{ merit.merit.name }}</a>
                         {% endif %}
                         {% if merit.merit.needs_detail %}({{ merit.detail }}){% endif %}
                     </div>
@@ -716,9 +716,9 @@
             </div>
             {% for attainment in object.attainments.all %}
                 <div class="row">
-                    <div class="col-sm">
+                    <a class="col-sm" href="{{ attainment.get_absolute_url }}">
                         {{ attainment }}
-                    </div>
+                    </a>
                 </div>
             {% endfor %}
             <div class="row">
@@ -729,9 +729,9 @@
             {% for row in praxes %}
                 <div class="row">
                     {% for praxis in row %}
-                        <div class="col-sm">
+                        <a class="col-sm" href="{{ praxis.get_absolute_url }}">
                             {{ praxis.name }}
-                        </div>
+                        </a>
                         <div class="col-sm">
                             {{ praxis.arcanum.title }}
                         </div>
@@ -749,9 +749,9 @@
             {% for row in rotes %}
                 <div class="row">
                     {% for rote in row %}
-                        <div class="col-sm">
+                        <a class="col-sm" href="{{ rote.get_absolute_url }}">
                             {{ rote.name }}
-                        </div>
+                        </a>
                         <div class="col-sm">
                             {{ rote.arcanum.title }}
                         </div>

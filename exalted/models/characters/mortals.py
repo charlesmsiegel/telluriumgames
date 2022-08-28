@@ -671,6 +671,9 @@ class ExSpecialty(Model):
 
     ability = models.CharField(max_length=20)
 
+    def get_absolute_url(self):
+        return reverse("exalted:characters:specialty", args=[str(self.id)])
+
     def __str__(self):
         return f"{self.name} ({self.ability})"
 
@@ -686,6 +689,9 @@ class Intimacy(Model):
         choices=[("minor", "Minor"), ("major", "Major"), ("defining", "Defining"),],
     )
     is_negative = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return reverse("exalted:characters:intimacy", args=[str(self.id)])
 
 
 class ExMerit(Model):
@@ -703,6 +709,9 @@ class ExMerit(Model):
     )
     max_rating = models.IntegerField(default=0)
     prereqs = models.JSONField(default=list)
+
+    def get_absolute_url(self):
+        return reverse("exalted:characters:merit", args=[str(self.id)])
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)

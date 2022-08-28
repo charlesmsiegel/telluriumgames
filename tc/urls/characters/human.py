@@ -41,12 +41,12 @@ urls = [
     ),
     path(
         "paths/create/",
-        views.characters.human.PathConnectionCreateView.as_view(),
+        views.characters.human.PathCreateView.as_view(),
         name="create_path",
     ),
     path(
         "paths/update/<pk>/",
-        views.characters.human.PathConnectionUpdateView.as_view(),
+        views.characters.human.PathUpdateView.as_view(),
         name="update_path",
     ),
     path("paths/<pk>/", views.characters.human.PathDetailView.as_view(), name="path"),

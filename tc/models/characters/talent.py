@@ -1,6 +1,7 @@
 import random
 
 from django.db import models
+from django.shortcuts import reverse
 
 from core.models import Model
 from core.utils import add_dot, weighted_choice
@@ -255,6 +256,9 @@ class TCGift(Model):
     keywords = models.JSONField(default=list)
     prereqs = models.JSONField(default=list)
 
+    def get_absolute_url(self):
+        return reverse("tc:characters:gift", args=[str(self.id)])
+
     def __str__(self):
         return f"{self.name} ({', '.join(self.keywords)})"
 
@@ -277,3 +281,6 @@ class MomentOfInspiration(Model):
     type = "moment_of_inspiration"
 
     attributes = models.JSONField(default=list)
+
+    def get_absolute_url(self):
+        return reverse("tc:characters:momentofinspiration", args=[str(self.id)])

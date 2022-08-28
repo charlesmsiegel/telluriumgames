@@ -46,17 +46,26 @@ class Path(Model):
     path_materials = models.ManyToManyField(Material, blank=True)
     path_weapons = models.JSONField(default=list)
 
+    def get_absolute_url(self):
+        return reverse("cod:characters:mage:path", kwargs={"pk": self.pk})
+
 
 class Order(Model):
     type = "order"
 
     rote_skills = models.JSONField(default=list)
 
+    def get_absolute_url(self):
+        return reverse("cod:characters:mage:order", kwargs={"pk": self.pk})
+
 
 class Attainment(Model):
     type = "attainment"
 
     prereqs = models.JSONField(default=list)
+
+    def get_absolute_url(self):
+        return reverse("cod:characters:mage:attainment", kwargs={"pk": self.pk})
 
     def prereq_satisfied(self, prereq, character):
         if prereq[0] in character.get_skills().keys():
@@ -125,6 +134,9 @@ class Legacy(Model):
     oblations = models.TextField(default="")
     attainments = models.ManyToManyField(Attainment, blank=True)
 
+    def get_absolute_url(self):
+        return reverse("cod:characters:mage:legacy", kwargs={"pk": self.pk})
+
     def prereq_satisfied(self, prereq, character):
         if prereq[0] in character.get_skills().keys():
             if character.get_skills()[prereq[0]] < prereq[1]:
@@ -154,6 +166,9 @@ class Legacy(Model):
 
 class CoDRote(Model):
     type = "rote"
+
+    def get_absolute_url(self):
+        return reverse("cod:characters:mage:rote", kwargs={"pk": self.pk})
 
     practice = models.CharField(
         max_length=40,
@@ -914,7 +929,11 @@ class ProximiFamily(Model):
         c = Condition.objects.create(name=f"{self.name} family curse", persistent=True)
         return self.set_curse(c)
 
+    def random_name(self):
+        return self.set_name(f"Proximi Family {ProximiFamily.objects.count()}")
+
     def random(self):
+        self.random_name()
         self.random_parent_path()
         self.random_blessing_arcana()
         self.random_blessings()

@@ -799,6 +799,9 @@ class CoDMerit(Model):
         verbose_name = "Merit"
         verbose_name_plural = "Merits"
 
+    def get_absolute_url(self):
+        return reverse("cod:characters:mortal:merit", kwargs={"pk": self.pk})
+
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)
         self.min_rating = min(self.ratings)
@@ -1012,6 +1015,9 @@ class CoDSpecialty(Model):
         verbose_name = "Specialty"
         verbose_name_plural = "Specialties"
 
+    def get_absolute_url(self):
+        return reverse("cod:characters:mortal:specialty", kwargs={"pk": self.pk})
+
     def display_skill(self):
         return self.skill.replace("_", " ").title()
 
@@ -1036,6 +1042,9 @@ class Condition(Model):
     persistent = models.BooleanField(default=False)
     resolution = models.TextField(default="")
 
+    def get_absolute_url(self):
+        return reverse("cod:characters:mortal:condition", kwargs={"pk": self.pk})
+
 
 class Tilt(Model):
     type = "tilt"
@@ -1047,3 +1056,6 @@ class Tilt(Model):
     effect = models.TextField(default="")
     causing = models.TextField(default="")
     ending = models.TextField(default="")
+
+    def get_absolute_url(self):
+        return reverse("cod:characters:mortal:tilt", kwargs={"pk": self.pk})

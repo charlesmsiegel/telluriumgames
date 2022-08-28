@@ -20,6 +20,9 @@ class Tribe(Model):
 
     willpower = models.IntegerField(default=3)
 
+    def get_absolute_url(self):
+        return reverse("wod:characters:werewolf:tribe", kwargs={"pk": self.pk})
+
 
 class Camp(Model):
     type = "camp"
@@ -36,6 +39,9 @@ class Camp(Model):
         ],
     )
 
+    def get_absolute_url(self):
+        return reverse("wod:characters:werewolf:camp", kwargs={"pk": self.pk})
+
 
 class Gift(Model):
     type = "gift"
@@ -43,12 +49,18 @@ class Gift(Model):
     rank = models.IntegerField(default=0)
     allowed = models.JSONField(default=dict)
 
+    def get_absolute_url(self):
+        return reverse("wod:characters:werewolf:gift", kwargs={"pk": self.pk})
+
 
 class Rite(Model):
     type = "rite"
 
     level = models.IntegerField(default=0)
     rite_type = models.CharField(max_length=100, default="")
+
+    def get_absolute_url(self):
+        return reverse("wod:characters:werewolf:rite", kwargs={"pk": self.pk})
 
 
 class Werewolf(WtAHuman):
@@ -809,8 +821,14 @@ class RenownIncident(Model):
     breed = models.CharField(default="", max_length=10)
     rite = models.ForeignKey(Rite, null=True, blank=True, on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse("wod:characters:werewolf:renownincident", kwargs={"pk": self.pk})
+
 
 class BattleScar(Model):
     type = "battle_scar"
 
     glory = models.IntegerField(default=0)
+
+    def get_absolute_url(self):
+        return reverse("wod:characters:werewolf:battlescar", kwargs={"pk": self.pk})

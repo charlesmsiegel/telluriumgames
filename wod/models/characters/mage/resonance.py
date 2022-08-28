@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from core.models import Model
 
@@ -16,6 +17,9 @@ class Resonance(Model):
     entropy = models.BooleanField(default=False)
     mind = models.BooleanField(default=False)
     prime = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return reverse("wod:characters:mage:resonance", args=[str(self.id)])
 
     def __str__(self):
         return self.name.title()

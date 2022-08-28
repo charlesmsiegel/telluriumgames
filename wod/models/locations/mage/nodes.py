@@ -2,6 +2,7 @@ import random
 
 from django.db import models
 from django.db.models import F, Q
+from django.urls import reverse
 
 from core.models import Model, Noun
 from core.utils import weighted_choice
@@ -280,6 +281,9 @@ class Node(Location):
 class NodeMeritFlaw(Model):
     ratings = models.JSONField(default=list)
     max_rating = models.IntegerField(default=0)
+
+    def get_absolute_url(self):
+        return reverse("wod:locations:mage:nodemeritflaw", kwargs={"pk": self.pk})
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)

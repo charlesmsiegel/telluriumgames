@@ -13,13 +13,13 @@
             {% if object.path is not None %}
                 <div class="row">
                     <div class="col-sm">Path</div>
-                    <div class="col-sm">{{ object.path.name }}</div>
+                    <a class="col-sm" href="{{ object.path.get_absolute_url }}">{{ object.path.name }}</a>
                 </div>
             {% endif %}
             {% if object.order is not None %}
                 <div class="row">
                     <div class="col-sm">Order</div>
-                    <div class="col-sm">{{ object.order.name }}</div>
+                    <a class="col-sm" href="{{ object.order.get_absolute_url }}">{{ object.order.name }}</a>
                 </div>
             {% endif %}
             <div class="row">
@@ -36,7 +36,7 @@
             </div>
             {% for attainment in object.attainments.all %}
             <div class="row">
-                <div class="col-sm">{{ attainment }}</div>
+                <a class="col-sm" href="{{ attainment.get_absolute_url }}">{{ attainment }}</a>
             </div>
             {% endfor %}
         </div>

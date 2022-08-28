@@ -13,7 +13,7 @@
             </div>
             <div class="row">
                 <div class="col-sm">Path</div>
-                <div class="col-sm">{{ object.path }}</div>
+                <a class="col-sm" href="{{ object.path.get_absolute_url }}">{{ object.path }}</a>
                 <div class="col-sm">Arcana</div>
                 <div class="col-sm">{{ arcana }}</div>
             </div>
@@ -25,7 +25,7 @@
             {% for row in blessings %}
                 <div class="row">
                     {% for rote in row %}
-                        <div class="col-sm">{{ rote.name }}</div>
+                        <a class="col-sm" href="{{ rote.get_absolute_url }}">{{ rote.name }}</a>
                         <div class="col-sm">{{ rote.arcanum.title }}</div>
                         <div class="col-sm dots">{{ rote.level|dots }}</div>
                     {% endfor %}
