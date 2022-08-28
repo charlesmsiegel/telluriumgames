@@ -58,7 +58,7 @@ def random_name(gender, ethnicity="English"):
     else:
         req_string = f"http://www.behindthename.com/api/random.json?gender={gender}&usage={usage}&number=1&randomsurname=yes&key={API_KEY}"
     try:
-        return " ".join(requests.get(req_string).json()["names"])
+        return " ".join(requests.get(req_string, timeout=10).json()["names"])
     except KeyError:
         return f"Random Name {randint(0, 100000000000)}"
 

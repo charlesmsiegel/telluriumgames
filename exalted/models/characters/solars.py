@@ -168,9 +168,7 @@ class Solar(ExMortal):
         return len(self.favored_abilites) == 5
 
     def add_favored_ability(self, ability):
-        if ability in self.supernal_ability:
-            return False
-        elif ability in self.favored_abilites:
+        if ability in self.supernal_ability + self.favored_abilites:
             return False
         self.favored_abilites.append(ability)
         add_dot(self, ability, maximum=1)
