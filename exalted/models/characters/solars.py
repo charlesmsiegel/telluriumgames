@@ -60,6 +60,20 @@ class SolarCharm(Model):
         costs = [f"{x[0]} {x[1]}" for x in costs]
         return ", ".join(costs)
 
+    def check_prerequisites(self, character):
+        ability = getattr(character, self.ability) >= self.min_ability
+        if self.ability == character.supernal_ability:
+            essence = 5 >= self.min_essence
+        else:
+            essence = getattr(character, "essence") >= self.min_essence
+        prereq_charms = True
+        for prereq_charm in self.prerequisites.all():
+            if character.charms.filter(pk=prereq_charm.id).exists():
+                prereq_charms = prereq_charms and True
+            else:
+                prereq_charms = False
+        return ability and essence and prereq_charms
+
 
 class Solar(ExMortal):
     type = "solar"
@@ -193,22 +207,17 @@ class Solar(ExMortal):
                 min_ability__lte=getattr(self, ability),
                 min_essence__lte=self.essence,
             )
-            # print(ability, SolarCharm.objects.filter(ability=ability, min_ability__lte=getattr(self, ability), min_essence__lte=self.essence).count())
 
         filtered_charms = SolarCharm.objects.filter(q)
         filtered_charms = filtered_charms.exclude(pk__in=self.charms.all())
-        # print(filtered_charms.count())
         return filtered_charms
 
     def add_charm(self, charm):
         if charm is not None:
-            if self.essence < charm.min_essence:
-                return False
-            if getattr(self, charm.ability) < charm.min_ability:
-                return False
-            if charm not in self.charms.all():
+            if charm.check_prerequisites(self):
                 self.charms.add(charm)
                 return True
+            return False
         return False
 
     def random_charm(self):

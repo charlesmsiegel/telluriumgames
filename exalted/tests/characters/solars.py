@@ -148,10 +148,20 @@ class TestSolar(TestCase):
     def test_add_charm(self):
         c1 = SolarCharm.objects.get(name="War Charm 0")
         c2 = SolarCharm.objects.get(name="War Charm 1")
+        c3 = SolarCharm.objects.create(
+            name="Advanced War Charm", ability="war", min_ability=2, min_essence=1,
+        )
+        c3.prerequisites.add(c1)
+        c3.save()
         count = self.solar.charms.count()
+        self.assertFalse(self.solar.add_charm(c2))
+        self.solar.war = 2
+        self.solar.essence = 1
+        self.assertFalse(self.solar.add_charm(c3))
         self.assertTrue(self.solar.add_charm(c1))
         self.assertEqual(self.solar.charms.count(), count + 1)
-        self.assertFalse(self.solar.add_charm(c2))
+        self.assertTrue(self.solar.add_charm(c3))
+        self.assertEqual(self.solar.charms.count(), count + 2)
 
     def test_has_charms(self):
         self.assertFalse(self.solar.has_charms())
