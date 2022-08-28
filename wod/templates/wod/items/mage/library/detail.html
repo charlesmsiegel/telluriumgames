@@ -14,18 +14,20 @@
                 <div class="row">
                     <div class="col-sm">
                         {% if object.faction.parent is not None %}
-                            {% if object.faction.parent.parent is not None %}{{ object.faction.parent.parent }} -{% endif %}
-                            {{ object.faction.parent }} -
+                            {% if object.faction.parent.parent is not None %}
+                                <a href="{{ object.faction.parent.parent.get_absolute_url }}">{{ object.faction.parent.parent }}</a> -
                         {% endif %}
-                        {{ object.faction }}
-                    </div>
+                        <a href="{{ object.faction.parent.get_absolute_url }}">{{ object.faction.parent }}</a> -
+                    {% endif %}
+                    <a href="{{ object.faction.get_absolute_url }}">{{ object.faction }}</a>
                 </div>
-                {% for book in object.books.all %}
-                    <div class="row">
-                        <a href={{ book.get_absolute_url }}>{{ book.name }}</a>
-                    </div>
-                {% endfor %}
             </div>
+            {% for book in object.books.all %}
+                <div class="row">
+                    <a href={{ book.get_absolute_url }}>{{ book.name }}</a>
+                </div>
+            {% endfor %}
         </div>
-    {% endblock content %}
+    </div>
+{% endblock content %}
 </body>

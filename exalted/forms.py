@@ -2,7 +2,9 @@ from django import forms
 
 
 class RandomCharacterForm(forms.Form):
-    character_type = forms.ChoiceField(choices=[("mortal", "Mortal"),])
+    character_type = forms.ChoiceField(
+        choices=[("mortal", "Mortal"), ("solar", "Solar")]
+    )
     name = forms.CharField(max_length=100, label="Name", required=False)
     xp = forms.IntegerField(initial=0, label="XP")
 

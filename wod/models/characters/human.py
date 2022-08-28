@@ -32,6 +32,9 @@ class WoDSpecialty(Model):
     def display_stat(self):
         return self.stat.replace("_", " ").title()
 
+    def get_absolute_url(self):
+        return reverse("wod:characters:specialty", args=[str(self.id)])
+
     def __str__(self):
         return f"{self.name} ({self.display_stat()})"
 
@@ -45,6 +48,9 @@ class MeritFlaw(Model):
     garou = models.BooleanField(default=False)
     mage = models.BooleanField(default=False)
     kinfolk = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return reverse("wod:characters:mf", args=[str(self.id)])
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)
@@ -1011,3 +1017,6 @@ class Group(Model):
 
 class Derangement(Model):
     type = "derangement"
+
+    def get_absolute_url(self):
+        return reverse("wod:characters:derangement", args=[str(self.id)])

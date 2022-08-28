@@ -2,6 +2,7 @@ import random
 
 from django.db import models
 from django.db.models import F, Q
+from django.shortcuts import reverse
 
 from core.models import Model
 from core.utils import add_dot, weighted_choice
@@ -669,6 +670,9 @@ class Power(Model):
         ],
     )
 
+    def get_absolute_url(self):
+        return reverse("tc:characters:power", args=[str(self.id)])
+
     def set_dicepool(self, dicepool):
         self.dicepool = dicepool
         return True
@@ -714,6 +718,9 @@ class Tag(Model):
     max_rating = models.IntegerField(default=0)
     permitted_powers = models.ManyToManyField(Power, blank=True)
 
+    def get_absolute_url(self):
+        return reverse("tc:characters:tag", args=[str(self.id)])
+
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)
         super().save(*args, **kwargs)
@@ -734,6 +741,9 @@ class Transformation(Model):
         max_length=10,
         choices=[("low", "low"), ("medium", "medium"), ("high", "high"),],
     )
+
+    def get_absolute_url(self):
+        return reverse("tc:characters:transformation", args=[str(self.id)])
 
     def __str__(self):
         return f"{self.name} ({self.level})"

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from core.models import Language, Material, Medium, Model
 
@@ -17,6 +18,9 @@ class MageFaction(Model):
     materials = models.ManyToManyField(Material, blank=True)
     founded = models.IntegerField(default=-5000)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
+
+    def get_absolute_url(self):
+        return reverse("wod:characters:mage:magefaction", args=[str(self.id)])
 
     def get_all_paradigms(self):
         factions = [self]

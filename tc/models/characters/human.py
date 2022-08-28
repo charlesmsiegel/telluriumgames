@@ -859,6 +859,9 @@ class TCPath(Model):
     class Meta:
         ordering = ("name",)
 
+    def get_absolute_url(self):
+        return reverse("tc:characters:path", args=[str(self.id)])
+
 
 class Specialty(Model):
     type = "specialty"
@@ -872,6 +875,9 @@ class Specialty(Model):
     def display_skill(self):
         return self.skill.replace("_", " ").title()
 
+    def get_absolute_url(self):
+        return reverse("tc:characters:specialty", args=[str(self.id)])
+
     def __str__(self):
         return f"{self.name} ({self.display_skill()})"
 
@@ -884,6 +890,9 @@ class Trick(Model):
     class Meta:
         ordering = ("name",)
 
+    def get_absolute_url(self):
+        return reverse("tc:characters:trick", args=[str(self.id)])
+
 
 class Edge(Model):
     type = "edge"
@@ -895,6 +904,9 @@ class Edge(Model):
 
     class Meta:
         ordering = ("name",)
+
+    def get_absolute_url(self):
+        return reverse("tc:characters:edge", args=[str(self.id)])
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)
@@ -919,6 +931,9 @@ class EnhancedEdge(Model):
     type = "enhanced_edge"
 
     prereqs = models.JSONField(default=list)
+
+    def get_absolute_url(self):
+        return reverse("tc:characters:enhanced_edge", args=[str(self.id)])
 
     def check_prereqs(self, character):
         return check_prereqs(self, character)
@@ -963,6 +978,9 @@ class PathConnection(Model):
     type = "path_connection"
 
     path = models.ForeignKey(TCPath, blank=True, null=True, on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse("tc:characters:pathconnection", args=[str(self.id)])
 
 
 def prereq_satisfied(prereq, character, obj):
