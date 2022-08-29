@@ -1,0 +1,38 @@
+{% extends "core/base.html" %}
+{% block title %}
+    Characters
+{% endblock title %}
+{% block content %}
+    <div class="centertext">
+        <div class="row border">
+            <h2 class="col-sm border">Character</h2>
+        </div>
+        {% for char in chars %}
+            {% if char.display %}
+                <div class="row border">
+                    <a class="col-sm border" href="{{ char.get_absolute_url }}">{{ char.name }}</a>
+                    <div class="col-sm border">{{ char.owner.username }}</div>
+                    <div class="col-sm border">{{ char.type.title }}</div>
+                    <div class="col-sm border">{{ char.get_status_display }}</div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <form id="characterForm"
+          action="{% url 'exalted:characters:random' %}"
+          method="post"
+          novalidate>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">{{ form.character_type }}</div>
+            <div class="col-sm">Name</div>
+            <div class="col-sm">{{ form.name }}</div>
+            <div class="col-sm">XP</div>
+            <div class="col-sm">{{ form.xp }}</div>
+            <div class="col-sm">
+                <button type="submit">Create</button>
+            </div>
+        </div>
+    </form>
+{% endblock content %}
