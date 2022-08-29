@@ -50,7 +50,7 @@ class MeritFlaw(Model):
     kinfolk = models.BooleanField(default=False)
 
     def get_absolute_url(self):
-        return reverse("wod:characters:mf", args=[str(self.id)])
+        return reverse("wod:characters:human:meritflaw", args=[str(self.id)])
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)

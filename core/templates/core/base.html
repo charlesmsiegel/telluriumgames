@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        {% load static %}
-        <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
-        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-        <link rel="stylesheet"
-              type="text/css"
-              href="{% static 'boot/css/bootstrap.css' %}"/>
-        <link rel="stylesheet"
-              type="text/css"
-              href="{% static 'boot/css/bootstrap-reboot.css' %}"/>
-        <link rel="stylesheet"
-              type="text/css"
-              href="{% static 'boot/css/bootstrap-grid.css' %}"/>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-        <script src="{% static 'boot/js/bootstrap.js' %}"></script>
         {% block styling %}
+            {% load static %}
+            <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
+            <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+            <link rel="stylesheet"
+                  type="text/css"
+                  href="{% static 'boot/css/bootstrap.css' %}"/>
+            <link rel="stylesheet"
+                  type="text/css"
+                  href="{% static 'boot/css/bootstrap-reboot.css' %}"/>
+            <link rel="stylesheet"
+                  type="text/css"
+                  href="{% static 'boot/css/bootstrap-grid.css' %}"/>
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+            <script src="{% static 'boot/js/bootstrap.js' %}"></script>
+            <meta name="description"
+                  content="Welcome to the Tellurium Games site! Here you will find various projects related to RPGs including links to community content products, generators, and more."/>
+            <meta name="keywords"
+                  content="world of darkness, chronicles of darkness, exalted, trinity continuum, rpgs, role-playing games, community content"/>
         {% endblock styling %}
         <title>
             {% block title %}
                 Tellurium Games
             {% endblock title %}
         </title>
-        <meta name="description"
-              content="Welcome to the Tellurium Games site! Here you will find various projects related to RPGs including links to community content products, generators, and more."/>
-        <meta name="keywords"
-              content="world of darkness, chronicles of darkness, exalted, trinity continuum, rpgs, role-playing games, community content"/>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
@@ -42,9 +42,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarsExample05">
                 <ul class="navbar-nav mr-auto">
-                    <!-- <li class="nav-item active"> -->
-                    <!-- <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a> -->
-                    <!-- </li> -->
                     {% if user.is_authenticated %}
                         <li>
                             <a class="nav-link" href="{% url 'user' %}">Account</a>
@@ -79,10 +76,9 @@
                             <a class="dropdown-item" href="{% url 'wod:characters:index' %}">Characters</a>
                             <a class="dropdown-item" href="{% url 'wod:locations:index' %}">Locations</a>
                             <a class="dropdown-item" href="{% url 'wod:items:index' %}">Items</a>
-                            {% comment %} <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a> {% endcomment %}
-                            </div>
-                        </li>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle"
                                href="#"
@@ -96,64 +92,52 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{% url 'cod:characters:index' %}">Characters</a>
                                 <a class="dropdown-item" href="{% url 'cod:items:index' %}">Items</a>
-                                {% comment %} <a class="dropdown-item" href="#">Locations</a>
-                            <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a> {% endcomment %}
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle"
-                                   href="#"
-                                   id="navbarDropdown"
-                                   role="button"
-                                   data-toggle="dropdown"
-                                   aria-haspopup="true"
-                                   aria-expanded="false">
-                                    Exalted
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{% url 'exalted:characters:index' %}">Characters</a>
-                                    {% comment %} <a class="dropdown-item" href="#">Locations</a>
-                            <a class="dropdown-item" href="#">Items</a>
-                            <div class="dropdown-divider">
                             </div>
-                                    <a class="dropdown-item" href="#">Something else here</a> {% endcomment %}
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle"
-                                       href="#"
-                                       id="navbarDropdown"
-                                       role="button"
-                                       data-toggle="dropdown"
-                                       aria-haspopup="true"
-                                       aria-expanded="false">
-                                        Trinity Continuum
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{% url 'tc:characters:index' %}">Characters</a>
-                                        {% comment %} <a class="dropdown-item" href="#">Locations</a>
-                            <a class="dropdown-item" href="#">Items</a>
-                            <div class="dropdown-divider">
-                            </div>
-                                        <a class="dropdown-item" href="#">Something else here</a> {% endcomment %}
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                        {% if messages %}
-                            <u1 class="messages">
-                            {% for message in messages %}
-                                <li class="{{ message.tags }}">
-                                    {{ message|safe }}<a href="#" class="close">x</a>
-                                </li>
-                            {% endfor %}
-                            </u1>
-                        {% endif %}
-                        {% block content %}
-                        {% endblock content %}
-                        {% block footer %}
-                        {% endblock footer %}
-                    </body>
-                </html>
+                        </li>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           id="navbarDropdown"
+                           role="button"
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">
+                            Exalted
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'exalted:characters:index' %}">Characters</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           id="navbarDropdown"
+                           role="button"
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">
+                            Trinity Continuum
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'tc:characters:index' %}">Characters</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        {% if messages %}
+            <u1 class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">
+                    {{ message|safe }}<a href="#" class="close">x</a>
+                </li>
+            {% endfor %}
+            </u1>
+        {% endif %}
+        {% block content %}
+        {% endblock content %}
+        {% block footer %}
+        {% endblock footer %}
+    </body>
+</html>
