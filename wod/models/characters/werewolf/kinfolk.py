@@ -44,7 +44,7 @@ class Kinfolk(WtAHuman):
         return True
 
     def random_breed(self):
-        return self.set_breed(random.choice(["homid", "metis", "lupus"]))
+        return self.set_breed(random.choice(["homid", "lupus"]))
 
     def has_tribe(self):
         return self.tribe is not None
