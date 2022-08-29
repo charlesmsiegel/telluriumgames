@@ -1,0 +1,57 @@
+{% extends "core/base.html" %}
+{% block title %}
+    Locations
+{% endblock title %}
+{% block content %}
+    <div class="container">
+        <div class="row border">
+            <h2 class="col-sm border centertext">Location</h2>
+        </div>
+        {% for name, loc in names_dict.items %}
+            <div class="row border">
+                <a class="col-sm border" href="{{ loc.get_absolute_url }}">{{ name|safe }}</a>
+                <div class="col-sm border">{{ loc.owner.username }}</div>
+                <div class="col-sm border">{{ loc.type.title }}</div>
+            </div>
+        {% endfor %}
+    </div>
+    <form id="locationForm"
+          data-location-type-url="{% url 'wod:locations:ajax_load_location_types' %}"
+          action="{% url 'wod:locations:random' %}"
+          method="post"
+          novalidate>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">{{ form.gameline }}</div>
+            <div class="col-sm">{{ form.location_type }}</div>
+            <div class="col-sm">Name</div>
+            <div class="col-sm">{{ form.name }}</div>
+            <div class="col-sm">Rank</div>
+            <div class="col-sm">{{ form.rank }}</div>
+            <div class="col-sm">
+                <button type="submit">Create</button>
+            </div>
+        </div>
+    </form>
+{% endblock content %}
+{% block extrascripts %}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $("#id_gameline").change(function () {
+          var url = $("#locationForm").attr("data-location-type-url");  // get the url of the `load_character_type` view
+          var gamelineId = $(this).val();  // get the selected gameline ID from the HTML input
+    
+          $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-character-type/)
+            data: {
+              'gameline': gamelineId       // add the gameline id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_character_type` view function
+              $("#id_location_type").html(data);  // replace the contents of the character_type input with the data that came from the server
+            }
+          });
+    
+        });
+    </script>
+{% endblock extrascripts %}
