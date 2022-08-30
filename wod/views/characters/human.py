@@ -75,7 +75,7 @@ class ArchetypeCreateView(CreateView):
 
 class ArchetypeUpdateView(UpdateView):
     model = Archetype
-    fields = "__all__"
+    fields = ["name", "description"]
     template_name = "wod/characters/human/archetype/update.html"
 
 
