@@ -22,6 +22,9 @@
                 <div class="col-sm">Description</div>
                 <div class="col-sm">{{ object.description }}</div>
             </div>
+            <div class="col-sm">
+                <a href="{{ object.get_update_url }}" class="btn btn-primary" role="button">Update</a>
+            </div>
         </div>
     {% endblock content %}
 </body>

@@ -585,6 +585,13 @@
                     </div>
                 </div>
             {% endblock advancement %}
+            {% block updater %}
+                <div class="row centertext">
+                    <div class="col-sm">
+                        <a href="{{ object.get_update_url }}" class="btn btn-primary" role="button">Update</a>
+                    </div>
+                </div>
+            {% endblock updater %}
         </div>
     </div>
 {% endblock content %}

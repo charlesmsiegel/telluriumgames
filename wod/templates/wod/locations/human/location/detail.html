@@ -45,5 +45,10 @@
         {% endblock description %}
         {% block post_description %}
         {% endblock post_description %}
+        {% block updater %}
+        <div class="col-sm">
+            <a href="{{ object.get_update_url }}" class="btn btn-primary" role="button">Update</a>
+        </div>
+        {% endblock updater %}
     </div>
 {% endblock content %}
