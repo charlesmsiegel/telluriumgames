@@ -10,13 +10,13 @@ class LocationDetailView(DetailView):
 
 class LocationCreateView(CreateView):
     model = Location
-    fields = "__all__"
+    fields = ["name", "parent", "gauntlet", "shroud", "dimension_barrier", "reality_zone", "description"]
     template_name = "wod/locations/human/location/form.html"
 
 
 class LocationUpdateView(UpdateView):
     model = Location
-    fields = "__all__"
+    fields = ["name", "parent", "gauntlet", "shroud", "dimension_barrier", "reality_zone", "description"]
     template_name = "wod/locations/human/location/form.html"
 
 
@@ -33,5 +33,5 @@ class CityCreateView(CreateView):
 
 class CityUpdateView(UpdateView):
     model = City
-    fields = "__all__"
+    fields = ["name", "parent", "gauntlet", "shroud", "dimension_barrier", "reality_zone", "description", "population", "mood", "theme", "media", "politicians", "characters"]
     template_name = "wod/locations/human/city/form.html"
