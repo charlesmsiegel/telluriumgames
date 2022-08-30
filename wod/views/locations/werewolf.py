@@ -11,10 +11,10 @@ class CaernDetailView(DetailView):
 class CaernCreateView(CreateView):
     model = Caern
     fields = "__all__"
-    template_name = "wod/locations/werewolf/caern/create.html"
+    template_name = "wod/locations/werewolf/caern/form.html"
 
 
 class CaernUpdateView(UpdateView):
     model = Caern
     fields = "__all__"
-    template_name = "wod/locations/werewolf/caern/update.html"
+    template_name = "wod/locations/werewolf/caern/form.html"

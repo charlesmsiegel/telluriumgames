@@ -26,13 +26,13 @@ class MortalDetailView(View):
 class MortalCreateView(CreateView):
     model = ExMortal
     fields = "__all__"
-    template_name = "exalted/characters/mortal/mortal/create.html"
+    template_name = "exalted/characters/mortal/mortal/form.html"
 
 
 class MortalUpdateView(UpdateView):
     model = ExMortal
     fields = "__all__"
-    template_name = "exalted/characters/mortal/mortal/update.html"
+    template_name = "exalted/characters/mortal/mortal/form.html"
 
 
 class SpecialtyDetailView(DetailView):
@@ -43,13 +43,13 @@ class SpecialtyDetailView(DetailView):
 class SpecialtyCreateView(CreateView):
     model = ExSpecialty
     fields = "__all__"
-    template_name = "exalted/characters/mortal/specialty/create.html"
+    template_name = "exalted/characters/mortal/specialty/form.html"
 
 
 class SpecialtyUpdateView(UpdateView):
     model = ExSpecialty
     fields = "__all__"
-    template_name = "exalted/characters/mortal/specialty/update.html"
+    template_name = "exalted/characters/mortal/specialty/form.html"
 
 
 class IntimacyDetailView(DetailView):
@@ -60,13 +60,13 @@ class IntimacyDetailView(DetailView):
 class IntimacyCreateView(CreateView):
     model = Intimacy
     fields = "__all__"
-    template_name = "exalted/characters/mortal/intimacy/create.html"
+    template_name = "exalted/characters/mortal/intimacy/form.html"
 
 
 class IntimacyUpdateView(UpdateView):
     model = Intimacy
     fields = "__all__"
-    template_name = "exalted/characters/mortal/intimacy/update.html"
+    template_name = "exalted/characters/mortal/intimacy/form.html"
 
 
 class MeritDetailView(DetailView):
@@ -77,10 +77,10 @@ class MeritDetailView(DetailView):
 class MeritCreateView(CreateView):
     model = ExMerit
     fields = "__all__"
-    template_name = "exalted/characters/mortal/merit/create.html"
+    template_name = "exalted/characters/mortal/merit/form.html"
 
 
 class MeritUpdateView(UpdateView):
     model = ExMerit
     fields = "__all__"
-    template_name = "exalted/characters/mortal/merit/update.html"
+    template_name = "exalted/characters/mortal/merit/form.html"

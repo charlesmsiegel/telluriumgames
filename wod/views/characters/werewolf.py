@@ -60,13 +60,13 @@ class WerewolfDetailView(View):
 class WerewolfCreateView(CreateView):
     model = Werewolf
     fields = "__all__"
-    template_name = "wod/characters/werewolf/werewolf/create.html"
+    template_name = "wod/characters/werewolf/werewolf/form.html"
 
 
 class WerewolfUpdateView(UpdateView):
     model = Werewolf
     fields = "__all__"
-    template_name = "wod/characters/werewolf/werewolf/update.html"
+    template_name = "wod/characters/werewolf/werewolf/form.html"
 
 
 class KinfolkDetailView(View):
@@ -105,13 +105,13 @@ class KinfolkDetailView(View):
 class KinfolkCreateView(CreateView):
     model = Kinfolk
     fields = "__all__"
-    template_name = "wod/characters/werewolf/kinfolk/create.html"
+    template_name = "wod/characters/werewolf/kinfolk/form.html"
 
 
 class KinfolkUpdateView(UpdateView):
     model = Kinfolk
     fields = "__all__"
-    template_name = "wod/characters/werewolf/kinfolk/update.html"
+    template_name = "wod/characters/werewolf/kinfolk/form.html"
 
 
 class SpiritDetailView(DetailView):
@@ -122,13 +122,13 @@ class SpiritDetailView(DetailView):
 class SpiritCreateView(CreateView):
     model = SpiritCharacter
     fields = "__all__"
-    template_name = "wod/characters/werewolf/spirit/create.html"
+    template_name = "wod/characters/werewolf/spirit/form.html"
 
 
 class SpiritUpdateView(UpdateView):
     model = SpiritCharacter
     fields = "__all__"
-    template_name = "wod/characters/werewolf/spirit/update.html"
+    template_name = "wod/characters/werewolf/spirit/form.html"
 
 
 class PackDetailView(DetailView):
@@ -139,13 +139,13 @@ class PackDetailView(DetailView):
 class PackCreateView(CreateView):
     model = Pack
     fields = "__all__"
-    template_name = "wod/characters/werewolf/pack/create.html"
+    template_name = "wod/characters/werewolf/pack/form.html"
 
 
 class PackUpdateView(UpdateView):
     model = Pack
     fields = "__all__"
-    template_name = "wod/characters/werewolf/pack/update.html"
+    template_name = "wod/characters/werewolf/pack/form.html"
 
 
 class CampDetailView(DetailView):
@@ -156,13 +156,13 @@ class CampDetailView(DetailView):
 class CampCreateView(CreateView):
     model = Camp
     fields = "__all__"
-    template_name = "wod/characters/werewolf/camp/create.html"
+    template_name = "wod/characters/werewolf/camp/form.html"
 
 
 class CampUpdateView(UpdateView):
     model = Camp
     fields = "__all__"
-    template_name = "wod/characters/werewolf/camp/update.html"
+    template_name = "wod/characters/werewolf/camp/form.html"
 
 
 class GiftDetailView(DetailView):
@@ -173,13 +173,13 @@ class GiftDetailView(DetailView):
 class GiftCreateView(CreateView):
     model = Gift
     fields = "__all__"
-    template_name = "wod/characters/werewolf/gift/create.html"
+    template_name = "wod/characters/werewolf/gift/form.html"
 
 
 class GiftUpdateView(UpdateView):
     model = Gift
     fields = "__all__"
-    template_name = "wod/characters/werewolf/gift/update.html"
+    template_name = "wod/characters/werewolf/gift/form.html"
 
 
 class RenownIncidentDetailView(DetailView):
@@ -190,13 +190,13 @@ class RenownIncidentDetailView(DetailView):
 class RenownIncidentCreateView(CreateView):
     model = RenownIncident
     fields = "__all__"
-    template_name = "wod/characters/werewolf/renownincident/create.html"
+    template_name = "wod/characters/werewolf/renownincident/form.html"
 
 
 class RenownIncidentUpdateView(UpdateView):
     model = RenownIncident
     fields = "__all__"
-    template_name = "wod/characters/werewolf/renownincident/update.html"
+    template_name = "wod/characters/werewolf/renownincident/form.html"
 
 
 class RiteDetailView(DetailView):
@@ -207,13 +207,13 @@ class RiteDetailView(DetailView):
 class RiteCreateView(CreateView):
     model = Rite
     fields = "__all__"
-    template_name = "wod/characters/werewolf/rite/create.html"
+    template_name = "wod/characters/werewolf/rite/form.html"
 
 
 class RiteUpdateView(UpdateView):
     model = Rite
     fields = "__all__"
-    template_name = "wod/characters/werewolf/rite/update.html"
+    template_name = "wod/characters/werewolf/rite/form.html"
 
 
 class TotemDetailView(DetailView):
@@ -224,13 +224,13 @@ class TotemDetailView(DetailView):
 class TotemCreateView(CreateView):
     model = Totem
     fields = "__all__"
-    template_name = "wod/characters/werewolf/totem/create.html"
+    template_name = "wod/characters/werewolf/totem/form.html"
 
 
 class TotemUpdateView(UpdateView):
     model = Totem
     fields = "__all__"
-    template_name = "wod/characters/werewolf/totem/update.html"
+    template_name = "wod/characters/werewolf/totem/form.html"
 
 
 class TribeDetailView(DetailView):
@@ -241,13 +241,13 @@ class TribeDetailView(DetailView):
 class TribeCreateView(CreateView):
     model = Tribe
     fields = "__all__"
-    template_name = "wod/characters/werewolf/tribe/create.html"
+    template_name = "wod/characters/werewolf/tribe/form.html"
 
 
 class TribeUpdateView(UpdateView):
     model = Tribe
     fields = "__all__"
-    template_name = "wod/characters/werewolf/tribe/update.html"
+    template_name = "wod/characters/werewolf/tribe/form.html"
 
 
 class CharmDetailView(DetailView):
@@ -258,13 +258,13 @@ class CharmDetailView(DetailView):
 class CharmCreateView(CreateView):
     model = SpiritCharm
     fields = "__all__"
-    template_name = "wod/characters/werewolf/charm/create.html"
+    template_name = "wod/characters/werewolf/charm/form.html"
 
 
 class CharmUpdateView(UpdateView):
     model = SpiritCharm
     fields = "__all__"
-    template_name = "wod/characters/werewolf/charm/update.html"
+    template_name = "wod/characters/werewolf/charm/form.html"
 
 
 class BattleScarDetailView(DetailView):
@@ -275,13 +275,13 @@ class BattleScarDetailView(DetailView):
 class BattleScarCreateView(CreateView):
     model = BattleScar
     fields = "__all__"
-    template_name = "wod/characters/werewolf/battlescar/create.html"
+    template_name = "wod/characters/werewolf/battlescar/form.html"
 
 
 class BattleScarUpdateView(UpdateView):
     model = BattleScar
     fields = "__all__"
-    template_name = "wod/characters/werewolf/battlescar/update.html"
+    template_name = "wod/characters/werewolf/battlescar/form.html"
 
 
 class FomorDetailView(DetailView):
@@ -292,13 +292,13 @@ class FomorDetailView(DetailView):
 class FomorCreateView(CreateView):
     model = Fomor
     fields = "__all__"
-    template_name = "wod/characters/werewolf/fomor/create.html"
+    template_name = "wod/characters/werewolf/fomor/form.html"
 
 
 class FomorUpdateView(UpdateView):
     model = Fomor
     fields = "__all__"
-    template_name = "wod/characters/werewolf/fomor/update.html"
+    template_name = "wod/characters/werewolf/fomor/form.html"
 
 
 class FomoriPowerDetailView(DetailView):
@@ -309,10 +309,10 @@ class FomoriPowerDetailView(DetailView):
 class FomoriPowerCreateView(CreateView):
     model = FomoriPower
     fields = "__all__"
-    template_name = "wod/characters/werewolf/fomoripower/create.html"
+    template_name = "wod/characters/werewolf/fomoripower/form.html"
 
 
 class FomoriPowerUpdateView(UpdateView):
     model = FomoriPower
     fields = "__all__"
-    template_name = "wod/characters/werewolf/fomoripower/update.html"
+    template_name = "wod/characters/werewolf/fomoripower/form.html"

@@ -11,10 +11,10 @@ class FetishDetailView(DetailView):
 class FetishCreateView(CreateView):
     model = Fetish
     fields = "__all__"
-    template_name = "wod/items/werewolf/fetish/create.html"
+    template_name = "wod/items/werewolf/fetish/form.html"
 
 
 class FetishUpdateView(UpdateView):
     model = Fetish
     fields = "__all__"
-    template_name = "wod/items/werewolf/fetish/update.html"
+    template_name = "wod/items/werewolf/fetish/form.html"

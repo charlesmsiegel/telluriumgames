@@ -14,13 +14,13 @@ class EphemeraDetailView(DetailView):
 class EphemeraCreateView(CreateView):
     model = Ephemera
     fields = "__all__"
-    template_name = "cod/characters/ephemera/ephemera/create.html"
+    template_name = "cod/characters/ephemera/ephemera/form.html"
 
 
 class EphemeraUpdateView(UpdateView):
     model = Ephemera
     fields = "__all__"
-    template_name = "cod/characters/ephemera/ephemera/update.html"
+    template_name = "cod/characters/ephemera/ephemera/form.html"
 
 
 class NuminaDetailView(DetailView):
@@ -31,10 +31,10 @@ class NuminaDetailView(DetailView):
 class NuminaCreateView(CreateView):
     model = Numina
     fields = "__all__"
-    template_name = "cod/characters/ephemera/numina/create.html"
+    template_name = "cod/characters/ephemera/numina/form.html"
 
 
 class NuminaUpdateView(UpdateView):
     model = Numina
     fields = "__all__"
-    template_name = "cod/characters/ephemera/numina/update.html"
+    template_name = "cod/characters/ephemera/numina/form.html"

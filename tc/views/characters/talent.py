@@ -18,13 +18,13 @@ class TalentDetailView(HumanDetailView):
 class TalentCreateView(CreateView):
     model = Talent
     fields = "__all__"
-    template_name = "tc/characters/talent/talent/create.html"
+    template_name = "tc/characters/talent/talent/form.html"
 
 
 class TalentUpdateView(UpdateView):
     model = Talent
     fields = "__all__"
-    template_name = "tc/characters/talent/talent/update.html"
+    template_name = "tc/characters/talent/talent/form.html"
 
 
 class GiftDetailView(DetailView):
@@ -35,13 +35,13 @@ class GiftDetailView(DetailView):
 class GiftCreateView(CreateView):
     model = TCGift
     fields = "__all__"
-    template_name = "tc/characters/talent/gift/create.html"
+    template_name = "tc/characters/talent/gift/form.html"
 
 
 class GiftUpdateView(UpdateView):
     model = TCGift
     fields = "__all__"
-    template_name = "tc/characters/talent/gift/update.html"
+    template_name = "tc/characters/talent/gift/form.html"
 
 
 class MomentOfInspirationDetailView(DetailView):
@@ -52,10 +52,10 @@ class MomentOfInspirationDetailView(DetailView):
 class MomentOfInspirationCreateView(CreateView):
     model = Talent
     fields = "__all__"
-    template_name = "tc/characters/talent/momentofinspiration/create.html"
+    template_name = "tc/characters/talent/momentofinspiration/form.html"
 
 
 class MomentOfInspirationUpdateView(UpdateView):
     model = Talent
     fields = "__all__"
-    template_name = "tc/characters/talent/momentofinspiration/update.html"
+    template_name = "tc/characters/talent/momentofinspiration/form.html"

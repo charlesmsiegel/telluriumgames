@@ -17,13 +17,13 @@ class ItemDetailView(DetailView):
 class ItemCreateView(CreateView):
     model = WoDItem
     fields = "__all__"
-    template_name = "wod/items/human/item/create.html"
+    template_name = "wod/items/human/item/form.html"
 
 
 class ItemUpdateView(UpdateView):
     model = WoDItem
     fields = "__all__"
-    template_name = "wod/items/human/item/create.html"
+    template_name = "wod/items/human/item/form.html"
 
 
 class WeaponDetailView(DetailView):
@@ -34,13 +34,13 @@ class WeaponDetailView(DetailView):
 class WeaponCreateView(CreateView):
     model = Weapon
     fields = "__all__"
-    template_name = "wod/items/human/weapon/create.html"
+    template_name = "wod/items/human/weapon/form.html"
 
 
 class WeaponUpdateView(UpdateView):
     model = Weapon
     fields = "__all__"
-    template_name = "wod/items/human/weapon/create.html"
+    template_name = "wod/items/human/weapon/form.html"
 
 
 class MeleeWeaponDetailView(DetailView):
@@ -51,13 +51,13 @@ class MeleeWeaponDetailView(DetailView):
 class MeleeWeaponCreateView(CreateView):
     model = MeleeWeapon
     fields = "__all__"
-    template_name = "wod/items/human/meleeweapon/create.html"
+    template_name = "wod/items/human/meleeweapon/form.html"
 
 
 class MeleeWeaponUpdateView(UpdateView):
     model = MeleeWeapon
     fields = "__all__"
-    template_name = "wod/items/human/meleeweapon/create.html"
+    template_name = "wod/items/human/meleeweapon/form.html"
 
 
 class RangedWeaponDetailView(DetailView):
@@ -68,13 +68,13 @@ class RangedWeaponDetailView(DetailView):
 class RangedWeaponCreateView(CreateView):
     model = RangedWeapon
     fields = "__all__"
-    template_name = "wod/items/human/rangedweapon/create.html"
+    template_name = "wod/items/human/rangedweapon/form.html"
 
 
 class RangedWeaponUpdateView(UpdateView):
     model = RangedWeapon
     fields = "__all__"
-    template_name = "wod/items/human/rangedweapon/create.html"
+    template_name = "wod/items/human/rangedweapon/form.html"
 
 
 class ThrownWeaponDetailView(DetailView):
@@ -85,10 +85,10 @@ class ThrownWeaponDetailView(DetailView):
 class ThrownWeaponCreateView(CreateView):
     model = ThrownWeapon
     fields = "__all__"
-    template_name = "wod/items/human/thrownweapon/create.html"
+    template_name = "wod/items/human/thrownweapon/form.html"
 
 
 class ThrownWeaponUpdateView(UpdateView):
     model = ThrownWeapon
     fields = "__all__"
-    template_name = "wod/items/human/thrownweapon/create.html"
+    template_name = "wod/items/human/thrownweapon/form.html"

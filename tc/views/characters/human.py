@@ -52,13 +52,13 @@ class HumanDetailView(View):
 class HumanCreateView(CreateView):
     model = Human
     fields = "__all__"
-    template_name = "tc/characters/human/human/create.html"
+    template_name = "tc/characters/human/human/form.html"
 
 
 class HumanUpdateView(UpdateView):
     model = Human
     fields = "__all__"
-    template_name = "tc/characters/human/human/update.html"
+    template_name = "tc/characters/human/human/form.html"
 
 
 class EdgeDetailView(DetailView):
@@ -69,13 +69,13 @@ class EdgeDetailView(DetailView):
 class EdgeCreateView(CreateView):
     model = Edge
     fields = "__all__"
-    template_name = "tc/characters/human/edge/create.html"
+    template_name = "tc/characters/human/edge/form.html"
 
 
 class EdgeUpdateView(UpdateView):
     model = Edge
     fields = "__all__"
-    template_name = "tc/characters/human/edge/update.html"
+    template_name = "tc/characters/human/edge/form.html"
 
 
 class EnhancedEdgeDetailView(DetailView):
@@ -86,13 +86,13 @@ class EnhancedEdgeDetailView(DetailView):
 class EnhancedEdgeCreateView(CreateView):
     model = EnhancedEdge
     fields = "__all__"
-    template_name = "tc/characters/human/enhancededge/create.html"
+    template_name = "tc/characters/human/enhancededge/form.html"
 
 
 class EnhancedEdgeUpdateView(UpdateView):
     model = EnhancedEdge
     fields = "__all__"
-    template_name = "tc/characters/human/enhancededge/update.html"
+    template_name = "tc/characters/human/enhancededge/form.html"
 
 
 class PathDetailView(DetailView):
@@ -103,13 +103,13 @@ class PathDetailView(DetailView):
 class PathCreateView(CreateView):
     model = TCPath
     fields = "__all__"
-    template_name = "tc/characters/human/path/create.html"
+    template_name = "tc/characters/human/path/form.html"
 
 
 class PathUpdateView(UpdateView):
     model = TCPath
     fields = "__all__"
-    template_name = "tc/characters/human/path/update.html"
+    template_name = "tc/characters/human/path/form.html"
 
 
 class PathConnectionDetailView(DetailView):
@@ -120,13 +120,13 @@ class PathConnectionDetailView(DetailView):
 class PathConnectionCreateView(CreateView):
     model = PathConnection
     fields = "__all__"
-    template_name = "tc/characters/human/pathconnection/create.html"
+    template_name = "tc/characters/human/pathconnection/form.html"
 
 
 class PathConnectionUpdateView(UpdateView):
     model = PathConnection
     fields = "__all__"
-    template_name = "tc/characters/human/pathconnection/update.html"
+    template_name = "tc/characters/human/pathconnection/form.html"
 
 
 class SpecialtyDetailView(DetailView):
@@ -137,13 +137,13 @@ class SpecialtyDetailView(DetailView):
 class SpecialtyCreateView(CreateView):
     model = Specialty
     fields = "__all__"
-    template_name = "tc/characters/human/specialty/create.html"
+    template_name = "tc/characters/human/specialty/form.html"
 
 
 class SpecialtyUpdateView(UpdateView):
     model = Specialty
     fields = "__all__"
-    template_name = "tc/characters/human/specialty/update.html"
+    template_name = "tc/characters/human/specialty/form.html"
 
 
 class TrickDetailView(DetailView):
@@ -154,10 +154,10 @@ class TrickDetailView(DetailView):
 class TrickCreateView(CreateView):
     model = Trick
     fields = "__all__"
-    template_name = "tc/characters/human/trick/create.html"
+    template_name = "tc/characters/human/trick/form.html"
 
 
 class TrickUpdateView(UpdateView):
     model = Trick
     fields = "__all__"
-    template_name = "tc/characters/human/trick/update.html"
+    template_name = "tc/characters/human/trick/form.html"
