@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from wod.models.locations.human import Location
 
@@ -26,6 +27,9 @@ class Caern(Location):
 
     caern_type = models.CharField(default="", choices=TYPES, max_length=15)
 
+    def get_update_url(self):
+        return reverse("wod:locations:werewolf:update_caern", args=[str(self.id)])
+    
     def save(self, *args, **kwargs):
         if "gauntlet" not in kwargs:
             if self.rank < 3:

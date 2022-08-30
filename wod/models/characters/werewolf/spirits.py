@@ -11,6 +11,8 @@ class SpiritCharm(Model):
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:charm", kwargs={"pk": self.pk})
 
+    def get_update_url(self):
+        return reverse("wod:characters:werewolf:update_charm", kwargs={"pk": self.pk})
 
 class SpiritCharacter(Character):
     type = "spirit_character"
@@ -22,6 +24,8 @@ class SpiritCharacter(Character):
 
     charms = models.ManyToManyField(SpiritCharm, blank=True)
 
+    def get_update_url(self):
+        return reverse("wod:characters:werewolf:update_spirit", kwargs={"pk": self.pk})
 
 class Totem(Model):
     type = "totem"
@@ -41,3 +45,6 @@ class Totem(Model):
 
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:totem", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("wod:characters:werewolf:update_totem", kwargs={"pk": self.pk})

@@ -24,6 +24,9 @@ class Location(Model):
 
     def get_absolute_url(self):
         return reverse("wod:locations:location", args=[str(self.id)])
+    
+    def get_update_url(self):
+        return reverse("wod:locations:human:update_location", args=[str(self.id)])
 
 
 class City(Location):
@@ -39,3 +42,6 @@ class City(Location):
     def add_character(self, character):
         self.characters.add(character)
         self.save()
+
+    def get_update_url(self):
+        return reverse("wod:locations:human:update_city", args=[str(self.id)])

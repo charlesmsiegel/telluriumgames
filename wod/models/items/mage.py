@@ -3,6 +3,7 @@ import math
 import random
 from tkinter import N
 
+from django.urls import reverse
 from django.db import models
 from django.db.models import Q
 
@@ -37,6 +38,9 @@ class Wonder(WoDItem):
     resonance = models.ManyToManyField(
         Resonance, blank=True, through=WonderResonanceRating
     )
+    
+    def get_update_url(self):
+        return reverse("wod:items:mage:update_wonder", args=[str(self.id)])
 
     def random_points(self):
         return 3 * (self.rank - 1) + random.randint(1, 3)
@@ -131,6 +135,9 @@ class Charm(Wonder):
 
     arete = models.IntegerField(default=0)
     power = models.ForeignKey(Effect, blank=True, null=True, on_delete=models.CASCADE)
+    
+    def get_update_url(self):
+        return reverse("wod:items:mage:update_charm", args=[str(self.id)])
 
     def set_power(self, power):
         self.power = power
@@ -154,6 +161,9 @@ class Artifact(Wonder):
     type = "artifact"
 
     power = models.ForeignKey(Effect, blank=True, null=True, on_delete=models.CASCADE)
+    
+    def get_update_url(self):
+        return reverse("wod:items:mage:update_artifact", args=[str(self.id)])
 
     def set_power(self, power):
         self.power = power
@@ -178,6 +188,9 @@ class Talisman(Wonder):
 
     arete = models.IntegerField(default=0)
     powers = models.ManyToManyField(Effect, blank=True)
+    
+    def get_update_url(self):
+        return reverse("wod:items:mage:update_talisman", args=[str(self.id)])
 
     def add_power(self, power):
         self.powers.add(power)
@@ -240,6 +253,9 @@ class Grimoire(Wonder):
     )
     medium = models.ForeignKey(Medium, null=True, blank=True, on_delete=models.CASCADE)
     effects = models.ManyToManyField(Effect, blank=True)
+
+    def get_update_url(self):
+        return reverse("wod:items:mage:update_grimoire", args=[str(self.id)])
 
     def set_abilities(self, abilities):
         if not isinstance(abilities, list):
@@ -604,6 +620,9 @@ class Library(Wonder):
         MageFaction, null=True, blank=True, on_delete=models.CASCADE
     )
     books = models.ManyToManyField(Grimoire, blank=True)
+    
+    def get_update_url(self):
+        return reverse("wod:items:mage:update_library", args=[str(self.id)])
 
     def add_book(self, grimoire):
         self.books.add(grimoire)

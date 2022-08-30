@@ -37,6 +37,9 @@ class Rote(Model):
     def get_absolute_url(self):
         return reverse("wod:characters:mage:rote", kwargs={"pk": self.pk})
 
+    def get_update_url(self):
+        return reverse("wod:characters:mage:update_rote", kwargs={"pk": self.pk})
+
     def random(self):
         self.name = f"{self.effect.name} Rote {Rote.objects.filter(effect=self.effect).count() + 1}"
         self.practice = self.mage.practices.order_by("?").first()
@@ -178,6 +181,9 @@ class Mage(MtAHuman):
     # def __init__(self, *args, **kwargs):
     #     kwargs["willpower"] = kwargs.get("willpower") or 5
     #     super().__init__(*args, **kwargs)
+
+    def get_update_url(self):
+        return reverse("wod:characters:mage:update_mage", kwargs={"pk": self.pk})
 
     def add_ability(self, ability, maximum=4):
         if ability == "do":

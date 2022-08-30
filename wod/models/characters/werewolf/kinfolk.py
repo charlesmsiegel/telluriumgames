@@ -9,6 +9,7 @@ from wod.models.characters.human import MeritFlaw, MeritFlawRating
 from .garou import Fetish, Gift, Tribe
 from .wtahuman import WtAHuman
 
+from django.urls import reverse
 
 class Kinfolk(WtAHuman):
     type = "kinfolk"
@@ -34,6 +35,9 @@ class Kinfolk(WtAHuman):
     # def __init__(self, *args, **kwargs):
     #     kwargs["willpower"] = kwargs.get("willpower") or 3
     #     super().__init__(*args, **kwargs)
+
+    def get_update_url(self):
+        return reverse("wod:characters:werewolf:update_kinfolk", kwargs={"pk": self.pk})
 
     def has_breed(self):
         return self.breed != ""

@@ -1,3 +1,4 @@
+from django.urls import reverse
 from wod.models.characters.human import Group
 
 from .utils import PRIMARY_ABILITIES, weighted_random_faction
@@ -47,3 +48,6 @@ class Cabal(Group):
                 "backgrounds": {"chantry": chantry},
             },
         )
+
+    def get_update_url(self):
+        return reverse("wod:characters:mage:update_cabal", kwargs={"pk": self.pk})

@@ -72,6 +72,9 @@ class ExMortal(Model):
     def get_absolute_url(self):
         return reverse("exalted:characters:character", args=[str(self.id)])
 
+    def get_update_url(self):
+        return reverse("exalted:characters:mortals:update_mortal", kwargs={"pk": self.pk})
+
     def random_name(self):
         return self.set_name(f"Mortal {ExMortal.objects.count()}")
 
@@ -673,6 +676,9 @@ class ExSpecialty(Model):
 
     def get_absolute_url(self):
         return reverse("exalted:characters:specialty", args=[str(self.id)])
+    
+    def get_update_url(self):
+        return reverse("exalted:characters:mortals:update_specialty", kwargs={"pk": self.pk})
 
     def __str__(self):
         return f"{self.name} ({self.ability})"
@@ -692,6 +698,9 @@ class Intimacy(Model):
 
     def get_absolute_url(self):
         return reverse("exalted:characters:intimacy", args=[str(self.id)])
+    
+    def get_update_url(self):
+        return reverse("exalted:characters:mortals:update_intimacy", kwargs={"pk": self.pk})
 
 
 class ExMerit(Model):
@@ -712,6 +721,9 @@ class ExMerit(Model):
 
     def get_absolute_url(self):
         return reverse("exalted:characters:merit", args=[str(self.id)])
+    
+    def get_update_url(self):
+        return reverse("exalted:characters:mortals:update_merit", kwargs={"pk": self.pk})
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)

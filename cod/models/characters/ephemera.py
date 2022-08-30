@@ -14,6 +14,9 @@ class Numina(Model):
     def get_absolute_url(self):
         return reverse("cod:characters:ephemera:numina", kwargs={"pk": self.pk})
 
+    def get_update_url(self):
+        return reverse("cod:characters:ephemera:update_numina", kwargs={"pk": self.pk})
+
 
 class Ephemera(Model):
     RANK_TO_TRAIT_MAX = {
@@ -53,6 +56,9 @@ class Ephemera(Model):
 
     def get_absolute_url(self):
         return reverse("cod:characters:ephemera:ephemera", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("cod:characters:ephemera:update_ephemera", kwargs={"pk": self.pk})
 
     def has_rank(self):
         return self.rank != 0
