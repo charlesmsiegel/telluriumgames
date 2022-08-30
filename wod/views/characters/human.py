@@ -92,7 +92,7 @@ class MeritFlawCreateView(CreateView):
 
 class MeritFlawUpdateView(UpdateView):
     model = MeritFlaw
-    fields = "__all__"
+    fields = ["name", "ratings", "human", "garou", "kinfolk", "mage", "description"]
     template_name = "wod/characters/human/meritflaw/update.html"
 
 
