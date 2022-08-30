@@ -40,7 +40,7 @@ class WonderCreateView(CreateView):
 
 class WonderUpdateView(UpdateView):
     model = Wonder
-    fields = "__all__"
+    fields = ["name", "rank", "background_cost", "quintessence_max", "description"]
     template_name = "wod/items/mage/wonder/update.html"
 
 
@@ -142,7 +142,7 @@ class CharmCreateView(CreateView):
 
 class CharmUpdateView(UpdateView):
     model = Charm
-    fields = "__all__"
+    fields = ["name", "rank", "background_cost", "quintessence_max", "description", "power", "arete"]
     template_name = "wod/items/mage/charm/update.html"
 
 
