@@ -206,13 +206,13 @@ class RiteDetailView(DetailView):
 
 class RiteCreateView(CreateView):
     model = Rite
-    fields = "__all__"
+    fields = ["name", "level", "rite_type", "description"]
     template_name = "wod/characters/werewolf/rite/form.html"
 
 
 class RiteUpdateView(UpdateView):
     model = Rite
-    fields = "__all__"
+    fields = ["name", "level", "rite_type", "description"]
     template_name = "wod/characters/werewolf/rite/form.html"
 
 
@@ -240,13 +240,13 @@ class TribeDetailView(DetailView):
 
 class TribeCreateView(CreateView):
     model = Tribe
-    fields = "__all__"
+    fields = ["name", "willpower", "description"]
     template_name = "wod/characters/werewolf/tribe/form.html"
 
 
 class TribeUpdateView(UpdateView):
     model = Tribe
-    fields = "__all__"
+    fields = ["name", "willpower", "description"]
     template_name = "wod/characters/werewolf/tribe/form.html"
 
 
