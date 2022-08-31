@@ -148,7 +148,7 @@ ethnicity_to_code = {
     "Georgian": "geo",
     "German": "ger",
     "Ancient Germanic": "gmca",
-    "Goth": "goth",
+    # "Goth": "goth",
     "Greek": "gre",
     "Ancient Greek": "grea",
     # "Greek Mythology": "grem",
