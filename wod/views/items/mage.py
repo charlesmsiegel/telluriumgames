@@ -163,13 +163,13 @@ class ArtifactDetailView(View):
 
 class ArtifactCreateView(CreateView):
     model = Artifact
-    fields = "__all__"
+    fields = ["name", "rank", "background_cost", "quintessence_max", "description", "power"]
     template_name = "wod/items/mage/artifact/form.html"
 
 
 class ArtifactUpdateView(UpdateView):
     model = Artifact
-    fields = "__all__"
+    fields = ["name", "rank", "background_cost", "quintessence_max", "description", "power"]
     template_name = "wod/items/mage/artifact/form.html"
 
 
@@ -190,11 +190,11 @@ class TalismanDetailView(View):
 
 class TalismanCreateView(CreateView):
     model = Talisman
-    fields = "__all__"
+    fields = ["name", "rank", "background_cost", "quintessence_max", "description", "powers"]
     template_name = "wod/items/mage/talisman/form.html"
 
 
 class TalismanUpdateView(UpdateView):
     model = Talisman
-    fields = "__all__"
+    fields = ["name", "rank", "background_cost", "quintessence_max", "description", "powers"]
     template_name = "wod/items/mage/talisman/form.html"
