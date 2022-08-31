@@ -172,13 +172,13 @@ class GiftDetailView(DetailView):
 
 class GiftCreateView(CreateView):
     model = Gift
-    fields = "__all__"
+    fields = ["name", "rank", "allowed", "description"]
     template_name = "wod/characters/werewolf/gift/form.html"
 
 
 class GiftUpdateView(UpdateView):
     model = Gift
-    fields = "__all__"
+    fields = ["name", "rank", "allowed", "description"]
     template_name = "wod/characters/werewolf/gift/form.html"
 
 
@@ -308,11 +308,11 @@ class FomoriPowerDetailView(DetailView):
 
 class FomoriPowerCreateView(CreateView):
     model = FomoriPower
-    fields = "__all__"
+    fields = ["name", "description"]
     template_name = "wod/characters/werewolf/fomoripower/form.html"
 
 
 class FomoriPowerUpdateView(UpdateView):
     model = FomoriPower
-    fields = "__all__"
+    fields = ["name", "description"]
     template_name = "wod/characters/werewolf/fomoripower/form.html"
