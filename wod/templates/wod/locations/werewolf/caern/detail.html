@@ -1,0 +1,60 @@
+{% extends "core/base.html" %}
+{% block title %}
+    {{ object.name }}
+{% endblock title %}
+{% block content %}
+    <div class="centertext">
+        {% block name %}
+            <div class="row">
+                <h2 class="col-sm wta_heading">{{ object.name }}</h2>
+            </div>
+        {% endblock name %}
+        {% block parent %}
+            {% if object.parent != None %}
+                <div class="row">
+                    <div class="col-sm">Parent</div>
+                    <a class="col-sm" href="{{ object.parent.get_absolute_url }}">{{ object.parent.name }}</a>
+                </div>
+            {% endif %}
+        {% endblock parent %}
+        {% block gauntlets %}
+            <div class="row">
+                <div class="col-sm">Gauntlet</div>
+                <div class="col-sm">{{ object.gauntlet }}</div>
+                <div class="col-sm">Shroud</div>
+                <div class="col-sm">{{ object.shroud }}</div>
+                <div class="col-sm">Dimension Barrier</div>
+                <div class="col-sm">{{ object.dimension_barrier }}</div>
+            </div>
+        {% endblock gauntlets %}
+        {% block reality_zone %}
+            {% if object.reality_zone %}
+                <div class="row">
+                    <div class="col-sm">Reality Zone</div>
+                    <div class="col-sm">{{ object.reality_zone }}</div>
+                </div>
+            {% endif %}
+        {% endblock reality_zone %}
+        {% block other %}
+        <div class="row">
+            <div class="col-sm">Rank</div>
+            <div class="col-sm">{{ object.rank }}</div>
+            <div class="col-sm">Type</div>
+            <div class="col-sm">{{ object.get_type_display }}</div>
+        </div>
+        {% endblock other %}
+        {% block description %}
+            <div class="row">
+                <div class="col-sm">Description</div>
+                <div class="col-sm">{{ object.description }}</div>
+            </div>
+        {% endblock description %}
+        {% block post_description %}
+        {% endblock post_description %}
+        {% block updater %}
+        <div class="col-sm">
+            <a href="{{ object.get_update_url }}" class="btn btn-primary" role="button">Update</a>
+        </div>
+        {% endblock updater %}
+    </div>
+{% endblock content %}
