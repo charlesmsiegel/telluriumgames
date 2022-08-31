@@ -113,7 +113,7 @@ class MageDetailView(View):
 class MageCreateView(CreateView):
     model = Mage
     form_class = MageForm
-    template_name = "wod/characters/mage/mage/create.html"
+    template_name = "wod/characters/mage/mage/form.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -124,7 +124,7 @@ class MageCreateView(CreateView):
 class MageUpdateView(UpdateView):
     model = Mage
     fields = "__all__"
-    template_name = "wod/characters/mage/mage/update.html"
+    template_name = "wod/characters/mage/mage/form.html"
 
 
 class CabalDetailView(DetailView):
@@ -135,13 +135,13 @@ class CabalDetailView(DetailView):
 class CabalCreateView(CreateView):
     model = Cabal
     fields = "__all__"
-    template_name = "wod/characters/mage/cabal/create.html"
+    template_name = "wod/characters/mage/cabal/form.html"
 
 
 class CabalUpdateView(UpdateView):
     model = Cabal
     fields = "__all__"
-    template_name = "wod/characters/mage/cabal/update.html"
+    template_name = "wod/characters/mage/cabal/form.html"
 
 
 class InstrumentDetailView(DetailView):
@@ -151,14 +151,14 @@ class InstrumentDetailView(DetailView):
 
 class InstrumentCreateView(CreateView):
     model = Instrument
-    fields = "__all__"
-    template_name = "wod/characters/mage/instrument/create.html"
+    fields = ["name", "description"]
+    template_name = "wod/characters/mage/instrument/form.html"
 
 
 class InstrumentUpdateView(UpdateView):
     model = Instrument
-    fields = "__all__"
-    template_name = "wod/characters/mage/instrument/update.html"
+    fields = ["name", "description"]
+    template_name = "wod/characters/mage/instrument/form.html"
 
 
 class MageFactionDetailView(DetailView):
@@ -169,13 +169,13 @@ class MageFactionDetailView(DetailView):
 class MageFactionCreateView(CreateView):
     model = MageFaction
     fields = "__all__"
-    template_name = "wod/characters/mage/magefaction/create.html"
+    template_name = "wod/characters/mage/magefaction/form.html"
 
 
 class MageFactionUpdateView(UpdateView):
     model = MageFaction
     fields = "__all__"
-    template_name = "wod/characters/mage/magefaction/update.html"
+    template_name = "wod/characters/mage/magefaction/form.html"
 
 
 class ParadigmDetailView(DetailView):
@@ -185,14 +185,14 @@ class ParadigmDetailView(DetailView):
 
 class ParadigmCreateView(CreateView):
     model = Paradigm
-    fields = "__all__"
-    template_name = "wod/characters/mage/paradigm/create.html"
+    fields = ["name", "practices", "description"]
+    template_name = "wod/characters/mage/paradigm/form.html"
 
 
 class ParadigmUpdateView(UpdateView):
     model = Paradigm
-    fields = "__all__"
-    template_name = "wod/characters/mage/paradigm/update.html"
+    fields = ["name", "practices", "description"]
+    template_name = "wod/characters/mage/paradigm/form.html"
 
 
 class PracticeDetailView(DetailView):
@@ -202,14 +202,14 @@ class PracticeDetailView(DetailView):
 
 class PracticeCreateView(CreateView):
     model = Practice
-    fields = "__all__"
-    template_name = "wod/characters/mage/practice/create.html"
+    fields = ["name", "abilities", "instruments", "description"]
+    template_name = "wod/characters/mage/practice/form.html"
 
 
 class PracticeUpdateView(UpdateView):
     model = Practice
-    fields = "__all__"
-    template_name = "wod/characters/mage/practice/update.html"
+    fields = ["name", "abilities", "instruments", "description"]
+    template_name = "wod/characters/mage/practice/form.html"
 
 
 class ResonanceDetailView(DetailView):
@@ -219,14 +219,14 @@ class ResonanceDetailView(DetailView):
 
 class ResonanceCreateView(CreateView):
     model = Resonance
-    fields = "__all__"
-    template_name = "wod/characters/mage/resonance/create.html"
+    fields = ["name", "correspondence", "life", "prime", "entropy", "matter", "spirit", "forces", "mind", "time"]
+    template_name = "wod/characters/mage/resonance/form.html"
 
 
 class ResonanceUpdateView(UpdateView):
     model = Resonance
-    fields = "__all__"
-    template_name = "wod/characters/mage/resonance/update.html"
+    fields = ["name", "correspondence", "life", "prime", "entropy", "matter", "spirit", "forces", "mind", "time"]
+    template_name = "wod/characters/mage/resonance/form.html"
 
 
 class EffectDetailView(DetailView):
@@ -237,13 +237,13 @@ class EffectDetailView(DetailView):
 class EffectCreateView(CreateView):
     model = Effect
     fields = "__all__"
-    template_name = "wod/characters/mage/effect/create.html"
+    template_name = "wod/characters/mage/effect/form.html"
 
 
 class EffectUpdateView(UpdateView):
     model = Effect
     fields = "__all__"
-    template_name = "wod/characters/mage/effect/update.html"
+    template_name = "wod/characters/mage/effect/form.html"
 
 
 class RoteDetailView(DetailView):
@@ -254,10 +254,10 @@ class RoteDetailView(DetailView):
 class RoteCreateView(CreateView):
     model = Rote
     fields = "__all__"
-    template_name = "wod/characters/mage/rote/create.html"
+    template_name = "wod/characters/mage/rote/form.html"
 
 
 class RoteUpdateView(UpdateView):
     model = Rote
     fields = "__all__"
-    template_name = "wod/characters/mage/rote/update.html"
+    template_name = "wod/characters/mage/rote/form.html"

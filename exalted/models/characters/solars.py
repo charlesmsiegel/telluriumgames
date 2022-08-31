@@ -39,6 +39,9 @@ class SolarCharm(Model):
 
     def get_absolute_url(self):
         return reverse("exalted:characters:solars:solarcharm", kwargs={"pk": self.pk})
+    
+    def get_update_url(self):
+        return reverse("exalted:characters:solars:update_solarcharm", kwargs={"pk": self.pk})
 
     def keyword_display(self):
         return ", ".join(self.keywords)
@@ -94,6 +97,9 @@ class Solar(ExMortal):
     charms = models.ManyToManyField(SolarCharm, blank=True)
 
     limit_trigger = models.CharField(max_length=100, default="")
+
+    def get_update_url(self):
+        return reverse("exalted:characters:solars:update_solar", kwargs={"pk": self.pk})
 
     def has_caste(self):
         return self.caste != ""

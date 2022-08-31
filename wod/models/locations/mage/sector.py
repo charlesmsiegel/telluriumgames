@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.db import models
 
 from wod.models.locations.human import Location
@@ -20,3 +21,6 @@ class Sector(Location):
 
     sector_class = models.CharField(max_length=10, choices=SECTOR_CLASS, default="")
     constraints = models.TextField(default="")
+
+    def get_update_url(self):
+        return reverse("wod:locations:mage:update_sector", args=[str(self.id)])

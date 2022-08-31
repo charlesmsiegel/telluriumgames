@@ -2,18 +2,19 @@
 {% block title %}
     {{ object.name| safe }}
 {% endblock title %}
-<body>
-    {% block content %}
-        {% load dots %}
-        <div class="centertext">
-            <div class="row">
-                <div class="col-sm">Name</div>
-                <div class="col-sm">{{ object.name }}</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">Description</div>
-                <div class="col-sm">{{ object.description }}</div>
-            </div>
+{% block content %}
+    {% load dots %}
+    <div class="centertext">
+        <div class="row">
+            <div class="col-sm">Name</div>
+            <div class="col-sm">{{ object.name }}</div>
         </div>
-    {% endblock content %}
-</body>
+        <div class="row">
+            <div class="col-sm">Description</div>
+            <div class="col-sm">{{ object.description }}</div>
+        </div>
+        <div class="col-sm">
+            <a href="{{ object.get_update_url }}" class="btn btn-primary" role="button">Update</a>
+        </div>
+    </div>
+{% endblock content %}

@@ -91,7 +91,6 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{% url 'cod:characters:index' %}">Characters</a>
-                                <a class="dropdown-item" href="{% url 'cod:items:index' %}">Items</a>
                             </div>
                         </li>
                     </li>
@@ -139,5 +138,7 @@
         {% endblock content %}
         {% block footer %}
         {% endblock footer %}
+        {% block extrascripts %}
+        {% endblock extrascripts %}
     </body>
 </html>

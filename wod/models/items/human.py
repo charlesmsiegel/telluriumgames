@@ -12,6 +12,9 @@ class WoDItem(Model):
     def get_absolute_url(self):
         return reverse("wod:items:item", args=[str(self.id)])
 
+    def get_update_url(self):
+        return reverse("wod:items:human:update_item", args=[str(self.id)])
+
     def random_name(self, name=None):
         if self.has_name():
             return False
@@ -41,13 +44,22 @@ class Weapon(WoDItem):
         ],
     )
 
+    def get_update_url(self):
+        return reverse("wod:items:human:update_weapon", args=[str(self.id)])
+
 
 class MeleeWeapon(Weapon):
     type = "melee_weapon"
+    
+    def get_update_url(self):
+        return reverse("wod:items:human:update_meleeweapon", args=[str(self.id)])
 
 
 class ThrownWeapon(Weapon):
     type = "thrown_weapon"
+    
+    def get_update_url(self):
+        return reverse("wod:items:human:update_thrownweapon", args=[str(self.id)])
 
 
 class RangedWeapon(Weapon):
@@ -56,3 +68,6 @@ class RangedWeapon(Weapon):
     range = models.IntegerField(default=0)
     rate = models.IntegerField(default=0)
     clip = models.IntegerField(default=0)
+
+    def get_update_url(self):
+        return reverse("wod:items:human:update_rangedweapon", args=[str(self.id)])

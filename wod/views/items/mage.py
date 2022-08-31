@@ -34,14 +34,14 @@ class WonderDetailView(View):
 
 class WonderCreateView(CreateView):
     model = Wonder
-    fields = "__all__"
-    template_name = "wod/items/mage/wonder/create.html"
+    fields = ["name", "rank", "background_cost", "quintessence_max", "description"]
+    template_name = "wod/items/mage/wonder/form.html"
 
 
 class WonderUpdateView(UpdateView):
     model = Wonder
-    fields = "__all__"
-    template_name = "wod/items/mage/wonder/update.html"
+    fields = ["name", "rank", "background_cost", "quintessence_max", "description"]
+    template_name = "wod/items/mage/wonder/form.html"
 
 
 class GrimoireDetailView(View):
@@ -93,13 +93,13 @@ class GrimoireDetailView(View):
 class GrimoireCreateView(CreateView):
     model = Grimoire
     fields = "__all__"
-    template_name = "wod/items/mage/grimoire/create.html"
+    template_name = "wod/items/mage/grimoire/form.html"
 
 
 class GrimoireUpdateView(UpdateView):
     model = Grimoire
     fields = "__all__"
-    template_name = "wod/items/mage/grimoire/update.html"
+    template_name = "wod/items/mage/grimoire/form.html"
 
 
 class LibraryDetailView(DetailView):
@@ -110,13 +110,13 @@ class LibraryDetailView(DetailView):
 class LibraryCreateView(CreateView):
     model = Library
     fields = "__all__"
-    template_name = "wod/items/mage/library/create.html"
+    template_name = "wod/items/mage/library/form.html"
 
 
 class LibraryUpdateView(UpdateView):
     model = Library
     fields = "__all__"
-    template_name = "wod/items/mage/library/update.html"
+    template_name = "wod/items/mage/library/form.html"
 
 
 class CharmDetailView(View):
@@ -137,13 +137,13 @@ class CharmDetailView(View):
 class CharmCreateView(CreateView):
     model = Charm
     fields = "__all__"
-    template_name = "wod/items/mage/charm/create.html"
+    template_name = "wod/items/mage/charm/form.html"
 
 
 class CharmUpdateView(UpdateView):
     model = Charm
-    fields = "__all__"
-    template_name = "wod/items/mage/charm/update.html"
+    fields = ["name", "rank", "background_cost", "quintessence_max", "description", "power", "arete"]
+    template_name = "wod/items/mage/charm/form.html"
 
 
 class ArtifactDetailView(View):
@@ -163,14 +163,14 @@ class ArtifactDetailView(View):
 
 class ArtifactCreateView(CreateView):
     model = Artifact
-    fields = "__all__"
-    template_name = "wod/items/mage/artifact/create.html"
+    fields = ["name", "rank", "background_cost", "quintessence_max", "description", "power"]
+    template_name = "wod/items/mage/artifact/form.html"
 
 
 class ArtifactUpdateView(UpdateView):
     model = Artifact
-    fields = "__all__"
-    template_name = "wod/items/mage/artifact/update.html"
+    fields = ["name", "rank", "background_cost", "quintessence_max", "description", "power"]
+    template_name = "wod/items/mage/artifact/form.html"
 
 
 class TalismanDetailView(View):
@@ -190,11 +190,11 @@ class TalismanDetailView(View):
 
 class TalismanCreateView(CreateView):
     model = Talisman
-    fields = "__all__"
-    template_name = "wod/items/mage/talisman/create.html"
+    fields = ["name", "rank", "background_cost", "quintessence_max", "description", "powers"]
+    template_name = "wod/items/mage/talisman/form.html"
 
 
 class TalismanUpdateView(UpdateView):
     model = Talisman
-    fields = "__all__"
-    template_name = "wod/items/mage/talisman/update.html"
+    fields = ["name", "rank", "background_cost", "quintessence_max", "description", "powers"]
+    template_name = "wod/items/mage/talisman/form.html"

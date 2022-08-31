@@ -19,13 +19,13 @@ class SectorDetailView(DetailView):
 class SectorCreateView(CreateView):
     model = Sector
     fields = "__all__"
-    template_name = "wod/locations/mage/sector/create.html"
+    template_name = "wod/locations/mage/sector/form.html"
 
 
 class SectorUpdateView(UpdateView):
     model = Sector
     fields = "__all__"
-    template_name = "wod/locations/mage/sector/update.html"
+    template_name = "wod/locations/mage/sector/form.html"
 
 
 class NodeDetailView(View):
@@ -49,13 +49,13 @@ class NodeDetailView(View):
 class NodeCreateView(CreateView):
     model = Node
     fields = "__all__"
-    template_name = "wod/locations/mage/node/create.html"
+    template_name = "wod/locations/mage/node/form.html"
 
 
 class NodeUpdateView(UpdateView):
     model = Node
     fields = "__all__"
-    template_name = "wod/locations/mage/node/update.html"
+    template_name = "wod/locations/mage/node/form.html"
 
 
 class ChantryDetailView(View):
@@ -81,13 +81,13 @@ class ChantryDetailView(View):
 class ChantryCreateView(CreateView):
     model = Chantry
     fields = "__all__"
-    template_name = "wod/locations/mage/chantry/create.html"
+    template_name = "wod/locations/mage/chantry/form.html"
 
 
 class ChantryUpdateView(UpdateView):
     model = Chantry
     fields = "__all__"
-    template_name = "wod/locations/mage/chantry/update.html"
+    template_name = "wod/locations/mage/chantry/form.html"
 
 
 class NodeMeritFlawDetailView(DetailView):
@@ -98,10 +98,10 @@ class NodeMeritFlawDetailView(DetailView):
 class NodeMeritFlawCreateView(CreateView):
     model = NodeMeritFlaw
     fields = "__all__"
-    template_name = "wod/locations/mage/nodemeritflaw/create.html"
+    template_name = "wod/locations/mage/nodemeritflaw/form.html"
 
 
 class NodeMeritFlawUpdateView(UpdateView):
     model = NodeMeritFlaw
     fields = "__all__"
-    template_name = "wod/locations/mage/nodemeritflaw/update.html"
+    template_name = "wod/locations/mage/nodemeritflaw/form.html"

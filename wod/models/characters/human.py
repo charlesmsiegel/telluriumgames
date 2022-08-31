@@ -19,6 +19,8 @@ class Archetype(Model):
     def get_absolute_url(self):
         return reverse("wod:characters:human:archetype", kwargs={"pk": self.pk})
 
+    def get_update_url(self):
+        return reverse("wod:characters:human:update_archetype", kwargs={"pk": self.pk})
 
 class WoDSpecialty(Model):
     type = "specialty"
@@ -34,6 +36,9 @@ class WoDSpecialty(Model):
 
     def get_absolute_url(self):
         return reverse("wod:characters:specialty", args=[str(self.id)])
+
+    def get_update_url(self):
+        return reverse("wod:characters:human:update_specialty", kwargs={"pk": self.pk})
 
     def __str__(self):
         return f"{self.name} ({self.display_stat()})"
@@ -51,6 +56,9 @@ class MeritFlaw(Model):
 
     def get_absolute_url(self):
         return reverse("wod:characters:human:meritflaw", args=[str(self.id)])
+
+    def get_update_url(self):
+        return reverse("wod:characters:human:update_meritflaw", kwargs={"pk": self.pk})
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)
@@ -70,6 +78,9 @@ class Character(Model):
     type = "character"
 
     concept = models.CharField(max_length=100)
+
+    def get_update_url(self):
+        return reverse("wod:characters:human:update_character", kwargs={"pk": self.pk})
 
     def has_concept(self):
         return self.concept != ""
@@ -175,6 +186,9 @@ class Human(Character):
 
     freebies = 15
     background_points = 5
+
+    def get_update_url(self):
+        return reverse("wod:characters:human:update_human", kwargs={"pk": self.pk})
 
     def random_name(self, ethnicity=None):
         if ethnicity is not None:
@@ -965,6 +979,9 @@ class Group(Model):
         null=True,
     )
 
+    def get_update_url(self):
+        return reverse("wod:characters:human:update_group", kwargs={"pk": self.pk})
+
     def random_name(self):
         self.name = f"Random Group {Group.objects.count()}"
         return True
@@ -1019,4 +1036,7 @@ class Derangement(Model):
     type = "derangement"
 
     def get_absolute_url(self):
-        return reverse("wod:characters:derangement", args=[str(self.id)])
+        return reverse("wod:characters:human:derangement", args=[str(self.id)])
+
+    def get_update_url(self):
+        return reverse("wod:characters:human:update_derangement", kwargs={"pk": self.pk})

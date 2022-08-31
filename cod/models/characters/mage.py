@@ -49,6 +49,8 @@ class Path(Model):
     def get_absolute_url(self):
         return reverse("cod:characters:mage:path", kwargs={"pk": self.pk})
 
+    def get_update_url(self):
+        return reverse("cod:characters:mage:update_path", kwargs={"pk": self.pk})
 
 class Order(Model):
     type = "order"
@@ -57,6 +59,9 @@ class Order(Model):
 
     def get_absolute_url(self):
         return reverse("cod:characters:mage:order", kwargs={"pk": self.pk})
+    
+    def get_update_url(self):
+        return reverse("cod:characters:mage:update_order", kwargs={"pk": self.pk})
 
 
 class Attainment(Model):
@@ -66,6 +71,9 @@ class Attainment(Model):
 
     def get_absolute_url(self):
         return reverse("cod:characters:mage:attainment", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("cod:characters:mage:update_attainment", kwargs={"pk": self.pk})
 
     def prereq_satisfied(self, prereq, character):
         if prereq[0] in character.get_skills().keys():
@@ -137,6 +145,9 @@ class Legacy(Model):
     def get_absolute_url(self):
         return reverse("cod:characters:mage:legacy", kwargs={"pk": self.pk})
 
+    def get_update_url(self):
+        return reverse("cod:characters:mage:update_legacy", kwargs={"pk": self.pk})
+
     def prereq_satisfied(self, prereq, character):
         if prereq[0] in character.get_skills().keys():
             if character.get_skills()[prereq[0]] < prereq[1]:
@@ -169,6 +180,9 @@ class CoDRote(Model):
 
     def get_absolute_url(self):
         return reverse("cod:characters:mage:rote", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("cod:characters:mage:update_rote", kwargs={"pk": self.pk})
 
     practice = models.CharField(
         max_length=40,
@@ -267,6 +281,9 @@ class Mage(Mortal):
     #     kwargs["morality_name"] = "Wisdom"
     #     kwargs["obsessions"] = [None, None, None, None]
     #     super().__init__(*args, **kwargs)
+
+    def get_update_url(self):
+        return reverse("cod:characters:mage:update_mage", kwargs={"pk": self.pk})
 
     @staticmethod
     def allowed_merit_types():
@@ -946,6 +963,9 @@ class ProximiFamily(Model):
     def get_absolute_url(self):
         return reverse("cod:characters:mage:proximifamily", args=[str(self.id)])
 
+    def get_update_url(self):
+        return reverse("cod:characters:mage:update_proximifamily", kwargs={"pk": self.pk})
+
 
 class Proximi(Mortal):
     type = "proximi"
@@ -956,6 +976,9 @@ class Proximi(Mortal):
     blessings = models.ManyToManyField(CoDRote, blank=True)
 
     mana = models.IntegerField(default=0)
+
+    def get_update_url(self):
+        return reverse("cod:characters:mage:update_proximi", kwargs={"pk": self.pk})
 
     def has_family(self):
         return self.family is not None

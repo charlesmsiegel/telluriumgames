@@ -11,6 +11,8 @@ class Instrument(Model):
     def get_absolute_url(self):
         return reverse("wod:characters:mage:instrument", args=[str(self.id)])
 
+    def get_update_url(self):
+        return reverse("wod:characters:mage:update_instrument", kwargs={"pk": self.pk})
 
 class Practice(Model):
     type = "practice"
@@ -21,6 +23,9 @@ class Practice(Model):
     def get_absolute_url(self):
         return reverse("wod:characters:mage:practice", args=[str(self.id)])
 
+    def get_update_url(self):
+        return reverse("wod:characters:mage:update_practice", kwargs={"pk": self.pk})
+
 
 class Paradigm(Model):
     type = "paradigm"
@@ -29,3 +34,6 @@ class Paradigm(Model):
 
     def get_absolute_url(self):
         return reverse("wod:characters:mage:paradigm", args=[str(self.id)])
+
+    def get_update_url(self):
+        return reverse("wod:characters:mage:update_paradigm", kwargs={"pk": self.pk})

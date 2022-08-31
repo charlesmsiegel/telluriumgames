@@ -12,6 +12,7 @@ from wod.models.items.mage import Library
 from wod.models.locations.human import Location
 
 from .nodes import Node
+from django.urls import reverse
 
 
 # Create your models here.
@@ -127,6 +128,9 @@ class Chantry(Location):
         "Technocratic Union": ["Construct"],
         "Kopa Loei": ["He'iau"],
     }
+    
+    def get_update_url(self):
+        return reverse("wod:locations:mage:update_chantry", args=[str(self.id)])
 
     def random_name(self):
         options = []

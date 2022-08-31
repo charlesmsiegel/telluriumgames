@@ -1,31 +1,7 @@
-{% extends "core/base.html" %}
-{% block title %}
-    {{ object.name }}
-{% endblock title %}
-{% block content %}
-    <h1>{{ object.name }}</h1>
-    <div class="centertext">
-        <div class="row">
-            <div class="col-sm">Rank</div>
-            <div class="col-sm">{{ object.rank }}</div>
-            <div class="col-sm">Background Cost</div>
-            <div class="col-sm">{{ object.background_cost }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Maximum Quintessence</div>
-            <div class="col-sm">{{ object.quintessence_max }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Power</div>
-            <a class="col-sm" href={{ object.power.get_absolute_url }}>{{ object.power.name }}</a>
-        </div>
-        <div class="col-sm mtas_heading">
-            <h2>Resonance</h2>
-        </div>
-        <div class="row">
-            {% for res in resonance %}
-                <a class="col-sm" href={{ res.resonance.get_absolute_url }}>{{ res.resonance }}: {{ res.rating }}</a>
-            {% endfor %}
-        </div>
+{% extends "wod/items/mage/wonder/detail.html" %}
+{% block powers %}
+    <div class="row">
+        <div class="col-sm">Power</div>
+        <a class="col-sm" href={{ object.power.get_absolute_url }}>{{ object.power.name }}</a>
     </div>
-{% endblock content %}
+{% endblock powers %}

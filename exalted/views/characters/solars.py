@@ -21,13 +21,13 @@ class SolarDetailView(View):
 class SolarCreateView(CreateView):
     model = Solar
     fields = "__all__"
-    template_name = "exalted/characters/solars/solar/create.html"
+    template_name = "exalted/characters/solars/solar/form.html"
 
 
 class SolarUpdateView(UpdateView):
     model = Solar
     fields = "__all__"
-    template_name = "exalted/characters/solars/solar/update.html"
+    template_name = "exalted/characters/solars/solar/form.html"
 
 
 class SolarCharmDetailView(DetailView):
@@ -38,10 +38,10 @@ class SolarCharmDetailView(DetailView):
 class SolarCharmCreateView(CreateView):
     model = SolarCharm
     fields = "__all__"
-    template_name = "exalted/characters/solars/solarcharm/create.html"
+    template_name = "exalted/characters/solars/solarcharm/form.html"
 
 
 class SolarCharmUpdateView(UpdateView):
     model = SolarCharm
     fields = "__all__"
-    template_name = "exalted/characters/solars/solarcharm/update.html"
+    template_name = "exalted/characters/solars/solarcharm/form.html"

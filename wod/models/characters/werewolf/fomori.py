@@ -13,6 +13,9 @@ class FomoriPower(Model):
 
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:fomoripower", kwargs={"pk": self.pk})
+    
+    def get_update_url(self):
+        return reverse("wod:characters:werewolf:update_fomoripower", kwargs={"pk": self.pk})
 
 
 class Fomor(WtAHuman):
@@ -26,6 +29,9 @@ class Fomor(WtAHuman):
     # def __init__(self, *args, **kwargs):
     #     kwargs["willpower"] = kwargs.get("willpower") or 3
     #     super().__init__(*args, **kwargs)
+
+    def get_update_url(self):
+        return reverse("wod:characters:werewolf:update_fomor", kwargs={"pk": self.pk})
 
     def get_backgrounds(self):
         return {

@@ -21,6 +21,9 @@ class Resonance(Model):
     def get_absolute_url(self):
         return reverse("wod:characters:mage:resonance", args=[str(self.id)])
 
+    def get_update_url(self):
+        return reverse("wod:characters:mage:update_resonance", kwargs={"pk": self.pk})
+
     def __str__(self):
         return self.name.title()
 

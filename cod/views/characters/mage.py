@@ -46,13 +46,13 @@ class ProximiDetailView(View):
 class ProximiCreateView(CreateView):
     model = Proximi
     fields = "__all__"
-    template_name = "cod/characters/mage/proximi/create.html"
+    template_name = "cod/characters/mage/proximi/form.html"
 
 
 class ProximiUpdateView(UpdateView):
     model = Proximi
     fields = "__all__"
-    template_name = "cod/characters/mage/proximi/update.html"
+    template_name = "cod/characters/mage/proximi/form.html"
 
 
 class MageDetailView(View):
@@ -93,13 +93,13 @@ class MageDetailView(View):
 class MageCreateView(CreateView):
     model = Mage
     fields = "__all__"
-    template_name = "cod/characters/mage/mage/create.html"
+    template_name = "cod/characters/mage/mage/form.html"
 
 
 class MageUpdateView(UpdateView):
     model = Mage
     fields = "__all__"
-    template_name = "cod/characters/mage/mage/update.html"
+    template_name = "cod/characters/mage/mage/form.html"
 
 
 class ProximiFamilyDetailView(DetailView):
@@ -132,13 +132,13 @@ class ProximiFamilyDetailView(DetailView):
 class ProximiFamilyCreateView(CreateView):
     model = ProximiFamily
     fields = "__all__"
-    template_name = "cod/characters/mage/proximifamily/create.html"
+    template_name = "cod/characters/mage/proximifamily/form.html"
 
 
 class ProximiFamilyUpdateView(UpdateView):
     model = ProximiFamily
     fields = "__all__"
-    template_name = "cod/characters/mage/proximifamily/update.html"
+    template_name = "cod/characters/mage/proximifamily/form.html"
 
 
 class LegacyDetailView(DetailView):
@@ -149,13 +149,13 @@ class LegacyDetailView(DetailView):
 class LegacyCreateView(CreateView):
     model = Legacy
     fields = "__all__"
-    template_name = "cod/characters/mage/legacy/create.html"
+    template_name = "cod/characters/mage/legacy/form.html"
 
 
 class LegacyUpdateView(UpdateView):
     model = Legacy
     fields = "__all__"
-    template_name = "cod/characters/mage/legacy/update.html"
+    template_name = "cod/characters/mage/legacy/form.html"
 
 
 class OrderDetailView(DetailView):
@@ -166,13 +166,13 @@ class OrderDetailView(DetailView):
 class OrderCreateView(CreateView):
     model = Order
     fields = "__all__"
-    template_name = "cod/characters/mage/order/create.html"
+    template_name = "cod/characters/mage/order/form.html"
 
 
 class OrderUpdateView(UpdateView):
     model = Order
     fields = "__all__"
-    template_name = "cod/characters/mage/order/update.html"
+    template_name = "cod/characters/mage/order/form.html"
 
 
 class PathDetailView(DetailView):
@@ -183,13 +183,13 @@ class PathDetailView(DetailView):
 class PathCreateView(CreateView):
     model = Path
     fields = "__all__"
-    template_name = "cod/characters/mage/path/create.html"
+    template_name = "cod/characters/mage/path/form.html"
 
 
 class PathUpdateView(UpdateView):
     model = Path
     fields = "__all__"
-    template_name = "cod/characters/mage/path/update.html"
+    template_name = "cod/characters/mage/path/form.html"
 
 
 class RoteDetailView(DetailView):
@@ -200,13 +200,13 @@ class RoteDetailView(DetailView):
 class RoteCreateView(CreateView):
     model = CoDRote
     fields = "__all__"
-    template_name = "cod/characters/mage/rote/create.html"
+    template_name = "cod/characters/mage/rote/form.html"
 
 
 class RoteUpdateView(UpdateView):
     model = CoDRote
     fields = "__all__"
-    template_name = "cod/characters/mage/rote/update.html"
+    template_name = "cod/characters/mage/rote/form.html"
 
 
 class AttainmentDetailView(DetailView):
@@ -217,10 +217,10 @@ class AttainmentDetailView(DetailView):
 class AttainmentCreateView(CreateView):
     model = Attainment
     fields = "__all__"
-    template_name = "cod/characters/mage/attainment/create.html"
+    template_name = "cod/characters/mage/attainment/form.html"
 
 
 class AttainmentUpdateView(UpdateView):
     model = Attainment
     fields = "__all__"
-    template_name = "cod/characters/mage/attainment/update.html"
+    template_name = "cod/characters/mage/attainment/form.html"

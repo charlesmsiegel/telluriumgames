@@ -30,13 +30,13 @@ class AberrantDetailView(HumanDetailView):
 class AberrantCreateView(CreateView):
     model = Aberrant
     fields = "__all__"
-    template_name = "tc/characters/aberrant/aberrant/create.html"
+    template_name = "tc/characters/aberrant/aberrant/form.html"
 
 
 class AberrantUpdateView(UpdateView):
     model = Aberrant
     fields = "__all__"
-    template_name = "tc/characters/aberrant/aberrant/update.html"
+    template_name = "tc/characters/aberrant/aberrant/form.html"
 
 
 class MegaEdgeDetailView(DetailView):
@@ -47,13 +47,13 @@ class MegaEdgeDetailView(DetailView):
 class MegaEdgeCreateView(CreateView):
     model = MegaEdge
     fields = "__all__"
-    template_name = "tc/characters/aberrant/megaedge/create.html"
+    template_name = "tc/characters/aberrant/megaedge/form.html"
 
 
 class MegaEdgeUpdateView(UpdateView):
     model = MegaEdge
     fields = "__all__"
-    template_name = "tc/characters/aberrant/megaedge/update.html"
+    template_name = "tc/characters/aberrant/megaedge/form.html"
 
 
 class PowerDetailView(DetailView):
@@ -64,13 +64,13 @@ class PowerDetailView(DetailView):
 class PowerCreateView(CreateView):
     model = Power
     fields = "__all__"
-    template_name = "tc/characters/aberrant/power/create.html"
+    template_name = "tc/characters/aberrant/power/form.html"
 
 
 class PowerUpdateView(UpdateView):
     model = Power
     fields = "__all__"
-    template_name = "tc/characters/aberrant/power/update.html"
+    template_name = "tc/characters/aberrant/power/form.html"
 
 
 class TagDetailView(DetailView):
@@ -81,13 +81,13 @@ class TagDetailView(DetailView):
 class TagCreateView(CreateView):
     model = Tag
     fields = "__all__"
-    template_name = "tc/characters/aberrant/tag/create.html"
+    template_name = "tc/characters/aberrant/tag/form.html"
 
 
 class TagUpdateView(UpdateView):
     model = Tag
     fields = "__all__"
-    template_name = "tc/characters/aberrant/tag/update.html"
+    template_name = "tc/characters/aberrant/tag/form.html"
 
 
 class TransformationDetailView(DetailView):
@@ -98,10 +98,10 @@ class TransformationDetailView(DetailView):
 class TransformationCreateView(CreateView):
     model = Transformation
     fields = "__all__"
-    template_name = "tc/characters/aberrant/transformation/create.html"
+    template_name = "tc/characters/aberrant/transformation/form.html"
 
 
 class TransformationUpdateView(UpdateView):
     model = Transformation
     fields = "__all__"
-    template_name = "tc/characters/aberrant/transformation/update.html"
+    template_name = "tc/characters/aberrant/transformation/form.html"

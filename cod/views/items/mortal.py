@@ -12,13 +12,13 @@ class ItemDetailView(DetailView):
 class ItemCreateView(CreateView):
     model = Item
     fields = "__all__"
-    template_name = "cod/items/mortal/item/create.html"
+    template_name = "cod/items/mortal/item/form.html"
 
 
 class ItemUpdateView(UpdateView):
     model = Item
     fields = "__all__"
-    template_name = "cod/items/mortal/item/update.html"
+    template_name = "cod/items/mortal/item/form.html"
 
 
 class EquipmentDetailView(DetailView):
@@ -29,10 +29,10 @@ class EquipmentDetailView(DetailView):
 class EquipmentCreateView(CreateView):
     model = Equipment
     fields = "__all__"
-    template_name = "cod/items/mortal/equipment/create.html"
+    template_name = "cod/items/mortal/equipment/form.html"
 
 
 class EquipmentUpdateView(UpdateView):
     model = Equipment
     fields = "__all__"
-    template_name = "cod/items/mortal/equipment/update.html"
+    template_name = "cod/items/mortal/equipment/form.html"

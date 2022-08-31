@@ -111,6 +111,9 @@ class Mortal(Model):
     def get_absolute_url(self):
         return reverse("cod:characters:character", args=[str(self.id)])
 
+    def get_update_url(self):
+        return reverse("cod:characters:mortal:update_mortal", kwargs={"pk": self.pk})
+
     def random_name(self, ethnicity=None):
         if ethnicity is not None:
             self.ethnicity = ethnicity
@@ -802,6 +805,9 @@ class CoDMerit(Model):
     def get_absolute_url(self):
         return reverse("cod:characters:mortal:merit", kwargs={"pk": self.pk})
 
+    def get_update_url(self):
+        return reverse("cod:characters:mortal:update_merit", kwargs={"pk": self.pk})
+
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)
         self.min_rating = min(self.ratings)
@@ -1018,6 +1024,9 @@ class CoDSpecialty(Model):
     def get_absolute_url(self):
         return reverse("cod:characters:mortal:specialty", kwargs={"pk": self.pk})
 
+    def get_update_url(self):
+        return reverse("cod:characters:mortal:update_specialty", kwargs={"pk": self.pk})
+
     def display_skill(self):
         return self.skill.replace("_", " ").title()
 
@@ -1045,6 +1054,8 @@ class Condition(Model):
     def get_absolute_url(self):
         return reverse("cod:characters:mortal:condition", kwargs={"pk": self.pk})
 
+    def get_update_url(self):
+        return reverse("cod:characters:mortal:update_condition", kwargs={"pk": self.pk})
 
 class Tilt(Model):
     type = "tilt"
@@ -1059,3 +1070,6 @@ class Tilt(Model):
 
     def get_absolute_url(self):
         return reverse("cod:characters:mortal:tilt", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("cod:characters:mortal:update_tilt", kwargs={"pk": self.pk})

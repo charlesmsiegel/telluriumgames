@@ -19,13 +19,13 @@ class CharacterDetailView(DetailView):
 class CharacterCreateView(CreateView):
     model = Character
     fields = "__all__"
-    template_name = "wod/characters/human/character/create.html"
+    template_name = "wod/characters/human/character/form.html"
 
 
 class CharacterUpdateView(UpdateView):
     model = Character
     fields = "__all__"
-    template_name = "wod/characters/human/character/update.html"
+    template_name = "wod/characters/human/character/form.html"
 
 
 class HumanDetailView(DetailView):
@@ -36,13 +36,13 @@ class HumanDetailView(DetailView):
 class HumanCreateView(CreateView):
     model = Human
     fields = "__all__"
-    template_name = "wod/characters/human/human/create.html"
+    template_name = "wod/characters/human/human/form.html"
 
 
 class HumanUpdateView(UpdateView):
     model = Human
     fields = "__all__"
-    template_name = "wod/characters/human/human/update.html"
+    template_name = "wod/characters/human/human/form.html"
 
 
 class GroupDetailView(DetailView):
@@ -53,13 +53,13 @@ class GroupDetailView(DetailView):
 class GroupCreateView(CreateView):
     model = Group
     fields = "__all__"
-    template_name = "wod/characters/human/group/create.html"
+    template_name = "wod/characters/human/group/form.html"
 
 
 class GroupUpdateView(UpdateView):
     model = Group
     fields = "__all__"
-    template_name = "wod/characters/human/group/update.html"
+    template_name = "wod/characters/human/group/form.html"
 
 
 class ArchetypeDetailView(DetailView):
@@ -70,13 +70,13 @@ class ArchetypeDetailView(DetailView):
 class ArchetypeCreateView(CreateView):
     model = Archetype
     fields = "__all__"
-    template_name = "wod/characters/human/archetype/create.html"
+    template_name = "wod/characters/human/archetype/form.html"
 
 
 class ArchetypeUpdateView(UpdateView):
     model = Archetype
-    fields = "__all__"
-    template_name = "wod/characters/human/archetype/update.html"
+    fields = ["name", "description"]
+    template_name = "wod/characters/human/archetype/form.html"
 
 
 class MeritFlawDetailView(DetailView):
@@ -87,13 +87,13 @@ class MeritFlawDetailView(DetailView):
 class MeritFlawCreateView(CreateView):
     model = MeritFlaw
     fields = "__all__"
-    template_name = "wod/characters/human/meritflaw/create.html"
+    template_name = "wod/characters/human/meritflaw/form.html"
 
 
 class MeritFlawUpdateView(UpdateView):
     model = MeritFlaw
-    fields = "__all__"
-    template_name = "wod/characters/human/meritflaw/update.html"
+    fields = ["name", "ratings", "human", "garou", "kinfolk", "mage", "description"]
+    template_name = "wod/characters/human/meritflaw/form.html"
 
 
 class SpecialtyDetailView(DetailView):
@@ -104,13 +104,13 @@ class SpecialtyDetailView(DetailView):
 class SpecialtyCreateView(CreateView):
     model = WoDSpecialty
     fields = "__all__"
-    template_name = "wod/characters/human/specialty/create.html"
+    template_name = "wod/characters/human/specialty/form.html"
 
 
 class SpecialtyUpdateView(UpdateView):
     model = WoDSpecialty
     fields = "__all__"
-    template_name = "wod/characters/human/specialty/update.html"
+    template_name = "wod/characters/human/specialty/form.html"
 
 
 class DerangementDetailView(DetailView):
@@ -121,10 +121,10 @@ class DerangementDetailView(DetailView):
 class DerangementCreateView(CreateView):
     model = Derangement
     fields = "__all__"
-    template_name = "wod/characters/human/derangement/create.html"
+    template_name = "wod/characters/human/derangement/form.html"
 
 
 class DerangementUpdateView(UpdateView):
     model = Derangement
     fields = "__all__"
-    template_name = "wod/characters/human/derangement/update.html"
+    template_name = "wod/characters/human/derangement/form.html"

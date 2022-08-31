@@ -14,6 +14,16 @@ urls = [
         name="update_pack",
     ),
     path(
+        "fomor/create/",
+        views.characters.werewolf.FomorCreateView.as_view(),
+        name="create_fomor",
+    ),
+    path(
+        "fomor/update/<pk>/",
+        views.characters.werewolf.FomorUpdateView.as_view(),
+        name="update_fomor",
+    ),
+    path(
         "werewolf/create/",
         views.characters.werewolf.WerewolfCreateView.as_view(),
         name="create_werewolf",
@@ -140,12 +150,12 @@ urls = [
     path(
         "tribes/create/",
         views.characters.werewolf.TribeCreateView.as_view(),
-        name="create_tribes",
+        name="create_tribe",
     ),
     path(
         "tribes/update/<pk>/",
         views.characters.werewolf.TribeUpdateView.as_view(),
-        name="update_tribes",
+        name="update_tribe",
     ),
     path(
         "battlescar/<pk>/",

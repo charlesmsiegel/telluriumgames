@@ -2,41 +2,42 @@
 {% block title %}
     Objects
 {% endblock title %}
-<body>
-    {% block content %}
-        <div class="centertext">
-            <div class="row border">
-                <div class="col-sm border">
-                    <h2>Objects</h2>
-                </div>
-            </div>
-            {% for obj in items %}
-                {% if obj.display %}
-                    <div class="row border">
-                        <a class="col-sm border" href="{% url 'wod:items:item' obj.id %}">{{ obj.name }}</a>
-                    </div>
-                {% endif %}
-            {% endfor %}
+{% block content %}
+    <div class="centertext">
+        <div class="row border">
+            <h2 class="col-sm border">Objects</h2>
         </div>
-        <form id="itemForm"
-              data-item-type-url="{% url 'wod:items:ajax_load_item_types' %}"
-              action="{% url 'wod:items:random' %}"
-              method="post"
-              novalidate>
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-sm"></div>
-                <div class="col-sm">{{ form.gameline }}</div>
-                <div class="col-sm">{{ form.item_type }}</div>
-                <div class="col-sm">{{ form.name }}</div>
-                <div class="col-sm">{{ form.rank }}</div>
-                <div class="col-sm">
-                    <button type="submit">Create</button>
+        {% for obj in items %}
+            {% if obj.display %}
+                <div class="row border">
+                    <a class="col-sm border" href="{% url 'wod:items:item' obj.id %}">{{ obj.name }}</a>
+                    <div class="col-sm border">{{ obj.owner.username }}</div>
+                    <div class="col-sm border">{{ obj.type.title }}</div>
                 </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <form id="itemForm"
+          data-item-type-url="{% url 'wod:items:ajax_load_item_types' %}"
+          action="{% url 'wod:items:random' %}"
+          method="post"
+          novalidate>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">{{ form.gameline }}</div>
+            <div class="col-sm">{{ form.item_type }}</div>
+            <div class="col-sm">{{ form.name }}</div>
+            <div class="col-sm">{{ form.rank }}</div>
+            <div class="col-sm">
+                <button type="submit">Create</button>
             </div>
-        </form>
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script>
+        </div>
+    </form>
+{% endblock content %}
+{% block extrascripts %}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
           $("#id_gameline").change(function () {
             var url = $("#itemForm").attr("data-item-type-url");  // get the url of the `load_character_type` view
             var gamelineId = $(this).val();  // get the selected gameline ID from the HTML input
@@ -52,6 +53,5 @@
             });
       
           });
-        </script>
-    {% endblock content %}
-</body>
+    </script>
+{% endblock extrascripts %}

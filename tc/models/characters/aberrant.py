@@ -38,6 +38,9 @@ class Aberrant(Human):
     flux = models.IntegerField(default=0)
 
     transformations_for_xp = models.IntegerField(default=0)
+    
+    def get_update_url(self):
+        return reverse("tc:characters:aberrant:update_aberrant", kwargs={"pk": self.pk})
 
     def add_mega_attribute(self, attribute):
         if not attribute.startswith("mega_"):
@@ -623,6 +626,9 @@ class Aberrant(Human):
 
 class MegaEdge(Edge):
     type = "mega_edge"
+    
+    def get_update_url(self):
+        return reverse("tc:characters:aberrant:update_mega_edge", kwargs={"pk": self.pk})
 
     def check_prereqs(self, character):
         return aberrant_check_prereqs(self, character)
@@ -672,6 +678,9 @@ class Power(Model):
 
     def get_absolute_url(self):
         return reverse("tc:characters:power", args=[str(self.id)])
+    
+    def get_update_url(self):
+        return reverse("tc:characters:aberrant:update_power", kwargs={"pk": self.pk})
 
     def set_dicepool(self, dicepool):
         self.dicepool = dicepool
@@ -720,6 +729,9 @@ class Tag(Model):
 
     def get_absolute_url(self):
         return reverse("tc:characters:tag", args=[str(self.id)])
+    
+    def get_update_url(self):
+        return reverse("tc:characters:aberrant:update_tag", kwargs={"pk": self.pk})
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)
@@ -744,6 +756,9 @@ class Transformation(Model):
 
     def get_absolute_url(self):
         return reverse("tc:characters:transformation", args=[str(self.id)])
+    
+    def get_update_url(self):
+        return reverse("tc:characters:aberrant:update_transformation", kwargs={"pk": self.pk})
 
     def __str__(self):
         return f"{self.name} ({self.level})"

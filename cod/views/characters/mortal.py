@@ -27,13 +27,13 @@ class MortalDetailView(View):
 class MortalCreateView(CreateView):
     model = Mortal
     fields = "__all__"
-    template_name = "cod/characters/mortal/mortal/create.html"
+    template_name = "cod/characters/mortal/mortal/form.html"
 
 
 class MortalUpdateView(UpdateView):
     model = Mortal
     fields = "__all__"
-    template_name = "cod/characters/mortal/mortal/update.html"
+    template_name = "cod/characters/mortal/mortal/form.html"
 
 
 class ConditionDetailView(DetailView):
@@ -44,13 +44,13 @@ class ConditionDetailView(DetailView):
 class ConditionCreateView(CreateView):
     model = Condition
     fields = "__all__"
-    template_name = "cod/characters/mortal/condition/create.html"
+    template_name = "cod/characters/mortal/condition/form.html"
 
 
 class ConditionUpdateView(UpdateView):
     model = Condition
     fields = "__all__"
-    template_name = "cod/characters/mortal/condition/update.html"
+    template_name = "cod/characters/mortal/condition/form.html"
 
 
 class MeritDetailView(DetailView):
@@ -61,13 +61,13 @@ class MeritDetailView(DetailView):
 class MeritCreateView(CreateView):
     model = CoDMerit
     fields = "__all__"
-    template_name = "cod/characters/mortal/merit/create.html"
+    template_name = "cod/characters/mortal/merit/form.html"
 
 
 class MeritUpdateView(UpdateView):
     model = CoDMerit
     fields = "__all__"
-    template_name = "cod/characters/mortal/merit/update.html"
+    template_name = "cod/characters/mortal/merit/form.html"
 
 
 class SpecialtyDetailView(DetailView):
@@ -78,13 +78,13 @@ class SpecialtyDetailView(DetailView):
 class SpecialtyCreateView(CreateView):
     model = CoDSpecialty
     fields = "__all__"
-    template_name = "cod/characters/mortal/specialty/create.html"
+    template_name = "cod/characters/mortal/specialty/form.html"
 
 
 class SpecialtyUpdateView(UpdateView):
     model = CoDSpecialty
     fields = "__all__"
-    template_name = "cod/characters/mortal/specialty/update.html"
+    template_name = "cod/characters/mortal/specialty/form.html"
 
 
 class TiltDetailView(DetailView):
@@ -95,10 +95,10 @@ class TiltDetailView(DetailView):
 class TiltCreateView(CreateView):
     model = Tilt
     fields = "__all__"
-    template_name = "cod/characters/mortal/tilt/create.html"
+    template_name = "cod/characters/mortal/tilt/form.html"
 
 
 class TiltUpdateView(UpdateView):
     model = Tilt
     fields = "__all__"
-    template_name = "cod/characters/mortal/tilt/update.html"
+    template_name = "cod/characters/mortal/tilt/form.html"
