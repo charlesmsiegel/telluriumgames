@@ -1,0 +1,25 @@
+{% extends "core/base.html" %}
+{% block title %}
+    {{ object.name| safe }}
+{% endblock title %}
+{% block content %}
+    {% load dots %}
+    <div class="centertext">
+        <div class="row">
+            <div class="col-sm">Name</div>
+            <div class="col-sm">{{ object.name }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Range</div>
+            <div class="col-sm">{{ object.range }}</div>
+            <div class="col-sm">Rate</div>
+            <div class="col-sm">{{ object.rate }}</div>
+            <div class="col-sm">Clip</div>
+            <div class="col-sm">{{ object.clip }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Description</div>
+            <div class="col-sm">{{ object.description }}</div>
+        </div>
+    </div>
+{% endblock content %}
