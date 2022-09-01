@@ -58,7 +58,9 @@ class Ephemera(Model):
         return reverse("cod:characters:ephemera:ephemera", kwargs={"pk": self.pk})
 
     def get_update_url(self):
-        return reverse("cod:characters:ephemera:update_ephemera", kwargs={"pk": self.pk})
+        return reverse(
+            "cod:characters:ephemera:update_ephemera", kwargs={"pk": self.pk}
+        )
 
     def has_rank(self):
         return self.rank != 0

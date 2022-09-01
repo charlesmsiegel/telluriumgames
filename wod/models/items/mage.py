@@ -3,9 +3,9 @@ import math
 import random
 from tkinter import N
 
-from django.urls import reverse
 from django.db import models
 from django.db.models import Q
+from django.urls import reverse
 
 from core.models import Language, Material, Medium, Noun
 from core.utils import weighted_choice
@@ -38,7 +38,7 @@ class Wonder(WoDItem):
     resonance = models.ManyToManyField(
         Resonance, blank=True, through=WonderResonanceRating
     )
-    
+
     def get_update_url(self):
         return reverse("wod:items:mage:update_wonder", args=[str(self.id)])
 
@@ -135,7 +135,7 @@ class Charm(Wonder):
 
     arete = models.IntegerField(default=0)
     power = models.ForeignKey(Effect, blank=True, null=True, on_delete=models.CASCADE)
-    
+
     def get_update_url(self):
         return reverse("wod:items:mage:update_charm", args=[str(self.id)])
 
@@ -161,7 +161,7 @@ class Artifact(Wonder):
     type = "artifact"
 
     power = models.ForeignKey(Effect, blank=True, null=True, on_delete=models.CASCADE)
-    
+
     def get_update_url(self):
         return reverse("wod:items:mage:update_artifact", args=[str(self.id)])
 
@@ -188,7 +188,7 @@ class Talisman(Wonder):
 
     arete = models.IntegerField(default=0)
     powers = models.ManyToManyField(Effect, blank=True)
-    
+
     def get_update_url(self):
         return reverse("wod:items:mage:update_talisman", args=[str(self.id)])
 
@@ -620,7 +620,7 @@ class Library(Wonder):
         MageFaction, null=True, blank=True, on_delete=models.CASCADE
     )
     books = models.ManyToManyField(Grimoire, blank=True)
-    
+
     def get_update_url(self):
         return reverse("wod:items:mage:update_library", args=[str(self.id)])
 

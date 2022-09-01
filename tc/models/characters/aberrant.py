@@ -38,7 +38,7 @@ class Aberrant(Human):
     flux = models.IntegerField(default=0)
 
     transformations_for_xp = models.IntegerField(default=0)
-    
+
     def get_update_url(self):
         return reverse("tc:characters:aberrant:update_aberrant", kwargs={"pk": self.pk})
 
@@ -626,9 +626,11 @@ class Aberrant(Human):
 
 class MegaEdge(Edge):
     type = "mega_edge"
-    
+
     def get_update_url(self):
-        return reverse("tc:characters:aberrant:update_mega_edge", kwargs={"pk": self.pk})
+        return reverse(
+            "tc:characters:aberrant:update_mega_edge", kwargs={"pk": self.pk}
+        )
 
     def check_prereqs(self, character):
         return aberrant_check_prereqs(self, character)
@@ -650,7 +652,11 @@ class Power(Model):
     quantum_minimum = models.IntegerField(default=0)
     quantum_offset = models.IntegerField(default=0)
     action_type = models.CharField(
-        max_length=100, choices=[("reflexive", "Reflexive"), ("ordinary", "Ordinary"),]
+        max_length=100,
+        choices=[
+            ("reflexive", "Reflexive"),
+            ("ordinary", "Ordinary"),
+        ],
     )
     cost = models.IntegerField(default=0)
     dicepool = models.CharField(default="", max_length=100)
@@ -678,7 +684,7 @@ class Power(Model):
 
     def get_absolute_url(self):
         return reverse("tc:characters:power", args=[str(self.id)])
-    
+
     def get_update_url(self):
         return reverse("tc:characters:aberrant:update_power", kwargs={"pk": self.pk})
 
@@ -729,7 +735,7 @@ class Tag(Model):
 
     def get_absolute_url(self):
         return reverse("tc:characters:tag", args=[str(self.id)])
-    
+
     def get_update_url(self):
         return reverse("tc:characters:aberrant:update_tag", kwargs={"pk": self.pk})
 
@@ -751,14 +757,20 @@ class Transformation(Model):
 
     level = models.CharField(
         max_length=10,
-        choices=[("low", "low"), ("medium", "medium"), ("high", "high"),],
+        choices=[
+            ("low", "low"),
+            ("medium", "medium"),
+            ("high", "high"),
+        ],
     )
 
     def get_absolute_url(self):
         return reverse("tc:characters:transformation", args=[str(self.id)])
-    
+
     def get_update_url(self):
-        return reverse("tc:characters:aberrant:update_transformation", kwargs={"pk": self.pk})
+        return reverse(
+            "tc:characters:aberrant:update_transformation", kwargs={"pk": self.pk}
+        )
 
     def __str__(self):
         return f"{self.name} ({self.level})"

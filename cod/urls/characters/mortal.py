@@ -67,5 +67,9 @@ urls = [
         views.characters.mortal.TiltUpdateView.as_view(),
         name="update_tilt",
     ),
-    path("tilt/<pk>/", views.characters.mortal.TiltDetailView.as_view(), name="tilt",),
+    path(
+        "tilt/<pk>/",
+        views.characters.mortal.TiltDetailView.as_view(),
+        name="tilt",
+    ),
 ]

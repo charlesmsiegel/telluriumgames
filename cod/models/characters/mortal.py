@@ -1057,12 +1057,16 @@ class Condition(Model):
     def get_update_url(self):
         return reverse("cod:characters:mortal:update_condition", kwargs={"pk": self.pk})
 
+
 class Tilt(Model):
     type = "tilt"
 
     tilt_type = models.CharField(
         max_length=20,
-        choices=[("personal", "Personal"), ("environmental", "Environmental"),],
+        choices=[
+            ("personal", "Personal"),
+            ("environmental", "Environmental"),
+        ],
     )
     effect = models.TextField(default="")
     causing = models.TextField(default="")

@@ -49,7 +49,7 @@ class Material(models.Model):
 
     def get_absolute_url(self):
         return reverse("core:material", kwargs={"pk": self.pk})
-    
+
     def get_update_url(self):
         return reverse("core:update_material", kwargs={"pk": self.pk})
 
@@ -69,7 +69,7 @@ class Book(models.Model):
 
     def get_absolute_url(self):
         return reverse("core:book", kwargs={"pk": self.pk})
-    
+
     def get_update_url(self):
         return reverse("core:update_book", kwargs={"pk": self.pk})
 

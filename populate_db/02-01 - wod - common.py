@@ -595,7 +595,10 @@ MeritFlaw.objects.create(
     name="Sphere Natural - Mind", ratings=[6], human=False, mage=True
 )
 MeritFlaw.objects.create(
-    name="Spirit Magnet (Mage)", ratings=[3, 4, 5, 6, 7], human=True, mage=True,
+    name="Spirit Magnet (Mage)",
+    ratings=[3, 4, 5, 6, 7],
+    human=True,
+    mage=True,
 )
 MeritFlaw.objects.create(name="Spirit Mentor", ratings=[3], human=True, mage=True)
 MeritFlaw.objects.create(name="Sterile", ratings=[1, -1], human=True, mage=True)
@@ -636,7 +639,10 @@ MeritFlaw.objects.create(
 MeritFlaw.objects.create(name="Bound", ratings=[-5], human=True, mage=True)
 MeritFlaw.objects.create(name="Branded", ratings=[-3, -4, -5], human=True, mage=True)
 MeritFlaw.objects.create(
-    name="Cast No Shadow Or Reflection", ratings=[-1, -2], human=True, mage=True,
+    name="Cast No Shadow Or Reflection",
+    ratings=[-1, -2],
+    human=True,
+    mage=True,
 )
 MeritFlaw.objects.create(name="Catspaw", ratings=[-2], human=True, mage=True)
 MeritFlaw.objects.create(name="Child", ratings=[-1, -2, -3], human=True, mage=True)
@@ -674,7 +680,10 @@ MeritFlaw.objects.create(name="Double Agent", ratings=[-2], human=True, mage=Tru
 MeritFlaw.objects.create(name="Easily Intoxicated", ratings=[-2], human=True, mage=True)
 MeritFlaw.objects.create(name="Echo Chamber", ratings=[-4], human=True, mage=True)
 MeritFlaw.objects.create(
-    name="Esoteric Discourse/Technobabbler", ratings=[-1], human=True, mage=True,
+    name="Esoteric Discourse/Technobabbler",
+    ratings=[-1],
+    human=True,
+    mage=True,
 )
 MeritFlaw.objects.create(name="Expendable", ratings=[-3], human=True, mage=True)
 MeritFlaw.objects.create(
@@ -686,7 +695,10 @@ MeritFlaw.objects.create(
     name="Family Issues", ratings=[-1, -2, -3], human=True, mage=True
 )
 MeritFlaw.objects.create(
-    name="Faulty Enhancements", ratings=[-2, -3, -4, -5], human=True, mage=True,
+    name="Faulty Enhancements",
+    ratings=[-2, -3, -4, -5],
+    human=True,
+    mage=True,
 )
 MeritFlaw.objects.create(name="Feral Mind", ratings=[-3], human=True, mage=True)
 MeritFlaw.objects.create(name="Fifth Degree", ratings=[-3], human=True, mage=True)
@@ -831,7 +843,10 @@ MeritFlaw.objects.create(
 MeritFlaw.objects.create(name="Vanilla", ratings=[-1], human=True, mage=True)
 # MeritFlaw.objects.create(name="Vengeful", ratings=[-2], human=True, mage=True)
 MeritFlaw.objects.create(
-    name="Vulnerability", ratings=[-1, -2, -3, -4, -5, -6, -7], human=True, mage=True,
+    name="Vulnerability",
+    ratings=[-1, -2, -3, -4, -5, -6, -7],
+    human=True,
+    mage=True,
 )
 # MeritFlaw.objects.create(name="Ward", ratings=[-3], human=True, mage=True)
 MeritFlaw.objects.create(name="Whimsy", ratings=[-1], human=True, mage=True)
@@ -843,7 +858,10 @@ MeritFlaw.objects.create(name="Innocuous Aura", ratings=[5], human=True, mage=Tr
 MeritFlaw.objects.create(name="Abyssal Mastery", ratings=[7], human=True, mage=True)
 MeritFlaw.objects.create(name="Saint of the Pit", ratings=[3], human=True, mage=True)
 MeritFlaw.objects.create(
-    name="Qlippothic Radiance", ratings=[-1, -2, -3, -4, -5], human=True, mage=True,
+    name="Qlippothic Radiance",
+    ratings=[-1, -2, -3, -4, -5],
+    human=True,
+    mage=True,
 )
 MeritFlaw.objects.create(name="Spectral Presence", ratings=[-3], human=True, mage=True)
 MeritFlaw.objects.create(name="Abyssal Lunatic", ratings=[-5], human=True, mage=True)

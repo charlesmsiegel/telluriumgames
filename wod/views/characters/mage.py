@@ -219,13 +219,35 @@ class ResonanceDetailView(DetailView):
 
 class ResonanceCreateView(CreateView):
     model = Resonance
-    fields = ["name", "correspondence", "life", "prime", "entropy", "matter", "spirit", "forces", "mind", "time"]
+    fields = [
+        "name",
+        "correspondence",
+        "life",
+        "prime",
+        "entropy",
+        "matter",
+        "spirit",
+        "forces",
+        "mind",
+        "time",
+    ]
     template_name = "wod/characters/mage/resonance/form.html"
 
 
 class ResonanceUpdateView(UpdateView):
     model = Resonance
-    fields = ["name", "correspondence", "life", "prime", "entropy", "matter", "spirit", "forces", "mind", "time"]
+    fields = [
+        "name",
+        "correspondence",
+        "life",
+        "prime",
+        "entropy",
+        "matter",
+        "spirit",
+        "forces",
+        "mind",
+        "time",
+    ]
     template_name = "wod/characters/mage/resonance/form.html"
 
 

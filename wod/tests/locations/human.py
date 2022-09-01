@@ -38,7 +38,9 @@ class TestLocationIndexView(TestCase):
 
     def test_index_content(self):
         for i in range(10):
-            Location.objects.create(name=f"Location {i}",)
+            Location.objects.create(
+                name=f"Location {i}",
+            )
         response = self.client.post("/wod/locations/")
         for i in range(10):
             self.assertContains(response, f"Location {i}")

@@ -1,6 +1,7 @@
 import random
 
 from django.db import models
+from django.urls import reverse
 
 from core.utils import add_dot, weighted_choice
 from wod.models.characters.human import Human
@@ -12,7 +13,6 @@ from wod.models.items.mage import Library
 from wod.models.locations.human import Location
 
 from .nodes import Node
-from django.urls import reverse
 
 
 # Create your models here.
@@ -45,7 +45,11 @@ class Chantry(Location):
         ("autumn", "Autumn"),
     ]
 
-    season = models.CharField(max_length=100, null=True, choices=SEASONS,)
+    season = models.CharField(
+        max_length=100,
+        null=True,
+        choices=SEASONS,
+    )
 
     CHANTRY_TYPES = [
         ("exploration", "Exploration"),
@@ -56,7 +60,11 @@ class Chantry(Location):
         ("war", "War"),
     ]
 
-    chantry_type = models.CharField(max_length=100, null=True, choices=CHANTRY_TYPES,)
+    chantry_type = models.CharField(
+        max_length=100,
+        null=True,
+        choices=CHANTRY_TYPES,
+    )
 
     rank = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
@@ -128,7 +136,7 @@ class Chantry(Location):
         "Technocratic Union": ["Construct"],
         "Kopa Loei": ["He'iau"],
     }
-    
+
     def get_update_url(self):
         return reverse("wod:locations:mage:update_chantry", args=[str(self.id)])
 

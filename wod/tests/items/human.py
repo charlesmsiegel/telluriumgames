@@ -15,7 +15,9 @@ class TestItemIndexView(TestCase):
 
     def test_index_content(self):
         for i in range(10):
-            WoDItem.objects.create(name=f"Item {i}",)
+            WoDItem.objects.create(
+                name=f"Item {i}",
+            )
         response = self.client.post("/wod/items/")
         for i in range(10):
             self.assertContains(response, f"Item {i}")

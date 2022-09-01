@@ -39,9 +39,11 @@ class SolarCharm(Model):
 
     def get_absolute_url(self):
         return reverse("exalted:characters:solars:solarcharm", kwargs={"pk": self.pk})
-    
+
     def get_update_url(self):
-        return reverse("exalted:characters:solars:update_solarcharm", kwargs={"pk": self.pk})
+        return reverse(
+            "exalted:characters:solars:update_solarcharm", kwargs={"pk": self.pk}
+        )
 
     def keyword_display(self):
         return ", ".join(self.keywords)
@@ -174,7 +176,7 @@ class Solar(ExMortal):
         return len(self.favored_abilites) == 5
 
     def add_favored_ability(self, ability):
-        if ability in self.supernal_ability + self.favored_abilites:
+        if ability in self.caste_abilities + self.favored_abilites:
             return False
         self.favored_abilites.append(ability)
         add_dot(self, ability, maximum=1)
@@ -276,7 +278,9 @@ class Solar(ExMortal):
     def random_bonus_functions(self):
         d = super().random_bonus_functions()
         d.update(
-            {"charm": self.random_bonus_charm,}
+            {
+                "charm": self.random_bonus_charm,
+            }
         )
         return d
 
@@ -366,7 +370,9 @@ class Solar(ExMortal):
     def random_xp_functions(self):
         d = super().random_xp_functions()
         d.update(
-            {"charm": self.random_xp_charm,}
+            {
+                "charm": self.random_xp_charm,
+            }
         )
         return d
 

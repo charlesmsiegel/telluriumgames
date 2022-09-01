@@ -149,7 +149,10 @@ class TestSolar(TestCase):
         c1 = SolarCharm.objects.get(name="War Charm 0")
         c2 = SolarCharm.objects.get(name="War Charm 1")
         c3 = SolarCharm.objects.create(
-            name="Advanced War Charm", ability="war", min_ability=2, min_essence=1,
+            name="Advanced War Charm",
+            ability="war",
+            min_ability=2,
+            min_essence=1,
         )
         c3.prerequisites.add(c1)
         c3.save()

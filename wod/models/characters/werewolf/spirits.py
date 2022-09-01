@@ -14,6 +14,7 @@ class SpiritCharm(Model):
     def get_update_url(self):
         return reverse("wod:characters:werewolf:update_charm", kwargs={"pk": self.pk})
 
+
 class SpiritCharacter(Character):
     type = "spirit_character"
 
@@ -26,6 +27,7 @@ class SpiritCharacter(Character):
 
     def get_update_url(self):
         return reverse("wod:characters:werewolf:update_spirit", kwargs={"pk": self.pk})
+
 
 class Totem(Model):
     type = "totem"

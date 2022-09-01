@@ -15,7 +15,11 @@ class SolarDetailView(View):
             ),
             "specialties": char.specialties.all().order_by("name"),
         }
-        return render(request, "exalted/characters/solars/solar/detail.html", context,)
+        return render(
+            request,
+            "exalted/characters/solars/solar/detail.html",
+            context,
+        )
 
 
 class SolarCreateView(CreateView):

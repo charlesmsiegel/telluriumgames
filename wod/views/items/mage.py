@@ -142,7 +142,15 @@ class CharmCreateView(CreateView):
 
 class CharmUpdateView(UpdateView):
     model = Charm
-    fields = ["name", "rank", "background_cost", "quintessence_max", "description", "power", "arete"]
+    fields = [
+        "name",
+        "rank",
+        "background_cost",
+        "quintessence_max",
+        "description",
+        "power",
+        "arete",
+    ]
     template_name = "wod/items/mage/charm/form.html"
 
 
@@ -163,13 +171,27 @@ class ArtifactDetailView(View):
 
 class ArtifactCreateView(CreateView):
     model = Artifact
-    fields = ["name", "rank", "background_cost", "quintessence_max", "description", "power"]
+    fields = [
+        "name",
+        "rank",
+        "background_cost",
+        "quintessence_max",
+        "description",
+        "power",
+    ]
     template_name = "wod/items/mage/artifact/form.html"
 
 
 class ArtifactUpdateView(UpdateView):
     model = Artifact
-    fields = ["name", "rank", "background_cost", "quintessence_max", "description", "power"]
+    fields = [
+        "name",
+        "rank",
+        "background_cost",
+        "quintessence_max",
+        "description",
+        "power",
+    ]
     template_name = "wod/items/mage/artifact/form.html"
 
 
@@ -190,11 +212,25 @@ class TalismanDetailView(View):
 
 class TalismanCreateView(CreateView):
     model = Talisman
-    fields = ["name", "rank", "background_cost", "quintessence_max", "description", "powers"]
+    fields = [
+        "name",
+        "rank",
+        "background_cost",
+        "quintessence_max",
+        "description",
+        "powers",
+    ]
     template_name = "wod/items/mage/talisman/form.html"
 
 
 class TalismanUpdateView(UpdateView):
     model = Talisman
-    fields = ["name", "rank", "background_cost", "quintessence_max", "description", "powers"]
+    fields = [
+        "name",
+        "rank",
+        "background_cost",
+        "quintessence_max",
+        "description",
+        "powers",
+    ]
     template_name = "wod/items/mage/talisman/form.html"

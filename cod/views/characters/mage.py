@@ -40,7 +40,11 @@ class ProximiDetailView(View):
             while len(all_blessings[-1]) < row_length:
                 all_blessings[-1].append(empty_rote)
         context["blessings"] = all_blessings
-        return render(request, "cod/characters/mage/proximi/detail.html", context,)
+        return render(
+            request,
+            "cod/characters/mage/proximi/detail.html",
+            context,
+        )
 
 
 class ProximiCreateView(CreateView):
@@ -87,7 +91,11 @@ class MageDetailView(View):
                 all_praxes[-1].append(empty_rote)
         context["praxes"] = all_praxes
 
-        return render(request, "cod/characters/mage/mage/detail.html", context,)
+        return render(
+            request,
+            "cod/characters/mage/mage/detail.html",
+            context,
+        )
 
 
 class MageCreateView(CreateView):
@@ -125,7 +133,9 @@ class ProximiFamilyDetailView(DetailView):
                 all_blessings[-1].append(empty_rote)
         context["blessings"] = all_blessings
         return render(
-            request, "cod/characters/mage/proximifamily/detail.html", context,
+            request,
+            "cod/characters/mage/proximifamily/detail.html",
+            context,
         )
 
 

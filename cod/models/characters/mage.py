@@ -52,6 +52,7 @@ class Path(Model):
     def get_update_url(self):
         return reverse("cod:characters:mage:update_path", kwargs={"pk": self.pk})
 
+
 class Order(Model):
     type = "order"
 
@@ -59,7 +60,7 @@ class Order(Model):
 
     def get_absolute_url(self):
         return reverse("cod:characters:mage:order", kwargs={"pk": self.pk})
-    
+
     def get_update_url(self):
         return reverse("cod:characters:mage:update_order", kwargs={"pk": self.pk})
 
@@ -222,7 +223,10 @@ class CoDRote(Model):
     primary_factor = models.CharField(
         default="",
         max_length=20,
-        choices=[("duration", "Duration"), ("potency", "Potency"),],
+        choices=[
+            ("duration", "Duration"),
+            ("potency", "Potency"),
+        ],
     )
     withstand = models.CharField(default="", max_length=20)
     mana_cost = models.IntegerField(default=0)
@@ -964,7 +968,9 @@ class ProximiFamily(Model):
         return reverse("cod:characters:mage:proximifamily", args=[str(self.id)])
 
     def get_update_url(self):
-        return reverse("cod:characters:mage:update_proximifamily", kwargs={"pk": self.pk})
+        return reverse(
+            "cod:characters:mage:update_proximifamily", kwargs={"pk": self.pk}
+        )
 
 
 class Proximi(Mortal):

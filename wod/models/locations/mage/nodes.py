@@ -54,7 +54,7 @@ class Node(Location):
     # def __init__(self, *args, **kwargs):
     #     kwargs["gauntlet"] = 3
     #     super().__init__(*args, **kwargs)
-    
+
     def get_update_url(self):
         return reverse("wod:locations:mage:update_node", args=[str(self.id)])
 
@@ -289,7 +289,9 @@ class NodeMeritFlaw(Model):
         return reverse("wod:locations:mage:nodemeritflaw", kwargs={"pk": self.pk})
 
     def get_update_url(self):
-        return reverse("wod:locations:mage:update_nodemeritflaw", kwargs={"pk": self.pk})
+        return reverse(
+            "wod:locations:mage:update_nodemeritflaw", kwargs={"pk": self.pk}
+        )
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)

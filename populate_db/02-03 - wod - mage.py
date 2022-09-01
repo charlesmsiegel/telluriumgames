@@ -2539,7 +2539,9 @@ yoga.instruments.add(
 )
 yoga.save()
 
-a_mechanistic_cosmos = Paradigm.objects.create(name="A Mechanistic Cosmos",)
+a_mechanistic_cosmos = Paradigm.objects.create(
+    name="A Mechanistic Cosmos",
+)
 a_mechanistic_cosmos.practices.add(
     alchemy,
     art_of_desire,
@@ -2556,7 +2558,9 @@ a_mechanistic_cosmos.practices.add(
     animalism,
 )
 a_mechanistic_cosmos.save()
-gods_and_monsters = Paradigm.objects.create(name="A World of Gods and Monsters",)
+gods_and_monsters = Paradigm.objects.create(
+    name="A World of Gods and Monsters",
+)
 gods_and_monsters.practices.add(
     chaos_magick,
     craftwork,
@@ -2694,7 +2698,9 @@ barbarism_is_true.practices.add(
     vamamarga,
 )
 barbarism_is_true.save()
-bring_back_the_golden_age = Paradigm.objects.create(name="Bring Back the Golden Age!",)
+bring_back_the_golden_age = Paradigm.objects.create(
+    name="Bring Back the Golden Age!",
+)
 bring_back_the_golden_age.practices.add(
     alchemy,
     art_of_desire,
@@ -2758,7 +2764,9 @@ cosmic_horror.practices.add(
     vamamarga,
 )
 cosmic_horror.save()
-divine_and_alive = Paradigm.objects.create(name="Creation's Divine and Alive",)
+divine_and_alive = Paradigm.objects.create(
+    name="Creation's Divine and Alive",
+)
 divine_and_alive.practices.add(
     alchemy,
     chaos_magick,
@@ -2838,7 +2846,9 @@ everyones_against_me.practices.add(
     infernal_science,
 )
 everyones_against_me.save()
-everything_is_chaos = Paradigm.objects.create(name="Everything is Chaos",)
+everything_is_chaos = Paradigm.objects.create(
+    name="Everything is Chaos",
+)
 everything_is_chaos.practices.add(
     chaos_magick,
     crazy_wisdom,
@@ -2858,7 +2868,9 @@ everything_is_chaos.practices.add(
     vamamarga,
 )
 everything_is_chaos.save()
-everything_is_data = Paradigm.objects.create(name="Everything is Data",)
+everything_is_data = Paradigm.objects.create(
+    name="Everything is Data",
+)
 everything_is_data.practices.add(
     alchemy,
     art_of_desire,
@@ -3030,7 +3042,9 @@ indulgence.practices.add(
     vamamarga,
 )
 indulgence.save()
-have_faith = Paradigm.objects.create(name="It's All Good - Have Faith!",)
+have_faith = Paradigm.objects.create(
+    name="It's All Good - Have Faith!",
+)
 have_faith.practices.add(
     craftwork,
     crazy_wisdom,
@@ -3047,7 +3061,9 @@ have_faith.practices.add(
     psionics,
 )
 have_faith.save()
-might_is_right = Paradigm.objects.create(name="Might Is Right",)
+might_is_right = Paradigm.objects.create(
+    name="Might Is Right",
+)
 might_is_right.practices.add(
     alchemy,
     art_of_desire,
@@ -3076,7 +3092,9 @@ might_is_right.practices.add(
     infernal_science,
 )
 might_is_right.save()
-one_way_trip_to_oblivion = Paradigm.objects.create(name="One Way Trip to Oblivion",)
+one_way_trip_to_oblivion = Paradigm.objects.create(
+    name="One Way Trip to Oblivion",
+)
 one_way_trip_to_oblivion.practices.add(
     art_of_desire,
     chaos_magick,
@@ -3157,7 +3175,9 @@ stormtroopers_of_the_abyss.practices.add(
     goetia,
 )
 stormtroopers_of_the_abyss.save()
-tech_holds_all_answers = Paradigm.objects.create(name="Tech Holds All Answers",)
+tech_holds_all_answers = Paradigm.objects.create(
+    name="Tech Holds All Answers",
+)
 tech_holds_all_answers.practices.add(
     alchemy,
     art_of_desire,
@@ -3642,7 +3662,9 @@ templars.paradigms.add(gods_and_monsters, divine_order_earthly_chaos, might_is_r
 templars.practices.add(faith, martial_arts, dominion, craftwork, hypertech)
 templars.save()
 
-tu = MageFaction.objects.create(name="Technocratic Union",)
+tu = MageFaction.objects.create(
+    name="Technocratic Union",
+)
 itx = MageFaction.objects.create(
     name="Iteration X", parent=tu, affinities=["forces", "matter", "time"]
 )
@@ -3731,51 +3753,81 @@ MageFaction.objects.create(name="The Sitrin", parent=glh)
 MageFaction.objects.create(name="The P'o Chun", parent=glh)
 MageFaction.objects.create(name="Team 23", parent=glh)
 
-Resonance.objects.create(name="Acquisitive",)
-Resonance.objects.create(name="Alchemical",)
 Resonance.objects.create(
-    name="All-Seeing", correspondence=True,
-)
-Resonance.objects.create(name="Alluring",)
-Resonance.objects.create(name="Analytic",)
-Resonance.objects.create(
-    name="Ancient", time=True,
+    name="Acquisitive",
 )
 Resonance.objects.create(
-    name="Architectural", correspondence=True, matter=True,
+    name="Alchemical",
 )
 Resonance.objects.create(
-    name="Breathing", life=True,
+    name="All-Seeing",
+    correspondence=True,
 )
 Resonance.objects.create(
-    name="Bright", forces=True,
-)
-Resonance.objects.create(name="Bureaucratic",)
-Resonance.objects.create(
-    name="Calm", mind=True,
-)
-Resonance.objects.create(name="Calming",)
-Resonance.objects.create(
-    name="Chaotic", entropy=True,
+    name="Alluring",
 )
 Resonance.objects.create(
-    name="Clockwork", matter=True, time=True,
-)
-Resonance.objects.create(name="Conductive",)
-Resonance.objects.create(
-    name="Constructive", matter=True,
+    name="Analytic",
 )
 Resonance.objects.create(
-    name="Consuming", entropy=True, life=True,
+    name="Ancient",
+    time=True,
 )
 Resonance.objects.create(
-    name="Corrosive", entropy=True,
+    name="Architectural",
+    correspondence=True,
+    matter=True,
 )
 Resonance.objects.create(
-    name="Corrupted", entropy=True,
+    name="Breathing",
+    life=True,
 )
 Resonance.objects.create(
-    name="Cowardly", mind=True,
+    name="Bright",
+    forces=True,
+)
+Resonance.objects.create(
+    name="Bureaucratic",
+)
+Resonance.objects.create(
+    name="Calm",
+    mind=True,
+)
+Resonance.objects.create(
+    name="Calming",
+)
+Resonance.objects.create(
+    name="Chaotic",
+    entropy=True,
+)
+Resonance.objects.create(
+    name="Clockwork",
+    matter=True,
+    time=True,
+)
+Resonance.objects.create(
+    name="Conductive",
+)
+Resonance.objects.create(
+    name="Constructive",
+    matter=True,
+)
+Resonance.objects.create(
+    name="Consuming",
+    entropy=True,
+    life=True,
+)
+Resonance.objects.create(
+    name="Corrosive",
+    entropy=True,
+)
+Resonance.objects.create(
+    name="Corrupted",
+    entropy=True,
+)
+Resonance.objects.create(
+    name="Cowardly",
+    mind=True,
 )
 Resonance.objects.create(name="Creative")
 Resonance.objects.create(name="Creepy")

@@ -77,7 +77,7 @@ class Human(Model):
 
     def get_absolute_url(self):
         return reverse("tc:characters:character", args=[str(self.id)])
-    
+
     def get_update_url(self):
         return reverse("tc:characters:human:update_human", kwargs={"pk": self.pk})
 
@@ -864,7 +864,7 @@ class TCPath(Model):
 
     def get_absolute_url(self):
         return reverse("tc:characters:path", args=[str(self.id)])
-    
+
     def get_update_url(self):
         return reverse("tc:characters:human:update_path", kwargs={"pk": self.pk})
 
@@ -883,7 +883,7 @@ class Specialty(Model):
 
     def get_absolute_url(self):
         return reverse("tc:characters:specialty", args=[str(self.id)])
-    
+
     def get_update_url(self):
         return reverse("tc:characters:human:update_specialty", kwargs={"pk": self.pk})
 
@@ -901,7 +901,7 @@ class Trick(Model):
 
     def get_absolute_url(self):
         return reverse("tc:characters:trick", args=[str(self.id)])
-    
+
     def get_update_url(self):
         return reverse("tc:characters:human:update_trick", kwargs={"pk": self.pk})
 
@@ -919,7 +919,7 @@ class Edge(Model):
 
     def get_absolute_url(self):
         return reverse("tc:characters:edge", args=[str(self.id)])
-    
+
     def get_update_url(self):
         return reverse("tc:characters:human:update_edge", kwargs={"pk": self.pk})
 
@@ -949,9 +949,11 @@ class EnhancedEdge(Model):
 
     def get_absolute_url(self):
         return reverse("tc:characters:enhanced_edge", args=[str(self.id)])
-    
+
     def get_update_url(self):
-        return reverse("tc:characters:human:update_enhanced_edge", kwargs={"pk": self.pk})
+        return reverse(
+            "tc:characters:human:update_enhanced_edge", kwargs={"pk": self.pk}
+        )
 
     def check_prereqs(self, character):
         return check_prereqs(self, character)
@@ -999,9 +1001,11 @@ class PathConnection(Model):
 
     def get_absolute_url(self):
         return reverse("tc:characters:pathconnection", args=[str(self.id)])
-    
+
     def get_update_url(self):
-        return reverse("tc:characters:human:update_pathconnection", kwargs={"pk": self.pk})
+        return reverse(
+            "tc:characters:human:update_pathconnection", kwargs={"pk": self.pk}
+        )
 
 
 def prereq_satisfied(prereq, character, obj):

@@ -1,5 +1,6 @@
-from wod.models.locations.human import Location
 from django.urls import reverse
+
+from wod.models.locations.human import Location
 
 
 class HorizonRealm(Location):

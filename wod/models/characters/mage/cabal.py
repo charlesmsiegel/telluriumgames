@@ -1,4 +1,5 @@
 from django.urls import reverse
+
 from wod.models.characters.human import Group
 
 from .utils import PRIMARY_ABILITIES, weighted_random_faction

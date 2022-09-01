@@ -2005,7 +2005,12 @@ Fetish.objects.create(
     display=False,
 )
 Fetish.objects.create(
-    name="Klaive", rank=4, gnosis=6, description="", spirit="War Spirit", display=False,
+    name="Klaive",
+    rank=4,
+    gnosis=6,
+    description="",
+    spirit="War Spirit",
+    display=False,
 )
 Fetish.objects.create(
     name="Labrys of Isthmene",
@@ -2104,7 +2109,12 @@ Fetish.objects.create(
     display=False,
 )
 Fetish.objects.create(
-    name="Moon Glow", rank=0, gnosis=8, description="", spirit="Lune", display=False,
+    name="Moon Glow",
+    rank=0,
+    gnosis=8,
+    description="",
+    spirit="Lune",
+    display=False,
 )
 Fetish.objects.create(
     name="Moon Sign",
@@ -2188,7 +2198,12 @@ Fetish.objects.create(
     display=False,
 )
 Fetish.objects.create(
-    name="Dire Call", rank=0, gnosis=9, description="", spirit="Lune", display=False,
+    name="Dire Call",
+    rank=0,
+    gnosis=9,
+    description="",
+    spirit="Lune",
+    display=False,
 )
 
 SpiritCharm.objects.create(name="Airt Sense")
@@ -2381,7 +2396,12 @@ x.save()
 
 for spirit in SpiritCharacter.objects.all():
     for x in SpiritCharm.objects.filter(
-        name__in=["Airt Sense", "Materialize", "Realm Sense", "Re-Form",]
+        name__in=[
+            "Airt Sense",
+            "Materialize",
+            "Realm Sense",
+            "Re-Form",
+        ]
     ):
         spirit.charms.add(x)
 

@@ -23,7 +23,7 @@ class Talent(Human):
     intuitive = models.IntegerField(default=0)
     reflective = models.IntegerField(default=0)
     destructive = models.IntegerField(default=0)
-    
+
     def get_update_url(self):
         return reverse("tc:characters:talent:update_talent", kwargs={"pk": self.pk})
 
@@ -261,7 +261,7 @@ class TCGift(Model):
 
     def get_absolute_url(self):
         return reverse("tc:characters:gift", args=[str(self.id)])
-    
+
     def get_update_url(self):
         return reverse("tc:characters:talent:update_gift", kwargs={"pk": self.pk})
 
@@ -290,6 +290,8 @@ class MomentOfInspiration(Model):
 
     def get_absolute_url(self):
         return reverse("tc:characters:momentofinspiration", args=[str(self.id)])
-    
+
     def get_update_url(self):
-        return reverse("tc:characters:talent:update_momentofinspiration", kwargs={"pk": self.pk})
+        return reverse(
+            "tc:characters:talent:update_momentofinspiration", kwargs={"pk": self.pk}
+        )

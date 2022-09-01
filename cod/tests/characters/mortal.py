@@ -1020,7 +1020,8 @@ class TestMortalDetailView(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Mortal.objects.create(
-            name="Test Character", owner=User.objects.get(username="Test User"),
+            name="Test Character",
+            owner=User.objects.get(username="Test User"),
         )
 
     def test_mortal_detail_view_status_code(self):
@@ -1036,10 +1037,12 @@ class CharacterDetailView(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Mortal.objects.create(
-            name="Test Character", owner=User.objects.get(username="Test User"),
+            name="Test Character",
+            owner=User.objects.get(username="Test User"),
         )
         self.mage = Mage.objects.create(
-            name="Test Mage", owner=User.objects.get(username="Test User"),
+            name="Test Mage",
+            owner=User.objects.get(username="Test User"),
         )
 
     def test_character_detail_view_status_code(self):

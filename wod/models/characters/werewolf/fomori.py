@@ -13,9 +13,11 @@ class FomoriPower(Model):
 
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:fomoripower", kwargs={"pk": self.pk})
-    
+
     def get_update_url(self):
-        return reverse("wod:characters:werewolf:update_fomoripower", kwargs={"pk": self.pk})
+        return reverse(
+            "wod:characters:werewolf:update_fomoripower", kwargs={"pk": self.pk}
+        )
 
 
 class Fomor(WtAHuman):

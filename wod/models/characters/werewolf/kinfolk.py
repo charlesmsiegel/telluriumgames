@@ -2,6 +2,7 @@ import random
 from collections import defaultdict
 
 from django.db import models
+from django.urls import reverse
 
 from core.utils import add_dot
 from wod.models.characters.human import MeritFlaw, MeritFlawRating
@@ -9,13 +10,17 @@ from wod.models.characters.human import MeritFlaw, MeritFlawRating
 from .garou import Fetish, Gift, Tribe
 from .wtahuman import WtAHuman
 
-from django.urls import reverse
 
 class Kinfolk(WtAHuman):
     type = "kinfolk"
 
     breed = models.CharField(
-        default="", max_length=100, choices=[("homid", "Homid"), ("lupus", "Lupus"),],
+        default="",
+        max_length=100,
+        choices=[
+            ("homid", "Homid"),
+            ("lupus", "Lupus"),
+        ],
     )
     tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.CASCADE)
 

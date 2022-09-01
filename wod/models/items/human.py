@@ -50,14 +50,14 @@ class Weapon(WoDItem):
 
 class MeleeWeapon(Weapon):
     type = "melee_weapon"
-    
+
     def get_update_url(self):
         return reverse("wod:items:human:update_meleeweapon", args=[str(self.id)])
 
 
 class ThrownWeapon(Weapon):
     type = "thrown_weapon"
-    
+
     def get_update_url(self):
         return reverse("wod:items:human:update_thrownweapon", args=[str(self.id)])
 

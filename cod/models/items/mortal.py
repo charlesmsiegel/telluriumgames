@@ -19,11 +19,12 @@ class Item(Model):
     def get_update_url(self):
         return reverse("cod:items:mortal:update_item", kwargs={"pk": self.pk})
 
+
 class Equipment(Item):
     type = "equipment"
     fragile_condition = models.BooleanField(default=True)
     volatile_condition = models.BooleanField(default=True)
     die_bonus = models.IntegerField(default=0)
-    
+
     def get_update_url(self):
         return reverse("cod:items:mortal:update_equipment", kwargs={"pk": self.pk})

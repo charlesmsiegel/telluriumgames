@@ -26,6 +26,7 @@ class Tribe(Model):
     def get_update_url(self):
         return reverse("wod:characters:werewolf:update_tribe", kwargs={"pk": self.pk})
 
+
 class Camp(Model):
     type = "camp"
 
@@ -47,6 +48,7 @@ class Camp(Model):
     def get_update_url(self):
         return reverse("wod:characters:werewolf:update_camp", kwargs={"pk": self.pk})
 
+
 class Gift(Model):
     type = "gift"
 
@@ -59,6 +61,7 @@ class Gift(Model):
     def get_update_url(self):
         return reverse("wod:characters:werewolf:update_gift", kwargs={"pk": self.pk})
 
+
 class Rite(Model):
     type = "rite"
 
@@ -70,6 +73,7 @@ class Rite(Model):
 
     def get_update_url(self):
         return reverse("wod:characters:werewolf:update_rite", kwargs={"pk": self.pk})
+
 
 class Werewolf(WtAHuman):
     type = "garou"
@@ -97,7 +101,11 @@ class Werewolf(WtAHuman):
     breed = models.CharField(
         default="",
         max_length=100,
-        choices=[("homid", "Homid"), ("metis", "Metis"), ("lupus", "Lupus"),],
+        choices=[
+            ("homid", "Homid"),
+            ("metis", "Metis"),
+            ("lupus", "Lupus"),
+        ],
     )
     tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.CASCADE)
     camps = models.ManyToManyField(Camp, blank=True)
@@ -159,9 +167,11 @@ class Werewolf(WtAHuman):
             5: {"glory": 10, "honor": 9, "wisdom": 4},
         },
     }
-    
+
     def get_update_url(self):
-        return reverse("wod:characters:werewolf:update_werewolf", kwargs={"pk": self.pk})
+        return reverse(
+            "wod:characters:werewolf:update_werewolf", kwargs={"pk": self.pk}
+        )
 
     def has_breed(self):
         return self.breed != ""
@@ -528,7 +538,13 @@ class Werewolf(WtAHuman):
         if cost != 10000:
             return cost
         costs = defaultdict(
-            lambda: 10000, {"gift": 3, "outside gift": 5, "rage": 1, "gnosis": 2,}
+            lambda: 10000,
+            {
+                "gift": 3,
+                "outside gift": 5,
+                "rage": 1,
+                "gnosis": 2,
+            },
         )
         return costs[trait]
 
@@ -536,7 +552,14 @@ class Werewolf(WtAHuman):
         cost = super().freebie_cost(trait)
         if cost != 10000:
             return cost
-        costs = defaultdict(lambda: 10000, {"gift": 7, "rage": 1, "gnosis": 2,})
+        costs = defaultdict(
+            lambda: 10000,
+            {
+                "gift": 7,
+                "rage": 1,
+                "gnosis": 2,
+            },
+        )
         return costs[trait]
 
     def has_werewolf_history(self):
@@ -839,7 +862,10 @@ class RenownIncident(Model):
         return reverse("wod:characters:werewolf:renownincident", kwargs={"pk": self.pk})
 
     def get_update_url(self):
-        return reverse("wod:characters:werewolf:update_renownincident", kwargs={"pk": self.pk})
+        return reverse(
+            "wod:characters:werewolf:update_renownincident", kwargs={"pk": self.pk}
+        )
+
 
 class BattleScar(Model):
     type = "battle_scar"
@@ -850,4 +876,6 @@ class BattleScar(Model):
         return reverse("wod:characters:werewolf:battlescar", kwargs={"pk": self.pk})
 
     def get_update_url(self):
-        return reverse("wod:characters:werewolf:update_battlescar", kwargs={"pk": self.pk})
+        return reverse(
+            "wod:characters:werewolf:update_battlescar", kwargs={"pk": self.pk}
+        )

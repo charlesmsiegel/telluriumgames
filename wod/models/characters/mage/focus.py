@@ -14,6 +14,7 @@ class Instrument(Model):
     def get_update_url(self):
         return reverse("wod:characters:mage:update_instrument", kwargs={"pk": self.pk})
 
+
 class Practice(Model):
     type = "practice"
 

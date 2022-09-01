@@ -24,7 +24,7 @@ class Location(Model):
 
     def get_absolute_url(self):
         return reverse("wod:locations:location", args=[str(self.id)])
-    
+
     def get_update_url(self):
         return reverse("wod:locations:human:update_location", args=[str(self.id)])
 

@@ -73,7 +73,9 @@ class ExMortal(Model):
         return reverse("exalted:characters:character", args=[str(self.id)])
 
     def get_update_url(self):
-        return reverse("exalted:characters:mortals:update_mortal", kwargs={"pk": self.pk})
+        return reverse(
+            "exalted:characters:mortals:update_mortal", kwargs={"pk": self.pk}
+        )
 
     def random_name(self):
         return self.set_name(f"Mortal {ExMortal.objects.count()}")
@@ -676,9 +678,11 @@ class ExSpecialty(Model):
 
     def get_absolute_url(self):
         return reverse("exalted:characters:specialty", args=[str(self.id)])
-    
+
     def get_update_url(self):
-        return reverse("exalted:characters:mortals:update_specialty", kwargs={"pk": self.pk})
+        return reverse(
+            "exalted:characters:mortals:update_specialty", kwargs={"pk": self.pk}
+        )
 
     def __str__(self):
         return f"{self.name} ({self.ability})"
@@ -688,19 +692,29 @@ class Intimacy(Model):
     type = "intimacy"
 
     intimacy_type = models.CharField(
-        max_length=20, choices=[("tie", "Tie"), ("principle", "Principle"),]
+        max_length=20,
+        choices=[
+            ("tie", "Tie"),
+            ("principle", "Principle"),
+        ],
     )
     strength = models.CharField(
         max_length=20,
-        choices=[("minor", "Minor"), ("major", "Major"), ("defining", "Defining"),],
+        choices=[
+            ("minor", "Minor"),
+            ("major", "Major"),
+            ("defining", "Defining"),
+        ],
     )
     is_negative = models.BooleanField(default=False)
 
     def get_absolute_url(self):
         return reverse("exalted:characters:intimacy", args=[str(self.id)])
-    
+
     def get_update_url(self):
-        return reverse("exalted:characters:mortals:update_intimacy", kwargs={"pk": self.pk})
+        return reverse(
+            "exalted:characters:mortals:update_intimacy", kwargs={"pk": self.pk}
+        )
 
 
 class ExMerit(Model):
@@ -708,12 +722,19 @@ class ExMerit(Model):
 
     merit_type = models.CharField(
         max_length=20,
-        choices=[("innate", "Innate"), ("purchased", "Purchased"), ("story", "Story"),],
+        choices=[
+            ("innate", "Innate"),
+            ("purchased", "Purchased"),
+            ("story", "Story"),
+        ],
     )
     ratings = models.JSONField(default=list)
     merit_class = models.CharField(
         max_length=20,
-        choices=[("standard", "Standard"), ("supernatural", "Supernatural"),],
+        choices=[
+            ("standard", "Standard"),
+            ("supernatural", "Supernatural"),
+        ],
         default="standard",
     )
     max_rating = models.IntegerField(default=0)
@@ -721,9 +742,11 @@ class ExMerit(Model):
 
     def get_absolute_url(self):
         return reverse("exalted:characters:merit", args=[str(self.id)])
-    
+
     def get_update_url(self):
-        return reverse("exalted:characters:mortals:update_merit", kwargs={"pk": self.pk})
+        return reverse(
+            "exalted:characters:mortals:update_merit", kwargs={"pk": self.pk}
+        )
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)

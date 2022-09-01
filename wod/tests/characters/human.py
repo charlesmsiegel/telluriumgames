@@ -62,12 +62,14 @@ class TestHuman(TestCase):
         for i in range(10):
             for stat in self.character.get_abilities():
                 WoDSpecialty.objects.create(
-                    name=f"{stat.replace('_', ' ').title()} Specialty {i}", stat=stat,
+                    name=f"{stat.replace('_', ' ').title()} Specialty {i}",
+                    stat=stat,
                 )
         for i in range(10):
             for stat in self.character.get_attributes():
                 WoDSpecialty.objects.create(
-                    name=f"{stat.replace('_', ' ').title()} Specialty {i}", stat=stat,
+                    name=f"{stat.replace('_', ' ').title()} Specialty {i}",
+                    stat=stat,
                 )
         for i in range(20):
             Language.objects.create(name=f"TL {i}")
@@ -138,34 +140,58 @@ class TestHuman(TestCase):
     def test_get_physical_attributes(self):
         self.assertEqual(
             self.character.get_physical_attributes(),
-            {"strength": 1, "dexterity": 1, "stamina": 1,},
+            {
+                "strength": 1,
+                "dexterity": 1,
+                "stamina": 1,
+            },
         )
         self.set_attributes()
         self.assertEqual(
             self.character.get_physical_attributes(),
-            {"strength": 5, "dexterity": 4, "stamina": 3,},
+            {
+                "strength": 5,
+                "dexterity": 4,
+                "stamina": 3,
+            },
         )
 
     def test_get_mental_attributes(self):
         self.assertEqual(
             self.character.get_mental_attributes(),
-            {"perception": 1, "intelligence": 1, "wits": 1,},
+            {
+                "perception": 1,
+                "intelligence": 1,
+                "wits": 1,
+            },
         )
         self.set_attributes()
         self.assertEqual(
             self.character.get_mental_attributes(),
-            {"perception": 2, "intelligence": 1, "wits": 2,},
+            {
+                "perception": 2,
+                "intelligence": 1,
+                "wits": 2,
+            },
         )
 
     def test_get_social_attributes(self):
         self.assertEqual(
             self.character.get_social_attributes(),
-            {"charisma": 1, "manipulation": 1, "appearance": 1,},
+            {
+                "charisma": 1,
+                "manipulation": 1,
+                "appearance": 1,
+            },
         )
         self.set_attributes()
         self.assertEqual(
             self.character.get_social_attributes(),
-            {"charisma": 3, "manipulation": 4, "appearance": 5,},
+            {
+                "charisma": 3,
+                "manipulation": 4,
+                "appearance": 5,
+            },
         )
 
     def test_add_attribute(self):
@@ -519,12 +545,20 @@ class TestHuman(TestCase):
 
     def test_get_backgrounds(self):
         self.assertEqual(
-            self.character.get_backgrounds(), {"contacts": 0, "mentor": 0,},
+            self.character.get_backgrounds(),
+            {
+                "contacts": 0,
+                "mentor": 0,
+            },
         )
         self.character.contacts = 3
         self.character.mentor = 2
         self.assertEqual(
-            self.character.get_backgrounds(), {"contacts": 3, "mentor": 2,},
+            self.character.get_backgrounds(),
+            {
+                "contacts": 3,
+                "mentor": 2,
+            },
         )
 
     def test_add_background(self):

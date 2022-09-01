@@ -22,6 +22,7 @@ class Archetype(Model):
     def get_update_url(self):
         return reverse("wod:characters:human:update_archetype", kwargs={"pk": self.pk})
 
+
 class WoDSpecialty(Model):
     type = "specialty"
 
@@ -1025,7 +1026,10 @@ class Group(Model):
                     name = f"{self.name} {self.members.count() + 1}"
                 else:
                     name = ""
-                m = member_type.objects.create(name=name, owner=user,)
+                m = member_type.objects.create(
+                    name=name,
+                    owner=user,
+                )
                 m.random(freebies=freebies, xp=xp, **character_kwargs)
                 self.members.add(m)
         self.leader = self.members.order_by("?").first()
@@ -1039,4 +1043,6 @@ class Derangement(Model):
         return reverse("wod:characters:human:derangement", args=[str(self.id)])
 
     def get_update_url(self):
-        return reverse("wod:characters:human:update_derangement", kwargs={"pk": self.pk})
+        return reverse(
+            "wod:characters:human:update_derangement", kwargs={"pk": self.pk}
+        )
