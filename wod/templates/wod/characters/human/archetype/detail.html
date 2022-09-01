@@ -2,7 +2,6 @@
 {% block title %}
     {{ object.name| safe }}
 {% endblock title %}
-<body>
     {% block content %}
         {% load dots %}
         <div class="centertext">
@@ -19,6 +18,12 @@
                    class="btn btn-primary"
                    role="button">Update</a>
             </div>
+            {% block updater %}
+            <div class="col-sm">
+                <a href="{{ object.get_update_url }}"
+                   class="btn btn-primary"
+                   role="button">Update</a>
+            </div>
+        {% endblock updater %}
         </div>
     {% endblock content %}
-</body>
