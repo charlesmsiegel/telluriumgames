@@ -569,7 +569,7 @@ class Grimoire(Wonder):
                 sphere = sphere.title()
                 forms = [
                     f"Book of {resonance} {noun}",
-                    f"{resonance} {sphere} Grmoire",
+                    f"{resonance} {sphere} Grimoire",
                     f"{resonance} {self.medium} of {sphere}",
                     f"{noun} of {resonance} {noun2}",
                 ]
@@ -652,7 +652,7 @@ class Library(Wonder):
         self.set_faction(faction)
 
     def random_book(self):
-        book = Grimoire.objects.create(name="")
+        book = Grimoire.objects.create(name="", owner=self.owner)
         rank = random.randint(1, self.rank)
         if (
             random.random() < 0.5

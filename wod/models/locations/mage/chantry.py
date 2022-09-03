@@ -223,7 +223,7 @@ class Chantry(Location):
             node_ranks.append(x)
 
         for i, rank in enumerate(node_ranks):
-            n = Node.objects.create(name="", parent=self)
+            n = Node.objects.create(name="", parent=self, owner=self.owner)
             n.random(rank=rank)
             if not n.has_name():
                 n.set_name(f"{self.name}'s Node {i}")
@@ -243,7 +243,9 @@ class Chantry(Location):
         return True
 
     def create_library(self):
-        l, _ = Library.objects.get_or_create(name=f"{self.name} Library")
+        l, _ = Library.objects.get_or_create(
+            name=f"{self.name} Library", owner=self.owner
+        )
         l.rank = self.library_rating
         while l.num_books() < l.rank:
             l.random_book()
@@ -275,13 +277,16 @@ class Chantry(Location):
 
     def random_populate(self):
         while sum(x.chantry for x in self.members.all()) < self.points:
-            c = Cabal.objects.create(name=f"{self.name} Cabal {self.cabals.count()}")
+            c = Cabal.objects.create(
+                name=f"{self.name} Cabal {self.cabals.count()}", owner=self.owner
+            )
             modifier = random.randint(-1, 1)
             c.random(
                 num_chars=5 + modifier,
                 xp=50 + modifier * 50,
                 faction=self.faction,
                 chantry=3 + modifier,
+                user=self.owner,
             )
             self.cabals.add(c)
             for member in c.members.all():

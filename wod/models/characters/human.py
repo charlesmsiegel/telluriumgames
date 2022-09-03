@@ -64,9 +64,15 @@ class MeritFlaw(Model):
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)
         super().save(*args, **kwargs)
-        
+
     def booleans(self):
-        return ", ".join([x.title() for x in ["human", "kinfolk", "garou", "mage"] if getattr(self, x)])
+        return ", ".join(
+            [
+                x.title()
+                for x in ["human", "kinfolk", "garou", "mage"]
+                if getattr(self, x)
+            ]
+        )
 
 
 class MeritFlawRating(models.Model):

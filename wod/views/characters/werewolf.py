@@ -174,12 +174,13 @@ class GiftDetailView(DetailView):
     def get_context(self, gift):
         context = {}
         context["object"] = gift
-        context['allowed'] = []
+        context["allowed"] = []
         for key, value in gift.allowed.items():
             value = sorted(value)
-            context['allowed'].append(f"{key.title()}: {', '.join([x.title() for x in value])}")
+            context["allowed"].append(
+                f"{key.title()}: {', '.join([x.title() for x in value])}"
+            )
         return context
-
 
 
 class GiftCreateView(CreateView):
