@@ -68,6 +68,7 @@ class Fomor(WtAHuman):
         self.add_power(FomoriPower.objects.get(name="Immunity to the Delirium"))
 
     def random(self, freebies=15, xp=0, ethnicity=None):
+        self.update_status("Ran")
         self.willpower = 3
         self.freebies = freebies
         self.xp = xp

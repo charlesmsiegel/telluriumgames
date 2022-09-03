@@ -9,7 +9,7 @@ from cod.models.characters.mortal import (
     MeritRating,
     Mortal,
 )
-
+NUM_STATUSES = 6
 
 # Create your tests here.
 class TestMortal(TestCase):
@@ -987,7 +987,7 @@ class TestMerit(TestCase):
 
 class TestIndexView(TestCase):
     def setUp(self) -> None:
-        for i in range(5):
+        for i in range(NUM_STATUSES):
             User.objects.create_user(username=f"Player {i}")
 
     def test_index_status_code(self):
@@ -999,11 +999,11 @@ class TestIndexView(TestCase):
         self.assertTemplateUsed(response, "cod/characters/index.html")
 
     def test_index_post(self):
-        for i in range(5):
+        for i in range(NUM_STATUSES):
             player = User.objects.get(username=f"Player {i}")
             for j in range(3):
                 Mortal.objects.create(
-                    name=f"Character {5*j+i}",
+                    name=f"Character {NUM_STATUSES*j+i}",
                     owner=player,
                     status=Mortal.status_keys[i],
                 )

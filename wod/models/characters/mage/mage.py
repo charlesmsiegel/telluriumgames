@@ -41,6 +41,7 @@ class Rote(Model):
         return reverse("wod:characters:mage:update_rote", kwargs={"pk": self.pk})
 
     def random(self):
+        self.update_status("Ran")
         self.name = f"{self.effect.name} Rote {Rote.objects.filter(effect=self.effect).count() + 1}"
         self.practice = self.mage.practices.order_by("?").first()
         self.attribute = weighted_choice(self.mage.get_attributes())
@@ -849,6 +850,7 @@ class Mage(MtAHuman):
         subfaction=None,
         backgrounds=None,
     ):
+        self.update_status("Ran")
         self.willpower = 5
         if backgrounds is None:
             backgrounds = {}

@@ -318,6 +318,7 @@ class Chantry(Location):
         return True
 
     def random(self, rank=None):
+        self.update_status("Ran")
         self.random_leadership_type()
         self.random_faction()
         self.random_name()

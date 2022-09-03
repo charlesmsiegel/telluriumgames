@@ -657,6 +657,7 @@ class ExMortal(Model):
                 counter += 1
 
     def random(self, bonus_points=21, xp=0):
+        self.update_status("Ran")
         self.bonus_points = bonus_points
         self.xp = xp
         self.random_name()

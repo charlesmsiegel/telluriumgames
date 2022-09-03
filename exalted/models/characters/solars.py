@@ -443,6 +443,7 @@ class Solar(ExMortal):
         return super().spend_xp(trait)
 
     def random(self, bonus_points=21, xp=0):
+        self.update_status("Ran")
         self.bonus_points = bonus_points
         self.xp = xp
         self.essence = 1
