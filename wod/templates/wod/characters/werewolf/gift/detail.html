@@ -15,8 +15,14 @@
         </div>
         <div class="row">
             <div class="col-sm">Allowed</div>
-            <div class="col-sm">{{ object.allowed }}</div>
+            <div class="col-sm"></div>
         </div>
+        {% for line in allowed %}
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">{{ line }}</div>
+        </div>
+        {% endfor %}
         <div class="row">
             <div class="col-sm">Description</div>
             <div class="col-sm">{{ object.description }}</div>

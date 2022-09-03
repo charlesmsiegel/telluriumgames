@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from wod.models.characters.human import (
     Archetype,
@@ -80,7 +80,7 @@ class ArchetypeUpdateView(UpdateView):
     template_name = "wod/characters/human/archetype/form.html"
 
 
-class MeritFlawDetailView(DetailView):
+class MeritFlawDetailView(View):
     def get(self, request, *args, **kwargs):
         mf = MeritFlaw.objects.get(pk=kwargs["pk"])
         context = self.get_context(mf)

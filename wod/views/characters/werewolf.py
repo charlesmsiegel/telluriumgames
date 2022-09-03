@@ -166,8 +166,20 @@ class CampUpdateView(UpdateView):
 
 
 class GiftDetailView(DetailView):
-    model = Gift
-    template_name = "wod/characters/werewolf/gift/detail.html"
+    def get(self, request, *args, **kwargs):
+        gift = Gift.objects.get(pk=kwargs["pk"])
+        context = self.get_context(gift)
+        return render(request, "wod/characters/werewolf/gift/detail.html", context)
+
+    def get_context(self, gift):
+        context = {}
+        context["object"] = gift
+        context['allowed'] = []
+        for key, value in gift.allowed.items():
+            value = sorted(value)
+            context['allowed'].append(f"{key.title()}: {', '.join([x.title() for x in value])}")
+        return context
+
 
 
 class GiftCreateView(CreateView):
