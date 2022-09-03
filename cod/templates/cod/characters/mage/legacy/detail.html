@@ -2,43 +2,41 @@
 {% block title %}
     {{ object.name| safe }}
 {% endblock title %}
-<body>
-    {% block content %}
-        {% load dots %}
-        <div class="centertext">
+{% block content %}
+    {% load dots %}
+    <div class="centertext">
+        <div class="row">
+            <div class="col-sm">Name</div>
+            <div class="col-sm">{{ object.name }}</div>
+        </div>
+        {% if object.path is not None %}
             <div class="row">
-                <div class="col-sm">Name</div>
-                <div class="col-sm">{{ object.name }}</div>
+                <div class="col-sm">Path</div>
+                <a class="col-sm" href="{{ object.path.get_absolute_url }}">{{ object.path.name }}</a>
             </div>
-            {% if object.path is not None %}
-                <div class="row">
-                    <div class="col-sm">Path</div>
-                    <a class="col-sm" href="{{ object.path.get_absolute_url }}">{{ object.path.name }}</a>
-                </div>
-            {% endif %}
-            {% if object.order is not None %}
-                <div class="row">
-                    <div class="col-sm">Order</div>
-                    <a class="col-sm" href="{{ object.order.get_absolute_url }}">{{ object.order.name }}</a>
-                </div>
-            {% endif %}
+        {% endif %}
+        {% if object.order is not None %}
             <div class="row">
-                <div class="col-sm">Ruling Arcanum</div>
-                <div class="col-sm">{{ object.get_ruling_arcanum_display }}</div>
+                <div class="col-sm">Order</div>
+                <a class="col-sm" href="{{ object.order.get_absolute_url }}">{{ object.order.name }}</a>
             </div>
-            {% if object.is_left_handed %}
-                <div class="row">
-                    <div class="col-sm">Left-Handed</div>
-                </div>
-            {% endif %}
+        {% endif %}
+        <div class="row">
+            <div class="col-sm">Ruling Arcanum</div>
+            <div class="col-sm">{{ object.get_ruling_arcanum_display }}</div>
+        </div>
+        {% if object.is_left_handed %}
             <div class="row">
-                <h2 class="col-sm">Attainments</h2>
+                <div class="col-sm">Left-Handed</div>
             </div>
-            {% for attainment in object.attainments.all %}
+        {% endif %}
+        <div class="row">
+            <h2 class="col-sm">Attainments</h2>
+        </div>
+        {% for attainment in object.attainments.all %}
             <div class="row">
                 <a class="col-sm" href="{{ attainment.get_absolute_url }}">{{ attainment }}</a>
             </div>
-            {% endfor %}
-        </div>
-    {% endblock content %}
-</body>
+        {% endfor %}
+    </div>
+{% endblock content %}

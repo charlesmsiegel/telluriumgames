@@ -2,14 +2,12 @@
 {% block title %}
     {{ object.name| safe }}
 {% endblock title %}
-<body>
-    {% block content %}
-        {% load dots %}
-        <div class="centertext">
-            <div class="row">
-                <div class="col-sm">{{ object.name }}</div>
-                <div class="col-sm">{{ object.display_skill }}</div>
-            </div>
+{% block content %}
+    {% load dots %}
+    <div class="centertext">
+        <div class="row">
+            <div class="col-sm">{{ object.name }}</div>
+            <div class="col-sm">{{ object.display_skill }}</div>
         </div>
-    {% endblock content %}
-</body>
+    </div>
+{% endblock content %}

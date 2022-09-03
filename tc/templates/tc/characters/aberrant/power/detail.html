@@ -2,42 +2,40 @@
 {% block title %}
     {{ object.name| safe }}
 {% endblock title %}
-<body>
-    {% block content %}
-        {% load dots %}
-        <div class="centertext">
-            <div class="row">
-                <div class="col-sm">Name</div>
-                <div class="col-sm">{{ object.name }}</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">Quantum Minimum</div>
-                <div class="col-sm">{{ object.quantum_minimum }}</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">Action Type</div>
-                <div class="col-sm">{{ object.get_action_type_display }}</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">Cost</div>
-                <div class="col-sm">{{ object.cost }}</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">Dicepool</div>
-                <div class="col-sm">{{ object.dicepool }}</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">Range</div>
-                <div class="col-sm">{{ object.get_range_display }}</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">Duration</div>
-                <div class="col-sm">{{ object.get_duration_display }}</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">Description</div>
-                <div class="col-sm">{{ object.description }}</div>
-            </div>
+{% block content %}
+    {% load dots %}
+    <div class="centertext">
+        <div class="row">
+            <div class="col-sm">Name</div>
+            <div class="col-sm">{{ object.name }}</div>
         </div>
-    {% endblock content %}
-</body>
+        <div class="row">
+            <div class="col-sm">Quantum Minimum</div>
+            <div class="col-sm">{{ object.quantum_minimum }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Action Type</div>
+            <div class="col-sm">{{ object.get_action_type_display }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Cost</div>
+            <div class="col-sm">{{ object.cost }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Dicepool</div>
+            <div class="col-sm">{{ object.dicepool }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Range</div>
+            <div class="col-sm">{{ object.get_range_display }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Duration</div>
+            <div class="col-sm">{{ object.get_duration_display }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Description</div>
+            <div class="col-sm">{{ object.description }}</div>
+        </div>
+    </div>
+{% endblock content %}
