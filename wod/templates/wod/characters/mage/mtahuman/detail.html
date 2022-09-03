@@ -4,8 +4,7 @@
 {% endblock title %}
 {% block content %}
     {% load dots %}
-    <div class="centertext">
-        <div class="container">
+    <div class="centertext container">
             <div class="row">
                 <div class="col-sm mtas_heading">
                     <h1>{{ object.name }}</h1>
@@ -625,7 +624,7 @@
                 </div>
             {% endblock advancement %}
             {% block updater %}
-                <div class="row centertext">
+                <div class="row">
                     <div class="col-sm">
                         <a href="{{ object.get_update_url }}"
                            class="btn btn-primary"
@@ -634,5 +633,4 @@
                 </div>
             {% endblock updater %}
         </div>
-    </div>
 {% endblock content %}

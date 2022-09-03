@@ -3,14 +3,13 @@
     {{ object.name }}
 {% endblock title %}
 {% block content %}
-    <div class="centertext">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm wod_heading">
-                    <h1>{{ object.name }}</h1>
-                </div>
+    <div class="centertext container">
+        <div class="row">
+            <div class="col-sm wod_heading">
+                <h1>{{ object.name }}</h1>
             </div>
-            {% block basics %}
+        </div>
+        {% block basics %}
             <div class="row">
                 <h2 class="col-sm wod_heading">Basics</h2>
             </div>
@@ -26,10 +25,9 @@
                 <div class="col-sm">Concept</div>
                 <div class="col-sm">{{ object.concept }}</div>
             </div>
-        </div>
         {% endblock basics %}
         {% block updater %}
-            <div class="row centertext">
+            <div class="row">
                 <div class="col-sm">
                     <a href="{{ object.get_update_url }}"
                        class="btn btn-primary"
