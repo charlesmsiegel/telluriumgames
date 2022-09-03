@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.views.generic import CreateView, DetailView, UpdateView
 
 from wod.models.characters.human import (
@@ -80,8 +81,16 @@ class ArchetypeUpdateView(UpdateView):
 
 
 class MeritFlawDetailView(DetailView):
-    model = MeritFlaw
-    template_name = "wod/characters/human/meritflaw/detail.html"
+    def get(self, request, *args, **kwargs):
+        mf = MeritFlaw.objects.get(pk=kwargs["pk"])
+        context = self.get_context(mf)
+        return render(request, "wod/characters/human/meritflaw/detail.html", context)
+
+    def get_context(self, mf):
+        context = {}
+        context["object"] = mf
+        context['ratings'] = ", ".join([str(x) for x in mf.ratings])
+        return context
 
 
 class MeritFlawCreateView(CreateView):
