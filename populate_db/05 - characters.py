@@ -20,11 +20,10 @@ def create_character(cls, character=True, xp=0, random_name=True):
         name = ""
     else:
         name = f"{cls.__name__} {cls.objects.count()}"
+    obj = cls.objects.create(name=name, owner=player)
     if character:
-        obj = cls.objects.create(name=name, owner=player)
         obj.random(xp=xp)
     else:
-        obj = cls.objects.create(name=name)
         obj.random()
     obj.save()
 
@@ -49,7 +48,7 @@ time_test(Fomor)
 time_test(Werewolf)
 time_test(Mage)
 time_test(Node, character=False)
-# time_test(Chantry, character=False)
+time_test(Chantry, character=False)
 time_test(Grimoire, character=False)
 time_test(Charm, character=False)
 time_test(Artifact, character=False)

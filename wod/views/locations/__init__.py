@@ -71,8 +71,12 @@ class RandomLocationView(View):
     }
 
     def post(self, request):
+        if request.user.is_authenticated:
+            user = request.user
+        else:
+            user = None
         location = self.locs[request.POST["location_type"]].objects.create(
-            name=request.POST["name"]
+            name=request.POST["name"], owner=user
         )
         if request.POST["rank"] is None:
             rank = None

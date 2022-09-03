@@ -819,7 +819,9 @@ class Mage(MtAHuman):
 
     def random_library(self):
         if self.library > 0:
-            l = Library.objects.create(name=f"{self.name}'s Library", rank=self.library)
+            l = Library.objects.create(
+                name=f"{self.name}'s Library", rank=self.library, owner=self.owner
+            )
             l.random(faction=self.faction)
             l.save()
             self.library_owned = l
@@ -832,7 +834,7 @@ class Mage(MtAHuman):
 
     def random_node(self, favored_list=None):
         if self.node > 0:
-            n = Node.objects.create(name="")
+            n = Node.objects.create(name="", owner=self.owner)
             n.random(rank=self.node, favored_list=favored_list)
             if not n.has_name():
                 n.set_name(f"{self.name}'s Node")

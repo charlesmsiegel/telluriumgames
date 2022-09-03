@@ -89,7 +89,7 @@ class MeritFlawDetailView(View):
     def get_context(self, mf):
         context = {}
         context["object"] = mf
-        context['ratings'] = ", ".join([str(x) for x in mf.ratings])
+        context["ratings"] = ", ".join([str(x) for x in mf.ratings])
         return context
 
 

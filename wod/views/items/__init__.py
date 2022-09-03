@@ -65,8 +65,12 @@ class RandomItemView(View):
     }
 
     def post(self, request):
+        if request.user.is_authenticated:
+            user = request.user
+        else:
+            user = None
         item = self.items[request.POST["item_type"]].objects.create(
-            name=request.POST["name"]
+            name=request.POST["name"], owner=user
         )
         if request.POST["rank"] is None:
             rank = None
