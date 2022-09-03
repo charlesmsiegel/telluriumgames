@@ -1028,10 +1028,7 @@ class Group(Model):
                     name = f"{self.name} {self.members.count() + 1}"
                 else:
                     name = ""
-                m = member_type.objects.create(
-                    name=name,
-                    owner=user,
-                )
+                m = member_type.objects.create(name=name, owner=user,)
                 m.random(freebies=freebies, xp=xp, **character_kwargs)
                 self.members.add(m)
         self.leader = self.members.order_by("?").first()

@@ -21,11 +21,7 @@ class MortalDetailView(View):
             ),
             "specialties": char.specialties.all().order_by("name"),
         }
-        return render(
-            request,
-            "cod/characters/mortal/mortal/detail.html",
-            context,
-        )
+        return render(request, "cod/characters/mortal/mortal/detail.html", context,)
 
 
 class MortalCreateView(CreateView):

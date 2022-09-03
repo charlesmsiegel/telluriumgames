@@ -223,10 +223,7 @@ class CoDRote(Model):
     primary_factor = models.CharField(
         default="",
         max_length=20,
-        choices=[
-            ("duration", "Duration"),
-            ("potency", "Potency"),
-        ],
+        choices=[("duration", "Duration"), ("potency", "Potency"),],
     )
     withstand = models.CharField(default="", max_length=20)
     mana_cost = models.IntegerField(default=0)

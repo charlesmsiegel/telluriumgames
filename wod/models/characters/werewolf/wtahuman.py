@@ -52,10 +52,7 @@ class WtAHuman(Human):
     def get_talents(self):
         tmp = super().get_talents()
         tmp.update(
-            {
-                "leadership": self.leadership,
-                "primal_urge": self.primal_urge,
-            }
+            {"leadership": self.leadership, "primal_urge": self.primal_urge,}
         )
         return tmp
 

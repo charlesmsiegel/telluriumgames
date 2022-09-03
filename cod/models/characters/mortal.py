@@ -1064,10 +1064,7 @@ class Tilt(Model):
 
     tilt_type = models.CharField(
         max_length=20,
-        choices=[
-            ("personal", "Personal"),
-            ("environmental", "Environmental"),
-        ],
+        choices=[("personal", "Personal"), ("environmental", "Environmental"),],
     )
     effect = models.TextField(default="")
     causing = models.TextField(default="")

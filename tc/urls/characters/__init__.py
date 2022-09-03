@@ -9,11 +9,7 @@ urls = [
     path("", include((talent.urls, "tc"), namespace="talent")),
     path("", include((human.urls, "tc"), namespace="human")),
     path("", views.characters.IndexView.as_view(), name="index"),
-    path(
-        "random/",
-        views.characters.RandomCharacterView.as_view(),
-        name="random",
-    ),
+    path("random/", views.characters.RandomCharacterView.as_view(), name="random",),
     path("<pk>/", views.characters.CharacterDetailView.as_view(), name="character"),
     path(
         "ajax/load-character-types/",

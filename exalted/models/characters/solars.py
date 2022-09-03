@@ -278,9 +278,7 @@ class Solar(ExMortal):
     def random_bonus_functions(self):
         d = super().random_bonus_functions()
         d.update(
-            {
-                "charm": self.random_bonus_charm,
-            }
+            {"charm": self.random_bonus_charm,}
         )
         return d
 
@@ -370,9 +368,7 @@ class Solar(ExMortal):
     def random_xp_functions(self):
         d = super().random_xp_functions()
         d.update(
-            {
-                "charm": self.random_xp_charm,
-            }
+            {"charm": self.random_xp_charm,}
         )
         return d
 

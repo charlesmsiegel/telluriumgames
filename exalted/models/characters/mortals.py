@@ -693,19 +693,11 @@ class Intimacy(Model):
     type = "intimacy"
 
     intimacy_type = models.CharField(
-        max_length=20,
-        choices=[
-            ("tie", "Tie"),
-            ("principle", "Principle"),
-        ],
+        max_length=20, choices=[("tie", "Tie"), ("principle", "Principle"),],
     )
     strength = models.CharField(
         max_length=20,
-        choices=[
-            ("minor", "Minor"),
-            ("major", "Major"),
-            ("defining", "Defining"),
-        ],
+        choices=[("minor", "Minor"), ("major", "Major"), ("defining", "Defining"),],
     )
     is_negative = models.BooleanField(default=False)
 
@@ -723,19 +715,12 @@ class ExMerit(Model):
 
     merit_type = models.CharField(
         max_length=20,
-        choices=[
-            ("innate", "Innate"),
-            ("purchased", "Purchased"),
-            ("story", "Story"),
-        ],
+        choices=[("innate", "Innate"), ("purchased", "Purchased"), ("story", "Story"),],
     )
     ratings = models.JSONField(default=list)
     merit_class = models.CharField(
         max_length=20,
-        choices=[
-            ("standard", "Standard"),
-            ("supernatural", "Supernatural"),
-        ],
+        choices=[("standard", "Standard"), ("supernatural", "Supernatural"),],
         default="standard",
     )
     max_rating = models.IntegerField(default=0)
