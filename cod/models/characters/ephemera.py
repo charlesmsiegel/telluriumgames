@@ -153,6 +153,7 @@ class Ephemera(Model):
         return self.set_name(name)
 
     def random(self, rank=None, name=None):
+        self.update_status("Ran")
         self.random_name(name=name)
         self.random_rank(rank=rank)
         self.random_type()

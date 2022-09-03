@@ -261,6 +261,7 @@ class Node(Location):
         return True
 
     def random(self, rank=None, favored_list=None):
+        self.update_status("Ran")
         self.gauntlet = 3
         self.random_rank(rank=rank)
         while not self.has_resonance():

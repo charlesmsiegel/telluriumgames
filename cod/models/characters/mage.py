@@ -811,6 +811,7 @@ class Mage(Mortal):
         return False
 
     def random(self, xp=0):
+        self.update_status("Ran")
         self.morality_name = "Wisdom"
         self.obsessions = [None, None, None, None]
         self.xp = xp
@@ -954,6 +955,7 @@ class ProximiFamily(Model):
         return self.set_name(f"Proximi Family {ProximiFamily.objects.count()}")
 
     def random(self):
+        self.update_status("Ran")
         self.random_name()
         self.random_parent_path()
         self.random_blessing_arcana()

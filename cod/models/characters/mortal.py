@@ -775,6 +775,7 @@ class Mortal(Model):
         return self.add_condition(c)
 
     def random(self, xp=0):
+        self.update_status("Ran")
         self.xp = xp
         self.random_basis()
         self.random_attributes()

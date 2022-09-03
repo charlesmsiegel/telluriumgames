@@ -783,6 +783,7 @@ class Werewolf(WtAHuman):
         return sum(x.rank for x in self.fetishes_owned.all())
 
     def random(self, freebies=15, xp=0, ethnicity=None):
+        self.update_status("Ran")
         self.freebies = freebies
         self.xp = xp
         self.random_name(ethnicity=ethnicity)

@@ -834,6 +834,7 @@ class Human(Model):
             self.spend_xp(trait)
 
     def random(self, xp=0):
+        self.update_status("Ran")
         self.random_basics()
         self.random_paths()
         self.random_skills()

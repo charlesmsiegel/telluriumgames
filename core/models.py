@@ -88,8 +88,8 @@ class Model(PolymorphicModel):
     name = models.CharField(max_length=100)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
-    status_keys = ["Un", "Sub", "App", "Ret", "Dec"]
-    statuses = ["Unfinished", "Submitted", "Approved", "Retired", "Deceased"]
+    status_keys = ["Un", "Sub", "App", "Ret", "Dec", "Ran"]
+    statuses = ["Unfinished", "Submitted", "Approved", "Retired", "Deceased", "Random"]
     status = models.CharField(
         max_length=3, choices=zip(status_keys, statuses), default="Un"
     )

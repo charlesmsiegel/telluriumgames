@@ -14,6 +14,7 @@ from tc.models.characters.human import (
 )
 from tc.models.characters.talent import Talent
 
+NUM_STATUSES = 6
 
 # Create your tests here.
 class TestPath(TestCase):
@@ -889,7 +890,7 @@ class CharacterDetailView(TestCase):
 
 class TestIndexView(TestCase):
     def setUp(self) -> None:
-        for i in range(5):
+        for i in range(NUM_STATUSES):
             User.objects.create_user(username=f"Player {i}")
 
     def test_index_status_code(self):
@@ -901,21 +902,21 @@ class TestIndexView(TestCase):
         self.assertTemplateUsed(response, "tc/characters/index.html")
 
     def test_index_content(self):
-        for i in range(5):
+        for i in range(NUM_STATUSES):
             player = User.objects.get(username=f"Player {i}")
             for j in range(3):
                 Human.objects.create(
-                    name=f"Human {5*j+i}",
+                    name=f"Human {NUM_STATUSES*j+i}",
                     owner=player,
                     status=Human.status_keys[i],
                 )
                 Talent.objects.create(
-                    name=f"Talent {5*j+i}",
+                    name=f"Talent {NUM_STATUSES*j+i}",
                     owner=player,
                     status=Talent.status_keys[i],
                 )
                 Aberrant.objects.create(
-                    name=f"Aberrant {5*j+i}",
+                    name=f"Aberrant {NUM_STATUSES*j+i}",
                     owner=player,
                     status=Aberrant.status_keys[i],
                 )

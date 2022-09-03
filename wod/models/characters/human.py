@@ -908,6 +908,7 @@ class Human(Character):
                 total_removed += 1
 
     def random(self, freebies=15, xp=0, ethnicity=None):
+        self.update_status("Ran")
         self.freebies = freebies
         self.xp = xp
         self.random_name(ethnicity=ethnicity)
@@ -1001,6 +1002,7 @@ class Group(Model):
         member_type=Human,
         character_kwargs=None,
     ):
+        self.update_status("Ran")
         if character_kwargs is None:
             character_kwargs = {}
         if self.name == "":

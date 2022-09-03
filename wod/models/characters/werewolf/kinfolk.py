@@ -229,6 +229,7 @@ class Kinfolk(WtAHuman):
         return False
 
     def random(self, freebies=15, xp=0, ethnicity=None):
+        self.update_status("Ran")
         self.willpower = 3
         self.freebies = freebies
         self.xp = xp

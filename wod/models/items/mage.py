@@ -123,6 +123,7 @@ class Wonder(WoDItem):
         return self.total_resonance() >= self.rank
 
     def random(self, rank=None, name=None):
+        self.update_status("Ran")
         self.random_name(name=name)
         self.random_rank(rank=rank)
         while not self.has_resonance():
@@ -594,6 +595,7 @@ class Grimoire(Wonder):
         spheres=None,
         effects=None,
     ):
+        self.update_status("Ran")
         self.random_rank(rank)
         self.background_cost = 2 * self.rank
         self.quintessence_max = 5 * self.rank
@@ -666,6 +668,7 @@ class Library(Wonder):
         return self.books.count()
 
     def random(self, faction=None):
+        self.update_status("Ran")
         self.random_faction(faction=faction)
         while self.num_books() < self.rank:
             self.random_book()
