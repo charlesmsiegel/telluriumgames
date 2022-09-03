@@ -4,302 +4,300 @@
 {% endblock title %}
 {% block content %}
     {% load dots %}
-    <div class="centertext">
-        <div class="container">
+    <div class="centertext container">
+        <div class="row">
+            <div class="col-sm wod_heading">
+                <h1>{{ object.name }}</h1>
+            </div>
+        </div>
+        {% block basics %}
             <div class="row">
-                <div class="col-sm wod_heading">
-                    <h1>{{ object.name }}</h1>
+                <h2 class="col-sm wod_heading">Basics</h2>
+            </div>
+            <div class="row">
+                <div class="col-sm">Name</div>
+                <div class="col-sm">{{ object.name }}</div>
+                <div class="col-sm">Nature</div>
+                <a class="col-sm" href="{{ object.nature.get_absolute_url }}">{{ object.nature }}</a>
+            </div>
+            <div class="row">
+                <div class="col-sm">Player</div>
+                <div class="col-sm">{{ object.player }}</div>
+                <div class="col-sm">Demeanor</div>
+                <a class="col-sm" href="{{ object.demeanor.get_absolute_url }}">{{ object.demeanor }}</a>
+            </div>
+            <div class="row">
+                <div class="col-sm">Concept</div>
+                <div class="col-sm">{{ object.concept }}</div>
+            </div>
+        {% endblock basics %}
+        {% block attributes %}
+            <div class="row">
+                <h2 class="col-sm wod_heading">Attributes</h2>
+            </div>
+            <div class="row">
+                <h3 class="col-sm wod_heading">Physical</h3>
+                <h3 class="col-sm wod_heading">Social</h3>
+                <h3 class="col-sm wod_heading">Mental</h3>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Strength
+                    {% if object.strength_specialty %}({{ object.strength_specialty }}){% endif %}
+                </div>
+                <div class="col-sm dots">{{ object.strength|dots }}</div>
+                <div class="col-sm">
+                    Charisma
+                    {% if object.charisma_specialty %}({{ object.charisma_specialty }}){% endif %}
+                </div>
+                <div class="col-sm dots">{{ object.charisma|dots }}</div>
+                <div class="col-sm">
+                    Perception
+                    {% if object.perception_specialty %}({{ object.perception_specialty }}){% endif %}
+                </div>
+                <div class="col-sm dots">{{ object.perception|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Dexterity
+                    {% if object.dexterity_specialty %}({{ object.dexterity_specialty }}){% endif %}
+                </div>
+                <div class="col-sm dots">{{ object.dexterity|dots }}</div>
+                <div class="col-sm">
+                    Manipulation
+                    {% if object.manipulation_specialty %}({{ object.manipulation_specialty }}){% endif %}
+                </div>
+                <div class="col-sm dots">{{ object.manipulation|dots }}</div>
+                <div class="col-sm">
+                    Intelligence
+                    {% if object.intelligence_specialty %}({{ object.intelligence_specialty }}){% endif %}
+                </div>
+                <div class="col-sm dots">{{ object.intelligence|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Stamina
+                    {% if object.stamina_specialty %}({{ object.stamina_specialty }}){% endif %}
+                </div>
+                <div class="col-sm dots">{{ object.stamina|dots }}</div>
+                <div class="col-sm">
+                    Appearance
+                    {% if object.appearance_specialty %}({{ object.appearance_specialty }}){% endif %}
+                </div>
+                <div class="col-sm dots">{{ object.appearance|dots }}</div>
+                <div class="col-sm">
+                    Wits
+                    {% if object.wits_specialty %}({{ object.wits_specialty }}){% endif %}
+                </div>
+                <div class="col-sm dots">{{ object.wits|dots }}</div>
+            </div>
+        {% endblock attributes %}
+        {% block abilities %}
+        {% endblock abilities %}
+        {% block advantages %}
+            <div class="row">
+                <h2 class="col-sm wod_heading">Advantages</h2>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Willpower
+                </div>
+                <div class="col-sm dots">
+                    {{ object.willpower|dots:10 }}
                 </div>
             </div>
-            {% block basics %}
-                <div class="row">
-                    <h2 class="col-sm wod_heading">Basics</h2>
+        {% endblock advantages %}
+        {% block backgrounds %}
+        {% endblock backgrounds %}
+        {% block powers %}
+        {% endblock powers %}
+        {% block mfs %}
+            <div class="row">
+                <h2 class="col-sm wod_heading">
+                    Merits and Flaws
+                </h2>
+            </div>
+            <div class="row">
+                {% for mf in object.merits_and_flaws.all %}
+                    <a class="col-sm" href="{{ mf.get_absolute_url }}">
+                        {{ mf }}
+                    </a>
+                {% endfor %}
+            </div>
+        {% endblock mfs %}
+        {% block languages %}
+            <div class="row">
+                <h2 class="col-sm wod_heading">
+                    Languages
+                </h2>
+            </div>
+            <div class="row">
+                {% for lang in object.languages.all %}
+                    <div class="col-sm">
+                        {{ lang }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endblock languages %}
+        {% block appearance %}
+            <div class="row">
+                <h2 class="col-sm wod_heading">
+                    Appearance
+                </h2>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Date of Birth
                 </div>
-                <div class="row">
-                    <div class="col-sm">Name</div>
-                    <div class="col-sm">{{ object.name }}</div>
-                    <div class="col-sm">Nature</div>
-                    <a class="col-sm" href="{{ object.nature.get_absolute_url }}">{{ object.nature }}</a>
+                <div class="col-sm">
+                    {{ object.date_of_birth }}
                 </div>
-                <div class="row">
-                    <div class="col-sm">Player</div>
-                    <div class="col-sm">{{ object.player }}</div>
-                    <div class="col-sm">Demeanor</div>
-                    <a class="col-sm" href="{{ object.demeanor.get_absolute_url }}">{{ object.demeanor }}</a>
+                <div class="col-sm">
+                    Apparent Age
                 </div>
-                <div class="row">
-                    <div class="col-sm">Concept</div>
-                    <div class="col-sm">{{ object.concept }}</div>
+                <div class="col-sm">
+                    {{ object.apparent_age }}
                 </div>
-            {% endblock basics %}
-            {% block attributes %}
-                <div class="row">
-                    <h2 class="col-sm wod_heading">Attributes</h2>
+                <div class="col-sm">
+                    Age of Awakening
                 </div>
-                <div class="row">
-                    <h3 class="col-sm wod_heading">Physical</h3>
-                    <h3 class="col-sm wod_heading">Social</h3>
-                    <h3 class="col-sm wod_heading">Mental</h3>
+                <div class="col-sm">
+                    {{ object.age_of_awakening }}
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        Strength
-                        {% if object.strength_specialty %}({{ object.strength_specialty }}){% endif %}
-                    </div>
-                    <div class="col-sm dots">{{ object.strength|dots }}</div>
-                    <div class="col-sm">
-                        Charisma
-                        {% if object.charisma_specialty %}({{ object.charisma_specialty }}){% endif %}
-                    </div>
-                    <div class="col-sm dots">{{ object.charisma|dots }}</div>
-                    <div class="col-sm">
-                        Perception
-                        {% if object.perception_specialty %}({{ object.perception_specialty }}){% endif %}
-                    </div>
-                    <div class="col-sm dots">{{ object.perception|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Hair
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        Dexterity
-                        {% if object.dexterity_specialty %}({{ object.dexterity_specialty }}){% endif %}
-                    </div>
-                    <div class="col-sm dots">{{ object.dexterity|dots }}</div>
-                    <div class="col-sm">
-                        Manipulation
-                        {% if object.manipulation_specialty %}({{ object.manipulation_specialty }}){% endif %}
-                    </div>
-                    <div class="col-sm dots">{{ object.manipulation|dots }}</div>
-                    <div class="col-sm">
-                        Intelligence
-                        {% if object.intelligence_specialty %}({{ object.intelligence_specialty }}){% endif %}
-                    </div>
-                    <div class="col-sm dots">{{ object.intelligence|dots }}</div>
+                <div class="col-sm">
+                    {{ object.hair }}
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        Stamina
-                        {% if object.stamina_specialty %}({{ object.stamina_specialty }}){% endif %}
-                    </div>
-                    <div class="col-sm dots">{{ object.stamina|dots }}</div>
-                    <div class="col-sm">
-                        Appearance
-                        {% if object.appearance_specialty %}({{ object.appearance_specialty }}){% endif %}
-                    </div>
-                    <div class="col-sm dots">{{ object.appearance|dots }}</div>
-                    <div class="col-sm">
-                        Wits
-                        {% if object.wits_specialty %}({{ object.wits_specialty }}){% endif %}
-                    </div>
-                    <div class="col-sm dots">{{ object.wits|dots }}</div>
+                <div class="col-sm">
+                    Eyes
                 </div>
-            {% endblock attributes %}
-            {% block abilities %}
-            {% endblock abilities %}
-            {% block advantages %}
-                <div class="row">
-                    <h2 class="col-sm wod_heading">Advantages</h2>
+                <div class="col-sm">
+                    {{ object.eyes }}
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        Willpower
-                    </div>
-                    <div class="col-sm dots">
-                        {{ object.willpower|dots:10 }}
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Ethnicity
                 </div>
-            {% endblock advantages %}
-            {% block backgrounds %}
-            {% endblock backgrounds %}
-            {% block powers %}
-            {% endblock powers %}
-            {% block mfs %}
-                <div class="row">
-                    <h2 class="col-sm wod_heading">
-                        Merits and Flaws
-                    </h2>
+                <div class="col-sm">
+                    {{ object.ethnicity }}
                 </div>
-                <div class="row">
-                    {% for mf in object.merits_and_flaws.all %}
-                        <a class="col-sm" href="{{ mf.get_absolute_url }}">
-                            {{ mf }}
-                        </a>
-                    {% endfor %}
+                <div class="col-sm">
+                    Nationality
                 </div>
-            {% endblock mfs %}
-            {% block languages %}
-                <div class="row">
-                    <h2 class="col-sm wod_heading">
-                        Languages
-                    </h2>
+                <div class="col-sm">
+                    {{ object.nationality }}
                 </div>
-                <div class="row">
-                    {% for lang in object.languages.all %}
-                        <div class="col-sm">
-                            {{ lang }}
-                        </div>
-                    {% endfor %}
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Height
                 </div>
-            {% endblock languages %}
-            {% block appearance %}
-                <div class="row">
-                    <h2 class="col-sm wod_heading">
-                        Appearance
-                    </h2>
+                <div class="col-sm">
+                    {{ object.height }}
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        Date of Birth
-                    </div>
-                    <div class="col-sm">
-                        {{ object.date_of_birth }}
-                    </div>
-                    <div class="col-sm">
-                        Apparent Age
-                    </div>
-                    <div class="col-sm">
-                        {{ object.apparent_age }}
-                    </div>
-                    <div class="col-sm">
-                        Age of Awakening
-                    </div>
-                    <div class="col-sm">
-                        {{ object.age_of_awakening }}
-                    </div>
+                <div class="col-sm">
+                    Weight
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        Hair
-                    </div>
-                    <div class="col-sm">
-                        {{ object.hair }}
-                    </div>
-                    <div class="col-sm">
-                        Eyes
-                    </div>
-                    <div class="col-sm">
-                        {{ object.eyes }}
-                    </div>
+                <div class="col-sm">
+                    {{ object.weight }}
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        Ethnicity
-                    </div>
-                    <div class="col-sm">
-                        {{ object.ethnicity }}
-                    </div>
-                    <div class="col-sm">
-                        Nationality
-                    </div>
-                    <div class="col-sm">
-                        {{ object.nationality }}
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Age
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        Height
-                    </div>
-                    <div class="col-sm">
-                        {{ object.height }}
-                    </div>
-                    <div class="col-sm">
-                        Weight
-                    </div>
-                    <div class="col-sm">
-                        {{ object.weight }}
-                    </div>
+                <div class="col-sm">
+                    {{ object.age }}
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        Age
-                    </div>
-                    <div class="col-sm">
-                        {{ object.age }}
-                    </div>
-                    <div class="col-sm">
-                        Sex
-                    </div>
-                    <div class="col-sm">
-                        {{ object.sex }}
-                    </div>
+                <div class="col-sm">
+                    Sex
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        Description
-                    </div>
-                    <div class="col-sm">
-                        {{ object.description }}
-                    </div>
+                <div class="col-sm">
+                    {{ object.sex }}
                 </div>
-            {% endblock appearance %}
-            {% block history %}
-                <div class="row">
-                    <h2 class="col-sm wod_heading">
-                        History
-                    </h2>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Description
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        Childhood
-                    </div>
-                    <div class="col-sm">
-                        {{ object.childhood }}
-                    </div>
-                    <div class="col-sm">
-                        History
-                    </div>
-                    <div class="col-sm">
-                        {{ object.history }}
-                    </div>
+                <div class="col-sm">
+                    {{ object.description }}
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        Goals
-                    </div>
-                    <div class="col-sm">
-                        {{ object.goals }}
-                    </div>
-                    <div class="col-sm">
-                        Notes
-                    </div>
-                    <div class="col-sm">
-                        {{ object.notes }}
-                    </div>
+            </div>
+        {% endblock appearance %}
+        {% block history %}
+            <div class="row">
+                <h2 class="col-sm wod_heading">
+                    History
+                </h2>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Childhood
                 </div>
-            {% endblock history %}
-            {% block advancement %}
-                <div class="row">
-                    <h2 class="col-sm wod_heading">
-                        Experience
-                    </h2>
+                <div class="col-sm">
+                    {{ object.childhood }}
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                    </div>
-                    <div class="col-sm">
-                    </div>
-                    <div class="col-sm">
-                        Experience Points
-                    </div>
-                    <div class="col-sm">
-                        {{ object.xp }}
-                    </div>
-                    <div class="col-sm">
-                        Spent XP
-                    </div>
-                    <div class="col-sm">
-                        {{ object.spent_xp }}
-                    </div>
+                <div class="col-sm">
+                    History
                 </div>
-            {% endblock advancement %}
-            {% block updater %}
-                <div class="row centertext">
-                    <div class="col-sm">
-                        <a href="{{ object.get_update_url }}"
-                           class="btn btn-primary"
-                           role="button">Update</a>
-                    </div>
+                <div class="col-sm">
+                    {{ object.history }}
                 </div>
-            {% endblock updater %}
-        </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Goals
+                </div>
+                <div class="col-sm">
+                    {{ object.goals }}
+                </div>
+                <div class="col-sm">
+                    Notes
+                </div>
+                <div class="col-sm">
+                    {{ object.notes }}
+                </div>
+            </div>
+        {% endblock history %}
+        {% block advancement %}
+            <div class="row">
+                <h2 class="col-sm wod_heading">
+                    Experience
+                </h2>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                </div>
+                <div class="col-sm">
+                </div>
+                <div class="col-sm">
+                    Experience Points
+                </div>
+                <div class="col-sm">
+                    {{ object.xp }}
+                </div>
+                <div class="col-sm">
+                    Spent XP
+                </div>
+                <div class="col-sm">
+                    {{ object.spent_xp }}
+                </div>
+            </div>
+        {% endblock advancement %}
+        {% block updater %}
+            <div class="row">
+                <div class="col-sm">
+                    <a href="{{ object.get_update_url }}"
+                       class="btn btn-primary"
+                       role="button">Update</a>
+                </div>
+            </div>
+        {% endblock updater %}
     </div>
 {% endblock content %}
