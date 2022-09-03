@@ -15,12 +15,7 @@ class Kinfolk(WtAHuman):
     type = "kinfolk"
 
     breed = models.CharField(
-        default="",
-        max_length=100,
-        choices=[
-            ("homid", "Homid"),
-            ("lupus", "Lupus"),
-        ],
+        default="", max_length=100, choices=[("homid", "Homid"), ("lupus", "Lupus"),],
     )
     tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.CASCADE)
 

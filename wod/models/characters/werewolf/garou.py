@@ -101,11 +101,7 @@ class Werewolf(WtAHuman):
     breed = models.CharField(
         default="",
         max_length=100,
-        choices=[
-            ("homid", "Homid"),
-            ("metis", "Metis"),
-            ("lupus", "Lupus"),
-        ],
+        choices=[("homid", "Homid"), ("metis", "Metis"), ("lupus", "Lupus"),],
     )
     tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.CASCADE)
     camps = models.ManyToManyField(Camp, blank=True)
@@ -538,13 +534,7 @@ class Werewolf(WtAHuman):
         if cost != 10000:
             return cost
         costs = defaultdict(
-            lambda: 10000,
-            {
-                "gift": 3,
-                "outside gift": 5,
-                "rage": 1,
-                "gnosis": 2,
-            },
+            lambda: 10000, {"gift": 3, "outside gift": 5, "rage": 1, "gnosis": 2,},
         )
         return costs[trait]
 
@@ -552,14 +542,7 @@ class Werewolf(WtAHuman):
         cost = super().freebie_cost(trait)
         if cost != 10000:
             return cost
-        costs = defaultdict(
-            lambda: 10000,
-            {
-                "gift": 7,
-                "rage": 1,
-                "gnosis": 2,
-            },
-        )
+        costs = defaultdict(lambda: 10000, {"gift": 7, "rage": 1, "gnosis": 2,},)
         return costs[trait]
 
     def has_werewolf_history(self):

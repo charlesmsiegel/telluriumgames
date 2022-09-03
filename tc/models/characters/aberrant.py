@@ -652,11 +652,7 @@ class Power(Model):
     quantum_minimum = models.IntegerField(default=0)
     quantum_offset = models.IntegerField(default=0)
     action_type = models.CharField(
-        max_length=100,
-        choices=[
-            ("reflexive", "Reflexive"),
-            ("ordinary", "Ordinary"),
-        ],
+        max_length=100, choices=[("reflexive", "Reflexive"), ("ordinary", "Ordinary"),],
     )
     cost = models.IntegerField(default=0)
     dicepool = models.CharField(default="", max_length=100)
@@ -757,11 +753,7 @@ class Transformation(Model):
 
     level = models.CharField(
         max_length=10,
-        choices=[
-            ("low", "low"),
-            ("medium", "medium"),
-            ("high", "high"),
-        ],
+        choices=[("low", "low"), ("medium", "medium"), ("high", "high"),],
     )
 
     def get_absolute_url(self):

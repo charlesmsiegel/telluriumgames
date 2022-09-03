@@ -3,99 +3,58 @@ from exalted.models.characters.solars import SolarCharm
 from exalted.models.characters.utils import ABILITIES
 
 ExMerit.objects.create(
-    name="Allies",
-    merit_type="story",
-    ratings=[1, 3, 5],
-    merit_class="standard",
+    name="Allies", merit_type="story", ratings=[1, 3, 5], merit_class="standard",
 )
 ExMerit.objects.create(
-    name="Ambidextrous",
-    merit_type="innate",
-    ratings=[1, 2],
-    merit_class="standard",
+    name="Ambidextrous", merit_type="innate", ratings=[1, 2], merit_class="standard",
 )
 ExMerit.objects.create(
-    name="Artifact",
-    merit_type="story",
-    ratings=[2, 3, 4, 5],
-    merit_class="standard",
+    name="Artifact", merit_type="story", ratings=[2, 3, 4, 5], merit_class="standard",
 )
 ExMerit.objects.create(
-    name="Backing",
-    merit_type="story",
-    ratings=[2, 3, 4],
-    merit_class="standard",
+    name="Backing", merit_type="story", ratings=[2, 3, 4], merit_class="standard",
 )
 ExMerit.objects.create(
     name="Boundless Endurance",
     merit_type="purchased",
     ratings=[2],
     merit_class="standard",
-    prereqs=[
-        [("stamina", 3)],
-        [("resistance", 3)],
-    ],
+    prereqs=[[("stamina", 3)], [("resistance", 3)],],
 )
 ExMerit.objects.create(
-    name="Command",
-    merit_type="story",
-    ratings=[2, 3, 4, 5],
-    merit_class="standard",
+    name="Command", merit_type="story", ratings=[2, 3, 4, 5], merit_class="standard",
 )
 ExMerit.objects.create(
-    name="Contacts",
-    merit_type="story",
-    ratings=[1, 3, 5],
-    merit_class="standard",
+    name="Contacts", merit_type="story", ratings=[1, 3, 5], merit_class="standard",
 )
 ExMerit.objects.create(
-    name="Cult",
-    merit_type="story",
-    ratings=[1, 2, 3, 4, 5],
-    merit_class="standard",
+    name="Cult", merit_type="story", ratings=[1, 2, 3, 4, 5], merit_class="standard",
 )
 ExMerit.objects.create(
     name="Danger Sense",
     merit_type="innate",
     ratings=[3],
     merit_class="standard",
-    prereqs=[
-        [("perception", 3)],
-        [("awareness", 3)],
-    ],
+    prereqs=[[("perception", 3)], [("awareness", 3)],],
 )
 ExMerit.objects.create(
-    name="Demesne",
-    merit_type="story",
-    ratings=[2, 4],
-    merit_class="standard",
+    name="Demesne", merit_type="story", ratings=[2, 4], merit_class="standard",
 )
 ExMerit.objects.create(
-    name="Direction Sense",
-    merit_type="innate",
-    ratings=[1],
-    merit_class="standard",
+    name="Direction Sense", merit_type="innate", ratings=[1], merit_class="standard",
 )
 ExMerit.objects.create(
-    name="Eidetic Memory",
-    merit_type="innate",
-    ratings=[2],
-    merit_class="standard",
+    name="Eidetic Memory", merit_type="innate", ratings=[2], merit_class="standard",
 )
 ExMerit.objects.create(
-    name="Familiar",
-    merit_type="story",
-    ratings=[1, 2, 3],
-    merit_class="standard",
+    name="Familiar", merit_type="story", ratings=[1, 2, 3], merit_class="standard",
 )
 ExMerit.objects.create(
     name="Fast Reflexes",
     merit_type="purchased",
     ratings=[3],
     merit_class="standard",
-    prereqs=[
-        [("wits", 3)],
-    ],
+    prereqs=[[("wits", 3)],],
 )
 ExMerit.objects.create(
     name="Fleet of Foot",
@@ -105,10 +64,7 @@ ExMerit.objects.create(
     prereqs=[[("dexterity", 3)]],
 )
 ExMerit.objects.create(
-    name="Followers",
-    merit_type="story",
-    ratings=[1, 2, 3],
-    merit_class="standard",
+    name="Followers", merit_type="story", ratings=[1, 2, 3], merit_class="standard",
 )
 ExMerit.objects.create(
     name="Giant",
@@ -118,16 +74,10 @@ ExMerit.objects.create(
     prereqs=[[("stamina", 3)]],
 )
 ExMerit.objects.create(
-    name="Hearthstone",
-    merit_type="story",
-    ratings=[2, 4],
-    merit_class="standard",
+    name="Hearthstone", merit_type="story", ratings=[2, 4], merit_class="standard",
 )
 ExMerit.objects.create(
-    name="Hideous",
-    merit_type="innate",
-    ratings=[0],
-    merit_class="standard",
+    name="Hideous", merit_type="innate", ratings=[0], merit_class="standard",
 )
 ExMerit.objects.create(
     name="Influence",
@@ -140,28 +90,16 @@ ExMerit.objects.create(
     merit_type="purchased",
     ratings=[1],
     merit_class="standard",
-    prereqs=[
-        [("stamina", 3)],
-        [("resistance", 3)],
-    ],
+    prereqs=[[("stamina", 3)], [("resistance", 3)],],
 )
 ExMerit.objects.create(
-    name="Language",
-    merit_type="purchased",
-    ratings=[1],
-    merit_class="standard",
+    name="Language", merit_type="purchased", ratings=[1], merit_class="standard",
 )
 ExMerit.objects.create(
-    name="Manse",
-    merit_type="story",
-    ratings=[3, 5],
-    merit_class="standard",
+    name="Manse", merit_type="story", ratings=[3, 5], merit_class="standard",
 )
 ExMerit.objects.create(
-    name="Mentor",
-    merit_type="story",
-    ratings=[1, 2, 3],
-    merit_class="standard",
+    name="Mentor", merit_type="story", ratings=[1, 2, 3], merit_class="standard",
 )
 ExMerit.objects.create(
     name="Martial Artist",
@@ -205,10 +143,7 @@ ExMerit.objects.create(
     ],
 )
 ExMerit.objects.create(
-    name="Retainers",
-    merit_type="story",
-    ratings=[2, 4],
-    merit_class="standard",
+    name="Retainers", merit_type="story", ratings=[2, 4], merit_class="standard",
 )
 ExMerit.objects.create(
     name="Resources",
@@ -234,16 +169,10 @@ ExMerit.objects.create(
     merit_type="purchased",
     ratings=[3],
     merit_class="standard",
-    prereqs=[
-        [("stamina", 3)],
-        [("resistance", 3)],
-    ],
+    prereqs=[[("stamina", 3)], [("resistance", 3)],],
 )
 ExMerit.objects.create(
-    name="Chameleon",
-    merit_type="innate",
-    ratings=[3],
-    merit_class="supernatural",
+    name="Chameleon", merit_type="innate", ratings=[3], merit_class="supernatural",
 )
 ExMerit.objects.create(
     name="Claws/Fangs/Hooves/Horns",
@@ -252,10 +181,7 @@ ExMerit.objects.create(
     merit_class="supernatural",
 )
 ExMerit.objects.create(
-    name="Enhanced Sense",
-    merit_type="innate",
-    ratings=[3],
-    merit_class="supernatural",
+    name="Enhanced Sense", merit_type="innate", ratings=[3], merit_class="supernatural",
 )
 ExMerit.objects.create(
     name="Exalted Healing",
@@ -264,16 +190,10 @@ ExMerit.objects.create(
     merit_class="supernatural",
 )
 ExMerit.objects.create(
-    name="Extra Limbs",
-    merit_type="innate",
-    ratings=[3],
-    merit_class="supernatural",
+    name="Extra Limbs", merit_type="innate", ratings=[3], merit_class="supernatural",
 )
 ExMerit.objects.create(
-    name="Gills",
-    merit_type="innate",
-    ratings=[0],
-    merit_class="supernatural",
+    name="Gills", merit_type="innate", ratings=[0], merit_class="supernatural",
 )
 ExMerit.objects.create(
     name="Poisoned Body",
@@ -282,10 +202,7 @@ ExMerit.objects.create(
     merit_class="supernatural",
 )
 ExMerit.objects.create(
-    name="Quills",
-    merit_type="innate",
-    ratings=[5],
-    merit_class="supernatural",
+    name="Quills", merit_type="innate", ratings=[5], merit_class="supernatural",
 )
 ExMerit.objects.create(
     name="Subtlety",
@@ -302,16 +219,10 @@ ExMerit.objects.create(
     ],
 )
 ExMerit.objects.create(
-    name="Tail",
-    merit_type="innate",
-    ratings=[1, 2],
-    merit_class="supernatural",
+    name="Tail", merit_type="innate", ratings=[1, 2], merit_class="supernatural",
 )
 ExMerit.objects.create(
-    name="Thaumaturgist",
-    merit_type="innate",
-    ratings=[4],
-    merit_class="supernatural",
+    name="Thaumaturgist", merit_type="innate", ratings=[4], merit_class="supernatural",
 )
 ExMerit.objects.create(
     name="Unusual Hide",
@@ -320,29 +231,19 @@ ExMerit.objects.create(
     merit_class="supernatural",
 )
 ExMerit.objects.create(
-    name="Venomous",
-    merit_type="innate",
-    ratings=[3, 4],
-    merit_class="supernatural",
+    name="Venomous", merit_type="innate", ratings=[3, 4], merit_class="supernatural",
 )
 ExMerit.objects.create(
-    name="Wall Walking",
-    merit_type="innate",
-    ratings=[4],
-    merit_class="supernatural",
+    name="Wall Walking", merit_type="innate", ratings=[4], merit_class="supernatural",
 )
 ExMerit.objects.create(
-    name="Wings",
-    merit_type="innate",
-    ratings=[3, 5],
-    merit_class="supernatural",
+    name="Wings", merit_type="innate", ratings=[3, 5], merit_class="supernatural",
 )
 
 for ability in ABILITIES:
     for i in range(10):
         ExSpecialty.objects.create(
-            name=f"{ability.replace('_', ' ').title()} Specialty {i}",
-            ability=ability,
+            name=f"{ability.replace('_', ' ').title()} Specialty {i}", ability=ability,
         )
 
 wise_arrow = SolarCharm.objects.create(

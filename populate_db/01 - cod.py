@@ -251,9 +251,7 @@ Condition.objects.create(
     resolution="Something problematic arises, such as a forgotten arrest warrant or an old enemy",
 )
 Condition.objects.create(
-    name="Blind",
-    persistent=True,
-    resolution="Your character regains her sight",
+    name="Blind", persistent=True, resolution="Your character regains her sight",
 )
 Condition.objects.create(
     name="Broken",
@@ -349,9 +347,7 @@ Condition.objects.create(
     resolution="This Condition lingers until the character can greatly humble himself in public at great personal cost or until the winner of the Duel takes advantage of the sympathy in a way that injures or abuses the loser.",
 )
 Condition.objects.create(
-    name="Disabled",
-    persistent=True,
-    resolution="Disability is cured in some way",
+    name="Disabled", persistent=True, resolution="Disability is cured in some way",
 )
 Condition.objects.create(
     name="Enervated",
@@ -374,9 +370,7 @@ Condition.objects.create(
     resolution="Your character cuts off ties to her Exarch. Traitors are not tolerated, and other characters with this Condition will be sent to punish her, or kill her if she will not return to the Throne's service",
 )
 Condition.objects.create(
-    name="Rampant",
-    persistent=False,
-    resolution="Suffer a Paradox",
+    name="Rampant", persistent=False, resolution="Suffer a Paradox",
 )
 Condition.objects.create(
     name="Strained",
@@ -384,19 +378,13 @@ Condition.objects.create(
     resolution="The character suffers Integrity loss. Take an additional Beat atop that of the breaking point.",
 )
 Condition.objects.create(
-    name="Soulless",
-    persistent=True,
-    resolution="Regain a soul",
+    name="Soulless", persistent=True, resolution="Regain a soul",
 )
 Condition.objects.create(
-    name="Soul Shocked",
-    persistent=False,
-    resolution="Regain full Willpower",
+    name="Soul Shocked", persistent=False, resolution="Regain full Willpower",
 )
 Condition.objects.create(
-    name="Thrall",
-    persistent=True,
-    resolution="Regain a soul",
+    name="Thrall", persistent=True, resolution="Regain a soul",
 )
 Condition.objects.create(
     name="Triumphant",
@@ -414,24 +402,16 @@ CoDMerit.objects.create(
     possible_details=[],
 )
 CoDMerit.objects.create(
-    name="Common Sense",
-    ratings=[3],
-    merit_type="Mental",
+    name="Common Sense", ratings=[3], merit_type="Mental",
 )
 CoDMerit.objects.create(
-    name="Danger Sense",
-    ratings=[2],
-    merit_type="Mental",
+    name="Danger Sense", ratings=[2], merit_type="Mental",
 )
 CoDMerit.objects.create(
-    name="Direction Sense",
-    ratings=[1],
-    merit_type="Mental",
+    name="Direction Sense", ratings=[1], merit_type="Mental",
 )
 CoDMerit.objects.create(
-    name="Eidetic Memory",
-    ratings=[2],
-    merit_type="Mental",
+    name="Eidetic Memory", ratings=[2], merit_type="Mental",
 )
 CoDMerit.objects.create(
     name="Encyclopedia Knowledge",
@@ -465,14 +445,10 @@ CoDMerit.objects.create(
     merit_type="Mental",
 )
 CoDMerit.objects.create(
-    name="Holistic Awareness",
-    ratings=[1],
-    merit_type="Mental",
+    name="Holistic Awareness", ratings=[1], merit_type="Mental",
 )
 CoDMerit.objects.create(
-    name="Indomitable",
-    ratings=[2],
-    merit_type="Mental",
+    name="Indomitable", ratings=[2], merit_type="Mental",
 )
 CoDMerit.objects.create(
     name="Interdisciplinary Specialty",
@@ -520,9 +496,7 @@ CoDMerit.objects.create(
     merit_type="Mental",
 )
 CoDMerit.objects.create(
-    name="Meditative Mind",
-    ratings=[1, 2, 4],
-    merit_type="Mental",
+    name="Meditative Mind", ratings=[1, 2, 4], merit_type="Mental",
 )
 CoDMerit.objects.create(
     name="Multilingual",
@@ -532,9 +506,7 @@ CoDMerit.objects.create(
     merit_type="Mental",
 )
 CoDMerit.objects.create(
-    name="Patient",
-    ratings=[1],
-    merit_type="Mental",
+    name="Patient", ratings=[1], merit_type="Mental",
 )
 CoDMerit.objects.create(
     name="Professional Training",
@@ -581,19 +553,13 @@ CoDMerit.objects.create(
     merit_type="Mental",
 )
 CoDMerit.objects.create(
-    name="Vice-Ridden",
-    ratings=[2],
-    merit_type="Mental",
+    name="Vice-Ridden", ratings=[2], merit_type="Mental",
 )
 CoDMerit.objects.create(
-    name="Virtuous",
-    ratings=[2],
-    merit_type="Mental",
+    name="Virtuous", ratings=[2], merit_type="Mental",
 )
 CoDMerit.objects.create(
-    name="Ambidextrous",
-    ratings=[3],
-    merit_type="Physical",
+    name="Ambidextrous", ratings=[3], merit_type="Physical",
 )
 CoDMerit.objects.create(
     name="Automotive Genius",
@@ -626,15 +592,10 @@ CoDMerit.objects.create(
     merit_type="Physical",
 )
 CoDMerit.objects.create(
-    name="Giant",
-    ratings=[4],
-    merit_type="Physical",
+    name="Giant", ratings=[4], merit_type="Physical",
 )
 CoDMerit.objects.create(
-    name="Hardy",
-    ratings=[1, 2, 3],
-    prereqs=[[("stamina", 3)]],
-    merit_type="Physical",
+    name="Hardy", ratings=[1, 2, 3], prereqs=[[("stamina", 3)]], merit_type="Physical",
 )
 CoDMerit.objects.create(
     name="Greyhound",
@@ -690,9 +651,7 @@ CoDMerit.objects.create(
     merit_type="Physical",
 )
 CoDMerit.objects.create(
-    name="Small-Framed",
-    ratings=[2],
-    merit_type="Physical",
+    name="Small-Framed", ratings=[2], merit_type="Physical",
 )
 CoDMerit.objects.create(
     name="Stunt Driver",
@@ -716,15 +675,10 @@ CoDMerit.objects.create(
     merit_type="Social",
 )
 CoDMerit.objects.create(
-    name="Anonymity",
-    ratings=[1, 2, 3, 4, 5],
-    merit_type="Social",
+    name="Anonymity", ratings=[1, 2, 3, 4, 5], merit_type="Social",
 )
 CoDMerit.objects.create(
-    name="Barfly",
-    ratings=[2],
-    prereqs=[[("socialize", 2)]],
-    merit_type="Social",
+    name="Barfly", ratings=[2], prereqs=[[("socialize", 2)]], merit_type="Social",
 )
 CoDMerit.objects.create(
     name="Closed Book",
@@ -740,9 +694,7 @@ CoDMerit.objects.create(
     merit_type="Social",
 )
 CoDMerit.objects.create(
-    name="Fame",
-    ratings=[1, 2, 3],
-    merit_type="Social",
+    name="Fame", ratings=[1, 2, 3], merit_type="Social",
 )
 CoDMerit.objects.create(
     name="Fast-Talking",
@@ -765,16 +717,10 @@ CoDMerit.objects.create(
     merit_type="Social",
 )
 CoDMerit.objects.create(
-    name="Inspiring",
-    ratings=[3],
-    prereqs=[[("presence", 3)]],
-    merit_type="Social",
+    name="Inspiring", ratings=[3], prereqs=[[("presence", 3)]], merit_type="Social",
 )
 iron_will = CoDMerit.objects.create(
-    name="Iron Will",
-    ratings=[2],
-    prereqs=[[("resolve", 4)]],
-    merit_type="Social",
+    name="Iron Will", ratings=[2], prereqs=[[("resolve", 4)]], merit_type="Social",
 )
 CoDMerit.objects.create(
     name="Mystery Cult Initiation",
@@ -791,20 +737,10 @@ CoDMerit.objects.create(
     merit_type="Social",
 )
 CoDMerit.objects.create(
-    name="Pusher",
-    ratings=[1],
-    prereqs=[[("persuasion", 2)]],
-    merit_type="Social",
+    name="Pusher", ratings=[1], prereqs=[[("persuasion", 2)]], merit_type="Social",
 )
 CoDMerit.objects.create(
-    name="Resources",
-    ratings=[
-        1,
-        2,
-        3,
-        4,
-    ],
-    merit_type="Social",
+    name="Resources", ratings=[1, 2, 3, 4,], merit_type="Social",
 )
 CoDMerit.objects.create(
     name="Retainer",
@@ -814,9 +750,7 @@ CoDMerit.objects.create(
     merit_type="Social",
 )
 CoDMerit.objects.create(
-    name="Safe Place",
-    ratings=[1, 2, 3, 4, 5],
-    merit_type="Social",
+    name="Safe Place", ratings=[1, 2, 3, 4, 5], merit_type="Social",
 )
 CoDMerit.objects.create(
     name="Small Unit Tactics",
@@ -852,14 +786,10 @@ CoDMerit.objects.create(
     merit_type="Social",
 )
 CoDMerit.objects.create(
-    name="Striking Looks",
-    ratings=[1, 2],
-    merit_type="Social",
+    name="Striking Looks", ratings=[1, 2], merit_type="Social",
 )
 CoDMerit.objects.create(
-    name="Sympathetic",
-    ratings=[2],
-    merit_type="Social",
+    name="Sympathetic", ratings=[2], merit_type="Social",
 )
 CoDMerit.objects.create(
     name="Table Turner",
@@ -868,9 +798,7 @@ CoDMerit.objects.create(
     merit_type="Social",
 )
 CoDMerit.objects.create(
-    name="Takes One to Know One",
-    ratings=[1],
-    merit_type="Social",
+    name="Takes One to Know One", ratings=[1], merit_type="Social",
 )
 CoDMerit.objects.create(
     name="Taste",
@@ -882,9 +810,7 @@ CoDMerit.objects.create(
     merit_type="Social",
 )
 CoDMerit.objects.create(
-    name="True Friend",
-    ratings=[3],
-    merit_type="Social",
+    name="True Friend", ratings=[3], merit_type="Social",
 )
 CoDMerit.objects.create(
     name="Untouchable",
@@ -893,39 +819,25 @@ CoDMerit.objects.create(
     merit_type="Social",
 )
 CoDMerit.objects.create(
-    name="Aura Reading",
-    ratings=[3],
-    merit_type="Supernatural",
+    name="Aura Reading", ratings=[3], merit_type="Supernatural",
 )
 CoDMerit.objects.create(
-    name="Automatic Writing",
-    ratings=[2],
-    merit_type="Supernatural",
+    name="Automatic Writing", ratings=[2], merit_type="Supernatural",
 )
 CoDMerit.objects.create(
-    name="Biokinesis",
-    ratings=[1, 2, 3, 4, 5],
-    merit_type="Supernatural",
+    name="Biokinesis", ratings=[1, 2, 3, 4, 5], merit_type="Supernatural",
 )
 CoDMerit.objects.create(
-    name="Clairvoyance",
-    ratings=[3],
-    merit_type="Supernatural",
+    name="Clairvoyance", ratings=[3], merit_type="Supernatural",
 )
 CoDMerit.objects.create(
-    name="Cursed",
-    ratings=[2],
-    merit_type="Supernatural",
+    name="Cursed", ratings=[2], merit_type="Supernatural",
 )
 CoDMerit.objects.create(
-    name="Laying on Hands",
-    ratings=[3],
-    merit_type="Supernatural",
+    name="Laying on Hands", ratings=[3], merit_type="Supernatural",
 )
 CoDMerit.objects.create(
-    name="Medium",
-    ratings=[3],
-    merit_type="Supernatural",
+    name="Medium", ratings=[3], merit_type="Supernatural",
 )
 CoDMerit.objects.create(
     name="Mind of a Madman",
@@ -934,44 +846,28 @@ CoDMerit.objects.create(
     merit_type="Supernatural",
 )
 CoDMerit.objects.create(
-    name="Omen Sensitivity",
-    ratings=[3],
-    merit_type="Supernatural",
+    name="Omen Sensitivity", ratings=[3], merit_type="Supernatural",
 )
 CoDMerit.objects.create(
-    name="Numbing Touch",
-    ratings=[1, 2, 3, 4, 5],
-    merit_type="Supernatural",
+    name="Numbing Touch", ratings=[1, 2, 3, 4, 5], merit_type="Supernatural",
 )
 CoDMerit.objects.create(
-    name="Psychokinesis",
-    ratings=[3, 5],
-    merit_type="Supernatural",
+    name="Psychokinesis", ratings=[3, 5], merit_type="Supernatural",
 )
 CoDMerit.objects.create(
-    name="Psychometry",
-    ratings=[3],
-    merit_type="Supernatural",
+    name="Psychometry", ratings=[3], merit_type="Supernatural",
 )
 CoDMerit.objects.create(
-    name="Telekinesis",
-    ratings=[1, 2, 3, 4, 5],
-    merit_type="Supernatural",
+    name="Telekinesis", ratings=[1, 2, 3, 4, 5], merit_type="Supernatural",
 )
 CoDMerit.objects.create(
-    name="Telepathy",
-    ratings=[3, 5],
-    merit_type="Supernatural",
+    name="Telepathy", ratings=[3, 5], merit_type="Supernatural",
 )
 CoDMerit.objects.create(
-    name="Thief of Fate",
-    ratings=[3],
-    merit_type="Supernatural",
+    name="Thief of Fate", ratings=[3], merit_type="Supernatural",
 )
 CoDMerit.objects.create(
-    name="Unseen Sense",
-    ratings=[2],
-    merit_type="Supernatural",
+    name="Unseen Sense", ratings=[2], merit_type="Supernatural",
 )
 CoDMerit.objects.create(
     name="Armed Defense",
@@ -987,10 +883,7 @@ CoDMerit.objects.create(
     merit_type="Fighting",
 )
 CoDMerit.objects.create(
-    name="Choke Hold",
-    ratings=[2],
-    prereqs=[[("brawl", 2)]],
-    merit_type="Fighting",
+    name="Choke Hold", ratings=[2], prereqs=[[("brawl", 2)]], merit_type="Fighting",
 )
 CoDMerit.objects.create(
     name="Close Quarters Combat",
@@ -1031,42 +924,21 @@ CoDMerit.objects.create(
     name="Firefight",
     is_style=True,
     ratings=[1, 2, 3],
-    prereqs=[
-        [
-            ("composure", 3),
-            ("dexterity", 3),
-            ("athletics", 2),
-            ("firearms", 2),
-        ]
-    ],
+    prereqs=[[("composure", 3), ("dexterity", 3), ("athletics", 2), ("firearms", 2),]],
     merit_type="Fighting",
 )
 CoDMerit.objects.create(
     name="Grappling",
     is_style=True,
     ratings=[1, 2, 3],
-    prereqs=[
-        [
-            ("stamina", 3),
-            ("strength", 2),
-            ("athletics", 2),
-            ("brawl", 2),
-        ]
-    ],
+    prereqs=[[("stamina", 3), ("strength", 2), ("athletics", 2), ("brawl", 2),]],
     merit_type="Fighting",
 )
 CoDMerit.objects.create(
     name="Heavy Weapons",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
-    prereqs=[
-        [
-            ("stamina", 3),
-            ("strength", 3),
-            ("athletics", 2),
-            ("weaponry", 2),
-        ]
-    ],
+    prereqs=[[("stamina", 3), ("strength", 3), ("athletics", 2), ("weaponry", 2),]],
     merit_type="Fighting",
 )
 CoDMerit.objects.create(
@@ -1090,12 +962,7 @@ CoDMerit.objects.create(
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
     prereqs=[
-        [
-            ("wits", 3),
-            ("dexterity", 3),
-            ("athletics", 2),
-            ("weaponry", 2),
-        ],
+        [("wits", 3), ("dexterity", 3), ("athletics", 2), ("weaponry", 2),],
         [("dexterity", 3), ("athletics", 2), ("weaponry", 2), ("Fighting Finesse", 1)],
     ],
     merit_type="Fighting",
@@ -1111,14 +978,7 @@ CoDMerit.objects.create(
     name="Martial Arts",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
-    prereqs=[
-        [
-            ("resolve", 3),
-            ("dexterity", 3),
-            ("athletics", 2),
-            ("brawl", 2),
-        ]
-    ],
+    prereqs=[[("resolve", 3), ("dexterity", 3), ("athletics", 2), ("brawl", 2),]],
     merit_type="Fighting",
 )
 CoDMerit.objects.create(
@@ -1138,14 +998,7 @@ CoDMerit.objects.create(
     name="Street Fighting",
     is_style=True,
     ratings=[1, 2, 3, 4, 5],
-    prereqs=[
-        [
-            ("stamina", 3),
-            ("composure", 3),
-            ("brawl", 2),
-            ("streetwise", 2),
-        ]
-    ],
+    prereqs=[[("stamina", 3), ("composure", 3), ("brawl", 2), ("streetwise", 2),]],
     merit_type="Fighting",
 )
 CoDMerit.objects.create(
@@ -1251,14 +1104,10 @@ CoDMerit.objects.create(
     merit_type="Mage",
 )
 CoDMerit.objects.create(
-    name="Artifact",
-    ratings=[3, 4, 5],
-    merit_type="Mage",
+    name="Artifact", ratings=[3, 4, 5], merit_type="Mage",
 )
 CoDMerit.objects.create(
-    name="Astral Adept",
-    ratings=[4],
-    merit_type="Mage",
+    name="Astral Adept", ratings=[4], merit_type="Mage",
 )
 CoDMerit.objects.create(
     name="Between the Ticks",
@@ -1268,9 +1117,7 @@ CoDMerit.objects.create(
 )
 CoDMerit.objects.create(name="Cabal Theme", ratings=[1], merit_type="Mage", prereqs=[])
 CoDMerit.objects.create(
-    name="Consilium Status",
-    ratings=[1, 2, 3, 4, 5],
-    merit_type="Mage",
+    name="Consilium Status", ratings=[1, 2, 3, 4, 5], merit_type="Mage",
 )
 CoDMerit.objects.create(
     name="Adamantine Arrow Status",
@@ -1437,10 +1284,7 @@ CoDMerit.objects.create(
     prereqs=[[("Sleepwalker", 1)], [("Fitful Slumber", 1)]],
 )
 CoDMerit.objects.create(
-    name="Fitful Slumber",
-    ratings=[1],
-    merit_type="Supernatural",
-    prereqs=[],
+    name="Fitful Slumber", ratings=[1], merit_type="Supernatural", prereqs=[],
 )
 CoDMerit.objects.create(
     name="Loved",
@@ -5976,12 +5820,7 @@ Tilt.objects.create(
     ending="",
 )
 Tilt.objects.create(
-    name="Sick",
-    tilt_type="personal",
-    description="",
-    effect="",
-    causing="",
-    ending="",
+    name="Sick", tilt_type="personal", description="", effect="", causing="", ending="",
 )
 Tilt.objects.create(
     name="Stunned",

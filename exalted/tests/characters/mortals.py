@@ -123,58 +123,34 @@ class TestMortal(TestCase):
     def test_get_physical_attributes(self):
         self.assertEqual(
             self.character.get_physical_attributes(),
-            {
-                "strength": 1,
-                "dexterity": 1,
-                "stamina": 1,
-            },
+            {"strength": 1, "dexterity": 1, "stamina": 1,},
         )
         self.set_attributes()
         self.assertEqual(
             self.character.get_physical_attributes(),
-            {
-                "strength": 5,
-                "dexterity": 4,
-                "stamina": 3,
-            },
+            {"strength": 5, "dexterity": 4, "stamina": 3,},
         )
 
     def test_get_mental_attributes(self):
         self.assertEqual(
             self.character.get_mental_attributes(),
-            {
-                "perception": 1,
-                "intelligence": 1,
-                "wits": 1,
-            },
+            {"perception": 1, "intelligence": 1, "wits": 1,},
         )
         self.set_attributes()
         self.assertEqual(
             self.character.get_mental_attributes(),
-            {
-                "perception": 2,
-                "intelligence": 1,
-                "wits": 2,
-            },
+            {"perception": 2, "intelligence": 1, "wits": 2,},
         )
 
     def test_get_social_attributes(self):
         self.assertEqual(
             self.character.get_social_attributes(),
-            {
-                "charisma": 1,
-                "manipulation": 1,
-                "appearance": 1,
-            },
+            {"charisma": 1, "manipulation": 1, "appearance": 1,},
         )
         self.set_attributes()
         self.assertEqual(
             self.character.get_social_attributes(),
-            {
-                "charisma": 3,
-                "manipulation": 4,
-                "appearance": 5,
-            },
+            {"charisma": 3, "manipulation": 4, "appearance": 5,},
         )
 
     def test_has_attributes(self):
