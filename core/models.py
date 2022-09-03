@@ -33,10 +33,10 @@ class Medium(models.Model):
     length_modifier = models.IntegerField(default=1, blank=True, null=True)
 
     def get_absolute_url(self):
-        return reverse("core:medium", kwargs={"pk": self.pk})
+        return reverse("medium", kwargs={"pk": self.pk})
 
     def get_update_url(self):
-        return reverse("core:update_medium", kwargs={"pk": self.pk})
+        return reverse("update_medium", kwargs={"pk": self.pk})
 
     def __str__(self):
         return f"{self.name}"
@@ -48,10 +48,10 @@ class Material(models.Model):
     name = models.TextField(default="")
 
     def get_absolute_url(self):
-        return reverse("core:material", kwargs={"pk": self.pk})
+        return reverse("material", kwargs={"pk": self.pk})
 
     def get_update_url(self):
-        return reverse("core:update_material", kwargs={"pk": self.pk})
+        return reverse("update_material", kwargs={"pk": self.pk})
 
     def __str__(self):
         return f"{self.name}"
@@ -68,10 +68,10 @@ class Book(models.Model):
     name = models.TextField(default="")
 
     def get_absolute_url(self):
-        return reverse("core:book", kwargs={"pk": self.pk})
+        return reverse("book", kwargs={"pk": self.pk})
 
     def get_update_url(self):
-        return reverse("core:update_book", kwargs={"pk": self.pk})
+        return reverse("update_book", kwargs={"pk": self.pk})
 
     def __str__(self):
         return self.name
