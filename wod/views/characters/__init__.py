@@ -3,12 +3,13 @@ from django.shortcuts import redirect, render
 from django.views.generic import View
 
 from wod.forms import RandomCharacterForm
+from wod.models.characters.changeling import Changeling, Motley
 from wod.models.characters.human import Character, Group
 from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.mage import Mage
 from wod.models.characters.werewolf import Fomor, Kinfolk, Pack, Werewolf
 
-from . import human, mage, werewolf
+from . import changeling, human, mage, werewolf
 
 
 class CharacterIndexView(View):
@@ -33,6 +34,7 @@ def load_character_types(request):
     characters = {
         "werewolf": ["werewolf", "pack", "kinfolk", "fomor"],
         "mage": ["mage", "cabal"],
+        "changeling": ["changeling"],
     }
     gameline = request.GET.get("gameline")
     character_types = characters[gameline]
@@ -52,6 +54,7 @@ class GenericCharacterDetailView(View):
         "mage": mage.MageDetailView,
         "spirit_character": werewolf.SpiritDetailView,
         "fomor": werewolf.FomorDetailView,
+        "changeling": changeling.ChangelingDetailView,
     }
 
     def get(self, request, *args, **kwargs):
@@ -69,6 +72,8 @@ class RandomCharacterView(View):
         "cabal": Cabal,
         "pack": Pack,
         "fomor": Fomor,
+        "changeling": Changeling,
+        "motley": Motley,
     }
 
     def post(self, request, *args, **kwargs):
@@ -76,7 +81,13 @@ class RandomCharacterView(View):
             user = request.user
         else:
             user = None
-        if request.POST["character_type"] in ["werewolf", "mage", "kinfolk", "fomor"]:
+        if request.POST["character_type"] in [
+            "werewolf",
+            "mage",
+            "kinfolk",
+            "fomor",
+            "changeling",
+        ]:
             char = self.chars[request.POST["character_type"]].objects.create(
                 name=request.POST["character_name"], owner=user
             )
@@ -109,6 +120,7 @@ class GenericGroupDetailView(View):
         "group": human.GroupDetailView,
         "cabal": mage.CabalDetailView,
         "pack": werewolf.PackDetailView,
+        "motley": changeling.MotleyDetailView,
     }
 
     def get(self, request, *args, **kwargs):
