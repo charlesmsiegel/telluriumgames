@@ -7,6 +7,9 @@ from wod.models.characters.human import MeritFlaw, WoDSpecialty
 
 # Create your tests here.
 def changeling_setup(player):
+    for i in range(5):
+        c = Changeling.objects.create(name=f"Character {i}", owner=player)
+        
     for i in range(10):
         Kith.objects.create(
             name=f"Kith {i}",
@@ -28,7 +31,6 @@ def changeling_setup(player):
             MeritFlaw.objects.create(name=f"Merit {i//2}", ratings=[i//2 + 1], changeling=True)
         else:
             MeritFlaw.objects.create(name=f"Flaw {i//2}", ratings=[-i//2 - 1], changeling=True)
-        c = Changeling.objects.create(name=f"Test {i}")
         for ability in c.get_abilities():
             WoDSpecialty.objects.create(name=f"{ability.title()} Specialty {i}", stat=ability)
         for attribute in c.get_attributes():
@@ -224,6 +226,16 @@ class TestChangeling(TestCase):
         self.assertFalse(self.character.has_court())
         self.character.set_court("seelie")
         self.assertTrue(self.character.has_court())
+
+    def test_has_kith(self):
+        self.assertFalse(self.character.has_kith())
+        self.character.set_kith(Kith.objects.get(name="Kith 0"))
+        self.assertTrue(self.character.has_kith())
+    
+    def test_set_kith(self):
+        self.assertFalse(self.character.has_kith())
+        self.assertTrue(self.character.set_kith(Kith.objects.get(name="Kith 0")))
+        self.assertTrue(self.character.has_kith())
 
     def test_set_seelie_legacy(self):
         seelie = CtDLegacy.objects.get(name="Legacy 0")
@@ -524,9 +536,9 @@ class TestChangeling(TestCase):
         self.character.xp = 100
         self.assertTrue(self.character.spend_xp("strength"))
         self.assertEqual(self.character.xp, 96)
-        self.assertTrue(self.character.spend_xp("occult"))
+        self.assertTrue(self.character.spend_xp("larceny"))
         self.assertEqual(self.character.xp, 93)
-        self.assertTrue(self.character.spend_xp("occult"))
+        self.assertTrue(self.character.spend_xp("larceny"))
         self.assertEqual(self.character.xp, 91)
         self.assertTrue(self.character.spend_xp("mentor"))
         self.assertEqual(self.character.xp, 86)
@@ -572,7 +584,7 @@ class TestChangeling(TestCase):
         self.assertFalse(self.character.has_changeling_history())
         self.character.true_name = "Faerie Name"
         self.assertFalse(self.character.has_changeling_history())
-        self.character.data_ennobled = "N/A"
+        self.character.date_ennobled = "N/A"
         self.assertFalse(self.character.has_changeling_history())
         self.character.crysalis = "It Happened"
         self.assertFalse(self.character.has_changeling_history())
@@ -611,6 +623,11 @@ class TestRandomChangeling(TestCase):
         self.assertFalse(self.character.has_unseelie_legacy())
         self.character.random_unseelie_legacy()
         self.assertTrue(self.character.has_unseelie_legacy())
+
+    def test_random_kith(self):
+        self.assertFalse(self.character.has_kith())
+        self.character.random_kith()
+        self.assertTrue(self.character.has_kith())
 
     def test_random_art(self):
         total = self.character.total_arts()
@@ -660,6 +677,7 @@ class TestRandomChangeling(TestCase):
     def test_random(self):
         self.assertFalse(self.character.has_name())
         self.assertFalse(self.character.has_concept())
+        self.assertFalse(self.character.has_kith())
         self.assertFalse(self.character.has_attributes())
         self.assertFalse(self.character.has_abilities())
         self.assertFalse(self.character.has_backgrounds())
@@ -679,6 +697,7 @@ class TestRandomChangeling(TestCase):
         self.character.random(freebies=0, xp=0)
         self.assertTrue(self.character.has_name())
         self.assertTrue(self.character.has_concept())
+        self.assertTrue(self.character.has_kith())
         self.assertTrue(self.character.has_attributes())
         self.assertTrue(self.character.has_abilities())
         self.assertTrue(self.character.has_specialties())
@@ -717,7 +736,7 @@ class TestMotley(TestCase):
         self.assertEqual(motley.members.count(), 5)
         for changeling in Changeling.objects.all():
             self.assertIn(changeling, motley.members.all())
-        motley = motley.objects.create(name="Motley 2")
+        motley = Motley.objects.create(name="Motley 2")
         motley.random(num_chars=5, new_characters=True)
         self.assertEqual(motley.members.count(), 5)
 

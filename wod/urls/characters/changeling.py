@@ -1,0 +1,69 @@
+from django.urls import include, path
+
+from wod import views
+
+urls = [
+    path(
+        "changeling/create/",
+        views.characters.changeling.ChangelingCreateView.as_view(),
+        name="create_changeling",
+    ),
+    path(
+        "changeling/update/<pk>/",
+        views.characters.changeling.ChangelingUpdateView.as_view(),
+        name="update_changeling",
+    ),
+    path(
+        "motley/create/",
+        views.characters.changeling.MotleyCreateView.as_view(),
+        name="create_motley",
+    ),
+    path(
+        "motley/update/<pk>/",
+        views.characters.changeling.MotleyUpdateView.as_view(),
+        name="update_motley",
+    ),
+    path(
+        "kith/<pk>/", views.characters.changeling.KithDetailView.as_view(), name="kith",
+    ),
+    path(
+        "kith/create/",
+        views.characters.changeling.KithCreateView.as_view(),
+        name="create_kith",
+    ),
+    path(
+        "kith/update/<pk>/",
+        views.characters.changeling.KithUpdateView.as_view(),
+        name="update_kith",
+    ),
+    path(
+        "house/<pk>/",
+        views.characters.changeling.HouseDetailView.as_view(),
+        name="house",
+    ),
+    path(
+        "house/create/",
+        views.characters.changeling.HouseCreateView.as_view(),
+        name="create_house",
+    ),
+    path(
+        "house/update/<pk>/",
+        views.characters.changeling.HouseUpdateView.as_view(),
+        name="update_house",
+    ),
+    path(
+        "legacy/<pk>/",
+        views.characters.changeling.LegacyDetailView.as_view(),
+        name="legacy",
+    ),
+    path(
+        "legacy/create/",
+        views.characters.changeling.LegacyCreateView.as_view(),
+        name="create_legacy",
+    ),
+    path(
+        "legacy/update/<pk>/",
+        views.characters.changeling.LegacyUpdateView.as_view(),
+        name="update_legacy",
+    ),
+]

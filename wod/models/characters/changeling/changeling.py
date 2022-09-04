@@ -1,9 +1,14 @@
+from django.urls import reverse
 from collections import defaultdict
 import random
 from django.db import models
-from wod.models.characters.human import Human, Group
+from wod.models.characters.human import Human
 from core.models import Model
 from core.utils import add_dot, weighted_choice
+
+
+"""
+"""
 
 
 class Kith(Model):
@@ -11,6 +16,12 @@ class Kith(Model):
 
     birthrights = models.JSONField(default=list)
     frailty = models.TextField(default="")
+    
+    def get_absolute_url(self):
+        return reverse("wod:characters:changeling:kith", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("wod:characters:changeling:update_kith", kwargs={"pk": self.pk})
 
 
 class House(Model):
@@ -26,6 +37,12 @@ class House(Model):
     flaw = models.TextField(default="")
     factions = models.JSONField(default=list)
 
+    def get_absolute_url(self):
+        return reverse("wod:characters:changeling:house", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("wod:characters:changeling:update_house", kwargs={"pk": self.pk})
+
 
 class CtDLegacy(Model):
     type = "legacy"
@@ -36,6 +53,12 @@ class CtDLegacy(Model):
         blank=True,
         null=True,
     )
+    
+    def get_absolute_url(self):
+        return reverse("wod:characters:changeling:legacy", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("wod:characters:changeling:update_legacy", kwargs={"pk": self.pk})
 
 
 class CtDHuman(Human):
@@ -202,7 +225,7 @@ class Changeling(CtDHuman):
     antithesis = models.TextField(default="")
 
     true_name = models.TextField(default="")
-    data_ennobled = models.TextField(default="")
+    date_ennobled = models.TextField(default="")
     crysalis = models.TextField(default="")
     date_of_crysalis = models.TextField(default="")
     fae_mien = models.TextField(default="")
@@ -210,6 +233,11 @@ class Changeling(CtDHuman):
     # def __init__(self, *args, **kwargs):
     #     kwargs["willpower"] = kwargs.get("willpower") or 4
     #     super().__init__(*args, **kwargs)
+
+    def get_update_url(self):
+        return reverse(
+            "wod:characters:changeling:update_changeling", kwargs={"pk": self.pk}
+        )
 
     def has_court(self):
         return self.court != ""
@@ -263,6 +291,17 @@ class Changeling(CtDHuman):
 
     def random_seeming(self):
         return self.set_seeming(random.choice(["childling", "wilder", "grump"]))
+
+    def has_kith(self):
+        return self.kith is not None
+    
+    def set_kith(self, kith):
+        self.kith = kith
+        return True
+    
+    def random_kith(self):
+        kith = Kith.objects.order_by("?").first()
+        return self.set_kith(kith)
 
     def add_art(self, art):
         return add_dot(self, art, 5)
@@ -377,13 +416,34 @@ class Changeling(CtDHuman):
     def has_changeling_history(self):
         b = True
         b = b and (self.true_name != "")
-        b = b and (self.data_ennobled != "")
+        b = b and (self.date_ennobled != "")
         b = b and (self.crysalis != "")
         b = b and (self.date_of_crysalis != "")
         return b
 
+    def set_changeling_history(
+        self, true_name, date_ennobled, crysalis, date_of_crysalis
+    ):
+        self.true_name = true_name
+        self.date_ennobled = date_ennobled
+        self.crysalis = crysalis
+        self.date_of_crysalis = date_of_crysalis
+        return True
+
+    def random_changeling_history(self):
+        return self.set_changeling_history(
+            "True Name", "Date Ennobled", "Crysalis", "Date of Crysalis"
+        )
+
     def has_changeling_appearance(self):
         return self.fae_mien != ""
+
+    def set_changeling_appearance(self, fae_mien):
+        self.fae_mien = fae_mien
+        return True
+
+    def random_changeling_appearance(self):
+        return self.set_changeling_appearance("Fae Mien")
 
     def freebie_frequencies(self):
         return {
@@ -467,6 +527,114 @@ class Changeling(CtDHuman):
             self.add_attribute("appearance", maximum=10)
             self.add_attribute("appearance", maximum=10)
 
+    def xp_frequencies(self):
+        return {
+            "attribute": 16,
+            "ability": 20,
+            "background": 13,
+            "willpower": 1,
+            "art": 20,
+            "realm": 20,
+            "glamour": 5,
+        }
 
-class Motley(Group):
-    type = "motley"
+    def random_xp_functions(self):
+        return {
+            "attribute": self.random_xp_attributes,
+            "ability": self.random_xp_abilities,
+            "background": self.random_xp_background,
+            "willpower": self.random_xp_willpower,
+            "art": self.random_xp_art,
+            "realm": self.random_xp_realm,
+            "glamour": self.random_xp_glamour,
+        }
+
+    def random_xp_art(self):
+        trait = weighted_choice(self.get_arts())
+        return self.spend_xp(trait)
+
+    def random_xp_realm(self):
+        trait = weighted_choice(self.get_realms())
+        return self.spend_xp(trait)
+
+    def random_xp_glamour(self):
+        return self.spend_xp("glamour")
+
+    def spend_xp(self, trait):
+        output = super().spend_xp(trait)
+        if output in [True, False]:
+            return output
+        if trait == "glamour":
+            cost = self.xp_cost("glamour") * getattr(self, trait)
+            if cost <= self.xp:
+                if self.add_glamour():
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        if trait in self.get_arts():
+            cost = self.xp_cost("art") * getattr(self, trait)
+            if cost == 0:
+                cost = self.xp_cost("new art")
+            if cost <= self.xp:
+                if self.add_art(trait):
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        if trait in self.get_realms():
+            cost = self.xp_cost("realm") * getattr(self, trait)
+            if cost == 0:
+                cost = self.xp_cost("new realm")
+            if cost <= self.xp:
+                if self.add_realm(trait):
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        return trait
+
+    def xp_cost(self, trait):
+        cost = super().xp_cost(trait)
+        if cost != 10000 and trait != "willpower":
+            return cost
+        costs = defaultdict(
+            lambda: 10000,
+            {"art": 4, "new art": 7, "realm": 3, "new realm": 5, "glamour": 3, "willpower": 2,},
+        )
+        return costs[trait]
+
+    def random(
+        self, freebies=15, xp=0, ethnicity=None,
+    ):
+        self.update_status("Ran")
+        self.willpower = 4
+        self.freebies = freebies
+        self.xp = xp
+        self.random_name(ethnicity=ethnicity)
+        self.random_kith()
+        self.random_concept()
+        self.random_attributes()
+        self.random_abilities()
+        self.random_backgrounds()
+        self.random_seeming()
+        self.random_court()
+        self.random_seelie_legacy()
+        self.random_unseelie_legacy()
+        self.random_arts()
+        self.random_realms()
+        self.random_musing_threshold()
+        self.random_ravaging_threshold()
+        self.random_antithesis()
+        self.random_history()
+        self.random_changeling_history()
+        self.random_changeling_appearance()
+        self.random_finishing_touches()
+        self.random_freebies()
+        self.mf_based_corrections()
+        self.random_xp()
+        self.random_specialties()
+        self.birthright_correction()
