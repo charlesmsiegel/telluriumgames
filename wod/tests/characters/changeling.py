@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from wod.models.characters.changeling import Changeling, Kith, House, Legacy, Motley
+from wod.models.characters.changeling import Changeling, Kith, House, CtDLegacy, Motley
 from wod.models.characters.human import MeritFlaw
 
 
@@ -21,7 +21,7 @@ def changeling_setup(player):
             flaw="",
             factions=[],
         )
-        Legacy.objects.create(
+        CtDLegacy.objects.create(
             name=f"Legacy {i}", court=["seelie", "unseelie"][i % 2],
         )
         if i % 2 == 0:
@@ -217,8 +217,8 @@ class TestChangeling(TestCase):
         self.assertTrue(self.character.has_court())
 
     def test_set_seelie_legacy(self):
-        seelie = Legacy.objects.get(name="Legacy 0")
-        unseelie = Legacy.objects.get(name="Legacy 1")
+        seelie = CtDLegacy.objects.get(name="Legacy 0")
+        unseelie = CtDLegacy.objects.get(name="Legacy 1")
         self.assertFalse(self.character.has_seelie_legacy())
         self.assertFalse(self.character.set_seelie_legacy(unseelie))
         self.assertFalse(self.character.has_seelie_legacy())
@@ -226,14 +226,14 @@ class TestChangeling(TestCase):
         self.assertTrue(self.character.has_seelie_legacy())
 
     def test_has_seelie_legacy(self):
-        legacy = Legacy.objects.get(name="Legacy 0")
+        legacy = CtDLegacy.objects.get(name="Legacy 0")
         self.assertFalse(self.character.has_seelie_legacy())
         self.assertTrue(self.character.set_seelie_legacy(legacy))
         self.assertTrue(self.character.has_seelie_legacy())
 
     def test_set_unseelie_legacy(self):
-        seelie = Legacy.objects.get(name="Legacy 0")
-        unseelie = Legacy.objects.get(name="Legacy 1")
+        seelie = CtDLegacy.objects.get(name="Legacy 0")
+        unseelie = CtDLegacy.objects.get(name="Legacy 1")
         self.assertFalse(self.character.has_seelie_legacy())
         self.assertFalse(self.character.set_seelie_legacy(seelie))
         self.assertFalse(self.character.has_seelie_legacy())
@@ -241,7 +241,7 @@ class TestChangeling(TestCase):
         self.assertTrue(self.character.has_seelie_legacy())
 
     def test_has_unseelie_legacy(self):
-        legacy = Legacy.objects.get(name="Legacy 1")
+        legacy = CtDLegacy.objects.get(name="Legacy 1")
         self.assertFalse(self.character.has_unseelie_legacy())
         self.assertTrue(self.character.set_unseelie_legacy(legacy))
         self.assertTrue(self.character.has_unseelie_legacy())
