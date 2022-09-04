@@ -7,16 +7,12 @@ from core.models import Model
 from core.utils import add_dot, weighted_choice
 
 
-"""
-"""
-
-
 class Kith(Model):
     type = "kith"
 
     birthrights = models.JSONField(default=list)
     frailty = models.TextField(default="")
-    
+
     def get_absolute_url(self):
         return reverse("wod:characters:changeling:kith", kwargs={"pk": self.pk})
 
@@ -53,12 +49,14 @@ class CtDLegacy(Model):
         blank=True,
         null=True,
     )
-    
+
     def get_absolute_url(self):
         return reverse("wod:characters:changeling:legacy", kwargs={"pk": self.pk})
 
     def get_update_url(self):
-        return reverse("wod:characters:changeling:update_legacy", kwargs={"pk": self.pk})
+        return reverse(
+            "wod:characters:changeling:update_legacy", kwargs={"pk": self.pk}
+        )
 
 
 class CtDHuman(Human):
@@ -294,11 +292,11 @@ class Changeling(CtDHuman):
 
     def has_kith(self):
         return self.kith is not None
-    
+
     def set_kith(self, kith):
         self.kith = kith
         return True
-    
+
     def random_kith(self):
         kith = Kith.objects.order_by("?").first()
         return self.set_kith(kith)
@@ -603,7 +601,14 @@ class Changeling(CtDHuman):
             return cost
         costs = defaultdict(
             lambda: 10000,
-            {"art": 4, "new art": 7, "realm": 3, "new realm": 5, "glamour": 3, "willpower": 2,},
+            {
+                "art": 4,
+                "new art": 7,
+                "realm": 3,
+                "new realm": 5,
+                "glamour": 3,
+                "willpower": 2,
+            },
         )
         return costs[trait]
 

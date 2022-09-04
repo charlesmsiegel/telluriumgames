@@ -62,10 +62,10 @@ class TestCtDHuman(TestCase):
                 "empathy": 0,
                 "expression": 0,
                 "intimidation": 0,
-                "streetwise": 0,
-                "subterfuge": 0,
                 "kenning": 0,
                 "leadership": 0,
+                "streetwise": 0,
+                "subterfuge": 0,
             },
         )
         self.set_abilities()
@@ -89,15 +89,15 @@ class TestCtDHuman(TestCase):
         self.assertEqual(
             self.character.get_skills(),
             {
+                "animal_ken": 0,
                 "crafts": 0,
                 "drive": 0,
                 "etiquette": 0,
                 "firearms": 0,
-                "melee": 0,
-                "stealth": 0,
-                "animal_ken": 0,
                 "larceny": 0,
+                "melee": 0,
                 "performance": 0,
+                "stealth": 0,
                 "survival": 0,
             },
         )
@@ -124,13 +124,13 @@ class TestCtDHuman(TestCase):
             {
                 "academics": 0,
                 "computer": 0,
-                "investigation": 0,
-                "medicine": 0,
-                "science": 0,
                 "enigmas": 0,
                 "gremayre": 0,
+                "investigation": 0,
                 "law": 0,
+                "medicine": 0,
                 "politics": 0,
+                "science": 0,
                 "technology": 0,
             },
         )
@@ -155,11 +155,11 @@ class TestCtDHuman(TestCase):
         self.assertEqual(
             self.character.get_backgrounds(),
             {
-                "contacts": 0,
-                "mentor": 0,
                 "chimera": 0,
+                "contacts": 0,
                 "dreamers": 0,
                 "holdings": 0,
+                "mentor": 0,
                 "remembrance": 0,
                 "resources": 0,
                 "retinue": 0,
