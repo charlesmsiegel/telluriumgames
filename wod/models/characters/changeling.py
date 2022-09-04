@@ -1,8 +1,9 @@
+from collections import defaultdict
 import random
 from django.db import models
 from wod.models.characters.human import Human, Group
 from core.models import Model
-from core.utils import add_dot
+from core.utils import add_dot, weighted_choice
 
 
 class Kith(Model):
@@ -171,35 +172,35 @@ class Changeling(CtDHuman):
     banality = models.IntegerField(default=3)
     glamour = models.IntegerField(default=4)
 
+    MUSING_THRESHOLDS = [
+        ("inspire_creativity", "Inspire Creativity"),
+        ("create_hope", "Create Hope"),
+        ("create_love", "Create Love"),
+        ("create_calm", "Create Calm"),
+        ("foster_trust", "Foster Trust"),
+        ("help_those_in_need", "Help Those In Need"),
+        ("foster_dreams", "Foster Dreams"),
+    ]
+
+    RAVAGING_THRESHOLDS = [
+        ("exhaust_creativity", "Exhaust Creativity"),
+        ("destroy_hope", "Destroy Hope"),
+        ("destroy_love", "Destroy Love"),
+        ("create_anger", "Create Anger"),
+        ("break_trust", "Break Trust"),
+        ("exploit_dependence", "Exploit Dependence"),
+        ("destroy_illusions", "Destroy Illusions"),
+    ]
+
     musing_threshold = models.CharField(
-        default="",
-        max_length=20,
-        choices=[
-            ("inspire_creativity", "Inspire Creativity"),
-            ("create_hope", "Create Hope"),
-            ("create_love", "Create Love"),
-            ("create_calm", "Create Calm"),
-            ("foster_trust", "Foster Trust"),
-            ("help_those_in_need", "Help Those In Need"),
-            ("foster_dreams", "Foster Dreams"),
-        ],
+        default="", max_length=20, choices=MUSING_THRESHOLDS,
     )
     ravaging_threshold = models.CharField(
-        default="",
-        max_length=20,
-        choices=[
-            ("exhaust_creativity", "Exhaust Creativity"),
-            ("destroy_hope", "Destroy Hope"),
-            ("destroy_love", "Destroy Love"),
-            ("create_anger", "Create Anger"),
-            ("break_trust", "Break Trust"),
-            ("exploit_dependence", "Exploit Dependence"),
-            ("destroy_illusions", "Destroy Illusions"),
-        ],
+        default="", max_length=20, choices=RAVAGING_THRESHOLDS,
     )
 
     antithesis = models.TextField(default="")
-    
+
     true_name = models.TextField(default="")
     data_ennobled = models.TextField(default="")
     crysalis = models.TextField(default="")
@@ -298,10 +299,12 @@ class Changeling(CtDHuman):
         return sum(v for v in self.get_arts().values())
 
     def random_art(self):
-        pass
+        art = weighted_choice(self.get_arts())
+        return self.add_art(art)
 
     def random_arts(self):
-        pass
+        while not self.has_arts():
+            self.random_art()
 
     def add_realm(self, realm):
         return add_dot(self, realm, 5)
@@ -326,10 +329,12 @@ class Changeling(CtDHuman):
         return sum(v for v in self.get_realms().values())
 
     def random_realm(self):
-        pass
+        realm = weighted_choice(self.get_realms())
+        return self.add_art(realm)
 
     def random_realms(self):
-        pass
+        while not self.has_realms():
+            self.random_realm()
 
     def add_banality(self):
         return add_dot(self, "banality", 10)
@@ -345,7 +350,8 @@ class Changeling(CtDHuman):
         return True
 
     def random_musing_threshold(self):
-        pass
+        threshold = random.choice(self.MUSING_THRESHOLDS)[0]
+        return self.set_musing_threshold(threshold)
 
     def has_ravaging_threshold(self):
         return self.ravaging_threshold != ""
@@ -355,7 +361,8 @@ class Changeling(CtDHuman):
         return True
 
     def random_ravaging_threshold(self):
-        pass
+        threshold = random.choice(self.RAVAGING_THRESHOLDS)[0]
+        return self.set_ravaging_threshold(threshold)
 
     def set_antithesis(self, antithesis):
         self.antithesis = antithesis
@@ -365,7 +372,7 @@ class Changeling(CtDHuman):
         return self.antithesis != ""
 
     def random_antithesis(self):
-        pass
+        return self.set_antithesis("Antithesis")
 
     def has_changeling_history(self):
         b = True
@@ -377,16 +384,78 @@ class Changeling(CtDHuman):
 
     def has_changeling_appearance(self):
         return self.fae_mien != ""
-    
+
+    def freebie_frequencies(self):
+        return {
+            "attribute": 15,
+            "ability": 8,
+            "background": 10,
+            "willpower": 1,
+            "meritflaw": 50,
+            "art": 20,
+            "realm": 20,
+            "glamour": 10,
+        }
+
+    def random_freebie_functions(self):
+        return {
+            "attribute": self.random_freebies_attributes,
+            "ability": self.random_freebies_abilities,
+            "background": self.random_freebies_background,
+            "willpower": self.random_freebies_willpower,
+            "meritflaw": self.random_freebies_meritflaw,
+            "art": self.random_freebies_art,
+            "realm": self.random_freebies_realm,
+            "glamour": self.random_freebies_glamour,
+        }
+
+    def random_freebies_art(self):
+        trait = weighted_choice(self.get_arts())
+        self.spend_freebies(trait)
+
+    def random_freebies_realm(self):
+        trait = weighted_choice(self.get_realms())
+        self.spend_freebies(trait)
+
+    def random_freebies_glamour(self):
+        self.spend_freebies("glamour")
+
     def freebie_cost(self, trait):
-        if trait == "art":
-            return 5
-        if trait == "realm":
-            return 2
+        cost = super().freebie_cost(trait)
+        if cost != 10000:
+            return cost
+        costs = defaultdict(lambda: 10000, {"art": 5, "realm": 2, "glamour": 3,},)
+        return costs[trait]
+
+    def spend_freebies(self, trait):
+        output = super().spend_freebies(trait)
+        if output in [True, False]:
+            return output
+        if trait in self.get_arts():
+            cost = self.freebie_cost("art")
+            if cost <= self.freebies:
+                if self.add_art(trait):
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
+        if trait in self.get_realms():
+            cost = self.freebie_cost("realm")
+            if cost <= self.freebies:
+                if self.add_realm(trait):
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
         if trait == "glamour":
-            return 3
-        return super().freebie_cost(trait)
-    
+            cost = self.freebie_cost("glamour")
+            if cost <= self.freebies:
+                if self.add_glamour():
+                    self.freebies -= cost
+                    return True
+                return False
+            return False
+
     def birthright_correction(self):
         if self.kith.name == "Troll":
             self.add_attribute("strength", maximum=10)
