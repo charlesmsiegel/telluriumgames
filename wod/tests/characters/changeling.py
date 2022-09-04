@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from wod.models.characters.changeling import Changeling, Kith, House, CtDLegacy, Motley
+from wod.models.characters.changeling import Changeling, CtDLegacy, House, Kith, Motley
 from wod.models.characters.human import MeritFlaw, WoDSpecialty
 
 
@@ -9,7 +9,7 @@ from wod.models.characters.human import MeritFlaw, WoDSpecialty
 def changeling_setup(player):
     for i in range(5):
         c = Changeling.objects.create(name=f"Character {i}", owner=player)
-        
+
     for i in range(10):
         Kith.objects.create(
             name=f"Kith {i}",
@@ -28,13 +28,21 @@ def changeling_setup(player):
             name=f"Legacy {i}", court=["seelie", "unseelie"][i % 2],
         )
         if i % 2 == 0:
-            MeritFlaw.objects.create(name=f"Merit {i//2}", ratings=[i//2 + 1], changeling=True)
+            MeritFlaw.objects.create(
+                name=f"Merit {i//2}", ratings=[i // 2 + 1], changeling=True
+            )
         else:
-            MeritFlaw.objects.create(name=f"Flaw {i//2}", ratings=[-i//2 - 1], changeling=True)
+            MeritFlaw.objects.create(
+                name=f"Flaw {i//2}", ratings=[-i // 2 - 1], changeling=True
+            )
         for ability in c.get_abilities():
-            WoDSpecialty.objects.create(name=f"{ability.title()} Specialty {i}", stat=ability)
+            WoDSpecialty.objects.create(
+                name=f"{ability.title()} Specialty {i}", stat=ability
+            )
         for attribute in c.get_attributes():
-            WoDSpecialty.objects.create(name=f"{ability.title()} Specialty {i}", stat=attribute)
+            WoDSpecialty.objects.create(
+                name=f"{ability.title()} Specialty {i}", stat=attribute
+            )
 
 
 class TestCtDHuman(TestCase):
@@ -231,7 +239,7 @@ class TestChangeling(TestCase):
         self.assertFalse(self.character.has_kith())
         self.character.set_kith(Kith.objects.get(name="Kith 0"))
         self.assertTrue(self.character.has_kith())
-    
+
     def test_set_kith(self):
         self.assertFalse(self.character.has_kith())
         self.assertTrue(self.character.set_kith(Kith.objects.get(name="Kith 0")))
@@ -384,7 +392,14 @@ class TestChangeling(TestCase):
     def test_get_realms(self):
         self.assertEqual(
             self.character.get_realms(),
-            {"actor": 0, "fae": 0, "nature_realm": 0, "prop": 0, "scene": 0, "time": 0,},
+            {
+                "actor": 0,
+                "fae": 0,
+                "nature_realm": 0,
+                "prop": 0,
+                "scene": 0,
+                "time": 0,
+            },
         )
         self.character.add_realm("actor")
         self.character.add_realm("actor")
@@ -395,7 +410,14 @@ class TestChangeling(TestCase):
         self.character.add_realm("time")
         self.assertEqual(
             self.character.get_realms(),
-            {"actor": 3, "fae": 0, "nature_realm": 2, "prop": 0, "scene": 1, "time": 1,},
+            {
+                "actor": 3,
+                "fae": 0,
+                "nature_realm": 2,
+                "prop": 0,
+                "scene": 1,
+                "time": 1,
+            },
         )
 
     def test_has_realms(self):
@@ -597,7 +619,6 @@ class TestChangeling(TestCase):
         self.assertTrue(self.character.has_changeling_appearance())
 
 
-
 class TestRandomChangeling(TestCase):
     def setUp(self) -> None:
         self.player = User.objects.create_user(username="User1", password="12345")
@@ -658,7 +679,7 @@ class TestRandomChangeling(TestCase):
         self.assertFalse(self.character.has_ravaging_threshold())
         self.character.random_ravaging_threshold()
         self.assertTrue(self.character.has_ravaging_threshold())
-        
+
     def test_random_antithesis(self):
         self.assertFalse(self.character.has_antithesis())
         self.character.random_antithesis()

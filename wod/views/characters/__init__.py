@@ -3,13 +3,13 @@ from django.shortcuts import redirect, render
 from django.views.generic import View
 
 from wod.forms import RandomCharacterForm
+from wod.models.characters.changeling import Changeling, Motley
 from wod.models.characters.human import Character, Group
 from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.mage import Mage
 from wod.models.characters.werewolf import Fomor, Kinfolk, Pack, Werewolf
-from wod.models.characters.changeling import Changeling, Motley
 
-from . import human, mage, werewolf, changeling
+from . import changeling, human, mage, werewolf
 
 
 class CharacterIndexView(View):
@@ -81,7 +81,13 @@ class RandomCharacterView(View):
             user = request.user
         else:
             user = None
-        if request.POST["character_type"] in ["werewolf", "mage", "kinfolk", "fomor", "changeling"]:
+        if request.POST["character_type"] in [
+            "werewolf",
+            "mage",
+            "kinfolk",
+            "fomor",
+            "changeling",
+        ]:
             char = self.chars[request.POST["character_type"]].objects.create(
                 name=request.POST["character_name"], owner=user
             )
@@ -114,7 +120,7 @@ class GenericGroupDetailView(View):
         "group": human.GroupDetailView,
         "cabal": mage.CabalDetailView,
         "pack": werewolf.PackDetailView,
-        "motley": changeling.MotleyDetailView
+        "motley": changeling.MotleyDetailView,
     }
 
     def get(self, request, *args, **kwargs):

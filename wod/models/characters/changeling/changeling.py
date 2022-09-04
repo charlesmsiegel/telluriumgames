@@ -1,15 +1,18 @@
-from django.urls import reverse
-from collections import defaultdict
 import random
+from collections import defaultdict
+
 from django.db import models
-from wod.models.characters.human import Human
+from django.urls import reverse
+
 from core.models import Model
 from core.utils import add_dot, weighted_choice
+from wod.models.characters.human import Human
 
 
 class Kith(Model):
     type = "kith"
 
+    affinity = models.CharField(max_length=20, default="")
     birthrights = models.JSONField(default=list)
     frailty = models.TextField(default="")
 

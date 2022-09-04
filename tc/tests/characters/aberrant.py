@@ -598,21 +598,13 @@ class TestAberrant(TestCase):
         self.assertEqual(sum(self.character.edge_rating(x) for x in edges), num + 1)
 
     def test_mega_cunning_add(self):
-        keen_sense_sight = Edge.objects.create(
-            name="Keen Sense (Sight)",
-            ratings=[1],
-        )
+        keen_sense_sight = Edge.objects.create(name="Keen Sense (Sight)", ratings=[1],)
         keen_sense_hearing = Edge.objects.create(
-            name="Keen Sense (Hearing)",
-            ratings=[1],
+            name="Keen Sense (Hearing)", ratings=[1],
         )
-        keen_sense_touch = Edge.objects.create(
-            name="Keen Sense (Touch)",
-            ratings=[1],
-        )
+        keen_sense_touch = Edge.objects.create(name="Keen Sense (Touch)", ratings=[1],)
         keen_sense_smell_and_taste = Edge.objects.create(
-            name="Keen Sense (Smell and Taste)",
-            ratings=[1],
+            name="Keen Sense (Smell and Taste)", ratings=[1],
         )
         keen_senses = [
             keen_sense_sight,
@@ -742,20 +734,16 @@ class TestRandomAberrant(TestCase):
             Edge.objects.create(name=name, ratings=[1, 2, 3])
 
         Edge.objects.create(
-            name="Keen Sense (Sight)",
-            ratings=[1],
+            name="Keen Sense (Sight)", ratings=[1],
         )
         Edge.objects.create(
-            name="Keen Sense (Hearing)",
-            ratings=[1],
+            name="Keen Sense (Hearing)", ratings=[1],
         )
         Edge.objects.create(
-            name="Keen Sense (Touch)",
-            ratings=[1],
+            name="Keen Sense (Touch)", ratings=[1],
         )
         Edge.objects.create(
-            name="Keen Sense (Smell and Taste)",
-            ratings=[1],
+            name="Keen Sense (Smell and Taste)", ratings=[1],
         )
 
     def test_random_mega_attribute(self):
@@ -820,8 +808,7 @@ class TestAberrantDetailView(TestCase):
     def setUp(self) -> None:
         User.objects.create_user("Test User", "test@user.com", "testpass")
         self.character = Aberrant.objects.create(
-            name="Test Character",
-            owner=User.objects.get(username="Test User"),
+            name="Test Character", owner=User.objects.get(username="Test User"),
         )
 
     def test_mortal_detail_view_status_code(self):

@@ -1,2 +1,2 @@
-from .changeling import Kith, House, CtDLegacy, CtDHuman, Changeling
+from .changeling import Changeling, CtDHuman, CtDLegacy, House, Kith
 from .motley import Motley

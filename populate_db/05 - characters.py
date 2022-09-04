@@ -37,6 +37,7 @@ def profile(cls, character=True, num_rows=10, xp=0):
     p.sort_stats(SortKey.CUMULATIVE).print_stats(num_rows)
 
 
+from wod.models.characters.changeling import Changeling
 from wod.models.characters.human import Human
 from wod.models.characters.mage import Mage
 from wod.models.characters.werewolf import Fomor, Kinfolk, Werewolf
@@ -48,8 +49,9 @@ time_test(Kinfolk)
 time_test(Fomor)
 time_test(Werewolf)
 time_test(Mage)
+time_test(Changeling)
 time_test(Node, character=False)
-# time_test(Chantry, character=False)
+time_test(Chantry, character=False)
 time_test(Grimoire, character=False)
 time_test(Charm, character=False)
 time_test(Artifact, character=False)

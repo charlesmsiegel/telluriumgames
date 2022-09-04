@@ -1,17 +1,44 @@
+from django.shortcuts import render
 from django.views.generic import CreateView, DetailView, UpdateView, View
+
 from wod.models.characters.changeling import (
     Changeling,
-    Motley,
-    Kith,
-    House,
     CtDHuman,
     CtDLegacy,
+    House,
+    Kith,
+    Motley,
 )
+from wod.models.characters.human import MeritFlawRating
 
 
-class ChangelingDetailView(DetailView):
-    model = Changeling
-    template_name = "wod/characters/changeling/changeling/detail.html"
+class ChangelingDetailView(View):
+    def get(self, request, *args, **kwargs):
+        changeling = Changeling.objects.get(pk=kwargs["pk"])
+        context = self.get_context(changeling)
+        return render(
+            request, "wod/characters/changeling/changeling/detail.html", context
+        )
+
+    def get_context(self, changeling):
+        context = {"object": changeling}
+        specialties = {}
+        for attribute in changeling.get_attributes():
+            specialties[attribute] = ", ".join(
+                [x.name for x in changeling.specialties.filter(stat=attribute)]
+            )
+        for ability in changeling.get_abilities():
+            specialties[ability] = ", ".join(
+                [x.name for x in changeling.specialties.filter(stat=ability)]
+            )
+        for key, value in specialties.items():
+            context[f"{key}_spec"] = value
+
+        context["merits_and_flaws"] = MeritFlawRating.objects.order_by(
+            "mf__name"
+        ).filter(character=changeling)
+
+        return context
 
 
 class ChangelingCreateView(CreateView):

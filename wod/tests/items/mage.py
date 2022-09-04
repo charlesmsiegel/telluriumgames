@@ -41,8 +41,7 @@ def grimoire_setup():
         Language.objects.create(name=f"Test Language {i}", frequency=i)
     for i in range(5):
         m = MageFaction.objects.create(
-            name=f"Test Faction {i}",
-            affinities=spheres[i : i + 4],
+            name=f"Test Faction {i}", affinities=spheres[i : i + 4],
         )
         for j in range(3):
             m1 = MageFaction.objects.create(

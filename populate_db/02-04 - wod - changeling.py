@@ -1,4 +1,4 @@
-from wod.models.characters.changeling import Kith, House, CtDLegacy
+from wod.models.characters.changeling import CtDLegacy, House, Kith
 from wod.models.characters.human import WoDSpecialty
 
 Kith.objects.create(
@@ -92,235 +92,159 @@ House.objects.create(
     court="unseelie",
     boon="-1 diff on manipulation",
     flaw="Willpower roll to admit being wrong, and +1 penalty to all Social rolls when they've lost face",
-    factions=["The Guardians of the Silver Dragon", "Les Amoureux", "The Disinherited", "The Lock-Keepers"],
+    factions=[
+        "The Guardians of the Silver Dragon",
+        "Les Amoureux",
+        "The Disinherited",
+        "The Lock-Keepers",
+    ],
 )
 House.objects.create(
     name="House Balor",
     court="unseelie",
     boon="No Glamour loss from cold iron, can soak cold iron damage at diff 10.",
     flaw="Deformed",
-    factions=["The Eyes of Balor", "Masters of the Dance", "The Old Firm", "The Guardians of the Gates", "The Riders of the Fell", "Scarlet Eye Solutions"],
+    factions=[
+        "The Eyes of Balor",
+        "Masters of the Dance",
+        "The Old Firm",
+        "The Guardians of the Gates",
+        "The Riders of the Fell",
+        "Scarlet Eye Solutions",
+    ],
 )
 House.objects.create(
-    name="House Beaumayn",
-    court="seelie",
-    boon="",
-    flaw="",
-    factions=[],
+    name="House Beaumayn", court="seelie", boon="", flaw="", factions=[],
 )
 House.objects.create(
-    name="House Danaan",
-    court="unseelie",
-    boon="",
-    flaw="",
-    factions=[],
+    name="House Danaan", court="unseelie", boon="", flaw="", factions=[],
 )
 House.objects.create(
-    name="House Daireann",
-    court="unseelie",
-    boon="",
-    flaw="",
-    factions=[],
+    name="House Daireann", court="unseelie", boon="", flaw="", factions=[],
 )
 House.objects.create(
-    name="House Dougal",
-    court="seelie",
-    boon="",
-    flaw="",
-    factions=[],
+    name="House Dougal", court="seelie", boon="", flaw="", factions=[],
 )
 House.objects.create(
-    name="House Eiluned",
-    court="seelie",
-    boon="",
-    flaw="",
-    factions=[],
+    name="House Eiluned", court="seelie", boon="", flaw="", factions=[],
 )
 House.objects.create(
-    name="House Fiona",
-    court="seelie",
-    boon="",
-    flaw="",
-    factions=[],
+    name="House Fiona", court="seelie", boon="", flaw="", factions=[],
 )
 House.objects.create(
-    name="House Gwydion",
-    court="seelie",
-    boon="",
-    flaw="",
-    factions=[],
+    name="House Gwydion", court="seelie", boon="", flaw="", factions=[],
 )
 House.objects.create(
-    name="House Leanhaun",
-    court="unseelie",
-    boon="",
-    flaw="",
-    factions=[],
+    name="House Leanhaun", court="unseelie", boon="", flaw="", factions=[],
 )
 House.objects.create(
-    name="House Liam",
-    court="seelie",
-    boon="",
-    flaw="",
-    factions=[],
+    name="House Liam", court="seelie", boon="", flaw="", factions=[],
 )
 House.objects.create(
-    name="House Scathach",
-    court="seelie",
-    boon="",
-    flaw="",
-    factions=[],
+    name="House Scathach", court="seelie", boon="", flaw="", factions=[],
 )
 House.objects.create(
-    name="House Varich",
-    court="unseelie",
-    boon="",
-    flaw="",
-    factions=[],
+    name="House Varich", court="unseelie", boon="", flaw="", factions=[],
 )
 House.objects.create(
-    name="",
-    court="",
-    boon="",
-    flaw="",
-    factions=[],
+    name="", court="", boon="", flaw="", factions=[],
 )
 House.objects.create(
-    name="",
-    court="",
-    boon="",
-    flaw="",
-    factions=[],
+    name="", court="", boon="", flaw="", factions=[],
 )
 House.objects.create(
-    name="",
-    court="",
-    boon="",
-    flaw="",
-    factions=[],
+    name="", court="", boon="", flaw="", factions=[],
 )
 House.objects.create(
-    name="",
-    court="",
-    boon="",
-    flaw="",
-    factions=[],
+    name="", court="", boon="", flaw="", factions=[],
 )
 
 
 CtDLegacy.objects.create(
-    name="Bumpkin",
-    court="seelie",
+    name="Bumpkin", court="seelie",
 )
 CtDLegacy.objects.create(
-    name="Courtier",
-    court="seelie",
+    name="Courtier", court="seelie",
 )
 CtDLegacy.objects.create(
-    name="Crafter",
-    court="seelie",
+    name="Crafter", court="seelie",
 )
 CtDLegacy.objects.create(
-    name="Dandy",
-    court="seelie",
+    name="Dandy", court="seelie",
 )
 CtDLegacy.objects.create(
-    name="Hermit",
-    court="seelie",
+    name="Hermit", court="seelie",
 )
 CtDLegacy.objects.create(
-    name="Orchid",
-    court="seelie",
+    name="Orchid", court="seelie",
 )
 CtDLegacy.objects.create(
-    name="Paladin",
-    court="seelie",
+    name="Paladin", court="seelie",
 )
 CtDLegacy.objects.create(
-    name="Panderer",
-    court="seelie",
+    name="Panderer", court="seelie",
 )
 CtDLegacy.objects.create(
-    name="Regent",
-    court="seelie",
+    name="Regent", court="seelie",
 )
 CtDLegacy.objects.create(
-    name="Sage",
-    court="seelie",
+    name="Sage", court="seelie",
 )
 CtDLegacy.objects.create(
-    name="Saint",
-    court="seelie",
+    name="Saint", court="seelie",
 )
 CtDLegacy.objects.create(
-    name="Squire",
-    court="seelie",
+    name="Squire", court="seelie",
 )
 CtDLegacy.objects.create(
-    name="Troubadour",
-    court="seelie",
+    name="Troubadour", court="seelie",
 )
 CtDLegacy.objects.create(
-    name="Wayfarer",
-    court="seelie",
+    name="Wayfarer", court="seelie",
 )
 
 
 CtDLegacy.objects.create(
-    name="Beast",
-    court="unseelie",
+    name="Beast", court="unseelie",
 )
 CtDLegacy.objects.create(
-    name="Fatalist",
-    court="unseelie",
+    name="Fatalist", court="unseelie",
 )
 CtDLegacy.objects.create(
-    name="Fool",
-    court="unseelie",
+    name="Fool", court="unseelie",
 )
 CtDLegacy.objects.create(
-    name="Grotesque",
-    court="unseelie",
+    name="Grotesque", court="unseelie",
 )
 CtDLegacy.objects.create(
-    name="Knave",
-    court="unseelie",
+    name="Knave", court="unseelie",
 )
 CtDLegacy.objects.create(
-    name="Outlaw",
-    court="unseelie",
+    name="Outlaw", court="unseelie",
 )
 CtDLegacy.objects.create(
-    name="Pandora",
-    court="unseelie",
+    name="Pandora", court="unseelie",
 )
 CtDLegacy.objects.create(
-    name="Peacock",
-    court="unseelie",
+    name="Peacock", court="unseelie",
 )
 CtDLegacy.objects.create(
-    name="Rake",
-    court="unseelie",
+    name="Rake", court="unseelie",
 )
 CtDLegacy.objects.create(
-    name="Riddler",
-    court="unseelie",
+    name="Riddler", court="unseelie",
 )
 CtDLegacy.objects.create(
-    name="Ringleader",
-    court="unseelie",
+    name="Ringleader", court="unseelie",
 )
 CtDLegacy.objects.create(
-    name="Rogue",
-    court="unseelie",
+    name="Rogue", court="unseelie",
 )
 CtDLegacy.objects.create(
-    name="Savage",
-    court="unseelie",
+    name="Savage", court="unseelie",
 )
 CtDLegacy.objects.create(
-    name="Wretch",
-    court="unseelie",
+    name="Wretch", court="unseelie",
 )
 
 WoDSpecialty.objects.get_or_create(name="Long Jumping", stat="strength")
@@ -474,7 +398,9 @@ WoDSpecialty.objects.get_or_create(name="Teaching", stat="academics")
 WoDSpecialty.objects.get_or_create(name="Clovis Culture", stat="academics")
 WoDSpecialty.objects.get_or_create(name="Music Theory", stat="academics")
 WoDSpecialty.objects.get_or_create(name="Zero Day Exploits", stat="computer")
-WoDSpecialty.objects.get_or_create(name="Specific Programming Language", stat="computer")
+WoDSpecialty.objects.get_or_create(
+    name="Specific Programming Language", stat="computer"
+)
 WoDSpecialty.objects.get_or_create(name="Internet Research", stat="computer")
 WoDSpecialty.objects.get_or_create(name="Database Administration", stat="computer")
 WoDSpecialty.objects.get_or_create(name="Hacking", stat="computer")

@@ -3,16 +3,32 @@ from wod.models.items.human import MeleeWeapon, RangedWeapon, ThrownWeapon
 
 # W20
 MeritFlaw.objects.create(
-    name="Acute Sense (Werewolf)", ratings=[1], human=True, garou=True, kinfolk=True, changeling=True
+    name="Acute Sense (Werewolf)",
+    ratings=[1],
+    human=True,
+    garou=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Alcohol Tolerance", ratings=[1], human=True, garou=True, kinfolk=True
 )
 MeritFlaw.objects.create(
-    name="Ambidextrous", ratings=[1], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Ambidextrous",
+    ratings=[1],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
-    name="Double-Jointed", ratings=[1], human=True, garou=True, kinfolk=True, changeling=True
+    name="Double-Jointed",
+    ratings=[1],
+    human=True,
+    garou=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(name="Mixed-morph", ratings=[1, 5], human=True, garou=True)
 MeritFlaw.objects.create(
@@ -42,7 +58,13 @@ MeritFlaw.objects.create(
 )
 MeritFlaw.objects.create(name="Natural Weapons", ratings=[3, 4], human=True, garou=True)
 MeritFlaw.objects.create(
-    name="Huge Size", ratings=[4], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Huge Size",
+    ratings=[4],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(name="Metamorph", ratings=[7], human=True, garou=True)
 MeritFlaw.objects.create(
@@ -61,7 +83,12 @@ MeritFlaw.objects.create(
     name="No Partial Transformation", ratings=[-1], human=True, garou=True
 )
 MeritFlaw.objects.create(
-    name="Short (Werewolf)", ratings=[-1], human=True, garou=True, kinfolk=True, changeling=True
+    name="Short (Werewolf)",
+    ratings=[-1],
+    human=True,
+    garou=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Strict Carnivore", ratings=[-1], human=True, garou=True, kinfolk=True
@@ -97,7 +124,13 @@ MeritFlaw.objects.create(
     name="Blind", ratings=[-6], human=True, garou=True, kinfolk=True
 )
 MeritFlaw.objects.create(
-    name="Common Sense", ratings=[1], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Common Sense",
+    ratings=[1],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Computer Aptitude",
@@ -108,13 +141,25 @@ MeritFlaw.objects.create(
     kinfolk=True,
 )
 MeritFlaw.objects.create(
-    name="Concentration", ratings=[1], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Concentration",
+    ratings=[1],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Expert Driver", ratings=[1], human=True, garou=True, mage=True, kinfolk=True
 )
 MeritFlaw.objects.create(
-    name="Language", ratings=[1], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Language",
+    ratings=[1],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Lightning Calculator",
@@ -122,7 +167,8 @@ MeritFlaw.objects.create(
     human=True,
     garou=True,
     mage=True,
-    kinfolk=True, changeling=True
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Mechanical Aptitude",
@@ -130,7 +176,8 @@ MeritFlaw.objects.create(
     human=True,
     garou=True,
     mage=True,
-    kinfolk=True, changeling=True
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Time Sense", ratings=[1], human=True, garou=True, mage=True, kinfolk=True
@@ -142,7 +189,13 @@ MeritFlaw.objects.create(
     name="Code of Honor", ratings=[2], human=True, garou=True, mage=True, kinfolk=True
 )
 MeritFlaw.objects.create(
-    name="Eidetic Memory", ratings=[2], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Eidetic Memory",
+    ratings=[2],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Inner Strength", ratings=[2], human=True, garou=True, mage=True, kinfolk=True
@@ -153,7 +206,8 @@ MeritFlaw.objects.create(
     human=True,
     garou=True,
     mage=True,
-    kinfolk=True, changeling=True
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Seldom Sleeps", ratings=[2], human=True, garou=True, kinfolk=True
@@ -162,10 +216,21 @@ MeritFlaw.objects.create(
     name="Calm Heart", ratings=[3], human=True, garou=True, kinfolk=True
 )
 MeritFlaw.objects.create(
-    name="Iron Will", ratings=[3], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Iron Will",
+    ratings=[3],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
-    name="Jack-of-all-Trades (Mage and Werewolf)", ratings=[3], human=True, garou=True, kinfolk=True, mage=True
+    name="Jack-of-all-Trades (Mage and Werewolf)",
+    ratings=[3],
+    human=True,
+    garou=True,
+    kinfolk=True,
+    mage=True,
 )
 MeritFlaw.objects.create(
     name="Self-Confident", ratings=[5], human=True, garou=True, mage=True, kinfolk=True
@@ -177,13 +242,24 @@ MeritFlaw.objects.create(
     name="Compulsion", ratings=[-1], human=True, garou=True, mage=True, kinfolk=True
 )
 MeritFlaw.objects.create(
-    name="Impatient", ratings=[-1], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Impatient",
+    ratings=[-1],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Intolerance (Werewolf)", ratings=[-1], human=True, garou=True, kinfolk=True
 )
 MeritFlaw.objects.create(
-    name="Nightmares (Werewolf and Changeling)", ratings=[-1], human=True, garou=True, kinfolk=True, changeling=True
+    name="Nightmares (Werewolf and Changeling)",
+    ratings=[-1],
+    human=True,
+    garou=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Overconfident", ratings=[-1], human=True, garou=True, mage=True, kinfolk=True
@@ -192,7 +268,12 @@ MeritFlaw.objects.create(
     name="Shy", ratings=[-1], human=True, garou=True, mage=True, kinfolk=True
 )
 MeritFlaw.objects.create(
-    name="Soft-Hearted (Werewolf and Mage)", ratings=[-1], human=True, garou=True, mage=True, kinfolk=True
+    name="Soft-Hearted (Werewolf and Mage)",
+    ratings=[-1],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
 )
 MeritFlaw.objects.create(
     name="Speech Impediment",
@@ -203,28 +284,63 @@ MeritFlaw.objects.create(
     kinfolk=True,
 )
 MeritFlaw.objects.create(
-    name="Amnesia", ratings=[-2], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Amnesia",
+    ratings=[-2],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
-    name="Curiosity", ratings=[-2], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Curiosity",
+    ratings=[-2],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Pack Mentality", ratings=[-2], human=True, garou=True, kinfolk=True
 )
 MeritFlaw.objects.create(
-    name="Phobia (Werewolf and Mage)", ratings=[-2, -3], human=True, garou=True, mage=True, kinfolk=True
+    name="Phobia (Werewolf and Mage)",
+    ratings=[-2, -3],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
 )
 MeritFlaw.objects.create(
-    name="Short Fuse", ratings=[-2], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Short Fuse",
+    ratings=[-2],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Territorial", ratings=[-2], human=True, garou=True, kinfolk=True
 )
 MeritFlaw.objects.create(
-    name="Vengeful", ratings=[-2], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Vengeful",
+    ratings=[-2],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
-    name="Absent-Minded", ratings=[-3], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Absent-Minded",
+    ratings=[-3],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Deranged (Werewolf)", ratings=[-3], human=True, garou=True, kinfolk=True
@@ -236,7 +352,12 @@ MeritFlaw.objects.create(
     name="Hatred", ratings=[-3], human=True, garou=True, mage=True, kinfolk=True
 )
 MeritFlaw.objects.create(
-    name="Weak-Willed", ratings=[-3], human=True, garou=True, kinfolk=True, changeling=True
+    name="Weak-Willed",
+    ratings=[-3],
+    human=True,
+    garou=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Ability Deficit",
@@ -276,7 +397,12 @@ MeritFlaw.objects.create(
     name="Notable Heritage", ratings=[2], human=True, garou=True, kinfolk=True
 )
 MeritFlaw.objects.create(
-    name="Reputation", ratings=[2], human=True, garou=True, kinfolk=True, changeling=True
+    name="Reputation",
+    ratings=[2],
+    human=True,
+    garou=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Supporter", ratings=[2], human=True, garou=True, kinfolk=True
@@ -291,7 +417,13 @@ MeritFlaw.objects.create(
     name="Conniver", ratings=[-1], human=True, garou=True, mage=True, kinfolk=True
 )
 MeritFlaw.objects.create(
-    name="Dark Secret", ratings=[-1], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Dark Secret",
+    ratings=[-1],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Enemy",
@@ -299,7 +431,8 @@ MeritFlaw.objects.create(
     human=True,
     garou=True,
     mage=True,
-    kinfolk=True, changeling=True
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Naive", ratings=[-1], human=True, garou=True, mage=True, kinfolk=True
@@ -320,7 +453,13 @@ MeritFlaw.objects.create(
     name="Notoriety", ratings=[-3], human=True, garou=True, mage=True, kinfolk=True
 )
 MeritFlaw.objects.create(
-    name="Ward", ratings=[-3], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Ward",
+    ratings=[-3],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Hunted (Werewolf)", ratings=[-4], human=True, garou=True, kinfolk=True
@@ -334,16 +473,32 @@ MeritFlaw.objects.create(
     name="Spirit Magnet (Werewolf)", ratings=[1], human=True, garou=True
 )
 MeritFlaw.objects.create(
-    name="Danger Sense (Werewolf and Mage)", ratings=[3], human=True, garou=True, mage=True, kinfolk=True
+    name="Danger Sense (Werewolf and Mage)",
+    ratings=[3],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
 )
 MeritFlaw.objects.create(
-    name="Lucky", ratings=[3], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Lucky",
+    ratings=[3],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Natural Channel", ratings=[3], human=True, garou=True, mage=True, kinfolk=True
 )
 MeritFlaw.objects.create(
-    name="True Love (Werewolf and Mage)", ratings=[4], human=True, garou=True, mage=True, kinfolk=True
+    name="True Love (Werewolf and Mage)",
+    ratings=[4],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
 )
 MeritFlaw.objects.create(
     name="Immune to Wyrm Emanations", ratings=[6], human=True, garou=True, kinfolk=True
@@ -361,7 +516,8 @@ MeritFlaw.objects.create(
     human=True,
     garou=True,
     mage=True,
-    kinfolk=True, changeling=True
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Foe from the Past", ratings=[-1, -2, -3], human=True, garou=True, kinfolk=True
@@ -385,7 +541,13 @@ MeritFlaw.objects.create(
 MeritFlaw.objects.create(name="Pierced Veil", ratings=[-3], human=True, garou=True)
 MeritFlaw.objects.create(name="Harano Prone", ratings=[-4], human=True, garou=True)
 MeritFlaw.objects.create(
-    name="Dark Fate", ratings=[-5], human=True, garou=True, mage=True, kinfolk=True, changeling=True
+    name="Dark Fate",
+    ratings=[-5],
+    human=True,
+    garou=True,
+    mage=True,
+    kinfolk=True,
+    changeling=True,
 )
 MeritFlaw.objects.create(
     name="Taint of Corruption",
@@ -423,7 +585,9 @@ MeritFlaw.objects.create(name="Ties", ratings=[3], human=True, mage=True)
 MeritFlaw.objects.create(name="Too Tough To Die", ratings=[5], human=True, mage=True)
 MeritFlaw.objects.create(name="True Faith", ratings=[7], human=True, mage=True)
 MeritFlaw.objects.create(name="Umbral Affinity", ratings=[4], human=True, mage=True)
-MeritFlaw.objects.create(name="Addiction (Mage)", ratings=[-1, -3], human=True, mage=True)
+MeritFlaw.objects.create(
+    name="Addiction (Mage)", ratings=[-1, -3], human=True, mage=True
+)
 MeritFlaw.objects.create(name="Construct", ratings=[-2], human=True, mage=True)
 # MeritFlaw.objects.create(name="Cursed", ratings=[-1, -2, -3, -4, -5], human=True, mage=True)
 MeritFlaw.objects.create(
@@ -527,7 +691,9 @@ MeritFlaw.objects.create(name="Manifest Avatar", ratings=[3], human=True, mage=T
 MeritFlaw.objects.create(name="Mark of Favor", ratings=[3], human=True, mage=True)
 MeritFlaw.objects.create(name="Master of Red Tape", ratings=[4], human=True, mage=True)
 # MeritFlaw.objects.create(name="Mechanical Aptitude", ratings=[1], human=True, mage=True)
-MeritFlaw.objects.create(name="Medium", ratings=[2], human=True, mage=True, changeling=True)
+MeritFlaw.objects.create(
+    name="Medium", ratings=[2], human=True, mage=True, changeling=True
+)
 # MeritFlaw.objects.create(name="Natural Channel", ratings=[3], human=True, mage=True)
 MeritFlaw.objects.create(
     name="Natural Leader (Mage)", ratings=[3], human=True, mage=True
@@ -547,14 +713,18 @@ MeritFlaw.objects.create(name="Parlor Trick", ratings=[3], human=True, mage=True
 MeritFlaw.objects.create(name="Perfect Liar", ratings=[2], human=True, mage=True)
 # MeritFlaw.objects.create(name="Physically Impressive", ratings=[2], human=True, mage=True)
 # MeritFlaw.objects.create(name="Pitiable", ratings=[1], human=True, mage=True)
-MeritFlaw.objects.create(name="Poison Resistance (Mage)", ratings=[2], human=True, mage=True)
+MeritFlaw.objects.create(
+    name="Poison Resistance (Mage)", ratings=[2], human=True, mage=True
+)
 MeritFlaw.objects.create(name="Poker Face", ratings=[2], human=True, mage=True)
 MeritFlaw.objects.create(name="Powerful Ally", ratings=[5], human=True, mage=True)
 MeritFlaw.objects.create(name="Prestige", ratings=[2], human=True, mage=True)
 MeritFlaw.objects.create(name="Property", ratings=[2, 3, 4, 5])
 MeritFlaw.objects.create(name="Regal Bearing", ratings=[1], human=True, mage=True)
 MeritFlaw.objects.create(name="Research Grant", ratings=[2], human=True, mage=True)
-MeritFlaw.objects.create(name="Rising Star", ratings=[3], human=True, mage=True, changeling=True)
+MeritFlaw.objects.create(
+    name="Rising Star", ratings=[3], human=True, mage=True, changeling=True
+)
 MeritFlaw.objects.create(name="Sanctity", ratings=[2], human=True, mage=True)
 MeritFlaw.objects.create(
     name="Scientific Mystic/Techgnosi", ratings=[3], human=True, mage=True
@@ -595,10 +765,7 @@ MeritFlaw.objects.create(
     name="Sphere Natural - Mind", ratings=[6], human=False, mage=True
 )
 MeritFlaw.objects.create(
-    name="Spirit Magnet (Mage)",
-    ratings=[3, 4, 5, 6, 7],
-    human=True,
-    mage=True,
+    name="Spirit Magnet (Mage)", ratings=[3, 4, 5, 6, 7], human=True, mage=True,
 )
 MeritFlaw.objects.create(name="Spirit Mentor", ratings=[3], human=True, mage=True)
 MeritFlaw.objects.create(name="Sterile", ratings=[1, -1], human=True, mage=True)
@@ -622,7 +789,9 @@ MeritFlaw.objects.create(
 MeritFlaw.objects.create(
     name="Apprentice", ratings=[-1, -2, -3, -4, -5], human=True, mage=True
 )
-MeritFlaw.objects.create(name="Bard's Tongue", ratings=[-1], human=True, mage=True, changeling=True)
+MeritFlaw.objects.create(
+    name="Bard's Tongue", ratings=[-1], human=True, mage=True, changeling=True
+)
 MeritFlaw.objects.create(name="Beast Within", ratings=[-5], human=True, mage=True)
 MeritFlaw.objects.create(name="Bedeviled", ratings=[-6], human=True, mage=True)
 MeritFlaw.objects.create(name="Bigot", ratings=[-3], human=True, mage=True)
@@ -639,10 +808,7 @@ MeritFlaw.objects.create(
 MeritFlaw.objects.create(name="Bound", ratings=[-5], human=True, mage=True)
 MeritFlaw.objects.create(name="Branded", ratings=[-3, -4, -5], human=True, mage=True)
 MeritFlaw.objects.create(
-    name="Cast No Shadow Or Reflection",
-    ratings=[-1, -2],
-    human=True,
-    mage=True,
+    name="Cast No Shadow Or Reflection", ratings=[-1, -2], human=True, mage=True,
 )
 MeritFlaw.objects.create(name="Catspaw", ratings=[-2], human=True, mage=True)
 MeritFlaw.objects.create(name="Child", ratings=[-1, -2, -3], human=True, mage=True)
@@ -680,10 +846,7 @@ MeritFlaw.objects.create(name="Double Agent", ratings=[-2], human=True, mage=Tru
 MeritFlaw.objects.create(name="Easily Intoxicated", ratings=[-2], human=True, mage=True)
 MeritFlaw.objects.create(name="Echo Chamber", ratings=[-4], human=True, mage=True)
 MeritFlaw.objects.create(
-    name="Esoteric Discourse/Technobabbler",
-    ratings=[-1],
-    human=True,
-    mage=True,
+    name="Esoteric Discourse/Technobabbler", ratings=[-1], human=True, mage=True,
 )
 MeritFlaw.objects.create(name="Expendable", ratings=[-3], human=True, mage=True)
 MeritFlaw.objects.create(
@@ -695,20 +858,25 @@ MeritFlaw.objects.create(
     name="Family Issues", ratings=[-1, -2, -3], human=True, mage=True
 )
 MeritFlaw.objects.create(
-    name="Faulty Enhancements",
-    ratings=[-2, -3, -4, -5],
-    human=True,
-    mage=True,
+    name="Faulty Enhancements", ratings=[-2, -3, -4, -5], human=True, mage=True,
 )
 MeritFlaw.objects.create(name="Feral Mind", ratings=[-3], human=True, mage=True)
 MeritFlaw.objects.create(name="Fifth Degree", ratings=[-3], human=True, mage=True)
-MeritFlaw.objects.create(name="Flashbacks (Mage and Changeling)", ratings=[-3], human=True, mage=True, changeling=True)
+MeritFlaw.objects.create(
+    name="Flashbacks (Mage and Changeling)",
+    ratings=[-3],
+    human=True,
+    mage=True,
+    changeling=True,
+)
 MeritFlaw.objects.create(
     name="Gremlin", ratings=[-1, -2, -3, -4, -5], human=True, mage=True
 )
 # MeritFlaw.objects.create(name="Gullible", ratings=[-2], human=True, mage=True)
 # MeritFlaw.objects.create(name="Hatred", ratings=[-3], human=True, mage=True)
-MeritFlaw.objects.create(name="Haunted", ratings=[-3], human=True, mage=True, changeling=True)
+MeritFlaw.objects.create(
+    name="Haunted", ratings=[-3], human=True, mage=True, changeling=True
+)
 MeritFlaw.objects.create(name="Hero Worship", ratings=[-1], human=True, mage=True)
 MeritFlaw.objects.create(name="Hit List", ratings=[-4], human=True, mage=True)
 MeritFlaw.objects.create(name="Horrific", ratings=[-5], human=True, mage=True)
@@ -736,7 +904,9 @@ MeritFlaw.objects.create(
     human=True,
     mage=True,
 )
-MeritFlaw.objects.create(name="Lifesaver", ratings=[-3], human=True, mage=True, changeling=True)
+MeritFlaw.objects.create(
+    name="Lifesaver", ratings=[-3], human=True, mage=True, changeling=True
+)
 MeritFlaw.objects.create(name="Locked Vidare", ratings=[-1], human=True, mage=True)
 MeritFlaw.objects.create(name="Mayfly Curse", ratings=[-5, -10], human=True, mage=True)
 MeritFlaw.objects.create(name="Mental Lock", ratings=[-1], human=True, mage=True)
@@ -777,7 +947,9 @@ MeritFlaw.objects.create(
     name="Profiled Appearance", ratings=[-2], human=True, mage=True
 )
 MeritFlaw.objects.create(name="Prone to Quiet", ratings=[-4], human=True, mage=True)
-MeritFlaw.objects.create(name="Psychic Vampire", ratings=[-5], human=True, mage=True, changeling=True)
+MeritFlaw.objects.create(
+    name="Psychic Vampire", ratings=[-5], human=True, mage=True, changeling=True
+)
 MeritFlaw.objects.create(name="Repulsive Feature", ratings=[-2], human=True, mage=True)
 MeritFlaw.objects.create(
     name="Rival House", ratings=[-1, -2, -3, -4, -5], human=True, mage=True
@@ -843,10 +1015,7 @@ MeritFlaw.objects.create(
 MeritFlaw.objects.create(name="Vanilla", ratings=[-1], human=True, mage=True)
 # MeritFlaw.objects.create(name="Vengeful", ratings=[-2], human=True, mage=True)
 MeritFlaw.objects.create(
-    name="Vulnerability",
-    ratings=[-1, -2, -3, -4, -5, -6, -7],
-    human=True,
-    mage=True,
+    name="Vulnerability", ratings=[-1, -2, -3, -4, -5, -6, -7], human=True, mage=True,
 )
 # MeritFlaw.objects.create(name="Ward", ratings=[-3], human=True, mage=True)
 MeritFlaw.objects.create(name="Whimsy", ratings=[-1], human=True, mage=True)
@@ -858,10 +1027,7 @@ MeritFlaw.objects.create(name="Innocuous Aura", ratings=[5], human=True, mage=Tr
 MeritFlaw.objects.create(name="Abyssal Mastery", ratings=[7], human=True, mage=True)
 MeritFlaw.objects.create(name="Saint of the Pit", ratings=[3], human=True, mage=True)
 MeritFlaw.objects.create(
-    name="Qlippothic Radiance",
-    ratings=[-1, -2, -3, -4, -5],
-    human=True,
-    mage=True,
+    name="Qlippothic Radiance", ratings=[-1, -2, -3, -4, -5], human=True, mage=True,
 )
 MeritFlaw.objects.create(name="Spectral Presence", ratings=[-3], human=True, mage=True)
 MeritFlaw.objects.create(name="Abyssal Lunatic", ratings=[-5], human=True, mage=True)
@@ -869,7 +1035,9 @@ MeritFlaw.objects.create(name="Widderslainte", ratings=[-7], human=True, mage=Tr
 
 # C20
 MeritFlaw.objects.create(name="Friendly Face", ratings=[1], changeling=True)
-MeritFlaw.objects.create(name="Poison Resistance (Changeling)", ratings=[1], changeling=True)
+MeritFlaw.objects.create(
+    name="Poison Resistance (Changeling)", ratings=[1], changeling=True
+)
 MeritFlaw.objects.create(name="Wheelman", ratings=[1], changeling=True)
 MeritFlaw.objects.create(name="Crack Shot", ratings=[2], changeling=True)
 MeritFlaw.objects.create(name="Dextrous Toes", ratings=[2], changeling=True)
@@ -878,16 +1046,22 @@ MeritFlaw.objects.create(name="Murderous Mien", ratings=[2], changeling=True)
 MeritFlaw.objects.create(name="Nightsight (Changeling)", ratings=[2], changeling=True)
 MeritFlaw.objects.create(name="Surreal Beauty", ratings=[2], changeling=True)
 MeritFlaw.objects.create(name="Increased Pain Threshold", ratings=[3], changeling=True)
-MeritFlaw.objects.create(name="Perfect Balance (Changeling)", ratings=[3], changeling=True)
+MeritFlaw.objects.create(
+    name="Perfect Balance (Changeling)", ratings=[3], changeling=True
+)
 MeritFlaw.objects.create(name="Prehensile Tongue/Tail", ratings=[2, 4], changeling=True)
 MeritFlaw.objects.create(name="Sex Appeal", ratings=[3], changeling=True)
 # MeritFlaw.objects.create(name="Huge Size", ratings=[4], changeling=True)
 MeritFlaw.objects.create(name="Eidetic Taste", ratings=[4], changeling=True)
 MeritFlaw.objects.create(name="Blessing of Atlas", ratings=[5], changeling=True)
-MeritFlaw.objects.create(name="Addiction (Changeling)", ratings=[-1, -2, -3], changeling=True)
+MeritFlaw.objects.create(
+    name="Addiction (Changeling)", ratings=[-1, -2, -3], changeling=True
+)
 MeritFlaw.objects.create(name="Allergic", ratings=[-1, -2, -3, -4], changeling=True)
 MeritFlaw.objects.create(name="Asthma", ratings=[-1], changeling=True)
-MeritFlaw.objects.create(name="Bad Sight (Changeling)", ratings=[-1, -3, -6], changeling=True)
+MeritFlaw.objects.create(
+    name="Bad Sight (Changeling)", ratings=[-1, -3, -6], changeling=True
+)
 MeritFlaw.objects.create(name="Impaired Hearing", ratings=[-1, -2, -4], changeling=True)
 # MeritFlaw.objects.create(name="Short", ratings=[-1], changeling=True)
 MeritFlaw.objects.create(name="Twitch", ratings=[-1], changeling=True)
@@ -910,7 +1084,9 @@ MeritFlaw.objects.create(name="Loyal Heart", ratings=[2], changeling=True)
 # MeritFlaw.objects.create(name="Iron Will", ratings=[3], changeling=True)
 MeritFlaw.objects.create(name="Master Crafsman", ratings=[3], changeling=True)
 MeritFlaw.objects.create(name="Gut Instincts", ratings=[4], changeling=True)
-MeritFlaw.objects.create(name="Jack-of-all-Trades (Changeling)", ratings=[5], changeling=True)
+MeritFlaw.objects.create(
+    name="Jack-of-all-Trades (Changeling)", ratings=[5], changeling=True
+)
 MeritFlaw.objects.create(name="Beacuse I Think I Can", ratings=[6], changeling=True)
 # MeritFlaw.objects.create(name="Impatient", ratings=[-1], changeling=True)
 # MeritFlaw.objects.create(name="Nightmares", ratings=[-1], changeling=True)
@@ -918,7 +1094,9 @@ MeritFlaw.objects.create(name="Beacuse I Think I Can", ratings=[6], changeling=T
 # MeritFlaw.objects.create(name="Curiosity", ratings=[-2], changeling=True)
 MeritFlaw.objects.create(name="Phobia (Changeling)", ratings=[-2, -4], changeling=True)
 # MeritFlaw.objects.create(name="Short Fuse", ratings=[-2], changeling=True)
-MeritFlaw.objects.create(name="Soft-Hearted (Changeling)", ratings=[-2], changeling=True)
+MeritFlaw.objects.create(
+    name="Soft-Hearted (Changeling)", ratings=[-2], changeling=True
+)
 # MeritFlaw.objects.create(name="Vengeful", ratings=[-2], changeling=True)
 MeritFlaw.objects.create(name="Wyld Mind", ratings=[-2], changeling=True)
 # MeritFlaw.objects.create(name="Absent-Minded", ratings=[-3], changeling=True)
@@ -932,7 +1110,9 @@ MeritFlaw.objects.create(name="Boon", ratings=[1, 2, 3, 4, 5, 6], changeling=Tru
 MeritFlaw.objects.create(name="Calming Presence", ratings=[1], changeling=True)
 MeritFlaw.objects.create(name="Good Listener", ratings=[1], changeling=True)
 MeritFlaw.objects.create(name="I Know You", ratings=[1], changeling=True)
-MeritFlaw.objects.create(name="Natural Leader (Changeling)", ratings=[1], changeling=True)
+MeritFlaw.objects.create(
+    name="Natural Leader (Changeling)", ratings=[1], changeling=True
+)
 MeritFlaw.objects.create(name="Protege", ratings=[1], changeling=True)
 MeritFlaw.objects.create(name="Your Best Advocate", ratings=[1], changeling=True)
 MeritFlaw.objects.create(name="Nature's Child", ratings=[2], changeling=True)
@@ -977,10 +1157,16 @@ MeritFlaw.objects.create(name="Regeneration", ratings=[7], changeling=True)
 MeritFlaw.objects.create(name="Changeling's Eyes", ratings=[-1], changeling=True)
 # MeritFlaw.objects.create(name="Cursed", ratings=[-1, -2, -3, -4, -5], changeling=True)
 MeritFlaw.objects.create(name="Geas", ratings=[-1, -2, -3, -4, -5], changeling=True)
-MeritFlaw.objects.create(name="Oathbound", ratings=[-1, -2, -3, -4, -5], changeling=True)
-MeritFlaw.objects.create(name="Slipped Seeming", ratings=[-1, -2, -3, -4, -5], changeling=True)
+MeritFlaw.objects.create(
+    name="Oathbound", ratings=[-1, -2, -3, -4, -5], changeling=True
+)
+MeritFlaw.objects.create(
+    name="Slipped Seeming", ratings=[-1, -2, -3, -4, -5], changeling=True
+)
 MeritFlaw.objects.create(name="Bizarre Quality", ratings=[-2], changeling=True)
-MeritFlaw.objects.create(name="Echoes (Changeling)", ratings=[-2, -3, -4, -5], changeling=True)
+MeritFlaw.objects.create(
+    name="Echoes (Changeling)", ratings=[-2, -3, -4, -5], changeling=True
+)
 MeritFlaw.objects.create(name="Winged", ratings=[-2, 4], changeling=True)
 MeritFlaw.objects.create(name="Cleared Mists", ratings=[-3], changeling=True)
 # MeritFlaw.objects.create(name="Haunted", ratings=[-3], changeling=True)

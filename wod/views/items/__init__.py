@@ -33,9 +33,7 @@ def load_item_types(request):
     gameline = request.GET.get("gameline")
     item_types = items[gameline]
     return render(
-        request,
-        "wod/items/load_item_dropdown_list.html",
-        {"item_types": item_types},
+        request, "wod/items/load_item_dropdown_list.html", {"item_types": item_types},
     )
 
 

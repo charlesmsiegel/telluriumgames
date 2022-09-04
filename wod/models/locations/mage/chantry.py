@@ -45,11 +45,7 @@ class Chantry(Location):
         ("autumn", "Autumn"),
     ]
 
-    season = models.CharField(
-        max_length=100,
-        null=True,
-        choices=SEASONS,
-    )
+    season = models.CharField(max_length=100, null=True, choices=SEASONS,)
 
     CHANTRY_TYPES = [
         ("exploration", "Exploration"),
@@ -60,11 +56,7 @@ class Chantry(Location):
         ("war", "War"),
     ]
 
-    chantry_type = models.CharField(
-        max_length=100,
-        null=True,
-        choices=CHANTRY_TYPES,
-    )
+    chantry_type = models.CharField(max_length=100, null=True, choices=CHANTRY_TYPES,)
 
     rank = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
