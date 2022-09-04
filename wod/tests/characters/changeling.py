@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from wod.models.characters.changeling import Changeling, Kith, House, CtDLegacy, Motley
-from wod.models.characters.human import MeritFlaw
+from wod.models.characters.human import MeritFlaw, WoDSpecialty
 
 
 # Create your tests here.
@@ -28,6 +28,11 @@ def changeling_setup(player):
             MeritFlaw.objects.create(name=f"Merit {i//2}", ratings=[i//2 + 1], changeling=True)
         else:
             MeritFlaw.objects.create(name=f"Flaw {i//2}", ratings=[-i//2 - 1], changeling=True)
+        c = Changeling.objects.create(name=f"Test {i}")
+        for ability in c.get_abilities():
+            WoDSpecialty.objects.create(name=f"{ability.title()} Specialty {i}", stat=ability)
+        for attribute in c.get_attributes():
+            WoDSpecialty.objects.create(name=f"{ability.title()} Specialty {i}", stat=attribute)
 
 
 class TestCtDHuman(TestCase):
@@ -317,11 +322,11 @@ class TestChangeling(TestCase):
 
     def test_total_arts(self):
         self.assertEqual(self.character.total_arts(), 0)
-        self.add_art("naming")
+        self.character.add_art("naming")
         self.assertEqual(self.character.total_arts(), 1)
-        self.add_art("soothsay")
+        self.character.add_art("soothsay")
         self.assertEqual(self.character.total_arts(), 2)
-        self.add_art("chronos")
+        self.character.add_art("chronos")
         self.assertEqual(self.character.total_arts(), 3)
 
     def test_filter_arts(self):
@@ -392,11 +397,11 @@ class TestChangeling(TestCase):
 
     def test_total_realms(self):
         self.assertEqual(self.character.total_realms(), 0)
-        self.character.add_realms("actor")
+        self.character.add_realm("actor")
         self.assertEqual(self.character.total_realms(), 1)
-        self.character.add_realms("time")
+        self.character.add_realm("time")
         self.assertEqual(self.character.total_realms(), 2)
-        self.character.add_realms("fae")
+        self.character.add_realm("fae")
         self.assertEqual(self.character.total_realms(), 3)
 
     def test_filter_realms(self):
@@ -513,7 +518,7 @@ class TestChangeling(TestCase):
         self.character.willpower = 4
         self.character.glamour = 4
         self.character.xp = 100
-        self.assertTzrue(self.character.spend_xp("strength"))
+        self.assertTrue(self.character.spend_xp("strength"))
         self.assertEqual(self.character.xp, 96)
         self.assertTrue(self.character.spend_xp("occult"))
         self.assertEqual(self.character.xp, 93)
@@ -609,7 +614,7 @@ class TestRandomChangeling(TestCase):
         self.assertTrue(self.character.has_arts())
 
     def test_random_realm(self):
-        total = self.character.total_realma()
+        total = self.character.total_realms()
         self.character.random_realm()
         self.assertEqual(self.character.total_realms(), total + 1)
 
