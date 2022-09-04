@@ -80,6 +80,9 @@ class Book(models.Model):
 class BookReference(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     page = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return f"{self.book} p. {self.page}"
 
 
 class Model(PolymorphicModel):
@@ -142,4 +145,4 @@ class Model(PolymorphicModel):
         book = Book.objects.get_or_create(name=book_title)[0]
         bookref = BookReference.objects.create(book=book, page=page_number)
         self.sources.add(bookref)
-        return True
+        return self
