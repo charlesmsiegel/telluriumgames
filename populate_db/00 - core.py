@@ -330,8 +330,10 @@ copper = Material.objects.create(name="Copper")
 stone = Material.objects.create(name="Stone")
 gold = Material.objects.create(name="Gold")
 petrified_wood = Material.objects.create(name="Petrified Wood")
+ceramics = Material.objects.create(name="Ceramics")
 
 book = Medium.objects.create(name="Book")
+journal = Medium.objects.create(name="Journal", length_modifier_type="/", length_modifier=40)
 ebook = Medium.objects.create(
     name="eBook", length_modifier_type="/", length_modifier=20
 )
@@ -346,6 +348,12 @@ software = Medium.objects.create(
 )
 tablets = Medium.objects.create(
     name="Tablets", length_modifier_type="/", length_modifier=40
+)
+audio = Medium.objects.create(
+    name="Audio Recording"
+)
+video = Medium.objects.create(
+    name="Video Recording", length_modifier_type="/", length_modifier=20
 )
 
 Noun.objects.create(name="ATM")
