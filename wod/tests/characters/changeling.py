@@ -2,11 +2,12 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from wod.models.characters.changeling import Changeling, Kith, House, Legacy, Motley
+from wod.models.characters.human import MeritFlaw
 
 
 # Create your tests here.
 def changeling_setup(player):
-    for i in range(5):
+    for i in range(10):
         Kith.objects.create(
             name=f"Kith {i}",
             birthrights=["Birthright 1", "Birthright 2"],
@@ -23,6 +24,10 @@ def changeling_setup(player):
         Legacy.objects.create(
             name=f"Legacy {i}", court=["seelie", "unseelie"][i % 2],
         )
+        if i % 2 == 0:
+            MeritFlaw.objects.create(name=f"Merit {i//2}", ratings=[i//2 + 1], changeling=True)
+        else:
+            MeritFlaw.objects.create(name=f"Flaw {i//2}", ratings=[-i//2 - 1], changeling=True)
 
 
 class TestCtDHuman(TestCase):
@@ -212,72 +217,246 @@ class TestChangeling(TestCase):
         self.assertTrue(self.character.has_court())
 
     def test_set_seelie_legacy(self):
-        self.fail()
+        seelie = Legacy.objects.get(name="Legacy 0")
+        unseelie = Legacy.objects.get(name="Legacy 1")
+        self.assertFalse(self.character.has_seelie_legacy())
+        self.assertFalse(self.character.set_seelie_legacy(unseelie))
+        self.assertFalse(self.character.has_seelie_legacy())
+        self.assertTrue(self.character.set_seelie_legacy(seelie))
+        self.assertTrue(self.character.has_seelie_legacy())
 
     def test_has_seelie_legacy(self):
-        self.fail()
+        legacy = Legacy.objects.get(name="Legacy 0")
+        self.assertFalse(self.character.has_seelie_legacy())
+        self.assertTrue(self.character.set_seelie_legacy(legacy))
+        self.assertTrue(self.character.has_seelie_legacy())
 
     def test_set_unseelie_legacy(self):
-        self.fail()
+        seelie = Legacy.objects.get(name="Legacy 0")
+        unseelie = Legacy.objects.get(name="Legacy 1")
+        self.assertFalse(self.character.has_seelie_legacy())
+        self.assertFalse(self.character.set_seelie_legacy(seelie))
+        self.assertFalse(self.character.has_seelie_legacy())
+        self.assertTrue(self.character.set_seelie_legacy(unseelie))
+        self.assertTrue(self.character.has_seelie_legacy())
 
     def test_has_unseelie_legacy(self):
-        self.fail()
+        legacy = Legacy.objects.get(name="Legacy 1")
+        self.assertFalse(self.character.has_unseelie_legacy())
+        self.assertTrue(self.character.set_unseelie_legacy(legacy))
+        self.assertTrue(self.character.has_unseelie_legacy())
 
     def test_add_art(self):
-        self.fail()
+        self.character.wayfare = 0
+        self.assertTrue(self.character.add_art("wayfare"))
+        self.assertEqual(self.character.wayfare, 1)
 
     def test_get_arts(self):
-        self.fail()
+        self.assertEqual(
+            self.character.get_arts(),
+            {
+                "autumn": 0,
+                "chicanery": 0,
+                "chronos": 0,
+                "contract": 0,
+                "dragons_ire": 0,
+                "legerdemain": 0,
+                "metamorphosis": 0,
+                "naming": 0,
+                "oneiromancy": 0,
+                "primal": 0,
+                "pyretics": 0,
+                "skycraft": 0,
+                "soothsay": 0,
+                "sovereign": 0,
+                "spring": 0,
+                "summer": 0,
+                "wayfare": 0,
+                "winter": 0,
+            },
+        )
+        self.character.add_art("naming")
+        self.character.add_art("naming")
+        self.character.add_art("naming")
+        self.character.add_art("wayfare")
+        self.character.add_art("wayfare")
+        self.character.add_art("pyretics")
+        self.character.add_art("legerdemain")
+        self.assertEqual(
+            self.character.get_arts(),
+            {
+                "autumn": 0,
+                "chicanery": 0,
+                "chronos": 0,
+                "contract": 0,
+                "dragons_ire": 0,
+                "legerdemain": 1,
+                "metamorphosis": 0,
+                "naming": 3,
+                "oneiromancy": 0,
+                "primal": 0,
+                "pyretics": 1,
+                "skycraft": 0,
+                "soothsay": 0,
+                "sovereign": 0,
+                "spring": 0,
+                "summer": 0,
+                "wayfare": 2,
+                "winter": 0,
+            },
+        )
 
     def test_has_arts(self):
-        # Arts 3
-        self.fail()
+        self.assertFalse(self.character.has_arts())
+        self.character.add_art("naming")
+        self.assertFalse(self.character.has_arts())
+        self.character.add_art("naming")
+        self.assertFalse(self.character.has_arts())
+        self.character.add_art("naming")
+        self.assertTrue(self.character.has_arts())
 
     def test_total_arts(self):
-        self.fail()
+        self.assertEqual(self.character.total_arts(), 0)
+        self.add_art("naming")
+        self.assertEqual(self.character.total_arts(), 1)
+        self.add_art("soothsay")
+        self.assertEqual(self.character.total_arts(), 2)
+        self.add_art("chronos")
+        self.assertEqual(self.character.total_arts(), 3)
 
     def test_filter_arts(self):
-        self.fail()
+        self.character.autumn = 0
+        self.character.pyretics = 0
+        self.character.chicanery = 1
+        self.character.primal = 1
+        self.character.skycraft = 1
+        self.character.chronos = 2
+        self.character.oneiromancy = 2
+        self.character.soothsay = 2
+        self.character.contract = 3
+        self.character.naming = 3
+        self.character.winter = 3
+        self.character.sovereign = 3
+        self.character.dragons_ire = 4
+        self.character.spring = 4
+        self.character.wayfare = 4
+        self.character.metamorphosis = 4
+        self.character.legerdemain = 5
+        self.character.summer = 5
+        self.assertEqual(len(self.character.filter_arts(minimum=0, maximum=5)), 18)
+        self.assertEqual(len(self.character.filter_arts(minimum=1, maximum=5)), 16)
+        self.assertEqual(len(self.character.filter_arts(minimum=2, maximum=5)), 13)
+        self.assertEqual(len(self.character.filter_arts(minimum=3, maximum=5)), 10)
+        self.assertEqual(len(self.character.filter_arts(minimum=4, maximum=5)), 6)
+        self.assertEqual(len(self.character.filter_arts(minimum=5, maximum=5)), 2)
+        self.assertEqual(len(self.character.filter_arts(minimum=0, maximum=4)), 16)
+        self.assertEqual(len(self.character.filter_arts(minimum=0, maximum=3)), 12)
+        self.assertEqual(len(self.character.filter_arts(minimum=0, maximum=2)), 8)
+        self.assertEqual(len(self.character.filter_arts(minimum=0, maximum=1)), 5)
+        self.assertEqual(len(self.character.filter_arts(minimum=0, maximum=0)), 2)
 
     def test_add_realm(self):
-        self.fail()
+        self.character.actor = 0
+        self.assertTrue(self.character.add_realm("actor"))
+        self.assertEqual(self.character.actor, 1)
 
     def test_get_realms(self):
-        self.fail()
+        self.assertEqual(
+            self.character.get_arts(),
+            {"actor": 0, "fae": 0, "nature": 0, "prop": 0, "scene": 0, "time": 0,},
+        )
+        self.character.add_realm("actor")
+        self.character.add_realm("actor")
+        self.character.add_realm("actor")
+        self.character.add_realm("nature")
+        self.character.add_realm("nature")
+        self.character.add_realm("scene")
+        self.character.add_realm("time")
+        self.assertEqual(
+            self.character.get_arts(),
+            {"actor": 3, "fae": 0, "nature": 2, "prop": 0, "scene": 1, "time": 1,},
+        )
 
     def test_has_realms(self):
-        # Realms 5
-        self.fail()
+        self.assertFalse(self.character.has_realms())
+        self.character.add_realm("actor")
+        self.assertFalse(self.character.has_realms())
+        self.character.add_realm("actor")
+        self.assertFalse(self.character.has_realms())
+        self.character.add_realm("actor")
+        self.assertFalse(self.character.has_realms())
+        self.character.add_realm("fae")
+        self.assertFalse(self.character.has_realms())
+        self.character.add_realm("fae")
+        self.assertTrue(self.character.has_realms())
 
     def test_total_realms(self):
-        self.fail()
+        self.assertEqual(self.character.total_realms(), 0)
+        self.character.add_realms("actor")
+        self.assertEqual(self.character.total_realms(), 1)
+        self.character.add_realms("time")
+        self.assertEqual(self.character.total_realms(), 2)
+        self.character.add_realms("fae")
+        self.assertEqual(self.character.total_realms(), 3)
 
     def test_filter_realms(self):
-        self.fail()
+        actor = 0
+        fae = 1
+        nature = 2
+        prop = 3
+        scene = 4
+        time = 5
+        self.assertEqual(len(self.character.filter_realms(minimum=0, maximum=5)), 6)
+        self.assertEqual(len(self.character.filter_realms(minimum=1, maximum=5)), 5)
+        self.assertEqual(len(self.character.filter_realms(minimum=2, maximum=5)), 4)
+        self.assertEqual(len(self.character.filter_realms(minimum=3, maximum=5)), 3)
+        self.assertEqual(len(self.character.filter_realms(minimum=4, maximum=5)), 2)
+        self.assertEqual(len(self.character.filter_realms(minimum=5, maximum=5)), 1)
+        self.assertEqual(len(self.character.filter_realms(minimum=0, maximum=4)), 5)
+        self.assertEqual(len(self.character.filter_realms(minimum=0, maximum=3)), 4)
+        self.assertEqual(len(self.character.filter_realms(minimum=0, maximum=2)), 3)
+        self.assertEqual(len(self.character.filter_realms(minimum=0, maximum=1)), 2)
+        self.assertEqual(len(self.character.filter_realms(minimum=0, maximum=0)), 1)
 
     def test_set_musing_threshold(self):
-        self.fail()
+        self.assertFalse(self.character.has_musing_threshold())
+        self.assertTrue(self.character.set_musing_threshold("Inspire Creativity"))
+        self.assertTrue(self.character.has_musing_threshold())
 
     def test_has_musing_threshold(self):
-        self.fail()
+        self.assertFalse(self.character.has_musing_threshold())
+        self.character.set_musing_threshold("Inspire Creativity")
+        self.assertTrue(self.character.has_musing_threshold())
 
     def test_set_ravaging_threshold(self):
-        self.fail()
+        self.assertFalse(self.character.has_ravaging_threshold())
+        self.assertTrue(self.character.set_ravaging_threshold("Exhaust Creativity"))
+        self.assertTrue(self.character.has_ravaging_threshold())
 
     def test_has_ravaging_threshold(self):
-        self.fail()
+        self.assertFalse(self.character.has_ravaging_threshold())
+        self.character.set_ravaging_threshold("Exhaust Creativity")
+        self.assertTrue(self.character.has_ravaging_threshold())
 
     def test_set_antithesis(self):
-        self.fail()
+        self.assertFalse(self.character.has_antithesis())
+        self.assertTrue(self.character.set_antithesis("Random Antithesis"))
+        self.assertTrue(self.character.has_antithesis())
 
     def test_has_antithesis(self):
-        self.fail()
+        self.assertFalse(self.character.has_antithesis())
+        self.character.set_antithesis("Random Antithesis")
+        self.assertTrue(self.character.has_antithesis())
 
     def test_add_glamour(self):
-        self.fail()
+        g = self.character.glamour
+        self.assertTrue(self.character.add_glamour())
+        self.assertEqual(self.character.glamour, g + 1)
 
     def test_add_banality(self):
-        self.fail()
+        b = self.character.banality
+        self.assertTrue(self.character.add_banality())
+        self.assertEqual(self.character.banality, b + 1)
 
     def test_changeling_numbers(self):
         self.assertEqual(self.character.background_points, 5)
@@ -296,7 +475,25 @@ class TestChangeling(TestCase):
         self.assertEqual(self.character.freebie_cost("realm"), 2)
 
     def test_spend_freebies(self):
-        self.fail()
+        self.assertEqual(self.character.freebies, 15)
+        self.assertTrue(self.character.spend_freebies("strength"))
+        self.assertEqual(self.character.freebies, 10)
+        self.assertTrue(self.character.spend_freebies("occult"))
+        self.assertEqual(self.character.freebies, 8)
+        self.assertTrue(self.character.spend_freebies("mentor"))
+        self.assertEqual(self.character.freebies, 7)
+        self.assertTrue(self.character.spend_freebies("willpower"))
+        self.assertEqual(self.character.freebies, 6)
+        self.assertTrue(self.character.spend_freebies("Merit 1"))
+        self.assertEqual(self.character.freebies, 5)
+        self.character.freebies = 15
+        self.assertEqual(self.character.freebies, 15)
+        self.assertTrue(self.character.spend_freebies("winter"))
+        self.assertEqual(self.character.freebies, 10)
+        self.assertTrue(self.character.spend_freebies("actor"))
+        self.assertEqual(self.character.freebies, 8)
+        self.assertTrue(self.character.spend_freebies("glamour"))
+        self.assertEqual(self.character.freebies, 5)
 
     def test_xp_cost(self):
         self.assertEqual(self.character.xp_cost("attribute"), 4)
@@ -313,16 +510,66 @@ class TestChangeling(TestCase):
         self.assertEqual(self.character.xp_cost("glamour"), 3)
 
     def test_spend_xp(self):
-        self.fail()
+        self.character.willpower = 4
+        self.character.glamour = 4
+        self.character.xp = 100
+        self.assertTzrue(self.character.spend_xp("strength"))
+        self.assertEqual(self.character.xp, 96)
+        self.assertTrue(self.character.spend_xp("occult"))
+        self.assertEqual(self.character.xp, 93)
+        self.assertTrue(self.character.spend_xp("occult"))
+        self.assertEqual(self.character.xp, 91)
+        self.assertTrue(self.character.spend_xp("mentor"))
+        self.assertEqual(self.character.xp, 86)
+        self.assertTrue(self.character.spend_xp("mentor"))
+        self.assertEqual(self.character.xp, 83)
+        self.assertTrue(self.character.spend_xp("willpower"))
+        self.assertEqual(self.character.xp, 75)
+        self.assertTrue(self.character.spend_xp("actor"))
+        self.assertEqual(self.character.xp, 70)
+        self.assertTrue(self.character.spend_xp("actor"))
+        self.assertEqual(self.character.xp, 67)
+        self.assertTrue(self.character.spend_xp("wayfare"))
+        self.assertEqual(self.character.xp, 60)
+        self.assertTrue(self.character.spend_xp("wayfare"))
+        self.assertEqual(self.character.xp, 56)
+        self.assertTrue(self.character.spend_xp("glamour"))
+        self.assertEqual(self.character.xp, 44)
 
     def test_birthright_corrections(self):
-        self.fail()
+        piskey = Kith.objects.create(name="Piskey")
+        satyr = Kith.objects.create(name="Satyr")
+        troll = Kith.objects.create(name="Troll")
+        autumn_sidhe = Kith.objects.create(name="Autumn Sidhe")
+        arcadian_sidhe = Kith.objects.create(name="Arcadian Sidhe")
+        char1 = Changeling.objects.create(name="Char 1", kith=piskey)
+        char2 = Changeling.objects.create(name="Char 2", kith=satyr)
+        char3 = Changeling.objects.create(name="Char 3", kith=troll)
+        char4 = Changeling.objects.create(name="Char 4", kith=autumn_sidhe)
+        char5 = Changeling.objects.create(name="Char 5", kith=arcadian_sidhe)
+        self.assertEqual(char1.dexterity, 2)
+        self.assertEqual(char2.stamina, 2)
+        self.assertEqual(char3.strength, 2)
+        # Health Levels
+        self.assertEqual(char4.appearance, 3)
+        self.assertEqual(char5.appearance, 3)
 
-    def test_changeling_history(self):
-        self.fail()
+    def test_has_changeling_history(self):
+        self.assertFalse(self.character.has_changeling_history())
+        self.character.true_name = "Faerie Name"
+        self.assertFalse(self.character.has_changeling_history())
+        self.character.data_ennobled = "N/A"
+        self.assertFalse(self.character.has_changeling_history())
+        self.character.crysalis = "It Happened"
+        self.assertFalse(self.character.has_changeling_history())
+        self.character.date_of_crysalis = "It Happened"
+        self.assertTrue(self.character.has_changeling_history())
 
-    def test_changeling_appearance(self):
-        self.fail()
+    def test_has_changeling_appearance(self):
+        self.assertFalse(self.character.has_changeling_appearance())
+        self.character.fae_mien = "Magical"
+        self.assertTrue(self.character.has_changeling_appearance())
+
 
 
 class TestRandomChangeling(TestCase):
@@ -342,71 +589,99 @@ class TestRandomChangeling(TestCase):
         self.assertTrue(self.character.has_court())
 
     def test_random_seelie_legacy(self):
-        self.fail()
+        self.assertFalse(self.character.has_seelie_legacy())
+        self.character.random_seelie_legacy()
+        self.assertTrue(self.character.has_seelie_legacy())
 
     def test_random_unseelie_legacy(self):
-        self.fail()
+        self.assertFalse(self.character.has_unseelie_legacy())
+        self.character.random_unseelie_legacy()
+        self.assertTrue(self.character.has_unseelie_legacy())
 
     def test_random_art(self):
-        self.fail()
+        total = self.character.total_arts()
+        self.character.random_art()
+        self.assertEqual(self.character.total_arts(), total + 1)
 
     def test_random_arts(self):
-        self.fail()
+        self.assertFalse(self.character.has_arts())
+        self.character.random_arts()
+        self.assertTrue(self.character.has_arts())
 
     def test_random_realm(self):
-        self.fail()
+        total = self.character.total_realma()
+        self.character.random_realm()
+        self.assertEqual(self.character.total_realms(), total + 1)
 
     def test_random_realms(self):
-        self.fail()
+        self.assertFalse(self.character.has_realms())
+        self.character.random_realms()
+        self.assertTrue(self.character.has_realms())
 
     def test_random_musing_threshold(self):
-        self.fail()
+        self.assertFalse(self.character.has_musing_threshold())
+        self.character.random_musing_threshold()
+        self.assertTrue(self.character.has_musing_threshold())
 
     def test_random_ravaging_threshold(self):
-        self.fail()
-
-    def test_random(self):
-        self.fail()
+        self.assertFalse(self.character.has_ravaging_threshold())
+        self.character.random_ravaging_threshold()
+        self.assertTrue(self.character.has_ravaging_threshold())
+        
+    def test_random_antithesis(self):
+        self.assertFalse(self.character.has_antithesis())
+        self.character.random_antithesis()
+        self.assertTrue(self.character.has_antithesis())
 
     def test_random_freebies(self):
-        self.fail()
+        self.assertEqual(self.character.freebies, 15)
+        self.character.random_freebies()
+        self.assertEqual(self.character.freebies, 0)
 
     def test_random_spend_xp(self):
-        self.fail()
+        self.character.xp = 15
+        self.character.random_xp()
+        self.assertLess(self.character.xp, 15)
 
     def test_random(self):
         self.assertFalse(self.character.has_name())
         self.assertFalse(self.character.has_concept())
-        # self.assertFalse(self.character.has_archetypes())
         self.assertFalse(self.character.has_attributes())
         self.assertFalse(self.character.has_abilities())
         self.assertFalse(self.character.has_backgrounds())
         self.assertFalse(self.character.has_finishing_touches())
         self.assertFalse(self.character.has_history())
-        # self.assertFalse(self.character.has_spheres())
-        # self.assertFalse(self.character.has_affinity_sphere())
-        # self.assertFalse(self.character.has_faction())
-        # self.assertFalse(self.character.has_focus())
-        # self.assertFalse(self.character.has_essence())
-        # self.assertFalse(self.character.has_effects())
+        self.assertFalse(self.character.has_seeming())
+        self.assertFalse(self.character.has_court())
+        self.assertFalse(self.character.has_seelie_legacy())
+        self.assertFalse(self.character.has_unseelie_legacy())
+        self.assertFalse(self.character.has_arts())
+        self.assertFalse(self.character.has_realms())
+        self.assertFalse(self.character.has_musing_threshold())
+        self.assertFalse(self.character.has_ravaging_threshold())
+        self.assertFalse(self.character.has_antithesis())
         self.assertFalse(self.character.has_changeling_history())
+        self.assertFalse(self.character.has_changeling_appearance())
         self.character.random(freebies=0, xp=0)
         self.assertTrue(self.character.has_name())
         self.assertTrue(self.character.has_concept())
-        # self.assertTrue(self.character.has_archetypes())
         self.assertTrue(self.character.has_attributes())
         self.assertTrue(self.character.has_abilities())
         self.assertTrue(self.character.has_specialties())
         self.assertTrue(self.character.has_backgrounds())
         self.assertTrue(self.character.has_finishing_touches())
         self.assertTrue(self.character.has_history())
-        # self.assertTrue(self.character.has_spheres())
-        # self.assertTrue(self.character.has_affinity_sphere())
-        # self.assertTrue(self.character.has_faction())
-        # self.assertTrue(self.character.has_focus())
-        # self.assertTrue(self.character.has_essence())
-        # self.assertTrue(self.character.has_effects())
+        self.assertTrue(self.character.has_seeming())
+        self.assertTrue(self.character.has_court())
+        self.assertTrue(self.character.has_seelie_legacy())
+        self.assertTrue(self.character.has_unseelie_legacy())
+        self.assertTrue(self.character.has_arts())
+        self.assertTrue(self.character.has_realms())
+        self.assertTrue(self.character.has_musing_threshold())
+        self.assertTrue(self.character.has_ravaging_threshold())
+        self.assertTrue(self.character.has_antithesis())
         self.assertTrue(self.character.has_changeling_history())
+        self.assertTrue(self.character.has_changeling_appearance())
 
 
 class TestMotley(TestCase):
