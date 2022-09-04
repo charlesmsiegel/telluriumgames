@@ -51,9 +51,10 @@ class MeritFlaw(Model):
     ratings = models.JSONField(default=list)
     max_rating = models.IntegerField(default=0)
     human = models.BooleanField(default=False)
+    kinfolk = models.BooleanField(default=False)
     garou = models.BooleanField(default=False)
     mage = models.BooleanField(default=False)
-    kinfolk = models.BooleanField(default=False)
+    changeling = models.BooleanField(default=False)
 
     def get_absolute_url(self):
         return reverse("wod:characters:human:meritflaw", args=[str(self.id)])
