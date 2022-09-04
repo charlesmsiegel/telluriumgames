@@ -596,7 +596,7 @@ class TestMage(TestCase):
         self.character.faction = MageFaction.objects.get(name="Akashayana")
         self.assertTrue(self.character.add_ability("do"))
 
-    def test_do_requires_limbds(self):
+    def test_do_requires_limbs(self):
         self.character.faction = MageFaction.objects.get(name="Akashayana")
         self.assertFalse(self.character.add_ability("do"))
         self.character.awareness = 2
