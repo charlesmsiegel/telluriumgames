@@ -11,11 +11,11 @@ player, _ = User.objects.get_or_create(username="Test")
 def time_test(cls, character=True, xp=0, random_name=True):
     start = time()
     for _ in range(10):
-        create_character(cls, character=character, xp=xp, random_name=random_name)
+        create(cls, character=character, xp=xp, random_name=random_name)
     print(f"Average Random {cls.__name__} Time:", (time() - start) / 10)
 
 
-def create_character(cls, character=True, xp=0, random_name=True):
+def create(cls, character=True, xp=0, random_name=True):
     if random_name:
         name = ""
     else:
@@ -30,7 +30,7 @@ def create_character(cls, character=True, xp=0, random_name=True):
 
 def profile(cls, character=True, num_rows=10, xp=0):
     cProfile.run(
-        f"create_character({cls.__name__}, character={character}, xp={xp})", "tmp"
+        f"create({cls.__name__}, character={character}, xp={xp})", "tmp"
     )
     p = pstats.Stats("tmp")
     p.sort_stats(SortKey.CUMULATIVE).print_stats(num_rows)
