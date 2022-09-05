@@ -598,7 +598,7 @@ class TestChangeling(TestCase):
         self.assertEqual(char1.dexterity, 2)
         self.assertEqual(char2.stamina, 2)
         self.assertEqual(char3.strength, 2)
-        # Health Levels
+        self.assertEqual(char3.max_health_levels, 8)
         self.assertEqual(char4.appearance, 3)
         self.assertEqual(char5.appearance, 3)
 
