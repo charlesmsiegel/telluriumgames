@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, View
+from django.views.generic import DetailView, CreateView, UpdateView, View
 
 from core.models import Language, Material, Medium, NewsItem
 
@@ -19,11 +19,47 @@ class LanguageDetailView(DetailView):
     template_name = "core/language/detail.html"
 
 
+class LanguageCreateView(CreateView):
+    model = Language
+    fields = "__all__"
+    template_name = "core/language/form.html"
+
+
+class LanguageUpdateView(UpdateView):
+    model = Language
+    fields = "__all__"
+    template_name = "core/language/form.html"
+
+
 class MediumDetailView(DetailView):
     model = Medium
     template_name = "core/medium/detail.html"
 
 
+class MediumCreateView(CreateView):
+    model = Medium
+    fields = "__all__"
+    template_name = "core/medium/form.html"
+
+
+class MediumUpdateView(UpdateView):
+    model = Medium
+    fields = "__all__"
+    template_name = "core/medium/form.html"
+
+
 class MaterialDetailView(DetailView):
     model = Material
     template_name = "core/material/detail.html"
+
+
+class MaterialCreateView(CreateView):
+    model = Material
+    fields = "__all__"
+    template_name = "core/material/form.html"
+
+
+class MaterialUpdateView(UpdateView):
+    model = Material
+    fields = "__all__"
+    template_name = "core/material/form.html"

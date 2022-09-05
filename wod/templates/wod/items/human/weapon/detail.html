@@ -1,15 +1,11 @@
-{% extends "core/base.html" %}
-{% block title %}
-    {{ object.name| safe }}
-{% endblock title %}
-{% block content %}
+{% extends "core/object.html" %}
+{% block contents %}
     {% load dots %}
-    <div class="centertext container">
-        <div class="row">
-            <div class="col-sm">Name</div>
-            <div class="col-sm">{{ object.name }}</div>
-        </div>
-        {% block damage %}
+    <div class="row">
+        <div class="col-sm">Name</div>
+        <div class="col-sm">{{ object.name }}</div>
+    </div>
+    {% block damage %}
         <div class="row">
             <div class="col-sm">Damage</div>
             <div class="col-sm">{{ object.damage }}/{{ object.get_damage_type_display }}</div>
@@ -18,17 +14,9 @@
             <div class="col-sm">Conceal</div>
             <div class="col-sm">{{ object.get_conceal_display }}</div>
         </div>
-        {% endblock damage %}
-        <div class="row">
-            <div class="col-sm">Description</div>
-            <div class="col-sm">{{ object.description }}</div>
-        </div>
-        {% block updater %}
-            <div class="col-sm">
-                <a href="{{ object.get_update_url }}"
-                   class="btn btn-primary"
-                   role="button">Update</a>
-            </div>
-        {% endblock updater %}
+    {% endblock damage %}
+    <div class="row">
+        <div class="col-sm">Description</div>
+        <div class="col-sm">{{ object.description }}</div>
     </div>
-{% endblock content %}
+{% endblock contents %}

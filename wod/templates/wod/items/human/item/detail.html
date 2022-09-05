@@ -1,24 +1,12 @@
-{% extends "core/base.html" %}
-{% block title %}
-    {{ object.name| safe }}
-{% endblock title %}
-{% block content %}
+{% extends "core/object.html" %}
+{% block contents %}
     {% load dots %}
-    <div class="centertext container">
-        <div class="row">
-            <div class="col-sm">Name</div>
-            <div class="col-sm">{{ object.name }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Description</div>
-            <div class="col-sm">{{ object.description }}</div>
-        </div>
-        {% block updater %}
-            <div class="col-sm">
-                <a href="{{ object.get_update_url }}"
-                   class="btn btn-primary"
-                   role="button">Update</a>
-            </div>
-        {% endblock updater %}
+    <div class="row">
+        <div class="col-sm">Name</div>
+        <div class="col-sm">{{ object.name }}</div>
     </div>
-{% endblock content %}
+    <div class="row">
+        <div class="col-sm">Description</div>
+        <div class="col-sm">{{ object.description }}</div>
+    </div>
+{% endblock contents %}

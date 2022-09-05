@@ -1,15 +1,4 @@
 {% extends "wod/characters/mage/mtahuman/detail.html" %}
-{% block title %}
-    {{ object.name }}
-{% endblock title %}
-{% block headerimg %}
-    {% load static %}
-    <img src="{% static 'images/mage.png' %}"
-         class="headerimg"
-         alt=""
-         height="30px"
-         width="auto"/>
-{% endblock headerimg %}
 {% load dots %}
 {% load resonance %}
 {% block basics %}

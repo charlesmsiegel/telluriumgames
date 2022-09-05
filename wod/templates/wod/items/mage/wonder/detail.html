@@ -1,13 +1,9 @@
-{% extends "core/base.html" %}
-{% block title %}
-    {{ object.name }}
-{% endblock title %}
-{% block content %}
-    <div class="centertext container">
-        <div class="row">
-            <h2 class="col-sm mtas_heading">{{ object.name }}</h2>
-        </div>
-        {% block basics %}
+{% extends "core/object.html" %}
+{% block contents %}
+    <div class="row">
+        <h2 class="col-sm mtas_heading">{{ object.name }}</h2>
+    </div>
+    {% block basics %}
         <div class="row">
             <div class="col-sm">Rank</div>
             <div class="col-sm">{{ object.rank }}</div>
@@ -18,8 +14,8 @@
             <div class="col-sm">Maximum Quintessence</div>
             <div class="col-sm">{{ object.quintessence_max }}</div>
         </div>
-        {% endblock basics %}
-        {% block resonance %}
+    {% endblock basics %}
+    {% block resonance %}
         <div class="col-sm mtas_heading">
             <h2>Resonance</h2>
         </div>
@@ -28,19 +24,13 @@
                 <a class="col-sm" href={{ res.resonance.get_absolute_url }}>{{ res.resonance }}: {{ res.rating }}</a>
             {% endfor %}
         </div>
-        {% endblock resonance %}
-        {% block powers %}
-        {% endblock powers %}
-        {% block description %}
+    {% endblock resonance %}
+    {% block powers %}
+    {% endblock powers %}
+    {% block description %}
         <div class="row">
             <div class="col-sm">Description</div>
             <div class="col-sm">{{ object.description }}</div>
         </div>
-        {% endblock description %}
-        {% block updater %}
-        <div class="col-sm">
-            <a href="{{ object.get_update_url }}" class="btn btn-primary" role="button">Update</a>
-        </div>
-        {% endblock updater %}
-    </div>
-{% endblock content %}
+    {% endblock description %}
+{% endblock contents %}

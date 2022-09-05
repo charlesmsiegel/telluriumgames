@@ -1,33 +1,29 @@
-{% extends "core/base.html" %}
-{% block title %}
-    {{ object.name }}
-{% endblock title %}
-{% block content %}
-    <div class="centertext container">
-        <div class="row">
-            <h1 class="mtas_heading col-sm">{{ object.name }}</h1>
-        </div>
-        <div class="row">
-            <div class="col-sm">Rank</div>
-            <div class="col-sm">{{ object.rank }}</div>
-            <div class="col-sm">Background Cost</div>
-            <div class="col-sm">{{ object.background_cost }}</div>
-            <div class="col-sm">Maximum Quintessence</div>
-            <div class="col-sm">{{ object.quintessence_max }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Created By</div>
-            <div class="col-sm">
-                {% if object.faction.parent is not None %}
-                    {% if object.faction.parent.parent is not None %}
-                        <a href="{{ object.faction.parent.parent.get_absolute_url }}">{{ object.faction.parent.parent }}</a> -
-                {% endif %}
-                <a href="{{ object.faction.parent.get_absolute_url }}">{{ object.faction.parent }}</a> -
-        {% endif %}
-        <a href="{{ object.faction.get_absolute_url }}">{{ object.faction }}</a>
+{% extends "core/object.html" %}
+{% block contents %}
+    <div class="row">
+        <h1 class="mtas_heading col-sm">{{ object.name }}</h1>
     </div>
-    <div class="col-sm">Primer</div>
-    <div class="col-sm">{{ object.is_primer }}</div>
+    <div class="row">
+        <div class="col-sm">Rank</div>
+        <div class="col-sm">{{ object.rank }}</div>
+        <div class="col-sm">Background Cost</div>
+        <div class="col-sm">{{ object.background_cost }}</div>
+        <div class="col-sm">Maximum Quintessence</div>
+        <div class="col-sm">{{ object.quintessence_max }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm">Created By</div>
+        <div class="col-sm">
+            {% if object.faction.parent is not None %}
+                {% if object.faction.parent.parent is not None %}
+                    <a href="{{ object.faction.parent.parent.get_absolute_url }}">{{ object.faction.parent.parent }}</a> -
+            {% endif %}
+            <a href="{{ object.faction.parent.get_absolute_url }}">{{ object.faction.parent }}</a> -
+    {% endif %}
+    <a href="{{ object.faction.get_absolute_url }}">{{ object.faction }}</a>
+</div>
+<div class="col-sm">Primer</div>
+<div class="col-sm">{{ object.is_primer }}</div>
 </div>
 <h2 class="mtas_heading">Focus</h2>
 <div class="row">
@@ -106,12 +102,4 @@
         {% endfor %}
     </div>
 {% endfor %}
-{% block updater %}
-    <div class="col-sm">
-        <a href="{{ object.get_update_url }}"
-           class="btn btn-primary"
-           role="button">Update</a>
-    </div>
-{% endblock updater %}
-</div>
-{% endblock content %}
+{% endblock contents %}
