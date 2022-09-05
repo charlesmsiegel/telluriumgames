@@ -14,10 +14,10 @@ class Language(models.Model):
     frequency = models.IntegerField(default=0)
 
     def get_absolute_url(self):
-        return reverse("core:language", kwargs={"pk": self.pk})
+        return reverse("language", kwargs={"pk": self.pk})
 
     def get_update_url(self):
-        return reverse("core:update_language", kwargs={"pk": self.pk})
+        return reverse("update_language", kwargs={"pk": self.pk})
 
     def __str__(self):
         return f"{self.name}"
