@@ -516,6 +516,7 @@ class Changeling(CtDHuman):
                     return True
                 return False
             return False
+        return False
 
     def birthright_correction(self):
         if self.kith.name == "Troll":

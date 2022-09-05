@@ -41,7 +41,7 @@ def changeling_setup(player):
             )
         for attribute in c.get_attributes():
             WoDSpecialty.objects.create(
-                name=f"{ability.title()} Specialty {i}", stat=attribute
+                name=f"{attribute.title()} Specialty {i}", stat=attribute
             )
 
 
