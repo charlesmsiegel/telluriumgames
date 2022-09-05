@@ -255,8 +255,7 @@ wise_arrow = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["uniform"],
     duration="instant",
-)
-wise_arrow.add_source("Exalted 3rd Edition", 255)
+).add_source("Exalted 3rd Edition", 255)
 sight_without_eyes = SolarCharm.objects.create(
     name="Sight Without Eyes",
     mote_cost=1,
@@ -266,9 +265,8 @@ sight_without_eyes = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="tick",
-)
+).add_source("Exalted 3rd Edition", 255)
 sight_without_eyes.prerequisites.add(wise_arrow)
-sight_without_eyes.add_source("Exalted 3rd Edition", 255)
 blood_without_balance = SolarCharm.objects.create(
     name="Blood Without Balance",
     mote_cost=3,
@@ -278,9 +276,8 @@ blood_without_balance = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 256)
 blood_without_balance.prerequisites.add(sight_without_eyes)
-blood_without_balance.add_source("Exalted 3rd Edition", 256)
 force_without_fire = SolarCharm.objects.create(
     name="Force Without Fire",
     mote_cost=3,
@@ -290,9 +287,8 @@ force_without_fire = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["withering-only"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 256)
 force_without_fire.prerequisites.add(sight_without_eyes)
-force_without_fire.add_source("Exalted 3rd Edition", 256)
 trance_of_unhesitating_speed = SolarCharm.objects.create(
     name="Trance of Unhesitating Speed",
     mote_cost=4,
@@ -303,9 +299,8 @@ trance_of_unhesitating_speed = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 256)
 trance_of_unhesitating_speed.prerequisites.add(wise_arrow)
-trance_of_unhesitating_speed.add_source("Exalted 3rd Edition", 256)
 phantom_arrow_technique = SolarCharm.objects.create(
     name="Phantom Arrow Technique",
     mote_cost=1,
@@ -315,8 +310,7 @@ phantom_arrow_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="instant",
-)
-phantom_arrow_technique.add_source("Exalted 3rd Edition", 257)
+).add_source("Exalted 3rd Edition", 257)
 fiery_arrow_attack = SolarCharm.objects.create(
     name="Fiery Arrow Attack",
     mote_cost=2,
@@ -326,9 +320,8 @@ fiery_arrow_attack = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["decisive-only"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 257)
 fiery_arrow_attack.prerequisites.add(phantom_arrow_technique)
-fiery_arrow_attack.add_source("Exalted 3rd Edition", 257)
 there_is_no_wind = SolarCharm.objects.create(
     name="There Is No Wing",
     mote_cost=3,
@@ -338,9 +331,8 @@ there_is_no_wind = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["dual"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 257)
 there_is_no_wind.prerequisites.add(sight_without_eyes)
-there_is_no_wind.add_source("Exalted 3rd Edition", 257)
 accuracy_without_distance = SolarCharm.objects.create(
     name="Accuracy Without Distance",
     mote_cost=1,
@@ -351,9 +343,8 @@ accuracy_without_distance = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 257)
 accuracy_without_distance.prerequisites.add(force_without_fire)
-accuracy_without_distance.add_source("Exalted 3rd Edition", 257)
 arrow_storm_technique = SolarCharm.objects.create(
     name="Arrow Storm Technique",
     mote_cost=5,
@@ -364,9 +355,8 @@ arrow_storm_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 257)
 arrow_storm_technique.prerequisites.add(trance_of_unhesitating_speed)
-arrow_storm_technique.add_source("Exalted 3rd Edition", 257)
 flashing_vengeance_draw = SolarCharm.objects.create(
     name="Flashing Vengeance Draw",
     mote_cost=3,
@@ -377,9 +367,8 @@ flashing_vengeance_draw = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 258)
 flashing_vengeance_draw.prerequisites.add(trance_of_unhesitating_speed)
-flashing_vengeance_draw.add_source("Exalted 3rd Edition", 258)
 hunters_swift_answer = SolarCharm.objects.create(
     name="Hunter's Swift Answer",
     mote_cost=5,
@@ -390,9 +379,8 @@ hunters_swift_answer = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["uniform"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 258)
 hunters_swift_answer.prerequisites.add(flashing_vengeance_draw)
-hunters_swift_answer.add_source("Exalted 3rd Edition", 258)
 immaculate_golden_bow = SolarCharm.objects.create(
     name="Immaculate Golden Bow",
     mote_cost=5,
@@ -403,9 +391,8 @@ immaculate_golden_bow = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
-)
+).add_source("Exalted 3rd Edition", 258)
 immaculate_golden_bow.prerequisites.add(phantom_arrow_technique)
-immaculate_golden_bow.add_source("Exalted 3rd Edition", 258)
 dazzling_flare_attack = SolarCharm.objects.create(
     name="Dazzling Flare Attack",
     mote_cost=3,
@@ -416,9 +403,8 @@ dazzling_flare_attack = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 258)
 dazzling_flare_attack.prerequisites.add(fiery_arrow_attack)
-dazzling_flare_attack.add_source("Exalted 3rd Edition", 258)
 seven_omens_shot = SolarCharm.objects.create(
     name="Seven Omens Shot",
     mote_cost=3,
@@ -429,9 +415,8 @@ seven_omens_shot = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 258)
 seven_omens_shot.prerequisites.add(accuracy_without_distance)
-seven_omens_shot.add_source("Exalted 3rd Edition", 258)
 revolving_bow_discipline = SolarCharm.objects.create(
     name="Revolving Bow Discipline",
     mote_cost=6,
@@ -442,9 +427,8 @@ revolving_bow_discipline = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["perilous", "withering-only"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 258)
 revolving_bow_discipline.prerequisites.add(arrow_storm_technique)
-revolving_bow_discipline.add_source("Exalted 3rd Edition", 258)
 finishing_snipe = SolarCharm.objects.create(
     name="Finishing Snipe",
     mote_cost=7,
@@ -455,9 +439,8 @@ finishing_snipe = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decivisive-only"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 259)
 finishing_snipe.prerequisites.add(hunters_swift_answer)
-finishing_snipe.add_source("Exalted 3rd Edition", 259)
 rain_of_feathered_death = SolarCharm.objects.create(
     name="Rain of Feathered Death",
     mote_cost=3,
@@ -468,9 +451,8 @@ rain_of_feathered_death = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 259)
 rain_of_feathered_death.prerequisites.add(phantom_arrow_technique)
-rain_of_feathered_death.add_source("Exalted 3rd Edition", 259)
 shadow_seeking_arrow = SolarCharm.objects.create(
     name="Shadow-Seeking Arrow",
     mote_cost=3,
@@ -482,9 +464,8 @@ shadow_seeking_arrow = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["uniform"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 259)
 shadow_seeking_arrow.prerequisites.add(dazzling_flare_attack)
-shadow_seeking_arrow.add_source("Exalted 3rd Edition", 259)
 searing_sunfire_interdiction = SolarCharm.objects.create(
     name="Searing Sunfire Interdiction",
     mote_cost=4,
@@ -496,9 +477,8 @@ searing_sunfire_interdiction = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 259)
 searing_sunfire_interdiction.prerequisites.add(dazzling_flare_attack)
-searing_sunfire_interdiction.add_source("Exalted 3rd Edition", 259)
 solar_spike = SolarCharm.objects.create(
     name="Solar Spike",
     mote_cost=5,
@@ -509,9 +489,8 @@ solar_spike = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 260)
 solar_spike.prerequisites.add(dazzling_flare_attack)
-solar_spike.add_source("Exalted 3rd Edition", 260)
 heart_eating_incineration = SolarCharm.objects.create(
     name="Heart-Eating Incineration",
     mote_cost=3,
@@ -523,9 +502,8 @@ heart_eating_incineration = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 260)
 heart_eating_incineration.prerequisites.add(solar_spike)
-heart_eating_incineration.add_source("Exalted 3rd Edition", 260)
 dust_and_ash_sleight = SolarCharm.objects.create(
     name="Dust and Ash Sleight",
     mote_cost=3,
@@ -536,9 +514,8 @@ dust_and_ash_sleight = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 260)
 dust_and_ash_sleight.prerequisites.add(seven_omens_shot)
-dust_and_ash_sleight.add_source("Exalted 3rd Edition", 260)
 heavens_crash_down = SolarCharm.objects.create(
     name="Heavens Crash Down",
     mote_cost=6,
@@ -550,9 +527,8 @@ heavens_crash_down = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["clash", "perilous", "withering-only"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 260)
 heavens_crash_down.prerequisites.add(revolving_bow_discipline)
-heavens_crash_down.add_source("Exalted 3rd Edition", 260)
 streaming_arrow_stance = SolarCharm.objects.create(
     name="Streaming Arrow Stance",
     mote_cost=6,
@@ -563,9 +539,8 @@ streaming_arrow_stance = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
-)
+).add_source("Exalted 3rd Edition", 261)
 streaming_arrow_stance.prerequisites.add(finishing_snipe)
-streaming_arrow_stance.add_source("Exalted 3rd Edition", 261)
 whispered_prayer_of_judgment = SolarCharm.objects.create(
     name="Whispered Prayer of Judgment",
     mote_cost=1,
@@ -576,9 +551,8 @@ whispered_prayer_of_judgment = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["uniform"],
     duration="instant",
-)
+).add_source("Exalted 3rd Edition", 261)
 whispered_prayer_of_judgment.prerequisites.add(streaming_arrow_stance)
-whispered_prayer_of_judgment.add_source("Exalted 3rd Edition", 261)
 
 graceful_crane_stance = SolarCharm.objects.create(
     name="Graceful Crane Stance",

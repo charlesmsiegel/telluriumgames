@@ -143,6 +143,6 @@ class Model(PolymorphicModel):
 
     def add_source(self, book_title, page_number):
         book = Book.objects.get_or_create(name=book_title)[0]
-        bookref = BookReference.objects.create(book=book, page=page_number)
+        bookref = BookReference.objects.get_or_create(book=book, page=page_number)[0]
         self.sources.add(bookref)
         return self
