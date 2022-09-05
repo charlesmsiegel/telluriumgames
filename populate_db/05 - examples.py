@@ -29,9 +29,7 @@ def create(cls, character=True, xp=0, random_name=True):
 
 
 def profile(cls, character=True, num_rows=10, xp=0):
-    cProfile.run(
-        f"create({cls.__name__}, character={character}, xp={xp})", "tmp"
-    )
+    cProfile.run(f"create({cls.__name__}, character={character}, xp={xp})", "tmp")
     p = pstats.Stats("tmp")
     p.sort_stats(SortKey.CUMULATIVE).print_stats(num_rows)
 

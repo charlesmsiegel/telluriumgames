@@ -216,9 +216,7 @@ class TestChangeling(TestCase):
         glamour = 4
         willpower = 4
         self.assertTrue(c.set_seeming("wilder"))
-        self.assertEqual(
-            c.glamour + c.willpower, glamour + willpower + 1
-        )
+        self.assertEqual(c.glamour + c.willpower, glamour + willpower + 1)
         c = Changeling.objects.create(name="Grump")
         self.assertFalse(c.has_seeming())
         glamour = 4

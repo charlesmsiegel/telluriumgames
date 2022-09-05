@@ -1022,16 +1022,30 @@ MeritFlaw.objects.create(name="Whimsy", ratings=[-1], human=True, mage=True)
 MeritFlaw.objects.create(name="Witch-Hunted", ratings=[-4], human=True, mage=True)
 
 # Book of the Fallen
-MeritFlaw.objects.create(name="Shadow Appeal", ratings=[3], human=True, mage=True)
-MeritFlaw.objects.create(name="Innocuous Aura", ratings=[5], human=True, mage=True)
-MeritFlaw.objects.create(name="Abyssal Mastery", ratings=[7], human=True, mage=True)
-MeritFlaw.objects.create(name="Saint of the Pit", ratings=[3], human=True, mage=True)
+MeritFlaw.objects.create(
+    name="Shadow Appeal", ratings=[3], human=True, mage=True
+).add_source("Book of the Fallen", 117)
+MeritFlaw.objects.create(
+    name="Innocuous Aura", ratings=[5], human=True, mage=True
+).add_source("Book of the Fallen", 117)
+MeritFlaw.objects.create(
+    name="Abyssal Mastery", ratings=[7], human=True, mage=True
+).add_source("Book of the Fallen", 117)
+MeritFlaw.objects.create(
+    name="Saint of the Pit", ratings=[3], human=True, mage=True
+).add_source("Book of the Fallen", 118)
 MeritFlaw.objects.create(
     name="Qlippothic Radiance", ratings=[-1, -2, -3, -4, -5], human=True, mage=True,
-)
-MeritFlaw.objects.create(name="Spectral Presence", ratings=[-3], human=True, mage=True)
-MeritFlaw.objects.create(name="Abyssal Lunatic", ratings=[-5], human=True, mage=True)
-MeritFlaw.objects.create(name="Widderslainte", ratings=[-7], human=True, mage=True)
+).add_source("Book of the Fallen", 119)
+MeritFlaw.objects.create(
+    name="Spectral Presence", ratings=[-3], human=True, mage=True
+).add_source("Book of the Fallen", 119)
+MeritFlaw.objects.create(
+    name="Abyssal Lunatic", ratings=[-5], human=True, mage=True
+).add_source("Book of the Fallen", 119)
+MeritFlaw.objects.create(
+    name="Widderslainte", ratings=[-7], human=True, mage=True
+).add_source("Book of the Fallen", 120)
 
 # C20
 MeritFlaw.objects.create(name="Friendly Face", ratings=[1], changeling=True)
