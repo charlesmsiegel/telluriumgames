@@ -1,5 +1,6 @@
 from datetime import date
-from core.models import Language, Material, Medium, Noun, NewsItem
+
+from core.models import Language, Material, Medium, NewsItem, Noun
 
 english = Language.objects.create(name="English", frequency=141264)
 german = Language.objects.create(name="German", frequency=20058)
@@ -334,7 +335,9 @@ petrified_wood = Material.objects.create(name="Petrified Wood")
 ceramics = Material.objects.create(name="Ceramics")
 
 book = Medium.objects.create(name="Book")
-journal = Medium.objects.create(name="Journal", length_modifier_type="/", length_modifier=40)
+journal = Medium.objects.create(
+    name="Journal", length_modifier_type="/", length_modifier=40
+)
 ebook = Medium.objects.create(
     name="eBook", length_modifier_type="/", length_modifier=20
 )
@@ -350,9 +353,7 @@ software = Medium.objects.create(
 tablets = Medium.objects.create(
     name="Tablets", length_modifier_type="/", length_modifier=40
 )
-audio = Medium.objects.create(
-    name="Audio Recording"
-)
+audio = Medium.objects.create(name="Audio Recording")
 video = Medium.objects.create(
     name="Video Recording", length_modifier_type="/", length_modifier=20
 )
@@ -7161,5 +7162,5 @@ Noun.objects.create(name="zucchini")
 NewsItem.objects.create(
     title="Changeling: the Dreaming Added!",
     content="In this update, Changeling has been added to the site. So far this includes a random Changeling character creator, but future updates will add Freeholds and other locations, Kinain, Gallain, etc, as well as the ability to edit and create characters directly.",
-    date=date(2022, 9, 4)
+    date=date(2022, 9, 4),
 )

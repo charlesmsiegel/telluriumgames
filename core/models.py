@@ -80,7 +80,7 @@ class Book(models.Model):
 class BookReference(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     page = models.IntegerField(default=0)
-    
+
     def __str__(self):
         return f"{self.book} p. {self.page}"
 
@@ -146,6 +146,7 @@ class Model(PolymorphicModel):
         bookref = BookReference.objects.get_or_create(book=book, page=page_number)[0]
         self.sources.add(bookref)
         return self
+
 
 class NewsItem(models.Model):
     title = models.CharField(default="", max_length=100)
