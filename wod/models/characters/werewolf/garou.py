@@ -34,6 +34,42 @@ class Tribe(Model):
             ]
         )
 
+    def gifts_level_1(self):
+        level = [
+            x for x in Gift.objects.filter(rank=1) if self.name in x.allowed["garou"]
+        ]
+        return [f'<a href="{x.get_absolute_url()}">{x}</a>' for x in level]
+
+    def gifts_level_2(self):
+        level = [
+            x for x in Gift.objects.filter(rank=2) if self.name in x.allowed["garou"]
+        ]
+        return [f'<a href="{x.get_absolute_url()}">{x}</a>' for x in level]
+
+    def gifts_level_3(self):
+        level = [
+            x for x in Gift.objects.filter(rank=3) if self.name in x.allowed["garou"]
+        ]
+        return [f'<a href="{x.get_absolute_url()}">{x}</a>' for x in level]
+
+    def gifts_level_4(self):
+        level = [
+            x for x in Gift.objects.filter(rank=4) if self.name in x.allowed["garou"]
+        ]
+        return [f'<a href="{x.get_absolute_url()}">{x}</a>' for x in level]
+
+    def gifts_level_5(self):
+        level = [
+            x for x in Gift.objects.filter(rank=5) if self.name in x.allowed["garou"]
+        ]
+        return [f'<a href="{x.get_absolute_url()}">{x}</a>' for x in level]
+
+    def gifts_level_6(self):
+        level = [
+            x for x in Gift.objects.filter(rank=6) if self.name in x.allowed["garou"]
+        ]
+        return [f'<a href="{x.get_absolute_url()}">{x}</a>' for x in level]
+
 
 class Camp(Model):
     type = "camp"
