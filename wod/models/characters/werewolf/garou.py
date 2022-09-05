@@ -26,6 +26,14 @@ class Tribe(Model):
     def get_update_url(self):
         return reverse("wod:characters:werewolf:update_tribe", kwargs={"pk": self.pk})
 
+    def camp_list(self):
+        return ", ".join(
+            [
+                f'<a href="{x.get_absolute_url()}">{x}</a>'
+                for x in Camp.objects.filter(tribe=self)
+            ]
+        )
+
 
 class Camp(Model):
     type = "camp"
