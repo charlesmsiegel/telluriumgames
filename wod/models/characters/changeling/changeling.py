@@ -521,6 +521,8 @@ class Changeling(CtDHuman):
     def birthright_correction(self):
         if self.kith.name == "Troll":
             self.add_attribute("strength", maximum=10)
+            self.max_health_levels += 1
+            self.save()
         if self.kith.name == "Satyr":
             self.add_attribute("stamina", maximum=10)
         if self.kith.name == "Piskey":

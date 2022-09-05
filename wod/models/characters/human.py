@@ -194,6 +194,7 @@ class Human(Character):
     spent_xp = models.TextField(default="")
 
     current_health_levels = models.CharField(default="", max_length=100, blank=True)
+    max_health_levels = models.IntegerField(default=7)
 
     freebies = 15
     background_points = 5
@@ -936,18 +937,18 @@ class Human(Character):
 
     def get_wound_penalty(self):
         health_levels = len(self.current_health_levels)
-        if health_levels <= 1:
+        if health_levels <= self.max_health_levels - 6:
             return 0
-        if health_levels <= 3:
+        if health_levels <= self.max_health_levels - 4:
             return -1
-        if health_levels <= 5:
+        if health_levels <= self.max_health_levels - 2:
             return -2
-        if health_levels <= 6:
+        if health_levels <= self.max_health_levels - 1:
             return -5
         return -1000
 
     def add_bashing(self):
-        if len(self.current_health_levels) < 7:
+        if len(self.current_health_levels) < self.max_health_levels:
             self.current_health_levels += "B"
         elif "B" in self.current_health_levels:
             self.current_health_levels = self.current_health_levels.replace("B", "L", 1)
@@ -965,14 +966,14 @@ class Human(Character):
         return 0
 
     def add_aggravated(self):
-        if len(self.current_health_levels) < 7:
+        if len(self.current_health_levels) < self.max_health_levels:
             self.current_health_levels += "A"
         self.current_health_levels = "".join(
             sorted(self.current_health_levels, key=self.sort_damage)
         )
 
     def add_lethal(self):
-        if len(self.current_health_levels) < 7:
+        if len(self.current_health_levels) < self.max_health_levels:
             self.current_health_levels += "L"
         self.current_health_levels = "".join(
             sorted(self.current_health_levels, key=self.sort_damage)
