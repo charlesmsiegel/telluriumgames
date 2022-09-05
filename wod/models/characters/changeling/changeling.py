@@ -285,6 +285,7 @@ class Changeling(CtDHuman):
         if self.seeming == "childling":
             self.add_glamour()
         if self.seeming == "wilder":
+            
             random.choice([self.add_glamour, self.add_willpower])()
         if self.seeming == "grump":
             self.add_willpower()

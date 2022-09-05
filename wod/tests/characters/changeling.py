@@ -204,21 +204,27 @@ class TestChangeling(TestCase):
 
     def test_set_seeming(self):
         self.assertFalse(self.character.has_seeming())
-        glamour = self.character.glamour
-        willpower = self.character.willpower
-        self.assertTrue(self.character.set_seeming("childling"))
-        self.assertEqual(self.character.glamour, glamour + 1)
-        self.assertTrue(self.character.has_seeming())
-        glamour = self.character.glamour
-        willpower = self.character.willpower
-        self.assertTrue(self.character.set_seeming("wilder"))
+        c = Changeling.objects.create(name="Childling")
+        self.assertFalse(c.has_seeming())
+        glamour = 4
+        willpower = 4
+        self.assertTrue(c.set_seeming("childling"))
+        self.assertEqual(c.glamour, glamour + 1)
+        self.assertTrue(c.has_seeming())
+        c = Changeling.objects.create(name="Wilder")
+        self.assertFalse(c.has_seeming())
+        glamour = 4
+        willpower = 4
+        self.assertTrue(c.set_seeming("wilder"))
         self.assertEqual(
-            self.character.glamour + self.character.willpower, glamour + willpower + 1
+            c.glamour + c.willpower, glamour + willpower + 1
         )
-        glamour = self.character.glamour
-        willpower = self.character.willpower
-        self.assertTrue(self.character.set_seeming("grump"))
-        self.assertEqual(self.character.willpower, willpower + 1)
+        c = Changeling.objects.create(name="Grump")
+        self.assertFalse(c.has_seeming())
+        glamour = 4
+        willpower = 4
+        self.assertTrue(c.set_seeming("grump"))
+        self.assertEqual(c.willpower, willpower + 1)
 
     def test_has_seeming(self):
         self.assertFalse(self.character.has_seeming())
