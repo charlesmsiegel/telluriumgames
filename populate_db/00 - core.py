@@ -7166,6 +7166,6 @@ NewsItem.objects.create(
 )
 NewsItem.objects.create(
     title="Editing Functionality Begun",
-    content="Coverage is low, but all objects now have an \"Update\" button at the bottom if you are the owner. For most this will fail, but for some you can edit and customize the randomly generated characters. This is a step towards full creation functionality, though we aren't quite there yet.",
+    content='Coverage is low, but all objects now have an "Update" button at the bottom if you are the owner. For most this will fail, but for some you can edit and customize the randomly generated characters. This is a step towards full creation functionality, though we aren\'t quite there yet.',
     date=date(2022, 9, 5),
 )

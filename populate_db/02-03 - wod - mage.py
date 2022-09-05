@@ -3,9 +3,9 @@ from time import time
 from core.models import Language, Material, Medium
 from wod.models.characters.human import Archetype, MeritFlaw, WoDSpecialty
 from wod.models.characters.mage import (
-    Mage,
     Effect,
     Instrument,
+    Mage,
     MageFaction,
     Paradigm,
     Practice,
@@ -33841,20 +33841,34 @@ Artifact.objects.create(display=False, name="Zulu Warshield", background_cost=2)
 
 dante = Mage.objects.create(name="Dante", display=False)
 dante.add_source("The Art of Mage - 20 Years and More", 91)
-dante.set_faction(MageFaction.objects.get(name="Traditions"), MageFaction.objects.get(name="Virtual Adepts"), subfaction=None)
+dante.set_faction(
+    MageFaction.objects.get(name="Traditions"),
+    MageFaction.objects.get(name="Virtual Adepts"),
+    subfaction=None,
+)
 dante.ethnicity = "Black"
 dante.nationality = "American"
 
-voormas = Mage.objects.create(name="Voormas, the Grand Harvester of Souls", display=False)
+voormas = Mage.objects.create(
+    name="Voormas, the Grand Harvester of Souls", display=False
+)
 voormas.add_source("The Art of Mage - 20 Years and More", 92)
-voormas.set_faction(MageFaction.objects.get(name="Traditions"), MageFaction.objects.get(name="Euthanatos"), subfaction=None)
+voormas.set_faction(
+    MageFaction.objects.get(name="Traditions"),
+    MageFaction.objects.get(name="Euthanatos"),
+    subfaction=None,
+)
 
 atropos = Mage.objects.create(name="Atropos", display=False)
 atropos.add_source("The Art of Mage - 20 Years and More", 92)
 
 porthos = Mage.objects.create(name="Porthos Fitz-Empress", display=False)
 porthos.add_source("The Art of Mage - 20 Years and More", 93)
-porthos.set_faction(MageFaction.objects.get(name="Traditions"), MageFaction.objects.get(name="Order of Hermes"), subfaction=MageFaction.objects.get(name="House Flambeau"))
+porthos.set_faction(
+    MageFaction.objects.get(name="Traditions"),
+    MageFaction.objects.get(name="Order of Hermes"),
+    subfaction=MageFaction.objects.get(name="House Flambeau"),
+)
 
 jodiblake = Mage.objects.create(name="Jodi Blake", display=False)
 jodiblake.add_source("The Art of Mage - 20 Years and More", 93)
@@ -33866,35 +33880,69 @@ jenrollins.set_faction(None, None, subfaction=None)
 
 leeann = Mage.objects.create(name="Lee Ann Milner", display=False)
 leeann.add_source("The Art of Mage - 20 Years and More", 94)
-leeann.set_faction(MageFaction.objects.get(name="Traditions"), MageFaction.objects.get(name="Cult of Ecstasy"), subfaction=None)
+leeann.set_faction(
+    MageFaction.objects.get(name="Traditions"),
+    MageFaction.objects.get(name="Cult of Ecstasy"),
+    subfaction=None,
+)
 
 x344 = Mage.objects.create(name="X344", display=False)
 x344.add_source("The Art of Mage - 20 Years and More", 94)
-x344.set_faction(MageFaction.objects.get(name="Technocratic Union"), MageFaction.objects.get(name="Iteration X"), subfaction=None)
+x344.set_faction(
+    MageFaction.objects.get(name="Technocratic Union"),
+    MageFaction.objects.get(name="Iteration X"),
+    subfaction=None,
+)
 
 iyeoka = Mage.objects.create(name="Iyeoka Sophia", display=False)
 iyeoka.add_source("The Art of Mage - 20 Years and More", 95)
-iyeoka.set_faction(MageFaction.objects.get(name="Traditions"), MageFaction.objects.get(name="Order of Hermes"), subfaction=MageFaction.objects.get(name="House Shaea"))
+iyeoka.set_faction(
+    MageFaction.objects.get(name="Traditions"),
+    MageFaction.objects.get(name="Order of Hermes"),
+    subfaction=MageFaction.objects.get(name="House Shaea"),
+)
 iyeoka.arete = 5
 
 johncourage = Mage.objects.create(name="John Courage", display=False)
 johncourage.add_source("The Art of Mage - 20 Years and More", 96)
-johncourage.set_faction(MageFaction.objects.get(name="Technocratic Union"), MageFaction.objects.get(name="New World Order"), subfaction=None)
+johncourage.set_faction(
+    MageFaction.objects.get(name="Technocratic Union"),
+    MageFaction.objects.get(name="New World Order"),
+    subfaction=None,
+)
 
 paintedhorse = Mage.objects.create(name="Painted Horse", display=False)
 paintedhorse.add_source("The Art of Mage - 20 Years and More", 96)
-paintedhorse.set_faction(MageFaction.objects.get(name="Traditions"), MageFaction.objects.get(name="Dreamspeaker"), subfaction=None)
+paintedhorse.set_faction(
+    MageFaction.objects.get(name="Traditions"),
+    MageFaction.objects.get(name="Dreamspeaker"),
+    subfaction=None,
+)
 
 mjl = Mage.objects.create(name="Malcolm Jamal Leonard", display=False)
 mjl.add_source("The Art of Mage - 20 Years and More", 97)
-mjl.set_faction(MageFaction.objects.get(name="Disparate Alliance"), MageFaction.objects.get(name="Ngoma"), subfaction=None)
+mjl.set_faction(
+    MageFaction.objects.get(name="The Disparate Alliance"),
+    MageFaction.objects.get(name="Ngoma"),
+    subfaction=None,
+)
 
 pillory = Mage.objects.create(name="Pillory", display=False)
 pillory.add_source("The Art of Mage - 20 Years and More", 97)
 pillory.set_faction(MageFaction.objects.get(name="Marauders"), None, subfaction=None)
 
-Mage.objects.create(name="Khan", display=False).add_source("The Art of Mage - 20 Years and More", 98)
-Mage.objects.create(name="Snyder", display=False).add_source("The Art of Mage - 20 Years and More", 98)
-Mage.objects.create(name="Chopper", display=False).add_source("The Art of Mage - 20 Years and More", 98)
-Mage.objects.create(name="Sabra", display=False).add_source("The Art of Mage - 20 Years and More", 98)
-Mage.objects.create(name="Jinx", display=False).add_source("The Art of Mage - 20 Years and More", 98)
+Mage.objects.create(name="Khan", display=False).add_source(
+    "The Art of Mage - 20 Years and More", 98
+)
+Mage.objects.create(name="Snyder", display=False).add_source(
+    "The Art of Mage - 20 Years and More", 98
+)
+Mage.objects.create(name="Chopper", display=False).add_source(
+    "The Art of Mage - 20 Years and More", 98
+)
+Mage.objects.create(name="Sabra", display=False).add_source(
+    "The Art of Mage - 20 Years and More", 98
+)
+Mage.objects.create(name="Jinx", display=False).add_source(
+    "The Art of Mage - 20 Years and More", 98
+)

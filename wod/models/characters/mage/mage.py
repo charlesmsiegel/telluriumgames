@@ -243,8 +243,9 @@ class Mage(MtAHuman):
         self.affiliation = affiliation
         self.faction = faction
         self.subfaction = subfaction
-        if affiliation.name == "Marauders":
-            self.random_quiet()
+        if affiliation is not None:
+            if affiliation.name == "Marauders":
+                self.random_quiet()
         return True
 
     def get_affiliation_weights(self):
