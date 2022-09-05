@@ -146,3 +146,8 @@ class Model(PolymorphicModel):
         bookref = BookReference.objects.get_or_create(book=book, page=page_number)[0]
         self.sources.add(bookref)
         return self
+
+class NewsItem(models.Model):
+    title = models.CharField(default="", max_length=100)
+    content = models.TextField(default="")
+    date = models.DateField()
