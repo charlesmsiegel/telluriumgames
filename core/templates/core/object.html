@@ -8,13 +8,17 @@
         {% block contents %}
         {% endblock contents %}
         {% block update %}
-            <div class="row">
-                <div class="col-sm">
-                    <a href="{{ object.get_update_url }}"
-                       class="btn btn-primary"
-                       role="button">Update</a>
-                </div>
-            </div>
+            {% if user.is_authenticated %}
+                {% if user == object.owner or user.is_superuser %}
+                    <div class="row">
+                        <div class="col-sm">
+                            <a href="{{ object.get_update_url }}"
+                               class="btn btn-primary"
+                               role="button">Update</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
         {% endblock update %}
     </div>
 {% endblock content %}
