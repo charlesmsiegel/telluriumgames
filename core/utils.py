@@ -187,7 +187,7 @@ ethnicity_to_code = {
     "Khmer": "khm",
     "Kiga": "kig",
     "Kikuyu": "kik",
-    "Kreatyve": "kk",
+    # "Kreatyve": "kk",
     "Kongo": "kon",
     "Korean": "kor",
     "Kurdish": "kur",
