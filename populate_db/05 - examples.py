@@ -38,8 +38,8 @@ def profile(cls, character=True, num_rows=10, xp=0):
 
 from wod.models.characters.changeling import Changeling, Motley
 from wod.models.characters.human import Human
-from wod.models.characters.mage import Mage, Cabal
-from wod.models.characters.werewolf import Fomor, Kinfolk, Werewolf, Pack
+from wod.models.characters.mage import Cabal, Mage
+from wod.models.characters.werewolf import Fomor, Kinfolk, Pack, Werewolf
 from wod.models.items.mage import Artifact, Charm, Grimoire, Talisman
 from wod.models.locations.mage import Chantry, Node
 
