@@ -76,26 +76,66 @@ tablets, _ = Medium.objects.get_or_create(
 )
 
 # M20
-Archetype.objects.get_or_create(name="Activist")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 268)
-Archetype.objects.get_or_create(name="Benefactor")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 268)
-Archetype.objects.get_or_create(name="Contrary")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 268)
-Archetype.objects.get_or_create(name="Crusader")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 268)
-Archetype.objects.get_or_create(name="Hacker")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 269)
-Archetype.objects.get_or_create(name="Idealist")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 269)
-Archetype.objects.get_or_create(name="Innovator")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 270)
-Archetype.objects.get_or_create(name="Kid")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 270)
-Archetype.objects.get_or_create(name="Loner")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 270)
-Archetype.objects.get_or_create(name="Machine")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 270)
-Archetype.objects.get_or_create(name="Mad Scientist")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 270)
-Archetype.objects.get_or_create(name="Martyr")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 271)
-Archetype.objects.get_or_create(name="Monster")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 271)
-Archetype.objects.get_or_create(name="Prophet")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 272)
-Archetype.objects.get_or_create(name="Rogue")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 272)
-Archetype.objects.get_or_create(name="Sensualist")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 272)
-Archetype.objects.get_or_create(name="Survivor")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 272)
-Archetype.objects.get_or_create(name="Traditionalist")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 272)
-Archetype.objects.get_or_create(name="Trickster")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 272)
-Archetype.objects.get_or_create(name="Visionary")[0].add_source("Mage: the Ascension 20th Anniversary Edition", 273)
+Archetype.objects.get_or_create(name="Activist")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 268
+)
+Archetype.objects.get_or_create(name="Benefactor")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 268
+)
+Archetype.objects.get_or_create(name="Contrary")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 268
+)
+Archetype.objects.get_or_create(name="Crusader")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 268
+)
+Archetype.objects.get_or_create(name="Hacker")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 269
+)
+Archetype.objects.get_or_create(name="Idealist")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 269
+)
+Archetype.objects.get_or_create(name="Innovator")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 270
+)
+Archetype.objects.get_or_create(name="Kid")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 270
+)
+Archetype.objects.get_or_create(name="Loner")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 270
+)
+Archetype.objects.get_or_create(name="Machine")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 270
+)
+Archetype.objects.get_or_create(name="Mad Scientist")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 270
+)
+Archetype.objects.get_or_create(name="Martyr")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 271
+)
+Archetype.objects.get_or_create(name="Monster")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 271
+)
+Archetype.objects.get_or_create(name="Prophet")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 272
+)
+Archetype.objects.get_or_create(name="Rogue")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 272
+)
+Archetype.objects.get_or_create(name="Sensualist")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 272
+)
+Archetype.objects.get_or_create(name="Survivor")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 272
+)
+Archetype.objects.get_or_create(name="Traditionalist")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 272
+)
+Archetype.objects.get_or_create(name="Trickster")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 272
+)
+Archetype.objects.get_or_create(name="Visionary")[0].add_source(
+    "Mage: the Ascension 20th Anniversary Edition", 273
+)
 
 # Book of Secrets
 Archetype.objects.get_or_create(name="Architect")[0].add_source("Book of Secrets", 14)
@@ -1282,7 +1322,9 @@ WoDSpecialty.objects.get_or_create(name="Born and Raised in Hell", stat="vice")
 
 armor = Instrument.objects.create(name="Armor")
 artwork = Instrument.objects.create(name="Artwork")
-atrocity = Instrument.objects.create(name="Atrocity")
+atrocity = Instrument.objects.create(name="Atrocity").add_source(
+    "Book of the Fallen", 147
+)
 blessings = Instrument.objects.create(name="Blessings and curses")
 blood = Instrument.objects.create(name="Blood and fluids")
 body_modification = Instrument.objects.create(name="Body Modification")
@@ -1315,7 +1357,9 @@ genetic_manipulation = Instrument.objects.create(name="Genetic Manipulation")
 group_rites = Instrument.objects.create(name="Group rites")
 herbs = Instrument.objects.create(name="Herbs and plants")
 household_tools = Instrument.objects.create(name="Household tools")
-hypersigils = Instrument.objects.create(name="Hypersigils")
+hypersigils = Instrument.objects.create(name="Hypersigils").add_source(
+    "Book of the Fallen", 148
+)
 internet_activity = Instrument.objects.create(name="Internet Activity")
 knots = Instrument.objects.create(name="Knots and ropes")
 labs = Instrument.objects.create(name="Labs and gear")
@@ -1326,26 +1370,36 @@ medical_procedures = Instrument.objects.create(name="Medical Procedures")
 meditation = Instrument.objects.create(name="Meditation")
 money = Instrument.objects.create(name="Money and wealth")
 music = Instrument.objects.create(name="Music")
-mutilation = Instrument.objects.create(name="Mutilation")
+mutilation = Instrument.objects.create(name="Mutilation").add_source(
+    "Book of the Fallen", 148
+)
 nanotech = Instrument.objects.create(name="Nanotech")
 numbers = Instrument.objects.create(name="Numbers and numerology")
 offerings = Instrument.objects.create(name="Offerings and sacrifices")
 ordeals = Instrument.objects.create(name="Ordeals and exertions")
-perversion = Instrument.objects.create(name="Perversion")
+perversion = Instrument.objects.create(name="Perversion").add_source(
+    "Book of the Fallen", 148
+)
 prayers = Instrument.objects.create(name="Prayers and invocations")
 sacred_iconography = Instrument.objects.create(name="Sacred iconography")
 sex = Instrument.objects.create(name="Sex and sensuality")
 social_dominion = Instrument.objects.create(name="Social domination")
 symbols = Instrument.objects.create(name="Symbols")
 thought_forms = Instrument.objects.create(name="Thought-forms")
-torment = Instrument.objects.create(name="Torment")
+torment = Instrument.objects.create(name="Torment").add_source(
+    "Book of the Fallen", 149
+)
 toys = Instrument.objects.create(name="Toys")
 transgression = Instrument.objects.create(name="Transgression")
 tricks = Instrument.objects.create(name="Tricks and illusions")
-trolling = Instrument.objects.create(name="Trolling and Cyberbullying")
+trolling = Instrument.objects.create(name="Trolling and Cyberbullying").add_source(
+    "Book of the Fallen", 150
+)
 true_names = Instrument.objects.create(name="True Names")
 vehicles = Instrument.objects.create(name="Vehicles")
-violation = Instrument.objects.create(name="Violation")
+violation = Instrument.objects.create(name="Violation").add_source(
+    "Book of the Fallen", 150
+)
 voice = Instrument.objects.create(name="Voice and vocalizations")
 wands = Instrument.objects.create(name="Wands and staves")
 weapons = Instrument.objects.create(name="Weapons")
@@ -1353,7 +1407,7 @@ writings = Instrument.objects.create(name="Writings, inscriptions and runes")
 
 abyssalism = Practice.objects.create(
     name="Abyssalism", abilities=["cosmology", "enigmas", "subterfuge"]
-)
+).add_source("Book of the Fallen", 139)
 abyssalism.instruments.add(
     atrocity,
     artwork,
@@ -1532,7 +1586,7 @@ black_mass = Practice.objects.create(
         # "theology",
         # "vice"
     ],
-)
+).add_source("Book of the Fallen", 140)
 black_mass.instruments.add(
     atrocity,
     blood,
@@ -1673,7 +1727,7 @@ demonism = Practice.objects.create(
         "subterfuge",
         # "weird_science",
     ],
-)
+).add_source("Book of the Fallen", 141)
 demonism.instruments.add(
     atrocity,
     blood,
@@ -1813,7 +1867,7 @@ feralism = Practice.objects.create(
         "stealth",
         "survival",
     ],
-)
+).add_source("Book of the Fallen", 142)
 feralism.instruments.add(
     atrocity,
     blood,
@@ -1877,7 +1931,7 @@ goetia = Practice.objects.create(
         "research",
         "occult",
     ],
-)
+).add_source("Book of the Fallen", 143)
 goetia.instruments.add(
     blood,
     bones,
@@ -2028,7 +2082,7 @@ infernal_science = Practice.objects.create(
         # "weird_science",
         "technology",
     ],
-)
+).add_source("Book of the Fallen", 144)
 infernal_science.instruments.add(
     armor,
     atrocity,
@@ -2489,7 +2543,7 @@ vamamarga = Practice.objects.create(
         "meditation",
         "survival",
     ],
-)
+).add_source("Book of the Fallen", 145)
 vamamarga.instruments.add(
     blood,
     bodywork,
@@ -2603,7 +2657,9 @@ aliens_make_us.practices.add(
     infernal_science,
 )
 aliens_make_us.save()
-all_power_from_god = Paradigm.objects.create(name="All Power Comes From God(s)")
+all_power_from_god = Paradigm.objects.create(
+    name="All Power Comes From God(s)"
+).add_source("Book of the Fallen", 131)
 all_power_from_god.practices.add(
     bardism,
     dominion,
@@ -2681,7 +2737,9 @@ ancient_wisdom.practices.add(
     vamamarga,
 )
 ancient_wisdom.save()
-barbarism_is_true = Paradigm.objects.create(name="Barbarism is the Truest State of Man")
+barbarism_is_true = Paradigm.objects.create(
+    name="Barbarism is the Truest State of Man"
+).add_source("Book of the Fallen", 132)
 barbarism_is_true.practices.add(
     dominion,
     martial_arts,
@@ -2739,7 +2797,9 @@ consciousness_is_reality.practices.add(
     vamamarga,
 )
 consciousness_is_reality.save()
-cosmic_horror = Paradigm.objects.create(name="Cosmic Horror is the Only Truth")
+cosmic_horror = Paradigm.objects.create(
+    name="Cosmic Horror is the Only Truth"
+).add_source("Book of the Fallen", 132)
 cosmic_horror.practices.add(
     witchcraft,
     shamanism,
@@ -2826,7 +2886,7 @@ embrace_the_threshold.practices.add(
 embrace_the_threshold.save()
 everyones_against_me = Paradigm.objects.create(
     name="Everyone's Against Me, so Whatever I do is Justified"
-)
+).add_source("Book of the Fallen", 133)
 everyones_against_me.practices.add(
     art_of_desire,
     bardism,
@@ -2905,7 +2965,9 @@ everything_is_an_illusion.practices.add(
     vamamarga,
 )
 everything_is_an_illusion.save()
-evil_is_necessary = Paradigm.objects.create(name="Evil is Necessary, and so I am Evil")
+evil_is_necessary = Paradigm.objects.create(
+    name="Evil is Necessary, and so I am Evil"
+).add_source("Book of the Fallen", 134)
 evil_is_necessary.practices.add(
     art_of_desire,
     black_mass,
@@ -2924,7 +2986,7 @@ evil_is_necessary.practices.add(
 evil_is_necessary.save()
 existence_is_unknowable = Paradigm.objects.create(
     name="Existence is Unknowable, Irrational, and Sublime"
-)
+).add_source("Book of the Fallen", 134)
 existence_is_unknowable.practices.add(
     animalism,
     bardism,
@@ -2946,7 +3008,7 @@ existence_is_unknowable.practices.add(
 existence_is_unknowable.save()
 forbidden_wisdom = Paradigm.objects.create(
     name="Forbidden Wisdom is the Truest Source of Power"
-)
+).add_source("Book of the Fallen", 135)
 forbidden_wisdom.practices.add(
     animalism,
     bardism,
@@ -2984,7 +3046,9 @@ holographic_reality.practices.add(
     infernal_science,
 )
 holographic_reality.save()
-i_am_all = Paradigm.objects.create(name="I am All")
+i_am_all = Paradigm.objects.create(name="I am All").add_source(
+    "Book of the Fallen", 135
+)
 i_am_all.practices.add(
     art_of_desire,
     chaos_magick,
@@ -2999,7 +3063,9 @@ i_am_all.practices.add(
     infernal_science,
 )
 i_am_all.save()
-im_a_predator = Paradigm.objects.create(name="I'm a Predator, and the World is My Prey")
+im_a_predator = Paradigm.objects.create(
+    name="I'm a Predator, and the World is My Prey"
+).add_source("Book of the Fallen", 135)
 im_a_predator.practices.add(
     animalism,
     art_of_desire,
@@ -3013,7 +3079,9 @@ im_a_predator.practices.add(
     infernal_science,
 )
 im_a_predator.save()
-indulgence = Paradigm.objects.create(name="Indulgence is Nature's Only Law")
+indulgence = Paradigm.objects.create(name="Indulgence is Nature's Only Law").add_source(
+    "Book of the Fallen", 136
+)
 indulgence.practices.add(
     animalism,
     art_of_desire,
@@ -3097,7 +3165,7 @@ one_way_trip_to_oblivion.practices.add(
 one_way_trip_to_oblivion.save()
 only_the_strongest = Paradigm.objects.create(
     name="Only the Strongest Deserve to Survive"
-)
+).add_source("Book of the Fallen", 137)
 only_the_strongest.practices.add(
     animalism,
     art_of_desire,
@@ -3117,10 +3185,14 @@ only_the_strongest.practices.add(
     vamamarga,
 )
 only_the_strongest.save()
-people_are_shit = Paradigm.objects.create(name="People are Shit")
+people_are_shit = Paradigm.objects.create(name="People are Shit").add_source(
+    "Book of the Fallen", 137
+)
 people_are_shit.practices.add(*list(Practice.objects.all()))
 people_are_shit.save()
-rebellion = Paradigm.objects.create(name="Rebellion is the Road to Transcendence")
+rebellion = Paradigm.objects.create(
+    name="Rebellion is the Road to Transcendence"
+).add_source("Book of the Fallen", 137)
 rebellion.practices.add(
     bardism,
     black_mass,
@@ -3139,7 +3211,7 @@ rebellion.practices.add(
 rebellion.save()
 stormtroopers_of_the_abyss = Paradigm.objects.create(
     name="We are Stormtroopers of the Abyss"
-)
+).add_source("Book of the Fallen", 138)
 stormtroopers_of_the_abyss.practices.add(
     animalism,
     black_mass,
@@ -3708,18 +3780,65 @@ MageFaction.objects.create(name="Border Corps Division", parent=ve)
 MageFaction.objects.create(name="Pan-Dimension Corps", parent=ve)
 
 nephandi = MageFaction.objects.create(name="Nephandi")
-MageFaction.objects.create(name="The K'llashsaa", parent=nephandi)
-MageFaction.objects.create(name="Malfeans", parent=nephandi, affinities=["entropy"])
-infernalist = MageFaction.objects.create(name="Infernalists", parent=nephandi)
-infernalist.practices.add(high_ritual_magick)
+kllashaa = MageFaction.objects.create(
+    name="The K'llashsaa", parent=nephandi
+).add_source("Book of the Fallen", 71)
+
+malfeans = MageFaction.objects.create(
+    name="Malfeans", parent=nephandi, affinities=["entropy"]
+).add_source("Book of the Fallen", 74)
+
+infernalist = MageFaction.objects.create(
+    name="Infernalists", parent=nephandi
+).add_source("Book of the Fallen", 68)
+infernalist.practices.add(high_ritual_magick, witchcraft)
 infernalist.save()
-MageFaction.objects.create(name="Baphies", parent=nephandi)
-MageFaction.objects.create(name="Obliviates", parent=nephandi)
-MageFaction.objects.create(name="Heralds of Basilisk", parent=nephandi)
-ironhands = MageFaction.objects.create(name="Ironhands", parent=nephandi)
+MageFaction.objects.create(name="The New Rite Church", parent=infernalist).add_source(
+    "Book of the Fallen", 69
+)
+MageFaction.objects.create(
+    name="The Cauldron of Banjoko", parent=infernalist
+).add_source("Book of the Fallen", 69)
+MageFaction.objects.create(
+    name="The Lodge of the Crimson Goat", parent=infernalist
+).add_source("Book of the Fallen", 69)
+
+baphie = MageFaction.objects.create(name="Baphies", parent=nephandi).add_source(
+    "Book of the Fallen", 76
+)
+
+exie = MageFaction.objects.create(name="Obliviates", parent=nephandi).add_source(
+    "Book of the Fallen", 79
+)
+
+hob = MageFaction.objects.create(
+    name="Heralds of Basilisk", parent=nephandi
+).add_source("Book of the Fallen", 82)
+
+ironhands = MageFaction.objects.create(name="Ironhands", parent=nephandi).add_source(
+    "Book of the Fallen", 85
+)
 ironhands.practices.add(weird_science, hypertech, craftwork)
 ironhands.save()
-MageFaction.objects.create(name="Mammonites", parent=nephandi)
+MageFaction.objects.create(
+    name="Hammer Security Response", parent=ironhands
+).add_source("Book of the Fallen", 86)
+MageFaction.objects.create(
+    name="Secure Armaments for Autonomy", parent=ironhands
+).add_source("Book of the Fallen", 86)
+MageFaction.objects.create(
+    name="The Golem Research and Innovation Project", parent=ironhands
+).add_source("Book of the Fallen", 86)
+MageFaction.objects.create(name="The Pipers", parent=ironhands).add_source(
+    "Book of the Fallen", 87
+)
+MageFaction.objects.create(
+    name="Oil Refinement Capacity Advancement Association", parent=ironhands
+).add_source("Book of the Fallen", 87)
+
+mammonites = MageFaction.objects.create(name="Mammonites", parent=nephandi).add_source(
+    "Book of the Fallen", 89
+)
 
 marauders = MageFaction.objects.create(name="Marauders")
 MageFaction.objects.create(name="Bai Dai", parent=marauders)
@@ -31371,7 +31490,9 @@ Artifact.objects.create(display=False, name="Advanced Bugs", background_cost=1)
 Artifact.objects.create(
     display=False, name="Advanced Power Cell (APC)", background_cost=3
 )
-Artifact.objects.create(display=False, name="Akaa' Et Nuon Ta", background_cost=4)
+Artifact.objects.create(
+    display=False, name="Akaa' Et Nuon Ta", background_cost=4
+).add_source("Book of the Fallen", 165)
 Talisman.objects.create(
     display=False,
     name="Alanson Light Hardsuit",
