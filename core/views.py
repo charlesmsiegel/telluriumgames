@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import DetailView, View
 
-from core.models import Language, Material, Medium
+from core.models import Language, Material, Medium, NewsItem
 
 
 # Create your views here.
@@ -10,6 +10,7 @@ class HomeView(View):
 
     def get(self, request):
         context = {"user": request.user}
+        context["news"] = NewsItem.objects.order_by("-date")
         return render(request, "core/index.html", context=context)
 
 

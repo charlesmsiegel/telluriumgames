@@ -1,6 +1,7 @@
+from tabnanny import verbose
 from django.contrib import admin
 
-from core.models import Language, Material, Medium
+from core.models import Language, Material, Medium, Book
 
 
 # Register your models here.
@@ -23,3 +24,9 @@ class MediumAdmin(admin.ModelAdmin):
     class Meta:
         verbose_name = "Medium"
         verbose_name_plural = "Mediums"
+
+@admin.register(Book)
+class BookAdmin(admin.ModelAdmin):
+    class Meta:
+        verbose_name = "Book"
+        verbose_name_plural = "Books"

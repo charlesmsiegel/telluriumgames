@@ -1,4 +1,5 @@
-from core.models import Language, Material, Medium, Noun
+from datetime import date
+from core.models import Language, Material, Medium, Noun, NewsItem
 
 english = Language.objects.create(name="English", frequency=141264)
 german = Language.objects.create(name="German", frequency=20058)
@@ -7156,3 +7157,9 @@ Noun.objects.create(name="zoologist")
 Noun.objects.create(name="zoology")
 Noun.objects.create(name="zoot-suit")
 Noun.objects.create(name="zucchini")
+
+NewsItem.objects.create(
+    title="Changeling: the Dreaming Added!",
+    content="In this update, Changeling has been added to the site. So far this includes a random Changeling character creator, but future updates will add Freeholds and other locations, Kinain, Gallain, etc, as well as the ability to edit and create characters directly.",
+    date=date(2022, 9, 4)
+)
