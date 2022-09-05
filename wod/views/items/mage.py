@@ -63,9 +63,6 @@ class GrimoireDetailView(View):
             s = ""
         context = {
             "object": grimoire,
-            "paradigms": "<br>".join([str(x) for x in grimoire.paradigms.all()]),
-            "practices": "<br>".join([str(x) for x in grimoire.practices.all()]),
-            "instruments": "<br>".join([str(x) for x in grimoire.instruments.all()]),
             "abilities": "<br>".join(
                 [x.replace("_", " ").title() for x in grimoire.abilities]
             ),
@@ -76,6 +73,24 @@ class GrimoireDetailView(View):
             "date_written": grimoire.date_written,
             "faction": s,
         }
+        context["paradigms"] = "<br>".join(
+            [
+                f'<a href="{x.get_absolute_url()}">{x}</a>'
+                for x in grimoire.paradigms.all()
+            ]
+        )
+        context["practices"] = "<br>".join(
+            [
+                f'<a href="{x.get_absolute_url()}">{x}</a>'
+                for x in grimoire.practices.all()
+            ]
+        )
+        context["instruments"] = "<br>".join(
+            [
+                f'<a href="{x.get_absolute_url()}">{x}</a>'
+                for x in grimoire.instruments.all()
+            ]
+        )
         all_effects = list(context["object"].effects.all())
         row_length = 2
         all_effects = [
