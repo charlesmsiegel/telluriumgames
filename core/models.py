@@ -82,7 +82,7 @@ class BookReference(models.Model):
     page = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.book} p. {self.page}"
+        return f"<i>{self.book}</i> p. {self.page}"
 
 
 class Model(PolymorphicModel):

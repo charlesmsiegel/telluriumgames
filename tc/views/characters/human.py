@@ -43,7 +43,10 @@ class HumanDetailView(View):
         ]
         for skill in char.get_skills():
             context[skill + "_spec"] = ", ".join(
-                [f"<a href=\"{x.get_absolute_url()}\">{x.name}</a>" for x in char.specialties.filter(skill=skill)]
+                [
+                    f'<a href="{x.get_absolute_url()}">{x.name}</a>'
+                    for x in char.specialties.filter(skill=skill)
+                ]
             )
         context["edges"] = EdgeRating.objects.filter(character=char)
         return context

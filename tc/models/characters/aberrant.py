@@ -12,7 +12,7 @@ from tc.models.characters.human import Edge, EnhancedEdge, Human, PathRating, TC
 # Create your models here.
 class Aberrant(Human):
     type = "aberrant"
-    
+
     mega_intellect = models.IntegerField(default=0)
     mega_cunning = models.IntegerField(default=0)
     mega_resolve = models.IntegerField(default=0)

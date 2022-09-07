@@ -5,6 +5,13 @@
 {% endblock title %}
 {% block content %}
     <div class="centertext container">
+        {% block references %}
+            {% for reference in object.sources.all %}
+            <div class="row">
+                <div class="col-sm">{{ reference|safe }}</div>
+            </div>
+            {% endfor %}
+        {% endblock references %}
         {% block contents %}
         {% endblock contents %}
         {% block update %}
