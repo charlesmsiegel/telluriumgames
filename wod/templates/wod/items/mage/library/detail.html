@@ -1,8 +1,5 @@
-{% extends "core/object.html" %}
-{% block contents %}
-    <div class="row">
-        <h1 class="col-sm {{ object.get_heading }}">{{ object.name }}</h1>
-    </div>
+{% extends "wod/items/mage/wonder/detail.html" %}
+{% block basics %}
     <div class="row">
         <div class="col-sm">
             {% if object.faction.parent is not None %}
@@ -14,12 +11,16 @@
     <a href="{{ object.faction.get_absolute_url }}">{{ object.faction }}</a>
 </div>
 </div>
-<div class="row">
-    <h2 class="col-sm {{ object.get_heading }}">Books</h2>
-</div>
-{% for book in object.books.all %}
+{% endblock basics %}
+{% block resonance %}
+{% endblock resonance %}
+{% block powers %}
     <div class="row">
-        <a class="col-sm" href={{ book.get_absolute_url }}>{{ book.name }}</a>
+        <h2 class="col-sm {{ object.get_heading }}">Books</h2>
     </div>
-{% endfor %}
-{% endblock contents %}
+    {% for book in object.books.all %}
+        <div class="row">
+            <a class="col-sm" href={{ book.get_absolute_url }}>{{ book.name }}</a>
+        </div>
+    {% endfor %}
+{% endblock powers %}

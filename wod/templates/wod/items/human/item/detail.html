@@ -3,8 +3,7 @@
     {% load dots %}
     {% block name %}
         <div class="row">
-            <div class="col-sm">Name</div>
-            <div class="col-sm">{{ object.name }}</div>
+            <h2 class="col-sm {{ object.get_heading }}">{{ object.name }}</h2>
         </div>
     {% endblock name %}
     {% block additional_stats %}

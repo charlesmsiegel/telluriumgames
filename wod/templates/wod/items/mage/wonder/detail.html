@@ -1,8 +1,5 @@
-{% extends "core/object.html" %}
-{% block contents %}
-    <div class="row">
-        <h2 class="col-sm {{ object.get_heading }}">{{ object.name }}</h2>
-    </div>
+{% extends "wod/items/human/item/detail.html" %}
+{% block additional_stats %}
     {% block basics %}
         <div class="row">
             <div class="col-sm">Rank</div>
@@ -15,6 +12,8 @@
             <div class="col-sm">{{ object.quintessence_max }}</div>
         </div>
     {% endblock basics %}
+    {% block creation %}
+    {% endblock creation %}
     {% block resonance %}
         <div class="col-sm {{ object.get_heading }}">
             <h2>Resonance</h2>
@@ -27,10 +26,4 @@
     {% endblock resonance %}
     {% block powers %}
     {% endblock powers %}
-    {% block description %}
-        <div class="row">
-            <div class="col-sm">Description</div>
-            <div class="col-sm">{{ object.description }}</div>
-        </div>
-    {% endblock description %}
-{% endblock contents %}
+{% endblock additional_stats %}

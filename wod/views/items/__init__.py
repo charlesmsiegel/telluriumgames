@@ -55,7 +55,6 @@ class GenericItemDetailView(View):
 
     def get(self, request, *args, **kwargs):
         item = WoDItem.objects.get(pk=kwargs["pk"])
-        print(item.type)
         if item.type in self.views:
             return self.views[item.type].as_view()(request, *args, **kwargs)
         return redirect("wod:items:index")
