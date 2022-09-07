@@ -1,49 +1,48 @@
-{% extends "core/base.html" %}
-{% block title %}
-    {{ character.name }}
-{% endblock title %}
-{% block content %}
+{% extends "core/object.html" %}
+{% block contents %}
     {% load dots %}
-    <div class="centertext container">
+    {% block name %}
         <div class="row">
-            <div class="col-sm tc_core_heading">
-                <h1 class="tc_core_heading">{{ character.name }}</h1>
-            </div>
+            <h1 class="col-sm {{ object.get_heading }}">{{ object.name }}</h1>
         </div>
+    {% endblock name %}
+    {% block basics %}
         <div class="row">
             <div class="col-sm"></div>
             <div class="col-sm">Name</div>
-            <div class="col-sm">{{ character.name }}</div>
+            <div class="col-sm">{{ object.name }}</div>
             <div class="col-sm"></div>
         </div>
         <div class="row">
             <div class="col-sm"></div>
             <div class="col-sm">Player</div>
-            <div class="col-sm">{{ character.owner.user.username }}</div>
+            <div class="col-sm">{{ object.owner.user.username }}</div>
             <div class="col-sm"></div>
         </div>
         <div class="row">
             <div class="col-sm"></div>
             <div class="col-sm">Concept</div>
-            <div class="col-sm">{{ character.concept }}</div>
+            <div class="col-sm">{{ object.concept }}</div>
             <div class="col-sm"></div>
         </div>
+    {% endblock basics %}
+    {% block paths %}
         <div class="row">
             <div class="col-sm">Origin Path</div>
-            <div class="col-sm">{{ origin_path.path.name| safe }}</div>
-            <div class="col-sm">{{ origin_path.connection.name }}</div>
+            <a class="col-sm" href="{{ origin_path.path.get_absolute_url }}">{{ origin_path.path.name| safe }}</a>
+            <a class="col-sm" href="{{ origin_path.connection.get_absolute_url }}">{{ origin_path.connection.name }}</a>
             <div class="col-sm dots">{{ origin_path.rating|dots }}</div>
         </div>
         <div class="row">
             <div class="col-sm">Role Path</div>
-            <div class="col-sm">{{ role_path.path.name| safe }}</div>
-            <div class="col-sm">{{ role_path.connection.name }}</div>
+            <a class="col-sm" href="{{ role_path.path.get_absolute_url }}">{{ role_path.path.name| safe }}</a>
+            <a class="col-sm" href="{{ role_path.connection.get_absolute_url }}">{{ role_path.connection.name }}</a>
             <div class="col-sm dots">{{ role_path.rating|dots }}</div>
         </div>
         <div class="row">
             <div class="col-sm">Society Path</div>
-            <div class="col-sm">{{ society_path.path.name| safe }}</div>
-            <div class="col-sm">{{ society_path.connection.name }}</div>
+            <a class="col-sm" href="{{ society_path.path.get_absolute_url }}">{{ society_path.path.name| safe }}</a>
+            <a class="col-sm" href="{{ society_path.connection.get_absolute_url }}">{{ society_path.connection.name }}</a>
             <div class="col-sm dots">{{ society_path.rating|dots }}</div>
         </div>
         {% for path in additional_paths %}
@@ -60,24 +59,28 @@
                 </div>
             </div>
         {% endfor %}
+    {% endblock paths %}
+    {% block aspirations %}
         <div class="row">
-            <h3 class="col-sm tc_core_heading">
+            <h3 class="col-sm {{ object.get_heading }}">
                 Aspirations
             </h3>
         </div>
         <div class="row">
             <div class="col-sm">
-                {{ character.short_term_aspiration_1 }}
+                {{ object.short_term_aspiration_1 }}
             </div>
             <div class="col-sm">
-                {{ character.short_term_aspiration_2 }}
+                {{ object.short_term_aspiration_2 }}
             </div>
             <div class="col-sm">
-                {{ character.long_term_aspiration }}
+                {{ object.long_term_aspiration }}
             </div>
         </div>
+    {% endblock aspirations %}
+    {% block skills %}
         <div class="row">
-            <h3 class="col-sm tc_core_heading">
+            <h3 class="col-sm {{ object.get_heading }}">
                 Skills
             </h3>
         </div>
@@ -86,19 +89,19 @@
                 Aim
             </div>
             <div class="col-sm">
-                {{ aim_spec }}
+                {{ aim_spec|safe }}
             </div>
             <div class="col-sm dots">
-                {{ character.aim|dots }}
+                {{ object.aim|dots }}
             </div>
             <div class="col-sm">
                 Integrity
             </div>
             <div class="col-sm">
-                {{ integrity_spec }}
+                {{ integrity_spec|safe }}
             </div>
             <div class="col-sm dots">
-                {{ character.integrity|dots }}
+                {{ object.integrity|dots }}
             </div>
         </div>
         <div class="row">
@@ -106,19 +109,19 @@
                 Athletics
             </div>
             <div class="col-sm">
-                {{ athletics_spec }}
+                {{ athletics_spec|safe }}
             </div>
             <div class="col-sm dots">
-                {{ character.athletics| dots }}
+                {{ object.athletics| dots }}
             </div>
             <div class="col-sm">
                 Larceny
             </div>
             <div class="col-sm">
-                {{ larceny_spec }}
+                {{ larceny_spec|safe }}
             </div>
             <div class="col-sm dots">
-                {{ character.larceny| dots }}
+                {{ object.larceny| dots }}
             </div>
         </div>
         <div class="row">
@@ -126,19 +129,19 @@
                 Close Combat
             </div>
             <div class="col-sm">
-                {{ close_combat_spec }}
+                {{ close_combat_spec|safe }}
             </div>
             <div class="col-sm dots">
-                {{ character.close_combat| dots }}
+                {{ object.close_combat| dots }}
             </div>
             <div class="col-sm">
                 Medicine
             </div>
             <div class="col-sm">
-                {{ medicine_spec }}
+                {{ medicine_spec|safe }}
             </div>
             <div class="col-sm dots">
-                {{ character.medicine| dots }}
+                {{ object.medicine| dots }}
             </div>
         </div>
         <div class="row">
@@ -146,19 +149,19 @@
                 Command
             </div>
             <div class="col-sm">
-                {{ command_spec }}
+                {{ command_spec|safe }}
             </div>
             <div class="col-sm dots">
-                {{ character.command| dots }}
+                {{ object.command| dots }}
             </div>
             <div class="col-sm">
                 Persuasion
             </div>
             <div class="col-sm">
-                {{ persuasion_spec }}
+                {{ persuasion_spec|safe }}
             </div>
             <div class="col-sm dots">
-                {{ character.persuasion| dots }}
+                {{ object.persuasion| dots }}
             </div>
         </div>
         <div class="row">
@@ -166,19 +169,19 @@
                 Culture
             </div>
             <div class="col-sm">
-                {{ culture_spec }}
+                {{ culture_spec|safe }}
             </div>
             <div class="col-sm dots">
-                {{ character.culture| dots }}
+                {{ object.culture| dots }}
             </div>
             <div class="col-sm">
                 Pilot
             </div>
             <div class="col-sm">
-                {{ pilot_spec }}
+                {{ pilot_spec|safe }}
             </div>
             <div class="col-sm dots">
-                {{ character.pilot| dots }}
+                {{ object.pilot| dots }}
             </div>
         </div>
         <div class="row">
@@ -186,19 +189,19 @@
                 Empathy
             </div>
             <div class="col-sm">
-                {{ empathy_spec }}
+                {{ empathy_spec|safe }}
             </div>
             <div class="col-sm dots">
-                {{ character.empathy| dots }}
+                {{ object.empathy| dots }}
             </div>
             <div class="col-sm">
                 Science
             </div>
             <div class="col-sm">
-                {{ science_spec }}
+                {{ science_spec|safe }}
             </div>
             <div class="col-sm dots">
-                {{ character.science| dots }}
+                {{ object.science| dots }}
             </div>
         </div>
         <div class="row">
@@ -206,19 +209,19 @@
                 Enigmas
             </div>
             <div class="col-sm">
-                {{ enigmas_spec }}
+                {{ enigmas_spec|safe }}
             </div>
             <div class="col-sm dots">
-                {{ character.enigmas| dots }}
+                {{ object.enigmas| dots }}
             </div>
             <div class="col-sm">
                 Survival
             </div>
             <div class="col-sm">
-                {{ survival_spec }}
+                {{ survival_spec|safe }}
             </div>
             <div class="col-sm dots">
-                {{ character.survival| dots }}
+                {{ object.survival| dots }}
             </div>
         </div>
         <div class="row">
@@ -226,28 +229,30 @@
                 Humanities
             </div>
             <div class="col-sm">
-                {{ humanities_spec }}
+                {{ humanities_spec|safe }}
             </div>
             <div class="col-sm dots">
-                {{ character.humanities| dots }}
+                {{ object.humanities| dots }}
             </div>
             <div class="col-sm">
                 Technology
             </div>
             <div class="col-sm">
-                {{ technology_spec }}
+                {{ technology_spec|safe }}
             </div>
             <div class="col-sm dots">
-                {{ character.technology| dots }}
+                {{ object.technology| dots }}
             </div>
         </div>
+    {% endblock skills %}
+    {% block attributes %}
         <div class="row">
-            <h3 class="col-sm tc_core_heading">
+            <h3 class="col-sm {{ object.get_heading }}">
                 Attributes
             </h3>
         </div>
         <div class="row">
-            {% if character.approach == "FOR" %}
+            {% if object.approach == "FOR" %}
                 <div class="col-sm">
                     ☑
                 </div>
@@ -263,23 +268,23 @@
                 Intellect
             </div>
             <div class="col-sm dots">
-                {{ character.intellect| dots }}
+                {{ object.intellect| dots }}
             </div>
             <div class="col-sm">
                 Might
             </div>
             <div class="col-sm dots">
-                {{ character.might| dots }}
+                {{ object.might| dots }}
             </div>
             <div class="col-sm">
                 Presence
             </div>
             <div class="col-sm dots">
-                {{ character.presence| dots }}
+                {{ object.presence| dots }}
             </div>
         </div>
         <div class="row">
-            {% if character.approach == "FIN" %}
+            {% if object.approach == "FIN" %}
                 <div class="col-sm">
                     ☑
                 </div>
@@ -295,23 +300,23 @@
                 Cunning
             </div>
             <div class="col-sm dots">
-                {{ character.cunning| dots }}
+                {{ object.cunning| dots }}
             </div>
             <div class="col-sm">
                 Dexterity
             </div>
             <div class="col-sm dots">
-                {{ character.dexterity| dots }}
+                {{ object.dexterity| dots }}
             </div>
             <div class="col-sm">
                 Manipulation
             </div>
             <div class="col-sm dots">
-                {{ character.manipulation| dots }}
+                {{ object.manipulation| dots }}
             </div>
         </div>
         <div class="row">
-            {% if character.approach == "RES" %}
+            {% if object.approach == "RES" %}
                 <div class="col-sm">
                     ☑
                 </div>
@@ -327,40 +332,42 @@
                 Resolve
             </div>
             <div class="col-sm dots">
-                {{ character.resolve| dots }}
+                {{ object.resolve| dots }}
             </div>
             <div class="col-sm">
                 Stamina
             </div>
             <div class="col-sm dots">
-                {{ character.stamina| dots }}
+                {{ object.stamina| dots }}
             </div>
             <div class="col-sm">
                 Composure
             </div>
             <div class="col-sm dots">
-                {{ character.composure| dots }}
+                {{ object.composure| dots }}
             </div>
         </div>
+    {% endblock attributes %}
+    {% block tricks_and_edges %}
         <div class="row">
             <div class="col-sm">
-                <h3 class="tc_core_heading">
+                <h3 class="{{ object.get_heading }}">
                     Tricks
                 </h3>
-                {% for trick in character.tricks.all %}
+                {% for trick in object.tricks.all %}
                     <br />
-                    {{ trick.name }}
+                    <a href="{{ trick.get_absolute_url }}">{{ trick.name }}<a>
                 {% endfor %}
             </div>
             <div class="col-sm">
-                <h3 class="tc_core_heading">
+                <h3 class="{{ object.get_heading }}">
                     Edges
                 </h3>
                 {% for edge in edges %}
                     <div class="row">
-                        <div class="col-sm">
+                        <a class="col-sm" href="{{ edge.edge.get_absolute_url }}">
                             {{ edge.edge }}
-                        </div>
+                        </a>
                         <div class="col-sm dots">
                             {{ edge.rating| dots:edge.edge.max_rating }}
                         </div>
@@ -377,36 +384,42 @@
                 {% endfor %}
             </div>
         </div>
+    {% endblock tricks_and_edges %}
+    {% block powers %}
+    {% endblock powers %}
+    {% block injuries %}
         <div class="row">
             <div class="col-sm">
-                <h3 class="tc_core_heading">
+                <h3 class="{{ object.get_heading }}">
                     Injury Conditions
                 </h3>
                 <br />
                 {% for mod in health_levels %}{{ mod }}{% endfor %}
                 <br />
                 {% for mod in health_levels %}&nbsp;☐{% endfor %}
-                Bruised {{ character.bruised_levels }}, Injured {{ character.injured_levels }}, Maimed {{ character.maimed_levels }}
+                Bruised {{ object.bruised_levels }}, Injured {{ object.injured_levels }}, Maimed {{ object.maimed_levels }}
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm">
-            Defense
+    {% endblock injuries %}
+    {% block ending %}
+        <div class="row">
+            <div class="col-sm">
+                Defense
+            </div>
+            <div class="col-sm">
+                {{ object.defense }}
+            </div>
+            <div class="col-sm">
+                XP
+            </div>
+            <div class="col-sm">
+                {{ object.xp }}
+            </div>
         </div>
-        <div class="col-sm">
-            {{ character.defense }}
+        <div class="row">
+            <div class="col-sm">
+                {{ object.spent_xp }}
+            </div>
         </div>
-        <div class="col-sm">
-            XP
-        </div>
-        <div class="col-sm">
-            {{ character.xp }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm">
-            {{ character.spent_xp }}
-        </div>
-    </div>
-{% endblock content %}
+    {% endblock ending %}
+{% endblock contents %}

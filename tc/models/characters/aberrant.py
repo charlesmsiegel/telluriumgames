@@ -12,7 +12,7 @@ from tc.models.characters.human import Edge, EnhancedEdge, Human, PathRating, TC
 # Create your models here.
 class Aberrant(Human):
     type = "aberrant"
-
+    
     mega_intellect = models.IntegerField(default=0)
     mega_cunning = models.IntegerField(default=0)
     mega_resolve = models.IntegerField(default=0)
@@ -41,6 +41,9 @@ class Aberrant(Human):
 
     def get_update_url(self):
         return reverse("tc:characters:aberrant:update_aberrant", kwargs={"pk": self.pk})
+
+    def get_heading(self):
+        return "tc_aberrant_heading"
 
     def add_mega_attribute(self, attribute):
         if not attribute.startswith("mega_"):
@@ -679,7 +682,7 @@ class Power(Model):
     )
 
     def get_absolute_url(self):
-        return reverse("tc:characters:power", args=[str(self.id)])
+        return reverse("tc:characters:aberrant:power", args=[str(self.id)])
 
     def get_update_url(self):
         return reverse("tc:characters:aberrant:update_power", kwargs={"pk": self.pk})

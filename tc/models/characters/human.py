@@ -81,6 +81,9 @@ class Human(Model):
     def get_update_url(self):
         return reverse("tc:characters:human:update_human", kwargs={"pk": self.pk})
 
+    def get_heading(self):
+        return "tc_core_heading"
+
     def random_name(self, ethnicity=None):
         if ethnicity is not None:
             self.ethnicity = ethnicity
@@ -864,7 +867,7 @@ class TCPath(Model):
         ordering = ("name",)
 
     def get_absolute_url(self):
-        return reverse("tc:characters:path", args=[str(self.id)])
+        return reverse("tc:characters:human:path", args=[str(self.id)])
 
     def get_update_url(self):
         return reverse("tc:characters:human:update_path", kwargs={"pk": self.pk})
@@ -883,7 +886,7 @@ class Specialty(Model):
         return self.skill.replace("_", " ").title()
 
     def get_absolute_url(self):
-        return reverse("tc:characters:specialty", args=[str(self.id)])
+        return reverse("tc:characters:human:specialty", args=[str(self.id)])
 
     def get_update_url(self):
         return reverse("tc:characters:human:update_specialty", kwargs={"pk": self.pk})
@@ -901,7 +904,7 @@ class Trick(Model):
         ordering = ("name",)
 
     def get_absolute_url(self):
-        return reverse("tc:characters:trick", args=[str(self.id)])
+        return reverse("tc:characters:human:trick", args=[str(self.id)])
 
     def get_update_url(self):
         return reverse("tc:characters:human:update_trick", kwargs={"pk": self.pk})
@@ -919,7 +922,7 @@ class Edge(Model):
         ordering = ("name",)
 
     def get_absolute_url(self):
-        return reverse("tc:characters:edge", args=[str(self.id)])
+        return reverse("tc:characters:human:edge", args=[str(self.id)])
 
     def get_update_url(self):
         return reverse("tc:characters:human:update_edge", kwargs={"pk": self.pk})
@@ -1001,7 +1004,7 @@ class PathConnection(Model):
     path = models.ForeignKey(TCPath, blank=True, null=True, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
-        return reverse("tc:characters:pathconnection", args=[str(self.id)])
+        return reverse("tc:characters:human:pathconnection", args=[str(self.id)])
 
     def get_update_url(self):
         return reverse(

@@ -260,7 +260,7 @@ class TCGift(Model):
     prereqs = models.JSONField(default=list)
 
     def get_absolute_url(self):
-        return reverse("tc:characters:gift", args=[str(self.id)])
+        return reverse("tc:characters:talent:gift", args=[str(self.id)])
 
     def get_update_url(self):
         return reverse("tc:characters:talent:update_gift", kwargs={"pk": self.pk})
@@ -289,7 +289,7 @@ class MomentOfInspiration(Model):
     attributes = models.JSONField(default=list)
 
     def get_absolute_url(self):
-        return reverse("tc:characters:momentofinspiration", args=[str(self.id)])
+        return reverse("tc:characters:talent:momentofinspiration", args=[str(self.id)])
 
     def get_update_url(self):
         return reverse(
