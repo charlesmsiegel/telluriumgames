@@ -47,10 +47,15 @@ class GenericItemDetailView(View):
         "charm": mage.CharmDetailView,
         "artifact": mage.ArtifactDetailView,
         "talisman": mage.TalismanDetailView,
+        "weapon": human.WeaponDetailView,
+        "melee_weapon": human.MeleeWeaponDetailView,
+        "thrown_weapon": human.ThrownWeaponDetailView,
+        "ranged_weapon": human.RangedWeaponDetailView
     }
 
     def get(self, request, *args, **kwargs):
         item = WoDItem.objects.get(pk=kwargs["pk"])
+        print(item.type)
         if item.type in self.views:
             return self.views[item.type].as_view()(request, *args, **kwargs)
         return redirect("wod:items:index")

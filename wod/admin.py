@@ -35,7 +35,7 @@ from wod.models.characters.werewolf import (
     Tribe,
     Werewolf,
 )
-from wod.models.items.human import WoDItem
+from wod.models.items.human import WoDItem, Weapon, MeleeWeapon, RangedWeapon, ThrownWeapon
 from wod.models.items.mage import Grimoire, Library, Wonder
 from wod.models.items.werewolf import Fetish
 from wod.models.locations.human import City, Location
@@ -309,3 +309,8 @@ class FomorAdmin(admin.ModelAdmin):
 @admin.register(FomoriPower)
 class FomoriPowerAdmin(admin.ModelAdmin):
     list_display = ("name",)
+
+admin.site.register(Weapon)
+admin.site.register(RangedWeapon)
+admin.site.register(MeleeWeapon)
+admin.site.register(ThrownWeapon)

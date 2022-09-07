@@ -1,10 +1,5 @@
-{% extends "core/object.html" %}
-{% block contents %}
-    {% load dots %}
-    <div class="row">
-        <div class="col-sm">Name</div>
-        <div class="col-sm">{{ object.name }}</div>
-    </div>
+{% extends "wod/items/human/weapon/detail.html" %}
+{% block ranged_details %}
     <div class="row">
         <div class="col-sm">Range</div>
         <div class="col-sm">{{ object.range }}</div>
@@ -13,8 +8,4 @@
         <div class="col-sm">Clip</div>
         <div class="col-sm">{{ object.clip }}</div>
     </div>
-    <div class="row">
-        <div class="col-sm">Description</div>
-        <div class="col-sm">{{ object.description }}</div>
-    </div>
-{% endblock contents %}
+{% endblock ranged_details %}
