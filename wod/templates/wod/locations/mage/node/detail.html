@@ -1,6 +1,6 @@
 {% extends "core/object.html" %}
 {% block contents %}
-    <div class="col-sm mtas_heading">
+    <div class="col-sm {{ object.get_heading }}">
         <h1>{{ object.name }}</h1>
     </div>
     {% if object.parent != None %}
@@ -42,7 +42,7 @@
         <div class="col-sm">{{ object.tass_form }}</div>
     </div>
     {% if merits_and_flaws.count != 0 %}
-        <div class="col-sm mtas_heading">
+        <div class="col-sm {{ object.get_heading }}">
             <h2>Merits and Flaws</h2>
         </div>
         <div class="row">
@@ -51,7 +51,7 @@
             {% endfor %}
         </div>
     {% endif %}
-    <div class="col-sm mtas_heading">
+    <div class="col-sm {{ object.get_heading }}">
         <h2>Resonance</h2>
     </div>
     <div class="row">

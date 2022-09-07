@@ -1,7 +1,7 @@
 {% extends "wod/characters/werewolf/wtahuman/detail.html" %}
 {% block powers %}
     <div class="row">
-        <h2 class="col-sm wta_heading">Powers</h2>
+        <h2 class="col-sm {{ object.get_heading }}">Powers</h2>
     </div>
     {% for power in object.powers.all %}
         <div class="row">

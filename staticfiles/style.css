@@ -23,6 +23,16 @@
     src: url('../static/fonts/balthazarregular.ttf') format("truetype");
 }
 
+@font-face {
+    font-family: 'Kells';
+    src: url('../static/fonts/KellsFLF.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: 'OPTIProtea';
+    src: url('../static/fonts/OPTIProtea.otf') format("opentype");
+}
+
 .vtm_heading {
     font-family: "Delavan", serif;
 }
@@ -41,6 +51,10 @@
 
 .wto_heading {
     font-family: "MatrixTall", serif;
+}
+
+.wod_heading {
+    font-family: "OPTIProtea", serif;
 }
 
 .inlineforms {

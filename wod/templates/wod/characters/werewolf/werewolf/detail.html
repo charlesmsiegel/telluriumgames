@@ -2,7 +2,7 @@
 {% load dots %}
 {% block basics %}
     <div class="row">
-        <h2 class="col-sm wta_heading">Basics</h2>
+        <h2 class="col-sm {{ object.get_heading }}">Basics</h2>
     </div>
     <div class="row">
         <div class="col-sm">Name</div>
@@ -34,7 +34,7 @@
 {% endblock basics %}
 {% block advantages %}
     <div class="row">
-        <h2 class="col-sm wta_heading">Advantages</h2>
+        <h2 class="col-sm {{ object.get_heading }}">Advantages</h2>
     </div>
     <div class="row">
         <div class="col-sm">Willpower</div>
@@ -47,7 +47,7 @@
         </div>
     </div>
     <div class="row">
-        <h2 class="col-sm wta_heading">
+        <h2 class="col-sm {{ object.get_heading }}">
             Renown
         </h2>
     </div>
@@ -94,7 +94,7 @@
 {% endblock advantages %}
 {% block backgrounds %}
     <div class="row">
-        <h2 class="col-sm wta_heading">
+        <h2 class="col-sm {{ object.get_heading }}">
             Backgrounds
         </h2>
     </div>
@@ -181,7 +181,7 @@
 {% endblock backgrounds %}
 {% block powers %}
     <div class="row">
-        <h2 class="col-sm wta_heading">
+        <h2 class="col-sm {{ object.get_heading }}">
             Gifts
         </h2>
     </div>
@@ -195,7 +195,7 @@
         </div>
     {% endfor %}
     <div class="row">
-        <h2 class="col-sm wta_heading">
+        <h2 class="col-sm {{ object.get_heading }}">
             Rites
         </h2>
     </div>
@@ -205,7 +205,7 @@
         </div>
     {% endfor %}
     <div class="row">
-        <h2 class="col-sm wta_heading">
+        <h2 class="col-sm {{ object.get_heading }}">
             Fetishes
         </h2>
     </div>
@@ -217,7 +217,7 @@
 {% endblock powers %}
 {% block appearance %}
     <div class="row">
-        <h2 class="col-sm wta_heading">
+        <h2 class="col-sm {{ object.get_heading }}">
             Appearance
         </h2>
     </div>
@@ -308,7 +308,7 @@
 {% endblock appearance %}
 {% block history %}
     <div class="row">
-        <h2 class="col-sm wta_heading">
+        <h2 class="col-sm {{ object.get_heading }}">
             History
         </h2>
     </div>
@@ -359,7 +359,7 @@
 {% endblock history %}
 {% block advancement %}
     <div class="row">
-        <h2 class="col-sm wta_heading">
+        <h2 class="col-sm {{ object.get_heading }}">
             Experience
         </h2>
     </div>
@@ -378,7 +378,7 @@
         </div>
     </div>
     <div class="row">
-        <h2 class="col-sm wta_heading">
+        <h2 class="col-sm {{ object.get_heading }}">
             Renown Incidents
         </h2>
     </div>

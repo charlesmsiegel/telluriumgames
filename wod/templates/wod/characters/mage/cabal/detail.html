@@ -1,7 +1,7 @@
 {% extends "core/object.html" %}
 {% block contents %}
     <div class="row">
-        <div class="col-sm mtas_heading">
+        <div class="col-sm {{ object.get_heading }}">
             <h1>{{ object.name }}</h1>
         </div>
     </div>

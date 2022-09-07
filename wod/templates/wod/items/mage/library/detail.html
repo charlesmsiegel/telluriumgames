@@ -1,7 +1,7 @@
 {% extends "core/object.html" %}
 {% block contents %}
     <div class="row">
-        <h1 class="col-sm mtas_heading">{{ object.name }}</h1>
+        <h1 class="col-sm {{ object.get_heading }}">{{ object.name }}</h1>
     </div>
     <div class="row">
         <div class="col-sm">
@@ -15,7 +15,7 @@
 </div>
 </div>
 <div class="row">
-    <h2 class="col-sm mtas_heading">Books</h2>
+    <h2 class="col-sm {{ object.get_heading }}">Books</h2>
 </div>
 {% for book in object.books.all %}
     <div class="row">

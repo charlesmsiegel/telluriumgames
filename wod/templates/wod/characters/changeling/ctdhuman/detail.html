@@ -2,13 +2,13 @@
 {% block contents %}
     {% load dots %}
     <div class="row">
-        <div class="col-sm ctd_heading">
+        <div class="col-sm {{ object.get_heading }}">
             <h1>{{ object.name }}</h1>
         </div>
     </div>
     {% block basics %}
         <div class="row">
-            <h2 class="col-sm ctd_heading">Basics</h2>
+            <h2 class="col-sm {{ object.get_heading }}">Basics</h2>
         </div>
         <div class="row">
             <div class="col-sm">Name</div>
@@ -25,12 +25,12 @@
     {% endblock basics %}
     {% block attributes %}
         <div class="row">
-            <h2 class="col-sm ctd_heading">Attributes</h2>
+            <h2 class="col-sm {{ object.get_heading }}">Attributes</h2>
         </div>
         <div class="row">
-            <h3 class="col-sm ctd_heading">Physical</h3>
-            <h3 class="col-sm ctd_heading">Social</h3>
-            <h3 class="col-sm ctd_heading">Mental</h3>
+            <h3 class="col-sm {{ object.get_heading }}">Physical</h3>
+            <h3 class="col-sm {{ object.get_heading }}">Social</h3>
+            <h3 class="col-sm {{ object.get_heading }}">Mental</h3>
         </div>
         <div class="row">
             <div class="col-sm">
@@ -86,12 +86,12 @@
     {% endblock attributes %}
     {% block abilities %}
         <div class="row">
-            <h2 class="col-sm ctd_heading">Abilities</h2>
+            <h2 class="col-sm {{ object.get_heading }}">Abilities</h2>
         </div>
         <div class="row">
-            <h3 class="col-sm ctd_heading">Talents</h3>
-            <h3 class="col-sm ctd_heading">Skills</h3>
-            <h3 class="col-sm ctd_heading">Knowledges</h3>
+            <h3 class="col-sm {{ object.get_heading }}">Talents</h3>
+            <h3 class="col-sm {{ object.get_heading }}">Skills</h3>
+            <h3 class="col-sm {{ object.get_heading }}">Knowledges</h3>
         </div>
         <div class="row">
             <div class="col-sm">
@@ -324,7 +324,7 @@
     {% endblock abilities %}
     {% block advantages %}
         <div class="row">
-            <h2 class="col-sm ctd_heading">
+            <h2 class="col-sm {{ object.get_heading }}">
                 Advantages
             </h2>
         </div>
@@ -339,7 +339,7 @@
     {% endblock advantages %}
     {% block backgrounds %}
         <div class="row">
-            <h2 class="col-sm ctd_heading">
+            <h2 class="col-sm {{ object.get_heading }}">
                 Backgrounds
             </h2>
         </div>
@@ -424,7 +424,7 @@
     {% endblock powers %}
     {% block mfs %}
         <div class="row">
-            <h2 class="col-sm ctd_heading">
+            <h2 class="col-sm {{ object.get_heading }}">
                 Merits and Flaws
             </h2>
         </div>
@@ -438,7 +438,7 @@
     {% endblock mfs %}
     {% block languages %}
         <div class="row">
-            <h2 class="col-sm ctd_heading">
+            <h2 class="col-sm {{ object.get_heading }}">
                 Languages
             </h2>
         </div>
@@ -452,7 +452,7 @@
     {% endblock languages %}
     {% block appearance %}
         <div class="row">
-            <h2 class="col-sm ctd_heading">
+            <h2 class="col-sm {{ object.get_heading }}">
                 Appearance
             </h2>
         </div>
@@ -537,7 +537,7 @@
     {% endblock appearance %}
     {% block history %}
         <div class="row">
-            <h2 class="col-sm ctd_heading">
+            <h2 class="col-sm {{ object.get_heading }}">
                 History
             </h2>
         </div>
@@ -572,7 +572,7 @@
     {% endblock history %}
     {% block advancement %}
         <div class="row">
-            <h2 class="col-sm ctd_heading">
+            <h2 class="col-sm {{ object.get_heading }}">
                 Experience
             </h2>
         </div>

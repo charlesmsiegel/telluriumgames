@@ -3,7 +3,7 @@
 {% load resonance %}
 {% block basics %}
     <div class="row">
-        <h2 class="col-sm mtas_heading">Basics</h2>
+        <h2 class="col-sm {{ object.get_heading }}">Basics</h2>
     </div>
     <div class="row">
         <div class="col-sm">Name</div>
@@ -46,7 +46,7 @@
 {% endblock basics %}
 {% block advantages %}
     <div class="row">
-        <h2 class="col-sm mtas_heading">
+        <h2 class="col-sm {{ object.get_heading }}">
             Advantages
         </h2>
     </div>
@@ -91,7 +91,7 @@
 {% endblock advantages %}
 {% block backgrounds %}
     <div class="row">
-        <h2 class="col-sm mtas_heading">
+        <h2 class="col-sm {{ object.get_heading }}">
             Backgrounds
         </h2>
     </div>
@@ -373,7 +373,7 @@
 {% endblock backgrounds %}
 {% block powers %}
     <div class="row">
-        <h2 class="col-sm mtas_heading">
+        <h2 class="col-sm {{ object.get_heading }}">
             Spheres
         </h2>
     </div>
@@ -447,7 +447,7 @@
         </div>
     </div>
     <div class="row">
-        <h2 class="col-sm mtas_heading">
+        <h2 class="col-sm {{ object.get_heading }}">
             Rotes
         </h2>
     </div>
@@ -462,7 +462,7 @@
         </div>
     {% endfor %}
     <div class="row">
-        <h2 class="col-sm mtas_heading">
+        <h2 class="col-sm {{ object.get_heading }}">
             Resonance
         </h2>
     </div>
@@ -477,7 +477,7 @@
         {% endfor %}
     </div>
     <div class="row">
-        <h2 class="col-sm mtas_heading">
+        <h2 class="col-sm {{ object.get_heading }}">
             Focus
         </h2>
     </div>
@@ -517,7 +517,7 @@
 {% endblock powers %}
 {% block advancement %}
     <div class="row">
-        <h2 class="col-sm mtas_heading">
+        <h2 class="col-sm {{ object.get_heading }}">
             Experience
         </h2>
     </div>

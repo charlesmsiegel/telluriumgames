@@ -1,6 +1,6 @@
 {% extends "core/object.html" %}
 {% block contents %}
-    <div class="col-sm mtas_heading">
+    <div class="col-sm {{ object.get_heading }}">
         <h1>{{ object.name }}</h1>
     </div>
     <div class="row">
@@ -24,7 +24,7 @@
         <div class="col-sm"></div>
     </div>
     <div class="row">
-        <h3 class="col-sm mtas_heading">Leaders</h3>
+        <h3 class="col-sm {{ object.get_heading }}">Leaders</h3>
     </div>
     {% for leader in self.leaders.all %}
         <div class="row">
@@ -169,13 +169,13 @@
             {{ object.requisitions }}
         </div>
     </div>
-    <h2 class="col-sm mtas_heading">
+    <h2 class="col-sm {{ object.get_heading }}">
         Cabals
     </h2>
     {% for cabal in object.cabals.all %}
         <div class="row">
             <a class="col-sm" href={{ cabal.get_absolute_url }}>
-                <h3 class="mtas_heading">
+                <h3 class="{{ object.get_heading }}">
                     {{ cabal.name }}
                 </h3>
             </a>
@@ -188,7 +188,7 @@
             </div>
         {% endfor %}
     {% endfor %}
-    <h2 class="col-sm mtas_heading">
+    <h2 class="col-sm {{ object.get_heading }}">
         Nodes
     </h2>
     {% for node in object.nodes.all %}
@@ -196,7 +196,7 @@
             <a class="col-sm" href={{ node.get_absolute_url }}>{{ node.name }}</a>
         </div>
     {% endfor %}
-    <h2 class="col-sm mtas_heading">
+    <h2 class="col-sm {{ object.get_heading }}">
         <a href={{ object.library.get_absolute_url }}>Library</a>
     </h2>
     {% for book in object.library.books.all %}

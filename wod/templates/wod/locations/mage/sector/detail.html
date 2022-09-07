@@ -2,7 +2,7 @@
 {% block contents %}
     {% block name %}
         <div class="row">
-            <h2 class="col-sm mtas_heading">{{ object.name }}</h2>
+            <h2 class="col-sm {{ object.get_heading }}">{{ object.name }}</h2>
         </div>
     {% endblock name %}
     {% block parent %}
