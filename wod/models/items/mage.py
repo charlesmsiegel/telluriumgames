@@ -42,6 +42,9 @@ class Wonder(WoDItem):
     def get_update_url(self):
         return reverse("wod:items:mage:update_wonder", args=[str(self.id)])
 
+    def get_heading(self):
+        return "mtas_heading"
+
     def random_points(self):
         return 3 * (self.rank - 1) + random.randint(1, 3)
 

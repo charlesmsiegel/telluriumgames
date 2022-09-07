@@ -18,6 +18,9 @@ class FomoriPower(Model):
         return reverse(
             "wod:characters:werewolf:update_fomoripower", kwargs={"pk": self.pk}
         )
+        
+    def get_heading(self):
+        return "wta_heading"
 
 
 class Fomor(WtAHuman):

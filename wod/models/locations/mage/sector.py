@@ -24,3 +24,6 @@ class Sector(Location):
 
     def get_update_url(self):
         return reverse("wod:locations:mage:update_sector", args=[str(self.id)])
+
+    def get_heading(self):
+        return "mtas_heading"

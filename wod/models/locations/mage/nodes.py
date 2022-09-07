@@ -58,6 +58,9 @@ class Node(Location):
     def get_update_url(self):
         return reverse("wod:locations:mage:update_node", args=[str(self.id)])
 
+    def get_heading(self):
+        return "mtas_heading"
+
     def random_rank(self, rank=None):
         if rank is None:
             rank = random.randint(1, 5)
@@ -293,6 +296,9 @@ class NodeMeritFlaw(Model):
         return reverse(
             "wod:locations:mage:update_nodemeritflaw", kwargs={"pk": self.pk}
         )
+
+    def get_heading(self):
+        return "mtas_heading"
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)

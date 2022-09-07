@@ -130,6 +130,9 @@ class MtAHuman(Human):
 
     background_points = 7
 
+    def get_heading(self):
+        return "mtas_heading"
+
     def get_talents(self):
         tmp = super().get_talents()
         tmp.update(

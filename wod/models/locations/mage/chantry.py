@@ -132,6 +132,9 @@ class Chantry(Location):
     def get_update_url(self):
         return reverse("wod:locations:mage:update_chantry", args=[str(self.id)])
 
+    def get_heading(self):
+        return "mtas_heading"
+
     def random_name(self):
         options = []
         current = self.faction

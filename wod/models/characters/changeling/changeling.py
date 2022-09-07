@@ -22,6 +22,8 @@ class Kith(Model):
     def get_update_url(self):
         return reverse("wod:characters:changeling:update_kith", kwargs={"pk": self.pk})
 
+    def get_heading(self):
+        return "ctd_heading"
 
 class House(Model):
     type = "house"
@@ -42,6 +44,8 @@ class House(Model):
     def get_update_url(self):
         return reverse("wod:characters:changeling:update_house", kwargs={"pk": self.pk})
 
+    def get_heading(self):
+        return "ctd_heading"
 
 class CtDLegacy(Model):
     type = "legacy"
@@ -61,6 +65,8 @@ class CtDLegacy(Model):
             "wod:characters:changeling:update_legacy", kwargs={"pk": self.pk}
         )
 
+    def get_heading(self):
+        return "ctd_heading"
 
 class CtDHuman(Human):
     type = "ctd_human"
@@ -87,6 +93,9 @@ class CtDHuman(Human):
     retinue = models.IntegerField(default=0)
     title = models.IntegerField(default=0)
     treasure = models.IntegerField(default=0)
+
+    def get_heading(self):
+        return "ctd_heading"
 
     def get_talents(self):
         d = super().get_talents()

@@ -8,6 +8,9 @@ from .utils import PRIMARY_ABILITIES, weighted_random_faction
 class Cabal(Group):
     type = "cabal"
 
+    def get_heading(self):
+        return "mtas_heading"
+
     def random(
         self,
         num_chars=None,

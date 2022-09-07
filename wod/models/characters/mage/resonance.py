@@ -24,6 +24,9 @@ class Resonance(Model):
     def get_update_url(self):
         return reverse("wod:characters:mage:update_resonance", kwargs={"pk": self.pk})
 
+    def get_heading(self):
+        return "mtas_heading"
+
     def __str__(self):
         return self.name.title()
 
