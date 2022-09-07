@@ -1,11 +1,13 @@
 {% extends "core/object.html" %}
 {% block contents %}
     {% load dots %}
-    <div class="row">
-        <div class="col-sm {{ object.get_heading }}">
-            <h1>{{ object.name }}</h1>
+    {% block name %}
+        <div class="row">
+            <div class="col-sm {{ object.get_heading }}">
+                <h1>{{ object.name }}</h1>
+            </div>
         </div>
-    </div>
+    {% endblock name %}
     {% block basics %}
         <div class="row">
             <h2 class="col-sm {{ object.get_heading }}">Basics</h2>
@@ -23,8 +25,10 @@
             <a class="col-sm" href="{{ object.demeanor.get_absolute_url }}">{{ object.demeanor }}</a>
         </div>
         <div class="row">
+            <div class="col-sm"></div>
             <div class="col-sm">Concept</div>
             <div class="col-sm">{{ object.concept }}</div>
+            <div class="col-sm"></div>
         </div>
     {% endblock basics %}
     {% block attributes %}
