@@ -1,567 +1,215 @@
-{% extends "core/base.html" %}
-{% block title %}
-    {{ character.name }}
-{% endblock title %}
-{% block content %}
-    {% load dots %}
-    <div class="centertext container">
-        <div class="row">
-            <div class="col-sm tc_aberrant_heading">
-                <h1>{{ character.name }}</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm"></div>
-            <div class="col-sm">Name</div>
-            <div class="col-sm">{{ character.name }}</div>
-            <div class="col-sm"></div>
-        </div>
-        <div class="row">
-            <div class="col-sm"></div>
-            <div class="col-sm">Player</div>
-            <div class="col-sm">{{ character.owner.user.username }}</div>
-            <div class="col-sm"></div>
-        </div>
-        <div class="row">
-            <div class="col-sm"></div>
-            <div class="col-sm">Concept</div>
-            <div class="col-sm">{{ character.concept }}</div>
-            <div class="col-sm"></div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Origin Path</div>
-            <div class="col-sm">{{ origin_path.path.name| safe }}</div>
-            <div class="col-sm">{{ origin_path.connection.name }}</div>
-            <div class="col-sm dots">{{ origin_path.rating|dots }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Role Path</div>
-            <div class="col-sm">{{ role_path.path.name| safe }}</div>
-            <div class="col-sm">{{ role_path.connection.name }}</div>
-            <div class="col-sm dots">{{ role_path.rating|dots }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Society Path</div>
-            <div class="col-sm">{{ society_path.path.name| safe }}</div>
-            <div class="col-sm">{{ society_path.connection.name }}</div>
-            <div class="col-sm dots">{{ society_path.rating|dots }}</div>
-        </div>
-        {% for path in additional_paths %}
-            <div class="row">
-                <div class="col-sm"></div>
-                <div class="col-sm">
-                    {{ path.path.name }}
-                </div>
-                <div class="col-sm">
-                    {{ path.connection.name }}
-                </div>
-                <div class="col-sm dots">
-                    {{ path.rating|dots }}
-                </div>
-            </div>
-        {% endfor %}
-        <div class="row">
-            <h3 class="col-sm tc_aberrant_heading">
-                Aspirations
-            </h3>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                {{ character.short_term_aspiration_1 }}
-            </div>
-            <div class="col-sm">
-                {{ character.short_term_aspiration_2 }}
-            </div>
-            <div class="col-sm">
-                {{ character.long_term_aspiration }}
-            </div>
-        </div>
-        <div class="row">
-            <h3 class="col-sm tc_aberrant_heading">
-                Skills
-            </h3>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                Aim
-            </div>
-            <div class="col-sm">
-                {{ aim_spec }}
-            </div>
-            <div class="col-sm dots">
-                {{ character.aim|dots }}
-            </div>
-            <div class="col-sm">
-                Integrity
-            </div>
-            <div class="col-sm">
-                {{ integrity_spec }}
-            </div>
-            <div class="col-sm dots">
-                {{ character.integrity|dots }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                Athletics
-            </div>
-            <div class="col-sm">
-                {{ athletics_spec }}
-            </div>
-            <div class="col-sm dots">
-                {{ character.athletics| dots }}
-            </div>
-            <div class="col-sm">
-                Larceny
-            </div>
-            <div class="col-sm">
-                {{ larceny_spec }}
-            </div>
-            <div class="col-sm dots">
-                {{ character.larceny| dots }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                Close Combat
-            </div>
-            <div class="col-sm">
-                {{ close_combat_spec }}
-            </div>
-            <div class="col-sm dots">
-                {{ character.close_combat| dots }}
-            </div>
-            <div class="col-sm">
-                Medicine
-            </div>
-            <div class="col-sm">
-                {{ medicine_spec }}
-            </div>
-            <div class="col-sm dots">
-                {{ character.medicine| dots }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                Command
-            </div>
-            <div class="col-sm">
-                {{ command_spec }}
-            </div>
-            <div class="col-sm dots">
-                {{ character.command| dots }}
-            </div>
-            <div class="col-sm">
-                Persuasion
-            </div>
-            <div class="col-sm">
-                {{ persuasion_spec }}
-            </div>
-            <div class="col-sm dots">
-                {{ character.persuasion| dots }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                Culture
-            </div>
-            <div class="col-sm">
-                {{ culture_spec }}
-            </div>
-            <div class="col-sm dots">
-                {{ character.culture| dots }}
-            </div>
-            <div class="col-sm">
-                Pilot
-            </div>
-            <div class="col-sm">
-                {{ pilot_spec }}
-            </div>
-            <div class="col-sm dots">
-                {{ character.pilot| dots }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                Empathy
-            </div>
-            <div class="col-sm">
-                {{ empathy_spec }}
-            </div>
-            <div class="col-sm dots">
-                {{ character.empathy| dots }}
-            </div>
-            <div class="col-sm">
-                Science
-            </div>
-            <div class="col-sm">
-                {{ science_spec }}
-            </div>
-            <div class="col-sm dots">
-                {{ character.science| dots }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                Enigmas
-            </div>
-            <div class="col-sm">
-                {{ enigmas_spec }}
-            </div>
-            <div class="col-sm dots">
-                {{ character.enigmas| dots }}
-            </div>
-            <div class="col-sm">
-                Survival
-            </div>
-            <div class="col-sm">
-                {{ survival_spec }}
-            </div>
-            <div class="col-sm dots">
-                {{ character.survival| dots }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                Humanities
-            </div>
-            <div class="col-sm">
-                {{ humanities_spec }}
-            </div>
-            <div class="col-sm dots">
-                {{ character.humanities| dots }}
-            </div>
-            <div class="col-sm">
-                Technology
-            </div>
-            <div class="col-sm">
-                {{ technology_spec }}
-            </div>
-            <div class="col-sm dots">
-                {{ character.technology| dots }}
-            </div>
-        </div>
-        <div class="row">
-            <h3 class="col-sm tc_aberrant_heading">
-                Attributes
-            </h3>
-        </div>
-        <div class="row">
-            {% if character.approach == "FOR" %}
-                <div class="col-sm">
-                    ☑
-                </div>
-            {% else %}
-                <div class="col-sm">
-                    ☐
-                </div>
-            {% endif %}
-            <div class="col-sm">
-                Force
-            </div>
-            <div class="col-sm">
-                Intellect
-            </div>
-            <div class="col-sm dots">
-                {{ character.intellect| dots }}
-            </div>
-            <div class="col-sm">
-                Might
-            </div>
-            <div class="col-sm dots">
-                {{ character.might| dots }}
-            </div>
-            <div class="col-sm">
-                Presence
-            </div>
-            <div class="col-sm dots">
-                {{ character.presence| dots }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-            </div>
-            <div class="col-sm">
-            </div>
-            <div class="col-sm">
-                Mega Intellect
-            </div>
-            <div class="col-sm dots">
-                {{ character.mega_intellect| dots }}
-            </div>
-            <div class="col-sm">
-                Mega Might
-            </div>
-            <div class="col-sm dots">
-                {{ character.mega_might| dots }}
-            </div>
-            <div class="col-sm">
-                Mega Presence
-            </div>
-            <div class="col-sm dots">
-                {{ character.mega_presence| dots }}
-            </div>
-        </div>
-        <div class="row">
-            {% if character.approach == "FIN" %}
-                <div class="col-sm">
-                    ☑
-                </div>
-            {% else %}
-                <div class="col-sm">
-                    ☐
-                </div>
-            {% endif %}
-            <div class="col-sm">
-                Finesse
-            </div>
-            <div class="col-sm">
-                Cunning
-            </div>
-            <div class="col-sm dots">
-                {{ character.cunning| dots }}
-            </div>
-            <div class="col-sm">
-                Dexterity
-            </div>
-            <div class="col-sm dots">
-                {{ character.dexterity| dots }}
-            </div>
-            <div class="col-sm">
-                Manipulation
-            </div>
-            <div class="col-sm dots">
-                {{ character.manipulation| dots }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-            </div>
-            <div class="col-sm">
-            </div>
-            <div class="col-sm">
-                Mega Cunning
-            </div>
-            <div class="col-sm dots">
-                {{ character.mega_cunning| dots }}
-            </div>
-            <div class="col-sm">
-                Mega Dexterity
-            </div>
-            <div class="col-sm dots">
-                {{ character.mega_dexterity| dots }}
-            </div>
-            <div class="col-sm">
-                Mega Manipulation
-            </div>
-            <div class="col-sm dots">
-                {{ character.mega_manipulation| dots }}
-            </div>
-        </div>
-        <div class="row">
-            {% if character.approach == "RES" %}
-                <div class="col-sm">
-                    ☑
-                </div>
-            {% else %}
-                <div class="col-sm">
-                    ☐
-                </div>
-            {% endif %}
-            <div class="col-sm">
-                Resilience
-            </div>
-            <div class="col-sm">
-                Resolve
-            </div>
-            <div class="col-sm dots">
-                {{ character.resolve| dots }}
-            </div>
-            <div class="col-sm">
-                Stamina
-            </div>
-            <div class="col-sm dots">
-                {{ character.stamina| dots }}
-            </div>
-            <div class="col-sm">
-                Composure
-            </div>
-            <div class="col-sm dots">
-                {{ character.composure| dots }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-            </div>
-            <div class="col-sm">
-            </div>
-            <div class="col-sm">
-                Mega Resolve
-            </div>
-            <div class="col-sm dots">
-                {{ character.mega_resolve| dots }}
-            </div>
-            <div class="col-sm">
-                Mega Stamina
-            </div>
-            <div class="col-sm dots">
-                {{ character.mega_stamina| dots }}
-            </div>
-            <div class="col-sm">
-                Mega Composure
-            </div>
-            <div class="col-sm dots">
-                {{ character.mega_composure| dots }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                Quantum
-            </div>
-            <div class="col-sm dots">
-                {{ character.quantum| dots:10 }}
-            </div>
-            <div class="col-sm">
-                Quantum Points:
-            </div>
-            <div class="col-sm">
-                {{ character.quantum_points }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                Transcendence
-            </div>
-            <div class="col-sm dots">
-                {{ character.transcendence| dots:10 }}
-            </div>
-            <div class="col-sm">
-                Flux:
-            </div>
-            <div class="col-sm dots">
-                {{ character.flux| dots:10 }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                <h3 class="tc_aberrant_heading">
-                    Tricks
-                </h3>
-                {% for trick in character.tricks.all %}
-                    <br />
-                    {{ trick.name }}
-                {% endfor %}
-            </div>
-            <div class="col-sm">
-                <h3 class="tc_aberrant_heading">
-                    Edges
-                </h3>
-                {% for edge in edges %}
-                    <div class="row">
-                        <div class="col-sm">
-                            {{ edge.edge }}
-                        </div>
-                        <div class="col-sm dots">
-                            {{ edge.rating| dots:edge.edge.max_rating }}
-                        </div>
-                    </div>
-                {% endfor %}
-                {% for edge in self.enhanced_edges.all %}
-                    <div class="row">
-                        <div class="col-sm">
-                            {{ edge }}
-                        </div>
-                        <div class="col-sm">
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="col-sm">
-            <h3 class="tc_aberrant_heading">
-                Mega Edges
-            </h3>
-            {% for edge in mega_edges %}
-                <div class="row">
-                    <div class="col-sm">
-                        {{ edge.mega_edge }}
-                    </div>
-                    <div class="col-sm dots">
-                        {{ edge.rating| dots:edge.mega_edge.max_rating }}
-                    </div>
-                </div>
-            {% endfor %}
+{% extends "tc/characters/human/human/detail.html" %}
+{% load dots %}
+{% block attributes %}
+    <div class="row">
+        <h3 class="col-sm {{ object.get_heading }}">Attributes</h3>
+    </div>
+    <div class="row">
+        {% if object.approach == "FOR" %}
+            <div class="col-sm">☑</div>
+        {% else %}
+            <div class="col-sm">☐</div>
+        {% endif %}
+        <div class="col-sm">Force</div>
+        <div class="col-sm">Intellect</div>
+        <div class="col-sm dots">{{ object.intellect| dots }}</div>
+        <div class="col-sm">Might</div>
+        <div class="col-sm dots">{{ object.might| dots }}</div>
+        <div class="col-sm">Presence</div>
+        <div class="col-sm dots">{{ object.presence| dots }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm"></div>
+        <div class="col-sm">Mega Intellect</div>
+        <div class="col-sm dots">{{ object.mega_intellect| dots }}</div>
+        <div class="col-sm">Mega Might</div>
+        <div class="col-sm dots">{{ object.mega_might| dots }}</div>
+        <div class="col-sm">Mega Presence</div>
+        <div class="col-sm dots">{{ object.mega_presence| dots }}</div>
+    </div>
+    <div class="row">
+        {% if object.approach == "FIN" %}
+            <div class="col-sm">☑</div>
+        {% else %}
+            <div class="col-sm">☐</div>
+        {% endif %}
+        <div class="col-sm">Finesse</div>
+        <div class="col-sm">Cunning</div>
+        <div class="col-sm dots">{{ object.cunning| dots }}</div>
+        <div class="col-sm">Dexterity</div>
+        <div class="col-sm dots">{{ object.dexterity| dots }}</div>
+        <div class="col-sm">Manipulation</div>
+        <div class="col-sm dots">
+            {{ object.manipulation| dots }}
         </div>
     </div>
     <div class="row">
         <div class="col-sm">
-            <h3 class="tc_aberrant_heading">
+        </div>
+        <div class="col-sm">
+        </div>
+        <div class="col-sm">
+            Mega Cunning
+        </div>
+        <div class="col-sm dots">
+            {{ object.mega_cunning| dots }}
+        </div>
+        <div class="col-sm">
+            Mega Dexterity
+        </div>
+        <div class="col-sm dots">
+            {{ object.mega_dexterity| dots }}
+        </div>
+        <div class="col-sm">
+            Mega Manipulation
+        </div>
+        <div class="col-sm dots">
+            {{ object.mega_manipulation| dots }}
+        </div>
+    </div>
+    <div class="row">
+        {% if object.approach == "RES" %}
+            <div class="col-sm">
+                ☑
+            </div>
+        {% else %}
+            <div class="col-sm">
+                ☐
+            </div>
+        {% endif %}
+        <div class="col-sm">
+            Resilience
+        </div>
+        <div class="col-sm">
+            Resolve
+        </div>
+        <div class="col-sm dots">
+            {{ object.resolve| dots }}
+        </div>
+        <div class="col-sm">
+            Stamina
+        </div>
+        <div class="col-sm dots">
+            {{ object.stamina| dots }}
+        </div>
+        <div class="col-sm">
+            Composure
+        </div>
+        <div class="col-sm dots">
+            {{ object.composure| dots }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+        </div>
+        <div class="col-sm">
+        </div>
+        <div class="col-sm">
+            Mega Resolve
+        </div>
+        <div class="col-sm dots">
+            {{ object.mega_resolve| dots }}
+        </div>
+        <div class="col-sm">
+            Mega Stamina
+        </div>
+        <div class="col-sm dots">
+            {{ object.mega_stamina| dots }}
+        </div>
+        <div class="col-sm">
+            Mega Composure
+        </div>
+        <div class="col-sm dots">
+            {{ object.mega_composure| dots }}
+        </div>
+    </div>
+{% endblock attributes %}
+{% block powers %}
+    <div class="row">
+        <div class="col-sm">
+            Quantum
+        </div>
+        <div class="col-sm dots">
+            {{ object.quantum| dots:10 }}
+        </div>
+        <div class="col-sm">
+            Quantum Points
+        </div>
+        <div class="col-sm">
+            {{ object.quantum_points }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            Transcendence
+        </div>
+        <div class="col-sm dots">
+            {{ object.transcendence| dots:10 }}
+        </div>
+        <div class="col-sm">
+            Flux
+        </div>
+        <div class="col-sm dots">
+            {{ object.flux| dots:10 }}
+        </div>
+    </div>
+    <div class="col-sm">
+        <h3 class="{{ object.get_heading }}">
+            Mega Edges
+        </h3>
+        {% for edge in mega_edges %}
+            <div class="row">
+                <a class="col-sm" href="{{ edge.mega_edge.get_absolute_url }}">{{ edge.mega_edge }}</a>
+                <div class="col-sm dots">
+                    {{ edge.rating| dots:edge.mega_edge.max_rating }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <h3 class="{{ object.get_heading }}">
                 Transformations
             </h3>
             {% for transformation in self.transformations.all %}
                 <br />
-                {{ transformation }}
+                <a href="{{ transformation.get_absolute_url }}">{{ transformation }}</a>
             {% endfor %}
         </div>
-        <div class="col-sm">
-            <h3 class="tc_aberrant_heading">
-                Injury Conditions
-            </h3>
-            Bruised {{ character.bruised_levels }}, Injured {{ character.injured_levels }}, Maimed {{ character.maimed_levels }}
-        </div>
     </div>
-    {% comment %} </div> {% endcomment %}
     <div class="row">
-        <h3 class="col-sm tc_aberrant_heading">
+        <h3 class="col-sm {{ object.get_heading }}">
             Quantum Powers
         </h3>
     </div>
     {% for power in powers %}
-        <div class="row">
-            <div class="col-sm">
-            </div>
-            <div class="col-sm">
-                {{ power.power.name }}
-            </div>
-            <div class="col-sm dots">
-                {{ power.rating| dots }}
-            </div>
-            <div class="col-sm">
-            </div>
-        </div>
-        {% for tag in tags %}
-            {% if tag.power == power %}
-                <div class="row">
-                    <div class="col-sm">
-                    </div>
-                    <div class="col-sm">
-                    </div>
-                    <div class="col-sm">
-                        {{ tag.tag.name }}: {{ tag.rating }}
-                    </div>
-                    <div class="col-sm">
-                    </div>
+        {% if power.rating != 0 %}
+            <div class="row">
+                <div class="col-sm">
                 </div>
-            {% endif %}
-        {% endfor %}
+                <a class="col-sm" href="{{ power.power.get_absolute_url }}">{{ power.power.name }}</a>
+                <div class="col-sm dots">
+                    {{ power.rating| dots }}
+                </div>
+                <div class="col-sm">
+                </div>
+            </div>
+            {% for tag in tags %}
+                {% if tag.power == power %}
+                    <div class="row">
+                        <div class="col-sm">
+                        </div>
+                        <div class="col-sm">
+                        </div>
+                        <a class="col-sm" href="{{ tag.tag.get_absolute_url }}">
+                            {{ tag.tag.name }}: {{ tag.rating }}
+                        </a>
+                        <div class="col-sm">
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     {% endfor %}
-    <div class="row">
-        <div class="col-sm">
-            Defense
-        </div>
-        <div class="col-sm">
-            {{ character.defense }}
-        </div>
-        <div class="col-sm">
-            XP
-        </div>
-        <div class="col-sm">
-            {{ character.xp }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm">
-            {{ character.spent_xp }}
-        </div>
-    </div>
-{% endblock content %}
+{% endblock powers %}

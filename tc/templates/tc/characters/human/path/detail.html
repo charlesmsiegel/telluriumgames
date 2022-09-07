@@ -1,33 +1,27 @@
-{% extends "core/base.html" %}
-{% block title %}
-    {{ object.name| safe }}
-{% endblock title %}
-{% block content %}
-    {% load dots %}
-    <div class="centertext container">
-        <div class="row">
-            <div class="col-sm">Name</div>
-            <div class="col-sm">{{ object.name }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Type</div>
-            <div class="col-sm">{{ object.get_type_display }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Skills</div>
-            <div class="col-sm">{{ object.skills }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Edges</div>
-            <div class="col-sm">{{ object.edges }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Gift Keywords</div>
-            <div class="col-sm">{{ object.gift_keywords }}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm">Description</div>
-            <div class="col-sm">{{ object.description }}</div>
-        </div>
+{% extends "core/object.html" %}
+{% block contents %}
+    <div class="row">
+        <div class="col-sm">Name</div>
+        <div class="col-sm">{{ object.name }}</div>
     </div>
-{% endblock content %}
+    <div class="row">
+        <div class="col-sm">Type</div>
+        <div class="col-sm">{{ object.get_type_display }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm">Skills</div>
+        <div class="col-sm">{{ object.skills }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm">Edges</div>
+        <div class="col-sm">{{ object.edges }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm">Gift Keywords</div>
+        <div class="col-sm">{{ object.gift_keywords }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm">Description</div>
+        <div class="col-sm">{{ object.description }}</div>
+    </div>
+{% endblock contents %}

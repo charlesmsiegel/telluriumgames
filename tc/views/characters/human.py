@@ -21,7 +21,7 @@ class HumanDetailView(View):
 
     def get_context(self, pk):
         char = Human.objects.get(id=pk)
-        context = {"character": char}
+        context = {"object": char}
         context["origin_path"] = PathRating.objects.filter(
             character=char, path__type="origin"
         ).first()
@@ -43,7 +43,7 @@ class HumanDetailView(View):
         ]
         for skill in char.get_skills():
             context[skill + "_spec"] = ", ".join(
-                [x.name for x in char.specialties.filter(skill=skill)]
+                [f"<a href=\"{x.get_absolute_url()}\">{x.name}</a>" for x in char.specialties.filter(skill=skill)]
             )
         context["edges"] = EdgeRating.objects.filter(character=char)
         return context
