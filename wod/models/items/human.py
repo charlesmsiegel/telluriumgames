@@ -15,6 +15,9 @@ class WoDItem(Model):
     def get_update_url(self):
         return reverse("wod:items:human:update_item", args=[str(self.id)])
 
+    def get_heading(self):
+        return "wod_heading"
+
     def random_name(self, name=None):
         if self.has_name():
             return False

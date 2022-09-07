@@ -1,8 +1,5 @@
-{% extends "core/object.html" %}
-{% block contents %}
-    <div class="col-sm mtas_heading">
-        <h1>{{ object.name }}</h1>
-    </div>
+{% extends "wod/locations/human/location/detail.html" %}
+{% block parent %}
     {% if object.parent != None %}
         <div class="row">
             <div class="col-sm">Parent</div>
@@ -17,21 +14,15 @@
             {% endfor %}
         </div>
     {% endif %}
+{% endblock parent %}
+{% block other %}
     <div class="row">
         <div class="col-sm">Rank</div>
         <div class="col-sm">{{ object.rank }}</div>
         <div class="col-sm">Size</div>
         <div class="col-sm">{{ object.get_size_display }}</div>
-        <div class="col-sm">Reality Zone</div>
-        <div class="col-sm">{{ object.reality_zone }}</div>
-    </div>
-    <div class="row">
-        <div class="col-sm">Gauntlet</div>
-        <div class="col-sm">{{ object.gauntlet }}</div>
-        <div class="col-sm">Shroud</div>
-        <div class="col-sm">{{ object.shroud }}</div>
-        <div class="col-sm">Dimension Barrier</div>
-        <div class="col-sm">{{ object.dimension_barrier }}</div>
+        <div class="col-sm"></div>
+        <div class="col-sm"></div>
     </div>
     <div class="row">
         <div class="col-sm">Quintessence per week</div>
@@ -42,7 +33,7 @@
         <div class="col-sm">{{ object.tass_form }}</div>
     </div>
     {% if merits_and_flaws.count != 0 %}
-        <div class="col-sm mtas_heading">
+        <div class="col-sm {{ object.get_heading }}">
             <h2>Merits and Flaws</h2>
         </div>
         <div class="row">
@@ -51,7 +42,7 @@
             {% endfor %}
         </div>
     {% endif %}
-    <div class="col-sm mtas_heading">
+    <div class="col-sm {{ object.get_heading }}">
         <h2>Resonance</h2>
     </div>
     <div class="row">
@@ -59,4 +50,4 @@
             <a class="col-sm" href={{ res.resonance.get_absolute_url }}>{{ res.resonance }}: {{ res.rating }}</a>
         {% endfor %}
     </div>
-{% endblock contents %}
+{% endblock other %}

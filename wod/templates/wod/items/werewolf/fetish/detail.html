@@ -1,14 +1,7 @@
-{% extends "core/object.html" %}
-{% block contents %}
-    {% load dots %}
-    <div class="row">
-        <div class="col-sm">Name</div>
-        <div class="col-sm">{{ object.name }}</div>
-    </div>
-    <div class="row">
-        <div class="col-sm">Rank</div>
-        <div class="col-sm">{{ object.rank }}</div>
-    </div>
+{% extends "wod/items/mage/wonder/detail.html" %}
+{% block resonance %}
+{% endblock resonance %}
+{% block powers %}
     <div class="row">
         <div class="col-sm">Gnosis</div>
         <div class="col-sm">{{ object.gnosis }}</div>
@@ -17,8 +10,4 @@
         <div class="col-sm">Spirit</div>
         <div class="col-sm">{{ object.spirit }}</div>
     </div>
-    <div class="row">
-        <div class="col-sm">Description</div>
-        <div class="col-sm">{{ object.description }}</div>
-    </div>
-{% endblock contents %}
+{% endblock powers %}

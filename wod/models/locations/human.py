@@ -28,6 +28,9 @@ class Location(Model):
     def get_update_url(self):
         return reverse("wod:locations:human:update_location", args=[str(self.id)])
 
+    def get_heading(self):
+        return "wod_heading"
+
 
 class City(Location):
     type = "city"
@@ -45,3 +48,6 @@ class City(Location):
 
     def get_update_url(self):
         return reverse("wod:locations:human:update_city", args=[str(self.id)])
+
+    def get_heading(self):
+        return "wod_heading"

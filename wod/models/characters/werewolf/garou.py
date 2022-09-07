@@ -26,6 +26,9 @@ class Tribe(Model):
     def get_update_url(self):
         return reverse("wod:characters:werewolf:update_tribe", kwargs={"pk": self.pk})
 
+    def get_heading(self):
+        return "wta_heading"
+    
     def camp_list(self):
         return ", ".join(
             [
@@ -92,6 +95,8 @@ class Camp(Model):
     def get_update_url(self):
         return reverse("wod:characters:werewolf:update_camp", kwargs={"pk": self.pk})
 
+    def get_heading(self):
+        return "wta_heading"
 
 class Gift(Model):
     type = "gift"
@@ -105,6 +110,8 @@ class Gift(Model):
     def get_update_url(self):
         return reverse("wod:characters:werewolf:update_gift", kwargs={"pk": self.pk})
 
+    def get_heading(self):
+        return "wta_heading"
 
 class Rite(Model):
     type = "rite"
@@ -118,6 +125,8 @@ class Rite(Model):
     def get_update_url(self):
         return reverse("wod:characters:werewolf:update_rite", kwargs={"pk": self.pk})
 
+    def get_heading(self):
+        return "wta_heading"
 
 class Werewolf(WtAHuman):
     type = "garou"
@@ -845,6 +854,9 @@ class Pack(Group):
     def get_update_url(self):
         return reverse("wod:characters:werewolf:update_pack", kwargs={"pk": self.pk})
 
+    def get_heading(self):
+        return "wta_heading"
+    
     def random(self, num_chars=None, new_characters=True, freebies=15, xp=0, user=None):
         super().random(
             num_chars=num_chars,
@@ -893,6 +905,9 @@ class RenownIncident(Model):
         return reverse(
             "wod:characters:werewolf:update_renownincident", kwargs={"pk": self.pk}
         )
+        
+    def get_heading(self):
+        return "wta_heading"
 
 
 class BattleScar(Model):
@@ -907,3 +922,6 @@ class BattleScar(Model):
         return reverse(
             "wod:characters:werewolf:update_battlescar", kwargs={"pk": self.pk}
         )
+        
+    def get_heading(self):
+        return "wta_heading"

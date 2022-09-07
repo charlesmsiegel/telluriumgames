@@ -18,40 +18,40 @@
         <div class="col-sm">{{ object.description }}</div>
     </div>
     <div class="row">
-        <h2 class="col-sm wta_heading">Gifts</h2>
+        <h2 class="col-sm {{ object.get_heading }}">Gifts</h2>
     </div>
     <div class="row">
-        <h3 class="col-sm wta_heading">Level 1</h3>
+        <h3 class="col-sm {{ object.get_heading }}">Level 1</h3>
     </div>
     <div class="row">
         {% for gift in object.gifts_level_1 %}<div class="col-sm">{{ gift|safe }}</div>{% endfor %}
     </div>
     <div class="row">
-        <h3 class="col-sm wta_heading">Level 2</h3>
+        <h3 class="col-sm {{ object.get_heading }}">Level 2</h3>
     </div>
     <div class="row">
         {% for gift in object.gifts_level_2 %}<div class="col-sm">{{ gift|safe }}</div>{% endfor %}
     </div>
     <div class="row">
-        <h3 class="col-sm wta_heading">Level 3</h3>
+        <h3 class="col-sm {{ object.get_heading }}">Level 3</h3>
     </div>
     <div class="row">
         {% for gift in object.gifts_level_3 %}<div class="col-sm">{{ gift|safe }}</div>{% endfor %}
     </div>
     <div class="row">
-        <h3 class="col-sm wta_heading">Level 4</h3>
+        <h3 class="col-sm {{ object.get_heading }}">Level 4</h3>
     </div>
     <div class="row">
         {% for gift in object.gifts_level_4 %}<div class="col-sm">{{ gift|safe }}</div>{% endfor %}
     </div>
     <div class="row">
-        <h3 class="col-sm wta_heading">Level 5</h3>
+        <h3 class="col-sm {{ object.get_heading }}">Level 5</h3>
     </div>
     <div class="row">
         {% for gift in object.gifts_level_5 %}<div class="col-sm">{{ gift|safe }}</div>{% endfor %}
     </div>
     <div class="row">
-        <h3 class="col-sm wta_heading">Level 6</h3>
+        <h3 class="col-sm {{ object.get_heading }}">Level 6</h3>
     </div>
     <div class="row">
         {% for gift in object.gifts_level_6 %}<div class="col-sm">{{ gift|safe }}</div>{% endfor %}

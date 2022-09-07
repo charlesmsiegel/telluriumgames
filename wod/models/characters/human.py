@@ -21,6 +21,9 @@ class Archetype(Model):
 
     def get_update_url(self):
         return reverse("wod:characters:human:update_archetype", kwargs={"pk": self.pk})
+    
+    def get_heading(self):
+        return "wod_heading"
 
 
 class WoDSpecialty(Model):
@@ -43,6 +46,9 @@ class WoDSpecialty(Model):
 
     def __str__(self):
         return f"{self.name} ({self.display_stat()})"
+    
+    def get_heading(self):
+        return "wod_heading"
 
 
 class MeritFlaw(Model):
@@ -61,6 +67,9 @@ class MeritFlaw(Model):
 
     def get_update_url(self):
         return reverse("wod:characters:human:update_meritflaw", kwargs={"pk": self.pk})
+
+    def get_heading(self):
+        return "wod_heading"
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)
@@ -92,6 +101,9 @@ class Character(Model):
 
     def get_update_url(self):
         return reverse("wod:characters:human:update_character", kwargs={"pk": self.pk})
+
+    def get_heading(self):
+        return "wod_heading"
 
     def has_concept(self):
         return self.concept != ""
@@ -201,6 +213,9 @@ class Human(Character):
 
     def get_update_url(self):
         return reverse("wod:characters:human:update_human", kwargs={"pk": self.pk})
+
+    def get_heading(self):
+        return "wod_heading"
 
     def random_name(self, ethnicity=None):
         if ethnicity is not None:
@@ -995,6 +1010,9 @@ class Group(Model):
     def get_update_url(self):
         return reverse("wod:characters:human:update_group", kwargs={"pk": self.pk})
 
+    def get_heading(self):
+        return "wod_heading"
+
     def random_name(self):
         self.name = f"Random Group {Group.objects.count()}"
         return True
@@ -1056,3 +1074,6 @@ class Derangement(Model):
         return reverse(
             "wod:characters:human:update_derangement", kwargs={"pk": self.pk}
         )
+
+    def get_heading(self):
+        return "wod_heading"

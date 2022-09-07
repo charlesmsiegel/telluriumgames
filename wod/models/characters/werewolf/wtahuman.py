@@ -31,6 +31,9 @@ class WtAHuman(Human):
     spirit_heritage = models.IntegerField(default=0)
     totem = models.IntegerField(default=0)
 
+    def get_heading(self):
+        return "wta_heading"
+
     def get_backgrounds(self):
         tmp = super().get_backgrounds()
         tmp.update(

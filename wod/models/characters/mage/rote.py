@@ -42,6 +42,9 @@ class Effect(Model):
     def get_update_url(self):
         return reverse("wod:characters:mage:update_effect", kwargs={"pk": self.pk})
 
+    def get_heading(self):
+        return "mtas_heading"
+
     def save(self, *args, **kwargs):
         self.rote_cost = self.cost()
         self.max_sphere = max(

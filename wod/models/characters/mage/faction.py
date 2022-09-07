@@ -25,6 +25,9 @@ class MageFaction(Model):
     def get_update_url(self):
         return reverse("wod:characters:mage:update_magefaction", kwargs={"pk": self.pk})
 
+    def get_heading(self):
+        return "mtas_heading"
+    
     def get_all_paradigms(self):
         factions = [self]
         while factions[-1].parent is not None:

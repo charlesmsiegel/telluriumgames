@@ -6,6 +6,9 @@ from wod.models.characters.human import Group
 class Motley(Group):
     type = "motley"
 
+    def get_heading(self):
+        return "ctd_heading"
+
     def random(
         self,
         num_chars=None,

@@ -14,6 +14,8 @@ class Instrument(Model):
     def get_update_url(self):
         return reverse("wod:characters:mage:update_instrument", kwargs={"pk": self.pk})
 
+    def get_heading(self):
+        return "mtas_heading"
 
 class Practice(Model):
     type = "practice"
@@ -27,6 +29,8 @@ class Practice(Model):
     def get_update_url(self):
         return reverse("wod:characters:mage:update_practice", kwargs={"pk": self.pk})
 
+    def get_heading(self):
+        return "mtas_heading"
 
 class Paradigm(Model):
     type = "paradigm"
@@ -38,3 +42,6 @@ class Paradigm(Model):
 
     def get_update_url(self):
         return reverse("wod:characters:mage:update_paradigm", kwargs={"pk": self.pk})
+
+    def get_heading(self):
+        return "mtas_heading"

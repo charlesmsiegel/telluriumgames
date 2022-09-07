@@ -18,6 +18,9 @@ class Fetish(Wonder):
     def get_update_url(self):
         return reverse("wod:items:werewolf:update_fetish", args=[str(self.id)])
 
+    def get_heading(self):
+        return "wta_heading"
+
     def save(self, *args, **kwargs):
         self.background_cost = self.rank
         return super().save(*args, **kwargs)
