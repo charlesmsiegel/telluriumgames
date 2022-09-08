@@ -338,6 +338,8 @@ class Grimoire(Wonder):
                 paradigms = self.faction.get_all_paradigms()
             else:
                 paradigms = Paradigm.objects.all()
+            if paradigms.count() == 0:
+                paradigms = Paradigm.objects.all()
             num_paradigms = 1
             while (
                 random.random() < 0.1 and num_paradigms < paradigms.distinct().count()
@@ -355,6 +357,8 @@ class Grimoire(Wonder):
             if paradigms is not None:
                 for paradigm in paradigms:
                     practices |= paradigm.practices.all()
+            if practices.count() == 0:
+                practices = Practice.objects.all()
             num_practices = 1
             while (
                 random.random() < 0.25 and num_practices < practices.distinct().count()
@@ -370,6 +374,8 @@ class Grimoire(Wonder):
                 for practice in practices:
                     instruments |= practice.instruments.all()
             else:
+                instruments = Instrument.objects.all()
+            if instruments.count() == 0:
                 instruments = Instrument.objects.all()
             num_instruments = 1
             while (
