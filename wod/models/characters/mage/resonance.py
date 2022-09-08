@@ -29,6 +29,21 @@ class Resonance(Model):
 
     def __str__(self):
         return self.name.title()
+    
+    def associated_spheres(self):
+        all_spheres = {
+            "correspondence": self.correspondence,
+            "time": self.time,
+            "spirit": self.spirit,
+            "matter": self.matter,
+            "life": self.life,
+            "forces": self.forces,
+            "entropy": self.entropy,
+            "mind": self.mind,
+            "prime": self.prime,
+        }
+        assoc_spheres = [k.title() for k, v in all_spheres.items() if v]
+        return ", ".join(assoc_spheres)
 
 
 class ResRating(models.Model):
