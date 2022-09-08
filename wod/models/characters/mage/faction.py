@@ -27,7 +27,7 @@ class MageFaction(Model):
 
     def get_heading(self):
         return "mtas_heading"
-    
+
     def get_all_paradigms(self):
         factions = [self]
         while factions[-1].parent is not None:

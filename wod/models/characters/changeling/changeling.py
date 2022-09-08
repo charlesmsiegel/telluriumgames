@@ -25,6 +25,7 @@ class Kith(Model):
     def get_heading(self):
         return "ctd_heading"
 
+
 class House(Model):
     type = "house"
 
@@ -47,6 +48,7 @@ class House(Model):
     def get_heading(self):
         return "ctd_heading"
 
+
 class CtDLegacy(Model):
     type = "legacy"
 
@@ -67,6 +69,7 @@ class CtDLegacy(Model):
 
     def get_heading(self):
         return "ctd_heading"
+
 
 class CtDHuman(Human):
     type = "ctd_human"

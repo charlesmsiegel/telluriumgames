@@ -32,7 +32,7 @@ class Caern(Location):
 
     def get_heading(self):
         return "wta_heading"
-    
+
     def save(self, *args, **kwargs):
         if "gauntlet" not in kwargs:
             if self.rank < 3:

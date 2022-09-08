@@ -50,7 +50,7 @@ class GenericItemDetailView(View):
         "weapon": human.WeaponDetailView,
         "melee_weapon": human.MeleeWeaponDetailView,
         "thrown_weapon": human.ThrownWeaponDetailView,
-        "ranged_weapon": human.RangedWeaponDetailView
+        "ranged_weapon": human.RangedWeaponDetailView,
     }
 
     def get(self, request, *args, **kwargs):

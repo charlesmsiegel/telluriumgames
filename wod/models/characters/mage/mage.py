@@ -42,7 +42,7 @@ class Rote(Model):
 
     def get_heading(self):
         return "mtas_heading"
-    
+
     def random(self):
         self.update_status("Ran")
         self.name = f"{self.effect.name} Rote {Rote.objects.filter(effect=self.effect).count() + 1}"

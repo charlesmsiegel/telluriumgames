@@ -21,7 +21,7 @@ class Archetype(Model):
 
     def get_update_url(self):
         return reverse("wod:characters:human:update_archetype", kwargs={"pk": self.pk})
-    
+
     def get_heading(self):
         return "wod_heading"
 
@@ -46,7 +46,7 @@ class WoDSpecialty(Model):
 
     def __str__(self):
         return f"{self.name} ({self.display_stat()})"
-    
+
     def get_heading(self):
         return "wod_heading"
 

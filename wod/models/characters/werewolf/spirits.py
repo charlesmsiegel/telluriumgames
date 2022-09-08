@@ -17,6 +17,7 @@ class SpiritCharm(Model):
     def get_heading(self):
         return "wta_heading"
 
+
 class SpiritCharacter(Character):
     type = "spirit_character"
 
@@ -32,6 +33,7 @@ class SpiritCharacter(Character):
 
     def get_heading(self):
         return "wta_heading"
+
 
 class Totem(Model):
     type = "totem"

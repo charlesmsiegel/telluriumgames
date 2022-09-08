@@ -17,6 +17,7 @@ class Instrument(Model):
     def get_heading(self):
         return "mtas_heading"
 
+
 class Practice(Model):
     type = "practice"
 
@@ -31,6 +32,7 @@ class Practice(Model):
 
     def get_heading(self):
         return "mtas_heading"
+
 
 class Paradigm(Model):
     type = "paradigm"
