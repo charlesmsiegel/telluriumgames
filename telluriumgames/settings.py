@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 import channels
@@ -175,3 +176,6 @@ TINYMCE_DEFAULT_CONFIG = {
     "menubar": True,
     "statusbar": True,
 }
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"

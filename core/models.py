@@ -85,6 +85,14 @@ class BookReference(models.Model):
         return f"<i>{self.book}</i> p. {self.page}"
 
 
+def filepath(instance, filename):
+    s = str(instance.__class__).split(" ")[-1][:-1][1:-1]
+    s = "/".join([x for x in s.split(".") if x != "models"])
+    s += "/" + instance.name
+    s += "." + filename.split(".")[-1]
+    return s
+
+
 class Model(PolymorphicModel):
     type = "model"
 
@@ -102,7 +110,7 @@ class Model(PolymorphicModel):
     chronicle = models.ForeignKey(
         Chronicle, blank=True, null=True, on_delete=models.CASCADE
     )
-    image = models.ImageField(upload_to="uploads/", blank=True)
+    image = models.ImageField(upload_to=filepath, blank=True, null=True)
 
     class Meta:
         abstract = True

@@ -7,11 +7,19 @@
     <div class="centertext container">
         {% block references %}
             {% for reference in object.sources.all %}
-            <div class="row">
-                <div class="col-sm">{{ reference|safe }}</div>
-            </div>
+                <div class="row">
+                    <div class="col-sm">{{ reference|safe }}</div>
+                </div>
             {% endfor %}
         {% endblock references %}
+        {% block image %}
+            {% if object.image %}
+                <img src="{{ object.image.url }}"
+                     width=300
+                     height="{{ image.height }}"
+                     alt="image of {{ object.name }}"/>
+            {% endif %}
+        {% endblock image %}
         {% block contents %}
         {% endblock contents %}
         {% block update %}
