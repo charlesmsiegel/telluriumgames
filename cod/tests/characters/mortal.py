@@ -10,7 +10,7 @@ from cod.models.characters.mortal import (
     Mortal,
 )
 
-NUM_STATUSES = 6
+NUM_STATUSES = 7
 
 # Create your tests here.
 class TestMortal(TestCase):

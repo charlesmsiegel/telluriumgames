@@ -14,7 +14,7 @@ from tc.models.characters.human import (
 )
 from tc.models.characters.talent import Talent
 
-NUM_STATUSES = 6
+NUM_STATUSES = 7
 
 # Create your tests here.
 class TestPath(TestCase):
