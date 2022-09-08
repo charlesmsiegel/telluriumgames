@@ -217,6 +217,33 @@ class Human(Character):
     def get_heading(self):
         return "wod_heading"
 
+    def strength_specialty(self):
+        return self.specialties.filter(stat="strength").first()
+
+    def dexterity_specialty(self):
+        return self.specialties.filter(stat="dexterity").first()
+
+    def stamina_specialty(self):
+        return self.specialties.filter(stat="stamina").first()
+
+    def charisma_specialty(self):
+        return self.specialties.filter(stat="charisma").first()
+
+    def manipulation_specialty(self):
+        return self.specialties.filter(stat="manipulation").first()
+
+    def appearance_specialty(self):
+        return self.specialties.filter(stat="appearance").first()
+
+    def perception_specialty(self):
+        return self.specialties.filter(stat="perception").first()
+
+    def intelligence_specialty(self):
+        return self.specialties.filter(stat="intelligence").first()
+
+    def wits_specialty(self):
+        return self.specialties.filter(stat="wits").first()
+
     def random_name(self, ethnicity=None):
         if ethnicity is not None:
             self.ethnicity = ethnicity
@@ -477,10 +504,13 @@ class Human(Character):
         return self.add_specialty(random.choice(options))
 
     def random_specialties(self):
+        need_specialty = []
         for attribute in self.filter_attributes(minimum=4):
-            self.specialties.add(random.choice(self.filter_specialties(stat=attribute)))
+            if attribute not in need_specialty:
+                need_specialty.append(attribute)
         for ability in self.filter_abilities(minimum=4):
-            self.specialties.add(random.choice(self.filter_specialties(stat=ability)))
+            if ability not in need_specialty:
+                need_specialty.append(ability)
         for ability in [
             x
             for x in self.filter_abilities(minimum=1)
@@ -499,7 +529,10 @@ class Human(Character):
                 "science",
             ]
         ]:
-            self.specialties.add(random.choice(self.filter_specialties(stat=ability)))
+            if ability not in need_specialty:
+                need_specialty.append(ability)
+        for stat in need_specialty:
+            self.specialties.add(random.choice(self.filter_specialties(stat=stat)))
 
     def get_backgrounds(self):
         return {
