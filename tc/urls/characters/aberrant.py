@@ -9,7 +9,7 @@ urls = [
         name="create_aberrant",
     ),
     path(
-        "aberrant/update/",
+        "aberrant/update/<pk>/",
         views.characters.aberrant.AberrantUpdateView.as_view(),
         name="update_aberrant",
     ),
