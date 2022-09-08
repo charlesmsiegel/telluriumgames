@@ -11,10 +11,9 @@ from exalted.models.characters.mortals import ExMortal
 from tc.models.characters.human import Human
 from wod.models.characters.human import Character
 
-# from tc.models import Aberrant
-# from wod.models.characters import Character
-
-# from characters.models import Character
+from cod.models.items.mortal import Item
+from wod.models.items.human import WoDItem
+from wod.models.locations.human import Location
 
 
 # Create your views here.
@@ -36,11 +35,23 @@ class ProfileView(View):
             to_approve = []
             xp_requests = []
             characters = []
+            locations = []
+            items = []
             characters.extend(Mortal.objects.filter(owner=request.user))
             characters.extend(Character.objects.filter(owner=request.user))
             characters.extend(Human.objects.filter(owner=request.user))
             characters.extend(ExMortal.objects.filter(owner=request.user))
             characters.sort(key=lambda x: x.name)
+            # locations.extend(Mortal.objects.filter(owner=request.user))
+            locations.extend(Location.objects.filter(owner=request.user))
+            # locations.extend(Human.objects.filter(owner=request.user))
+            # locations.extend(ExMortal.objects.filter(owner=request.user))
+            locations.sort(key=lambda x: x.name)
+            items.extend(Item.objects.filter(owner=request.user))
+            items.extend(WoDItem.objects.filter(owner=request.user))
+            # items.extend(Human.objects.filter(owner=request.user))
+            # items.extend(ExMortal.objects.filter(owner=request.user))
+            items.sort(key=lambda x: x.name)
             if profile.cod_st:
                 to_approve.extend(Mortal.objects.filter(status__in=["Un", "Sub"]))
             if profile.wod_st:
@@ -58,6 +69,8 @@ class ProfileView(View):
                     "to_approve": to_approve,
                     "xp_requests": xp_requests,
                     "characters": characters,
+                    "locations": locations,
+                    "items": items,
                 },
             )
         return redirect("/accounts/login/")

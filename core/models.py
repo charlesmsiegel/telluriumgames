@@ -117,6 +117,16 @@ class Model(PolymorphicModel):
 
     def __str__(self):
         return self.name
+    
+    def get_gameline(self):
+        s = str(self.__class__).split(" ")[-1][:-1][1:-1].split(".")[0]
+        if s == "wod":
+            return "World of Darkness"
+        if s == "cod":
+            return "Chronicles of Darkness"
+        if s == "tc":
+            return "Trinity Continuum"
+        return str(self.__class__).split(" ")[-1][:-1][1:-1].split(".")[0].title()
 
     def has_name(self):
         return self.name != ""
