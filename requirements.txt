@@ -4,7 +4,7 @@ channels=3.0.4
 channels-redis=3.3.1
 requests
 # networkx~=2.4
-# numpy~=1.18.1
+numpy
 selenium=3.141.0
 django-polymorphic
 django-tinymce4-lite
