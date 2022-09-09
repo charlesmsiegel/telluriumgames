@@ -2,6 +2,7 @@ import random
 from collections import defaultdict
 from datetime import date, timedelta
 
+import numpy as np
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import F, Q
@@ -682,10 +683,38 @@ class Human(Character):
         self.hair = "Brown"
         self.eyes = "Blue"
         self.nationality = "American"
-        self.height = "5'7\""
-        self.weight = "100 lbs"
+        self.random_height()
+        self.random_weight()
         self.description = "Description"
         self.apparent_age = self.age
+
+    def random_height(self):
+        if self.sex == "Male":
+            mu = 171
+        elif self.sex == "Female":
+            mu = 159
+        else:
+            mu = 165
+        sigma = 6
+        height_in_cm = np.random.normal(loc=mu, scale=sigma)
+        height_in_in = int(height_in_cm / 2.54)
+        feet = height_in_in // 12
+        inch = height_in_in % 12
+        self.height = f"{feet}'{inch}\""
+
+    def random_weight(self):
+        if self.sex == "Male":
+            mu = 73.1
+            sigma = 10.46
+        elif self.sex == "Female":
+            mu = 57
+            sigma = 8.84
+        else:
+            mu = 65
+            sigma = 9.65
+        weight_in_kg = np.random.normal(loc=mu, scale=sigma)
+        weight_in_lb = int(weight_in_kg * 2.205)
+        self.weight = f"{weight_in_lb} lbs"
 
     def has_history(self):
         return self.childhood != "" and self.history != "" and self.goals != ""

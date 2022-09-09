@@ -405,7 +405,9 @@ class Changeling(CtDHuman):
     def random_realm(self):
         realm_dict = self.get_realms()
         if self.total_realms() < 3:
-            realm_dict = {k: v for k, v in realm_dict.items() if k not in ['time', 'scene']}
+            realm_dict = {
+                k: v for k, v in realm_dict.items() if k not in ["time", "scene"]
+            }
         realm = weighted_choice(realm_dict)
         return self.add_art(realm)
 
