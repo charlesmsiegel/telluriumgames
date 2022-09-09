@@ -2,7 +2,8 @@ from django.contrib import admin
 
 from cod.models.characters.mage import Legacy, Mage, Order, Path, Proximi, ProximiFamily
 from cod.models.characters.mortal import CoDMerit, CoDSpecialty, Mortal, Tilt
-from cod.models.items.mortal import Item, Equipment
+from cod.models.items.mortal import Equipment, Item
+
 
 # Register your models here.
 @admin.register(Mortal)
@@ -53,6 +54,7 @@ class LegacyAdmin(admin.ModelAdmin):
 @admin.register(Tilt)
 class TiltAdmin(admin.ModelAdmin):
     list_display = ("name",)
+
 
 admin.site.register(Item)
 admin.site.register(Equipment)

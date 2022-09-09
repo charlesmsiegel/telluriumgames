@@ -178,6 +178,7 @@ class Changeling(CtDHuman):
         max_length=15,
         choices=[("childling", "Childling"), ("wilder", "Wilder"), ("grump", "Grump")],
     )
+    house = models.ForeignKey(House, null=True, blank=True, on_delete=models.CASCADE)
 
     autumn = models.IntegerField(default=0)
     chicanery = models.IntegerField(default=0)
@@ -261,6 +262,17 @@ class Changeling(CtDHuman):
 
     def random_court(self):
         return self.set_court(random.choice(["seelie", "unseelie"]))
+
+    def has_house(self):
+        return self.house is not None
+
+    def set_house(self, house):
+        self.house = house
+        return True
+
+    def random_house(self):
+        h = House.objects.filter(court=self.court).order_by("?").first()
+        return self.set_house(h)
 
     def has_seelie_legacy(self):
         return self.seelie_legacy is not None
@@ -660,5 +672,6 @@ class Changeling(CtDHuman):
         self.random_freebies()
         self.mf_based_corrections()
         self.random_xp()
+        self.random_house()
         self.random_specialties()
         self.birthright_correction()
