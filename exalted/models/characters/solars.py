@@ -11,14 +11,14 @@ from exalted.models.characters.utils import ABILITIES
 
 
 # Create your models here.
-class SolarCharm(Model):
-    type = "solar_charm"
+class Charm(Model):
+    type = "charm"
 
-    ability = models.CharField(
+    statistic = models.CharField(
         max_length=20,
         choices=zip(ABILITIES, [x.replace("_", " ").title() for x in ABILITIES]),
     )
-    min_ability = models.IntegerField(default=0)
+    min_statistic = models.IntegerField(default=0)
     min_essence = models.IntegerField(default=0)
     mote_cost = models.IntegerField(default=0)
     initiative_cost = models.IntegerField(default=0)
@@ -64,20 +64,48 @@ class SolarCharm(Model):
         costs = [x for x in costs if x[0] != 0]
         costs = [f"{x[0]} {x[1]}" for x in costs]
         return ", ".join(costs)
+    
+    def check_essence(self, character):
+        return getattr(character, "essence") >= self.min_essence
 
     def check_prerequisites(self, character):
-        ability = getattr(character, self.ability) >= self.min_ability
-        if self.ability == character.supernal_ability:
-            essence = 5 >= self.min_essence
-        else:
-            essence = getattr(character, "essence") >= self.min_essence
+        statistic = getattr(character, self.statistic) >= self.min_statistic
+        essence = self.check_essence(character)
         prereq_charms = True
         for prereq_charm in self.prerequisites.all():
             if character.charms.filter(pk=prereq_charm.id).exists():
                 prereq_charms = prereq_charms and True
             else:
                 prereq_charms = False
-        return ability and essence and prereq_charms
+        return statistic and essence and prereq_charms
+
+
+class SolarCharm(Charm):
+    type = "solar_charm"
+    
+    def check_essence(self, character):
+        if self.statistic == character.supernal_ability:
+            essence = 5 >= self.min_essence
+        else:
+            essence = getattr(character, "essence") >= self.min_essence
+        return essence
+
+class MartialArtsCharm(Charm):
+    type = "martial_arts_charm"
+    
+    style = models.CharField(max_length=100, null=True, blank=True)
+    weapons = models.TextField(default="")
+    armor = models.TextField(default="")
+    
+    def check_essence(self, character):
+        if hasattr(character, "supernal_ability"):
+            if self.statistic == character.supernal_ability:
+                essence = 5 >= self.min_essence
+            else:
+                essence = getattr(character, "essence") >= self.min_essence
+        else:
+            essence = getattr(character, "essence") >= self.min_essence
+        return essence
 
 
 class Solar(ExMortal):
@@ -97,6 +125,7 @@ class Solar(ExMortal):
     )
 
     charms = models.ManyToManyField(SolarCharm, blank=True)
+    martial_arts_charms = models.ManyToManyField(MartialArtsCharm, blank=True)
 
     limit_trigger = models.CharField(max_length=100, default="")
 
@@ -215,8 +244,8 @@ class Solar(ExMortal):
         q = Q()
         for ability in ABILITIES:
             q |= Q(
-                ability=ability,
-                min_ability__lte=getattr(self, ability),
+                statistic=ability,
+                min_statistic__lte=getattr(self, ability),
                 min_essence__lte=self.essence,
             )
 

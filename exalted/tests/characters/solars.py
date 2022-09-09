@@ -12,8 +12,8 @@ def solar_setup():
         for ability in ABILITIES:
             SolarCharm.objects.create(
                 name=f"{ability.title()} Charm {i}",
-                ability=ability,
-                min_ability=i % 5,
+                statistic=ability,
+                min_statistic=i % 5,
                 min_essence=i % 5,
             )
 
@@ -149,7 +149,7 @@ class TestSolar(TestCase):
         c1 = SolarCharm.objects.get(name="War Charm 0")
         c2 = SolarCharm.objects.get(name="War Charm 1")
         c3 = SolarCharm.objects.create(
-            name="Advanced War Charm", ability="war", min_ability=2, min_essence=1,
+            name="Advanced War Charm", statistic="war", min_statistic=2, min_essence=1,
         )
         c3.prerequisites.add(c1)
         c3.save()
