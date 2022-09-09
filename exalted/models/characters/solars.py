@@ -205,8 +205,11 @@ class Solar(ExMortal):
         ability = random.choice(self.caste_abilities)
         return self.set_supernal_ability(ability)
 
+    def total_charms(self):
+        return self.charms.count()
+
     def has_charms(self):
-        return self.charms.count() == 15
+        return self.total_charms() == 15
 
     def filter_charms(self):
         q = Q()
