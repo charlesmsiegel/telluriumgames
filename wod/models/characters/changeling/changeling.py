@@ -412,6 +412,17 @@ class Changeling(CtDHuman):
     def random_realms(self):
         while not self.has_realms():
             self.random_realm()
+            
+    def random_background(self):
+        bgs = self.get_backgrounds()
+        bgs = {k: v+2 for k, v in bgs.items()}
+        if self.kith:
+            if "Sidhe" not in self.kith.name:
+                bgs['holdings'] -= 1
+                bgs['title'] -= 2
+                bgs['retinue'] -= 2
+        choice = weighted_choice(bgs)
+        return self.add_background(choice)
 
     def add_banality(self):
         return add_dot(self, "banality", 10)
