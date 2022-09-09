@@ -234,15 +234,41 @@ class TestChangeling(TestCase):
         self.assertTrue(self.character.set_court("seelie"))
         self.assertTrue(self.character.has_court())
 
+    def test_eligible_for_house(self):
+        self.character.kith = Kith.objects.get(name="Kith 0")
+        self.assertFalse(self.character.eligible_for_house())
+        self.character.title = 1
+        self.assertTrue(self.character.eligible_for_house())
+        self.character.title = 0
+        self.assertFalse(self.character.eligible_for_house())
+        self.character.kith = Kith.objects.create(name="Arcadian Sidhe")
+        self.assertTrue(self.character.eligible_for_house())
+
     def test_has_house(self):
+        self.character.title = 1
+        self.character.court = "seelie"
         self.assertFalse(self.character.has_house())
         self.assertTrue(self.character.set_house(House.objects.get(name="House 0")))
+        self.assertTrue(self.character.has_house())
+        self.character.title = 0
+        self.assertFalse(self.character.has_house())
+        self.character.house = None
         self.assertTrue(self.character.has_house())
 
     def test_set_house(self):
-        self.assertFalse(self.character.has_house())
+        self.assertTrue(self.character.has_house())
+        self.assertFalse(self.character.set_house(House.objects.get(name="House 0")))
+        self.character.title = 1
+        self.character.court = "seelie"
         self.assertTrue(self.character.set_house(House.objects.get(name="House 0")))
         self.assertTrue(self.character.has_house())
+        self.character.title = 0
+        self.assertFalse(self.character.has_house())
+        self.character.kith = Kith.objects.create(name="Arcadian Sidhe")
+        self.assertTrue(self.character.set_house(House.objects.get(name="House 0")))
+        self.assertTrue(self.character.has_house())
+        self.character.court = "unseelie"
+        self.assertFalse(self.character.set_house(House.objects.get(name="House 0")))
 
     def test_has_court(self):
         self.assertFalse(self.character.has_court())
@@ -640,6 +666,8 @@ class TestRandomChangeling(TestCase):
         changeling_setup(self.player)
 
     def test_random_house(self):
+        self.character.title = 1
+        self.character.court = "seelie"
         self.assertFalse(self.character.has_house())
         self.character.set_house(House.objects.get(name="House 0"))
         self.assertTrue(self.character.has_house())
@@ -732,7 +760,6 @@ class TestRandomChangeling(TestCase):
         self.assertFalse(self.character.has_musing_threshold())
         self.assertFalse(self.character.has_ravaging_threshold())
         self.assertFalse(self.character.has_antithesis())
-        self.assertFalse(self.character.has_house())
         self.assertFalse(self.character.has_changeling_history())
         self.assertFalse(self.character.has_changeling_appearance())
         self.character.random(freebies=0, xp=0)
