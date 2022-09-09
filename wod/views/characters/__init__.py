@@ -34,7 +34,7 @@ def load_character_types(request):
     characters = {
         "werewolf": ["werewolf", "pack", "kinfolk", "fomor"],
         "mage": ["mage", "cabal"],
-        "changeling": ["changeling"],
+        "changeling": ["changeling", "motley"],
     }
     gameline = request.GET.get("gameline")
     character_types = characters[gameline]
