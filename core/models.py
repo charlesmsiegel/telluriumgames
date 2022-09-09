@@ -100,7 +100,15 @@ class Model(PolymorphicModel):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
     status_keys = ["Un", "Sub", "App", "Ret", "Dec", "Ran", "Fre"]
-    statuses = ["Unfinished", "Submitted", "Approved", "Retired", "Deceased", "Random", "Freeform"]
+    statuses = [
+        "Unfinished",
+        "Submitted",
+        "Approved",
+        "Retired",
+        "Deceased",
+        "Random",
+        "Freeform",
+    ]
     status = models.CharField(
         max_length=3, choices=zip(status_keys, statuses), default="Un"
     )
@@ -117,7 +125,7 @@ class Model(PolymorphicModel):
 
     def __str__(self):
         return self.name
-    
+
     def get_gameline(self):
         s = str(self.__class__).split(" ")[-1][:-1][1:-1].split(".")[0]
         if s == "wod":

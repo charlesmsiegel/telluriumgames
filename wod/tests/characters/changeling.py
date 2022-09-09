@@ -234,6 +234,16 @@ class TestChangeling(TestCase):
         self.assertTrue(self.character.set_court("seelie"))
         self.assertTrue(self.character.has_court())
 
+    def test_has_house(self):
+        self.assertFalse(self.character.has_house())
+        self.assertTrue(self.character.set_house(House.objects.get(name="House 0")))
+        self.assertTrue(self.character.has_house())
+
+    def test_set_house(self):
+        self.assertFalse(self.character.has_house())
+        self.assertTrue(self.character.set_house(House.objects.get(name="House 0")))
+        self.assertTrue(self.character.has_house())
+
     def test_has_court(self):
         self.assertFalse(self.character.has_court())
         self.character.set_court("seelie")
@@ -629,6 +639,11 @@ class TestRandomChangeling(TestCase):
         self.character = Changeling.objects.create(owner=self.player, name="")
         changeling_setup(self.player)
 
+    def test_random_house(self):
+        self.assertFalse(self.character.has_house())
+        self.character.set_house(House.objects.get(name="House 0"))
+        self.assertTrue(self.character.has_house())
+
     def test_random_seeming(self):
         self.assertFalse(self.character.has_seeming())
         self.assertTrue(self.character.random_seeming())
@@ -717,6 +732,7 @@ class TestRandomChangeling(TestCase):
         self.assertFalse(self.character.has_musing_threshold())
         self.assertFalse(self.character.has_ravaging_threshold())
         self.assertFalse(self.character.has_antithesis())
+        self.assertFalse(self.character.has_house())
         self.assertFalse(self.character.has_changeling_history())
         self.assertFalse(self.character.has_changeling_appearance())
         self.character.random(freebies=0, xp=0)
@@ -738,6 +754,7 @@ class TestRandomChangeling(TestCase):
         self.assertTrue(self.character.has_musing_threshold())
         self.assertTrue(self.character.has_ravaging_threshold())
         self.assertTrue(self.character.has_antithesis())
+        self.assertTrue(self.character.has_house())
         self.assertTrue(self.character.has_changeling_history())
         self.assertTrue(self.character.has_changeling_appearance())
 

@@ -7,11 +7,10 @@ from django.views.generic import CreateView, View
 from accounts.forms import CustomUSerCreationForm
 from accounts.models import Profile
 from cod.models.characters.mortal import Mortal
+from cod.models.items.mortal import Item
 from exalted.models.characters.mortals import ExMortal
 from tc.models.characters.human import Human
 from wod.models.characters.human import Character
-
-from cod.models.items.mortal import Item
 from wod.models.items.human import WoDItem
 from wod.models.locations.human import Location
 

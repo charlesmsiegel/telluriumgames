@@ -29,7 +29,7 @@ class Resonance(Model):
 
     def __str__(self):
         return self.name.title()
-    
+
     def associated_spheres(self):
         all_spheres = {
             "correspondence": self.correspondence,

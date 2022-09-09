@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from wod.models.characters.changeling import Changeling
 from wod.models.characters.human import (
     Archetype,
     Character,
@@ -321,3 +322,8 @@ admin.site.register(Weapon)
 admin.site.register(RangedWeapon)
 admin.site.register(MeleeWeapon)
 admin.site.register(ThrownWeapon)
+
+
+@admin.register(Changeling)
+class ChangelingAdmin(admin.ModelAdmin):
+    list_display = ("name", "kith")
