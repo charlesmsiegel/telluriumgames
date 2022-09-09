@@ -263,12 +263,21 @@ class Changeling(CtDHuman):
     def random_court(self):
         return self.set_court(random.choice(["seelie", "unseelie"]))
 
+    def eligible_for_house(self):
+        if self.kith:
+            return self.title > 0 or "Sidhe" in self.kith.name
+        return self.title > 0
+
     def has_house(self):
-        return self.house is not None
+        if self.eligible_for_house():
+            return self.house is not None
+        return self.house is None
 
     def set_house(self, house):
-        self.house = house
-        return True
+        if self.eligible_for_house() and house.court == self.court:
+            self.house = house
+            return True
+        return False
 
     def random_house(self):
         h = House.objects.filter(court=self.court).order_by("?").first()
