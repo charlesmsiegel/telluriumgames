@@ -1,13 +1,21 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from exalted.models.characters.solars import Solar, SolarCharm
+from exalted.models.characters.mortals import ExMerit
+from exalted.models.characters.solars import (
+    MartialArtsCharm,
+    MartialArtsStyle,
+    Solar,
+    SolarCharm,
+)
 from exalted.models.characters.utils import ABILITIES
 from exalted.tests.characters.mortals import setup
 
 
 def solar_setup():
     setup()
+    MartialArtsStyle.objects.create(name="Snake")
+    MartialArtsStyle.objects.create(name="Weasel")
     for i in range(10):
         for ability in ABILITIES:
             SolarCharm.objects.create(
@@ -15,6 +23,14 @@ def solar_setup():
                 statistic=ability,
                 min_statistic=i % 5,
                 min_essence=i % 5,
+            )
+        for style in MartialArtsStyle.objects.all():
+            MartialArtsCharm.objects.create(
+                name=f"{style.name} Charm {i}",
+                statistic="martial_arts",
+                min_statistic=i % 5,
+                min_essence=i % 5,
+                style=style,
             )
 
 
@@ -162,6 +178,14 @@ class TestSolar(TestCase):
         self.assertEqual(self.solar.charms.count(), count + 1)
         self.assertTrue(self.solar.add_charm(c3))
         self.assertEqual(self.solar.charms.count(), count + 2)
+        self.assertFalse(
+            self.solar.add_charm(MartialArtsCharm.objects.get(name="Snake Charm 0"))
+        )
+        self.solar.add_merit(ExMerit.objects.create(name="Martial Artist", ratings=[4]))
+        self.martial_arts = 3
+        self.assertTrue(
+            self.solar.add_charm(MartialArtsCharm.objects.get(name="Snake Charm 0"))
+        )
 
     def test_has_charms(self):
         self.assertFalse(self.solar.has_charms())
@@ -169,22 +193,25 @@ class TestSolar(TestCase):
         self.solar.war = 5
         self.solar.archery = 5
         self.solar.melee = 5
+        self.solar.brawl = 1
+        self.solar.add_merit(ExMerit.objects.create(name="Martial Artist", ratings=[4]))
+        self.solar.martial_arts = 5
         for i in range(5):
             c = SolarCharm.objects.get(name=f"Archery Charm {i}")
-            self.solar.add_charm(c)
+            self.assertTrue(self.solar.add_charm(c))
             c = SolarCharm.objects.get(name=f"War Charm {i}")
-            self.solar.add_charm(c)
-            c = SolarCharm.objects.get(name=f"Melee Charm {i}")
-            self.solar.add_charm(c)
+            self.assertTrue(self.solar.add_charm(c))
+            c = MartialArtsCharm.objects.get(name=f"Snake Charm {i}")
+            self.assertTrue(self.solar.add_charm(c))
         self.assertTrue(self.solar.has_charms())
 
     def test_filter_charms(self):
-        self.assertEqual(len(self.solar.filter_charms()), 52)
+        self.assertEqual(len(self.solar.filter_charms()), 56)
         self.solar.war = 2
         self.solar.essence = 1
-        self.assertEqual(len(self.solar.filter_charms()), 54)
+        self.assertEqual(len(self.solar.filter_charms()), 58)
         self.solar.essence = 2
-        self.assertEqual(len(self.solar.filter_charms()), 56)
+        self.assertEqual(len(self.solar.filter_charms()), 60)
 
     def test_set_limit_trigger(self):
         self.assertFalse(self.solar.has_limit_trigger())

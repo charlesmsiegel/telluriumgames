@@ -64,7 +64,7 @@ class Charm(Model):
         costs = [x for x in costs if x[0] != 0]
         costs = [f"{x[0]} {x[1]}" for x in costs]
         return ", ".join(costs)
-    
+
     def check_essence(self, character):
         return getattr(character, "essence") >= self.min_essence
 
@@ -82,7 +82,7 @@ class Charm(Model):
 
 class SolarCharm(Charm):
     type = "solar_charm"
-    
+
     def check_essence(self, character):
         if self.statistic == character.supernal_ability:
             essence = 5 >= self.min_essence
@@ -90,13 +90,21 @@ class SolarCharm(Charm):
             essence = getattr(character, "essence") >= self.min_essence
         return essence
 
-class MartialArtsCharm(Charm):
-    type = "martial_arts_charm"
-    
-    style = models.CharField(max_length=100, null=True, blank=True)
+
+class MartialArtsStyle(Model):
+    type = "martial_arts_style"
+
     weapons = models.TextField(default="")
     armor = models.TextField(default="")
-    
+
+
+class MartialArtsCharm(Charm):
+    type = "martial_arts_charm"
+
+    style = models.ForeignKey(
+        MartialArtsStyle, null=True, blank=True, on_delete=models.CASCADE
+    )
+
     def check_essence(self, character):
         if hasattr(character, "supernal_ability"):
             if self.statistic == character.supernal_ability:
@@ -106,6 +114,12 @@ class MartialArtsCharm(Charm):
         else:
             essence = getattr(character, "essence") >= self.min_essence
         return essence
+
+    def check_prerequisites(self, character):
+        return (
+            super().check_prerequisites(character)
+            and character.merits.filter(name="Martial Artist").exists()
+        )
 
 
 class Solar(ExMortal):
@@ -235,7 +249,7 @@ class Solar(ExMortal):
         return self.set_supernal_ability(ability)
 
     def total_charms(self):
-        return self.charms.count()
+        return self.charms.count() + self.martial_arts_charms.count()
 
     def has_charms(self):
         return self.total_charms() == 15
@@ -251,18 +265,28 @@ class Solar(ExMortal):
 
         filtered_charms = SolarCharm.objects.filter(q)
         filtered_charms = filtered_charms.exclude(pk__in=self.charms.all())
-        return filtered_charms
+
+        ma_charms = MartialArtsCharm.objects.filter(
+            statistic="martial_arts",
+            min_statistic__lte=getattr(self, "martial_arts"),
+            min_essence__lte=self.essence,
+        )
+        return [x for x in filtered_charms] + [x for x in ma_charms]
 
     def add_charm(self, charm):
         if charm is not None:
             if charm.check_prerequisites(self):
-                self.charms.add(charm)
-                return True
+                if charm.type == "solar_charm":
+                    self.charms.add(charm)
+                    return True
+                if charm.type == "martial_arts_charm":
+                    self.martial_arts_charms.add(charm)
+                    return True
             return False
         return False
 
     def random_charm(self):
-        c = self.filter_charms().order_by("?").first()
+        c = random.choice(self.filter_charms())
         return self.add_charm(c)
 
     def random_charms(self):
