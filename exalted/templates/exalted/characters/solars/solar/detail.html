@@ -20,7 +20,7 @@
             <div class="col-sm"></div>
             <div class="col-sm"></div>
             <div class="col-sm">Player</div>
-            <div class="col-sm">{{ object.player }}</div>
+            <div class="col-sm">{{ object.owner }}</div>
             <div class="col-sm">Caste</div>
             <div class="col-sm">{{ object.get_caste_display }}</div>
         </div>
@@ -260,18 +260,18 @@
                 Supernal Ability
             </div>
             <div class="col-sm">
-                {{ object.supernal_ability }}
+                {{ object.supernal_ability.title }}
             </div>
         </div>
         <div class="row">
             {% for ability in object.caste_abilities %}
                 <div class="col-sm">
-                    {{ ability }}
+                    {{ ability.title }}
                 </div>
             {% endfor %}
             {% for ability in object.favored_abilites %}
                 <div class="col-sm">
-                    {{ ability }}
+                    {{ ability.title }}
                 </div>
             {% endfor %}
         </div>
