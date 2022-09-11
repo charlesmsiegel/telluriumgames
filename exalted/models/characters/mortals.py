@@ -228,19 +228,19 @@ class ExMortal(Model):
             k: v for k, v in self.get_abilities().items() if minimum <= v <= maximum
         }
 
-    def random_ability(self, preference=None):
+    def random_ability(self, preference=None, maximum=5):
         d = self.get_abilities()
         if preference is not None:
             new_d = self.ability_types()[preference]()
             for k, v in new_d.items():
                 d[k] += v
         choice = weighted_choice(d)
-        return self.add_ability(choice)
+        return self.add_ability(choice, maximum=maximum)
 
     def random_abilities(self):
         preference = random.choice(list(self.ability_types().keys()))
         while not self.has_abilities():
-            self.random_ability(preference=preference)
+            self.random_ability(preference=preference, maximum=3)
 
     def ability_types(self):
         return {
