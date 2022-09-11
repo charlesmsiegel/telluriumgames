@@ -257,10 +257,14 @@ class Solar(ExMortal):
     def filter_charms(self):
         q = Q()
         for ability in ABILITIES:
+            if ability == self.supernal_ability:
+                essence = 5
+            else:
+                essence = self.essence
             q |= Q(
                 statistic=ability,
                 min_statistic__lte=getattr(self, ability),
-                min_essence__lte=self.essence,
+                min_essence__lte=essence,
             )
 
         filtered_charms = SolarCharm.objects.filter(q)
@@ -271,7 +275,8 @@ class Solar(ExMortal):
             min_statistic__lte=getattr(self, "martial_arts"),
             min_essence__lte=self.essence,
         )
-        return list(filtered_charms) + list(ma_charms)
+        full_list = list(filtered_charms) + list(ma_charms)
+        return [x for x in full_list if x.check_prerequisites(self)]
 
     def add_charm(self, charm):
         if charm is not None:
