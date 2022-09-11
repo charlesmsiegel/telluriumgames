@@ -9,6 +9,7 @@ from wod.models.locations.mage import (
     NodeResonanceRating,
     Sector,
 )
+from wod.models.locations.mage.library import Library
 
 
 class SectorDetailView(DetailView):
@@ -105,3 +106,20 @@ class NodeMeritFlawUpdateView(UpdateView):
     model = NodeMeritFlaw
     fields = "__all__"
     template_name = "wod/locations/mage/nodemeritflaw/form.html"
+
+
+class LibraryDetailView(DetailView):
+    model = Library
+    template_name = "wod/locations/mage/library/detail.html"
+
+
+class LibraryCreateView(CreateView):
+    model = Library
+    fields = "__all__"
+    template_name = "wod/locations/mage/library/form.html"
+
+
+class LibraryUpdateView(UpdateView):
+    model = Library
+    fields = "__all__"
+    template_name = "wod/locations/mage/library/form.html"

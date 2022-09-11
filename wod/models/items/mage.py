@@ -1,7 +1,6 @@
 import datetime
 import math
 import random
-from tkinter import N
 
 from django.db import models
 from django.db.models import Q
@@ -622,62 +621,3 @@ class Grimoire(Wonder):
         self.random_effects(effects)
         self.random_name()
         self.save()
-
-
-class Library(Wonder):
-    type = "library"
-
-    faction = models.ForeignKey(
-        MageFaction, null=True, blank=True, on_delete=models.CASCADE
-    )
-    books = models.ManyToManyField(Grimoire, blank=True)
-
-    def get_update_url(self):
-        return reverse("wod:items:mage:update_library", args=[str(self.id)])
-
-    def add_book(self, grimoire):
-        self.books.add(grimoire)
-        self.save()
-        return True
-
-    def increase_rank(self, book=None):
-        if book is None or book in self.books.all():
-            self.rank += 1
-            self.random_book()
-        else:
-            self.rank += 1
-            self.add_book(book)
-
-    def set_faction(self, faction):
-        self.faction = faction
-        return True
-
-    def has_faction(self):
-        return self.faction is not None
-
-    def random_faction(self, faction=None):
-        if faction is None:
-            faction = weighted_random_faction()
-        self.set_faction(faction)
-
-    def random_book(self):
-        book = Grimoire.objects.create(name="", owner=self.owner)
-        rank = random.randint(1, self.rank)
-        if (
-            random.random() < 0.5
-            and MageFaction.objects.filter(parent=self.faction).exists()
-        ):
-            f = MageFaction.objects.filter(parent=self.faction).order_by("?").first()
-        else:
-            f = self.faction
-        book.random(rank=rank, faction=f)
-        return self.add_book(book)
-
-    def num_books(self):
-        return self.books.count()
-
-    def random(self, faction=None):
-        self.update_status("Ran")
-        self.random_faction(faction=faction)
-        while self.num_books() < self.rank:
-            self.random_book()

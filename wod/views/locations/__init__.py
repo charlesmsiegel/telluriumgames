@@ -36,7 +36,7 @@ class LocationIndexView(View):
 def load_location_types(request):
     locations = {
         # "werewolf": [],
-        "mage": ["node", "chantry"],
+        "mage": ["node", "chantry", "library"],
     }
     gameline = request.GET.get("gameline")
     location_types = locations[gameline]
@@ -55,6 +55,7 @@ class GenericLocationDetailView(View):
         "chantry": mage.ChantryDetailView,
         "caern": werewolf.CaernDetailView,
         "sector": mage.SectorDetailView,
+        "library": mage.LibraryDetailView,
     }
 
     def get(self, request, *args, **kwargs):

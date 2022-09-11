@@ -42,7 +42,6 @@ class GenericItemDetailView(View):
         "item": human.ItemDetailView,
         "wonder": mage.WonderDetailView,
         "grimoire": mage.GrimoireDetailView,
-        "library": mage.LibraryDetailView,
         "fetish": werewolf.FetishDetailView,
         "charm": mage.CharmDetailView,
         "artifact": mage.ArtifactDetailView,

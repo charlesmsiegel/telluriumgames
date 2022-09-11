@@ -9,8 +9,8 @@ from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.faction import MageFaction
 from wod.models.characters.mage.resonance import Resonance
 from wod.models.characters.mage.utils import weighted_random_faction
-from wod.models.items.mage import Library
 from wod.models.locations.human import Location
+from wod.models.locations.mage.library import Library
 
 from .nodes import Node
 
@@ -76,7 +76,7 @@ class Chantry(Location):
     node_rating = models.IntegerField(default=0)
     library_rating = models.IntegerField(default=0)
 
-    library = models.ForeignKey(
+    chantry_library = models.ForeignKey(
         Library, on_delete=models.CASCADE, blank=True, null=True
     )
     nodes = models.ManyToManyField(Node, blank=True)
@@ -237,12 +237,14 @@ class Chantry(Location):
         return sum(x.rank for x in self.nodes.all())
 
     def has_library(self):
-        if self.library is not None:
-            return self.library.rank == self.library.num_books()
+        if self.chantry_library is not None:
+            return self.chantry_library.rank == self.chantry_library.num_books()
         return False
 
     def set_library(self, library):
-        self.library = library
+        self.chantry_library = library
+        library.parent = self
+        library.save()
         return True
 
     def create_library(self):

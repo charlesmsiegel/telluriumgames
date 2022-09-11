@@ -39,7 +39,7 @@ from wod.models.characters.human import Human
 from wod.models.characters.mage import Cabal, Mage
 from wod.models.characters.werewolf import Fomor, Kinfolk, Pack, Werewolf
 from wod.models.items.mage import Artifact, Charm, Grimoire, Talisman
-from wod.models.locations.mage import Chantry, Node
+from wod.models.locations.mage import Chantry, Library, Node
 
 time_test(Human)
 time_test(Kinfolk)
@@ -52,14 +52,15 @@ time_test(Pack)
 time_test(Motley)
 time_test(Node, character=False)
 time_test(Chantry, character=False)
+time_test(Library, character=False)
 time_test(Grimoire, character=False)
 time_test(Charm, character=False)
 time_test(Artifact, character=False)
 time_test(Talisman, character=False)
 
 from cod.models.characters.ephemera import Ephemera
-from cod.models.characters.mage import Proximi, ProximiFamily
 from cod.models.characters.mage import Mage as CoDMage
+from cod.models.characters.mage import Proximi, ProximiFamily
 from cod.models.characters.mortal import Mortal
 
 time_test(Mortal)

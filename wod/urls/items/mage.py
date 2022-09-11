@@ -24,16 +24,6 @@ urls = [
         name="update_wonder",
     ),
     path(
-        "library/create/",
-        views.items.mage.LibraryCreateView.as_view(),
-        name="create_library",
-    ),
-    path(
-        "library/update/<pk>/",
-        views.items.mage.LibraryUpdateView.as_view(),
-        name="update_library",
-    ),
-    path(
         "charm/create/",
         views.items.mage.CharmCreateView.as_view(),
         name="create_charm",
