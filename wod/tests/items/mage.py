@@ -13,7 +13,7 @@ from wod.models.characters.mage import (
     Resonance,
 )
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
-from wod.models.items.mage import Grimoire, Library
+from wod.models.items.mage import Grimoire
 
 
 # Create your tests here.
@@ -338,34 +338,6 @@ class TestRandomGrimoire(TestCase):
         self.assertTrue(self.grimoire.has_effects())
 
 
-class TestLibrary(TestCase):
-    def setUp(self):
-        self.grimoire = Grimoire()
-        grimoire_setup()
-        self.library = Library.objects.create(name="Test Library")
-
-    def test_add_book(self):
-        g = Grimoire.objects.create(name="Book To Add")
-        g.random()
-        count = self.library.num_books()
-        self.assertTrue(self.library.add_book(g))
-        self.assertEqual(self.library.num_books(), count + 1)
-
-    def test_has_books(self):
-        self.library.rank = 3
-        self.assertEqual(self.library.books.count(), 0)
-        self.library.books.add(Grimoire.objects.create(name="Test Grimoire 1", rank=1))
-        self.library.books.add(Grimoire.objects.create(name="Test Grimoire 2", rank=2))
-        self.library.books.add(Grimoire.objects.create(name="Test Grimoire 3", rank=3))
-        self.assertEqual(self.library.books.count(), 3)
-
-    def test_increase_library_rating(self):
-        self.assertEqual(self.library.num_books(), 0)
-        self.library.increase_rank()
-        self.library.increase_rank()
-        self.assertEqual(self.library.num_books(), 2)
-
-
 class TestGrimoireDetailView(TestCase):
     def setUp(self):
         self.grimoire = Grimoire.objects.create(name="Test Grimoire")
@@ -377,16 +349,3 @@ class TestGrimoireDetailView(TestCase):
     def test_grimoire_detail_view_template(self):
         response = self.client.get(f"/wod/items/{self.grimoire.id}/")
         self.assertTemplateUsed(response, "wod/items/mage/grimoire/detail.html")
-
-
-class TestLibraryDetailView(TestCase):
-    def setUp(self):
-        self.library = Library.objects.create(name="Test Library")
-
-    def test_library_detail_view_status_code(self):
-        response = self.client.get(f"/wod/items/{self.library.id}/")
-        self.assertEqual(response.status_code, 200)
-
-    def test_library_detail_view_template(self):
-        response = self.client.get(f"/wod/items/{self.library.id}/")
-        self.assertTemplateUsed(response, "wod/items/mage/library/detail.html")

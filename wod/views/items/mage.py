@@ -7,7 +7,6 @@ from wod.models.items.mage import (
     Artifact,
     Charm,
     Grimoire,
-    Library,
     Talisman,
     Wonder,
     WonderResonanceRating,
@@ -115,23 +114,6 @@ class GrimoireUpdateView(UpdateView):
     model = Grimoire
     fields = "__all__"
     template_name = "wod/items/mage/grimoire/form.html"
-
-
-class LibraryDetailView(DetailView):
-    model = Library
-    template_name = "wod/items/mage/library/detail.html"
-
-
-class LibraryCreateView(CreateView):
-    model = Library
-    fields = "__all__"
-    template_name = "wod/items/mage/library/form.html"
-
-
-class LibraryUpdateView(UpdateView):
-    model = Library
-    fields = "__all__"
-    template_name = "wod/items/mage/library/form.html"
 
 
 class CharmDetailView(View):

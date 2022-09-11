@@ -148,9 +148,9 @@
         </div>
     {% endfor %}
     <h2 class="col-sm {{ object.get_heading }}">
-        <a href={{ object.library.get_absolute_url }}>Library</a>
+        <a href={{ object.chantry_library.get_absolute_url }}>Library</a>
     </h2>
-    {% for book in object.library.books.all %}
+    {% for book in object.chantry_library.books.all %}
         <div class="row">
             <a class="col-sm" href={{ book.get_absolute_url }}>{{ book.name }}</a>
         </div>

@@ -43,10 +43,10 @@ from wod.models.items.human import (
     Weapon,
     WoDItem,
 )
-from wod.models.items.mage import Grimoire, Library, Wonder
+from wod.models.items.mage import Grimoire, Wonder
 from wod.models.items.werewolf import Fetish
 from wod.models.locations.human import City, Location
-from wod.models.locations.mage import Chantry, Node, NodeMeritFlaw, Sector
+from wod.models.locations.mage import Chantry, Library, Node, NodeMeritFlaw, Sector
 from wod.models.locations.werewolf import Caern
 
 
@@ -201,7 +201,7 @@ class GrimoireAdmin(admin.ModelAdmin):
 
 @admin.register(Library)
 class LibraryAdmin(admin.ModelAdmin):
-    list_display = ("name", "rank", "faction")
+    list_display = ("name", "rank", "faction", "parent")
 
 
 @admin.register(Totem)

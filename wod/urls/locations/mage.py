@@ -48,4 +48,14 @@ urls = [
         views.locations.mage.NodeMeritFlawUpdateView.as_view(),
         name="update_nodemeritflaw",
     ),
+    path(
+        "library/create/",
+        views.locations.mage.LibraryCreateView.as_view(),
+        name="create_library",
+    ),
+    path(
+        "library/update/<pk>/",
+        views.locations.mage.LibraryUpdateView.as_view(),
+        name="update_library",
+    ),
 ]

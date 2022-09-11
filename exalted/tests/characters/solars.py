@@ -206,12 +206,12 @@ class TestSolar(TestCase):
         self.assertTrue(self.solar.has_charms())
 
     def test_filter_charms(self):
-        self.assertEqual(len(self.solar.filter_charms()), 56)
+        self.assertEqual(len(self.solar.filter_charms()), 52)
         self.solar.war = 2
         self.solar.essence = 1
-        self.assertEqual(len(self.solar.filter_charms()), 58)
+        self.assertEqual(len(self.solar.filter_charms()), 54)
         self.solar.essence = 2
-        self.assertEqual(len(self.solar.filter_charms()), 60)
+        self.assertEqual(len(self.solar.filter_charms()), 56)
 
     def test_set_limit_trigger(self):
         self.assertFalse(self.solar.has_limit_trigger())
