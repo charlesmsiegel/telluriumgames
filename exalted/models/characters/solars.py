@@ -35,7 +35,7 @@ class Charm(Model):
     duration = models.CharField(max_length=20, default="")
 
     keywords = models.JSONField(default=list)
-    prerequisites = models.ManyToManyField("SolarCharm", blank=True)
+    prerequisites = models.ManyToManyField("self", blank=True, symmetrical=False)
 
     def get_absolute_url(self):
         return reverse("exalted:characters:solars:solarcharm", kwargs={"pk": self.pk})
@@ -340,7 +340,7 @@ class Solar(ExMortal):
 
     def random_bonus_charm(self):
         filtered_list = self.filter_charms()
-        d = {k.name: max(k.min_essence, k.min_ability) for k in filtered_list}
+        d = {k.name: max(k.min_essence, k.min_statistic) for k in filtered_list}
         trait = weighted_choice(d)
         return self.spend_bonus_points(trait)
 
@@ -363,7 +363,7 @@ class Solar(ExMortal):
             return False
         if SolarCharm.objects.filter(name=trait).exists():
             charm = SolarCharm.objects.get(name=trait)
-            if charm.ability in self.favored_abilites:
+            if charm.statistic in self.favored_abilites:
                 cost = self.bonus_cost("favored charm")
                 if cost <= self.bonus_points:
                     if self.add_charm(charm):
@@ -371,7 +371,7 @@ class Solar(ExMortal):
                         return True
                     return False
                 return False
-            if charm.ability in self.caste_abilities:
+            if charm.statistic in self.caste_abilities:
                 cost = self.bonus_cost("caste charm")
                 if cost <= self.bonus_points:
                     if self.add_charm(charm):
@@ -430,7 +430,7 @@ class Solar(ExMortal):
 
     def random_xp_charm(self):
         filtered_list = self.filter_charms()
-        d = {k.name: max(k.min_essence, k.min_ability) for k in filtered_list}
+        d = {k.name: max(k.min_essence, k.min_statistic) for k in filtered_list}
         trait = weighted_choice(d)
         return self.spend_xp(trait)
 
