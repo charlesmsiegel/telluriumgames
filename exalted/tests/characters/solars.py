@@ -182,7 +182,7 @@ class TestSolar(TestCase):
             self.solar.add_charm(MartialArtsCharm.objects.get(name="Snake Charm 0"))
         )
         self.solar.add_merit(ExMerit.objects.create(name="Martial Artist", ratings=[4]))
-        self.martial_arts = 3
+        self.solar.martial_arts = 3
         self.assertTrue(
             self.solar.add_charm(MartialArtsCharm.objects.get(name="Snake Charm 0"))
         )

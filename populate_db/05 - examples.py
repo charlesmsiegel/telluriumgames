@@ -58,20 +58,21 @@ time_test(Artifact, character=False)
 time_test(Talisman, character=False)
 
 from cod.models.characters.ephemera import Ephemera
-from cod.models.characters.mage import Mage, Proximi, ProximiFamily
+from cod.models.characters.mage import Proximi, ProximiFamily
+from cod.models.characters.mage import Mage as CoDMage
 from cod.models.characters.mortal import Mortal
 
 time_test(Mortal)
 time_test(Ephemera, character=False)
-time_test(Mage)
+time_test(CoDMage)
 time_test(ProximiFamily, character=False)
 time_test(Proximi)
 
 from tc.models.characters.aberrant import Aberrant
-from tc.models.characters.human import Human
+from tc.models.characters.human import Human as TCHuman
 from tc.models.characters.talent import Talent
 
-time_test(Human)
+time_test(TCHuman)
 time_test(Talent, xp=50)
 time_test(Aberrant, xp=150)
 

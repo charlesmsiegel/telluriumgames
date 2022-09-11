@@ -271,7 +271,7 @@ class Solar(ExMortal):
             min_statistic__lte=getattr(self, "martial_arts"),
             min_essence__lte=self.essence,
         )
-        return [x for x in filtered_charms] + [x for x in ma_charms]
+        return list(filtered_charms) + list(ma_charms)
 
     def add_charm(self, charm):
         if charm is not None:
