@@ -11,14 +11,14 @@ from exalted.models.characters.utils import ABILITIES
 
 
 # Create your models here.
-class SolarCharm(Model):
-    type = "solar_charm"
+class Charm(Model):
+    type = "charm"
 
-    ability = models.CharField(
+    statistic = models.CharField(
         max_length=20,
         choices=zip(ABILITIES, [x.replace("_", " ").title() for x in ABILITIES]),
     )
-    min_ability = models.IntegerField(default=0)
+    min_statistic = models.IntegerField(default=0)
     min_essence = models.IntegerField(default=0)
     mote_cost = models.IntegerField(default=0)
     initiative_cost = models.IntegerField(default=0)
@@ -35,7 +35,7 @@ class SolarCharm(Model):
     duration = models.CharField(max_length=20, default="")
 
     keywords = models.JSONField(default=list)
-    prerequisites = models.ManyToManyField("SolarCharm", blank=True)
+    prerequisites = models.ManyToManyField("self", blank=True, symmetrical=False)
 
     def get_absolute_url(self):
         return reverse("exalted:characters:solars:solarcharm", kwargs={"pk": self.pk})
@@ -65,19 +65,61 @@ class SolarCharm(Model):
         costs = [f"{x[0]} {x[1]}" for x in costs]
         return ", ".join(costs)
 
+    def check_essence(self, character):
+        return getattr(character, "essence") >= self.min_essence
+
     def check_prerequisites(self, character):
-        ability = getattr(character, self.ability) >= self.min_ability
-        if self.ability == character.supernal_ability:
-            essence = 5 >= self.min_essence
-        else:
-            essence = getattr(character, "essence") >= self.min_essence
+        statistic = getattr(character, self.statistic) >= self.min_statistic
+        essence = self.check_essence(character)
         prereq_charms = True
         for prereq_charm in self.prerequisites.all():
             if character.charms.filter(pk=prereq_charm.id).exists():
                 prereq_charms = prereq_charms and True
             else:
                 prereq_charms = False
-        return ability and essence and prereq_charms
+        return statistic and essence and prereq_charms
+
+
+class SolarCharm(Charm):
+    type = "solar_charm"
+
+    def check_essence(self, character):
+        if self.statistic == character.supernal_ability:
+            essence = 5 >= self.min_essence
+        else:
+            essence = getattr(character, "essence") >= self.min_essence
+        return essence
+
+
+class MartialArtsStyle(Model):
+    type = "martial_arts_style"
+
+    weapons = models.TextField(default="")
+    armor = models.TextField(default="")
+
+
+class MartialArtsCharm(Charm):
+    type = "martial_arts_charm"
+
+    style = models.ForeignKey(
+        MartialArtsStyle, null=True, blank=True, on_delete=models.CASCADE
+    )
+
+    def check_essence(self, character):
+        if hasattr(character, "supernal_ability"):
+            if self.statistic == character.supernal_ability:
+                essence = 5 >= self.min_essence
+            else:
+                essence = getattr(character, "essence") >= self.min_essence
+        else:
+            essence = getattr(character, "essence") >= self.min_essence
+        return essence
+
+    def check_prerequisites(self, character):
+        return (
+            super().check_prerequisites(character)
+            and character.merits.filter(name="Martial Artist").exists()
+        )
 
 
 class Solar(ExMortal):
@@ -97,6 +139,7 @@ class Solar(ExMortal):
     )
 
     charms = models.ManyToManyField(SolarCharm, blank=True)
+    martial_arts_charms = models.ManyToManyField(MartialArtsCharm, blank=True)
 
     limit_trigger = models.CharField(max_length=100, default="")
 
@@ -206,7 +249,7 @@ class Solar(ExMortal):
         return self.set_supernal_ability(ability)
 
     def total_charms(self):
-        return self.charms.count()
+        return self.charms.count() + self.martial_arts_charms.count()
 
     def has_charms(self):
         return self.total_charms() == 15
@@ -215,25 +258,35 @@ class Solar(ExMortal):
         q = Q()
         for ability in ABILITIES:
             q |= Q(
-                ability=ability,
-                min_ability__lte=getattr(self, ability),
+                statistic=ability,
+                min_statistic__lte=getattr(self, ability),
                 min_essence__lte=self.essence,
             )
 
         filtered_charms = SolarCharm.objects.filter(q)
         filtered_charms = filtered_charms.exclude(pk__in=self.charms.all())
-        return filtered_charms
+
+        ma_charms = MartialArtsCharm.objects.filter(
+            statistic="martial_arts",
+            min_statistic__lte=getattr(self, "martial_arts"),
+            min_essence__lte=self.essence,
+        )
+        return [x for x in filtered_charms] + [x for x in ma_charms]
 
     def add_charm(self, charm):
         if charm is not None:
             if charm.check_prerequisites(self):
-                self.charms.add(charm)
-                return True
+                if charm.type == "solar_charm":
+                    self.charms.add(charm)
+                    return True
+                if charm.type == "martial_arts_charm":
+                    self.martial_arts_charms.add(charm)
+                    return True
             return False
         return False
 
     def random_charm(self):
-        c = self.filter_charms().order_by("?").first()
+        c = random.choice(self.filter_charms())
         return self.add_charm(c)
 
     def random_charms(self):
@@ -287,7 +340,7 @@ class Solar(ExMortal):
 
     def random_bonus_charm(self):
         filtered_list = self.filter_charms()
-        d = {k.name: max(k.min_essence, k.min_ability) for k in filtered_list}
+        d = {k.name: max(k.min_essence, k.min_statistic) for k in filtered_list}
         trait = weighted_choice(d)
         return self.spend_bonus_points(trait)
 
@@ -310,7 +363,7 @@ class Solar(ExMortal):
             return False
         if SolarCharm.objects.filter(name=trait).exists():
             charm = SolarCharm.objects.get(name=trait)
-            if charm.ability in self.favored_abilites:
+            if charm.statistic in self.favored_abilites:
                 cost = self.bonus_cost("favored charm")
                 if cost <= self.bonus_points:
                     if self.add_charm(charm):
@@ -318,7 +371,7 @@ class Solar(ExMortal):
                         return True
                     return False
                 return False
-            if charm.ability in self.caste_abilities:
+            if charm.statistic in self.caste_abilities:
                 cost = self.bonus_cost("caste charm")
                 if cost <= self.bonus_points:
                     if self.add_charm(charm):
@@ -377,7 +430,7 @@ class Solar(ExMortal):
 
     def random_xp_charm(self):
         filtered_list = self.filter_charms()
-        d = {k.name: max(k.min_essence, k.min_ability) for k in filtered_list}
+        d = {k.name: max(k.min_essence, k.min_statistic) for k in filtered_list}
         trait = weighted_choice(d)
         return self.spend_xp(trait)
 

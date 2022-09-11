@@ -257,7 +257,11 @@ class TestMortal(TestCase):
     def test_martial_arts_requirement(self):
         self.assertFalse(self.character.add_ability("martial_arts"))
         self.assertTrue(self.character.add_ability("brawl"))
-        self.assertTrue(self.character.add_merit(ExMerit.objects.create(name="Martial Artist", ratings=[4])))
+        self.assertTrue(
+            self.character.add_merit(
+                ExMerit.objects.create(name="Martial Artist", ratings=[4])
+            )
+        )
         self.assertTrue(self.character.add_ability("martial_arts"))
 
     def test_get_abilities(self):

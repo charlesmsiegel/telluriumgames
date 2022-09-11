@@ -180,7 +180,10 @@ class ExMortal(Model):
             self.tertiary = self.get_mental_attributes
 
     def add_ability(self, ability, maximum=5):
-        if not self.merits.filter(name="Martial Artist").exists() and ability == "martial_arts":
+        if (
+            not self.merits.filter(name="Martial Artist").exists()
+            and ability == "martial_arts"
+        ):
             return False
         return add_dot(self, ability, maximum=maximum)
 
