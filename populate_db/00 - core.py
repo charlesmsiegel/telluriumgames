@@ -7169,3 +7169,8 @@ NewsItem.objects.create(
     content='Coverage is low, but all objects now have an "Update" button at the bottom if you are the owner. For most this will fail, but for some you can edit and customize the randomly generated characters. This is a step towards full creation functionality, though we aren\'t quite there yet.',
     date=date(2022, 9, 5),
 )
+NewsItem.objects.create(
+    title="Martial Arts for Exalted and other improvements",
+    content='Exalted Martial Arts from Ex3 core are now in the database and can be taken by random Solars. The probabilities aren\'t quite right, and there\'s a few other issues related to martial arts because of the merit that is needed. They\'re on the todo list. Additionally, there are some updates to CtD generation to fix some bugs and make characters more plausible.',
+    date=date(2022, 9, 11),
+)
