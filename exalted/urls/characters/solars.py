@@ -5,7 +5,7 @@ from exalted import views
 urls = [
     path(
         "solar/create/",
-        views.characters.solars.SolarCharmCreateView.as_view(),
+        views.characters.solars.SolarCreateView.as_view(),
         name="create_solar",
     ),
     path(
