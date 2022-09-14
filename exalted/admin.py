@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from exalted.models.characters.mortals import ExMerit, ExMortal, ExSpecialty, Intimacy
+from exalted.models.characters.solars import Solar, SolarCharm, MartialArtsCharm, MartialArtsStyle
 
 
 # Register your models here.
@@ -22,3 +23,11 @@ class IntimacyAdmin(admin.ModelAdmin):
 @admin.register(ExMerit)
 class MeritAdmin(admin.ModelAdmin):
     list_display = ("name", "type", "merit_class")
+
+@admin.register(Solar)
+class SolarAdmin(admin.ModelAdmin):
+    list_display = ("name", "owner", "caste")
+
+admin.site.register(SolarCharm)
+admin.site.register(MartialArtsCharm)
+admin.site.register(MartialArtsStyle)
