@@ -7171,6 +7171,6 @@ NewsItem.objects.create(
 )
 NewsItem.objects.create(
     title="Martial Arts for Exalted and other improvements",
-    content='Exalted Martial Arts from Ex3 core are now in the database and can be taken by random Solars. The probabilities aren\'t quite right, and there\'s a few other issues related to martial arts because of the merit that is needed. They\'re on the todo list. Additionally, there are some updates to CtD generation to fix some bugs and make characters more plausible.',
+    content="Exalted Martial Arts from Ex3 core are now in the database and can be taken by random Solars. The probabilities aren't quite right, and there's a few other issues related to martial arts because of the merit that is needed. They're on the todo list. Additionally, there are some updates to CtD generation to fix some bugs and make characters more plausible.",
     date=date(2022, 9, 11),
 )

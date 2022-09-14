@@ -1,0 +1,75 @@
+{% extends "core/base.html" %}
+{% block title %}
+    {{ object.name }}
+{% endblock title %}
+{% block content %}
+    {% load dots %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="centertext container">
+            <div class="row">
+                <h1 class="col-sm exalted_heading">{{ object.name }}</h1>
+            </div>
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm">Name</div>
+                <div class="col-sm">{{ object.name }}</div>
+                <div class="col-sm">Concept</div>
+                <div class="col-sm">{{ object.concept }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm">Player</div>
+                <div class="col-sm">{{ object.owner }}</div>
+                <div class="col-sm">Caste</div>
+                <div class="col-sm">{{ object.get_caste_display }}</div>
+            </div>
+            <div class="row">
+                <h2 class="col-sm exalted_heading">Attributes</h2>
+            </div>
+            <div class="row">
+                <div class="col-sm">Strength</div>
+                <div class="col-sm">{{ form.strength }}</div>
+                <div class="col-sm">Charisma</div>
+                <div class="col-sm">{{ form.charisma }}</div>
+                <div class="col-sm">Perception</div>
+                <div class="col-sm">{{ form.perception }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Dexterity</div>
+                <div class="col-sm">{{ form.dexterity }}</div>
+                <div class="col-sm">Manipulation</div>
+                <div class="col-sm">{{ form.manipulation }}</div>
+                <div class="col-sm">Intelligence</div>
+                <div class="col-sm">{{ form.intelligence }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Stamina
+                </div>
+                <div class="col-sm">
+                    {{ form.stamina }}
+                </div>
+                <div class="col-sm">
+                    Appearance
+                </div>
+                <div class="col-sm">
+                    {{ form.appearance }}
+                </div>
+                <div class="col-sm">
+                    Wits
+                </div>
+                <div class="col-sm">
+                    {{ form.wits }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <input type="submit" value="Assign Attributes"/>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock content %}

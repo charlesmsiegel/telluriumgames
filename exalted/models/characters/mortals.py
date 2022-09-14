@@ -13,6 +13,8 @@ from core.utils import add_dot, weighted_choice
 class ExMortal(Model):
     type = "mortal"
 
+    creation_status = models.IntegerField(default=1)
+
     bonus_points = 21
     num_merits = 7
 

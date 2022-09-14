@@ -41,6 +41,12 @@ class GenericCharacterDetailView(View):
             return self.create_views[char.type].as_view()(request, *args, **kwargs)
         return redirect("exalted:characters:index")
 
+    def post(self, request, *args, **kwargs):
+        char = ExMortal.objects.get(pk=kwargs["pk"])
+        if char.type in self.create_views:
+            return self.create_views[char.type].as_view()(request, *args, **kwargs)
+        return redirect("exalted:characters:index")
+
 
 class RandomCharacterView(View):
     chars = {
