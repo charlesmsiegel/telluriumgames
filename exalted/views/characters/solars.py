@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from exalted.forms import ExaltedAbilitiesForm, ExaltedAttributeForm, SolarCreationForm
-from exalted.models.characters.mortals import ExSpecialty, MeritRating
+from exalted.models.characters.mortals import ExSpecialty, MeritRating, ExMerit
 from exalted.models.characters.solars import Solar, SolarCharm
 from exalted.models.characters.utils import ABILITIES
 
@@ -114,6 +114,8 @@ class SolarDetailView(View):
                 char.linguistics = form.data["linguistics"]
                 char.lore = form.data["lore"]
                 char.martial_arts = form.data["martial_arts"]
+                if form.data["martial_arts"] > 0:
+                    char.add_merit(ExMerit.objects.get(name="Martial Artist"))
                 char.medicine = form.data["medicine"]
                 char.melee = form.data["melee"]
                 char.occult = form.data["occult"]
