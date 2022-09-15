@@ -1,0 +1,498 @@
+{% extends "core/base.html" %}
+{% block title %}
+    {{ object.name }}
+{% endblock title %}
+{% block content %}
+    {% load dots %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="centertext container">
+            <div class="row">
+                <h1 class="col-sm exalted_heading">{{ object.name }}</h1>
+            </div>
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm">Name</div>
+                <div class="col-sm">{{ object.name }}</div>
+                <div class="col-sm">Concept</div>
+                <div class="col-sm">{{ object.concept }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm">Player</div>
+                <div class="col-sm">{{ object.owner }}</div>
+                <div class="col-sm">Caste</div>
+                <div class="col-sm">{{ object.get_caste_display }}</div>
+            </div>
+            <div class="row">
+                <h2 class="col-sm exalted_heading">Attributes</h2>
+            </div>
+            <div class="row">
+                <div class="col-sm">Strength</div>
+                <div class="col-sm dots">{{ object.strength|dots }}</div>
+                <div class="col-sm">Charisma</div>
+                <div class="col-sm dots">{{ object.charisma|dots }}</div>
+                <div class="col-sm">Perception</div>
+                <div class="col-sm dots">{{ object.perception|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Dexterity</div>
+                <div class="col-sm dots">{{ object.dexterity|dots }}</div>
+                <div class="col-sm">Manipulation</div>
+                <div class="col-sm dots">{{ object.manipulation|dots }}</div>
+                <div class="col-sm">Intelligence</div>
+                <div class="col-sm dots">{{ object.intelligence|dots }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Stamina
+                </div>
+                <div class="col-sm dots">
+                    {{ object.stamina|dots }}
+                </div>
+                <div class="col-sm">
+                    Appearance
+                </div>
+                <div class="col-sm dots">
+                    {{ object.appearance|dots }}
+                </div>
+                <div class="col-sm">
+                    Wits
+                </div>
+                <div class="col-sm dots">
+                    {{ object.wits|dots }}
+                </div>
+            </div>
+            <div class="row">
+                <h2 class="col-sm exalted_heading">
+                    Abilities
+                </h2>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    {{ form.archery_check }}
+                </div>
+                {% if object.caste == 'dawn' %}
+                    <div class="col-sm">
+                        <b>Archery</b>
+                    </div>
+                {% else %}
+                    <div class="col-sm">
+                        Archery
+                    </div>
+                {% endif %}
+                <div class="col-sm">
+                    {{ form.archery }}
+                </div>
+                <div class="col-sm">
+                    {{ form.medicine_check }}
+                </div>
+                {% if object.caste == "twilight" %}
+                <div class="col-sm"><b>Medicine</b></div>
+                {% else %}
+                <div class="col-sm">Medicine</div>
+                {% endif %}
+                <div class="col-sm">
+                    {{ form.medicine }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    {{ form.athletics_check }}
+                </div>
+                {% if object.caste == "zenith" or object.caste == "night" %}
+                    <div class="col-sm">
+                        <b>Athletics</b>
+                    </div>
+                {% else %}
+                    <div class="col-sm">
+                        Athletics
+                    </div>
+                {% endif %}
+                <div class="col-sm">
+                    {{ form.athletics }}
+                </div>
+                <div class="col-sm">
+                    {{ form.melee_check }}
+                </div>
+                {% if object.caste == 'dawn' %}
+                    <div class="col-sm">
+                        <b>Melee</b>
+                    </div>
+                {% else %}
+                    <div class="col-sm">
+                        Melee
+                    </div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.melee|dots }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    {{ form.awareness_check }}
+                </div>
+                {% if object.caste == 'dawn' or object.caste == "night" %}
+                    <div class="col-sm">
+                        <b>Awareness</b>
+                    </div>
+                {% else %}
+                    <div class="col-sm">
+                        Awareness
+                    </div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.awareness|dots }}
+                </div>
+                <div class="col-sm">
+                    {{ form.occult_check }}
+                </div>
+                {% if object.caste == "twilight" or object.caste == "eclipse" %}
+                <div class="col-sm"><b>Occult</b></div>
+                {% else %}
+                <div class="col-sm">Occult</div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.occult|dots }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    {{ form.brawl_check }}
+                </div>
+                {% if object.caste == 'dawn' %}
+                    <div class="col-sm">
+                        <b>Brawl</b>
+                    </div>
+                {% else %}
+                    <div class="col-sm">
+                        Brawl
+                    </div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.brawl|dots }}
+                </div>
+                <div class="col-sm">
+                    {{ form.performance_check }}
+                </div>
+                {% if object.caste == "zenith" %}
+                    <div class="col-sm">
+                        <b>Performance</b>
+                    </div>
+                {% else %}
+                    <div class="col-sm">
+                        Performance
+                    </div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.performance|dots }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    {{ form.bureaucracy_check }}
+                </div>
+                {% if object.caste == "twilight" or object.caste == "eclipse" %}
+                <div class="col-sm"><b>Bureaucracy</b></div>
+                {% else %}
+                <div class="col-sm">Bureaucracy</div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.bureaucracy|dots }}
+                </div>
+                <div class="col-sm">
+                    {{ form.presence_check }}
+                </div>
+                {% if object.caste == "zenith" or object.caste == "eclipse" %}
+                    <div class="col-sm">
+                        <b>Presence</b>
+                    </div>
+                {% else %}
+                    <div class="col-sm">
+                        Presence
+                    </div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.presence|dots }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    {{ form.craft_check }}
+                </div>
+                {% if object.caste == "twilight" %}
+                <div class="col-sm"><b>Craft</b></div>
+                {% else %}
+                <div class="col-sm">Craft</div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.craft|dots }}
+                </div>
+                <div class="col-sm">
+                    {{ form.resistance_check }}
+                </div>
+                {% if object.caste == "dawn" or object.caste == "zenith" %}
+                    <div class="col-sm">
+                        <b>Resistance</b>
+                    </div>
+                {% else %}
+                    <div class="col-sm">
+                        Resistance
+                    </div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.resistance|dots }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    {{ form.dodge_check }}
+                </div>
+                {% if object.caste == 'dawn' or object.caste == "night" %}
+                    <div class="col-sm">
+                        <b>Dodge</b>
+                    </div>
+                {% else %}
+                    <div class="col-sm">
+                        Dodge
+                    </div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.dodge|dots }}
+                </div>
+                <div class="col-sm">
+                    {{ form.ride_check }}
+                </div>
+                {% if object.caste == "night" or object.caste == "eclipse" %}
+                <div class="col-sm"><b>Ride</b></div>
+                {% else %}
+                <div class="col-sm">Ride</div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.ride|dots }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    {{ form.integrity_check }}
+                </div>
+                {% if object.caste == "zenith" or object.caste == "twilight" %}
+                    <div class="col-sm">
+                        <b>Integrity</b>
+                    </div>
+                {% else %}
+                    <div class="col-sm">
+                        Integrity
+                    </div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.integrity|dots }}
+                </div>
+                <div class="col-sm">
+                    {{ form.sail_check }}
+                </div>
+                {% if object.caste == "eclipse" %}
+                <div class="col-sm">
+                    <b>Sail</b>
+                </div>
+                {% else %}
+                <div class="col-sm">
+                    Sail
+                </div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.sail|dots }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    {{ form.investigation_check }}
+                </div>
+                {% if object.caste == "twilight" or object.caste == "night" %}
+                <div class="col-sm"><b>Investigation</b></div>
+                {% else %}
+                <div class="col-sm">Investigation</div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.investigation|dots }}
+                </div>
+                <div class="col-sm">
+                    {{ form.socialize_check }}
+                </div>
+                {% if object.caste == "night" or object.caste == "eclipse" %}
+                <div class="col-sm"><b>Socialize</b></div>
+                {% else %}
+                <div class="col-sm">Socialize</div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.socialize|dots }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    {{ form.larceny_check }}
+                </div>
+                {% if object.caste == "night" or object.caste == "eclipse" %}
+                <div class="col-sm"><b>Larceny</b></div>
+                {% else %}
+                <div class="col-sm">Larceny</div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.larceny|dots }}
+                </div>
+                <div class="col-sm">
+                    {{ form.stealth_check }}
+                </div>
+                {% if object.caste == "night" %}
+                <div class="col-sm"><b>Stealth</b></div>
+                {% else %}
+                <div class="col-sm">Stealth</div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.stealth|dots }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    {{ form.linguistics_check }}
+                </div>
+                {% if object.caste == "twilight" or object.caste == "eclipse" %}
+                <div class="col-sm"><b>Linguistics</b></div>
+                {% else %}
+                <div class="col-sm">Linguistics</div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.linguistics|dots }}
+                </div>
+                <div class="col-sm">
+                    {{ form.survival_check }}
+                </div>
+                {% if object.caste == "zenith" %}
+                    <div class="col-sm">
+                        <b>Survival</b>
+                    </div>
+                {% else %}
+                    <div class="col-sm">
+                        Survival
+                    </div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.survival|dots }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    {{ form.lore_check }}
+                </div>
+                {% if object.caste == "zenith" or object.caste == "twilight" %}
+                    <div class="col-sm">
+                        <b>Lore</b>
+                    </div>
+                {% else %}
+                    <div class="col-sm">
+                        Lore
+                    </div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.lore|dots }}
+                </div>
+                <div class="col-sm">
+                    {{ form.thrown_check }}
+                </div>
+                {% if object.caste == "dawn" %}
+                    <div class="col-sm">
+                        <b>Thrown</b>
+                    </div>
+                {% else %}
+                    <div class="col-sm">
+                        Thrown
+                    </div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.thrown|dots }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    {{ form.martial_arts_check }}
+                </div>
+                {% if object.caste == 'dawn' %}
+                    <div class="col-sm">
+                        <b>Martial Arts</b>
+                    </div>
+                {% else %}
+                    <div class="col-sm">
+                        Martial Arts
+                    </div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.martial_arts|dots }}
+                </div>
+                <div class="col-sm">
+                    {{ form.war_check }}
+                </div>
+                {% if object.caste in "dawn" or object.caste == "zenith" %}
+                    <div class="col-sm">
+                        <b>War</b>
+                    </div>
+                {% else %}
+                    <div class="col-sm">
+                        War
+                    </div>
+                {% endif %}
+                <div class="col-sm dots">
+                    {{ form.war|dots }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Supernal Ability
+                </div>
+                <div class="col-sm">
+                    {{ object.supernal_ability.title }}
+                </div>
+            </div>
+            <div class="row">
+                <h2 class="col-sm exalted_heading">
+                    Supernal Ability
+                </h2>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    {{ form.supernal_ability }}
+                </div>
+            </div>
+            <div class="row">
+                <h2 class="col-sm exalted_heading">
+                    Specialties
+                </h2>
+            </div>
+            <div class="row">
+                <div class="col-sm">{{ form.spec_1_ability }}</div>
+                <div class="col-sm">{{ form.spec_1_value }}</div>
+                <div class="col-sm">{{ form.spec_2_ability }}</div>
+                <div class="col-sm">{{ form.spec_2_value }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">{{ form.spec_3_ability }}</div>
+                <div class="col-sm">{{ form.spec_3_value }}</div>
+                <div class="col-sm">{{ form.spec_4_ability }}</div>
+                <div class="col-sm">{{ form.spec_4_value }}</div>
+            </div>
+            {% for specialty in specialties %}
+                <div class="row">
+                    <div class="col-sm">
+                        {{ specialty.name }} ({{ specialty.ability.title }})
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="row">
+                <div class="col-sm">
+                    <input type="submit" value="Assign Abilities"/>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock content %}

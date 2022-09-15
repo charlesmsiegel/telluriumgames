@@ -2,9 +2,10 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
-from exalted.forms import ExaltedAttributeForm, SolarCreationForm
-from exalted.models.characters.mortals import MeritRating
+from exalted.forms import ExaltedAbilitiesForm, ExaltedAttributeForm, SolarCreationForm
+from exalted.models.characters.mortals import ExSpecialty, MeritRating
 from exalted.models.characters.solars import Solar, SolarCharm
+from exalted.models.characters.utils import ABILITIES
 
 
 class SolarDetailView(View):
@@ -16,48 +17,43 @@ class SolarDetailView(View):
                 request, "exalted/characters/solars/solar/detail.html", context,
             )
         if char.creation_status == 1:
-            print("Status 1: Attributes")
-            context["form"] = ExaltedAttributeForm(
-                initial={
-                    "strength": char.strength,
-                    "charisma": char.charisma,
-                    "perception": char.perception,
-                    "dexterity": char.dexterity,
-                    "manipulation": char.manipulation,
-                    "intelligence": char.intelligence,
-                    "stamina": char.stamina,
-                    "appearance": char.appearance,
-                    "wits": char.wits,
-                }
-            )
+            context["form"] = ExaltedAttributeForm(initial=char.get_attributes())
             return render(
                 request,
                 "exalted/characters/solars/solar/creation_attribute.html",
                 context,
             )
         if char.creation_status == 2:
+            d = char.get_abilities()
+            context["form"] = ExaltedAbilitiesForm(initial=d, character=char)
             return render(
-                request, "exalted/characters/solars/solar/detail.html", context,
+                request,
+                "exalted/characters/solars/solar/creation_abilities.html",
+                context,
             )
         if char.creation_status == 3:
-            print("Status 3: Merits")
             return render(
-                request, "exalted/characters/solars/solar/detail.html", context,
+                request,
+                "exalted/characters/solars/solar/creation_merits.html",
+                context,
             )
         if char.creation_status == 4:
-            print("Status 4: Charms")
             return render(
-                request, "exalted/characters/solars/solar/detail.html", context,
+                request,
+                "exalted/characters/solars/solar/creation_charms.html",
+                context,
             )
         if char.creation_status == 5:
-            print("Status 5: Limit Trigger and Intimacies")
             return render(
-                request, "exalted/characters/solars/solar/detail.html", context,
+                request,
+                "exalted/characters/solars/solar/creation_intimacies.html",
+                context,
             )
         if char.creation_status == 6:
-            print("Status 6: Bonus Points")
             return render(
-                request, "exalted/characters/solars/solar/detail.html", context,
+                request,
+                "exalted/characters/solars/solar/creation_bonus_points.html",
+                context,
             )
         return render(request, "exalted/characters/solars/solar/detail.html", context,)
 
@@ -78,11 +74,92 @@ class SolarDetailView(View):
                 char.wits = form.data["wits"]
                 char.creation_status += 1
                 char.save()
+                d = char.get_abilities()
+                context["form"] = ExaltedAbilitiesForm(initial=d, character=char)
                 return render(
-                    request, "exalted/characters/solars/solar/detail.html", context,
+                    request,
+                    "exalted/characters/solars/solar/creation_abilities.html",
+                    context,
                 )
+            context["form"] = ExaltedAttributeForm(initial=char.get_attributes())
             return render(
-                request, "exalted/characters/solars/solar/detail.html", context,
+                request,
+                "exalted/characters/solars/solar/creation_attribute.html",
+                context,
+            )
+        if char.creation_status == 2:
+            form = ExaltedAbilitiesForm(request.POST, character=char)
+            if form.has_abilities(char):
+                checked_abilities = [x for x in ABILITIES if x + "_check" in form.data]
+                char.caste_abilities = [
+                    x
+                    for x in checked_abilities
+                    if x in char.caste_ability_dict[char.caste]
+                ]
+                char.favored_abilities = [
+                    x
+                    for x in checked_abilities
+                    if x not in char.caste_ability_dict[char.caste]
+                ]
+                char.archery = form.data["archery"]
+                char.athletics = form.data["athletics"]
+                char.awareness = form.data["awareness"]
+                char.brawl = form.data["brawl"]
+                char.bureaucracy = form.data["bureaucracy"]
+                char.craft = form.data["craft"]
+                char.dodge = form.data["dodge"]
+                char.integrity = form.data["integrity"]
+                char.investigation = form.data["investigation"]
+                char.larceny = form.data["larceny"]
+                char.linguistics = form.data["linguistics"]
+                char.lore = form.data["lore"]
+                char.martial_arts = form.data["martial_arts"]
+                char.medicine = form.data["medicine"]
+                char.melee = form.data["melee"]
+                char.occult = form.data["occult"]
+                char.performance = form.data["performance"]
+                char.presence = form.data["presence"]
+                char.resistance = form.data["resistance"]
+                char.ride = form.data["ride"]
+                char.sail = form.data["sail"]
+                char.socialize = form.data["socialize"]
+                char.stealth = form.data["stealth"]
+                char.survival = form.data["survival"]
+                char.thrown = form.data["thrown"]
+                char.war = form.data["war"]
+                char.supernal_ability = form.data["supernal_ability"]
+
+                s1 = ExSpecialty.objects.get_or_create(
+                    ability=form.data["spec_1_ability"], name=form.data["spec_1_value"]
+                )[0]
+                s2 = ExSpecialty.objects.get_or_create(
+                    ability=form.data["spec_2_ability"], name=form.data["spec_2_value"]
+                )[0]
+                s3 = ExSpecialty.objects.get_or_create(
+                    ability=form.data["spec_3_ability"], name=form.data["spec_3_value"]
+                )[0]
+                s4 = ExSpecialty.objects.get_or_create(
+                    ability=form.data["spec_4_ability"], name=form.data["spec_4_value"]
+                )[0]
+
+                char.add_specialty(s1)
+                char.add_specialty(s2)
+                char.add_specialty(s3)
+                char.add_specialty(s4)
+
+                char.creation_status += 1
+                char.save()
+                return render(
+                    request,
+                    "exalted/characters/solars/solar/creation_merits.html",
+                    context,
+                )
+            d = char.get_abilities()
+            context["form"] = ExaltedAbilitiesForm(initial=d, character=char)
+            return render(
+                request,
+                "exalted/characters/solars/solar/creation_abilities.html",
+                context,
             )
 
     def get_context(self, char):
@@ -111,12 +188,6 @@ class SolarCreateView(View):
             status="Un",
         )
         return redirect(s.get_absolute_url())
-
-
-# class SolarCreateView(CreateView):
-#     model = Solar
-#     fields = "__all__"
-#     template_name = "exalted/characters/solars/solar/form.html"
 
 
 class SolarUpdateView(UpdateView):

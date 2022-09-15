@@ -127,12 +127,66 @@ class Solar(ExMortal):
 
     CASTE_CHOICES = ["dawn", "zenith", "twilight", "eclipse", "night"]
 
+    caste_ability_dict = {
+        "dawn": [
+            "archery",
+            "awareness",
+            "brawl",
+            "martial_arts",
+            "dodge",
+            "melee",
+            "resistance",
+            "thrown",
+            "war",
+        ],
+        "zenith": [
+            "athletics",
+            "integrity",
+            "performance",
+            "lore",
+            "presence",
+            "resistance",
+            "survival",
+            "war",
+        ],
+        "twilight": [
+            "bureaucracy",
+            "craft",
+            "integrity",
+            "investigation",
+            "linguistics",
+            "lore",
+            "medicine",
+            "occult",
+        ],
+        "eclipse": [
+            "bureaucracy",
+            "larceny",
+            "linguistics",
+            "occult",
+            "presence",
+            "ride",
+            "sail",
+            "socialize",
+        ],
+        "night": [
+            "athletics",
+            "awareness",
+            "dodge",
+            "investigation",
+            "larceny",
+            "ride",
+            "stealth",
+            "socialize",
+        ],
+    }
+
     caste = models.CharField(
         max_length=15, choices=zip(CASTE_CHOICES, [x.title() for x in CASTE_CHOICES])
     )
 
     caste_abilities = models.JSONField(default=list)
-    favored_abilites = models.JSONField(default=list)
+    favored_abilities = models.JSONField(default=list)
     supernal_ability = models.CharField(
         max_length=20,
         choices=zip(ABILITIES, [x.replace("_", " ").title() for x in ABILITIES]),
