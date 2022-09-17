@@ -279,3 +279,15 @@ class ExaltedMeritsForm(forms.Form):
     merit_9_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
     merit_10_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
     
+    def has_merits(self, character):
+        self.full_clean()
+        total = character.total_merits()
+        merits = [self.cleaned_data[f"merit_{i}"] for i in range(1, 11)]
+        merit_ratings = [self.cleaned_data[f"merit_{i}_rating"] for i in range(1, 11)]
+        pairs = list(zip(merits, merit_ratings))
+        pairs = [x for x in pairs if x[0] != "----"]
+        pairs = [(ExMerit.objects.get(name=x[0]), x[1]) for x in pairs]
+        pairs = [(x[0], x[1]) for x in pairs if x[1] in x[0].ratings]
+        new_total = total + sum(x[1] for x in pairs)
+        return new_total == 10
+        

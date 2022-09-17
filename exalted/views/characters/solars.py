@@ -170,6 +170,32 @@ class SolarDetailView(View):
                 "exalted/characters/solars/solar/creation_abilities.html",
                 context,
             )
+        if char.creation_status == 3:
+            form = ExaltedMeritsForm(request.POST)
+            if form.has_merits(char):
+                form.full_clean()
+                merits = [form.cleaned_data[f"merit_{i}"] for i in range(1, 11)]
+                merit_ratings = [form.cleaned_data[f"merit_{i}_rating"] for i in range(1, 11)]
+                pairs = list(zip(merits, merit_ratings))
+                pairs = [x for x in pairs if x[0] != "----"]
+                pairs = [(ExMerit.objects.get(name=x[0]), x[1]) for x in pairs]
+                pairs = [(x[0], x[1]) for x in pairs if x[1] in x[0].ratings]
+                for merit, rating in pairs:
+                    MeritRating.objects.create(character=char, merit=merit, rating=rating)
+                char.creation_status += 1
+                char.save()
+                return render(
+                    request,
+                    "exalted/characters/solars/solar/creation_charms.html",
+                    context,
+                )
+            d = char.get_abilities()
+            context["form"] = ExaltedMeritsForm()
+            return render(
+                request,
+                "exalted/characters/solars/solar/creation_merits.html",
+                context,
+            )
 
     def get_context(self, char):
         return {
