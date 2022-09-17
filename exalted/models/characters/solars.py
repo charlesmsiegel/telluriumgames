@@ -280,18 +280,18 @@ class Solar(ExMortal):
         return self.set_caste(random.choice(self.CASTE_CHOICES))
 
     def has_favored_abilities(self):
-        return len(self.favored_abilites) == 5
+        return len(self.favored_abilities) == 5
 
     def add_favored_ability(self, ability):
-        if ability in self.caste_abilities + self.favored_abilites:
+        if ability in self.caste_abilities + self.favored_abilities:
             return False
-        self.favored_abilites.append(ability)
+        self.favored_abilities.append(ability)
         add_dot(self, ability, maximum=1)
         return True
 
     def random_favored_ability(self):
         options = [x for x in ABILITIES if x not in self.supernal_ability]
-        options = [x for x in options if x not in self.favored_abilites]
+        options = [x for x in options if x not in self.favored_abilities]
         choice = random.choice(options)
         return self.add_favored_ability(choice)
 
@@ -383,7 +383,7 @@ class Solar(ExMortal):
         if trait_type == "charm":
             return 5
         if trait_type == "spell":
-            if "occult" in self.favored_abilites + self.caste_abilities:
+            if "occult" in self.favored_abilities + self.caste_abilities:
                 return 4
             return 5
         if trait_type == "evocation":
@@ -414,7 +414,7 @@ class Solar(ExMortal):
         return self.spend_bonus_points(trait)
 
     def spend_bonus_points(self, trait):
-        if trait in self.favored_abilites:
+        if trait in self.favored_abilities:
             cost = self.bonus_cost("favored ability")
             if cost <= self.bonus_points:
                 if self.add_ability(trait):
@@ -432,7 +432,7 @@ class Solar(ExMortal):
             return False
         if SolarCharm.objects.filter(name=trait).exists():
             charm = SolarCharm.objects.get(name=trait)
-            if charm.statistic in self.favored_abilites:
+            if charm.statistic in self.favored_abilities:
                 cost = self.bonus_cost("favored charm")
                 if cost <= self.bonus_points:
                     if self.add_charm(charm):
@@ -462,14 +462,14 @@ class Solar(ExMortal):
             return 10
         if (
             trait_type == "spell"
-            and "occult" in self.favored_abilites + self.caste_abilities
+            and "occult" in self.favored_abilities + self.caste_abilities
         ):
             return 8
         if trait_type == "spell":
             return 10
         if (
             trait_type == "martial arts charm"
-            and "brawl" in self.favored_abilites + self.caste_abilities
+            and "brawl" in self.favored_abilities + self.caste_abilities
         ):
             return 8
         if trait_type == "martial arts charm":
@@ -504,7 +504,7 @@ class Solar(ExMortal):
         return self.spend_xp(trait)
 
     def spend_xp(self, trait):
-        if trait in self.favored_abilites:
+        if trait in self.favored_abilities:
             current_rating = self.get_abilities()[trait]
             cost = self.xp_cost("ability") * current_rating - 1
             if cost <= self.xp:
@@ -535,7 +535,7 @@ class Solar(ExMortal):
                         return True
                     return False
                 return False
-            if charm.ability in self.favored_abilites:
+            if charm.ability in self.favored_abilities:
                 cost = self.xp_cost("favored charm")
                 if cost <= self.xp:
                     if self.add_charm(charm):

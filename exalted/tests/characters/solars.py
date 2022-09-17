@@ -125,7 +125,7 @@ class TestSolar(TestCase):
 
     def test_add_favored_ability(self):
         self.solar.add_favored_ability("occult")
-        self.assertEqual(self.solar.favored_abilites, ["occult"])
+        self.assertEqual(self.solar.favored_abilities, ["occult"])
         self.assertGreaterEqual(self.solar.occult, 1)
 
     def test_has_favored_abilities(self):
