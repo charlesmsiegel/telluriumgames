@@ -1,6 +1,7 @@
 from exalted.models.characters.mortals import ExMerit
 from django import forms
 
+from game.models import Chronicle
 from exalted.models.characters.utils import ABILITIES
 
 
@@ -11,16 +12,14 @@ class RandomCharacterForm(forms.Form):
     name = forms.CharField(max_length=100, label="Name", required=False)
     xp = forms.IntegerField(initial=0, label="XP")
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields["character_type"].choices = []
-
 
 class ExMortalCreationForm(forms.Form):
     name = forms.CharField(label="Name", max_length=100)
     concept = forms.CharField(label="Name", max_length=100)
     # Native Language
-    # Chronicle
+    chronicle = forms.CharField(required=False,
+        label="Chronicle", widget=forms.Select(choices=[(None, "----")] + [(x.name, x.name) for x in Chronicle.objects.all()]),
+    )
 
 
 class SolarCreationForm(ExMortalCreationForm):
@@ -408,3 +407,6 @@ class ExaltedIntimacyForm(forms.Form):
         one_major = ("major" in strengths)
         one_negative = self.cleaned_data['is_negative_1'] or self.cleaned_data['is_negative_2'] or self.cleaned_data['is_negative_3'] or self.cleaned_data['is_negative_4']
         return has_four and one_defining and one_major and one_negative
+
+class ExaltedTotalForm(forms.Form):
+    pass

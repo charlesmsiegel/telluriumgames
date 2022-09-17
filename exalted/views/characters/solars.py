@@ -2,6 +2,7 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
+from game.models import Chronicle
 from exalted.forms import (
     ExaltedIntimacyForm,
     ExaltedCharmForm,
@@ -385,6 +386,9 @@ class SolarCreateView(View):
 
     def post(self, request, *args, **kwargs):
         form = SolarCreationForm(request.POST)
+        chron = None
+        if "chronicle" in form.data.keys():
+            chron = Chronicle.objects.filter(name=form.data['chronicle']).first()
         s = Solar.objects.create(
             name=form.data["name"],
             concept=form.data["concept"],
@@ -392,6 +396,7 @@ class SolarCreateView(View):
             owner=request.user,
             status="Un",
             essence=1,
+            chronicle=chron,
         )
         return redirect(s.get_absolute_url())
 
