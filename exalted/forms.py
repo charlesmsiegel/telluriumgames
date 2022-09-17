@@ -206,7 +206,6 @@ class ExaltedAbilitiesForm(forms.Form):
             print("caste:", len(caste_abilities))
         if not specialties:
             print("specialty:", self.cleaned_data["spec_1_value"], self.cleaned_data["spec_2_value"], self.cleaned_data["spec_3_value"], self.cleaned_data["spec_4_value"], getattr(character, self.cleaned_data["spec_1_ability"]) > 0, getattr(character, self.cleaned_data["spec_2_ability"]) > 0, getattr(character, self.cleaned_data["spec_3_ability"]) > 0, getattr(character, self.cleaned_data["spec_4_ability"]) > 0)
-        print(type(self.cleaned_data[self.cleaned_data["spec_1_ability"]]))
         if not supernal:
             print("supernal:", self.cleaned_data["supernal_ability"], checked_abilities)
         if not min_values:
@@ -291,3 +290,15 @@ class ExaltedMeritsForm(forms.Form):
         new_total = total + sum(x[1] for x in pairs)
         return new_total == 10
         
+        
+class ExaltedCharmForm(forms.Form):
+    charm = forms.CharField(
+        widget=forms.Select(
+            choices=[]
+        ),
+    )
+    
+    def __init__(self, *args, **kwargs):
+        char = kwargs.pop("character")
+        super().__init__(*args, **kwargs)
+        self.fields["charm"].widget.choices = [(x.name, f"{x.name} ({x.statistic.replace('_', ' ').title()})") for x in char.filter_charms()]

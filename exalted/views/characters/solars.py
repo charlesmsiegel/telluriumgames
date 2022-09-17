@@ -3,13 +3,14 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from exalted.forms import (
+    ExaltedCharmForm,
     ExaltedAbilitiesForm,
     ExaltedAttributeForm,
     SolarCreationForm,
     ExaltedMeritsForm,
 )
 from exalted.models.characters.mortals import ExSpecialty, MeritRating, ExMerit
-from exalted.models.characters.solars import Solar, SolarCharm
+from exalted.models.characters.solars import Solar, SolarCharm, Charm
 from exalted.models.characters.utils import ABILITIES
 
 
@@ -44,6 +45,7 @@ class SolarDetailView(View):
                 context,
             )
         if char.creation_status == 4:
+            context["form"] = ExaltedCharmForm(character=char)
             return render(
                 request,
                 "exalted/characters/solars/solar/creation_charms.html",
@@ -175,13 +177,17 @@ class SolarDetailView(View):
             if form.has_merits(char):
                 form.full_clean()
                 merits = [form.cleaned_data[f"merit_{i}"] for i in range(1, 11)]
-                merit_ratings = [form.cleaned_data[f"merit_{i}_rating"] for i in range(1, 11)]
+                merit_ratings = [
+                    form.cleaned_data[f"merit_{i}_rating"] for i in range(1, 11)
+                ]
                 pairs = list(zip(merits, merit_ratings))
                 pairs = [x for x in pairs if x[0] != "----"]
                 pairs = [(ExMerit.objects.get(name=x[0]), x[1]) for x in pairs]
                 pairs = [(x[0], x[1]) for x in pairs if x[1] in x[0].ratings]
                 for merit, rating in pairs:
-                    MeritRating.objects.create(character=char, merit=merit, rating=rating)
+                    MeritRating.objects.create(
+                        character=char, merit=merit, rating=rating
+                    )
                 char.creation_status += 1
                 char.save()
                 return render(
@@ -194,6 +200,26 @@ class SolarDetailView(View):
             return render(
                 request,
                 "exalted/characters/solars/solar/creation_merits.html",
+                context,
+            )
+        if char.creation_status == 4:
+            form = ExaltedCharmForm(request.POST, character=char)
+            form.full_clean()
+            charm_name = form.cleaned_data["charm"]
+            c = Charm.objects.get(name=charm_name)
+            print(c)
+            char.add_charm(c)
+            if char.has_charms():
+                print("Done!")
+                return render(
+                    request,
+                    "exalted/characters/solars/solar/creation_intimacies.html",
+                    context,
+                )
+            context['form'] = ExaltedCharmForm(character=char)
+            return render(
+                request,
+                "exalted/characters/solars/solar/creation_charms.html",
                 context,
             )
 
@@ -331,6 +357,7 @@ class SolarCreateView(View):
             caste=form.data["caste"],
             owner=request.user,
             status="Un",
+            essence=1,
         )
         return redirect(s.get_absolute_url())
 
