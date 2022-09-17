@@ -2,18 +2,23 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
-from game.models import Chronicle
 from exalted.forms import (
-    ExaltedIntimacyForm,
-    ExaltedCharmForm,
     ExaltedAbilitiesForm,
     ExaltedAttributeForm,
-    SolarCreationForm,
+    ExaltedCharmForm,
+    ExaltedIntimacyForm,
     ExaltedMeritsForm,
+    SolarCreationForm,
 )
-from exalted.models.characters.mortals import ExSpecialty, Intimacy, MeritRating, ExMerit
-from exalted.models.characters.solars import Solar, SolarCharm, Charm
+from exalted.models.characters.mortals import (
+    ExMerit,
+    ExSpecialty,
+    Intimacy,
+    MeritRating,
+)
+from exalted.models.characters.solars import Charm, Solar, SolarCharm
 from exalted.models.characters.utils import ABILITIES
+from game.models import Chronicle
 
 
 class SolarDetailView(View):
@@ -231,15 +236,35 @@ class SolarDetailView(View):
             form = ExaltedIntimacyForm(request.POST)
             if form.has_intimacies():
                 form.full_clean()
-                i1 = Intimacy.objects.create(name=form.cleaned_data["intimacy_1"], intimacy_type=form.cleaned_data["intimacy_type_1"], strength=form.cleaned_data["intimacy_strength_1"], is_negative=form.cleaned_data["is_negative_1"])
-                i2 = Intimacy.objects.create(name=form.cleaned_data["intimacy_2"], intimacy_type=form.cleaned_data["intimacy_type_2"], strength=form.cleaned_data["intimacy_strength_2"], is_negative=form.cleaned_data["is_negative_2"])
-                i3 = Intimacy.objects.create(name=form.cleaned_data["intimacy_3"], intimacy_type=form.cleaned_data["intimacy_type_3"], strength=form.cleaned_data["intimacy_strength_3"], is_negative=form.cleaned_data["is_negative_3"])
-                i4 = Intimacy.objects.create(name=form.cleaned_data["intimacy_4"], intimacy_type=form.cleaned_data["intimacy_type_4"], strength=form.cleaned_data["intimacy_strength_4"], is_negative=form.cleaned_data["is_negative_4"])
+                i1 = Intimacy.objects.create(
+                    name=form.cleaned_data["intimacy_1"],
+                    intimacy_type=form.cleaned_data["intimacy_type_1"],
+                    strength=form.cleaned_data["intimacy_strength_1"],
+                    is_negative=form.cleaned_data["is_negative_1"],
+                )
+                i2 = Intimacy.objects.create(
+                    name=form.cleaned_data["intimacy_2"],
+                    intimacy_type=form.cleaned_data["intimacy_type_2"],
+                    strength=form.cleaned_data["intimacy_strength_2"],
+                    is_negative=form.cleaned_data["is_negative_2"],
+                )
+                i3 = Intimacy.objects.create(
+                    name=form.cleaned_data["intimacy_3"],
+                    intimacy_type=form.cleaned_data["intimacy_type_3"],
+                    strength=form.cleaned_data["intimacy_strength_3"],
+                    is_negative=form.cleaned_data["is_negative_3"],
+                )
+                i4 = Intimacy.objects.create(
+                    name=form.cleaned_data["intimacy_4"],
+                    intimacy_type=form.cleaned_data["intimacy_type_4"],
+                    strength=form.cleaned_data["intimacy_strength_4"],
+                    is_negative=form.cleaned_data["is_negative_4"],
+                )
                 char.add_intimacy(i1)
                 char.add_intimacy(i2)
                 char.add_intimacy(i3)
                 char.add_intimacy(i4)
-                char.limit_trigger = form.cleaned_data['limit_trigger']
+                char.limit_trigger = form.cleaned_data["limit_trigger"]
                 char.creation_status += 1
                 char.save()
                 char.apply_finishing_touches()
@@ -388,7 +413,7 @@ class SolarCreateView(View):
         form = SolarCreationForm(request.POST)
         chron = None
         if "chronicle" in form.data.keys():
-            chron = Chronicle.objects.filter(name=form.data['chronicle']).first()
+            chron = Chronicle.objects.filter(name=form.data["chronicle"]).first()
         s = Solar.objects.create(
             name=form.data["name"],
             concept=form.data["concept"],

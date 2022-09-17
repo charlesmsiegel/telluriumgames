@@ -1,8 +1,8 @@
-from exalted.models.characters.mortals import ExMerit
 from django import forms
 
-from game.models import Chronicle
+from exalted.models.characters.mortals import ExMerit
 from exalted.models.characters.utils import ABILITIES
+from game.models import Chronicle
 
 
 class RandomCharacterForm(forms.Form):
@@ -17,8 +17,13 @@ class ExMortalCreationForm(forms.Form):
     name = forms.CharField(label="Name", max_length=100)
     concept = forms.CharField(label="Name", max_length=100)
     # Native Language
-    chronicle = forms.CharField(required=False,
-        label="Chronicle", widget=forms.Select(choices=[(None, "----")] + [(x.name, x.name) for x in Chronicle.objects.all()]),
+    chronicle = forms.CharField(
+        required=False,
+        label="Chronicle",
+        widget=forms.Select(
+            choices=[(None, "----")]
+            + [(x.name, x.name) for x in Chronicle.objects.all()]
+        ),
     )
 
 
@@ -353,16 +358,24 @@ class ExaltedIntimacyForm(forms.Form):
     intimacy_4 = forms.CharField(max_length=100)
 
     intimacy_strength_1 = forms.CharField(
-        widget=forms.Select(choices=[("minor", "Minor"), ("major", "Major"), ("defining", "Defining"),])
+        widget=forms.Select(
+            choices=[("minor", "Minor"), ("major", "Major"), ("defining", "Defining"),]
+        )
     )
     intimacy_strength_2 = forms.CharField(
-        widget=forms.Select(choices=[("minor", "Minor"), ("major", "Major"), ("defining", "Defining"),])
+        widget=forms.Select(
+            choices=[("minor", "Minor"), ("major", "Major"), ("defining", "Defining"),]
+        )
     )
     intimacy_strength_3 = forms.CharField(
-        widget=forms.Select(choices=[("minor", "Minor"), ("major", "Major"), ("defining", "Defining"),])
+        widget=forms.Select(
+            choices=[("minor", "Minor"), ("major", "Major"), ("defining", "Defining"),]
+        )
     )
     intimacy_strength_4 = forms.CharField(
-        widget=forms.Select(choices=[("minor", "Minor"), ("major", "Major"), ("defining", "Defining"),])
+        widget=forms.Select(
+            choices=[("minor", "Minor"), ("major", "Major"), ("defining", "Defining"),]
+        )
     )
 
     intimacy_type_1 = forms.CharField(
@@ -398,15 +411,21 @@ class ExaltedIntimacyForm(forms.Form):
             ]
         )
     )
-    
+
     def has_intimacies(self):
         self.full_clean()
         has_four = all([self.cleaned_data[f"intimacy_{i}"] != "" for i in range(1, 5)])
         strengths = [self.cleaned_data[f"intimacy_strength_{i}"] for i in range(1, 5)]
-        one_defining = ("defining" in strengths)
-        one_major = ("major" in strengths)
-        one_negative = self.cleaned_data['is_negative_1'] or self.cleaned_data['is_negative_2'] or self.cleaned_data['is_negative_3'] or self.cleaned_data['is_negative_4']
+        one_defining = "defining" in strengths
+        one_major = "major" in strengths
+        one_negative = (
+            self.cleaned_data["is_negative_1"]
+            or self.cleaned_data["is_negative_2"]
+            or self.cleaned_data["is_negative_3"]
+            or self.cleaned_data["is_negative_4"]
+        )
         return has_four and one_defining and one_major and one_negative
+
 
 class ExaltedTotalForm(forms.Form):
     pass

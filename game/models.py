@@ -9,6 +9,6 @@ class Chronicle(models.Model):
     head_storyteller = models.ForeignKey(
         User, blank=True, null=True, on_delete=models.CASCADE
     )
-    
+
     def __str__(self):
         return self.name
