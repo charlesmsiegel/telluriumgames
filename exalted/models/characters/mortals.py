@@ -421,7 +421,7 @@ class ExMortal(Model):
     def apply_finishing_touches(self):
         self.willpower = 3
         self.health_levels = 7
-        self.essence = 1
+        self.essence = 0
         self.save()
         return True
 

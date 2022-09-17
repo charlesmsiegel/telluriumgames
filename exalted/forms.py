@@ -205,66 +205,110 @@ class ExaltedAbilitiesForm(forms.Form):
         if not caste:
             print("caste:", len(caste_abilities))
         if not specialties:
-            print("specialty:", self.cleaned_data["spec_1_value"], self.cleaned_data["spec_2_value"], self.cleaned_data["spec_3_value"], self.cleaned_data["spec_4_value"], getattr(character, self.cleaned_data["spec_1_ability"]) > 0, getattr(character, self.cleaned_data["spec_2_ability"]) > 0, getattr(character, self.cleaned_data["spec_3_ability"]) > 0, getattr(character, self.cleaned_data["spec_4_ability"]) > 0)
+            print(
+                "specialty:",
+                self.cleaned_data["spec_1_value"],
+                self.cleaned_data["spec_2_value"],
+                self.cleaned_data["spec_3_value"],
+                self.cleaned_data["spec_4_value"],
+                getattr(character, self.cleaned_data["spec_1_ability"]) > 0,
+                getattr(character, self.cleaned_data["spec_2_ability"]) > 0,
+                getattr(character, self.cleaned_data["spec_3_ability"]) > 0,
+                getattr(character, self.cleaned_data["spec_4_ability"]) > 0,
+            )
         if not supernal:
             print("supernal:", self.cleaned_data["supernal_ability"], checked_abilities)
         if not min_values:
-            print("min_values:", [x for x in zip(checked_abilities, [self.cleaned_data[x] for x in checked_abilities]) if x[1] == 0])
+            print(
+                "min_values:",
+                [
+                    x
+                    for x in zip(
+                        checked_abilities,
+                        [self.cleaned_data[x] for x in checked_abilities],
+                    )
+                    if x[1] == 0
+                ],
+            )
         if not max_values:
-            print("min_values:", [x for x in zip(ABILITIES, [self.cleaned_data[x] for x in ABILITIES]) if x[1] >= 4])
+            print(
+                "min_values:",
+                [
+                    x
+                    for x in zip(ABILITIES, [self.cleaned_data[x] for x in ABILITIES])
+                    if x[1] >= 4
+                ],
+            )
         return (
-            all_dots and favored and caste and specialties and supernal and min_values and max_values
+            all_dots
+            and favored
+            and caste
+            and specialties
+            and supernal
+            and min_values
+            and max_values
         )
+
 
 class ExaltedMeritsForm(forms.Form):
     merit_1 = forms.CharField(
         widget=forms.Select(
-            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+            choices=[("----", "----")]
+            + [(x.name, x.name) for x in ExMerit.objects.all()]
         ),
     )
     merit_2 = forms.CharField(
         widget=forms.Select(
-            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+            choices=[("----", "----")]
+            + [(x.name, x.name) for x in ExMerit.objects.all()]
         ),
     )
     merit_3 = forms.CharField(
         widget=forms.Select(
-            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+            choices=[("----", "----")]
+            + [(x.name, x.name) for x in ExMerit.objects.all()]
         ),
     )
     merit_4 = forms.CharField(
         widget=forms.Select(
-            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+            choices=[("----", "----")]
+            + [(x.name, x.name) for x in ExMerit.objects.all()]
         ),
     )
     merit_5 = forms.CharField(
         widget=forms.Select(
-            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+            choices=[("----", "----")]
+            + [(x.name, x.name) for x in ExMerit.objects.all()]
         ),
     )
     merit_6 = forms.CharField(
         widget=forms.Select(
-            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+            choices=[("----", "----")]
+            + [(x.name, x.name) for x in ExMerit.objects.all()]
         ),
     )
     merit_7 = forms.CharField(
         widget=forms.Select(
-            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+            choices=[("----", "----")]
+            + [(x.name, x.name) for x in ExMerit.objects.all()]
         ),
     )
     merit_8 = forms.CharField(
         widget=forms.Select(
-            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+            choices=[("----", "----")]
+            + [(x.name, x.name) for x in ExMerit.objects.all()]
         ),
     )
     merit_9 = forms.CharField(
         widget=forms.Select(
-            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+            choices=[("----", "----")]
+            + [(x.name, x.name) for x in ExMerit.objects.all()]
         ),
     )
     merit_10 = forms.CharField(
         widget=forms.Select(
-            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+            choices=[("----", "----")]
+            + [(x.name, x.name) for x in ExMerit.objects.all()]
         ),
     )
     merit_1_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
@@ -277,7 +321,7 @@ class ExaltedMeritsForm(forms.Form):
     merit_8_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
     merit_9_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
     merit_10_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
-    
+
     def has_merits(self, character):
         self.full_clean()
         total = character.total_merits()
@@ -289,16 +333,78 @@ class ExaltedMeritsForm(forms.Form):
         pairs = [(x[0], x[1]) for x in pairs if x[1] in x[0].ratings]
         new_total = total + sum(x[1] for x in pairs)
         return new_total == 10
-        
-        
+
+
 class ExaltedCharmForm(forms.Form):
-    charm = forms.CharField(
-        widget=forms.Select(
-            choices=[]
-        ),
-    )
-    
+    charm = forms.CharField(widget=forms.Select(choices=[]),)
+
     def __init__(self, *args, **kwargs):
         char = kwargs.pop("character")
         super().__init__(*args, **kwargs)
-        self.fields["charm"].widget.choices = [(x.name, f"{x.name} ({x.statistic.replace('_', ' ').title()})") for x in char.filter_charms()]
+        self.fields["charm"].widget.choices = [
+            (x.name, f"{x.name} ({x.statistic.replace('_', ' ').title()})")
+            for x in char.filter_charms()
+        ]
+
+
+class ExaltedIntimacyForm(forms.Form):
+    intimacy_1 = forms.CharField(max_length=100)
+    intimacy_2 = forms.CharField(max_length=100)
+    intimacy_3 = forms.CharField(max_length=100)
+    intimacy_4 = forms.CharField(max_length=100)
+
+    intimacy_strength_1 = forms.CharField(
+        widget=forms.Select(choices=[("minor", "Minor"), ("major", "Major"), ("defining", "Defining"),])
+    )
+    intimacy_strength_2 = forms.CharField(
+        widget=forms.Select(choices=[("minor", "Minor"), ("major", "Major"), ("defining", "Defining"),])
+    )
+    intimacy_strength_3 = forms.CharField(
+        widget=forms.Select(choices=[("minor", "Minor"), ("major", "Major"), ("defining", "Defining"),])
+    )
+    intimacy_strength_4 = forms.CharField(
+        widget=forms.Select(choices=[("minor", "Minor"), ("major", "Major"), ("defining", "Defining"),])
+    )
+
+    intimacy_type_1 = forms.CharField(
+        widget=forms.Select(choices=[("tie", "Tie"), ("principle", "Principle"),])
+    )
+    intimacy_type_2 = forms.CharField(
+        widget=forms.Select(choices=[("tie", "Tie"), ("principle", "Principle"),])
+    )
+    intimacy_type_3 = forms.CharField(
+        widget=forms.Select(choices=[("tie", "Tie"), ("principle", "Principle"),])
+    )
+    intimacy_type_4 = forms.CharField(
+        widget=forms.Select(choices=[("tie", "Tie"), ("principle", "Principle"),])
+    )
+
+    is_negative_1 = forms.BooleanField(required=False)
+    is_negative_2 = forms.BooleanField(required=False)
+    is_negative_3 = forms.BooleanField(required=False)
+    is_negative_4 = forms.BooleanField(required=False)
+
+    limit_trigger = forms.CharField(
+        widget=forms.Select(
+            choices=[
+                ("all_consuming_grief", "All-Consuming Grief"),
+                ("berserk_anger", "Berserk Anger"),
+                ("chains_of_honor", "Chains of Honor"),
+                ("compassionate_martyrdom", "Compassionate Martyrdom"),
+                ("contempt_of_the_virtuous", "Contempt of the Virtuous"),
+                ("crushing_doubt", "Crushing Doubt"),
+                ("deliberate_cruelty", "Deliberate Cruelty"),
+                ("heart_of_flint", "Heart of Flint"),
+                ("rampaging_avarice", "Rampaging Avarice"),
+            ]
+        )
+    )
+    
+    def has_intimacies(self):
+        self.full_clean()
+        has_four = all([self.cleaned_data[f"intimacy_{i}"] != "" for i in range(1, 5)])
+        strengths = [self.cleaned_data[f"intimacy_strength_{i}"] for i in range(1, 5)]
+        one_defining = ("defining" in strengths)
+        one_major = ("major" in strengths)
+        one_negative = self.cleaned_data['is_negative_1'] or self.cleaned_data['is_negative_2'] or self.cleaned_data['is_negative_3'] or self.cleaned_data['is_negative_4']
+        return has_four and one_defining and one_major and one_negative

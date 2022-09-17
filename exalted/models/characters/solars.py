@@ -195,7 +195,17 @@ class Solar(ExMortal):
     charms = models.ManyToManyField(SolarCharm, blank=True)
     martial_arts_charms = models.ManyToManyField(MartialArtsCharm, blank=True)
 
-    limit_trigger = models.CharField(max_length=100, default="")
+    limit_trigger = models.CharField(max_length=100, default="", choices=[
+        ("all_consuming_grief", "All-Consuming Grief"),
+        ("berserk_anger", "Berserk Anger"),
+        ("chains_of_honor", "Chains of Honor"),
+        ("compassionate_martyrdom", "Compassionate Martyrdom"),
+        ("contempt_of_the_virtuous", "Contempt of the Virtuous"),
+        ("crushing_doubt", "Crushing Doubt"),
+        ("deliberate_cruelty", "Deliberate Cruelty"),
+        ("heart_of_flint", "Heart of Flint"),
+        ("rampaging_avarice", "Rampaging Avarice"),
+    ])
 
     def get_update_url(self):
         return reverse("exalted:characters:solars:update_solar", kwargs={"pk": self.pk})
@@ -552,6 +562,13 @@ class Solar(ExMortal):
                 return False
             return False
         return super().spend_xp(trait)
+
+    def apply_finishing_touches(self):
+        self.willpower = 5
+        self.health_levels = 7
+        self.essence = 1
+        self.save()
+        return True
 
     def random(self, bonus_points=21, xp=0):
         self.update_status("Ran")
