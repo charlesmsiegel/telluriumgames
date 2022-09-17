@@ -1,4 +1,4 @@
-from distutils.command import check
+from exalted.models.characters.mortals import ExMerit
 from django import forms
 
 from exalted.models.characters.utils import ABILITIES
@@ -216,3 +216,66 @@ class ExaltedAbilitiesForm(forms.Form):
         return (
             all_dots and favored and caste and specialties and supernal and min_values and max_values
         )
+
+class ExaltedMeritsForm(forms.Form):
+    merit_1 = forms.CharField(
+        widget=forms.Select(
+            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+        ),
+    )
+    merit_2 = forms.CharField(
+        widget=forms.Select(
+            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+        ),
+    )
+    merit_3 = forms.CharField(
+        widget=forms.Select(
+            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+        ),
+    )
+    merit_4 = forms.CharField(
+        widget=forms.Select(
+            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+        ),
+    )
+    merit_5 = forms.CharField(
+        widget=forms.Select(
+            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+        ),
+    )
+    merit_6 = forms.CharField(
+        widget=forms.Select(
+            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+        ),
+    )
+    merit_7 = forms.CharField(
+        widget=forms.Select(
+            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+        ),
+    )
+    merit_8 = forms.CharField(
+        widget=forms.Select(
+            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+        ),
+    )
+    merit_9 = forms.CharField(
+        widget=forms.Select(
+            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+        ),
+    )
+    merit_10 = forms.CharField(
+        widget=forms.Select(
+            choices=[("----", "----")] + [(x.name, x.name) for x in ExMerit.objects.all()]
+        ),
+    )
+    merit_1_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
+    merit_2_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
+    merit_3_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
+    merit_4_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
+    merit_5_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
+    merit_6_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
+    merit_7_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
+    merit_8_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
+    merit_9_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
+    merit_10_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
+    

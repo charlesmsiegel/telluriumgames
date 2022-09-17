@@ -2,7 +2,12 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
-from exalted.forms import ExaltedAbilitiesForm, ExaltedAttributeForm, SolarCreationForm
+from exalted.forms import (
+    ExaltedAbilitiesForm,
+    ExaltedAttributeForm,
+    SolarCreationForm,
+    ExaltedMeritsForm,
+)
 from exalted.models.characters.mortals import ExSpecialty, MeritRating, ExMerit
 from exalted.models.characters.solars import Solar, SolarCharm
 from exalted.models.characters.utils import ABILITIES
@@ -32,6 +37,7 @@ class SolarDetailView(View):
                 context,
             )
         if char.creation_status == 3:
+            context["form"] = ExaltedMeritsForm()
             return render(
                 request,
                 "exalted/characters/solars/solar/creation_merits.html",
@@ -173,6 +179,116 @@ class SolarDetailView(View):
             ),
             "specialties": char.specialties.all().order_by("name"),
         }
+
+
+def load_merit_1_ratings(request):
+    merit_name = request.GET.get("merit_1")
+    ratings = ExMerit.objects.get(name=merit_name).ratings
+
+    return render(
+        request,
+        "exalted/characters/solars/solar/load_rating_dropdown_list.html",
+        {"ratings": ratings},
+    )
+
+
+def load_merit_2_ratings(request):
+    merit_name = request.GET.get("merit_2")
+    ratings = ExMerit.objects.get(name=merit_name).ratings
+
+    return render(
+        request,
+        "exalted/characters/solars/solar/load_rating_dropdown_list.html",
+        {"ratings": ratings},
+    )
+
+
+def load_merit_3_ratings(request):
+    merit_name = request.GET.get("merit_3")
+    ratings = ExMerit.objects.get(name=merit_name).ratings
+
+    return render(
+        request,
+        "exalted/characters/solars/solar/load_rating_dropdown_list.html",
+        {"ratings": ratings},
+    )
+
+
+def load_merit_4_ratings(request):
+    merit_name = request.GET.get("merit_4")
+    ratings = ExMerit.objects.get(name=merit_name).ratings
+
+    return render(
+        request,
+        "exalted/characters/solars/solar/load_rating_dropdown_list.html",
+        {"ratings": ratings},
+    )
+
+
+def load_merit_5_ratings(request):
+    merit_name = request.GET.get("merit_5")
+    ratings = ExMerit.objects.get(name=merit_name).ratings
+
+    return render(
+        request,
+        "exalted/characters/solars/solar/load_rating_dropdown_list.html",
+        {"ratings": ratings},
+    )
+
+
+def load_merit_6_ratings(request):
+    merit_name = request.GET.get("merit_6")
+    ratings = ExMerit.objects.get(name=merit_name).ratings
+
+    return render(
+        request,
+        "exalted/characters/solars/solar/load_rating_dropdown_list.html",
+        {"ratings": ratings},
+    )
+
+
+def load_merit_7_ratings(request):
+    merit_name = request.GET.get("merit_7")
+    ratings = ExMerit.objects.get(name=merit_name).ratings
+
+    return render(
+        request,
+        "exalted/characters/solars/solar/load_rating_dropdown_list.html",
+        {"ratings": ratings},
+    )
+
+
+def load_merit_8_ratings(request):
+    merit_name = request.GET.get("merit_8")
+    ratings = ExMerit.objects.get(name=merit_name).ratings
+
+    return render(
+        request,
+        "exalted/characters/solars/solar/load_rating_dropdown_list.html",
+        {"ratings": ratings},
+    )
+
+
+def load_merit_9_ratings(request):
+    merit_name = request.GET.get("merit_9")
+    ratings = ExMerit.objects.get(name=merit_name).ratings
+
+    return render(
+        request,
+        "exalted/characters/solars/solar/load_rating_dropdown_list.html",
+        {"ratings": ratings},
+    )
+
+
+def load_merit_10_ratings(request):
+    merit_name = request.GET.get("merit_10")
+    ratings = ExMerit.objects.get(name=merit_name).ratings
+
+    return render(
+        request,
+        "exalted/characters/solars/solar/load_rating_dropdown_list.html",
+        {"ratings": ratings},
+    )
 
 
 class SolarCreateView(View):
