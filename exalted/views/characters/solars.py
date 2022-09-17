@@ -207,10 +207,8 @@ class SolarDetailView(View):
             form.full_clean()
             charm_name = form.cleaned_data["charm"]
             c = Charm.objects.get(name=charm_name)
-            print(c)
             char.add_charm(c)
             if char.has_charms():
-                print("Done!")
                 return render(
                     request,
                     "exalted/characters/solars/solar/creation_intimacies.html",
