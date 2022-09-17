@@ -1,3 +1,4 @@
+from distutils.command import check
 from django import forms
 
 from exalted.models.characters.utils import ABILITIES
@@ -184,6 +185,7 @@ class ExaltedAbilitiesForm(forms.Form):
             if x in character.caste_ability_dict[character.caste]
         ]
         caste = len(caste_abilities) >= 5
+        max_values = all([self.cleaned_data[x] <= 3 for x in ABILITIES])
         min_values = all([self.cleaned_data[x] > 0 for x in checked_abilities])
         supernal = self.cleaned_data["supernal_ability"] in checked_abilities
         specialties = (
@@ -191,11 +193,26 @@ class ExaltedAbilitiesForm(forms.Form):
             and self.cleaned_data["spec_2_value"]
             and self.cleaned_data["spec_3_value"]
             and self.cleaned_data["spec_4_value"]
-            and getattr(character, self.cleaned_data["spec_1_ability"]) > 0
-            and getattr(character, self.cleaned_data["spec_2_ability"]) > 0
-            and getattr(character, self.cleaned_data["spec_3_ability"]) > 0
-            and getattr(character, self.cleaned_data["spec_4_ability"]) > 0
+            and self.cleaned_data[self.cleaned_data["spec_1_ability"]] > 0
+            and self.cleaned_data[self.cleaned_data["spec_2_ability"]] > 0
+            and self.cleaned_data[self.cleaned_data["spec_3_ability"]] > 0
+            and self.cleaned_data[self.cleaned_data["spec_4_ability"]] > 0
         )
+        if not all_dots:
+            print("num_dots:", sum(self.cleaned_data[x] for x in ABILITIES))
+        if not favored:
+            print("favored:", len(checked_abilities))
+        if not caste:
+            print("caste:", len(caste_abilities))
+        if not specialties:
+            print("specialty:", self.cleaned_data["spec_1_value"], self.cleaned_data["spec_2_value"], self.cleaned_data["spec_3_value"], self.cleaned_data["spec_4_value"], getattr(character, self.cleaned_data["spec_1_ability"]) > 0, getattr(character, self.cleaned_data["spec_2_ability"]) > 0, getattr(character, self.cleaned_data["spec_3_ability"]) > 0, getattr(character, self.cleaned_data["spec_4_ability"]) > 0)
+        print(type(self.cleaned_data[self.cleaned_data["spec_1_ability"]]))
+        if not supernal:
+            print("supernal:", self.cleaned_data["supernal_ability"], checked_abilities)
+        if not min_values:
+            print("min_values:", [x for x in zip(checked_abilities, [self.cleaned_data[x] for x in checked_abilities]) if x[1] == 0])
+        if not max_values:
+            print("min_values:", [x for x in zip(ABILITIES, [self.cleaned_data[x] for x in ABILITIES]) if x[1] >= 4])
         return (
-            all_dots and favored and caste and specialties and supernal and min_values
+            all_dots and favored and caste and specialties and supernal and min_values and max_values
         )
