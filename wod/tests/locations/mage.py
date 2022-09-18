@@ -460,4 +460,4 @@ class TestLibraryDetailView(TestCase):
 
     def test_library_detail_view_template(self):
         response = self.client.get(f"/wod/locations/{self.library.id}/")
-        self.assertTemplateUsed(response, "wod/items/mage/library/detail.html")
+        self.assertTemplateUsed(response, "wod/locations/mage/library/detail.html")

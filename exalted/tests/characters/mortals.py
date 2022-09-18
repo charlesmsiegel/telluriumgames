@@ -465,7 +465,7 @@ class TestMortal(TestCase):
         self.assertFalse(self.character.has_finishing_touches())
         self.character.willpower = 3
         self.character.health_levels = 7
-        self.character.essence = 1
+        self.character.essence = 0
         self.assertTrue(self.character.has_finishing_touches())
 
     def test_apply_finishing_touches(self):

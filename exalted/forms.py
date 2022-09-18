@@ -20,11 +20,13 @@ class ExMortalCreationForm(forms.Form):
     chronicle = forms.CharField(
         required=False,
         label="Chronicle",
-        widget=forms.Select(
-            choices=[(None, "----")]
-            + [(x.name, x.name) for x in Chronicle.objects.all()]
-        ),
+        widget=forms.Select(choices=[(None, "----")]),
     )
+
+    def __init__(self, *args, **kwargs):
+        choices = [(x.name, x.name) for x in Chronicle.objects.all()]
+        super().__init__(*args, **kwargs)
+        self.fields["chronicle"].widget.choices += choices
 
 
 class SolarCreationForm(ExMortalCreationForm):
@@ -255,66 +257,16 @@ class ExaltedAbilitiesForm(forms.Form):
 
 
 class ExaltedMeritsForm(forms.Form):
-    merit_1 = forms.CharField(
-        widget=forms.Select(
-            choices=[("----", "----")]
-            + [(x.name, x.name) for x in ExMerit.objects.all()]
-        ),
-    )
-    merit_2 = forms.CharField(
-        widget=forms.Select(
-            choices=[("----", "----")]
-            + [(x.name, x.name) for x in ExMerit.objects.all()]
-        ),
-    )
-    merit_3 = forms.CharField(
-        widget=forms.Select(
-            choices=[("----", "----")]
-            + [(x.name, x.name) for x in ExMerit.objects.all()]
-        ),
-    )
-    merit_4 = forms.CharField(
-        widget=forms.Select(
-            choices=[("----", "----")]
-            + [(x.name, x.name) for x in ExMerit.objects.all()]
-        ),
-    )
-    merit_5 = forms.CharField(
-        widget=forms.Select(
-            choices=[("----", "----")]
-            + [(x.name, x.name) for x in ExMerit.objects.all()]
-        ),
-    )
-    merit_6 = forms.CharField(
-        widget=forms.Select(
-            choices=[("----", "----")]
-            + [(x.name, x.name) for x in ExMerit.objects.all()]
-        ),
-    )
-    merit_7 = forms.CharField(
-        widget=forms.Select(
-            choices=[("----", "----")]
-            + [(x.name, x.name) for x in ExMerit.objects.all()]
-        ),
-    )
-    merit_8 = forms.CharField(
-        widget=forms.Select(
-            choices=[("----", "----")]
-            + [(x.name, x.name) for x in ExMerit.objects.all()]
-        ),
-    )
-    merit_9 = forms.CharField(
-        widget=forms.Select(
-            choices=[("----", "----")]
-            + [(x.name, x.name) for x in ExMerit.objects.all()]
-        ),
-    )
-    merit_10 = forms.CharField(
-        widget=forms.Select(
-            choices=[("----", "----")]
-            + [(x.name, x.name) for x in ExMerit.objects.all()]
-        ),
-    )
+    merit_1 = forms.CharField(widget=forms.Select(choices=[("----", "----")]),)
+    merit_2 = forms.CharField(widget=forms.Select(choices=[("----", "----")]),)
+    merit_3 = forms.CharField(widget=forms.Select(choices=[("----", "----")]),)
+    merit_4 = forms.CharField(widget=forms.Select(choices=[("----", "----")]),)
+    merit_5 = forms.CharField(widget=forms.Select(choices=[("----", "----")]),)
+    merit_6 = forms.CharField(widget=forms.Select(choices=[("----", "----")]),)
+    merit_7 = forms.CharField(widget=forms.Select(choices=[("----", "----")]),)
+    merit_8 = forms.CharField(widget=forms.Select(choices=[("----", "----")]),)
+    merit_9 = forms.CharField(widget=forms.Select(choices=[("----", "----")]),)
+    merit_10 = forms.CharField(widget=forms.Select(choices=[("----", "----")]),)
     merit_1_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
     merit_2_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
     merit_3_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
@@ -325,6 +277,20 @@ class ExaltedMeritsForm(forms.Form):
     merit_8_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
     merit_9_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
     merit_10_rating = forms.IntegerField(widget=forms.Select(choices=[(0, 0)]))
+
+    def __init__(self, *args, **kwargs):
+        choices = [(x.name, x.name) for x in ExMerit.objects.all()]
+        super().__init__(*args, **kwargs)
+        self.fields["merit_1"].widget.choices += choices
+        self.fields["merit_2"].widget.choices += choices
+        self.fields["merit_3"].widget.choices += choices
+        self.fields["merit_4"].widget.choices += choices
+        self.fields["merit_5"].widget.choices += choices
+        self.fields["merit_6"].widget.choices += choices
+        self.fields["merit_7"].widget.choices += choices
+        self.fields["merit_8"].widget.choices += choices
+        self.fields["merit_9"].widget.choices += choices
+        self.fields["merit_10"].widget.choices += choices
 
     def has_merits(self, character):
         self.full_clean()

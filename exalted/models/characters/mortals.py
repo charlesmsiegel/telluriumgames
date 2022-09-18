@@ -416,7 +416,7 @@ class ExMortal(Model):
             dots = 7 - self.total_merits()
 
     def has_finishing_touches(self):
-        return self.willpower == 3 and self.health_levels == 7 and self.essence == 1
+        return self.willpower == 3 and self.health_levels == 7 and self.essence == 0
 
     def apply_finishing_touches(self):
         self.willpower = 3

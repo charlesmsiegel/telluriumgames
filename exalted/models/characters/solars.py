@@ -316,6 +316,9 @@ class Solar(ExMortal):
         ability = random.choice(self.caste_abilities)
         return self.set_supernal_ability(ability)
 
+    def has_finishing_touches(self):
+        return self.willpower == 5 and self.health_levels == 7 and self.essence == 1
+
     def total_charms(self):
         return self.charms.count() + self.martial_arts_charms.count()
 

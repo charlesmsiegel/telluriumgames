@@ -223,6 +223,13 @@ class TestSolar(TestCase):
         self.solar.set_limit_trigger("Test")
         self.assertTrue(self.solar.has_limit_trigger())
 
+    def test_has_finishing_touches(self):
+        self.assertFalse(self.solar.has_finishing_touches())
+        self.solar.willpower = 5
+        self.solar.health_levels = 7
+        self.solar.essence = 1
+        self.assertTrue(self.solar.has_finishing_touches())
+
     def test_bonus_point_costs(self):
         self.assertEqual(self.solar.bonus_cost("primary attribute"), 4)
         self.assertEqual(self.solar.bonus_cost("secondary attribute"), 4)
