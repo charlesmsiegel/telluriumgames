@@ -576,6 +576,14 @@ class Solar(ExMortal):
         self.essence = 1
         self.save()
         return True
+    
+    def charm_dict(self):
+        charms = {}
+        available_charms = self.filter_charms()
+        for ability in ABILITIES:
+            charms[ability.replace("_", " ").title()] = [x for x in available_charms if x.statistic == ability]
+        charms = {k: v for k, v in charms.items() if len(v) != 0}
+        return charms
 
     def random(self, bonus_points=21, xp=0):
         self.update_status("Ran")
