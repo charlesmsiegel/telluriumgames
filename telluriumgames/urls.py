@@ -24,6 +24,7 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path("cod/", include(("cod.urls", "cod"), namespace="cod")),
+    path("game/", include(("game.urls", "game"), namespace="game")),
     path("exalted/", include(("exalted.urls", "exalted"), namespace="exalted")),
     path("tc/", include(("tc.urls", "tc"), namespace="tc")),
     path("wod/", include(("wod.urls", "wod"), namespace="wod")),
