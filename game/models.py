@@ -10,14 +10,20 @@ class Chronicle(models.Model):
     theme = models.CharField(max_length=200, default="")
     mood = models.CharField(max_length=200, default="")
     common_knowledge_elements = models.TextField(default="")
-    system = models.CharField(
+    headings = models.CharField(
         default="",
         max_length=100,
         choices=[
-            ("cod", "Chronicles of Darkness"),
-            ("ex", "Exalted"),
-            ("trinity", "Trinity Continuum"),
-            ("wod", "World of Darkness"),
+            ("vtm_heading", "Vampire: the Masquerade"),
+            ("wta_heading", "Werewolf: the Apocalypse"),
+            ("mtas_heading", "Mage: the Ascension"),
+            ("ctd_heading", "Changeling: the Dreaming"),
+            ("wto_heading", "Wraith: the Oblivion"),
+            ("wod_heading", "World of Darkness"),
+            ("cod_heading", "Chronicles of Darkness"),
+            ("tc_aberrant_heading", "Trinity Continuum: Aberrant"),
+            ("tc_core_heading", "Trinity Continuum"),
+            ("exalted_heading", "Exalted"),
         ],
     )
 
