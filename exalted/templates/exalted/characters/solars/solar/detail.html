@@ -5,6 +5,13 @@
 {% block content %}
     {% load dots %}
     <div class="centertext container">
+        {% if object.image %}
+            <img src="{{ object.image.url }}"
+                 width
+                 300
+                 height=500
+                 alt="image of {{ object.name }}"/>
+        {% endif %}
         <div class="row">
             <h1 class="col-sm exalted_heading">{{ object.name }}</h1>
         </div>
