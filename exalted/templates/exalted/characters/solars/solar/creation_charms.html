@@ -329,6 +329,19 @@
                 </div>
             {% endfor %}
             <div class="row">
+                <h3 class="col-sm">Possible Charms</h3>
+            </div>
+            {% for ability, charms in object.charm_dict.items %}
+            <div class="row">
+                <b class="col-sm">{{ ability }}</b>
+            </div>
+            <div class="row">
+                {% for charm in charms %}
+                    <a class="col-sm" href="{{ charm.get_absolute_url }}">{{ charm }}</a>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            <div class="row">
                 <div class="col-sm">
                     {{ form.charm }}
                 </div>
