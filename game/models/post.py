@@ -1,14 +1,6 @@
-# from django.contrib.auth.models import User
 from django.db import models
 
-# import random
-# from tinymce import HTMLField
 from .scene import Scene
-
-# from game.utils import diceroll, initiative, roll
-# from django.urls import reverse
-# from core.models import CharacterModel, LocationModel, ItemModel
-
 
 # Create your models here.
 class Post(models.Model):
