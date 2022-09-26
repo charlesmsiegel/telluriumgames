@@ -29,12 +29,37 @@
             </div>
         </div>
         {% for post in object.post_set.all %}
-            <p>
-                <b>{{ post.display_name }}</b>:
-            {% autoescape off %}
-                {{ post.message }}
-            {% endautoescape %}
-        </p>
+            <div class="row">
+                <div class="col-sm">
+                    <p>
+                        <b>{{ post.display_name }}</b>:
+                    {% autoescape off %}
+                        {{ post.message }}
+                    {% endautoescape %}
+                </p>
+            </div>
+        </div>
     {% endfor %}
+    {% if not object.finished %}
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm">{{ post_form.character }} {{ post_form.display_name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">{{ post_form.message }}</div>
+            </div>
+            <input type="submit" value="Post"/>
+        </form>
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ add_char_form.character_to_add }}
+            <input type="submit" value="Add"/>
+        </form>
+        <form class="inlineforms" method="post" action="">
+            {% csrf_token %}
+            <input type="submit" value="Close Scene" name="close_scene"/>
+        </form>
+    {% endif %}
 </div>
 {% endblock content %}

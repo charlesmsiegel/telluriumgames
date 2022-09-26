@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from django.views.generic import DetailView, View
+from django.views.generic import View
 
-from core.models import LocationModel
+from core.models import CharacterModel, LocationModel
 from game.models import Chronicle, Story, Scene, Post
-from game.forms import StoryCreationForm, SceneCreationForm
+from game.forms import StoryCreationForm, SceneCreationForm, AddCharForm, PostForm
 
 
 # Create your views here.
@@ -14,6 +14,7 @@ class ChronicleDetailView(View):
             "object": chronicle,
             "stories": Story.objects.filter(chronicle=chronicle),
             "form": StoryCreationForm(),
+            "characters": CharacterModel.objects.filter(chronicle=chronicle)
         }
 
     def get(self, request, *args, **kwargs):
@@ -50,10 +51,33 @@ class StoryDetailView(View):
 
 
 class SceneDetailView(View):
-    def get_context(self, pk):
+    def get_context(self, pk, user):
         scene = Scene.objects.get(pk=pk)
-        return {"object": scene, "posts": Post.objects.filter(scene=scene)}
+        return {
+            "object": scene,
+            "posts": Post.objects.filter(scene=scene),
+            "post_form": PostForm(user=user, scene=scene),
+            "add_char_form": AddCharForm(user=user, scene=scene),
+        }
 
     def get(self, request, *args, **kwargs):
-        context = self.get_context(kwargs["pk"])
+        context = self.get_context(kwargs["pk"], request.user)
+        return render(request, "game/scene/detail.html", context)
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context(kwargs["pk"], request.user)
+        if "character_to_add" in request.POST.keys():
+            c = CharacterModel.objects.get(pk=request.POST['character_to_add'])
+            context['object'].characters.add(c)
+        elif "close_scene" in request.POST.keys():
+            context['object'].finished = True
+            context['object'].save()
+        elif "message" in request.POST.keys():
+            character = CharacterModel.objects.get(pk=request.POST['character'])
+            print(request.POST)
+            if "display_name" != '':
+                display_name = character.name
+            else:
+                display_name = request.POST['display_name']
+            message = request.POST['message']
         return render(request, "game/scene/detail.html", context)

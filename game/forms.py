@@ -1,11 +1,13 @@
 from django import forms
 from game.models import Story
-from core.models import LocationModel
+from core.models import LocationModel, CharacterModel
+from django.db.models import Q
+
 
 class SceneCreationForm(forms.Form):
     name = forms.CharField(max_length=100)
     location = forms.ModelChoiceField(queryset=LocationModel.objects.order_by("name"))
-    
+
     def __init__(self, *args, **kwargs):
         chronicle = kwargs.pop("chronicle")
         super().__init__(*args, **kwargs)
@@ -13,11 +15,34 @@ class SceneCreationForm(forms.Form):
             LocationModel.objects.filter(chronicle=chronicle).order_by("name")
         )
 
+
 class StoryCreationForm(forms.Form):
     name = forms.CharField(max_length=100)
-    
+
+
 class AddCharForm(forms.Form):
-    pass
+    character_to_add = forms.ModelChoiceField(queryset=CharacterModel.objects.order_by("name"))
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user")
+        scene = kwargs.pop("scene")
+        super().__init__(*args, **kwargs)
+        self.fields["character_to_add"] = forms.ModelChoiceField(
+            CharacterModel.objects.filter(owner=user, chronicle=scene.story.chronicle).exclude(
+                pk__in=scene.characters.all()
+            )
+        )
+
 
 class PostForm(forms.Form):
-    pass
+    character = forms.ModelChoiceField(queryset=CharacterModel.objects.none())
+    display_name = forms.CharField(max_length=100, required=False)
+    message = forms.CharField(widget=forms.Textarea)
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user")
+        scene = kwargs.pop("scene")
+        super().__init__(*args, **kwargs)
+        self.fields["character"] = forms.ModelChoiceField(
+            CharacterModel.objects.filter(owner=user, chronicle=scene.story.chronicle, pk__in=scene.characters.all())
+        )
