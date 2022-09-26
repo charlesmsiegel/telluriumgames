@@ -1,5 +1,7 @@
 {% extends "core/base.html" %}
-{% block title %}{{ object.name }}{% endblock title %}
+{% block title %}
+    {{ object.name }}
+{% endblock title %}
 {% block content %}
     <div class="centertext container">
         <div class="row">
@@ -29,5 +31,14 @@
                 <a class="col-sm border" href="{{ story.get_absolute_url }}">{{ story.name }}</a>
             </div>
         {% endfor %}
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm">{{ form.name }}</div>
+                <div class="col-sm">
+                    <input class="btn btn-primary" type="submit" value="Create Story" />
+                </div>
+            </div>
+        </form>
     </div>
 {% endblock content %}
