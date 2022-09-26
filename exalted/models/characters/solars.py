@@ -219,62 +219,86 @@ class Solar(ExMortal):
 
     def set_caste(self, caste):
         self.caste = caste
-        if caste == "dawn":
-            self.caste_abilities = [
-                "archery",
-                "awareness",
-                "brawl",
-                "martial arts",
-                "dodge",
-                "melee",
-                "resistance",
-                "thrown",
-                "war",
-            ]
-        elif caste == "zenith":
-            self.caste_abilities = [
-                "athletics",
-                "integrity",
-                "performance",
-                "lore",
-                "presence",
-                "resistance",
-                "survival",
-                "war",
-            ]
-        elif caste == "twilight":
-            self.caste_abilities = [
-                "bureaucracy",
-                "craft",
-                "integrity",
-                "investigation",
-                "linguistics",
-                "lore",
-                "medicine",
-                "occult",
-            ]
-        elif caste == "night":
-            self.caste_abilities = [
-                "athletics",
-                "awareness",
-                "dodge",
-                "investigation",
-                "larceny",
-                "ride",
-                "stealth",
-                "socialize",
-            ]
-        elif caste == "eclipse":
-            self.caste_abilities = [
-                "bureaucracy",
-                "larceny",
-                "linguistics",
-                "occult",
-                "presence",
-                "ride",
-                "sail",
-                "socialize",
-            ]
+        # if caste == "dawn":
+        #     self.caste_abilities = [
+        #         "archery",
+        #         "awareness",
+        #         "brawl",
+        #         "martial arts",
+        #         "dodge",
+        #         "melee",
+        #         "resistance",
+        #         "thrown",
+        #         "war",
+        #     ]
+        # elif caste == "zenith":
+        #     self.caste_abilities = [
+        #         "athletics",
+        #         "integrity",
+        #         "performance",
+        #         "lore",
+        #         "presence",
+        #         "resistance",
+        #         "survival",
+        #         "war",
+        #     ]
+        # elif caste == "twilight":
+        #     self.caste_abilities = [
+        #         "bureaucracy",
+        #         "craft",
+        #         "integrity",
+        #         "investigation",
+        #         "linguistics",
+        #         "lore",
+        #         "medicine",
+        #         "occult",
+        #     ]
+        # elif caste == "night":
+        #     self.caste_abilities = [
+        #         "athletics",
+        #         "awareness",
+        #         "dodge",
+        #         "investigation",
+        #         "larceny",
+        #         "ride",
+        #         "stealth",
+        #         "socialize",
+        #     ]
+        # elif caste == "eclipse":
+        #     self.caste_abilities = [
+        #         "bureaucracy",
+        #         "larceny",
+        #         "linguistics",
+        #         "occult",
+        #         "presence",
+        #         "ride",
+        #         "sail",
+        #         "socialize",
+        #     ]
+        return True
+
+    def set_caste_abilities(self, caste_abilities):
+        self.caste_abilities = caste_abilities
+        self.save()
+        return True
+
+    def add_caste_abilites(self, ability):
+        if ability not in self.caste_abilities:
+            tmp = self.caste_abilities + [ability]
+            return self.set_caste_abilities(tmp)
+        return False
+
+    def has_caste_abilities(self):
+        return len(self.caste_abilities) == 5
+
+    def random_caste_abilities(self):
+        if self.caste not in self.caste_ability_dict.keys():
+            return False
+        options = self.caste_ability_dict[self.caste]
+        while not self.has_caste_abilities():
+            op = random.choice(options)
+            self.add_caste_abilites(op)
+            options = [x for x in options if x != op]
         return True
 
     def random_name(self):
@@ -595,6 +619,7 @@ class Solar(ExMortal):
         self.random_name()
         self.random_concept()
         self.random_caste()
+        self.random_caste_abilities()
         self.random_supernal_ability()
         self.random_favored_abilities()
         self.random_attributes()
