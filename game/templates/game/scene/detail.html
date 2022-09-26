@@ -1,0 +1,65 @@
+{% extends "core/base.html" %}
+{% block title %}
+    {{ object.name }}
+{% endblock title %}
+{% block content %}
+    <div class="container">
+        <div class="centertext">
+            <div class="row">
+                <h2 class="col-sm {{ object.story.chronicle.headings }}">{{ object.name }}</h2>
+            </div>
+            <div class="row">
+                <h3 class="col-sm {{ object.story.chronicle.headings }}">
+                    <a href="{{ object.story.get_absolute_url }}">{{ object.story.name }}</a>
+                </h3>
+            </div>
+            <div class="row">
+                <h3 class="col-sm {{ object.story.chronicle.headings }}">
+                    <a href="{{ object.location.get_absolute_url }}">{{ object.location.name }}</a>
+                </h3>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <h4 class="col-sm {{ object.story.chronicle.headings }}">
+                        {% autoescape off %}
+                            {{ object.location.description }}
+                        {% endautoescape %}
+                    </h4>
+                </div>
+            </div>
+        </div>
+        {% for post in object.post_set.all %}
+            <div class="row">
+                <div class="col-sm">
+                    <p>
+                        <b>{{ post.display_name }}</b>:
+                    {% autoescape off %}
+                        {{ post.message }}
+                    {% endautoescape %}
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+    {% if not object.finished %}
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm">{{ post_form.character }} {{ post_form.display_name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">{{ post_form.message }}</div>
+            </div>
+            <input type="submit" value="Post"/>
+        </form>
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ add_char_form.character_to_add }}
+            <input type="submit" value="Add"/>
+        </form>
+        <form class="inlineforms" method="post" action="">
+            {% csrf_token %}
+            <input type="submit" value="Close Scene" name="close_scene"/>
+        </form>
+    {% endif %}
+</div>
+{% endblock content %}

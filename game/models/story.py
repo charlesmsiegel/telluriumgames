@@ -1,4 +1,7 @@
 from django.db import models
+from django.urls import reverse
+
+from .chronicle import Chronicle
 
 
 # Create your models here.
@@ -12,6 +15,12 @@ class Story(models.Model):
     )
     plot_summary = models.TextField(default="")
     key_locations = models.ManyToManyField("core.LocationModel", blank=True)
+    chronicle = models.ForeignKey(
+        Chronicle, null=True, blank=True, on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("game:story", kwargs={"pk": self.pk})

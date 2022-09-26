@@ -1,8 +1,6 @@
-# from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 
-# from django.urls import reverse
-# from core.models import CharacterModel, LocationModel, ItemModel
 from .story import Story
 
 
@@ -25,6 +23,9 @@ class Scene(models.Model):
         if self.name not in ["", "''"]:
             return self.name
         return str(self.location) + " " + str(self.date)
+
+    def get_absolute_url(self):
+        return reverse("game:scene", kwargs={"pk": self.pk})
 
     def close(self):
         """Closes the scene"""
