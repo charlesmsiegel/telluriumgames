@@ -2,9 +2,9 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from cod.models.characters.mortal import Mortal
+from game.models import Chronicle
 from tc.models.characters.aberrant import Aberrant
 from wod.models.characters.mage import Mage
-from game.models import Chronicle
 
 
 # Create your tests here.
@@ -34,7 +34,9 @@ class TestProfileView(TestCase):
         self.storyteller.profile.cod_st = True
         self.storyteller.profile.save()
         self.char1 = Mortal.objects.create(name="Test Character 1", owner=self.user1)
-        self.char2 = Mortal.objects.create(name="Test Character 2", owner=self.user2, chronicle=chronicle)
+        self.char2 = Mortal.objects.create(
+            name="Test Character 2", owner=self.user2, chronicle=chronicle
+        )
         self.char3 = Mage.objects.create(name="Test Character 3", owner=self.user1)
         self.char4 = Mage.objects.create(name="Test Character 4", owner=self.user2)
         self.char5 = Aberrant.objects.create(name="Test Character 5", owner=self.user1)

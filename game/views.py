@@ -81,5 +81,10 @@ class SceneDetailView(View):
             else:
                 display_name = request.POST["display_name"]
             message = request.POST["message"]
-            Post.objects.create(character=character, display_name = display_name, message=message, scene=context['object'])
+            Post.objects.create(
+                character=character,
+                display_name=display_name,
+                message=message,
+                scene=context["object"],
+            )
         return render(request, "game/scene/detail.html", context)
