@@ -34,6 +34,24 @@
             </div>
         {% endfor %}
         <div class="row">
+            <h3 class="col-sm {{ object.chronicle.headings }}">Locations</h3>
+        </div>
+        {% for loc in locations %}
+            <div class="row border">
+                <a class="col-sm border" href="{{ loc.get_absolute_url }}">{{ loc.name }}</a>
+                <div class="col-sm border">{{ loc.type.title }}</div>
+            </div>
+        {% endfor %}
+        <div class="row">
+            <h3 class="col-sm {{ object.chronicle.headings }}">Items</h3>
+        </div>
+        {% for item in items %}
+            <div class="row border">
+                <a class="col-sm border" href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+                <div class="col-sm border">{{ item.type.title }}</div>
+            </div>
+        {% endfor %}
+        <div class="row">
             <h3 class="col-sm {{ object.chronicle.headings }}">Stories</h3>
         </div>
         {% for story in stories %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 
-from core.models import CharacterModel, LocationModel
+from core.models import CharacterModel, LocationModel, ItemModel
 from game.models import Chronicle, Story, Scene, Post
 from game.forms import StoryCreationForm, SceneCreationForm, AddCharForm, PostForm
 
@@ -14,7 +14,9 @@ class ChronicleDetailView(View):
             "object": chronicle,
             "stories": Story.objects.filter(chronicle=chronicle),
             "form": StoryCreationForm(),
-            "characters": CharacterModel.objects.filter(chronicle=chronicle)
+            "characters": CharacterModel.objects.filter(chronicle=chronicle),
+            "locations": LocationModel.objects.filter(chronicle=chronicle),
+            "items": ItemModel.objects.filter(chronicle=chronicle),
         }
 
     def get(self, request, *args, **kwargs):
