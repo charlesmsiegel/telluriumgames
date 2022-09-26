@@ -47,8 +47,22 @@
         </div>
         {% for scene in scenes %}
             <div class="row border">
-                <a class="col-sm border" href="{{ scene.get_absolute_url }}">{{ scene.name }}</a>
+                <a class="col-sm border" href="{{ scene.get_absolute_url }}">{{ scene.name }}
+                    {% if not scene.finished %}
+                    - <b>Ongoing</b>
+                    {% endif %}
+                </a>
             </div>
         {% endfor %}
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm">{{ form.name.label_tag }}</div>
+                <div class="col-sm">{{ form.name }}</div>
+                <div class="col-sm">{{ form.location.label_tag }}</div>
+                <div class="col-sm">{{ form.location }}</div>
+                <div class="col-sm"><input class="btn btn-primary" type="submit" value="Create Scene" /></div>
+            </div>
+        </form>
     </div>
 {% endblock content %}
