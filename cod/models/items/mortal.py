@@ -2,11 +2,11 @@ from django.db import models
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
-from core.models import Model
+from core.models import ItemModel
 
 
 # Create your models here.
-class Item(Model):
+class Item(ItemModel):
     type = "item"
     durability = models.IntegerField(default=0)
     size = models.IntegerField(default=0)

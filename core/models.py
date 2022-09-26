@@ -177,11 +177,14 @@ class Model(PolymorphicModel):
 class CharacterModel(Model):
     pass
 
+
 class LocationModel(Model):
     pass
 
+
 class ItemModel(Model):
     pass
+
 
 class NewsItem(models.Model):
     title = models.CharField(default="", max_length=100)

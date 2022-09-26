@@ -6,12 +6,12 @@ from django.db.models import F
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
 
-from core.models import Model
+from core.models import CharacterModel, Model
 from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
 
 # Create your models here.
-class Human(Model):
+class Human(CharacterModel):
     type = "human"
 
     concept = models.CharField(max_length=100)

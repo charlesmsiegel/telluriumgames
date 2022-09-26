@@ -9,7 +9,7 @@ from django.db.models import F, Q
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
-from core.models import Language, Model
+from core.models import CharacterModel, Language, Model
 from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
 
@@ -95,7 +95,7 @@ class MeritFlawRating(models.Model):
         return f"{self.mf}: {self.rating}"
 
 
-class Character(Model):
+class Character(CharacterModel):
     type = "character"
 
     concept = models.CharField(max_length=100)

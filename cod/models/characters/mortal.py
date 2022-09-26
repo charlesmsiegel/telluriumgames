@@ -6,12 +6,12 @@ from django.db import models
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
 
-from core.models import Language, Model
+from core.models import CharacterModel, Language, Model
 from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
 
 # Create your models here.
-class Mortal(Model):
+class Mortal(CharacterModel):
     type = "mortal"
 
     concept = models.CharField(max_length=300)

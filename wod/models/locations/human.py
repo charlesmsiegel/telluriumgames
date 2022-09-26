@@ -2,12 +2,12 @@ from django.db import models
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
-from core.models import Model
+from core.models import LocationModel
 from wod.models.characters.human import Character
 
 
 # Create your models here.
-class Location(Model):
+class Location(LocationModel):
     type = "location"
 
     parent = models.ForeignKey(
