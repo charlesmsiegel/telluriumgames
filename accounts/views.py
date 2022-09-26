@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, View
 
 from accounts.forms import CustomUSerCreationForm
-from core.models import CharacterModel, LocationModel, ItemModel
+from core.models import CharacterModel, ItemModel, LocationModel
 from game.models import Chronicle
 
 
@@ -28,7 +28,7 @@ class ProfileView(View):
 
     def post(self, request):
         context = self.get_context(request.user)
-        char = [x for x in context['to_approve'] if x.name in request.POST.keys()][0]
+        char = [x for x in context["to_approve"] if x.name in request.POST.keys()][0]
         char.status = "App"
         char.save()
         context = self.get_context(request.user)
@@ -52,4 +52,3 @@ class ProfileView(View):
             "locations": LocationModel.objects.filter(owner=user).order_by("name"),
             "items": ItemModel.objects.filter(owner=user).order_by("name"),
         }
-

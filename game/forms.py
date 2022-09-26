@@ -1,7 +1,8 @@
 from django import forms
-from game.models import Story
-from core.models import LocationModel, CharacterModel
 from django.db.models import Q
+
+from core.models import CharacterModel, LocationModel
+from game.models import Story
 
 
 class SceneCreationForm(forms.Form):
@@ -21,16 +22,18 @@ class StoryCreationForm(forms.Form):
 
 
 class AddCharForm(forms.Form):
-    character_to_add = forms.ModelChoiceField(queryset=CharacterModel.objects.order_by("name"))
+    character_to_add = forms.ModelChoiceField(
+        queryset=CharacterModel.objects.order_by("name")
+    )
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop("user")
         scene = kwargs.pop("scene")
         super().__init__(*args, **kwargs)
         self.fields["character_to_add"] = forms.ModelChoiceField(
-            CharacterModel.objects.filter(owner=user, chronicle=scene.story.chronicle).exclude(
-                pk__in=scene.characters.all()
-            )
+            CharacterModel.objects.filter(
+                owner=user, chronicle=scene.story.chronicle
+            ).exclude(pk__in=scene.characters.all())
         )
 
 
@@ -44,5 +47,9 @@ class PostForm(forms.Form):
         scene = kwargs.pop("scene")
         super().__init__(*args, **kwargs)
         self.fields["character"] = forms.ModelChoiceField(
-            CharacterModel.objects.filter(owner=user, chronicle=scene.story.chronicle, pk__in=scene.characters.all())
+            CharacterModel.objects.filter(
+                owner=user,
+                chronicle=scene.story.chronicle,
+                pk__in=scene.characters.all(),
+            )
         )
