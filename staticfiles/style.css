@@ -33,6 +33,11 @@
     src: url('../static/fonts/OPTIProtea.otf') format("opentype");
 }
 
+@font-face {
+    font-family: 'EnvisionRoman';
+    src: url('../static/fonts/Envision roman_0.ttf') format("truetype");
+}
+
 .vtm_heading {
     font-family: "Delavan", serif;
 }
@@ -98,5 +103,10 @@
 
 .tc_core_heading {
     font-family: "Optima", serif;
+    font-weight: bold;
+}
+
+.exalted_heading {
+    font-family: "EnvisionRoman", serif;
     font-weight: bold;
 }

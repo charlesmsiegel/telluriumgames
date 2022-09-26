@@ -3,7 +3,7 @@ from django.db import models
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
-from game.models import Chronicle
+from game.models.chronicle import Chronicle
 
 
 # Create your models here.
@@ -172,6 +172,18 @@ class Model(PolymorphicModel):
         bookref = BookReference.objects.get_or_create(book=book, page=page_number)[0]
         self.sources.add(bookref)
         return self
+
+
+class CharacterModel(Model):
+    pass
+
+
+class LocationModel(Model):
+    pass
+
+
+class ItemModel(Model):
+    pass
 
 
 class NewsItem(models.Model):

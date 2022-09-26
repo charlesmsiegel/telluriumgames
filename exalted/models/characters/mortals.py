@@ -5,12 +5,12 @@ from django.db import models
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
-from core.models import Model
+from core.models import CharacterModel, Model
 from core.utils import add_dot, weighted_choice
 
 
 # Create your models here.
-class ExMortal(Model):
+class ExMortal(CharacterModel):
     type = "mortal"
 
     creation_status = models.IntegerField(default=1)
