@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from game.models import Chronicle, Scene, Story, Post
+from game.models import Chronicle, Post, Scene, Story
 
 # Register your models here.
 admin.site.register(Chronicle)

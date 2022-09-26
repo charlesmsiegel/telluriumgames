@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+
 from .chronicle import Chronicle
 
 
@@ -14,7 +15,9 @@ class Story(models.Model):
     )
     plot_summary = models.TextField(default="")
     key_locations = models.ManyToManyField("core.LocationModel", blank=True)
-    chronicle = models.ForeignKey(Chronicle, null=True, blank=True, on_delete=models.CASCADE)
+    chronicle = models.ForeignKey(
+        Chronicle, null=True, blank=True, on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.name

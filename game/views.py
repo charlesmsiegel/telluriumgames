@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.views.generic import View
 
-from core.models import CharacterModel, LocationModel, ItemModel
-from game.models import Chronicle, Story, Scene, Post
-from game.forms import StoryCreationForm, SceneCreationForm, AddCharForm, PostForm
+from core.models import CharacterModel, ItemModel, LocationModel
+from game.forms import AddCharForm, PostForm, SceneCreationForm, StoryCreationForm
+from game.models import Chronicle, Post, Scene, Story
 
 
 # Create your views here.
@@ -69,17 +69,17 @@ class SceneDetailView(View):
     def post(self, request, *args, **kwargs):
         context = self.get_context(kwargs["pk"], request.user)
         if "character_to_add" in request.POST.keys():
-            c = CharacterModel.objects.get(pk=request.POST['character_to_add'])
-            context['object'].characters.add(c)
+            c = CharacterModel.objects.get(pk=request.POST["character_to_add"])
+            context["object"].characters.add(c)
         elif "close_scene" in request.POST.keys():
-            context['object'].finished = True
-            context['object'].save()
+            context["object"].finished = True
+            context["object"].save()
         elif "message" in request.POST.keys():
-            character = CharacterModel.objects.get(pk=request.POST['character'])
+            character = CharacterModel.objects.get(pk=request.POST["character"])
             print(request.POST)
-            if "display_name" != '':
+            if "display_name" != "":
                 display_name = character.name
             else:
-                display_name = request.POST['display_name']
-            message = request.POST['message']
+                display_name = request.POST["display_name"]
+            message = request.POST["message"]
         return render(request, "game/scene/detail.html", context)
