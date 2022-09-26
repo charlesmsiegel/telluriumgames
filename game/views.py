@@ -76,10 +76,15 @@ class SceneDetailView(View):
             context["object"].save()
         elif "message" in request.POST.keys():
             character = CharacterModel.objects.get(pk=request.POST["character"])
-            print(request.POST)
             if "display_name" != "":
                 display_name = character.name
             else:
                 display_name = request.POST["display_name"]
             message = request.POST["message"]
+            Post.objects.create(
+                character=character,
+                display_name=display_name,
+                message=message,
+                scene=context["object"],
+            )
         return render(request, "game/scene/detail.html", context)
