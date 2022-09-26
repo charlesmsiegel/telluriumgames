@@ -1,13 +1,12 @@
-{% extends "core/base.html" %}
-{% block title %}
-    {{ object.name }}
-{% endblock title %}
-{% block content %}
+{% extends "core/object.html" %}
+{% block contents %}
     {% load dots %}
-    <div class="centertext container">
+    {% block name %}
         <div class="row">
             <h1 class="col-sm exalted_heading">{{ object.name }}</h1>
         </div>
+    {% endblock name %}
+    {% block basics %}
         <div class="row">
             <div class="col-sm"></div>
             <div class="col-sm"></div>
@@ -24,6 +23,8 @@
             <div class="col-sm"></div>
             <div class="col-sm"></div>
         </div>
+    {% endblock basics %}
+    {% block attributes %}
         <div class="row">
             <h2 class="col-sm exalted_heading">Attributes</h2>
         </div>
@@ -63,6 +64,8 @@
                 {{ object.wits|dots }}
             </div>
         </div>
+    {% endblock attributes %}
+    {% block abilities %}
         <div class="row">
             <h2 class="col-sm exalted_heading">
                 Abilities
@@ -250,6 +253,10 @@
                 {{ object.war|dots }}
             </div>
         </div>
+    {% endblock abilities %}
+    {% block important_abilities %}
+    {% endblock important_abilities %}
+    {% block specialties %}
         <div class="row">
             <h2 class="col-sm exalted_heading">
                 Specialties
@@ -258,10 +265,14 @@
         {% for specialty in specialties %}
             <div class="row">
                 <div class="col-sm">
-                    {{ specialty.name }} ({{ specialty.ability.title }})
+                    <a href="{{ specialty.get_absolute_url }}">{{ specialty.name }}</a> ({{ specialty.ability.title }})
                 </div>
             </div>
         {% endfor %}
+        {% block additional_specialties %}
+        {% endblock additional_specialties %}
+    {% endblock specialties %}
+    {% block merits %}
         <div class="row">
             <h2 class="col-sm exalted_heading">
                 Merits
@@ -269,14 +280,18 @@
         </div>
         {% for merit in merits %}
             <div class="row">
-                <div class="col-sm">
+                <a class="col-sm" href="{{ merit.merit.get_absolute_url }}">
                     {{ merit.merit.name }}
-                </div>
+                </a>
                 <div class="col-sm dots">
                     {{ merit.rating|dots:merit.merit.max_rating }}
                 </div>
             </div>
         {% endfor %}
+        {% block additional_merits %}
+        {% endblock additional_merits %}
+    {% endblock merits %}
+    {% block intimacies %}
         <div class="row">
             <h2 class="col-sm exalted_heading">
                 Intimacies
@@ -284,11 +299,11 @@
         </div>
         {% for intimacy in object.intimacies.all %}
             <div class="row">
-                <div class="col-sm">
+                <a class="col-sm" href="{{ intimacy.get_absolute_url }}">
                     {{ intimacy.name }}
-                </div>
+                </a>
                 <div class="col-sm">
-                    {{ intimacy.get_type_display }}
+                    {{ intimacy.get_intimacy_type_display }}
                 </div>
                 <div class="col-sm">
                     {{ intimacy.get_strength_display }}
@@ -303,6 +318,12 @@
                 {% endif %}
             </div>
         {% endfor %}
+        {% block additional_intimacies %}
+        {% endblock additional_intimacies %}
+    {% endblock intimacies %}
+    {% block limit_trigger %}
+    {% endblock limit_trigger %}
+    {% block advantages %}
         <div class="row">
             <h2 class="col-sm exalted_heading">
                 Advantages
@@ -328,6 +349,10 @@
                 {{ object.essence|dots:5 }}
             </div>
         </div>
+    {% endblock advantages %}
+    {% block charms %}
+    {% endblock charms %}
+    {% block xp %}
         <div class="row">
             <div class="col-sm">
                 XP
@@ -339,5 +364,5 @@
                 {{ object.spent_xp }}
             </div>
         </div>
-    </div>
-{% endblock content %}
+    {% endblock xp %}
+{% endblock contents %}

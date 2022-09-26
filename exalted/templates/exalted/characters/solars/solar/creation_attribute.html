@@ -1,31 +1,8 @@
-{% extends "core/base.html" %}
-{% block title %}
-    {{ object.name }}
-{% endblock title %}
-{% block content %}
-    {% load dots %}
+{% extends "exalted/characters/solars/solar/detail.html" %}
+{% block attributes %}
     <form method="post">
         {% csrf_token %}
         <div class="centertext container">
-            <div class="row">
-                <h1 class="col-sm exalted_heading">{{ object.name }}</h1>
-            </div>
-            <div class="row">
-                <div class="col-sm"></div>
-                <div class="col-sm"></div>
-                <div class="col-sm">Name</div>
-                <div class="col-sm">{{ object.name }}</div>
-                <div class="col-sm">Concept</div>
-                <div class="col-sm">{{ object.concept }}</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">Chronicle</div>
-                <div class="col-sm">{{ object.chronicle }}</div>
-                <div class="col-sm">Player</div>
-                <div class="col-sm">{{ object.owner }}</div>
-                <div class="col-sm">Caste</div>
-                <div class="col-sm">{{ object.get_caste_display }}</div>
-            </div>
             <div class="row">
                 <h2 class="col-sm exalted_heading">Attributes</h2>
             </div>
@@ -46,24 +23,12 @@
                 <div class="col-sm">{{ form.intelligence }}</div>
             </div>
             <div class="row">
-                <div class="col-sm">
-                    Stamina
-                </div>
-                <div class="col-sm">
-                    {{ form.stamina }}
-                </div>
-                <div class="col-sm">
-                    Appearance
-                </div>
-                <div class="col-sm">
-                    {{ form.appearance }}
-                </div>
-                <div class="col-sm">
-                    Wits
-                </div>
-                <div class="col-sm">
-                    {{ form.wits }}
-                </div>
+                <div class="col-sm">Stamina</div>
+                <div class="col-sm">{{ form.stamina }}</div>
+                <div class="col-sm">Appearance</div>
+                <div class="col-sm">{{ form.appearance }}</div>
+                <div class="col-sm">Wits</div>
+                <div class="col-sm">{{ form.wits }}</div>
             </div>
             <div class="row">
                 <div class="col-sm">
@@ -72,4 +37,24 @@
             </div>
         </div>
     </form>
-{% endblock content %}
+{% endblock attributes %}
+{% block abilities %}
+{% endblock abilities %}
+{% block important_abilities %}
+{% endblock important_abilities %}
+{% block specialties %}
+{% endblock specialties %}
+{% block merits %}
+{% endblock merits %}
+{% block intimacies %}
+{% endblock intimacies %}
+{% block limit_trigger %}
+{% endblock limit_trigger %}
+{% block advantages %}
+{% endblock advantages %}
+{% block charms %}
+{% endblock charms %}
+{% block xp %}
+{% endblock xp %}
+{% block update %}
+{% endblock update %}

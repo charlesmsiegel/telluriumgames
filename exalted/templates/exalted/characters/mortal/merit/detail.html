@@ -1,8 +1,5 @@
-{% extends "core/base.html" %}
-{% block title %}
-    {{ object.name| safe }}
-{% endblock title %}
-{% block content %}
+{% extends "core/object.html" %}
+{% block contents %}
     {% load dots %}
     <div class="centertext container">
         <div class="row">
@@ -26,4 +23,4 @@
             <div class="col-sm">{{ object.prereqs }}</div>
         </div>
     </div>
-{% endblock content %}
+{% endblock contents %}
