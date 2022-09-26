@@ -168,6 +168,7 @@ class SolarDetailView(View):
 
                 char.creation_status += 1
                 char.save()
+                context["form"] = ExaltedMeritsForm()
                 return render(
                     request,
                     "exalted/characters/solars/solar/creation_merits.html",

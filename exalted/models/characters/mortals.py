@@ -76,7 +76,7 @@ class ExMortal(CharacterModel):
 
     def get_update_url(self):
         return reverse(
-            "exalted:characters:mortals:update_mortal", kwargs={"pk": self.pk}
+            "exalted:characters:mortal:update_mortal", kwargs={"pk": self.pk}
         )
 
     def random_name(self):
@@ -685,11 +685,11 @@ class ExSpecialty(Model):
     ability = models.CharField(max_length=20)
 
     def get_absolute_url(self):
-        return reverse("exalted:characters:specialty", args=[str(self.id)])
+        return reverse("exalted:characters:mortal:specialty", args=[str(self.id)])
 
     def get_update_url(self):
         return reverse(
-            "exalted:characters:mortals:update_specialty", kwargs={"pk": self.pk}
+            "exalted:characters:mortal:update_specialty", kwargs={"pk": self.pk}
         )
 
     def __str__(self):
@@ -709,11 +709,11 @@ class Intimacy(Model):
     is_negative = models.BooleanField(default=False)
 
     def get_absolute_url(self):
-        return reverse("exalted:characters:intimacy", args=[str(self.id)])
+        return reverse("exalted:characters:mortal:intimacy", args=[str(self.id)])
 
     def get_update_url(self):
         return reverse(
-            "exalted:characters:mortals:update_intimacy", kwargs={"pk": self.pk}
+            "exalted:characters:mortal:update_intimacy", kwargs={"pk": self.pk}
         )
 
 
@@ -734,12 +734,10 @@ class ExMerit(Model):
     prereqs = models.JSONField(default=list)
 
     def get_absolute_url(self):
-        return reverse("exalted:characters:merit", args=[str(self.id)])
+        return reverse("exalted:characters:mortal:merit", args=[str(self.id)])
 
     def get_update_url(self):
-        return reverse(
-            "exalted:characters:mortals:update_merit", kwargs={"pk": self.pk}
-        )
+        return reverse("exalted:characters:mortal:update_merit", kwargs={"pk": self.pk})
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)

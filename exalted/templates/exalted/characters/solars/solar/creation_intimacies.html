@@ -1,401 +1,114 @@
-{% extends "core/base.html" %}
-{% block title %}
-    {{ object.name }}
-{% endblock title %}
-{% block content %}
+{% extends "exalted/characters/solars/solar/detail.html" %}
+{% block intimacies %}
     {% load dots %}
     <form method="post">
         {% csrf_token %}
-        <div class="centertext container">
-            <div class="row">
-                <h1 class="col-sm exalted_heading">{{ object.name }}</h1>
+        <div class="row">
+            <h2 class="col-sm exalted_heading">
+                Intimacies
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                {{ form.intimacy_1 }}
             </div>
-            <div class="row">
-                <div class="col-sm"></div>
-                <div class="col-sm"></div>
-                <div class="col-sm">Name</div>
-                <div class="col-sm">{{ object.name }}</div>
-                <div class="col-sm">Concept</div>
-                <div class="col-sm">{{ object.concept }}</div>
+            <div class="col-sm">
+                {{ form.intimacy_type_1 }}
             </div>
-            <div class="row">
-                <div class="col-sm">Chronicle</div>
-                <div class="col-sm">{{ object.chronicle }}</div>
-                <div class="col-sm">Player</div>
-                <div class="col-sm">{{ object.owner }}</div>
-                <div class="col-sm">Anima</div>
-                <div class="col-sm">{{ object.anima }}</div>
+            <div class="col-sm">
+                {{ form.intimacy_strength_1 }}
             </div>
-            <div class="row">
-                <div class="col-sm"></div>
-                <div class="col-sm"></div>
-                <div class="col-sm">Caste</div>
-                <div class="col-sm">{{ object.get_caste_display }}</div>
-                <div class="col-sm">Supernal Ability</div>
-                <div class="col-sm">{{ object.get_supernal_ability_display }}</div>
+            <div class="col-sm">
+                {{ form.is_negative_1 }} Negative
             </div>
-            <div class="row">
-                <h2 class="col-sm exalted_heading">Attributes</h2>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                {{ form.intimacy_2 }}
             </div>
-            <div class="row">
-                <div class="col-sm">Strength</div>
-                <div class="col-sm dots">{{ object.strength|dots }}</div>
-                <div class="col-sm">Charisma</div>
-                <div class="col-sm dots">{{ object.charisma|dots }}</div>
-                <div class="col-sm">Perception</div>
-                <div class="col-sm dots">{{ object.perception|dots }}</div>
+            <div class="col-sm">
+                {{ form.intimacy_type_2 }}
             </div>
-            <div class="row">
-                <div class="col-sm">
-                    Dexterity
-                </div>
-                <div class="col-sm dots">
-                    {{ object.dexterity|dots }}
-                </div>
-                <div class="col-sm">
-                    Manipulation
-                </div>
-                <div class="col-sm dots">
-                    {{ object.manipulation|dots }}
-                </div>
-                <div class="col-sm">
-                    Intelligence
-                </div>
-                <div class="col-sm dots">
-                    {{ object.intelligence|dots }}
-                </div>
+            <div class="col-sm">
+                {{ form.intimacy_strength_2 }}
             </div>
-            <div class="row">
-                <div class="col-sm">
-                    Stamina
-                </div>
-                <div class="col-sm dots">
-                    {{ object.stamina|dots }}
-                </div>
-                <div class="col-sm">
-                    Appearance
-                </div>
-                <div class="col-sm dots">
-                    {{ object.appearance|dots }}
-                </div>
-                <div class="col-sm">
-                    Wits
-                </div>
-                <div class="col-sm dots">
-                    {{ object.wits|dots }}
-                </div>
+            <div class="col-sm">
+                {{ form.is_negative_2 }} Negative
             </div>
-            <div class="row">
-                <h2 class="col-sm exalted_heading">
-                    Abilities
-                </h2>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                {{ form.intimacy_3 }}
             </div>
-            <div class="row">
-                <div class="col-sm">
-                    Archery
-                </div>
-                <div class="col-sm dots">
-                    {{ object.archery|dots }}
-                </div>
-                <div class="col-sm">
-                    Medicine
-                </div>
-                <div class="col-sm dots">
-                    {{ object.medicine|dots }}
-                </div>
+            <div class="col-sm">
+                {{ form.intimacy_type_3 }}
             </div>
-            <div class="row">
-                <div class="col-sm">
-                    Athletics
-                </div>
-                <div class="col-sm dots">
-                    {{ object.athletics|dots }}
-                </div>
-                <div class="col-sm">
-                    Melee
-                </div>
-                <div class="col-sm dots">
-                    {{ object.melee|dots }}
-                </div>
+            <div class="col-sm">
+                {{ form.intimacy_strength_3 }}
             </div>
-            <div class="row">
-                <div class="col-sm">
-                    Awareness
-                </div>
-                <div class="col-sm dots">
-                    {{ object.awareness|dots }}
-                </div>
-                <div class="col-sm">
-                    Occult
-                </div>
-                <div class="col-sm dots">
-                    {{ object.occult|dots }}
-                </div>
+            <div class="col-sm">
+                {{ form.is_negative_3 }} Negative
             </div>
-            <div class="row">
-                <div class="col-sm">
-                    Brawl
-                </div>
-                <div class="col-sm dots">
-                    {{ object.brawl|dots }}
-                </div>
-                <div class="col-sm">
-                    Performance
-                </div>
-                <div class="col-sm dots">
-                    {{ object.performance|dots }}
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                {{ form.intimacy_4 }}
             </div>
-            <div class="row">
-                <div class="col-sm">
-                    Bureaucracy
-                </div>
-                <div class="col-sm dots">
-                    {{ object.bureaucracy|dots }}
-                </div>
-                <div class="col-sm">
-                    Presence
-                </div>
-                <div class="col-sm dots">
-                    {{ object.presence|dots }}
-                </div>
+            <div class="col-sm">
+                {{ form.intimacy_type_4 }}
             </div>
-            <div class="row">
-                <div class="col-sm">
-                    Craft
-                </div>
-                <div class="col-sm dots">
-                    {{ object.craft|dots }}
-                </div>
-                <div class="col-sm">
-                    Resistance
-                </div>
-                <div class="col-sm dots">
-                    {{ object.resistance|dots }}
-                </div>
+            <div class="col-sm">
+                {{ form.intimacy_strength_4 }}
             </div>
-            <div class="row">
-                <div class="col-sm">
-                    Dodge
-                </div>
-                <div class="col-sm dots">
-                    {{ object.dodge|dots }}
-                </div>
-                <div class="col-sm">
-                    Ride
-                </div>
-                <div class="col-sm dots">
-                    {{ object.ride|dots }}
-                </div>
+            <div class="col-sm">
+                {{ form.is_negative_4 }} Negative
             </div>
+        </div>
+        {% for intimacy in object.intimacies.all %}
             <div class="row">
                 <div class="col-sm">
-                    Integrity
-                </div>
-                <div class="col-sm dots">
-                    {{ object.integrity|dots }}
+                    {{ intimacy.name }}
                 </div>
                 <div class="col-sm">
-                    Sail
-                </div>
-                <div class="col-sm dots">
-                    {{ object.sail|dots }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm">
-                    Investigation
-                </div>
-                <div class="col-sm dots">
-                    {{ object.investigation|dots }}
+                    {{ intimacy.get_type_display }}
                 </div>
                 <div class="col-sm">
-                    Socialize
+                    {{ intimacy.get_strength_display }}
                 </div>
-                <div class="col-sm dots">
-                    {{ object.socialize|dots }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm">
-                    Larceny
-                </div>
-                <div class="col-sm dots">
-                    {{ object.larceny|dots }}
-                </div>
-                <div class="col-sm">
-                    Stealth
-                </div>
-                <div class="col-sm dots">
-                    {{ object.stealth|dots }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm">
-                    Linguistics
-                </div>
-                <div class="col-sm dots">
-                    {{ object.linguistics|dots }}
-                </div>
-                <div class="col-sm">
-                    Survival
-                </div>
-                <div class="col-sm dots">
-                    {{ object.survival|dots }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm">
-                    Lore
-                </div>
-                <div class="col-sm dots">
-                    {{ object.lore|dots }}
-                </div>
-                <div class="col-sm">
-                    Thrown
-                </div>
-                <div class="col-sm dots">
-                    {{ object.thrown|dots }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm">
-                    Martial Arts
-                </div>
-                <div class="col-sm dots">
-                    {{ object.martial_arts|dots }}
-                </div>
-                <div class="col-sm">
-                    War
-                </div>
-                <div class="col-sm dots">
-                    {{ object.war|dots }}
-                </div>
-            </div>
-            <div class="row">
-                <h2 class="col-sm exalted_heading">
-                    Caste and Favored Abilities
-                </h2>
-            </div>
-            <div class="row">
-                {% for ability in object.caste_abilities %}
+                {% if intimacy.is_negative %}
                     <div class="col-sm">
-                        {{ ability.title }}
+                        Negative
                     </div>
-                {% endfor %}
-                {% for ability in object.favored_abilities %}
+                {% else %}
                     <div class="col-sm">
-                        {{ ability.title }}
                     </div>
-                {% endfor %}
+                {% endif %}
             </div>
-            <div class="row">
-                <h2 class="col-sm exalted_heading">
-                    Specialties
-                </h2>
+        {% endfor %}
+        <div class="row">
+            <div class="col-sm">
             </div>
-            {% for specialty in specialties %}
-                <div class="row">
-                    <div class="col-sm">
-                        {{ specialty.name }} ({{ specialty.ability.title }})
-                    </div>
-                </div>
-            {% endfor %}
-            <div class="row">
-                <h2 class="col-sm exalted_heading">
-                    Merits
-                </h2>
+            <div class="col-sm">
+                Limit Trigger
             </div>
-            {% for merit in merits %}
-                <div class="row">
-                    <div class="col-sm">
-                        {{ merit.merit.name }}
-                    </div>
-                    <div class="col-sm dots">
-                        {{ merit.rating|dots:merit.merit.max_rating }}
-                    </div>
-                </div>
-            {% endfor %}
-            <div class="row">
-                <h2 class="col-sm exalted_heading">
-                    Charms
-                </h2>
+            <div class="col-sm">
+                {{ form.limit_trigger }}
             </div>
-            {% for charm in object.charms.all %}
-                <div class="row">
-                    <a class="col-sm" href="{{ charm.get_absolute_url }}">
-                        {{ charm }}
-                    </a>
-                </div>
-            {% endfor %}
-            <div class="row">
-                <h2 class="col-sm exalted_heading">
-                    Intimacies
-                </h2>
+            <div class="col-sm">
             </div>
-            <div class="row">
-                <div class="col-sm">{{ form.intimacy_1 }}</div>
-                <div class="col-sm">{{ form.intimacy_type_1 }}</div>
-                <div class="col-sm">{{ form.intimacy_strength_1 }}</div>
-                <div class="col-sm">{{ form.is_negative_1 }} Negative</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">{{ form.intimacy_2 }}</div>
-                <div class="col-sm">{{ form.intimacy_type_2 }}</div>
-                <div class="col-sm">{{ form.intimacy_strength_2 }}</div>
-                <div class="col-sm">{{ form.is_negative_2 }} Negative</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">{{ form.intimacy_3 }}</div>
-                <div class="col-sm">{{ form.intimacy_type_3 }}</div>
-                <div class="col-sm">{{ form.intimacy_strength_3 }}</div>
-                <div class="col-sm">{{ form.is_negative_3 }} Negative</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">{{ form.intimacy_4 }}</div>
-                <div class="col-sm">{{ form.intimacy_type_4 }}</div>
-                <div class="col-sm">{{ form.intimacy_strength_4 }}</div>
-                <div class="col-sm">{{ form.is_negative_4 }} Negative</div>
-            </div>
-
-            {% for intimacy in object.intimacies.all %}
-                <div class="row">
-                    <div class="col-sm">
-                        {{ intimacy.name }}
-                    </div>
-                    <div class="col-sm">
-                        {{ intimacy.get_type_display }}
-                    </div>
-                    <div class="col-sm">
-                        {{ intimacy.get_strength_display }}
-                    </div>
-                    {% if intimacy.is_negative %}
-                        <div class="col-sm">
-                            Negative
-                        </div>
-                    {% else %}
-                        <div class="col-sm">
-                        </div>
-                    {% endif %}
-                </div>
-            {% endfor %}
-            <div class="row">
-                <div class="col-sm">
-                </div>
-                <div class="col-sm">
-                    Limit Trigger
-                </div>
-                <div class="col-sm">
-                    {{ form.limit_trigger }}
-                </div>
-                <div class="col-sm">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm">
-                    <input type="submit" value="Add Intimacies"/>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <input type="submit" value="Add Intimacies"/>
             </div>
         </div>
     </form>
-{% endblock content %}
+{% endblock intimacies %}
+{% block limit_trigger %}
+{% endblock limit_trigger %}
+{% block advantages %}
+{% endblock advantages %}
+{% block xp %}
+{% endblock xp %}
+{% block update %}
+{% endblock update %}

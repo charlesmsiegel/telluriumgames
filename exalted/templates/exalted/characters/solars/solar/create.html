@@ -1,35 +1,22 @@
-{% extends "core/base.html" %}
-{% block title %}
-    {{ object.name }}
-{% endblock title %}
-{% block content %}
-    <form action="#" method="post">
-        {% csrf_token %}
-        <div class="centertext container">
-            <div class="row">
-                <h1 class="col-sm exalted_heading">{{ object.name }}</h1>
-            </div>
-            <div class="row">
-                <div class="col-sm"></div>
-                <div class="col-sm"></div>
-                <div class="col-sm">Name</div>
-                <div class="col-sm">{{ form.name }}</div>
-                <div class="col-sm">Concept</div>
-                <div class="col-sm">{{ form.concept }}</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">Chronicle</div>
-                <div class="col-sm">{{ form.chronicle }}</div>
-                <div class="col-sm">Player</div>
-                <div class="col-sm">{{ user }}</div>
-                <div class="col-sm">Caste</div>
-                <div class="col-sm">{{ form.caste }}</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">
-                    <input type="submit" value="Create"/>
-                </div>
-            </div>
-        </div>
-    </form>
-{% endblock content %}
+{% extends "core/form.html" %}
+{% block contents %}
+    <div class="row">
+        <h1 class="col-sm exalted_heading">{{ object.name }}</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm"></div>
+        <div class="col-sm">Name</div>
+        <div class="col-sm">{{ form.name }}</div>
+        <div class="col-sm">Concept</div>
+        <div class="col-sm">{{ form.concept }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm">Chronicle</div>
+        <div class="col-sm">{{ form.chronicle }}</div>
+        <div class="col-sm">Player</div>
+        <div class="col-sm">{{ user }}</div>
+        <div class="col-sm">Caste</div>
+        <div class="col-sm">{{ form.caste }}</div>
+    </div>
+{% endblock contents %}
