@@ -13,6 +13,8 @@ from tc.models.characters.human import Human
 from wod.models.characters.human import Character
 from wod.models.items.human import WoDItem
 from wod.models.locations.human import Location
+from core.models import CharacterModel, LocationModel, ItemModel
+from game.models import Chronicle
 
 
 # Create your views here.
@@ -29,47 +31,34 @@ class ProfileView(View):
 
     def get(self, request):
         if request.user.is_authenticated:
-
-            profile = Profile.objects.get(user=request.user)
-            to_approve = []
-            xp_requests = []
-            characters = []
-            locations = []
-            items = []
-            characters.extend(Mortal.objects.filter(owner=request.user))
-            characters.extend(Character.objects.filter(owner=request.user))
-            characters.extend(Human.objects.filter(owner=request.user))
-            characters.extend(ExMortal.objects.filter(owner=request.user))
-            characters.sort(key=lambda x: x.name)
-            # locations.extend(Mortal.objects.filter(owner=request.user))
-            locations.extend(Location.objects.filter(owner=request.user))
-            # locations.extend(Human.objects.filter(owner=request.user))
-            # locations.extend(ExMortal.objects.filter(owner=request.user))
-            locations.sort(key=lambda x: x.name)
-            items.extend(Item.objects.filter(owner=request.user))
-            items.extend(WoDItem.objects.filter(owner=request.user))
-            # items.extend(Human.objects.filter(owner=request.user))
-            # items.extend(ExMortal.objects.filter(owner=request.user))
-            items.sort(key=lambda x: x.name)
-            if profile.cod_st:
-                to_approve.extend(Mortal.objects.filter(status__in=["Un", "Sub"]))
-            if profile.wod_st:
-                to_approve.extend(Character.objects.filter(status__in=["Un", "Sub"]))
-            if profile.tc_st:
-                to_approve.extend(Human.objects.filter(status__in=["Un", "Sub"]))
-            if profile.exalted_st:
-                to_approve.extend(ExMortal.objects.filter(status__in=["Un", "Sub"]))
-            return render(
-                request,
-                "accounts/index.html",
-                {
-                    "user": request.user,
-                    "username": request.user.username,
-                    "to_approve": to_approve,
-                    "xp_requests": xp_requests,
-                    "characters": characters,
-                    "locations": locations,
-                    "items": items,
-                },
-            )
+            context = self.get_context(request.user)
+            return render(request, "accounts/index.html", context,)
         return redirect("/accounts/login/")
+
+    def post(self, request):
+        context = self.get_context(request.user)
+        char = [x for x in context['to_approve'] if x.name in request.POST.keys()][0]
+        char.status = "App"
+        char.save()
+        context = self.get_context(request.user)
+        return render(request, "accounts/index.html", context,)
+
+    def get_context(self, user):
+        xp_requests = []
+
+        to_approve = CharacterModel.objects.filter(status__in=["Un", "Sub"])
+        chronicles_sted = [
+            x for x in Chronicle.objects.all() if user in x.storytellers.all()
+        ]
+        to_approve = [x for x in to_approve if x.chronicle in chronicles_sted]
+
+        return {
+            "user": user,
+            "username": user.username,
+            "to_approve": to_approve,
+            "xp_requests": xp_requests,
+            "characters": CharacterModel.objects.filter(owner=user).order_by("name"),
+            "locations": LocationModel.objects.filter(owner=user).order_by("name"),
+            "items": ItemModel.objects.filter(owner=user).order_by("name"),
+        }
+
