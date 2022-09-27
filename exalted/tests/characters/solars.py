@@ -1,13 +1,13 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from exalted.models.characters.mortals import ExMerit
-from exalted.models.characters.solars import (
+from exalted.models.characters.charms import (
     MartialArtsCharm,
     MartialArtsStyle,
-    Solar,
     SolarCharm,
 )
+from exalted.models.characters.mortals import ExMerit
+from exalted.models.characters.solars import Solar
 from exalted.models.characters.utils import ABILITIES
 from exalted.tests.characters.mortals import setup
 

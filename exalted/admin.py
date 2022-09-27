@@ -1,12 +1,14 @@
 from django.contrib import admin
 
-from exalted.models.characters.mortals import ExMerit, ExMortal, ExSpecialty, Intimacy
-from exalted.models.characters.solars import (
+from exalted.models.characters.charms import (
+    DragonBloodedCharm,
     MartialArtsCharm,
     MartialArtsStyle,
-    Solar,
     SolarCharm,
 )
+from exalted.models.characters.dragonblooded import DragonBlooded
+from exalted.models.characters.mortals import ExMerit, ExMortal, ExSpecialty, Intimacy
+from exalted.models.characters.solars import Solar
 
 
 # Register your models here.
@@ -35,6 +37,12 @@ class SolarAdmin(admin.ModelAdmin):
     list_display = ("name", "owner", "caste")
 
 
+@admin.register(DragonBlooded)
+class DragonBloodedAdmin(admin.ModelAdmin):
+    list_display = ("name", "owner", "aspect")
+
+
 admin.site.register(SolarCharm)
+admin.site.register(DragonBloodedCharm)
 admin.site.register(MartialArtsCharm)
 admin.site.register(MartialArtsStyle)

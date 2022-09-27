@@ -10,13 +10,19 @@ from exalted.forms import (
     ExaltedMeritsForm,
     SolarCreationForm,
 )
+from exalted.models.characters.charms import (
+    Charm,
+    MartialArtsCharm,
+    MartialArtsStyle,
+    SolarCharm,
+)
 from exalted.models.characters.mortals import (
     ExMerit,
     ExSpecialty,
     Intimacy,
     MeritRating,
 )
-from exalted.models.characters.solars import Charm, Solar, SolarCharm
+from exalted.models.characters.solars import Solar
 from exalted.models.characters.utils import ABILITIES
 from game.models import Chronicle
 

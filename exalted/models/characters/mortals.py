@@ -20,7 +20,7 @@ class ExMortal(CharacterModel):
 
     concept = models.CharField(max_length=100)
 
-    tertiary = None
+    tertiary = lambda x: []
 
     strength = models.IntegerField(default=1)
     dexterity = models.IntegerField(default=1)
@@ -156,29 +156,29 @@ class ExMortal(CharacterModel):
         choice = weighted_choice(d)
         return self.add_attribute(choice)
 
-    def random_attributes(self):
-        attribute_types = [6, 4, 3]
+    def random_attributes(self, primary=6, secondary=4, tertiary=3):
+        attribute_types = [primary, secondary, tertiary]
         random.shuffle(attribute_types)
         while self.total_physical_attributes() < attribute_types[0] + 3:
             attribute_choice = weighted_choice(
                 self.get_physical_attributes(), floor=3, ceiling=3
             )
             add_dot(self, attribute_choice, 5)
-        if attribute_types[0] == 3:
+        if attribute_types[0] == tertiary:
             self.tertiary = self.get_physical_attributes
         while self.total_social_attributes() < attribute_types[1] + 3:
             attribute_choice = weighted_choice(
                 self.get_social_attributes(), floor=3, ceiling=3
             )
             add_dot(self, attribute_choice, 5)
-        if attribute_types[1] == 3:
+        if attribute_types[1] == tertiary:
             self.tertiary = self.get_social_attributes
         while self.total_mental_attributes() < attribute_types[2] + 3:
             attribute_choice = weighted_choice(
                 self.get_mental_attributes(), floor=3, ceiling=3
             )
             add_dot(self, attribute_choice, 5)
-        if attribute_types[2] == 3:
+        if attribute_types[2] == tertiary:
             self.tertiary = self.get_mental_attributes
 
     def add_ability(self, ability, maximum=5):
@@ -401,19 +401,21 @@ class ExMortal(CharacterModel):
         merit_rating = MeritRating.objects.get(character=self, merit=merit)
         return merit_rating.rating
 
-    def random_merit(self, dots=7):
+    def random_merit(self, dots=7, list_of_merits=None):
         merit_candidates = self.filter_merits(dots=dots)
+        if list_of_merits is not None:
+            merit_candidates = [x for x in merit_candidates if x.name in list_of_merits]
         if len(merit_candidates) != 0:
             merit_candidates = {k: k.count_prereqs(self) for k in merit_candidates}
             choice = weighted_choice(merit_candidates, floor=0, ceiling=100)
             return self.add_merit(choice)
         return False
 
-    def random_merits(self):
-        dots = 7
+    def random_merits(self, num_dots=7, list_of_merits=None):
+        dots = num_dots
         while not self.has_merits():
-            self.random_merit(dots=dots)
-            dots = 7 - self.total_merits()
+            self.random_merit(dots=dots, list_of_merits=list_of_merits)
+            dots = num_dots - self.total_merits()
 
     def has_finishing_touches(self):
         return self.willpower == 3 and self.health_levels == 7 and self.essence == 0
