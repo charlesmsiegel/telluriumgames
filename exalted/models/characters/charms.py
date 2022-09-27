@@ -26,6 +26,7 @@ class Charm(Model):
     goldxp_cost = models.IntegerField(default=0)
     whitexp_cost = models.IntegerField(default=0)
     xp_cost = models.IntegerField(default=0)
+    ahl_cost = models.IntegerField(default=0)
     lhl_cost = models.IntegerField(default=0)
     hl_cost = models.IntegerField(default=0)
 

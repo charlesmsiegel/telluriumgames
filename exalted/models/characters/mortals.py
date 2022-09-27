@@ -354,8 +354,8 @@ class ExMortal(CharacterModel):
     def total_merits(self):
         return sum(x.rating for x in MeritRating.objects.filter(character=self))
 
-    def has_merits(self):
-        return self.total_merits() == 7
+    def has_merits(self, target_num=7):
+        return self.total_merits() == target_num
 
     def add_merit(self, merit):
         if merit in self.merits.all():
@@ -413,7 +413,7 @@ class ExMortal(CharacterModel):
 
     def random_merits(self, num_dots=7, list_of_merits=None):
         dots = num_dots
-        while not self.has_merits():
+        while not self.has_merits(target_num=num_dots):
             self.random_merit(dots=dots, list_of_merits=list_of_merits)
             dots = num_dots - self.total_merits()
 

@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from exalted.models.characters.charms import DragonBloodedCharm
+from exalted.models.characters.dragonblooded import DragonBlooded
 
 # from exalted.forms import (
 #     ExaltedAbilitiesForm,
@@ -12,13 +13,9 @@ from exalted.models.characters.charms import DragonBloodedCharm
 #     ExaltedMeritsForm,
 #     SolarCreationForm,
 # )
-# from exalted.models.characters.mortals import (
-#     ExMerit,
-#     ExSpecialty,
-#     Intimacy,
-#     MeritRating,
-# )
-from exalted.models.characters.dragonblooded import DragonBlooded
+from exalted.models.characters.mortals import (  # ExMerit,; ExSpecialty,; Intimacy,
+    MeritRating,
+)
 
 #     Charm,
 #     MartialArtsCharm,
@@ -39,15 +36,14 @@ class DragonBloodedDetailView(View):
             context,
         )
 
-
-#     def get_context(self, char):
-#         return {
-#             "object": char,
-#             "merits": MeritRating.objects.filter(character=char).order_by(
-#                 "merit__name"
-#             ),
-#             "specialties": char.specialties.all().order_by("name"),
-#         }
+    def get_context(self, char):
+        return {
+            "object": char,
+            "merits": MeritRating.objects.filter(character=char).order_by(
+                "merit__name"
+            ),
+            "specialties": char.specialties.all().order_by("name"),
+        }
 
 
 class DragonBloodedCreateView(CreateView):

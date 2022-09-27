@@ -1,0 +1,48 @@
+{% extends "exalted/characters/mortal/mortal/detail.html" %}
+{% block basics %}
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm"></div>
+        <div class="col-sm">Name</div>
+        <div class="col-sm">{{ object.name }}</div>
+        <div class="col-sm">Concept</div>
+        <div class="col-sm">{{ object.concept }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm">Chronicle</div>
+        <div class="col-sm">{{ object.chronicle }}</div>
+        <div class="col-sm">Player</div>
+        <div class="col-sm">{{ object.owner }}</div>
+        <div class="col-sm">Anima</div>
+        <div class="col-sm">{{ object.anima }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm"></div>
+        <div class="col-sm">Aspect</div>
+        <div class="col-sm">{{ object.get_aspect_display }}</div>
+        <div class="col-sm">Origin</div>
+        <div class="col-sm">{{ object.get_origin_display }} {{ object.get_house_display }} {{ object.get_school_display }}</div>
+    </div>
+{% endblock basics %}
+{% block important_abilities %}
+    <div class="row">
+        <h2 class="col-sm exalted_heading">Caste and Favored Abilities</h2>
+    </div>
+    <div class="row">
+        {% for ability in object.aspect_abilities %}<div class="col-sm">{{ ability.title }}</div>{% endfor %}
+        {% for ability in object.favored_abilities %}<div class="col-sm">{{ ability.title }}</div>{% endfor %}
+    </div>
+{% endblock important_abilities %}
+{% block charms %}
+    <div class="row">
+        <h2 class="col-sm exalted_heading">Charms</h2>
+    </div>
+    {% for charm in object.charms.all %}
+        <div class="row">
+            <a class="col-sm" href="{{ charm.get_absolute_url }}">
+                {{ charm }}
+            </a>
+        </div>
+    {% endfor %}
+{% endblock charms %}

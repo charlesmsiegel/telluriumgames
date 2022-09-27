@@ -34,7 +34,7 @@ class GenericCharacterDetailView(View):
     create_views = {
         "mortal": mortal.MortalDetailView,
         "solar": solars.SolarDetailView,
-        "dragonblooded": dragonblooded.DragonBloodedDetailView,
+        "dragon-blooded": dragonblooded.DragonBloodedDetailView,
     }
 
     def get(self, request, *args, **kwargs):
@@ -65,8 +65,13 @@ class RandomCharacterView(View):
             xp = int(request.POST["xp"])
         except ValueError:
             xp = 0
+        try:
+            bonus = int(request.POST["bonus"])
+        except ValueError:
+            bonus = 0
         xp = max(xp, 0)
-        char.random(xp=xp)
+        bonus = max(bonus, 0)
+        char.random(xp=xp, bonus_points=bonus)
         char.save()
         return redirect(char.get_absolute_url())
 

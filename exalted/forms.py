@@ -14,6 +14,7 @@ class RandomCharacterForm(forms.Form):
         ]
     )
     name = forms.CharField(max_length=100, label="Name", required=False)
+    bonus = forms.IntegerField(initial=0, label="Bonus Points")
     xp = forms.IntegerField(initial=0, label="XP")
 
 

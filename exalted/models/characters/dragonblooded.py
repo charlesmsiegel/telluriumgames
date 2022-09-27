@@ -3,7 +3,7 @@ import random
 from django.db import models
 from django.db.models import F, Q
 
-from core.utils import add_dot
+from core.utils import add_dot, weighted_choice
 from exalted.models.characters.charms import DragonBloodedCharm, MartialArtsCharm
 from exalted.models.characters.mortals import ExMortal
 from exalted.models.characters.utils import ABILITIES
@@ -29,34 +29,34 @@ class DragonBlooded(ExMortal):
         ("foriegn_outcaste", "Foreign Outcaste"),
     ]
     HOUSE_CHOICES = [
-        ("cathak", "Cathak"),
-        ("cynis", "Cynis"),
-        ("iselsi", "Iselsi"),
-        ("ledaal", "Ledaal"),
-        ("mnemon", "Mnemon"),
-        ("nellens", "Nellens"),
-        ("peleps", "Peleps"),
-        ("ragara", "Ragara"),
-        ("sesus", "Sesus"),
-        ("tepet", "Tepet"),
-        ("vneef", "V'neef"),
-        ("ferem", "Ferem"),
-        ("desai", "Desai"),
-        ("burano", "Burano"),
-        ("ophris", "Ophris"),
-        ("yueh", "Yueh"),
-        ("amilar", "Amilar"),
-        ("karal", "Karal"),
-        ("maheka", "Maheka"),
-        ("teresu", "Teresu"),
-        ("yushoto", "Yushoto"),
-        ("kiriga", "Kiriga"),
-        ("nefvarin", "Nefvarin"),
-        ("nerigus", "Nerigus"),
-        ("sirel", "Sirel"),
-        ("taroketu", "Taroketu"),
-        ("toriki", "Toriki"),
-        ("yan_tu", "Yan Tu"),
+        ("cathak", "House Cathak"),
+        ("cynis", "House Cynis"),
+        ("iselsi", "House Iselsi"),
+        ("ledaal", "House Ledaal"),
+        ("mnemon", "House Mnemon"),
+        ("nellens", "House Nellens"),
+        ("peleps", "House Peleps"),
+        ("ragara", "House Ragara"),
+        ("sesus", "House Sesus"),
+        ("tepet", "House Tepet"),
+        ("vneef", "House V'neef"),
+        ("ferem", "House Ferem"),
+        ("desai", "House Desai"),
+        ("burano", "House Burano"),
+        ("ophris", "House Ophris"),
+        ("yueh", "House Yueh"),
+        ("amilar", "Gens Amilar"),
+        ("karal", "Gens Karal"),
+        ("maheka", "Gens Maheka"),
+        ("teresu", "Gens Teresu"),
+        ("yushoto", "Gens Yushoto"),
+        ("kiriga", "Gens Kiriga"),
+        ("nefvarin", "Gens Nefvarin"),
+        ("nerigus", "Gens Nerigus"),
+        ("sirel", "Gens Sirel"),
+        ("taroketu", "Gens Taroketu"),
+        ("toriki", "Gens Toriki"),
+        ("yan_tu", "Gens Yan Tu"),
         ("violet_fangs", "The Cult of the Violet Fang"),
         ("grass_spiders", "The Grass Spiders"),
         ("heavens_dragons", "Heaven's Dragons"),
@@ -217,7 +217,7 @@ class DragonBlooded(ExMortal):
         if not self.set_house(house):
             return False
         if origin == "dynast":
-            self.set_school(self.SCHOOL_CHOICES)
+            self.set_school(random.choice(self.SCHOOL_CHOICES)[0])
         return True
 
     def set_house(self, house):
@@ -332,7 +332,8 @@ class DragonBlooded(ExMortal):
         return self.specialties.count() == 3
 
     def random_additional_specialties(self):
-        if self.school is not None:
+        abilities = []
+        if self.school != "":
             num_specs = 2
             if self.school == "cloister":
                 abilities = ["integrity", "lore", "martial_arts"]
@@ -357,8 +358,202 @@ class DragonBlooded(ExMortal):
             abilities = ABILITIES
             num_specs = 1
         for _ in range(num_specs):
+            abilities = [x for x in abilities if getattr(self, x) > 0]
+            if len(abilities) == 0:
+                return False
             abb = random.choice(abilities)
-            self.random_specialty(self, ability=abb)
+            self.random_specialty(ability=abb)
+
+    def bonus_cost(self, trait_type):
+        c = super().bonus_cost(trait_type)
+        if c != 10000:
+            return c
+        if trait_type in ["aspect ability", "favored ability"]:
+            return 1
+        if trait_type in ["aspect charm", "favored charm"]:
+            return 4
+        if trait_type == "charm":
+            return 5
+        if trait_type == "spell":
+            if "occult" in self.favored_abilities + self.aspect_abilities:
+                return 4
+            return 5
+        if trait_type == "evocation":
+            return 4
+        return 10000
+
+    def bonus_frequencies(self):
+        return {
+            "attribute": 1,
+            "ability": 1,
+            "specialty": 1,
+            "merit": 1,
+            "willpower": 1,
+            "charm": 1,
+        }
+
+    def random_bonus_functions(self):
+        d = super().random_bonus_functions()
+        d.update(
+            {"charm": self.random_bonus_charm,}
+        )
+        return d
+
+    def random_bonus_charm(self):
+        filtered_list = self.filter_charms()
+        d = {k.name: max(k.min_essence, k.min_statistic) for k in filtered_list}
+        trait = weighted_choice(d)
+        return self.spend_bonus_points(trait)
+
+    def spend_bonus_points(self, trait):
+        if trait in self.favored_abilities:
+            cost = self.bonus_cost("favored ability")
+            if cost <= self.bonus_points:
+                if self.add_ability(trait):
+                    self.bonus_points -= cost
+                    return True
+                return False
+            return False
+        if trait in self.aspect_abilities:
+            cost = self.bonus_cost("aspect ability")
+            if cost <= self.bonus_points:
+                if self.add_ability(trait):
+                    self.bonus_points -= cost
+                    return True
+                return False
+            return False
+        if DragonBloodedCharm.objects.filter(name=trait).exists():
+            charm = DragonBloodedCharm.objects.get(name=trait)
+            if charm.statistic in self.favored_abilities:
+                cost = self.bonus_cost("favored charm")
+                if cost <= self.bonus_points:
+                    if self.add_charm(charm):
+                        self.bonus_points -= cost
+                        return True
+                    return False
+                return False
+            if charm.statistic in self.aspect_abilities:
+                cost = self.bonus_cost("aspect charm")
+                if cost <= self.bonus_points:
+                    if self.add_charm(charm):
+                        self.bonus_points -= cost
+                        return True
+                    return False
+                return False
+            cost = self.bonus_cost("charm")
+            if cost <= self.bonus_points:
+                if self.add_charm(charm):
+                    self.bonus_points -= cost
+                    return True
+                return False
+            return False
+        return super().spend_bonus_points(trait)
+
+    def xp_cost(self, trait_type):
+        if trait_type == "evocation":
+            return 12
+        if (
+            trait_type == "spell"
+            and "occult" in self.favored_abilities + self.aspect_abilities
+        ):
+            return 10
+        if trait_type == "spell":
+            return 12
+        if (
+            trait_type == "martial arts charm"
+            and "brawl" in self.favored_abilities + self.aspect_abilities
+        ):
+            return 8
+        if trait_type == "martial arts charm":
+            return 10
+        if trait_type in ["aspect charm", "favored charm"]:
+            return 8
+        if trait_type == "charm":
+            return 10
+        return super().xp_cost(trait_type)
+
+    def xp_frequencies(self):
+        return {
+            "attribute": 1,
+            "ability": 1,
+            "specialty": 1,
+            "merit": 1,
+            "willpower": 1,
+            "charm": 1,
+        }
+
+    def random_xp_functions(self):
+        d = super().random_xp_functions()
+        d.update(
+            {"charm": self.random_xp_charm,}
+        )
+        return d
+
+    def random_xp_charm(self):
+        filtered_list = self.filter_charms()
+        d = {k.name: max(k.min_essence, k.min_statistic) for k in filtered_list}
+        trait = weighted_choice(d)
+        return self.spend_xp(trait)
+
+    def spend_xp(self, trait):
+        if trait in self.favored_abilities:
+            current_rating = self.get_abilities()[trait]
+            cost = self.xp_cost("ability") * current_rating - 1
+            if cost <= self.xp:
+                if self.add_ability(trait):
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        if trait in self.aspect_abilities:
+            current_rating = self.get_abilities()[trait]
+            cost = self.xp_cost("ability") * current_rating - 1
+            if cost <= self.xp:
+                if self.add_ability(trait):
+                    self.xp -= cost
+                    self.add_to_spend(trait, getattr(self, trait), cost)
+                    return True
+                return False
+            return False
+        if DragonBloodedCharm.objects.filter(name=trait).exists():
+            charm = DragonBloodedCharm.objects.get(name=trait)
+            if charm.is_martial_arts:
+                cost = self.xp_cost("martial arts charm")
+                if cost <= self.xp:
+                    if self.add_charm(charm):
+                        self.xp -= cost
+                        self.add_to_spend(trait, 1, cost)
+                        return True
+                    return False
+                return False
+            if charm.ability in self.favored_abilities:
+                cost = self.xp_cost("favored charm")
+                if cost <= self.xp:
+                    if self.add_charm(charm):
+                        self.xp -= cost
+                        self.add_to_spend(trait, 1, cost)
+                        return True
+                    return False
+                return False
+            if charm.ability in self.aspect_abilities:
+                cost = self.xp_cost("aspect charm")
+                if cost <= self.xp:
+                    if self.add_charm(charm):
+                        self.xp -= cost
+                        self.add_to_spend(trait, 1, cost)
+                        return True
+                    return False
+                return False
+            cost = self.xp_cost("charm")
+            if cost <= self.xp:
+                if self.add_charm(charm):
+                    self.xp -= cost
+                    self.add_to_spend(trait, 1, cost)
+                    return True
+                return False
+            return False
+        return super().spend_xp(trait)
 
     def random(self, bonus_points=18, xp=0):
         self.update_status("Ran")
@@ -368,6 +563,7 @@ class DragonBlooded(ExMortal):
         self.random_name()
         self.random_concept()
         self.random_aspect()
+        self.random_origin()
         self.random_favored_abilities()
         self.random_attributes(primary=8, secondary=6, tertiary=4)
         self.random_abilities()
