@@ -2,10 +2,11 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, View
 
 from exalted.forms import RandomCharacterForm
+from exalted.models.characters.dragonblooded import DragonBlooded
 from exalted.models.characters.mortals import ExMortal
 from exalted.models.characters.solars import Solar
 
-from . import mortal, solars
+from . import dragonblooded, mortal, solars
 
 
 class IndexView(View):
@@ -33,6 +34,7 @@ class GenericCharacterDetailView(View):
     create_views = {
         "mortal": mortal.MortalDetailView,
         "solar": solars.SolarDetailView,
+        "dragon-blooded": dragonblooded.DragonBloodedDetailView,
     }
 
     def get(self, request, *args, **kwargs):
@@ -49,10 +51,7 @@ class GenericCharacterDetailView(View):
 
 
 class RandomCharacterView(View):
-    chars = {
-        "mortal": ExMortal,
-        "solar": Solar,
-    }
+    chars = {"mortal": ExMortal, "solar": Solar, "dragonblooded": DragonBlooded}
 
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -66,8 +65,13 @@ class RandomCharacterView(View):
             xp = int(request.POST["xp"])
         except ValueError:
             xp = 0
+        try:
+            bonus = int(request.POST["bonus"])
+        except ValueError:
+            bonus = 0
         xp = max(xp, 0)
-        char.random(xp=xp)
+        bonus = max(bonus, 0)
+        char.random(xp=xp, bonus_points=bonus)
         char.save()
         return redirect(char.get_absolute_url())
 

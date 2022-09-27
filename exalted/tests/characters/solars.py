@@ -1,13 +1,13 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from exalted.models.characters.mortals import ExMerit
-from exalted.models.characters.solars import (
+from exalted.models.characters.charms import (
     MartialArtsCharm,
     MartialArtsStyle,
-    Solar,
     SolarCharm,
 )
+from exalted.models.characters.mortals import ExMerit
+from exalted.models.characters.solars import Solar
 from exalted.models.characters.utils import ABILITIES
 from exalted.tests.characters.mortals import setup
 
@@ -53,12 +53,12 @@ class TestSolar(TestCase):
     def test_caste_abilities(self):
         self.solar.set_caste("dawn")
         self.assertEqual(
-            self.solar.caste_abilities,
+            self.solar.caste_ability_dict[self.solar.caste],
             [
                 "archery",
                 "awareness",
                 "brawl",
-                "martial arts",
+                "martial_arts",
                 "dodge",
                 "melee",
                 "resistance",
@@ -68,7 +68,7 @@ class TestSolar(TestCase):
         )
         self.solar.set_caste("zenith")
         self.assertEqual(
-            self.solar.caste_abilities,
+            self.solar.caste_ability_dict[self.solar.caste],
             [
                 "athletics",
                 "integrity",
@@ -82,7 +82,7 @@ class TestSolar(TestCase):
         )
         self.solar.set_caste("twilight")
         self.assertEqual(
-            self.solar.caste_abilities,
+            self.solar.caste_ability_dict[self.solar.caste],
             [
                 "bureaucracy",
                 "craft",
@@ -96,7 +96,7 @@ class TestSolar(TestCase):
         )
         self.solar.set_caste("night")
         self.assertEqual(
-            self.solar.caste_abilities,
+            self.solar.caste_ability_dict[self.solar.caste],
             [
                 "athletics",
                 "awareness",
@@ -110,7 +110,7 @@ class TestSolar(TestCase):
         )
         self.solar.set_caste("eclipse")
         self.assertEqual(
-            self.solar.caste_abilities,
+            self.solar.caste_ability_dict[self.solar.caste],
             [
                 "bureaucracy",
                 "larceny",
@@ -151,6 +151,7 @@ class TestSolar(TestCase):
         self.solar.set_caste("dawn")
         self.assertFalse(self.solar.has_supernal_ability())
         self.assertFalse(self.solar.set_supernal_ability("occult"))
+        self.solar.set_caste_abilities(["archery"])
         self.assertTrue(self.solar.set_supernal_ability("archery"))
         self.assertTrue(self.solar.has_supernal_ability())
 
@@ -158,6 +159,7 @@ class TestSolar(TestCase):
         self.assertFalse(self.solar.has_supernal_ability())
         self.solar.set_caste("dawn")
         self.assertFalse(self.solar.has_supernal_ability())
+        self.solar.set_caste_abilities(["archery"])
         self.solar.set_supernal_ability("archery")
         self.assertTrue(self.solar.has_supernal_ability())
 
@@ -288,6 +290,7 @@ class TestRandomSolar(TestCase):
 
     def test_random_supernal_ability(self):
         self.solar.set_caste("dawn")
+        self.solar.random_caste_abilities()
         self.assertFalse(self.solar.has_supernal_ability())
         self.solar.random_supernal_ability()
         self.assertTrue(self.solar.has_supernal_ability())
@@ -327,13 +330,13 @@ class TestRandomSolar(TestCase):
         self.assertTrue(self.solar.has_caste())
         self.assertTrue(self.solar.has_name())
         self.assertTrue(self.solar.has_concept())
-        self.assertTrue(self.solar.has_attributes())
+        self.assertTrue(self.solar.has_attributes(primary=8, secondary=6, tertiary=4))
         self.assertTrue(self.solar.has_abilities())
         self.assertTrue(self.solar.has_favored_abilities())
         self.assertTrue(self.solar.has_supernal_ability())
         self.assertTrue(self.solar.has_specialties())
         self.assertTrue(self.solar.has_charms())
-        self.assertTrue(self.solar.has_merits())
+        self.assertTrue(self.solar.has_merits(target_num=10))
         self.assertTrue(self.solar.has_intimacies())
         self.assertTrue(self.solar.has_limit_trigger())
         self.assertEqual(self.solar.bonus_points, 0)

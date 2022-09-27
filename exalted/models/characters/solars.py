@@ -6,122 +6,12 @@ from django.urls import reverse
 
 from core.models import Model
 from core.utils import add_dot, weighted_choice
+from exalted.models.characters.charms import MartialArtsCharm, SolarCharm
 from exalted.models.characters.mortals import ExMortal
 from exalted.models.characters.utils import ABILITIES
 
 
 # Create your models here.
-class Charm(Model):
-    type = "charm"
-
-    statistic = models.CharField(
-        max_length=20,
-        choices=zip(ABILITIES, [x.replace("_", " ").title() for x in ABILITIES]),
-    )
-    min_statistic = models.IntegerField(default=0)
-    min_essence = models.IntegerField(default=0)
-    mote_cost = models.IntegerField(default=0)
-    initiative_cost = models.IntegerField(default=0)
-    anima_cost = models.IntegerField(default=0)
-    willpower_cost = models.IntegerField(default=0)
-    silverxp_cost = models.IntegerField(default=0)
-    goldxp_cost = models.IntegerField(default=0)
-    whitexp_cost = models.IntegerField(default=0)
-    xp_cost = models.IntegerField(default=0)
-    lhl_cost = models.IntegerField(default=0)
-    hl_cost = models.IntegerField(default=0)
-
-    charm_type = models.CharField(max_length=20, default="")
-    duration = models.CharField(max_length=20, default="")
-
-    keywords = models.JSONField(default=list)
-    prerequisites = models.ManyToManyField("self", blank=True, symmetrical=False)
-
-    def get_absolute_url(self):
-        return reverse("exalted:characters:solars:solarcharm", kwargs={"pk": self.pk})
-
-    def get_update_url(self):
-        return reverse(
-            "exalted:characters:solars:update_solarcharm", kwargs={"pk": self.pk}
-        )
-
-    def keyword_display(self):
-        return ", ".join(self.keywords)
-
-    def get_cost(self):
-        costs = [
-            (self.mote_cost, "motes"),
-            (self.initiative_cost, "initiative"),
-            (self.anima_cost, "anima"),
-            (self.willpower_cost, "willpower"),
-            (self.silverxp_cost, "silver xp"),
-            (self.goldxp_cost, "gold xp"),
-            (self.whitexp_cost, "white xp"),
-            (self.xp_cost, "xp"),
-            (self.lhl_cost, "lethal health levels"),
-            (self.hl_cost, "health levels"),
-        ]
-        costs = [x for x in costs if x[0] != 0]
-        costs = [f"{x[0]} {x[1]}" for x in costs]
-        return ", ".join(costs)
-
-    def check_essence(self, character):
-        return getattr(character, "essence") >= self.min_essence
-
-    def check_prerequisites(self, character):
-        statistic = getattr(character, self.statistic) >= self.min_statistic
-        essence = self.check_essence(character)
-        prereq_charms = True
-        for prereq_charm in self.prerequisites.all():
-            if character.charms.filter(pk=prereq_charm.id).exists():
-                prereq_charms = prereq_charms and True
-            else:
-                prereq_charms = False
-        return statistic and essence and prereq_charms
-
-
-class SolarCharm(Charm):
-    type = "solar_charm"
-
-    def check_essence(self, character):
-        if self.statistic == character.supernal_ability:
-            essence = 5 >= self.min_essence
-        else:
-            essence = getattr(character, "essence") >= self.min_essence
-        return essence
-
-
-class MartialArtsStyle(Model):
-    type = "martial_arts_style"
-
-    weapons = models.TextField(default="")
-    armor = models.TextField(default="")
-
-
-class MartialArtsCharm(Charm):
-    type = "martial_arts_charm"
-
-    style = models.ForeignKey(
-        MartialArtsStyle, null=True, blank=True, on_delete=models.CASCADE
-    )
-
-    def check_essence(self, character):
-        if hasattr(character, "supernal_ability"):
-            if self.statistic == character.supernal_ability:
-                essence = 5 >= self.min_essence
-            else:
-                essence = getattr(character, "essence") >= self.min_essence
-        else:
-            essence = getattr(character, "essence") >= self.min_essence
-        return essence
-
-    def check_prerequisites(self, character):
-        return (
-            super().check_prerequisites(character)
-            and character.merits.filter(name="Martial Artist").exists()
-        )
-
-
 class Solar(ExMortal):
     type = "solar"
 
@@ -219,62 +109,6 @@ class Solar(ExMortal):
 
     def set_caste(self, caste):
         self.caste = caste
-        # if caste == "dawn":
-        #     self.caste_abilities = [
-        #         "archery",
-        #         "awareness",
-        #         "brawl",
-        #         "martial arts",
-        #         "dodge",
-        #         "melee",
-        #         "resistance",
-        #         "thrown",
-        #         "war",
-        #     ]
-        # elif caste == "zenith":
-        #     self.caste_abilities = [
-        #         "athletics",
-        #         "integrity",
-        #         "performance",
-        #         "lore",
-        #         "presence",
-        #         "resistance",
-        #         "survival",
-        #         "war",
-        #     ]
-        # elif caste == "twilight":
-        #     self.caste_abilities = [
-        #         "bureaucracy",
-        #         "craft",
-        #         "integrity",
-        #         "investigation",
-        #         "linguistics",
-        #         "lore",
-        #         "medicine",
-        #         "occult",
-        #     ]
-        # elif caste == "night":
-        #     self.caste_abilities = [
-        #         "athletics",
-        #         "awareness",
-        #         "dodge",
-        #         "investigation",
-        #         "larceny",
-        #         "ride",
-        #         "stealth",
-        #         "socialize",
-        #     ]
-        # elif caste == "eclipse":
-        #     self.caste_abilities = [
-        #         "bureaucracy",
-        #         "larceny",
-        #         "linguistics",
-        #         "occult",
-        #         "presence",
-        #         "ride",
-        #         "sail",
-        #         "socialize",
-        #     ]
         return True
 
     def set_caste_abilities(self, caste_abilities):
@@ -318,7 +152,7 @@ class Solar(ExMortal):
         return True
 
     def random_favored_ability(self):
-        options = [x for x in ABILITIES if x not in self.supernal_ability]
+        options = [x for x in ABILITIES if x not in self.caste_abilities]
         options = [x for x in options if x not in self.favored_abilities]
         choice = random.choice(options)
         return self.add_favored_ability(choice)
@@ -611,7 +445,7 @@ class Solar(ExMortal):
         charms = {k: v for k, v in charms.items() if len(v) != 0}
         return charms
 
-    def random(self, bonus_points=21, xp=0):
+    def random(self, bonus_points=15, xp=0):
         self.update_status("Ran")
         self.bonus_points = bonus_points
         self.xp = xp
@@ -622,11 +456,11 @@ class Solar(ExMortal):
         self.random_caste_abilities()
         self.random_supernal_ability()
         self.random_favored_abilities()
-        self.random_attributes()
+        self.random_attributes(primary=8, secondary=6, tertiary=4)
         self.random_abilities()
         self.random_charms()
         self.random_specialties()
-        self.random_merits()
+        self.random_merits(num_dots=10)
         self.random_intimacies()
         self.random_limit_trigger()
         self.random_spend_bonus_points()
