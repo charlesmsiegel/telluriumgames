@@ -1,3 +1,5 @@
+import imp
+
 from django.contrib import admin
 
 from exalted.models.characters.charms import (
@@ -9,6 +11,7 @@ from exalted.models.characters.charms import (
 from exalted.models.characters.dragonblooded import DragonBlooded
 from exalted.models.characters.mortals import ExMerit, ExMortal, ExSpecialty, Intimacy
 from exalted.models.characters.solars import Solar
+from exalted.models.locations.mortals import ExLocation
 
 
 # Register your models here.
@@ -46,3 +49,4 @@ admin.site.register(SolarCharm)
 admin.site.register(DragonBloodedCharm)
 admin.site.register(MartialArtsCharm)
 admin.site.register(MartialArtsStyle)
+admin.site.register(ExLocation)

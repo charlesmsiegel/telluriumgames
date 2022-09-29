@@ -10,13 +10,6 @@ from wod.models.characters.human import Character
 class Location(LocationModel):
     type = "location"
 
-    parent = models.ForeignKey(
-        "Location",
-        blank=True,
-        null=True,
-        on_delete=models.CASCADE,
-        related_name="children",
-    )
     gauntlet = models.IntegerField(default=7)
     shroud = models.IntegerField(default=7)
     dimension_barrier = models.IntegerField(default=6)
