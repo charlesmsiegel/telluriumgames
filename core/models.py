@@ -1,3 +1,5 @@
+from io import open_code
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
@@ -179,7 +181,13 @@ class CharacterModel(Model):
 
 
 class LocationModel(Model):
-    pass
+    parent = models.ForeignKey(
+        "LocationModel",
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="children",
+    )
 
 
 class ItemModel(Model):
