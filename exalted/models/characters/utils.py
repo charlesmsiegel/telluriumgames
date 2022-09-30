@@ -2634,7 +2634,7 @@ def exalted_name():
                 random.choice(natural_options),
                 random.choice(natural_options),
                 random.choice(mineral_options)[0],
-                random.choice(precious_options)[0],
+                random.choice(precious_options),
                 random.choice(celestial_options)[0],
                 random.choice(item_options)[0],
             ]
