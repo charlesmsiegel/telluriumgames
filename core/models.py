@@ -188,10 +188,18 @@ class LocationModel(Model):
         on_delete=models.CASCADE,
         related_name="children",
     )
+    owned_by = models.ForeignKey(
+        CharacterModel, blank=True, null=True, on_delete=models.CASCADE
+    )
 
 
 class ItemModel(Model):
-    pass
+    owned_by = models.ForeignKey(
+        CharacterModel, blank=True, null=True, on_delete=models.CASCADE
+    )
+    located_at = models.ForeignKey(
+        LocationModel, blank=True, null=True, on_delete=models.CASCADE
+    )
 
 
 class NewsItem(models.Model):
