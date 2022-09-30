@@ -6,7 +6,7 @@ from django.db.models import F, Q
 from core.utils import add_dot, weighted_choice
 from exalted.models.characters.charms import DragonBloodedCharm, MartialArtsCharm
 from exalted.models.characters.mortals import ExMortal
-from exalted.models.characters.utils import ABILITIES
+from exalted.models.characters.utils import ABILITIES, dynast_name
 
 
 # Create your models here.
@@ -143,7 +143,17 @@ class DragonBlooded(ExMortal):
         return True
 
     def random_origin(self):
-        origin = random.choice(self.ORIGIN_CHOICES)[0]
+        origin_dict = {
+            "dynast": 1000,
+            "dynast_outcaste": 400,
+            "cadet": 75,
+            "prasadi": 200,
+            "lookshyan": 300,
+            "foriegn_outcaste": 500,
+        }
+
+        origin = weighted_choice(origin_dict, ceiling=10000)
+
         origin_bool = self.set_origin(origin)
         if not origin_bool:
             return False
@@ -252,6 +262,9 @@ class DragonBlooded(ExMortal):
             self.random_favored_ability()
 
     def random_name(self):
+        if self.origin in ["dynast", "dynast_outcaste", "prasadi", "cadet"]:
+            name = self.get_house_display() + " " + dynast_name()
+            return self.set_name(name.split("House")[-1])
         return self.set_name(f"Dragon-Blooded {DragonBlooded.objects.count()}")
 
     def apply_finishing_touches(self):
@@ -560,10 +573,10 @@ class DragonBlooded(ExMortal):
         self.bonus_points = bonus_points
         self.xp = xp
         self.essence = 2
-        self.random_name()
         self.random_concept()
         self.random_aspect()
         self.random_origin()
+        self.random_name()
         self.random_favored_abilities()
         self.random_attributes(primary=8, secondary=6, tertiary=4)
         self.random_abilities()
