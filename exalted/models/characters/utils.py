@@ -1,4 +1,5 @@
 import random
+from secrets import choice
 
 ABILITIES = [
     "archery",
@@ -2567,17 +2568,151 @@ def exalted_name():
                     [random.choice(person_options), random.choice(relation_options)]
                 ),
             ]
-        )
-        # [[absnegative]|[abspositive]] and [mineral] [person]
-        # [anatomy] of the [[animal]|[animal]|[animal]|[animal,as plural]] and the [[location]|[location]|[location]|[location,as plural]]
-        # [precious] and [mineral] [[person]|[relation]]
-        # [relation] of [[mineral] and [precious]|[precious] and [mineral]]
-        # [condition] [[absnegative]|[abspositive]] and [natural] [anatomy] [person]
-        # [[absnegative]|[abspositive]] of the [[location]|[location]|[location]|[location,as plural]]
-        # [[animal]|[item]] of the [[celestial]|[[location]|[location]|[location]|[location,as plural]]]
+        ),
+        " and ".join(
+            [
+                random.choice(
+                    [
+                        random.choice(absnegative_options)[0],
+                        random.choice(abspositive_options)[0],
+                    ]
+                ),
+                random.choice(
+                    [random.choice(mineral_options), random.choice(person_options)]
+                ),
+            ]
+        ),
+        " ".join(
+            [
+                random.choice(anatomy_options)[0],
+                "of the",
+                random.choice(
+                    [
+                        random.choice(animal_options)[0],
+                        random.choice(animal_options)[0],
+                        random.choice(animal_options)[0],
+                        random.choice(animal_options)[1],
+                    ]
+                ),
+                "and the",
+                random.choice(
+                    [
+                        random.choice(location_options)[0],
+                        random.choice(location_options)[0],
+                        random.choice(location_options)[0],
+                        random.choice(location_options)[1],
+                    ]
+                ),
+            ]
+        ),
+        random.choice(precious_options)
+        + " and "
+        + random.choice(mineral_options)
+        + random.choice(
+            [random.choice(person_options), random.choice(relation_options)]
+        ),
+        random.choice(relation_options)
+        + " of "
+        + random.choice(
+            [
+                random.choice(precious_options)
+                + " and "
+                + random.choice(mineral_options),
+                random.choice(mineral_options)
+                + " and "
+                + random.choice(precious_options),
+            ]
+        ),
+        " ".join(
+            [
+                random.choice(condition_options),
+                random.choice(
+                    [
+                        random.choice(absnegative_options)[0],
+                        random.choice(abspositive_options)[0],
+                    ]
+                ),
+                "and",
+                random.choice(natural_options),
+                random.choice(anatomy_options)[0],
+                random.choice(person_options),
+            ]
+        ),
+        " ".join(
+            [
+                random.choice(condition_options),
+                random.choice(
+                    [
+                        random.choice(absnegative_options)[0],
+                        random.choice(abspositive_options)[0],
+                    ]
+                ),
+                "and",
+                random.choice(natural_options),
+                random.choice(anatomy_options)[0],
+                random.choice(person_options),
+            ]
+        ),
+        " ".join(
+            [
+                random.choice(
+                    [
+                        random.choice(absnegative_options)[0],
+                        random.choice(abspositive_options)[0],
+                    ]
+                ),
+                "of the",
+                random.choice(
+                    [
+                        random.choice(location_options)[0],
+                        random.choice(location_options)[0],
+                        random.choice(location_options)[0],
+                        random.choice(location_options)[-1],
+                    ]
+                ),
+            ]
+        ),
+        " ".join(
+            [
+                random.choice(
+                    [random.choice(animal_options)[0], random.choice(item_options)[0]]
+                ),
+                "of the",
+                random.choice(
+                    [
+                        random.choice(celestial_options)[0],
+                        random.choice(
+                            [
+                                random.choice(location_options)[0],
+                                random.choice(location_options)[0],
+                                random.choice(location_options)[0],
+                                random.choice(location_options)[-1],
+                            ]
+                        ),
+                    ]
+                ),
+            ]
+        ),
     ]
     misc_options = [
-        # [[emopositive]|[emopositive]|[emopositive]|[condition]] [item]-[transitive] [[person]|[relation]]
+        " ".join(
+            [
+                random.choice(
+                    [
+                        random.choice(emopositive_options),
+                        random.choice(emopositive_options),
+                        random.choice(emopositive_options),
+                        random.choice(condition_options),
+                    ]
+                ),
+                random.choice(item_options)[0]
+                + "-"
+                + random.choice(transitive_options),
+                random.choice(
+                    [random.choice(person_options), random.choice(relation_options)]
+                ),
+            ]
+        ),
         " ".join(
             [
                 random.choice(heroic_options),
@@ -2595,11 +2730,24 @@ def exalted_name():
                     ]
                 ),
             ]
-        )
+        ),
         # [item]-[transitive] [precious] [[person]|[relation]]
         # [adjective] [[relation]|[relation]|[person]|[title]] of [[absnegative]|[abspositive]]
         # [title] [[[animal]|[animal]|[natural]|[natural]|[mineral]|[precious]|[celestial]|[item]]|[adjective] [nounbasic]|[adjective] [nounbasic]]
-        # [[animal]|[celestial]|[natural]|[mineral]] the [adjective]
+        " ".join(
+            [
+                random.choice(
+                    [
+                        random.choice(animal_options)[0],
+                        random.choice(celestial_options)[0],
+                        random.choice(natural_options),
+                        random.choice(mineral_options),
+                    ]
+                ),
+                "the",
+                random.choice(adjective_options),
+            ]
+        ),
     ]
     numbered_options = [
         " ".join([random.choice(number_options), random.choice(nounnumber_options)]),
@@ -2633,7 +2781,7 @@ def exalted_name():
                 random.choice(animal_options)[0],
                 random.choice(natural_options),
                 random.choice(natural_options),
-                random.choice(mineral_options)[0],
+                random.choice(mineral_options),
                 random.choice(precious_options),
                 random.choice(celestial_options)[0],
                 random.choice(item_options)[0],
@@ -2642,11 +2790,55 @@ def exalted_name():
         " ".join([random.choice(adjective_options), random.choice(nounbasic_options)]),
         " ".join([random.choice(adjective_options), random.choice(nounbasic_options)]),
         " ".join([random.choice(adjective_options), random.choice(nounbasic_options)]),
-        # [[natural]|[celestial]|[mineral]|[item]|[[absnegative]|[abspositive]]]-[transitive] [person]
-        # [adjective] [noun] [[relation]|[relation]|[person]|[person]|[person]|[animal]]
+        random.choice(
+            [
+                random.choice(natural_options),
+                random.choice(celestial_options)[0],
+                random.choice(mineral_options),
+                random.choice(item_options)[0],
+                random.choice(
+                    [
+                        random.choice(absnegative_options)[0],
+                        random.choice(abspositive_options)[0],
+                    ]
+                ),
+            ]
+        )
+        + "-"
+        + random.choice(transitive_options)
+        + " "
+        + random.choice(person_options),
+        " ".join(
+            [
+                random.choice(adjective_options),
+                random.choice(noun_options),
+                random.choice(
+                    [
+                        random.choice(relation_options),
+                        random.choice(relation_options),
+                        random.choice(person_options),
+                        random.choice(person_options),
+                        random.choice(animal_options)[0],
+                    ]
+                ),
+            ]
+        ),
         random.choice(numbered_options),
         random.choice(conjunctive_options),
-        # [nounbasic] [[celestial]|[item]|[natural]|[anatomy]] [person]
+        " ".join(
+            [
+                random.choice(nounbasic_options),
+                random.choice(
+                    [
+                        random.choice(celestial_options)[0],
+                        random.choice(item_options)[0],
+                        random.choice(natural_options),
+                        random.choice(anatomy_options)[0],
+                    ]
+                ),
+                random.choice(person_options),
+            ]
+        ),
         # [[emopositive]|[emonegative]|[heroic]|[heroic]|[color]|[condition]] [[[precious]|[mineral]] [[item]|[item]|[natural]|[anatomy]|[animal]]|[animal] [anatomy]] [[person]|[person]|[person]|[relation]]
         # [[color]|[precious]] [[anatomy]|[person]] of the [[celestial]|[natural]|[animal]|[celestial,as plural]|[naturalplural]|[animal,as plural]]
         # [[animal]|[person]|[relation]|[relation]] of the [[[celestial]|[heroic]|[color]|[condition]] [[building]|[anatomy]|[location]]|[[emopositive]|[emonegative]|[color]|[condition]] [[celestial]|[celestial]|[anatomy]]]
@@ -3197,14 +3389,6 @@ $prompt
 
 def infernal_name():
     """
-    $name : Infernal Name harmony Test
-$author : Erinys
-$description : Testing demon name vowel harmony v.9. Generates Old Realm names that hopefully fit with the demons in Exalted. Old Realm is represented with words from many real-world languages, so this is only my interpretation of Infernal Old Realm. For 'regular' Old Realm names, use https://orteil.dashnet.org/randomgen/?gen=FaifGb1M
-$amount : 15
-$picture : 
-$button : more names
-
-
 $1st
 [1stcons]
 [1stcons]
@@ -3666,108 +3850,123 @@ $prompt
 
 
 def dragon_king_name():
-    """
-    $name : Dragon King Name Generator (canon)
-$author : Erinys
-$description : Randomly generates names which fit into the High Holy Speech of the Dragon Kings in Exalted. Exclusively derived from canon Dragon King names. The canon corpus of known words is very small, so this generator is limited. These names are intended to be singular; for a word ending in a consonant, the typical plural ending is -é or -i. -k seems to be valid as a plural or singular ending.
-$amount : 15
-$picture : 
-$button : more names
+    vv = [
+        "a",
+        "a",
+        "a",
+        "aa",
+        "ai",
+        "e",
+        "e",
+        "e",
+        "i",
+        "i",
+        "o",
+        "o",
+        "u",
+        "ya",
+    ]
+    first = [
+        "A",
+        "A",
+        "E",
+        "O",
+        "Ch" + random.choice(vv),
+        "H" + random.choice(vv),
+        "Hl" + random.choice(vv),
+        "Hr" + random.choice(vv),
+        "K" + random.choice(vv),
+        "Khr" + random.choice(vv),
+        "Kl" + random.choice(vv),
+        "R" + random.choice(vv),
+        "R" + random.choice(vv),
+        "R" + random.choice(vv),
+        "R" + random.choice(vv),
+        "Sc" + random.choice(vv),
+        "Sh" + random.choice(vv),
+        "Ss" + random.choice(vv),
+        "Th" + random.choice(vv),
+        "V" + random.choice(vv),
+    ]
+    second = [
+        "d",
+        "j",
+        "k",
+        "km",
+        "l",
+        "l",
+        "lch",
+        "m",
+        "n",
+        "nth",
+        "nz",
+        "r",
+        "r",
+        "s",
+        "ssh",
+        "t",
+        "th",
+        "th",
+        "x",
+        "y",
+        "zth",
+    ]
+    endcons = [
+        "d",
+        "k",
+        "k",
+        "k",
+        "k",
+        "k",
+        "l",
+        "n",
+        "r",
+        "s",
+        "ss",
+        "th",
+        "z",
+    ]
+    endvow = [
+        "a",
+        "a",
+        "a",
+        "é",
+        "i",
+        "u",
+    ]
 
+    name = [
+        "".join([random.choice(first), random.choice(endcons)]),
+        "".join([random.choice(first), random.choice(second), random.choice(endvow)]),
+        "".join(
+            [
+                random.choice(first),
+                random.choice(second),
+                random.choice(vv),
+                random.choice(endcons),
+            ]
+        ),
+        "".join(
+            [
+                random.choice(first),
+                random.choice(second),
+                random.choice(vv),
+                random.choice(second),
+                random.choice(endvow),
+            ]
+        ),
+        "".join(
+            [
+                random.choice(first),
+                random.choice(second),
+                random.choice(vv),
+                random.choice(second),
+                random.choice(vv),
+                random.choice(endcons),
+            ]
+        ),
+    ]
 
-$1st
-A
-A
-E
-O
-Ch[vv]
-H[vv]
-Hl[vv]
-Hr[vv]
-K[vv]
-Khr[vv]
-Kl[vv]
-R[vv]
-R[vv]
-R[vv]
-R[vv]
-Sc[vv]
-Sh[vv]
-Ss[vv]
-Th[vv]
-V[vv]
-
-$2nd
-d
-j
-k
-km
-l
-l
-lch
-m
-n
-nth
-nz
-r
-r
-s
-ssh
-t
-th
-th
-x
-y
-zth
-
-$vv
-a
-a
-a
-aa {60%}
-ai {20%}
-e
-e
-e {20%}
-i
-i {60%}
-o
-o {20%}
-u {20%}
-ya {40%}
-
-$endcons
-d
-k
-k
-k
-k
-k
-l
-n
-r
-s
-ss
-th
-z
-
-$endvow
-a
-a
-a
-é
-i
-u
-
-$name
-[1st][endcons] {46%}
-[1st][2nd][endvow] {27%}
-[1st][2nd][vv][endcons]
-[1st][2nd][vv][2nd][endvow] {27%}
-[1st][2nd][vv][2nd][vv][endcons]
-
-$prompt
-[name]
-[name]’[name] {4%}
-    """
-    pass
+    return random.choice(
+        [random.choice(name), random.choice(name) + "'" + random.choice(name)]
+    )
