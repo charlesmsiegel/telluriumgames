@@ -235,7 +235,7 @@ class Werewolf(WtAHuman):
             5: {"glory": 10, "honor": 9, "wisdom": 4},
         },
     }
-    
+
     class Meta:
         verbose_name = "Werewolf"
         verbose_name_plural = "Werewolves"

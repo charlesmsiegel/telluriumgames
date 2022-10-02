@@ -1,13 +1,21 @@
 from django.contrib import admin
 
-from wod.models.characters.changeling import Changeling, CtDLegacy, CtDHuman, House, Kith, Motley
+from wod.models.characters.changeling import (
+    Changeling,
+    CtDHuman,
+    CtDLegacy,
+    House,
+    Kith,
+    Motley,
+)
 from wod.models.characters.human import (
     Archetype,
     Character,
     Derangement,
-    Group, MeritFlawRating,
+    Group,
     Human,
     MeritFlaw,
+    MeritFlawRating,
     WoDSpecialty,
 )
 from wod.models.characters.mage import (
@@ -15,11 +23,14 @@ from wod.models.characters.mage import (
     Effect,
     Instrument,
     Mage,
-    MageFaction, ResRating,
-    Paradigm, Rote, 
+    MageFaction,
+    Paradigm,
     Practice,
     Resonance,
+    ResRating,
+    Rote,
 )
+from wod.models.characters.mage.mtahuman import MtAHuman
 from wod.models.characters.werewolf import (
     BattleScar,
     Camp,
@@ -35,8 +46,8 @@ from wod.models.characters.werewolf import (
     Totem,
     Tribe,
     Werewolf,
+    wtahuman,
 )
-from wod.models.characters.werewolf import wtahuman
 from wod.models.characters.werewolf.wtahuman import WtAHuman
 from wod.models.items.human import (
     MeleeWeapon,
@@ -45,12 +56,28 @@ from wod.models.items.human import (
     Weapon,
     WoDItem,
 )
-from wod.models.items.mage import Grimoire, Wonder, WonderResonanceRating, Charm, Talisman, Artifact
+from wod.models.items.mage import (
+    Artifact,
+    Charm,
+    Grimoire,
+    Talisman,
+    Wonder,
+    WonderResonanceRating,
+)
 from wod.models.items.werewolf import Fetish
 from wod.models.locations.human import City, Location
-from wod.models.locations.mage import Chantry, Library, Node, NodeMeritFlaw, Sector, NodeMeritFlawRating, NodeResonanceRating, HorizonRealm
+from wod.models.locations.mage import (
+    Chantry,
+    HorizonRealm,
+    Library,
+    Node,
+    NodeMeritFlaw,
+    NodeMeritFlawRating,
+    NodeResonanceRating,
+    Sector,
+)
 from wod.models.locations.werewolf import Caern
-from wod.models.characters.mage.mtahuman import MtAHuman
+
 
 # Register your models here.
 @admin.register(Character)

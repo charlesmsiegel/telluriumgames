@@ -9,7 +9,13 @@ from exalted.models.characters.charms import (
     SolarCharm,
 )
 from exalted.models.characters.dragonblooded import DragonBlooded
-from exalted.models.characters.mortals import ExMerit, ExMortal, ExSpecialty, Intimacy, MeritRating
+from exalted.models.characters.mortals import (
+    ExMerit,
+    ExMortal,
+    ExSpecialty,
+    Intimacy,
+    MeritRating,
+)
 from exalted.models.characters.solars import Solar
 from exalted.models.locations.mortals import ExLocation
 

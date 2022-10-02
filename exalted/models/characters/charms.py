@@ -104,7 +104,7 @@ class MartialArtsStyle(Model):
 
     weapons = models.TextField(default="")
     armor = models.TextField(default="")
-    
+
     class Meta:
         verbose_name = "Martial Arts Style"
         verbose_name_plural = "Martial Arts Styles"

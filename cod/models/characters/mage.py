@@ -158,7 +158,7 @@ class Legacy(Model):
     class Meta:
         verbose_name = "Legacy"
         verbose_name_plural = "Legacies"
-        
+
     def get_absolute_url(self):
         return reverse("cod:characters:mage:legacy", kwargs={"pk": self.pk})
 
@@ -884,6 +884,7 @@ class KnownRote(models.Model):
         verbose_name = "Known Rote"
         verbose_name_plural = "Known Rotes"
 
+
 class KnownPraxis(models.Model):
     mage = models.ForeignKey(Mage, on_delete=models.CASCADE)
     rote = models.ForeignKey(CoDRote, on_delete=models.CASCADE)
@@ -891,6 +892,7 @@ class KnownPraxis(models.Model):
     class Meta:
         verbose_name = "Known Praxis"
         verbose_name_plural = "Known Praxes"
+
 
 class ProximiFamily(Model):
     type = "proximi_family"
@@ -915,7 +917,7 @@ class ProximiFamily(Model):
     curse = models.ForeignKey(
         Condition, blank=True, null=True, on_delete=models.CASCADE
     )
-    
+
     class Meta:
         verbose_name = "Proximi Family"
         verbose_name_plural = "Proximi Families"

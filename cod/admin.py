@@ -1,10 +1,27 @@
 from django.contrib import admin
 
-from cod.models.characters.mage import Legacy, Mage, Order, Path, Proximi, ProximiFamily, Attainment, CoDRote, KnownPraxis, KnownRote
-from cod.models.characters.mortal import CoDMerit, CoDSpecialty, Mortal, Tilt, MeritRating, Condition
-from cod.models.characters.ephemera import Numina, Ephemera
+from cod.models.characters.ephemera import Ephemera, Numina
+from cod.models.characters.mage import (
+    Attainment,
+    CoDRote,
+    KnownPraxis,
+    KnownRote,
+    Legacy,
+    Mage,
+    Order,
+    Path,
+    Proximi,
+    ProximiFamily,
+)
+from cod.models.characters.mortal import (
+    CoDMerit,
+    CoDSpecialty,
+    Condition,
+    MeritRating,
+    Mortal,
+    Tilt,
+)
 from cod.models.items.mortal import Equipment, Item
-
 
 # Register your models here.
 admin.site.register(Attainment)
@@ -14,6 +31,7 @@ admin.site.register(KnownRote)
 admin.site.register(MeritRating)
 admin.site.register(Condition)
 admin.site.register(Ephemera)
+
 
 @admin.register(Mortal)
 class MortalAdmin(admin.ModelAdmin):

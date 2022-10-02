@@ -1049,6 +1049,7 @@ class MeritRating(models.Model):
         verbose_name = "Merit Rating"
         verbose_name_plural = "Merit Ratings"
 
+
 class Condition(Model):
     type = "condition"
 
@@ -1058,7 +1059,7 @@ class Condition(Model):
     class Meta:
         verbose_name = "Condition"
         verbose_name_plural = "Conditions"
-        
+
     def get_absolute_url(self):
         return reverse("cod:characters:mortal:condition", kwargs={"pk": self.pk})
 

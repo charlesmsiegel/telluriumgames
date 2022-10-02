@@ -74,7 +74,7 @@ class ExMortal(CharacterModel):
     class Meta:
         verbose_name = "Mortal"
         verbose_name_plural = "Mortals"
-        
+
     def get_absolute_url(self):
         return reverse("exalted:characters:character", args=[str(self.id)])
 
@@ -801,7 +801,7 @@ class MeritRating(models.Model):
     character = models.ForeignKey(ExMortal, on_delete=models.CASCADE)
     merit = models.ForeignKey(ExMerit, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
-    
+
     class Meta:
         verbose_name = "Merit Rating"
         verbose_name_plural = "Merit Ratings"

@@ -995,7 +995,7 @@ class EdgeRating(models.Model):
     class Meta:
         verbose_name = "Edge Rating"
         verbose_name_plural = "Edge Ratings"
-        
+
     def __str__(self):
         return f"{self.edge.name}: {self.rating}"
 

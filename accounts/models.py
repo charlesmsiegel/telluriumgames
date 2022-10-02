@@ -16,6 +16,7 @@ class Profile(models.Model):
         verbose_name = "Profile"
         verbose_name_plural = "Profiles"
 
+
 @receiver(post_save, sender=User)
 def update_profile_signal(sender, instance, created, **kwargs):
     if created:

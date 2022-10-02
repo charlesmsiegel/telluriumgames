@@ -208,7 +208,6 @@ class CharacterModel(Model):
         verbose_name_plural = "Character Models"
 
 
-
 class LocationModel(Model):
     parent = models.ForeignKey(
         "LocationModel",
@@ -226,7 +225,6 @@ class LocationModel(Model):
         verbose_name_plural = "Location Models"
 
 
-
 class ItemModel(Model):
     owned_by = models.ForeignKey(
         CharacterModel, blank=True, null=True, on_delete=models.CASCADE
@@ -234,11 +232,10 @@ class ItemModel(Model):
     located_at = models.ForeignKey(
         LocationModel, blank=True, null=True, on_delete=models.CASCADE
     )
-    
+
     class Meta:
         verbose_name = "Item Model"
         verbose_name_plural = "Item Models"
-
 
 
 class NewsItem(models.Model):

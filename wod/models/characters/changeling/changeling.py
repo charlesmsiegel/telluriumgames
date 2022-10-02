@@ -15,7 +15,7 @@ class Kith(Model):
     affinity = models.CharField(max_length=20, default="")
     birthrights = models.JSONField(default=list)
     frailty = models.TextField(default="")
-    
+
     class Meta:
         verbose_name = "Kith"
         verbose_name_plural = "Kiths"
@@ -66,7 +66,7 @@ class CtDLegacy(Model):
         blank=True,
         null=True,
     )
-    
+
     class Meta:
         verbose_name = "Legacy"
         verbose_name_plural = "Legacies"
@@ -259,7 +259,7 @@ class Changeling(CtDHuman):
     crysalis = models.TextField(default="")
     date_of_crysalis = models.TextField(default="")
     fae_mien = models.TextField(default="")
-    
+
     class Meta:
         verbose_name = "Changeling"
         verbose_name_plural = "Changelings"

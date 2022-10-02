@@ -266,7 +266,7 @@ class TCGift(Model):
     class Meta:
         verbose_name = "Gift"
         verbose_name_plural = "Gifts"
-        
+
     def get_absolute_url(self):
         return reverse("tc:characters:talent:gift", args=[str(self.id)])
 

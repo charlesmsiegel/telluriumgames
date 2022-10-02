@@ -5,7 +5,7 @@ from wod.models.characters.human import Group
 
 class Motley(Group):
     type = "motley"
-    
+
     class Meta:
         verbose_name = "Motley"
         verbose_name_plural = "Motleys"

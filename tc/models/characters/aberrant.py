@@ -42,7 +42,7 @@ class Aberrant(Human):
     class Meta:
         verbose_name = "Aberrant"
         verbose_name_plural = "Aberrants"
-        
+
     def get_update_url(self):
         return reverse("tc:characters:aberrant:update_aberrant", kwargs={"pk": self.pk})
 
@@ -660,6 +660,7 @@ class MegaEdgeRating(models.Model):
         verbose_name = "Mega Edge Rating"
         verbose_name_plural = "Mega Edge Ratings"
 
+
 class Power(Model):
     type = "power"
 
@@ -776,6 +777,7 @@ class TagRating(models.Model):
     class Meta:
         verbose_name = "Tag Rating"
         verbose_name_plural = "Tag Ratings"
+
 
 class Transformation(Model):
     type = "transformation"

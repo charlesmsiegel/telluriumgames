@@ -322,6 +322,7 @@ class NodeMeritFlawRating(models.Model):
         verbose_name = "Node Merit or Flaw Rating"
         verbose_name_plural = "Node Merits and Flaws Rating"
 
+
 class NodeResonanceRating(models.Model):
     node = models.ForeignKey(Node, on_delete=models.CASCADE)
     resonance = models.ForeignKey(Resonance, on_delete=models.CASCADE)

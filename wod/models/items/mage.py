@@ -41,7 +41,7 @@ class Wonder(WoDItem):
     resonance = models.ManyToManyField(
         Resonance, blank=True, through=WonderResonanceRating
     )
-    
+
     class Meta:
         verbose_name = "Wonder"
         verbose_name_plural = "Wonders"

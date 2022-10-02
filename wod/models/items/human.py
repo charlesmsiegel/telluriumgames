@@ -8,7 +8,7 @@ from core.models import ItemModel
 # Create your models here.
 class WoDItem(ItemModel):
     type = "item"
-    
+
     class Meta:
         verbose_name = "Item"
         verbose_name_plural = "Items"
@@ -32,7 +32,7 @@ class WoDItem(ItemModel):
 
 class Weapon(WoDItem):
     type = "weapon"
-    
+
     class Meta:
         verbose_name = "Weapon"
         verbose_name_plural = "Weapons"

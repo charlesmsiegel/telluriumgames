@@ -9,7 +9,7 @@ from wod.models.characters.human import Character
 # Create your models here.
 class ExLocation(LocationModel):
     type = "location"
-    
+
     class Meta:
         verbose_name = "Location"
         verbose_name_plural = "Locations"

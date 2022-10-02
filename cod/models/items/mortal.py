@@ -12,11 +12,11 @@ class Item(ItemModel):
     size = models.IntegerField(default=0)
     structure = models.IntegerField(default=0)
     availability = models.IntegerField(default=0)
-    
+
     class Meta:
         verbose_name = "Item"
         verbose_name_plural = "Items"
-    
+
     def get_absolute_url(self):
         return reverse("cod:items:item", kwargs={"pk": self.pk})
 
