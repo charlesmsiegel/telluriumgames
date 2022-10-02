@@ -39,6 +39,10 @@ class Aberrant(Human):
 
     transformations_for_xp = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "Aberrant"
+        verbose_name_plural = "Aberrants"
+        
     def get_update_url(self):
         return reverse("tc:characters:aberrant:update_aberrant", kwargs={"pk": self.pk})
 
@@ -630,6 +634,10 @@ class Aberrant(Human):
 class MegaEdge(Edge):
     type = "mega_edge"
 
+    class Meta:
+        verbose_name = "Mega Edge"
+        verbose_name_plural = "Mega Edges"
+
     def get_update_url(self):
         return reverse(
             "tc:characters:aberrant:update_mega_edge", kwargs={"pk": self.pk}
@@ -648,6 +656,9 @@ class MegaEdgeRating(models.Model):
     )
     rating = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "Mega Edge Rating"
+        verbose_name_plural = "Mega Edge Ratings"
 
 class Power(Model):
     type = "power"
@@ -680,6 +691,10 @@ class Power(Model):
             ("continuous", "Continuous"),
         ],
     )
+
+    class Meta:
+        verbose_name = "Power"
+        verbose_name_plural = "Powers"
 
     def get_absolute_url(self):
         return reverse("tc:characters:aberrant:power", args=[str(self.id)])
@@ -716,6 +731,10 @@ class PowerRating(models.Model):
     tags = models.ManyToManyField("Tag", blank=True, through="TagRating")
     rating = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "Power Rating"
+        verbose_name_plural = "Power Ratings"
+
     def __str__(self):
         return f"{self.power.name}: {self.rating}"
 
@@ -731,6 +750,10 @@ class Tag(Model):
     ratings = models.JSONField(default=list)
     max_rating = models.IntegerField(default=0)
     permitted_powers = models.ManyToManyField(Power, blank=True)
+
+    class Meta:
+        verbose_name = "Tag"
+        verbose_name_plural = "Tags"
 
     def get_absolute_url(self):
         return reverse("tc:characters:tag", args=[str(self.id)])
@@ -750,6 +773,9 @@ class TagRating(models.Model):
     )
     rating = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "Tag Rating"
+        verbose_name_plural = "Tag Ratings"
 
 class Transformation(Model):
     type = "transformation"
@@ -758,6 +784,10 @@ class Transformation(Model):
         max_length=10,
         choices=[("low", "low"), ("medium", "medium"), ("high", "high"),],
     )
+
+    class Meta:
+        verbose_name = "Transformation"
+        verbose_name_plural = "Transformations"
 
     def get_absolute_url(self):
         return reverse("tc:characters:transformation", args=[str(self.id)])

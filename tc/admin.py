@@ -1,19 +1,25 @@
 from django.contrib import admin
 
-from tc.models.characters.aberrant import Aberrant, MegaEdge, Power, Tag, Transformation
+from tc.models.characters.aberrant import Aberrant, MegaEdge, Power, Tag, Transformation, MegaEdgeRating, PowerRating, TagRating
 from tc.models.characters.human import (
-    Edge,
+    Edge, PathRating,
     EnhancedEdge,
     Human,
     PathConnection,
     Specialty,
-    TCPath,
+    TCPath, EdgeRating,
     Trick,
 )
 from tc.models.characters.talent import MomentOfInspiration, Talent, TCGift
 
 
 # Register your models here.
+admin.site.register(MegaEdgeRating)
+admin.site.register(PowerRating)
+admin.site.register(TagRating)
+admin.site.register(EdgeRating)
+admin.site.register(PathRating)
+
 @admin.register(Human)
 class HumanAdmin(admin.ModelAdmin):
     list_display = ("name", "owner")

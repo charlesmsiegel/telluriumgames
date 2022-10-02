@@ -8,6 +8,10 @@ from core.models import ItemModel
 # Create your models here.
 class WoDItem(ItemModel):
     type = "item"
+    
+    class Meta:
+        verbose_name = "Item"
+        verbose_name_plural = "Items"
 
     def get_absolute_url(self):
         return reverse("wod:items:item", args=[str(self.id)])
@@ -28,6 +32,10 @@ class WoDItem(ItemModel):
 
 class Weapon(WoDItem):
     type = "weapon"
+    
+    class Meta:
+        verbose_name = "Weapon"
+        verbose_name_plural = "Weapons"
 
     difficulty = models.IntegerField(default=0)
     damage = models.IntegerField(default=0)
@@ -54,12 +62,20 @@ class Weapon(WoDItem):
 class MeleeWeapon(Weapon):
     type = "melee_weapon"
 
+    class Meta:
+        verbose_name = "Melee Weapon"
+        verbose_name_plural = "Melee Weapons"
+
     def get_update_url(self):
         return reverse("wod:items:human:update_meleeweapon", args=[str(self.id)])
 
 
 class ThrownWeapon(Weapon):
     type = "thrown_weapon"
+
+    class Meta:
+        verbose_name = "Thrown Weapon"
+        verbose_name_plural = "Thrown Weapons"
 
     def get_update_url(self):
         return reverse("wod:items:human:update_thrownweapon", args=[str(self.id)])
@@ -71,6 +87,10 @@ class RangedWeapon(Weapon):
     range = models.IntegerField(default=0)
     rate = models.IntegerField(default=0)
     clip = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Ranged Weapon"
+        verbose_name_plural = "Ranged Weapons"
 
     def get_update_url(self):
         return reverse("wod:items:human:update_rangedweapon", args=[str(self.id)])

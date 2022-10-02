@@ -10,6 +10,10 @@ class Post(models.Model):
     scene = models.ForeignKey(Scene, on_delete=models.CASCADE)
     message = models.TextField(default="")
 
+    class Meta:
+        verbose_name = "Post"
+        verbose_name_plural = "Posts"
+
     def __str__(self):
         if self.display_name:
             return self.display_name + ": " + self.message

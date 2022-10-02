@@ -19,6 +19,10 @@ class MageFaction(Model):
     founded = models.IntegerField(default=-5000)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
 
+    class Meta:
+        verbose_name = "Mage Faction"
+        verbose_name_plural = "Mage Factions"
+
     def get_absolute_url(self):
         return reverse("wod:characters:mage:magefaction", args=[str(self.id)])
 

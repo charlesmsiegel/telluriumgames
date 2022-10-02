@@ -46,6 +46,10 @@ class Path(Model):
     path_materials = models.ManyToManyField(Material, blank=True)
     path_weapons = models.JSONField(default=list)
 
+    class Meta:
+        verbose_name = "Path"
+        verbose_name_plural = "Paths"
+
     def get_absolute_url(self):
         return reverse("cod:characters:mage:path", kwargs={"pk": self.pk})
 
@@ -58,6 +62,10 @@ class Order(Model):
 
     rote_skills = models.JSONField(default=list)
 
+    class Meta:
+        verbose_name = "Order"
+        verbose_name_plural = "Orders"
+
     def get_absolute_url(self):
         return reverse("cod:characters:mage:order", kwargs={"pk": self.pk})
 
@@ -69,6 +77,10 @@ class Attainment(Model):
     type = "attainment"
 
     prereqs = models.JSONField(default=list)
+
+    class Meta:
+        verbose_name = "Attainment"
+        verbose_name_plural = "Attainments"
 
     def get_absolute_url(self):
         return reverse("cod:characters:mage:attainment", kwargs={"pk": self.pk})
@@ -143,6 +155,10 @@ class Legacy(Model):
     oblations = models.TextField(default="")
     attainments = models.ManyToManyField(Attainment, blank=True)
 
+    class Meta:
+        verbose_name = "Legacy"
+        verbose_name_plural = "Legacies"
+        
     def get_absolute_url(self):
         return reverse("cod:characters:mage:legacy", kwargs={"pk": self.pk})
 
@@ -178,6 +194,10 @@ class Legacy(Model):
 
 class CoDRote(Model):
     type = "rote"
+
+    class Meta:
+        verbose_name = "Rote"
+        verbose_name_plural = "Rotes"
 
     def get_absolute_url(self):
         return reverse("cod:characters:mage:rote", kwargs={"pk": self.pk})
@@ -277,6 +297,10 @@ class Mage(Mortal):
     )
 
     arcane_xp = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Mage"
+        verbose_name_plural = "Mages"
 
     # def __init__(self, *args, **kwargs):
     #     kwargs["morality_name"] = "Wisdom"
@@ -856,11 +880,17 @@ class KnownRote(models.Model):
     rote = models.ForeignKey(CoDRote, on_delete=models.CASCADE)
     rote_skill = models.CharField(default="", max_length=20, blank=True, null=True)
 
+    class Meta:
+        verbose_name = "Known Rote"
+        verbose_name_plural = "Known Rotes"
 
 class KnownPraxis(models.Model):
     mage = models.ForeignKey(Mage, on_delete=models.CASCADE)
     rote = models.ForeignKey(CoDRote, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = "Known Praxis"
+        verbose_name_plural = "Known Praxes"
 
 class ProximiFamily(Model):
     type = "proximi_family"
@@ -885,6 +915,10 @@ class ProximiFamily(Model):
     curse = models.ForeignKey(
         Condition, blank=True, null=True, on_delete=models.CASCADE
     )
+    
+    class Meta:
+        verbose_name = "Proximi Family"
+        verbose_name_plural = "Proximi Families"
 
     def has_parent_path(self):
         return self.path is not None
@@ -981,6 +1015,10 @@ class Proximi(Mortal):
     blessings = models.ManyToManyField(CoDRote, blank=True)
 
     mana = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Proximi"
+        verbose_name_plural = "Proximi"
 
     def get_update_url(self):
         return reverse("cod:characters:mage:update_proximi", kwargs={"pk": self.pk})

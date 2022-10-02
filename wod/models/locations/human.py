@@ -15,6 +15,10 @@ class Location(LocationModel):
     dimension_barrier = models.IntegerField(default=6)
     reality_zone = models.TextField(blank=True, null=True)
 
+    class Meta:
+        verbose_name = "Location"
+        verbose_name_plural = "Locations"
+
     def get_absolute_url(self):
         return reverse("wod:locations:location", args=[str(self.id)])
 
@@ -34,6 +38,10 @@ class City(Location):
     theme = models.TextField(blank=True, null=True)
     media = models.TextField(blank=True, null=True)
     politicians = models.TextField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = "City"
+        verbose_name_plural = "Cities"
 
     def add_character(self, character):
         self.characters.add(character)

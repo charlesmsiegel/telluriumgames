@@ -8,6 +8,10 @@ from wod.models.characters.human import Character
 class SpiritCharm(Model):
     type = "spirit_charm"
 
+    class Meta:
+        verbose_name = "Spirit Charm"
+        verbose_name_plural = "Spirit Charms"
+
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:charm", kwargs={"pk": self.pk})
 
@@ -27,6 +31,10 @@ class SpiritCharacter(Character):
     essence = models.IntegerField(default=0)
 
     charms = models.ManyToManyField(SpiritCharm, blank=True)
+
+    class Meta:
+        verbose_name = "Spirit"
+        verbose_name_plural = "Spirits"
 
     def get_update_url(self):
         return reverse("wod:characters:werewolf:update_spirit", kwargs={"pk": self.pk})
@@ -50,6 +58,10 @@ class Totem(Model):
     individual_traits = models.TextField(default="")
     pack_traits = models.TextField(default="")
     ban = models.TextField(default="")
+
+    class Meta:
+        verbose_name = "Totem"
+        verbose_name_plural = "Totems"
 
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:totem", kwargs={"pk": self.pk})

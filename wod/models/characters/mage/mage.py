@@ -34,6 +34,10 @@ class Rote(Model):
     attribute = models.CharField(max_length=50)
     ability = models.CharField(max_length=50)
 
+    class Meta:
+        verbose_name = "Rote"
+        verbose_name_plural = "Rotes"
+
     def get_absolute_url(self):
         return reverse("wod:characters:mage:rote", kwargs={"pk": self.pk})
 
@@ -181,6 +185,10 @@ class Mage(MtAHuman):
     )
 
     background_points = 7
+
+    class Meta:
+        verbose_name = "Mage"
+        verbose_name_plural = "Mages"
 
     # def __init__(self, *args, **kwargs):
     #     kwargs["willpower"] = kwargs.get("willpower") or 5

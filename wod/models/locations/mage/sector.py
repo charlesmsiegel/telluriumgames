@@ -22,6 +22,10 @@ class Sector(Location):
     sector_class = models.CharField(max_length=10, choices=SECTOR_CLASS, default="")
     constraints = models.TextField(default="")
 
+    class Meta:
+        verbose_name = "Sector"
+        verbose_name_plural = "Sectors"
+
     def get_update_url(self):
         return reverse("wod:locations:mage:update_sector", args=[str(self.id)])
 

@@ -15,6 +15,10 @@ class Language(models.Model):
     name = models.CharField(max_length=100)
     frequency = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "Language"
+        verbose_name_plural = "Languages"
+
     def get_absolute_url(self):
         return reverse("language", kwargs={"pk": self.pk})
 
@@ -34,6 +38,10 @@ class Medium(models.Model):
     )
     length_modifier = models.IntegerField(default=1, blank=True, null=True)
 
+    class Meta:
+        verbose_name = "Medium"
+        verbose_name_plural = "Media"
+
     def get_absolute_url(self):
         return reverse("medium", kwargs={"pk": self.pk})
 
@@ -49,6 +57,10 @@ class Material(models.Model):
 
     name = models.TextField(default="")
 
+    class Meta:
+        verbose_name = "Material"
+        verbose_name_plural = "Materials"
+
     def get_absolute_url(self):
         return reverse("material", kwargs={"pk": self.pk})
 
@@ -62,12 +74,20 @@ class Material(models.Model):
 class Noun(models.Model):
     name = models.TextField(default="")
 
+    class Meta:
+        verbose_name = "Noun"
+        verbose_name_plural = "Nouns"
+
     def __str__(self):
         return self.name
 
 
 class Book(models.Model):
     name = models.TextField(default="")
+
+    class Meta:
+        verbose_name = "Book"
+        verbose_name_plural = "Books"
 
     def get_absolute_url(self):
         return reverse("book", kwargs={"pk": self.pk})
@@ -82,6 +102,10 @@ class Book(models.Model):
 class BookReference(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     page = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Book Reference"
+        verbose_name_plural = "Book References"
 
     def __str__(self):
         return f"<i>{self.book}</i> p. {self.page}"
@@ -124,6 +148,8 @@ class Model(PolymorphicModel):
 
     class Meta:
         abstract = True
+        verbose_name = "Model"
+        verbose_name_plural = "Models"
 
     def __str__(self):
         return self.name
@@ -177,7 +203,10 @@ class Model(PolymorphicModel):
 
 
 class CharacterModel(Model):
-    pass
+    class Meta:
+        verbose_name = "Character Model"
+        verbose_name_plural = "Character Models"
+
 
 
 class LocationModel(Model):
@@ -192,6 +221,11 @@ class LocationModel(Model):
         CharacterModel, blank=True, null=True, on_delete=models.CASCADE
     )
 
+    class Meta:
+        verbose_name = "Location Model"
+        verbose_name_plural = "Location Models"
+
+
 
 class ItemModel(Model):
     owned_by = models.ForeignKey(
@@ -200,9 +234,18 @@ class ItemModel(Model):
     located_at = models.ForeignKey(
         LocationModel, blank=True, null=True, on_delete=models.CASCADE
     )
+    
+    class Meta:
+        verbose_name = "Item Model"
+        verbose_name_plural = "Item Models"
+
 
 
 class NewsItem(models.Model):
     title = models.CharField(default="", max_length=100)
     content = models.TextField(default="")
     date = models.DateField()
+
+    class Meta:
+        verbose_name = "News Item"
+        verbose_name_plural = "News Items"

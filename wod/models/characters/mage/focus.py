@@ -8,6 +8,10 @@ from core.models import Model
 class Instrument(Model):
     type = "instrumnet"
 
+    class Meta:
+        verbose_name = "Instrument"
+        verbose_name_plural = "Instruments"
+
     def get_absolute_url(self):
         return reverse("wod:characters:mage:instrument", args=[str(self.id)])
 
@@ -24,6 +28,10 @@ class Practice(Model):
     abilities = models.JSONField(default=list)
     instruments = models.ManyToManyField(Instrument, blank=True)
 
+    class Meta:
+        verbose_name = "Practice"
+        verbose_name_plural = "Practices"
+
     def get_absolute_url(self):
         return reverse("wod:characters:mage:practice", args=[str(self.id)])
 
@@ -38,6 +46,10 @@ class Paradigm(Model):
     type = "paradigm"
 
     practices = models.ManyToManyField(Practice, blank=True)
+
+    class Meta:
+        verbose_name = "Paradigm"
+        verbose_name_plural = "Paradigms"
 
     def get_absolute_url(self):
         return reverse("wod:characters:mage:paradigm", args=[str(self.id)])

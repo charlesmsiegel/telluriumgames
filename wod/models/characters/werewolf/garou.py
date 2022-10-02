@@ -20,6 +20,10 @@ class Tribe(Model):
 
     willpower = models.IntegerField(default=3)
 
+    class Meta:
+        verbose_name = "Tribe"
+        verbose_name_plural = "Tribes"
+
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:tribe", kwargs={"pk": self.pk})
 
@@ -89,6 +93,10 @@ class Camp(Model):
         ],
     )
 
+    class Meta:
+        verbose_name = "Camp"
+        verbose_name_plural = "Camps"
+
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:camp", kwargs={"pk": self.pk})
 
@@ -105,6 +113,10 @@ class Gift(Model):
     rank = models.IntegerField(default=0)
     allowed = models.JSONField(default=dict)
 
+    class Meta:
+        verbose_name = "Gift"
+        verbose_name_plural = "Gifts"
+
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:gift", kwargs={"pk": self.pk})
 
@@ -120,6 +132,10 @@ class Rite(Model):
 
     level = models.IntegerField(default=0)
     rite_type = models.CharField(max_length=100, default="")
+
+    class Meta:
+        verbose_name = "Rite"
+        verbose_name_plural = "Rites"
 
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:rite", kwargs={"pk": self.pk})
@@ -219,6 +235,10 @@ class Werewolf(WtAHuman):
             5: {"glory": 10, "honor": 9, "wisdom": 4},
         },
     }
+    
+    class Meta:
+        verbose_name = "Werewolf"
+        verbose_name_plural = "Werewolves"
 
     def get_update_url(self):
         return reverse(
@@ -854,6 +874,10 @@ class Pack(Group):
 
     totem = models.ForeignKey(Totem, null=True, blank=True, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = "Pack"
+        verbose_name_plural = "Packs"
+
     def get_update_url(self):
         return reverse("wod:characters:werewolf:update_pack", kwargs={"pk": self.pk})
 
@@ -901,6 +925,10 @@ class RenownIncident(Model):
     breed = models.CharField(default="", max_length=10)
     rite = models.ForeignKey(Rite, null=True, blank=True, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = "Renown Incident"
+        verbose_name_plural = "Renown Incidents"
+
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:renownincident", kwargs={"pk": self.pk})
 
@@ -917,6 +945,10 @@ class BattleScar(Model):
     type = "battle_scar"
 
     glory = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Battle Scar"
+        verbose_name_plural = "Battle Scars"
 
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:battlescar", kwargs={"pk": self.pk})

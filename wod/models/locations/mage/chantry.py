@@ -129,6 +129,10 @@ class Chantry(Location):
         "Kopa Loei": ["He'iau"],
     }
 
+    class Meta:
+        verbose_name = "Chantry"
+        verbose_name_plural = "Chantries"
+
     def get_update_url(self):
         return reverse("wod:locations:mage:update_chantry", args=[str(self.id)])
 

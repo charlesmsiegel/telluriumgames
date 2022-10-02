@@ -83,6 +83,10 @@ class DragonBlooded(ExMortal):
     charms = models.ManyToManyField(DragonBloodedCharm, blank=True)
     martial_arts_charms = models.ManyToManyField(MartialArtsCharm, blank=True)
 
+    class Meta:
+        verbose_name = "Dragon Blooded"
+        verbose_name_plural = "Dragon Blooded"
+
     def has_aspect(self):
         return self.aspect != ""
 

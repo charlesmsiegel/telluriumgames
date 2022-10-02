@@ -11,6 +11,10 @@ class Fetish(Wonder):
     gnosis = models.IntegerField(default=0)
     spirit = models.CharField(default="", max_length=100)
 
+    class Meta:
+        verbose_name = "Fetish"
+        verbose_name_plural = "Fetishes"
+
     # def __init__(self, *args, **kwargs):
     #     kwargs["background_cost"] = kwargs.get("rank")
     #     super().__init__(*args, **kwargs)

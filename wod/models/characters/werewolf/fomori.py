@@ -11,6 +11,10 @@ from .wtahuman import WtAHuman
 class FomoriPower(Model):
     type = "fomoripower"
 
+    class Meta:
+        verbose_name = "Fomori Power"
+        verbose_name_plural = "Fomori Powers"
+
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:fomoripower", kwargs={"pk": self.pk})
 
@@ -30,6 +34,10 @@ class Fomor(WtAHuman):
     powers = models.ManyToManyField(FomoriPower, blank=True)
 
     background_points = 3
+
+    class Meta:
+        verbose_name = "Fomor"
+        verbose_name_plural = "Fomori"
 
     # def __init__(self, *args, **kwargs):
     #     kwargs["willpower"] = kwargs.get("willpower") or 3

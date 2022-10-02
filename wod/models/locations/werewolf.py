@@ -27,6 +27,10 @@ class Caern(Location):
 
     caern_type = models.CharField(default="", choices=TYPES, max_length=15)
 
+    class Meta:
+        verbose_name = "Caern"
+        verbose_name_plural = "Caerns"
+
     def get_update_url(self):
         return reverse("wod:locations:werewolf:update_caern", args=[str(self.id)])
 

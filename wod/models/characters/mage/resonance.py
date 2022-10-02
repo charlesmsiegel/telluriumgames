@@ -18,6 +18,10 @@ class Resonance(Model):
     mind = models.BooleanField(default=False)
     prime = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name = "Resonance"
+        verbose_name_plural = "Resonances"
+
     def get_absolute_url(self):
         return reverse("wod:characters:mage:resonance", args=[str(self.id)])
 
@@ -50,3 +54,7 @@ class ResRating(models.Model):
     mage = models.ForeignKey("Mage", on_delete=models.CASCADE)
     resonance = models.ForeignKey(Resonance, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Mage Resonance Rating"
+        verbose_name_plural = "Mage Resonance Ratings"

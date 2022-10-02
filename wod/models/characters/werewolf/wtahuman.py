@@ -31,6 +31,10 @@ class WtAHuman(Human):
     spirit_heritage = models.IntegerField(default=0)
     totem = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "Human (Werewolf)"
+        verbose_name_plural = "Humans (Werewolf)"
+
     def get_heading(self):
         return "wta_heading"
 

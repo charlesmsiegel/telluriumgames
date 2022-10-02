@@ -20,6 +20,10 @@ class Effect(Model):
     rote_cost = models.IntegerField(default=0)
     max_sphere = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "Effect"
+        verbose_name_plural = "Effects"
+
     def __str__(self):
         dots = {
             "correspondence": self.correspondence,

@@ -22,6 +22,10 @@ from wod.models.items.human import WoDItem
 
 # Create your models here.
 class WonderResonanceRating(models.Model):
+    class Meta:
+        verbose_name = "Wonder Resonance Rating"
+        verbose_name_plural = "Wonder Resonance Ratings"
+
     wonder = models.ForeignKey("Wonder", on_delete=models.CASCADE)
     resonance = models.ForeignKey(Resonance, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
@@ -37,6 +41,10 @@ class Wonder(WoDItem):
     resonance = models.ManyToManyField(
         Resonance, blank=True, through=WonderResonanceRating
     )
+    
+    class Meta:
+        verbose_name = "Wonder"
+        verbose_name_plural = "Wonders"
 
     def get_update_url(self):
         return reverse("wod:items:mage:update_wonder", args=[str(self.id)])
@@ -139,6 +147,10 @@ class Charm(Wonder):
     arete = models.IntegerField(default=0)
     power = models.ForeignKey(Effect, blank=True, null=True, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = "Charm"
+        verbose_name_plural = "Charms"
+
     def get_update_url(self):
         return reverse("wod:items:mage:update_charm", args=[str(self.id)])
 
@@ -164,6 +176,10 @@ class Artifact(Wonder):
     type = "artifact"
 
     power = models.ForeignKey(Effect, blank=True, null=True, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Artifact"
+        verbose_name_plural = "Artifacts"
 
     def get_update_url(self):
         return reverse("wod:items:mage:update_artifact", args=[str(self.id)])
@@ -191,6 +207,10 @@ class Talisman(Wonder):
 
     arete = models.IntegerField(default=0)
     powers = models.ManyToManyField(Effect, blank=True)
+
+    class Meta:
+        verbose_name = "Talisman"
+        verbose_name_plural = "Talismans"
 
     def get_update_url(self):
         return reverse("wod:items:mage:update_talisman", args=[str(self.id)])
@@ -256,6 +276,10 @@ class Grimoire(Wonder):
     )
     medium = models.ForeignKey(Medium, null=True, blank=True, on_delete=models.CASCADE)
     effects = models.ManyToManyField(Effect, blank=True)
+
+    class Meta:
+        verbose_name = "Grimoire"
+        verbose_name_plural = "Grimoires"
 
     def get_update_url(self):
         return reverse("wod:items:mage:update_grimoire", args=[str(self.id)])

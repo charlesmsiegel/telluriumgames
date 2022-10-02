@@ -8,6 +8,10 @@ from .utils import PRIMARY_ABILITIES, weighted_random_faction
 class Cabal(Group):
     type = "cabal"
 
+    class Meta:
+        verbose_name = "Cabal"
+        verbose_name_plural = "Cabals"
+
     def get_heading(self):
         return "mtas_heading"
 

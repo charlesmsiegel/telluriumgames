@@ -71,6 +71,10 @@ class ExMortal(CharacterModel):
 
     spent_xp = models.TextField(default="")
 
+    class Meta:
+        verbose_name = "Mortal"
+        verbose_name_plural = "Mortals"
+        
     def get_absolute_url(self):
         return reverse("exalted:characters:character", args=[str(self.id)])
 
@@ -686,6 +690,10 @@ class ExSpecialty(Model):
 
     ability = models.CharField(max_length=20)
 
+    class Meta:
+        verbose_name = "Specialty"
+        verbose_name_plural = "Specialties"
+
     def get_absolute_url(self):
         return reverse("exalted:characters:mortal:specialty", args=[str(self.id)])
 
@@ -709,6 +717,10 @@ class Intimacy(Model):
         choices=[("minor", "Minor"), ("major", "Major"), ("defining", "Defining"),],
     )
     is_negative = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "Intimacy"
+        verbose_name_plural = "Intimacies"
 
     def get_absolute_url(self):
         return reverse("exalted:characters:mortal:intimacy", args=[str(self.id)])
@@ -734,6 +746,10 @@ class ExMerit(Model):
     )
     max_rating = models.IntegerField(default=0)
     prereqs = models.JSONField(default=list)
+
+    class Meta:
+        verbose_name = "Merit"
+        verbose_name_plural = "Merits"
 
     def get_absolute_url(self):
         return reverse("exalted:characters:mortal:merit", args=[str(self.id)])
@@ -785,3 +801,7 @@ class MeritRating(models.Model):
     character = models.ForeignKey(ExMortal, on_delete=models.CASCADE)
     merit = models.ForeignKey(ExMerit, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
+    
+    class Meta:
+        verbose_name = "Merit Rating"
+        verbose_name_plural = "Merit Ratings"

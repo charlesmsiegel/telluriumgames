@@ -27,6 +27,10 @@ class Chronicle(models.Model):
         ],
     )
 
+    class Meta:
+        verbose_name = "Chronicle"
+        verbose_name_plural = "Chronicles"
+
     def __str__(self):
         return self.name
 

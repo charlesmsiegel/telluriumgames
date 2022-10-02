@@ -12,6 +12,9 @@ class Profile(models.Model):
     tc_st = models.BooleanField(default=False)
     exalted_st = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name = "Profile"
+        verbose_name_plural = "Profiles"
 
 @receiver(post_save, sender=User)
 def update_profile_signal(sender, instance, created, **kwargs):

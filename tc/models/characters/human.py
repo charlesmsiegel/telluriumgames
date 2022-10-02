@@ -73,6 +73,8 @@ class Human(CharacterModel):
     spent_xp = models.TextField(default="")
 
     class Meta:
+        verbose_name = "Human"
+        verbose_name_plural = "Humans"
         ordering = ("name",)
 
     def get_absolute_url(self):
@@ -864,6 +866,8 @@ class TCPath(Model):
     gift_keywords = models.JSONField(default=list)
 
     class Meta:
+        verbose_name = "Path"
+        verbose_name_plural = "Paths"
         ordering = ("name",)
 
     def get_absolute_url(self):
@@ -901,6 +905,8 @@ class Trick(Model):
     skill = models.CharField(max_length=100)
 
     class Meta:
+        verbose_name = "Trick"
+        verbose_name_plural = "Tricks"
         ordering = ("name",)
 
     def get_absolute_url(self):
@@ -919,6 +925,8 @@ class Edge(Model):
     prereqs = models.JSONField(default=list)
 
     class Meta:
+        verbose_name = "Edge"
+        verbose_name_plural = "Edges"
         ordering = ("name",)
 
     def get_absolute_url(self):
@@ -951,6 +959,10 @@ class EnhancedEdge(Model):
 
     prereqs = models.JSONField(default=list)
 
+    class Meta:
+        verbose_name = "Enhanced Edge"
+        verbose_name_plural = "Enhanced Edges"
+
     def get_absolute_url(self):
         return reverse("tc:characters:enhanced_edge", args=[str(self.id)])
 
@@ -980,6 +992,10 @@ class EdgeRating(models.Model):
     edge = models.ForeignKey(Edge, null=False, blank=False, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "Edge Rating"
+        verbose_name_plural = "Edge Ratings"
+        
     def __str__(self):
         return f"{self.edge.name}: {self.rating}"
 
@@ -994,6 +1010,10 @@ class PathRating(models.Model):
     )
     rating = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "Path Rating"
+        verbose_name_plural = "Path Ratings"
+
     def __str__(self):
         return f"{self.path.name}: {self.rating}"
 
@@ -1002,6 +1022,10 @@ class PathConnection(Model):
     type = "path_connection"
 
     path = models.ForeignKey(TCPath, blank=True, null=True, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Path Connection"
+        verbose_name_plural = "Path Connections"
 
     def get_absolute_url(self):
         return reverse("tc:characters:human:pathconnection", args=[str(self.id)])

@@ -1,11 +1,11 @@
 from django.contrib import admin
 
-from wod.models.characters.changeling import Changeling
+from wod.models.characters.changeling import Changeling, CtDLegacy, CtDHuman, House, Kith, Motley
 from wod.models.characters.human import (
     Archetype,
     Character,
     Derangement,
-    Group,
+    Group, MeritFlawRating,
     Human,
     MeritFlaw,
     WoDSpecialty,
@@ -15,8 +15,8 @@ from wod.models.characters.mage import (
     Effect,
     Instrument,
     Mage,
-    MageFaction,
-    Paradigm,
+    MageFaction, ResRating,
+    Paradigm, Rote, 
     Practice,
     Resonance,
 )
@@ -36,6 +36,8 @@ from wod.models.characters.werewolf import (
     Tribe,
     Werewolf,
 )
+from wod.models.characters.werewolf import wtahuman
+from wod.models.characters.werewolf.wtahuman import WtAHuman
 from wod.models.items.human import (
     MeleeWeapon,
     RangedWeapon,
@@ -43,12 +45,12 @@ from wod.models.items.human import (
     Weapon,
     WoDItem,
 )
-from wod.models.items.mage import Grimoire, Wonder
+from wod.models.items.mage import Grimoire, Wonder, WonderResonanceRating, Charm, Talisman, Artifact
 from wod.models.items.werewolf import Fetish
 from wod.models.locations.human import City, Location
-from wod.models.locations.mage import Chantry, Library, Node, NodeMeritFlaw, Sector
+from wod.models.locations.mage import Chantry, Library, Node, NodeMeritFlaw, Sector, NodeMeritFlawRating, NodeResonanceRating, HorizonRealm
 from wod.models.locations.werewolf import Caern
-
+from wod.models.characters.mage.mtahuman import MtAHuman
 
 # Register your models here.
 @admin.register(Character)
@@ -327,3 +329,22 @@ admin.site.register(ThrownWeapon)
 @admin.register(Changeling)
 class ChangelingAdmin(admin.ModelAdmin):
     list_display = ("name", "kith")
+
+
+admin.site.register(CtDLegacy)
+admin.site.register(CtDHuman)
+admin.site.register(House)
+admin.site.register(Kith)
+admin.site.register(Motley)
+admin.site.register(MeritFlawRating)
+admin.site.register(ResRating)
+admin.site.register(Rote)
+admin.site.register(WonderResonanceRating)
+admin.site.register(Charm)
+admin.site.register(Talisman)
+admin.site.register(Artifact)
+admin.site.register(NodeMeritFlawRating)
+admin.site.register(NodeResonanceRating)
+admin.site.register(MtAHuman)
+admin.site.register(WtAHuman)
+admin.site.register(HorizonRealm)

@@ -24,6 +24,10 @@ class Talent(Human):
     reflective = models.IntegerField(default=0)
     destructive = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "Talent"
+        verbose_name_plural = "Talents"
+
     def get_update_url(self):
         return reverse("tc:characters:talent:update_talent", kwargs={"pk": self.pk})
 
@@ -259,6 +263,10 @@ class TCGift(Model):
     keywords = models.JSONField(default=list)
     prereqs = models.JSONField(default=list)
 
+    class Meta:
+        verbose_name = "Gift"
+        verbose_name_plural = "Gifts"
+        
     def get_absolute_url(self):
         return reverse("tc:characters:talent:gift", args=[str(self.id)])
 
@@ -287,6 +295,10 @@ class MomentOfInspiration(Model):
     type = "moment_of_inspiration"
 
     attributes = models.JSONField(default=list)
+
+    class Meta:
+        verbose_name = "Moment of Inspiration"
+        verbose_name_plural = "Moments of Inspiration"
 
     def get_absolute_url(self):
         return reverse("tc:characters:talent:momentofinspiration", args=[str(self.id)])

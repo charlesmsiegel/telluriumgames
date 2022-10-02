@@ -19,6 +19,10 @@ class Scene(models.Model):
     xp_given = models.BooleanField(default=False)
     # date_of_scene
 
+    class Meta:
+        verbose_name = "Scene"
+        verbose_name_plural = "Scenes"
+
     def __str__(self):
         if self.name not in ["", "''"]:
             return self.name

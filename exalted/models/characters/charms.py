@@ -36,6 +36,11 @@ class Charm(Model):
     keywords = models.JSONField(default=list)
     prerequisites = models.ManyToManyField("self", blank=True, symmetrical=False)
 
+    class Meta:
+        abstract = True
+        verbose_name = "Charm"
+        verbose_name_plural = "Charms"
+
     def get_absolute_url(self):
         return reverse("exalted:characters:solars:solarcharm", kwargs={"pk": self.pk})
 
@@ -82,6 +87,10 @@ class Charm(Model):
 class SolarCharm(Charm):
     type = "solar_charm"
 
+    class Meta:
+        verbose_name = "Solar Charm"
+        verbose_name_plural = "Solar Charms"
+
     def check_essence(self, character):
         if self.statistic == character.supernal_ability:
             essence = 5 >= self.min_essence
@@ -95,6 +104,10 @@ class MartialArtsStyle(Model):
 
     weapons = models.TextField(default="")
     armor = models.TextField(default="")
+    
+    class Meta:
+        verbose_name = "Martial Arts Style"
+        verbose_name_plural = "Martial Arts Styles"
 
 
 class MartialArtsCharm(Charm):
@@ -103,6 +116,10 @@ class MartialArtsCharm(Charm):
     style = models.ForeignKey(
         MartialArtsStyle, null=True, blank=True, on_delete=models.CASCADE
     )
+
+    class Meta:
+        verbose_name = "Martial Arts Charm"
+        verbose_name_plural = "Martial Arts Charms"
 
     def check_essence(self, character):
         if hasattr(character, "supernal_ability"):
@@ -123,3 +140,7 @@ class MartialArtsCharm(Charm):
 
 class DragonBloodedCharm(Charm):
     type = "dragon_blooded_charm"
+
+    class Meta:
+        verbose_name = "Dragon Blooded Charm"
+        verbose_name_plural = "Dragon Blooded Charm"

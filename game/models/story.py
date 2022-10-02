@@ -19,6 +19,10 @@ class Story(models.Model):
         Chronicle, null=True, blank=True, on_delete=models.CASCADE
     )
 
+    class Meta:
+        verbose_name = "Story"
+        verbose_name_plural = "Stories"
+
     def __str__(self):
         return self.name
 

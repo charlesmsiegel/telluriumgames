@@ -2731,8 +2731,35 @@ def exalted_name():
                 ),
             ]
         ),
-        # [item]-[transitive] [precious] [[person]|[relation]]
-        # [adjective] [[relation]|[relation]|[person]|[title]] of [[absnegative]|[abspositive]]
+        " ".join(
+            [
+                f"{random.choice(item_options)[0]}-{random.choice(transitive_options)}",
+                random.choice(precious_options),
+                random.choice(
+                    [random.choice(person_options), random.choice(relation_options)]
+                ),
+            ]
+        ),
+        " ".join(
+            [
+                random.choice(adjective_options),
+                random.choice(
+                    [
+                        random.choice(relation_options),
+                        random.choice(relation_options),
+                        random.choice(person_options),
+                        random.choice(title_options),
+                    ]
+                ),
+                "of",
+                random.choice(
+                    [
+                        random.choice(absnegative_options)[0],
+                        random.choice(abspositive_options)[0],
+                    ]
+                ),
+            ]
+        ),
         # [title] [[[animal]|[animal]|[natural]|[natural]|[mineral]|[precious]|[celestial]|[item]]|[adjective] [nounbasic]|[adjective] [nounbasic]]
         " ".join(
             [
@@ -2850,14 +2877,6 @@ def exalted_name():
 
 def old_realm_name():
     """
-    $name : Old Realm Name Generator
-$author : Erinys
-$description : Randomly generates names that hopefully fit with the feel of Old Realm, the tongue of spirits and the First Age in Exalted. Old Realm is represented with words from many real world languages, so this is only my interpretation of it. For demonic names in the Malfean dialect, use https://orteil.dashnet.org/randomgen/?gen=EcFUJXMw.
-$amount : 15
-$picture : 
-$button : more names
-
-
 $1st
 [1stcons]
 [1stcons]

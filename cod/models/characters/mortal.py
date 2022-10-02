@@ -1045,6 +1045,9 @@ class MeritRating(models.Model):
     rating = models.IntegerField(default=0)
     detail = models.CharField(max_length=100, null=True, blank=True)
 
+    class Meta:
+        verbose_name = "Merit Rating"
+        verbose_name_plural = "Merit Ratings"
 
 class Condition(Model):
     type = "condition"
@@ -1052,6 +1055,10 @@ class Condition(Model):
     persistent = models.BooleanField(default=False)
     resolution = models.TextField(default="")
 
+    class Meta:
+        verbose_name = "Condition"
+        verbose_name_plural = "Conditions"
+        
     def get_absolute_url(self):
         return reverse("cod:characters:mortal:condition", kwargs={"pk": self.pk})
 
@@ -1069,6 +1076,10 @@ class Tilt(Model):
     effect = models.TextField(default="")
     causing = models.TextField(default="")
     ending = models.TextField(default="")
+
+    class Meta:
+        verbose_name = "Tilt"
+        verbose_name_plural = "Tilts"
 
     def get_absolute_url(self):
         return reverse("cod:characters:mortal:tilt", kwargs={"pk": self.pk})

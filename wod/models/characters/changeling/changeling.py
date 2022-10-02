@@ -15,6 +15,10 @@ class Kith(Model):
     affinity = models.CharField(max_length=20, default="")
     birthrights = models.JSONField(default=list)
     frailty = models.TextField(default="")
+    
+    class Meta:
+        verbose_name = "Kith"
+        verbose_name_plural = "Kiths"
 
     def get_absolute_url(self):
         return reverse("wod:characters:changeling:kith", kwargs={"pk": self.pk})
@@ -39,6 +43,10 @@ class House(Model):
     flaw = models.TextField(default="")
     factions = models.JSONField(default=list)
 
+    class Meta:
+        verbose_name = "House"
+        verbose_name_plural = "Houses"
+
     def get_absolute_url(self):
         return reverse("wod:characters:changeling:house", kwargs={"pk": self.pk})
 
@@ -58,6 +66,10 @@ class CtDLegacy(Model):
         blank=True,
         null=True,
     )
+    
+    class Meta:
+        verbose_name = "Legacy"
+        verbose_name_plural = "Legacies"
 
     def get_absolute_url(self):
         return reverse("wod:characters:changeling:legacy", kwargs={"pk": self.pk})
@@ -96,6 +108,10 @@ class CtDHuman(Human):
     retinue = models.IntegerField(default=0)
     title = models.IntegerField(default=0)
     treasure = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Human (Changeling)"
+        verbose_name_plural = "Humans (Changeling)"
 
     def get_heading(self):
         return "ctd_heading"
@@ -243,6 +259,10 @@ class Changeling(CtDHuman):
     crysalis = models.TextField(default="")
     date_of_crysalis = models.TextField(default="")
     fae_mien = models.TextField(default="")
+    
+    class Meta:
+        verbose_name = "Changeling"
+        verbose_name_plural = "Changelings"
 
     # def __init__(self, *args, **kwargs):
     #     kwargs["willpower"] = kwargs.get("willpower") or 4

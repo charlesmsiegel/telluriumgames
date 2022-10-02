@@ -18,6 +18,10 @@ class Library(Location):
     )
     books = models.ManyToManyField(Grimoire, blank=True)
 
+    class Meta:
+        verbose_name = "Library"
+        verbose_name_plural = "Libraries"
+
     def get_update_url(self):
         return reverse("wod:locations:mage:update_library", args=[str(self.id)])
 

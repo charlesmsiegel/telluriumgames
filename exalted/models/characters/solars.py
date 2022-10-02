@@ -101,6 +101,10 @@ class Solar(ExMortal):
         ],
     )
 
+    class Meta:
+        verbose_name = "Solar"
+        verbose_name_plural = "Solars"
+
     def get_update_url(self):
         return reverse("exalted:characters:solars:update_solar", kwargs={"pk": self.pk})
 

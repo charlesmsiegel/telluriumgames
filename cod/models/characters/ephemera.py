@@ -11,6 +11,10 @@ from core.utils import add_dot, weighted_choice
 class Numina(Model):
     type = "numina"
 
+    class Meta:
+        verbose_name = "Numina"
+        verbose_name_plural = "Numina"
+
     def get_absolute_url(self):
         return reverse("cod:characters:ephemera:numina", kwargs={"pk": self.pk})
 
@@ -53,6 +57,10 @@ class Ephemera(Model):
     speed = models.IntegerField(default=0)
 
     numina = models.ManyToManyField(Numina, blank=True)
+
+    class Meta:
+        verbose_name = "Ephemera"
+        verbose_name_plural = "Ephemera"
 
     def get_absolute_url(self):
         return reverse("cod:characters:ephemera:ephemera", kwargs={"pk": self.pk})

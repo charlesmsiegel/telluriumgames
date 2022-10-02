@@ -51,6 +51,10 @@ class Node(Location):
     tass_form = models.CharField(default="", max_length=100)
     quintessence_form = models.CharField(default="", max_length=100)
 
+    class Meta:
+        verbose_name = "Node"
+        verbose_name_plural = "Nodes"
+
     # def __init__(self, *args, **kwargs):
     #     kwargs["gauntlet"] = 3
     #     super().__init__(*args, **kwargs)
@@ -289,6 +293,10 @@ class NodeMeritFlaw(Model):
     ratings = models.JSONField(default=list)
     max_rating = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "Node Merit or Flaw"
+        verbose_name_plural = "Node Merits and Flaws"
+
     def get_absolute_url(self):
         return reverse("wod:locations:mage:nodemeritflaw", kwargs={"pk": self.pk})
 
@@ -310,8 +318,15 @@ class NodeMeritFlawRating(models.Model):
     mf = models.ForeignKey(NodeMeritFlaw, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "Node Merit or Flaw Rating"
+        verbose_name_plural = "Node Merits and Flaws Rating"
 
 class NodeResonanceRating(models.Model):
     node = models.ForeignKey(Node, on_delete=models.CASCADE)
     resonance = models.ForeignKey(Resonance, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Node Resonance Rating"
+        verbose_name_plural = "Node Resonance Ratings"

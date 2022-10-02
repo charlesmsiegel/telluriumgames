@@ -32,6 +32,10 @@ class Kinfolk(WtAHuman):
     honor = models.IntegerField(default=0)
     temporary_honor = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "Kinfolk"
+        verbose_name_plural = "Kinfolk"
+
     # def __init__(self, *args, **kwargs):
     #     kwargs["willpower"] = kwargs.get("willpower") or 3
     #     super().__init__(*args, **kwargs)

@@ -130,6 +130,10 @@ class MtAHuman(Human):
 
     background_points = 7
 
+    class Meta:
+        verbose_name = "Human (Mage)"
+        verbose_name_plural = "Humans (Mage)"
+
     def get_heading(self):
         return "mtas_heading"
 

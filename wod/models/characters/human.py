@@ -17,6 +17,10 @@ from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 class Archetype(Model):
     type = "archetype"
 
+    class Meta:
+        verbose_name = "Archetype"
+        verbose_name_plural = "Archetypes"
+
     def get_absolute_url(self):
         return reverse("wod:characters:human:archetype", kwargs={"pk": self.pk})
 
@@ -63,6 +67,10 @@ class MeritFlaw(Model):
     mage = models.BooleanField(default=False)
     changeling = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name = "Merit or Flaw"
+        verbose_name_plural = "Merits and Flaws"
+
     def get_absolute_url(self):
         return reverse("wod:characters:human:meritflaw", args=[str(self.id)])
 
@@ -91,6 +99,10 @@ class MeritFlawRating(models.Model):
     mf = models.ForeignKey(MeritFlaw, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "Merit or Flaw Rating"
+        verbose_name_plural = "Merit and Flaw Ratings"
+
     def __str__(self):
         return f"{self.mf}: {self.rating}"
 
@@ -99,6 +111,10 @@ class Character(CharacterModel):
     type = "character"
 
     concept = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "Character"
+        verbose_name_plural = "Characters"
 
     def get_update_url(self):
         return reverse("wod:characters:human:update_character", kwargs={"pk": self.pk})
@@ -211,6 +227,10 @@ class Human(Character):
 
     freebies = 15
     background_points = 5
+
+    class Meta:
+        verbose_name = "Human"
+        verbose_name_plural = "Humans"
 
     def get_update_url(self):
         return reverse("wod:characters:human:update_human", kwargs={"pk": self.pk})
@@ -1069,6 +1089,10 @@ class Group(Model):
         null=True,
     )
 
+    class Meta:
+        verbose_name = "Group"
+        verbose_name_plural = "Groups"
+
     def get_update_url(self):
         return reverse("wod:characters:human:update_group", kwargs={"pk": self.pk})
 
@@ -1128,6 +1152,10 @@ class Group(Model):
 
 class Derangement(Model):
     type = "derangement"
+
+    class Meta:
+        verbose_name = "Derangement"
+        verbose_name_plural = "Derangements"
 
     def get_absolute_url(self):
         return reverse("wod:characters:human:derangement", args=[str(self.id)])
