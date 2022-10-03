@@ -34,48 +34,48 @@ def profile(cls, character=True, num_rows=10, xp=0):
     p.sort_stats(SortKey.CUMULATIVE).print_stats(num_rows)
 
 
-# from wod.models.characters.changeling import Changeling, Motley
-# from wod.models.characters.human import Human
-# from wod.models.characters.mage import Cabal, Mage
-# from wod.models.characters.werewolf import Fomor, Kinfolk, Pack, Werewolf
-# from wod.models.items.mage import Artifact, Charm, Grimoire, Talisman
-# from wod.models.locations.mage import Chantry, Library, Node
+from wod.models.characters.changeling import Changeling, Motley
+from wod.models.characters.human import Human
+from wod.models.characters.mage import Cabal, Mage
+from wod.models.characters.werewolf import Fomor, Kinfolk, Pack, Werewolf
+from wod.models.items.mage import Artifact, Charm, Grimoire, Talisman
+from wod.models.locations.mage import Chantry, Library, Node
 
-# time_test(Human)
-# time_test(Kinfolk)
-# time_test(Fomor)
-# time_test(Werewolf)
-# time_test(Mage)
-# time_test(Changeling)
-# time_test(Cabal)
-# time_test(Pack)
-# time_test(Motley)
-# time_test(Node, character=False)
-# time_test(Chantry, character=False)
-# time_test(Library, character=False)
-# time_test(Grimoire, character=False)
-# time_test(Charm, character=False)
-# time_test(Artifact, character=False)
-# time_test(Talisman, character=False)
+time_test(Human)
+time_test(Kinfolk)
+time_test(Fomor)
+time_test(Werewolf)
+time_test(Mage)
+time_test(Changeling)
+time_test(Cabal)
+time_test(Pack)
+time_test(Motley)
+time_test(Node, character=False)
+time_test(Chantry, character=False)
+time_test(Library, character=False)
+time_test(Grimoire, character=False)
+time_test(Charm, character=False)
+time_test(Artifact, character=False)
+time_test(Talisman, character=False)
 
-# from cod.models.characters.ephemera import Ephemera
-# from cod.models.characters.mage import Mage as CoDMage
-# from cod.models.characters.mage import Proximi, ProximiFamily
-# from cod.models.characters.mortal import Mortal
+from cod.models.characters.ephemera import Ephemera
+from cod.models.characters.mage import Mage as CoDMage
+from cod.models.characters.mage import Proximi, ProximiFamily
+from cod.models.characters.mortal import Mortal
 
-# time_test(Mortal)
-# time_test(Ephemera, character=False)
-# time_test(CoDMage)
-# time_test(ProximiFamily, character=False)
-# time_test(Proximi)
+time_test(Mortal)
+time_test(Ephemera, character=False)
+time_test(CoDMage)
+time_test(ProximiFamily, character=False)
+time_test(Proximi)
 
-# from tc.models.characters.aberrant import Aberrant
-# from tc.models.characters.human import Human as TCHuman
-# from tc.models.characters.talent import Talent
+from tc.models.characters.aberrant import Aberrant
+from tc.models.characters.human import Human as TCHuman
+from tc.models.characters.talent import Talent
 
-# time_test(TCHuman)
-# time_test(Talent, xp=50)
-# time_test(Aberrant, xp=150)
+time_test(TCHuman)
+time_test(Talent, xp=50)
+time_test(Aberrant, xp=150)
 
 from exalted.models.characters.dragonblooded import DragonBlooded
 from exalted.models.characters.mortals import ExMortal
