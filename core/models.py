@@ -203,6 +203,8 @@ class Model(PolymorphicModel):
 
 
 class CharacterModel(Model):
+    npc = models.BooleanField(default=False)
+
     class Meta:
         verbose_name = "Character Model"
         verbose_name_plural = "Character Models"

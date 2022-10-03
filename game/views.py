@@ -44,11 +44,11 @@ class StoryDetailView(View):
 
     def post(self, request, *args, **kwargs):
         context = self.get_context(kwargs["pk"])
+        loc = LocationModel.objects.get(pk=request.POST["location"])
         s = Scene.objects.create(
-            name=request.POST["name"],
-            story=context["object"],
-            location=LocationModel.objects.get(pk=request.POST["location"]),
+            name=request.POST["name"], story=context["object"], location=loc,
         )
+        s.story.key_locations.add(loc)
         return redirect(s)
 
 
@@ -70,6 +70,10 @@ class SceneDetailView(View):
         context = self.get_context(kwargs["pk"], request.user)
         if "character_to_add" in request.POST.keys():
             c = CharacterModel.objects.get(pk=request.POST["character_to_add"])
+            if c.npc:
+                context["object"].story.key_npcs.add(c)
+            else:
+                context["object"].story.pcs.add(c)
             context["object"].characters.add(c)
         elif "close_scene" in request.POST.keys():
             context["object"].finished = True
