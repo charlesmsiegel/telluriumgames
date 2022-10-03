@@ -177,7 +177,7 @@ def dynast_name():
         "Po",
         "Po",
         "Pu",
-        "R’",
+        "R'",
         "Ra",
         "Ra",
         "Ra",
@@ -212,7 +212,7 @@ def dynast_name():
         "U",
         "U",
         "U",
-        "V’",
+        "V'",
         "Va",
         "Ve",
         "Ve",
@@ -2605,22 +2605,30 @@ def exalted_name():
                 ),
             ]
         ),
-        random.choice(precious_options)
-        + " and "
-        + random.choice(mineral_options)
-        + random.choice(
-            [random.choice(person_options), random.choice(relation_options)]
-        ),
-        random.choice(relation_options)
-        + " of "
-        + random.choice(
+        " ".join(
             [
-                random.choice(precious_options)
-                + " and "
-                + random.choice(mineral_options),
-                random.choice(mineral_options)
-                + " and "
-                + random.choice(precious_options),
+                random.choice(precious_options),
+                "and",
+                random.choice(mineral_options),
+                random.choice(
+                    [random.choice(person_options), random.choice(relation_options)]
+                ),
+            ]
+        ),
+        " ".join(
+            [
+                random.choice(relation_options),
+                "of",
+                random.choice(
+                    [
+                        random.choice(precious_options)
+                        + " and "
+                        + random.choice(mineral_options),
+                        random.choice(mineral_options)
+                        + " and "
+                        + random.choice(precious_options),
+                    ]
+                ),
             ]
         ),
         " ".join(
@@ -2817,24 +2825,28 @@ def exalted_name():
         " ".join([random.choice(adjective_options), random.choice(nounbasic_options)]),
         " ".join([random.choice(adjective_options), random.choice(nounbasic_options)]),
         " ".join([random.choice(adjective_options), random.choice(nounbasic_options)]),
-        random.choice(
+        "".join(
             [
-                random.choice(natural_options),
-                random.choice(celestial_options)[0],
-                random.choice(mineral_options),
-                random.choice(item_options)[0],
                 random.choice(
                     [
-                        random.choice(absnegative_options)[0],
-                        random.choice(abspositive_options)[0],
+                        random.choice(natural_options),
+                        random.choice(celestial_options)[0],
+                        random.choice(mineral_options),
+                        random.choice(item_options)[0],
+                        random.choice(
+                            [
+                                random.choice(absnegative_options)[0],
+                                random.choice(abspositive_options)[0],
+                            ]
+                        ),
                     ]
                 ),
+                "-",
+                random.choice(transitive_options),
+                " ",
+                random.choice(person_options),
             ]
-        )
-        + "-"
-        + random.choice(transitive_options)
-        + " "
-        + random.choice(person_options),
+        ),
         " ".join(
             [
                 random.choice(adjective_options),
@@ -2876,996 +2888,1817 @@ def exalted_name():
 
 
 def old_realm_name():
-    """
-$1st
-[1stcons]
-[1stcons]
-[1stcons]
-[1stcons]
-[1stcons] {77%}
-[1stvow,#vv]
+    fv = [
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "ē",
+        "ea",
+        "ei",
+        "ēi",
+        "eu",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "ī",
+        "ia",
+        "iā",
+        "ie",
+        "iē",
+        "io",
+        "iō",
+        "iu",
+    ]
+    bv = [
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "ā",
+        "ae",
+        "ai",
+        "āi",
+        "ao",
+        "aō",
+        "au",
+        "o",
+        "o",
+        "o",
+        "o",
+        "o",
+        "ō",
+        "u",
+        "u",
+        "u",
+        "u",
+        "u",
+        "ū",
+        "ua",
+        "ui",
+        "uo",
+    ]
+    fbv = [
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "ā",
+        "ae",
+        "ai",
+        "āi",
+        "ao",
+        "aō",
+        "au",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "ē",
+        "ea",
+        "ei",
+        "ēi",
+        "eu",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "ī",
+        "ia",
+        "iā",
+        "ie",
+        "iē",
+        "io",
+        "iō",
+        "iu",
+    ]
+    brv = [
+        "o",
+        "o",
+        "o",
+        "o",
+        "o",
+        "ō",
+        "u",
+        "u",
+        "u",
+        "u",
+        "u",
+        "ū",
+        "ua",
+        "ui",
+        "uo",
+    ]
+    vv = [
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "ā",
+        "ae",
+        "ai",
+        "āi",
+        "ao",
+        "aō",
+        "au",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "ē",
+        "ea",
+        "ei",
+        "ēi",
+        "eu",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "ī",
+        "ia",
+        "iā",
+        "ie",
+        "iē",
+        "io",
+        "iō",
+        "iu",
+        "o",
+        "o",
+        "o",
+        "o",
+        "o",
+        "ō",
+        "u",
+        "u",
+        "u",
+        "u",
+        "u",
+        "ū",
+        "ua",
+        "ui",
+        "uo",
+    ]
+    firstcons = [
+        "B" + random.choice(vv),
+        "B" + random.choice(vv),
+        "Br" + random.choice(vv),
+        "Ch" + random.choice(fv),
+        "Ch" + random.choice(fv),
+        "J" + random.choice(bv),
+        "J" + random.choice(bv),
+        "D" + random.choice(vv),
+        "D" + random.choice(vv),
+        "D" + random.choice(vv),
+        "F" + random.choice(vv),
+        "F" + random.choice(vv),
+        "Fr" + random.choice(vv),
+        "G" + random.choice(vv),
+        "G" + random.choice(vv),
+        "G" + random.choice(vv),
+        "Gr" + random.choice(vv),
+        "H" + random.choice(vv),
+        "H" + random.choice(vv),
+        "H" + random.choice(vv),
+        "Hr" + random.choice(vv),
+        "K" + random.choice(vv),
+        "K" + random.choice(vv),
+        "K" + random.choice(vv),
+        "K" + random.choice(vv),
+        "Kl" + random.choice(vv),
+        "Kr" + random.choice(vv),
+        "X" + random.choice(vv),
+        "L" + random.choice(vv),
+        "L" + random.choice(vv),
+        "L" + random.choice(vv),
+        "M" + random.choice(vv),
+        "M" + random.choice(vv),
+        "M" + random.choice(vv),
+        "M" + random.choice(vv),
+        "N" + random.choice(vv),
+        "N" + random.choice(vv),
+        "N" + random.choice(vv),
+        "P" + random.choice(vv),
+        "Pl" + random.choice(vv),
+        "Pr" + random.choice(vv),
+        "R" + random.choice(vv),
+        "R" + random.choice(vv),
+        "S" + random.choice(vv),
+        "S" + random.choice(vv),
+        "S" + random.choice(vv),
+        "S" + random.choice(vv),
+        "S" + random.choice(vv),
+        "S" + random.choice(vv),
+        "Sk" + random.choice(vv),
+        "Sp" + random.choice(vv),
+        "St" + random.choice(vv),
+        "Sh" + random.choice(vv),
+        "Sh" + random.choice(vv),
+        "Shr" + random.choice(vv),
+        "T" + random.choice(vv),
+        "T" + random.choice(vv),
+        "T" + random.choice(vv),
+        "Tr" + random.choice(vv),
+        "Th" + random.choice(vv),
+        "Tl" + random.choice(vv),
+        "Tz" + random.choice(vv),
+        "V" + random.choice(fbv),
+        "V" + random.choice(fbv),
+        "W" + random.choice(brv),
+        "Y" + random.choice(vv),
+        "Y" + random.choice(vv),
+        "Y" + random.choice(vv),
+        "Z" + random.choice(vv),
+        "Z" + random.choice(vv),
+    ]
+    firstvow = [
+        "A",
+        "A",
+        "A ",
+        "A",
+        "Ā",
+        "Ae",
+        "Ai",
+        "Āi",
+        "Ao",
+        "Au",
+        "E",
+        "Ē",
+        "Ea",
+        "Ei",
+        "Eu",
+        "I",
+        "I",
+        "Ī",
+        "Ia",
+        "Ie",
+        "O",
+        "O",
+        "Ō",
+        "Oa",
+        "U",
+        "U",
+        "Ū",
+        "Ua",
+    ]
+    first = [
+        random.choice(firstcons),
+        random.choice(firstcons),
+        random.choice(firstcons),
+        random.choice(firstcons),
+        random.choice(firstcons),
+        random.choice(firstvow),
+    ]
+    second = [
+        "b"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "b"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "br"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "ch" + random.choice(fv),
+        "j" + random.choice(bv),
+        "j" + random.choice(bv),
+        "d"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "d"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "d"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "dr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "dv" + random.choice(fbv),
+        "dw" + random.choice(brv),
+        "f"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "fr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "g"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "g"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "g"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "gr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "h"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "h"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "hr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "k"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "k"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "k"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "k"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "k"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "kl"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "kr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "x"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "x"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "l"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "l"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "l"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "l"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "l"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "l"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "lk"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "ll"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "lm"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "lp"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "lr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "lt"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "lv" + random.choice(fbv),
+        "lw" + random.choice(brv),
+        "lz"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "m"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "m"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "m"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "m"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "m"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "m"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "mb"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "mf"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "mm"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "my"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "n"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "n"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "n"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "n"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "n"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "n"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "n"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nd"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nd"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nj"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nm"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nn"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nt"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nth"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nv" + random.choice(fbv),
+        "nw" + random.choice(brv),
+        "ny"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nz"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "ng"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nk"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "p"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "pl"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "pr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rd"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rg"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rj"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rk"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rl"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rm"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rn"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rs"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rt"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rth"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rv" + random.choice(fbv),
+        "rw" + random.choice(brv),
+        "rz"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "s"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "s"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "s"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "sk"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "sn"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "sp"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "ss"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "st"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "sh"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "sh"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "shr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "ssh"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "sht"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "t"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "t"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "t"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "t"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "tr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "th"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "thr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "tl"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "tz"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "v" + random.choice(fbv),
+        "v" + random.choice(fbv),
+        "w" + random.choice(brv),
+        "y"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "y"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "z"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "z"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+    ]
+    end = [
+        "d",
+        "k",
+        "l",
+        "l",
+        "m",
+        "n",
+        "n",
+        "n",
+        "n",
+        "n",
+        "n",
+        "ng",
+        "p",
+        "r",
+        "r",
+        "s",
+        "s",
+        "sh",
+        "t",
+        "th",
+        "z",
+    ]
 
-$1stvow
-A {v:a}
-A {v:a}
-A {v:a}
-A {v:a}{50%}
-Ā {v:a}{10%}
-Ae {v:e}{10%}
-Ai {v:i}{20%}
-Āi {v:i}{20%}
-Ao {v:o}{10%}
-Au {v:u}{20%}
-E {v:e}{90%}
-Ē {v:e}{2%}
-Ea {v:a}{10%}
-Ei {v:i}{10%}
-Eu {v:u}{1%}
-I {v:i}
-I {v:i}{30%}
-Ī {v:i}{6%}
-Ia {v:a}{10%}
-Ie {v:e}{2%}
-O {v:o}
-O {v:o}{60%}
-Ō {v:o}{8%}
-Oa {v:a}{20%}
-U {v:u}
-U {v:u}{40%}
-Ū {v:u}{6%}
-Ua {v:a}{3%}
+    name1 = [
+        "".join(
+            [
+                random.choice(first),
+                random.choice(["", random.choice(end), random.choice(end)]),
+            ]
+        )
+    ]
+    name2 = [
+        "".join([random.choice(first), random.choice(second)]),
+        "".join([random.choice(first), random.choice(second), random.choice(end)]),
+        " ".join(
+            [
+                "-".join(
+                    [
+                        random.choice(name1),
+                        "".join([random.choice(name1), random.choice(name1)]),
+                        "".join([random.choice(name1), random.choice(name1)]),
+                    ]
+                ),
+                random.choice(name1),
+            ]
+        ),
+    ]
+    name3 = [
+        "".join([random.choice(first), random.choice(second), random.choice(second)]),
+        "".join(
+            [
+                random.choice(first),
+                random.choice(second),
+                random.choice(second),
+                random.choice(end),
+            ]
+        ),
+        # [[name1]-[name1]-[name1]|[name1]-[name1]-[name1]|[name1] [name1] [name1]]
+        # [[name1]-[1st][2nd][|[end]]|[name1]-[1st][2nd][|[end]]|[name1] [1st][2nd][|[end]]]
+        # [[1st][2nd][|[end]]-[name1]|[1st][2nd][|[end]]-[name1]|[1st][2nd][|[end]] [name1]]
+    ]
+    name4 = [
+        "".join(
+            [
+                random.choice(first),
+                random.choice(second),
+                random.choice(second),
+                random.choice(second),
+            ]
+        ),
+        "".join(
+            [
+                random.choice(first),
+                random.choice(second),
+                random.choice(second),
+                random.choice(second),
+                random.choice(end),
+            ]
+        ),
+        # [[1st][2nd][|[end]]-[1st][2nd][|[end]]|[1st][2nd][|[end]] [1st][2nd][|[end]]|[name2] [1st][2nd][|[end]]]
+        # [[name1]-[1st][2nd][2nd][|[end]]|[name1]-[1st][2nd][2nd][|[end]]|[name1] [1st][2nd][2nd][|[end]]]
+        # [[1st][2nd][2nd][|[end]]-[name1]|[1st][2nd][2nd][|[end]] [name1]|[1st][2nd][2nd][|[end]] [name1]]
+    ]
+    name5 = [
+        "".join(
+            [
+                random.choice(first),
+                random.choice(second),
+                random.choice(second),
+                random.choice(second),
+                random.choice(second),
+                random.choice(["", random.choice(end)]),
+            ]
+        ),
+        " ".join([
+            # [[1st][2nd][|[end]]-[1st][2nd][2nd][|[end]]|[1st][2nd][|[end]]-[1st][2nd][2nd][|[end]]|[1st][2nd][|[end]]
+            "".join([
+                random.choice(first),
+                random.choice(second),
+                random.choice(second),
+                random.choice(["", random.choice(end)]),
+            ])
+        ]),
+        " ".join([
+            "-".join([
+                "".join([
+                    random.choice(first),
+                    random.choice(second),
+                    random.choice(second),
+                    random.choice(["", random.choice(end)]),
+                ]),
+                random.choice([
+                    "".join([
+                        random.choice(first),
+                        random.choice(second),
+                        random.choice(["", random.choice(end)]),
+                    ]),
+                    "".join([
+                        random.choice(first),
+                        random.choice(second),
+                        random.choice(second),
+                        random.choice(["", random.choice(end)]),
+                    ]),
+                ]),
+                random.choice([
+                    "".join([
+                        random.choice(first),
+                        random.choice(second),
+                        random.choice(["", random.choice(end)]),
+                    ]),
+                    "".join([
+                        random.choice(first),
+                        random.choice(second),
+                        random.choice(second),
+                        random.choice(["", random.choice(end)]),
+                    ]),
+                ])
+            ]),
+            "".join([
+                random.choice(first),
+                random.choice(second),
+                random.choice(["", random.choice(end)]),
+            ]),
+        ]),
+    ]
 
-$1stcons
-B[vv,#vv]
-B[vv,#vv] {80%}
-Br[vv,#vv]
-Ch[fv,#vv]
-Ch[fv,#vv]
-J[bv,#vv]
-J[bv,#vv] {80%}
-D[vv,#vv]
-D[vv,#vv]
-D[vv,#vv] {20%}
-F[vv,#vv]
-F[vv,#vv] {20%}
-Fr[vv,#vv] {20%}
-G[vv,#vv]
-G[vv,#vv]
-G[vv,#vv] {20%}
-Gr[vv,#vv] {40%}
-H[vv,#vv]
-H[vv,#vv]
-H[vv,#vv] {90%}
-Hr[vv,#vv]
-K[vv,#vv]
-K[vv,#vv]
-K[vv,#vv]
-K[vv,#vv] {90%}
-Kl[vv,#vv] {20%}
-Kr[vv,#vv] {40%}
-X[vv,#vv] {90%}
-L[vv,#vv]
-L[vv,#vv]
-L[vv,#vv] {20%}
-M[vv,#vv]
-M[vv,#vv]
-M[vv,#vv]
-M[vv,#vv] {60%}
-N[vv,#vv]
-N[vv,#vv]
-N[vv,#vv] {80%}
-P[vv,#vv] {90%}
-Pl[vv,#vv]
-Pr[vv,#vv] {40%}
-R[vv,#vv]
-R[vv,#vv] {80%}
-S[vv,#vv]
-S[vv,#vv]
-S[vv,#vv]
-S[vv,#vv]
-S[vv,#vv]
-S[vv,#vv] {30%}
-Sk[vv,#vv] {20%}
-Sp[vv,#vv]
-St[vv,#vv] {20%}
-Sh[vv,#vv]
-Sh[vv,#vv] {90%}
-Shr[vv,#vv]
-T[vv,#vv]
-T[vv,#vv]
-T[vv,#vv] {90%}
-Tr[vv,#vv] {30%}
-Th[vv,#vv] {60%}
-Tl[vv,#vv] {20%}
-Tz[vv,#vv] {40%}
-V[fbv,#vv]
-V[fbv,#vv]
-W[brv,#vv] {60%}
-Y[vv,#vv]
-Y[vv,#vv]
-Y[vv,#vv] {30%}
-Z[vv,#vv]
-Z[vv,#vv]
-
-$2nd
-b[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-b[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-br[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-ch[fv,#vv] {70%}
-j[bv,#vv]
-j[bv,#vv] {20%}
-d[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-d[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-d[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-dr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {30%}
-dv[fbv,#vv] {30%}
-dw[brv,#vv] {2%}
-f[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {80%}
-fr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-g[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-g[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-g[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-gr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-h[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-h[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-hr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-k[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-k[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-k[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-k[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-k[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-kl[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {30%}
-kr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {30%}
-x[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-x[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {40%}
-l[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-l[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-l[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-l[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-l[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-l[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {80%}
-lk[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-ll[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-lm[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {40%}
-lp[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {30%}
-lr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {30%}
-lt[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-lv[fbv,#vv] {30%}
-lw[brv,#vv]
-lz[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {30%}
-m[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-m[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-m[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-m[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-m[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-m[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-mb[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {40%}
-mf[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {40%}
-mm[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-my[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-n[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-n[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-n[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-n[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-n[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-n[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-n[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {30%}
-nd[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-nd[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-nj[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {40%}
-nm[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {30%}
-nn[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {40%}
-nt[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-nth[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-nv[fbv,#vv] {20%}
-nw[brv,#vv]
-ny[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-nz[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {40%}
-ng[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-nk[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-p[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-pl[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {5%}
-pr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-rd[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {30%}
-rg[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {40%}
-rj[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-rk[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {60%}
-rl[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-rm[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {60%}
-rn[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-rr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-rs[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {30%}
-rt[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-rth[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-rv[fbv,#vv] {60%}
-rw[brv,#vv] {4%}
-rz[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-s[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-s[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-s[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-sk[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-sn[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-sp[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {5%}
-ss[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {30%}
-st[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {60%}
-sh[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-sh[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {70%}
-shr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {40%}
-ssh[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-sht[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-t[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-t[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-t[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-t[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-tr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {30%}
-th[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {80%}
-thr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {20%}
-tl[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {30%}
-tz[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {30%}
-v[fbv,#vv]
-v[fbv,#vv]
-w[brv,#vv] {5%}
-y[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-y[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {60%}
-z[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]]
-z[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]] {40%}
-
-$vv
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}{89%}
-ā {v:a}{41%}
-ae {v:e}{11%}
-ai {v:i}{44%}
-āi {v:i}{48%}
-ao {v:o}{19%}
-aō {v:o}{4%}
-au {v:u}{11%}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}{74%}
-ē {v:e}{11%}
-ea {v:a}{11%}
-ei {v:i}{7%}
-ēi {v:i}{4%}
-eu {v:u}{7%}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}{22%}
-ī {v:i}{26%}
-ia {v:a}{59%}
-iā {v:a}{4%}
-ie {v:e}{19%}
-iē {v:e}{4%}
-io {v:o}{30%}
-iō {v:o}{4%}
-iu {v:u}{7%}
-o {v:o}
-o {v:o}
-o {v:o}
-o {v:o}
-o {v:o}
-ō {v:o}{22%}
-u {v:u}
-u {v:u}
-u {v:u}
-u {v:u}
-u {v:u}{59%}
-ū {v:u}{15%}
-ua {v:a}{22%}
-ui {v:i}{7%}
-uo {v:o}{20%}
-
-$fv
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}{74%}
-ē {v:e}{11%}
-ea {v:a}{11%}
-ei {v:i}{7%}
-ēi {v:i}{4%}
-eu {v:u}{7%}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}{22%}
-ī {v:i}{26%}
-ia {v:a}{59%}
-iā {v:a}{4%}
-ie {v:e}{19%}
-iē {v:e}{4%}
-io {v:o}{30%}
-iō {v:o}{4%}
-iu {v:u}{7%}
-
-$bv
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}{89%}
-ā {v:a}{41%}
-ae {v:e}{11%}
-ai {v:i}{44%}
-āi {v:i}{48%}
-ao {v:o}{19%}
-aō {v:o}{4%}
-au {v:u}{11%}
-o {v:o}
-o {v:o}
-o {v:o}
-o {v:o}
-o {v:o}
-ō {v:o}{22%}
-u {v:u}
-u {v:u}
-u {v:u}
-u {v:u}
-u {v:u}{59%}
-ū {v:u}{15%}
-ua {v:a}{22%}
-ui {v:i}{7%}
-uo {v:o}{20%}
-
-$fbv
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}{89%}
-ā {v:a}{41%}
-ae {v:e}{11%}
-ai {v:i}{44%}
-āi {v:i}{48%}
-ao {v:o}{19%}
-aō {v:o}{4%}
-au {v:u}{11%}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}{74%}
-ē {v:e}{11%}
-ea {v:a}{11%}
-ei {v:i}{7%}
-ēi {v:i}{4%}
-eu {v:u}{7%}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}{22%}
-ī {v:i}{26%}
-ia {v:a}{59%}
-iā {v:a}{4%}
-ie {v:e}{19%}
-iē {v:e}{4%}
-io {v:o}{30%}
-iō {v:o}{4%}
-iu {v:u}{7%}
-
-$brv
-o {v:o}
-o {v:o}
-o {v:o}
-o {v:o}
-o {v:o}
-ō {v:o}{22%}
-u {v:u}
-u {v:u}
-u {v:u}
-u {v:u}
-u {v:u}{59%}
-ū {v:u}{15%}
-ua {v:a}{22%}
-ui {v:i}{7%}
-uo {v:o}{20%}
-
-$end
-[] {44%}
-d {24%}
-k
-l
-l {14%}
-m {62%}
-n
-n
-n
-n
-n
-n {19%}
-ng {57%}
-p
-r
-r {19%}
-s
-s
-sh {29%}
-t {33%}
-th {81%}
-z {24%}
-
-$name1
-[1st][|[end]|[end]]
-
-$name2
-[1st][2nd]
-[1st][2nd][end]
-[[name1]-[name1]|[name1]-[name1]|[name1] [name1]] {36%}
-
-$name3
-[1st][2nd][2nd]
-[1st][2nd][2nd][end]
-[[name1]-[name1]-[name1]|[name1]-[name1]-[name1]|[name1] [name1] [name1]] {6%}
-[[name1]-[1st][2nd][|[end]]|[name1]-[1st][2nd][|[end]]|[name1] [1st][2nd][|[end]]] {9%}
-[[1st][2nd][|[end]]-[name1]|[1st][2nd][|[end]]-[name1]|[1st][2nd][|[end]] [name1]] {17%}
-
-$name4
-[1st][2nd][2nd][2nd]
-[1st][2nd][2nd][2nd][end]
-[[1st][2nd][|[end]]-[1st][2nd][|[end]]|[1st][2nd][|[end]] [1st][2nd][|[end]]|[name2] [1st][2nd][|[end]]] {86%}
-[[name1]-[1st][2nd][2nd][|[end]]|[name1]-[1st][2nd][2nd][|[end]]|[name1] [1st][2nd][2nd][|[end]]] {14%}
-[[1st][2nd][2nd][|[end]]-[name1]|[1st][2nd][2nd][|[end]] [name1]|[1st][2nd][2nd][|[end]] [name1]] {9%}
-
-$name5
-[1st][2nd][2nd][2nd][2nd][|[end]] {67%}
-[[1st][2nd][|[end]]-[1st][2nd][2nd][|[end]]|[1st][2nd][|[end]]-[1st][2nd][2nd][|[end]]|[1st][2nd][|[end]] [1st][2nd][2nd][|[end]]]
-[[1st][2nd][2nd][|[end]]-[1st][2nd][|[end]]|[1st][2nd][2nd][|[end]]-[1st][2nd][|[end]]|[1st][2nd][2nd][|[end]] [1st][2nd][|[end]]]
-
-$prompt
-[name1] {33%}
-[name2]
-[name2]
-[name2]
-[name2] {82%}
-[name3]
-[name3]
-[name3]
-[name3]
-[name3] {22%}
-[name4]
-[name4] {33%}
-[name5] {27%}
-[1st][2nd][2nd][|[end]] [1st][2nd][2nd][|[end]] {2%}
-    """
-    pass
+    prompt = [
+        random.choice(name1),
+        random.choice(name2),
+        random.choice(name2),
+        random.choice(name2),
+        random.choice(name2),
+        random.choice(name3),
+        random.choice(name3),
+        random.choice(name3),
+        random.choice(name3),
+        random.choice(name3),
+        random.choice(name4),
+        random.choice(name4),
+        random.choice(name5),
+        "".join(
+            [
+                random.choice(first),
+                random.choice(second),
+                random.choice(second),
+                random.choice(end),
+                " ",
+                random.choice(first),
+                random.choice(second),
+                random.choice(second),
+                random.choice(end),
+            ]
+        ),
+    ]
+    return random.choice(prompt)
 
 
 def infernal_name():
-    """
-$1st
-[1stcons]
-[1stcons]
-[1stcons]
-[1stcons]
-[1stcons]
-[1stcons]
-[1stcons]
-[1stcons] {70%}
-[1stvow,#vv]
-[1stvow,#vv]
-[1stvow,#vv] {30%}
+    vv = [
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "ā",
+        "ae",
+        "ai",
+        "āi",
+        "ao",
+        "aō",
+        "au",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "ē",
+        "ea",
+        "eo",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "ī",
+        "ia",
+        "ie",
+        "io",
+        "iē",
+        "iu",
+        "o",
+        "o",
+        "o",
+        "o",
+        "ō",
+        "oa",
+        "oi",
+        "u",
+        "u",
+        "u",
+        "ū",
+    ]
+    fv = [
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "ē",
+        "ea",
+        "eo",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "ī",
+        "ia",
+        "ie",
+        "io",
+        "iē",
+        "iu    ",
+    ]
+    bv = [
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "ā",
+        "ae",
+        "ai",
+        "āi",
+        "ao",
+        "aō",
+        "au",
+        "o",
+        "o",
+        "o",
+        "o",
+        "ō",
+        "oa",
+        "oi",
+        "u",
+        "u",
+        "u",
+        "ū",
+    ]
+    hmv = [
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "e",
+        "ē",
+        "ea",
+        "eo",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "i",
+        "ī",
+        "ia",
+        "ie",
+        "io",
+        "iē",
+        "iu",
+        "o",
+        "o",
+        "o",
+        "o",
+        "ō",
+        "oa",
+        "oi",
+        "u",
+        "u",
+        "u",
+        "ū",
+    ]
+    av = [
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "ā",
+        "ae",
+        "ai",
+        "āi",
+        "ao",
+        "aō",
+        "au",
+    ]
+    firstvow = [
+        "A",
+        "A",
+        "A",
+        "A",
+        "E",
+        "E",
+        "E",
+        "I",
+        "I",
+        "I",
+        "O",
+        "U",
+        "Ā",
+        "Ē",
+        "Ī",
+        "Ō",
+        "Ū",
+        "Ae",
+        "Ai",
+        "Āi",
+        "Ao",
+        "Au",
+        "Ea",
+        "Eo",
+        "Ia",
+        "Ie",
+        "Oa",
+    ]
+    firstcons = [
+        "B" + random.choice(vv),
+        "B" + random.choice(vv),
+        "B" + random.choice(vv),
+        "Br" + random.choice(vv),
+        random.choice(["Ch" + random.choice(fv), "J" + random.choice(bv)]),
+        random.choice(["Ch" + random.choice(fv), "J" + random.choice(bv)]),
+        "D" + random.choice(vv),
+        "D" + random.choice(vv),
+        "D" + random.choice(vv),
+        "F" + random.choice(vv),
+        "F" + random.choice(vv),
+        "G" + random.choice(vv),
+        "G" + random.choice(vv),
+        "Gl" + random.choice(vv),
+        "Gr" + random.choice(vv),
+        "H" + random.choice(vv),
+        "H" + random.choice(vv),
+        "Hr" + random.choice(vv),
+        "K" + random.choice(vv),
+        "K" + random.choice(vv),
+        "K" + random.choice(vv),
+        "K" + random.choice(vv),
+        "K" + random.choice(vv),
+        "K" + random.choice(vv),
+        "Kr" + random.choice(vv),
+        "X" + random.choice(vv),
+        "L" + random.choice(vv),
+        "L" + random.choice(vv),
+        "M" + random.choice(vv),
+        "M" + random.choice(vv),
+        "M" + random.choice(vv),
+        "M" + random.choice(vv),
+        "N" + random.choice(vv),
+        "N" + random.choice(vv),
+        "N" + random.choice(vv),
+        "P" + random.choice(vv),
+        "P" + random.choice(vv),
+        "R" + random.choice(vv),
+        "S" + random.choice(vv),
+        "S" + random.choice(vv),
+        "S" + random.choice(vv),
+        "S" + random.choice(vv),
+        "S" + random.choice(vv),
+        "S" + random.choice(vv),
+        "Sk" + random.choice(vv),
+        "Sh" + random.choice(vv),
+        "St" + random.choice(vv),
+        "T" + random.choice(vv),
+        "T" + random.choice(vv),
+        "Th" + random.choice(vv),
+        "Tl" + random.choice(vv),
+        "Tz" + random.choice(vv),
+        "V" + random.choice(hmv),
+        random.choice(["V" + random.choice(hmv), "W" + random.choice(av)]),
+        "Y" + random.choice(vv),
+        "Y" + random.choice(vv),
+        "Z" + random.choice(vv),
+    ]
+    first = [
+        random.choice(firstcons),
+        random.choice(firstcons),
+        random.choice(firstcons),
+        random.choice(firstcons),
+        random.choice(firstcons),
+        random.choice(firstcons),
+        random.choice(firstcons),
+        random.choice(firstcons),
+        random.choice(firstvow),
+        random.choice(firstvow),
+        random.choice(firstvow),
+    ]
+    second = [
+        "b"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "bk"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "br"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "bt"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "ch" + random.choice(fv),
+        "j" + random.choice(bv),
+        "d"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "d"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "dk"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "dp"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "dr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "f"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "fr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "g"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "g"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "g"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "gl"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "gp"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "gr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "gt"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "h"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "hr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "k"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "k"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "kk"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "kr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "kt"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "qu"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "x"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "l"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "l"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "l"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "l"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "l"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "lf"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "lg"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "lk"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "ll"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "lm"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "lr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "lsh"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "lt"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "lv" + random.choice(hmv),
+        "lw" + random.choice(av),
+        "ly"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "m"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "m"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "m"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "m"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "m"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "mb"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "md"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "mf"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "mg"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "mm"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "my"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "n"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "n"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "n"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "n"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nb"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nd"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "n'g"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nh"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nj"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nn"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nsh"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nt"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nth"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nv" + random.choice(hmv),
+        "nw" + random.choice(av),
+        "ny"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nz"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "ng"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "ngb"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "ngd"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "nk"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "p"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "pp"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "r"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rd"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rg"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rj"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rk"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rl"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rm"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rn"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rs"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "rv" + random.choice(hmv),
+        "rw" + random.choice(av),
+        "rz"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "s"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "s"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "sk"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "ss"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "sh"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "ssh"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "sht"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "t"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "t"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "tr"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "tt"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "th"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "tl"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "tz"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "v" + random.choice(hmv),
+        "w" + random.choice(av),
+        "y"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "z"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+        "z"
+        + random.choice(
+            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
+        ),
+    ]
+    end = [
+        "d",
+        "k",
+        "l",
+        "l",
+        "m",
+        "n",
+        "n",
+        "n",
+        "n",
+        "n",
+        "ng",
+        "p",
+        "r",
+        "r",
+        "s",
+        "s",
+        "s",
+        "s",
+        "sh",
+        "t",
+        "th",
+        "z",
+    ]
+    name1 = [
+        random.choice(first),
+        "".join([random.choice(first), random.choice(end)]),
+    ]
+    name2 = [
+        "".join([random.choice(first), random.choice(second)]),
+        "".join([random.choice(first), random.choice(second), random.choice(end)]),
+        "".join(
+            [
+                random.choice(first),
+                random.choice(["", random.choice(end)]),
+                "'",
+                random.choice(first),
+                random.choice(["", random.choice(end)]),
+            ]
+        ),
+    ]
+    name3 = [
+        "".join([random.choice(first), random.choice(second), random.choice(second)]),
+        "".join(
+            [
+                random.choice(first),
+                random.choice(second),
+                random.choice(second),
+                random.choice(end),
+            ]
+        ),
+        # [[1st][2nd][|[end]]-[1st][|[end]]|[1st][|[end]]-[1st][2nd][|[end]]]
+    ]
+    name4 = [
+        "".join(
+            [
+                random.choice(first),
+                random.choice(second),
+                random.choice(second),
+                random.choice(second),
+            ]
+        ),
+        "".join(
+            [
+                random.choice(first),
+                random.choice(second),
+                random.choice(second),
+                random.choice(second),
+                random.choice(end),
+            ]
+        ),
+        # [1st][2nd][|[end]]-[1st][2nd][|[end]]
+    ]
+    name5 = [
+        "".join(
+            [
+                random.choice(first),
+                random.choice(second),
+                random.choice(second),
+                random.choice(second),
+                random.choice(second),
+                random.choice(["", random.choice(end)]),
+            ]
+        ),
+        # [1st][2nd][|[end]]-[1st][2nd][2nd][|[end]]
+        # [1st][2nd][2nd][|[end]]-[1st][2nd][|[end]]
+    ]
 
-$1stvow
-A {v:a}
-A {v:a}
-A {v:a}
-A {v:a}
-E {v:e}
-E {v:e}
-E {v:e}{50%}
-I {v:i}
-I {v:i}
-I {v:i}{50%}
-O {v:o}
-U {v:u}
-Ā {v:a}{50%}
-Ē {v:e}{10%}
-Ī {v:i}{10%}
-Ō {v:o}{10%}
-Ū {v:u}{5%}
-Ae {v:e}{50%}
-Ai {v:i}{15%}
-Āi {v:i}{15%}
-Ao {v:o}{10%}
-Au {v:u}{50%}
-Ea {v:a}{10%}
-Eo {v:o}{10%}
-Ia {v:a}{10%}
-Ie {v:e}{50%}
-Oa {v:a}{10%}
-
-$1stcons
-B[vv,#vv]
-B[vv,#vv]
-B[vv,#vv]
-Br[vv,#vv]
-[Ch[fv,#vv]|J[bv,#vv]]
-[Ch[fv,#vv]|J[bv,#vv]]
-D[vv,#vv]
-D[vv,#vv]
-D[vv,#vv]
-F[vv,#vv]
-F[vv,#vv]
-G[vv,#vv]
-G[vv,#vv]
-Gl[vv,#vv]
-Gr[vv,#vv]
-H[vv,#vv]
-H[vv,#vv]
-Hr[vv,#vv]
-K[vv,#vv]
-K[vv,#vv]
-K[vv,#vv]
-K[vv,#vv]
-K[vv,#vv]
-K[vv,#vv]
-Kr[vv,#vv]
-X[vv,#vv]
-L[vv,#vv]
-L[vv,#vv]
-M[vv,#vv]
-M[vv,#vv]
-M[vv,#vv]
-M[vv,#vv]
-N[vv,#vv]
-N[vv,#vv]
-N[vv,#vv]
-P[vv,#vv]
-P[vv,#vv]
-R[vv,#vv]
-S[vv,#vv]
-S[vv,#vv]
-S[vv,#vv]
-S[vv,#vv]
-S[vv,#vv]
-S[vv,#vv]
-Sk[vv,#vv]
-Sh[vv,#vv]
-St[vv,#vv]
-T[vv,#vv]
-T[vv,#vv]
-Th[vv,#vv]
-Tl[vv,#vv]
-Tz[vv,#vv]
-V[hmv,#vv]
-[V[hmv,#vv]|W[av,#vv]]
-Y[vv,#vv]
-Y[vv,#vv]
-Z[vv,#vv]
-
-$2nd
-b[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-bk[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-br[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-bt[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-ch[fv,#vv] {30%}
-j[bv,#vv] {30%}
-d[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-d[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-dk[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-dp[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-dr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-f[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {80%}
-fr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-g[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-g[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-g[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {60%}
-gl[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-gp[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-gr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-gt[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-h[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-hr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-k[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-k[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-kk[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-kr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-kt[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-qu[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-x[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-l[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-l[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-l[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-l[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-l[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-lf[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-lg[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-lk[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {60%}
-ll[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-lm[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {60%}
-lr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-lsh[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-lt[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-lv[hmv,#vv] {60%}
-lw[av,#vv]
-ly[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-m[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-m[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-m[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-m[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-m[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {60%}
-mb[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {60%}
-md[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-mf[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-mg[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-mm[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-my[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-n[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-n[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-n[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-n[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-nb[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-nd[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-n'g[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-nh[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-nj[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-nn[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-nsh[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-nt[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-nth[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-nv[hmv,#vv] {30%}
-nw[av,#vv]
-ny[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-nz[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {60%}
-ng[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-ngb[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-ngd[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-nk[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-p[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {60%}
-pp[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-r[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-rd[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-rg[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-rj[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-rk[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-rl[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-rm[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-rn[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-rr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-rs[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {80%}
-rv[hmv,#vv] {30%}
-rw[av,#vv]
-rz[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-s[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-s[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {60%}
-sk[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {60%}
-ss[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-sh[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {60%}
-ssh[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-sht[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {60%}
-t[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-t[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-tr[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-tt[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-th[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-tl[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-tz[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {30%}
-v[hmv,#vv]
-w[av,#vv] {30%}
-y[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {80%}
-z[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]]
-z[[vv,#vv]|[vv,#vv]|[vv,#vv]|[#vv,as v]|[#vv,as v]] {20%}
-
-$vv
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-ā {v:a}{15%}
-ae {v:e}{15%}
-ai {v:i}{50%}
-āi {v:i}{50%}
-ao {v:o}{15%}
-aō {v:o}{5%}
-au {v:u}{30%}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-ē {v:e}{15%}
-ea {v:a}{44%}
-eo {v:o}{44%}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-ī {v:i}{15%}
-ia {v:a}
-ie {v:e}{60%}
-io {v:o}{60%}
-iē {v:e}{5%}
-iu {v:u}{15%}
-o {v:o}
-o {v:o}
-o {v:o}
-o {v:o}
-ō {v:o}{15%}
-oa {v:a}{5%}
-oi {v:i}{15%}
-u {v:u}
-u {v:u}
-u {v:u}
-ū {v:u}{5%}
-
-$fv
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-ē {v:e}{15%}
-ea {v:a}{44%}
-eo {v:o}{44%}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-ī {v:i}{15%}
-ia {v:a}
-ie {v:e}{60%}
-io {v:o}{60%}
-iē {v:e}{5%}
-iu {v:u}{15%}
-
-$bv
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-ā {v:a}{15%}
-ae {v:e}{15%}
-ai {v:i}{50%}
-āi {v:i}{50%}
-ao {v:o}{15%}
-aō {v:o}{5%}
-au {v:u}{30%}
-o {v:o}
-o {v:o}
-o {v:o}
-o {v:o}
-ō {v:o}{15%}
-oa {v:a}{5%}
-oi {v:i}{15%}
-u {v:u}
-u {v:u}
-u {v:u}
-ū {v:u}{5%}
-
-$hmv
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-ē {v:e}{15%}
-ea {v:a}{44%}
-eo {v:o}{44%}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-ī {v:i}{15%}
-ia {v:a}
-ie {v:e}{60%}
-io {v:o}{60%}
-iē {v:e}{5%}
-iu {v:u}{15%}
-o {v:o}
-o {v:o}
-o {v:o}
-o {v:o}
-ō {v:o}{15%}
-oa {v:a}{5%}
-oi {v:i}{15%}
-u {v:u}
-u {v:u}
-u {v:u}
-ū {v:u}{5%}
-
-$av
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-ā {v:a}{15%}
-ae {v:e}{15%}
-ai {v:i}{50%}
-āi {v:i}{50%}
-ao {v:o}{15%}
-aō {v:o}{5%}
-au {v:u}{30%}
-
-$end
-d {40%}
-k {60%}
-l
-l
-m {60%}
-n
-n
-n
-n
-n
-ng
-p
-r
-r
-s
-s
-s
-s
-sh {30%}
-t {60%}
-th {40%}
-z
-
-$name1
-[1st]
-[1st][end]
-
-$name2
-[1st][2nd]
-[1st][2nd][end]
-[1st][|[end]]’[1st][|[end]] {12%}
-
-$name3
-[1st][2nd][2nd]
-[1st][2nd][2nd][end]
-[[1st][2nd][|[end]]-[1st][|[end]]|[1st][|[end]]-[1st][2nd][|[end]]] {5%}
-
-$name4
-[1st][2nd][2nd][2nd]
-[1st][2nd][2nd][2nd][end]
-[1st][2nd][|[end]]-[1st][2nd][|[end]] {20%}
-
-$name5
-[1st][2nd][2nd][2nd][2nd][|[end]]
-[1st][2nd][|[end]]-[1st][2nd][2nd][|[end]]
-[1st][2nd][2nd][|[end]]-[1st][2nd][|[end]] {5%}
-
-$prompt
-[name1]
-[name2]
-[name2]
-[name2] {54%}
-[name3]
-[name3]
-[name3]
-[name3]
-[name3]
-[name3] {52%}
-[name4]
-[name4] {64%}
-[name5]
-    """
-    pass
+    prompt = [
+        random.choice(name1),
+        random.choice(name2),
+        random.choice(name2),
+        random.choice(name2),
+        random.choice(name3),
+        random.choice(name3),
+        random.choice(name3),
+        random.choice(name3),
+        random.choice(name3),
+        random.choice(name3),
+        random.choice(name4),
+        random.choice(name4),
+        random.choice(name5),
+    ]
+    return random.choice(prompt)
 
 
 def dragon_king_name():
