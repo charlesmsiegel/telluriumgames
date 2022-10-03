@@ -3799,56 +3799,80 @@ def old_realm_name():
                 random.choice(["", random.choice(end)]),
             ]
         ),
-        " ".join([
-            # [[1st][2nd][|[end]]-[1st][2nd][2nd][|[end]]|[1st][2nd][|[end]]-[1st][2nd][2nd][|[end]]|[1st][2nd][|[end]]
-            "".join([
-                random.choice(first),
-                random.choice(second),
-                random.choice(second),
-                random.choice(["", random.choice(end)]),
-            ])
-        ]),
-        " ".join([
-            "-".join([
-                "".join([
-                    random.choice(first),
-                    random.choice(second),
-                    random.choice(second),
-                    random.choice(["", random.choice(end)]),
-                ]),
-                random.choice([
-                    "".join([
-                        random.choice(first),
-                        random.choice(second),
-                        random.choice(["", random.choice(end)]),
-                    ]),
-                    "".join([
+        " ".join(
+            [
+                # [[1st][2nd][|[end]]-[1st][2nd][2nd][|[end]]|[1st][2nd][|[end]]-[1st][2nd][2nd][|[end]]|[1st][2nd][|[end]]
+                "".join(
+                    [
                         random.choice(first),
                         random.choice(second),
                         random.choice(second),
                         random.choice(["", random.choice(end)]),
-                    ]),
-                ]),
-                random.choice([
-                    "".join([
+                    ]
+                )
+            ]
+        ),
+        " ".join(
+            [
+                "-".join(
+                    [
+                        "".join(
+                            [
+                                random.choice(first),
+                                random.choice(second),
+                                random.choice(second),
+                                random.choice(["", random.choice(end)]),
+                            ]
+                        ),
+                        random.choice(
+                            [
+                                "".join(
+                                    [
+                                        random.choice(first),
+                                        random.choice(second),
+                                        random.choice(["", random.choice(end)]),
+                                    ]
+                                ),
+                                "".join(
+                                    [
+                                        random.choice(first),
+                                        random.choice(second),
+                                        random.choice(second),
+                                        random.choice(["", random.choice(end)]),
+                                    ]
+                                ),
+                            ]
+                        ),
+                        random.choice(
+                            [
+                                "".join(
+                                    [
+                                        random.choice(first),
+                                        random.choice(second),
+                                        random.choice(["", random.choice(end)]),
+                                    ]
+                                ),
+                                "".join(
+                                    [
+                                        random.choice(first),
+                                        random.choice(second),
+                                        random.choice(second),
+                                        random.choice(["", random.choice(end)]),
+                                    ]
+                                ),
+                            ]
+                        ),
+                    ]
+                ),
+                "".join(
+                    [
                         random.choice(first),
                         random.choice(second),
                         random.choice(["", random.choice(end)]),
-                    ]),
-                    "".join([
-                        random.choice(first),
-                        random.choice(second),
-                        random.choice(second),
-                        random.choice(["", random.choice(end)]),
-                    ]),
-                ])
-            ]),
-            "".join([
-                random.choice(first),
-                random.choice(second),
-                random.choice(["", random.choice(end)]),
-            ]),
-        ]),
+                    ]
+                ),
+            ]
+        ),
     ]
 
     prompt = [
