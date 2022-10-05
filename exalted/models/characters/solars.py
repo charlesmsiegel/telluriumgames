@@ -8,7 +8,7 @@ from core.models import Model
 from core.utils import add_dot, weighted_choice
 from exalted.models.characters.charms import MartialArtsCharm, SolarCharm
 from exalted.models.characters.mortals import ExMortal
-from exalted.models.characters.utils import ABILITIES
+from exalted.models.characters.utils import ABILITIES, exalted_name
 
 
 # Create your models here.
@@ -140,7 +140,7 @@ class Solar(ExMortal):
         return True
 
     def random_name(self):
-        return self.set_name(f"Solar {Solar.objects.count()}")
+        return self.set_name(exalted_name())
 
     def random_caste(self):
         return self.set_caste(random.choice(self.CASTE_CHOICES))
