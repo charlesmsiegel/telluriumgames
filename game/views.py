@@ -1,6 +1,7 @@
+import datetime
+
 from django.shortcuts import redirect, render
 from django.views.generic import View
-import datetime
 
 from core.models import CharacterModel, ItemModel, LocationModel
 from game.forms import AddCharForm, PostForm, SceneCreationForm, StoryCreationForm
@@ -47,7 +48,10 @@ class StoryDetailView(View):
         context = self.get_context(kwargs["pk"])
         loc = LocationModel.objects.get(pk=request.POST["location"])
         s = Scene.objects.create(
-            name=request.POST["name"], story=context["object"], location=loc, date_played=datetime.date.today()
+            name=request.POST["name"],
+            story=context["object"],
+            location=loc,
+            date_played=datetime.date.today(),
         )
         s.story.key_locations.add(loc)
         return redirect(s)

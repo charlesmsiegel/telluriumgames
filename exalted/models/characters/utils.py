@@ -2962,10 +2962,12 @@ def exalted_name():
                                         random.choice(item_options)[0],
                                         random.choice(item_options)[0],
                                         random.choice(natural_options),
-                                        "".join([
-                                            random.choice(anatomy_options)[0],
-                                            random.choice(animal_options)[0],
-                                        ])
+                                        "".join(
+                                            [
+                                                random.choice(anatomy_options)[0],
+                                                random.choice(animal_options)[0],
+                                            ]
+                                        ),
                                     ]
                                 ),
                             ]
@@ -2991,16 +2993,10 @@ def exalted_name():
         " ".join(
             [
                 random.choice(
-                    [
-                        random.choice(color_options),
-                        random.choice(precious_options),
-                    ]
+                    [random.choice(color_options), random.choice(precious_options),]
                 ),
                 random.choice(
-                    [
-                        random.choice(anatomy_options)[0],
-                        random.choice(person_options),
-                    ]
+                    [random.choice(anatomy_options)[0], random.choice(person_options),]
                 ),
                 "of the",
                 random.choice(
@@ -3073,16 +3069,10 @@ def exalted_name():
         " ".join(
             [
                 random.choice(
-                    [
-                        random.choice(heroic_options),
-                        random.choice(movement_options),
-                    ]
+                    [random.choice(heroic_options), random.choice(movement_options),]
                 ),
                 random.choice(
-                    [
-                        random.choice(animal_options)[0],
-                        random.choice(item_options)[0],
-                    ]
+                    [random.choice(animal_options)[0], random.choice(item_options)[0],]
                 ),
                 "of the",
                 random.choice(
