@@ -2750,7 +2750,6 @@ def exalted_name():
         ),
         " ".join(
             [
-                random.choice(adjective_options),
                 random.choice(
                     [
                         random.choice(relation_options),
@@ -2768,7 +2767,43 @@ def exalted_name():
                 ),
             ]
         ),
-        # [title] [[[animal]|[animal]|[natural]|[natural]|[mineral]|[precious]|[celestial]|[item]]|[adjective] [nounbasic]|[adjective] [nounbasic]]
+        " ".join(
+            [
+                random.choice(title_options),
+                random.choice(
+                    [
+                        random.choice(
+                            [
+                                random.choice(animal_options)[0],
+                                random.choice(animal_options)[0],
+                                random.choice(natural_options),
+                                random.choice(natural_options),
+                                random.choice(mineral_options),
+                                random.choice(precious_options),
+                                random.choice(celestial_options)[0],
+                                random.choice(item_options)[0],
+                            ]
+                        ),
+                        random.choice(
+                            [
+                                " ".join(
+                                    [
+                                        random.choice(adjective_options),
+                                        random.choice(nounbasic_options),
+                                    ]
+                                ),
+                                " ".join(
+                                    [
+                                        random.choice(adjective_options),
+                                        random.choice(nounbasic_options),
+                                    ]
+                                ),
+                            ]
+                        ),
+                    ]
+                ),
+            ]
+        ),
         " ".join(
             [
                 random.choice(
@@ -2807,7 +2842,29 @@ def exalted_name():
         " ".join(
             ["The", random.choice(ordinal_options), random.choice(person_options)]
         ),
-        # [[emopositive]|[emopositive]|[emopositive]|[condition]] [ordinal] [relation] of the [[location]|[location]|[location]|[location,as plural]]
+        " ".join(
+            [
+                random.choice(
+                    [
+                        random.choice(emopositive_options),
+                        random.choice(emopositive_options),
+                        random.choice(emopositive_options),
+                        random.choice(condition_options),
+                    ]
+                ),
+                random.choice(ordinal_options),
+                random.choice(relation_options),
+                "of the",
+                random.choice(
+                    [
+                        random.choice(location_options)[0],
+                        random.choice(location_options)[0],
+                        random.choice(location_options)[0],
+                        random.choice(location_options)[-1],
+                    ]
+                ),
+            ]
+        ),
     ]
     prompt_options = [
         random.choice(
@@ -2878,10 +2935,186 @@ def exalted_name():
                 random.choice(person_options),
             ]
         ),
-        # [[emopositive]|[emonegative]|[heroic]|[heroic]|[color]|[condition]] [[[precious]|[mineral]] [[item]|[item]|[natural]|[anatomy]|[animal]]|[animal] [anatomy]] [[person]|[person]|[person]|[relation]]
-        # [[color]|[precious]] [[anatomy]|[person]] of the [[celestial]|[natural]|[animal]|[celestial,as plural]|[naturalplural]|[animal,as plural]]
-        # [[animal]|[person]|[relation]|[relation]] of the [[[celestial]|[heroic]|[color]|[condition]] [[building]|[anatomy]|[location]]|[[emopositive]|[emonegative]|[color]|[condition]] [[celestial]|[celestial]|[anatomy]]]
-        # [[heroic]|[movement]] [[animal]|[item]] of the [[emonegative]|[emopositive]|[condition]] [[[building]|[building]|[building]|[building,as plural]]|[[location]|[location]|[location]|[location,as plural]]|[natural]]
+        " ".join(
+            [
+                random.choice(
+                    [
+                        random.choice(emopositive_options),
+                        random.choice(emonegative_options),
+                        random.choice(heroic_options),
+                        random.choice(heroic_options),
+                        random.choice(color_options),
+                        random.choice(condition_options),
+                    ]
+                ),
+                random.choice(
+                    [
+                        " ".join(
+                            [
+                                random.choice(
+                                    [
+                                        random.choice(precious_options),
+                                        random.choice(mineral_options),
+                                    ]
+                                ),
+                                random.choice(
+                                    [
+                                        random.choice(item_options)[0],
+                                        random.choice(item_options)[0],
+                                        random.choice(natural_options),
+                                        "".join([
+                                            random.choice(anatomy_options)[0],
+                                            random.choice(animal_options)[0],
+                                        ])
+                                    ]
+                                ),
+                            ]
+                        ),
+                        " ".join(
+                            [
+                                random.choice(animal_options)[0],
+                                random.choice(anatomy_options)[0],
+                            ]
+                        ),
+                    ]
+                ),
+                random.choice(
+                    [
+                        random.choice(person_options),
+                        random.choice(person_options),
+                        random.choice(person_options),
+                        random.choice(relation_options),
+                    ]
+                ),
+            ]
+        ),
+        " ".join(
+            [
+                random.choice(
+                    [
+                        random.choice(color_options),
+                        random.choice(precious_options),
+                    ]
+                ),
+                random.choice(
+                    [
+                        random.choice(anatomy_options)[0],
+                        random.choice(person_options),
+                    ]
+                ),
+                "of the",
+                random.choice(
+                    [
+                        random.choice(celestial_options)[0],
+                        random.choice(natural_options),
+                        random.choice(animal_options)[0],
+                        random.choice(celestial_options)[-1],
+                        random.choice(naturalplural_options),
+                        random.choice(animal_options)[-1],
+                    ]
+                ),
+            ]
+        ),
+        " ".join(
+            [
+                random.choice(
+                    [
+                        random.choice(animal_options)[0],
+                        random.choice(person_options),
+                        random.choice(relation_options),
+                        random.choice(relation_options),
+                    ]
+                ),
+                "of the",
+                random.choice(
+                    [
+                        " ".join(
+                            [
+                                random.choice(
+                                    [
+                                        random.choice(celestial_options)[0],
+                                        random.choice(heroic_options),
+                                        random.choice(color_options),
+                                        random.choice(condition_options),
+                                    ]
+                                ),
+                                random.choice(
+                                    [
+                                        random.choice(building_options)[0],
+                                        random.choice(anatomy_options)[0],
+                                        random.choice(location_options)[0],
+                                    ]
+                                ),
+                            ]
+                        ),
+                        " ".join(
+                            [
+                                random.choice(
+                                    [
+                                        random.choice(emopositive_options),
+                                        random.choice(emonegative_options),
+                                        random.choice(color_options),
+                                        random.choice(condition_options),
+                                    ]
+                                ),
+                                random.choice(
+                                    [
+                                        random.choice(celestial_options)[0],
+                                        random.choice(celestial_options)[0],
+                                        random.choice(anatomy_options)[0],
+                                    ]
+                                ),
+                            ]
+                        ),
+                    ]
+                ),
+            ]
+        ),
+        " ".join(
+            [
+                random.choice(
+                    [
+                        random.choice(heroic_options),
+                        random.choice(movement_options),
+                    ]
+                ),
+                random.choice(
+                    [
+                        random.choice(animal_options)[0],
+                        random.choice(item_options)[0],
+                    ]
+                ),
+                "of the",
+                random.choice(
+                    [
+                        random.choice(emonegative_options),
+                        random.choice(emopositive_options),
+                        random.choice(condition_options),
+                    ]
+                ),
+                random.choice(
+                    [
+                        random.choice(
+                            [
+                                random.choice(building_options)[0],
+                                random.choice(building_options)[0],
+                                random.choice(building_options)[0],
+                                random.choice(building_options)[-1],
+                            ]
+                        ),
+                        random.choice(
+                            [
+                                random.choice(location_options)[0],
+                                random.choice(location_options)[0],
+                                random.choice(location_options)[0],
+                                random.choice(location_options)[1],
+                            ]
+                        ),
+                        random.choice(natural_options),
+                    ]
+                ),
+            ]
+        ),
         random.choice(misc_options),
     ]
     return random.choice(prompt_options)
@@ -3762,9 +3995,33 @@ def old_realm_name():
                 random.choice(end),
             ]
         ),
-        # [[name1]-[name1]-[name1]|[name1]-[name1]-[name1]|[name1] [name1] [name1]]
-        # [[name1]-[1st][2nd][|[end]]|[name1]-[1st][2nd][|[end]]|[name1] [1st][2nd][|[end]]]
-        # [[1st][2nd][|[end]]-[name1]|[1st][2nd][|[end]]-[name1]|[1st][2nd][|[end]] [name1]]
+        random.choice(["-", "-", " "]).join(
+            [random.choice(name1), random.choice(name1), random.choice(name1),]
+        ),
+        random.choice(["-", "-", " "]).join(
+            [
+                random.choice(name1),
+                "".join(
+                    [
+                        random.choice(first),
+                        random.choice(second),
+                        random.choice(["", random.choice(end)]),
+                    ]
+                ),
+            ]
+        ),
+        random.choice(["-", "-", " "]).join(
+            [
+                "".join(
+                    [
+                        random.choice(first),
+                        random.choice(second),
+                        random.choice(["", random.choice(end)]),
+                    ]
+                ),
+                random.choice(name1),
+            ]
+        ),
     ]
     name4 = [
         "".join(
@@ -3784,9 +4041,66 @@ def old_realm_name():
                 random.choice(end),
             ]
         ),
-        # [[1st][2nd][|[end]]-[1st][2nd][|[end]]|[1st][2nd][|[end]] [1st][2nd][|[end]]|[name2] [1st][2nd][|[end]]]
-        # [[name1]-[1st][2nd][2nd][|[end]]|[name1]-[1st][2nd][2nd][|[end]]|[name1] [1st][2nd][2nd][|[end]]]
-        # [[1st][2nd][2nd][|[end]]-[name1]|[1st][2nd][2nd][|[end]] [name1]|[1st][2nd][2nd][|[end]] [name1]]
+        random.choice(
+            [
+                random.choice(["-", " "]).join(
+                    [
+                        "".join(
+                            [
+                                random.choice(first),
+                                random.choice(second),
+                                random.choice(["", random.choice(end)]),
+                            ]
+                        ),
+                        "".join(
+                            [
+                                random.choice(first),
+                                random.choice(second),
+                                random.choice(["", random.choice(end)]),
+                            ]
+                        ),
+                    ]
+                ),
+                " ".join(
+                    [
+                        random.choice(name2),
+                        "".join(
+                            [
+                                random.choice(first),
+                                random.choice(second),
+                                random.choice(["", random.choice(end)]),
+                            ]
+                        ),
+                    ]
+                ),
+            ]
+        ),
+        random.choice(["-", "-", " "]).join(
+            [
+                random.choice(name1),
+                "".join(
+                    [
+                        random.choice(first),
+                        random.choice(second),
+                        random.choice(second),
+                        random.choice(["", random.choice(end)]),
+                    ]
+                ),
+            ]
+        ),
+        random.choice(["-", " ", " "]).join(
+            [
+                "".join(
+                    [
+                        random.choice(first),
+                        random.choice(second),
+                        random.choice(second),
+                        random.choice(["", random.choice(end)]),
+                    ]
+                ),
+                random.choice(name1),
+            ]
+        ),
     ]
     name5 = [
         "".join(
@@ -3801,7 +4115,41 @@ def old_realm_name():
         ),
         " ".join(
             [
-                # [[1st][2nd][|[end]]-[1st][2nd][2nd][|[end]]|[1st][2nd][|[end]]-[1st][2nd][2nd][|[end]]|[1st][2nd][|[end]]
+                random.choice(
+                    [
+                        "".join(
+                            [
+                                random.choice(first),
+                                random.choice(second),
+                                random.choice(["", random.choice(end)]),
+                                "-",
+                                random.choice(first),
+                                random.choice(second),
+                                random.choice(second),
+                                random.choice(["", random.choice(end)]),
+                            ]
+                        ),
+                        "".join(
+                            [
+                                random.choice(first),
+                                random.choice(second),
+                                random.choice(["", random.choice(end)]),
+                                "-",
+                                random.choice(first),
+                                random.choice(second),
+                                random.choice(second),
+                                random.choice(["", random.choice(end)]),
+                            ]
+                        ),
+                        "".join(
+                            [
+                                random.choice(first),
+                                random.choice(second),
+                                random.choice(["", random.choice(end)]),
+                            ]
+                        ),
+                    ]
+                ),
                 "".join(
                     [
                         random.choice(first),
@@ -3809,7 +4157,7 @@ def old_realm_name():
                         random.choice(second),
                         random.choice(["", random.choice(end)]),
                     ]
-                )
+                ),
             ]
         ),
         " ".join(
@@ -4670,7 +5018,30 @@ def infernal_name():
                 random.choice(end),
             ]
         ),
-        # [[1st][2nd][|[end]]-[1st][|[end]]|[1st][|[end]]-[1st][2nd][|[end]]]
+        random.choice(
+            [
+                "".join(
+                    [
+                        random.choice(first),
+                        random.choice(second),
+                        random.choice(["", random.choice(end)]),
+                        "-",
+                        random.choice(first),
+                        random.choice(["", random.choice(end)]),
+                    ]
+                ),
+                "".join(
+                    [
+                        random.choice(first),
+                        random.choice(["", random.choice(end)]),
+                        "-",
+                        random.choice(first),
+                        random.choice(second),
+                        random.choice(["", random.choice(end)]),
+                    ]
+                ),
+            ]
+        ),
     ]
     name4 = [
         "".join(
@@ -4690,7 +5061,17 @@ def infernal_name():
                 random.choice(end),
             ]
         ),
-        # [1st][2nd][|[end]]-[1st][2nd][|[end]]
+        "".join(
+            [
+                random.choice(first),
+                random.choice(second),
+                random.choice(["", random.choice(end)]),
+                "-",
+                random.choice(first),
+                random.choice(second),
+                random.choice(["", random.choice(end)]),
+            ]
+        ),
     ]
     name5 = [
         "".join(
@@ -4703,8 +5084,30 @@ def infernal_name():
                 random.choice(["", random.choice(end)]),
             ]
         ),
-        # [1st][2nd][|[end]]-[1st][2nd][2nd][|[end]]
-        # [1st][2nd][2nd][|[end]]-[1st][2nd][|[end]]
+        "".join(
+            [
+                random.choice(first),
+                random.choice(second),
+                random.choice(["", random.choice(end)]),
+                "-",
+                random.choice(first),
+                random.choice(second),
+                random.choice(second),
+                random.choice(["", random.choice(end)]),
+            ]
+        ),
+        "".join(
+            [
+                random.choice(first),
+                random.choice(second),
+                random.choice(second),
+                random.choice(["", random.choice(end)]),
+                "-",
+                random.choice(first),
+                random.choice(second),
+                random.choice(["", random.choice(end)]),
+            ]
+        ),
     ]
 
     prompt = [
