@@ -42,7 +42,7 @@ class SolarCreationForm(ExMortalCreationForm):
             choices=zip(CASTE_CHOICES, [x.title() for x in CASTE_CHOICES])
         ),
     )
-    # Anima
+    anima = forms.CharField(max_length=100)
 
 
 class ExaltedAttributeForm(forms.Form):
@@ -367,21 +367,7 @@ class ExaltedIntimacyForm(forms.Form):
     is_negative_3 = forms.BooleanField(required=False)
     is_negative_4 = forms.BooleanField(required=False)
 
-    limit_trigger = forms.CharField(
-        widget=forms.Select(
-            choices=[
-                ("all_consuming_grief", "All-Consuming Grief"),
-                ("berserk_anger", "Berserk Anger"),
-                ("chains_of_honor", "Chains of Honor"),
-                ("compassionate_martyrdom", "Compassionate Martyrdom"),
-                ("contempt_of_the_virtuous", "Contempt of the Virtuous"),
-                ("crushing_doubt", "Crushing Doubt"),
-                ("deliberate_cruelty", "Deliberate Cruelty"),
-                ("heart_of_flint", "Heart of Flint"),
-                ("rampaging_avarice", "Rampaging Avarice"),
-            ]
-        )
-    )
+    limit_trigger = forms.CharField(max_length=100)
 
     def has_intimacies(self):
         self.full_clean()
