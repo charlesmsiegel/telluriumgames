@@ -425,6 +425,7 @@ class SolarCreateView(View):
             name=form.data["name"],
             concept=form.data["concept"],
             caste=form.data["caste"],
+            anima=form.data["anima"],
             owner=request.user,
             status="Un",
             essence=1,

@@ -75,6 +75,8 @@ class Solar(ExMortal):
         max_length=15, choices=zip(CASTE_CHOICES, [x.title() for x in CASTE_CHOICES])
     )
 
+    anima = models.CharField(max_length=100, default="")
+
     caste_abilities = models.JSONField(default=list)
     favored_abilities = models.JSONField(default=list)
     supernal_ability = models.CharField(
@@ -85,21 +87,7 @@ class Solar(ExMortal):
     charms = models.ManyToManyField(SolarCharm, blank=True)
     martial_arts_charms = models.ManyToManyField(MartialArtsCharm, blank=True)
 
-    limit_trigger = models.CharField(
-        max_length=100,
-        default="",
-        choices=[
-            ("all_consuming_grief", "All-Consuming Grief"),
-            ("berserk_anger", "Berserk Anger"),
-            ("chains_of_honor", "Chains of Honor"),
-            ("compassionate_martyrdom", "Compassionate Martyrdom"),
-            ("contempt_of_the_virtuous", "Contempt of the Virtuous"),
-            ("crushing_doubt", "Crushing Doubt"),
-            ("deliberate_cruelty", "Deliberate Cruelty"),
-            ("heart_of_flint", "Heart of Flint"),
-            ("rampaging_avarice", "Rampaging Avarice"),
-        ],
-    )
+    limit_trigger = models.CharField(max_length=100, default="")
 
     class Meta:
         verbose_name = "Solar"
