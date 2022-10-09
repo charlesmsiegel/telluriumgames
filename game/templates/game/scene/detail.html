@@ -49,16 +49,27 @@
             <div class="row">
                 <div class="col-sm">{{ post_form.message }}</div>
             </div>
-            <input type="submit" value="Post"/>
+            <div class="row">
+                <input class="col-sm btn btn-primary" type="submit" value="Post"/>
+                <div class="col-sm"></div>
+                <button class="col-sm btn btn-primary" onClick="window.location.reload();">Refresh</button>
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+            </div>
         </form>
         <form method="post" action="">
             {% csrf_token %}
             {{ add_char_form.character_to_add }}
-            <input type="submit" value="Add"/>
+            <input class="btn btn-primary" type="submit" value="Add"/>
         </form>
         <form class="inlineforms" method="post" action="">
             {% csrf_token %}
-            <input type="submit" value="Close Scene" name="close_scene"/>
+            <input class="btn btn-primary" type="submit" value="Close Scene" name="close_scene"/>
         </form>
     {% endif %}
 </div>
