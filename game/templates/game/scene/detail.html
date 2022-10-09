@@ -51,7 +51,8 @@
             </div>
             <input class="btn btn-primary" type="submit" value="Post"/>
         </form>
-        <button class="btn btn-primary" onClick="window.location.reload();">Refresh</button>
+        <button class="btn btn-primary"
+                onClick="location.href = window.location.href;">Refresh</button>
         <form method="post" action="">
             {% csrf_token %}
             {{ add_char_form.character_to_add }}
@@ -59,7 +60,10 @@
         </form>
         <form class="inlineforms" method="post" action="">
             {% csrf_token %}
-            <input class="btn btn-primary" type="submit" value="Close Scene" name="close_scene"/>
+            <input class="btn btn-primary"
+                   type="submit"
+                   value="Close Scene"
+                   name="close_scene"/>
         </form>
     {% endif %}
 </div>
