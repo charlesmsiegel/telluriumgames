@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from .story import Story
 from django.db import models
 from django.urls import reverse
 
@@ -39,3 +40,9 @@ class Chronicle(models.Model):
 
     def storyteller_list(self):
         return ", ".join([x.username for x in self.storytellers.all()])
+
+    def total_stories(self):
+        return Story.objects.filter(chronicle=self).count()
+
+    def add_story(self, name):
+        return Story.objects.create(name=name, chronicle=self)
