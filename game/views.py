@@ -27,7 +27,7 @@ class ChronicleDetailView(View):
 
     def post(self, request, *args, **kwargs):
         context = self.get_context(kwargs["pk"])
-        return redirect(context['object'].add_story(request.POST["name"]))
+        return redirect(context["object"].add_story(request.POST["name"]))
 
 
 class StoryDetailView(View):
@@ -50,40 +50,31 @@ class StoryDetailView(View):
 
 
 class SceneDetailView(View):
-    def get_context(self, pk, user=None):
+    def get_context(self, pk, user):
+        if not user.is_authenticated:
+            user = None
         scene = Scene.objects.get(pk=pk)
-        if user is not None:
-            p = PostForm(user=user, scene=scene)
-            a = AddCharForm(user=user, scene=scene)
-        else:
-            p = None
-            a = None
         return {
             "object": scene,
             "posts": Post.objects.filter(scene=scene),
-            "post_form": p,
-            "add_char_form": a,
+            "post_form": PostForm(user=user, scene=scene),
+            "add_char_form": AddCharForm(user=user, scene=scene),
         }
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            context = self.get_context(kwargs["pk"], request.user)
-        else:
-            context = self.get_context(kwargs["pk"])
+        context = self.get_context(kwargs["pk"], request.user)
         return render(request, "game/scene/detail.html", context)
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            context = self.get_context(kwargs["pk"], request.user)
-        else:
-            context = self.get_context(kwargs["pk"])
+        context = self.get_context(kwargs["pk"], request.user)
         if "character_to_add" in request.POST.keys():
             c = CharacterModel.objects.get(pk=request.POST["character_to_add"])
             context["object"].add_character(c)
         elif "close_scene" in request.POST.keys():
-            context["object"].finished = True
-            context["object"].save()
+            context["object"].close()
         elif "message" in request.POST.keys():
             character = CharacterModel.objects.get(pk=request.POST["character"])
-            context["object"].add_post(character, request.POST["display_name"], request.POST["message"])
+            context["object"].add_post(
+                character, request.POST["display_name"], request.POST["message"]
+            )
         return render(request, "game/scene/detail.html", context)
