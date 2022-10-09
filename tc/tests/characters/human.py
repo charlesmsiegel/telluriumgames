@@ -47,17 +47,6 @@ class TestHuman(TestCase):
         self.player = User.objects.create(username="Test User")
         self.character = Human.objects.create(name="", owner=self.player)
 
-    def test_set_name(self):
-        self.assertEqual(self.character.name, "")
-        self.assertTrue(self.character.set_name("Test Name"))
-        self.assertEqual(self.character.name, "Test Name")
-
-    def test_has_name(self):
-        self.character.name = ""
-        self.assertFalse(self.character.has_name())
-        self.character.name = "Test"
-        self.assertTrue(self.character.has_name())
-
     def test_add_concept(self):
         self.assertEqual(self.character.concept, "")
         self.assertTrue(self.character.add_concept("Test Concept"))
@@ -75,6 +64,9 @@ class TestHuman(TestCase):
         self.character.short_term_aspiration_2 = "Test 2"
         self.character.long_term_aspiration = "Test 3"
         self.assertTrue(self.character.has_aspirations())
+
+    def test_add_aspiration(self):
+        self.fail()
 
     def test_has_basics(self):
         self.assertFalse(self.character.has_basics())
@@ -108,6 +100,15 @@ class TestHuman(TestCase):
         self.assertTrue(self.character.add_edge(e))
         self.assertEqual(self.character.total_edges(), 2)
         self.assertFalse(self.character.add_edge(e))
+
+    def test_edge_rating(self):
+        self.fail()
+
+    def test_total_path_edges(self):
+        self.fail()
+        
+    def test_get_path_edges(self):
+        self.fail()
 
     def test_total_edges(self):
         e1 = Edge.objects.create(name="Edge 1", ratings=[1, 2])
@@ -178,6 +179,9 @@ class TestHuman(TestCase):
         self.assertGreaterEqual(self.character.total_path_edges(path=p2), 2)
         self.assertGreaterEqual(self.character.total_path_edges(path=p3), 2)
         self.assertTrue(self.character.has_edges(start=True))
+
+    def test_filter_enhanced_edges(self):
+        self.fail()
 
     def test_add_skill(self):
         self.character.science = 0
@@ -648,7 +652,7 @@ class TestHuman(TestCase):
         self.assertEqual(self.character.xp, 921)
         self.assertEqual(self.character.approach, "FIN")
 
-    def test_spent_xp(self):
+    def test_add_to_spend(self):
         self.character.xp = 100
         self.assertEqual(self.character.spent_xp, "")
         self.assertEqual(self.character.might, 1)
@@ -671,6 +675,35 @@ class TestHuman(TestCase):
             self.character.get_absolute_url(), f"/tc/characters/{self.character.id}/"
         )
 
+    def test_path_rating(self):
+        self.fail()
+        
+    def test_total_path_rating(self):
+        self.fail()
+
+    def test_spend_xp_attribute(self):
+        self.fail()
+        
+    def test_spend_xp_edge(self):
+        self.fail()
+        
+    def test_spend_xp_enhanced_edge(self):
+        self.fail()
+        
+    def test_spend_xp_skill(self):
+        self.fail()
+        
+    def test_spend_xp_trick(self):
+        self.fail()
+        
+    def test_spend_xp_specialty(self):
+        self.fail()
+        
+    def test_spend_xp_path(self):
+        self.fail()
+        
+    def test_spend_xp_approach(self):
+        self.fail()
 
 class TestRandomHuman(TestCase):
     def setUp(self):
@@ -696,6 +729,9 @@ class TestRandomHuman(TestCase):
             EnhancedEdge.objects.create(
                 name=f"Enhanced {edge.name}", prereqs=[[(edge.name, edge.max_rating)]]
             )
+
+    def test_random_name(self):
+        self.fail()
 
     def test_random_aspirations(self):
         self.assertFalse(self.character.has_aspirations())
@@ -779,7 +815,10 @@ class TestRandomHuman(TestCase):
             pass
         self.assertEqual(self.character.total_edges(), num + 1)
 
-    def test_random_template_choices(self):
+    def test_random_edges(self):
+        self.fail()
+
+    def test_apply_random_template(self):
         attributes = self.character.total_attributes()
         edges = self.character.total_edges()
         self.character.apply_random_template()
@@ -822,6 +861,15 @@ class TestEdge(TestCase):
             name="Test Character", owner=User.objects.get(username="Test User"),
         )
 
+    def test_save(self):
+        self.fail()
+        
+    def test_check_prereqs(self):
+        self.fail()
+        
+    def test_count_prereqs(self):
+        self.fail()
+
     def test_prereq_or(self):
         edge = Edge.objects.create(
             name="Prereq Testing",
@@ -836,6 +884,13 @@ class TestEdge(TestCase):
         self.character.science = 2
         self.assertTrue(edge.check_prereqs(self.character))
 
+
+class TestEnhancedEdge(TestCase):
+    def test_check_prereqs(self):
+        self.fail()
+        
+    def test_count_prereqs(self):
+        self.fail()
 
 class TestHumanDetailView(TestCase):
     def setUp(self) -> None:
@@ -924,3 +979,11 @@ class TestIndexView(TestCase):
             self.assertContains(response, f"Player {i}")
         for status in Human.statuses:
             self.assertContains(response, status)
+
+
+class TestPrereqSatisfiedFunctions(TestCase):
+    def test_prereq_satisfied(self):
+        self.fail()
+        
+    def test_check_prereqs(self):
+        self.fail()

@@ -50,30 +50,30 @@ class TestPower(TestCase):
         self.assertEqual(self.power.num_dice(self.character), 6)
 
     def test_set_range(self):
-        self.assertTrue(self.power.set_action_type("personal"))
-        self.assertEqual(self.power.action_type, "personal")
-        self.assertTrue(self.power.set_action_type("close"))
-        self.assertEqual(self.power.action_type, "close")
-        self.assertTrue(self.power.set_action_type("short"))
-        self.assertEqual(self.power.action_type, "short")
-        self.assertTrue(self.power.set_action_type("medium"))
-        self.assertEqual(self.power.action_type, "medium")
-        self.assertTrue(self.power.set_action_type("long"))
-        self.assertEqual(self.power.action_type, "long")
-        self.assertTrue(self.power.set_action_type("extreme"))
-        self.assertEqual(self.power.action_type, "extreme")
-        self.assertTrue(self.power.set_action_type("visual"))
-        self.assertEqual(self.power.action_type, "visual")
+        self.assertTrue(self.power.set_range("personal"))
+        self.assertEqual(self.power.range, "personal")
+        self.assertTrue(self.power.set_range("close"))
+        self.assertEqual(self.power.range, "close")
+        self.assertTrue(self.power.set_range("short"))
+        self.assertEqual(self.power.range, "short")
+        self.assertTrue(self.power.set_range("medium"))
+        self.assertEqual(self.power.range, "medium")
+        self.assertTrue(self.power.set_range("long"))
+        self.assertEqual(self.power.range, "long")
+        self.assertTrue(self.power.set_range("extreme"))
+        self.assertEqual(self.power.range, "extreme")
+        self.assertTrue(self.power.set_range("visual"))
+        self.assertEqual(self.power.range, "visual")
 
     def test_duration_choices(self):
-        self.assertTrue(self.power.set_action_type("instantaneous"))
-        self.assertEqual(self.power.action_type, "instantaneous")
-        self.assertTrue(self.power.set_action_type("concentration"))
-        self.assertEqual(self.power.action_type, "concentration")
-        self.assertTrue(self.power.set_action_type("maintained"))
-        self.assertEqual(self.power.action_type, "maintained")
-        self.assertTrue(self.power.set_action_type("continuous"))
-        self.assertEqual(self.power.action_type, "continuous")
+        self.assertTrue(self.power.set_duration("instantaneous"))
+        self.assertEqual(self.power.duration, "instantaneous")
+        self.assertTrue(self.power.set_duration("concentration"))
+        self.assertEqual(self.power.duration, "concentration")
+        self.assertTrue(self.power.set_duration("maintained"))
+        self.assertEqual(self.power.duration, "maintained")
+        self.assertTrue(self.power.set_duration("continuous"))
+        self.assertEqual(self.power.duration, "continuous")
 
     def test_cost_and_reduced_price_tag(self):
         self.assertTrue(self.character.add_power(self.power))
@@ -85,6 +85,8 @@ class TestPower(TestCase):
         self.assertFalse(self.character.add_tag(self.power, self.tag))
         self.assertEqual(self.character.power_cost(self.power), 0)
 
+    def test_minimum_quantum_for_next_dot(self):
+        self.fail()
 
 class TestAberrant(TestCase):
     def setUp(self):
@@ -650,6 +652,47 @@ class TestAberrant(TestCase):
         self.character.add_mega_attribute("composure")
         self.assertIn(ee, self.character.enhanced_edges.all())
 
+    def test_total_mega_attribute(self):
+        self.fail()
+        
+    def test_total_mega_edges(self):
+        self.fail()
+        
+    def test_mega_edge_rating(self):
+        self.fail()
+        
+    def test_total_powers(self):
+        self.fail()
+        
+    def test_power_rating(self):
+        self.fail()
+        
+    def test_get_tags(self):
+        self.fail()
+        
+    def test_tag_rating(self):
+        self.fail()
+        
+    def test_update_quantum_points(self):
+        self.fail()
+        
+    def test_reset_flux(self):
+        self.fail()
+        
+    def test_spend_xp_mega_attribute(self):
+        self.fail()
+        
+    def test_spend_xp_mega_edge(self):
+        self.fail()
+        
+    def test_spend_xp_power(self):
+        self.fail()
+        
+    def test_spend_xp_tag(self):
+        self.fail()
+    
+    def test_spend_xp_quantum(self):
+        self.fail()
 
 class TestRandomAberrant(TestCase):
     def setUp(self):
@@ -756,7 +799,7 @@ class TestRandomAberrant(TestCase):
         self.character.random_mega_edge(dots=1)
         self.assertEqual(self.character.total_mega_edges(), num + 1)
 
-    def test_random_power_tag(self):
+    def test_random_tag(self):
         self.character.random_power()
         p = self.character.powers.first()
         self.assertEqual(len(self.character.get_tags(p)), 0)
@@ -768,12 +811,15 @@ class TestRandomAberrant(TestCase):
         self.character.random_power()
         self.assertEqual(self.character.total_powers(), num + 1)
 
-    def test_random_template_choices(self):
+    def test_apply_random_template(self):
         self.character.random_attributes()
         self.character.random_paths()
         self.assertFalse(self.character.has_template())
         self.character.apply_random_template()
         self.assertTrue(self.character.has_template())
+
+    def test_random_transformation(self):
+        self.fail()
 
     def test_random_spend_xp(self):
         self.character.xp = 15
@@ -818,3 +864,20 @@ class TestAberrantDetailView(TestCase):
     def test_mortal_detail_view_template(self):
         response = self.client.get(f"/tc/characters/{self.character.id}/")
         self.assertTemplateUsed(response, "tc/characters/aberrant/aberrant/detail.html")
+
+
+class TestMegaEdge(TestCase):
+    def test_check_prereqs(self):
+        self.fail()
+
+
+class TestTag(TestCase):
+    def test_save(self):
+        self.fail()
+
+class TestAberrantPrereqs(TestCase):
+    def test_aberrant_prereq_satisfied(self):
+        self.fail()
+        
+    def test_aberrant_check_prereqs(self):
+        self.fail()

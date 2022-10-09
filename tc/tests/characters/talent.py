@@ -27,6 +27,9 @@ class TestTalent(TestCase):
         self.character.moment_of_inspiration = m
         self.assertTrue(self.character.has_moment_of_inspiration())
 
+    def test_has_template(self):
+        self.fail()
+
     def test_add_facet(self):
         self.assertEqual(self.character.inspiration, 1)
         self.assertTrue(self.character.add_facet("Intuitive"))
@@ -147,6 +150,12 @@ class TestTalent(TestCase):
         )
         self.assertEqual(len(self.character.filter_gifts(keyword="luck", path=None)), 1)
 
+    def test_total_gifts(self):
+        self.fail()
+        
+    def test_total_facets(self):
+        self.fail()
+
     def test_xp_cost(self):
         self.assertEqual(self.character.xp_cost("attribute"), 10)
         self.assertEqual(self.character.xp_cost("edge"), 3)
@@ -252,7 +261,7 @@ class TestRandomTalent(TestCase):
         self.character.random_gifts()
         self.assertTrue(self.character.has_gifts())
 
-    def test_random_template_choices(self):
+    def test_apply_random_template(self):
         self.character.random_attributes()
         self.character.random_paths()
         for skill in self.character.get_skills():
@@ -270,6 +279,9 @@ class TestRandomTalent(TestCase):
         self.assertFalse(self.character.has_moment_of_inspiration())
         self.character.random_moment_of_inspiration()
         self.assertTrue(self.character.has_moment_of_inspiration())
+
+    def test_random_path(self):
+        self.fail()
 
     def test_random(self):
         character = Talent.objects.create(owner=self.player)
@@ -313,3 +325,8 @@ class TestTalentDetailView(TestCase):
     def test_talent_detail_view_template(self):
         response = self.client.get(f"/tc/characters/{self.character.id}/")
         self.assertTemplateUsed(response, "tc/characters/talent/talent/detail.html")
+
+
+class TestGift(TestCase):
+    def test_check_prereqs(self):
+        self.fail()

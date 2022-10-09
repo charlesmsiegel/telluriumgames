@@ -707,6 +707,14 @@ class Power(Model):
         self.dicepool = dicepool
         return True
 
+    def set_duration(self, duration):
+        self.duration = duration
+        return True
+
+    def set_range(self, range):
+        self.range = range
+        return True
+
     def set_action_type(self, action_type):
         self.action_type = action_type
         return True
