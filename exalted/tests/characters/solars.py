@@ -50,78 +50,87 @@ class TestSolar(TestCase):
         self.solar.set_caste("dawn")
         self.assertTrue(self.solar.has_caste())
 
-    def test_caste_abilities(self):
-        self.solar.set_caste("dawn")
-        self.assertEqual(
-            self.solar.caste_ability_dict[self.solar.caste],
-            [
-                "archery",
-                "awareness",
-                "brawl",
-                "martial_arts",
-                "dodge",
-                "melee",
-                "resistance",
-                "thrown",
-                "war",
-            ],
-        )
-        self.solar.set_caste("zenith")
-        self.assertEqual(
-            self.solar.caste_ability_dict[self.solar.caste],
-            [
-                "athletics",
-                "integrity",
-                "performance",
-                "lore",
-                "presence",
-                "resistance",
-                "survival",
-                "war",
-            ],
-        )
-        self.solar.set_caste("twilight")
-        self.assertEqual(
-            self.solar.caste_ability_dict[self.solar.caste],
-            [
-                "bureaucracy",
-                "craft",
-                "integrity",
-                "investigation",
-                "linguistics",
-                "lore",
-                "medicine",
-                "occult",
-            ],
-        )
-        self.solar.set_caste("night")
-        self.assertEqual(
-            self.solar.caste_ability_dict[self.solar.caste],
-            [
-                "athletics",
-                "awareness",
-                "dodge",
-                "investigation",
-                "larceny",
-                "ride",
-                "stealth",
-                "socialize",
-            ],
-        )
-        self.solar.set_caste("eclipse")
-        self.assertEqual(
-            self.solar.caste_ability_dict[self.solar.caste],
-            [
-                "bureaucracy",
-                "larceny",
-                "linguistics",
-                "occult",
-                "presence",
-                "ride",
-                "sail",
-                "socialize",
-            ],
-        )
+    def test_set_caste_abilities(self):
+        self.fail()
+        
+    def test_add_caste_ability(self):
+        self.fail()
+        
+    def test_has_caste_abilities(self):
+        self.fail()
+
+    # def test_caste_abilities(self):
+    #     self.solar.set_caste("dawn")
+    #     self.assertEqual(
+    #         self.solar.caste_ability_dict[self.solar.caste],
+    #         [
+    #             "archery",
+    #             "awareness",
+    #             "brawl",
+    #             "martial_arts",
+    #             "dodge",
+    #             "melee",
+    #             "resistance",
+    #             "thrown",
+    #             "war",
+    #         ],
+    #     )
+    #     self.solar.set_caste("zenith")
+    #     self.assertEqual(
+    #         self.solar.caste_ability_dict[self.solar.caste],
+    #         [
+    #             "athletics",
+    #             "integrity",
+    #             "performance",
+    #             "lore",
+    #             "presence",
+    #             "resistance",
+    #             "survival",
+    #             "war",
+    #         ],
+    #     )
+    #     self.solar.set_caste("twilight")
+    #     self.assertEqual(
+    #         self.solar.caste_ability_dict[self.solar.caste],
+    #         [
+    #             "bureaucracy",
+    #             "craft",
+    #             "integrity",
+    #             "investigation",
+    #             "linguistics",
+    #             "lore",
+    #             "medicine",
+    #             "occult",
+    #         ],
+    #     )
+    #     self.solar.set_caste("night")
+    #     self.assertEqual(
+    #         self.solar.caste_ability_dict[self.solar.caste],
+    #         [
+    #             "athletics",
+    #             "awareness",
+    #             "dodge",
+    #             "investigation",
+    #             "larceny",
+    #             "ride",
+    #             "stealth",
+    #             "socialize",
+    #         ],
+    #     )
+    #     self.solar.set_caste("eclipse")
+    #     self.assertEqual(
+    #         self.solar.caste_ability_dict[self.solar.caste],
+    #         [
+    #             "bureaucracy",
+    #             "larceny",
+    #             "linguistics",
+    #             "occult",
+    #             "presence",
+    #             "ride",
+    #             "sail",
+    #             "socialize",
+    #         ],
+    #     )
 
     def test_add_favored_ability(self):
         self.solar.add_favored_ability("occult")
@@ -188,6 +197,9 @@ class TestSolar(TestCase):
         self.assertTrue(
             self.solar.add_charm(MartialArtsCharm.objects.get(name="Snake Charm 0"))
         )
+        
+    def test_total_charms(self):
+        self.fail()
 
     def test_has_charms(self):
         self.assertFalse(self.solar.has_charms())
@@ -232,7 +244,7 @@ class TestSolar(TestCase):
         self.solar.essence = 1
         self.assertTrue(self.solar.has_finishing_touches())
 
-    def test_bonus_point_costs(self):
+    def test_bonus_cost(self):
         self.assertEqual(self.solar.bonus_cost("primary attribute"), 4)
         self.assertEqual(self.solar.bonus_cost("secondary attribute"), 4)
         self.assertEqual(self.solar.bonus_cost("tertiary attribute"), 3)
@@ -249,8 +261,14 @@ class TestSolar(TestCase):
         self.solar.add_favored_ability("occult")
         self.assertEqual(self.solar.bonus_cost("spell"), 4)
         self.assertEqual(self.solar.bonus_cost("evocation"), 4)
+        
+    def test_random_bonus_functions(self):
+        self.fail()
+        
+    def test_spend_bonus_points(self):
+        self.fail()
 
-    def test_xp_costs(self):
+    def test_xp_cost(self):
         self.assertEqual(self.solar.xp_cost("attribute"), 4)
         self.assertEqual(self.solar.xp_cost("new ability"), 3)
         self.assertEqual(self.solar.xp_cost("ability"), 2)
@@ -272,16 +290,31 @@ class TestSolar(TestCase):
         self.assertEqual(self.solar.xp_cost("favored charm"), 8)
         self.assertEqual(self.solar.xp_cost("charm"), 10)
 
+    def test_random_xp_functions(self):
+        self.fail()
+        
+    def test_spend_xp(self):
+        self.fail()
+        
+    def test_charm_dict(self):
+        self.fail()
+
 
 class TestRandomSolar(TestCase):
     def setUp(self):
         self.solar = Solar.objects.create(name="Test Solar")
         solar_setup()
 
+    def test_random_name(self):
+        self.fail()
+
     def test_random_caste(self):
         self.assertFalse(self.solar.has_caste())
         self.solar.random_caste()
         self.assertTrue(self.solar.has_caste())
+
+    def test_random_favored_ability(self):
+        self.fail()
 
     def test_random_favored_abilities(self):
         self.assertFalse(self.solar.has_favored_abilities())
@@ -309,6 +342,12 @@ class TestRandomSolar(TestCase):
         self.assertFalse(self.solar.has_limit_trigger())
         self.solar.random_limit_trigger()
         self.assertTrue(self.solar.has_limit_trigger())
+
+    def test_random_bonus_charm(self):
+        self.fail()
+        
+    def test_random_xp_charm(self):
+        self.fail()
 
     def test_random(self):
         self.solar.name = ""
