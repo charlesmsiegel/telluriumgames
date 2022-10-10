@@ -592,6 +592,7 @@ class Human(Character):
     def add_willpower(self):
         return add_dot(self, "willpower", 10)
 
+
     def add_random_language(self):
         d = {
             l.name: l.frequency

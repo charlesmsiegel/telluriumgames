@@ -17,6 +17,7 @@ from wod.models.characters.mage import (
     Practice,
     Resonance,
 )
+from wod.models.characters.mage.mtahuman import MtAHuman
 from wod.models.characters.mage.resonance import ResRating
 from wod.models.characters.mage.utils import ABILITY_LIST
 from wod.models.locations.mage import NodeMeritFlaw
@@ -105,12 +106,12 @@ def mage_setup(player):
         Language.objects.create(name=f"Language {i}", frequency=i)
 
 
-class TestMage(TestCase):
+class TestMtAHuman(TestCase):
     def setUp(self):
         self.player = User.objects.create_user(username="Test")
-        self.character = Mage.objects.create(name="", owner=self.player)
+        self.character = MtAHuman.objects.create(name="", owner=self.player)
         mage_setup(self.player)
-
+        
     def set_abilities(self):
         self.character.alertness = 1
         self.character.art = 2
@@ -589,6 +590,30 @@ class TestMage(TestCase):
                 "vice": 0,
             },
         )
+
+    def test_get_backgrounds(self):
+        self.fail()
+
+class TestMage(TestCase):
+    def setUp(self):
+        self.player = User.objects.create_user(username="Test")
+        self.character = Mage.objects.create(name="", owner=self.player)
+        mage_setup(self.player)
+
+    def set_abilities(self):
+        self.character.alertness = 1
+        self.character.art = 2
+        self.character.empathy = 3
+        self.character.streetwise = 2
+        self.character.firearms = 3
+        self.character.melee = 4
+        self.character.stealth = 2
+        self.character.technology = 1
+        self.character.cosmology = 3
+        self.character.law = 2
+        self.character.area_knowledge = 1
+        self.character.belief_systems = 1
+        self.character.cryptography = 1
 
     def test_do_is_akashic_only(self):
         self.character.awareness = 2
@@ -1150,6 +1175,26 @@ class TestMage(TestCase):
         self.assertNotEqual(self.character.quiet, 0)
         self.assertNotEqual(self.character.quiet_type, "none")
 
+    def test_count_limbs(self):
+        self.fail()
+        
+    def test_resonance_rating(self):
+        self.fail()
+        
+    def test_has_specialties(self):
+        self.fail()
+        
+    def test_has_library(self):
+        self.fail()
+        
+    def test_has_node(self):
+        self.fail()
+        
+    def test_random_freebie_functions(self):
+        self.fail()
+        
+    def test_random_xp_functions(self):
+        self.fail()
 
 class TestRandomMage(TestCase):
     def setUp(self):
@@ -1302,6 +1347,35 @@ class TestRandomMage(TestCase):
         else:
             self.assertFalse(self.character.has_library())
 
+    def test_choose_random_resonance(self):
+        self.fail()
+        
+    def test_random_mage_history(self):
+        self.fail()
+
+    def test_random_xp_sphere(self):
+        self.fail()
+        
+    def test_random_xp_arete(self):
+        self.fail()
+        
+    def test_random_xp_rote_points(self):
+        self.fail()
+        
+    def test_random_freebies_sphere(self):
+        self.fail()
+        
+    def test_random_freebies_quintessence(self):
+        self.fail()
+        
+    def test_random_freebies_rote_points(self):
+        self.fail()
+        
+    def test_random_freebies_resonance(self):
+        self.fail()
+        
+    def test_random_freebies_arete(self):
+        self.fail()
 
 class TestCabal(TestCase):
     def setUp(self):
@@ -1316,7 +1390,7 @@ class TestCabal(TestCase):
         self.assertEqual(cabal.members.count(), 5)
         self.assertIsNotNone(cabal.leader)
 
-    def test_random_cabal(self):
+    def test_random(self):
         cabal = Cabal.objects.create(name="Cabal 1")
         cabal.random(num_chars=5, new_characters=False)
         self.assertEqual(cabal.members.count(), 5)
@@ -1347,6 +1421,12 @@ class TestMageFaction(TestCase):
         self.assertEqual(len(faction.affinities), 4)
         faction.affinities.pop()
         self.assertEqual(len(faction.affinities), 3)
+        
+    def test_get_all_paradigms(self):
+        self.fail()
+        
+    def test_get_all_practices(self):
+        self.fail()
 
     def test_str(self):
         faction = MageFaction.objects.create(name="Faction 1", parent=None)
@@ -1377,6 +1457,21 @@ class TestParadigm(TestCase):
         paradigm = Paradigm.objects.create(name="Paradigm 1")
         self.assertEqual(str(paradigm), "Paradigm 1")
 
+
+class TestEffect(TestCase):
+    def test_save(self):
+        self.fail()
+        
+    def test_is_learnable(self):
+        self.fail()
+
+class TestRandomRote(TestCase):
+    def test_save(self):
+        self.fail()
+
+    def test_random(self):
+        self.fail()
+        
 
 class TestMageDetailView(TestCase):
     def setUp(self) -> None:

@@ -1,5 +1,3 @@
-from glob import glob1
-
 from django.contrib.auth.models import User
 from django.test import TestCase
 
@@ -14,6 +12,7 @@ from wod.models.characters.werewolf import (
     Tribe,
     Werewolf,
 )
+from wod.models.characters.werewolf.wtahuman import WtAHuman
 from wod.models.items.werewolf import Fetish
 
 
@@ -73,6 +72,13 @@ def werewolf_setup(player):
         Fetish.objects.create(name=f"Fetish {i+18}", rank=i, gnosis=i)
         Fetish.objects.create(name=f"Fetish {i+24}", rank=i, gnosis=i)
 
+class TestWerewolf(TestCase):
+    def setUp(self):
+        self.player = User.objects.create_user(username="Player")
+        self.character = WtAHuman.objects.create(
+            name="Test WtAHuman", owner=self.player
+        )
+        werewolf_setup(self.player)
 
 class TestWerewolf(TestCase):
     def setUp(self):
