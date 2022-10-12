@@ -66,6 +66,8 @@ def random_name(gender, ethnicity="English"):
         return n
     except KeyError:
         return f"Random Name {randint(0, 100000000000)}"
+    except requests.ReadTimeout:
+        return f"Random Name {randint(0, 100000000000)}"
 
 
 def random_ethnicity():
