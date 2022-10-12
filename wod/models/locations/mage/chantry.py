@@ -332,8 +332,20 @@ class Chantry(Location):
         self.random_chantry_type()
         self.random_rank(rank=rank)
         self.random_populate()
+        tmp = self.faction
+        f = [tmp.name]
+        while tmp.parent is not None:
+            tmp = tmp.parent
+            f.append(tmp.name)
         while self.points - self.points_spent() > 1:
-            choice = weighted_choice(self.get_traits())
+            d = self.get_traits()
+            if "Technocratic Union" not in f:
+                d = {
+                    k: v
+                    for k, v in d.items()
+                    if k not in ["requisitions", "enhancement"]
+                }
+            choice = weighted_choice(d)
             if self.trait_cost(choice) <= self.points - self.points_spent():
                 if choice != "node_rating":
                     add_dot(self, choice, maximum=10)
