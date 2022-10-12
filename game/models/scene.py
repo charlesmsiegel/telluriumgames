@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
+
 from .post import Post
+
 
 # Create your models here.
 class Scene(models.Model):
@@ -32,10 +34,10 @@ class Scene(models.Model):
     def close(self):
         self.finished = True
         self.save()
-        
+
     def total_characters(self):
         return self.characters.count()
-    
+
     def add_character(self, character):
         self.characters.add(character)
         if character.npc:
@@ -43,11 +45,13 @@ class Scene(models.Model):
         else:
             self.story.pcs.add(character)
         return character
-    
+
     def total_posts(self):
         return Post.objects.filter(scene=self).count()
-    
+
     def add_post(self, character, display, message):
         if display == "":
             display = character.name
-        return Post.objects.create(character=character, message=message, display_name=display, scene=self)
+        return Post.objects.create(
+            character=character, message=message, display_name=display, scene=self
+        )

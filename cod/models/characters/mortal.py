@@ -6,7 +6,7 @@ from django.db import models
 from django.shortcuts import reverse
 from polymorphic.models import PolymorphicModel
 
-from core.models import CharacterModel, Language, Model
+from core.models import CharacterModel, Language, Model, ModelWithPrereqs
 from core.utils import add_dot, random_ethnicity, random_name, weighted_choice
 
 
@@ -787,13 +787,12 @@ class Mortal(CharacterModel):
         self.save()
 
 
-class CoDMerit(Model):
+class CoDMerit(ModelWithPrereqs):
     type = "merit"
 
     ratings = models.JSONField(default=list)
     min_rating = models.IntegerField(default=0)
     max_rating = models.IntegerField(default=0)
-    prereqs = models.JSONField(default=list)
     requires_detail = models.BooleanField(default=False)
     possible_details = models.JSONField(default=list)
     merit_type = models.CharField(max_length=100, default="")
@@ -873,25 +872,6 @@ class CoDMerit(Model):
             if character.morality_name == prereq[1]:
                 return True
         return False
-
-    def check_prereqs(self, character):
-        if len(self.prereqs) == 0:
-            return True
-        for prereq_set in self.prereqs:
-            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
-            if all(prereqs):
-                return True
-        return False
-
-    def count_prereqs(self, character):
-        if len(self.prereqs) == 0:
-            return 0
-        sets = []
-        for prereq_set in self.prereqs:
-            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
-            prereqs = [x for x in prereqs if x]
-            sets.append(len(prereqs))
-        return max(sets)
 
     def filter_details(self, character):
         possible_details = self.possible_details

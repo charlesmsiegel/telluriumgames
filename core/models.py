@@ -202,6 +202,36 @@ class Model(PolymorphicModel):
         return self
 
 
+class ModelWithPrereqs(Model):
+    prereqs = models.JSONField(default=list)
+
+    class Meta:
+        verbose_name = "Model with Prereqs"
+        verbose_name_plural = "Models with Prereqs"
+
+    def check_prereqs(self, character):
+        if len(self.prereqs) == 0:
+            return True
+        for prereq_set in self.prereqs:
+            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
+            if all(prereqs):
+                return True
+        return False
+
+    def count_prereqs(self, character):
+        if len(self.prereqs) == 0:
+            return 0
+        sets = []
+        for prereq_set in self.prereqs:
+            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
+            prereqs = [x for x in prereqs if x]
+            sets.append(len(prereqs))
+        return max(sets)
+
+    def prereq_satisfied(self, prereq, character):
+        return False
+
+
 class CharacterModel(Model):
     npc = models.BooleanField(default=False)
 

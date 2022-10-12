@@ -167,10 +167,12 @@ class TestSolar(TestCase):
         c1 = SolarCharm.objects.get(name="War Charm 0")
         c2 = SolarCharm.objects.get(name="War Charm 1")
         c3 = SolarCharm.objects.create(
-            name="Advanced War Charm", statistic="war", min_statistic=2, min_essence=1,
+            name="Advanced War Charm",
+            statistic="war",
+            min_statistic=2,
+            min_essence=1,
+            prereqs=[[("War Charm 0", 1)]],
         )
-        c3.prerequisites.add(c1)
-        c3.save()
         count = self.solar.charms.count()
         self.assertFalse(self.solar.add_charm(c2))
         self.solar.war = 2
@@ -208,12 +210,15 @@ class TestSolar(TestCase):
         self.assertTrue(self.solar.has_charms())
 
     def test_filter_charms(self):
-        self.assertEqual(len(self.solar.filter_charms()), 52)
+        self.assertEqual(len(self.solar.filter_charms()), 50)
         self.solar.war = 2
         self.solar.essence = 1
-        self.assertEqual(len(self.solar.filter_charms()), 54)
+        self.assertEqual(len(self.solar.filter_charms()), 52)
         self.solar.essence = 2
-        self.assertEqual(len(self.solar.filter_charms()), 56)
+        self.assertEqual(len(self.solar.filter_charms()), 54)
+        ma, _ = ExMerit.objects.get_or_create(name="Martial Artist", ratings=[4])
+        self.solar.merits.add(ma)
+        self.assertEqual(len(self.solar.filter_charms()), 60)
 
     def test_set_limit_trigger(self):
         self.assertFalse(self.solar.has_limit_trigger())

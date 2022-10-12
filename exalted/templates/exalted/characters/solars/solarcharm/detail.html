@@ -12,7 +12,9 @@
         </div>
         <div class="row">
             <div class="col-sm">Requirements</div>
-            <div class="col-sm">{{ object.get_statistic_display }} {{ object.min_statistic }}, Essence {{ object.min_essence }}</div>
+            <div class="col-sm">
+                {{ object.get_statistic_display }} {{ object.min_statistic }}, Essence {{ object.min_essence }}
+            </div>
         </div>
         <div class="row">
             <div class="col-sm">Type</div>
@@ -29,6 +31,7 @@
         <div class="row">
             <div class="col-sm">Prerequisites</div>
         </div>
-        {% for prereq in object.prerequisites.all %}<a href="{{ prereq.get_absolute_url }}">{{ prereq }}</a>{% endfor %}
+        {{ object.prereq_display|safe }}
+        {% comment %} {% for prereq in object.prereqs %}{{ prereq }}{% endfor %} {% endcomment %}
     </div>
 {% endblock contents %}

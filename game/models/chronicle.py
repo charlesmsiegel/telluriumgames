@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
-from .story import Story
 from django.db import models
 from django.urls import reverse
+
+from .story import Story
 
 
 # Create your models here.
