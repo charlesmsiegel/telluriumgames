@@ -3,13 +3,13 @@ import random
 from django.db import models
 from django.urls import reverse
 
-from core.models import Model
+from core.models import Model, ModelWithPrereqs
 from core.utils import add_dot, weighted_choice
 from exalted.models.characters.utils import ABILITIES
 
 
 # Create your models here.
-class Charm(Model):
+class Charm(ModelWithPrereqs):
     type = "charm"
 
     statistic = models.CharField(
@@ -34,10 +34,8 @@ class Charm(Model):
     duration = models.CharField(max_length=20, default="")
 
     keywords = models.JSONField(default=list)
-    prerequisites = models.ManyToManyField("self", blank=True, symmetrical=False)
 
     class Meta:
-        abstract = True
         verbose_name = "Charm"
         verbose_name_plural = "Charms"
 
@@ -70,18 +68,42 @@ class Charm(Model):
         return ", ".join(costs)
 
     def check_essence(self, character):
+        if hasattr(character, "supernal_ability"):
+            if self.statistic == character.supernal_ability:
+                return 5 >= self.min_essence
         return getattr(character, "essence") >= self.min_essence
 
-    def check_prerequisites(self, character):
-        statistic = getattr(character, self.statistic) >= self.min_statistic
-        essence = self.check_essence(character)
-        prereq_charms = True
-        for prereq_charm in self.prerequisites.all():
-            if character.charms.filter(pk=prereq_charm.id).exists():
-                prereq_charms = prereq_charms and True
-            else:
-                prereq_charms = False
-        return statistic and essence and prereq_charms
+    def check_ability(self, character):
+        if self.statistic == "martial_arts":
+            return (
+                getattr(character, self.statistic) >= self.min_statistic
+            ) and character.merits.filter(name="Martial Artist").count() > 0
+        return getattr(character, self.statistic) >= self.min_statistic
+
+    def prereq_satisfied(self, prereq, character):
+        if character.charms.filter(name=prereq[0]).count() >= 1:
+            return True
+        return False
+
+    def check_prereqs(self, character):
+        if len(self.prereqs) == 0:
+            return self.check_essence(character) and self.check_ability(character)
+        for prereq_set in self.prereqs:
+            prereq_set = [self.prereq_satisfied(x, character) for x in prereq_set]
+            if all(prereq_set):
+                return self.check_essence(character) and self.check_ability(character)
+        return False
+    
+    def prereq_display(self):
+        tmp_prereqs = [x for x in self.prereqs]
+        for i, prereq_set in enumerate(tmp_prereqs):
+            for j, prereq in enumerate(prereq_set):
+                if Charm.objects.filter(name=prereq[0]).count() != 0:
+                    c = Charm.objects.get(name=prereq[0])
+                    prereq_set[j] = f'<a href="{c.get_absolute_url()}">{c.name}</a>'
+            tmp_prereqs[i] = prereq_set
+        tmp_prereqs = [", ".join(x) for x in tmp_prereqs]
+        return " or ".join(tmp_prereqs)
 
 
 class SolarCharm(Charm):
@@ -90,13 +112,6 @@ class SolarCharm(Charm):
     class Meta:
         verbose_name = "Solar Charm"
         verbose_name_plural = "Solar Charms"
-
-    def check_essence(self, character):
-        if self.statistic == character.supernal_ability:
-            essence = 5 >= self.min_essence
-        else:
-            essence = getattr(character, "essence") >= self.min_essence
-        return essence
 
 
 class MartialArtsStyle(Model):
@@ -120,22 +135,6 @@ class MartialArtsCharm(Charm):
     class Meta:
         verbose_name = "Martial Arts Charm"
         verbose_name_plural = "Martial Arts Charms"
-
-    def check_essence(self, character):
-        if hasattr(character, "supernal_ability"):
-            if self.statistic == character.supernal_ability:
-                essence = 5 >= self.min_essence
-            else:
-                essence = getattr(character, "essence") >= self.min_essence
-        else:
-            essence = getattr(character, "essence") >= self.min_essence
-        return essence
-
-    def check_prerequisites(self, character):
-        return (
-            super().check_prerequisites(character)
-            and character.merits.filter(name="Martial Artist").exists()
-        )
 
 
 class DragonBloodedCharm(Charm):

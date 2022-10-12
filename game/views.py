@@ -27,8 +27,7 @@ class ChronicleDetailView(View):
 
     def post(self, request, *args, **kwargs):
         context = self.get_context(kwargs["pk"])
-        s = Story.objects.create(name=request.POST["name"], chronicle=context["object"])
-        return redirect(s)
+        return redirect(context["object"].add_story(request.POST["name"]))
 
 
 class StoryDetailView(View):
@@ -47,18 +46,13 @@ class StoryDetailView(View):
     def post(self, request, *args, **kwargs):
         context = self.get_context(kwargs["pk"])
         loc = LocationModel.objects.get(pk=request.POST["location"])
-        s = Scene.objects.create(
-            name=request.POST["name"],
-            story=context["object"],
-            location=loc,
-            date_played=datetime.date.today(),
-        )
-        s.story.key_locations.add(loc)
-        return redirect(s)
+        return redirect(context["object"].add_scene(request.POST["name"], loc))
 
 
 class SceneDetailView(View):
     def get_context(self, pk, user):
+        if not user.is_authenticated:
+            user = None
         scene = Scene.objects.get(pk=pk)
         return {
             "object": scene,
@@ -75,25 +69,12 @@ class SceneDetailView(View):
         context = self.get_context(kwargs["pk"], request.user)
         if "character_to_add" in request.POST.keys():
             c = CharacterModel.objects.get(pk=request.POST["character_to_add"])
-            if c.npc:
-                context["object"].story.key_npcs.add(c)
-            else:
-                context["object"].story.pcs.add(c)
-            context["object"].characters.add(c)
+            context["object"].add_character(c)
         elif "close_scene" in request.POST.keys():
-            context["object"].finished = True
-            context["object"].save()
+            context["object"].close()
         elif "message" in request.POST.keys():
             character = CharacterModel.objects.get(pk=request.POST["character"])
-            if "display_name" != "":
-                display_name = character.name
-            else:
-                display_name = request.POST["display_name"]
-            message = request.POST["message"]
-            Post.objects.create(
-                character=character,
-                display_name=display_name,
-                message=message,
-                scene=context["object"],
+            context["object"].add_post(
+                character, request.POST["display_name"], request.POST["message"]
             )
         return render(request, "game/scene/detail.html", context)

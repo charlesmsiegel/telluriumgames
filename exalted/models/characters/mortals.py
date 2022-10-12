@@ -5,7 +5,7 @@ from django.db import models
 from django.urls import reverse
 from polymorphic.models import PolymorphicModel
 
-from core.models import CharacterModel, Model
+from core.models import CharacterModel, Model, ModelWithPrereqs
 from core.utils import add_dot, weighted_choice
 
 
@@ -731,7 +731,7 @@ class Intimacy(Model):
         )
 
 
-class ExMerit(Model):
+class ExMerit(ModelWithPrereqs):
     type = "merit"
 
     merit_type = models.CharField(
@@ -745,7 +745,6 @@ class ExMerit(Model):
         default="standard",
     )
     max_rating = models.IntegerField(default=0)
-    prereqs = models.JSONField(default=list)
 
     class Meta:
         verbose_name = "Merit"
@@ -776,25 +775,6 @@ class ExMerit(Model):
                 return False
             return True
         return False
-
-    def check_prereqs(self, character):
-        if len(self.prereqs) == 0:
-            return True
-        for prereq_set in self.prereqs:
-            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
-            if all(prereqs):
-                return True
-        return False
-
-    def count_prereqs(self, character):
-        if len(self.prereqs) == 0:
-            return 0
-        sets = []
-        for prereq_set in self.prereqs:
-            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
-            prereqs = [x for x in prereqs if x]
-            sets.append(len(prereqs))
-        return max(sets)
 
 
 class MeritRating(models.Model):

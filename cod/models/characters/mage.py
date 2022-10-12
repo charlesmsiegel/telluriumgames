@@ -6,7 +6,7 @@ from django.urls import reverse
 
 from cod.models.characters.ephemera import Ephemera
 from cod.models.characters.mortal import CoDMerit, Condition, Mortal
-from core.models import Material, Model
+from core.models import Material, Model, ModelWithPrereqs
 from core.utils import add_dot, weighted_choice
 
 # Create your models here.
@@ -73,10 +73,8 @@ class Order(Model):
         return reverse("cod:characters:mage:update_order", kwargs={"pk": self.pk})
 
 
-class Attainment(Model):
+class Attainment(ModelWithPrereqs):
     type = "attainment"
-
-    prereqs = models.JSONField(default=list)
 
     class Meta:
         verbose_name = "Attainment"
@@ -109,27 +107,8 @@ class Attainment(Model):
             return False
         return False
 
-    def check_prereqs(self, character):
-        if len(self.prereqs) == 0:
-            return True
-        for prereq_set in self.prereqs:
-            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
-            if all(prereqs):
-                return True
-        return False
 
-    def count_prereqs(self, character):
-        if len(self.prereqs) == 0:
-            return 0
-        sets = []
-        for prereq_set in self.prereqs:
-            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
-            prereqs = [x for x in prereqs if x]
-            sets.append(len(prereqs))
-        return max(sets)
-
-
-class Legacy(Model):
+class Legacy(ModelWithPrereqs):
     type = "legacy"
 
     path = models.ForeignKey(Path, null=True, blank=True, on_delete=models.CASCADE)
@@ -150,7 +129,6 @@ class Legacy(Model):
         ],
     )
     is_left_handed = models.BooleanField(default=False)
-    prereqs = models.JSONField(default=list)
     yantras = models.TextField(default="")
     oblations = models.TextField(default="")
     attainments = models.ManyToManyField(Attainment, blank=True)
@@ -171,25 +149,6 @@ class Legacy(Model):
                 return False
             return True
         return False
-
-    def check_prereqs(self, character):
-        if len(self.prereqs) == 0:
-            return True
-        for prereq_set in self.prereqs:
-            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
-            if all(prereqs):
-                return True
-        return False
-
-    def count_prereqs(self, character):
-        if len(self.prereqs) == 0:
-            return 0
-        sets = []
-        for prereq_set in self.prereqs:
-            prereqs = [self.prereq_satisfied(x, character) for x in prereq_set]
-            prereqs = [x for x in prereqs if x]
-            sets.append(len(prereqs))
-        return max(sets)
 
 
 class CoDRote(Model):
