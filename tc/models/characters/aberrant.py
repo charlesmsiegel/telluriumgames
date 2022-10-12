@@ -643,8 +643,36 @@ class MegaEdge(Edge):
             "tc:characters:aberrant:update_mega_edge", kwargs={"pk": self.pk}
         )
 
-    def check_prereqs(self, character):
-        return aberrant_check_prereqs(self, character)
+    def prereq_satisfied(self, prereq, character):
+        if prereq[0] in character.get_attributes().keys():
+            return getattr(character, prereq[0]) >= prereq[1]
+        if prereq[0] in character.get_skills().keys():
+            return getattr(character, prereq[0]) >= prereq[1]
+        if Edge.objects.filter(name=prereq[0]).exists():
+            edge_prereq = Edge.objects.get(name=prereq[0])
+            if edge_prereq.type == "edge":
+                return character.edge_rating(edge_prereq) >= prereq[1]
+        if MegaEdge.objects.filter(name=prereq[0]).exists():
+            edge_prereq = MegaEdge.objects.get(name=prereq[0])
+            if edge_prereq.type == "mega_edge":
+                return character.mega_edge_rating(edge_prereq) >= prereq[1]
+        if prereq[0] == "path":
+            if self in Edge.objects.all():
+                any(
+                    x.rating > prereq[1]
+                    for x in PathRating.objects.filter(character=character)
+                    if self in x.path.edges.all()
+                )
+        if prereq[0] == "quantum":
+            if prereq[1] == "dots":
+                if self in MegaEdge.objects.all():
+                    r = character.mega_edge_rating(self)
+                    req = min(x for x in self.ratings if x > r)
+                    return character.quantum >= req
+                return character.quantum >= prereq[1]
+        if prereq[0] in character.get_mega_attributes().keys():
+            return getattr(character, prereq[0]) >= prereq[1]
+        return False
 
 
 class MegaEdgeRating(models.Model):
@@ -809,45 +837,3 @@ class Transformation(Model):
 
     def __str__(self):
         return f"{self.name} ({self.level})"
-
-
-def aberrant_prereq_satisfied(prereq, character, obj):
-    if prereq[0] in character.get_attributes().keys():
-        return getattr(character, prereq[0]) >= prereq[1]
-    if prereq[0] in character.get_skills().keys():
-        return getattr(character, prereq[0]) >= prereq[1]
-    if Edge.objects.filter(name=prereq[0]).exists():
-        edge_prereq = Edge.objects.get(name=prereq[0])
-        if edge_prereq.type == "edge":
-            return character.edge_rating(edge_prereq) >= prereq[1]
-    if MegaEdge.objects.filter(name=prereq[0]).exists():
-        edge_prereq = MegaEdge.objects.get(name=prereq[0])
-        if edge_prereq.type == "mega_edge":
-            return character.mega_edge_rating(edge_prereq) >= prereq[1]
-    if prereq[0] == "path":
-        if obj in Edge.objects.all():
-            any(
-                x.rating > prereq[1]
-                for x in PathRating.objects.filter(character=character)
-                if obj in x.path.edges.all()
-            )
-    if prereq[0] == "quantum":
-        if prereq[1] == "dots":
-            if obj in MegaEdge.objects.all():
-                r = character.mega_edge_rating(obj)
-                req = min(x for x in obj.ratings if x > r)
-                return character.quantum >= req
-            return character.quantum >= prereq[1]
-    if prereq[0] in character.get_mega_attributes().keys():
-        return getattr(character, prereq[0]) >= prereq[1]
-    return False
-
-
-def aberrant_check_prereqs(obj, character):
-    if len(obj.prereqs) == 0:
-        return True
-    for prereq_set in obj.prereqs:
-        prereqs = [aberrant_prereq_satisfied(x, character, obj) for x in prereq_set]
-        if all(prereqs):
-            return True
-    return False

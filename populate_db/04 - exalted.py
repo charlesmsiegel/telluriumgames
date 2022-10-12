@@ -305,8 +305,8 @@ celestial_circle_sorcery = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[("Terrestrial Circle Sorcery")]],
 ).add_source("Exalted 3rd Edition", 361)
-celestial_circle_sorcery.prerequisites.add(terrestrial_circle_sorcery)
 solar_circle_sorcery = SolarCharm.objects.create(
     name="Solar Circle Sorcery",
     mote_cost=0,
@@ -325,8 +325,8 @@ solar_circle_sorcery = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(celestial_circle_sorcery.name, 1)]],
 ).add_source("Exalted 3rd Edition", 361)
-solar_circle_sorcery.prerequisites.add(celestial_circle_sorcery)
 
 
 wise_arrow = SolarCharm.objects.create(
@@ -348,8 +348,8 @@ sight_without_eyes = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="tick",
+    prereqs=[[(wise_arrow.name, 1)]],
 ).add_source("Exalted 3rd Edition", 255)
-sight_without_eyes.prerequisites.add(wise_arrow)
 blood_without_balance = SolarCharm.objects.create(
     name="Blood Without Balance",
     mote_cost=3,
@@ -359,8 +359,8 @@ blood_without_balance = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="instant",
+    prereqs=[[(sight_without_eyes.name, 1)]],
 ).add_source("Exalted 3rd Edition", 256)
-blood_without_balance.prerequisites.add(sight_without_eyes)
 force_without_fire = SolarCharm.objects.create(
     name="Force Without Fire",
     mote_cost=3,
@@ -370,8 +370,8 @@ force_without_fire = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["withering-only"],
     duration="instant",
+    prereqs=[[(sight_without_eyes.name, 1)]],
 ).add_source("Exalted 3rd Edition", 256)
-force_without_fire.prerequisites.add(sight_without_eyes)
 trance_of_unhesitating_speed = SolarCharm.objects.create(
     name="Trance of Unhesitating Speed",
     mote_cost=4,
@@ -382,8 +382,8 @@ trance_of_unhesitating_speed = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="instant",
+    prereqs=[[(wise_arrow.name, 1)]],
 ).add_source("Exalted 3rd Edition", 256)
-trance_of_unhesitating_speed.prerequisites.add(wise_arrow)
 phantom_arrow_technique = SolarCharm.objects.create(
     name="Phantom Arrow Technique",
     mote_cost=1,
@@ -403,8 +403,8 @@ fiery_arrow_attack = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["decisive-only"],
     duration="instant",
+    prereqs=[[(phantom_arrow_technique.name, 1)]],
 ).add_source("Exalted 3rd Edition", 257)
-fiery_arrow_attack.prerequisites.add(phantom_arrow_technique)
 there_is_no_wind = SolarCharm.objects.create(
     name="There Is No Wing",
     mote_cost=3,
@@ -414,8 +414,8 @@ there_is_no_wind = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["dual"],
     duration="instant",
+    prereqs=[[(sight_without_eyes.name, 1)]],
 ).add_source("Exalted 3rd Edition", 257)
-there_is_no_wind.prerequisites.add(sight_without_eyes)
 accuracy_without_distance = SolarCharm.objects.create(
     name="Accuracy Without Distance",
     mote_cost=1,
@@ -426,8 +426,8 @@ accuracy_without_distance = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="instant",
+    prereqs=[[(force_without_fire.name, 1)]],
 ).add_source("Exalted 3rd Edition", 257)
-accuracy_without_distance.prerequisites.add(force_without_fire)
 arrow_storm_technique = SolarCharm.objects.create(
     name="Arrow Storm Technique",
     mote_cost=5,
@@ -438,8 +438,8 @@ arrow_storm_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="instant",
+    prereqs=[[(trance_of_unhesitating_speed.name, 1)]],
 ).add_source("Exalted 3rd Edition", 257)
-arrow_storm_technique.prerequisites.add(trance_of_unhesitating_speed)
 flashing_vengeance_draw = SolarCharm.objects.create(
     name="Flashing Vengeance Draw",
     mote_cost=3,
@@ -450,8 +450,8 @@ flashing_vengeance_draw = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="instant",
+    prereqs=[[(trance_of_unhesitating_speed.name, 1)]],
 ).add_source("Exalted 3rd Edition", 258)
-flashing_vengeance_draw.prerequisites.add(trance_of_unhesitating_speed)
 hunters_swift_answer = SolarCharm.objects.create(
     name="Hunter's Swift Answer",
     mote_cost=5,
@@ -462,8 +462,8 @@ hunters_swift_answer = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["uniform"],
     duration="instant",
+    prereqs=[[(flashing_vengeance_draw.name, 1)]],
 ).add_source("Exalted 3rd Edition", 258)
-hunters_swift_answer.prerequisites.add(flashing_vengeance_draw)
 immaculate_golden_bow = SolarCharm.objects.create(
     name="Immaculate Golden Bow",
     mote_cost=5,
@@ -474,8 +474,8 @@ immaculate_golden_bow = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(phantom_arrow_technique.name, 1)]],
 ).add_source("Exalted 3rd Edition", 258)
-immaculate_golden_bow.prerequisites.add(phantom_arrow_technique)
 dazzling_flare_attack = SolarCharm.objects.create(
     name="Dazzling Flare Attack",
     mote_cost=3,
@@ -486,8 +486,8 @@ dazzling_flare_attack = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="instant",
+    prereqs=[[(fiery_arrow_attack.name, 1)]],
 ).add_source("Exalted 3rd Edition", 258)
-dazzling_flare_attack.prerequisites.add(fiery_arrow_attack)
 seven_omens_shot = SolarCharm.objects.create(
     name="Seven Omens Shot",
     mote_cost=3,
@@ -498,8 +498,8 @@ seven_omens_shot = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="instant",
+    prereqs=[[(accuracy_without_distance.name, 1)]],
 ).add_source("Exalted 3rd Edition", 258)
-seven_omens_shot.prerequisites.add(accuracy_without_distance)
 revolving_bow_discipline = SolarCharm.objects.create(
     name="Revolving Bow Discipline",
     mote_cost=6,
@@ -510,8 +510,8 @@ revolving_bow_discipline = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["perilous", "withering-only"],
     duration="instant",
+    prereqs=[[(arrow_storm_technique.name, 1)]],
 ).add_source("Exalted 3rd Edition", 258)
-revolving_bow_discipline.prerequisites.add(arrow_storm_technique)
 finishing_snipe = SolarCharm.objects.create(
     name="Finishing Snipe",
     mote_cost=7,
@@ -522,8 +522,8 @@ finishing_snipe = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decivisive-only"],
     duration="instant",
+    prereqs=[[(hunters_swift_answer.name, 1)]],
 ).add_source("Exalted 3rd Edition", 259)
-finishing_snipe.prerequisites.add(hunters_swift_answer)
 rain_of_feathered_death = SolarCharm.objects.create(
     name="Rain of Feathered Death",
     mote_cost=3,
@@ -534,8 +534,8 @@ rain_of_feathered_death = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="instant",
+    prereqs=[[(phantom_arrow_technique.name, 1)]],
 ).add_source("Exalted 3rd Edition", 259)
-rain_of_feathered_death.prerequisites.add(phantom_arrow_technique)
 shadow_seeking_arrow = SolarCharm.objects.create(
     name="Shadow-Seeking Arrow",
     mote_cost=3,
@@ -547,8 +547,8 @@ shadow_seeking_arrow = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["uniform"],
     duration="instant",
+    prereqs=[[(dazzling_flare_attack.name, 1)]],
 ).add_source("Exalted 3rd Edition", 259)
-shadow_seeking_arrow.prerequisites.add(dazzling_flare_attack)
 searing_sunfire_interdiction = SolarCharm.objects.create(
     name="Searing Sunfire Interdiction",
     mote_cost=4,
@@ -560,8 +560,8 @@ searing_sunfire_interdiction = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="instant",
+    prereqs=[[(dazzling_flare_attack.name, 1)]],
 ).add_source("Exalted 3rd Edition", 259)
-searing_sunfire_interdiction.prerequisites.add(dazzling_flare_attack)
 solar_spike = SolarCharm.objects.create(
     name="Solar Spike",
     mote_cost=5,
@@ -572,8 +572,8 @@ solar_spike = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="instant",
+    prereqs=[[(dazzling_flare_attack.name, 1)]],
 ).add_source("Exalted 3rd Edition", 260)
-solar_spike.prerequisites.add(dazzling_flare_attack)
 heart_eating_incineration = SolarCharm.objects.create(
     name="Heart-Eating Incineration",
     mote_cost=3,
@@ -585,8 +585,8 @@ heart_eating_incineration = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="instant",
+    prereqs=[[(solar_spike.name, 1)]],
 ).add_source("Exalted 3rd Edition", 260)
-heart_eating_incineration.prerequisites.add(solar_spike)
 dust_and_ash_sleight = SolarCharm.objects.create(
     name="Dust and Ash Sleight",
     mote_cost=3,
@@ -597,8 +597,8 @@ dust_and_ash_sleight = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="instant",
+    prereqs=[[(seven_omens_shot.name, 1)]],
 ).add_source("Exalted 3rd Edition", 260)
-dust_and_ash_sleight.prerequisites.add(seven_omens_shot)
 heavens_crash_down = SolarCharm.objects.create(
     name="Heavens Crash Down",
     mote_cost=6,
@@ -610,8 +610,8 @@ heavens_crash_down = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["clash", "perilous", "withering-only"],
     duration="instant",
+    prereqs=[[(revolving_bow_discipline.name, 1)]],
 ).add_source("Exalted 3rd Edition", 260)
-heavens_crash_down.prerequisites.add(revolving_bow_discipline)
 streaming_arrow_stance = SolarCharm.objects.create(
     name="Streaming Arrow Stance",
     mote_cost=6,
@@ -622,8 +622,8 @@ streaming_arrow_stance = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(finishing_snipe.name, 1)]],
 ).add_source("Exalted 3rd Edition", 261)
-streaming_arrow_stance.prerequisites.add(finishing_snipe)
 whispered_prayer_of_judgment = SolarCharm.objects.create(
     name="Whispered Prayer of Judgment",
     mote_cost=1,
@@ -634,8 +634,8 @@ whispered_prayer_of_judgment = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["uniform"],
     duration="instant",
+    prereqs=[[(streaming_arrow_stance.name, 1)]],
 ).add_source("Exalted 3rd Edition", 261)
-whispered_prayer_of_judgment.prerequisites.add(streaming_arrow_stance)
 
 graceful_crane_stance = SolarCharm.objects.create(
     name="Graceful Crane Stance",
@@ -675,8 +675,8 @@ soaring_crane_leap = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(monkey_leap_technique.name, 1)]],
 )
-soaring_crane_leap.prerequisites.add(monkey_leap_technique)
 foe_vaulting_method = SolarCharm.objects.create(
     name="Foe-Vaulting Method",
     mote_cost=0,
@@ -689,8 +689,8 @@ foe_vaulting_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(graceful_crane_stance.name, 1), (monkey_leap_technique.name, 1)]],
 )
-foe_vaulting_method.prerequisites.add(graceful_crane_stance, monkey_leap_technique)
 lightning_speed = SolarCharm.objects.create(
     name="Lightning Speed",
     mote_cost=3,
@@ -716,8 +716,8 @@ winning_stride_discipline = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(lightning_speed.name, 1)]],
 )
-winning_stride_discipline.prerequisites.add(lightning_speed)
 increasing_strength_exercise = SolarCharm.objects.create(
     name="Increasing Strength Exercise",
     mote_cost=3,
@@ -743,8 +743,8 @@ ten_ox_meditation = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="feat",
+    prereqs=[[(increasing_strength_exercise.name, 1)]],
 )
-ten_ox_meditation.prerequisites.add(increasing_strength_exercise)
 thunderbolt_attack_prana = SolarCharm.objects.create(
     name="Thunderbolt Attack Prana",
     mote_cost=4,
@@ -757,9 +757,7 @@ thunderbolt_attack_prana = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["decisive-only"],
     duration="Instant",
-)
-thunderbolt_attack_prana.prerequisites.add(
-    increasing_strength_exercise, monkey_leap_technique
+    prereqs=[[(increasing_strength_exercise.name, 1), (monkey_leap_technique.name, 1)]],
 )
 feather_foot_style = SolarCharm.objects.create(
     name="Feather Foot Style",
@@ -773,8 +771,8 @@ feather_foot_style = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="running",
+    prereqs=[[(graceful_crane_stance.name, 1), (lightning_speed.name, 1)]],
 )
-feather_foot_style.prerequisites.add(graceful_crane_stance, lightning_speed)
 spider_foot_style = SolarCharm.objects.create(
     name="Spider Foot Style",
     mote_cost=3,
@@ -787,8 +785,8 @@ spider_foot_style = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="turns",
+    prereqs=[[(feather_foot_style.name, 1)]],
 )
-spider_foot_style.prerequisites.add(feather_foot_style)
 unbound_eagle_approach = SolarCharm.objects.create(
     name="Unbound Eagle Approach",
     mote_cost=0,
@@ -801,8 +799,8 @@ unbound_eagle_approach = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(soaring_crane_leap.name, 1)]],
 )
-unbound_eagle_approach.prerequisites.add(soaring_crane_leap)
 leaping_tiger_attack = SolarCharm.objects.create(
     name="Leaping Tiger Attack",
     mote_cost=4,
@@ -815,8 +813,8 @@ leaping_tiger_attack = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["dual"],
     duration="Instant",
+    prereqs=[[(graceful_crane_stance.name, 1), (lightning_speed.name, 1)]],
 )
-leaping_tiger_attack.prerequisites.add(graceful_crane_stance, lightning_speed)
 racing_hare_method = SolarCharm.objects.create(
     name="Racing Hare Method",
     mote_cost=5,
@@ -829,8 +827,8 @@ racing_hare_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="hour",
+    prereqs=[[(lightning_speed.name, 1)]],
 )
-racing_hare_method.prerequisites.add(lightning_speed)
 onrush_burst_method = SolarCharm.objects.create(
     name="Onrush Burst Method",
     mote_cost=0,
@@ -843,8 +841,8 @@ onrush_burst_method = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(lightning_speed.name, 1)]],
 )
-onrush_burst_method.prerequisites.add(lightning_speed)
 arete_driven_marathon_stride = SolarCharm.objects.create(
     name="Arete-Driven Marathon Stride",
     mote_cost=0,
@@ -857,8 +855,8 @@ arete_driven_marathon_stride = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(winning_stride_discipline.name, 1)]],
 )
-arete_driven_marathon_stride.prerequisites.add(winning_stride_discipline)
 armor_eating_strike = SolarCharm.objects.create(
     name="Armor-Eating Strike",
     mote_cost=1,
@@ -871,8 +869,8 @@ armor_eating_strike = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(increasing_strength_exercise.name, 1)]],
 )
-armor_eating_strike.prerequisites.add(increasing_strength_exercise)
 thunders_might = SolarCharm.objects.create(
     name="Thunder's Might",
     mote_cost=5,
@@ -885,8 +883,8 @@ thunders_might = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(increasing_strength_exercise.name, 1)]],
 )
-thunders_might.prerequisites.add(increasing_strength_exercise)
 mountain_crossing_leap_technique = SolarCharm.objects.create(
     name="Mountain-Crossing Leap Technique",
     mote_cost=7,
@@ -899,8 +897,8 @@ mountain_crossing_leap_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="leaping",
+    prereqs=[[(unbound_eagle_approach.name, 1)]],
 )
-mountain_crossing_leap_technique.prerequisites.add(unbound_eagle_approach)
 eagle_wing_style = SolarCharm.objects.create(
     name="Eagle-Wing Style",
     mote_cost=5,
@@ -913,8 +911,8 @@ eagle_wing_style = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(mountain_crossing_leap_technique.name, 1)]],
 )
-eagle_wing_style.prerequisites.add(mountain_crossing_leap_technique)
 demon_wasting_rush = SolarCharm.objects.create(
     name="Demon-Wasting Rush",
     mote_cost=5,
@@ -927,8 +925,8 @@ demon_wasting_rush = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(racing_hare_method.name, 1)]],
 )
-demon_wasting_rush.prerequisites.add(racing_hare_method)
 hurricane_spirit_speed = SolarCharm.objects.create(
     name="Hurricane Spirit Speed",
     mote_cost=0,
@@ -941,8 +939,8 @@ hurricane_spirit_speed = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(arete_driven_marathon_stride.name, 1)]],
 )
-hurricane_spirit_speed.prerequisites.add(arete_driven_marathon_stride)
 godspeed_steps = SolarCharm.objects.create(
     name="Godspeed Steps",
     mote_cost=4,
@@ -955,8 +953,8 @@ godspeed_steps = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(arete_driven_marathon_stride.name, 1), (racing_hare_method.name, 1)]],
 )
-godspeed_steps.prerequisites.add(arete_driven_marathon_stride, racing_hare_method)
 power_suffusing_form_technique = SolarCharm.objects.create(
     name="Power Suffusing Form Technique",
     mote_cost=4,
@@ -969,8 +967,8 @@ power_suffusing_form_technique = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(thunders_might.name, 1)]],
 )
-power_suffusing_form_technique.prerequisites.add(thunders_might)
 legion_aurochs_method = SolarCharm.objects.create(
     name="Legion Aurochs Method",
     mote_cost=0,
@@ -983,8 +981,8 @@ legion_aurochs_method = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(power_suffusing_form_technique.name, 1)]],
 )
-legion_aurochs_method.prerequisites.add(power_suffusing_form_technique)
 triumph_forged_god_body = SolarCharm.objects.create(
     name="Triumph-Forged God-Body",
     mote_cost=0,
@@ -997,9 +995,13 @@ triumph_forged_god_body = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
-)
-triumph_forged_god_body.prerequisites.add(
-    arete_driven_marathon_stride, ten_ox_meditation, unbound_eagle_approach
+    prereqs=[
+        [
+            (arete_driven_marathon_stride.name, 1),
+            (ten_ox_meditation.name, 1),
+            (unbound_eagle_approach.name, 1),
+        ]
+    ],
 )
 one_extra_step = SolarCharm.objects.create(
     name="One Extra Step",
@@ -1013,8 +1015,8 @@ one_extra_step = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(godspeed_steps.name, 1)]],
 )
-one_extra_step.prerequisites.add(godspeed_steps)
 bonfire_anima_wings = SolarCharm.objects.create(
     name="Bonfire Anima Wings",
     mote_cost=0,
@@ -1027,8 +1029,8 @@ bonfire_anima_wings = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(eagle_wing_style.name, 1), (onrush_burst_method.name, 1)]],
 )
-bonfire_anima_wings.prerequisites.add(eagle_wing_style, onrush_burst_method)
 aegis_of_unstoppable_force = SolarCharm.objects.create(
     name="Aegis of Unstoppable Force",
     mote_cost=0,
@@ -1041,8 +1043,8 @@ aegis_of_unstoppable_force = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(legion_aurochs_method.name, 1)]],
 )
-aegis_of_unstoppable_force.prerequisites.add(legion_aurochs_method)
 living_wind_approach = SolarCharm.objects.create(
     name="Living Wind Approach",
     mote_cost=0,
@@ -1055,8 +1057,8 @@ living_wind_approach = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(one_extra_step.name, 1)]],
 )
-living_wind_approach.prerequisites.add(one_extra_step)
 nine_aeons_thew = SolarCharm.objects.create(
     name="Nine Aeons Thew",
     mote_cost=1,
@@ -1069,8 +1071,8 @@ nine_aeons_thew = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(aegis_of_unstoppable_force.name, 1)]],
 )
-nine_aeons_thew.prerequisites.add(aegis_of_unstoppable_force)
 
 sensory_acuity_prana = SolarCharm.objects.create(
     name="Sensory Acuity Prana",
@@ -1097,8 +1099,8 @@ surprise_anticipation_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(sensory_acuity_prana.name, 1)]],
 )
-surprise_anticipation_method.prerequisites.add(sensory_acuity_prana)
 keen_sight_technique = SolarCharm.objects.create(
     name="Keen Sight Technique",
     mote_cost=3,
@@ -1111,8 +1113,8 @@ keen_sight_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(sensory_acuity_prana.name, 1)]],
 )
-keen_sight_technique.prerequisites.add(sensory_acuity_prana)
 unswerving_eye_method = SolarCharm.objects.create(
     name="Unswerving Eye Method",
     mote_cost=3,
@@ -1125,8 +1127,8 @@ unswerving_eye_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(keen_sight_technique.name, 1)]],
 )
-unswerving_eye_method.prerequisites.add(keen_sight_technique)
 keen_taste_and_smell_technique = SolarCharm.objects.create(
     name="Keen Taste and Smell Technique",
     mote_cost=3,
@@ -1139,8 +1141,8 @@ keen_taste_and_smell_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(sensory_acuity_prana.name, 1)]],
 )
-keen_taste_and_smell_technique.prerequisites.add(sensory_acuity_prana)
 genius_palate_summation = SolarCharm.objects.create(
     name="Genius Palate Summation",
     mote_cost=2,
@@ -1153,8 +1155,8 @@ genius_palate_summation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(keen_taste_and_smell_technique.name, 1)]],
 )
-genius_palate_summation.prerequisites.add(keen_taste_and_smell_technique)
 foe_scenting_method = SolarCharm.objects.create(
     name="Foe-Scenting Method",
     mote_cost=0,
@@ -1167,8 +1169,8 @@ foe_scenting_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(keen_taste_and_smell_technique.name, 1)]],
 )
-foe_scenting_method.prerequisites.add(keen_taste_and_smell_technique)
 keen_hearing_and_touch_technique = SolarCharm.objects.create(
     name="Keen Hearing and Touch Technique",
     mote_cost=3,
@@ -1181,8 +1183,8 @@ keen_hearing_and_touch_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(sensory_acuity_prana.name, 1)]],
 )
-keen_hearing_and_touch_technique.prerequisites.add(sensory_acuity_prana)
 studied_ear_espial = SolarCharm.objects.create(
     name="Studied Ear Espial",
     mote_cost=1,
@@ -1195,8 +1197,8 @@ studied_ear_espial = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(keen_hearing_and_touch_technique.name, 1)]],
 )
-studied_ear_espial.prerequisites.add(keen_hearing_and_touch_technique)
 eyeless_harbinger_awareness = SolarCharm.objects.create(
     name="Eyeless Harbinger Awareness",
     mote_cost=3,
@@ -1209,8 +1211,8 @@ eyeless_harbinger_awareness = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(keen_hearing_and_touch_technique.name, 1)]],
 )
-eyeless_harbinger_awareness.prerequisites.add(keen_hearing_and_touch_technique)
 awakening_eye = SolarCharm.objects.create(
     name="Awakening Eye",
     mote_cost=5,
@@ -1237,8 +1239,8 @@ inner_eye_focus = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(unswerving_eye_method.name, 1)]],
 )
-inner_eye_focus.prerequisites.add(unswerving_eye_method)
 scent_honing_prana = SolarCharm.objects.create(
     name="Scent-Honing Prana",
     mote_cost=3,
@@ -1251,8 +1253,8 @@ scent_honing_prana = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(foe_scenting_method.name, 1)]],
 )
-scent_honing_prana.prerequisites.add(foe_scenting_method)
 knowing_beyond_silence = SolarCharm.objects.create(
     name="Knowing Beyond Silence",
     mote_cost=2,
@@ -1265,8 +1267,8 @@ knowing_beyond_silence = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(studied_ear_espial.name, 1)]],
 )
-knowing_beyond_silence.prerequisites.add(studied_ear_espial)
 living_pulse_perception = SolarCharm.objects.create(
     name="Living Pulse Perception",
     mote_cost=0,
@@ -1279,8 +1281,8 @@ living_pulse_perception = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(eyeless_harbinger_awareness.name, 1)]],
 )
-living_pulse_perception.prerequisites.add(eyeless_harbinger_awareness)
 roused_dragon_detection = SolarCharm.objects.create(
     name="Roused Dragon Detection",
     mote_cost=1,
@@ -1293,9 +1295,7 @@ roused_dragon_detection = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
-)
-roused_dragon_detection.prerequisites.add(
-    knowing_beyond_silence, living_pulse_perception
+    prereqs=[[(knowing_beyond_silence.name, 1), (living_pulse_perception.name, 1)]],
 )
 unsurpassed_sight_discipline = SolarCharm.objects.create(
     name="Unsurpassed Sight Discipline",
@@ -1309,8 +1309,8 @@ unsurpassed_sight_discipline = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(keen_sight_technique.name, 1)]],
 )
-unsurpassed_sight_discipline.prerequisites.add(keen_sight_technique)
 blink = SolarCharm.objects.create(
     name="Blink",
     mote_cost=0,
@@ -1323,8 +1323,8 @@ blink = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(inner_eye_focus.name, 1)]],
 )
-blink.prerequisites.add(inner_eye_focus)
 unsurpassed_taste_and_smell_discipline = SolarCharm.objects.create(
     name="Unsurpassed Taste and Smell Discipline",
     mote_cost=0,
@@ -1337,8 +1337,8 @@ unsurpassed_taste_and_smell_discipline = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(keen_taste_and_smell_technique.name, 1)]],
 )
-unsurpassed_taste_and_smell_discipline.prerequisites.add(keen_taste_and_smell_technique)
 unsurpassed_hearing_and_touch_discipline = SolarCharm.objects.create(
     name="Unsurpassed Hearing and Touch Discipline",
     mote_cost=0,
@@ -1351,9 +1351,7 @@ unsurpassed_hearing_and_touch_discipline = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
-)
-unsurpassed_hearing_and_touch_discipline.prerequisites.add(
-    keen_hearing_and_touch_technique
+    prereqs=[[(keen_hearing_and_touch_technique.name, 1)]],
 )
 dedicated_unerring_ear = SolarCharm.objects.create(
     name="Dedicated Unerring Ear",
@@ -1367,8 +1365,8 @@ dedicated_unerring_ear = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(unsurpassed_hearing_and_touch_discipline.name, 1)]],
 )
-dedicated_unerring_ear.prerequisites.add(unsurpassed_hearing_and_touch_discipline)
 eye_of_the_unconquered_sun = SolarCharm.objects.create(
     name="Eye of the Unconquered Sun",
     mote_cost=10,
@@ -1409,8 +1407,8 @@ iron_battle_focus = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="turn",
+    prereqs=[[(fists_of_iron_technique.name, 1)]],
 )
-iron_battle_focus.prerequisites.add(fists_of_iron_technique)
 ferocious_jab = SolarCharm.objects.create(
     name="Ferocious Jab",
     mote_cost=1,
@@ -1436,8 +1434,8 @@ wind_and_stones_defense = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(ferocious_jab.name, 1)]],
 )
-wind_and_stones_defense.prerequisites.add(ferocious_jab)
 heaven_thunder_hammer = SolarCharm.objects.create(
     name="Heaven Thunder Hammer",
     mote_cost=7,
@@ -1450,8 +1448,8 @@ heaven_thunder_hammer = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(ferocious_jab.name, 1)]],
 )
-heaven_thunder_hammer.prerequisites.add(ferocious_jab)
 vicious_lunge = SolarCharm.objects.create(
     name="Vicious Lunge",
     mote_cost=1,
@@ -1477,8 +1475,8 @@ unbreakable_grasp = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(vicious_lunge.name, 1)]],
 )
-unbreakable_grasp.prerequisites.add(vicious_lunge)
 devil_strangling_attitude = SolarCharm.objects.create(
     name="Devil-Strangling Attitude",
     mote_cost=3,
@@ -1491,8 +1489,8 @@ devil_strangling_attitude = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Instant",
+    prereqs=[[(vicious_lunge.name, 1)]],
 )
-devil_strangling_attitude.prerequisites.add(vicious_lunge)
 crashing_wave_throw = SolarCharm.objects.create(
     name="Crashing Wave Throw",
     mote_cost=5,
@@ -1505,8 +1503,8 @@ crashing_wave_throw = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["uniform"],
     duration="Instant",
+    prereqs=[[(vicious_lunge.name, 1)]],
 )
-crashing_wave_throw.prerequisites.add(vicious_lunge)
 thunderclap_rush_attack = SolarCharm.objects.create(
     name="Thunderclap Rush Attack",
     mote_cost=3,
@@ -1532,8 +1530,8 @@ falling_hammer_strike = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["uniform"],
     duration="Instant",
+    prereqs=[[(thunderclap_rush_attack.name, 1)]],
 )
-falling_hammer_strike.prerequisites.add(thunderclap_rush_attack)
 reckless_fury_discard = SolarCharm.objects.create(
     name="Reckless Fury Discard",
     mote_cost=3,
@@ -1546,8 +1544,8 @@ reckless_fury_discard = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["perilous"],
     duration="Instant",
+    prereqs=[[(iron_battle_focus.name, 1)]],
 )
-reckless_fury_discard.prerequisites.add(iron_battle_focus)
 solar_cross_counter = SolarCharm.objects.create(
     name="Solar Cross-Counter",
     mote_cost=3,
@@ -1560,8 +1558,8 @@ solar_cross_counter = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["counterattack", "decisive-only", "perilous"],
     duration="Instant",
+    prereqs=[[(reckless_fury_discard.name, 1)]],
 )
-solar_cross_counter.prerequisites.add(reckless_fury_discard)
 ox_stunning_blow = SolarCharm.objects.create(
     name="Ox-Stunning Blow",
     mote_cost=4,
@@ -1574,8 +1572,8 @@ ox_stunning_blow = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["withering-only"],
     duration="Instant",
+    prereqs=[[(fists_of_iron_technique.name, 1)]],
 )
-ox_stunning_blow.prerequisites.add(fists_of_iron_technique)
 burning_fist_burial = SolarCharm.objects.create(
     name="Burning Fist Burial",
     mote_cost=4,
@@ -1588,8 +1586,8 @@ burning_fist_burial = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(ferocious_jab.name, 1)]],
 )
-burning_fist_burial.prerequisites.add(ferocious_jab)
 force_rending_strike = SolarCharm.objects.create(
     name="Force-Rending Strike",
     mote_cost=5,
@@ -1602,8 +1600,8 @@ force_rending_strike = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["clash", "decisive-only"],
     duration="Instant",
+    prereqs=[[(ferocious_jab.name, 1)]],
 )
-force_rending_strike.prerequisites.add(ferocious_jab)
 blade_rebuking_wrath = SolarCharm.objects.create(
     name="Blade-Rebuking Wrath",
     mote_cost=5,
@@ -1616,8 +1614,8 @@ blade_rebuking_wrath = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["clash", "uniform"],
     duration="Instant",
+    prereqs=[[(wind_and_stones_defense.name, 1)]],
 )
-blade_rebuking_wrath.prerequisites.add(wind_and_stones_defense)
 sledgehammer_fist_punch = SolarCharm.objects.create(
     name="Sledgehammer Fist Punch",
     mote_cost=5,
@@ -1630,8 +1628,8 @@ sledgehammer_fist_punch = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(heaven_thunder_hammer.name, 1)]],
 )
-sledgehammer_fist_punch.prerequisites.add(heaven_thunder_hammer)
 oak_curling_clinch = SolarCharm.objects.create(
     name="Oak-Curling Clinch",
     mote_cost=2,
@@ -1644,8 +1642,8 @@ oak_curling_clinch = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(vicious_lunge.name, 1)]],
 )
-oak_curling_clinch.prerequisites.add(vicious_lunge)
 burning_proof_of_authority = SolarCharm.objects.create(
     name="Burning Proof of Authority",
     mote_cost=4,
@@ -1658,8 +1656,8 @@ burning_proof_of_authority = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(unbreakable_grasp.name, 1)]],
 )
-burning_proof_of_authority.prerequisites.add(unbreakable_grasp)
 hammer_on_iron_technique = SolarCharm.objects.create(
     name="Hammer on Iron Technique",
     mote_cost=5,
@@ -1672,8 +1670,8 @@ hammer_on_iron_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(falling_hammer_strike.name, 1)]],
 )
-hammer_on_iron_technique.prerequisites.add(falling_hammer_strike)
 one_with_violence = SolarCharm.objects.create(
     name="One With Violence",
     mote_cost=0,
@@ -1686,8 +1684,8 @@ one_with_violence = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(falling_hammer_strike.name, 1)]],
 )
-one_with_violence.prerequisites.add(falling_hammer_strike)
 dancing_with_strife_technique = SolarCharm.objects.create(
     name="Dancing With Strife Technique",
     mote_cost=0,
@@ -1700,8 +1698,8 @@ dancing_with_strife_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(reckless_fury_discard.name, 1)]],
 )
-dancing_with_strife_technique.prerequisites.add(reckless_fury_discard)
 knockout_blow = SolarCharm.objects.create(
     name="Knockout Blow",
     mote_cost=5,
@@ -1714,8 +1712,8 @@ knockout_blow = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["withering-only"],
     duration="Instant",
+    prereqs=[[(ox_stunning_blow.name, 1)]],
 )
-knockout_blow.prerequisites.add(ox_stunning_blow)
 cancel_the_apocalypse = SolarCharm.objects.create(
     name="Cancel the Apocalypse",
     mote_cost=5,
@@ -1728,8 +1726,8 @@ cancel_the_apocalypse = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(knockout_blow.name, 1)]],
 )
-cancel_the_apocalypse.prerequisites.add(knockout_blow)
 adamantine_fists_of_battle = SolarCharm.objects.create(
     name="Adamantine Fists of Battle",
     mote_cost=4,
@@ -1742,8 +1740,8 @@ adamantine_fists_of_battle = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["dual"],
     duration="Instant",
+    prereqs=[[(burning_fist_burial.name, 1)]],
 )
-adamantine_fists_of_battle.prerequisites.add(burning_fist_burial)
 adamantine_fists_of_battle_2 = SolarCharm.objects.create(
     name="Adamantine Fists of Battle 2",
     mote_cost=4,
@@ -1756,8 +1754,8 @@ adamantine_fists_of_battle_2 = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["dual"],
     duration="Instant",
+    prereqs=[[(adamantine_fists_of_battle.name, 1)]],
 )
-adamantine_fists_of_battle_2.prerequisites.add(adamantine_fists_of_battle)
 intercepting_fury_smite = SolarCharm.objects.create(
     name="Intercepting Fury Smite",
     mote_cost=0,
@@ -1770,8 +1768,8 @@ intercepting_fury_smite = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(force_rending_strike.name, 1)]],
 )
-intercepting_fury_smite.prerequisites.add(force_rending_strike)
 fire_eating_fist = SolarCharm.objects.create(
     name="Fire-Eating Fist",
     mote_cost=1,
@@ -1784,8 +1782,8 @@ fire_eating_fist = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(intercepting_fury_smite.name, 1)]],
 )
-fire_eating_fist.prerequisites.add(intercepting_fury_smite)
 river_binding_wrath = SolarCharm.objects.create(
     name="River-Binding Wrath",
     mote_cost=2,
@@ -1798,8 +1796,8 @@ river_binding_wrath = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(oak_curling_clinch.name, 1)]],
 )
-river_binding_wrath.prerequisites.add(oak_curling_clinch)
 wicked_dissolve_dust = SolarCharm.objects.create(
     name="Wicked Dissolve Dust",
     mote_cost=4,
@@ -1812,8 +1810,8 @@ wicked_dissolve_dust = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(river_binding_wrath.name, 1), (intercepting_fury_smite.name, 1)]],
 )
-wicked_dissolve_dust.prerequisites.add(river_binding_wrath, intercepting_fury_smite)
 rapturous_cradle = SolarCharm.objects.create(
     name="Rapturous Cradle",
     mote_cost=1,
@@ -1826,8 +1824,8 @@ rapturous_cradle = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(burning_proof_of_authority.name, 1)]],
 )
-rapturous_cradle.prerequisites.add(burning_proof_of_authority)
 dragon_coil_technique = SolarCharm.objects.create(
     name="Dragon Coil Technique",
     mote_cost=3,
@@ -1840,8 +1838,8 @@ dragon_coil_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["uniform"],
     duration="Instant",
+    prereqs=[[(devil_strangling_attitude.name, 1)]],
 )
-dragon_coil_technique.prerequisites.add(devil_strangling_attitude)
 ten_calamities_technique = SolarCharm.objects.create(
     name="Ten Calamities Technique",
     mote_cost=5,
@@ -1854,8 +1852,8 @@ ten_calamities_technique = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["dual"],
     duration="grapple",
+    prereqs=[[(dragon_coil_technique.name, 1)]],
 )
-ten_calamities_technique.prerequisites.add(dragon_coil_technique)
 titan_straightening_method = SolarCharm.objects.create(
     name="Titan-Straightening Method",
     mote_cost=7,
@@ -1868,8 +1866,8 @@ titan_straightening_method = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["withering-only"],
     duration="Instant",
+    prereqs=[[(ten_calamities_technique.name, 1)]],
 )
-titan_straightening_method.prerequisites.add(ten_calamities_technique)
 shockwave_technique = SolarCharm.objects.create(
     name="Shockwave Technique",
     mote_cost=6,
@@ -1882,8 +1880,8 @@ shockwave_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["withering-only"],
     duration="Instant",
+    prereqs=[[(crashing_wave_throw.name, 1)]],
 )
-shockwave_technique.prerequisites.add(crashing_wave_throw)
 lightning_strikes_twice = SolarCharm.objects.create(
     name="Lightning Strikes Twice",
     mote_cost=1,
@@ -1896,8 +1894,8 @@ lightning_strikes_twice = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(crashing_wave_throw.name, 1), (heaven_thunder_hammer.name, 1)]],
 )
-lightning_strikes_twice.prerequisites.add(crashing_wave_throw, heaven_thunder_hammer)
 fivefold_fury_onslaught = SolarCharm.objects.create(
     name="Fivefold Fury Onslaught",
     mote_cost=0,
@@ -1910,8 +1908,8 @@ fivefold_fury_onslaught = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(hammer_on_iron_technique.name, 1)]],
 )
-fivefold_fury_onslaught.prerequisites.add(hammer_on_iron_technique)
 striving_aftershock_method = SolarCharm.objects.create(
     name="Striving Aftershock Method",
     mote_cost=2,
@@ -1924,8 +1922,8 @@ striving_aftershock_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(one_with_violence.name, 1)]],
 )
-striving_aftershock_method.prerequisites.add(one_with_violence)
 superior_violent_knowledge = SolarCharm.objects.create(
     name="Superior Violent Knowledge",
     mote_cost=4,
@@ -1938,8 +1936,8 @@ superior_violent_knowledge = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(striving_aftershock_method.name, 1)]],
 )
-superior_violent_knowledge.prerequisites.add(striving_aftershock_method)
 inevitable_victory_meditation = SolarCharm.objects.create(
     name="Inevitable Victory Meditation",
     mote_cost=3,
@@ -1952,8 +1950,8 @@ inevitable_victory_meditation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(superior_violent_knowledge.name, 1)]],
 )
-inevitable_victory_meditation.prerequisites.add(superior_violent_knowledge)
 incarnated_fury_attack = SolarCharm.objects.create(
     name="Incarnated Fury Attack",
     mote_cost=10,
@@ -1966,8 +1964,8 @@ incarnated_fury_attack = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["withering-only"],
     duration="Instant",
+    prereqs=[[(adamantine_fists_of_battle.name, 1)]],
 )
-incarnated_fury_attack.prerequisites.add(adamantine_fists_of_battle)
 orichalcum_fists_of_battle = SolarCharm.objects.create(
     name="Orichalcum Fists of Battle",
     mote_cost=8,
@@ -1980,8 +1978,8 @@ orichalcum_fists_of_battle = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="scene",
+    prereqs=[[(adamantine_fists_of_battle_2.name, 1)]],
 )
-orichalcum_fists_of_battle.prerequisites.add(adamantine_fists_of_battle_2)
 raging_wrath_repeated = SolarCharm.objects.create(
     name="Raging Wrath Repeated",
     mote_cost=4,
@@ -1994,8 +1992,8 @@ raging_wrath_repeated = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(ten_calamities_technique.name, 1)]],
 )
-raging_wrath_repeated.prerequisites.add(ten_calamities_technique)
 rampage_berserker_attack = SolarCharm.objects.create(
     name="Rampage-Berserker Attack",
     mote_cost=7,
@@ -2008,8 +2006,8 @@ rampage_berserker_attack = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["perilous", "withering-only"],
     duration="Instant",
+    prereqs=[[(fivefold_fury_onslaught.name, 1)]],
 )
-rampage_berserker_attack.prerequisites.add(fivefold_fury_onslaught)
 supremacy_of_war_meditation = SolarCharm.objects.create(
     name="Supremacy of War Meditation",
     mote_cost=0,
@@ -2022,8 +2020,8 @@ supremacy_of_war_meditation = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(inevitable_victory_meditation.name, 1)]],
 )
-supremacy_of_war_meditation.prerequisites.add(inevitable_victory_meditation)
 apocalypse_flare_attack = SolarCharm.objects.create(
     name="Apocalypse Flare Attack",
     mote_cost=3,
@@ -2036,8 +2034,8 @@ apocalypse_flare_attack = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(fire_eating_fist.name, 1)]],
 )
-apocalypse_flare_attack.prerequisites.add(fire_eating_fist)
 heaven_fury_smite = SolarCharm.objects.create(
     name="Heaven Fury Smite",
     mote_cost=0,
@@ -2050,8 +2048,8 @@ heaven_fury_smite = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(rampage_berserker_attack.name, 1)]],
 )
-heaven_fury_smite.prerequisites.add(rampage_berserker_attack)
 ascendant_battle_visage = SolarCharm.objects.create(
     name="Ascendant Battle Visage",
     mote_cost=15,
@@ -2064,8 +2062,8 @@ ascendant_battle_visage = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(supremacy_of_war_meditation.name, 1)]],
 )
-ascendant_battle_visage.prerequisites.add(supremacy_of_war_meditation)
 
 frugal_merchant_method = SolarCharm.objects.create(
     name="Frugal Merchant Method",
@@ -2092,8 +2090,8 @@ insightful_buyer_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(frugal_merchant_method.name, 1)]],
 )
-insightful_buyer_technique.prerequisites.add(frugal_merchant_method)
 consumer_evaluating_glance = SolarCharm.objects.create(
     name="Consumer-Evaluating Glance",
     mote_cost=3,
@@ -2106,8 +2104,8 @@ consumer_evaluating_glance = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(frugal_merchant_method.name, 1)]],
 )
-consumer_evaluating_glance.prerequisites.add(frugal_merchant_method)
 all_seeing_master_procurer = SolarCharm.objects.create(
     name="All-Seeing Master Procurer",
     mote_cost=5,
@@ -2120,8 +2118,8 @@ all_seeing_master_procurer = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(consumer_evaluating_glance.name, 1)]],
 )
-all_seeing_master_procurer.prerequisites.add(consumer_evaluating_glance)
 illimitable_master_fence = SolarCharm.objects.create(
     name="Illimitable Master Fence",
     mote_cost=1,
@@ -2134,8 +2132,8 @@ illimitable_master_fence = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(all_seeing_master_procurer.name, 1)]],
 )
-illimitable_master_fence.prerequisites.add(all_seeing_master_procurer)
 deft_officials_way = SolarCharm.objects.create(
     name="Deft Official's Way",
     mote_cost=5,
@@ -2161,8 +2159,8 @@ measuring_glance = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(deft_officials_way.name, 1)]],
 )
-measuring_glance.prerequisites.add(deft_officials_way)
 enigmatic_bureau_understanding = SolarCharm.objects.create(
     name="Enigmatic Bureau Understanding",
     mote_cost=0,
@@ -2175,8 +2173,8 @@ enigmatic_bureau_understanding = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(measuring_glance.name, 1)]],
 )
-enigmatic_bureau_understanding.prerequisites.add(measuring_glance)
 speed_the_wheels = SolarCharm.objects.create(
     name="Speed the Wheels",
     mote_cost=8,
@@ -2189,8 +2187,8 @@ speed_the_wheels = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="task",
+    prereqs=[[(deft_officials_way.name, 1)]],
 )
-speed_the_wheels.prerequisites.add(deft_officials_way)
 bureau_rectifying_method = SolarCharm.objects.create(
     name="Bureau-Rectifying Method",
     mote_cost=10,
@@ -2203,8 +2201,8 @@ bureau_rectifying_method = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="investigation",
+    prereqs=[[(speed_the_wheels.name, 1)]],
 )
-bureau_rectifying_method.prerequisites.add(speed_the_wheels)
 enlightened_discourse_method = SolarCharm.objects.create(
     name="Enlightened Discourse Method",
     mote_cost=4,
@@ -2217,9 +2215,7 @@ enlightened_discourse_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
-)
-enlightened_discourse_method.prerequisites.add(
-    deft_officials_way, frugal_merchant_method
+    prereqs=[[(deft_officials_way.name, 1), (frugal_merchant_method.name, 1)]],
 )
 irresistible_salesman_spirit = SolarCharm.objects.create(
     name="Irresistible Salesman Spirit",
@@ -2233,9 +2229,9 @@ irresistible_salesman_spirit = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
-)
-irresistible_salesman_spirit.prerequisites.add(
-    consumer_evaluating_glance, insightful_buyer_technique
+    prereqs=[
+        [(consumer_evaluating_glance.name, 1), (insightful_buyer_technique.name, 1)]
+    ],
 )
 ungoverned_market_awareness = SolarCharm.objects.create(
     name="Ungoverned Market Awareness",
@@ -2249,8 +2245,8 @@ ungoverned_market_awareness = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(illimitable_master_fence.name, 1)]],
 )
-ungoverned_market_awareness.prerequisites.add(illimitable_master_fence)
 bureau_reforming_kata = SolarCharm.objects.create(
     name="Bureau-Reforming Kata",
     mote_cost=5,
@@ -2263,9 +2259,9 @@ bureau_reforming_kata = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
-)
-bureau_reforming_kata.prerequisites.add(
-    bureau_rectifying_method, enigmatic_bureau_understanding
+    prereqs=[
+        [(bureau_rectifying_method.name, 1), (enigmatic_bureau_understanding.name, 1)]
+    ],
 )
 indolent_official_charm = SolarCharm.objects.create(
     name="Indolent Official Charm",
@@ -2279,8 +2275,8 @@ indolent_official_charm = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["stackable"],
     duration="Indefinite",
+    prereqs=[[(deft_officials_way.name, 1)]],
 )
-indolent_official_charm.prerequisites.add(deft_officials_way)
 semantic_argument_technique = SolarCharm.objects.create(
     name="Semantic Argument Technique",
     mote_cost=1,
@@ -2293,8 +2289,8 @@ semantic_argument_technique = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(enlightened_discourse_method.name, 1)]],
 )
-semantic_argument_technique.prerequisites.add(enlightened_discourse_method)
 empowered_barter_stance = SolarCharm.objects.create(
     name="Empowered Barter Stance",
     mote_cost=0,
@@ -2307,8 +2303,8 @@ empowered_barter_stance = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(irresistible_salesman_spirit.name, 1)]],
 )
-empowered_barter_stance.prerequisites.add(irresistible_salesman_spirit)
 soul_snaring_pitch = SolarCharm.objects.create(
     name="Soul-Snaring Pitch",
     mote_cost=5,
@@ -2321,8 +2317,8 @@ soul_snaring_pitch = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute", "psyche"],
     duration="Instant",
+    prereqs=[[(irresistible_salesman_spirit.name, 1)]],
 )
-soul_snaring_pitch.prerequisites.add(irresistible_salesman_spirit)
 woe_capturing_web = SolarCharm.objects.create(
     name="Woe-Capturing Web",
     mote_cost=0,
@@ -2335,8 +2331,8 @@ woe_capturing_web = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(bureau_reforming_kata.name, 1)]],
 )
-woe_capturing_web.prerequisites.add(bureau_reforming_kata)
 omen_spawning_beast = SolarCharm.objects.create(
     name="Omen-Spawning Beast",
     mote_cost=0,
@@ -2349,8 +2345,8 @@ omen_spawning_beast = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(woe_capturing_web.name, 1)]],
 )
-omen_spawning_beast.prerequisites.add(woe_capturing_web)
 foul_air_of_argument_technique = SolarCharm.objects.create(
     name="Foul Air of Argument Technique",
     mote_cost=13,
@@ -2363,8 +2359,8 @@ foul_air_of_argument_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(indolent_official_charm.name, 1)]],
 )
-foul_air_of_argument_technique.prerequisites.add(indolent_official_charm)
 eclectic_verbiage_of_law = SolarCharm.objects.create(
     name="Eclectic Verbiage of Law",
     mote_cost=0,
@@ -2377,8 +2373,8 @@ eclectic_verbiage_of_law = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(semantic_argument_technique.name, 1)]],
 )
-eclectic_verbiage_of_law.prerequisites.add(semantic_argument_technique)
 infinitely_efficient_register = SolarCharm.objects.create(
     name="Infinitely-Efficient Register",
     mote_cost=0,
@@ -2391,8 +2387,8 @@ infinitely_efficient_register = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(omen_spawning_beast.name, 1)]],
 )
-infinitely_efficient_register.prerequisites.add(omen_spawning_beast)
 taboo_inflicting_diatribe = SolarCharm.objects.create(
     name="Taboo-Inflicting Diatribe",
     mote_cost=10,
@@ -2405,8 +2401,8 @@ taboo_inflicting_diatribe = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["stackable"],
     duration="Indefinite",
+    prereqs=[[(foul_air_of_argument_technique.name, 1)]],
 )
-taboo_inflicting_diatribe.prerequisites.add(foul_air_of_argument_technique)
 subject_hailing_ideology = SolarCharm.objects.create(
     name="Subject-Hailing Ideology",
     mote_cost=5,
@@ -2419,8 +2415,8 @@ subject_hailing_ideology = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(eclectic_verbiage_of_law.name, 1)]],
 )
-subject_hailing_ideology.prerequisites.add(eclectic_verbiage_of_law)
 order_conferring_action = SolarCharm.objects.create(
     name="Order-Conferring Action",
     mote_cost=10,
@@ -2433,8 +2429,8 @@ order_conferring_action = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="week",
+    prereqs=[[(taboo_inflicting_diatribe.name, 1)]],
 )
-order_conferring_action.prerequisites.add(taboo_inflicting_diatribe)
 
 tireless_workhorse_method = SolarCharm.objects.create(
     name="Tireless Workhorse Method",
@@ -2467,8 +2463,8 @@ efficient_craftsman_technique = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(tireless_workhorse_method.name, 1)]],
 )
-efficient_craftsman_technique.prerequisites.add(tireless_workhorse_method)
 arete_shifting_prana = SolarCharm.objects.create(
     name="Arete-Shifting Prana",
     mote_cost=4,
@@ -2500,8 +2496,8 @@ supreme_celestial_focus = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(arete_shifting_prana.name, 1)]],
 )
-supreme_celestial_focus.prerequisites.add(arete_shifting_prana)
 sublime_transference = SolarCharm.objects.create(
     name="Sublime Transference",
     mote_cost=6,
@@ -2517,8 +2513,8 @@ sublime_transference = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(arete_shifting_prana.name, 1)]],
 )
-sublime_transference.prerequisites.add(arete_shifting_prana)
 ages_echoing_wisdom = SolarCharm.objects.create(
     name="Ages-Echoing Wisdom",
     mote_cost=0,
@@ -2534,9 +2530,7 @@ ages_echoing_wisdom = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
-)
-ages_echoing_wisdom.prerequisites.add(
-    efficient_craftsman_technique, sublime_transference
+    prereqs=[[(efficient_craftsman_technique.name, 1), (sublime_transference.name, 1)]],
 )
 dragon_soul_emergence = SolarCharm.objects.create(
     name="Dragon Soul Emergence",
@@ -2553,8 +2547,8 @@ dragon_soul_emergence = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["stackable"],
     duration="Permanent",
+    prereqs=[[(ages_echoing_wisdom.name, 1)]],
 )
-dragon_soul_emergence.prerequisites.add(ages_echoing_wisdom)
 copper_spider_conception = SolarCharm.objects.create(
     name="Copper Spider Conception",
     mote_cost=5,
@@ -2570,8 +2564,8 @@ copper_spider_conception = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(dragon_soul_emergence.name, 1)]],
 )
-copper_spider_conception.prerequisites.add(dragon_soul_emergence)
 clay_and_breath_practice = SolarCharm.objects.create(
     name="Clay and Breath Practice",
     mote_cost=0,
@@ -2587,8 +2581,8 @@ clay_and_breath_practice = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(copper_spider_conception.name, 1)]],
 )
-clay_and_breath_practice.prerequisites.add(copper_spider_conception)
 spirit_gathering_industry = SolarCharm.objects.create(
     name="Spirit-Gathering Industry",
     mote_cost=0,
@@ -2604,8 +2598,8 @@ spirit_gathering_industry = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(clay_and_breath_practice.name, 1)]],
 )
-spirit_gathering_industry.prerequisites.add(clay_and_breath_practice)
 summit_piercing_touch = SolarCharm.objects.create(
     name="Summit-Piercing Touch",
     mote_cost=10,
@@ -2621,8 +2615,8 @@ summit_piercing_touch = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(ages_echoing_wisdom.name, 1)]],
 )
-summit_piercing_touch.prerequisites.add(ages_echoing_wisdom)
 vice_miracle_technique = SolarCharm.objects.create(
     name="Vice-Miracle Technique",
     mote_cost=0,
@@ -2638,8 +2632,8 @@ vice_miracle_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(summit_piercing_touch.name, 1)]],
 )
-vice_miracle_technique.prerequisites.add(summit_piercing_touch)
 unwinding_gyre_meditation = SolarCharm.objects.create(
     name="Unwinding Gyre Meditation",
     mote_cost=10,
@@ -2655,8 +2649,8 @@ unwinding_gyre_meditation = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(spirit_gathering_industry.name, 1)]],
 )
-unwinding_gyre_meditation.prerequisites.add(spirit_gathering_industry)
 god_forge_within = SolarCharm.objects.create(
     name="God-Forge Within",
     mote_cost=0,
@@ -2672,8 +2666,8 @@ god_forge_within = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["stackable"],
     duration="Permanent",
+    prereqs=[[(spirit_gathering_industry.name, 1)]],
 )
-god_forge_within.prerequisites.add(spirit_gathering_industry)
 exegesis_of_the_distilled_form = SolarCharm.objects.create(
     name="Exegesis of the Distilled Form",
     mote_cost=0,
@@ -2689,8 +2683,8 @@ exegesis_of_the_distilled_form = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(unwinding_gyre_meditation.name, 1)]],
 )
-exegesis_of_the_distilled_form.prerequisites.add(unwinding_gyre_meditation)
 spirit_stoking_elevation = SolarCharm.objects.create(
     name="Spirit-Stoking Elevation",
     mote_cost=0,
@@ -2706,8 +2700,8 @@ spirit_stoking_elevation = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(exegesis_of_the_distilled_form.name, 1)]],
 )
-spirit_stoking_elevation.prerequisites.add(exegesis_of_the_distilled_form)
 sun_heart_tenacity = SolarCharm.objects.create(
     name="Sun-Heart Tenacity",
     mote_cost=0,
@@ -2723,8 +2717,8 @@ sun_heart_tenacity = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(god_forge_within.name, 1)]],
 )
-sun_heart_tenacity.prerequisites.add(god_forge_within)
 wonder_forging_genius = SolarCharm.objects.create(
     name="Wonder-Forging Genius",
     mote_cost=0,
@@ -2740,8 +2734,8 @@ wonder_forging_genius = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(god_forge_within.name, 1), (vice_miracle_technique.name, 1)]],
 )
-wonder_forging_genius.prerequisites.add(god_forge_within, vice_miracle_technique)
 dual_magnus_prana = SolarCharm.objects.create(
     name="Dual Magnus Prana",
     mote_cost=0,
@@ -2757,8 +2751,8 @@ dual_magnus_prana = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(terrestrial_circle_sorcery.name, 1), (wonder_forging_genius.name, 1)]],
 )
-dual_magnus_prana.prerequisites.add(terrestrial_circle_sorcery, wonder_forging_genius)
 brass_scales_falling = SolarCharm.objects.create(
     name="Brass Scales Falling",
     mote_cost=0,
@@ -2790,8 +2784,8 @@ red_anvils_ringing = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(brass_scales_falling.name, 1)]],
 )
-red_anvils_ringing.prerequisites.add(brass_scales_falling)
 chains_fall_away = SolarCharm.objects.create(
     name="Chains Fall Away",
     mote_cost=0,
@@ -2807,8 +2801,8 @@ chains_fall_away = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(red_anvils_ringing.name, 1)]],
 )
-chains_fall_away.prerequisites.add(red_anvils_ringing)
 craftsman_needs_no_tools = SolarCharm.objects.create(
     name="Craftsman Needs No Tools",
     mote_cost=6,
@@ -2840,8 +2834,8 @@ peerless_paragon_of_craft = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(chains_fall_away.name, 1), (craftsman_needs_no_tools.name, 1)]],
 )
-peerless_paragon_of_craft.prerequisites.add(chains_fall_away, craftsman_needs_no_tools)
 supreme_perfection_of_craft = SolarCharm.objects.create(
     name="Supreme Perfection of Craft",
     mote_cost=0,
@@ -2857,9 +2851,7 @@ supreme_perfection_of_craft = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
-)
-supreme_perfection_of_craft.prerequisites.add(
-    peerless_paragon_of_craft, supreme_celestial_focus
+    prereqs=[[(peerless_paragon_of_craft.name, 1), (supreme_celestial_focus.name, 1)]],
 )
 thousand_forge_hands = SolarCharm.objects.create(
     name="Thousand-Forge Hands",
@@ -2876,8 +2868,8 @@ thousand_forge_hands = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(craftsman_needs_no_tools.name, 1)]],
 )
-thousand_forge_hands.prerequisites.add(craftsman_needs_no_tools)
 divine_transcendence_of_craft = SolarCharm.objects.create(
     name="Divine Transcendence of Craft",
     mote_cost=0,
@@ -2893,8 +2885,8 @@ divine_transcendence_of_craft = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(supreme_perfection_of_craft.name, 1)]],
 )
-divine_transcendence_of_craft.prerequisites.add(supreme_perfection_of_craft)
 words_as_workshop_method = SolarCharm.objects.create(
     name="Words-as-Workshop Method",
     mote_cost=5,
@@ -2910,9 +2902,7 @@ words_as_workshop_method = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute", "stackable"],
     duration="Instant",
-)
-words_as_workshop_method.prerequisites.add(
-    craftsman_needs_no_tools, vice_miracle_technique
+    prereqs=[[(craftsman_needs_no_tools.name, 1), (vice_miracle_technique.name, 1)]],
 )
 shattering_grasp = SolarCharm.objects.create(
     name="Shattering Grasp",
@@ -2929,8 +2919,8 @@ shattering_grasp = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute"],
     duration="task",
+    prereqs=[[(craftsman_needs_no_tools.name, 1)]],
 )
-shattering_grasp.prerequisites.add(craftsman_needs_no_tools)
 durability_enhancing_technique = SolarCharm.objects.create(
     name="Durability-Enhancing Technique",
     mote_cost=5,
@@ -2946,8 +2936,8 @@ durability_enhancing_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(craftsman_needs_no_tools.name, 1)]],
 )
-durability_enhancing_technique.prerequisites.add(craftsman_needs_no_tools)
 crack_mending_technique = SolarCharm.objects.create(
     name="Crack-Mending Technique",
     mote_cost=10,
@@ -2979,8 +2969,8 @@ time_heals_nothing = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(crack_mending_technique.name, 1)]],
 )
-time_heals_nothing.prerequisites.add(crack_mending_technique)
 blood_diamond_sweat = SolarCharm.objects.create(
     name="Blood Diamond Sweat",
     mote_cost=0,
@@ -2996,8 +2986,8 @@ blood_diamond_sweat = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(time_heals_nothing.name, 1)]],
 )
-blood_diamond_sweat.prerequisites.add(time_heals_nothing)
 object_strengthening_touch = SolarCharm.objects.create(
     name="Object-Strengthening Touch",
     mote_cost=6,
@@ -3013,8 +3003,8 @@ object_strengthening_touch = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute"],
     duration="scene",
+    prereqs=[[(durability_enhancing_technique.name, 1)]],
 )
-object_strengthening_touch.prerequisites.add(durability_enhancing_technique)
 chaos_resistance_preparation = SolarCharm.objects.create(
     name="Chaos-Resistance Preparation",
     mote_cost=5,
@@ -3030,8 +3020,8 @@ chaos_resistance_preparation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(object_strengthening_touch.name, 1)]],
 )
-chaos_resistance_preparation.prerequisites.add(object_strengthening_touch)
 breach_healing_method = SolarCharm.objects.create(
     name="Breach-Healing Method",
     mote_cost=7,
@@ -3047,8 +3037,8 @@ breach_healing_method = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="task",
+    prereqs=[[(time_heals_nothing.name, 1)]],
 )
-breach_healing_method.prerequisites.add(time_heals_nothing)
 design_beyond_limit = SolarCharm.objects.create(
     name="Design Beyond Limit",
     mote_cost=10,
@@ -3064,8 +3054,8 @@ design_beyond_limit = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(crack_mending_technique.name, 1), (craftsman_needs_no_tools.name, 1)]],
 )
-design_beyond_limit.prerequisites.add(crack_mending_technique, craftsman_needs_no_tools)
 the_art_of_permanence = SolarCharm.objects.create(
     name="The Art of Permanence",
     mote_cost=6,
@@ -3081,8 +3071,8 @@ the_art_of_permanence = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(chaos_resistance_preparation.name, 1)]],
 )
-the_art_of_permanence.prerequisites.add(chaos_resistance_preparation)
 realizing_the_form_supernal = SolarCharm.objects.create(
     name="Realizing the Form Supernal",
     mote_cost=5,
@@ -3098,8 +3088,8 @@ realizing_the_form_supernal = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(breach_healing_method.name, 1)]],
 )
-realizing_the_form_supernal.prerequisites.add(breach_healing_method)
 celestial_reforging_technique = SolarCharm.objects.create(
     name="Celestial Reforging Technique",
     mote_cost=10,
@@ -3115,8 +3105,8 @@ celestial_reforging_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(design_beyond_limit.name, 1)]],
 )
-celestial_reforging_technique.prerequisites.add(design_beyond_limit)
 flawless_handiwork_method = SolarCharm.objects.create(
     name="Flawless Handiwork Method",
     mote_cost=6,
@@ -3148,8 +3138,8 @@ triumph_forging_eye = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(flawless_handiwork_method.name, 1)]],
 )
-triumph_forging_eye.prerequisites.add(flawless_handiwork_method)
 supreme_masterwork_focus = SolarCharm.objects.create(
     name="Supreme Masterwork Focus",
     mote_cost=6,
@@ -3165,8 +3155,8 @@ supreme_masterwork_focus = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(flawless_handiwork_method.name, 1)]],
 )
-supreme_masterwork_focus.prerequisites.add(flawless_handiwork_method)
 supreme_masterwork_focus_2 = SolarCharm.objects.create(
     name="Supreme Masterwork Focus 2",
     mote_cost=6,
@@ -3182,8 +3172,8 @@ supreme_masterwork_focus_2 = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(supreme_masterwork_focus.name, 1)]],
 )
-supreme_masterwork_focus_2.prerequisites.add(supreme_masterwork_focus)
 bright_forging_prana = SolarCharm.objects.create(
     name="Bright-Forging Prana",
     mote_cost=0,
@@ -3199,8 +3189,8 @@ bright_forging_prana = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(flawless_handiwork_method.name, 1)]],
 )
-bright_forging_prana.prerequisites.add(flawless_handiwork_method)
 experiential_conjuring_of_true_void = SolarCharm.objects.create(
     name="Experiential Conjuring of True Void",
     mote_cost=4,
@@ -3216,8 +3206,8 @@ experiential_conjuring_of_true_void = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["salient"],
     duration="Instant",
+    prereqs=[[(flawless_handiwork_method.name, 1)]],
 )
-experiential_conjuring_of_true_void.prerequisites.add(flawless_handiwork_method)
 unbroken_image_focus = SolarCharm.objects.create(
     name="Unbroken Image Focus",
     mote_cost=3,
@@ -3233,8 +3223,8 @@ unbroken_image_focus = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["salient"],
     duration="Instant",
+    prereqs=[[(experiential_conjuring_of_true_void.name, 1)]],
 )
-unbroken_image_focus.prerequisites.add(experiential_conjuring_of_true_void)
 first_movement_of_the_demiurge = SolarCharm.objects.create(
     name="First Movement of the Demiurge",
     mote_cost=0,
@@ -3250,8 +3240,8 @@ first_movement_of_the_demiurge = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(experiential_conjuring_of_true_void.name, 1)]],
 )
-first_movement_of_the_demiurge.prerequisites.add(experiential_conjuring_of_true_void)
 essence_forging_kata = SolarCharm.objects.create(
     name="Essence-Forging Kata",
     mote_cost=0,
@@ -3267,8 +3257,8 @@ essence_forging_kata = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="day",
+    prereqs=[[(unbroken_image_focus.name, 1)]],
 )
-essence_forging_kata.prerequisites.add(unbroken_image_focus)
 mind_expanding_meditation = SolarCharm.objects.create(
     name="Mind-Expanding Meditation",
     mote_cost=0,
@@ -3284,8 +3274,8 @@ mind_expanding_meditation = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(essence_forging_kata.name, 1)]],
 )
-mind_expanding_meditation.prerequisites.add(essence_forging_kata)
 inspiration_renewing_vision = SolarCharm.objects.create(
     name="Inspiration-Renewing Vision",
     mote_cost=12,
@@ -3301,9 +3291,7 @@ inspiration_renewing_vision = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
-)
-inspiration_renewing_vision.prerequisites.add(
-    essence_forging_kata, supreme_masterwork_focus_2
+    prereqs=[[(essence_forging_kata.name, 1), (supreme_masterwork_focus_2.name, 1)]],
 )
 divine_inspiration_technique = SolarCharm.objects.create(
     name="Divine Inspiration Technique",
@@ -3320,9 +3308,9 @@ divine_inspiration_technique = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
-)
-divine_inspiration_technique.prerequisites.add(
-    first_movement_of_the_demiurge, supreme_masterwork_focus_2
+    prereqs=[
+        [(first_movement_of_the_demiurge.name, 1), (supreme_masterwork_focus_2.name, 1)]
+    ],
 )
 horizon_unveiling_insight = SolarCharm.objects.create(
     name="Horizon-Unveiling Insight",
@@ -3339,8 +3327,8 @@ horizon_unveiling_insight = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(inspiration_renewing_vision.name, 1)]],
 )
-horizon_unveiling_insight.prerequisites.add(inspiration_renewing_vision)
 holistic_miracle_understanding = SolarCharm.objects.create(
     name="Holistic Miracle Understanding",
     mote_cost=0,
@@ -3356,8 +3344,8 @@ holistic_miracle_understanding = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(divine_inspiration_technique.name, 1)]],
 )
-holistic_miracle_understanding.prerequisites.add(divine_inspiration_technique)
 
 reed_in_the_wind = SolarCharm.objects.create(
     name="Reed in the Wind",
@@ -3390,8 +3378,8 @@ dust_motes_whirling = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(reed_in_the_wind.name, 1)]],
 )
-dust_motes_whirling.prerequisites.add(reed_in_the_wind)
 shadow_dancer_method = SolarCharm.objects.create(
     name="Shadow Dancer Method",
     mote_cost=0,
@@ -3407,8 +3395,8 @@ shadow_dancer_method = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(dust_motes_whirling.name, 1)]],
 )
-shadow_dancer_method.prerequisites.add(dust_motes_whirling)
 reflex_sidestep_technique = SolarCharm.objects.create(
     name="Reflex Sidestep Technique",
     mote_cost=5,
@@ -3424,8 +3412,8 @@ reflex_sidestep_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["uniform"],
     duration="Instant",
+    prereqs=[[(reed_in_the_wind.name, 1)]],
 )
-reflex_sidestep_technique.prerequisites.add(reed_in_the_wind)
 leaping_dodge_method = SolarCharm.objects.create(
     name="Leaping Dodge Method",
     mote_cost=1,
@@ -3441,8 +3429,8 @@ leaping_dodge_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(reflex_sidestep_technique.name, 1)]],
 )
-leaping_dodge_method.prerequisites.add(reflex_sidestep_technique)
 searing_quicksilver_flight = SolarCharm.objects.create(
     name="Searing Quicksilver Flight",
     mote_cost=0,
@@ -3458,8 +3446,8 @@ searing_quicksilver_flight = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(reed_in_the_wind.name, 1)]],
 )
-searing_quicksilver_flight.prerequisites.add(reed_in_the_wind)
 drifting_leaf_elusion = SolarCharm.objects.create(
     name="Drifting Leaf Elusion",
     mote_cost=1,
@@ -3491,8 +3479,8 @@ shadow_over_water = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(drifting_leaf_elusion.name, 1)]],
 )
-shadow_over_water.prerequisites.add(drifting_leaf_elusion)
 fleet_dreaming_image = SolarCharm.objects.create(
     name="Fleet Dreaming Image",
     mote_cost=5,
@@ -3508,8 +3496,8 @@ fleet_dreaming_image = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(dust_motes_whirling.name, 1)]],
 )
-fleet_dreaming_image.prerequisites.add(dust_motes_whirling)
 drifting_shadow_focus = SolarCharm.objects.create(
     name="Drifting Shadow Focus",
     mote_cost=3,
@@ -3525,8 +3513,8 @@ drifting_shadow_focus = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="turn",
+    prereqs=[[(reflex_sidestep_technique.name, 1)]],
 )
-drifting_shadow_focus.prerequisites.add(reflex_sidestep_technique)
 force_stealing_feint = SolarCharm.objects.create(
     name="Force-Stealing Feint",
     mote_cost=0,
@@ -3542,8 +3530,8 @@ force_stealing_feint = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(searing_quicksilver_flight.name, 1)]],
 )
-force_stealing_feint.prerequisites.add(searing_quicksilver_flight)
 seven_shadow_evasion = SolarCharm.objects.create(
     name="Seven Shadow Evasion",
     mote_cost=4,
@@ -3559,8 +3547,8 @@ seven_shadow_evasion = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["uniform"],
     duration="Instant",
+    prereqs=[[(force_stealing_feint.name, 1)]],
 )
-seven_shadow_evasion.prerequisites.add(force_stealing_feint)
 safety_between_heartbeats = SolarCharm.objects.create(
     name="Safety Between Heartbeats",
     mote_cost=5,
@@ -3576,8 +3564,8 @@ safety_between_heartbeats = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(force_stealing_feint.name, 1)]],
 )
-safety_between_heartbeats.prerequisites.add(force_stealing_feint)
 fourfold_shiver_binding = SolarCharm.objects.create(
     name="Fourfold Shiver Binding",
     mote_cost=4,
@@ -3593,8 +3581,8 @@ fourfold_shiver_binding = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(drifting_leaf_elusion.name, 1)]],
 )
-fourfold_shiver_binding.prerequisites.add(drifting_leaf_elusion)
 flow_like_blood = SolarCharm.objects.create(
     name="Flow Like Blood",
     mote_cost=5,
@@ -3610,8 +3598,8 @@ flow_like_blood = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["perilous"],
     duration="scene",
+    prereqs=[[(shadow_over_water.name, 1)]],
 )
-flow_like_blood.prerequisites.add(shadow_over_water)
 rumor_of_form = SolarCharm.objects.create(
     name="Rumor of Form",
     mote_cost=3,
@@ -3627,8 +3615,8 @@ rumor_of_form = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(shadow_over_water.name, 1)]],
 )
-rumor_of_form.prerequisites.add(shadow_over_water)
 way_of_whispers_technique = SolarCharm.objects.create(
     name="Way of Whispers Technique",
     mote_cost=0,
@@ -3644,8 +3632,8 @@ way_of_whispers_technique = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(rumor_of_form.name, 1)]],
 )
-way_of_whispers_technique.prerequisites.add(rumor_of_form)
 vaporous_division = SolarCharm.objects.create(
     name="Vaporous Division",
     mote_cost=4,
@@ -3661,8 +3649,8 @@ vaporous_division = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(rumor_of_form.name, 1)]],
 )
-vaporous_division.prerequisites.add(rumor_of_form)
 sunlight_bleeding_away = SolarCharm.objects.create(
     name="Sunlight Bleeding Away",
     mote_cost=4,
@@ -3678,8 +3666,8 @@ sunlight_bleeding_away = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(fleet_dreaming_image.name, 1)]],
 )
-sunlight_bleeding_away.prerequisites.add(fleet_dreaming_image)
 thousand_steps_stillness = SolarCharm.objects.create(
     name="Thousand Steps' Stillness",
     mote_cost=5,
@@ -3695,8 +3683,8 @@ thousand_steps_stillness = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(safety_between_heartbeats.name, 1)]],
 )
-thousand_steps_stillness.prerequisites.add(safety_between_heartbeats)
 unbowed_willow_meditation = SolarCharm.objects.create(
     name="Unbowed Willow Meditation",
     mote_cost=0,
@@ -3712,8 +3700,8 @@ unbowed_willow_meditation = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(thousand_steps_stillness.name, 1)]],
 )
-unbowed_willow_meditation.prerequisites.add(thousand_steps_stillness)
 hundred_shadow_ways = SolarCharm.objects.create(
     name="Hundred Shadow Ways",
     mote_cost=6,
@@ -3729,8 +3717,8 @@ hundred_shadow_ways = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["stackable"],
     duration="scene",
+    prereqs=[[(vaporous_division.name, 1)]],
 )
-hundred_shadow_ways.prerequisites.add(vaporous_division)
 living_bonds_unburdened = SolarCharm.objects.create(
     name="Living Bonds Unburdened",
     mote_cost=3,
@@ -3746,8 +3734,8 @@ living_bonds_unburdened = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(vaporous_division.name, 1)]],
 )
-living_bonds_unburdened.prerequisites.add(vaporous_division)
 unbridled_shade_attitude = SolarCharm.objects.create(
     name="Unbridled Shade Attitude",
     mote_cost=0,
@@ -3763,8 +3751,8 @@ unbridled_shade_attitude = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(living_bonds_unburdened.name, 1)]],
 )
-unbridled_shade_attitude.prerequisites.add(living_bonds_unburdened)
 harm_dismissing_meditation = SolarCharm.objects.create(
     name="Harm-Dismissing Meditation",
     mote_cost=1,
@@ -3780,8 +3768,8 @@ harm_dismissing_meditation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="turn",
+    prereqs=[[(living_bonds_unburdened.name, 1)]],
 )
-harm_dismissing_meditation.prerequisites.add(living_bonds_unburdened)
 refinement_of_flowing_shadows = SolarCharm.objects.create(
     name="Refinement of Flowing Shadows",
     mote_cost=0,
@@ -3797,8 +3785,8 @@ refinement_of_flowing_shadows = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["perilous"],
     duration="Instant",
+    prereqs=[[(seven_shadow_evasion.name, 1)]],
 )
-refinement_of_flowing_shadows.prerequisites.add(seven_shadow_evasion)
 
 enduring_mental_toughness = SolarCharm.objects.create(
     name="Enduring Mental Toughness",
@@ -3882,8 +3870,8 @@ legend_soul_revival = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(destiny_manifesting_method.name, 1)]],
 )
-legend_soul_revival.prerequisites.add(destiny_manifesting_method)
 spirit_maintaining_maneuver = SolarCharm.objects.create(
     name="Spirit-Maintaining Maneuver",
     mote_cost=5,
@@ -3899,8 +3887,8 @@ spirit_maintaining_maneuver = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(enduring_mental_toughness.name, 1)]],
 )
-spirit_maintaining_maneuver.prerequisites.add(enduring_mental_toughness)
 undying_solar_resolve = SolarCharm.objects.create(
     name="Undying Solar Resolve",
     mote_cost=0,
@@ -3916,9 +3904,9 @@ undying_solar_resolve = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["bridge"],
     duration="Permanent",
+    prereqs=[[(stubborn_boar_defense.name, 1)]],
 )
 # stubborn_boar_defense or any 8 social charms
-undying_solar_resolve.prerequisites.add(stubborn_boar_defense)
 temptation_resisting_stance = SolarCharm.objects.create(
     name="Temptation-Resisting Stance",
     mote_cost=5,
@@ -3934,8 +3922,8 @@ temptation_resisting_stance = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(stubborn_boar_defense.name, 1)]],
 )
-temptation_resisting_stance.prerequisites.add(stubborn_boar_defense)
 mind_cleansing_prana = SolarCharm.objects.create(
     name="Mind-Cleansing Prana",
     mote_cost=5,
@@ -3951,9 +3939,9 @@ mind_cleansing_prana = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["bridge", "mute"],
     duration="Instant",
+    prereqs=[[(temptation_resisting_stance.name, 1)]],
 )
 # temptation_resisting_stance or 6 martial arts charms
-mind_cleansing_prana.prerequisites.add(temptation_resisting_stance)
 clear_mind_discipline = SolarCharm.objects.create(
     name="Clear Mind Discipline",
     mote_cost=0,
@@ -3969,9 +3957,9 @@ clear_mind_discipline = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["bridge"],
     duration="Instant",
+    prereqs=[[(mind_cleansing_prana.name, 1)]],
 )
 # mind_cleansing_prana or 3 martial_arts charms
-clear_mind_discipline.prerequisites.add(mind_cleansing_prana)
 energy_restoration_prana = SolarCharm.objects.create(
     name="Energy Restoration Prana",
     mote_cost=0,
@@ -3987,9 +3975,9 @@ energy_restoration_prana = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["bridge"],
     duration="Instant",
+    prereqs=[[(mind_cleansing_prana.name, 1)]],
 )
 # mind_cleansing_prana or 3 martial_arts charms
-energy_restoration_prana.prerequisites.add(mind_cleansing_prana)
 steel_heart_stance = SolarCharm.objects.create(
     name="Steel Heart Stance",
     mote_cost=4,
@@ -4005,9 +3993,9 @@ steel_heart_stance = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["bridge"],
     duration="Instant",
+    prereqs=[[(stubborn_boar_defense.name, 1)]],
 )
 # stubborn_boar_defense or any 4 archery, brawl, melee, thrown, or war charms
-steel_heart_stance.prerequisites.add(stubborn_boar_defense)
 righteous_lion_defense = SolarCharm.objects.create(
     name="Righteous Lion Defense",
     mote_cost=0,
@@ -4023,9 +4011,9 @@ righteous_lion_defense = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["bridge"],
     duration="Permanent",
+    prereqs=[[(steel_heart_stance.name, 1)]],
 )
 # steel_heart_stance or any 5 charms reflecting the principle being defended
-righteous_lion_defense.prerequisites.add(steel_heart_stance)
 watchful_eyes_of_heaven = SolarCharm.objects.create(
     name="Watchful Eyes of Heaven",
     mote_cost=3,
@@ -4041,8 +4029,8 @@ watchful_eyes_of_heaven = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(righteous_lion_defense.name, 1)]],
 )
-watchful_eyes_of_heaven.prerequisites.add(righteous_lion_defense)
 accord_of_the_unbreakable_spirit = SolarCharm.objects.create(
     name="Accord of the Unbreakable Spirit",
     mote_cost=6,
@@ -4058,9 +4046,9 @@ accord_of_the_unbreakable_spirit = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["bridge"],
     duration="hour",
+    prereqs=[[(integrity_protecting_prana.name, 1)]],
 )
 # integrity_protecting_prana or any 3 bureaucracy, performance, or socialize charms
-accord_of_the_unbreakable_spirit.prerequisites.add(integrity_protecting_prana)
 phoenix_renewal_tactic = SolarCharm.objects.create(
     name="Phoenix Renewal Tactic",
     mote_cost=0,
@@ -4076,8 +4064,8 @@ phoenix_renewal_tactic = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(destiny_manifesting_method.name, 1)]],
 )
-phoenix_renewal_tactic.prerequisites.add(destiny_manifesting_method)
 sun_king_radiance = SolarCharm.objects.create(
     name="Sun King Radiance",
     mote_cost=0,
@@ -4110,8 +4098,8 @@ soul_nourishing_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(sun_king_radiance.name, 1)]],
 )
-soul_nourishing_technique.prerequisites.add(sun_king_radiance)
 spirit_tempering_practice = SolarCharm.objects.create(
     name="Spirit-Tempering Practice",
     mote_cost=0,
@@ -4127,8 +4115,8 @@ spirit_tempering_practice = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(spirit_maintaining_maneuver.name, 1)]],
 )
-spirit_tempering_practice.prerequisites.add(spirit_maintaining_maneuver)
 empowered_soul_technique = SolarCharm.objects.create(
     name="Empowered Soul Technique",
     mote_cost=0,
@@ -4144,9 +4132,9 @@ empowered_soul_technique = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["bridge"],
     duration="Instant",
+    prereqs=[[(spirit_tempering_practice.name, 1)]],
 )
 # spirit_tempering_practice or any 5 lore, presence, or socialize charms
-empowered_soul_technique.prerequisites.add(spirit_tempering_practice)
 transcendent_heros_meditation = SolarCharm.objects.create(
     name="Transcendent Hero's Meditation",
     mote_cost=7,
@@ -4162,8 +4150,8 @@ transcendent_heros_meditation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(spirit_maintaining_maneuver.name, 1)]],
 )
-transcendent_heros_meditation.prerequisites.add(spirit_maintaining_maneuver)
 righteous_soul_judgment = SolarCharm.objects.create(
     name="Righteous Soul Judgment",
     mote_cost=0,
@@ -4179,9 +4167,9 @@ righteous_soul_judgment = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(undying_solar_resolve.name, 1)]],
 )
 # undying_solar_resolve or any 5 athletics, resistance, or survival charms
-righteous_soul_judgment.prerequisites.add(undying_solar_resolve)
 barque_of_transcendent_vision = SolarCharm.objects.create(
     name="Barque of Transcendent Vision",
     mote_cost=0,
@@ -4197,9 +4185,9 @@ barque_of_transcendent_vision = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["bridge"],
     duration="Instant",
+    prereqs=[[(mind_cleansing_prana.name, 1)]],
 )
 # mind_cleansing_prana or any 3 martial_arts charms
-barque_of_transcendent_vision.prerequisites.add(mind_cleansing_prana)
 unhesitating_dedication = SolarCharm.objects.create(
     name="Unhesitating Dedication",
     mote_cost=3,
@@ -4215,8 +4203,8 @@ unhesitating_dedication = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(righteous_lion_defense.name, 1)]],
 )
-unhesitating_dedication.prerequisites.add(righteous_lion_defense)
 invincible_solar_aegis = SolarCharm.objects.create(
     name="Invincible Solar Aegis",
     mote_cost=10,
@@ -4232,9 +4220,9 @@ invincible_solar_aegis = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["bridge"],
     duration="Indefinite",
+    prereqs=[[(righteous_lion_defense.name, 1)]],
 )
 # righteous_lion_defense or any 6 charms that reflect the focal principle
-invincible_solar_aegis.prerequisites.add(righteous_lion_defense)
 eminent_paragon_approach = SolarCharm.objects.create(
     name="Eminent Paragon Approach",
     mote_cost=1,
@@ -4250,9 +4238,9 @@ eminent_paragon_approach = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["bridge"],
     duration="Instant",
+    prereqs=[[(soul_nourishing_technique.name, 1)]],
 )
 # soul_nourishing_technique or any 5 charms
-eminent_paragon_approach.prerequisites.add(soul_nourishing_technique)
 divine_mantle = SolarCharm.objects.create(
     name="Divine Mantle",
     mote_cost=7,
@@ -4268,9 +4256,9 @@ divine_mantle = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["bridge"],
     duration="Instant",
+    prereqs=[[(eminent_paragon_approach.name, 1), (invincible_solar_aegis.name, 1)]],
 )
 # eminent_paragon_approach, invincible_solar_aegis or any 15 caste charms
-divine_mantle.prerequisites.add(eminent_paragon_approach, invincible_solar_aegis)
 body_restoring_benison = SolarCharm.objects.create(
     name="Body-Restoring Benison",
     mote_cost=0,
@@ -4286,9 +4274,9 @@ body_restoring_benison = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["bridge"],
     duration="Permanent",
+    prereqs=[[(barque_of_transcendent_vision.name, 1)]],
 )
 # barque_of_transcendant_vision or 5 martial_arts charms
-body_restoring_benison.prerequisites.add(barque_of_transcendent_vision)
 inviolable_essence_merging = SolarCharm.objects.create(
     name="Inviolable Essence-Merging",
     mote_cost=7,
@@ -4304,9 +4292,7 @@ inviolable_essence_merging = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Indefinite",
-)
-inviolable_essence_merging.prerequisites.add(
-    body_restoring_benison, energy_restoration_prana
+    prereqs=[[(body_restoring_benison.name, 1), (energy_restoration_prana.name, 1)]],
 )
 
 watchmans_infallible_eye = SolarCharm.objects.create(
@@ -4340,8 +4326,8 @@ inquisitors_unfailing_notice = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(watchmans_infallible_eye.name, 1)]],
 )
-inquisitors_unfailing_notice.prerequisites.add(watchmans_infallible_eye)
 crafty_observation_method = SolarCharm.objects.create(
     name="Crafty Observation Method",
     mote_cost=5,
@@ -4357,8 +4343,8 @@ crafty_observation_method = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(watchmans_infallible_eye.name, 1)]],
 )
-crafty_observation_method.prerequisites.add(watchmans_infallible_eye)
 divine_induction_technique = SolarCharm.objects.create(
     name="Divine Induction Technique",
     mote_cost=0,
@@ -4374,8 +4360,8 @@ divine_induction_technique = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(crafty_observation_method.name, 1)]],
 )
-divine_induction_technique.prerequisites.add(crafty_observation_method)
 evidence_discerning_method = SolarCharm.objects.create(
     name="Evidence-Discerning Method",
     mote_cost=2,
@@ -4391,8 +4377,8 @@ evidence_discerning_method = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(crafty_observation_method.name, 1)]],
 )
-evidence_discerning_method.prerequisites.add(crafty_observation_method)
 judges_ear_technique = SolarCharm.objects.create(
     name="Judge's Ear Technique",
     mote_cost=3,
@@ -4408,8 +4394,8 @@ judges_ear_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(crafty_observation_method.name, 1)]],
 )
-judges_ear_technique.prerequisites.add(crafty_observation_method)
 miraculous_stunning_insight = SolarCharm.objects.create(
     name="Miraculous Stunning Insight",
     mote_cost=0,
@@ -4425,8 +4411,8 @@ miraculous_stunning_insight = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["mute"],
     duration="Permanent",
+    prereqs=[[(divine_induction_technique.name, 1)]],
 )
-miraculous_stunning_insight.prerequisites.add(divine_induction_technique)
 watchful_justiciars_eye = SolarCharm.objects.create(
     name="Watchful Justiciar's Eye",
     mote_cost=4,
@@ -4442,8 +4428,8 @@ watchful_justiciars_eye = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(evidence_discerning_method.name, 1)]],
 )
-watchful_justiciars_eye.prerequisites.add(evidence_discerning_method)
 irresistible_questioning_technique = SolarCharm.objects.create(
     name="Irresistible Questioning Technique",
     mote_cost=5,
@@ -4459,8 +4445,8 @@ irresistible_questioning_technique = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(judges_ear_technique.name, 1)]],
 )
-irresistible_questioning_technique.prerequisites.add(judges_ear_technique)
 dauntless_inquisitor_attitude = SolarCharm.objects.create(
     name="Dauntless Inquisitor Attitude",
     mote_cost=6,
@@ -4476,8 +4462,8 @@ dauntless_inquisitor_attitude = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="scene",
+    prereqs=[[(miraculous_stunning_insight.name, 1)]],
 )
-dauntless_inquisitor_attitude.prerequisites.add(miraculous_stunning_insight)
 evidence_restoring_prana = SolarCharm.objects.create(
     name="Evidence-Restoring Prana",
     mote_cost=6,
@@ -4493,8 +4479,8 @@ evidence_restoring_prana = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Varies",
+    prereqs=[[(evidence_discerning_method.name, 1)]],
 )
-evidence_restoring_prana.prerequisites.add(evidence_discerning_method)
 ten_magistrate_eyes = SolarCharm.objects.create(
     name="Ten Magistrate Eyes",
     mote_cost=3,
@@ -4510,8 +4496,8 @@ ten_magistrate_eyes = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(evidence_discerning_method.name, 1), (judges_ear_technique.name, 1)]],
 )
-ten_magistrate_eyes.prerequisites.add(evidence_discerning_method, judges_ear_technique)
 unknown_wisdom_epiphany = SolarCharm.objects.create(
     name="Unknown Wisdom Epiphany",
     mote_cost=10,
@@ -4527,8 +4513,8 @@ unknown_wisdom_epiphany = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(ten_magistrate_eyes.name, 1)]],
 )
-unknown_wisdom_epiphany.prerequisites.add(ten_magistrate_eyes)
 enlightened_touch_insight = SolarCharm.objects.create(
     name="Enlightened Touch Insight",
     mote_cost=5,
@@ -4544,8 +4530,8 @@ enlightened_touch_insight = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(unknown_wisdom_epiphany.name, 1)]],
 )
-enlightened_touch_insight.prerequisites.add(unknown_wisdom_epiphany)
 judge_generals_stance = SolarCharm.objects.create(
     name="Judge-General's Stance",
     mote_cost=10,
@@ -4561,8 +4547,8 @@ judge_generals_stance = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(dauntless_inquisitor_attitude.name, 1)]],
 )
-judge_generals_stance.prerequisites.add(dauntless_inquisitor_attitude)
 empathic_recall_discipline = SolarCharm.objects.create(
     name="Empathic Recall Discipline",
     mote_cost=1,
@@ -4578,8 +4564,8 @@ empathic_recall_discipline = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(enlightened_touch_insight.name, 1)]],
 )
-empathic_recall_discipline.prerequisites.add(enlightened_touch_insight)
 mind_manse_meditation = SolarCharm.objects.create(
     name="Mind Manse Meditation",
     mote_cost=12,
@@ -4595,9 +4581,9 @@ mind_manse_meditation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
-)
-mind_manse_meditation.prerequisites.add(
-    empathic_recall_discipline, evidence_restoring_prana
+    prereqs=[
+        [(empathic_recall_discipline.name, 1), (evidence_restoring_prana.name, 1)]
+    ],
 )
 
 seasoned_criminal_method = SolarCharm.objects.create(
@@ -4631,8 +4617,8 @@ spurious_presence = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(seasoned_criminal_method.name, 1)]],
 )
-spurious_presence.prerequisites.add(seasoned_criminal_method)
 preying_on_uncertainty_approach = SolarCharm.objects.create(
     name="Preying on Uncertainty Approach",
     mote_cost=3,
@@ -4648,8 +4634,8 @@ preying_on_uncertainty_approach = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(spurious_presence.name, 1)]],
 )
-preying_on_uncertainty_approach.prerequisites.add(spurious_presence)
 clever_bandits_rook = SolarCharm.objects.create(
     name="Clever Bandit's Rook",
     mote_cost=2,
@@ -4665,8 +4651,8 @@ clever_bandits_rook = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(seasoned_criminal_method.name, 1)]],
 )
-clever_bandits_rook.prerequisites.add(seasoned_criminal_method)
 swift_gamblers_eye = SolarCharm.objects.create(
     name="Swift Gambler's Eye",
     mote_cost=1,
@@ -4698,8 +4684,8 @@ lightning_hand_sleight = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(swift_gamblers_eye.name, 1)]],
 )
-lightning_hand_sleight.prerequisites.add(swift_gamblers_eye)
 flawless_pickpocketing_technique = SolarCharm.objects.create(
     name="Flawless Pickpocketing Technique",
     mote_cost=3,
@@ -4763,8 +4749,8 @@ phantom_hood_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(preying_on_uncertainty_approach.name, 1)]],
 )
-phantom_hood_technique.prerequisites.add(preying_on_uncertainty_approach)
 doubt_sealing_heist = SolarCharm.objects.create(
     name="Doubt-Sealing Heist",
     mote_cost=5,
@@ -4780,8 +4766,8 @@ doubt_sealing_heist = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(clever_bandits_rook.name, 1)]],
 )
-doubt_sealing_heist.prerequisites.add(clever_bandits_rook)
 living_shadow_preparedness = SolarCharm.objects.create(
     name="Living Shadow Preparedness",
     mote_cost=4,
@@ -4813,8 +4799,8 @@ unshakable_rogues_spirit = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(living_shadow_preparedness.name, 1)]],
 )
-unshakable_rogues_spirit.prerequisites.add(living_shadow_preparedness)
 master_plan_meditation = SolarCharm.objects.create(
     name="Master Plan Meditation",
     mote_cost=6,
@@ -4830,8 +4816,8 @@ master_plan_meditation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(unshakable_rogues_spirit.name, 1)]],
 )
-master_plan_meditation.prerequisites.add(unshakable_rogues_spirit)
 proof_eating_palm = SolarCharm.objects.create(
     name="Proof-Eating Palm",
     mote_cost=1,
@@ -4847,8 +4833,8 @@ proof_eating_palm = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(lightning_hand_sleight.name, 1)]],
 )
-proof_eating_palm.prerequisites.add(lightning_hand_sleight)
 stealing_from_plain_sight_spirit = SolarCharm.objects.create(
     name="Stealing From Plain Sight Spirit",
     mote_cost=6,
@@ -4864,8 +4850,8 @@ stealing_from_plain_sight_spirit = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(flawless_pickpocketing_technique.name, 1)]],
 )
-stealing_from_plain_sight_spirit.prerequisites.add(flawless_pickpocketing_technique)
 magpies_invisible_talon = SolarCharm.objects.create(
     name="Magpie's Invisible Talon",
     mote_cost=0,
@@ -4881,8 +4867,8 @@ magpies_invisible_talon = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(stealing_from_plain_sight_spirit.name, 1)]],
 )
-magpies_invisible_talon.prerequisites.add(stealing_from_plain_sight_spirit)
 perfect_mirror = SolarCharm.objects.create(
     name="Perfect Mirror",
     mote_cost=5,
@@ -4898,8 +4884,8 @@ perfect_mirror = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["mute"],
     duration="Permanent",
+    prereqs=[[(flawlessly_impenetrable_disguise.name, 1)]],
 )
-perfect_mirror.prerequisites.add(flawlessly_impenetrable_disguise)
 fate_shifting_solar_arete = SolarCharm.objects.create(
     name="Fate-Shifting Solar Arete",
     mote_cost=0,
@@ -4915,9 +4901,7 @@ fate_shifting_solar_arete = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
-)
-fate_shifting_solar_arete.prerequisites.add(
-    lightning_hand_sleight, unshakable_rogues_spirit
+    prereqs=[[(lightning_hand_sleight.name, 1), (unshakable_rogues_spirit.name, 1)]],
 )
 skillful_reappropriation_phantom_sting_search = SolarCharm.objects.create(
     name="Skillful Reappropriation (Phantom Sting Search)",
@@ -4934,8 +4918,8 @@ skillful_reappropriation_phantom_sting_search = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(magpies_invisible_talon.name, 1)]],
 )
-skillful_reappropriation_phantom_sting_search.prerequisites.add(magpies_invisible_talon)
 reversal_of_fortune = SolarCharm.objects.create(
     name="Reversal of Fortune",
     mote_cost=4,
@@ -4951,8 +4935,8 @@ reversal_of_fortune = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(flawless_pickpocketing_technique.name, 1)]],
 )
-reversal_of_fortune.prerequisites.add(flawless_pickpocketing_technique)
 iron_wolves_grasp = SolarCharm.objects.create(
     name="Iron Wolves' Grasp",
     mote_cost=3,
@@ -4968,9 +4952,9 @@ iron_wolves_grasp = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
-)
-iron_wolves_grasp.prerequisites.add(
-    stealing_from_plain_sight_spirit, reversal_of_fortune
+    prereqs=[
+        [(stealing_from_plain_sight_spirit.name, 1), (reversal_of_fortune.name, 1)]
+    ],
 )
 door_evading_technique = SolarCharm.objects.create(
     name="Door-Evading Technique",
@@ -4987,8 +4971,8 @@ door_evading_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(lock_opening_touch.name, 1)]],
 )
-door_evading_technique.prerequisites.add(lock_opening_touch)
 flashing_ruse_prana = SolarCharm.objects.create(
     name="Flashing Ruse Prana",
     mote_cost=10,
@@ -5004,8 +4988,8 @@ flashing_ruse_prana = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(flawlessly_impenetrable_disguise.name, 1)]],
 )
-flashing_ruse_prana.prerequisites.add(flawlessly_impenetrable_disguise)
 split_deception_method = SolarCharm.objects.create(
     name="Split Deception Method",
     mote_cost=0,
@@ -5021,8 +5005,8 @@ split_deception_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(perfect_mirror.name, 1)]],
 )
-split_deception_method.prerequisites.add(perfect_mirror)
 null_anima_gloves = SolarCharm.objects.create(
     name="Null Anima Gloves",
     mote_cost=12,
@@ -5038,9 +5022,13 @@ null_anima_gloves = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Indefinite",
-)
-null_anima_gloves.prerequisites.add(
-    iron_wolves_grasp, proof_eating_palm, skillful_reappropriation_phantom_sting_search
+    prereqs=[
+        [
+            (iron_wolves_grasp.name, 1),
+            (proof_eating_palm.name, 1),
+            (skillful_reappropriation_phantom_sting_search.name, 1),
+        ]
+    ],
 )
 nights_eye_meditation = SolarCharm.objects.create(
     name="Night's Eye Meditation",
@@ -5057,8 +5045,8 @@ nights_eye_meditation = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="turn",
+    prereqs=[[(null_anima_gloves.name, 1)]],
 )
-nights_eye_meditation.prerequisites.add(null_anima_gloves)
 unbroken_darkness_approach = SolarCharm.objects.create(
     name="Unbroken Darkness Approach",
     mote_cost=0,
@@ -5074,8 +5062,8 @@ unbroken_darkness_approach = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(nights_eye_meditation.name, 1)]],
 )
-unbroken_darkness_approach.prerequisites.add(nights_eye_meditation)
 
 whirling_brush_method = SolarCharm.objects.create(
     name="Whirling Brush Method",
@@ -5108,8 +5096,8 @@ flawless_brush_discipline = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["written-only"],
     duration="Instant",
+    prereqs=[[(whirling_brush_method.name, 1)]],
 )
-flawless_brush_discipline.prerequisites.add(whirling_brush_method)
 letter_within_a_letter_technique = SolarCharm.objects.create(
     name="Letter-Within-A-Letter Technique",
     mote_cost=4,
@@ -5189,8 +5177,8 @@ poetic_expression_style = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(strange_tongue_understanding.name, 1)]],
 )
-poetic_expression_style.prerequisites.add(strange_tongue_understanding)
 mingled_tongue_technique = SolarCharm.objects.create(
     name="Mingled Tongue Technique",
     mote_cost=4,
@@ -5238,8 +5226,8 @@ word_shield_invocation = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(sagacious_reading_of_intent.name, 1)]],
 )
-word_shield_invocation.prerequisites.add(sagacious_reading_of_intent)
 stolen_voice_technique = SolarCharm.objects.create(
     name="Stolen Voice Technique",
     mote_cost=3,
@@ -5255,8 +5243,8 @@ stolen_voice_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["written-only"],
     duration="Instant",
+    prereqs=[[(flawless_brush_discipline.name, 1)]],
 )
-stolen_voice_technique.prerequisites.add(flawless_brush_discipline)
 moving_the_unseen_hand = SolarCharm.objects.create(
     name="Moving the Unseen Hand",
     mote_cost=4,
@@ -5272,8 +5260,8 @@ moving_the_unseen_hand = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute", "written-only"],
     duration="Instant",
+    prereqs=[[(stolen_voice_technique.name, 1)]],
 )
-moving_the_unseen_hand.prerequisites.add(stolen_voice_technique)
 essence_laden_missive = SolarCharm.objects.create(
     name="Essence-Laden Missive",
     mote_cost=1,
@@ -5289,8 +5277,8 @@ essence_laden_missive = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["mute", "psyche", "written-only"],
     duration="Instant",
+    prereqs=[[(letter_within_a_letter_technique.name, 1)]],
 )
-essence_laden_missive.prerequisites.add(letter_within_a_letter_technique)
 voice_caging_calligraphy = SolarCharm.objects.create(
     name="Voice-Caging Calligraphy",
     mote_cost=2,
@@ -5306,8 +5294,8 @@ voice_caging_calligraphy = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["mute", "psyche", "written-only"],
     duration="Instant",
+    prereqs=[[(essence_laden_missive.name, 1)]],
 )
-voice_caging_calligraphy.prerequisites.add(essence_laden_missive)
 single_voice_kata = SolarCharm.objects.create(
     name="Single Voice Kata",
     mote_cost=5,
@@ -5323,8 +5311,8 @@ single_voice_kata = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(mingled_tongue_technique.name, 1)]],
 )
-single_voice_kata.prerequisites.add(mingled_tongue_technique)
 vanishing_immersion_style = SolarCharm.objects.create(
     name="Vanishing Immersion Style",
     mote_cost=1,
@@ -5340,8 +5328,8 @@ vanishing_immersion_style = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(word_shield_invocation.name, 1)]],
 )
-vanishing_immersion_style.prerequisites.add(word_shield_invocation)
 discerning_savants_eye = SolarCharm.objects.create(
     name="Discerning Savant's Eye",
     mote_cost=1,
@@ -5357,8 +5345,8 @@ discerning_savants_eye = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(sagacious_reading_of_intent.name, 1)]],
 )
-discerning_savants_eye.prerequisites.add(sagacious_reading_of_intent)
 power_snaring_image = SolarCharm.objects.create(
     name="Power-Snaring Image",
     mote_cost=1,
@@ -5374,8 +5362,8 @@ power_snaring_image = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["written-only"],
     duration="Instant",
+    prereqs=[[(stolen_voice_technique.name, 1)]],
 )
-power_snaring_image.prerequisites.add(stolen_voice_technique)
 flashing_quill_atemi = SolarCharm.objects.create(
     name="Flashing Quill Atemi",
     mote_cost=1,
@@ -5391,8 +5379,8 @@ flashing_quill_atemi = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["written-only"],
     duration="minute",
+    prereqs=[[(power_snaring_image.name, 1)]],
 )
-flashing_quill_atemi.prerequisites.add(power_snaring_image)
 mind_swallowing_missive = SolarCharm.objects.create(
     name="Mind-Swallowing Missive",
     mote_cost=8,
@@ -5408,8 +5396,8 @@ mind_swallowing_missive = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["psyche", "written-only"],
     duration="Indefinite",
+    prereqs=[[(essence_laden_missive.name, 1)]],
 )
-mind_swallowing_missive.prerequisites.add(essence_laden_missive)
 cup_boils_over = SolarCharm.objects.create(
     name="Cup Boils Over",
     mote_cost=1,
@@ -5425,8 +5413,8 @@ cup_boils_over = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["written-only"],
     duration="Instant",
+    prereqs=[[(mind_swallowing_missive.name, 1), (voice_caging_calligraphy.name, 1)]],
 )
-cup_boils_over.prerequisites.add(mind_swallowing_missive, voice_caging_calligraphy)
 twisted_words_technique = SolarCharm.objects.create(
     name="Twisted Words Technique",
     mote_cost=1,
@@ -5442,9 +5430,13 @@ twisted_words_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["psyche"],
     duration="Instant",
-)
-twisted_words_technique.prerequisites.add(
-    flowing_elegant_hand, letter_within_a_letter_technique, subtle_speech_method
+    prereqs=[
+        [
+            (flowing_elegant_hand.name, 1),
+            (letter_within_a_letter_technique.name, 1),
+            (subtle_speech_method.name, 1),
+        ]
+    ],
 )
 perfect_recollection_discipline = SolarCharm.objects.create(
     name="Perfect Recollection Discipline",
@@ -5461,8 +5453,8 @@ perfect_recollection_discipline = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(discerning_savants_eye.name, 1)]],
 )
-perfect_recollection_discipline.prerequisites.add(discerning_savants_eye)
 excellent_emissarys_tongue = SolarCharm.objects.create(
     name="Excellent Emissary's Tongue",
     mote_cost=6,
@@ -5478,9 +5470,7 @@ excellent_emissarys_tongue = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Indefinite",
-)
-excellent_emissarys_tongue.prerequisites.add(
-    single_voice_kata, strange_tongue_understanding
+    prereqs=[[(single_voice_kata.name, 1), (strange_tongue_understanding.name, 1)]],
 )
 swift_sages_eye = SolarCharm.objects.create(
     name="Swift Sage's Eye",
@@ -5497,8 +5487,8 @@ swift_sages_eye = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="text",
+    prereqs=[[(perfect_recollection_discipline.name, 1)]],
 )
-swift_sages_eye.prerequisites.add(perfect_recollection_discipline)
 mind_scribing_method = SolarCharm.objects.create(
     name="Mind-Scribing Method",
     mote_cost=5,
@@ -5514,8 +5504,8 @@ mind_scribing_method = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(perfect_recollection_discipline.name, 1)]],
 )
-mind_scribing_method.prerequisites.add(perfect_recollection_discipline)
 heaven_drawing_discipline = SolarCharm.objects.create(
     name="Heaven-Drawing Discipline",
     mote_cost=8,
@@ -5531,8 +5521,8 @@ heaven_drawing_discipline = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(mind_scribing_method.name, 1)]],
 )
-heaven_drawing_discipline.prerequisites.add(mind_scribing_method)
 perfect_celestial_author = SolarCharm.objects.create(
     name="Perfect Celestial Author",
     mote_cost=0,
@@ -5548,8 +5538,8 @@ perfect_celestial_author = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["written-only"],
     duration="Permanent",
+    prereqs=[[(flashing_quill_atemi.name, 1)]],
 )
-perfect_celestial_author.prerequisites.add(flashing_quill_atemi)
 unbreakable_fascination_method = SolarCharm.objects.create(
     name="Unbreakable Fascination Method",
     mote_cost=6,
@@ -5565,8 +5555,8 @@ unbreakable_fascination_method = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["psyche"],
     duration="Instant",
+    prereqs=[[(twisted_words_technique.name, 1)]],
 )
-unbreakable_fascination_method.prerequisites.add(twisted_words_technique)
 
 wyld_dispelling_prana = SolarCharm.objects.create(
     name="Wyld-Dispelling Prana",
@@ -5599,8 +5589,8 @@ chaos_repelling_pattern = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="hour",
+    prereqs=[[(wyld_dispelling_prana.name, 1)]],
 )
-chaos_repelling_pattern.prerequisites.add(wyld_dispelling_prana)
 harmonious_academic_methodology = SolarCharm.objects.create(
     name="Harmonious Academic Methodology",
     mote_cost=0,
@@ -5632,8 +5622,8 @@ first_knowledges_grace = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(harmonious_academic_methodology.name, 1)]],
 )
-first_knowledges_grace.prerequisites.add(harmonious_academic_methodology)
 flowing_mind_prana = SolarCharm.objects.create(
     name="Flowing Mind Prana",
     mote_cost=0,
@@ -5649,8 +5639,8 @@ flowing_mind_prana = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(first_knowledges_grace.name, 1)]],
 )
-flowing_mind_prana.prerequisites.add(first_knowledges_grace)
 essence_lending_method = SolarCharm.objects.create(
     name="Essence-Lending Method",
     mote_cost=3,
@@ -5682,8 +5672,8 @@ will_bolstering_method = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(essence_lending_method.name, 1)]],
 )
-will_bolstering_method.prerequisites.add(essence_lending_method)
 hidden_wisdom_bestowal = SolarCharm.objects.create(
     name="Hidden Wisdom Bestowal",
     mote_cost=10,
@@ -5699,8 +5689,8 @@ hidden_wisdom_bestowal = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["mute"],
     duration="scene",
+    prereqs=[[(flowing_mind_prana.name, 1)]],
 )
-hidden_wisdom_bestowal.prerequisites.add(flowing_mind_prana)
 tireless_learner_method = SolarCharm.objects.create(
     name="Tireless Learner Method",
     mote_cost=0,
@@ -5716,8 +5706,8 @@ tireless_learner_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(flowing_mind_prana.name, 1)]],
 )
-tireless_learner_method.prerequisites.add(flowing_mind_prana)
 bottomless_wellspring_approach = SolarCharm.objects.create(
     name="Bottomless Wellspring Approach",
     mote_cost=0,
@@ -5733,8 +5723,8 @@ bottomless_wellspring_approach = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(harmonious_academic_methodology.name, 1)]],
 )
-bottomless_wellspring_approach.prerequisites.add(harmonious_academic_methodology)
 lore_inducing_concentration = SolarCharm.objects.create(
     name="Lore-Inducing Concentration",
     mote_cost=3,
@@ -5750,8 +5740,8 @@ lore_inducing_concentration = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(bottomless_wellspring_approach.name, 1)]],
 )
-lore_inducing_concentration.prerequisites.add(bottomless_wellspring_approach)
 truth_rendering_gaze = SolarCharm.objects.create(
     name="Truth-Rendering Gaze",
     mote_cost=6,
@@ -5767,8 +5757,8 @@ truth_rendering_gaze = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(lore_inducing_concentration.name, 1)]],
 )
-truth_rendering_gaze.prerequisites.add(lore_inducing_concentration)
 wound_accepting_technique = SolarCharm.objects.create(
     name="Wound-Accepting Technique",
     mote_cost=3,
@@ -5784,8 +5774,8 @@ wound_accepting_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(will_bolstering_method.name, 1)]],
 )
-wound_accepting_technique.prerequisites.add(will_bolstering_method)
 essence_font_technique = SolarCharm.objects.create(
     name="Essence Font Technique",
     mote_cost=0,
@@ -5801,8 +5791,8 @@ essence_font_technique = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(will_bolstering_method.name, 1)]],
 )
-essence_font_technique.prerequisites.add(will_bolstering_method)
 legendary_scholars_curriculum = SolarCharm.objects.create(
     name="Legendary Scholar's Curriculum",
     mote_cost=0,
@@ -5818,8 +5808,8 @@ legendary_scholars_curriculum = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(flowing_mind_prana.name, 1)]],
 )
-legendary_scholars_curriculum.prerequisites.add(flowing_mind_prana)
 selfsame_master_instructor = SolarCharm.objects.create(
     name="Selfsame Master Instructor",
     mote_cost=0,
@@ -5835,8 +5825,8 @@ selfsame_master_instructor = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(legendary_scholars_curriculum.name, 1)]],
 )
-selfsame_master_instructor.prerequisites.add(legendary_scholars_curriculum)
 sacred_relic_understanding = SolarCharm.objects.create(
     name="Sacred Relic Understanding",
     mote_cost=4,
@@ -5852,8 +5842,8 @@ sacred_relic_understanding = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(truth_rendering_gaze.name, 1)]],
 )
-sacred_relic_understanding.prerequisites.add(truth_rendering_gaze)
 wake_the_sleeper = SolarCharm.objects.create(
     name="Wake the Sleeper",
     mote_cost=15,
@@ -5869,8 +5859,8 @@ wake_the_sleeper = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(sacred_relic_understanding.name, 1)]],
 )
-wake_the_sleeper.prerequisites.add(sacred_relic_understanding)
 heaven_turning_calculations = SolarCharm.objects.create(
     name="Heaven-Turning Calculations",
     mote_cost=0,
@@ -5886,8 +5876,8 @@ heaven_turning_calculations = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(truth_rendering_gaze.name, 1)]],
 )
-heaven_turning_calculations.prerequisites.add(truth_rendering_gaze)
 injury_forcing_technique = SolarCharm.objects.create(
     name="Injury-Forcing Technique",
     mote_cost=5,
@@ -5903,8 +5893,8 @@ injury_forcing_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(wound_accepting_technique.name, 1)]],
 )
-injury_forcing_technique.prerequisites.add(wound_accepting_technique)
 essence_draining_touch = SolarCharm.objects.create(
     name="Essence-Draining Touch",
     mote_cost=0,
@@ -5920,8 +5910,8 @@ essence_draining_touch = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(injury_forcing_technique.name, 1)]],
 )
-essence_draining_touch.prerequisites.add(injury_forcing_technique)
 essence_twining_method = SolarCharm.objects.create(
     name="Essence-Twining Method",
     mote_cost=6,
@@ -5937,8 +5927,8 @@ essence_twining_method = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(essence_draining_touch.name, 1)]],
 )
-essence_twining_method.prerequisites.add(essence_draining_touch)
 force_draining_whisper = SolarCharm.objects.create(
     name="Force-Draining Whisper",
     mote_cost=10,
@@ -5954,8 +5944,8 @@ force_draining_whisper = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["clash", "decisive-only"],
     duration="Instant",
+    prereqs=[[(essence_draining_touch.name, 1)]],
 )
-force_draining_whisper.prerequisites.add(essence_draining_touch)
 immanent_solar_glory = SolarCharm.objects.create(
     name="Immanent Solar Glory",
     mote_cost=0,
@@ -5971,8 +5961,8 @@ immanent_solar_glory = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(essence_font_technique.name, 1)]],
 )
-immanent_solar_glory.prerequisites.add(essence_font_technique)
 flowing_essence_conversion = SolarCharm.objects.create(
     name="Flowing Essence Conversion",
     mote_cost=10,
@@ -5988,8 +5978,8 @@ flowing_essence_conversion = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(immanent_solar_glory.name, 1)]],
 )
-flowing_essence_conversion.prerequisites.add(immanent_solar_glory)
 power_restoring_invocation = SolarCharm.objects.create(
     name="Power-Restoring Invocation",
     mote_cost=0,
@@ -6005,8 +5995,8 @@ power_restoring_invocation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["perilous"],
     duration="Instant",
+    prereqs=[[(flowing_essence_conversion.name, 1)]],
 )
-power_restoring_invocation.prerequisites.add(flowing_essence_conversion)
 surging_essence_flow = SolarCharm.objects.create(
     name="Surging Essence Flow",
     mote_cost=0,
@@ -6022,8 +6012,8 @@ surging_essence_flow = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(flowing_essence_conversion.name, 1)]],
 )
-surging_essence_flow.prerequisites.add(flowing_essence_conversion)
 order_affirming_blow = SolarCharm.objects.create(
     name="Order-Affirming Blow",
     mote_cost=15,
@@ -6055,9 +6045,13 @@ wyld_shaping_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
-)
-wyld_shaping_technique.prerequisites.add(
-    chaos_repelling_pattern, order_affirming_blow, truth_rendering_gaze
+    prereqs=[
+        [
+            (chaos_repelling_pattern.name, 1),
+            (order_affirming_blow.name, 1),
+            (truth_rendering_gaze.name, 1),
+        ]
+    ],
 )
 hero_induction_method = SolarCharm.objects.create(
     name="Hero-Induction Method",
@@ -6074,8 +6068,8 @@ hero_induction_method = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(wyld_shaping_technique.name, 1)]],
 )
-hero_induction_method.prerequisites.add(wyld_shaping_technique)
 wyld_cauldron_mastery = SolarCharm.objects.create(
     name="Wyld Cauldron Mastery",
     mote_cost=0,
@@ -6091,8 +6085,8 @@ wyld_cauldron_mastery = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(wyld_shaping_technique.name, 1)]],
 )
-wyld_cauldron_mastery.prerequisites.add(wyld_shaping_technique)
 wyld_called_weapon = SolarCharm.objects.create(
     name="Wyld-Called Weapon",
     mote_cost=7,
@@ -6108,8 +6102,8 @@ wyld_called_weapon = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(wyld_shaping_technique.name, 1)]],
 )
-wyld_called_weapon.prerequisites.add(wyld_shaping_technique)
 wyld_forging_focus = SolarCharm.objects.create(
     name="Wyld-Forging Focus",
     mote_cost=0,
@@ -6125,8 +6119,8 @@ wyld_forging_focus = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(wyld_shaping_technique.name, 1)]],
 )
-wyld_forging_focus.prerequisites.add(wyld_shaping_technique)
 tome_rearing_gesture = SolarCharm.objects.create(
     name="Tome-Rearing Gesture",
     mote_cost=5,
@@ -6142,8 +6136,8 @@ tome_rearing_gesture = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(wyld_shaping_technique.name, 1), (mind_scribing_method.name, 1)]],
 )
-tome_rearing_gesture.prerequisites.add(wyld_shaping_technique, mind_scribing_method)
 power_awarding_prana = SolarCharm.objects.create(
     name="Power-Awarding Prana",
     mote_cost=5,
@@ -6159,9 +6153,7 @@ power_awarding_prana = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute", "stackable"],
     duration="Indefinite",
-)
-power_awarding_prana.prerequisites.add(
-    essence_font_technique, selfsame_master_instructor
+    prereqs=[[(essence_font_technique.name, 1), (selfsame_master_instructor.name, 1)]],
 )
 prophet_of_seventeen_cycles = SolarCharm.objects.create(
     name="Prophet of Seventeen Cycles",
@@ -6178,8 +6170,8 @@ prophet_of_seventeen_cycles = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(truth_rendering_gaze.name, 1)]],
 )
-prophet_of_seventeen_cycles.prerequisites.add(truth_rendering_gaze)
 will_shattering_illusion = SolarCharm.objects.create(
     name="Will-Shattering Illusion",
     mote_cost=10,
@@ -6195,9 +6187,7 @@ will_shattering_illusion = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute"],
     duration="Instant",
-)
-will_shattering_illusion.prerequisites.add(
-    chaos_repelling_pattern, force_draining_whisper
+    prereqs=[[(chaos_repelling_pattern.name, 1), (force_draining_whisper.name, 1)]],
 )
 surging_inner_fire = SolarCharm.objects.create(
     name="Surging Inner Fire",
@@ -6214,8 +6204,8 @@ surging_inner_fire = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(power_restoring_invocation.name, 1)]],
 )
-surging_inner_fire.prerequisites.add(power_restoring_invocation)
 seal_of_infinite_wisdom = SolarCharm.objects.create(
     name="Seal of Infinite Wisdom",
     mote_cost=0,
@@ -6231,8 +6221,8 @@ seal_of_infinite_wisdom = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(surging_essence_flow.name, 1)]],
 )
-seal_of_infinite_wisdom.prerequisites.add(surging_essence_flow)
 sevenfold_savant_mantle = SolarCharm.objects.create(
     name="Sevenfold Savant Mantle",
     mote_cost=0,
@@ -6248,8 +6238,8 @@ sevenfold_savant_mantle = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(wyld_cauldron_mastery.name, 1)]],
 )
-sevenfold_savant_mantle.prerequisites.add(wyld_cauldron_mastery)
 power_beyond_reason = SolarCharm.objects.create(
     name="Power Beyond Reason",
     mote_cost=0,
@@ -6265,8 +6255,8 @@ power_beyond_reason = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(sevenfold_savant_mantle.name, 1)]],
 )
-power_beyond_reason.prerequisites.add(sevenfold_savant_mantle)
 manse_raising_method = SolarCharm.objects.create(
     name="Manse-Raising Method",
     mote_cost=10,
@@ -6282,8 +6272,8 @@ manse_raising_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(wyld_called_weapon.name, 1)]],
 )
-manse_raising_method.prerequisites.add(wyld_called_weapon)
 demiurgic_suspiration = SolarCharm.objects.create(
     name="Demiurgic Suspiration",
     mote_cost=0,
@@ -6299,8 +6289,8 @@ demiurgic_suspiration = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(wyld_forging_focus.name, 1)]],
 )
-demiurgic_suspiration.prerequisites.add(wyld_forging_focus)
 god_kings_shrike_dogstar_ruminations = SolarCharm.objects.create(
     name="God-King's Shrike (Dogstar Ruminations)",
     mote_cost=30,
@@ -6316,8 +6306,8 @@ god_kings_shrike_dogstar_ruminations = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(prophet_of_seventeen_cycles.name, 1)]],
 )
-god_kings_shrike_dogstar_ruminations.prerequisites.add(prophet_of_seventeen_cycles)
 incalculable_flowing_mind = SolarCharm.objects.create(
     name="Incalculable Flowing Mind",
     mote_cost=7,
@@ -6333,8 +6323,8 @@ incalculable_flowing_mind = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(seal_of_infinite_wisdom.name, 1)]],
 )
-incalculable_flowing_mind.prerequisites.add(seal_of_infinite_wisdom)
 unstoppable_magnus_approach = SolarCharm.objects.create(
     name="Unstoppable Magnus Approach",
     mote_cost=5,
@@ -6350,9 +6340,7 @@ unstoppable_magnus_approach = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["perilous"],
     duration="Instant",
-)
-unstoppable_magnus_approach.prerequisites.add(
-    incalculable_flowing_mind, surging_inner_fire
+    prereqs=[[(incalculable_flowing_mind.name, 1), (surging_inner_fire.name, 1)]],
 )
 savant_of_nine_glories = SolarCharm.objects.create(
     name="Savant of Nine Glories",
@@ -6369,8 +6357,8 @@ savant_of_nine_glories = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(demiurgic_suspiration.name, 1)]],
 )
-savant_of_nine_glories.prerequisites.add(demiurgic_suspiration)
 
 ailment_rectifying_method = SolarCharm.objects.create(
     name="Ailment-Rectifying Method",
@@ -6403,8 +6391,8 @@ plague_banishing_incitation = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(ailment_rectifying_method.name, 1)]],
 )
-plague_banishing_incitation.prerequisites.add(ailment_rectifying_method)
 wound_mending_care_technique = SolarCharm.objects.create(
     name="Wound-Mending Care Technique",
     mote_cost=5,
@@ -6436,8 +6424,8 @@ wound_cleansing_meditation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(wound_mending_care_technique.name, 1)]],
 )
-wound_cleansing_meditation.prerequisites.add(wound_mending_care_technique)
 flawless_diagnosis_technique = SolarCharm.objects.create(
     name="Flawless Diagnosis Technique",
     mote_cost=1,
@@ -6469,8 +6457,8 @@ contagion_curing_touch = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(plague_banishing_incitation.name, 1)]],
 )
-contagion_curing_touch.prerequisites.add(plague_banishing_incitation)
 instant_treatment_methodology = SolarCharm.objects.create(
     name="Instant Treatment Methodology",
     mote_cost=5,
@@ -6486,8 +6474,8 @@ instant_treatment_methodology = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(wound_cleansing_meditation.name, 1)]],
 )
-instant_treatment_methodology.prerequisites.add(wound_cleansing_meditation)
 wound_banishing_strike = SolarCharm.objects.create(
     name="Wound-Banishing Strike",
     mote_cost=5,
@@ -6503,8 +6491,8 @@ wound_banishing_strike = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(instant_treatment_methodology.name, 1)]],
 )
-wound_banishing_strike.prerequisites.add(instant_treatment_methodology)
 touch_of_blissful_release = SolarCharm.objects.create(
     name="Touch of Blissful Release",
     mote_cost=5,
@@ -6520,8 +6508,8 @@ touch_of_blissful_release = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(flawless_diagnosis_technique.name, 1)]],
 )
-touch_of_blissful_release.prerequisites.add(flawless_diagnosis_technique)
 feit_of_imparted_nature = SolarCharm.objects.create(
     name="Feit of Imparted Nature",
     mote_cost=10,
@@ -6537,8 +6525,8 @@ feit_of_imparted_nature = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(touch_of_blissful_release.name, 1)]],
 )
-feit_of_imparted_nature.prerequisites.add(touch_of_blissful_release)
 body_purifying_admonitions = SolarCharm.objects.create(
     name="Body-Purifying Admonitions",
     mote_cost=4,
@@ -6554,8 +6542,8 @@ body_purifying_admonitions = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(touch_of_blissful_release.name, 1)]],
 )
-body_purifying_admonitions.prerequisites.add(touch_of_blissful_release)
 anointment_of_miraculous_health = SolarCharm.objects.create(
     name="Anointment of Miraculous Health",
     mote_cost=10,
@@ -6571,8 +6559,8 @@ anointment_of_miraculous_health = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(instant_treatment_methodology.name, 1)]],
 )
-anointment_of_miraculous_health.prerequisites.add(instant_treatment_methodology)
 body_sculpting_essence_method = SolarCharm.objects.create(
     name="Body-Sculpting Essence Method",
     mote_cost=10,
@@ -6588,8 +6576,8 @@ body_sculpting_essence_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(anointment_of_miraculous_health.name, 1)]],
 )
-body_sculpting_essence_method.prerequisites.add(anointment_of_miraculous_health)
 wholeness_restoring_meditation = SolarCharm.objects.create(
     name="Wholeness-Restoring Meditation",
     mote_cost=10,
@@ -6605,8 +6593,8 @@ wholeness_restoring_meditation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(anointment_of_miraculous_health.name, 1)]],
 )
-wholeness_restoring_meditation.prerequisites.add(anointment_of_miraculous_health)
 healing_trance_meditation = SolarCharm.objects.create(
     name="Healing Trance Meditation",
     mote_cost=0,
@@ -6622,9 +6610,9 @@ healing_trance_meditation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
-)
-healing_trance_meditation.prerequisites.add(
-    contagion_curing_touch, wholeness_restoring_meditation
+    prereqs=[
+        [(contagion_curing_touch.name, 1), (wholeness_restoring_meditation.name, 1)]
+    ],
 )
 life_exchanging_prana = SolarCharm.objects.create(
     name="Life-Exchanging Prana",
@@ -6642,8 +6630,8 @@ life_exchanging_prana = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(feit_of_imparted_nature.name, 1)]],
 )
-life_exchanging_prana.prerequisites.add(feit_of_imparted_nature)
 anodyne_of_celestial_dreaming = SolarCharm.objects.create(
     name="Anodyne of Celestial Dreaming",
     mote_cost=7,
@@ -6659,8 +6647,8 @@ anodyne_of_celestial_dreaming = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(touch_of_blissful_release.name, 1)]],
 )
-anodyne_of_celestial_dreaming.prerequisites.add(touch_of_blissful_release)
 master_chirurgeon_meditation = SolarCharm.objects.create(
     name="Master Chirurgeon Meditation",
     mote_cost=0,
@@ -6692,8 +6680,8 @@ benison_of_celestial_healing = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(master_chirurgeon_meditation.name, 1)]],
 )
-benison_of_celestial_healing.prerequisites.add(master_chirurgeon_meditation)
 life_sculpting_hands_technique = SolarCharm.objects.create(
     name="Life-Sculpting Hands Technique",
     mote_cost=0,
@@ -6709,8 +6697,8 @@ life_sculpting_hands_technique = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(benison_of_celestial_healing.name, 1)]],
 )
-life_sculpting_hands_technique.prerequisites.add(benison_of_celestial_healing)
 healers_unerring_hands = SolarCharm.objects.create(
     name="Healer's Unerring Hands",
     mote_cost=5,
@@ -6726,8 +6714,8 @@ healers_unerring_hands = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(life_sculpting_hands_technique.name, 1)]],
 )
-healers_unerring_hands.prerequisites.add(life_sculpting_hands_technique)
 immaculate_solar_physician = SolarCharm.objects.create(
     name="Immaculate Solar Physician",
     mote_cost=0,
@@ -6743,8 +6731,8 @@ immaculate_solar_physician = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(healers_unerring_hands.name, 1)]],
 )
-immaculate_solar_physician.prerequisites.add(healers_unerring_hands)
 perfect_celestial_chirurgeon = SolarCharm.objects.create(
     name="Perfect Celestial Chirurgeon",
     mote_cost=0,
@@ -6760,8 +6748,8 @@ perfect_celestial_chirurgeon = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(healers_unerring_hands.name, 1)]],
 )
-perfect_celestial_chirurgeon.prerequisites.add(healers_unerring_hands)
 
 excellent_strike = SolarCharm.objects.create(
     name="Excellent Strike",
@@ -6798,8 +6786,8 @@ fire_and_stones_strike = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["dual"],
     duration="Instant",
+    prereqs=[[(excellent_strike.name, 1)]],
 )
-fire_and_stones_strike.prerequisites.add(excellent_strike)
 one_weapon_two_blows = SolarCharm.objects.create(
     name="One Weapon, Two Blows",
     mote_cost=3,
@@ -6817,8 +6805,8 @@ one_weapon_two_blows = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(excellent_strike.name, 1)]],
 )
-one_weapon_two_blows.prerequisites.add(excellent_strike)
 peony_blossom_technique = SolarCharm.objects.create(
     name="Peony Blossom Technique",
     mote_cost=1,
@@ -6836,8 +6824,8 @@ peony_blossom_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(one_weapon_two_blows.name, 1)]],
 )
-peony_blossom_technique.prerequisites.add(one_weapon_two_blows)
 dipping_swallow_defense = SolarCharm.objects.create(
     name="Dipping Swallow Defense",
     mote_cost=2,
@@ -6873,8 +6861,8 @@ bulwark_stance = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="turn",
+    prereqs=[[(dipping_swallow_defense.name, 1)]],
 )
-bulwark_stance.prerequisites.add(dipping_swallow_defense)
 war_lion_stance = SolarCharm.objects.create(
     name="War Lion Stance",
     mote_cost=2,
@@ -6892,8 +6880,8 @@ war_lion_stance = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(dipping_swallow_defense.name, 1)]],
 )
-war_lion_stance.prerequisites.add(dipping_swallow_defense)
 guard_breaking_technique = SolarCharm.objects.create(
     name="Guard-Breaking Technique",
     mote_cost=3,
@@ -6911,8 +6899,8 @@ guard_breaking_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(war_lion_stance.name, 1)]],
 )
-guard_breaking_technique.prerequisites.add(war_lion_stance)
 solar_counterattack = SolarCharm.objects.create(
     name="Solar Counterattack",
     mote_cost=3,
@@ -6930,8 +6918,8 @@ solar_counterattack = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["counterattack", "decisive-only"],
     duration="Instant",
+    prereqs=[[(dipping_swallow_defense.name, 1)]],
 )
-solar_counterattack.prerequisites.add(dipping_swallow_defense)
 call_the_blade = SolarCharm.objects.create(
     name="Call the Blade",
     mote_cost=1,
@@ -6967,8 +6955,8 @@ summoning_the_loyal_steel = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(call_the_blade.name, 1)]],
 )
-summoning_the_loyal_steel.prerequisites.add(call_the_blade)
 rising_sun_slash = SolarCharm.objects.create(
     name="Rising Sun Slash",
     mote_cost=1,
@@ -6986,8 +6974,8 @@ rising_sun_slash = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["uniform"],
     duration="Instant",
+    prereqs=[[(fire_and_stones_strike.name, 1)]],
 )
-rising_sun_slash.prerequisites.add(fire_and_stones_strike)
 agile_dragonfly_blade = SolarCharm.objects.create(
     name="Agile Dragonfly Blade",
     mote_cost=3,
@@ -7005,8 +6993,8 @@ agile_dragonfly_blade = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(one_weapon_two_blows.name, 1)]],
 )
-agile_dragonfly_blade.prerequisites.add(one_weapon_two_blows)
 iron_whirlwind_attack = SolarCharm.objects.create(
     name="Iron Whirlwind Attack",
     mote_cost=5,
@@ -7024,8 +7012,8 @@ iron_whirlwind_attack = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(peony_blossom_technique.name, 1)]],
 )
-iron_whirlwind_attack.prerequisites.add(peony_blossom_technique)
 fivefold_bulwark_stance = SolarCharm.objects.create(
     name="Fivefold Bulwark Stance",
     mote_cost=5,
@@ -7043,8 +7031,8 @@ fivefold_bulwark_stance = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(bulwark_stance.name, 1)]],
 )
-fivefold_bulwark_stance.prerequisites.add(bulwark_stance)
 heavenly_guardian_defense = SolarCharm.objects.create(
     name="Heavenly Guardian Defense",
     mote_cost=4,
@@ -7062,8 +7050,8 @@ heavenly_guardian_defense = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["perilous", "decisive-only"],
     duration="Instant",
+    prereqs=[[(bulwark_stance.name, 1)]],
 )
-heavenly_guardian_defense.prerequisites.add(bulwark_stance)
 hail_shattering_practice = SolarCharm.objects.create(
     name="Hail-Shattering Practice",
     mote_cost=1,
@@ -7081,8 +7069,8 @@ hail_shattering_practice = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(dipping_swallow_defense.name, 1)]],
 )
-hail_shattering_practice.prerequisites.add(dipping_swallow_defense)
 calm_and_ready_focus = SolarCharm.objects.create(
     name="Calm and Ready Focus",
     mote_cost=0,
@@ -7100,8 +7088,8 @@ calm_and_ready_focus = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(war_lion_stance.name, 1)]],
 )
-calm_and_ready_focus.prerequisites.add(war_lion_stance)
 unassailable_guardian_posture = SolarCharm.objects.create(
     name="Unassailable Guardian Posture",
     mote_cost=1,
@@ -7119,8 +7107,8 @@ unassailable_guardian_posture = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="turn",
+    prereqs=[[(war_lion_stance.name, 1)]],
 )
-unassailable_guardian_posture.prerequisites.add(war_lion_stance)
 ready_in_eight_directions_stance = SolarCharm.objects.create(
     name="Ready in Eight Directions Stance",
     mote_cost=5,
@@ -7138,8 +7126,8 @@ ready_in_eight_directions_stance = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["counterattack", "decisive-only"],
     duration="turn",
+    prereqs=[[(solar_counterattack.name, 1)]],
 )
-ready_in_eight_directions_stance.prerequisites.add(solar_counterattack)
 glorious_solar_saber = SolarCharm.objects.create(
     name="Glorious Solar Saber",
     mote_cost=5,
@@ -7157,8 +7145,8 @@ glorious_solar_saber = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(summoning_the_loyal_steel.name, 1)]],
 )
-glorious_solar_saber.prerequisites.add(summoning_the_loyal_steel)
 iron_raptor_technique = SolarCharm.objects.create(
     name="Iron Raptor Technique",
     mote_cost=7,
@@ -7176,8 +7164,8 @@ iron_raptor_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute", "uniform"],
     duration="Instant",
+    prereqs=[[(call_the_blade.name, 1), (excellent_strike.name, 1)]],
 )
-iron_raptor_technique.prerequisites.add(call_the_blade, excellent_strike)
 sandstorm_wind_attack = SolarCharm.objects.create(
     name="Sandstorm-Wind Attack",
     mote_cost=5,
@@ -7195,8 +7183,8 @@ sandstorm_wind_attack = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(call_the_blade.name, 1), (excellent_strike.name, 1)]],
 )
-sandstorm_wind_attack.prerequisites.add(call_the_blade, excellent_strike)
 edge_of_morning_sunlight = SolarCharm.objects.create(
     name="Edge of Morning Sunlight",
     mote_cost=2,
@@ -7214,8 +7202,8 @@ edge_of_morning_sunlight = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["uniform"],
     duration="Instant",
+    prereqs=[[(sandstorm_wind_attack.name, 1)]],
 )
-edge_of_morning_sunlight.prerequisites.add(sandstorm_wind_attack)
 foe_cleaving_focus = SolarCharm.objects.create(
     name="Foe-Cleaving Focus",
     mote_cost=0,
@@ -7233,8 +7221,8 @@ foe_cleaving_focus = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(rising_sun_slash.name, 1)]],
 )
-foe_cleaving_focus.prerequisites.add(rising_sun_slash)
 hungry_tiger_technique = SolarCharm.objects.create(
     name="Hungry Tiger Technique",
     mote_cost=3,
@@ -7252,8 +7240,8 @@ hungry_tiger_technique = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["dual", "perilous"],
     duration="Instant",
+    prereqs=[[(rising_sun_slash.name, 1)]],
 )
-hungry_tiger_technique.prerequisites.add(rising_sun_slash)
 invincible_fury_of_the_dawn = SolarCharm.objects.create(
     name="Invincible Fury of the Dawn",
     mote_cost=0,
@@ -7271,8 +7259,8 @@ invincible_fury_of_the_dawn = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(iron_whirlwind_attack.name, 1)]],
 )
-invincible_fury_of_the_dawn.prerequisites.add(iron_whirlwind_attack)
 perfect_strike_discipline = SolarCharm.objects.create(
     name="Perfect Strike Discipline",
     mote_cost=0,
@@ -7290,8 +7278,8 @@ perfect_strike_discipline = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(dipping_swallow_defense.name, 1), (excellent_strike.name, 1)]],
 )
-perfect_strike_discipline.prerequisites.add(dipping_swallow_defense, excellent_strike)
 flashing_edge_of_dawn = SolarCharm.objects.create(
     name="Flashing Edge of Dawn",
     mote_cost=4,
@@ -7309,8 +7297,8 @@ flashing_edge_of_dawn = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["counterattack", "withering-only"],
     duration="Instant",
+    prereqs=[[(one_weapon_two_blows.name, 1), (solar_counterattack.name, 1)]],
 )
-flashing_edge_of_dawn.prerequisites.add(one_weapon_two_blows, solar_counterattack)
 fervent_blow = SolarCharm.objects.create(
     name="Fervent Blow",
     mote_cost=1,
@@ -7328,8 +7316,8 @@ fervent_blow = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["clash", "decisive-only"],
     duration="Instant",
+    prereqs=[[(flashing_edge_of_dawn.name, 1)]],
 )
-fervent_blow.prerequisites.add(flashing_edge_of_dawn)
 over_and_under_method = SolarCharm.objects.create(
     name="Over-and-Under Method",
     mote_cost=7,
@@ -7347,8 +7335,8 @@ over_and_under_method = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(fervent_blow.name, 1)]],
 )
-over_and_under_method.prerequisites.add(fervent_blow)
 immortal_blade_triumphant = SolarCharm.objects.create(
     name="Immortal Blade Triumphant",
     mote_cost=10,
@@ -7366,8 +7354,8 @@ immortal_blade_triumphant = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(glorious_solar_saber.name, 1)]],
 )
-immortal_blade_triumphant.prerequisites.add(glorious_solar_saber)
 corona_of_radiance = SolarCharm.objects.create(
     name="Corona of Radiance",
     mote_cost=5,
@@ -7385,8 +7373,8 @@ corona_of_radiance = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(edge_of_morning_sunlight.name, 1)]],
 )
-corona_of_radiance.prerequisites.add(edge_of_morning_sunlight)
 sharp_light_of_judgment_stance = SolarCharm.objects.create(
     name="Sharp Light of Judgment Stance",
     mote_cost=0,
@@ -7404,8 +7392,8 @@ sharp_light_of_judgment_stance = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(corona_of_radiance.name, 1)]],
 )
-sharp_light_of_judgment_stance.prerequisites.add(corona_of_radiance)
 blazing_solar_bolt = SolarCharm.objects.create(
     name="Blazing Solar Bolt",
     mote_cost=5,
@@ -7423,8 +7411,8 @@ blazing_solar_bolt = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(corona_of_radiance.name, 1)]],
 )
-blazing_solar_bolt.prerequisites.add(corona_of_radiance)
 heaven_sword_flash = SolarCharm.objects.create(
     name="Heaven Sword Flash",
     mote_cost=7,
@@ -7442,8 +7430,8 @@ heaven_sword_flash = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only", "perilous"],
     duration="Instant",
+    prereqs=[[(invincible_fury_of_the_dawn.name, 1)]],
 )
-heaven_sword_flash.prerequisites.add(invincible_fury_of_the_dawn)
 circle_of_bright_reaving = SolarCharm.objects.create(
     name="Circle of Bright Reaving",
     mote_cost=6,
@@ -7461,8 +7449,8 @@ circle_of_bright_reaving = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["withering-only", "perilous"],
     duration="Instant",
+    prereqs=[[(heaven_sword_flash.name, 1)]],
 )
-circle_of_bright_reaving.prerequisites.add(heaven_sword_flash)
 protection_of_celestial_bliss = SolarCharm.objects.create(
     name="Protection of Celestial Bliss",
     mote_cost=4,
@@ -7480,8 +7468,8 @@ protection_of_celestial_bliss = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["decisive-only"],
     duration="Permanent",
+    prereqs=[[(heavenly_guardian_defense.name, 1)]],
 )
-protection_of_celestial_bliss.prerequisites.add(heavenly_guardian_defense)
 
 spirit_detecting_glance = SolarCharm.objects.create(
     name="Spirit-Detecting Glance",
@@ -7520,8 +7508,8 @@ uncanny_perception_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(spirit_detecting_glance.name, 1)]],
 )
-uncanny_perception_technique.prerequisites.add(spirit_detecting_glance)
 keen_unnatural_eye = SolarCharm.objects.create(
     name="Keen Unnatural Eye",
     mote_cost=0,
@@ -7540,8 +7528,8 @@ keen_unnatural_eye = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(uncanny_perception_technique.name, 1)]],
 )
-keen_unnatural_eye.prerequisites.add(uncanny_perception_technique)
 spirit_cutting_attack = SolarCharm.objects.create(
     name="Spirit-Cutting Attack",
     mote_cost=1,
@@ -7560,8 +7548,8 @@ spirit_cutting_attack = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["uniform"],
     duration="Instant",
+    prereqs=[[(spirit_detecting_glance.name, 1)]],
 )
-spirit_cutting_attack.prerequisites.add(spirit_detecting_glance)
 spirit_draining_stance = SolarCharm.objects.create(
     name="Spirit-Draining Stance",
     mote_cost=5,
@@ -7580,8 +7568,8 @@ spirit_draining_stance = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(spirit_cutting_attack.name, 1)]],
 )
-spirit_draining_stance.prerequisites.add(spirit_cutting_attack)
 ghost_eating_technique = SolarCharm.objects.create(
     name="Ghost-Eating Technique",
     mote_cost=3,
@@ -7600,8 +7588,8 @@ ghost_eating_technique = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(spirit_cutting_attack.name, 1)]],
 )
-ghost_eating_technique.prerequisites.add(spirit_cutting_attack)
 phantom_seizing_strike = SolarCharm.objects.create(
     name="Phantom-Seizing Strike",
     mote_cost=1,
@@ -7620,8 +7608,8 @@ phantom_seizing_strike = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["uniform"],
     duration="Instant",
+    prereqs=[[(ghost_eating_technique.name, 1)]],
 )
-phantom_seizing_strike.prerequisites.add(ghost_eating_technique)
 spirit_slaying_stance = SolarCharm.objects.create(
     name="Spirit-Slaying Stance",
     mote_cost=3,
@@ -7640,8 +7628,8 @@ spirit_slaying_stance = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(phantom_seizing_strike.name, 1)]],
 )
-spirit_slaying_stance.prerequisites.add(phantom_seizing_strike)
 uncanny_shroud_defense = SolarCharm.objects.create(
     name="Uncanny Shroud Defense",
     mote_cost=6,
@@ -7660,8 +7648,8 @@ uncanny_shroud_defense = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(spirit_cutting_attack.name, 1)]],
 )
-uncanny_shroud_defense.prerequisites.add(spirit_cutting_attack)
 spirit_manifesting_word = SolarCharm.objects.create(
     name="Spirit-Manifesting Word",
     mote_cost=1,
@@ -7718,8 +7706,8 @@ supernal_control_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(ancient_tongue_understanding.name, 1)]],
 )
-supernal_control_method.prerequisites.add(ancient_tongue_understanding)
 all_encompassing_sorcerers_sight = SolarCharm.objects.create(
     name="All-Encompassing Sorcerer's Sight",
     mote_cost=4,
@@ -7738,8 +7726,8 @@ all_encompassing_sorcerers_sight = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(spirit_detecting_glance.name, 1)]],
 )
-all_encompassing_sorcerers_sight.prerequisites.add(spirit_detecting_glance)
 carnal_spirit_rending = SolarCharm.objects.create(
     name="Carnal Spirit Rending",
     mote_cost=5,
@@ -7758,8 +7746,8 @@ carnal_spirit_rending = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(ghost_eating_technique.name, 1)]],
 )
-carnal_spirit_rending.prerequisites.add(ghost_eating_technique)
 burning_exorcism_technique = SolarCharm.objects.create(
     name="Burning Exorcism Technique",
     mote_cost=3,
@@ -7778,8 +7766,8 @@ burning_exorcism_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(carnal_spirit_rending.name, 1)]],
 )
-burning_exorcism_technique.prerequisites.add(carnal_spirit_rending)
 breath_drinker_method = SolarCharm.objects.create(
     name="Breath-Drinker Method",
     mote_cost=0,
@@ -7798,8 +7786,8 @@ breath_drinker_method = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(spirit_draining_stance.name, 1)]],
 )
-breath_drinker_method.prerequisites.add(spirit_draining_stance)
 spirit_repelling_diagram = SolarCharm.objects.create(
     name="Spirit-Repelling Diagram",
     mote_cost=6,
@@ -7818,8 +7806,8 @@ spirit_repelling_diagram = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(spirit_cutting_attack.name, 1)]],
 )
-spirit_repelling_diagram.prerequisites.add(spirit_cutting_attack)
 nine_specters_ban = SolarCharm.objects.create(
     name="Nine Specters Ban",
     mote_cost=4,
@@ -7838,8 +7826,8 @@ nine_specters_ban = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(spirit_repelling_diagram.name, 1), (uncanny_shroud_defense.name, 1)]],
 )
-nine_specters_ban.prerequisites.add(spirit_repelling_diagram, uncanny_shroud_defense)
 spirit_caging_mandala = SolarCharm.objects.create(
     name="Spirit-Caging Mandala",
     mote_cost=10,
@@ -7877,8 +7865,8 @@ material_exegesis_prana = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(spirit_manifesting_word.name, 1)]],
 )
-material_exegesis_prana.prerequisites.add(spirit_manifesting_word)
 dark_minders_observances = SolarCharm.objects.create(
     name="Dark-Minder's Observances",
     mote_cost=0,
@@ -7897,8 +7885,8 @@ dark_minders_observances = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Instant",
+    prereqs=[[(ancient_tongue_understanding.name, 1)]],
 )
-dark_minders_observances.prerequisites.add(ancient_tongue_understanding)
 burning_eye_of_the_deliverer = SolarCharm.objects.create(
     name="Burning Eye of the Deliverer",
     mote_cost=0,
@@ -7917,8 +7905,8 @@ burning_eye_of_the_deliverer = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(all_encompassing_sorcerers_sight.name, 1)]],
 )
-burning_eye_of_the_deliverer.prerequisites.add(all_encompassing_sorcerers_sight)
 soul_projection_method = SolarCharm.objects.create(
     name="Soul Projection Method",
     mote_cost=6,
@@ -7937,8 +7925,8 @@ soul_projection_method = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(burning_exorcism_technique.name, 1)]],
 )
-soul_projection_method.prerequisites.add(burning_exorcism_technique)
 wyld_binding_prana = SolarCharm.objects.create(
     name="Wyld-Binding Prana",
     mote_cost=0,
@@ -7957,8 +7945,8 @@ wyld_binding_prana = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(spirit_caging_mandala.name, 1)]],
 )
-wyld_binding_prana.prerequisites.add(spirit_caging_mandala)
 spirit_draining_mudra = SolarCharm.objects.create(
     name="Spirit-Draining Mudra",
     mote_cost=0,
@@ -7977,8 +7965,8 @@ spirit_draining_mudra = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(spirit_caging_mandala.name, 1)]],
 )
-spirit_draining_mudra.prerequisites.add(spirit_caging_mandala)
 demon_compelling_noose = SolarCharm.objects.create(
     name="Demon-Compelling Noose",
     mote_cost=0,
@@ -7997,8 +7985,8 @@ demon_compelling_noose = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(spirit_draining_mudra.name, 1)]],
 )
-demon_compelling_noose.prerequisites.add(spirit_draining_mudra)
 all_souls_benediction = SolarCharm.objects.create(
     name="All Souls Benediction",
     mote_cost=16,
@@ -8017,8 +8005,8 @@ all_souls_benediction = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(material_exegesis_prana.name, 1)]],
 )
-all_souls_benediction.prerequisites.add(material_exegesis_prana)
 gloaming_eye_understanding = SolarCharm.objects.create(
     name="Gloaming Eye Understanding",
     mote_cost=3,
@@ -8037,8 +8025,8 @@ gloaming_eye_understanding = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["stackable"],
     duration="Indefinite",
+    prereqs=[[(dark_minders_observances.name, 1)]],
 )
-gloaming_eye_understanding.prerequisites.add(dark_minders_observances)
 sorcerers_burning_chakra = SolarCharm.objects.create(
     name="Sorcerer's Burning Chakra",
     mote_cost=0,
@@ -8057,8 +8045,8 @@ sorcerers_burning_chakra = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(burning_eye_of_the_deliverer.name, 1)]],
 )
-sorcerers_burning_chakra.prerequisites.add(burning_eye_of_the_deliverer)
 immortal_soul_vigil = SolarCharm.objects.create(
     name="Immortal Soul Vigil",
     mote_cost=7,
@@ -8077,8 +8065,8 @@ immortal_soul_vigil = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(soul_projection_method.name, 1)]],
 )
-immortal_soul_vigil.prerequisites.add(soul_projection_method)
 spirit_shredding_exorcism = SolarCharm.objects.create(
     name="Spirit-Shredding Exorcism",
     mote_cost=7,
@@ -8097,8 +8085,8 @@ spirit_shredding_exorcism = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(spirit_draining_mudra.name, 1)]],
 )
-spirit_shredding_exorcism.prerequisites.add(spirit_draining_mudra)
 spirit_drawing_oculus = SolarCharm.objects.create(
     name="Spirit-Drawing Oculus",
     mote_cost=0,
@@ -8117,8 +8105,8 @@ spirit_drawing_oculus = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(sorcerers_burning_chakra.name, 1)]],
 )
-spirit_drawing_oculus.prerequisites.add(sorcerers_burning_chakra)
 ephemeral_induction_technique = SolarCharm.objects.create(
     name="Ephemeral Induction Technique",
     mote_cost=20,
@@ -8137,9 +8125,13 @@ ephemeral_induction_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute"],
     duration="Instant",
-)
-ephemeral_induction_technique.prerequisites.add(
-    carnal_spirit_rending, gloaming_eye_understanding, wyld_binding_prana
+    prereqs=[
+        [
+            (carnal_spirit_rending.name, 1),
+            (gloaming_eye_understanding.name, 1),
+            (wyld_binding_prana.name, 1),
+        ]
+    ],
 )
 
 masterful_performance_exercise = SolarCharm.objects.create(
@@ -8179,8 +8171,8 @@ soul_firing_performance = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(masterful_performance_exercise.name, 1)]],
 )
-soul_firing_performance.prerequisites.add(masterful_performance_exercise)
 stillness_drawing_meditation = SolarCharm.objects.create(
     name="Stillness-Drawing Meditation",
     mote_cost=0,
@@ -8199,8 +8191,8 @@ stillness_drawing_meditation = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(masterful_performance_exercise.name, 1)]],
 )
-stillness_drawing_meditation.prerequisites.add(masterful_performance_exercise)
 trance_of_fugue_vision = SolarCharm.objects.create(
     name="Trance of Fugue Vision",
     mote_cost=5,
@@ -8219,8 +8211,8 @@ trance_of_fugue_vision = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(stillness_drawing_meditation.name, 1)]],
 )
-trance_of_fugue_vision.prerequisites.add(stillness_drawing_meditation)
 penultimate_unity_of_form = SolarCharm.objects.create(
     name="Penultimate Unity of Form",
     mote_cost=2,
@@ -8239,8 +8231,8 @@ penultimate_unity_of_form = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Action",
+    prereqs=[[(trance_of_fugue_vision.name, 1)]],
 )
-penultimate_unity_of_form.prerequisites.add(trance_of_fugue_vision)
 soul_bracing_momentous_power = SolarCharm.objects.create(
     name="Soul-Bracing Momentous Power",
     mote_cost=0,
@@ -8259,8 +8251,8 @@ soul_bracing_momentous_power = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(penultimate_unity_of_form.name, 1)]],
 )
-soul_bracing_momentous_power.prerequisites.add(penultimate_unity_of_form)
 unmatched_showmanship_style = SolarCharm.objects.create(
     name="Unmatched Showmanship Style",
     mote_cost=0,
@@ -8279,8 +8271,8 @@ unmatched_showmanship_style = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["mute"],
     duration="Permanent",
+    prereqs=[[(trance_of_fugue_vision.name, 1)]],
 )
-unmatched_showmanship_style.prerequisites.add(trance_of_fugue_vision)
 soul_voice = SolarCharm.objects.create(
     name="Soul Voice",
     mote_cost=0,
@@ -8299,8 +8291,8 @@ soul_voice = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="action",
+    prereqs=[[(unmatched_showmanship_style.name, 1)]],
 )
-soul_voice.prerequisites.add(unmatched_showmanship_style)
 pivotal_encore_performance = SolarCharm.objects.create(
     name="Pivotal Encore Performance",
     mote_cost=0,
@@ -8319,8 +8311,8 @@ pivotal_encore_performance = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(soul_voice.name, 1)]],
 )
-pivotal_encore_performance.prerequisites.add(soul_voice)
 respect_commanding_attitude = SolarCharm.objects.create(
     name="Respect-Commanding Attitude",
     mote_cost=5,
@@ -8358,9 +8350,12 @@ phantom_conjuring_performance = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
-)
-phantom_conjuring_performance.prerequisites.add(
-    masterful_performance_exercise, respect_commanding_attitude
+    prereqs=[
+        [
+            (masterful_performance_exercise.name, 1),
+            (respect_commanding_attitude.name, 1),
+        ]
+    ],
 )
 memory_reweaving_discipline = SolarCharm.objects.create(
     name="Memory-Reweaving Discipline",
@@ -8418,8 +8413,8 @@ impassioned_orator_technique = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(masterful_performance_exercise.name, 1)]],
 )
-impassioned_orator_technique.prerequisites.add(masterful_performance_exercise)
 fury_inciting_speech = SolarCharm.objects.create(
     name="Fury Inciting Speech",
     mote_cost=5,
@@ -8438,8 +8433,8 @@ fury_inciting_speech = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(impassioned_orator_technique.name, 1)]],
 )
-fury_inciting_speech.prerequisites.add(impassioned_orator_technique)
 dogmatic_contagion_discipline = SolarCharm.objects.create(
     name="Dogmatic Contagion Discipline",
     mote_cost=1,
@@ -8458,8 +8453,8 @@ dogmatic_contagion_discipline = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(fury_inciting_speech.name, 1)]],
 )
-dogmatic_contagion_discipline.prerequisites.add(fury_inciting_speech)
 infectious_zealotry_approach = SolarCharm.objects.create(
     name="Infectious Zealotry Approach",
     mote_cost=1,
@@ -8478,8 +8473,8 @@ infectious_zealotry_approach = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(dogmatic_contagion_discipline.name, 1)]],
 )
-infectious_zealotry_approach.prerequisites.add(dogmatic_contagion_discipline)
 perfect_harmony_technique = SolarCharm.objects.create(
     name="Perfect Harmony Technique",
     mote_cost=1,
@@ -8498,8 +8493,8 @@ perfect_harmony_technique = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(masterful_performance_exercise.name, 1)]],
 )
-perfect_harmony_technique.prerequisites.add(masterful_performance_exercise)
 mood_inducing_music = SolarCharm.objects.create(
     name="Mood-Inducing Music",
     mote_cost=1,
@@ -8518,8 +8513,8 @@ mood_inducing_music = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="song",
+    prereqs=[[(perfect_harmony_technique.name, 1)]],
 )
-mood_inducing_music.prerequisites.add(perfect_harmony_technique)
 
 listener_swaying_argument = SolarCharm.objects.create(
     name="Listener-Swaying Argument",
@@ -8577,9 +8572,9 @@ excellent_friend_approach = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
-)
-excellent_friend_approach.prerequisites.add(
-    harmonious_presence_meditation, listener_swaying_argument
+    prereqs=[
+        [(harmonious_presence_meditation.name, 1), (listener_swaying_argument.name, 1)]
+    ],
 )
 tigers_dread_symmetry = SolarCharm.objects.create(
     name="Tiger's Dread Symmetry",
@@ -8618,8 +8613,8 @@ impassioned_discourse_technique = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(listener_swaying_argument.name, 1)]],
 )
-impassioned_discourse_technique.prerequisites.add(listener_swaying_argument)
 empowering_shout = SolarCharm.objects.create(
     name="Empowering Shout",
     mote_cost=3,
@@ -8638,8 +8633,8 @@ empowering_shout = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(impassioned_discourse_technique.name, 1)]],
 )
-empowering_shout.prerequisites.add(impassioned_discourse_technique)
 majestic_radiant_presence = SolarCharm.objects.create(
     name="Majestic Radiant Presence",
     mote_cost=6,
@@ -8658,8 +8653,8 @@ majestic_radiant_presence = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(harmonious_presence_meditation.name, 1)]],
 )
-majestic_radiant_presence.prerequisites.add(harmonious_presence_meditation)
 underling_promoting_touch = SolarCharm.objects.create(
     name="Underling-Promoting Touch",
     mote_cost=7,
@@ -8678,8 +8673,8 @@ underling_promoting_touch = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(majestic_radiant_presence.name, 1)]],
 )
-underling_promoting_touch.prerequisites.add(majestic_radiant_presence)
 threefold_magnetic_ardor = SolarCharm.objects.create(
     name="Threefold Magnetic Ardor",
     mote_cost=4,
@@ -8698,9 +8693,9 @@ threefold_magnetic_ardor = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
-)
-threefold_magnetic_ardor.prerequisites.add(
-    harmonious_presence_meditation, listener_swaying_argument
+    prereqs=[
+        [(harmonious_presence_meditation.name, 1), (listener_swaying_argument.name, 1)]
+    ],
 )
 awakened_carnal_demiurge = SolarCharm.objects.create(
     name="Awakened Carnal Demiurge",
@@ -8720,8 +8715,8 @@ awakened_carnal_demiurge = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(threefold_magnetic_ardor.name, 1)]],
 )
-awakened_carnal_demiurge.prerequisites.add(threefold_magnetic_ardor)
 enemy_castigating_solar_judgment = SolarCharm.objects.create(
     name="Enemy-Castigating Solar Judgment",
     mote_cost=3,
@@ -8740,9 +8735,9 @@ enemy_castigating_solar_judgment = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
-)
-enemy_castigating_solar_judgment.prerequisites.add(
-    impassioned_discourse_technique, majestic_radiant_presence
+    prereqs=[
+        [(impassioned_discourse_technique.name, 1), (majestic_radiant_presence.name, 1)]
+    ],
 )
 fulminating_word = SolarCharm.objects.create(
     name="Fulminating Word",
@@ -8762,8 +8757,8 @@ fulminating_word = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(impassioned_discourse_technique.name, 1)]],
 )
-fulminating_word.prerequisites.add(impassioned_discourse_technique)
 authority_radiating_stance = SolarCharm.objects.create(
     name="Authority-Radiating Stance",
     mote_cost=5,
@@ -8782,8 +8777,8 @@ authority_radiating_stance = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(majestic_radiant_presence.name, 1)]],
 )
-authority_radiating_stance.prerequisites.add(majestic_radiant_presence)
 terrifying_apparition_of_glory = SolarCharm.objects.create(
     name="Terrifying Apparition of Glory",
     mote_cost=7,
@@ -8802,8 +8797,8 @@ terrifying_apparition_of_glory = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(majestic_radiant_presence.name, 1)]],
 )
-terrifying_apparition_of_glory.prerequisites.add(majestic_radiant_presence)
 blazing_glorious_icon = SolarCharm.objects.create(
     name="Blazing Glorious Icon",
     mote_cost=3,
@@ -8822,8 +8817,8 @@ blazing_glorious_icon = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(majestic_radiant_presence.name, 1)]],
 )
-blazing_glorious_icon.prerequisites.add(majestic_radiant_presence)
 mind_wiping_gaze = SolarCharm.objects.create(
     name="Mind-Wiping Gaze",
     mote_cost=1,
@@ -8842,8 +8837,8 @@ mind_wiping_gaze = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(blazing_glorious_icon.name, 1)]],
 )
-mind_wiping_gaze.prerequisites.add(blazing_glorious_icon)
 hypnotic_tongue_technique = SolarCharm.objects.create(
     name="Hypnotic Tongue Technique",
     mote_cost=10,
@@ -8862,8 +8857,8 @@ hypnotic_tongue_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["psyche", "mute"],
     duration="Indefinite",
+    prereqs=[[(mind_wiping_gaze.name, 1), (fulminating_word.name, 1)]],
 )
-hypnotic_tongue_technique.prerequisites.add(mind_wiping_gaze, fulminating_word)
 worshipful_lackey_acquisition = SolarCharm.objects.create(
     name="Worshipful Lackey Acquisition",
     mote_cost=0,
@@ -8882,8 +8877,8 @@ worshipful_lackey_acquisition = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(underling_promoting_touch.name, 1)]],
 )
-worshipful_lackey_acquisition.prerequisites.add(underling_promoting_touch)
 prophet_uplifting_evocation = SolarCharm.objects.create(
     name="Prophet-Uplifting Evocation",
     mote_cost=4,
@@ -8902,8 +8897,8 @@ prophet_uplifting_evocation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(underling_promoting_touch.name, 1)]],
 )
-prophet_uplifting_evocation.prerequisites.add(underling_promoting_touch)
 shedding_infinite_radiance = SolarCharm.objects.create(
     name="Shedding Infinite Radiance",
     mote_cost=5,
@@ -8922,8 +8917,8 @@ shedding_infinite_radiance = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["stackable"],
     duration="Indefinite",
+    prereqs=[[(prophet_uplifting_evocation.name, 1)]],
 )
-shedding_infinite_radiance.prerequisites.add(prophet_uplifting_evocation)
 rose_lipped_seduction_style = SolarCharm.objects.create(
     name="Rose-Lipped Seduction Style",
     mote_cost=2,
@@ -8942,8 +8937,8 @@ rose_lipped_seduction_style = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(awakened_carnal_demiurge.name, 1)]],
 )
-rose_lipped_seduction_style.prerequisites.add(awakened_carnal_demiurge)
 crowned_king_of_eternity = SolarCharm.objects.create(
     name="Crowned King of Eternity",
     mote_cost=0,
@@ -8962,8 +8957,8 @@ crowned_king_of_eternity = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(authority_radiating_stance.name, 1), (fulminating_word.name, 1)]],
 )
-crowned_king_of_eternity.prerequisites.add(authority_radiating_stance, fulminating_word)
 favor_conferring_prana = SolarCharm.objects.create(
     name="Favor-Conferring Prana",
     mote_cost=5,
@@ -8982,8 +8977,8 @@ favor_conferring_prana = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(empowering_shout.name, 1), (underling_promoting_touch.name, 1)]],
 )
-favor_conferring_prana.prerequisites.add(empowering_shout, underling_promoting_touch)
 countenance_of_vast_wrath = SolarCharm.objects.create(
     name="Countenance of Vast Wrath",
     mote_cost=6,
@@ -9002,8 +8997,8 @@ countenance_of_vast_wrath = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(terrifying_apparition_of_glory.name, 1)]],
 )
-countenance_of_vast_wrath.prerequisites.add(terrifying_apparition_of_glory)
 
 durability_of_oak_meditation = SolarCharm.objects.create(
     name="Durability of Oak Meditation",
@@ -9042,8 +9037,8 @@ spirit_strengthens_the_skin = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["withering-only"],
     duration="Instant",
+    prereqs=[[(durability_of_oak_meditation.name, 1)]],
 )
-spirit_strengthens_the_skin.prerequisites.add(durability_of_oak_meditation)
 iron_skin_concentration = SolarCharm.objects.create(
     name="Iron Skin Concentration",
     mote_cost=2,
@@ -9062,8 +9057,8 @@ iron_skin_concentration = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["dual"],
     duration="Indefinite",
+    prereqs=[[(spirit_strengthens_the_skin.name, 1)]],
 )
-iron_skin_concentration.prerequisites.add(spirit_strengthens_the_skin)
 ox_body_technique = SolarCharm.objects.create(
     name="Ox-Body Technique",
     mote_cost=0,
@@ -9101,8 +9096,8 @@ body_mending_meditation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(ox_body_technique.name, 1)]],
 )
-body_mending_meditation.prerequisites.add(ox_body_technique)
 front_line_warriors_stamina = SolarCharm.objects.create(
     name="Front-Line Warrior's Stamina",
     mote_cost=4,
@@ -9121,8 +9116,8 @@ front_line_warriors_stamina = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["perilous"],
     duration="Instant",
+    prereqs=[[(ox_body_technique.name, 1)]],
 )
-front_line_warriors_stamina.prerequisites.add(ox_body_technique)
 whirlwind_armor_donning_prana = SolarCharm.objects.create(
     name="Whirlwind Armor-Donning Prana",
     mote_cost=2,
@@ -9160,8 +9155,8 @@ armored_scouts_invigoration = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(whirlwind_armor_donning_prana.name, 1)]],
 )
-armored_scouts_invigoration.prerequisites.add(whirlwind_armor_donning_prana)
 poison_resisting_meditation = SolarCharm.objects.create(
     name="Poison-Resisting Meditation",
     mote_cost=3,
@@ -9218,8 +9213,8 @@ diamond_body_prana = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["dual"],
     duration="scene",
+    prereqs=[[(iron_skin_concentration.name, 1)]],
 )
-diamond_body_prana.prerequisites.add(iron_skin_concentration)
 iron_kettle_body = SolarCharm.objects.create(
     name="Iron Kettle Body",
     mote_cost=6,
@@ -9238,8 +9233,8 @@ iron_kettle_body = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["withering-only"],
     duration="turn",
+    prereqs=[[(iron_skin_concentration.name, 1)]],
 )
-iron_kettle_body.prerequisites.add(iron_skin_concentration)
 adamant_skin_technique = SolarCharm.objects.create(
     name="Adamant Skin Technique",
     mote_cost=8,
@@ -9258,8 +9253,8 @@ adamant_skin_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(diamond_body_prana.name, 1), (iron_kettle_body.name, 1)]],
 )
-adamant_skin_technique.prerequisites.add(diamond_body_prana, iron_kettle_body)
 tiger_warriors_endurance = SolarCharm.objects.create(
     name="Tiger Warrior's Endurance",
     mote_cost=0,
@@ -9278,9 +9273,9 @@ tiger_warriors_endurance = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
-)
-tiger_warriors_endurance.prerequisites.add(
-    body_mending_meditation, front_line_warriors_stamina
+    prereqs=[
+        [(body_mending_meditation.name, 1), (front_line_warriors_stamina.name, 1)]
+    ],
 )
 hauberk_summoning_gesture = SolarCharm.objects.create(
     name="Hauberk-Summoning Gesture",
@@ -9300,8 +9295,8 @@ hauberk_summoning_gesture = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(whirlwind_armor_donning_prana.name, 1)]],
 )
-hauberk_summoning_gesture.prerequisites.add(whirlwind_armor_donning_prana)
 illness_resisting_meditation = SolarCharm.objects.create(
     name="Illness-Resisting Meditation",
     mote_cost=4,
@@ -9320,8 +9315,8 @@ illness_resisting_meditation = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="day",
+    prereqs=[[(poison_resisting_meditation.name, 1)]],
 )
-illness_resisting_meditation.prerequisites.add(poison_resisting_meditation)
 willpower_enhancing_spirit = SolarCharm.objects.create(
     name="Willpower-Enhancing Spirit",
     mote_cost=0,
@@ -9340,8 +9335,8 @@ willpower_enhancing_spirit = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["perilous", "decisive-only"],
     duration="Instant",
+    prereqs=[[(essence_gathering_temper.name, 1)]],
 )
-willpower_enhancing_spirit.prerequisites.add(essence_gathering_temper)
 battle_fury_focus = SolarCharm.objects.create(
     name="Battle Fury Focus",
     mote_cost=5,
@@ -9360,8 +9355,8 @@ battle_fury_focus = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(willpower_enhancing_spirit.name, 1)]],
 )
-battle_fury_focus.prerequisites.add(willpower_enhancing_spirit)
 wound_knitting_exercise = SolarCharm.objects.create(
     name="Wound-Knitting Exercise",
     mote_cost=1,
@@ -9380,8 +9375,8 @@ wound_knitting_exercise = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="healed",
+    prereqs=[[(tiger_warriors_endurance.name, 1)]],
 )
-wound_knitting_exercise.prerequisites.add(tiger_warriors_endurance)
 unbreakable_warriors_mastery = SolarCharm.objects.create(
     name="Unbreakable Warrior's Mastery",
     mote_cost=3,
@@ -9400,8 +9395,8 @@ unbreakable_warriors_mastery = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(wound_knitting_exercise.name, 1)]],
 )
-unbreakable_warriors_mastery.prerequisites.add(wound_knitting_exercise)
 ruin_abasing_shrug = SolarCharm.objects.create(
     name="Ruin-Abasing Shrug",
     mote_cost=4,
@@ -9420,8 +9415,8 @@ ruin_abasing_shrug = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(adamant_skin_technique.name, 1)]],
 )
-ruin_abasing_shrug.prerequisites.add(adamant_skin_technique)
 glorious_solar_plate = SolarCharm.objects.create(
     name="Glorious Solar Plate",
     mote_cost=10,
@@ -9440,8 +9435,8 @@ glorious_solar_plate = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(hauberk_summoning_gesture.name, 1)]],
 )
-glorious_solar_plate.prerequisites.add(hauberk_summoning_gesture)
 immunity_to_everything_technique = SolarCharm.objects.create(
     name="Immunity to Everything Technique",
     mote_cost=6,
@@ -9460,8 +9455,8 @@ immunity_to_everything_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="day",
+    prereqs=[[(illness_resisting_meditation.name, 1)]],
 )
-immunity_to_everything_technique.prerequisites.add(illness_resisting_meditation)
 fury_fed_ardor = SolarCharm.objects.create(
     name="Fury-Fed Ardor",
     mote_cost=3,
@@ -9480,8 +9475,8 @@ fury_fed_ardor = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(willpower_enhancing_spirit.name, 1)]],
 )
-fury_fed_ardor.prerequisites.add(willpower_enhancing_spirit)
 bloodthirsty_sword_dancer_spirit = SolarCharm.objects.create(
     name="Bloodthirsty Sword-Dancer Spirit",
     mote_cost=10,
@@ -9500,8 +9495,8 @@ bloodthirsty_sword_dancer_spirit = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(battle_fury_focus.name, 1)]],
 )
-bloodthirsty_sword_dancer_spirit.prerequisites.add(battle_fury_focus)
 aegis_of_invincible_might = SolarCharm.objects.create(
     name="Aegis of Invincible Might",
     mote_cost=0,
@@ -9520,8 +9515,8 @@ aegis_of_invincible_might = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["dual", "perilous"],
     duration="Permanent",
+    prereqs=[[(adamant_skin_technique.name, 1)]],
 )
-aegis_of_invincible_might.prerequisites.add(adamant_skin_technique)
 
 master_horsemans_techniques = SolarCharm.objects.create(
     name="Master Horseman's Techniques",
@@ -9560,8 +9555,8 @@ flashing_thunderbolt_steed = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="hour",
+    prereqs=[[(master_horsemans_techniques.name, 1)]],
 )
-flashing_thunderbolt_steed.prerequisites.add(master_horsemans_techniques)
 elusive_mount_technique = SolarCharm.objects.create(
     name="Elusive Mount Technique",
     mote_cost=4,
@@ -9580,8 +9575,8 @@ elusive_mount_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(flashing_thunderbolt_steed.name, 1)]],
 )
-elusive_mount_technique.prerequisites.add(flashing_thunderbolt_steed)
 wind_racing_essence_infusion = SolarCharm.objects.create(
     name="Wind-Racing Essence Infusion",
     mote_cost=2,
@@ -9600,8 +9595,8 @@ wind_racing_essence_infusion = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(flashing_thunderbolt_steed.name, 1)]],
 )
-wind_racing_essence_infusion.prerequisites.add(flashing_thunderbolt_steed)
 single_spirit_method = SolarCharm.objects.create(
     name="Single Spirit Method",
     mote_cost=1,
@@ -9620,8 +9615,8 @@ single_spirit_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(master_horsemans_techniques.name, 1)]],
 )
-single_spirit_method.prerequisites.add(master_horsemans_techniques)
 seasoned_beast_riders_approach = SolarCharm.objects.create(
     name="Seasoned Beast-Rider's Approach",
     mote_cost=1,
@@ -9659,8 +9654,8 @@ worthy_mount_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(seasoned_beast_riders_approach.name, 1)]],
 )
-worthy_mount_technique.prerequisites.add(seasoned_beast_riders_approach)
 mount_preservation_method = SolarCharm.objects.create(
     name="Mount Preservation Method",
     mote_cost=0,
@@ -9679,8 +9674,8 @@ mount_preservation_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(worthy_mount_technique.name, 1)]],
 )
-mount_preservation_method.prerequisites.add(worthy_mount_technique)
 harmonious_tacking_technique = SolarCharm.objects.create(
     name="Harmonious Tacking Technique",
     mote_cost=2,
@@ -9699,8 +9694,8 @@ harmonious_tacking_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(master_horsemans_techniques.name, 1)]],
 )
-harmonious_tacking_technique.prerequisites.add(master_horsemans_techniques)
 untouchable_horsemans_attitude = SolarCharm.objects.create(
     name="Untouchable Horseman's Attitude",
     mote_cost=3,
@@ -9719,8 +9714,8 @@ untouchable_horsemans_attitude = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["perilous"],
     duration="Instant",
+    prereqs=[[(elusive_mount_technique.name, 1)]],
 )
-untouchable_horsemans_attitude.prerequisites.add(elusive_mount_technique)
 immortal_chargers_gallop = SolarCharm.objects.create(
     name="Immortal Charger's Gallop",
     mote_cost=1,
@@ -9739,8 +9734,8 @@ immortal_chargers_gallop = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(wind_racing_essence_infusion.name, 1)]],
 )
-immortal_chargers_gallop.prerequisites.add(wind_racing_essence_infusion)
 supernal_lash_discipline = SolarCharm.objects.create(
     name="Supernal Lash Discipline",
     mote_cost=5,
@@ -9759,8 +9754,8 @@ supernal_lash_discipline = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["perilous"],
     duration="scene",
+    prereqs=[[(immortal_chargers_gallop.name, 1)]],
 )
-supernal_lash_discipline.prerequisites.add(immortal_chargers_gallop)
 speed_fury_focus = SolarCharm.objects.create(
     name="Speed-Fury Focus",
     mote_cost=3,
@@ -9779,8 +9774,8 @@ speed_fury_focus = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(immortal_chargers_gallop.name, 1)]],
 )
-speed_fury_focus.prerequisites.add(immortal_chargers_gallop)
 inexhaustible_destriers_gait = SolarCharm.objects.create(
     name="Inexhaustible Destrier's Gait",
     mote_cost=2,
@@ -9799,8 +9794,8 @@ inexhaustible_destriers_gait = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="turn",
+    prereqs=[[(immortal_chargers_gallop.name, 1)]],
 )
-inexhaustible_destriers_gait.prerequisites.add(immortal_chargers_gallop)
 coursing_firebolt_flash = SolarCharm.objects.create(
     name="Coursing Firebolt Flash",
     mote_cost=3,
@@ -9819,8 +9814,8 @@ coursing_firebolt_flash = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(wind_racing_essence_infusion.name, 1)]],
 )
-coursing_firebolt_flash.prerequisites.add(wind_racing_essence_infusion)
 saddle_staying_courses = SolarCharm.objects.create(
     name="Saddle-Staying Courses",
     mote_cost=4,
@@ -9839,8 +9834,8 @@ saddle_staying_courses = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(single_spirit_method.name, 1)]],
 )
-saddle_staying_courses.prerequisites.add(single_spirit_method)
 horse_stealing_leap = SolarCharm.objects.create(
     name="Horse-Stealing Leap",
     mote_cost=3,
@@ -9859,8 +9854,8 @@ horse_stealing_leap = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(saddle_staying_courses.name, 1)]],
 )
-horse_stealing_leap.prerequisites.add(saddle_staying_courses)
 immortal_riders_advantage = SolarCharm.objects.create(
     name="Immortal Rider's Advantage",
     mote_cost=0,
@@ -9879,8 +9874,8 @@ immortal_riders_advantage = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(seasoned_beast_riders_approach.name, 1)]],
 )
-immortal_riders_advantage.prerequisites.add(seasoned_beast_riders_approach)
 horse_healing_technique = SolarCharm.objects.create(
     name="Horse-Healing Technique",
     mote_cost=4,
@@ -9899,8 +9894,8 @@ horse_healing_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(mount_preservation_method.name, 1)]],
 )
-horse_healing_technique.prerequisites.add(mount_preservation_method)
 rousing_backlash_assault = SolarCharm.objects.create(
     name="Rousing Backlash Assault",
     mote_cost=5,
@@ -9919,8 +9914,8 @@ rousing_backlash_assault = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["counterattack", "decisive-only"],
     duration="Instant",
+    prereqs=[[(worthy_mount_technique.name, 1)]],
 )
-rousing_backlash_assault.prerequisites.add(worthy_mount_technique)
 woe_and_storm_evasion = SolarCharm.objects.create(
     name="Woe and Storm Evasion",
     mote_cost=4,
@@ -9939,8 +9934,8 @@ woe_and_storm_evasion = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(worthy_mount_technique.name, 1)]],
 )
-woe_and_storm_evasion.prerequisites.add(worthy_mount_technique)
 resilience_of_the_chosen_mount = SolarCharm.objects.create(
     name="Resilience of the Chosen Mount",
     mote_cost=2,
@@ -9959,8 +9954,8 @@ resilience_of_the_chosen_mount = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(woe_and_storm_evasion.name, 1)]],
 )
-resilience_of_the_chosen_mount.prerequisites.add(woe_and_storm_evasion)
 phantom_steed = SolarCharm.objects.create(
     name="Phantom Steed",
     mote_cost=10,
@@ -9979,8 +9974,8 @@ phantom_steed = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="day",
+    prereqs=[[(master_horsemans_techniques.name, 1)]],
 )
-phantom_steed.prerequisites.add(master_horsemans_techniques)
 hero_rides_away = SolarCharm.objects.create(
     name="Hero Rides Away",
     mote_cost=0,
@@ -9999,8 +9994,8 @@ hero_rides_away = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(master_horsemans_techniques.name, 1)]],
 )
-hero_rides_away.prerequisites.add(master_horsemans_techniques)
 phantom_riders_approach = SolarCharm.objects.create(
     name="Phantom Rider's Approach",
     mote_cost=7,
@@ -10019,8 +10014,8 @@ phantom_riders_approach = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(untouchable_horsemans_attitude.name, 1)]],
 )
-phantom_riders_approach.prerequisites.add(untouchable_horsemans_attitude)
 fierce_chargers_pulse = SolarCharm.objects.create(
     name="Fierce Charger's Pulse",
     mote_cost=0,
@@ -10039,8 +10034,8 @@ fierce_chargers_pulse = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(speed_fury_focus.name, 1)]],
 )
-fierce_chargers_pulse.prerequisites.add(speed_fury_focus)
 grizzled_cataphracts_way = SolarCharm.objects.create(
     name="Grizzled Cataphract's Way",
     mote_cost=1,
@@ -10059,8 +10054,8 @@ grizzled_cataphracts_way = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(speed_fury_focus.name, 1)]],
 )
-grizzled_cataphracts_way.prerequisites.add(speed_fury_focus)
 rapid_cavalry_approach = SolarCharm.objects.create(
     name="Rapid Cavalry Approach",
     mote_cost=7,
@@ -10079,8 +10074,8 @@ rapid_cavalry_approach = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["perilous"],
     duration="scene",
+    prereqs=[[(coursing_firebolt_flash.name, 1)]],
 )
-rapid_cavalry_approach.prerequisites.add(coursing_firebolt_flash)
 sometimes_horses_fly_approach = SolarCharm.objects.create(
     name="Sometimes Horses Fly Approach",
     mote_cost=1,
@@ -10099,8 +10094,8 @@ sometimes_horses_fly_approach = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="turn",
+    prereqs=[[(coursing_firebolt_flash.name, 1)]],
 )
-sometimes_horses_fly_approach.prerequisites.add(coursing_firebolt_flash)
 soaring_pegasus_style = SolarCharm.objects.create(
     name="Soaring Pegasus Style",
     mote_cost=2,
@@ -10119,8 +10114,8 @@ soaring_pegasus_style = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(sometimes_horses_fly_approach.name, 1)]],
 )
-soaring_pegasus_style.prerequisites.add(sometimes_horses_fly_approach)
 whirlwind_horse_armoring_prana = SolarCharm.objects.create(
     name="Whirlwind Horse-Armoring Prana",
     mote_cost=1,
@@ -10139,8 +10134,8 @@ whirlwind_horse_armoring_prana = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(harmonious_tacking_technique.name, 1)]],
 )
-whirlwind_horse_armoring_prana.prerequisites.add(harmonious_tacking_technique)
 bard_lightening_prana = SolarCharm.objects.create(
     name="Bard-Lightening Prana",
     mote_cost=4,
@@ -10159,8 +10154,8 @@ bard_lightening_prana = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="day",
+    prereqs=[[(whirlwind_horse_armoring_prana.name, 1)]],
 )
-bard_lightening_prana.prerequisites.add(whirlwind_horse_armoring_prana)
 untouchable_solar_steed = SolarCharm.objects.create(
     name="Untouchable Solar Steed",
     mote_cost=0,
@@ -10179,8 +10174,8 @@ untouchable_solar_steed = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(immortal_riders_advantage.name, 1)]],
 )
-untouchable_solar_steed.prerequisites.add(immortal_riders_advantage)
 wrathful_mount_invigoration = SolarCharm.objects.create(
     name="Wrathful Mount Invigoration",
     mote_cost=0,
@@ -10199,8 +10194,8 @@ wrathful_mount_invigoration = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(immortal_riders_advantage.name, 1)]],
 )
-wrathful_mount_invigoration.prerequisites.add(immortal_riders_advantage)
 seven_cyclones_rearing = SolarCharm.objects.create(
     name="Seven Cyclones Rearing",
     mote_cost=5,
@@ -10219,8 +10214,8 @@ seven_cyclones_rearing = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["clash", "decisive-only"],
     duration="Instant",
+    prereqs=[[(rousing_backlash_assault.name, 1)]],
 )
-seven_cyclones_rearing.prerequisites.add(rousing_backlash_assault)
 iron_simhata_style = SolarCharm.objects.create(
     name="Iron Simhata Style",
     mote_cost=5,
@@ -10239,8 +10234,8 @@ iron_simhata_style = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(resilience_of_the_chosen_mount.name, 1)]],
 )
-iron_simhata_style.prerequisites.add(resilience_of_the_chosen_mount)
 
 salty_dog_method = SolarCharm.objects.create(
     name="Salty Dog Method",
@@ -10279,8 +10274,8 @@ shipwreck_surviving_stamina = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(salty_dog_method.name, 1)]],
 )
-shipwreck_surviving_stamina.prerequisites.add(salty_dog_method)
 fathoms_fed_spirit = SolarCharm.objects.create(
     name="Fathoms-Fed Spirit",
     mote_cost=0,
@@ -10299,8 +10294,8 @@ fathoms_fed_spirit = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(salty_dog_method.name, 1)]],
 )
-fathoms_fed_spirit.prerequisites.add(salty_dog_method)
 safe_bearing_technique = SolarCharm.objects.create(
     name="Safe Bearing Technique",
     mote_cost=4,
@@ -10319,8 +10314,8 @@ safe_bearing_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="passed",
+    prereqs=[[(salty_dog_method.name, 1)]],
 )
-safe_bearing_technique.prerequisites.add(salty_dog_method)
 ship_claiming_stance = SolarCharm.objects.create(
     name="Ship-Claiming Stance",
     mote_cost=5,
@@ -10358,8 +10353,8 @@ ship_sleeking_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(ship_claiming_stance.name, 1)]],
 )
-ship_sleeking_technique.prerequisites.add(ship_claiming_stance)
 orichalcum_letters_of_marque = SolarCharm.objects.create(
     name="Orichalcum Letters of Marque",
     mote_cost=0,
@@ -10378,8 +10373,8 @@ orichalcum_letters_of_marque = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(ship_claiming_stance.name, 1)]],
 )
-orichalcum_letters_of_marque.prerequisites.add(ship_claiming_stance)
 immortal_mariners_advantage = SolarCharm.objects.create(
     name="Immortal Mariner's Advantage",
     mote_cost=1,
@@ -10417,8 +10412,8 @@ legendary_captains_signature = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["pilot"],
     duration="Instant",
+    prereqs=[[(immortal_mariners_advantage.name, 1)]],
 )
-legendary_captains_signature.prerequisites.add(immortal_mariners_advantage)
 sea_ambush_technique = SolarCharm.objects.create(
     name="Sea Ambush Technique",
     mote_cost=2,
@@ -10437,8 +10432,8 @@ sea_ambush_technique = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["pilot"],
     duration="Instant",
+    prereqs=[[(legendary_captains_signature.name, 1)]],
 )
-sea_ambush_technique.prerequisites.add(legendary_captains_signature)
 deck_sweeping_fusillade = SolarCharm.objects.create(
     name="Deck-Sweeping Fusillade",
     mote_cost=0,
@@ -10457,8 +10452,8 @@ deck_sweeping_fusillade = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["pilot"],
     duration="Instant",
+    prereqs=[[(legendary_captains_signature.name, 1)]],
 )
-deck_sweeping_fusillade.prerequisites.add(legendary_captains_signature)
 ship_breaker_method = SolarCharm.objects.create(
     name="Ship-Breaker Method",
     mote_cost=3,
@@ -10477,8 +10472,8 @@ ship_breaker_method = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["pilot"],
     duration="Instant",
+    prereqs=[[(legendary_captains_signature.name, 1)]],
 )
-ship_breaker_method.prerequisites.add(legendary_captains_signature)
 superior_positioning_technique = SolarCharm.objects.create(
     name="Superior Positioning Technique",
     mote_cost=2,
@@ -10497,8 +10492,8 @@ superior_positioning_technique = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["pilot"],
     duration="Instant",
+    prereqs=[[(legendary_captains_signature.name, 1)]],
 )
-superior_positioning_technique.prerequisites.add(legendary_captains_signature)
 ship_imperiled_vigor = SolarCharm.objects.create(
     name="Ship-Imperiled Vigor",
     mote_cost=0,
@@ -10517,8 +10512,8 @@ ship_imperiled_vigor = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(salty_dog_method.name, 1)]],
 )
-ship_imperiled_vigor.prerequisites.add(salty_dog_method)
 weather_anticipating_intuition = SolarCharm.objects.create(
     name="Weather-Anticipating Intuition",
     mote_cost=5,
@@ -10537,8 +10532,8 @@ weather_anticipating_intuition = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(safe_bearing_technique.name, 1)]],
 )
-weather_anticipating_intuition.prerequisites.add(safe_bearing_technique)
 tide_cutting_essence_infusion = SolarCharm.objects.create(
     name="Tide-Cutting Essence Infusion",
     mote_cost=5,
@@ -10557,8 +10552,8 @@ tide_cutting_essence_infusion = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="day",
+    prereqs=[[(ship_sleeking_technique.name, 1)]],
 )
-tide_cutting_essence_infusion.prerequisites.add(ship_sleeking_technique)
 wave_riding_discipline = SolarCharm.objects.create(
     name="Wave-Riding Discipline",
     mote_cost=5,
@@ -10577,8 +10572,8 @@ wave_riding_discipline = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="day",
+    prereqs=[[(ship_sleeking_technique.name, 1)]],
 )
-wave_riding_discipline.prerequisites.add(ship_sleeking_technique)
 hull_preserving_technique = SolarCharm.objects.create(
     name="Hull-Preserving Technique",
     mote_cost=5,
@@ -10597,8 +10592,8 @@ hull_preserving_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="turn",
+    prereqs=[[(ship_claiming_stance.name, 1)]],
 )
-hull_preserving_technique.prerequisites.add(ship_claiming_stance)
 hull_taming_transfusion = SolarCharm.objects.create(
     name="Hull-Taming Transfusion",
     mote_cost=2,
@@ -10617,8 +10612,8 @@ hull_taming_transfusion = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(hull_preserving_technique.name, 1)]],
 )
-hull_taming_transfusion.prerequisites.add(hull_preserving_technique)
 ship_leavening_meditation = SolarCharm.objects.create(
     name="Ship-Leavening Meditation",
     mote_cost=5,
@@ -10637,8 +10632,8 @@ ship_leavening_meditation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(hull_preserving_technique.name, 1)]],
 )
-ship_leavening_meditation.prerequisites.add(hull_preserving_technique)
 indomitable_voyagers_perseverance = SolarCharm.objects.create(
     name="Indomitable Voyager's Perseverance",
     mote_cost=0,
@@ -10657,8 +10652,8 @@ indomitable_voyagers_perseverance = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(immortal_mariners_advantage.name, 1)]],
 )
-indomitable_voyagers_perseverance.prerequisites.add(immortal_mariners_advantage)
 ocean_conquering_avatar = SolarCharm.objects.create(
     name="Ocean-Conquering Avatar",
     mote_cost=1,
@@ -10677,8 +10672,8 @@ ocean_conquering_avatar = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="turn",
+    prereqs=[[(indomitable_voyagers_perseverance.name, 1)]],
 )
-ocean_conquering_avatar.prerequisites.add(indomitable_voyagers_perseverance)
 wind_defying_course_technique = SolarCharm.objects.create(
     name="Wind-Defying Course Technique",
     mote_cost=3,
@@ -10697,8 +10692,8 @@ wind_defying_course_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="hour",
+    prereqs=[[(immortal_mariners_advantage.name, 1)]],
 )
-wind_defying_course_technique.prerequisites.add(immortal_mariners_advantage)
 current_cutting_technique = SolarCharm.objects.create(
     name="Current-Cutting Technique",
     mote_cost=4,
@@ -10717,8 +10712,8 @@ current_cutting_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="hour",
+    prereqs=[[(wind_defying_course_technique.name, 1)]],
 )
-current_cutting_technique.prerequisites.add(wind_defying_course_technique)
 implacable_sea_wolf_spirit = SolarCharm.objects.create(
     name="Implacable Sea Wolf Spirit",
     mote_cost=4,
@@ -10737,8 +10732,8 @@ implacable_sea_wolf_spirit = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["pilot"],
     duration="scene",
+    prereqs=[[(legendary_captains_signature.name, 1)]],
 )
-implacable_sea_wolf_spirit.prerequisites.add(legendary_captains_signature)
 deadly_ichneumon_assault = SolarCharm.objects.create(
     name="Deadly Ichneumon Assault",
     mote_cost=2,
@@ -10757,8 +10752,8 @@ deadly_ichneumon_assault = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["pilot"],
     duration="Instant",
+    prereqs=[[(ship_breaker_method.name, 1)]],
 )
-deadly_ichneumon_assault.prerequisites.add(ship_breaker_method)
 rail_storming_fervor = SolarCharm.objects.create(
     name="Rail-Storming Fervor",
     mote_cost=2,
@@ -10777,8 +10772,8 @@ rail_storming_fervor = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["pilot"],
     duration="Instant",
+    prereqs=[[(deadly_ichneumon_assault.name, 1)]],
 )
-rail_storming_fervor.prerequisites.add(deadly_ichneumon_assault)
 sea_serpent_flash = SolarCharm.objects.create(
     name="Sea Serpent Flash",
     mote_cost=5,
@@ -10797,8 +10792,8 @@ sea_serpent_flash = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["pilot"],
     duration="Instant",
+    prereqs=[[(superior_positioning_technique.name, 1)]],
 )
-sea_serpent_flash.prerequisites.add(superior_positioning_technique)
 tide_carried_omens = SolarCharm.objects.create(
     name="Tide-Carried Omens",
     mote_cost=7,
@@ -10817,8 +10812,8 @@ tide_carried_omens = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(weather_anticipating_intuition.name, 1)]],
 )
-tide_carried_omens.prerequisites.add(weather_anticipating_intuition)
 chaos_cutting_galley = SolarCharm.objects.create(
     name="Chaos-Cutting Galley",
     mote_cost=10,
@@ -10837,8 +10832,8 @@ chaos_cutting_galley = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="day",
+    prereqs=[[(hull_preserving_technique.name, 1)]],
 )
-chaos_cutting_galley.prerequisites.add(hull_preserving_technique)
 blood_and_salt_bondage = SolarCharm.objects.create(
     name="Blood and Salt Bondage",
     mote_cost=10,
@@ -10857,8 +10852,8 @@ blood_and_salt_bondage = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(hull_taming_transfusion.name, 1)]],
 )
-blood_and_salt_bondage.prerequisites.add(hull_taming_transfusion)
 ship_sustaining_spirit = SolarCharm.objects.create(
     name="Ship-Sustaining Spirit",
     mote_cost=4,
@@ -10877,8 +10872,8 @@ ship_sustaining_spirit = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["stackable"],
     duration="Indefinite",
+    prereqs=[[(ship_leavening_meditation.name, 1)]],
 )
-ship_sustaining_spirit.prerequisites.add(ship_leavening_meditation)
 burning_anima_sails = SolarCharm.objects.create(
     name="Burning Anima Sails",
     mote_cost=6,
@@ -10897,8 +10892,8 @@ burning_anima_sails = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(blood_and_salt_bondage.name, 1), (ship_sustaining_spirit.name, 1)]],
 )
-burning_anima_sails.prerequisites.add(blood_and_salt_bondage, ship_sustaining_spirit)
 storm_weathering_essence_infusion = SolarCharm.objects.create(
     name="Storm-Weathering Essence Infusion",
     mote_cost=6,
@@ -10917,8 +10912,8 @@ storm_weathering_essence_infusion = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["pilot"],
     duration="hour",
+    prereqs=[[(current_cutting_technique.name, 1)]],
 )
-storm_weathering_essence_infusion.prerequisites.add(current_cutting_technique)
 invincible_admiral_method = SolarCharm.objects.create(
     name="Invincible Admiral Method",
     mote_cost=10,
@@ -10937,8 +10932,8 @@ invincible_admiral_method = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
+    prereqs=[[(legendary_captains_signature.name, 1)]],
 )
-invincible_admiral_method.prerequisites.add(legendary_captains_signature)
 sea_devil_training_technique = SolarCharm.objects.create(
     name="Sea Devil Training Technique",
     mote_cost=10,
@@ -10957,8 +10952,8 @@ sea_devil_training_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(invincible_admiral_method.name, 1)]],
 )
-sea_devil_training_technique.prerequisites.add(invincible_admiral_method)
 ship_rolling_juggernaut_method = SolarCharm.objects.create(
     name="Ship-Rolling Juggernaut Method",
     mote_cost=3,
@@ -10977,8 +10972,8 @@ ship_rolling_juggernaut_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["pilot"],
     duration="Instant",
+    prereqs=[[(implacable_sea_wolf_spirit.name, 1)]],
 )
-ship_rolling_juggernaut_method.prerequisites.add(implacable_sea_wolf_spirit)
 ship_razing_renewal = SolarCharm.objects.create(
     name="Ship-Razing Renewal",
     mote_cost=0,
@@ -10997,8 +10992,8 @@ ship_razing_renewal = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["pilot"],
     duration="Permanent",
+    prereqs=[[(ship_rolling_juggernaut_method.name, 1)]],
 )
-ship_razing_renewal.prerequisites.add(ship_rolling_juggernaut_method)
 black_fathoms_blessed = SolarCharm.objects.create(
     name="Black Fathoms Blessed",
     mote_cost=10,
@@ -11075,8 +11070,8 @@ quicksilver_falcons_eye = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="turn",
+    prereqs=[[(motive_discerning_technique.name, 1)]],
 )
-quicksilver_falcons_eye.prerequisites.add(motive_discerning_technique)
 umbral_eyes_focus = SolarCharm.objects.create(
     name="Umbral Eyes Focus",
     mote_cost=2,
@@ -11095,8 +11090,8 @@ umbral_eyes_focus = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(quicksilver_falcons_eye.name, 1)]],
 )
-umbral_eyes_focus.prerequisites.add(quicksilver_falcons_eye)
 humble_servant_approach = SolarCharm.objects.create(
     name="Humble Servant Approach",
     mote_cost=1,
@@ -11115,8 +11110,8 @@ humble_servant_approach = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(motive_discerning_technique.name, 1)]],
 )
-humble_servant_approach.prerequisites.add(motive_discerning_technique)
 shadow_over_day = SolarCharm.objects.create(
     name="Shadow Over Day",
     mote_cost=1,
@@ -11154,8 +11149,8 @@ night_passes_over = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(shadow_over_day.name, 1)]],
 )
-night_passes_over.prerequisites.add(shadow_over_day)
 intent_tracing_stare = SolarCharm.objects.create(
     name="Intent-Tracing Stare",
     mote_cost=1,
@@ -11174,8 +11169,8 @@ intent_tracing_stare = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(motive_discerning_technique.name, 1), (shadow_over_day.name, 1)]],
 )
-intent_tracing_stare.prerequisites.add(motive_discerning_technique, shadow_over_day)
 culture_hero_approach = SolarCharm.objects.create(
     name="Culture Hero Approach",
     mote_cost=3,
@@ -11194,8 +11189,8 @@ culture_hero_approach = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(mastery_of_small_manners.name, 1)]],
 )
-culture_hero_approach.prerequisites.add(mastery_of_small_manners)
 unimpeachable_discourse_technique = SolarCharm.objects.create(
     name="Unimpeachable Discourse Technique",
     mote_cost=3,
@@ -11214,8 +11209,8 @@ unimpeachable_discourse_technique = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(mastery_of_small_manners.name, 1)]],
 )
-unimpeachable_discourse_technique.prerequisites.add(mastery_of_small_manners)
 indecent_proposal_method = SolarCharm.objects.create(
     name="Indecent Proposal Method",
     mote_cost=4,
@@ -11234,8 +11229,8 @@ indecent_proposal_method = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(unimpeachable_discourse_technique.name, 1)]],
 )
-indecent_proposal_method.prerequisites.add(unimpeachable_discourse_technique)
 dauntless_assayer_method = SolarCharm.objects.create(
     name="Dauntless Assayer Method",
     mote_cost=5,
@@ -11254,8 +11249,8 @@ dauntless_assayer_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(motive_discerning_technique.name, 1)]],
 )
-dauntless_assayer_method.prerequisites.add(motive_discerning_technique)
 preeminent_gala_knife = SolarCharm.objects.create(
     name="Preeminent Gala Knife",
     mote_cost=0,
@@ -11274,8 +11269,8 @@ preeminent_gala_knife = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(dauntless_assayer_method.name, 1)]],
 )
-preeminent_gala_knife.prerequisites.add(dauntless_assayer_method)
 wise_eyed_courtier_method = SolarCharm.objects.create(
     name="Wise-Eyed Courtier Method",
     mote_cost=6,
@@ -11294,8 +11289,8 @@ wise_eyed_courtier_method = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(humble_servant_approach.name, 1)]],
 )
-wise_eyed_courtier_method.prerequisites.add(humble_servant_approach)
 discretionary_gesture = SolarCharm.objects.create(
     name="Discretionary Gesture",
     mote_cost=3,
@@ -11314,8 +11309,8 @@ discretionary_gesture = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(intent_tracing_stare.name, 1)]],
 )
-discretionary_gesture.prerequisites.add(intent_tracing_stare)
 deep_eyed_soul_gazing = SolarCharm.objects.create(
     name="Deep-Eyed Soul Gazing",
     mote_cost=3,
@@ -11334,8 +11329,8 @@ deep_eyed_soul_gazing = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(intent_tracing_stare.name, 1)]],
 )
-deep_eyed_soul_gazing.prerequisites.add(intent_tracing_stare)
 easily_discarded_presence_method = SolarCharm.objects.create(
     name="Easily-Discarded Presence Method",
     mote_cost=3,
@@ -11354,8 +11349,8 @@ easily_discarded_presence_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(shadow_over_day.name, 1)]],
 )
-easily_discarded_presence_method.prerequisites.add(shadow_over_day)
 guarded_thoughts_meditation = SolarCharm.objects.create(
     name="Guarded Thoughts Meditation",
     mote_cost=4,
@@ -11374,8 +11369,8 @@ guarded_thoughts_meditation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(shadow_over_day.name, 1)]],
 )
-guarded_thoughts_meditation.prerequisites.add(shadow_over_day)
 penumbra_self_meditation = SolarCharm.objects.create(
     name="Penumbra Self Meditation",
     mote_cost=3,
@@ -11394,8 +11389,8 @@ penumbra_self_meditation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["stackable"],
     duration="Indefinite",
+    prereqs=[[(guarded_thoughts_meditation.name, 1)]],
 )
-penumbra_self_meditation.prerequisites.add(guarded_thoughts_meditation)
 inverted_ego_mask = SolarCharm.objects.create(
     name="Inverted Ego Mask",
     mote_cost=2,
@@ -11414,8 +11409,8 @@ inverted_ego_mask = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(penumbra_self_meditation.name, 1)]],
 )
-inverted_ego_mask.prerequisites.add(penumbra_self_meditation)
 cunning_insight_technique = SolarCharm.objects.create(
     name="Cunning Insight Technique",
     mote_cost=3,
@@ -11434,8 +11429,8 @@ cunning_insight_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(unimpeachable_discourse_technique.name, 1)]],
 )
-cunning_insight_technique.prerequisites.add(unimpeachable_discourse_technique)
 doubt_sowing_contention_method = SolarCharm.objects.create(
     name="Doubt-Sowing Contention Method",
     mote_cost=6,
@@ -11454,8 +11449,8 @@ doubt_sowing_contention_method = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(cunning_insight_technique.name, 1)]],
 )
-doubt_sowing_contention_method.prerequisites.add(cunning_insight_technique)
 effective_counterargument = SolarCharm.objects.create(
     name="Effective Counterargument",
     mote_cost=6,
@@ -11474,8 +11469,8 @@ effective_counterargument = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["counterattack"],
     duration="Instant",
+    prereqs=[[(unimpeachable_discourse_technique.name, 1)]],
 )
-effective_counterargument.prerequisites.add(unimpeachable_discourse_technique)
 wise_counsel_flashing_soul_reform = SolarCharm.objects.create(
     name="Wise Counsel (Flashing Soul Reform)",
     mote_cost=0,
@@ -11494,8 +11489,8 @@ wise_counsel_flashing_soul_reform = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(effective_counterargument.name, 1)]],
 )
-wise_counsel_flashing_soul_reform.prerequisites.add(effective_counterargument)
 endless_obsession_feint = SolarCharm.objects.create(
     name="Endless Obsession Feint",
     mote_cost=0,
@@ -11514,8 +11509,8 @@ endless_obsession_feint = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(wise_counsel_flashing_soul_reform.name, 1)]],
 )
-endless_obsession_feint.prerequisites.add(wise_counsel_flashing_soul_reform)
 aspersions_cast_aside = SolarCharm.objects.create(
     name="Aspersions Cast Aside",
     mote_cost=5,
@@ -11534,8 +11529,8 @@ aspersions_cast_aside = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(unimpeachable_discourse_technique.name, 1)]],
 )
-aspersions_cast_aside.prerequisites.add(unimpeachable_discourse_technique)
 asp_bites_its_tail = SolarCharm.objects.create(
     name="Asp Bites Its Tail",
     mote_cost=4,
@@ -11554,8 +11549,8 @@ asp_bites_its_tail = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["counterattack", "mute"],
     duration="Instant",
+    prereqs=[[(aspersions_cast_aside.name, 1), (effective_counterargument.name, 1)]],
 )
-asp_bites_its_tail.prerequisites.add(aspersions_cast_aside, effective_counterargument)
 fete_watcher_stance = SolarCharm.objects.create(
     name="Fete-Watcher Stance",
     mote_cost=0,
@@ -11574,8 +11569,8 @@ fete_watcher_stance = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(wise_eyed_courtier_method.name, 1)]],
 )
-fete_watcher_stance.prerequisites.add(wise_eyed_courtier_method)
 seen_and_seeing_method = SolarCharm.objects.create(
     name="Seen and Seeing Method",
     mote_cost=2,
@@ -11594,8 +11589,8 @@ seen_and_seeing_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(deep_eyed_soul_gazing.name, 1)]],
 )
-seen_and_seeing_method.prerequisites.add(deep_eyed_soul_gazing)
 face_charming_prana = SolarCharm.objects.create(
     name="Face-Charming Prana",
     mote_cost=6,
@@ -11614,8 +11609,8 @@ face_charming_prana = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(seen_and_seeing_method.name, 1)]],
 )
-face_charming_prana.prerequisites.add(seen_and_seeing_method)
 selfsame_master_procurer = SolarCharm.objects.create(
     name="Selfsame Master Procurer",
     mote_cost=4,
@@ -11634,8 +11629,8 @@ selfsame_master_procurer = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(easily_discarded_presence_method.name, 1)]],
 )
-selfsame_master_procurer.prerequisites.add(easily_discarded_presence_method)
 soul_void_kata = SolarCharm.objects.create(
     name="Soul-Void Kata",
     mote_cost=4,
@@ -11654,8 +11649,8 @@ soul_void_kata = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(face_charming_prana.name, 1), (inverted_ego_mask.name, 1)]],
 )
-soul_void_kata.prerequisites.add(face_charming_prana, inverted_ego_mask)
 knowing_the_souls_price = SolarCharm.objects.create(
     name="Knowing the Soul's Price",
     mote_cost=10,
@@ -11674,9 +11669,7 @@ knowing_the_souls_price = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
-)
-knowing_the_souls_price.prerequisites.add(
-    seen_and_seeing_method, wise_eyed_courtier_method
+    prereqs=[[(seen_and_seeing_method.name, 1), (wise_eyed_courtier_method.name, 1)]],
 )
 understanding_the_court = SolarCharm.objects.create(
     name="Understanding the Court",
@@ -11696,9 +11689,7 @@ understanding_the_court = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
-)
-understanding_the_court.prerequisites.add(
-    culture_hero_approach, knowing_the_souls_price
+    prereqs=[[(culture_hero_approach.name, 1), (knowing_the_souls_price.name, 1)]],
 )
 unbound_social_mastery = SolarCharm.objects.create(
     name="Unbound Social Mastery",
@@ -11718,8 +11709,8 @@ unbound_social_mastery = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(understanding_the_court.name, 1)]],
 )
-unbound_social_mastery.prerequisites.add(understanding_the_court)
 heart_eclipsing_shroud = SolarCharm.objects.create(
     name="Heart-Eclipsing Shroud",
     mote_cost=10,
@@ -11738,8 +11729,8 @@ heart_eclipsing_shroud = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["mute"],
     duration="Permanent",
+    prereqs=[[(inverted_ego_mask.name, 1)]],
 )
-heart_eclipsing_shroud.prerequisites.add(inverted_ego_mask)
 hundred_faced_stranger = SolarCharm.objects.create(
     name="Hundred-Faced Stranger",
     mote_cost=0,
@@ -11758,8 +11749,8 @@ hundred_faced_stranger = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(heart_eclipsing_shroud.name, 1)]],
 )
-hundred_faced_stranger.prerequisites.add(heart_eclipsing_shroud)
 legend_mask_methodology = SolarCharm.objects.create(
     name="Legend Mask Methodology",
     mote_cost=0,
@@ -11778,8 +11769,8 @@ legend_mask_methodology = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(hundred_faced_stranger.name, 1)]],
 )
-legend_mask_methodology.prerequisites.add(hundred_faced_stranger)
 friend_of_a_friend_approach = SolarCharm.objects.create(
     name="Friend of a Friend Approach",
     mote_cost=0,
@@ -11817,8 +11808,8 @@ venomous_rumors_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(understanding_the_court.name, 1)]],
 )
-venomous_rumors_technique.prerequisites.add(understanding_the_court)
 even_touched_prophet = SolarCharm.objects.create(
     name="Even-Touched Prophet",
     mote_cost=0,
@@ -11837,8 +11828,8 @@ even_touched_prophet = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(unbound_social_mastery.name, 1)]],
 )
-even_touched_prophet.prerequisites.add(unbound_social_mastery)
 elusive_dream_defense = SolarCharm.objects.create(
     name="Elusive Dream Defense",
     mote_cost=1,
@@ -11857,8 +11848,8 @@ elusive_dream_defense = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(even_touched_prophet.name, 1)]],
 )
-elusive_dream_defense.prerequisites.add(even_touched_prophet)
 draw_the_curtain = SolarCharm.objects.create(
     name="Draw the Curtain",
     mote_cost=0,
@@ -11877,8 +11868,8 @@ draw_the_curtain = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(legend_mask_methodology.name, 1)]],
 )
-draw_the_curtain.prerequisites.add(legend_mask_methodology)
 at_your_service = SolarCharm.objects.create(
     name="At Your Service",
     mote_cost=10,
@@ -11897,8 +11888,8 @@ at_your_service = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(draw_the_curtain.name, 1), (knowing_the_souls_price.name, 1)]],
 )
-at_your_service.prerequisites.add(draw_the_curtain, knowing_the_souls_price)
 fugue_empowered_other = SolarCharm.objects.create(
     name="Fugue-Empowered Other",
     mote_cost=0,
@@ -11917,8 +11908,8 @@ fugue_empowered_other = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(draw_the_curtain.name, 1)]],
 )
-fugue_empowered_other.prerequisites.add(draw_the_curtain)
 soul_reprisal = SolarCharm.objects.create(
     name="Soul Reprisal",
     mote_cost=16,
@@ -11937,8 +11928,8 @@ soul_reprisal = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(fugue_empowered_other.name, 1)]],
 )
-soul_reprisal.prerequisites.add(fugue_empowered_other)
 
 perfect_shadow_stillness = SolarCharm.objects.create(
     name="Perfect Shadow Stillness",
@@ -11977,8 +11968,8 @@ invisible_statue_spirit = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Indefinite",
+    prereqs=[[(perfect_shadow_stillness.name, 1)]],
 )
-invisible_statue_spirit.prerequisites.add(perfect_shadow_stillness)
 easily_overlooked_presence_method = SolarCharm.objects.create(
     name="Easily-Overlooked Presence Method",
     mote_cost=3,
@@ -12035,8 +12026,8 @@ stalking_wolf_attitude = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute"],
     duration="Indefinite",
+    prereqs=[[(blinding_battle_feint.name, 1)]],
 )
-stalking_wolf_attitude.prerequisites.add(blinding_battle_feint)
 guardian_fog_approach = SolarCharm.objects.create(
     name="Guardian Fog Approach",
     mote_cost=3,
@@ -12055,8 +12046,8 @@ guardian_fog_approach = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(blinding_battle_feint.name, 1)]],
 )
-guardian_fog_approach.prerequisites.add(blinding_battle_feint)
 blurred_form_style = SolarCharm.objects.create(
     name="Blurred Form Style",
     mote_cost=7,
@@ -12075,8 +12066,8 @@ blurred_form_style = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Indefinite",
+    prereqs=[[(invisible_statue_spirit.name, 1)]],
 )
-blurred_form_style.prerequisites.add(invisible_statue_spirit)
 mental_invisibility_technique = SolarCharm.objects.create(
     name="Mental Invisibility Technique",
     mote_cost=5,
@@ -12095,8 +12086,8 @@ mental_invisibility_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute"],
     duration="scene",
+    prereqs=[[(easily_overlooked_presence_method.name, 1)]],
 )
-mental_invisibility_technique.prerequisites.add(easily_overlooked_presence_method)
 shadow_victors_repose = SolarCharm.objects.create(
     name="Shadow Victor's Repose",
     mote_cost=3,
@@ -12115,8 +12106,8 @@ shadow_victors_repose = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(blinding_battle_feint.name, 1)]],
 )
-shadow_victors_repose.prerequisites.add(blinding_battle_feint)
 flash_eyed_killers_insight = SolarCharm.objects.create(
     name="Flash-Eyed Killer's Insight",
     mote_cost=2,
@@ -12135,8 +12126,8 @@ flash_eyed_killers_insight = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(shadow_victors_repose.name, 1)]],
 )
-flash_eyed_killers_insight.prerequisites.add(shadow_victors_repose)
 hidden_snake_recoil = SolarCharm.objects.create(
     name="Hidden Snake Recoil",
     mote_cost=0,
@@ -12155,8 +12146,8 @@ hidden_snake_recoil = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(stalking_wolf_attitude.name, 1)]],
 )
-hidden_snake_recoil.prerequisites.add(stalking_wolf_attitude)
 dark_sentinels_way = SolarCharm.objects.create(
     name="Dark Sentinel's Way",
     mote_cost=1,
@@ -12175,8 +12166,8 @@ dark_sentinels_way = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(guardian_fog_approach.name, 1)]],
 )
-dark_sentinels_way.prerequisites.add(guardian_fog_approach)
 smoke_and_shadow_cover = SolarCharm.objects.create(
     name="Smoke and Shadow Cover",
     mote_cost=3,
@@ -12195,8 +12186,8 @@ smoke_and_shadow_cover = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(dark_sentinels_way.name, 1)]],
 )
-smoke_and_shadow_cover.prerequisites.add(dark_sentinels_way)
 sun_swallowing_practice = SolarCharm.objects.create(
     name="Sun Swallowing Practice",
     mote_cost=2,
@@ -12215,8 +12206,8 @@ sun_swallowing_practice = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute", "stackable"],
     duration="Indefinite",
+    prereqs=[[(blurred_form_style.name, 1)]],
 )
-sun_swallowing_practice.prerequisites.add(blurred_form_style)
 vanishing_from_minds_eye_method = SolarCharm.objects.create(
     name="Vanishing From Mind's Eye Method",
     mote_cost=10,
@@ -12235,8 +12226,8 @@ vanishing_from_minds_eye_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Indefinite",
+    prereqs=[[(mental_invisibility_technique.name, 1)]],
 )
-vanishing_from_minds_eye_method.prerequisites.add(mental_invisibility_technique)
 sound_and_scent_banishing_attitude = SolarCharm.objects.create(
     name="Sound and Scent Banishing Attitude",
     mote_cost=6,
@@ -12255,9 +12246,7 @@ sound_and_scent_banishing_attitude = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute", "stackable"],
     duration="hour",
-)
-sound_and_scent_banishing_attitude.prerequisites.add(
-    blurred_form_style, vanishing_from_minds_eye_method
+    prereqs=[[(blurred_form_style.name, 1), (vanishing_from_minds_eye_method.name, 1)]],
 )
 ten_whispers_silence_meditation = SolarCharm.objects.create(
     name="Ten Whispers Silence Meditation",
@@ -12277,8 +12266,8 @@ ten_whispers_silence_meditation = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="scene",
+    prereqs=[[(sound_and_scent_banishing_attitude.name, 1)]],
 )
-ten_whispers_silence_meditation.prerequisites.add(sound_and_scent_banishing_attitude)
 mind_shroud_meditation = SolarCharm.objects.create(
     name="Mind Shroud Meditation",
     mote_cost=0,
@@ -12297,8 +12286,8 @@ mind_shroud_meditation = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(flash_eyed_killers_insight.name, 1)]],
 )
-mind_shroud_meditation.prerequisites.add(flash_eyed_killers_insight)
 shadow_replacement_technique = SolarCharm.objects.create(
     name="Shadow Replacement Technique",
     mote_cost=8,
@@ -12317,8 +12306,8 @@ shadow_replacement_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["perilous", "mute"],
     duration="Indefinite",
+    prereqs=[[(dark_sentinels_way.name, 1)]],
 )
-shadow_replacement_technique.prerequisites.add(dark_sentinels_way)
 shadow_crossing_leap_technique = SolarCharm.objects.create(
     name="Shadow-Crossing Leap Technique",
     mote_cost=5,
@@ -12337,8 +12326,8 @@ shadow_crossing_leap_technique = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(smoke_and_shadow_cover.name, 1)]],
 )
-shadow_crossing_leap_technique.prerequisites.add(smoke_and_shadow_cover)
 fivefold_shadow_burial = SolarCharm.objects.create(
     name="Fivefold Shadow Burial",
     mote_cost=0,
@@ -12357,8 +12346,8 @@ fivefold_shadow_burial = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(sound_and_scent_banishing_attitude.name, 1)]],
 )
-fivefold_shadow_burial.prerequisites.add(sound_and_scent_banishing_attitude)
 false_image_feint = SolarCharm.objects.create(
     name="False Image Feint",
     mote_cost=7,
@@ -12377,9 +12366,9 @@ false_image_feint = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["perilous", "mute"],
     duration="Instant",
-)
-false_image_feint.prerequisites.add(
-    hidden_snake_recoil, vanishing_from_minds_eye_method
+    prereqs=[
+        [(hidden_snake_recoil.name, 1), (vanishing_from_minds_eye_method.name, 1)]
+    ],
 )
 flashing_nocturne_prana = SolarCharm.objects.create(
     name="Flashing Nocturne Prana",
@@ -12399,8 +12388,8 @@ flashing_nocturne_prana = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["perilous", "mute"],
     duration="Indefinite",
+    prereqs=[[(shadow_crossing_leap_technique.name, 1)]],
 )
-flashing_nocturne_prana.prerequisites.add(shadow_crossing_leap_technique)
 
 food_gathering_exercise = SolarCharm.objects.create(
     name="Food-Gathering Exercise",
@@ -12477,8 +12466,8 @@ trackless_region_navigation = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(hardship_surviving_mendicant_spirit.name, 1)]],
 )
-trackless_region_navigation.prerequisites.add(hardship_surviving_mendicant_spirit)
 unshakeable_bloodhound_technique = SolarCharm.objects.create(
     name="Unshakeable Bloodhound Technique",
     mote_cost=4,
@@ -12497,8 +12486,8 @@ unshakeable_bloodhound_technique = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(trackless_region_navigation.name, 1)]],
 )
-unshakeable_bloodhound_technique.prerequisites.add(trackless_region_navigation)
 spirit_tied_pet = SolarCharm.objects.create(
     name="Spirit-Tied Pet",
     mote_cost=10,
@@ -12517,8 +12506,8 @@ spirit_tied_pet = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(friendship_with_animals_approach.name, 1)]],
 )
-spirit_tied_pet.prerequisites.add(friendship_with_animals_approach)
 beast_mastering_behavior = SolarCharm.objects.create(
     name="Beast-Mastering Behavior",
     mote_cost=10,
@@ -12537,8 +12526,8 @@ beast_mastering_behavior = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="week",
+    prereqs=[[(spirit_tied_pet.name, 1)]],
 )
-beast_mastering_behavior.prerequisites.add(spirit_tied_pet)
 deadly_onslaught_coordination = SolarCharm.objects.create(
     name="Deadly Onslaught Coordination",
     mote_cost=3,
@@ -12557,8 +12546,8 @@ deadly_onslaught_coordination = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(beast_mastering_behavior.name, 1)]],
 )
-deadly_onslaught_coordination.prerequisites.add(beast_mastering_behavior)
 bestial_traits_technique = SolarCharm.objects.create(
     name="Bestial Traits Technique",
     mote_cost=10,
@@ -12577,8 +12566,8 @@ bestial_traits_technique = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(spirit_tied_pet.name, 1)]],
 )
-bestial_traits_technique.prerequisites.add(spirit_tied_pet)
 hide_hardening_practice = SolarCharm.objects.create(
     name="Hide-Hardening Practice",
     mote_cost=0,
@@ -12597,8 +12586,8 @@ hide_hardening_practice = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["stackable"],
     duration="Permanent",
+    prereqs=[[(bestial_traits_technique.name, 1)]],
 )
-hide_hardening_practice.prerequisites.add(bestial_traits_technique)
 life_of_the_aurochs = SolarCharm.objects.create(
     name="Life of the Aurochs",
     mote_cost=0,
@@ -12617,8 +12606,8 @@ life_of_the_aurochs = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=["stackable"],
     duration="Permanent",
+    prereqs=[[(bestial_traits_technique.name, 1)]],
 )
-life_of_the_aurochs.prerequisites.add(bestial_traits_technique)
 familiar_honing_instruction = SolarCharm.objects.create(
     name="Familiar-Honing Instruction",
     mote_cost=4,
@@ -12637,8 +12626,8 @@ familiar_honing_instruction = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(spirit_tied_pet.name, 1)]],
 )
-familiar_honing_instruction.prerequisites.add(spirit_tied_pet)
 spirit_hunting_hound = SolarCharm.objects.create(
     name="Spirit-Hunting Hound",
     mote_cost=1,
@@ -12657,8 +12646,8 @@ spirit_hunting_hound = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="turn",
+    prereqs=[[(familiar_honing_instruction.name, 1)]],
 )
-spirit_hunting_hound.prerequisites.add(familiar_honing_instruction)
 ambush_predator_style = SolarCharm.objects.create(
     name="Ambush Predator Style",
     mote_cost=3,
@@ -12677,8 +12666,8 @@ ambush_predator_style = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(familiar_honing_instruction.name, 1)]],
 )
-ambush_predator_style.prerequisites.add(familiar_honing_instruction)
 element_resisting_prana = SolarCharm.objects.create(
     name="Element-Resisting Prana",
     mote_cost=0,
@@ -12697,8 +12686,8 @@ element_resisting_prana = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(hardship_surviving_mendicant_spirit.name, 1)]],
 )
-element_resisting_prana.prerequisites.add(hardship_surviving_mendicant_spirit)
 traceless_passage = SolarCharm.objects.create(
     name="Traceless Passage",
     mote_cost=3,
@@ -12717,8 +12706,8 @@ traceless_passage = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(unshakeable_bloodhound_technique.name, 1)]],
 )
-traceless_passage.prerequisites.add(unshakeable_bloodhound_technique)
 eye_deceiving_camouflage = SolarCharm.objects.create(
     name="Eye-Deceiving Camouflage",
     mote_cost=6,
@@ -12737,8 +12726,8 @@ eye_deceiving_camouflage = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(traceless_passage.name, 1)]],
 )
-eye_deceiving_camouflage.prerequisites.add(traceless_passage)
 red_toothed_execution_order = SolarCharm.objects.create(
     name="Red-Toothed Execution Order",
     mote_cost=5,
@@ -12757,8 +12746,8 @@ red_toothed_execution_order = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(deadly_onslaught_coordination.name, 1)]],
 )
-red_toothed_execution_order.prerequisites.add(deadly_onslaught_coordination)
 ghost_panther_slinking = SolarCharm.objects.create(
     name="Ghost Panther Slinking",
     mote_cost=0,
@@ -12777,9 +12766,7 @@ ghost_panther_slinking = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
-)
-ghost_panther_slinking.prerequisites.add(
-    beast_mastering_behavior, bestial_traits_technique
+    prereqs=[[(beast_mastering_behavior.name, 1), (bestial_traits_technique.name, 1)]],
 )
 saga_beast_virtue = SolarCharm.objects.create(
     name="Saga Beast Virtue",
@@ -12799,8 +12786,8 @@ saga_beast_virtue = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(hide_hardening_practice.name, 1), (life_of_the_aurochs.name, 1)]],
 )
-saga_beast_virtue.prerequisites.add(hide_hardening_practice, life_of_the_aurochs)
 phantom_rending_fangs = SolarCharm.objects.create(
     name="Phantom-Rending Fangs",
     mote_cost=3,
@@ -12819,8 +12806,8 @@ phantom_rending_fangs = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="turn",
+    prereqs=[[(spirit_hunting_hound.name, 1)]],
 )
-phantom_rending_fangs.prerequisites.add(spirit_hunting_hound)
 force_building_predator_style = SolarCharm.objects.create(
     name="Force-Building Predator Style",
     mote_cost=0,
@@ -12839,8 +12826,8 @@ force_building_predator_style = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(ambush_predator_style.name, 1)]],
 )
-force_building_predator_style.prerequisites.add(ambush_predator_style)
 crimson_talon_vigor = SolarCharm.objects.create(
     name="Crimson Talon Vigor",
     mote_cost=0,
@@ -12859,8 +12846,8 @@ crimson_talon_vigor = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(force_building_predator_style.name, 1)]],
 )
-crimson_talon_vigor.prerequisites.add(force_building_predator_style)
 deadly_predator_method = SolarCharm.objects.create(
     name="Deadly Predator Method",
     mote_cost=15,
@@ -12879,9 +12866,13 @@ deadly_predator_method = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Indefinite",
-)
-deadly_predator_method.prerequisites.add(
-    crimson_talon_vigor, red_toothed_execution_order, saga_beast_virtue
+    prereqs=[
+        [
+            (crimson_talon_vigor.name, 1),
+            (red_toothed_execution_order.name, 1),
+            (saga_beast_virtue.name, 1),
+        ]
+    ],
 )
 
 precision_of_the_striking_raptor = SolarCharm.objects.create(
@@ -12921,8 +12912,8 @@ steel_storm_descending = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(precision_of_the_striking_raptor.name, 1)]],
 )
-steel_storm_descending.prerequisites.add(precision_of_the_striking_raptor)
 flashing_draw_mastery = SolarCharm.objects.create(
     name="Flashing Draw Mastery",
     mote_cost=3,
@@ -12941,8 +12932,8 @@ flashing_draw_mastery = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(steel_storm_descending.name, 1)]],
 )
-flashing_draw_mastery.prerequisites.add(steel_storm_descending)
 joint_wounding_attack = SolarCharm.objects.create(
     name="Joint-Wounding Attack",
     mote_cost=3,
@@ -12961,8 +12952,8 @@ joint_wounding_attack = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["decisive-only", "stackable"],
     duration="Instant",
+    prereqs=[[(precision_of_the_striking_raptor.name, 1)]],
 )
-joint_wounding_attack.prerequisites.add(precision_of_the_striking_raptor)
 angle_tracing_edge = SolarCharm.objects.create(
     name="Angle-Tracing Edge",
     mote_cost=3,
@@ -12981,8 +12972,8 @@ angle_tracing_edge = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["uniform"],
     duration="Instant",
+    prereqs=[[(precision_of_the_striking_raptor.name, 1)]],
 )
-angle_tracing_edge.prerequisites.add(precision_of_the_striking_raptor)
 triple_distance_attack_technique = SolarCharm.objects.create(
     name="Triple Distance Attack Technique",
     mote_cost=1,
@@ -13020,8 +13011,8 @@ cascade_of_cutting_terror = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(triple_distance_attack_technique.name, 1)]],
 )
-cascade_of_cutting_terror.prerequisites.add(triple_distance_attack_technique)
 swarm_culling_instinct = SolarCharm.objects.create(
     name="Swarm-Culling Instinct",
     mote_cost=2,
@@ -13040,8 +13031,8 @@ swarm_culling_instinct = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["uniform"],
     duration="Instant",
+    prereqs=[[(flashing_draw_mastery.name, 1)]],
 )
-swarm_culling_instinct.prerequisites.add(flashing_draw_mastery)
 mist_on_water_attack = SolarCharm.objects.create(
     name="Mist on Water Attack",
     mote_cost=2,
@@ -13060,8 +13051,8 @@ mist_on_water_attack = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["decisive-only", "mute"],
     duration="Instant",
+    prereqs=[[(joint_wounding_attack.name, 1)]],
 )
-mist_on_water_attack.prerequisites.add(joint_wounding_attack)
 observer_deceiving_attack = SolarCharm.objects.create(
     name="Observer-Deceiving Attack",
     mote_cost=3,
@@ -13080,8 +13071,8 @@ observer_deceiving_attack = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["mute", "uniform"],
     duration="Instant",
+    prereqs=[[(joint_wounding_attack.name, 1)]],
 )
-observer_deceiving_attack.prerequisites.add(joint_wounding_attack)
 flying_steel_ruse = SolarCharm.objects.create(
     name="Flying Steel Ruse",
     mote_cost=2,
@@ -13100,8 +13091,8 @@ flying_steel_ruse = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(observer_deceiving_attack.name, 1)]],
 )
-flying_steel_ruse.prerequisites.add(observer_deceiving_attack)
 empty_palm_technique = SolarCharm.objects.create(
     name="Empty Palm Technique",
     mote_cost=0,
@@ -13120,8 +13111,8 @@ empty_palm_technique = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(observer_deceiving_attack.name, 1)]],
 )
-empty_palm_technique.prerequisites.add(observer_deceiving_attack)
 fallen_weapon_deflection = SolarCharm.objects.create(
     name="Fallen Weapon Deflection",
     mote_cost=3,
@@ -13140,8 +13131,8 @@ fallen_weapon_deflection = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(empty_palm_technique.name, 1)]],
 )
-fallen_weapon_deflection.prerequisites.add(empty_palm_technique)
 mist_gathering_practice = SolarCharm.objects.create(
     name="Mist-Gathering Practice",
     mote_cost=3,
@@ -13160,8 +13151,8 @@ mist_gathering_practice = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["mute"],
     duration="Instant",
+    prereqs=[[(joint_wounding_attack.name, 1)]],
 )
-mist_gathering_practice.prerequisites.add(joint_wounding_attack)
 shower_of_deadly_blades = SolarCharm.objects.create(
     name="Shower of Deadly Blades",
     mote_cost=6,
@@ -13180,8 +13171,8 @@ shower_of_deadly_blades = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["withering-only"],
     duration="Instant",
+    prereqs=[[(cascade_of_cutting_terror.name, 1)]],
 )
-shower_of_deadly_blades.prerequisites.add(cascade_of_cutting_terror)
 shrike_saving_discretion = SolarCharm.objects.create(
     name="Shrike Saving Discretion",
     mote_cost=0,
@@ -13200,8 +13191,8 @@ shrike_saving_discretion = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Instant",
+    prereqs=[[(swarm_culling_instinct.name, 1)]],
 )
-shrike_saving_discretion.prerequisites.add(swarm_culling_instinct)
 crimson_razor_wind = SolarCharm.objects.create(
     name="Crimson Razor Wind",
     mote_cost=5,
@@ -13220,8 +13211,8 @@ crimson_razor_wind = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["decisive-only", "mute"],
     duration="Instant",
+    prereqs=[[(observer_deceiving_attack.name, 1)]],
 )
-crimson_razor_wind.prerequisites.add(observer_deceiving_attack)
 sharp_hand_feint = SolarCharm.objects.create(
     name="Sharp Hand Feint",
     mote_cost=1,
@@ -13240,8 +13231,8 @@ sharp_hand_feint = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(observer_deceiving_attack.name, 1)]],
 )
-sharp_hand_feint.prerequisites.add(observer_deceiving_attack)
 shadow_wind_slash_shadow_wind_kill = SolarCharm.objects.create(
     name="Shadow Wind Slash (Shadow Wind Kill)",
     mote_cost=2,
@@ -13260,8 +13251,8 @@ shadow_wind_slash_shadow_wind_kill = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["clash", "decisive-only"],
     duration="Instant",
+    prereqs=[[(sharp_hand_feint.name, 1)]],
 )
-shadow_wind_slash_shadow_wind_kill.prerequisites.add(sharp_hand_feint)
 shadow_thrust_spark = SolarCharm.objects.create(
     name="Shadow Thrust Spark",
     mote_cost=4,
@@ -13280,8 +13271,8 @@ shadow_thrust_spark = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(sharp_hand_feint.name, 1)]],
 )
-shadow_thrust_spark.prerequisites.add(sharp_hand_feint)
 savage_wolf_attack = SolarCharm.objects.create(
     name="Savage Wolf Attack",
     mote_cost=5,
@@ -13300,8 +13291,8 @@ savage_wolf_attack = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=["withering-only"],
     duration="Instant",
+    prereqs=[[(fallen_weapon_deflection.name, 1)]],
 )
-savage_wolf_attack.prerequisites.add(fallen_weapon_deflection)
 falling_icicle_strike = SolarCharm.objects.create(
     name="Falling Icicle Strike",
     mote_cost=6,
@@ -13320,8 +13311,8 @@ falling_icicle_strike = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(mist_gathering_practice.name, 1)]],
 )
-falling_icicle_strike.prerequisites.add(mist_gathering_practice)
 fiery_solar_chakram = SolarCharm.objects.create(
     name="Fiery Solar Chakram",
     mote_cost=5,
@@ -13340,8 +13331,8 @@ fiery_solar_chakram = SolarCharm.objects.create(
     charm_type="simple",
     keywords=["decisive-only"],
     duration="Instant",
+    prereqs=[[(cascade_of_cutting_terror.name, 1)]],
 )
-fiery_solar_chakram.prerequisites.add(cascade_of_cutting_terror)
 cutting_circle_of_destruction = SolarCharm.objects.create(
     name="Cutting Circle of Destruction",
     mote_cost=5,
@@ -13360,8 +13351,8 @@ cutting_circle_of_destruction = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(falling_icicle_strike.name, 1)]],
 )
-cutting_circle_of_destruction.prerequisites.add(falling_icicle_strike)
 
 war_god_descendent = SolarCharm.objects.create(
     name="War God Descendent",
@@ -13400,8 +13391,8 @@ immortal_commanders_presence = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(war_god_descendent.name, 1)]],
 )
-immortal_commanders_presence.prerequisites.add(war_god_descendent)
 league_of_iron_preparation = SolarCharm.objects.create(
     name="League of Iron Preparation",
     mote_cost=5,
@@ -13420,8 +13411,8 @@ league_of_iron_preparation = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(war_god_descendent.name, 1)]],
 )
-league_of_iron_preparation.prerequisites.add(war_god_descendent)
 rout_stemming_gesture = SolarCharm.objects.create(
     name="Rout-Stemming Gesture",
     mote_cost=3,
@@ -13440,8 +13431,8 @@ rout_stemming_gesture = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(war_god_descendent.name, 1)]],
 )
-rout_stemming_gesture.prerequisites.add(war_god_descendent)
 holistic_battle_understanding = SolarCharm.objects.create(
     name="Holistic Battle Understanding",
     mote_cost=2,
@@ -13460,8 +13451,8 @@ holistic_battle_understanding = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(war_god_descendent.name, 1)]],
 )
-holistic_battle_understanding.prerequisites.add(war_god_descendent)
 ideal_battle_knowledge_prana = SolarCharm.objects.create(
     name="Ideal Battle Knowledge Prana",
     mote_cost=3,
@@ -13499,8 +13490,8 @@ tiger_warrior_training_technique = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Indefinite",
+    prereqs=[[(league_of_iron_preparation.name, 1)]],
 )
-tiger_warrior_training_technique.prerequisites.add(league_of_iron_preparation)
 magnanimity_of_the_unstoppable_icon = SolarCharm.objects.create(
     name="Magnanimity of the Unstoppable Icon",
     mote_cost=3,
@@ -13519,8 +13510,8 @@ magnanimity_of_the_unstoppable_icon = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(rout_stemming_gesture.name, 1)]],
 )
-magnanimity_of_the_unstoppable_icon.prerequisites.add(rout_stemming_gesture)
 redoubt_raising_gesture = SolarCharm.objects.create(
     name="Redoubt-Raising Gesture",
     mote_cost=1,
@@ -13539,8 +13530,8 @@ redoubt_raising_gesture = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(holistic_battle_understanding.name, 1)]],
 )
-redoubt_raising_gesture.prerequisites.add(holistic_battle_understanding)
 general_of_the_all_seeing_sun = SolarCharm.objects.create(
     name="General of the All-Seeing Sun",
     mote_cost=4,
@@ -13559,8 +13550,8 @@ general_of_the_all_seeing_sun = SolarCharm.objects.create(
     charm_type="supplemental",
     keywords=[],
     duration="Instant",
+    prereqs=[[(redoubt_raising_gesture.name, 1)]],
 )
-general_of_the_all_seeing_sun.prerequisites.add(redoubt_raising_gesture)
 immortal_warlords_tactic = SolarCharm.objects.create(
     name="Immortal Warlord's Tactic",
     mote_cost=4,
@@ -13579,8 +13570,8 @@ immortal_warlords_tactic = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(ideal_battle_knowledge_prana.name, 1)]],
 )
-immortal_warlords_tactic.prerequisites.add(ideal_battle_knowledge_prana)
 battle_path_ascendant = SolarCharm.objects.create(
     name="Battle Path Ascendant",
     mote_cost=5,
@@ -13599,8 +13590,8 @@ battle_path_ascendant = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(ideal_battle_knowledge_prana.name, 1)]],
 )
-battle_path_ascendant.prerequisites.add(ideal_battle_knowledge_prana)
 march_of_the_returner = SolarCharm.objects.create(
     name="March of the Returner",
     mote_cost=10,
@@ -13619,8 +13610,8 @@ march_of_the_returner = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="Instant",
+    prereqs=[[(magnanimity_of_the_unstoppable_icon.name, 1)]],
 )
-march_of_the_returner.prerequisites.add(magnanimity_of_the_unstoppable_icon)
 supremacy_of_the_divine_army = SolarCharm.objects.create(
     name="Supremacy of the Divine Army",
     mote_cost=10,
@@ -13639,8 +13630,8 @@ supremacy_of_the_divine_army = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(march_of_the_returner.name, 1)]],
 )
-supremacy_of_the_divine_army.prerequisites.add(march_of_the_returner)
 four_glories_meditation = SolarCharm.objects.create(
     name="Four Glories Meditation",
     mote_cost=0,
@@ -13659,8 +13650,8 @@ four_glories_meditation = SolarCharm.objects.create(
     charm_type="permanent",
     keywords=[],
     duration="Permanent",
+    prereqs=[[(general_of_the_all_seeing_sun.name, 1)]],
 )
-four_glories_meditation.prerequisites.add(general_of_the_all_seeing_sun)
 transcendent_warlords_genius = SolarCharm.objects.create(
     name="Transcendent Warlord's Genius",
     mote_cost=1,
@@ -13679,8 +13670,8 @@ transcendent_warlords_genius = SolarCharm.objects.create(
     charm_type="reflexive",
     keywords=[],
     duration="Instant",
+    prereqs=[[(battle_path_ascendant.name, 1)]],
 )
-transcendent_warlords_genius.prerequisites.add(battle_path_ascendant)
 battle_visionarys_foresight = SolarCharm.objects.create(
     name="Battle-Visionary's Foresight",
     mote_cost=10,
@@ -13699,9 +13690,12 @@ battle_visionarys_foresight = SolarCharm.objects.create(
     charm_type="simple",
     keywords=[],
     duration="scene",
-)
-battle_visionarys_foresight.prerequisites.add(
-    general_of_the_all_seeing_sun, transcendent_warlords_genius
+    prereqs=[
+        [
+            (general_of_the_all_seeing_sun.name, 1),
+            (transcendent_warlords_genius.name, 1),
+        ]
+    ],
 )
 
 snake = MartialArtsStyle.objects.create(
@@ -13748,8 +13742,8 @@ snake_form = MartialArtsCharm.objects.create(
     keywords=["form"],
     style=snake,
     duration="scene",
+    prereqs=[[(serpentine_evasion.name, 1), (striking_cobra_technique.name, 1)]],
 ).add_source("Exalted 3rd Edition", 427)
-snake_form.prerequisites.add(serpentine_evasion, striking_cobra_technique)
 armor_penetrating_fang_strike = MartialArtsCharm.objects.create(
     name="Armor-Penetrating Fang Strike",
     mote_cost=5,
@@ -13762,8 +13756,8 @@ armor_penetrating_fang_strike = MartialArtsCharm.objects.create(
     keywords=["dual", "terrestrial"],
     style=snake,
     duration="instant",
+    prereqs=[[(snake_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 428)
-armor_penetrating_fang_strike.prerequisites.add(snake_form)
 crippling_pressure_point_strike = MartialArtsCharm.objects.create(
     name="Crippling Pressure-Point Strike",
     mote_cost=3,
@@ -13776,8 +13770,8 @@ crippling_pressure_point_strike = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "terrestrial"],
     style=snake,
     duration="instant",
+    prereqs=[[(snake_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 428)
-crippling_pressure_point_strike.prerequisites.add(snake_form)
 essence_fangs_and_scales_technique = MartialArtsCharm.objects.create(
     name="Essence Fangs and Scales Technique",
     mote_cost=1,
@@ -13790,8 +13784,8 @@ essence_fangs_and_scales_technique = MartialArtsCharm.objects.create(
     keywords=["mastery"],
     style=snake,
     duration="permanent",
+    prereqs=[[(snake_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 429)
-essence_fangs_and_scales_technique.prerequisites.add(snake_form)
 uncoiling_serpent_prana = MartialArtsCharm.objects.create(
     name="Uncoiling Serpent Prana",
     mote_cost=7,
@@ -13804,8 +13798,8 @@ uncoiling_serpent_prana = MartialArtsCharm.objects.create(
     keywords=["terrestrial", "uniform"],
     style=snake,
     duration="instant",
+    prereqs=[[(essence_fangs_and_scales_technique.name, 1)]],
 ).add_source("Exalted 3rd Edition", 429)
-uncoiling_serpent_prana.prerequisites.add(essence_fangs_and_scales_technique)
 snake_strikes_the_heel = MartialArtsCharm.objects.create(
     name="Snake Strikes the Heel",
     mote_cost=2,
@@ -13818,8 +13812,8 @@ snake_strikes_the_heel = MartialArtsCharm.objects.create(
     keywords=["clash", "dual", "terrestrial"],
     style=snake,
     duration="instant",
+    prereqs=[[(snake_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 429)
-snake_strikes_the_heel.prerequisites.add(snake_form)
 countless_coils_evasion = MartialArtsCharm.objects.create(
     name="Countless Coils Evasion",
     mote_cost=7,
@@ -13832,8 +13826,8 @@ countless_coils_evasion = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "perilous", "terrestrial"],
     style=snake,
     duration="instant",
+    prereqs=[[(snake_strikes_the_heel.name, 1)]],
 ).add_source("Exalted 3rd Edition", 429)
-countless_coils_evasion.prerequisites.add(snake_strikes_the_heel)
 essence_venom_strike = MartialArtsCharm.objects.create(
     name="Essence Venom Strike",
     mote_cost=6,
@@ -13846,13 +13840,15 @@ essence_venom_strike = MartialArtsCharm.objects.create(
     keywords=["aggravated", "decisive-only", "mastery", "terrestrial"],
     style=snake,
     duration="instant",
+    prereqs=[
+        [
+            (armor_penetrating_fang_strike.name, 1),
+            (countless_coils_evasion.name, 1),
+            (crippling_pressure_point_strike.name, 1),
+            (uncoiling_serpent_prana.name, 1),
+        ]
+    ],
 ).add_source("Exalted 3rd Edition", 430)
-essence_venom_strike.prerequisites.add(
-    armor_penetrating_fang_strike,
-    countless_coils_evasion,
-    crippling_pressure_point_strike,
-    uncoiling_serpent_prana,
-)
 
 
 tiger = MartialArtsStyle.objects.create(
@@ -13897,8 +13893,8 @@ tiger_form = MartialArtsCharm.objects.create(
     keywords=["form", "terrestrial"],
     style=tiger,
     duration="scene",
+    prereqs=[[(crimson_leaping_cat_technique.name, 1), (striking_fury_claws.name, 1)]],
 ).add_source("Exalted 3rd Edition", 431)
-tiger_form.prerequisites.add(crimson_leaping_cat_technique, striking_fury_claws)
 celestial_tiger_hide = MartialArtsCharm.objects.create(
     name="Celestial Tiger Hide",
     mote_cost=5,
@@ -13911,8 +13907,8 @@ celestial_tiger_hide = MartialArtsCharm.objects.create(
     keywords=["terrestrial"],
     style=tiger,
     duration="scene",
+    prereqs=[[(tiger_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 432)
-celestial_tiger_hide.prerequisites.add(tiger_form)
 iron_claw_grip = MartialArtsCharm.objects.create(
     name="Iron Claw Grip",
     mote_cost=5,
@@ -13925,8 +13921,8 @@ iron_claw_grip = MartialArtsCharm.objects.create(
     keywords=["mastery"],
     style=tiger,
     duration="instant",
+    prereqs=[[(tiger_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 432)
-iron_claw_grip.prerequisites.add(tiger_form)
 prey_maiming_frenzy = MartialArtsCharm.objects.create(
     name="Prey-Maiming Frenzy",
     mote_cost=8,
@@ -13939,8 +13935,8 @@ prey_maiming_frenzy = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "terrestrial"],
     style=tiger,
     duration="instant",
+    prereqs=[[(iron_claw_grip.name, 1)]],
 ).add_source("Exalted 3rd Edition", 432)
-prey_maiming_frenzy.prerequisites.add(iron_claw_grip)
 raging_tiger_pounce = MartialArtsCharm.objects.create(
     name="Raging Tiger Pounce",
     mote_cost=4,
@@ -13953,8 +13949,8 @@ raging_tiger_pounce = MartialArtsCharm.objects.create(
     keywords=["mastery", "uniform"],
     style=tiger,
     duration="instant",
+    prereqs=[[(tiger_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 432)
-raging_tiger_pounce.prerequisites.add(tiger_form)
 spine_shattering_bite = MartialArtsCharm.objects.create(
     name="Spine-Shattering Bite",
     mote_cost=5,
@@ -13967,8 +13963,8 @@ spine_shattering_bite = MartialArtsCharm.objects.create(
     keywords=["decisive-only"],
     style=tiger,
     duration="instant",
+    prereqs=[[(raging_tiger_pounce.name, 1)]],
 ).add_source("Exalted 3rd Edition", 433)
-spine_shattering_bite.prerequisites.add(raging_tiger_pounce)
 stalking_cat_movement_meditation = MartialArtsCharm.objects.create(
     name="Stalking Cat Movement Meditation",
     mote_cost=5,
@@ -13981,8 +13977,8 @@ stalking_cat_movement_meditation = MartialArtsCharm.objects.create(
     keywords=["mastery"],
     style=tiger,
     duration="scene",
+    prereqs=[[(tiger_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 433)
-stalking_cat_movement_meditation.prerequisites.add(tiger_form)
 leap_from_cloaking_shadows = MartialArtsCharm.objects.create(
     name="Leap From Cloaking Shadows",
     mote_cost=5,
@@ -13995,8 +13991,8 @@ leap_from_cloaking_shadows = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "mastery", "terrestrial"],
     style=tiger,
     duration="instant",
+    prereqs=[[(stalking_cat_movement_meditation.name, 1)]],
 ).add_source("Exalted 3rd Edition", 433)
-leap_from_cloaking_shadows.prerequisites.add(stalking_cat_movement_meditation)
 angry_predator_frenzy = MartialArtsCharm.objects.create(
     name="Angry Predator Frenzy",
     mote_cost=5,
@@ -14009,13 +14005,15 @@ angry_predator_frenzy = MartialArtsCharm.objects.create(
     keywords=["mastery", "terrestrial"],
     style=tiger,
     duration="permanent",
+    prereqs=[
+        [
+            (celestial_tiger_hide.name, 1),
+            (prey_maiming_frenzy.name, 1),
+            (spine_shattering_bite.name, 1),
+            (leap_from_cloaking_shadows.name, 1),
+        ]
+    ],
 ).add_source("Exalted 3rd Edition", 433)
-angry_predator_frenzy.prerequisites.add(
-    celestial_tiger_hide,
-    prey_maiming_frenzy,
-    spine_shattering_bite,
-    leap_from_cloaking_shadows,
-)
 
 
 single_point = MartialArtsStyle.objects.create(
@@ -14062,10 +14060,10 @@ single_point_form = MartialArtsCharm.objects.create(
     keywords=["form", "mastery", "terrestrial"],
     style=single_point,
     duration="scene",
+    prereqs=[
+        [(gathering_light_concentration.name, 1), (shining_starfall_execution.name, 1)]
+    ],
 ).add_source("Exalted 3rd Edition", 434)
-single_point_form.prerequisites.add(
-    gathering_light_concentration, shining_starfall_execution
-)
 fatal_stroke_flash = MartialArtsCharm.objects.create(
     name="Fatal Stroke Flash",
     mote_cost=1,
@@ -14078,8 +14076,8 @@ fatal_stroke_flash = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "mastery", "terrestrial"],
     style=single_point,
     duration="instant",
+    prereqs=[[(single_point_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 435)
-fatal_stroke_flash.prerequisites.add(single_point_form)
 liquid_steel_flow = MartialArtsCharm.objects.create(
     name="Liquid Steel Flow",
     mote_cost=5,
@@ -14092,8 +14090,8 @@ liquid_steel_flow = MartialArtsCharm.objects.create(
     keywords=["dual", "mastery", "terrestrial"],
     style=single_point,
     duration="round",
+    prereqs=[[(fatal_stroke_flash.name, 1)]],
 ).add_source("Exalted 3rd Edition", 436)
-liquid_steel_flow.prerequisites.add(fatal_stroke_flash)
 void_slicing_wind = MartialArtsCharm.objects.create(
     name="Void-Slicing Wind",
     mote_cost=6,
@@ -14106,8 +14104,8 @@ void_slicing_wind = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "terrestrial"],
     style=single_point,
     duration="instant",
+    prereqs=[[(single_point_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 436)
-void_slicing_wind.prerequisites.add(single_point_form)
 horizon_swallowed_star_flash = MartialArtsCharm.objects.create(
     name="Horizon-Swallowed Star Flash",
     mote_cost=8,
@@ -14120,8 +14118,8 @@ horizon_swallowed_star_flash = MartialArtsCharm.objects.create(
     keywords=["clash", "decisive-only", "mastery", "terrestrial"],
     style=single_point,
     duration="instant",
+    prereqs=[[(single_point_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 436)
-horizon_swallowed_star_flash.prerequisites.add(single_point_form)
 six_demon_scabbard_binding = MartialArtsCharm.objects.create(
     name="Six-Demon Scabbard Binding",
     mote_cost=1,
@@ -14134,8 +14132,8 @@ six_demon_scabbard_binding = MartialArtsCharm.objects.create(
     keywords=["clash", "decisive-only", "terrestrial"],
     style=single_point,
     duration="instant",
+    prereqs=[[(horizon_swallowed_star_flash.name, 1)]],
 ).add_source("Exalted 3rd Edition", 436)
-six_demon_scabbard_binding.prerequisites.add(horizon_swallowed_star_flash)
 binding_nova_flare = MartialArtsCharm.objects.create(
     name="Blinding Nova Flare",
     mote_cost=0,
@@ -14148,10 +14146,14 @@ binding_nova_flare = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "mastery", "terrestrial"],
     style=single_point,
     duration="instant",
+    prereqs=[
+        [
+            (liquid_steel_flow.name, 1),
+            (six_demon_scabbard_binding.name, 1),
+            (void_slicing_wind.name, 1),
+        ]
+    ],
 ).add_source("Exalted 3rd Edition", 436)
-binding_nova_flare.prerequisites.add(
-    liquid_steel_flow, six_demon_scabbard_binding, void_slicing_wind
-)
 
 
 white_reaper = MartialArtsStyle.objects.create(
@@ -14198,8 +14200,8 @@ white_reaper_form = MartialArtsCharm.objects.create(
     keywords=["form"],
     style=white_reaper,
     duration="scene",
+    prereqs=[[(falling_scythe_flash.name, 1), (revolving_crescent_defense.name, 1)]],
 ).add_source("Exalted 3rd Edition", 438)
-white_reaper_form.prerequisites.add(falling_scythe_flash, revolving_crescent_defense)
 bleeding_crescent_strike = MartialArtsCharm.objects.create(
     name="Bleeding Crescent Strike",
     mote_cost=5,
@@ -14210,8 +14212,8 @@ bleeding_crescent_strike = MartialArtsCharm.objects.create(
     keywords=["mastery", "terrestial", "uniform"],
     style=white_reaper,
     duration="instant",
+    prereqs=[[(white_reaper_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 439)
-bleeding_crescent_strike.prerequisites.add(white_reaper_form)
 greatest_killer_attitude = MartialArtsCharm.objects.create(
     name="Greatest Killer Attitude",
     mote_cost=3,
@@ -14224,8 +14226,8 @@ greatest_killer_attitude = MartialArtsCharm.objects.create(
     keywords=["dual"],
     style=white_reaper,
     duration="instant",
+    prereqs=[[(bleeding_crescent_strike.name, 1)]],
 ).add_source("Exalted 3rd Edition", 439)
-greatest_killer_attitude.prerequisites.add(bleeding_crescent_strike)
 enemies_like_grass = MartialArtsCharm.objects.create(
     name="Enemies Like Grass",
     mote_cost=10,
@@ -14238,8 +14240,8 @@ enemies_like_grass = MartialArtsCharm.objects.create(
     keywords=["dual", "terrestrial"],
     style=white_reaper,
     duration="instant",
+    prereqs=[[(white_reaper_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 440)
-enemies_like_grass.prerequisites.add(white_reaper_form)
 flickering_corona_barrier = MartialArtsCharm.objects.create(
     name="Flickering Corona Barrier",
     mote_cost=2,
@@ -14250,8 +14252,8 @@ flickering_corona_barrier = MartialArtsCharm.objects.create(
     keywords=["mastery", "uniform"],
     style=white_reaper,
     duration="instant",
+    prereqs=[[(white_reaper_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 440)
-flickering_corona_barrier.prerequisites.add(white_reaper_form)
 impenetrable_white_shroud = MartialArtsCharm.objects.create(
     name="Impenetrable White Shroud",
     mote_cost=4,
@@ -14264,8 +14266,8 @@ impenetrable_white_shroud = MartialArtsCharm.objects.create(
     keywords=[],
     style=white_reaper,
     duration="scene",
+    prereqs=[[(flickering_corona_barrier.name, 1)]],
 ).add_source("Exalted 3rd Edition", 440)
-impenetrable_white_shroud.prerequisites.add(flickering_corona_barrier)
 snow_follows_winter = MartialArtsCharm.objects.create(
     name="Snow Follows Winter",
     mote_cost=0,
@@ -14278,10 +14280,14 @@ snow_follows_winter = MartialArtsCharm.objects.create(
     keywords=["mastery"],
     style=white_reaper,
     duration="permanent",
+    prereqs=[
+        [
+            (enemies_like_grass.name, 1),
+            (greatest_killer_attitude.name, 1),
+            (impenetrable_white_shroud.name, 1),
+        ]
+    ],
 ).add_source("Exalted 3rd Edition", 440)
-snow_follows_winter.prerequisites.add(
-    enemies_like_grass, greatest_killer_attitude, impenetrable_white_shroud
-)
 
 
 ebon_shadow = MartialArtsStyle.objects.create(
@@ -14322,8 +14328,10 @@ ebon_shadow_form = MartialArtsCharm.objects.create(
     keywords=["form", "mute"],
     style=ebon_shadow,
     duration="scene",
+    prereqs=[
+        [(nothing_but_shadows.name, 1), (seven_points_of_weakness_strike.name, 1)]
+    ],
 ).add_source("Exalted 3rd Edition", 441)
-ebon_shadow_form.prerequisites.add(nothing_but_shadows, seven_points_of_weakness_strike)
 elusive_flicker_evasion = MartialArtsCharm.objects.create(
     name="Elusive Flicker Evasion",
     mote_cost=4,
@@ -14335,8 +14343,8 @@ elusive_flicker_evasion = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "mastery", "terrestrial"],
     style=ebon_shadow,
     duration="instant",
+    prereqs=[[(ebon_shadow_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 442)
-elusive_flicker_evasion.prerequisites.add(ebon_shadow_form)
 shadow_body_dissolution = MartialArtsCharm.objects.create(
     name="Shadow-Body Dissolution",
     mote_cost=10,
@@ -14347,8 +14355,8 @@ shadow_body_dissolution = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "mute", "terrestrial"],
     style=ebon_shadow,
     duration="instant",
+    prereqs=[[(elusive_flicker_evasion.name, 1)]],
 ).add_source("Exalted 3rd Edition", 442)
-shadow_body_dissolution.prerequisites.add(elusive_flicker_evasion)
 shadow_stepping_motion = MartialArtsCharm.objects.create(
     name="Shadow-Stepping Motion",
     mote_cost=5,
@@ -14359,8 +14367,8 @@ shadow_stepping_motion = MartialArtsCharm.objects.create(
     keywords=["dual", "mute"],
     style=ebon_shadow,
     duration="instant",
+    prereqs=[[(ebon_shadow_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 443)
-shadow_stepping_motion.prerequisites.add(ebon_shadow_form)
 throat_slitting_shadow_atemi = MartialArtsCharm.objects.create(
     name="Throat-Slitting Shadow Atemi",
     mote_cost=1,
@@ -14372,8 +14380,8 @@ throat_slitting_shadow_atemi = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "terrestrial"],
     style=ebon_shadow,
     duration="instant",
+    prereqs=[[(shadow_stepping_motion.name, 1)]],
 ).add_source("Exalted 3rd Edition", 443)
-throat_slitting_shadow_atemi.prerequisites.add(shadow_stepping_motion)
 umbra_noose_execution = MartialArtsCharm.objects.create(
     name="Umbra Noose Execution",
     mote_cost=5,
@@ -14385,10 +14393,10 @@ umbra_noose_execution = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "mastery"],
     style=ebon_shadow,
     duration="instant",
+    prereqs=[
+        [(shadow_body_dissolution.name, 1), (throat_slitting_shadow_atemi.name, 1)]
+    ],
 ).add_source("Exalted 3rd Edition", 443)
-umbra_noose_execution.prerequisites.add(
-    shadow_body_dissolution, throat_slitting_shadow_atemi
-)
 
 
 crane = MartialArtsStyle.objects.create(
@@ -14427,8 +14435,10 @@ crane_form = MartialArtsCharm.objects.create(
     keywords=["form"],
     style=crane,
     duration="scene",
+    prereqs=[
+        [(empowering_justice_redirection.name, 1), (fluttering_cry_of_warning.name, 1)]
+    ],
 ).add_source("Exalted 3rd Edition", 444)
-crane_form.prerequisites.add(empowering_justice_redirection, fluttering_cry_of_warning)
 crossed_wings_denial = MartialArtsCharm.objects.create(
     name="Crossed Wings Denial",
     mote_cost=6,
@@ -14440,8 +14450,8 @@ crossed_wings_denial = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "terrestrial"],
     style=crane,
     duration="turn",
+    prereqs=[[(crane_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 444)
-crossed_wings_denial.prerequisites.add(crane_form)
 feather_stirred_arrow_deflection = MartialArtsCharm.objects.create(
     name="Feather-Stirred Arrow Deflection",
     mote_cost=2,
@@ -14454,8 +14464,8 @@ feather_stirred_arrow_deflection = MartialArtsCharm.objects.create(
     keywords=["terrestrial", "uniform"],
     style=crane,
     duration="instant",
+    prereqs=[[(crossed_wings_denial.name, 1)]],
 ).add_source("Exalted 3rd Edition", 444)
-feather_stirred_arrow_deflection.prerequisites.add(crossed_wings_denial)
 humbling_enlightenment_commentary = MartialArtsCharm.objects.create(
     name="Humbling Enlightenment Commentary",
     mote_cost=1,
@@ -14468,8 +14478,8 @@ humbling_enlightenment_commentary = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "mastery", "terrestrial"],
     style=crane,
     duration="instant",
+    prereqs=[[(crane_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 445)
-humbling_enlightenment_commentary.prerequisites.add(crane_form)
 wings_spread_to_sky = MartialArtsCharm.objects.create(
     name="Wings Spread to Sky",
     mote_cost=4,
@@ -14480,8 +14490,8 @@ wings_spread_to_sky = MartialArtsCharm.objects.create(
     keywords=["dual"],
     style=crane,
     duration="instant",
+    prereqs=[[(crossed_wings_denial.name, 1)]],
 ).add_source("Exalted 3rd Edition", 445)
-wings_spread_to_sky.prerequisites.add(crossed_wings_denial)
 kindly_sifus_quill = MartialArtsCharm.objects.create(
     name="Kindly Sifu's Quill",
     mote_cost=5,
@@ -14492,8 +14502,8 @@ kindly_sifus_quill = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "mastery"],
     style=crane,
     duration="instant",
+    prereqs=[[(humbling_enlightenment_commentary.name, 1)]],
 ).add_source("Exalted 3rd Edition", 445)
-kindly_sifus_quill.prerequisites.add(humbling_enlightenment_commentary)
 mournful_cranes_cry = MartialArtsCharm.objects.create(
     name="Mournful Crane's Cry",
     mote_cost=3,
@@ -14504,8 +14514,8 @@ mournful_cranes_cry = MartialArtsCharm.objects.create(
     keywords=["decisive-only"],
     style=crane,
     duration="instant",
+    prereqs=[[(humbling_enlightenment_commentary.name, 1)]],
 ).add_source("Exalted 3rd Edition", 445)
-mournful_cranes_cry.prerequisites.add(humbling_enlightenment_commentary)
 wisdom_of_the_celestial_crane = MartialArtsCharm.objects.create(
     name="Wisdom of the Celestial Crane",
     mote_cost=7,
@@ -14517,13 +14527,15 @@ wisdom_of_the_celestial_crane = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "mastery", "terrestrial"],
     style=crane,
     duration="instant",
+    prereqs=[
+        [
+            (feather_stirred_arrow_deflection.name, 1),
+            (kindly_sifus_quill.name, 1),
+            (mournful_cranes_cry.name, 1),
+            (wings_spread_to_sky.name, 1),
+        ]
+    ],
 ).add_source("Exalted 3rd Edition", 446)
-wisdom_of_the_celestial_crane.prerequisites.add(
-    feather_stirred_arrow_deflection,
-    kindly_sifus_quill,
-    mournful_cranes_cry,
-    wings_spread_to_sky,
-)
 
 
 silver_voiced = MartialArtsStyle.objects.create(
@@ -14550,8 +14562,8 @@ inspiring_battle_hymn = MartialArtsCharm.objects.create(
     keywords=["mastery"],
     style=silver_voiced,
     duration="instant",
+    prereqs=[[(voice_of_the_night_bird.name, 1)]],
 ).add_source("Exalted 3rd Edition", 447)
-inspiring_battle_hymn.prerequisites.add(voice_of_the_night_bird)
 terrifying_battle_shriek = MartialArtsCharm.objects.create(
     name="Terrifying Battle Shriek",
     mote_cost=4,
@@ -14562,8 +14574,8 @@ terrifying_battle_shriek = MartialArtsCharm.objects.create(
     keywords=["mastery"],
     style=silver_voiced,
     duration="instant",
+    prereqs=[[(voice_of_the_night_bird.name, 1)]],
 ).add_source("Exalted 3rd Edition", 447)
-terrifying_battle_shriek.prerequisites.add(voice_of_the_night_bird)
 silver_voiced_nightingale_form = MartialArtsCharm.objects.create(
     name="Silver-Voiced Nightingale Form",
     mote_cost=8,
@@ -14574,10 +14586,8 @@ silver_voiced_nightingale_form = MartialArtsCharm.objects.create(
     keywords=["form"],
     style=silver_voiced,
     duration="scene",
+    prereqs=[[(inspiring_battle_hymn.name, 1), (terrifying_battle_shriek.name, 1)]],
 ).add_source("Exalted 3rd Edition", 448)
-silver_voiced_nightingale_form.prerequisites.add(
-    inspiring_battle_hymn, terrifying_battle_shriek
-)
 hearing_the_hearts_song = MartialArtsCharm.objects.create(
     name="Hearing the Heart's Song",
     mote_cost=5,
@@ -14589,8 +14599,8 @@ hearing_the_hearts_song = MartialArtsCharm.objects.create(
     keywords=["mastery", "perilous", "decisive-only"],
     style=silver_voiced,
     duration="instant",
+    prereqs=[[(silver_voiced_nightingale_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 448)
-hearing_the_hearts_song.prerequisites.add(silver_voiced_nightingale_form)
 harmony_in_opposition_stance = MartialArtsCharm.objects.create(
     name="Harmony in Opposition Stance",
     mote_cost=4,
@@ -14602,8 +14612,8 @@ harmony_in_opposition_stance = MartialArtsCharm.objects.create(
     keywords=["terrestrial"],
     style=silver_voiced,
     duration="scene",
+    prereqs=[[(hearing_the_hearts_song.name, 1)]],
 ).add_source("Exalted 3rd Edition", 448)
-harmony_in_opposition_stance.prerequisites.add(hearing_the_hearts_song)
 haunting_heart_rending_melody = MartialArtsCharm.objects.create(
     name="Haunting Heart-Rending Melody",
     mote_cost=1,
@@ -14615,8 +14625,8 @@ haunting_heart_rending_melody = MartialArtsCharm.objects.create(
     keywords=["terrestrial"],
     style=silver_voiced,
     duration="instant",
+    prereqs=[[(silver_voiced_nightingale_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 448)
-haunting_heart_rending_melody.prerequisites.add(silver_voiced_nightingale_form)
 resounding_songbirds_cry = MartialArtsCharm.objects.create(
     name="Resounding Songbird's Cry",
     mote_cost=3,
@@ -14628,8 +14638,8 @@ resounding_songbirds_cry = MartialArtsCharm.objects.create(
     keywords=["terrestrial"],
     style=silver_voiced,
     duration="instant",
+    prereqs=[[(haunting_heart_rending_melody.name, 1)]],
 ).add_source("Exalted 3rd Edition", 449)
-resounding_songbirds_cry.prerequisites.add(haunting_heart_rending_melody)
 flashing_blade_harmony = MartialArtsCharm.objects.create(
     name="Flashing Blade Harmony",
     mote_cost=4,
@@ -14640,8 +14650,8 @@ flashing_blade_harmony = MartialArtsCharm.objects.create(
     keywords=["dual", "mastery"],
     style=silver_voiced,
     duration="instant",
+    prereqs=[[(silver_voiced_nightingale_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 449)
-flashing_blade_harmony.prerequisites.add(silver_voiced_nightingale_form)
 aria_of_victory = MartialArtsCharm.objects.create(
     name="Aria of Victory",
     mote_cost=8,
@@ -14654,8 +14664,8 @@ aria_of_victory = MartialArtsCharm.objects.create(
     keywords=["prelious", "terrestrial"],
     style=silver_voiced,
     duration="scene",
+    prereqs=[[(flashing_blade_harmony.name, 1)]],
 ).add_source("Exalted 3rd Edition", 449)
-aria_of_victory.prerequisites.add(flashing_blade_harmony)
 shattering_discord_cacophony = MartialArtsCharm.objects.create(
     name="Shattering Discord Cacophony",
     mote_cost=10,
@@ -14668,10 +14678,14 @@ shattering_discord_cacophony = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "mastery", "terrestrial"],
     style=silver_voiced,
     duration="turn",
+    prereqs=[
+        [
+            (aria_of_victory.name, 1),
+            (harmony_in_opposition_stance.name, 1),
+            (resounding_songbirds_cry.name, 1),
+        ]
+    ],
 ).add_source("Exalted 3rd Edition", 450)
-shattering_discord_cacophony.prerequisites.add(
-    aria_of_victory, harmony_in_opposition_stance, resounding_songbirds_cry
-)
 
 
 righteous_devil = MartialArtsStyle.objects.create(
@@ -14721,10 +14735,14 @@ righteous_devil_form = MartialArtsCharm.objects.create(
     keywords=["form"],
     style=righteous_devil,
     duration="scene",
+    prereqs=[
+        [
+            (blossom_of_inevitable_demise.name, 1),
+            (cloud_of_ebon_devils.name, 1),
+            (kiss_of_the_sun_concentration.name, 1),
+        ]
+    ],
 ).add_source("Exalted 3rd Edition", 451)
-righteous_devil_form.prerequisites.add(
-    blossom_of_inevitable_demise, cloud_of_ebon_devils, kiss_of_the_sun_concentration
-)
 azure_abacus_meditation = MartialArtsCharm.objects.create(
     name="Azure Abacus Meditation",
     mote_cost=4,
@@ -14736,8 +14754,8 @@ azure_abacus_meditation = MartialArtsCharm.objects.create(
     keywords=["terrestrial", "withering-only"],
     style=righteous_devil,
     duration="instant",
+    prereqs=[[(righteous_devil_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 451)
-azure_abacus_meditation.prerequisites.add(righteous_devil_form)
 burning_judgment_halo = MartialArtsCharm.objects.create(
     name="Burning Judgment Halo",
     mote_cost=5,
@@ -14749,8 +14767,8 @@ burning_judgment_halo = MartialArtsCharm.objects.create(
     keywords=["perilous", "terrestrial"],
     style=righteous_devil,
     duration="instant",
+    prereqs=[[(righteous_devil_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 451)
-burning_judgment_halo.prerequisites.add(righteous_devil_form)
 phoenix_flies_on_golden_wings = MartialArtsCharm.objects.create(
     name="Phoenix Flies on Golden Wings",
     mote_cost=3,
@@ -14761,8 +14779,8 @@ phoenix_flies_on_golden_wings = MartialArtsCharm.objects.create(
     keywords=["dual"],
     style=righteous_devil,
     duration="instant",
+    prereqs=[[(righteous_devil_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 452)
-phoenix_flies_on_golden_wings.prerequisites.add(righteous_devil_form)
 dancing_devil_trigger_finger = MartialArtsCharm.objects.create(
     name="Dancing Devil Trigger Finger",
     mote_cost=10,
@@ -14775,8 +14793,8 @@ dancing_devil_trigger_finger = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "perilous", "terrestrial"],
     style=righteous_devil,
     duration="instant",
+    prereqs=[[(phoenix_flies_on_golden_wings.name, 1)]],
 ).add_source("Exalted 3rd Edition", 452)
-dancing_devil_trigger_finger.prerequisites.add(phoenix_flies_on_golden_wings)
 caress_of_1000_hells = MartialArtsCharm.objects.create(
     name="Caress of 1,000 Hells",
     mote_cost=6,
@@ -14788,10 +14806,14 @@ caress_of_1000_hells = MartialArtsCharm.objects.create(
     keywords=["aggravated", "decisive-only", "terrestrial"],
     style=righteous_devil,
     duration="instant",
+    prereqs=[
+        [
+            (azure_abacus_meditation.name, 1),
+            (burning_judgment_halo.name, 1),
+            (dancing_devil_trigger_finger.name, 1),
+        ]
+    ],
 ).add_source("Exalted 3rd Edition", 452)
-caress_of_1000_hells.prerequisites.add(
-    azure_abacus_meditation, burning_judgment_halo, dancing_devil_trigger_finger
-)
 
 
 black_claw = MartialArtsStyle.objects.create(
@@ -14830,8 +14852,8 @@ flexing_the_emerald_claw = MartialArtsCharm.objects.create(
     keywords=["decisive-only"],
     style=black_claw,
     duration="instant",
+    prereqs=[[(open_palm_caress.name, 1), (torn_lotus_defense.name, 1)]],
 ).add_source("Exalted 3rd Edition", 454)
-flexing_the_emerald_claw.prerequisites.add(open_palm_caress, torn_lotus_defense)
 black_claw_form = MartialArtsCharm.objects.create(
     name="Black Claw Form",
     mote_cost=6,
@@ -14842,8 +14864,8 @@ black_claw_form = MartialArtsCharm.objects.create(
     keywords=["form"],
     style=black_claw,
     duration="scene",
+    prereqs=[[(flexing_the_emerald_claw.name, 1)]],
 ).add_source("Exalted 3rd Edition", 454)
-black_claw_form.prerequisites.add(flexing_the_emerald_claw)
 doe_eyes_defense = MartialArtsCharm.objects.create(
     name="Doe Eyes Defense",
     mote_cost=4,
@@ -14855,8 +14877,8 @@ doe_eyes_defense = MartialArtsCharm.objects.create(
     keywords=["mastery", "terrestrial", "uniform"],
     style=black_claw,
     duration="instant",
+    prereqs=[[(black_claw_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 455)
-doe_eyes_defense.prerequisites.add(black_claw_form)
 storm_calming_embrace = MartialArtsCharm.objects.create(
     name="Storm-Calming Embrace",
     mote_cost=2,
@@ -14869,8 +14891,8 @@ storm_calming_embrace = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "mastery"],
     style=black_claw,
     duration="until released",
+    prereqs=[[(black_claw_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 455)
-storm_calming_embrace.prerequisites.add(black_claw_form)
 table_turning_reversal = MartialArtsCharm.objects.create(
     name="Table-Turning Reversal",
     mote_cost=6,
@@ -14881,8 +14903,8 @@ table_turning_reversal = MartialArtsCharm.objects.create(
     keywords=["counterattack", "decisive-only"],
     style=black_claw,
     duration="instant",
+    prereqs=[[(black_claw_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 455)
-table_turning_reversal.prerequisites.add(black_claw_form)
 outrage_kindling_cry = MartialArtsCharm.objects.create(
     name="Outrage-Kindling Cry",
     mote_cost=10,
@@ -14895,10 +14917,14 @@ outrage_kindling_cry = MartialArtsCharm.objects.create(
     keywords=["counterattack", "terrestrial"],
     style=black_claw,
     duration="instant",
+    prereqs=[
+        [
+            (doe_eyes_defense.name, 1),
+            (storm_calming_embrace.name, 1),
+            (table_turning_reversal.name, 1),
+        ]
+    ],
 ).add_source("Exalted 3rd Edition", 455)
-outrage_kindling_cry.prerequisites.add(
-    doe_eyes_defense, storm_calming_embrace, table_turning_reversal
-)
 heart_ripping_claw = MartialArtsCharm.objects.create(
     name="Heart-Ripping Claw",
     mote_cost=10,
@@ -14911,8 +14937,8 @@ heart_ripping_claw = MartialArtsCharm.objects.create(
     keywords=["aggravated", "decisive-only", "mastery", "terrestrial"],
     style=black_claw,
     duration="instant",
+    prereqs=[[(outrage_kindling_cry.name, 1)]],
 ).add_source("Exalted 3rd Edition", 456)
-heart_ripping_claw.prerequisites.add(outrage_kindling_cry)
 dreaming_pearl = MartialArtsStyle.objects.create(
     name="Dreaming Pearl Courtesan",
     weapons="unarmed strikes, war fans, whips, improvised weapons",
@@ -14962,10 +14988,14 @@ dreaming_pearl_courtesan_form = MartialArtsCharm.objects.create(
     keywords=["form"],
     style=dreaming_pearl,
     duration="scene",
+    prereqs=[
+        [
+            (demure_carp_feint.name, 1),
+            (elegant_weapon_repertoire.name, 1),
+            (pearlescent_filigree_defense.name, 1),
+        ]
+    ],
 ).add_source("Exalted 3rd Edition", 458)
-dreaming_pearl_courtesan_form.prerequisites.add(
-    demure_carp_feint, elegant_weapon_repertoire, pearlescent_filigree_defense
-)
 flurry_of_august_leaves = MartialArtsCharm.objects.create(
     name="Flurry of August Leaves",
     mote_cost=3,
@@ -14977,8 +15007,8 @@ flurry_of_august_leaves = MartialArtsCharm.objects.create(
     keywords=["decisive-only"],
     style=dreaming_pearl,
     duration="instant",
+    prereqs=[[(dreaming_pearl_courtesan_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 458)
-flurry_of_august_leaves.prerequisites.add(dreaming_pearl_courtesan_form)
 vindictive_concubines_pillow_book = MartialArtsCharm.objects.create(
     name="Vindictive Concubine's Pillow Book",
     mote_cost=7,
@@ -14989,8 +15019,8 @@ vindictive_concubines_pillow_book = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "terrestrial"],
     style=dreaming_pearl,
     duration="instant",
+    prereqs=[[(flurry_of_august_leaves.name, 1)]],
 ).add_source("Exalted 3rd Edition", 459)
-vindictive_concubines_pillow_book.prerequisites.add(flurry_of_august_leaves)
 fragant_pearl_fascination_kata = MartialArtsCharm.objects.create(
     name="Fragrant Petal Fascination Kata",
     mote_cost=4,
@@ -15001,8 +15031,8 @@ fragant_pearl_fascination_kata = MartialArtsCharm.objects.create(
     keywords=[],
     style=dreaming_pearl,
     duration="instant",
+    prereqs=[[(dreaming_pearl_courtesan_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 459)
-fragant_pearl_fascination_kata.prerequisites.add(dreaming_pearl_courtesan_form)
 seven_storms_escape_prana = MartialArtsCharm.objects.create(
     name="Seven Storms Escape Prana",
     mote_cost=4,
@@ -15014,8 +15044,8 @@ seven_storms_escape_prana = MartialArtsCharm.objects.create(
     keywords=["mastery"],
     style=dreaming_pearl,
     duration="instant",
+    prereqs=[[(fragant_pearl_fascination_kata.name, 1)]],
 ).add_source("Exalted 3rd Edition", 459)
-seven_storms_escape_prana.prerequisites.add(fragant_pearl_fascination_kata)
 invoking_the_chimeras_coils = MartialArtsCharm.objects.create(
     name="Invoking the Chimera's Coils",
     mote_cost=8,
@@ -15028,10 +15058,13 @@ invoking_the_chimeras_coils = MartialArtsCharm.objects.create(
     keywords=["mastery", "terrestrial"],
     style=dreaming_pearl,
     duration="permanent",
+    prereqs=[
+        [
+            (seven_storms_escape_prana.name, 1),
+            (vindictive_concubines_pillow_book.name, 1),
+        ]
+    ],
 ).add_source("Exalted 3rd Edition", 459)
-invoking_the_chimeras_coils.prerequisites.add(
-    seven_storms_escape_prana, vindictive_concubines_pillow_book
-)
 
 
 steel_devil = MartialArtsStyle.objects.create(
@@ -15059,8 +15092,8 @@ double_attack_technique = MartialArtsCharm.objects.create(
     keywords=["terrestrial", "withering-only"],
     style=steel_devil,
     duration="instant",
+    prereqs=[[(naked_fang_draw.name, 1)]],
 ).add_source("Exalted 3rd Edition", 461)
-double_attack_technique.prerequisites.add(naked_fang_draw)
 triple_attack_technique = MartialArtsCharm.objects.create(
     name="Triple Attack Technique",
     statistic="martial_arts",
@@ -15070,8 +15103,8 @@ triple_attack_technique = MartialArtsCharm.objects.create(
     keywords=["mastery", "terrestrial", "withering-only"],
     style=steel_devil,
     duration="permanent",
+    prereqs=[[(double_attack_technique.name, 1)]],
 ).add_source("Exalted 3rd Edition", 462)
-triple_attack_technique.prerequisites.add(double_attack_technique)
 steel_devil_strike = MartialArtsCharm.objects.create(
     name="Steel Devil Strike",
     mote_cost=5,
@@ -15083,8 +15116,8 @@ steel_devil_strike = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "mastery"],
     style=steel_devil,
     duration="instant",
+    prereqs=[[(double_attack_technique.name, 1)]],
 ).add_source("Exalted 3rd Edition", 462)
-steel_devil_strike.prerequisites.add(double_attack_technique)
 steel_devil_form = MartialArtsCharm.objects.create(
     name="Steel Devil Form",
     mote_cost=7,
@@ -15095,8 +15128,8 @@ steel_devil_form = MartialArtsCharm.objects.create(
     keywords=["form"],
     style=steel_devil,
     duration="scene",
+    prereqs=[[(steel_devil_strike.name, 1)]],
 ).add_source("Exalted 3rd Edition", 462)
-steel_devil_form.prerequisites.add(steel_devil_strike)
 seconds_between_strife = MartialArtsCharm.objects.create(
     name="Seconds Between Strife",
     mote_cost=4,
@@ -15107,8 +15140,8 @@ seconds_between_strife = MartialArtsCharm.objects.create(
     keywords=[],
     style=steel_devil,
     duration="instant",
+    prereqs=[[(steel_devil_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 462)
-seconds_between_strife.prerequisites.add(steel_devil_form)
 sonic_slash = MartialArtsCharm.objects.create(
     name="Sonic Slash",
     mote_cost=5,
@@ -15120,8 +15153,8 @@ sonic_slash = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "terrestrial"],
     style=steel_devil,
     duration="instant",
+    prereqs=[[(seconds_between_strife.name, 1)]],
 ).add_source("Exalted 3rd Edition", 462)
-sonic_slash.prerequisites.add(seconds_between_strife)
 dual_slaying_stance = MartialArtsCharm.objects.create(
     name="Dual-Slaying Stance",
     mote_cost=5,
@@ -15133,8 +15166,8 @@ dual_slaying_stance = MartialArtsCharm.objects.create(
     keywords=["form", "terrestrial"],
     style=steel_devil,
     duration="scene",
+    prereqs=[[(steel_devil_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 463)
-dual_slaying_stance.prerequisites.add(steel_devil_form)
 twin_blade_defense = MartialArtsCharm.objects.create(
     name="Twins-Blade Defense",
     mote_cost=3,
@@ -15145,8 +15178,8 @@ twin_blade_defense = MartialArtsCharm.objects.create(
     keywords=[],
     style=steel_devil,
     duration="instant",
+    prereqs=[[(dual_slaying_stance.name, 1)]],
 ).add_source("Exalted 3rd Edition", 463)
-twin_blade_defense.prerequisites.add(dual_slaying_stance)
 iron_lotus_unfurling = MartialArtsCharm.objects.create(
     name="Iron Lotus Unfurling",
     mote_cost=5,
@@ -15158,8 +15191,8 @@ iron_lotus_unfurling = MartialArtsCharm.objects.create(
     keywords=["counterattack", "decisive-only"],
     style=steel_devil,
     duration="instant",
+    prereqs=[[(twin_blade_defense.name, 1)]],
 ).add_source("Exalted 3rd Edition", 464)
-iron_lotus_unfurling.prerequisites.add(twin_blade_defense)
 empty_mind_strike = MartialArtsCharm.objects.create(
     name="Empty Mind Strike",
     mote_cost=4,
@@ -15171,8 +15204,8 @@ empty_mind_strike = MartialArtsCharm.objects.create(
     keywords=["decisive-only"],
     style=steel_devil,
     duration="instant",
+    prereqs=[[(steel_devil_form.name, 1)]],
 ).add_source("Exalted 3rd Edition", 464)
-empty_mind_strike.prerequisites.add(steel_devil_form)
 dervish_blade_frenzy = MartialArtsCharm.objects.create(
     name="Dervish Blade Frenzy",
     mote_cost=12,
@@ -15184,8 +15217,8 @@ dervish_blade_frenzy = MartialArtsCharm.objects.create(
     keywords=["mastery", "withering-only"],
     style=steel_devil,
     duration="instant",
+    prereqs=[[(empty_mind_strike.name, 1)]],
 ).add_source("Exalted 3rd Edition", 464)
-dervish_blade_frenzy.prerequisites.add(empty_mind_strike)
 whirling_guillotine_dance = MartialArtsCharm.objects.create(
     name="Whirling Guillotine Dance",
     mote_cost=10,
@@ -15197,10 +15230,14 @@ whirling_guillotine_dance = MartialArtsCharm.objects.create(
     keywords=["form", "mastery"],
     style=steel_devil,
     duration="scene",
+    prereqs=[
+        [
+            (dervish_blade_frenzy.name, 1),
+            (iron_lotus_unfurling.name, 1),
+            (sonic_slash.name, 1),
+        ]
+    ],
 ).add_source("Exalted 3rd Edition", 464)
-whirling_guillotine_dance.prerequisites.add(
-    dervish_blade_frenzy, iron_lotus_unfurling, sonic_slash
-)
 
 unobstructed_hunter_s_aim = DragonBloodedCharm.objects.create(
     name="Unobstructed Hunter's Aim",
@@ -15258,8 +15295,8 @@ death_from_nowhere = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air/water", "balanced", "withering-only"],
+    prereqs=[[(sky_calming_draw.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 164)
-death_from_nowhere.prerequisites.add(sky_calming_draw)
 harvest_of_the_hunter = DragonBloodedCharm.objects.create(
     name="Harvest of the Hunter",
     mote_cost=1,
@@ -15297,8 +15334,8 @@ arrow_thorn_technique = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["balanced", "dual", "wood"],
+    prereqs=[[(harvest_of_the_hunter.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 164)
-arrow_thorn_technique.prerequisites.add(harvest_of_the_hunter)
 boughs_of_burning_autumn = DragonBloodedCharm.objects.create(
     name="Boughs of Burning Autumn",
     mote_cost=2,
@@ -15317,8 +15354,8 @@ boughs_of_burning_autumn = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["fire/wood", "perilous"],
+    prereqs=[[(harvest_of_the_hunter.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 164)
-boughs_of_burning_autumn.prerequisites.add(harvest_of_the_hunter)
 life_swelling_sap_strike = DragonBloodedCharm.objects.create(
     name="Life-Swelling Sap Strike",
     mote_cost=3,
@@ -15337,8 +15374,8 @@ life_swelling_sap_strike = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "wood"],
+    prereqs=[[(harvest_of_the_hunter.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 164)
-life_swelling_sap_strike.prerequisites.add(harvest_of_the_hunter)
 arbor_sentinel_technique = DragonBloodedCharm.objects.create(
     name="Arbor Sentinel Technique",
     mote_cost=4,
@@ -15357,8 +15394,8 @@ arbor_sentinel_technique = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["wood"],
+    prereqs=[[(life_swelling_sap_strike.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 165)
-arbor_sentinel_technique.prerequisites.add(life_swelling_sap_strike)
 drawing_lightning_style = DragonBloodedCharm.objects.create(
     name="Drawing Lightning Style",
     mote_cost=4,
@@ -15377,8 +15414,8 @@ drawing_lightning_style = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air", "aura", "perilous", "uniform"],
+    prereqs=[[(death_from_nowhere.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 165)
-drawing_lightning_style.prerequisites.add(death_from_nowhere)
 spring_follows_winter = DragonBloodedCharm.objects.create(
     name="Spring Follows Winter",
     mote_cost=2,
@@ -15397,8 +15434,8 @@ spring_follows_winter = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["aura", "perilous", "uniform", "wood"],
+    prereqs=[[(death_from_nowhere.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 165)
-spring_follows_winter.prerequisites.add(death_from_nowhere)
 horizon_spanning_arc = DragonBloodedCharm.objects.create(
     name="Horizon-Spanning Arc",
     mote_cost=4,
@@ -15512,8 +15549,8 @@ dragonfly_finds_mate = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["clash", "perilous", "withering-only", "wood"],
+    prereqs=[[(spring_follows_winter.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 166)
-dragonfly_finds_mate.prerequisites.add(spring_follows_winter)
 salamander_swallows_flames = DragonBloodedCharm.objects.create(
     name="Salamander Swallows Flames",
     mote_cost=0,
@@ -15532,10 +15569,8 @@ salamander_swallows_flames = DragonBloodedCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=["clash", "fire"],
+    prereqs=[[(boughs_of_burning_autumn.name, 1), (dragonfly_finds_mate.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 166)
-salamander_swallows_flames.prerequisites.add(
-    boughs_of_burning_autumn, dragonfly_finds_mate
-)
 seven_year_swarm_volley = DragonBloodedCharm.objects.create(
     name="Seven-Year Swarm Volley",
     mote_cost=6,
@@ -15554,8 +15589,8 @@ seven_year_swarm_volley = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["aura", "decisive-only", "wood"],
+    prereqs=[[(dragonfly_finds_mate.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 167)
-seven_year_swarm_volley.prerequisites.add(dragonfly_finds_mate)
 sparrow_dives_at_hawk = DragonBloodedCharm.objects.create(
     name="Sparrow Dives at Hawk",
     mote_cost=0,
@@ -15574,8 +15609,8 @@ sparrow_dives_at_hawk = DragonBloodedCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=["aura", "clash", "decisive-only", "wood"],
+    prereqs=[[(dragonfly_finds_mate.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 167)
-sparrow_dives_at_hawk.prerequisites.add(dragonfly_finds_mate)
 swallows_defend_the_nest = DragonBloodedCharm.objects.create(
     name="Swallows Defend the Nest",
     mote_cost=8,
@@ -15594,8 +15629,8 @@ swallows_defend_the_nest = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Aura",
     keywords=["aura", "clash", "decisive-only", "wood"],
+    prereqs=[[(sparrow_dives_at_hawk.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 167)
-swallows_defend_the_nest.prerequisites.add(sparrow_dives_at_hawk)
 arrow_rain_tempest = DragonBloodedCharm.objects.create(
     name="Arrow Rain Tempest",
     mote_cost=6,
@@ -15614,8 +15649,8 @@ arrow_rain_tempest = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["aura", "decisive-only", "water"],
+    prereqs=[[(swallows_defend_the_nest.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 168)
-arrow_rain_tempest.prerequisites.add(swallows_defend_the_nest)
 effortlessly_rising_flame = DragonBloodedCharm.objects.create(
     name="Effortlessly Rising Flame",
     mote_cost=2,
@@ -15672,8 +15707,8 @@ verdant_dragon_s_footsteps = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[[(bellows_pumping_stride.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 168)
-verdant_dragon_s_footsteps.prerequisites.add(bellows_pumping_stride)
 soaring_leap_technique = DragonBloodedCharm.objects.create(
     name="Soaring Leap Technique",
     mote_cost=1,
@@ -15730,8 +15765,8 @@ grandmother_oak_exertion = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[[(strength_of_stone_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 169)
-grandmother_oak_exertion.prerequisites.add(strength_of_stone_technique)
 perfect_climbing_attitude = DragonBloodedCharm.objects.create(
     name="Perfect Climbing Attitude",
     mote_cost=4,
@@ -15769,8 +15804,8 @@ incense_smoke_ladder = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Until next turn",
     keywords=["air/fire", "balanced"],
+    prereqs=[[(bellows_pumping_stride.name, 1), (soaring_leap_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 169)
-incense_smoke_ladder.prerequisites.add(bellows_pumping_stride, soaring_leap_technique)
 mountain_toppling_might = DragonBloodedCharm.objects.create(
     name="Mountain-Toppling Might",
     mote_cost=3,
@@ -15789,8 +15824,8 @@ mountain_toppling_might = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(strength_of_stone_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 169)
-mountain_toppling_might.prerequisites.add(strength_of_stone_technique)
 soaring_zephyr_flight = DragonBloodedCharm.objects.create(
     name="Soaring Zephyr Flight",
     mote_cost=5,
@@ -15809,8 +15844,8 @@ soaring_zephyr_flight = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Aura",
     keywords=["aura", "perilous", "signature (air)"],
+    prereqs=[[(incense_smoke_ladder.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 169)
-soaring_zephyr_flight.prerequisites.add(incense_smoke_ladder)
 unshakable_mountain_spine = DragonBloodedCharm.objects.create(
     name="Unshakable Mountain Spine",
     mote_cost=5,
@@ -15829,8 +15864,8 @@ unshakable_mountain_spine = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["aura", "signature (earth)"],
+    prereqs=[[(mountain_toppling_might.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 170)
-unshakable_mountain_spine.prerequisites.add(mountain_toppling_might)
 inescapable_blazing_advance = DragonBloodedCharm.objects.create(
     name="Inescapable Blazing Advance",
     mote_cost=5,
@@ -15849,8 +15884,8 @@ inescapable_blazing_advance = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["aura", "signature (fire)"],
+    prereqs=[[(bellows_pumping_stride.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 170)
-inescapable_blazing_advance.prerequisites.add(bellows_pumping_stride)
 dragon_surmounts_the_waterfall = DragonBloodedCharm.objects.create(
     name="Dragon Surmounts the Waterfall",
     mote_cost=5,
@@ -15907,8 +15942,8 @@ dancing_ember_stride = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["fire", "perilous"],
+    prereqs=[[(incense_smoke_ladder.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 171)
-dancing_ember_stride.prerequisites.add(incense_smoke_ladder)
 seething_dragon_footprint = DragonBloodedCharm.objects.create(
     name="Seething Dragon Footprint",
     mote_cost=0,
@@ -15927,8 +15962,8 @@ seething_dragon_footprint = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["fire", "perilous"],
+    prereqs=[[(dancing_ember_stride.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 171)
-seething_dragon_footprint.prerequisites.add(dancing_ember_stride)
 falling_star_maneuver = DragonBloodedCharm.objects.create(
     name="Falling Star Maneuver",
     mote_cost=6,
@@ -15947,8 +15982,8 @@ falling_star_maneuver = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["decisive-only", "fire"],
+    prereqs=[[(dancing_ember_stride.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 171)
-falling_star_maneuver.prerequisites.add(dancing_ember_stride)
 precision_observation_method = DragonBloodedCharm.objects.create(
     name="Precision Observation Method",
     mote_cost=1,
@@ -16024,8 +16059,8 @@ all_encompassing_earth_sense = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(deep_listening_palm.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 172)
-all_encompassing_earth_sense.prerequisites.add(deep_listening_palm)
 dragon_s_crushing_gaze = DragonBloodedCharm.objects.create(
     name="Dragon's Crushing Gaze",
     mote_cost=4,
@@ -16044,8 +16079,8 @@ dragon_s_crushing_gaze = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["balanced", "earth or water"],
+    prereqs=[[(cloud_piercing_focus.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 172)
-dragon_s_crushing_gaze.prerequisites.add(cloud_piercing_focus)
 hesiesh_s_discerning_tongue = DragonBloodedCharm.objects.create(
     name="Hesiesh's Discerning Tongue",
     mote_cost=3,
@@ -16083,8 +16118,8 @@ feeling_the_dragon_s_bones = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(all_encompassing_earth_sense.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 173)
-feeling_the_dragon_s_bones.prerequisites.add(all_encompassing_earth_sense)
 horizon_spanning_echoes = DragonBloodedCharm.objects.create(
     name="Horizon-Spanning Echoes",
     mote_cost=5,
@@ -16122,8 +16157,8 @@ one_with_earth_embodiment = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One round",
     keywords=["aura", "signature (earth)"],
+    prereqs=[[(feeling_the_dragon_s_bones.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 174)
-one_with_earth_embodiment.prerequisites.add(feeling_the_dragon_s_bones)
 eye_of_blazing_truth = DragonBloodedCharm.objects.create(
     name="Eye of Blazing Truth",
     mote_cost=4,
@@ -16199,10 +16234,8 @@ dragon_s_twitching_whisker = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(dragon_s_crushing_gaze.name, 1), (feeling_the_dragon_s_bones.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 175)
-dragon_s_twitching_whisker.prerequisites.add(
-    dragon_s_crushing_gaze, feeling_the_dragon_s_bones
-)
 sense_the_hidden_ember = DragonBloodedCharm.objects.create(
     name="Sense the Hidden Ember",
     mote_cost=1,
@@ -16221,8 +16254,8 @@ sense_the_hidden_ember = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["fire"],
+    prereqs=[[(feeling_the_dragon_s_bones.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 175)
-sense_the_hidden_ember.prerequisites.add(feeling_the_dragon_s_bones)
 sense_riding_technique = DragonBloodedCharm.objects.create(
     name="Sense-Riding Technique",
     mote_cost=5,
@@ -16241,8 +16274,8 @@ sense_riding_technique = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="(Essence + Manipulation) days",
     keywords=["earth"],
+    prereqs=[[(feeling_the_dragon_s_bones.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 175)
-sense_riding_technique.prerequisites.add(feeling_the_dragon_s_bones)
 sense_destroying_method = DragonBloodedCharm.objects.create(
     name="Sense-Destroying Method",
     mote_cost=5,
@@ -16261,8 +16294,8 @@ sense_destroying_method = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One day",
     keywords=["earth"],
+    prereqs=[[(sense_riding_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 175)
-sense_destroying_method.prerequisites.add(sense_riding_technique)
 essence_disruption_attack = DragonBloodedCharm.objects.create(
     name="Essence Disruption Attack",
     mote_cost=5,
@@ -16281,8 +16314,8 @@ essence_disruption_attack = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["aura", "earth"],
+    prereqs=[[(sense_destroying_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 176)
-essence_disruption_attack.prerequisites.add(sense_destroying_method)
 become_the_hammer = DragonBloodedCharm.objects.create(
     name="Become the Hammer",
     mote_cost=1,
@@ -16358,8 +16391,8 @@ inescapable_whirlpool_hold = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["balanced", "decisive-only", "water"],
+    prereqs=[[(water_dragon_s_coils.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 176)
-inescapable_whirlpool_hold.prerequisites.add(water_dragon_s_coils)
 oaken_thew_exertion = DragonBloodedCharm.objects.create(
     name="Oaken Thew Exertion",
     mote_cost=4,
@@ -16417,8 +16450,8 @@ crushing_avalanche_grasp = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Until the grapple ends",
     keywords=["decisive-only", "earth"],
+    prereqs=[[(inescapable_whirlpool_hold.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 177)
-crushing_avalanche_grasp.prerequisites.add(inescapable_whirlpool_hold)
 currents_sweep_to_sea = DragonBloodedCharm.objects.create(
     name="Currents Sweep to Sea",
     mote_cost=4,
@@ -16437,8 +16470,8 @@ currents_sweep_to_sea = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "water"],
+    prereqs=[[(water_dragon_s_coils.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 177)
-currents_sweep_to_sea.prerequisites.add(water_dragon_s_coils)
 entangling_roots_embrace = DragonBloodedCharm.objects.create(
     name="Entangling Roots Embrace",
     mote_cost=5,
@@ -16457,8 +16490,8 @@ entangling_roots_embrace = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Until the grapple ends",
     keywords=["decisive-only", "wood"],
+    prereqs=[[(oaken_thew_exertion.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 178)
-entangling_roots_embrace.prerequisites.add(oaken_thew_exertion)
 hammering_wave_technique = DragonBloodedCharm.objects.create(
     name="Hammering Wave Technique",
     mote_cost=5,
@@ -16477,8 +16510,8 @@ hammering_wave_technique = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["dual", "water"],
+    prereqs=[[(pounding_surf_style.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 178)
-hammering_wave_technique.prerequisites.add(pounding_surf_style)
 stone_fist_strike = DragonBloodedCharm.objects.create(
     name="Stone Fist Strike",
     mote_cost=3,
@@ -16516,8 +16549,8 @@ rolling_boulder_blow = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["aura", "decisive-only", "earth"],
+    prereqs=[[(stone_fist_strike.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 178)
-rolling_boulder_blow.prerequisites.add(stone_fist_strike)
 flying_whirlwind_razor = DragonBloodedCharm.objects.create(
     name="Flying Whirlwind Razor",
     mote_cost=5,
@@ -16631,8 +16664,8 @@ become_the_wave = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["balanced", "perilous", "water"],
+    prereqs=[[(hammering_wave_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 179)
-become_the_wave.prerequisites.add(hammering_wave_technique)
 swift_striking_tide = DragonBloodedCharm.objects.create(
     name="Swift-Striking Tide",
     mote_cost=1,
@@ -16651,8 +16684,8 @@ swift_striking_tide = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["aura", "decisive-only", "water"],
+    prereqs=[[(become_the_wave.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 180)
-swift_striking_tide.prerequisites.add(become_the_wave)
 waves_swallow_the_mountain = DragonBloodedCharm.objects.create(
     name="Waves Swallow the Mountain",
     mote_cost=2,
@@ -16671,8 +16704,8 @@ waves_swallow_the_mountain = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One tick",
     keywords=["perilous", "water"],
+    prereqs=[[(currents_sweep_to_sea.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 180)
-waves_swallow_the_mountain.prerequisites.add(currents_sweep_to_sea)
 fist_spinning_maelstrom = DragonBloodedCharm.objects.create(
     name="Fist-Spinning Maelstrom",
     mote_cost=4,
@@ -16691,8 +16724,8 @@ fist_spinning_maelstrom = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["aura", "water", "withering-only"],
+    prereqs=[[(hammering_wave_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 180)
-fist_spinning_maelstrom.prerequisites.add(hammering_wave_technique)
 drowning_embrace = DragonBloodedCharm.objects.create(
     name="Drowning Embrace",
     mote_cost=5,
@@ -16711,8 +16744,8 @@ drowning_embrace = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Until the grapple ends",
     keywords=["aura", "dual", "perilous", "water"],
+    prereqs=[[(waves_swallow_the_mountain.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 180)
-drowning_embrace.prerequisites.add(waves_swallow_the_mountain)
 hanging_tree_technique = DragonBloodedCharm.objects.create(
     name="Hanging Tree Technique",
     mote_cost=10,
@@ -16731,10 +16764,8 @@ hanging_tree_technique = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Until the grapple ends",
     keywords=["decisive-only", "wood"],
+    prereqs=[[(entangling_roots_embrace.name, 1), (fist_spinning_maelstrom.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 180)
-hanging_tree_technique.prerequisites.add(
-    entangling_roots_embrace, fist_spinning_maelstrom
-)
 smashing_tidal_wave_technique = DragonBloodedCharm.objects.create(
     name="Smashing Tidal Wave Technique",
     mote_cost=8,
@@ -16753,8 +16784,8 @@ smashing_tidal_wave_technique = DragonBloodedCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=["aura", "decisive-only", "water"],
+    prereqs=[[(drowning_embrace.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 180)
-smashing_tidal_wave_technique.prerequisites.add(drowning_embrace)
 geese_flying_south_administration = DragonBloodedCharm.objects.create(
     name="Geese-Flying-South Administration",
     mote_cost=2,
@@ -16830,8 +16861,8 @@ testing_the_waters = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(finding_the_water_s_depths.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 181)
-testing_the_waters.prerequisites.add(finding_the_water_s_depths)
 benevolent_master_s_blessing = DragonBloodedCharm.objects.create(
     name="Benevolent Master's Blessing",
     mote_cost=1,
@@ -16869,8 +16900,8 @@ dashing_brook_method = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="One task",
     keywords=["water"],
+    prereqs=[[(benevolent_master_s_blessing.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 182)
-dashing_brook_method.prerequisites.add(benevolent_master_s_blessing)
 unshakable_mountain_management = DragonBloodedCharm.objects.create(
     name="Unshakable Mountain Management",
     mote_cost=5,
@@ -16889,8 +16920,8 @@ unshakable_mountain_management = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(testing_the_waters.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 182)
-unshakable_mountain_management.prerequisites.add(testing_the_waters)
 water_stained_ledger = DragonBloodedCharm.objects.create(
     name="Water-Stained Ledger",
     mote_cost=3,
@@ -16909,8 +16940,8 @@ water_stained_ledger = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(confluence_of_savant_thought.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 182)
-water_stained_ledger.prerequisites.add(confluence_of_savant_thought)
 shells_for_silver_ruse = DragonBloodedCharm.objects.create(
     name="Shells-for-Silver Ruse",
     mote_cost=3,
@@ -16929,8 +16960,8 @@ shells_for_silver_ruse = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One scene",
     keywords=["water"],
+    prereqs=[[(water_stained_ledger.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 182)
-shells_for_silver_ruse.prerequisites.add(water_stained_ledger)
 thoughtful_gift_technique = DragonBloodedCharm.objects.create(
     name="Thoughtful Gift Technique",
     mote_cost=4,
@@ -16949,8 +16980,8 @@ thoughtful_gift_technique = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(finding_the_water_s_depths.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 182)
-thoughtful_gift_technique.prerequisites.add(finding_the_water_s_depths)
 humble_exemplar_attitude = DragonBloodedCharm.objects.create(
     name="Humble Exemplar Attitude",
     mote_cost=7,
@@ -17026,8 +17057,8 @@ distraction_of_the_babbling_brook = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["psyche", "signature (water)"],
+    prereqs=[[(thoughtful_gift_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 184)
-distraction_of_the_babbling_brook.prerequisites.add(thoughtful_gift_technique)
 one_forest_many_trees = DragonBloodedCharm.objects.create(
     name="One Forest, Many Trees",
     mote_cost=7,
@@ -17065,8 +17096,8 @@ bestow_the_saffron_mantle = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Indefinite",
     keywords=["water"],
+    prereqs=[[(benevolent_master_s_blessing.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 185)
-bestow_the_saffron_mantle.prerequisites.add(benevolent_master_s_blessing)
 blazing_hoard_of_hesiesh = DragonBloodedCharm.objects.create(
     name="Blazing Hoard of Hesiesh",
     mote_cost=3,
@@ -17085,8 +17116,8 @@ blazing_hoard_of_hesiesh = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One scene",
     keywords=["fire"],
+    prereqs=[[(thoughtful_gift_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 185)
-blazing_hoard_of_hesiesh.prerequisites.add(thoughtful_gift_technique)
 following_the_river_s_course = DragonBloodedCharm.objects.create(
     name="Following the River's Course",
     mote_cost=5,
@@ -17105,10 +17136,8 @@ following_the_river_s_course = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["mute", "water"],
+    prereqs=[[(dashing_brook_method.name, 1), (finding_the_water_s_depths.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 185)
-following_the_river_s_course.prerequisites.add(
-    dashing_brook_method, finding_the_water_s_depths
-)
 thrashing_carp_serenade = DragonBloodedCharm.objects.create(
     name="Thrashing Carp Serenade",
     mote_cost=5,
@@ -17127,8 +17156,8 @@ thrashing_carp_serenade = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(dashing_brook_method.name, 1), (water_stained_ledger.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 185)
-thrashing_carp_serenade.prerequisites.add(dashing_brook_method, water_stained_ledger)
 sea_changed_secrets = DragonBloodedCharm.objects.create(
     name="Sea-Changed Secrets",
     mote_cost=5,
@@ -17147,8 +17176,8 @@ sea_changed_secrets = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(water_stained_ledger.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 186)
-sea_changed_secrets.prerequisites.add(water_stained_ledger)
 sprouting_bamboo_cultivation = DragonBloodedCharm.objects.create(
     name="Sprouting Bamboo Cultivation",
     mote_cost=0,
@@ -17167,8 +17196,8 @@ sprouting_bamboo_cultivation = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[[(dashing_brook_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 186)
-sprouting_bamboo_cultivation.prerequisites.add(dashing_brook_method)
 drowning_in_negotiation_style = DragonBloodedCharm.objects.create(
     name="Drowning in Negotiation Style",
     mote_cost=10,
@@ -17187,8 +17216,8 @@ drowning_in_negotiation_style = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["mute", "water"],
+    prereqs=[[(distraction_of_the_babbling_brook.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 186)
-drowning_in_negotiation_style.prerequisites.add(distraction_of_the_babbling_brook)
 flowing_authority_insinuation = DragonBloodedCharm.objects.create(
     name="Flowing Authority Insinuation",
     mote_cost=10,
@@ -17207,8 +17236,8 @@ flowing_authority_insinuation = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["psyche", "water"],
+    prereqs=[[(thrashing_carp_serenade.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 186)
-flowing_authority_insinuation.prerequisites.add(thrashing_carp_serenade)
 sowing_the_dragon_s_teeth = DragonBloodedCharm.objects.create(
     name="Sowing the Dragon's Teeth",
     mote_cost=5,
@@ -17227,8 +17256,8 @@ sowing_the_dragon_s_teeth = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[[(sprouting_bamboo_cultivation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 186)
-sowing_the_dragon_s_teeth.prerequisites.add(sprouting_bamboo_cultivation)
 masterful_dragon_artisan_expertise = DragonBloodedCharm.objects.create(
     name="Masterful Dragon-Artisan Expertise",
     mote_cost=1,
@@ -17304,8 +17333,8 @@ shaping_hand_style = DragonBloodedCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=[],
+    prereqs=[[(stone_carving_fingers.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 188)
-shaping_hand_style.prerequisites.add(stone_carving_fingers)
 stones_from_rubble_restoration = DragonBloodedCharm.objects.create(
     name="Stones-from-Rubble Restoration",
     mote_cost=5,
@@ -17324,8 +17353,8 @@ stones_from_rubble_restoration = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="One project",
     keywords=["earth"],
+    prereqs=[[(flaw_finding_examination.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 188)
-stones_from_rubble_restoration.prerequisites.add(flaw_finding_examination)
 touch_of_unmaking = DragonBloodedCharm.objects.create(
     name="Touch of Unmaking",
     mote_cost=10,
@@ -17344,8 +17373,8 @@ touch_of_unmaking = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(stones_from_rubble_restoration.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 188)
-touch_of_unmaking.prerequisites.add(stones_from_rubble_restoration)
 flawless_facet_realization = DragonBloodedCharm.objects.create(
     name="Flawless Facet Realization",
     mote_cost=6,
@@ -17364,8 +17393,8 @@ flawless_facet_realization = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["balanced", "earth"],
+    prereqs=[[(shaping_hand_style.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 188)
-flawless_facet_realization.prerequisites.add(shaping_hand_style)
 strike_the_dragon_anvil = DragonBloodedCharm.objects.create(
     name="Strike the Dragon-Anvil",
     mote_cost=1,
@@ -17384,8 +17413,8 @@ strike_the_dragon_anvil = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(flawless_facet_realization.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 188)
-strike_the_dragon_anvil.prerequisites.add(flawless_facet_realization)
 passion_inflaming_artistry = DragonBloodedCharm.objects.create(
     name="Passion-Inflaming Artistry",
     mote_cost=5,
@@ -17537,8 +17566,8 @@ forge_hand_prana = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One project or One scene",
     keywords=["fire"],
+    prereqs=[[(shaping_hand_style.name, 1), (touch_of_unmaking.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 190)
-forge_hand_prana.prerequisites.add(shaping_hand_style, touch_of_unmaking)
 stoking_inspiration_s_forge = DragonBloodedCharm.objects.create(
     name="Stoking Inspiration's Forge",
     mote_cost=0,
@@ -17557,8 +17586,8 @@ stoking_inspiration_s_forge = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["balanced", "fire"],
+    prereqs=[[(talents_to_obols_refinement.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 190)
-stoking_inspiration_s_forge.prerequisites.add(talents_to_obols_refinement)
 threshold_warding_stance = DragonBloodedCharm.objects.create(
     name="Threshold Warding Stance",
     mote_cost=2,
@@ -17634,8 +17663,8 @@ hopping_firecracker_evasion = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["fire", "perilous", "uniform"],
+    prereqs=[[(flickering_candle_meditation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 191)
-hopping_firecracker_evasion.prerequisites.add(flickering_candle_meditation)
 virtuous_negation_defense = DragonBloodedCharm.objects.create(
     name="Virtuous Negation Defense",
     mote_cost=4,
@@ -17654,8 +17683,8 @@ virtuous_negation_defense = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["uniform", "wood"],
+    prereqs=[[(hopping_firecracker_evasion.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 191)
-virtuous_negation_defense.prerequisites.add(hopping_firecracker_evasion)
 ember_amid_smoke_misdirection = DragonBloodedCharm.objects.create(
     name="Ember-Amid-Smoke Misdirection",
     mote_cost=3,
@@ -17674,8 +17703,8 @@ ember_amid_smoke_misdirection = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["aura", "fire", "uniform"],
+    prereqs=[[(flickering_candle_meditation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 191)
-ember_amid_smoke_misdirection.prerequisites.add(flickering_candle_meditation)
 safety_among_enemies = DragonBloodedCharm.objects.create(
     name="Safety Among Enemies",
     mote_cost=5,
@@ -17732,8 +17761,8 @@ unassailable_body_of_fire = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["aura", "counterattack", "decisive-only", "signa- ture (fire)"],
+    prereqs=[[(hopping_firecracker_evasion.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 192)
-unassailable_body_of_fire.prerequisites.add(hopping_firecracker_evasion)
 flow_with_strife = DragonBloodedCharm.objects.create(
     name="Flow With Strife",
     mote_cost=0,
@@ -17790,8 +17819,8 @@ ebbing_tide_recedes = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(heat_of_battle_advance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 192)
-ebbing_tide_recedes.prerequisites.add(heat_of_battle_advance)
 elusive_crosswind_defense = DragonBloodedCharm.objects.create(
     name="Elusive Crosswind Defense",
     mote_cost=4,
@@ -17810,8 +17839,8 @@ elusive_crosswind_defense = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["air", "aura", "perilous", "uniform"],
+    prereqs=[[(hopping_firecracker_evasion.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 193)
-elusive_crosswind_defense.prerequisites.add(hopping_firecracker_evasion)
 bonfire_shadow_evasion = DragonBloodedCharm.objects.create(
     name="Bonfire Shadow Evasion",
     mote_cost=6,
@@ -17830,8 +17859,8 @@ bonfire_shadow_evasion = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Until next turn",
     keywords=["fire", "perilous", "uniform"],
+    prereqs=[[(ember_amid_smoke_misdirection.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 193)
-bonfire_shadow_evasion.prerequisites.add(ember_amid_smoke_misdirection)
 coiling_dragon_dance = DragonBloodedCharm.objects.create(
     name="Coiling Dragon Dance",
     mote_cost=4,
@@ -17850,8 +17879,8 @@ coiling_dragon_dance = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Aura",
     keywords=["aura", "dual", "fire"],
+    prereqs=[[(bonfire_shadow_evasion.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 193)
-coiling_dragon_dance.prerequisites.add(bonfire_shadow_evasion)
 elusive_dragon_god_dispersion = DragonBloodedCharm.objects.create(
     name="Elusive Dragon-God Dispersion",
     mote_cost=0,
@@ -17870,8 +17899,8 @@ elusive_dragon_god_dispersion = DragonBloodedCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=["aura", "decisive-only"],
+    prereqs=[[(unassailable_body_of_fire.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 193)
-elusive_dragon_god_dispersion.prerequisites.add(unassailable_body_of_fire)
 granite_curtain_of_serenity = DragonBloodedCharm.objects.create(
     name="Granite Curtain of Serenity",
     mote_cost=2,
@@ -17985,8 +18014,8 @@ inviolate_dragon_spirit = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["balanced", "earth"],
+    prereqs=[[(heart_hardening_meditation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 194)
-inviolate_dragon_spirit.prerequisites.add(heart_hardening_meditation)
 unquenchable_battle_passion = DragonBloodedCharm.objects.create(
     name="Unquenchable Battle-Passion",
     mote_cost=5,
@@ -18005,8 +18034,8 @@ unquenchable_battle_passion = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["fire"],
+    prereqs=[[(inviolate_dragon_spirit.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 194)
-unquenchable_battle_passion.prerequisites.add(inviolate_dragon_spirit)
 chaos_warding_prana = DragonBloodedCharm.objects.create(
     name="Chaos-Warding Prana",
     mote_cost=5,
@@ -18044,8 +18073,8 @@ ten_thousand_dragons_fight_as_one = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["balanced", "earth"],
+    prereqs=[[(oath_of_the_ten_thousand_dragons.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 195)
-ten_thousand_dragons_fight_as_one.prerequisites.add(oath_of_the_ten_thousand_dragons)
 wound_denying_dragon_faith = DragonBloodedCharm.objects.create(
     name="Wound-Denying Dragon Faith",
     mote_cost=2,
@@ -18064,8 +18093,8 @@ wound_denying_dragon_faith = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One scene",
     keywords=["earth"],
+    prereqs=[[(ten_thousand_dragons_fight_as_one.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 195)
-wound_denying_dragon_faith.prerequisites.add(ten_thousand_dragons_fight_as_one)
 ascendant_ideal_inspiration = DragonBloodedCharm.objects.create(
     name="Ascendant Ideal Inspiration",
     mote_cost=6,
@@ -18179,10 +18208,10 @@ thicker_than_stone = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[
+        [(inviolate_dragon_spirit.name, 1), (ten_thousand_dragons_fight_as_one.name, 1)]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 196)
-thicker_than_stone.prerequisites.add(
-    inviolate_dragon_spirit, ten_thousand_dragons_fight_as_one
-)
 unflagging_vengeance_meditation = DragonBloodedCharm.objects.create(
     name="Unflagging Vengeance Meditation",
     mote_cost=7,
@@ -18201,8 +18230,8 @@ unflagging_vengeance_meditation = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Indefinite",
     keywords=["earth"],
+    prereqs=[[(ten_thousand_dragons_fight_as_one.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 197)
-unflagging_vengeance_meditation.prerequisites.add(ten_thousand_dragons_fight_as_one)
 the_mountain_still_stands = DragonBloodedCharm.objects.create(
     name="The Mountain Still Stands",
     mote_cost=0,
@@ -18221,8 +18250,8 @@ the_mountain_still_stands = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(thicker_than_stone.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 197)
-the_mountain_still_stands.prerequisites.add(thicker_than_stone)
 indisputable_physical_analysis_technique = DragonBloodedCharm.objects.create(
     name="Indisputable Physical Analysis Technique",
     mote_cost=2,
@@ -18298,8 +18327,8 @@ scent_of_crime_method = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(permeating_insight.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 198)
-scent_of_crime_method.prerequisites.add(permeating_insight)
 heart_maze_navigation = DragonBloodedCharm.objects.create(
     name="Heart-Maze Navigation",
     mote_cost=1,
@@ -18318,8 +18347,8 @@ heart_maze_navigation = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(scent_of_crime_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 198)
-heart_maze_navigation.prerequisites.add(scent_of_crime_method)
 revelation_of_associates_hunch = DragonBloodedCharm.objects.create(
     name="Revelation-of-Associates Hunch",
     mote_cost=5,
@@ -18338,8 +18367,8 @@ revelation_of_associates_hunch = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["balanced", "fire"],
+    prereqs=[[(scent_of_crime_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 198)
-revelation_of_associates_hunch.prerequisites.add(scent_of_crime_method)
 bloodhound_s_nose_technique = DragonBloodedCharm.objects.create(
     name="Bloodhound's Nose Technique",
     mote_cost=4,
@@ -18358,8 +18387,8 @@ bloodhound_s_nose_technique = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="(Essence) days",
     keywords=["water/wood"],
+    prereqs=[[(scent_of_crime_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 199)
-bloodhound_s_nose_technique.prerequisites.add(scent_of_crime_method)
 tenacious_flowing_truths = DragonBloodedCharm.objects.create(
     name="Tenacious Flowing Truths",
     mote_cost=5,
@@ -18378,8 +18407,8 @@ tenacious_flowing_truths = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["water"],
+    prereqs=[[(tampering_detection_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 199)
-tenacious_flowing_truths.prerequisites.add(tampering_detection_technique)
 warrant_of_divine_safety = DragonBloodedCharm.objects.create(
     name="Warrant of Divine Safety",
     mote_cost=5,
@@ -18417,8 +18446,8 @@ echoes_caught_in_stone = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["signature (earth)"],
+    prereqs=[[(bloodhound_s_nose_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 199)
-echoes_caught_in_stone.prerequisites.add(bloodhound_s_nose_technique)
 shadow_immolating_talon = DragonBloodedCharm.objects.create(
     name="Shadow-Immolating Talon",
     mote_cost=5,
@@ -18437,8 +18466,8 @@ shadow_immolating_talon = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["decisive-only", "signature (fire)"],
+    prereqs=[[(heart_maze_navigation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 200)
-shadow_immolating_talon.prerequisites.add(heart_maze_navigation)
 clear_water_prana = DragonBloodedCharm.objects.create(
     name="Clear Water Prana",
     mote_cost=5,
@@ -18457,8 +18486,8 @@ clear_water_prana = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["signature (water)"],
+    prereqs=[[(tenacious_flowing_truths.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 200)
-clear_water_prana.prerequisites.add(tenacious_flowing_truths)
 death_unraveling_eye = DragonBloodedCharm.objects.create(
     name="Death-Unraveling Eye",
     mote_cost=5,
@@ -18496,10 +18525,10 @@ a_face_in_the_fog = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["mute", "water"],
+    prereqs=[
+        [(revelation_of_associates_hunch.name, 1), (tenacious_flowing_truths.name, 1)]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 200)
-a_face_in_the_fog.prerequisites.add(
-    revelation_of_associates_hunch, tenacious_flowing_truths
-)
 falsehood_unearthing_attitude = DragonBloodedCharm.objects.create(
     name="Falsehood-Unearthing Attitude",
     mote_cost=3,
@@ -18518,8 +18547,8 @@ falsehood_unearthing_attitude = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(heart_maze_navigation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 201)
-falsehood_unearthing_attitude.prerequisites.add(heart_maze_navigation)
 foul_stench_of_lies_discernment = DragonBloodedCharm.objects.create(
     name="Foul Stench of Lies Discernment",
     mote_cost=3,
@@ -18538,8 +18567,8 @@ foul_stench_of_lies_discernment = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["air", "mute"],
+    prereqs=[[(falsehood_unearthing_attitude.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 201)
-foul_stench_of_lies_discernment.prerequisites.add(falsehood_unearthing_attitude)
 scent_of_the_stranger_s_threshold = DragonBloodedCharm.objects.create(
     name="Scent of the Stranger's Threshold",
     mote_cost=1,
@@ -18558,8 +18587,8 @@ scent_of_the_stranger_s_threshold = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[[(bloodhound_s_nose_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 201)
-scent_of_the_stranger_s_threshold.prerequisites.add(bloodhound_s_nose_technique)
 homeward_trail_discovery_method = DragonBloodedCharm.objects.create(
     name="Homeward Trail Discovery Method",
     mote_cost=0,
@@ -18578,8 +18607,8 @@ homeward_trail_discovery_method = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["air"],
+    prereqs=[[(scent_of_the_stranger_s_threshold.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 201)
-homeward_trail_discovery_method.prerequisites.add(scent_of_the_stranger_s_threshold)
 river_of_memory_meditation = DragonBloodedCharm.objects.create(
     name="River-of-Memory Meditation",
     mote_cost=5,
@@ -18598,10 +18627,8 @@ river_of_memory_meditation = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["mute", "water"],
+    prereqs=[[(a_face_in_the_fog.name, 1), (bloodhound_s_nose_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 202)
-river_of_memory_meditation.prerequisites.add(
-    a_face_in_the_fog, bloodhound_s_nose_technique
-)
 inescapable_wave_insight = DragonBloodedCharm.objects.create(
     name="Inescapable Wave Insight",
     mote_cost=8,
@@ -18620,8 +18647,8 @@ inescapable_wave_insight = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One investigation",
     keywords=["water"],
+    prereqs=[[(river_of_memory_meditation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 202)
-inescapable_wave_insight.prerequisites.add(river_of_memory_meditation)
 underground_river_s_flow = DragonBloodedCharm.objects.create(
     name="Underground River's Flow",
     mote_cost=2,
@@ -18716,8 +18743,8 @@ naked_thief_style = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Indefinite",
     keywords=["stackable", "water"],
+    prereqs=[[(resetting_tumblers_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 203)
-naked_thief_style.prerequisites.add(resetting_tumblers_technique)
 observer_awareness_method = DragonBloodedCharm.objects.create(
     name="Observer Awareness Method",
     mote_cost=1,
@@ -18755,8 +18782,8 @@ rose_among_thorns_distinction = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[[(observer_awareness_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 204)
-rose_among_thorns_distinction.prerequisites.add(observer_awareness_method)
 whispering_thief_technique = DragonBloodedCharm.objects.create(
     name="Whispering Thief Technique",
     mote_cost=2,
@@ -18775,8 +18802,8 @@ whispering_thief_technique = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air"],
+    prereqs=[[(observer_awareness_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 204)
-whispering_thief_technique.prerequisites.add(observer_awareness_method)
 artful_flowing_theft = DragonBloodedCharm.objects.create(
     name="Artful Flowing Theft",
     mote_cost=5,
@@ -18795,10 +18822,8 @@ artful_flowing_theft = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(nimble_thief_s_fingers.name, 1), (observer_awareness_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 204)
-artful_flowing_theft.prerequisites.add(
-    nimble_thief_s_fingers, observer_awareness_method
-)
 dragon_s_hidden_treasure = DragonBloodedCharm.objects.create(
     name="Dragon's Hidden Treasure",
     mote_cost=1,
@@ -18817,8 +18842,8 @@ dragon_s_hidden_treasure = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(naked_thief_style.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 204)
-dragon_s_hidden_treasure.prerequisites.add(naked_thief_style)
 face_stealing_reflection = DragonBloodedCharm.objects.create(
     name="Face-Stealing Reflection",
     mote_cost=4,
@@ -18837,10 +18862,8 @@ face_stealing_reflection = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(flowing_body_disguise.name, 1), (observer_awareness_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 204)
-face_stealing_reflection.prerequisites.add(
-    flowing_body_disguise, observer_awareness_method
-)
 bramble_purse_technique = DragonBloodedCharm.objects.create(
     name="Bramble Purse Technique",
     mote_cost=4,
@@ -18859,8 +18882,8 @@ bramble_purse_technique = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One hour",
     keywords=["wood"],
+    prereqs=[[(observer_awareness_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 204)
-bramble_purse_technique.prerequisites.add(observer_awareness_method)
 evidence_erasing_tide = DragonBloodedCharm.objects.create(
     name="Evidence-Erasing Tide",
     mote_cost=4,
@@ -18879,8 +18902,8 @@ evidence_erasing_tide = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(resetting_tumblers_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 205)
-evidence_erasing_tide.prerequisites.add(resetting_tumblers_technique)
 instant_disguise_prana = DragonBloodedCharm.objects.create(
     name="Instant Disguise Prana",
     mote_cost=1,
@@ -18899,8 +18922,8 @@ instant_disguise_prana = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(flowing_body_disguise.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 205)
-instant_disguise_prana.prerequisites.add(flowing_body_disguise)
 waters_of_honesty_method = DragonBloodedCharm.objects.create(
     name="Waters-of-Honesty Method",
     mote_cost=3,
@@ -18919,8 +18942,8 @@ waters_of_honesty_method = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["balanced", "water"],
+    prereqs=[[(observer_awareness_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 205)
-waters_of_honesty_method.prerequisites.add(observer_awareness_method)
 vault_emptying_whirlwind_heist = DragonBloodedCharm.objects.create(
     name="Vault-Emptying Whirlwind Heist",
     mote_cost=8,
@@ -18996,8 +19019,8 @@ flowing_god_dragon_stance = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Aura",
     keywords=["aura", "mute", "signature (water)"],
+    prereqs=[[(artful_flowing_theft.name, 1), (evidence_erasing_tide.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 206)
-flowing_god_dragon_stance.prerequisites.add(artful_flowing_theft, evidence_erasing_tide)
 terrifying_forest_devil_mask = DragonBloodedCharm.objects.create(
     name="Terrifying Forest-Devil Mask",
     mote_cost=5,
@@ -19035,8 +19058,8 @@ vaporous_visage_evasion = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One scene",
     keywords=["water"],
+    prereqs=[[(instant_disguise_prana.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 206)
-vaporous_visage_evasion.prerequisites.add(instant_disguise_prana)
 incendiary_accusation_approach = DragonBloodedCharm.objects.create(
     name="Incendiary Accusation Approach",
     mote_cost=1,
@@ -19055,8 +19078,8 @@ incendiary_accusation_approach = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["fire"],
+    prereqs=[[(waters_of_honesty_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 207)
-incendiary_accusation_approach.prerequisites.add(waters_of_honesty_method)
 investigation_deflecting_current = DragonBloodedCharm.objects.create(
     name="Investigation-Deflecting Current",
     mote_cost=3,
@@ -19075,8 +19098,8 @@ investigation_deflecting_current = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(evidence_erasing_tide.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 207)
-investigation_deflecting_current.prerequisites.add(evidence_erasing_tide)
 mischievous_wind_grasp = DragonBloodedCharm.objects.create(
     name="Mischievous Wind Grasp",
     mote_cost=3,
@@ -19095,8 +19118,8 @@ mischievous_wind_grasp = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air"],
+    prereqs=[[(artful_flowing_theft.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 207)
-mischievous_wind_grasp.prerequisites.add(artful_flowing_theft)
 exploding_evidence_technique = DragonBloodedCharm.objects.create(
     name="Exploding Evidence Technique",
     mote_cost=10,
@@ -19115,8 +19138,8 @@ exploding_evidence_technique = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["fire", "mute"],
+    prereqs=[[(investigation_deflecting_current.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 207)
-exploding_evidence_technique.prerequisites.add(investigation_deflecting_current)
 window_in_the_door_technique = DragonBloodedCharm.objects.create(
     name="Window-In-The-Door Technique",
     mote_cost=2,
@@ -19135,8 +19158,8 @@ window_in_the_door_technique = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One round",
     keywords=["water"],
+    prereqs=[[(mischievous_wind_grasp.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 208)
-window_in_the_door_technique.prerequisites.add(mischievous_wind_grasp)
 expectation_mirroring_stance = DragonBloodedCharm.objects.create(
     name="Expectation-Mirroring Stance",
     mote_cost=10,
@@ -19155,10 +19178,8 @@ expectation_mirroring_stance = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(face_stealing_reflection.name, 1), (instant_disguise_prana.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 208)
-expectation_mirroring_stance.prerequisites.add(
-    face_stealing_reflection, instant_disguise_prana
-)
 infallible_alibi_approach = DragonBloodedCharm.objects.create(
     name="Infallible Alibi Approach",
     mote_cost=13,
@@ -19177,8 +19198,8 @@ infallible_alibi_approach = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["mute", "water"],
+    prereqs=[[(exploding_evidence_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 208)
-infallible_alibi_approach.prerequisites.add(exploding_evidence_technique)
 lightning_quill_mastery = DragonBloodedCharm.objects.create(
     name="Lightning Quill Mastery",
     mote_cost=2,
@@ -19330,8 +19351,8 @@ enigma_reading_eye = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air"],
+    prereqs=[[(cryptic_essence_cipher.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 210)
-enigma_reading_eye.prerequisites.add(cryptic_essence_cipher)
 thousand_tongues_meditation = DragonBloodedCharm.objects.create(
     name="Thousand Tongues Meditation",
     mote_cost=5,
@@ -19350,8 +19371,8 @@ thousand_tongues_meditation = DragonBloodedCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=["air"],
+    prereqs=[[(language_learning_ritual.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 210)
-thousand_tongues_meditation.prerequisites.add(language_learning_ritual)
 voices_on_the_wind = DragonBloodedCharm.objects.create(
     name="Voices on the Wind",
     mote_cost=3,
@@ -19370,8 +19391,8 @@ voices_on_the_wind = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["air"],
+    prereqs=[[(wind_carried_words_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 210)
-voices_on_the_wind.prerequisites.add(wind_carried_words_technique)
 speech_without_words = DragonBloodedCharm.objects.create(
     name="Speech Without Words",
     mote_cost=5,
@@ -19390,8 +19411,8 @@ speech_without_words = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One scene",
     keywords=["air"],
+    prereqs=[[(voices_on_the_wind.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 210)
-speech_without_words.prerequisites.add(voices_on_the_wind)
 caustic_wit_invective = DragonBloodedCharm.objects.create(
     name="Caustic Wit Invective",
     mote_cost=1,
@@ -19410,8 +19431,8 @@ caustic_wit_invective = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["water", "written-only"],
+    prereqs=[[(fervor_inciting_brushstrokes.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 210)
-caustic_wit_invective.prerequisites.add(fervor_inciting_brushstrokes)
 flashing_saga_flourish = DragonBloodedCharm.objects.create(
     name="Flashing Saga Flourish",
     mote_cost=10,
@@ -19525,8 +19546,8 @@ incendiary_argument_approach = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["fire", "written-only"],
+    prereqs=[[(caustic_wit_invective.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 212)
-incendiary_argument_approach.prerequisites.add(caustic_wit_invective)
 poisoned_tongue_technique = DragonBloodedCharm.objects.create(
     name="Poisoned Tongue Technique",
     mote_cost=2,
@@ -19545,8 +19566,8 @@ poisoned_tongue_technique = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["air"],
+    prereqs=[[(voices_on_the_wind.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 212)
-poisoned_tongue_technique.prerequisites.add(voices_on_the_wind)
 reading_the_unspoken_word = DragonBloodedCharm.objects.create(
     name="Reading the Unspoken Word",
     mote_cost=1,
@@ -19565,8 +19586,8 @@ reading_the_unspoken_word = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air"],
+    prereqs=[[(speech_without_words.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 212)
-reading_the_unspoken_word.prerequisites.add(speech_without_words)
 dragon_s_voice_mastery = DragonBloodedCharm.objects.create(
     name="Dragon's Voice Mastery",
     mote_cost=5,
@@ -19585,8 +19606,8 @@ dragon_s_voice_mastery = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air"],
+    prereqs=[[(poisoned_tongue_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 212)
-dragon_s_voice_mastery.prerequisites.add(poisoned_tongue_technique)
 tantalizing_dragon_s_tongue = DragonBloodedCharm.objects.create(
     name="Tantalizing Dragon's Tongue",
     mote_cost=7,
@@ -19605,8 +19626,8 @@ tantalizing_dragon_s_tongue = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["fire/wood", "written-only"],
+    prereqs=[[(incendiary_argument_approach.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 213)
-tantalizing_dragon_s_tongue.prerequisites.add(incendiary_argument_approach)
 intoxicating_lotus_manuscript = DragonBloodedCharm.objects.create(
     name="Intoxicating Lotus Manuscript",
     mote_cost=10,
@@ -19625,10 +19646,10 @@ intoxicating_lotus_manuscript = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["psyche", "wood", "written-only"],
+    prereqs=[
+        [(enthralling_lotus_calligraphy.name, 1), (tantalizing_dragon_s_tongue.name, 1)]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 213)
-intoxicating_lotus_manuscript.prerequisites.add(
-    enthralling_lotus_calligraphy, tantalizing_dragon_s_tongue
-)
 with_one_mind = DragonBloodedCharm.objects.create(
     name="With One Mind",
     mote_cost=5,
@@ -19647,8 +19668,8 @@ with_one_mind = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["air", "perilous"],
+    prereqs=[[(dragon_s_voice_mastery.name, 1), (speech_without_words.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 213)
-with_one_mind.prerequisites.add(dragon_s_voice_mastery, speech_without_words)
 careful_insight_gathering_study = DragonBloodedCharm.objects.create(
     name="Careful Insight-Gathering Study",
     mote_cost=2,
@@ -19705,8 +19726,8 @@ flawless_study_focus = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air"],
+    prereqs=[[(opening_the_mind_s_gates.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 214)
-flawless_study_focus.prerequisites.add(opening_the_mind_s_gates)
 elemental_concentration_trance = DragonBloodedCharm.objects.create(
     name="Elemental Concentration Trance",
     mote_cost=3,
@@ -19744,8 +19765,8 @@ dragon_kin_empowerment = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["aura"],
+    prereqs=[[(elemental_concentration_trance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 214)
-dragon_kin_empowerment.prerequisites.add(elemental_concentration_trance)
 elemental_bolt_attack = DragonBloodedCharm.objects.create(
     name="Elemental Bolt Attack",
     mote_cost=4,
@@ -19764,8 +19785,8 @@ elemental_bolt_attack = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["dual"],
+    prereqs=[[(elemental_concentration_trance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 215)
-elemental_bolt_attack.prerequisites.add(elemental_concentration_trance)
 elemental_empowerment_meditation = DragonBloodedCharm.objects.create(
     name="Elemental Empowerment Meditation",
     mote_cost=0,
@@ -19784,8 +19805,8 @@ elemental_empowerment_meditation = DragonBloodedCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=[],
+    prereqs=[[(elemental_concentration_trance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 216)
-elemental_empowerment_meditation.prerequisites.add(elemental_concentration_trance)
 sagacious_elder_s_instruction = DragonBloodedCharm.objects.create(
     name="Sagacious Elder's Instruction",
     mote_cost=3,
@@ -19804,8 +19825,8 @@ sagacious_elder_s_instruction = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="(Intelligence) days",
     keywords=["air"],
+    prereqs=[[(opening_the_mind_s_gates.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 216)
-sagacious_elder_s_instruction.prerequisites.add(opening_the_mind_s_gates)
 stern_tutor_discipline = DragonBloodedCharm.objects.create(
     name="Stern Tutor Discipline",
     mote_cost=1,
@@ -19824,8 +19845,8 @@ stern_tutor_discipline = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Varies",
     keywords=["air"],
+    prereqs=[[(sagacious_elder_s_instruction.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 216)
-stern_tutor_discipline.prerequisites.add(sagacious_elder_s_instruction)
 lightning_flash_inspiration = DragonBloodedCharm.objects.create(
     name="Lightning Flash Inspiration",
     mote_cost=5,
@@ -19844,8 +19865,8 @@ lightning_flash_inspiration = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["air", "balanced"],
+    prereqs=[[(flawless_study_focus.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 216)
-lightning_flash_inspiration.prerequisites.add(flawless_study_focus)
 fulminating_thunderhead_brilliance = DragonBloodedCharm.objects.create(
     name="Fulminating Thunderhead Brilliance",
     mote_cost=15,
@@ -19864,8 +19885,8 @@ fulminating_thunderhead_brilliance = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["aura", "signature (air)"],
+    prereqs=[[(lightning_flash_inspiration.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 216)
-fulminating_thunderhead_brilliance.prerequisites.add(lightning_flash_inspiration)
 truth_in_stone_binding = DragonBloodedCharm.objects.create(
     name="Truth-In-Stone Binding",
     mote_cost=10,
@@ -19960,8 +19981,8 @@ elemental_succor_method = DragonBloodedCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=[],
+    prereqs=[[(elemental_empowerment_meditation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 218)
-elemental_succor_method.prerequisites.add(elemental_empowerment_meditation)
 thunderstruck_charlatan_imprecation = DragonBloodedCharm.objects.create(
     name="Thunderstruck Charlatan Imprecation",
     mote_cost=7,
@@ -19980,8 +20001,8 @@ thunderstruck_charlatan_imprecation = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air"],
+    prereqs=[[(lightning_flash_inspiration.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 218)
-thunderstruck_charlatan_imprecation.prerequisites.add(lightning_flash_inspiration)
 elemental_burst_technique = DragonBloodedCharm.objects.create(
     name="Elemental Burst Technique",
     mote_cost=0,
@@ -20000,8 +20021,8 @@ elemental_burst_technique = DragonBloodedCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=["aura", "decisive-only"],
+    prereqs=[[(elemental_bolt_attack.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 218)
-elemental_burst_technique.prerequisites.add(elemental_bolt_attack)
 eternal_mind_meditation = DragonBloodedCharm.objects.create(
     name="Eternal Mind Meditation",
     mote_cost=15,
@@ -20020,8 +20041,8 @@ eternal_mind_meditation = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air"],
+    prereqs=[[(lightning_flash_inspiration.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 219)
-eternal_mind_meditation.prerequisites.add(lightning_flash_inspiration)
 glorious_birthright_font = DragonBloodedCharm.objects.create(
     name="Glorious Birthright Font",
     mote_cost=0,
@@ -20040,8 +20061,8 @@ glorious_birthright_font = DragonBloodedCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=[],
+    prereqs=[[(elemental_succor_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 219)
-glorious_birthright_font.prerequisites.add(elemental_succor_method)
 endless_coils_enlightenment = DragonBloodedCharm.objects.create(
     name="Endless Coils Enlightenment",
     mote_cost=0,
@@ -20060,8 +20081,8 @@ endless_coils_enlightenment = DragonBloodedCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=["air"],
+    prereqs=[[(eternal_mind_meditation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 219)
-endless_coils_enlightenment.prerequisites.add(eternal_mind_meditation)
 the_wind_turns = DragonBloodedCharm.objects.create(
     name="The Wind Turns",
     mote_cost=0,
@@ -20080,8 +20101,8 @@ the_wind_turns = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air", "aura"],
+    prereqs=[[(glorious_birthright_font.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 219)
-the_wind_turns.prerequisites.add(glorious_birthright_font)
 dragon_vortex_attack = DragonBloodedCharm.objects.create(
     name="Dragon Vortex Attack",
     mote_cost=20,
@@ -20100,8 +20121,8 @@ dragon_vortex_attack = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["aura", "perilous"],
+    prereqs=[[(elemental_burst_technique.name, 1), (the_wind_turns.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 219)
-dragon_vortex_attack.prerequisites.add(elemental_burst_technique, the_wind_turns)
 master_healer_meditation = DragonBloodedCharm.objects.create(
     name="Master Healer Meditation",
     mote_cost=1,
@@ -20234,8 +20255,8 @@ indomitable_vitality_discipline = DragonBloodedCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=["wood"],
+    prereqs=[[(disease_banishing_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 221)
-indomitable_vitality_discipline.prerequisites.add(disease_banishing_technique)
 poisoner_s_deft_hand = DragonBloodedCharm.objects.create(
     name="Poisoner's Deft Hand",
     mote_cost=3,
@@ -20254,8 +20275,8 @@ poisoner_s_deft_hand = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[[(venom_expulsion_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 221)
-poisoner_s_deft_hand.prerequisites.add(venom_expulsion_method)
 death_defying_endeavor = DragonBloodedCharm.objects.create(
     name="Death-Defying Endeavor",
     mote_cost=4,
@@ -20274,8 +20295,8 @@ death_defying_endeavor = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["balanced", "wood"],
+    prereqs=[[(ailment_sensing_meditation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 222)
-death_defying_endeavor.prerequisites.add(ailment_sensing_meditation)
 grievous_wound_alteration_energy = DragonBloodedCharm.objects.create(
     name="Grievous Wound Alteration Energy",
     mote_cost=0,
@@ -20294,8 +20315,8 @@ grievous_wound_alteration_energy = DragonBloodedCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=["wood"],
+    prereqs=[[(wound_closing_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 222)
-grievous_wound_alteration_energy.prerequisites.add(wound_closing_technique)
 purity_of_mind_method = DragonBloodedCharm.objects.create(
     name="Purity-of-Mind Method",
     mote_cost=10,
@@ -20390,8 +20411,8 @@ rebirth_of_flesh_and_ivy = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["perilous", "signature (wood)"],
+    prereqs=[[(grievous_wound_alteration_energy.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 223)
-rebirth_of_flesh_and_ivy.prerequisites.add(grievous_wound_alteration_energy)
 dread_infection_strike = DragonBloodedCharm.objects.create(
     name="Dread Infection Strike",
     mote_cost=5,
@@ -20410,8 +20431,8 @@ dread_infection_strike = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "wood"],
+    prereqs=[[(indomitable_vitality_discipline.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 224)
-dread_infection_strike.prerequisites.add(indomitable_vitality_discipline)
 flesh_as_stone_inurement = DragonBloodedCharm.objects.create(
     name="Flesh-as-Stone Inurement",
     mote_cost=5,
@@ -20430,8 +20451,8 @@ flesh_as_stone_inurement = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(grievous_wound_alteration_energy.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 224)
-flesh_as_stone_inurement.prerequisites.add(grievous_wound_alteration_energy)
 jade_crucible_method = DragonBloodedCharm.objects.create(
     name="Jade Crucible Method",
     mote_cost=1,
@@ -20451,8 +20472,8 @@ jade_crucible_method = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[[(grievous_wound_alteration_energy.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 224)
-jade_crucible_method.prerequisites.add(grievous_wound_alteration_energy)
 most_beneficent_seed_of_the_five_dragons = DragonBloodedCharm.objects.create(
     name="Most Beneficent Seed of the Five Dragons",
     mote_cost=5,
@@ -20472,8 +20493,8 @@ most_beneficent_seed_of_the_five_dragons = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[[(jade_crucible_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 224)
-most_beneficent_seed_of_the_five_dragons.prerequisites.add(jade_crucible_method)
 stoking_bonfire_style = DragonBloodedCharm.objects.create(
     name="Stoking Bonfire Style",
     mote_cost=1,
@@ -20549,8 +20570,8 @@ blinding_spark_distraction = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["balanced", "fire", "uniform", "perilous"],
+    prereqs=[[(flame_borne_interception.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 225)
-blinding_spark_distraction.prerequisites.add(flame_borne_interception)
 graceful_flowing_defense = DragonBloodedCharm.objects.create(
     name="Graceful Flowing Defense",
     mote_cost=2,
@@ -20569,8 +20590,8 @@ graceful_flowing_defense = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["perilous", "uniform", "water"],
+    prereqs=[[(flame_borne_interception.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 225)
-graceful_flowing_defense.prerequisites.add(flame_borne_interception)
 crimson_fang_bite = DragonBloodedCharm.objects.create(
     name="Crimson Fang Bite",
     mote_cost=3,
@@ -20589,8 +20610,8 @@ crimson_fang_bite = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["dual", "fire"],
+    prereqs=[[(burning_fury_wreath.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 225)
-crimson_fang_bite.prerequisites.add(burning_fury_wreath)
 demon_crushing_wolf_bite = DragonBloodedCharm.objects.create(
     name="Demon-Crushing Wolf Bite",
     mote_cost=4,
@@ -20609,8 +20630,8 @@ demon_crushing_wolf_bite = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["perilous", "withering-only", "wood"],
+    prereqs=[[(crimson_fang_bite.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 225)
-demon_crushing_wolf_bite.prerequisites.add(crimson_fang_bite)
 elemental_sheath = DragonBloodedCharm.objects.create(
     name="Elemental Sheath",
     mote_cost=3,
@@ -20648,8 +20669,8 @@ dragon_graced_weapon = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One scene",
     keywords=[],
+    prereqs=[[(elemental_sheath.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 226)
-dragon_graced_weapon.prerequisites.add(elemental_sheath)
 crossfire_flash = DragonBloodedCharm.objects.create(
     name="Crossfire Flash",
     mote_cost=5,
@@ -20668,8 +20689,8 @@ crossfire_flash = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["balanced", "fire", "uniform"],
+    prereqs=[[(blinding_spark_distraction.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 226)
-crossfire_flash.prerequisites.add(blinding_spark_distraction)
 flame_warden_stance = DragonBloodedCharm.objects.create(
     name="Flame Warden Stance",
     mote_cost=3,
@@ -20688,8 +20709,8 @@ flame_warden_stance = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["fire", "perilous"],
+    prereqs=[[(flame_borne_interception.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 226)
-flame_warden_stance.prerequisites.add(flame_borne_interception)
 blazing_interception = DragonBloodedCharm.objects.create(
     name="Blazing Interception",
     mote_cost=4,
@@ -20708,8 +20729,8 @@ blazing_interception = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["counterattack", "decisive-only", "fire"],
+    prereqs=[[(flame_warden_stance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 226)
-blazing_interception.prerequisites.add(flame_warden_stance)
 steel_tempest_strike = DragonBloodedCharm.objects.create(
     name="Steel Tempest Strike",
     mote_cost=4,
@@ -20823,8 +20844,8 @@ dragon_soul_burst = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "fire"],
+    prereqs=[[(crimson_fang_bite.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 228)
-dragon_soul_burst.prerequisites.add(crimson_fang_bite)
 smoldering_essence_attack = DragonBloodedCharm.objects.create(
     name="Smoldering Essence Attack",
     mote_cost=5,
@@ -20843,8 +20864,8 @@ smoldering_essence_attack = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["aura", "fire", "withering-only"],
+    prereqs=[[(dragon_soul_burst.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 228)
-smoldering_essence_attack.prerequisites.add(dragon_soul_burst)
 burning_pinnacle_strike = DragonBloodedCharm.objects.create(
     name="Burning Pinnacle Strike",
     mote_cost=3,
@@ -20863,8 +20884,8 @@ burning_pinnacle_strike = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["aura", "fire", "uniform"],
+    prereqs=[[(smoldering_essence_attack.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 228)
-burning_pinnacle_strike.prerequisites.add(smoldering_essence_attack)
 root_and_hand_merging = DragonBloodedCharm.objects.create(
     name="Root-and-Hand Merging",
     mote_cost=5,
@@ -20883,8 +20904,8 @@ root_and_hand_merging = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One scene",
     keywords=["balanced", "wood"],
+    prereqs=[[(elemental_sheath.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 228)
-root_and_hand_merging.prerequisites.add(elemental_sheath)
 portentous_comet_deflection = DragonBloodedCharm.objects.create(
     name="Portentous Comet Deflection",
     mote_cost=3,
@@ -20903,8 +20924,8 @@ portentous_comet_deflection = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["clash", "decisive-only", "fire"],
+    prereqs=[[(crossfire_flash.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 228)
-portentous_comet_deflection.prerequisites.add(crossfire_flash)
 fire_incites_water_to_a_riot_of_clouds = DragonBloodedCharm.objects.create(
     name="Fire Incites Water to a Riot of Clouds",
     mote_cost=4,
@@ -20923,8 +20944,8 @@ fire_incites_water_to_a_riot_of_clouds = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["clash", "fire/water", "withering-only"],
+    prereqs=[[(portentous_comet_deflection.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 228)
-fire_incites_water_to_a_riot_of_clouds.prerequisites.add(portentous_comet_deflection)
 mela_s_flashing_tongue = DragonBloodedCharm.objects.create(
     name="Mela's Flashing Tongue",
     mote_cost=10,
@@ -20943,8 +20964,8 @@ mela_s_flashing_tongue = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air", "withering-only"],
+    prereqs=[[(burning_pinnacle_strike.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 229)
-mela_s_flashing_tongue.prerequisites.add(burning_pinnacle_strike)
 mirror_on_water_focus = DragonBloodedCharm.objects.create(
     name="Mirror-on-Water Focus",
     mote_cost=7,
@@ -20963,8 +20984,8 @@ mirror_on_water_focus = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Aura",
     keywords=["aura", "counterattack", "decisive-only", "mute", "perilous", "water"],
+    prereqs=[[(fire_incites_water_to_a_riot_of_clouds.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 229)
-mirror_on_water_focus.prerequisites.add(fire_incites_water_to_a_riot_of_clouds)
 hidden_secrets_whisper = DragonBloodedCharm.objects.create(
     name="Hidden Secrets Whisper",
     mote_cost=1,
@@ -21059,8 +21080,8 @@ spirit_grounding_shout = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air", "balanced", "uniform"],
+    prereqs=[[(spirit_detecting_mirror_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 231)
-spirit_grounding_shout.prerequisites.add(spirit_detecting_mirror_technique)
 secret_wind_revelation = DragonBloodedCharm.objects.create(
     name="Secret Wind Revelation",
     mote_cost=3,
@@ -21079,8 +21100,8 @@ secret_wind_revelation = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["air", "balanced"],
+    prereqs=[[(spirit_detecting_mirror_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 231)
-secret_wind_revelation.prerequisites.add(spirit_detecting_mirror_technique)
 dragon_s_sacred_talon = DragonBloodedCharm.objects.create(
     name="Dragon's Sacred Talon",
     mote_cost=4,
@@ -21099,8 +21120,8 @@ dragon_s_sacred_talon = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["balanced", "dual", "earth or wood"],
+    prereqs=[[(seed_and_salt_warding.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 231)
-dragon_s_sacred_talon.prerequisites.add(seed_and_salt_warding)
 fivefold_resonance_sense = DragonBloodedCharm.objects.create(
     name="Fivefold Resonance Sense",
     mote_cost=5,
@@ -21138,8 +21159,8 @@ spirit_chaining_strike = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air", "balanced"],
+    prereqs=[[(spirit_grounding_shout.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 231)
-spirit_chaining_strike.prerequisites.add(spirit_grounding_shout)
 hundred_devils_whirlwind = DragonBloodedCharm.objects.create(
     name="Hundred Devils Whirlwind",
     mote_cost=5,
@@ -21253,10 +21274,10 @@ blazing_purification_chant = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["fire"],
+    prereqs=[
+        [(soul_fire_cremation_technique.name, 1), (spirit_chaining_strike.name, 1)]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 233)
-blazing_purification_chant.prerequisites.add(
-    soul_fire_cremation_technique, spirit_chaining_strike
-)
 spirit_shredding_attack = DragonBloodedCharm.objects.create(
     name="Spirit-Shredding Attack",
     mote_cost=3,
@@ -21275,8 +21296,8 @@ spirit_shredding_attack = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air", "balanced", "decisive-only"],
+    prereqs=[[(spirit_chaining_strike.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 234)
-spirit_shredding_attack.prerequisites.add(spirit_chaining_strike)
 seal_of_heavenly_binding = DragonBloodedCharm.objects.create(
     name="Seal of Heavenly Binding",
     mote_cost=5,
@@ -21295,8 +21316,8 @@ seal_of_heavenly_binding = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air"],
+    prereqs=[[(spirit_shredding_attack.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 234)
-seal_of_heavenly_binding.prerequisites.add(spirit_shredding_attack)
 chaos_banishing_revelation_gesture = DragonBloodedCharm.objects.create(
     name="Chaos-Banishing Revelation Gesture",
     mote_cost=10,
@@ -21315,10 +21336,8 @@ chaos_banishing_revelation_gesture = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(dragon_s_sacred_talon.name, 1), (seal_of_heavenly_binding.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 234)
-chaos_banishing_revelation_gesture.prerequisites.add(
-    dragon_s_sacred_talon, seal_of_heavenly_binding
-)
 purifying_dragon_suspiration = DragonBloodedCharm.objects.create(
     name="Purifying Dragon Suspiration",
     mote_cost=10,
@@ -21337,10 +21356,13 @@ purifying_dragon_suspiration = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air/water"],
+    prereqs=[
+        [
+            (blazing_purification_chant.name, 1),
+            (chaos_banishing_revelation_gesture.name, 1),
+        ]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 234)
-purifying_dragon_suspiration.prerequisites.add(
-    blazing_purification_chant, chaos_banishing_revelation_gesture
-)
 anathema_sealing_tomb = DragonBloodedCharm.objects.create(
     name="Anathema-Sealing Tomb",
     mote_cost=3,
@@ -21359,8 +21381,8 @@ anathema_sealing_tomb = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["decisive-only", "earth"],
+    prereqs=[[(seal_of_heavenly_binding.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 234)
-anathema_sealing_tomb.prerequisites.add(seal_of_heavenly_binding)
 terrestrial_circle_sorcery = DragonBloodedCharm.objects.create(
     name="Terrestrial Circle Sorcery",
     mote_cost=0,
@@ -21399,8 +21421,8 @@ five_winds_raiment = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Until spell is cast",
     keywords=["air"],
+    prereqs=[[(terrestrial_circle_sorcery.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 235)
-five_winds_raiment.prerequisites.add(terrestrial_circle_sorcery)
 dragon_sorcerer_puissance = DragonBloodedCharm.objects.create(
     name="Dragon-Sorcerer Puissance",
     mote_cost=0,
@@ -21419,8 +21441,8 @@ dragon_sorcerer_puissance = DragonBloodedCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=["balanced"],
+    prereqs=[[(terrestrial_circle_sorcery.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 235)
-dragon_sorcerer_puissance.prerequisites.add(terrestrial_circle_sorcery)
 audience_enthusing_display = DragonBloodedCharm.objects.create(
     name="Audience-Enthusing Display",
     mote_cost=2,
@@ -21477,8 +21499,8 @@ invisible_street_performer_technique = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One performance",
     keywords=["air", "balanced"],
+    prereqs=[[(hidden_petal_aria.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 236)
-invisible_street_performer_technique.prerequisites.add(hidden_petal_aria)
 dance_of_flashing_swords = DragonBloodedCharm.objects.create(
     name="Dance of Flashing Swords",
     mote_cost=3,
@@ -21497,8 +21519,8 @@ dance_of_flashing_swords = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[[(invisible_street_performer_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 236)
-dance_of_flashing_swords.prerequisites.add(invisible_street_performer_technique)
 talented_improvisation = DragonBloodedCharm.objects.create(
     name="Talented Improvisation",
     mote_cost=5,
@@ -21536,8 +21558,8 @@ soul_stirring_performance = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[[(talented_improvisation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 236)
-soul_stirring_performance.prerequisites.add(talented_improvisation)
 heart_strengthening_defense = DragonBloodedCharm.objects.create(
     name="Heart-Strengthening Defense",
     mote_cost=1,
@@ -21556,8 +21578,8 @@ heart_strengthening_defense = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One performance",
     keywords=["wood"],
+    prereqs=[[(soul_stirring_performance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 236)
-heart_strengthening_defense.prerequisites.add(soul_stirring_performance)
 harmonious_life_affirming_song = DragonBloodedCharm.objects.create(
     name="Harmonious Life-Affirming Song",
     mote_cost=4,
@@ -21576,8 +21598,8 @@ harmonious_life_affirming_song = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One performance",
     keywords=["wood"],
+    prereqs=[[(heart_strengthening_defense.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 236)
-harmonious_life_affirming_song.prerequisites.add(heart_strengthening_defense)
 irresistible_whirlpool_diversion = DragonBloodedCharm.objects.create(
     name="Irresistible Whirlpool Diversion",
     mote_cost=5,
@@ -21596,8 +21618,8 @@ irresistible_whirlpool_diversion = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One performance",
     keywords=["water"],
+    prereqs=[[(soul_stirring_performance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 237)
-irresistible_whirlpool_diversion.prerequisites.add(soul_stirring_performance)
 thundering_dragon_proclamation = DragonBloodedCharm.objects.create(
     name="Thundering Dragon Proclamation",
     mote_cost=10,
@@ -21711,8 +21733,8 @@ blossom_hides_thorns = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["aura", "mute", "wood"],
+    prereqs=[[(dance_of_flashing_swords.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 238)
-blossom_hides_thorns.prerequisites.add(dance_of_flashing_swords)
 lightning_declamation_style = DragonBloodedCharm.objects.create(
     name="Lightning Declamation Style",
     mote_cost=2,
@@ -21750,8 +21772,8 @@ legend_hewn_wisdom = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(lightning_declamation_style.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 239)
-legend_hewn_wisdom.prerequisites.add(lightning_declamation_style)
 storm_gathering_fervor = DragonBloodedCharm.objects.create(
     name="Storm-Gathering Fervor",
     mote_cost=2,
@@ -21770,8 +21792,8 @@ storm_gathering_fervor = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air", "aura"],
+    prereqs=[[(lightning_declamation_style.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 239)
-storm_gathering_fervor.prerequisites.add(lightning_declamation_style)
 epoch_saga_memory = DragonBloodedCharm.objects.create(
     name="Epoch Saga Memory",
     mote_cost=3,
@@ -21790,8 +21812,8 @@ epoch_saga_memory = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(legend_hewn_wisdom.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 239)
-epoch_saga_memory.prerequisites.add(legend_hewn_wisdom)
 puissant_precursor_s_monologue = DragonBloodedCharm.objects.create(
     name="Puissant Precursor's Monologue",
     mote_cost=8,
@@ -21810,10 +21832,10 @@ puissant_precursor_s_monologue = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air"],
+    prereqs=[
+        [(storm_gathering_fervor.name, 1), (thundering_dragon_proclamation.name, 1)]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 239)
-puissant_precursor_s_monologue.prerequisites.add(
-    storm_gathering_fervor, thundering_dragon_proclamation
-)
 sanxian_charming_fingers = DragonBloodedCharm.objects.create(
     name="Sanxian-Charming Fingers",
     mote_cost=3,
@@ -21870,8 +21892,8 @@ blossoming_instrument_evocation = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Indefinite",
     keywords=["wood"],
+    prereqs=[[(sanxian_charming_fingers.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 240)
-blossoming_instrument_evocation.prerequisites.add(sanxian_charming_fingers)
 vibrating_strings_defense = DragonBloodedCharm.objects.create(
     name="Vibrating Strings Defense",
     mote_cost=4,
@@ -21890,8 +21912,8 @@ vibrating_strings_defense = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["clash", "decisive-only", "wood"],
+    prereqs=[[(sanxian_charming_fingers.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 240)
-vibrating_strings_defense.prerequisites.add(sanxian_charming_fingers)
 three_string_sword_prana = DragonBloodedCharm.objects.create(
     name="Three-String Sword Prana",
     mote_cost=7,
@@ -21910,8 +21932,8 @@ three_string_sword_prana = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "wood"],
+    prereqs=[[(vibrating_strings_defense.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 241)
-three_string_sword_prana.prerequisites.add(vibrating_strings_defense)
 battle_anthem_of_ten_thousand_dragons = DragonBloodedCharm.objects.create(
     name="Battle Anthem of Ten Thousand Dragons",
     mote_cost=4,
@@ -21930,8 +21952,8 @@ battle_anthem_of_ten_thousand_dragons = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One performance",
     keywords=["aura", "perilous", "wood"],
+    prereqs=[[(three_string_sword_prana.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 241)
-battle_anthem_of_ten_thousand_dragons.prerequisites.add(three_string_sword_prana)
 swaying_boughs_arabesque = DragonBloodedCharm.objects.create(
     name="Swaying Boughs Arabesque",
     mote_cost=4,
@@ -21969,8 +21991,8 @@ petal_strewn_pavane = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["balanced", "perilous", "wood"],
+    prereqs=[[(swaying_boughs_arabesque.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 241)
-petal_strewn_pavane.prerequisites.add(swaying_boughs_arabesque)
 falling_leaves_sway = DragonBloodedCharm.objects.create(
     name="Falling Leaves Sway",
     mote_cost=6,
@@ -21989,8 +22011,8 @@ falling_leaves_sway = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["balanced", "wood"],
+    prereqs=[[(swaying_boughs_arabesque.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 241)
-falling_leaves_sway.prerequisites.add(swaying_boughs_arabesque)
 waltz_of_honeyed_wine = DragonBloodedCharm.objects.create(
     name="Waltz of Honeyed Wine",
     mote_cost=2,
@@ -22009,8 +22031,8 @@ waltz_of_honeyed_wine = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["aura", "wood"],
+    prereqs=[[(falling_leaves_sway.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 242)
-waltz_of_honeyed_wine.prerequisites.add(falling_leaves_sway)
 glowing_coal_radiance = DragonBloodedCharm.objects.create(
     name="Glowing Coal Radiance",
     mote_cost=2,
@@ -22124,8 +22146,8 @@ debate_sparking_bonfire = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["fire"],
+    prereqs=[[(unbearable_taunt_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 243)
-debate_sparking_bonfire.prerequisites.add(unbearable_taunt_technique)
 hot_blooded_ardor = DragonBloodedCharm.objects.create(
     name="Hot-Blooded Ardor",
     mote_cost=4,
@@ -22144,8 +22166,8 @@ hot_blooded_ardor = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["fire"],
+    prereqs=[[(warm_faced_seduction_style.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 243)
-hot_blooded_ardor.prerequisites.add(warm_faced_seduction_style)
 passion_transmuting_nuance = DragonBloodedCharm.objects.create(
     name="Passion-Transmuting Nuance",
     mote_cost=5,
@@ -22164,10 +22186,14 @@ passion_transmuting_nuance = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["water"],
+    prereqs=[
+        [
+            (burning_dragon_mien.name, 1),
+            (unbearable_taunt_technique.name, 1),
+            (warm_faced_seduction_style.name, 1),
+        ]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 243)
-passion_transmuting_nuance.prerequisites.add(
-    burning_dragon_mien, unbearable_taunt_technique, warm_faced_seduction_style
-)
 fearsome_dragon_presence = DragonBloodedCharm.objects.create(
     name="Fearsome Dragon Presence",
     mote_cost=5,
@@ -22186,8 +22212,8 @@ fearsome_dragon_presence = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One tick",
     keywords=["fire", "perilous"],
+    prereqs=[[(burning_dragon_mien.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 243)
-fearsome_dragon_presence.prerequisites.add(burning_dragon_mien)
 moth_to_the_candle = DragonBloodedCharm.objects.create(
     name="Moth to the Candle",
     mote_cost=2,
@@ -22206,8 +22232,8 @@ moth_to_the_candle = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["fire"],
+    prereqs=[[(unbearable_taunt_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 243)
-moth_to_the_candle.prerequisites.add(unbearable_taunt_technique)
 grinding_millstone_argument = DragonBloodedCharm.objects.create(
     name="Grinding Millstone Argument",
     mote_cost=3,
@@ -22226,8 +22252,8 @@ grinding_millstone_argument = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(eternally_argumentative_flame.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 243)
-grinding_millstone_argument.prerequisites.add(eternally_argumentative_flame)
 haunting_words_infliction = DragonBloodedCharm.objects.create(
     name="Haunting Words Infliction",
     mote_cost=4,
@@ -22341,8 +22367,8 @@ blazing_heart_ascendancy = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["fire"],
+    prereqs=[[(debate_sparking_bonfire.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 245)
-blazing_heart_ascendancy.prerequisites.add(debate_sparking_bonfire)
 heartstring_pulling_approach = DragonBloodedCharm.objects.create(
     name="Heartstring-Pulling Approach",
     mote_cost=3,
@@ -22361,8 +22387,8 @@ heartstring_pulling_approach = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["fire"],
+    prereqs=[[(hot_blooded_ardor.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 245)
-heartstring_pulling_approach.prerequisites.add(hot_blooded_ardor)
 aura_of_invulnerability = DragonBloodedCharm.objects.create(
     name="Aura of Invulnerability",
     mote_cost=5,
@@ -22381,8 +22407,8 @@ aura_of_invulnerability = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["aura", "fire", "perilous"],
+    prereqs=[[(fearsome_dragon_presence.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 245)
-aura_of_invulnerability.prerequisites.add(fearsome_dragon_presence)
 vivacious_dragon_beauty = DragonBloodedCharm.objects.create(
     name="Vivacious Dragon Beauty",
     mote_cost=6,
@@ -22401,8 +22427,8 @@ vivacious_dragon_beauty = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One scene",
     keywords=["aura", "wood"],
+    prereqs=[[(hot_blooded_ardor.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 245)
-vivacious_dragon_beauty.prerequisites.add(hot_blooded_ardor)
 minds_like_fertile_fields = DragonBloodedCharm.objects.create(
     name="Minds Like Fertile Fields",
     mote_cost=1,
@@ -22421,8 +22447,8 @@ minds_like_fertile_fields = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["earth", "psyche"],
+    prereqs=[[(grinding_millstone_argument.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 246)
-minds_like_fertile_fields.prerequisites.add(grinding_millstone_argument)
 entombed_mind_technique = DragonBloodedCharm.objects.create(
     name="Entombed Mind Technique",
     mote_cost=5,
@@ -22441,8 +22467,8 @@ entombed_mind_technique = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["aura", "earth", "psyche"],
+    prereqs=[[(minds_like_fertile_fields.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 246)
-entombed_mind_technique.prerequisites.add(minds_like_fertile_fields)
 dragon_warlord_s_convocation = DragonBloodedCharm.objects.create(
     name="Dragon Warlord's Convocation",
     mote_cost=10,
@@ -22461,10 +22487,10 @@ dragon_warlord_s_convocation = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["fire"],
+    prereqs=[
+        [(blazing_heart_ascendancy.name, 1), (heartstring_pulling_approach.name, 1)]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 246)
-dragon_warlord_s_convocation.prerequisites.add(
-    blazing_heart_ascendancy, heartstring_pulling_approach
-)
 ox_body_technique = DragonBloodedCharm.objects.create(
     name="Ox-Body Technique",
     mote_cost=0,
@@ -22559,8 +22585,8 @@ untiring_earth_meditation = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One day",
     keywords=["earth"],
+    prereqs=[[(uneating_earth_meditation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 247)
-untiring_earth_meditation.prerequisites.add(uneating_earth_meditation)
 impervious_skin_of_stone = DragonBloodedCharm.objects.create(
     name="Impervious Skin of Stone",
     mote_cost=4,
@@ -22598,8 +22624,8 @@ eternal_tide_endurance = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["water", "withering-only"],
+    prereqs=[[(impervious_skin_of_stone.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 247)
-eternal_tide_endurance.prerequisites.add(impervious_skin_of_stone)
 supple_viridian_scales = DragonBloodedCharm.objects.create(
     name="Supple Viridian Scales",
     mote_cost=4,
@@ -22618,8 +22644,8 @@ supple_viridian_scales = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One tick",
     keywords=["wood"],
+    prereqs=[[(impervious_skin_of_stone.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 247)
-supple_viridian_scales.prerequisites.add(impervious_skin_of_stone)
 element_protection_technique = DragonBloodedCharm.objects.create(
     name="(Element) Protection Technique",
     mote_cost=5,
@@ -22638,8 +22664,8 @@ element_protection_technique = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One scene",
     keywords=["dual"],
+    prereqs=[[(impervious_skin_of_stone.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 248)
-element_protection_technique.prerequisites.add(impervious_skin_of_stone)
 elemental_aegis = DragonBloodedCharm.objects.create(
     name="Elemental Aegis",
     mote_cost=4,
@@ -22658,8 +22684,8 @@ elemental_aegis = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["none"],
+    prereqs=[[(supple_viridian_scales.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 248)
-elemental_aegis.prerequisites.add(supple_viridian_scales)
 unsleeping_earth_meditation = DragonBloodedCharm.objects.create(
     name="Unsleeping Earth Meditation",
     mote_cost=5,
@@ -22678,8 +22704,8 @@ unsleeping_earth_meditation = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["earth"],
+    prereqs=[[(uneating_earth_meditation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 248)
-unsleeping_earth_meditation.prerequisites.add(uneating_earth_meditation)
 unbreathing_earth_meditation = DragonBloodedCharm.objects.create(
     name="Unbreathing Earth Meditation",
     mote_cost=5,
@@ -22698,8 +22724,8 @@ unbreathing_earth_meditation = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One scene",
     keywords=["balanced", "earth"],
+    prereqs=[[(unsleeping_earth_meditation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 248)
-unbreathing_earth_meditation.prerequisites.add(unsleeping_earth_meditation)
 unfeeling_earth_meditation = DragonBloodedCharm.objects.create(
     name="Unfeeling Earth Meditation",
     mote_cost=3,
@@ -22718,8 +22744,8 @@ unfeeling_earth_meditation = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(unbreathing_earth_meditation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 248)
-unfeeling_earth_meditation.prerequisites.add(unbreathing_earth_meditation)
 body_like_clouds_meditation = DragonBloodedCharm.objects.create(
     name="Body-Like-Clouds Meditation",
     mote_cost=8,
@@ -22834,8 +22860,8 @@ earth_bears_witness = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["aura", "decisive-only", "earth", "perilous"],
+    prereqs=[[(element_protection_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 250)
-earth_bears_witness.prerequisites.add(element_protection_technique)
 immovable_mountain_technique = DragonBloodedCharm.objects.create(
     name="Immovable Mountain Technique",
     mote_cost=5,
@@ -22854,8 +22880,8 @@ immovable_mountain_technique = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One scene",
     keywords=["earth", "perilous"],
+    prereqs=[[(earth_bears_witness.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 250)
-immovable_mountain_technique.prerequisites.add(earth_bears_witness)
 ripples_on_water_defense = DragonBloodedCharm.objects.create(
     name="Ripples-on-Water Defense",
     mote_cost=4,
@@ -22874,8 +22900,8 @@ ripples_on_water_defense = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["aura", "dual", "water"],
+    prereqs=[[(earth_bears_witness.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 250)
-ripples_on_water_defense.prerequisites.add(earth_bears_witness)
 dragon_s_unfailing_vigor = DragonBloodedCharm.objects.create(
     name="Dragon's Unfailing Vigor",
     mote_cost=0,
@@ -22914,8 +22940,8 @@ flowing_dragon_body_endurance = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Aura",
     keywords=["aura", "decisive-only", "water"],
+    prereqs=[[(ripples_on_water_defense.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 251)
-flowing_dragon_body_endurance.prerequisites.add(ripples_on_water_defense)
 revolving_hurricane_force_defense = DragonBloodedCharm.objects.create(
     name="Revolving-Hurricane-Force Defense",
     mote_cost=5,
@@ -22934,8 +22960,8 @@ revolving_hurricane_force_defense = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Aura",
     keywords=["air", "aura", "withering-only"],
+    prereqs=[[(flowing_dragon_body_endurance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 251)
-revolving_hurricane_force_defense.prerequisites.add(flowing_dragon_body_endurance)
 scattered_pearl_hoof_falls = DragonBloodedCharm.objects.create(
     name="Scattered Pearl Hoof Falls",
     mote_cost=2,
@@ -23030,8 +23056,8 @@ cloud_harnessing_technique = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Until next turn",
     keywords=["air"],
+    prereqs=[[(heaven_gracing_leap.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 252)
-cloud_harnessing_technique.prerequisites.add(heaven_gracing_leap)
 dance_of_the_jade_bridle = DragonBloodedCharm.objects.create(
     name="Dance of the Jade Bridle",
     mote_cost=4,
@@ -23050,8 +23076,8 @@ dance_of_the_jade_bridle = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[[(great_heart_companion.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 252)
-dance_of_the_jade_bridle.prerequisites.add(great_heart_companion)
 reins_like_roots_unity = DragonBloodedCharm.objects.create(
     name="Reins-Like-Roots Unity",
     mote_cost=3,
@@ -23070,8 +23096,8 @@ reins_like_roots_unity = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["balanced", "wood"],
+    prereqs=[[(great_heart_companion.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 252)
-reins_like_roots_unity.prerequisites.add(great_heart_companion)
 creation_turning_hoof = DragonBloodedCharm.objects.create(
     name="Creation-Turning Hoof",
     mote_cost=5,
@@ -23090,8 +23116,8 @@ creation_turning_hoof = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(tread_rooted_in_life.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 252)
-creation_turning_hoof.prerequisites.add(tread_rooted_in_life)
 ebony_spur_technique = DragonBloodedCharm.objects.create(
     name="Ebony Spur Technique",
     mote_cost=2,
@@ -23110,8 +23136,8 @@ ebony_spur_technique = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["decisive-only", "wood"],
+    prereqs=[[(creation_turning_hoof.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 252)
-ebony_spur_technique.prerequisites.add(creation_turning_hoof)
 ass_to_elephant_method = DragonBloodedCharm.objects.create(
     name="Ass-to-Elephant Method",
     mote_cost=3,
@@ -23130,8 +23156,8 @@ ass_to_elephant_method = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["earth"],
+    prereqs=[[(great_heart_companion.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 253)
-ass_to_elephant_method.prerequisites.add(great_heart_companion)
 untethered_pegasus_spirit = DragonBloodedCharm.objects.create(
     name="Untethered Pegasus Spirit",
     mote_cost=5,
@@ -23150,8 +23176,8 @@ untethered_pegasus_spirit = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["aura", "signature (air)"],
+    prereqs=[[(cloud_harnessing_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 253)
-untethered_pegasus_spirit.prerequisites.add(cloud_harnessing_technique)
 mountain_trampling_hoof = DragonBloodedCharm.objects.create(
     name="Mountain-Trampling Hoof",
     mote_cost=3,
@@ -23170,8 +23196,8 @@ mountain_trampling_hoof = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["signature (earth)"],
+    prereqs=[[(ass_to_elephant_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 253)
-mountain_trampling_hoof.prerequisites.add(ass_to_elephant_method)
 charge_of_one_hundred_generals = DragonBloodedCharm.objects.create(
     name="Charge of One Hundred Generals",
     mote_cost=8,
@@ -23190,8 +23216,8 @@ charge_of_one_hundred_generals = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["signature (fire)"],
+    prereqs=[[(ebony_spur_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 254)
-charge_of_one_hundred_generals.prerequisites.add(ebony_spur_technique)
 ride_beneath_the_waves = DragonBloodedCharm.objects.create(
     name="Ride Beneath the Waves",
     mote_cost=3,
@@ -23229,8 +23255,8 @@ dragon_among_horses_exaltation = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["signature (wood)"],
+    prereqs=[[(great_heart_companion.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 254)
-dragon_among_horses_exaltation.prerequisites.add(great_heart_companion)
 indomitable_warhorse_endurance = DragonBloodedCharm.objects.create(
     name="Indomitable Warhorse Endurance",
     mote_cost=3,
@@ -23249,8 +23275,8 @@ indomitable_warhorse_endurance = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["balanced", "perilous", "wood"],
+    prereqs=[[(reins_like_roots_unity.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 254)
-indomitable_warhorse_endurance.prerequisites.add(reins_like_roots_unity)
 seizing_the_reins_approach = DragonBloodedCharm.objects.create(
     name="Seizing-the-Reins Approach",
     mote_cost=1,
@@ -23269,8 +23295,8 @@ seizing_the_reins_approach = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["fire"],
+    prereqs=[[(dance_of_the_jade_bridle.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 254)
-seizing_the_reins_approach.prerequisites.add(dance_of_the_jade_bridle)
 unbreakable_stallion_spirit = DragonBloodedCharm.objects.create(
     name="Unbreakable Stallion Spirit",
     mote_cost=5,
@@ -23289,8 +23315,8 @@ unbreakable_stallion_spirit = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One scene",
     keywords=["wood"],
+    prereqs=[[(creation_turning_hoof.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 255)
-unbreakable_stallion_spirit.prerequisites.add(creation_turning_hoof)
 seven_league_gallop = DragonBloodedCharm.objects.create(
     name="Seven-League Gallop",
     mote_cost=1,
@@ -23309,8 +23335,8 @@ seven_league_gallop = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One hour",
     keywords=["wood"],
+    prereqs=[[(unbreakable_stallion_spirit.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 255)
-seven_league_gallop.prerequisites.add(unbreakable_stallion_spirit)
 trail_blazing_dragon_steed = DragonBloodedCharm.objects.create(
     name="Trail-Blazing Dragon Steed",
     mote_cost=5,
@@ -23329,8 +23355,8 @@ trail_blazing_dragon_steed = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["fire"],
+    prereqs=[[(seven_league_gallop.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 255)
-trail_blazing_dragon_steed.prerequisites.add(seven_league_gallop)
 vanishing_cloud_rider_ways = DragonBloodedCharm.objects.create(
     name="Vanishing Cloud-Rider Ways",
     mote_cost=4,
@@ -23349,8 +23375,8 @@ vanishing_cloud_rider_ways = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air", "balanced"],
+    prereqs=[[(cloud_harnessing_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 255)
-vanishing_cloud_rider_ways.prerequisites.add(cloud_harnessing_technique)
 blazing_charger_attack = DragonBloodedCharm.objects.create(
     name="Blazing Charger Attack",
     mote_cost=7,
@@ -23369,8 +23395,8 @@ blazing_charger_attack = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["aura", "fire", "uniform"],
+    prereqs=[[(trail_blazing_dragon_steed.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 255)
-blazing_charger_attack.prerequisites.add(trail_blazing_dragon_steed)
 elusive_skirmisher_tactic = DragonBloodedCharm.objects.create(
     name="Elusive Skirmisher Tactic",
     mote_cost=1,
@@ -23389,8 +23415,8 @@ elusive_skirmisher_tactic = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["uniform", "wood"],
+    prereqs=[[(vanishing_cloud_rider_ways.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 255)
-elusive_skirmisher_tactic.prerequisites.add(vanishing_cloud_rider_ways)
 horses_like_dragons_stampede = DragonBloodedCharm.objects.create(
     name="Horses-Like-Dragons Stampede",
     mote_cost=5,
@@ -23409,10 +23435,8 @@ horses_like_dragons_stampede = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Until battle is joined",
     keywords=["wood"],
+    prereqs=[[(blazing_charger_attack.name, 1), (seizing_the_reins_approach.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 256)
-horses_like_dragons_stampede.prerequisites.add(
-    blazing_charger_attack, seizing_the_reins_approach
-)
 fine_passage_negotiating_style = DragonBloodedCharm.objects.create(
     name="Fine Passage-Negotiating Style",
     mote_cost=2,
@@ -23469,8 +23493,8 @@ ocean_darting_maneuver = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["balanced", "pilot", "water"],
+    prereqs=[[(storm_outrunning_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 257)
-ocean_darting_maneuver.prerequisites.add(storm_outrunning_technique)
 dragon_mariner_attitude = DragonBloodedCharm.objects.create(
     name="Dragon Mariner Attitude",
     mote_cost=5,
@@ -23508,8 +23532,8 @@ deck_striding_prana = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["perilous", "water"],
+    prereqs=[[(dragon_mariner_attitude.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 257)
-deck_striding_prana.prerequisites.add(dragon_mariner_attitude)
 hurricane_predicting_glance = DragonBloodedCharm.objects.create(
     name="Hurricane-Predicting Glance",
     mote_cost=5,
@@ -23528,8 +23552,8 @@ hurricane_predicting_glance = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air"],
+    prereqs=[[(dragon_mariner_attitude.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 257)
-hurricane_predicting_glance.prerequisites.add(dragon_mariner_attitude)
 old_salt_spirit = DragonBloodedCharm.objects.create(
     name="Old Salt Spirit",
     mote_cost=5,
@@ -23548,8 +23572,8 @@ old_salt_spirit = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One scene",
     keywords=["balanced", "mute", "water"],
+    prereqs=[[(dragon_mariner_attitude.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 258)
-old_salt_spirit.prerequisites.add(dragon_mariner_attitude)
 seven_seas_wind_luring_chanty = DragonBloodedCharm.objects.create(
     name="Seven Seas Wind-Luring Chanty",
     mote_cost=2,
@@ -23568,8 +23592,8 @@ seven_seas_wind_luring_chanty = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One day",
     keywords=["air"],
+    prereqs=[[(hurricane_predicting_glance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 258)
-seven_seas_wind_luring_chanty.prerequisites.add(hurricane_predicting_glance)
 sturdy_bulkhead_concentration = DragonBloodedCharm.objects.create(
     name="Sturdy Bulkhead Concentration",
     mote_cost=4,
@@ -23588,8 +23612,8 @@ sturdy_bulkhead_concentration = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[[(ocean_darting_maneuver.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 258)
-sturdy_bulkhead_concentration.prerequisites.add(ocean_darting_maneuver)
 storm_singer_s_reprieve = DragonBloodedCharm.objects.create(
     name="Storm-Singer's Reprieve",
     mote_cost=7,
@@ -23608,8 +23632,8 @@ storm_singer_s_reprieve = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["signature (air)"],
+    prereqs=[[(seven_seas_wind_luring_chanty.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 258)
-storm_singer_s_reprieve.prerequisites.add(seven_seas_wind_luring_chanty)
 hull_shattering_avalanche_impact = DragonBloodedCharm.objects.create(
     name="Hull-Shattering Avalanche Impact",
     mote_cost=6,
@@ -23685,8 +23709,8 @@ benediction_of_the_living_ship = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["aura", "signature (wood)"],
+    prereqs=[[(sturdy_bulkhead_concentration.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 259)
-benediction_of_the_living_ship.prerequisites.add(sturdy_bulkhead_concentration)
 vanishing_fog_bank_escape = DragonBloodedCharm.objects.create(
     name="Vanishing Fog-Bank Escape",
     mote_cost=5,
@@ -23705,8 +23729,8 @@ vanishing_fog_bank_escape = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["mute", "pilot", "water"],
+    prereqs=[[(seven_seas_wind_luring_chanty.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 260)
-vanishing_fog_bank_escape.prerequisites.add(seven_seas_wind_luring_chanty)
 pirate_masquerading_method = DragonBloodedCharm.objects.create(
     name="Pirate-Masquerading Method",
     mote_cost=5,
@@ -23725,8 +23749,8 @@ pirate_masquerading_method = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One scene",
     keywords=["water"],
+    prereqs=[[(vanishing_fog_bank_escape.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 260)
-pirate_masquerading_method.prerequisites.add(vanishing_fog_bank_escape)
 bellowing_thunder_admiral = DragonBloodedCharm.objects.create(
     name="Bellowing Thunder Admiral",
     mote_cost=8,
@@ -23745,8 +23769,8 @@ bellowing_thunder_admiral = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["air", "balanced"],
+    prereqs=[[(old_salt_spirit.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 260)
-bellowing_thunder_admiral.prerequisites.add(old_salt_spirit)
 ship_seizing_dragon_talon = DragonBloodedCharm.objects.create(
     name="Ship-Seizing Dragon Talon",
     mote_cost=1,
@@ -23765,8 +23789,8 @@ ship_seizing_dragon_talon = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(bellowing_thunder_admiral.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 260)
-ship_seizing_dragon_talon.prerequisites.add(bellowing_thunder_admiral)
 fog_shroud_ambush = DragonBloodedCharm.objects.create(
     name="Fog Shroud Ambush",
     mote_cost=6,
@@ -23785,10 +23809,10 @@ fog_shroud_ambush = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["mute", "pilot", "water"],
+    prereqs=[
+        [(pirate_masquerading_method.name, 1), (ship_seizing_dragon_talon.name, 1)]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 261)
-fog_shroud_ambush.prerequisites.add(
-    pirate_masquerading_method, ship_seizing_dragon_talon
-)
 loquacious_courtier_technique = DragonBloodedCharm.objects.create(
     name="Loquacious Courtier Technique",
     mote_cost=2,
@@ -23902,10 +23926,10 @@ auspicious_first_meeting_attitude = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["balanced", "water"],
+    prereqs=[
+        [(friend_to_all_nations_attitude.name, 1), (loyalty_reading_meditation.name, 1)]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 261)
-auspicious_first_meeting_attitude.prerequisites.add(
-    friend_to_all_nations_attitude, loyalty_reading_meditation
-)
 brother_against_brother_insinuation = DragonBloodedCharm.objects.create(
     name="Brother-Against-Brother Insinuation",
     mote_cost=5,
@@ -23924,8 +23948,8 @@ brother_against_brother_insinuation = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["fire"],
+    prereqs=[[(wary_yellow_dog_attitude.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 262)
-brother_against_brother_insinuation.prerequisites.add(wary_yellow_dog_attitude)
 seizing_the_tongue_technique = DragonBloodedCharm.objects.create(
     name="Seizing-the-Tongue Technique",
     mote_cost=6,
@@ -23944,8 +23968,8 @@ seizing_the_tongue_technique = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air", "balanced"],
+    prereqs=[[(friend_to_all_nations_attitude.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 262)
-seizing_the_tongue_technique.prerequisites.add(friend_to_all_nations_attitude)
 sweeten_the_tap_method = DragonBloodedCharm.objects.create(
     name="Sweeten-the-Tap Method",
     mote_cost=5,
@@ -23964,8 +23988,8 @@ sweeten_the_tap_method = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["fire/wood"],
+    prereqs=[[(friend_to_all_nations_attitude.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 262)
-sweeten_the_tap_method.prerequisites.add(friend_to_all_nations_attitude)
 shadow_dispersing_radiance = DragonBloodedCharm.objects.create(
     name="Shadow-Dispersing Radiance",
     mote_cost=1,
@@ -23984,8 +24008,8 @@ shadow_dispersing_radiance = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["balanced", "fire"],
+    prereqs=[[(loyalty_reading_meditation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 263)
-shadow_dispersing_radiance.prerequisites.add(loyalty_reading_meditation)
 eye_for_passions_scrutiny = DragonBloodedCharm.objects.create(
     name="Eye-for-Passions Scrutiny",
     mote_cost=2,
@@ -24004,8 +24028,8 @@ eye_for_passions_scrutiny = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["fire"],
+    prereqs=[[(shadow_dispersing_radiance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 263)
-eye_for_passions_scrutiny.prerequisites.add(shadow_dispersing_radiance)
 watching_the_salon_s_shadows = DragonBloodedCharm.objects.create(
     name="Watching the Salon's Shadows",
     mote_cost=3,
@@ -24024,10 +24048,8 @@ watching_the_salon_s_shadows = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["balanced", "fire"],
+    prereqs=[[(loyalty_reading_meditation.name, 1), (smoke_wreathed_mien.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 264)
-watching_the_salon_s_shadows.prerequisites.add(
-    loyalty_reading_meditation, smoke_wreathed_mien
-)
 smoke_without_flame = DragonBloodedCharm.objects.create(
     name="Smoke Without Flame",
     mote_cost=4,
@@ -24046,8 +24068,8 @@ smoke_without_flame = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["fire"],
+    prereqs=[[(smoke_wreathed_mien.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 264)
-smoke_without_flame.prerequisites.add(smoke_wreathed_mien)
 clear_eyed_courtier_s_scrutiny = DragonBloodedCharm.objects.create(
     name="Clear-Eyed Courtier's Scrutiny",
     mote_cost=10,
@@ -24161,10 +24183,13 @@ ember_fanning_provocation = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["fire"],
+    prereqs=[
+        [
+            (brother_against_brother_insinuation.name, 1),
+            (seizing_the_tongue_technique.name, 1),
+        ]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 265)
-ember_fanning_provocation.prerequisites.add(
-    brother_against_brother_insinuation, seizing_the_tongue_technique
-)
 smoothing_over_the_past_technique = DragonBloodedCharm.objects.create(
     name="Smoothing-Over-the-Past Technique",
     mote_cost=5,
@@ -24183,8 +24208,8 @@ smoothing_over_the_past_technique = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["psyche", "water"],
+    prereqs=[[(ember_fanning_provocation.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 265)
-smoothing_over_the_past_technique.prerequisites.add(ember_fanning_provocation)
 enticing_flame_feint = DragonBloodedCharm.objects.create(
     name="Enticing Flame Feint",
     mote_cost=6,
@@ -24203,8 +24228,8 @@ enticing_flame_feint = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["fire", "mute"],
+    prereqs=[[(watching_the_salon_s_shadows.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 266)
-enticing_flame_feint.prerequisites.add(watching_the_salon_s_shadows)
 rumor_dredging_gaze = DragonBloodedCharm.objects.create(
     name="Rumor-Dredging Gaze",
     mote_cost=6,
@@ -24223,10 +24248,13 @@ rumor_dredging_gaze = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["mute", "water"],
+    prereqs=[
+        [
+            (auspicious_first_meeting_attitude.name, 1),
+            (shadow_dispersing_radiance.name, 1),
+        ]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 266)
-rumor_dredging_gaze.prerequisites.add(
-    auspicious_first_meeting_attitude, shadow_dispersing_radiance
-)
 implacable_dragon_mien = DragonBloodedCharm.objects.create(
     name="Implacable Dragon Mien",
     mote_cost=5,
@@ -24245,8 +24273,8 @@ implacable_dragon_mien = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One day",
     keywords=["earth", "mute"],
+    prereqs=[[(smoke_without_flame.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 266)
-implacable_dragon_mien.prerequisites.add(smoke_without_flame)
 rippling_mirror_face = DragonBloodedCharm.objects.create(
     name="Rippling Mirror Face",
     mote_cost=6,
@@ -24265,8 +24293,8 @@ rippling_mirror_face = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["mute", "water"],
+    prereqs=[[(rumor_dredging_gaze.name, 1), (smoke_without_flame.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 266)
-rippling_mirror_face.prerequisites.add(rumor_dredging_gaze, smoke_without_flame)
 distracting_breeze_meditation = DragonBloodedCharm.objects.create(
     name="Distracting Breeze Meditation",
     mote_cost=2,
@@ -24323,8 +24351,8 @@ flowing_shadow_stance = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(vanishing_wind_body_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 267)
-flowing_shadow_stance.prerequisites.add(vanishing_wind_body_technique)
 soundless_action_prana = DragonBloodedCharm.objects.create(
     name="Soundless Action Prana",
     mote_cost=4,
@@ -24343,8 +24371,8 @@ soundless_action_prana = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Until next turn",
     keywords=["air", "mute"],
+    prereqs=[[(vanishing_wind_body_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 267)
-soundless_action_prana.prerequisites.add(vanishing_wind_body_technique)
 shimmering_heat_mirage_tactic = DragonBloodedCharm.objects.create(
     name="Shimmering Heat-Mirage Tactic",
     mote_cost=4,
@@ -24363,8 +24391,8 @@ shimmering_heat_mirage_tactic = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["fire", "perilous"],
+    prereqs=[[(flowing_shadow_stance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 267)
-shimmering_heat_mirage_tactic.prerequisites.add(flowing_shadow_stance)
 whispering_dragon_soul = DragonBloodedCharm.objects.create(
     name="Whispering Dragon Soul",
     mote_cost=2,
@@ -24440,8 +24468,8 @@ depth_stalking_discipline = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Aura",
     keywords=["aura", "mute", "signature (water)"],
+    prereqs=[[(flowing_shadow_stance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 268)
-depth_stalking_discipline.prerequisites.add(flowing_shadow_stance)
 shadow_stalking_predator_spirit = DragonBloodedCharm.objects.create(
     name="Shadow-Stalking Predator Spirit",
     mote_cost=5,
@@ -24479,8 +24507,8 @@ burning_shadow_double = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["fire"],
+    prereqs=[[(shimmering_heat_mirage_tactic.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 269)
-burning_shadow_double.prerequisites.add(shimmering_heat_mirage_tactic)
 zone_of_silence_stance = DragonBloodedCharm.objects.create(
     name="Zone of Silence Stance",
     mote_cost=10,
@@ -24499,8 +24527,8 @@ zone_of_silence_stance = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["air", "mute"],
+    prereqs=[[(soundless_action_prana.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 269)
-zone_of_silence_stance.prerequisites.add(soundless_action_prana)
 deadly_riptide_executioner = DragonBloodedCharm.objects.create(
     name="Deadly Riptide Executioner",
     mote_cost=5,
@@ -24519,8 +24547,8 @@ deadly_riptide_executioner = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Aura",
     keywords=["aura", "dual", "mute", "water"],
+    prereqs=[[(flowing_shadow_stance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 269)
-deadly_riptide_executioner.prerequisites.add(flowing_shadow_stance)
 dragon_shroud_technique = DragonBloodedCharm.objects.create(
     name="Dragon Shroud Technique",
     mote_cost=5,
@@ -24539,8 +24567,8 @@ dragon_shroud_technique = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One scene",
     keywords=["air", "mute"],
+    prereqs=[[(zone_of_silence_stance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 269)
-dragon_shroud_technique.prerequisites.add(zone_of_silence_stance)
 mela_s_hungry_jaws = DragonBloodedCharm.objects.create(
     name="Mela's Hungry Jaws",
     mote_cost=3,
@@ -24559,8 +24587,8 @@ mela_s_hungry_jaws = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Aura",
     keywords=["air", "aura"],
+    prereqs=[[(dragon_shroud_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 270)
-mela_s_hungry_jaws.prerequisites.add(dragon_shroud_technique)
 ration_enhancing_method = DragonBloodedCharm.objects.create(
     name="Ration-Enhancing Method",
     mote_cost=2,
@@ -24617,8 +24645,8 @@ trail_concealing_measure = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["balanced", "mute", "wood"],
+    prereqs=[[(quarry_revelation_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 271)
-trail_concealing_measure.prerequisites.add(quarry_revelation_technique)
 beast_taming_aspect = DragonBloodedCharm.objects.create(
     name="Beast-Taming Aspect",
     mote_cost=3,
@@ -24656,8 +24684,8 @@ animal_empathy_technique = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["balanced", "wood"],
+    prereqs=[[(beast_taming_aspect.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 271)
-animal_empathy_technique.prerequisites.add(beast_taming_aspect)
 wild_wandering_forester_s_charm = DragonBloodedCharm.objects.create(
     name="Wild-Wandering Forester's Charm",
     mote_cost=3,
@@ -24695,8 +24723,8 @@ mother_of_beasts_mastery = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One week",
     keywords=["wood"],
+    prereqs=[[(beast_taming_aspect.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 271)
-mother_of_beasts_mastery.prerequisites.add(beast_taming_aspect)
 invoking_nature_s_forgiveness = DragonBloodedCharm.objects.create(
     name="Invoking Nature's Forgiveness",
     mote_cost=3,
@@ -24734,8 +24762,8 @@ stalking_wolf_pursuit = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[[(quarry_revelation_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 272)
-stalking_wolf_pursuit.prerequisites.add(quarry_revelation_technique)
 vanishing_tracks_technique = DragonBloodedCharm.objects.create(
     name="Vanishing Tracks Technique",
     mote_cost=5,
@@ -24754,8 +24782,8 @@ vanishing_tracks_technique = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air"],
+    prereqs=[[(trail_concealing_measure.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 272)
-vanishing_tracks_technique.prerequisites.add(trail_concealing_measure)
 cunning_beast_mind_inspiration = DragonBloodedCharm.objects.create(
     name="Cunning Beast-Mind Inspiration",
     mote_cost=2,
@@ -24774,8 +24802,8 @@ cunning_beast_mind_inspiration = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One turn",
     keywords=["aura", "signature (air)"],
+    prereqs=[[(mother_of_beasts_mastery.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 272)
-cunning_beast_mind_inspiration.prerequisites.add(mother_of_beasts_mastery)
 earth_moving_kata = DragonBloodedCharm.objects.create(
     name="Earth-Moving Kata",
     mote_cost=10,
@@ -24870,8 +24898,8 @@ tireless_caravan_prana = DragonBloodedCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=["wood"],
+    prereqs=[[(invoking_nature_s_forgiveness.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 273)
-tireless_caravan_prana.prerequisites.add(invoking_nature_s_forgiveness)
 dragon_s_nest_shelter = DragonBloodedCharm.objects.create(
     name="Dragon's Nest Shelter",
     mote_cost=10,
@@ -24890,8 +24918,8 @@ dragon_s_nest_shelter = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="(Essence) days",
     keywords=["none"],
+    prereqs=[[(tireless_caravan_prana.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 273)
-dragon_s_nest_shelter.prerequisites.add(tireless_caravan_prana)
 uncanny_fugitive_s_intuition = DragonBloodedCharm.objects.create(
     name="Uncanny Fugitive's Intuition",
     mote_cost=1,
@@ -24910,8 +24938,8 @@ uncanny_fugitive_s_intuition = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["air"],
+    prereqs=[[(vanishing_tracks_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 274)
-uncanny_fugitive_s_intuition.prerequisites.add(vanishing_tracks_technique)
 burning_fang_strike = DragonBloodedCharm.objects.create(
     name="Burning Fang Strike",
     mote_cost=3,
@@ -24930,8 +24958,8 @@ burning_fang_strike = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["aura", "decisive-only", "fire"],
+    prereqs=[[(mother_of_beasts_mastery.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 274)
-burning_fang_strike.prerequisites.add(mother_of_beasts_mastery)
 eternal_elemental_harmony = DragonBloodedCharm.objects.create(
     name="Eternal Elemental Harmony",
     mote_cost=7,
@@ -24950,8 +24978,8 @@ eternal_elemental_harmony = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["perilous"],
+    prereqs=[[(invoking_nature_s_forgiveness.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 274)
-eternal_elemental_harmony.prerequisites.add(invoking_nature_s_forgiveness)
 labyrinth_of_mist_technique = DragonBloodedCharm.objects.create(
     name="Labyrinth of Mist Technique",
     mote_cost=15,
@@ -24970,10 +24998,10 @@ labyrinth_of_mist_technique = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air/water", "mute"],
+    prereqs=[
+        [(uncanny_fugitive_s_intuition.name, 1), (tireless_caravan_prana.name, 1)]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 274)
-labyrinth_of_mist_technique.prerequisites.add(
-    uncanny_fugitive_s_intuition, tireless_caravan_prana
-)
 seeking_throw_technique = DragonBloodedCharm.objects.create(
     name="Seeking Throw Technique",
     mote_cost=1,
@@ -25068,8 +25096,8 @@ arcing_levinbolt_precision = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air", "balanced", "uniform"],
+    prereqs=[[(armor_rupturing_fang.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 275)
-arcing_levinbolt_precision.prerequisites.add(armor_rupturing_fang)
 earth_shattering_strike = DragonBloodedCharm.objects.create(
     name="Earth-Shattering Strike",
     mote_cost=4,
@@ -25088,8 +25116,8 @@ earth_shattering_strike = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["aura", "decisive-only", "earth"],
+    prereqs=[[(armor_rupturing_fang.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 275)
-earth_shattering_strike.prerequisites.add(armor_rupturing_fang)
 invisibly_hidden_chakram_method = DragonBloodedCharm.objects.create(
     name="Invisibly Hidden Chakram Method",
     mote_cost=2,
@@ -25127,8 +25155,8 @@ mela_s_twin_fangs = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air", "aura", "withering-only"],
+    prereqs=[[(invisibly_hidden_chakram_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 276)
-mela_s_twin_fangs.prerequisites.add(invisibly_hidden_chakram_method)
 elusive_zephyr_strike = DragonBloodedCharm.objects.create(
     name="Elusive Zephyr Strike",
     mote_cost=5,
@@ -25166,8 +25194,8 @@ smoke_burst_eruption = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Until end of next turn",
     keywords=["decisive-only", "fire", "mute"],
+    prereqs=[[(blinding_spark_throw.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 276)
-smoke_burst_eruption.prerequisites.add(blinding_spark_throw)
 persistent_hornet_attack = DragonBloodedCharm.objects.create(
     name="Persistent Hornet Attack",
     mote_cost=5,
@@ -25186,8 +25214,8 @@ persistent_hornet_attack = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["aura", "signature (air)", "withering-only"],
+    prereqs=[[(mela_s_twin_fangs.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 276)
-persistent_hornet_attack.prerequisites.add(mela_s_twin_fangs)
 devastating_avalanche_barrage = DragonBloodedCharm.objects.create(
     name="Devastating Avalanche Barrage",
     mote_cost=5,
@@ -25206,8 +25234,8 @@ devastating_avalanche_barrage = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["aura", "perilous", "signature (earth)", "wither- ing-only"],
+    prereqs=[[(earth_shattering_strike.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 276)
-devastating_avalanche_barrage.prerequisites.add(earth_shattering_strike)
 exploding_weapon_technique = DragonBloodedCharm.objects.create(
     name="Exploding Weapon Technique",
     mote_cost=5,
@@ -25226,8 +25254,8 @@ exploding_weapon_technique = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["aura", "decisive-only", "signature (fire)"],
+    prereqs=[[(smoke_burst_eruption.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 277)
-exploding_weapon_technique.prerequisites.add(smoke_burst_eruption)
 fatal_riptide_strike = DragonBloodedCharm.objects.create(
     name="Fatal Riptide Strike",
     mote_cost=5,
@@ -25265,8 +25293,8 @@ hundred_thorns_blossom = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["aura", "decisive-only", "signature (wood)"],
+    prereqs=[[(elusive_zephyr_strike.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 277)
-hundred_thorns_blossom.prerequisites.add(elusive_zephyr_strike)
 stone_needle_strike = DragonBloodedCharm.objects.create(
     name="Stone Needle Strike",
     mote_cost=3,
@@ -25285,8 +25313,8 @@ stone_needle_strike = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["decisive-only", "earth"],
+    prereqs=[[(earth_shattering_strike.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 277)
-stone_needle_strike.prerequisites.add(earth_shattering_strike)
 winter_fang_attack = DragonBloodedCharm.objects.create(
     name="Winter Fang Attack",
     mote_cost=4,
@@ -25305,8 +25333,8 @@ winter_fang_attack = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air", "balanced", "decisive-only"],
+    prereqs=[[(elusive_zephyr_strike.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 278)
-winter_fang_attack.prerequisites.add(elusive_zephyr_strike)
 thousand_razor_wind = DragonBloodedCharm.objects.create(
     name="Thousand Razor Wind",
     mote_cost=1,
@@ -25325,8 +25353,8 @@ thousand_razor_wind = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air", "aura", "decisive-only"],
+    prereqs=[[(mela_s_twin_fangs.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 278)
-thousand_razor_wind.prerequisites.add(mela_s_twin_fangs)
 whirlwind_shield_technique = DragonBloodedCharm.objects.create(
     name="Whirlwind Shield Technique",
     mote_cost=7,
@@ -25345,8 +25373,8 @@ whirlwind_shield_technique = DragonBloodedCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["air", "aura"],
+    prereqs=[[(thousand_razor_wind.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 278)
-whirlwind_shield_technique.prerequisites.add(thousand_razor_wind)
 vengeful_gust_counterstrike = DragonBloodedCharm.objects.create(
     name="Vengeful Gust Counterstrike",
     mote_cost=3,
@@ -25365,8 +25393,8 @@ vengeful_gust_counterstrike = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["air", "aura", "clash", "decisive-only"],
+    prereqs=[[(whirlwind_shield_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 279)
-vengeful_gust_counterstrike.prerequisites.add(whirlwind_shield_technique)
 wind_armor_technique = DragonBloodedCharm.objects.create(
     name="Wind Armor Technique",
     mote_cost=0,
@@ -25385,8 +25413,8 @@ wind_armor_technique = DragonBloodedCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=["air"],
+    prereqs=[[(vengeful_gust_counterstrike.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 279)
-wind_armor_technique.prerequisites.add(vengeful_gust_counterstrike)
 tactics_mean_everything = DragonBloodedCharm.objects.create(
     name="Tactics Mean Everything",
     mote_cost=1,
@@ -25443,8 +25471,8 @@ tireless_footfalls_cadence = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["balanced", "earth"],
+    prereqs=[[(excellence_of_the_dutiful_general.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 279)
-tireless_footfalls_cadence.prerequisites.add(excellence_of_the_dutiful_general)
 roaring_dragon_officer = DragonBloodedCharm.objects.create(
     name="Roaring Dragon Officer",
     mote_cost=3,
@@ -25482,8 +25510,8 @@ blazing_courageous_swordsman_inspiration = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["balanced", "fire"],
+    prereqs=[[(roaring_dragon_officer.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 279)
-blazing_courageous_swordsman_inspiration.prerequisites.add(roaring_dragon_officer)
 army_to_mob_assault = DragonBloodedCharm.objects.create(
     name="Army-To-Mob Assault",
     mote_cost=3,
@@ -25502,8 +25530,8 @@ army_to_mob_assault = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["perilous", "water", "withering-only"],
+    prereqs=[[(blazing_courageous_swordsman_inspiration.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 280)
-army_to_mob_assault.prerequisites.add(blazing_courageous_swordsman_inspiration)
 choking_weeds_tactic = DragonBloodedCharm.objects.create(
     name="Choking Weeds Tactic",
     mote_cost=1,
@@ -25522,8 +25550,8 @@ choking_weeds_tactic = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[[(army_to_mob_assault.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 280)
-choking_weeds_tactic.prerequisites.add(army_to_mob_assault)
 changing_winds_cunning = DragonBloodedCharm.objects.create(
     name="Changing Winds Cunning",
     mote_cost=3,
@@ -25542,8 +25570,8 @@ changing_winds_cunning = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air", "balanced"],
+    prereqs=[[(tireless_footfalls_cadence.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 280)
-changing_winds_cunning.prerequisites.add(tireless_footfalls_cadence)
 storm_calling_strategos = DragonBloodedCharm.objects.create(
     name="Storm-Calling Strategos",
     mote_cost=10,
@@ -25657,8 +25685,8 @@ enfolded_in_the_dragon_s_wings = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["earth", "perilous", "uniform"],
+    prereqs=[[(tireless_footfalls_cadence.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 282)
-enfolded_in_the_dragon_s_wings.prerequisites.add(tireless_footfalls_cadence)
 phantom_fire_warrior_horde = DragonBloodedCharm.objects.create(
     name="Phantom Fire-Warrior Horde",
     mote_cost=5,
@@ -25677,8 +25705,8 @@ phantom_fire_warrior_horde = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["fire"],
+    prereqs=[[(blazing_courageous_swordsman_inspiration.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 283)
-phantom_fire_warrior_horde.prerequisites.add(blazing_courageous_swordsman_inspiration)
 indomitable_flame_of_valor = DragonBloodedCharm.objects.create(
     name="Indomitable Flame of Valor",
     mote_cost=1,
@@ -25697,8 +25725,8 @@ indomitable_flame_of_valor = DragonBloodedCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["aura", "fire"],
+    prereqs=[[(phantom_fire_warrior_horde.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 283)
-indomitable_flame_of_valor.prerequisites.add(phantom_fire_warrior_horde)
 blessed_dragon_champion = DragonBloodedCharm.objects.create(
     name="Blessed Dragon Champion",
     mote_cost=5,
@@ -25717,8 +25745,8 @@ blessed_dragon_champion = DragonBloodedCharm.objects.create(
     charm_type="reflexive",
     duration="One scene",
     keywords=["aura", "earth"],
+    prereqs=[[(enfolded_in_the_dragon_s_wings.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 283)
-blessed_dragon_champion.prerequisites.add(enfolded_in_the_dragon_s_wings)
 
 
 air_dragon = MartialArtsStyle.objects.create(
@@ -25784,8 +25812,8 @@ wind_dragon_speed = MartialArtsCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["air"],
+    prereqs=[[(cloud_treading_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 287)
-wind_dragon_speed.prerequisites.add(cloud_treading_method)
 breath_seizing_technique = MartialArtsCharm.objects.create(
     name="Breath-Seizing Technique",
     mote_cost=4,
@@ -25805,8 +25833,8 @@ breath_seizing_technique = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air", "decisive-only"],
+    prereqs=[[(air_dragon_s_sight.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 287)
-breath_seizing_technique.prerequisites.add(air_dragon_s_sight)
 air_dragon_form = MartialArtsCharm.objects.create(
     name="Air Dragon Form",
     mote_cost=8,
@@ -25826,8 +25854,8 @@ air_dragon_form = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["air", "form", "mute"],
+    prereqs=[[(breath_seizing_technique.name, 1), (wind_dragon_speed.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 287)
-air_dragon_form.prerequisites.add(breath_seizing_technique, wind_dragon_speed)
 shroud_of_unseen_winds = MartialArtsCharm.objects.create(
     name="Shroud of Unseen Winds",
     mote_cost=4,
@@ -25847,8 +25875,8 @@ shroud_of_unseen_winds = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air", "mute", "perilous"],
+    prereqs=[[(air_dragon_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 288)
-shroud_of_unseen_winds.prerequisites.add(air_dragon_form)
 avenging_wind_strike = MartialArtsCharm.objects.create(
     name="Avenging Wind Strike",
     mote_cost=3,
@@ -25868,8 +25896,8 @@ avenging_wind_strike = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air", "decisive-only"],
+    prereqs=[[(air_dragon_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 288)
-avenging_wind_strike.prerequisites.add(air_dragon_form)
 lightning_strike_style = MartialArtsCharm.objects.create(
     name="Lightning Strike Style",
     mote_cost=8,
@@ -25889,8 +25917,8 @@ lightning_strike_style = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["air", "decisive-only"],
+    prereqs=[[(avenging_wind_strike.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 288)
-lightning_strike_style.prerequisites.add(avenging_wind_strike)
 thunderclap_kata = MartialArtsCharm.objects.create(
     name="Thunderclap Kata",
     mote_cost=7,
@@ -25910,8 +25938,8 @@ thunderclap_kata = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air", "perilous"],
+    prereqs=[[(avenging_wind_strike.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 289)
-thunderclap_kata.prerequisites.add(avenging_wind_strike)
 tornado_offense_technique = MartialArtsCharm.objects.create(
     name="Tornado Offense Technique",
     mote_cost=10,
@@ -25931,8 +25959,8 @@ tornado_offense_technique = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air", "decisive-only"],
+    prereqs=[[(lightning_strike_style.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 289)
-tornado_offense_technique.prerequisites.add(lightning_strike_style)
 wrathful_winds_kiai = MartialArtsCharm.objects.create(
     name="Wrathful Winds Kiai",
     mote_cost=15,
@@ -25952,8 +25980,8 @@ wrathful_winds_kiai = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["air", "withering-only"],
+    prereqs=[[(thunderclap_kata.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 289)
-wrathful_winds_kiai.prerequisites.add(thunderclap_kata)
 hurricane_combat_method = MartialArtsCharm.objects.create(
     name="Hurricane Combat Method",
     mote_cost=6,
@@ -25973,10 +26001,14 @@ hurricane_combat_method = MartialArtsCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=["air"],
+    prereqs=[
+        [
+            (shroud_of_unseen_winds.name, 1),
+            (tornado_offense_technique.name, 1),
+            (wrathful_winds_kiai.name, 1),
+        ]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 289)
-hurricane_combat_method.prerequisites.add(
-    shroud_of_unseen_winds, tornado_offense_technique, wrathful_winds_kiai
-)
 
 earth_dragon = MartialArtsStyle.objects.create(
     name="Earth Dragon Style", weapons="Unarmed attacks, tetsubos", armor="all",
@@ -26041,8 +26073,8 @@ stillness_of_stone_atemi = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["earth", "withering-only"],
+    prereqs=[[(force_of_the_mountain.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 290)
-stillness_of_stone_atemi.prerequisites.add(force_of_the_mountain)
 unmoving_mountain_stance = MartialArtsCharm.objects.create(
     name="Unmoving Mountain Stance",
     mote_cost=6,
@@ -26062,8 +26094,8 @@ unmoving_mountain_stance = MartialArtsCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["dual", "earth", "perilous"],
+    prereqs=[[(stone_dragon_s_skin.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 290)
-unmoving_mountain_stance.prerequisites.add(stone_dragon_s_skin)
 earth_dragon_form = MartialArtsCharm.objects.create(
     name="Earth Dragon Form",
     mote_cost=9,
@@ -26083,8 +26115,8 @@ earth_dragon_form = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["earth", "form"],
+    prereqs=[[(stillness_of_stone_atemi.name, 1), (unmoving_mountain_stance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 290)
-earth_dragon_form.prerequisites.add(stillness_of_stone_atemi, unmoving_mountain_stance)
 ghost_grounding_blow = MartialArtsCharm.objects.create(
     name="Ghost-Grounding Blow",
     mote_cost=5,
@@ -26104,8 +26136,8 @@ ghost_grounding_blow = MartialArtsCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["earth", "perilous", "withering-only"],
+    prereqs=[[(earth_dragon_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 291)
-ghost_grounding_blow.prerequisites.add(earth_dragon_form)
 earthshaker_attack = MartialArtsCharm.objects.create(
     name="Earthshaker Attack",
     mote_cost=10,
@@ -26125,8 +26157,8 @@ earthshaker_attack = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "earth"],
+    prereqs=[[(earth_dragon_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 291)
-earthshaker_attack.prerequisites.add(earth_dragon_form)
 shattering_fist_strike = MartialArtsCharm.objects.create(
     name="Shattering Fist Strike",
     mote_cost=3,
@@ -26146,8 +26178,8 @@ shattering_fist_strike = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["decisive-only", "earth"],
+    prereqs=[[(earth_dragon_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 291)
-shattering_fist_strike.prerequisites.add(earth_dragon_form)
 weapon_breaking_defense_technique = MartialArtsCharm.objects.create(
     name="Weapon-Breaking Defense Technique",
     mote_cost=10,
@@ -26167,8 +26199,8 @@ weapon_breaking_defense_technique = MartialArtsCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["clash", "decisive-only", "earth"],
+    prereqs=[[(shattering_fist_strike.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 291)
-weapon_breaking_defense_technique.prerequisites.add(shattering_fist_strike)
 avalanche_method = MartialArtsCharm.objects.create(
     name="Avalanche Method",
     mote_cost=20,
@@ -26188,8 +26220,8 @@ avalanche_method = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "earth"],
+    prereqs=[[(weapon_breaking_defense_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 291)
-avalanche_method.prerequisites.add(weapon_breaking_defense_technique)
 hungry_earth_strike = MartialArtsCharm.objects.create(
     name="Hungry Earth Strike",
     mote_cost=10,
@@ -26209,8 +26241,8 @@ hungry_earth_strike = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["earth", "perilous", "withering-only"],
+    prereqs=[[(earthshaker_attack.name, 1), (ghost_grounding_blow.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 292)
-hungry_earth_strike.prerequisites.add(earthshaker_attack, ghost_grounding_blow)
 perfection_of_earth_body = MartialArtsCharm.objects.create(
     name="Perfection of Earth Body",
     mote_cost=6,
@@ -26230,8 +26262,8 @@ perfection_of_earth_body = MartialArtsCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=["earth", "perilous"],
+    prereqs=[[(avalanche_method.name, 1), (hungry_earth_strike.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 292)
-perfection_of_earth_body.prerequisites.add(avalanche_method, hungry_earth_strike)
 
 fire_dragon = MartialArtsStyle.objects.create(
     name="Fire Dragon Style",
@@ -26298,8 +26330,8 @@ flame_flicker_stance = MartialArtsCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["fire", "perilous"],
+    prereqs=[[(flash_fire_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 293)
-flame_flicker_stance.prerequisites.add(flash_fire_technique)
 perfect_blazing_blow = MartialArtsCharm.objects.create(
     name="Perfect Blazing Blow",
     mote_cost=3,
@@ -26319,8 +26351,8 @@ perfect_blazing_blow = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["decisive-only", "fire"],
+    prereqs=[[(searing_edge_attack.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 293)
-perfect_blazing_blow.prerequisites.add(searing_edge_attack)
 fire_dragon_form = MartialArtsCharm.objects.create(
     name="Fire Dragon Form",
     mote_cost=7,
@@ -26340,8 +26372,8 @@ fire_dragon_form = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["fire", "form"],
+    prereqs=[[(flame_flicker_stance.name, 1), (perfect_blazing_blow.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 293)
-fire_dragon_form.prerequisites.add(flame_flicker_stance, perfect_blazing_blow)
 god_immolating_strike = MartialArtsCharm.objects.create(
     name="God-Immolating Strike",
     mote_cost=5,
@@ -26361,8 +26393,8 @@ god_immolating_strike = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["decisive-only", "fire"],
+    prereqs=[[(fire_dragon_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 293)
-god_immolating_strike.prerequisites.add(fire_dragon_form)
 essence_igniting_nerve_strike = MartialArtsCharm.objects.create(
     name="Essence-Igniting Nerve Strike",
     mote_cost=4,
@@ -26382,8 +26414,8 @@ essence_igniting_nerve_strike = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["fire", "withering-only"],
+    prereqs=[[(god_immolating_strike.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 294)
-essence_igniting_nerve_strike.prerequisites.add(god_immolating_strike)
 overwhelming_fire_majesty_stance = MartialArtsCharm.objects.create(
     name="Overwhelming Fire Majesty Stance",
     mote_cost=6,
@@ -26403,8 +26435,8 @@ overwhelming_fire_majesty_stance = MartialArtsCharm.objects.create(
     charm_type="reflexive",
     duration="Until next turn",
     keywords=["fire", "perilous"],
+    prereqs=[[(fire_dragon_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 294)
-overwhelming_fire_majesty_stance.prerequisites.add(fire_dragon_form)
 fiery_blade_attack = MartialArtsCharm.objects.create(
     name="Fiery Blade Attack",
     mote_cost=5,
@@ -26424,8 +26456,8 @@ fiery_blade_attack = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "fire"],
+    prereqs=[[(fire_dragon_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 294)
-fiery_blade_attack.prerequisites.add(fire_dragon_form)
 breath_of_the_fire_dragon = MartialArtsCharm.objects.create(
     name="Breath of the Fire Dragon",
     mote_cost=15,
@@ -26445,8 +26477,8 @@ breath_of_the_fire_dragon = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "fire"],
+    prereqs=[[(overwhelming_fire_majesty_stance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 295)
-breath_of_the_fire_dragon.prerequisites.add(overwhelming_fire_majesty_stance)
 smoldering_wound_attack = MartialArtsCharm.objects.create(
     name="Smoldering Wound Attack",
     mote_cost=5,
@@ -26466,10 +26498,8 @@ smoldering_wound_attack = MartialArtsCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["decisive-only", "fire"],
+    prereqs=[[(essence_igniting_nerve_strike.name, 1), (fiery_blade_attack.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 295)
-smoldering_wound_attack.prerequisites.add(
-    essence_igniting_nerve_strike, fiery_blade_attack
-)
 consuming_might_of_the_fire_dragon = MartialArtsCharm.objects.create(
     name="Consuming Might of the Fire Dragon",
     mote_cost=5,
@@ -26489,10 +26519,8 @@ consuming_might_of_the_fire_dragon = MartialArtsCharm.objects.create(
     charm_type="permanent",
     duration="Permanent",
     keywords=["dual", "fire"],
+    prereqs=[[(breath_of_the_fire_dragon.name, 1), (smoldering_wound_attack.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 295)
-consuming_might_of_the_fire_dragon.prerequisites.add(
-    breath_of_the_fire_dragon, smoldering_wound_attack
-)
 
 water_dragon = MartialArtsStyle.objects.create(
     name="Water Dragon Style",
@@ -26579,8 +26607,8 @@ shrugging_water_dragon_escape = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["water"],
+    prereqs=[[(flowing_water_defense.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 296)
-shrugging_water_dragon_escape.prerequisites.add(flowing_water_defense)
 water_dragon_form = MartialArtsCharm.objects.create(
     name="Water Dragon Form",
     mote_cost=10,
@@ -26600,10 +26628,10 @@ water_dragon_form = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["form", "water"],
+    prereqs=[
+        [(drowning_in_blood_technique.name, 1), (shrugging_water_dragon_escape.name, 1)]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 296)
-water_dragon_form.prerequisites.add(
-    drowning_in_blood_technique, shrugging_water_dragon_escape
-)
 theft_of_essence_method = MartialArtsCharm.objects.create(
     name="Theft-of-Essence Method",
     mote_cost=0,
@@ -26623,8 +26651,8 @@ theft_of_essence_method = MartialArtsCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["perilous", "water"],
+    prereqs=[[(water_dragon_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 296)
-theft_of_essence_method.prerequisites.add(water_dragon_form)
 bottomless_depths_defense = MartialArtsCharm.objects.create(
     name="Bottomless Depths Defense",
     mote_cost=5,
@@ -26644,8 +26672,8 @@ bottomless_depths_defense = MartialArtsCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["decisive-only", "perilous", "water"],
+    prereqs=[[(water_dragon_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 296)
-bottomless_depths_defense.prerequisites.add(water_dragon_form)
 essence_dousing_wave_attack = MartialArtsCharm.objects.create(
     name="Essence-Dousing Wave Attack",
     mote_cost=5,
@@ -26665,8 +26693,8 @@ essence_dousing_wave_attack = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["decisive-only", "water"],
+    prereqs=[[(theft_of_essence_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 297)
-essence_dousing_wave_attack.prerequisites.add(theft_of_essence_method)
 flow_reversal_strike = MartialArtsCharm.objects.create(
     name="Flow Reversal Strike",
     mote_cost=7,
@@ -26686,8 +26714,8 @@ flow_reversal_strike = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "water"],
+    prereqs=[[(theft_of_essence_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 297)
-flow_reversal_strike.prerequisites.add(theft_of_essence_method)
 crashing_wave_style = MartialArtsCharm.objects.create(
     name="Crashing Wave Style",
     mote_cost=5,
@@ -26707,8 +26735,8 @@ crashing_wave_style = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["perilous", "water", "withering-only"],
+    prereqs=[[(flow_reversal_strike.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 297)
-crashing_wave_style.prerequisites.add(flow_reversal_strike)
 ghost_restraining_whirlpool = MartialArtsCharm.objects.create(
     name="Ghost-Restraining Whirlpool",
     mote_cost=6,
@@ -26728,8 +26756,8 @@ ghost_restraining_whirlpool = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["perilous", "water"],
+    prereqs=[[(essence_dousing_wave_attack.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 297)
-ghost_restraining_whirlpool.prerequisites.add(essence_dousing_wave_attack)
 tsunami_force_shout = MartialArtsCharm.objects.create(
     name="Tsunami-Force Shout",
     mote_cost=10,
@@ -26749,10 +26777,14 @@ tsunami_force_shout = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "water"],
+    prereqs=[
+        [
+            (bottomless_depths_defense.name, 1),
+            (crashing_wave_style.name, 1),
+            (ghost_restraining_whirlpool.name, 1),
+        ]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 297)
-tsunami_force_shout.prerequisites.add(
-    bottomless_depths_defense, crashing_wave_style, ghost_restraining_whirlpool
-)
 
 wood_dragon = MartialArtsStyle.objects.create(
     name="Wood Dragon Style", weapons="unarmed attacks, staff, long bow", armor="light",
@@ -26817,8 +26849,8 @@ mind_over_body_meditation = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["perilous", "wood"],
+    prereqs=[[(wood_dragon_vitality.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 298)
-mind_over_body_meditation.prerequisites.add(wood_dragon_vitality)
 soul_marking_style = MartialArtsCharm.objects.create(
     name="Soul-Marking Style",
     mote_cost=3,
@@ -26838,8 +26870,8 @@ soul_marking_style = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["decisive-only", "wood"],
+    prereqs=[[(eyes_of_the_wood_dragon.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 299)
-soul_marking_style.prerequisites.add(eyes_of_the_wood_dragon)
 wood_dragon_form = MartialArtsCharm.objects.create(
     name="Wood Dragon Form",
     mote_cost=10,
@@ -26859,8 +26891,8 @@ wood_dragon_form = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["form", "wood"],
+    prereqs=[[(mind_over_body_meditation.name, 1), (soul_marking_style.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 299)
-wood_dragon_form.prerequisites.add(mind_over_body_meditation, soul_marking_style)
 spirit_wracking_method = MartialArtsCharm.objects.create(
     name="Spirit-Wracking Method",
     mote_cost=7,
@@ -26880,8 +26912,8 @@ spirit_wracking_method = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["withering-only", "wood"],
+    prereqs=[[(wood_dragon_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 299)
-spirit_wracking_method.prerequisites.add(wood_dragon_form)
 death_pattern_sensing_attitude = MartialArtsCharm.objects.create(
     name="Death-Pattern-Sensing Attitude",
     mote_cost=5,
@@ -26901,8 +26933,8 @@ death_pattern_sensing_attitude = MartialArtsCharm.objects.create(
     charm_type="reflexive",
     duration="Until next turn",
     keywords=["perilous", "wood"],
+    prereqs=[[(wood_dragon_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 299)
-death_pattern_sensing_attitude.prerequisites.add(wood_dragon_form)
 spirit_rending_technique = MartialArtsCharm.objects.create(
     name="Spirit-Rending Technique",
     mote_cost=8,
@@ -26922,8 +26954,8 @@ spirit_rending_technique = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["decisive-only", "wood"],
+    prereqs=[[(spirit_wracking_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 299)
-spirit_rending_technique.prerequisites.add(spirit_wracking_method)
 unbreakable_fascination_kata = MartialArtsCharm.objects.create(
     name="Unbreakable Fascination Kata",
     mote_cost=5,
@@ -26943,8 +26975,8 @@ unbreakable_fascination_kata = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[[(wood_dragon_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 299)
-unbreakable_fascination_kata.prerequisites.add(wood_dragon_form)
 enthralling_blow_attack = MartialArtsCharm.objects.create(
     name="Enthralling Blow Attack",
     mote_cost=10,
@@ -26964,8 +26996,8 @@ enthralling_blow_attack = MartialArtsCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["perilous", "withering-only", "wood"],
+    prereqs=[[(unbreakable_fascination_kata.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 300)
-enthralling_blow_attack.prerequisites.add(unbreakable_fascination_kata)
 wood_dragon_succor = MartialArtsCharm.objects.create(
     name="Wood Dragon Succor",
     mote_cost=15,
@@ -26985,10 +27017,10 @@ wood_dragon_succor = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["wood"],
+    prereqs=[
+        [(death_pattern_sensing_attitude.name, 1), (spirit_rending_technique.name, 1)]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 300)
-wood_dragon_succor.prerequisites.add(
-    death_pattern_sensing_attitude, spirit_rending_technique
-)
 soul_mastery = MartialArtsCharm.objects.create(
     name="Soul Mastery",
     mote_cost=5,
@@ -27008,8 +27040,8 @@ soul_mastery = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "wood"],
+    prereqs=[[(enthralling_blow_attack.name, 1), (wood_dragon_succor.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 301)
-soul_mastery.prerequisites.add(enthralling_blow_attack, wood_dragon_succor)
 
 golden_janissary = MartialArtsStyle.objects.create(
     name="Golden Janissary Style",
@@ -27076,10 +27108,8 @@ cleansing_flame_strike = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["decisive-only"],
+    prereqs=[[(rotten_leaf_arrested.name, 1), (where_is_doom_inquisition.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 301)
-cleansing_flame_strike.prerequisites.add(
-    rotten_leaf_arrested, where_is_doom_inquisition
-)
 golden_janissary_form = MartialArtsCharm.objects.create(
     name="Golden Janissary Form",
     mote_cost=8,
@@ -27099,8 +27129,8 @@ golden_janissary_form = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["form"],
+    prereqs=[[(cleansing_flame_strike.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 302)
-golden_janissary_form.prerequisites.add(cleansing_flame_strike)
 devil_slaying_spear_dance = MartialArtsCharm.objects.create(
     name="Devil-Slaying Spear Dance",
     mote_cost=5,
@@ -27120,8 +27150,8 @@ devil_slaying_spear_dance = MartialArtsCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["decisive-only"],
+    prereqs=[[(golden_janissary_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 302)
-devil_slaying_spear_dance.prerequisites.add(golden_janissary_form)
 paralyzing_combustion_imbuement = MartialArtsCharm.objects.create(
     name="Paralyzing Combustion Imbuement",
     mote_cost=5,
@@ -27141,8 +27171,8 @@ paralyzing_combustion_imbuement = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "mastery", "terrestrial"],
+    prereqs=[[(devil_slaying_spear_dance.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 302)
-paralyzing_combustion_imbuement.prerequisites.add(devil_slaying_spear_dance)
 light_on_dark_shield = MartialArtsCharm.objects.create(
     name="Light-on-Dark Shield",
     mote_cost=5,
@@ -27162,8 +27192,8 @@ light_on_dark_shield = MartialArtsCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["clash", "perilous", "terrestrial", "withering-only"],
+    prereqs=[[(golden_janissary_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 302)
-light_on_dark_shield.prerequisites.add(golden_janissary_form)
 lone_spark_lights_the_conflagration = MartialArtsCharm.objects.create(
     name="Lone Spark Lights the Conflagration",
     mote_cost=10,
@@ -27183,10 +27213,10 @@ lone_spark_lights_the_conflagration = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "mastery", "terrestrial"],
+    prereqs=[
+        [(light_on_dark_shield.name, 1), (paralyzing_combustion_imbuement.name, 1)]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 303)
-lone_spark_lights_the_conflagration.prerequisites.add(
-    light_on_dark_shield, paralyzing_combustion_imbuement
-)
 
 mantis = MartialArtsStyle.objects.create(
     name="Mantis Style",
@@ -27253,8 +27283,8 @@ mantis_form = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["form"],
+    prereqs=[[(crushing_claw_technique.name, 1), (iron_arm_block.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 304)
-mantis_form.prerequisites.add(crushing_claw_technique, iron_arm_block)
 leaping_mantis_technique = MartialArtsCharm.objects.create(
     name="Leaping Mantis Technique",
     mote_cost=6,
@@ -27274,8 +27304,8 @@ leaping_mantis_technique = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "mastery"],
+    prereqs=[[(mantis_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 304)
-leaping_mantis_technique.prerequisites.add(mantis_form)
 joint_locking_technique = MartialArtsCharm.objects.create(
     name="Joint-Locking Technique",
     mote_cost=5,
@@ -27295,8 +27325,8 @@ joint_locking_technique = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["mastery"],
+    prereqs=[[(mantis_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 304)
-joint_locking_technique.prerequisites.add(mantis_form)
 grasping_claw_method = MartialArtsCharm.objects.create(
     name="Grasping Claw Method",
     mote_cost=3,
@@ -27316,8 +27346,8 @@ grasping_claw_method = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["decisive-only", "mastery"],
+    prereqs=[[(mantis_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 305)
-grasping_claw_method.prerequisites.add(mantis_form)
 grasping_mantis_defense = MartialArtsCharm.objects.create(
     name="Grasping Mantis Defense",
     mote_cost=5,
@@ -27337,8 +27367,8 @@ grasping_mantis_defense = MartialArtsCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["clash", "decisive-only", "terrestrial"],
+    prereqs=[[(grasping_claw_method.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 305)
-grasping_mantis_defense.prerequisites.add(grasping_claw_method)
 joint_breaking_attack = MartialArtsCharm.objects.create(
     name="Joint-Breaking Attack",
     mote_cost=8,
@@ -27358,8 +27388,8 @@ joint_breaking_attack = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "terrestrial"],
+    prereqs=[[(joint_locking_technique.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 305)
-joint_breaking_attack.prerequisites.add(joint_locking_technique)
 unfolding_retribution_strike = MartialArtsCharm.objects.create(
     name="Unfolding Retribution Strike",
     mote_cost=15,
@@ -27379,10 +27409,14 @@ unfolding_retribution_strike = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "mastery", "terrestrial"],
+    prereqs=[
+        [
+            (grasping_mantis_defense.name, 1),
+            (joint_breaking_attack.name, 1),
+            (leaping_mantis_technique.name, 1),
+        ]
+    ],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 305)
-unfolding_retribution_strike.prerequisites.add(
-    grasping_mantis_defense, joint_breaking_attack, leaping_mantis_technique
-)
 
 white_veil = MartialArtsStyle.objects.create(
     name="White Veil Style",
@@ -27429,8 +27463,8 @@ owl_clutches_at_the_night = MartialArtsCharm.objects.create(
     charm_type="reflexive",
     duration="Instant",
     keywords=["mastery", "uniform"],
+    prereqs=[[(birdsong_over_blades.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 306)
-owl_clutches_at_the_night.prerequisites.add(birdsong_over_blades)
 alehouse_memory_stance = MartialArtsCharm.objects.create(
     name="Alehouse Memory Stance",
     mote_cost=3,
@@ -27470,8 +27504,8 @@ white_veil_form = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="One scene",
     keywords=["form", "mute"],
+    prereqs=[[(alehouse_memory_stance.name, 1), (owl_clutches_at_the_night.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 307)
-white_veil_form.prerequisites.add(alehouse_memory_stance, owl_clutches_at_the_night)
 blithe_unruffled_plumage = MartialArtsCharm.objects.create(
     name="Blithe Unruffled Plumage",
     mote_cost=4,
@@ -27491,8 +27525,8 @@ blithe_unruffled_plumage = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["dual", "mastery", "mute", "perilous"],
+    prereqs=[[(white_veil_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 307)
-blithe_unruffled_plumage.prerequisites.add(white_veil_form)
 blinded_by_laughter = MartialArtsCharm.objects.create(
     name="Blinded by Laughter",
     mote_cost=5,
@@ -27512,8 +27546,8 @@ blinded_by_laughter = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["mastery", "mute"],
+    prereqs=[[(blithe_unruffled_plumage.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 307)
-blinded_by_laughter.prerequisites.add(blithe_unruffled_plumage)
 tickling_the_dragon_s_throat = MartialArtsCharm.objects.create(
     name="Tickling the Dragon's Throat",
     mote_cost=3,
@@ -27533,8 +27567,8 @@ tickling_the_dragon_s_throat = MartialArtsCharm.objects.create(
     charm_type="supplemental",
     duration="Instant",
     keywords=["decisive-only", "mastery"],
+    prereqs=[[(white_veil_form.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 307)
-tickling_the_dragon_s_throat.prerequisites.add(white_veil_form)
 the_dragon_dies_in_bed = MartialArtsCharm.objects.create(
     name="The Dragon Dies in Bed",
     mote_cost=5,
@@ -27554,10 +27588,8 @@ the_dragon_dies_in_bed = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "mute"],
+    prereqs=[[(blinded_by_laughter.name, 1), (tickling_the_dragon_s_throat.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 308)
-the_dragon_dies_in_bed.prerequisites.add(
-    blinded_by_laughter, tickling_the_dragon_s_throat
-)
 the_dragon_dies_screaming = MartialArtsCharm.objects.create(
     name="The Dragon Dies Screaming",
     mote_cost=6,
@@ -27577,8 +27609,8 @@ the_dragon_dies_screaming = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "mastery", "mute"],
+    prereqs=[[(the_dragon_dies_in_bed.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 308)
-the_dragon_dies_screaming.prerequisites.add(the_dragon_dies_in_bed)
 the_dragon_succumbs = MartialArtsCharm.objects.create(
     name="The Dragon Succumbs",
     mote_cost=10,
@@ -27598,5 +27630,5 @@ the_dragon_succumbs = MartialArtsCharm.objects.create(
     charm_type="simple",
     duration="Instant",
     keywords=["decisive-only", "mastery", "mute", "terrestrial"],
+    prereqs=[[(the_dragon_dies_screaming.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 308)
-the_dragon_succumbs.prerequisites.add(the_dragon_dies_screaming)

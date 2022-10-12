@@ -6,7 +6,7 @@ from django.urls import reverse
 
 from core.models import Model
 from core.utils import add_dot, weighted_choice
-from exalted.models.characters.charms import MartialArtsCharm, SolarCharm
+from exalted.models.characters.charms import Charm, MartialArtsCharm, SolarCharm
 from exalted.models.characters.mortals import ExMortal
 from exalted.models.characters.utils import ABILITIES, exalted_name
 
@@ -84,8 +84,7 @@ class Solar(ExMortal):
         choices=zip(ABILITIES, [x.replace("_", " ").title() for x in ABILITIES]),
     )
 
-    charms = models.ManyToManyField(SolarCharm, blank=True)
-    martial_arts_charms = models.ManyToManyField(MartialArtsCharm, blank=True)
+    charms = models.ManyToManyField(Charm, blank=True)
 
     limit_trigger = models.CharField(max_length=100, default="")
 
@@ -170,7 +169,7 @@ class Solar(ExMortal):
         return self.willpower == 5 and self.health_levels == 7 and self.essence == 1
 
     def total_charms(self):
-        return self.charms.count() + self.martial_arts_charms.count()
+        return self.charms.count()
 
     def has_charms(self):
         return self.total_charms() == 15
@@ -187,27 +186,21 @@ class Solar(ExMortal):
                 min_statistic__lte=getattr(self, ability),
                 min_essence__lte=essence,
             )
-
         filtered_charms = SolarCharm.objects.filter(q)
         filtered_charms = filtered_charms.exclude(pk__in=self.charms.all())
-
         ma_charms = MartialArtsCharm.objects.filter(
             statistic="martial_arts",
             min_statistic__lte=getattr(self, "martial_arts"),
             min_essence__lte=self.essence,
         )
         full_list = list(filtered_charms) + list(ma_charms)
-        return [x for x in full_list if x.check_prerequisites(self)]
+        return [x for x in full_list if x.check_prereqs(self)]
 
     def add_charm(self, charm):
         if charm is not None:
-            if charm.check_prerequisites(self):
-                if charm.type == "solar_charm":
-                    self.charms.add(charm)
-                    return True
-                if charm.type == "martial_arts_charm":
-                    self.martial_arts_charms.add(charm)
-                    return True
+            if charm.check_prereqs(self):
+                self.charms.add(charm)
+                return True
             return False
         return False
 

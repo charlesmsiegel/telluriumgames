@@ -81,7 +81,6 @@ class DragonBlooded(ExMortal):
     school = models.CharField(default="", max_length=100, choices=SCHOOL_CHOICES)
 
     charms = models.ManyToManyField(DragonBloodedCharm, blank=True)
-    martial_arts_charms = models.ManyToManyField(MartialArtsCharm, blank=True)
 
     class Meta:
         verbose_name = "Dragon Blooded"
@@ -279,7 +278,7 @@ class DragonBlooded(ExMortal):
         return True
 
     def total_charms(self):
-        return self.charms.count() + self.martial_arts_charms.count()
+        return self.charms.count()
 
     def total_excellencies(self):
         excellencies = [x for x in self.charms.all() if "excellency" in x.keywords]
@@ -313,17 +312,13 @@ class DragonBlooded(ExMortal):
             min_essence__lte=self.essence,
         )
         full_list = list(filtered_charms) + list(ma_charms)
-        return [x for x in full_list if x.check_prerequisites(self)]
+        return [x for x in full_list if x.check_prereqs(self)]
 
     def add_charm(self, charm):
         if charm is not None:
-            if charm.check_prerequisites(self):
-                if charm.type == "dragon_blooded_charm":
-                    self.charms.add(charm)
-                    return True
-                if charm.type == "martial_arts_charm":
-                    self.martial_arts_charms.add(charm)
-                    return True
+            if charm.check_prereqs(self):
+                self.charms.add(charm)
+                return True
             return False
         return False
 
