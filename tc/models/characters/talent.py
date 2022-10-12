@@ -3,9 +3,9 @@ import random
 from django.db import models
 from django.shortcuts import reverse
 
-from core.models import Model
+from core.models import Model, ModelWithPrereqs
 from core.utils import add_dot, weighted_choice
-from tc.models.characters.human import Edge, EdgeRating, Human, TCPath, check_prereqs
+from tc.models.characters.human import Edge, EdgeRating, Human, PathRating, TCPath
 
 
 # Create your models here.
@@ -257,11 +257,10 @@ class Talent(Human):
         return False
 
 
-class TCGift(Model):
+class TCGift(ModelWithPrereqs):
     type = "gift"
 
     keywords = models.JSONField(default=list)
-    prereqs = models.JSONField(default=list)
 
     class Meta:
         verbose_name = "Gift"
@@ -276,6 +275,23 @@ class TCGift(Model):
     def __str__(self):
         return f"{self.name} ({', '.join(self.keywords)})"
 
+    def prereq_satisfied(self, prereq, character):
+        if prereq[0] in character.get_attributes().keys():
+            return getattr(character, prereq[0]) >= prereq[1]
+        if prereq[0] in character.get_skills().keys():
+            return getattr(character, prereq[0]) >= prereq[1]
+        if Edge.objects.filter(name=prereq[0]).exists():
+            edge_prereq = Edge.objects.get(name=prereq[0])
+            if edge_prereq.type == "edge":
+                return character.edge_rating(edge_prereq) >= prereq[1]
+        if prereq[0] == "path":
+            any(
+                x.rating > prereq[1]
+                for x in PathRating.objects.filter(character=character)
+                if self in x.path.edges.all()
+            )
+        return False
+
     def check_prereqs(self, character):
         if (
             sum(getattr(character, k) for k in self.keywords if hasattr(character, k))
@@ -288,7 +304,7 @@ class TCGift(Model):
             keyword_prereq = False
         else:
             keyword_prereq = True
-        return check_prereqs(self, character) and keyword_prereq
+        return super().check_prereqs(character) and keyword_prereq
 
 
 class MomentOfInspiration(Model):
