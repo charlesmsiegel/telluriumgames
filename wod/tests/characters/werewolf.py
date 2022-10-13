@@ -72,19 +72,12 @@ def werewolf_setup(player):
         Fetish.objects.create(name=f"Fetish {i+18}", rank=i, gnosis=i)
         Fetish.objects.create(name=f"Fetish {i+24}", rank=i, gnosis=i)
 
-class TestWerewolf(TestCase):
+
+class TestWtAHuman(TestCase):
     def setUp(self):
         self.player = User.objects.create_user(username="Player")
         self.character = WtAHuman.objects.create(
             name="Test WtAHuman", owner=self.player
-        )
-        werewolf_setup(self.player)
-
-class TestWerewolf(TestCase):
-    def setUp(self):
-        self.player = User.objects.create_user(username="Player")
-        self.character = Werewolf.objects.create(
-            name="Test Werewolf", owner=self.player
         )
         werewolf_setup(self.player)
 
@@ -277,6 +270,180 @@ class TestWerewolf(TestCase):
             },
         )
 
+    def test_get_backgrounds(self):
+        self.assertEqual(
+            self.character.get_backgrounds(),
+            {
+                "allies": 0,
+                "ancestors": 0,
+                "fate": 0,
+                "fetish": 0,
+                "kinfolk_rating": 0,
+                "pure_breed": 0,
+                "contacts": 0,
+                "rites": 0,
+                "spirit_heritage": 0,
+                "mentor": 0,
+                "resources": 0,
+                "totem": 0,
+            },
+        )
+        self.character.allies = 1
+        self.character.ancestors = 3
+        self.character.kinfolk_rating = 3
+        self.character.pure_breed = 2
+        self.character.mentor = 2
+        self.assertEqual(
+            self.character.get_backgrounds(),
+            {
+                "allies": 1,
+                "ancestors": 3,
+                "fate": 0,
+                "fetish": 0,
+                "kinfolk_rating": 3,
+                "pure_breed": 2,
+                "contacts": 0,
+                "rites": 0,
+                "spirit_heritage": 0,
+                "mentor": 2,
+                "resources": 0,
+                "totem": 0,
+            },
+        )
+
+    def test_total_backgrounds(self):
+        self.character.allies = 3
+        self.character.ancestors = 4
+        self.character.resources = 1
+        self.character.fetish = 2
+        self.assertEqual(self.character.total_backgrounds(), 10)
+        self.character.spirit_heritage = 2
+        self.assertEqual(self.character.total_backgrounds(), 12)
+
+
+class TestKinfolk(TestCase):
+    def test_has_breed(self):
+        self.fail()
+
+    def test_set_breed(self):
+        self.fail()
+
+    def test_set_tribe(self):
+        self.fail()
+
+    def test_has_tribe(self):
+        self.fail()
+
+    def test_get_backgrounds(self):
+        self.fail()
+
+    def test_add_background(self):
+        self.fail()
+
+    def test_xp_cost(self):
+        self.fail()
+
+    def test_spend_xp(self):
+        self.fail()
+
+    def test_random_xp_functions(self):
+        self.fail()
+
+    def test_add_gift(self):
+        self.fail()
+
+    def test_set_relation(self):
+        self.fail()
+
+    def test_has_relation(self):
+        self.fail()
+
+    def test_mf_based_corrections(self):
+        self.fail()
+
+    def test_add_fetish(self):
+        self.fail()
+
+    def test_filter_fetishes(self):
+        self.fail()
+
+
+class TestRandomKinfolk(TestCase):
+    def test_random_breed(self):
+        self.fail()
+
+    def test_random_tribe(self):
+        self.fail()
+
+    def test_choose_random_gift(self):
+        self.fail()
+
+    def test_random_xp_gift(self):
+        self.fail()
+
+    def test_random_relation(self):
+        self.fail()
+
+    def test_random_fetish(self):
+        self.fail()
+
+    def test_random(self):
+        self.fail()
+
+
+class TestFomor(TestCase):
+    def test_get_backgrounds(self):
+        self.fail()
+
+    def add_power(self):
+        self.fail()
+
+    def filter_power(self):
+        self.fail()
+
+
+class TestRandomFomor(TestCase):
+    def random_power(self):
+        self.fail()
+
+    def random_powers(self):
+        self.fail()
+
+    def random(self):
+        self.fail()
+
+
+class TestTribe(TestCase):
+    def test_camp_list(self):
+        self.fail()
+
+    def test_gifts_level_1(self):
+        self.fail()
+
+    def test_gifts_level_2(self):
+        self.fail()
+
+    def test_gifts_level_3(self):
+        self.fail()
+
+    def test_gifts_level_4(self):
+        self.fail()
+
+    def test_gifts_level_5(self):
+        self.fail()
+
+    def test_gifts_level_6(self):
+        self.fail()
+
+
+class TestWerewolf(TestCase):
+    def setUp(self):
+        self.player = User.objects.create_user(username="Player")
+        self.character = Werewolf.objects.create(
+            name="Test Werewolf", owner=self.player
+        )
+        werewolf_setup(self.player)
+
     def test_add_gift(self):
         g = Gift.objects.get(name="Gift 1")
         self.assertEqual(self.character.gifts.count(), 0)
@@ -306,6 +473,9 @@ class TestWerewolf(TestCase):
         self.assertFalse(self.character.has_gifts())
         self.character.add_gift(g3)
         self.assertTrue(self.character.has_gifts())
+
+    def test_total_rites(self):
+        self.fail()
 
     def test_add_rite(self):
         r = Rite.objects.get(name="Rite 1", level=1)
@@ -372,12 +542,18 @@ class TestWerewolf(TestCase):
         self.character.add_camp(c)
         self.assertTrue(self.character.has_camp())
 
+    def test_set_gnosis(self):
+        self.fail()
+
     def test_add_gnosis(self):
         self.assertEqual(self.character.gnosis, 0)
         self.assertTrue(self.character.add_gnosis())
         self.assertEqual(self.character.gnosis, 1)
         self.character.gnosis = 10
         self.assertFalse(self.character.add_gnosis())
+
+    def test_set_rage(self):
+        self.fail()
 
     def test_add_rage(self):
         self.assertEqual(self.character.rage, 0)
@@ -393,56 +569,6 @@ class TestWerewolf(TestCase):
         t = Tribe.objects.get(name="Test Tribe")
         self.character.set_tribe(t)
         self.assertEqual(self.character.willpower, 5)
-
-    def test_get_backgrounds(self):
-        self.assertEqual(
-            self.character.get_backgrounds(),
-            {
-                "allies": 0,
-                "ancestors": 0,
-                "fate": 0,
-                "fetish": 0,
-                "kinfolk_rating": 0,
-                "pure_breed": 0,
-                "contacts": 0,
-                "rites": 0,
-                "spirit_heritage": 0,
-                "mentor": 0,
-                "resources": 0,
-                "totem": 0,
-            },
-        )
-        self.character.allies = 1
-        self.character.ancestors = 3
-        self.character.kinfolk_rating = 3
-        self.character.pure_breed = 2
-        self.character.mentor = 2
-        self.assertEqual(
-            self.character.get_backgrounds(),
-            {
-                "allies": 1,
-                "ancestors": 3,
-                "fate": 0,
-                "fetish": 0,
-                "kinfolk_rating": 3,
-                "pure_breed": 2,
-                "contacts": 0,
-                "rites": 0,
-                "spirit_heritage": 0,
-                "mentor": 2,
-                "resources": 0,
-                "totem": 0,
-            },
-        )
-
-    def test_total_backgrounds(self):
-        self.character.allies = 3
-        self.character.ancestors = 4
-        self.character.resources = 1
-        self.character.fetish = 2
-        self.assertEqual(self.character.total_backgrounds(), 10)
-        self.character.spirit_heritage = 2
-        self.assertEqual(self.character.total_backgrounds(), 12)
 
     def test_set_glory(self):
         self.assertEqual(self.character.glory, 0)
@@ -624,6 +750,9 @@ class TestWerewolf(TestCase):
         self.character.set_tribe(Tribe.objects.create(name="Silver Fangs"))
         self.assertEqual(self.character.pure_breed, 3)
 
+    def test_num_renown_incidents(self):
+        self.fail()
+
     def test_add_renown_incident(self):
         r = RenownIncident.objects.create(
             name="Test Renown Incident", glory=1, honor=1, wisdom=1
@@ -677,6 +806,24 @@ class TestWerewolf(TestCase):
         self.character.add_renown_incident(r)
         self.assertEqual(self.character.rites_known.count(), num + 1)
 
+    def test_add_battle_scar(self):
+        self.fail()
+
+    def test_random_freebie_functions(self):
+        self.fail()
+
+    def test_random_xp_functions(self):
+        self.fail()
+
+    def test_add_fetish(self):
+        self.fail()
+
+    def test_filter_fetishes(self):
+        self.fail()
+
+    def test_total_fetish_rating(self):
+        self.fail()
+
 
 class TestTotem(TestCase):
     pass
@@ -711,6 +858,12 @@ class TestRandomWerewolf(TestCase):
         self.character.random_auspice()
         self.assertTrue(self.character.has_auspice())
 
+    def test_choose_random_gift(self):
+        self.fail()
+
+    def test_random_gift(self):
+        self.fail()
+
     def test_random_gifts(self):
         self.character.random_tribe()
         self.character.random_auspice()
@@ -718,6 +871,15 @@ class TestRandomWerewolf(TestCase):
         self.assertFalse(self.character.has_gifts())
         self.character.random_gifts()
         self.assertTrue(self.character.has_gifts())
+
+    def test_random_breed(self):
+        self.fail()
+
+    def test_random_camp(self):
+        self.fail()
+
+    def test_random_rite(self):
+        self.fail()
 
     def test_random_rites(self):
         self.character.rites = 3
@@ -739,11 +901,44 @@ class TestRandomWerewolf(TestCase):
         self.character.random_freebies()
         self.assertEqual(self.character.freebies, 0)
 
+    def test_random_freebies_gift(self):
+        self.fail()
+
+    def test_random_freebies_Rage(self):
+        self.fail()
+
+    def test_random_freebies_gnosis(self):
+        self.fail()
+
     def test_random_renown_incident(self):
         self.character.auspice = "ahroun"
         num = self.character.num_renown_incidents()
         self.character.random_renown_incident()
         self.assertEqual(self.character.num_renown_incidents(), num + 1)
+
+    def test_random_battle_scar(self):
+        self.fail()
+
+    def test_random_werewolf_history(self):
+        self.fail()
+
+    def test_random_xp_gift(self):
+        self.fail()
+
+    def test_random_xp_rage(self):
+        self.fail()
+
+    def test_random_xp_gnosis(self):
+        self.fail()
+
+    def test_random_xp(self):
+        self.fail()
+
+    def test_random_fetish(self):
+        self.fail()
+
+    def test_random_fetishes(self):
+        self.fail()
 
     def test_random(self):
         self.assertFalse(self.character.has_name())

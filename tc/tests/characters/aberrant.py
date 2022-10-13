@@ -88,6 +88,7 @@ class TestPower(TestCase):
     def test_minimum_quantum_for_next_dot(self):
         self.fail()
 
+
 class TestAberrant(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
@@ -654,45 +655,46 @@ class TestAberrant(TestCase):
 
     def test_total_mega_attribute(self):
         self.fail()
-        
+
     def test_total_mega_edges(self):
         self.fail()
-        
+
     def test_mega_edge_rating(self):
         self.fail()
-        
+
     def test_total_powers(self):
         self.fail()
-        
+
     def test_power_rating(self):
         self.fail()
-        
+
     def test_get_tags(self):
         self.fail()
-        
+
     def test_tag_rating(self):
         self.fail()
-        
+
     def test_update_quantum_points(self):
         self.fail()
-        
+
     def test_reset_flux(self):
         self.fail()
-        
+
     def test_spend_xp_mega_attribute(self):
         self.fail()
-        
+
     def test_spend_xp_mega_edge(self):
         self.fail()
-        
+
     def test_spend_xp_power(self):
         self.fail()
-        
+
     def test_spend_xp_tag(self):
         self.fail()
-    
+
     def test_spend_xp_quantum(self):
         self.fail()
+
 
 class TestRandomAberrant(TestCase):
     def setUp(self):
@@ -875,9 +877,10 @@ class TestTag(TestCase):
     def test_save(self):
         self.fail()
 
+
 class TestAberrantPrereqs(TestCase):
     def test_aberrant_prereq_satisfied(self):
         self.fail()
-        
+
     def test_aberrant_check_prereqs(self):
         self.fail()

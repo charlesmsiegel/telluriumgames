@@ -366,31 +366,31 @@ class TestMortal(TestCase):
 
     def test_total_abilities(self):
         self.fail()
-        
+
     def test_ability_types(self):
         self.fail()
-        
+
     def test_get_combat_abilities(self):
         self.fail()
-        
+
     def test_total_combat_abilities(self):
         self.fail()
-        
+
     def test_get_crafting_abilities(self):
         self.fail()
-        
+
     def test_total_crafting_abilities(self):
         self.fail()
-        
+
     def test_get_social_abilities(self):
         self.fail()
-        
+
     def test_total_social_abilities(self):
         self.fail()
-        
+
     def test_get_sorcery_abilities(self):
         self.fail()
-        
+
     def test_total_sorcery_abilities(self):
         self.fail()
 
@@ -438,7 +438,7 @@ class TestMortal(TestCase):
 
     def test_total_merits(self):
         self.fail()
-        
+
     def test_merit_rating(self):
         self.fail()
 
@@ -499,7 +499,7 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.bonus_points, 10)
         self.assertTrue(self.character.spend_bonus_points("willpower"))
         self.assertEqual(self.character.bonus_points, 8)
-        
+
     def test_random_bonus_functions(self):
         self.fail()
 
@@ -540,10 +540,10 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.xp, 85)
         self.assertTrue(self.character.spend_xp("willpower"))
         self.assertEqual(self.character.xp, 77)
-        
+
     def test_random_xp_functions(self):
         self.fail()
-        
+
     def test_add_to_spend(self):
         self.fail()
 
@@ -647,34 +647,34 @@ class TestRandomMortal(TestCase):
         self.character.awareness = 1
         self.character.random_spend_xp()
         self.assertLessEqual(self.character.xp, 1)
-        
+
     def test_random_bonus_attribute(self):
         self.fail()
-        
+
     def test_random_bonus_ability(self):
         self.fail()
-        
+
     def test_random_bonus_specialty(self):
         self.fail()
-        
+
     def test_random_bonus_merit(self):
         self.fail()
-        
+
     def test_random_bonus_willpower(self):
         self.fail()
-        
+
     def test_random_xp_attribute(self):
         self.fail()
-        
+
     def test_random_xp_ability(self):
         self.fail()
-        
+
     def test_random_xp_specialty(self):
         self.fail()
-        
+
     def test_random_xp_merit(self):
         self.fail()
-        
+
     def test_random_xp_willpower(self):
         self.fail()
 
@@ -703,13 +703,13 @@ class TestRandomMortal(TestCase):
 class TestExMerit(TestCase):
     def test_save(self):
         self.fail()
-        
+
     def test_prereq_satisfied(self):
         self.fail()
-        
+
     def test_check_prereqs(self):
         self.fail()
-        
+
     def test_count_prereqs(self):
         self.fail()
 

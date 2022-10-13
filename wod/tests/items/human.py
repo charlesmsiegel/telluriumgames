@@ -4,6 +4,11 @@ from wod.models.items.human import WoDItem
 
 
 # Create your tests here.
+class TestRandomWoDItem(TestCase):
+    def test_random_name(self):
+        self.fail()
+
+
 class TestItemIndexView(TestCase):
     def test_index_status_code(self):
         response = self.client.get("/wod/items/")

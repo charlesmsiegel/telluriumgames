@@ -52,10 +52,10 @@ class TestSolar(TestCase):
 
     def test_set_caste_abilities(self):
         self.fail()
-        
+
     def test_add_caste_ability(self):
         self.fail()
-        
+
     def test_has_caste_abilities(self):
         self.fail()
 
@@ -199,7 +199,7 @@ class TestSolar(TestCase):
         self.assertTrue(
             self.solar.add_charm(MartialArtsCharm.objects.get(name="Snake Charm 0"))
         )
-        
+
     def test_total_charms(self):
         self.fail()
 
@@ -266,10 +266,10 @@ class TestSolar(TestCase):
         self.solar.add_favored_ability("occult")
         self.assertEqual(self.solar.bonus_cost("spell"), 4)
         self.assertEqual(self.solar.bonus_cost("evocation"), 4)
-        
+
     def test_random_bonus_functions(self):
         self.fail()
-        
+
     def test_spend_bonus_points(self):
         self.fail()
 
@@ -297,10 +297,10 @@ class TestSolar(TestCase):
 
     def test_random_xp_functions(self):
         self.fail()
-        
+
     def test_spend_xp(self):
         self.fail()
-        
+
     def test_charm_dict(self):
         self.fail()
 
@@ -350,7 +350,7 @@ class TestRandomSolar(TestCase):
 
     def test_random_bonus_charm(self):
         self.fail()
-        
+
     def test_random_xp_charm(self):
         self.fail()
 

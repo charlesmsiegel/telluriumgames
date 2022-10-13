@@ -86,6 +86,94 @@ def grimoire_setup():
             )
 
 
+class TestWonder(TestCase):
+    def test_set_rank(self):
+        self.fail()
+
+    def test_has_rank(self):
+        self.fail()
+
+    def test_add_resonance(self):
+        self.fail()
+
+    def test_resonance_rating(self):
+        self.fail()
+
+    def test_filter_resonance(self):
+        self.fail()
+
+    def test_total_resonance(self):
+        self.fail()
+
+    def test_has_resonance(self):
+        self.fail()
+
+
+class TestRandomWonder(TestCase):
+    def test_random_points(self):
+        self.fail()
+
+    def test_random_rank(self):
+        self.fail()
+
+    def test_random_resonance(self):
+        self.fail()
+
+    def test_random(self):
+        self.fail()
+
+
+class TestCharm(TestCase):
+    def test_set_power(self):
+        self.fail()
+
+    def test_has_power(self):
+        self.fail()
+
+
+class TestRandomCharm(TestCase):
+    def test_random_power(self):
+        self.fail()
+
+    def test_random(self):
+        self.fail()
+
+
+class TestArtifact(TestCase):
+    def test_set_power(self):
+        self.fail()
+
+    def test_has_power(self):
+        self.fail()
+
+
+class TestRandomArtifact(TestCase):
+    def test_random_power(self):
+        self.fail()
+
+    def test_random(self):
+        self.fail()
+
+
+class TestTalisman(TestCase):
+    def test_add_power(self):
+        self.fail()
+
+    def test_has_powers(self):
+        self.fail()
+
+
+class TestRandomTalisman(TestCase):
+    def test_random_power(self):
+        self.fail()
+
+    def test_random_powers(self):
+        self.fail()
+
+    def test_random(self):
+        self.fail()
+
+
 class TestGrimoire(TestCase):
     def setUp(self):
         self.grimoire = Grimoire.objects.create(name="Test Grimoire")
@@ -242,6 +330,9 @@ class TestRandomGrimoire(TestCase):
         self.grimoire = Grimoire.objects.create(name="Random Grimoire")
         grimoire_setup()
 
+    def test_random_name(self):
+        self.fail()
+
     def test_random_rank(self):
         mocker = Mock()
         mocker.side_effect = [0.0001, 0.00001]
@@ -264,6 +355,15 @@ class TestRandomGrimoire(TestCase):
         self.assertFalse(self.grimoire.has_faction())
         self.grimoire.random_faction()
         self.assertTrue(self.grimoire.has_faction())
+
+    def test_paradigms(self):
+        self.fail()
+
+    def test_random_practices(self):
+        self.fail()
+
+    def test_random_instruments(self):
+        self.fail()
 
     def test_random_focus(self):
         self.assertFalse(self.grimoire.has_focus())

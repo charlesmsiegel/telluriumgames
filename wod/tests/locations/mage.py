@@ -22,6 +22,8 @@ from wod.tests.items.mage import grimoire_setup
 
 # Create your tests here.
 class TestNode(TestCase):
+    # TODO: Split into TestNode and TestRandomNode
+
     def setUp(self):
         for i in range(1, 11):
             Resonance.objects.create(name=f"Resonance {i}")
@@ -38,6 +40,9 @@ class TestNode(TestCase):
 
     # def test_gauntlet_rating(self):
     #     self.assertEqual(self.node.gauntlet, 3)
+
+    def test_random_name(self):
+        self.fail()
 
     def test_add_resonance(self):
         res = Resonance.objects.order_by("?").first()
@@ -65,6 +70,15 @@ class TestNode(TestCase):
         self.assertNotEqual(self.node.total_resonance(), 5)
         self.node.add_resonance(resonance[1])
         self.assertEqual(self.node.total_resonance(), 5)
+
+    def test_check_resonance(self):
+        self.fail()
+
+    def test_has_resonance(self):
+        self.fail()
+
+    def test_resonance_rating(self):
+        self.fail()
 
     def test_set_rank(self):
         self.assertEqual(self.node.rank, 0)
@@ -135,6 +149,9 @@ class TestNode(TestCase):
         self.node.add_mf(NodeMeritFlaw.objects.get(name="Node Flaw 2"), -2)
         self.assertEqual(self.node.total_mf(), 1)
 
+    def test_mf_rating(self):
+        self.fail()
+
     def test_set_size(self):
         self.assertEqual(self.node.size, 0)
         self.assertEqual(self.node.get_size_display(), "Average Room")
@@ -155,7 +172,7 @@ class TestNode(TestCase):
         self.assertEqual(self.node.ratio, -2)
         self.assertEqual(self.node.get_ratio_display(), "0.0")
 
-    def test_weekly_output(self):
+    def test_update_output(self):
         self.node.set_rank(2)
         self.assertEqual(self.node.ratio, 0)
         self.node.update_output()
@@ -217,14 +234,20 @@ class TestNode(TestCase):
         self.assertTrue(self.node.has_output())
 
 
+class TestNodeMeritFlaw(TestCase):
+    def test_save(self):
+        self.fail()
+
+
 class TestChantry(TestCase):
+    # TODO: Split to create TestRandomChantry
     def setUp(self) -> None:
         self.chantry = Chantry.objects.create(name="")
         self.player = User.objects.create_user(username="Test")
         mage_setup(self.player)
         grimoire_setup()
 
-    def test_total_points(self):
+    def test_random_points(self):
         self.chantry.rank = 1
         self.chantry.random_points()
         self.assertGreaterEqual(self.chantry.points, 10)
@@ -262,7 +285,13 @@ class TestChantry(TestCase):
         self.assertEqual(self.chantry.trait_cost("requisitions"), 4)
         self.assertEqual(self.chantry.trait_cost("reality_zone_rating"), 5)
 
-    def test_creation_of_nodes(self):
+    def test_has_node(self):
+        self.fail()
+
+    def test_total_node(self):
+        self.fail()
+
+    def test_create_nodes(self):
         self.chantry.random_faction()
         self.chantry.random_name()
         self.chantry.node_rating = 0
@@ -276,7 +305,10 @@ class TestChantry(TestCase):
         for node in self.chantry.nodes.all():
             self.assertEqual(node.parent, self.chantry)
 
-    def test_creation_of_library(self):
+    def test_has_libtary(self):
+        self.fail()
+
+    def test_create_library(self):
         self.chantry.library_rating = 0
         self.assertFalse(self.chantry.has_library())
         self.chantry.create_library()
@@ -308,6 +340,9 @@ class TestChantry(TestCase):
         self.assertEqual(self.chantry.points_spent(), 36)
         self.chantry.arcane = 1
         self.assertEqual(self.chantry.points_spent(), 38)
+
+    def test_set_rank(self):
+        self.fail()
 
     def test_random_rank(self):
         self.assertEqual(self.chantry.rank, 0)
@@ -395,6 +430,15 @@ class TestChantry(TestCase):
         self.chantry.random_season()
         self.assertTrue(self.chantry.has_season())
 
+    def test_random_populate(self):
+        self.fail()
+
+    def test_random_leadership_type(self):
+        self.fail()
+
+    def test_get_traits(self):
+        self.fail()
+
 
 class TestNodeDetailView(TestCase):
     def setUp(self) -> None:
@@ -435,6 +479,12 @@ class TestLibrary(TestCase):
         self.assertTrue(self.library.add_book(g))
         self.assertEqual(self.library.num_books(), count + 1)
 
+    def test_set_faction(self):
+        self.fail()
+
+    def test_has_faction(self):
+        self.fail()
+
     def test_has_books(self):
         self.library.rank = 3
         self.assertEqual(self.library.books.count(), 0)
@@ -443,11 +493,25 @@ class TestLibrary(TestCase):
         self.library.books.add(Grimoire.objects.create(name="Test Grimoire 3", rank=3))
         self.assertEqual(self.library.books.count(), 3)
 
-    def test_increase_library_rating(self):
+    def test_increase_rank(self):
         self.assertEqual(self.library.num_books(), 0)
         self.library.increase_rank()
         self.library.increase_rank()
         self.assertEqual(self.library.num_books(), 2)
+
+    def test_num_books(self):
+        self.fail()
+
+
+class TestRandomLibrary(TestCase):
+    def test_random_faction(self):
+        self.fail()
+
+    def test_random_book(self):
+        self.fail()
+
+    def test_random(self):
+        self.fail()
 
 
 class TestLibraryDetailView(TestCase):

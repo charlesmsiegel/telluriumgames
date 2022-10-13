@@ -91,10 +91,10 @@ class TestMortal(TestCase):
 
     def test_has_aspirations(self):
         self.fail()
-        
+
     def test_add_short_term_aspirations(self):
         self.fail()
-        
+
     def test_add_long_term_aspiration(self):
         self.fail()
 
@@ -110,25 +110,25 @@ class TestMortal(TestCase):
 
     def test_get_mental_attributes(self):
         self.fail()
-        
+
     def test_get_physical_attributes(self):
         self.fail()
-        
+
     def test_get_social_attributes(self):
         self.fail()
-        
+
     def test_get_attributes(self):
         self.fail()
-        
+
     def test_total_physical_attributes(self):
         self.fail()
-        
+
     def test_total_mental_attributes(self):
         self.fail()
-        
+
     def test_total_social_attributes(self):
         self.fail()
-        
+
     def test_total_attributes(self):
         self.fail()
 
@@ -304,25 +304,25 @@ class TestMortal(TestCase):
 
     def test_get_mental_skills(self):
         self.fail()
-        
+
     def test_get_physical_skills(self):
         self.fail()
-        
+
     def test_get_social_skills(self):
         self.fail()
-        
+
     def test_get_skills(self):
         self.fail()
-        
+
     def test_total_physical_skills(self):
         self.fail()
-        
+
     def test_total_mental_skills(self):
         self.fail()
-        
+
     def test_total_social_skills(self):
         self.fail()
-        
+
     def test_total_skills(self):
         self.fail()
 
@@ -421,10 +421,10 @@ class TestMortal(TestCase):
         self.assertEqual(
             self.character.merit_rating("Merit with Details", detail="Detail 1"), 2
         )
-        
+
     def test_remove_merit(self):
         self.fail()
-        
+
     def test_merit_rating(self):
         self.fail()
 
@@ -664,7 +664,7 @@ class TestMortal(TestCase):
         self.assertEqual(
             self.character.get_absolute_url(), f"/cod/characters/{self.character.id}/"
         )
-        
+
     def test_random_xp_functions(self):
         self.fail()
 
@@ -689,22 +689,22 @@ class TestMortal(TestCase):
 
     def test_spend_xp_attribute(self):
         self.fail()
-        
+
     def test_spend_xp_skill(self):
         self.fail()
-        
+
     def test_spend_xp_merit(self):
         self.fail()
-        
+
     def test_spend_xp_specialty(self):
         self.fail()
-        
+
     def test_add_morality(self):
         self.fail()
-        
+
     def test_add_willpower(self):
         self.fail()
-        
+
     def test_spend_xp_morality(self):
         self.fail()
 
@@ -725,10 +725,10 @@ class TestMortal(TestCase):
 
     def test_spend_xp(self):
         self.fail()
-        
+
     def test_add_condition(self):
         self.fail()
-        
+
     def test_remove_condition(self):
         self.fail()
 
@@ -907,22 +907,22 @@ class TestRandomMortal(TestCase):
         self.character.xp = 15
         self.character.random_spend_xp()
         self.assertLess(self.character.xp, 15)
-        
+
     def test_random_xp_willpower(self):
         self.fail()
-        
+
     def test_random_xp_attribute(self):
         self.fail()
-        
+
     def test_random_xp_skill(self):
         self.fail()
-        
+
     def test_random_xp_merit(self):
         self.fail()
-        
+
     def test_random_xp_specialty(self):
         self.fail()
-        
+
     def test_random_xp_morality(self):
         self.fail()
 
@@ -964,10 +964,10 @@ class TestMerit(TestCase):
 
     def test_prereq_satisfied(self):
         self.fail()
-        
+
     def test_check_prereqs(self):
         self.fail()
-        
+
     def test_count_prereqs(self):
         self.fail()
 

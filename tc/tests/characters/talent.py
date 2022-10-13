@@ -152,7 +152,7 @@ class TestTalent(TestCase):
 
     def test_total_gifts(self):
         self.fail()
-        
+
     def test_total_facets(self):
         self.fail()
 

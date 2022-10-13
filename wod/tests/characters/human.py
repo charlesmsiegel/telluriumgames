@@ -50,9 +50,10 @@ class TestCharacter(TestCase):
 class TestRandomCharacter(TestCase):
     def test_random_concept(self):
         self.fail()
-        
+
     def test_random_name(self):
         self.fail()
+
 
 class TestHuman(TestCase):
     def setUp(self) -> None:
@@ -754,64 +755,64 @@ class TestHuman(TestCase):
 
     def test_ability_deficit_flaw(self):
         self.fail()
-        
+
     def test_attribute_specialties(self):
         self.fail()
-        
+
     def test_total_attributes(self):
         self.fail()
 
     def test_total_talents(self):
         self.fail()
-        
+
     def test_total_skills(self):
         self.fail()
-        
+
     def test_total_knowledges(self):
         self.fail()
-        
+
     def test_total_abilities(self):
         self.fail()
 
     def test_total_backgrounds(self):
         self.fail()
-        
+
     def test_add_derangement(self):
         self.fail()
-        
+
     def test_mf_rating(self):
         self.fail()
-        
+
     def test_spend_freebies_attribute(self):
         self.fail()
-        
+
     def test_spend_freebies_ability(self):
         self.fail()
-        
+
     def test_spend_freebies_background(self):
         self.fail()
-        
+
     def test_spend_freebies_willpower(self):
         self.fail()
-        
+
     def test_spend_freebies_mf(self):
         self.fail()
-        
+
     def test_random_freebie_functions(self):
         self.fail()
 
     def test_spend_xp_attribute(self):
         self.fail()
-        
+
     def test_spend_xp_ability(self):
         self.fail()
-        
+
     def test_spend_xp_background(self):
         self.fail()
-        
+
     def test_spend_xp_willpower(self):
         self.fail()
-                
+
     def test_random_xp_functions(self):
         self.fail()
 
@@ -922,16 +923,16 @@ class TestRandomHuman(TestCase):
 
     def test_random_birthdate(self):
         self.fail()
-        
+
     def test_random_finishing_touches(self):
         self.fail()
-        
+
     def test_random_height(self):
         self.fail()
-        
+
     def test_random_weight(self):
         self.fail()
-        
+
     def test_random_history(self):
         self.fail()
 
@@ -966,19 +967,49 @@ class TestRandomHuman(TestCase):
         self.assertTrue(self.character.has_history())
         self.assertEqual(self.character.freebies, 0)
 
+    def test_random_freebies_attributes(self):
+        self.fail()
+
+    def test_random_freebies_abilities(self):
+        self.fail()
+
+    def test_random_freebies_backgrounds(self):
+        self.fail()
+
+    def test_random_freebies_willpower(self):
+        self.fail()
+
+    def test_random_freebies_meritflaw(self):
+        self.fail()
+
+    def test_random_xp_attributes(self):
+        self.fail()
+
+    def test_random_xp_abilities(self):
+        self.fail()
+
+    def test_random_xp_backgruond(self):
+        self.fail()
+
+    def test_random_xp_willpower(self):
+        self.fail()
+
+
 class TestRandomGroup(TestCase):
     def test_random_name(self):
         self.fail()
-        
+
     def test_random(self):
         self.fail()
+
 
 class TestMeritFlaw(TestCase):
     def test_save(self):
         self.fail()
-        
+
     def test_booleans(self):
         self.fail()
+
 
 class TestCharacterIndexView(TestCase):
     def test_index_status_code(self):

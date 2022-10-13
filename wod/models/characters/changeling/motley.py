@@ -25,7 +25,7 @@ class Motley(Group):
         from wod.models.characters.changeling.changeling import Changeling
 
         super().random(
-            num_chars=num_chars, 
+            num_chars=num_chars,
             new_characters=new_characters,
             random_names=random_names,
             freebies=freebies,

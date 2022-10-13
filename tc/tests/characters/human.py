@@ -106,7 +106,7 @@ class TestHuman(TestCase):
 
     def test_total_path_edges(self):
         self.fail()
-        
+
     def test_get_path_edges(self):
         self.fail()
 
@@ -677,33 +677,34 @@ class TestHuman(TestCase):
 
     def test_path_rating(self):
         self.fail()
-        
+
     def test_total_path_rating(self):
         self.fail()
 
     def test_spend_xp_attribute(self):
         self.fail()
-        
+
     def test_spend_xp_edge(self):
         self.fail()
-        
+
     def test_spend_xp_enhanced_edge(self):
         self.fail()
-        
+
     def test_spend_xp_skill(self):
         self.fail()
-        
+
     def test_spend_xp_trick(self):
         self.fail()
-        
+
     def test_spend_xp_specialty(self):
         self.fail()
-        
+
     def test_spend_xp_path(self):
         self.fail()
-        
+
     def test_spend_xp_approach(self):
         self.fail()
+
 
 class TestRandomHuman(TestCase):
     def setUp(self):
@@ -863,10 +864,10 @@ class TestEdge(TestCase):
 
     def test_save(self):
         self.fail()
-        
+
     def test_check_prereqs(self):
         self.fail()
-        
+
     def test_count_prereqs(self):
         self.fail()
 
@@ -888,9 +889,10 @@ class TestEdge(TestCase):
 class TestEnhancedEdge(TestCase):
     def test_check_prereqs(self):
         self.fail()
-        
+
     def test_count_prereqs(self):
         self.fail()
+
 
 class TestHumanDetailView(TestCase):
     def setUp(self) -> None:
@@ -984,6 +986,6 @@ class TestIndexView(TestCase):
 class TestPrereqSatisfiedFunctions(TestCase):
     def test_prereq_satisfied(self):
         self.fail()
-        
+
     def test_check_prereqs(self):
         self.fail()
