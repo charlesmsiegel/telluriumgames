@@ -217,40 +217,42 @@ class TestDots(TestCase):
         self.assertEqual(Counter(dots(6))["●"], 6)
         self.assertEqual(Counter(dots(6))["○"], 4)
 
+
 class TestFilePath(TestCase):
     def test_filepath_parsing(self):
         self.fail()
 
+
 class TestModel(TestCase):
     def test_get_gameline(self):
         self.fail()
-        
+
     def test_has_name(self):
         self.fail()
-        
+
     def test_set_name(self):
         self.fail()
-        
+
     def test_has_description(self):
         self.fail()
-        
+
     def test_set_description(self):
         self.fail()
-        
+
     def test_has_owner(self):
         self.fail()
-        
+
     def test_set_owner(self):
         self.fail()
-        
+
     def test_update_status(self):
         self.fail()
-        
+
     def test_toggle_display(self):
         self.fail()
-        
+
     def test_has_source(self):
         self.fail()
-        
+
     def test_add_source(self):
         self.fail()

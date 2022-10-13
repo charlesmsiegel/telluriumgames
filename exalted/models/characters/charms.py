@@ -93,7 +93,7 @@ class Charm(ModelWithPrereqs):
             if all(prereq_set):
                 return self.check_essence(character) and self.check_ability(character)
         return False
-    
+
     def prereq_display(self):
         tmp_prereqs = [x for x in self.prereqs]
         for i, prereq_set in enumerate(tmp_prereqs):

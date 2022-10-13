@@ -658,12 +658,15 @@ class TestChangeling(TestCase):
         self.character.fae_mien = "Magical"
         self.assertTrue(self.character.has_changeling_appearance())
 
+    def test_set_changeling_appearance(self):
+        self.fail()
+
     def test_set_changeling_history(self):
         self.fail()
-        
+
     def test_random_freebie_functions(self):
         self.fail()
-        
+
     def test_random_xp_functions(self):
         self.fail()
 
@@ -706,7 +709,7 @@ class TestRandomChangeling(TestCase):
 
     def test_random_changeling_history(self):
         self.fail()
-        
+
     def test_random_changeling_appearance(self):
         self.fail()
 
@@ -805,19 +808,19 @@ class TestRandomChangeling(TestCase):
 
     def test_random_freebies_art(self):
         self.fail()
-        
+
     def test_random_freebies_realm(self):
         self.fail()
-        
+
     def test_random_freebies_glamour(self):
         self.fail()
-        
+
     def test_random_xp_art(self):
         self.fail()
-        
+
     def test_random_xp_realm(self):
         self.fail()
-        
+
     def test_random_xp_glamour(self):
         self.fail()
 

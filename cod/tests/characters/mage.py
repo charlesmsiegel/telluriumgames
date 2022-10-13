@@ -272,19 +272,19 @@ class TestMage(TestCase):
 
     def test_add_attainment(self):
         self.fail()
-        
+
     def test_set_dedicated_tool(self):
         self.fail()
-        
+
     def test_has_dedicated_tool(self):
         self.fail()
-        
+
     def test_set_obsession(self):
         self.fail()
-        
+
     def test_has_obsession(self):
         self.fail()
-        
+
     def test_add_wisdom(self):
         self.fail()
 
@@ -448,28 +448,28 @@ class TestMage(TestCase):
 
     def test_spend_xp(self):
         self.fail()
-        
+
     def test_random_xp_functions(self):
         self.fail()
-        
+
     def test_spend_xp_arcana(self):
         self.fail()
-        
+
     def test_spend_xp_attainment(self):
         self.fail()
-        
+
     def test_spend_xp_rote(self):
         self.fail()
-        
+
     def test_spend_xp_gnosis(self):
         self.fail()
-        
+
     def test_spend_xp_wisdom(self):
         self.fail()
-        
+
     def test_set_familiar(self):
         self.fail()
-        
+
     def test_assign_advantages(self):
         self.fail()
 
@@ -517,10 +517,10 @@ class TestRandomMage(TestCase):
 
     def test_random_dedicated_tool(self):
         self.fail()
-        
+
     def test_random_obsessions(self):
         self.fail()
-        
+
     def test_random_gnosis(self):
         self.fail()
 
@@ -549,19 +549,19 @@ class TestRandomMage(TestCase):
 
     def test_random_xp_attainment(self):
         self.fail()
-        
+
     def test_random_xp_wisdom(self):
         self.fail()
-        
+
     def test_random_xp_arcanum(self):
         self.fail()
-        
+
     def test_random_xp_gnosis(self):
         self.fail()
-        
+
     def test_random_xp_rote(self):
         self.fail()
-        
+
     def test_random_familiar(self):
         self.fail()
 
@@ -662,10 +662,10 @@ class TestProximiFamily(TestCase):
 
     def test_total_possible_blessings(self):
         self.fail()
-        
+
     def test_add_possible_blessing(self):
         self.fail()
-        
+
     def test_set_curse(self):
         self.fail()
 
@@ -750,15 +750,16 @@ class TestProximi(TestCase):
 
     def test_random_xp_functions(self):
         self.fail()
-        
+
     def test_spend_xp_blessing(self):
         self.fail()
-        
+
     def test_total_merits(self):
         self.fail()
-        
+
     def test_total_blessings(self):
         self.fail()
+
 
 class TestRandomProximiFamily(TestCase):
     def setUp(self):
@@ -913,22 +914,24 @@ class TestProximiDetailView(TestCase):
         response = self.client.get(f"/cod/characters/{self.proximi.id}/")
         self.assertTemplateUsed(response, "cod/characters/mage/proximi/detail.html")
 
+
 class TestAttainment(TestCase):
     def test_prereq_satisfied(self):
         self.fail()
-        
+
     def test_check_prereqs(self):
         self.fail()
-        
+
     def test_count_prereqs(self):
         self.fail()
+
 
 class TestLegacy(TestCase):
     def test_prereq_satisfied(self):
         self.fail()
-        
+
     def test_check_prereqs(self):
         self.fail()
-        
+
     def test_count_prereqs(self):
         self.fail()

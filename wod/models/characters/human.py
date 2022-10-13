@@ -592,7 +592,6 @@ class Human(Character):
     def add_willpower(self):
         return add_dot(self, "willpower", 10)
 
-
     def add_random_language(self):
         d = {
             l.name: l.frequency
@@ -858,6 +857,7 @@ class Human(Character):
         self.spent_xp = ", ".join(spent)
 
     def spend_xp(self, trait):
+        # TODO: Break this up
         if trait in self.get_attributes():
             cost = self.xp_cost("attribute") * getattr(self, trait)
             if cost <= self.xp:
