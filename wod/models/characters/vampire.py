@@ -30,7 +30,7 @@ class VtMHuman(Human):
     resources = models.IntegerField(default=0)
     retainers = models.IntegerField(default=0)
     rituals = models.IntegerField(default=0)
-    status = models.IntegerField(default=0)
+    status_background = models.IntegerField(default=0)
     
     class Meta:
         verbose_name = "Human (Vampire)"
@@ -86,7 +86,7 @@ class VtMHuman(Human):
                 "resources": self.resources,
                 "retainers": self.retainers,
                 "rituals": self.rituals,
-                "status": self.status,
+                "status_background": self.status_background,
             }
         )
         return backgrounds

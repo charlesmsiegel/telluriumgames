@@ -26,7 +26,7 @@ class WtOHuman(Human):
     memoriam = models.IntegerField(default=0)
     notoriety = models.IntegerField(default=0)
     relic = models.IntegerField(default=0)
-    status = models.IntegerField(default=0)
+    status_background = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Human (Wraith)"
@@ -78,7 +78,7 @@ class WtOHuman(Human):
                 "memoriam": self.memoriam,
                 "notoriety": self.notoriety,
                 "relic": self.relic,
-                "status": self.status,
+                "status_background": self.status_background,
             }
         )
         return backgrounds

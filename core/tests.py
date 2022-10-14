@@ -8,6 +8,7 @@ from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.support.ui import Select
 
 from cod.models.characters.mortal import Mortal
+from core.models import CharacterModel, filepath
 from core.templatetags.dots import dots
 
 # from game.models import Scene, Story
@@ -220,39 +221,68 @@ class TestDots(TestCase):
 
 class TestFilePath(TestCase):
     def test_filepath_parsing(self):
-        self.fail()
+        m = Mortal.objects.create(name="Test Mortal from CoD")
+        self.assertEqual(filepath(m, "test.jpg"), "cod/characters/mortal/mortal/test_mortal_from_cod.jpg")
 
 
 class TestModel(TestCase):
+    def setUp(self):
+        # Model is abstract, using a descendant class to test methods
+        self.model = CharacterModel.objects.create(name="")
+        self.user = User.objects.create_user(username="Test User")
+    
     def test_get_gameline(self):
-        self.fail()
+        m = Mortal.objects.create(name="Test Mortal from CoD")
+        self.assertEqual(m.get_gameline(), "Chronicles of Darkness")
 
     def test_has_name(self):
-        self.fail()
+        self.assertFalse(self.model.has_name())
+        self.model.set_name("Test")
+        self.assertTrue(self.model.has_name())
 
     def test_set_name(self):
-        self.fail()
+        self.assertFalse(self.model.has_name())
+        self.assertTrue(self.model.set_name("Test"))
+        self.assertTrue(self.model.has_name())
 
     def test_has_description(self):
-        self.fail()
+        self.assertFalse(self.model.has_description())
+        self.model.set_description("Test")
+        self.assertTrue(self.model.has_description())
 
     def test_set_description(self):
-        self.fail()
+        self.assertFalse(self.model.has_description())
+        self.assertTrue(self.model.set_description("Test"))
+        self.assertTrue(self.model.has_description())
 
     def test_has_owner(self):
-        self.fail()
+        self.assertFalse(self.model.has_owner())
+        self.model.set_owner(self.user)
+        self.assertTrue(self.model.has_owner())
 
     def test_set_owner(self):
-        self.fail()
+        self.assertFalse(self.model.has_owner())
+        self.assertTrue(self.model.set_owner(self.user))
+        self.assertTrue(self.model.has_owner())
 
     def test_update_status(self):
-        self.fail()
+        self.assertEqual(self.model.status, "Un")
+        self.assertEqual(self.model.get_status_display(), "Unfinished")
+        self.assertTrue(self.model.update_status("App"))
+        self.assertEqual(self.model.status, "App")
+        self.assertEqual(self.model.get_status_display(), "Approved")
 
     def test_toggle_display(self):
-        self.fail()
+        self.assertTrue(self.model.display)
+        self.assertTrue(self.model.toggle_display())
+        self.assertFalse(self.model.display)
 
     def test_has_source(self):
-        self.fail()
+        self.assertFalse(self.model.has_source())
+        self.model.add_source("Test Book", 1)
+        self.assertTrue(self.model.has_source())
 
     def test_add_source(self):
-        self.fail()
+        self.assertFalse(self.model.has_source())
+        self.assertTrue(self.model.add_source("Test Book", 1))
+        self.assertTrue(self.model.has_source())

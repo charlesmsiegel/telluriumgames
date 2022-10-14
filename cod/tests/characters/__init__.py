@@ -5,3 +5,4 @@ from .mortal import *
 from .promethean import *
 from .vampire import *
 from .werewolf import *
+from .ephemera import *

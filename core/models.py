@@ -116,6 +116,7 @@ def filepath(instance, filename):
     s = "/".join([x for x in s.split(".") if x != "models"])
     s += "/" + instance.name
     s += "." + filename.split(".")[-1]
+    s = s.lower().replace(" ", "_")
     return s
 
 
@@ -191,6 +192,7 @@ class Model(PolymorphicModel):
 
     def toggle_display(self):
         self.display = not self.display
+        return True
 
     def has_source(self):
         return self.sources.count() > 0
