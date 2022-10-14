@@ -222,7 +222,10 @@ class TestDots(TestCase):
 class TestFilePath(TestCase):
     def test_filepath_parsing(self):
         m = Mortal.objects.create(name="Test Mortal from CoD")
-        self.assertEqual(filepath(m, "test.jpg"), "cod/characters/mortal/mortal/test_mortal_from_cod.jpg")
+        self.assertEqual(
+            filepath(m, "test.jpg"),
+            "cod/characters/mortal/mortal/test_mortal_from_cod.jpg",
+        )
 
 
 class TestModel(TestCase):
@@ -230,7 +233,7 @@ class TestModel(TestCase):
         # Model is abstract, using a descendant class to test methods
         self.model = CharacterModel.objects.create(name="")
         self.user = User.objects.create_user(username="Test User")
-    
+
     def test_get_gameline(self):
         m = Mortal.objects.create(name="Test Mortal from CoD")
         self.assertEqual(m.get_gameline(), "Chronicles of Darkness")

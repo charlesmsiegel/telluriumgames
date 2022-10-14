@@ -257,13 +257,16 @@ class Node(Location):
 
     def random_name(self):
         if not self.has_name():
-            highest_res_rating = (
-                NodeResonanceRating.objects.filter(node=self)
-                .order_by("-rating")
-                .first()
-            )
+            if NodeResonanceRating.objects.filter(node=self).count() > 0:
+                highest_res_rating = (
+                    NodeResonanceRating.objects.filter(node=self)
+                    .order_by("-rating")
+                    .first()
+                ).resonance.name.title()
+            else:
+                highest_res_rating = ""
             n = Noun.objects.order_by("?").first()
-            name = f"{highest_res_rating.resonance.name.title()} {n.name.title()}"
+            name = f"{highest_res_rating} {n.name.title()}".strip()
             return self.set_name(name)
         return True
 

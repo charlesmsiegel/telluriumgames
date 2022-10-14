@@ -31,6 +31,7 @@ from wod.models.characters.mage import (
     Rote,
 )
 from wod.models.characters.mage.mtahuman import MtAHuman
+from wod.models.characters.vampire import VtMHuman
 from wod.models.characters.werewolf import (
     BattleScar,
     Camp,
@@ -49,6 +50,7 @@ from wod.models.characters.werewolf import (
     wtahuman,
 )
 from wod.models.characters.werewolf.wtahuman import WtAHuman
+from wod.models.characters.wraith import WtOHuman
 from wod.models.items.human import (
     MeleeWeapon,
     RangedWeapon,
@@ -77,8 +79,6 @@ from wod.models.locations.mage import (
     Sector,
 )
 from wod.models.locations.werewolf import Caern
-from wod.models.characters.vampire import VtMHuman
-from wod.models.characters.wraith import WtOHuman
 
 
 # Register your models here.

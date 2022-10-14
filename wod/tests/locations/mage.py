@@ -22,8 +22,6 @@ from wod.tests.items.mage import grimoire_setup
 
 # Create your tests here.
 class TestNode(TestCase):
-    # TODO: Split into TestNode and TestRandomNode
-
     def setUp(self):
         for i in range(1, 11):
             Resonance.objects.create(name=f"Resonance {i}")
@@ -41,9 +39,6 @@ class TestNode(TestCase):
     # def test_gauntlet_rating(self):
     #     self.assertEqual(self.node.gauntlet, 3)
 
-    def test_random_name(self):
-        self.fail()
-
     def test_add_resonance(self):
         res = Resonance.objects.order_by("?").first()
         self.assertEqual(self.node.resonance_rating(res), 0)
@@ -55,11 +50,6 @@ class TestNode(TestCase):
         for res in Resonance.objects.order_by("?")[:3]:
             self.assertTrue(self.node.add_resonance(res))
         self.assertEqual(len(self.node.filter_resonance(maximum=0)), 7)
-
-    def test_random_resonance(self):
-        self.assertEqual(self.node.total_resonance(), 0)
-        self.node.random_resonance()
-        self.assertEqual(self.node.total_resonance(), 1)
 
     def test_total_resonance(self):
         resonance = Resonance.objects.order_by("?")[:2]
@@ -85,11 +75,6 @@ class TestNode(TestCase):
         self.assertTrue(self.node.set_rank(3))
         self.assertEqual(self.node.rank, 3)
         self.assertEqual(self.node.points, 9)
-
-    def test_random_rank(self):
-        self.assertEqual(self.node.rank, 0)
-        self.node.random_rank()
-        self.assertNotEqual(self.node.rank, 0)
 
     def test_resonance_postprocessing(self):
         merit1 = NodeMeritFlaw.objects.create(name="Corrupted", ratings=[0])
@@ -135,12 +120,6 @@ class TestNode(TestCase):
             if "Flaw" in mf.name:
                 self.node.add_mf(mf, mf.ratings[0])
         self.assertEqual(len(self.node.filter_mf()), 0)
-
-    def test_random_mf(self):
-        num = self.node.total_mf()
-        while not self.node.random_mf(minimum=0):
-            pass
-        self.assertGreater(self.node.total_mf(), num)
 
     def test_total_mf(self):
         self.assertEqual(self.node.total_mf(), 0)
@@ -194,6 +173,49 @@ class TestNode(TestCase):
         self.assertTrue(self.node.set_output_forms("Quintessence", "Tass"))
         self.assertTrue(self.node.has_output_forms())
 
+    def test_has_output(self):
+        self.node.random_rank()
+        self.assertFalse(self.node.has_output())
+        self.node.update_output()
+        self.assertTrue(self.node.has_output())
+
+
+class TestRandomNode(TestCase):
+    def setUp(self):
+        for i in range(1, 11):
+            Resonance.objects.create(name=f"Resonance {i}")
+        for i in range(1, 6):
+            for j in [1, -1]:
+                if j == 1:
+                    t = "Merit"
+                else:
+                    t = "Flaw"
+                NodeMeritFlaw.objects.create(name=f"Node {t} {i}", ratings=[i * j])
+        self.node = Node.objects.create(name="")
+        for i in range(10):
+            Noun.objects.create(name=f"Node Noun {i}")
+
+    def test_random_name(self):
+        self.assertFalse(self.node.has_name())
+        self.node.random_name()
+        self.assertTrue(self.node.has_name())
+
+    def test_random_rank(self):
+        self.assertEqual(self.node.rank, 0)
+        self.node.random_rank()
+        self.assertNotEqual(self.node.rank, 0)
+
+    def test_random_resonance(self):
+        self.assertEqual(self.node.total_resonance(), 0)
+        self.node.random_resonance()
+        self.assertEqual(self.node.total_resonance(), 1)
+
+    def test_random_mf(self):
+        num = self.node.total_mf()
+        while not self.node.random_mf(minimum=0):
+            pass
+        self.assertGreater(self.node.total_mf(), num)
+
     def test_random_size(self):
         mocker = Mock()
         mocker.side_effect = [0, 2]
@@ -211,12 +233,6 @@ class TestNode(TestCase):
             self.assertEqual(self.node.ratio, 0)
             self.node.random_ratio()
             self.assertEqual(self.node.ratio, 2)
-
-    def test_has_output(self):
-        self.node.random_rank()
-        self.assertFalse(self.node.has_output())
-        self.node.update_output()
-        self.assertTrue(self.node.has_output())
 
     def test_random_forms(self):
         self.assertFalse(self.node.has_output_forms())
@@ -236,38 +252,16 @@ class TestNode(TestCase):
 
 class TestNodeMeritFlaw(TestCase):
     def test_save(self):
-        self.fail()
+        m = NodeMeritFlaw.objects.create(name="TestMF", ratings=[2, 3])
+        self.assertEqual(m.max_rating, 3)
 
 
 class TestChantry(TestCase):
-    # TODO: Split to create TestRandomChantry
     def setUp(self) -> None:
         self.chantry = Chantry.objects.create(name="")
         self.player = User.objects.create_user(username="Test")
         mage_setup(self.player)
         grimoire_setup()
-
-    def test_random_points(self):
-        self.chantry.rank = 1
-        self.chantry.random_points()
-        self.assertGreaterEqual(self.chantry.points, 10)
-        self.assertLessEqual(self.chantry.points, 20)
-        self.chantry.rank = 2
-        self.chantry.random_points()
-        self.assertGreaterEqual(self.chantry.points, 21)
-        self.assertLessEqual(self.chantry.points, 30)
-        self.chantry.rank = 3
-        self.chantry.random_points()
-        self.assertGreaterEqual(self.chantry.points, 31)
-        self.assertLessEqual(self.chantry.points, 70)
-        self.chantry.rank = 4
-        self.chantry.random_points()
-        self.assertGreaterEqual(self.chantry.points, 71)
-        self.assertLessEqual(self.chantry.points, 100)
-        self.chantry.rank = 5
-        self.chantry.random_points()
-        self.assertGreaterEqual(self.chantry.points, 101)
-        self.assertLessEqual(self.chantry.points, 200)
 
     def test_trait_cost(self):
         self.assertEqual(self.chantry.trait_cost("allies"), 2)
@@ -305,7 +299,7 @@ class TestChantry(TestCase):
         for node in self.chantry.nodes.all():
             self.assertEqual(node.parent, self.chantry)
 
-    def test_has_libtary(self):
+    def test_has_library(self):
         self.fail()
 
     def test_create_library(self):
@@ -344,26 +338,6 @@ class TestChantry(TestCase):
     def test_set_rank(self):
         self.fail()
 
-    def test_random_rank(self):
-        self.assertEqual(self.chantry.rank, 0)
-        self.chantry.random_rank()
-        self.assertNotEqual(self.chantry.rank, 0)
-
-    def test_random(self):
-        self.assertFalse(self.chantry.has_faction())
-        self.assertFalse(self.chantry.has_name())
-        self.assertFalse(self.chantry.has_library())
-        self.assertFalse(self.chantry.has_season())
-        self.assertFalse(self.chantry.has_chantry_type())
-        self.assertTrue(self.chantry.has_node())
-        self.chantry.random()
-        self.assertTrue(self.chantry.has_season())
-        self.assertTrue(self.chantry.has_chantry_type())
-        self.assertTrue(self.chantry.has_faction())
-        self.assertTrue(self.chantry.has_name())
-        self.assertGreater(self.chantry.points, 0)
-        self.assertLessEqual(self.chantry.points - self.chantry.points_spent(), 1)
-
     def test_has_faction(self):
         faction = MageFaction.objects.get(name="Test Faction 0")
         self.assertFalse(self.chantry.has_faction())
@@ -377,18 +351,6 @@ class TestChantry(TestCase):
         self.assertTrue(self.chantry.set_faction(faction))
         self.assertEqual(self.chantry.faction, faction)
         self.assertTrue(self.chantry.has_faction())
-
-    def test_random_faction(self):
-        self.assertFalse(self.chantry.has_faction())
-        self.assertTrue(self.chantry.random_faction())
-        self.assertTrue(self.chantry.has_faction())
-
-    def test_random_name(self):
-        self.assertEqual(self.chantry.name, "")
-        m, _ = MageFaction.objects.get_or_create(name="Society of Ether")
-        self.chantry.set_faction(m)
-        self.assertTrue(self.chantry.random_name())
-        self.assertIn("Laboratory", self.chantry.name)
 
     def test_has_name(self):
         self.assertFalse(self.chantry.has_name())
@@ -410,11 +372,6 @@ class TestChantry(TestCase):
         self.chantry.set_chantry_type("war")
         self.assertTrue(self.chantry.has_chantry_type())
 
-    def test_random_chantry_type(self):
-        self.assertFalse(self.chantry.has_chantry_type())
-        self.chantry.random_chantry_type()
-        self.assertTrue(self.chantry.has_chantry_type())
-
     def test_has_season(self):
         self.assertFalse(self.chantry.has_season())
         self.chantry.season = "spring"
@@ -425,6 +382,76 @@ class TestChantry(TestCase):
         self.chantry.set_season("spring")
         self.assertTrue(self.chantry.has_season())
 
+    def test_get_traits(self):
+        self.fail()
+
+
+class TestRandomChantry(TestCase):
+    def setUp(self) -> None:
+        self.chantry = Chantry.objects.create(name="")
+        self.player = User.objects.create_user(username="Test")
+        mage_setup(self.player)
+        grimoire_setup()
+
+    def test_random_points(self):
+        self.chantry.rank = 1
+        self.chantry.random_points()
+        self.assertGreaterEqual(self.chantry.points, 10)
+        self.assertLessEqual(self.chantry.points, 20)
+        self.chantry.rank = 2
+        self.chantry.random_points()
+        self.assertGreaterEqual(self.chantry.points, 21)
+        self.assertLessEqual(self.chantry.points, 30)
+        self.chantry.rank = 3
+        self.chantry.random_points()
+        self.assertGreaterEqual(self.chantry.points, 31)
+        self.assertLessEqual(self.chantry.points, 70)
+        self.chantry.rank = 4
+        self.chantry.random_points()
+        self.assertGreaterEqual(self.chantry.points, 71)
+        self.assertLessEqual(self.chantry.points, 100)
+        self.chantry.rank = 5
+        self.chantry.random_points()
+        self.assertGreaterEqual(self.chantry.points, 101)
+        self.assertLessEqual(self.chantry.points, 200)
+
+    def test_random_rank(self):
+        self.assertEqual(self.chantry.rank, 0)
+        self.chantry.random_rank()
+        self.assertNotEqual(self.chantry.rank, 0)
+
+    def test_random(self):
+        self.assertFalse(self.chantry.has_faction())
+        self.assertFalse(self.chantry.has_name())
+        self.assertFalse(self.chantry.has_library())
+        self.assertFalse(self.chantry.has_season())
+        self.assertFalse(self.chantry.has_chantry_type())
+        self.assertTrue(self.chantry.has_node())
+        self.chantry.random()
+        self.assertTrue(self.chantry.has_season())
+        self.assertTrue(self.chantry.has_chantry_type())
+        self.assertTrue(self.chantry.has_faction())
+        self.assertTrue(self.chantry.has_name())
+        self.assertGreater(self.chantry.points, 0)
+        self.assertLessEqual(self.chantry.points - self.chantry.points_spent(), 1)
+
+    def test_random_faction(self):
+        self.assertFalse(self.chantry.has_faction())
+        self.assertTrue(self.chantry.random_faction())
+        self.assertTrue(self.chantry.has_faction())
+
+    def test_random_name(self):
+        self.assertEqual(self.chantry.name, "")
+        m, _ = MageFaction.objects.get_or_create(name="Society of Ether")
+        self.chantry.set_faction(m)
+        self.assertTrue(self.chantry.random_name())
+        self.assertIn("Laboratory", self.chantry.name)
+
+    def test_random_chantry_type(self):
+        self.assertFalse(self.chantry.has_chantry_type())
+        self.chantry.random_chantry_type()
+        self.assertTrue(self.chantry.has_chantry_type())
+
     def test_random_season(self):
         self.assertFalse(self.chantry.has_season())
         self.chantry.random_season()
@@ -434,9 +461,6 @@ class TestChantry(TestCase):
         self.fail()
 
     def test_random_leadership_type(self):
-        self.fail()
-
-    def test_get_traits(self):
         self.fail()
 
 
@@ -498,6 +522,7 @@ class TestLibrary(TestCase):
         self.library.increase_rank()
         self.library.increase_rank()
         self.assertEqual(self.library.num_books(), 2)
+
 
     def test_num_books(self):
         self.fail()
