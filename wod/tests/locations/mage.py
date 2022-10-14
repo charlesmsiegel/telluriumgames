@@ -523,7 +523,6 @@ class TestLibrary(TestCase):
         self.library.increase_rank()
         self.assertEqual(self.library.num_books(), 2)
 
-
     def test_num_books(self):
         self.fail()
 
