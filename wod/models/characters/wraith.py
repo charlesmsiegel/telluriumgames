@@ -28,6 +28,13 @@ class WtOHuman(Human):
     relic = models.IntegerField(default=0)
     status = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "Human (Wraith)"
+        verbose_name_plural = "Humans (Wraith)"
+
+    def get_heading(self):
+        return "wto_heading"
+
     def get_talents(self):
         talents = super().get_talents()
         talents.update(

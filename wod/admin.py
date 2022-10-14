@@ -77,6 +77,8 @@ from wod.models.locations.mage import (
     Sector,
 )
 from wod.models.locations.werewolf import Caern
+from wod.models.characters.vampire import VtMHuman
+from wod.models.characters.wraith import WtOHuman
 
 
 # Register your models here.
@@ -375,3 +377,5 @@ admin.site.register(NodeResonanceRating)
 admin.site.register(MtAHuman)
 admin.site.register(WtAHuman)
 admin.site.register(HorizonRealm)
+admin.site.register(VtMHuman)
+admin.site.register(WtOHuman)

@@ -31,6 +31,13 @@ class VtMHuman(Human):
     retainers = models.IntegerField(default=0)
     rituals = models.IntegerField(default=0)
     status = models.IntegerField(default=0)
+    
+    class Meta:
+        verbose_name = "Human (Vampire)"
+        verbose_name_plural = "Humans (Vampire)"
+
+    def get_heading(self):
+        return "vtm_heading"
 
     def get_talents(self):
         talents = super().get_talents()
