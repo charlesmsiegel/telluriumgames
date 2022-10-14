@@ -2,10 +2,11 @@ from django.db import models
 
 from wod.models.characters.human import Human
 
+
 # Create your models here.
 class VtMHuman(Human):
     type = "vtm_human"
-    
+
     awareness = models.IntegerField(default=0)
     leadership = models.IntegerField(default=0)
     animal_ken = models.IntegerField(default=0)
@@ -31,51 +32,54 @@ class VtMHuman(Human):
     rituals = models.IntegerField(default=0)
     status = models.IntegerField(default=0)
 
-    
     def get_talents(self):
         talents = super().get_talents()
-        talents.update({
-            "awareness": self.awareness,
-            "leadership": self.leadership,
-        })
+        talents.update(
+            {"awareness": self.awareness, "leadership": self.leadership,}
+        )
         return talents
-    
+
     def get_skills(self):
-        skills= super().get_skills()
-        skills.update({
-            "animal_ken": self.animal_ken,
-            "larceny": self.larceny,
-            "performance": self.performance,
-            "survival": self.survival,
-        })
+        skills = super().get_skills()
+        skills.update(
+            {
+                "animal_ken": self.animal_ken,
+                "larceny": self.larceny,
+                "performance": self.performance,
+                "survival": self.survival,
+            }
+        )
         return skills
-    
+
     def get_knowledges(self):
         knowledges = super().get_knowledges()
-        knowledges.update({
-            "finance": self.finance,
-            "law": self.law,
-            "occult": self.occult,
-            "politics": self.politics,
-            "technology": self.technology,
-        })
+        knowledges.update(
+            {
+                "finance": self.finance,
+                "law": self.law,
+                "occult": self.occult,
+                "politics": self.politics,
+                "technology": self.technology,
+            }
+        )
         return knowledges
-    
+
     def get_backgrounds(self):
         backgrounds = super().get_backgrounds()
-        backgrounds.update({
-            "allies": self.allies,
-            "alternate_identity": self.alternate_identity,
-            "black_hand_membership": self.black_hand_membership,
-            "domain": self.domain,
-            "fame": self.fame,
-            "generation": self.generation,
-            "herd": self.herd,
-            "influence": self.influence,
-            "resources": self.resources,
-            "retainers": self.retainers,
-            "rituals": self.rituals,
-            "status": self.status,
-        })
+        backgrounds.update(
+            {
+                "allies": self.allies,
+                "alternate_identity": self.alternate_identity,
+                "black_hand_membership": self.black_hand_membership,
+                "domain": self.domain,
+                "fame": self.fame,
+                "generation": self.generation,
+                "herd": self.herd,
+                "influence": self.influence,
+                "resources": self.resources,
+                "retainers": self.retainers,
+                "rituals": self.rituals,
+                "status": self.status,
+            }
+        )
         return backgrounds
-    
