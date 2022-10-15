@@ -1,8 +1,19 @@
 from tabnanny import verbose
 
 from django.contrib import admin
+from pyparsing import Char
 
-from core.models import Book, BookReference, Language, Material, Medium, NewsItem
+from core.models import (
+    Book,
+    BookReference,
+    CharacterModel,
+    ItemModel,
+    Language,
+    LocationModel,
+    Material,
+    Medium,
+    NewsItem,
+)
 
 
 # Register your models here.
@@ -35,4 +46,7 @@ class BookAdmin(admin.ModelAdmin):
 
 
 admin.site.register(NewsItem)
+admin.site.register(CharacterModel)
+admin.site.register(ItemModel)
+admin.site.register(LocationModel)
 admin.site.register(BookReference)
