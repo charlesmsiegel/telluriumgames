@@ -139,7 +139,9 @@ class Chantry(Location):
     def get_heading(self):
         return "mtas_heading"
 
-    def random_name(self):
+    def random_name(self, name=None):
+        if name is not None:
+            return self.set_name(name)
         options = []
         current = self.faction
         while current is not None:
@@ -162,8 +164,10 @@ class Chantry(Location):
         self.save()
         return True
 
-    def random_season(self):
-        return self.set_season(random.choice(self.SEASONS)[0])
+    def random_season(self, season=None):
+        if season is None:
+            season = random.choice(self.SEASONS)[0]
+        return self.set_season(season)
 
     def has_chantry_type(self):
         return self.chantry_type is not None
@@ -173,8 +177,10 @@ class Chantry(Location):
         self.save()
         return True
 
-    def random_chantry_type(self):
-        return self.set_chantry_type(random.choice(self.CHANTRY_TYPES)[0])
+    def random_chantry_type(self, chantry_type=None):
+        if chantry_type is None:
+            chantry_type = random.choice(self.CHANTRY_TYPES)[0]
+        return self.set_chantry_type(chantry_type)
 
     def trait_cost(self, trait):
         if trait in [
@@ -223,7 +229,11 @@ class Chantry(Location):
         self.nodes.add(node)
         self.save()
 
-    def create_nodes(self):
+    def create_nodes(self, list_of_nodes=None):
+        if list_of_nodes is not None:
+            for node in list_of_nodes:
+                self.add_node(node)
+            return True
         node_ranks = []
         while sum(node_ranks) < self.node_rating:
             x = random.randint(1, min(5, self.node_rating - sum(node_ranks)))
@@ -236,6 +246,7 @@ class Chantry(Location):
                 n.set_name(f"{self.name}'s Node {i}")
             n.save()
             self.add_node(n)
+        return True
 
     def total_node(self):
         return sum(x.rank for x in self.nodes.all())
@@ -251,14 +262,16 @@ class Chantry(Location):
         library.save()
         return True
 
-    def create_library(self):
+    def create_library(self, library=None):
+        if library is not None:
+            return self.set_library(library)
         l, _ = Library.objects.get_or_create(
             name=f"{self.name} Library", owner=self.owner
         )
         l.rank = self.library_rating
         while l.num_books() < l.rank:
             l.random_book()
-        self.set_library(l)
+        return self.set_library(l)
 
     def random_points(self, rank=None):
         if rank is None:
@@ -319,17 +332,28 @@ class Chantry(Location):
             self.leaders.set(all_characters[:3])
         self.save()
 
-    def random_leadership_type(self):
-        self.leadership_type = random.choice(self.LEADERSHIP_CHOICES)[0]
+    def random_leadership_type(self, leadership_type=None):
+        if leadership_type is None:
+            self.leadership_type = leadership_type
+        else:
+            self.leadership_type = random.choice(self.LEADERSHIP_CHOICES)[0]
         return True
 
-    def random(self, rank=None):
+    def random(
+        self,
+        rank=None,
+        leadership_type=None,
+        name=None,
+        season=None,
+        chantry_type=None,
+        faction=None,
+    ):
         self.update_status("Ran")
-        self.random_leadership_type()
-        self.random_faction()
-        self.random_name()
-        self.random_season()
-        self.random_chantry_type()
+        self.random_leadership_type(leadership_type=leadership_type)
+        self.random_faction(faction=faction)
+        self.random_name(name=name)
+        self.random_season(season=season)
+        self.random_chantry_type(chantry_type=chantry_type)
         self.random_rank(rank=rank)
         self.random_populate()
         tmp = self.faction
@@ -379,5 +403,7 @@ class Chantry(Location):
     def has_faction(self):
         return self.faction is not None
 
-    def random_faction(self):
-        return self.set_faction(weighted_random_faction())
+    def random_faction(self, faction=None):
+        if faction is None:
+            faction = weighted_random_faction()
+        return self.set_faction(faction)
