@@ -95,8 +95,8 @@ class MeritFlaw(Model):
 
 
 class MeritFlawRating(models.Model):
-    character = models.ForeignKey("Human", on_delete=models.CASCADE)
-    mf = models.ForeignKey(MeritFlaw, on_delete=models.CASCADE)
+    character = models.ForeignKey("Human", on_delete=models.SET_NULL, null=True)
+    mf = models.ForeignKey(MeritFlaw, on_delete=models.SET_NULL, null=True)
     rating = models.IntegerField(default=0)
 
     class Meta:
@@ -144,14 +144,14 @@ class Human(Character):
 
     nature = models.ForeignKey(
         Archetype,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         blank=True,
         null=True,
         related_name="nature_of",
     )
     demeanor = models.ForeignKey(
         Archetype,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         blank=True,
         null=True,
         related_name="demeanor_of",
@@ -1086,7 +1086,7 @@ class Group(Model):
         Human,
         blank=True,
         related_name="leads_group",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
     )
 

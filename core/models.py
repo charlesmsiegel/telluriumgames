@@ -100,7 +100,7 @@ class Book(models.Model):
 
 
 class BookReference(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.SET_NULL, null=True)
     page = models.IntegerField(default=0)
 
     class Meta:
@@ -124,7 +124,7 @@ class Model(PolymorphicModel):
     type = "model"
 
     name = models.CharField(max_length=100)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
 
     status_keys = ["Un", "Sub", "App", "Ret", "Dec", "Ran", "Fre"]
     statuses = [
@@ -143,7 +143,7 @@ class Model(PolymorphicModel):
     description = models.TextField(default="")
     sources = models.ManyToManyField(BookReference, blank=True)
     chronicle = models.ForeignKey(
-        Chronicle, blank=True, null=True, on_delete=models.CASCADE
+        Chronicle, blank=True, null=True, on_delete=models.SET_NULL
     )
     image = models.ImageField(upload_to=filepath, blank=True, null=True)
 
@@ -247,11 +247,11 @@ class LocationModel(Model):
         "LocationModel",
         blank=True,
         null=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name="children",
     )
     owned_by = models.ForeignKey(
-        CharacterModel, blank=True, null=True, on_delete=models.CASCADE
+        CharacterModel, blank=True, null=True, on_delete=models.SET_NULL
     )
 
     class Meta:
@@ -261,10 +261,10 @@ class LocationModel(Model):
 
 class ItemModel(Model):
     owned_by = models.ForeignKey(
-        CharacterModel, blank=True, null=True, on_delete=models.CASCADE
+        CharacterModel, blank=True, null=True, on_delete=models.SET_NULL
     )
     located_at = models.ForeignKey(
-        LocationModel, blank=True, null=True, on_delete=models.CASCADE
+        LocationModel, blank=True, null=True, on_delete=models.SET_NULL
     )
 
     class Meta:

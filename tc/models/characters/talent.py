@@ -13,7 +13,7 @@ class Talent(Human):
     type = "talent"
 
     moment_of_inspiration = models.ForeignKey(
-        "MomentOfInspiration", blank=True, null=True, on_delete=models.CASCADE
+        "MomentOfInspiration", blank=True, null=True, on_delete=models.SET_NULL
     )
 
     inspiration = models.IntegerField(default=1)

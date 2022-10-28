@@ -677,10 +677,10 @@ class MegaEdge(Edge):
 
 class MegaEdgeRating(models.Model):
     mega_edge = models.ForeignKey(
-        MegaEdge, on_delete=models.CASCADE, blank=True, null=True
+        MegaEdge, on_delete=models.SET_NULL, blank=True, null=True
     )
     character = models.ForeignKey(
-        Aberrant, on_delete=models.CASCADE, blank=True, null=True
+        Aberrant, on_delete=models.SET_NULL, blank=True, null=True
     )
     rating = models.IntegerField(default=0)
 
@@ -762,9 +762,9 @@ class Power(Model):
 
 class PowerRating(models.Model):
     character = models.ForeignKey(
-        Aberrant, on_delete=models.CASCADE, blank=True, null=True
+        Aberrant, on_delete=models.SET_NULL, blank=True, null=True
     )
-    power = models.ForeignKey(Power, on_delete=models.CASCADE, blank=True, null=True)
+    power = models.ForeignKey(Power, on_delete=models.SET_NULL, blank=True, null=True)
     tags = models.ManyToManyField("Tag", blank=True, through="TagRating")
     rating = models.IntegerField(default=0)
 
@@ -804,9 +804,9 @@ class Tag(Model):
 
 
 class TagRating(models.Model):
-    tag = models.ForeignKey(Tag, blank=True, null=True, on_delete=models.CASCADE)
+    tag = models.ForeignKey(Tag, blank=True, null=True, on_delete=models.SET_NULL)
     power_rating = models.ForeignKey(
-        PowerRating, blank=True, null=True, on_delete=models.CASCADE
+        PowerRating, blank=True, null=True, on_delete=models.SET_NULL
     )
     rating = models.IntegerField(default=0)
 

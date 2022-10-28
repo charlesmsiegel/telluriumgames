@@ -16,7 +16,7 @@ class Story(models.Model):
     plot_summary = models.TextField(default="")
     key_locations = models.ManyToManyField("core.LocationModel", blank=True)
     chronicle = models.ForeignKey(
-        "game.Chronicle", null=True, blank=True, on_delete=models.CASCADE
+        "game.Chronicle", null=True, blank=True, on_delete=models.SET_NULL
     )
 
     class Meta:

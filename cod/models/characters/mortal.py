@@ -1017,10 +1017,10 @@ class CoDSpecialty(Model):
 
 class MeritRating(models.Model):
     character = models.ForeignKey(
-        "Mortal", null=False, blank=False, on_delete=models.CASCADE
+        "Mortal", null=True, blank=False, on_delete=models.SET_NULL
     )
     merit = models.ForeignKey(
-        "CoDMerit", null=False, blank=False, on_delete=models.CASCADE
+        "CoDMerit", null=True, blank=False, on_delete=models.SET_NULL
     )
     rating = models.IntegerField(default=0)
     detail = models.CharField(max_length=100, null=True, blank=True)

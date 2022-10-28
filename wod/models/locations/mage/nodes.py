@@ -317,8 +317,8 @@ class NodeMeritFlaw(Model):
 
 
 class NodeMeritFlawRating(models.Model):
-    node = models.ForeignKey(Node, on_delete=models.CASCADE)
-    mf = models.ForeignKey(NodeMeritFlaw, on_delete=models.CASCADE)
+    node = models.ForeignKey(Node, on_delete=models.SET_NULL, null=True)
+    mf = models.ForeignKey(NodeMeritFlaw, on_delete=models.SET_NULL, null=True)
     rating = models.IntegerField(default=0)
 
     class Meta:
@@ -327,8 +327,8 @@ class NodeMeritFlawRating(models.Model):
 
 
 class NodeResonanceRating(models.Model):
-    node = models.ForeignKey(Node, on_delete=models.CASCADE)
-    resonance = models.ForeignKey(Resonance, on_delete=models.CASCADE)
+    node = models.ForeignKey(Node, on_delete=models.SET_NULL, null=True)
+    resonance = models.ForeignKey(Resonance, on_delete=models.SET_NULL, null=True)
     rating = models.IntegerField(default=0)
 
     class Meta:

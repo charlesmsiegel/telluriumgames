@@ -111,8 +111,8 @@ class Attainment(ModelWithPrereqs):
 class Legacy(ModelWithPrereqs):
     type = "legacy"
 
-    path = models.ForeignKey(Path, null=True, blank=True, on_delete=models.CASCADE)
-    order = models.ForeignKey(Order, null=True, blank=True, on_delete=models.CASCADE)
+    path = models.ForeignKey(Path, null=True, blank=True, on_delete=models.SET_NULL)
+    order = models.ForeignKey(Order, null=True, blank=True, on_delete=models.SET_NULL)
     ruling_arcanum = models.CharField(
         max_length=10,
         choices=[
@@ -218,9 +218,9 @@ class Mage(Mortal):
 
     shadow_name = models.CharField(max_length=100, default="")
 
-    order = models.ForeignKey(Order, blank=True, null=True, on_delete=models.CASCADE)
-    path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.CASCADE)
-    legacy = models.ForeignKey(Legacy, blank=True, null=True, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, blank=True, null=True, on_delete=models.SET_NULL)
+    path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.SET_NULL)
+    legacy = models.ForeignKey(Legacy, blank=True, null=True, on_delete=models.SET_NULL)
 
     rote_skills = models.JSONField(default=list)
 
@@ -835,8 +835,8 @@ class Mage(Mortal):
 
 
 class KnownRote(models.Model):
-    mage = models.ForeignKey(Mage, on_delete=models.CASCADE)
-    rote = models.ForeignKey(CoDRote, on_delete=models.CASCADE)
+    mage = models.ForeignKey(Mage, on_delete=models.SET_NULL, null=True)
+    rote = models.ForeignKey(CoDRote, on_delete=models.SET_NULL, null=True)
     rote_skill = models.CharField(default="", max_length=20, blank=True, null=True)
 
     class Meta:
@@ -845,8 +845,8 @@ class KnownRote(models.Model):
 
 
 class KnownPraxis(models.Model):
-    mage = models.ForeignKey(Mage, on_delete=models.CASCADE)
-    rote = models.ForeignKey(CoDRote, on_delete=models.CASCADE)
+    mage = models.ForeignKey(Mage, on_delete=models.SET_NULL, null=True)
+    rote = models.ForeignKey(CoDRote, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         verbose_name = "Known Praxis"
@@ -856,7 +856,7 @@ class KnownPraxis(models.Model):
 class ProximiFamily(Model):
     type = "proximi_family"
 
-    path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.CASCADE)
+    path = models.ForeignKey(Path, blank=True, null=True, on_delete=models.SET_NULL)
     blessing_arcana = models.CharField(
         max_length=10,
         choices=[
@@ -874,7 +874,7 @@ class ProximiFamily(Model):
     )
     possible_blessings = models.ManyToManyField(CoDRote, blank=True)
     curse = models.ForeignKey(
-        Condition, blank=True, null=True, on_delete=models.CASCADE
+        Condition, blank=True, null=True, on_delete=models.SET_NULL
     )
 
     class Meta:
@@ -971,7 +971,7 @@ class Proximi(Mortal):
     type = "proximi"
 
     family = models.ForeignKey(
-        ProximiFamily, null=True, blank=True, on_delete=models.CASCADE
+        ProximiFamily, null=True, blank=True, on_delete=models.SET_NULL
     )
     blessings = models.ManyToManyField(CoDRote, blank=True)
 

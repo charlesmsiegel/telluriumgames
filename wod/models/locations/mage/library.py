@@ -14,7 +14,7 @@ class Library(Location):
 
     rank = models.IntegerField(default=1)
     faction = models.ForeignKey(
-        MageFaction, null=True, blank=True, on_delete=models.CASCADE
+        MageFaction, null=True, blank=True, on_delete=models.SET_NULL
     )
     books = models.ManyToManyField(Grimoire, blank=True)
 

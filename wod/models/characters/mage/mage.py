@@ -26,10 +26,10 @@ PRACTICE_ABILITY_WEIGHTING = 3
 class Rote(Model):
     type = "rote"
 
-    mage = models.ForeignKey("Mage", on_delete=models.CASCADE)
-    effect = models.ForeignKey(Effect, on_delete=models.CASCADE)
+    mage = models.ForeignKey("Mage", on_delete=models.SET_NULL, null=True)
+    effect = models.ForeignKey(Effect, on_delete=models.SET_NULL, null=True)
     practice = models.ForeignKey(
-        Practice, on_delete=models.CASCADE, null=True, blank=True
+        Practice, on_delete=models.SET_NULL, null=True, blank=True
     )
     attribute = models.CharField(max_length=50)
     ability = models.CharField(max_length=50)
@@ -71,21 +71,21 @@ class Mage(MtAHuman):
 
     affiliation = models.ForeignKey(
         MageFaction,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="affiliations",
     )
     faction = models.ForeignKey(
         MageFaction,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="factions",
     )
     subfaction = models.ForeignKey(
         MageFaction,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="subfactions",
@@ -166,10 +166,10 @@ class Mage(MtAHuman):
     paradox = models.IntegerField(default=0)
 
     library_owned = models.ForeignKey(
-        Library, on_delete=models.CASCADE, null=True, blank=True
+        Library, on_delete=models.SET_NULL, null=True, blank=True
     )
     node_owned = models.ForeignKey(
-        Node, on_delete=models.CASCADE, null=True, blank=True
+        Node, on_delete=models.SET_NULL, null=True, blank=True
     )
 
     quiet = models.IntegerField(default=0)

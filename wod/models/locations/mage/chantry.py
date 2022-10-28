@@ -20,7 +20,7 @@ class Chantry(Location):
     type = "chantry"
 
     faction = models.ForeignKey(
-        MageFaction, blank=True, null=True, on_delete=models.CASCADE
+        MageFaction, blank=True, null=True, on_delete=models.SET_NULL
     )
 
     LEADERSHIP_CHOICES = [
@@ -77,7 +77,7 @@ class Chantry(Location):
     library_rating = models.IntegerField(default=0)
 
     chantry_library = models.ForeignKey(
-        Library, on_delete=models.CASCADE, blank=True, null=True
+        Library, on_delete=models.SET_NULL, blank=True, null=True
     )
     nodes = models.ManyToManyField(Node, blank=True)
 
@@ -88,14 +88,14 @@ class Chantry(Location):
         Human,
         blank=True,
         null=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name="ambassador_from",
     )
     node_tender = models.ForeignKey(
         Human,
         blank=True,
         null=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name="tends_node_at",
     )
     investigator = models.ManyToManyField(

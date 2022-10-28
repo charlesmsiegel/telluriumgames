@@ -17,7 +17,7 @@ class MageFaction(Model):
     media = models.ManyToManyField(Medium, blank=True)
     materials = models.ManyToManyField(Material, blank=True)
     founded = models.IntegerField(default=-5000)
-    parent = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
+    parent = models.ForeignKey("self", on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
         verbose_name = "Mage Faction"

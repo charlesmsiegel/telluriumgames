@@ -778,8 +778,8 @@ class ExMerit(ModelWithPrereqs):
 
 
 class MeritRating(models.Model):
-    character = models.ForeignKey(ExMortal, on_delete=models.CASCADE)
-    merit = models.ForeignKey(ExMerit, on_delete=models.CASCADE)
+    character = models.ForeignKey(ExMortal, on_delete=models.SET_NULL, null=True)
+    merit = models.ForeignKey(ExMerit, on_delete=models.SET_NULL, null=True)
     rating = models.IntegerField(default=0)
 
     class Meta:

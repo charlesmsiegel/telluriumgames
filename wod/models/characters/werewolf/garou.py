@@ -81,7 +81,7 @@ class Tribe(Model):
 class Camp(Model):
     type = "camp"
 
-    tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.CASCADE)
+    tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.SET_NULL)
     camp_type = models.CharField(
         max_length=100,
         default="camp",
@@ -175,7 +175,7 @@ class Werewolf(WtAHuman):
         max_length=100,
         choices=[("homid", "Homid"), ("metis", "Metis"), ("lupus", "Lupus"),],
     )
-    tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.CASCADE)
+    tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.SET_NULL)
     camps = models.ManyToManyField(Camp, blank=True)
 
     gnosis = models.IntegerField(default=0)
@@ -872,7 +872,7 @@ class Werewolf(WtAHuman):
 class Pack(Group):
     type = "pack"
 
-    totem = models.ForeignKey(Totem, null=True, blank=True, on_delete=models.CASCADE)
+    totem = models.ForeignKey(Totem, null=True, blank=True, on_delete=models.SET_NULL)
 
     class Meta:
         verbose_name = "Pack"
@@ -923,7 +923,7 @@ class RenownIncident(Model):
     posthumous = models.BooleanField(default=False)
     only_once = models.BooleanField(default=False)
     breed = models.CharField(default="", max_length=10)
-    rite = models.ForeignKey(Rite, null=True, blank=True, on_delete=models.CASCADE)
+    rite = models.ForeignKey(Rite, null=True, blank=True, on_delete=models.SET_NULL)
 
     class Meta:
         verbose_name = "Renown Incident"

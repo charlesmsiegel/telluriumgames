@@ -26,8 +26,8 @@ class WonderResonanceRating(models.Model):
         verbose_name = "Wonder Resonance Rating"
         verbose_name_plural = "Wonder Resonance Ratings"
 
-    wonder = models.ForeignKey("Wonder", on_delete=models.CASCADE)
-    resonance = models.ForeignKey(Resonance, on_delete=models.CASCADE)
+    wonder = models.ForeignKey("Wonder", on_delete=models.SET_NULL, null=True)
+    resonance = models.ForeignKey(Resonance, on_delete=models.SET_NULL, null=True)
     rating = models.IntegerField(default=0)
 
 
@@ -145,7 +145,7 @@ class Charm(Wonder):
     type = "charm"
 
     arete = models.IntegerField(default=0)
-    power = models.ForeignKey(Effect, blank=True, null=True, on_delete=models.CASCADE)
+    power = models.ForeignKey(Effect, blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         verbose_name = "Charm"
@@ -175,7 +175,7 @@ class Charm(Wonder):
 class Artifact(Wonder):
     type = "artifact"
 
-    power = models.ForeignKey(Effect, blank=True, null=True, on_delete=models.CASCADE)
+    power = models.ForeignKey(Effect, blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         verbose_name = "Artifact"
@@ -250,31 +250,31 @@ class Grimoire(Wonder):
     spheres = models.JSONField(default=list)
     date_written = models.IntegerField(default=-5000)
     faction = models.ForeignKey(
-        MageFaction, null=True, blank=True, on_delete=models.CASCADE
+        MageFaction, null=True, blank=True, on_delete=models.SET_NULL
     )
     paradigms = models.ManyToManyField(Paradigm, blank=True)
     practices = models.ManyToManyField(Practice, blank=True)
     instruments = models.ManyToManyField(Instrument, blank=True)
     is_primer = models.BooleanField(default=False)
     language = models.ForeignKey(
-        Language, null=True, blank=True, on_delete=models.CASCADE
+        Language, null=True, blank=True, on_delete=models.SET_NULL
     )
     length = models.IntegerField(default=0)
     cover_material = models.ForeignKey(
         Material,
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name="is_cover",
     )
     inner_material = models.ForeignKey(
         Material,
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name="is_inner",
     )
-    medium = models.ForeignKey(Medium, null=True, blank=True, on_delete=models.CASCADE)
+    medium = models.ForeignKey(Medium, null=True, blank=True, on_delete=models.SET_NULL)
     effects = models.ManyToManyField(Effect, blank=True)
 
     class Meta:

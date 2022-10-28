@@ -17,7 +17,7 @@ class Kinfolk(WtAHuman):
     breed = models.CharField(
         default="", max_length=100, choices=[("homid", "Homid"), ("lupus", "Lupus"),],
     )
-    tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.CASCADE)
+    tribe = models.ForeignKey(Tribe, blank=True, null=True, on_delete=models.SET_NULL)
 
     relation = models.CharField(max_length=100, default="")
     gifts = models.ManyToManyField(Gift, blank=True)

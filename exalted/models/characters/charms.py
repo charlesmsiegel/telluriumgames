@@ -129,7 +129,7 @@ class MartialArtsCharm(Charm):
     type = "martial_arts_charm"
 
     style = models.ForeignKey(
-        MartialArtsStyle, null=True, blank=True, on_delete=models.CASCADE
+        MartialArtsStyle, null=True, blank=True, on_delete=models.SET_NULL
     )
 
     class Meta:

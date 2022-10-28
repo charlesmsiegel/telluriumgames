@@ -992,9 +992,9 @@ class EnhancedEdge(ModelWithPrereqs):
 
 class EdgeRating(models.Model):
     character = models.ForeignKey(
-        Human, null=False, blank=False, on_delete=models.CASCADE
+        Human, null=True, blank=False, on_delete=models.SET_NULL
     )
-    edge = models.ForeignKey(Edge, null=False, blank=False, on_delete=models.CASCADE)
+    edge = models.ForeignKey(Edge, null=True, blank=False, on_delete=models.SET_NULL)
     rating = models.IntegerField(default=0)
 
     class Meta:
@@ -1007,11 +1007,11 @@ class EdgeRating(models.Model):
 
 class PathRating(models.Model):
     character = models.ForeignKey(
-        Human, null=False, blank=False, on_delete=models.CASCADE
+        Human, null=True, blank=False, on_delete=models.SET_NULL
     )
-    path = models.ForeignKey(TCPath, null=False, blank=False, on_delete=models.CASCADE)
+    path = models.ForeignKey(TCPath, null=True, blank=False, on_delete=models.SET_NULL)
     connection = models.ForeignKey(
-        "PathConnection", null=True, blank=True, on_delete=models.CASCADE
+        "PathConnection", null=True, blank=True, on_delete=models.SET_NULL
     )
     rating = models.IntegerField(default=0)
 
@@ -1026,7 +1026,7 @@ class PathRating(models.Model):
 class PathConnection(Model):
     type = "path_connection"
 
-    path = models.ForeignKey(TCPath, blank=True, null=True, on_delete=models.CASCADE)
+    path = models.ForeignKey(TCPath, blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         verbose_name = "Path Connection"

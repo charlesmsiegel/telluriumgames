@@ -7,13 +7,13 @@ from .post import Post
 # Create your models here.
 class Scene(models.Model):
     name = models.CharField(max_length=100, default="")
-    story = models.ForeignKey("game.Story", on_delete=models.CASCADE)
+    story = models.ForeignKey("game.Story", on_delete=models.SET_NULL, null=True)
     date_played = models.DateField(null=True, blank=True)
     characters = models.ManyToManyField(
         "core.CharacterModel", related_name="scenes", blank=True
     )
     location = models.ForeignKey(
-        "core.LocationModel", on_delete=models.CASCADE, null=True
+        "core.LocationModel", on_delete=models.SET_NULL, null=True
     )
     finished = models.BooleanField(default=False)
     xp_given = models.BooleanField(default=False)

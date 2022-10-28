@@ -51,8 +51,8 @@ class Resonance(Model):
 
 
 class ResRating(models.Model):
-    mage = models.ForeignKey("Mage", on_delete=models.CASCADE)
-    resonance = models.ForeignKey(Resonance, on_delete=models.CASCADE)
+    mage = models.ForeignKey("Mage", on_delete=models.SET_NULL, null=True)
+    resonance = models.ForeignKey(Resonance, on_delete=models.SET_NULL, null=True)
     rating = models.IntegerField(default=0)
 
     class Meta:

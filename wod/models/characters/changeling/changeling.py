@@ -177,24 +177,24 @@ class Changeling(CtDHuman):
         CtDLegacy,
         blank=True,
         null=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name="seelie_legacy_of",
     )
     unseelie_legacy = models.ForeignKey(
         CtDLegacy,
         blank=True,
         null=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name="unseelie_legacy_of",
     )
 
-    kith = models.ForeignKey(Kith, null=True, blank=True, on_delete=models.CASCADE)
+    kith = models.ForeignKey(Kith, null=True, blank=True, on_delete=models.SET_NULL)
     seeming = models.CharField(
         default="",
         max_length=15,
         choices=[("childling", "Childling"), ("wilder", "Wilder"), ("grump", "Grump")],
     )
-    house = models.ForeignKey(House, null=True, blank=True, on_delete=models.CASCADE)
+    house = models.ForeignKey(House, null=True, blank=True, on_delete=models.SET_NULL)
 
     autumn = models.IntegerField(default=0)
     chicanery = models.IntegerField(default=0)
