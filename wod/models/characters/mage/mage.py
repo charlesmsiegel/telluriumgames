@@ -466,6 +466,8 @@ class Mage(MtAHuman):
         self.set_essence(choice)
 
     def add_resonance(self, resonance):
+        if isinstance(resonance, str):
+            resonance, _  = Resonance.objects.get_or_create(name=resonance)
         r, _ = ResRating.objects.get_or_create(resonance=resonance, mage=self)
         if r.rating == 5:
             return False

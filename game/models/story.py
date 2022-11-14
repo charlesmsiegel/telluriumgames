@@ -35,8 +35,13 @@ class Story(models.Model):
     def total_locations(self):
         return self.key_locations.count()
 
-    def add_scene(self, name, location):
-        s = Scene.objects.create(name=name, story=self, location=location)
+    def add_scene(self, name, location, date_played=None, date_of_scene=None):
+        if isinstance(location, str):
+            from core.models import LocationModel
+            location = LocationModel.objects.get(name=location)
+        if Scene.objects.filter(name=name, story=self, location=location).exists():
+            return Scene.objects.filter(name=name, story=self, location=location).first()
+        s = Scene.objects.create(name=name, story=self, location=location, date_played=date_played, date_of_scene=date_of_scene)
         self.key_locations.add(location)
         return s
 

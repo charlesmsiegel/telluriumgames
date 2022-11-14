@@ -46,4 +46,6 @@ class Chronicle(models.Model):
         return Story.objects.filter(chronicle=self).count()
 
     def add_story(self, name):
+        if Story.objects.filter(name=name, chronicle=self).exists():
+            return Story.objects.filter(name=name, chronicle=self).first()
         return Story.objects.create(name=name, chronicle=self)

@@ -17,7 +17,7 @@ class Scene(models.Model):
     )
     finished = models.BooleanField(default=False)
     xp_given = models.BooleanField(default=False)
-    # date_of_scene
+    date_of_scene = models.CharField(default="", max_length=20)
 
     class Meta:
         verbose_name = "Scene"
@@ -39,6 +39,9 @@ class Scene(models.Model):
         return self.characters.count()
 
     def add_character(self, character):
+        if isinstance(character, str):
+            from core.models import CharacterModel
+            character = CharacterModel.objects.get(name=character)
         self.characters.add(character)
         if character.npc:
             self.story.key_npcs.add(character)
