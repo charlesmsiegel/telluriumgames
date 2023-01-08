@@ -18,7 +18,7 @@ class ItemIndexView(View):
         return render(request, "wod/items/index.html", context)
 
     def get_context(self):
-        items = WoDItem.objects.all().order_by("name")
+        items = WoDItem.objects.filter(chronicle=None).order_by("name")
         context = {}
         context["items"] = items
         context["form"] = RandomItemForm

@@ -21,7 +21,7 @@ class IndexView(View):
         return render(request, "exalted/characters/index.html", context)
 
     def get_context(self):
-        chars = ExMortal.objects.all().order_by("name")
+        chars = ExMortal.objects.filter(chronicle=None).order_by("name")
         context = {}
         context["chars"] = chars
         context["form"] = RandomCharacterForm

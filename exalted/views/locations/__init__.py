@@ -17,7 +17,7 @@ class LocationIndexView(View):
         return render(request, "exalted/locations/index.html", context)
 
     def get_context(self):
-        locations = ExLocation.objects.all().order_by("name")
+        locations = ExLocation.objects.filter(chronicle=None).order_by("name")
         context = {}
         context["locations"] = locations
         L1 = []

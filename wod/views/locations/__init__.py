@@ -19,7 +19,7 @@ class LocationIndexView(View):
         return render(request, "wod/locations/index.html", context)
 
     def get_context(self):
-        locations = Location.objects.all().order_by("name")
+        locations = Location.objects.filter(chronicle=None).order_by("name")
         context = {}
         context["locations"] = locations
         context["form"] = RandomLocationForm
