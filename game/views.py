@@ -16,9 +16,9 @@ class ChronicleDetailView(View):
             "object": chronicle,
             "stories": Story.objects.filter(chronicle=chronicle),
             "form": StoryCreationForm(),
-            "characters": CharacterModel.objects.filter(chronicle=chronicle),
-            "locations": LocationModel.objects.filter(chronicle=chronicle),
-            "items": ItemModel.objects.filter(chronicle=chronicle),
+            "characters": CharacterModel.objects.filter(chronicle=chronicle).order_by("name"),
+            "locations": LocationModel.objects.filter(chronicle=chronicle).order_by("name"),
+            "items": ItemModel.objects.filter(chronicle=chronicle).order_by("name"),
         }
 
     def get(self, request, *args, **kwargs):
