@@ -22,11 +22,11 @@ class CharacterIndexView(View):
         return render(request, "wod/characters/index.html", context)
 
     def get_context(self):
-        characters = Character.objects.all().order_by("name")
+        characters = Character.objects.filter(chronicle=None).order_by("name")
         context = {}
         context["characters"] = characters
         context["form"] = RandomCharacterForm
-        context["groups"] = Group.objects.all().order_by("name")
+        context["groups"] = Group.objects.filter(chronicle=None).order_by("name")
         return context
 
 

@@ -18,7 +18,7 @@ class ItemIndexView(View):
         return render(request, "cod/items/index.html", context)
 
     def get_context(self):
-        items = Item.objects.all().order_by("name")
+        items = Item.objects.filter(chronicle=None).order_by("name")
         context = {}
         context["items"] = items
         return context

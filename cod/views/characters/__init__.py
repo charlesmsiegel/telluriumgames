@@ -21,7 +21,7 @@ class CharacterIndexView(View):
         return render(request, "cod/characters/index.html", context)
 
     def get_context(self):
-        chars = Mortal.objects.all().order_by("name")
+        chars = Mortal.objects.filter(chronicle=None).order_by("name")
         context = {}
         context["chars"] = chars
         context["ephemera"] = Ephemera.objects.all().order_by("name")

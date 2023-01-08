@@ -17,7 +17,7 @@ class IndexView(View):
         return render(request, "tc/characters/index.html", context)
 
     def get_context(self):
-        chars = Human.objects.all().order_by("name")
+        chars = Human.objects.filter(chronicle=None).order_by("name")
         context = {}
         context["chars"] = chars
         context["form"] = RandomCharacterForm
