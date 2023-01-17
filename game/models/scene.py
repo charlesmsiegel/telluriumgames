@@ -41,6 +41,7 @@ class Scene(models.Model):
     def add_character(self, character):
         if isinstance(character, str):
             from core.models import CharacterModel
+
             character = CharacterModel.objects.get(name=character)
         self.characters.add(character)
         if character.npc:

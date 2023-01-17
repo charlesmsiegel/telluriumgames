@@ -84,12 +84,12 @@ from wod.models.locations.werewolf import Caern
 # Register your models here.
 @admin.register(Character)
 class CharacterAdmin(admin.ModelAdmin):
-    list_display = ("name", "owner")
+    list_display = ("name", "owner", "chronicle")
 
 
 @admin.register(Human)
 class HumanCharacterAdmin(admin.ModelAdmin):
-    list_display = ("name", "owner")
+    list_display = ("name", "owner", "chronicle")
 
 
 @admin.register(Archetype)
@@ -110,7 +110,7 @@ class SpecialtyAdmin(admin.ModelAdmin):
 
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ("name", "leader")
+    list_display = ("name", "leader", "chronicle")
 
 
 @admin.register(Mage)
@@ -124,13 +124,9 @@ class MageAdmin(admin.ModelAdmin):
         "subfaction",
         "essence",
         "affinity_sphere",
+        "chronicle",
     )
-    list_filter = (
-        "owner",
-        "arete",
-        "essence",
-        "affinity_sphere",
-    )
+    list_filter = ("owner", "arete", "essence", "affinity_sphere", "chronicle")
 
 
 @admin.register(Cabal)

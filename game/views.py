@@ -16,8 +16,12 @@ class ChronicleDetailView(View):
             "object": chronicle,
             "stories": Story.objects.filter(chronicle=chronicle),
             "form": StoryCreationForm(),
-            "characters": CharacterModel.objects.filter(chronicle=chronicle).order_by("name"),
-            "locations": LocationModel.objects.filter(chronicle=chronicle).order_by("name"),
+            "characters": CharacterModel.objects.filter(chronicle=chronicle).order_by(
+                "name"
+            ),
+            "locations": LocationModel.objects.filter(chronicle=chronicle).order_by(
+                "name"
+            ),
             "items": ItemModel.objects.filter(chronicle=chronicle).order_by("name"),
         }
 
