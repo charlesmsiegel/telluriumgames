@@ -52,13 +52,19 @@
             <div class="col-sm border">
                 <b>Date Played</b>
             </div>
+            <div class="col-sm border">
+                <b>Date of Scene</b>
+            </div>
         </div>
         {% for scene in scenes %}
             <div class="row border">
                 <a class="col-sm border" href="{{ scene.get_absolute_url }}">{{ scene.name }}
                     {% if not scene.finished %}- <b>Ongoing</b>{% endif %}
                 </a>
+                
                 <div class="col-sm">{{ scene.date_played }}</div>
+
+                <div class="col-sm">{{ scene.date_of_scene }}</div>
             </div>
         {% endfor %}
         {% if request.user.is_authenticated %}
