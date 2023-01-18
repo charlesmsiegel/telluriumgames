@@ -18,10 +18,22 @@ class Story(models.Model):
     chronicle = models.ForeignKey(
         "game.Chronicle", null=True, blank=True, on_delete=models.SET_NULL
     )
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
 
     class Meta:
         verbose_name = "Story"
         verbose_name_plural = "Stories"
+
+    def save(self, *args, **kwargs):
+        if Scene.objects.filter(story=self).exists():
+            self.start_date = min(
+                [x.date_of_scene for x in Scene.objects.filter(story=self)]
+            )
+            self.end_date = max(
+                [x.date_of_scene for x in Scene.objects.filter(story=self)]
+            )
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -52,6 +64,7 @@ class Story(models.Model):
             date_of_scene=date_of_scene,
         )
         self.key_locations.add(location)
+        self.save()
         return s
 
     def total_pcs(self):

@@ -55,10 +55,12 @@
             <h3 class="col-sm {{ object.chronicle.headings }}">Stories</h3>
         </div>
         {% for story in stories %}
-            <div class="row border">
-                <a class="col-sm border" href="{{ story.get_absolute_url }}">{{ story.name }}</a>
-            </div>
-        {% endfor %}
+        <div class="row border">
+            <a class="col-sm border" href="{{ story.get_absolute_url }}">{{ story.name }}</a>
+            <div class="col-sm border">{{ story.start_date }}</div>
+            <div class="col-sm border">{{ story.end_date }}</div>
+        </div>
+{% endfor %}
         {% if request.user.is_authenticated %}
             <form method="post" action="">
                 {% csrf_token %}

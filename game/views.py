@@ -14,7 +14,7 @@ class ChronicleDetailView(View):
         chronicle = Chronicle.objects.get(pk=pk)
         return {
             "object": chronicle,
-            "stories": Story.objects.filter(chronicle=chronicle),
+            "stories": Story.objects.filter(chronicle=chronicle).order_by("start_date"),
             "form": StoryCreationForm(),
             "characters": CharacterModel.objects.filter(chronicle=chronicle).order_by(
                 "name"
