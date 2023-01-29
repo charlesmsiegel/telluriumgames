@@ -50,7 +50,11 @@ class StoryDetailView(View):
     def post(self, request, *args, **kwargs):
         context = self.get_context(kwargs["pk"])
         loc = LocationModel.objects.get(pk=request.POST["location"])
-        return redirect(context["object"].add_scene(request.POST["name"], loc))
+        return redirect(
+            context["object"].add_scene(
+                request.POST["name"], loc, date_of_scene=request.POST["date_of_scene"]
+            )
+        )
 
 
 class SceneDetailView(View):

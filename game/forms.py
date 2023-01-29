@@ -8,6 +8,7 @@ from game.models import Story
 class SceneCreationForm(forms.Form):
     name = forms.CharField(max_length=100)
     location = forms.ModelChoiceField(queryset=LocationModel.objects.order_by("name"))
+    date_of_scene = forms.CharField(max_length=100)
 
     def __init__(self, *args, **kwargs):
         chronicle = kwargs.pop("chronicle")
