@@ -62,11 +62,14 @@ class SceneDetailView(View):
         if not user.is_authenticated:
             user = None
         scene = Scene.objects.get(pk=pk)
+        a = AddCharForm(user=user, scene=scene)
+        num_chars = (a.fields["character_to_add"].queryset).count()
         return {
             "object": scene,
             "posts": Post.objects.filter(scene=scene),
             "post_form": PostForm(user=user, scene=scene),
-            "add_char_form": AddCharForm(user=user, scene=scene),
+            "add_char_form": a,
+            "num_chars": num_chars,
         }
 
     def get(self, request, *args, **kwargs):

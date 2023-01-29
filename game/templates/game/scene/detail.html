@@ -54,11 +54,13 @@
             </form>
             <button class="btn btn-primary"
                     onClick="location.href = window.location.href;">Refresh</button>
+            {% if num_chars != 0 %}
             <form method="post" action="">
                 {% csrf_token %}
                 {{ add_char_form.character_to_add }}
                 <input class="btn btn-primary" type="submit" value="Add"/>
             </form>
+            {% endif %}
             <form class="inlineforms" method="post" action="">
                 {% csrf_token %}
                 <input class="btn btn-primary"
