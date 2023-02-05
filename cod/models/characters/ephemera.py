@@ -40,7 +40,7 @@ class Ephemera(Model):
 
     rank = models.IntegerField(default=0)
     ephemera_type = models.CharField(
-        max_length=100, default="spirit", choices=TYPE_CHOICES
+        max_length=100, default="", choices=TYPE_CHOICES
     )
 
     maximum_essence = models.IntegerField(default=0)
@@ -83,7 +83,7 @@ class Ephemera(Model):
         return self.set_rank(rank)
 
     def has_type(self):
-        return self.type != ""
+        return self.ephemera_type != ""
 
     def set_type(self, ephemera_type):
         self.ephemera_type = ephemera_type
