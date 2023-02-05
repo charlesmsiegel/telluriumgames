@@ -12,6 +12,7 @@ class Chronicle(models.Model):
     theme = models.CharField(max_length=200, default="")
     mood = models.CharField(max_length=200, default="")
     common_knowledge_elements = models.TextField(default="")
+    year = models.IntegerField(default=2022)
     headings = models.CharField(
         default="",
         max_length=100,
