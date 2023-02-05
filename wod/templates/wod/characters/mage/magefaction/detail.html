@@ -40,6 +40,19 @@
             {% endif %}
         </div>
     </div>
+    {% if object.ended < 5000 %}
+    <div class="row">
+        <div class="col-sm">Ended</div>
+        <div class="col-sm">
+            {{ year }}
+            {% if object.ended > 0 %}
+                AD
+            {% else %}
+                BC
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
     <div class="row">
         <div class="col-sm">Parent Faction</div>
         {% if object.parent %}
