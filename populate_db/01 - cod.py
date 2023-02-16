@@ -12,6 +12,7 @@ from cod.models.characters.mage import (
 from cod.models.characters.mortal import CoDMerit, CoDSpecialty, Condition, Tilt
 from cod.models.items.mortal import Equipment
 from core.models import Language, Material
+from game.models.chronicle import ObjectType
 
 SKILLS = [
     "Academics",
@@ -5914,3 +5915,17 @@ Numina.objects.create(name="Speed")
 Numina.objects.create(name="Sign")
 Numina.objects.create(name="Stalwart")
 Numina.objects.create(name="Telekinesis")
+
+
+ObjectType.objects.create(
+    name="Ephemera", type="char", system="cod", gameline="Chronicles of Darkness"
+)
+ObjectType.objects.create(
+    name="Mage", type="char", system="cod", gameline="Mage: the Awakening"
+)
+ObjectType.objects.create(
+    name="Proximi", type="char", system="cod", gameline="Mage: the Awakening"
+)
+ObjectType.objects.create(
+    name="Mortal", type="char", system="cod", gameline="Chronicles of Darkness"
+)

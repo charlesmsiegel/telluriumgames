@@ -7,7 +7,7 @@ from cod.models.characters.ephemera import Ephemera
 class TestEphemera(TestCase):
     def setUp(self):
         self.ephemera = Ephemera.objects.create()
-    
+
     def test_has_rank(self):
         self.assertFalse(self.ephemera.has_rank())
         self.ephemera.set_rank(2)

@@ -1,6 +1,7 @@
 from time import time
 
 from core.models import Language, Material, Medium
+from game.models.chronicle import ObjectType
 from wod.models.characters.human import Archetype, MeritFlaw, WoDSpecialty
 from wod.models.characters.mage import (
     Effect,
@@ -33957,4 +33958,32 @@ Mage.objects.create(name="Sabra", display=False).add_source(
 )
 Mage.objects.create(name="Jinx", display=False).add_source(
     "The Art of Mage - 20 Years and More", 98
+)
+
+ObjectType.objects.create(
+    name="Mage", type="char", system="wod", gameline="Mage: the Ascension"
+)
+ObjectType.objects.create(
+    name="Artifact", type="obj", system="wod", gameline="Mage: the Ascension"
+)
+ObjectType.objects.create(
+    name="Charm", type="obj", system="wod", gameline="Mage: the Ascension"
+)
+ObjectType.objects.create(
+    name="Grimoire", type="obj", system="wod", gameline="Mage: the Ascension"
+)
+ObjectType.objects.create(
+    name="Talisman", type="obj", system="wod", gameline="Mage: the Ascension"
+)
+ObjectType.objects.create(
+    name="Chantry", type="loc", system="wod", gameline="Mage: the Ascension"
+)
+ObjectType.objects.create(
+    name="Library", type="loc", system="wod", gameline="Mage: the Ascension"
+)
+ObjectType.objects.create(
+    name="Node", type="loc", system="wod", gameline="Mage: the Ascension"
+)
+ObjectType.objects.create(
+    name="Sector", type="loc", system="wod", gameline="Mage: the Ascension"
 )

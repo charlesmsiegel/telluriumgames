@@ -1,3 +1,4 @@
+from game.models.chronicle import ObjectType
 from wod.models.characters.changeling import CtDLegacy, House, Kith
 from wod.models.characters.human import WoDSpecialty
 
@@ -819,4 +820,8 @@ WoDSpecialty.objects.get_or_create(name="Robots", stat="technology")[0].add_sour
 )
 WoDSpecialty.objects.get_or_create(name="Security", stat="technology")[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 168
+)
+
+ObjectType.objects.create(
+    name="Changeling", type="char", system="wod", gameline="Changeling: the Dreaming"
 )
