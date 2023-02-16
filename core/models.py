@@ -56,6 +56,7 @@ class Material(models.Model):
     """Class managing Material data"""
 
     name = models.TextField(default="")
+    is_hard = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "Material"
