@@ -1,3 +1,4 @@
+from game.models.chronicle import ObjectType
 from tc.models.characters.aberrant import MegaEdge, Power, Tag, Transformation
 from tc.models.characters.human import (
     Edge,
@@ -2432,3 +2433,13 @@ Transformation.objects.create(name="Hyde Syndrome", level="high")
 Transformation.objects.create(name="Power Lock", level="high")
 Transformation.objects.create(name="Severe Psychological Disorder", level="high")
 Transformation.objects.create(name="Twisted Appearance", level="high")
+
+ObjectType.objects.create(
+    name="Aberrant", type="char", system="tc", gameline="Aberrant"
+)
+ObjectType.objects.create(
+    name="Human", type="char", system="tc", gameline="Trinity Continuum"
+)
+ObjectType.objects.create(
+    name="Talent", type="char", system="tc", gameline="Trinity Continuum"
+)

@@ -1,3 +1,4 @@
+from game.models.chronicle import ObjectType
 from wod.models.characters.human import Derangement, MeritFlaw
 from wod.models.items.human import MeleeWeapon, RangedWeapon, ThrownWeapon
 
@@ -1438,4 +1439,11 @@ RangedWeapon.objects.create(
 )
 RangedWeapon.objects.create(
     name="Bear Mace", damage=4, range=3, rate=1, clip=3, conceal="P", display=False
+)
+
+ObjectType.objects.create(
+    name="City", type="loc", system="wod", gameline="World of Darkness"
+)
+ObjectType.objects.create(
+    name="Location", type="loc", system="wod", gameline="World of Darkness"
 )

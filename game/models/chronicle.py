@@ -6,6 +6,34 @@ from .story import Story
 
 
 # Create your models here.
+class ObjectType(models.Model):
+    name = models.CharField(max_length=100, default="")
+    type = models.CharField(
+        default="",
+        max_length=100,
+        choices=[("char", "Character"), ("loc", "Location"), ("obj", "Object"),],
+    )
+    system = models.CharField(
+        default="",
+        max_length=100,
+        choices=[
+            ("wod", "World of Darkness"),
+            ("cod", "Chronicles of Darkness"),
+            ("ex", "Exalted"),
+            ("tc", "Trinity Continuum"),
+        ],
+    )
+    gameline = models.CharField(max_length=100, default="")
+
+    class Meta:
+        verbose_name = "Object Type"
+        verbose_name_plural = "Object Types"
+        ordering = ["system", "type", "gameline", "name"]
+
+    def __str__(self):
+        return self.get_system_display() + "/" + self.gameline + "/" + self.name
+
+
 class Chronicle(models.Model):
     name = models.CharField(max_length=100, default="")
     storytellers = models.ManyToManyField(User, blank=True)
@@ -29,6 +57,17 @@ class Chronicle(models.Model):
             ("exalted_heading", "Exalted"),
         ],
     )
+    system = models.CharField(
+        default="",
+        max_length=100,
+        choices=[
+            ("wod", "World of Darkness"),
+            ("cod", "Chronicles of Darkness"),
+            ("ex", "Exalted"),
+            ("tc", "Trinity Continuum"),
+        ],
+    )
+    allowed_objects = models.ManyToManyField(ObjectType, blank=True)
 
     class Meta:
         verbose_name = "Chronicle"

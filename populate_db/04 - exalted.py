@@ -6,6 +6,7 @@ from exalted.models.characters.charms import (
 )
 from exalted.models.characters.mortals import ExMerit, ExSpecialty
 from exalted.models.characters.utils import ABILITIES
+from game.models.chronicle import ObjectType
 
 ExMerit.objects.create(
     name="Allies", merit_type="story", ratings=[1, 3, 5], merit_class="standard",
@@ -27632,3 +27633,11 @@ the_dragon_succumbs = MartialArtsCharm.objects.create(
     keywords=["decisive-only", "mastery", "mute", "terrestrial"],
     prereqs=[[(the_dragon_dies_screaming.name, 1)]],
 ).add_source("Dragon-Blooded: What Fire Has Wrought", 308)
+
+
+ObjectType.objects.create(name="Mortal", type="char", system="ex", gameline="Exalted")
+ObjectType.objects.create(name="Solar", type="char", system="ex", gameline="Exalted")
+ObjectType.objects.create(
+    name="Dragon-Blooded", type="char", system="ex", gameline="Exalted"
+)
+ObjectType.objects.create(name="Location", type="loc", system="ex", gameline="Exalted")

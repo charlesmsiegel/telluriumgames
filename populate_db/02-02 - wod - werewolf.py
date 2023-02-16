@@ -1,3 +1,4 @@
+from game.models.chronicle import ObjectType
 from wod.models.characters.human import Archetype, MeritFlaw, WoDSpecialty
 from wod.models.characters.werewolf import (
     BattleScar,
@@ -2625,3 +2626,19 @@ FomoriPower.objects.create(name="Water Breathing")
 FomoriPower.objects.create(name="Webbing")
 FomoriPower.objects.create(name="Wings")
 FomoriPower.objects.create(name="Wrathful Invective")
+
+ObjectType.objects.create(
+    name="Caern", type="loc", system="wod", gameline="Werewolf: the Apocalypse"
+)
+ObjectType.objects.create(
+    name="Werewolf", type="char", system="wod", gameline="Werewolf: the Apocalypse"
+)
+ObjectType.objects.create(
+    name="Fomor", type="char", system="wod", gameline="Werewolf: the Apocalypse"
+)
+ObjectType.objects.create(
+    name="Kinfolk", type="char", system="wod", gameline="Werewolf: the Apocalypse"
+)
+ObjectType.objects.create(
+    name="Fetish", type="obj", system="wod", gameline="Werewolf: the Apocalypse"
+)
