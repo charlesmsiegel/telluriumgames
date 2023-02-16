@@ -283,7 +283,7 @@ class Node(Location):
             self.random_resonance(favored_list=favored_list)
         while random.random() < 0.4 and self.points > 1:
             current = self.total_mf()
-            self.random_mf(maximum=(self.points - 1))
+            self.random_mf(maximum=self.points - 1)
             new = self.total_mf()
             self.points -= new - current
         self.resonance_postprocessing()

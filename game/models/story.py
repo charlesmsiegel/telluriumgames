@@ -28,10 +28,10 @@ class Story(models.Model):
     def save(self, *args, **kwargs):
         if Scene.objects.filter(story=self).exists():
             self.start_date = min(
-                [x.date_of_scene for x in Scene.objects.filter(story=self)]
+                x.date_of_scene for x in Scene.objects.filter(story=self)
             )
             self.end_date = max(
-                [x.date_of_scene for x in Scene.objects.filter(story=self)]
+                x.date_of_scene for x in Scene.objects.filter(story=self)
             )
         super().save(*args, **kwargs)
 

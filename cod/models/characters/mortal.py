@@ -447,7 +447,7 @@ class Mortal(CharacterModel):
 
     def add_merit(self, merit, detail=None):
         if merit.requires_detail and detail is None:
-            raise Exception(f"Merit ({merit.name}) requires detail")
+            raise ValueError(f"Merit ({merit.name}) requires detail")
         if merit.name == "Giant":
             if "Small-Framed" in [x.name for x in self.merits.all()]:
                 return False

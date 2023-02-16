@@ -21,7 +21,7 @@ def werewolf_setup(player):
     for i in range(5):
         w = Werewolf.objects.create(name=f"Character {i}", owner=player)
     for i in range(5):
-        Totem.objects.create(name=f"Totem {i}", cost=(10 + i))
+        Totem.objects.create(name=f"Totem {i}", cost=10 + i)
     for i in range(1, 6):
         Gift.objects.create(name=f"Gift {i}", rank=i, allowed={"garou": []})
         Gift.objects.create(name=f"Gift {5+i}", rank=i, allowed={"garou": []})

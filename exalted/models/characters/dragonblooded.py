@@ -375,6 +375,7 @@ class DragonBlooded(ExMortal):
                 return False
             abb = random.choice(abilities)
             self.random_specialty(ability=abb)
+        return True
 
     def bonus_cost(self, trait_type):
         c = super().bonus_cost(trait_type)

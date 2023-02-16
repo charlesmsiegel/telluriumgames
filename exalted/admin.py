@@ -1,5 +1,3 @@
-import imp
-
 from django.contrib import admin
 
 from exalted.models.characters.charms import (

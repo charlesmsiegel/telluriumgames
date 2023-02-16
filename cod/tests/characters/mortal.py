@@ -726,12 +726,6 @@ class TestMortal(TestCase):
     def test_spend_xp(self):
         self.fail()
 
-    def test_add_condition(self):
-        self.fail()
-
-    def test_remove_condition(self):
-        self.fail()
-
     def test_contacts_merit(self):
         contacts = CoDMerit.objects.create(
             name="Contacts", ratings=[1, 2, 3, 4, 5], merit_type="Physical"

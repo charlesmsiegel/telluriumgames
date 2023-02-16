@@ -186,9 +186,7 @@ class ExaltedAbilitiesForm(forms.Form):
     def has_abilities(self, character):
         self.full_clean()
         all_dots = sum(self.cleaned_data[x] for x in ABILITIES) == 28
-        checked_abilities = [
-            x for x in ABILITIES if self.cleaned_data[x + "_check"] == True
-        ]
+        checked_abilities = [x for x in ABILITIES if self.cleaned_data[x + "_check"]]
         favored = len(checked_abilities) == 10
         caste_abilities = [
             x
@@ -196,8 +194,8 @@ class ExaltedAbilitiesForm(forms.Form):
             if x in character.caste_ability_dict[character.caste]
         ]
         caste = len(caste_abilities) >= 5
-        max_values = all([self.cleaned_data[x] <= 3 for x in ABILITIES])
-        min_values = all([self.cleaned_data[x] > 0 for x in checked_abilities])
+        max_values = all(self.cleaned_data[x] <= 3 for x in ABILITIES)
+        min_values = all(self.cleaned_data[x] > 0 for x in checked_abilities)
         supernal = self.cleaned_data["supernal_ability"] in checked_abilities
         specialties = (
             self.cleaned_data["spec_1_value"]

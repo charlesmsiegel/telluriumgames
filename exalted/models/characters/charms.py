@@ -95,7 +95,7 @@ class Charm(ModelWithPrereqs):
         return False
 
     def prereq_display(self):
-        tmp_prereqs = [x for x in self.prereqs]
+        tmp_prereqs = list(self.prereqs)
         for i, prereq_set in enumerate(tmp_prereqs):
             for j, prereq in enumerate(prereq_set):
                 if Charm.objects.filter(name=prereq[0]).count() != 0:

@@ -412,7 +412,7 @@ def load_merit_10_ratings(request):
 
 class SolarCreateView(View):
     def get(self, request, *args, **kwargs):
-        context = dict()
+        context = {}
         context["form"] = SolarCreationForm()
         return render(request, "exalted/characters/solars/solar/create.html", context)
 
