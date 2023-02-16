@@ -478,13 +478,22 @@ class Grimoire(Wonder):
             else:
                 cover_material = Material.objects.order_by("?").first()
         if inner_material is None:
+            is_hard = random.random() <= 0.3
             if self.faction is None:
-                if self.faction.materials.count() > 0:
-                    inner_material = self.faction.materials.order_by("?").first()
+                if self.faction.materials.filter(is_hard=is_hard).count() > 0:
+                    inner_material = (
+                        self.faction.materials.filter(is_hard=is_hard)
+                        .order_by("?")
+                        .first()
+                    )
                 else:
-                    inner_material = Material.objects.order_by("?").first()
+                    inner_material = (
+                        Material.objects.filter(is_hard=is_hard).order_by("?").first()
+                    )
             else:
-                inner_material = Material.objects.order_by("?").first()
+                inner_material = (
+                    Material.objects.filter(is_hard=is_hard).order_by("?").first()
+                )
         self.set_materials(cover_material, inner_material)
 
     def set_medium(self, medium):
