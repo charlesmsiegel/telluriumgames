@@ -2,93 +2,93 @@ from game.models.chronicle import ObjectType
 from wod.models.characters.changeling import CtDLegacy, House, Kith
 from wod.models.characters.human import WoDSpecialty
 
-Kith.objects.create(
+Kith.objects.get_or_create(
     name="Boggan",
     affinity="actor",
     birthrights=["Craftwork", "Social Dynamics"],
     frailty="Call of the Needy",
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 88)
-Kith.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 88)
+Kith.objects.get_or_create(
     name="Clurichaun",
     affinity="actor",
     birthrights=["Twinkling of an Eye", "Fighting Words"],
     frailty="Hoard",
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 90)
-Kith.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 90)
+Kith.objects.get_or_create(
     name="Eshu",
     affinity="scene",
     birthrights=["Serendipity", "Talecraft"],
     frailty="Recklessness",
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 92)
-Kith.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 92)
+Kith.objects.get_or_create(
     name="Nocker",
     affinity="prop",
     birthrights=["Make it Work", "Fix-It"],
     frailty="Perfect is the Enemy of Done",
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 94)
-Kith.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 94)
+Kith.objects.get_or_create(
     name="Piskey",
     affinity="actor",
     birthrights=["Nimble", "Blending In"],
     frailty="Light-Fingers",
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 96)
-Kith.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 96)
+Kith.objects.get_or_create(
     name="Pooka",
     affinity="nature",
     birthrights=["Shapechanging", "Confidante"],
     frailty="Untruths",
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 98)
-Kith.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 98)
+Kith.objects.get_or_create(
     name="Redcap",
     affinity="nature",
     birthrights=["Dark Appetite", "Bully Browbeat"],
     frailty="Bad Attitude",
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 100)
-Kith.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 100)
+Kith.objects.get_or_create(
     name="Satyr",
     affinity="fae",
     birthrights=["Gift of Pan", "Physical Prowess"],
     frailty="Passion's Curse",
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 102)
-Kith.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 102)
+Kith.objects.get_or_create(
     name="Selkie",
     affinity="nature",
     birthrights=["Seal Form", "Ocean's Grace"],
     frailty="Seal Coat",
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 104)
-Kith.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 104)
+Kith.objects.get_or_create(
     name="Arcadian Sidhe",
     affinity="time",
     birthrights=["Unearthly Beauty", "Noble Bearing"],
     frailty="Curse of Banality",
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 106)
-Kith.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 106)
+Kith.objects.get_or_create(
     name="Autumn Sidhe",
     affinity="fae",
     birthrights=["Unearthly Beauty", "Noble Bearing"],
     frailty="Adoration",
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 108)
-Kith.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 108)
+Kith.objects.get_or_create(
     name="Sluagh",
     affinity="prop",
     birthrights=["Squirm", "Sharpened Senses"],
     frailty="Curse of Silence",
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 110)
-Kith.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 110)
+Kith.objects.get_or_create(
     name="Troll",
     affinity="fae",
     birthrights=["Titan's Power", "Strong of Will and Body"],
     frailty="Bond of Duty",
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 112)
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 112)
 
-House.objects.create(
+House.objects.get_or_create(
     name="House Aesin",
     court="unseelie",
     boon="Speak with forest animals",
     flaw="Cannot gain Glamour through Rapture",
     factions=["The Virtue Council", "The Berserkers"],
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 119)
-House.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 119)
+House.objects.get_or_create(
     name="House Ailil",
     court="unseelie",
     boon="-1 diff on manipulation",
@@ -99,8 +99,8 @@ House.objects.create(
         "The Disinherited",
         "The Lock-Keepers",
     ],
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 120)
-House.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 120)
+House.objects.get_or_create(
     name="House Balor",
     court="unseelie",
     boon="No Glamour loss from cold iron, can soak cold iron damage at diff 10.",
@@ -113,126 +113,126 @@ House.objects.create(
         "The Riders of the Fell",
         "Scarlet Eye Solutions",
     ],
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 122)
-House.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 122)
+House.objects.get_or_create(
     name="House Beaumayn", court="seelie", boon="", flaw="", factions=[],
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 123)
-House.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 123)
+House.objects.get_or_create(
     name="House Danaan", court="unseelie", boon="", flaw="", factions=[],
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 124)
-House.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 124)
+House.objects.get_or_create(
     name="House Daireann", court="unseelie", boon="", flaw="", factions=[],
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 126)
-House.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 126)
+House.objects.get_or_create(
     name="House Dougal", court="seelie", boon="", flaw="", factions=[],
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 127)
-House.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 127)
+House.objects.get_or_create(
     name="House Eiluned", court="seelie", boon="", flaw="", factions=[],
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 128)
-House.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 128)
+House.objects.get_or_create(
     name="House Fiona", court="seelie", boon="", flaw="", factions=[],
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 129)
-House.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 129)
+House.objects.get_or_create(
     name="House Gwydion", court="seelie", boon="", flaw="", factions=[],
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 131)
-House.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 131)
+House.objects.get_or_create(
     name="House Leanhaun", court="unseelie", boon="", flaw="", factions=[],
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 132)
-House.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 132)
+House.objects.get_or_create(
     name="House Liam", court="seelie", boon="", flaw="", factions=[],
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 133)
-House.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 133)
+House.objects.get_or_create(
     name="House Scathach", court="seelie", boon="", flaw="", factions=[],
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 135)
-House.objects.create(
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 135)
+House.objects.get_or_create(
     name="House Varich", court="unseelie", boon="", flaw="", factions=[],
-).add_source("Changeling: the Dreaming 20th Anniversary Edition", 136)
+)[0].add_source("Changeling: the Dreaming 20th Anniversary Edition", 136)
 
 
-CtDLegacy.objects.create(name="Bumpkin", court="seelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Bumpkin", court="seelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 156
 )
-CtDLegacy.objects.create(name="Courtier", court="seelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Courtier", court="seelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 156
 )
-CtDLegacy.objects.create(name="Crafter", court="seelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Crafter", court="seelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 156
 )
-CtDLegacy.objects.create(name="Dandy", court="seelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Dandy", court="seelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 156
 )
-CtDLegacy.objects.create(name="Hermit", court="seelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Hermit", court="seelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 156
 )
-CtDLegacy.objects.create(name="Orchid", court="seelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Orchid", court="seelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 156
 )
-CtDLegacy.objects.create(name="Paladin", court="seelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Paladin", court="seelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 157
 )
-CtDLegacy.objects.create(name="Panderer", court="seelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Panderer", court="seelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 157
 )
-CtDLegacy.objects.create(name="Regent", court="seelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Regent", court="seelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 157
 )
-CtDLegacy.objects.create(name="Sage", court="seelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Sage", court="seelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 158
 )
-CtDLegacy.objects.create(name="Saint", court="seelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Saint", court="seelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 158
 )
-CtDLegacy.objects.create(name="Squire", court="seelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Squire", court="seelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 158
 )
-CtDLegacy.objects.create(name="Troubadour", court="seelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Troubadour", court="seelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 158
 )
-CtDLegacy.objects.create(name="Wayfarer", court="seelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Wayfarer", court="seelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 158
 )
 
 
-CtDLegacy.objects.create(name="Beast", court="unseelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Beast", court="unseelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 158
 )
-CtDLegacy.objects.create(name="Fatalist", court="unseelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Fatalist", court="unseelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 158
 )
-CtDLegacy.objects.create(name="Fool", court="unseelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Fool", court="unseelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 158
 )
-CtDLegacy.objects.create(name="Grotesque", court="unseelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Grotesque", court="unseelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 159
 )
-CtDLegacy.objects.create(name="Knave", court="unseelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Knave", court="unseelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 159
 )
-CtDLegacy.objects.create(name="Outlaw", court="unseelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Outlaw", court="unseelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 159
 )
-CtDLegacy.objects.create(name="Pandora", court="unseelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Pandora", court="unseelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 159
 )
-CtDLegacy.objects.create(name="Peacock", court="unseelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Peacock", court="unseelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 159
 )
-CtDLegacy.objects.create(name="Rake", court="unseelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Rake", court="unseelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 159
 )
-CtDLegacy.objects.create(name="Riddler", court="unseelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Riddler", court="unseelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 159
 )
-CtDLegacy.objects.create(name="Ringleader", court="unseelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Ringleader", court="unseelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 159
 )
-CtDLegacy.objects.create(name="Rogue", court="unseelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Rogue", court="unseelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 159
 )
-CtDLegacy.objects.create(name="Savage", court="unseelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Savage", court="unseelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 160
 )
-CtDLegacy.objects.create(name="Wretch", court="unseelie",).add_source(
+CtDLegacy.objects.get_or_create(name="Wretch", court="unseelie",)[0].add_source(
     "Changeling: the Dreaming 20th Anniversary Edition", 160
 )
 
@@ -822,6 +822,6 @@ WoDSpecialty.objects.get_or_create(name="Security", stat="technology")[0].add_so
     "Changeling: the Dreaming 20th Anniversary Edition", 168
 )
 
-ObjectType.objects.create(
+ObjectType.objects.get_or_create(
     name="Changeling", type="char", system="wod", gameline="Changeling: the Dreaming"
-)
+)[0]
