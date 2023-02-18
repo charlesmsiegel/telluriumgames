@@ -68,9 +68,6 @@ class TestRandomEphemera(TestCase):
     def test_random_rank(self):
         pass
 
-    def test_random_rank(self):
-        pass
-
     def test_random_type(self):
         pass
 

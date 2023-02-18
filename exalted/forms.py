@@ -369,7 +369,7 @@ class ExaltedIntimacyForm(forms.Form):
 
     def has_intimacies(self):
         self.full_clean()
-        has_four = all([self.cleaned_data[f"intimacy_{i}"] != "" for i in range(1, 5)])
+        has_four = all(self.cleaned_data[f"intimacy_{i}"] != "" for i in range(1, 5))
         strengths = [self.cleaned_data[f"intimacy_strength_{i}"] for i in range(1, 5)]
         one_defining = "defining" in strengths
         one_major = "major" in strengths

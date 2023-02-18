@@ -117,7 +117,7 @@ class Solar(ExMortal):
         return len(self.caste_abilities) == 5
 
     def random_caste_abilities(self):
-        if self.caste not in self.caste_ability_dict.keys():
+        if self.caste not in self.caste_ability_dict:
             return False
         options = self.caste_ability_dict[self.caste]
         while not self.has_caste_abilities():

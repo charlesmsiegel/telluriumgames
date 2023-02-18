@@ -739,8 +739,8 @@ class Power(Model):
         self.duration = duration
         return True
 
-    def set_range(self, range):
-        self.range = range
+    def set_range(self, power_range):
+        self.range = power_range
         return True
 
     def set_action_type(self, action_type):
