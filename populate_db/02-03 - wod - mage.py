@@ -34199,3 +34199,213 @@ ObjectType.objects.get_or_create(
 ObjectType.objects.get_or_create(
     name="Sector", type="loc", system="wod", gameline="Mage: the Ascension"
 )[0]
+
+oor = MageFaction.objects.get_or_create(
+    name="Order of Reason", founded=1325, ended=1851,
+)[0]
+
+artificers = MageFaction.objects.get_or_create(
+    name="Artificers", affinities=["forces", "matter"], parent=oor,
+)[0]
+MageFaction.objects.get_or_create(
+    name="Forgers", parent=artificers,
+)
+MageFaction.objects.get_or_create(
+    name="Mauls", parent=artificers,
+)
+MageFaction.objects.get_or_create(
+    name="Pythagorai", parent=artificers,
+)
+MageFaction.objects.get_or_create(
+    name="Bright Lions", parent=artificers,
+)
+
+gabrielites = MageFaction.objects.get_or_create(
+    name="Cabal of Pure Thought", affinities=["forces", "mind"], parent=oor,
+)[0]
+MageFaction.objects.get_or_create(
+    name="Illustrafatore", parent=gabrielites,
+)
+MageFaction.objects.get_or_create(
+    name="Poenitenti", parent=gabrielites,
+)
+MageFaction.objects.get_or_create(
+    name="Venatores", parent=gabrielites,
+)
+
+celestial_masters = MageFaction.objects.get_or_create(
+    name="Celestial Masters",
+    affinities=["correspondence", "spirit", "time"],
+    parent=oor,
+)[0]
+MageFaction.objects.get_or_create(
+    name="House of Daedalus", parent=celestial_masters,
+)
+MageFaction.objects.get_or_create(
+    name="House of Selene", parent=celestial_masters,
+)
+MageFaction.objects.get_or_create(
+    name="House of Prometheus", parent=celestial_masters,
+)
+
+craftmasons = MageFaction.objects.get_or_create(
+    name="Craftmasons", affinities=["matter"], parent=oor,
+)[0]
+MageFaction.objects.get_or_create(
+    name="Stone", parent=craftmasons,
+)
+MageFaction.objects.get_or_create(
+    name="Scroll", parent=craftmasons,
+)
+MageFaction.objects.get_or_create(
+    name="Coin", parent=craftmasons,
+)
+MageFaction.objects.get_or_create(
+    name="Sword", parent=craftmasons,
+)
+MageFaction.objects.get_or_create(
+    name="Level", parent=craftmasons,
+)
+MageFaction.objects.get_or_create(
+    name="Hemlock", parent=craftmasons,
+)
+MageFaction.objects.get_or_create(
+    name="Arrow", parent=craftmasons,
+)
+
+high_guild = MageFaction.objects.get_or_create(
+    name="High Guild", affinities=["mind"], parent=oor,
+)[0]
+MageFaction.objects.get_or_create(
+    name="Resplendent Axe", parent=high_guild,
+)
+MageFaction.objects.get_or_create(
+    name="Albatross", parent=high_guild,
+)
+MageFaction.objects.get_or_create(
+    name="Rose Guild", parent=high_guild,
+)
+MageFaction.objects.get_or_create(
+    name="Patron's Guild", parent=high_guild,
+)
+MageFaction.objects.get_or_create(
+    name="Sun Guild", parent=high_guild,
+)
+
+hippocratic_circle = MageFaction.objects.get_or_create(
+    name="Hippocratic Circle", affinities=["life", "prime"], parent=oor,
+)[0]
+MageFaction.objects.get_or_create(
+    name="Galenists", parent=hippocratic_circle,
+)
+MageFaction.objects.get_or_create(
+    name="Paraclesians", parent=hippocratic_circle,
+)
+MageFaction.objects.get_or_create(
+    name="Vesalians", parent=hippocratic_circle,
+)
+MageFaction.objects.get_or_create(
+    name="House of Knives", parent=hippocratic_circle,
+)
+MageFaction.objects.get_or_create(
+    name="House of Books", parent=hippocratic_circle,
+)
+MageFaction.objects.get_or_create(
+    name="House of Mandrake", parent=hippocratic_circle,
+)
+MageFaction.objects.get_or_create(
+    name="House of Fire", parent=hippocratic_circle,
+)
+MageFaction.objects.get_or_create(
+    name="House of Olympus", parent=hippocratic_circle,
+)
+MageFaction.objects.get_or_create(
+    name="The Aesculpian Order", parent=hippocratic_circle,
+)
+MageFaction.objects.get_or_create(
+    name="Guild of Apothecaries", parent=hippocratic_circle,
+)
+MageFaction.objects.get_or_create(
+    name="Perfectionists", parent=hippocratic_circle,
+)
+MageFaction.objects.get_or_create(
+    name="Phylaxoi", parent=hippocratic_circle,
+)
+MageFaction.objects.get_or_create(
+    name="Fellowship of Chirurgeons", parent=hippocratic_circle,
+)
+
+
+ksirafai = MageFaction.objects.get_or_create(
+    name="Ksirafai", affinities=["correspondence", "spirit"], parent=oor,
+)[0]
+
+void_seekers = MageFaction.objects.get_or_create(
+    name="Void Seekers",
+    affinities=["forces", "matter", "spirit", "correspondence", "prime"],
+    parent=oor,
+)[0]
+MageFaction.objects.get_or_create(
+    name="Alexandrians", parent=void_seekers,
+)
+MageFaction.objects.get_or_create(
+    name="Herculinians", parent=void_seekers,
+)
+MageFaction.objects.get_or_create(
+    name="Guild of Forge and Sail", parent=void_seekers,
+)
+MageFaction.objects.get_or_create(
+    name="Odysseans", parent=void_seekers,
+)
+MageFaction.objects.get_or_create(
+    name="The Order of the Grail", parent=void_seekers,
+)
+MageFaction.objects.get_or_create(
+    name="The League of St. Paul", parent=void_seekers,
+)
+
+ksirafai = MageFaction.objects.get_or_create(
+    name="Analytical Reckoners", affinities=["matter", "time"], parent=oor,
+)[0]
+electrodyne = MageFaction.objects.get_or_create(
+    name="Electrodyne Engineers", affinities=["matter", "prime", "forces"], parent=oor,
+)[0]
+MageFaction.objects.get_or_create(
+    name="Voltarian Order", parent=electrodyne,
+)
+MageFaction.objects.get_or_create(
+    name="Society of Ether", parent=electrodyne,
+)
+
+golden_guild = MageFaction.objects.get_or_create(
+    name="Golden Guild", affinities=["entropy", "mind", "prime"], parent=oor,
+)[0]
+invisible_exchequers = MageFaction.objects.get_or_create(
+    name="Invisible Exchequers", affinities=["entropy", "time", "prime"], parent=oor,
+)[0]
+lightkeepers = MageFaction.objects.get_or_create(
+    name="Lightkeepers", affinities=["mind", "forces", "prime"], parent=oor,
+)[0]
+MageFaction.objects.get_or_create(
+    name="Lighthouse", parent=lightkeepers,
+)
+MageFaction.objects.get_or_create(
+    name="Lantern", parent=lightkeepers,
+)
+MageFaction.objects.get_or_create(
+    name="Torches", parent=lightkeepers,
+)
+mechanicians = MageFaction.objects.get_or_create(
+    name="Brotherhood of Mechanicians",
+    affinities=["matter", "forces", "time"],
+    parent=oor,
+)[0]
+skeleton_keys = MageFaction.objects.get_or_create(
+    name="Skeleton Keys", affinities=["mind", "correspondence"], parent=oor,
+)[0]
+MageFaction.objects.get_or_create(
+    name="Operatives", parent=skeleton_keys,
+)
+MageFaction.objects.get_or_create(
+    name="Investigators", parent=skeleton_keys,
+)
