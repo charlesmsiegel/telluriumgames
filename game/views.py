@@ -34,6 +34,18 @@ class ChronicleDetailView(View):
         return redirect(context["object"].add_story(request.POST["name"]))
 
 
+class ChronicleScenesDetailView(View):
+    def get(self, request, *args, **kwargs):
+        chronicle = Chronicle.objects.get(pk=kwargs["pk"])
+        context = {
+            "chronicle": chronicle,
+            "scenes": Scene.objects.filter(story__chronicle=chronicle).order_by(
+                "date_of_scene"
+            ),
+        }
+        return render(request, "game/scenes/detail.html", context)
+
+
 class StoryDetailView(View):
     def get_context(self, pk):
         story = Story.objects.get(pk=pk)
