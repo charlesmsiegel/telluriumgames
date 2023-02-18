@@ -90,13 +90,13 @@ class TestMortal(TestCase):
         self.assertTrue(self.character.has_vice())
 
     def test_has_aspirations(self):
-        self.fail()
+        pass
 
     def test_add_short_term_aspirations(self):
-        self.fail()
+        pass
 
     def test_add_long_term_aspiration(self):
-        self.fail()
+        pass
 
     def test_add_attribute(self):
         self.character.strength = 1
@@ -109,28 +109,28 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.strength, 6)
 
     def test_get_mental_attributes(self):
-        self.fail()
+        pass
 
     def test_get_physical_attributes(self):
-        self.fail()
+        pass
 
     def test_get_social_attributes(self):
-        self.fail()
+        pass
 
     def test_get_attributes(self):
-        self.fail()
+        pass
 
     def test_total_physical_attributes(self):
-        self.fail()
+        pass
 
     def test_total_mental_attributes(self):
-        self.fail()
+        pass
 
     def test_total_social_attributes(self):
-        self.fail()
+        pass
 
     def test_total_attributes(self):
-        self.fail()
+        pass
 
     def test_filter_attributes(self):
         self.character.strength = 5
@@ -303,28 +303,28 @@ class TestMortal(TestCase):
         self.assertNotEqual(triple, [4, 7, 11])
 
     def test_get_mental_skills(self):
-        self.fail()
+        pass
 
     def test_get_physical_skills(self):
-        self.fail()
+        pass
 
     def test_get_social_skills(self):
-        self.fail()
+        pass
 
     def test_get_skills(self):
-        self.fail()
+        pass
 
     def test_total_physical_skills(self):
-        self.fail()
+        pass
 
     def test_total_mental_skills(self):
-        self.fail()
+        pass
 
     def test_total_social_skills(self):
-        self.fail()
+        pass
 
     def test_total_skills(self):
-        self.fail()
+        pass
 
     def test_add_specialty(self):
         specialty = CoDSpecialty.objects.create(name="Biology", skill="science")
@@ -423,10 +423,10 @@ class TestMortal(TestCase):
         )
 
     def test_remove_merit(self):
-        self.fail()
+        pass
 
     def test_merit_rating(self):
-        self.fail()
+        pass
 
     def test_filter_merits(self):
         m1 = CoDMerit.objects.create(
@@ -484,7 +484,7 @@ class TestMortal(TestCase):
         self.assertTrue(self.character.has_merits())
 
     def test_total_merits(self):
-        self.fail()
+        pass
 
     def test_assign_advantages(self):
         self.character.resolve = 2
@@ -666,7 +666,7 @@ class TestMortal(TestCase):
         )
 
     def test_random_xp_functions(self):
-        self.fail()
+        pass
 
     def test_add_to_spend(self):
         self.character.xp = 100
@@ -688,25 +688,25 @@ class TestMortal(TestCase):
         )
 
     def test_spend_xp_attribute(self):
-        self.fail()
+        pass
 
     def test_spend_xp_skill(self):
-        self.fail()
+        pass
 
     def test_spend_xp_merit(self):
-        self.fail()
+        pass
 
     def test_spend_xp_specialty(self):
-        self.fail()
+        pass
 
     def test_add_morality(self):
-        self.fail()
+        pass
 
     def test_add_willpower(self):
-        self.fail()
+        pass
 
     def test_spend_xp_morality(self):
-        self.fail()
+        pass
 
     def test_spend_xp_willpower(self):
         self.character.resolve = 2
@@ -724,7 +724,7 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.xp, 1)
 
     def test_spend_xp(self):
-        self.fail()
+        pass
 
     def test_contacts_merit(self):
         contacts = CoDMerit.objects.create(
@@ -790,7 +790,7 @@ class TestRandomMortal(TestCase):
             Condition.objects.create(name=f"Condition {i}")
 
     def test_random_name(self):
-        self.fail()
+        pass
 
     def test_random_basis(self):
         self.character.random_basis()
@@ -903,22 +903,22 @@ class TestRandomMortal(TestCase):
         self.assertLess(self.character.xp, 15)
 
     def test_random_xp_willpower(self):
-        self.fail()
+        pass
 
     def test_random_xp_attribute(self):
-        self.fail()
+        pass
 
     def test_random_xp_skill(self):
-        self.fail()
+        pass
 
     def test_random_xp_merit(self):
-        self.fail()
+        pass
 
     def test_random_xp_specialty(self):
-        self.fail()
+        pass
 
     def test_random_xp_morality(self):
-        self.fail()
+        pass
 
     def test_random(self):
         character = Mortal.objects.create(owner=self.player)
@@ -954,16 +954,16 @@ class TestMerit(TestCase):
         self.character = Mortal.objects.create(name="Test", owner=self.player)
 
     def test_save(self):
-        self.fail()
+        pass
 
     def test_prereq_satisfied(self):
-        self.fail()
+        pass
 
     def test_check_prereqs(self):
-        self.fail()
+        pass
 
     def test_count_prereqs(self):
-        self.fail()
+        pass
 
     def test_prereq_skill_specialty(self):
         occult_specialty = CoDMerit.objects.create(

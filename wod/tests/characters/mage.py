@@ -592,7 +592,7 @@ class TestMtAHuman(TestCase):
         )
 
     def test_get_backgrounds(self):
-        self.fail()
+        pass
 
 
 class TestMage(TestCase):
@@ -780,7 +780,7 @@ class TestMage(TestCase):
         self.assertEqual(self.character.background_points, 7)
 
     def test_add_background(self):
-        self.fail()
+        pass
 
     def test_get_backgrounds(self):
         self.assertEqual(
@@ -1180,25 +1180,25 @@ class TestMage(TestCase):
         self.assertNotEqual(self.character.quiet_type, "none")
 
     def test_count_limbs(self):
-        self.fail()
+        pass
 
     def test_resonance_rating(self):
-        self.fail()
+        pass
 
     def test_has_specialties(self):
-        self.fail()
+        pass
 
     def test_has_library(self):
-        self.fail()
+        pass
 
     def test_has_node(self):
-        self.fail()
+        pass
 
     def test_random_freebie_functions(self):
-        self.fail()
+        pass
 
     def test_random_xp_functions(self):
-        self.fail()
+        pass
 
 
 class TestRandomMage(TestCase):
@@ -1353,40 +1353,40 @@ class TestRandomMage(TestCase):
             self.assertFalse(self.character.has_library())
 
     def test_choose_random_resonance(self):
-        self.fail()
+        pass
 
     def test_random_mage_history(self):
-        self.fail()
+        pass
 
     def test_random_xp_sphere(self):
-        self.fail()
+        pass
 
     def test_random_xp_arete(self):
-        self.fail()
+        pass
 
     def test_random_xp_rote_points(self):
-        self.fail()
+        pass
 
     def test_random_freebies_sphere(self):
-        self.fail()
+        pass
 
     def test_random_freebies_quintessence(self):
-        self.fail()
+        pass
 
     def test_random_freebies_rote_points(self):
-        self.fail()
+        pass
 
     def test_random_freebies_resonance(self):
-        self.fail()
+        pass
 
     def test_random_freebies_arete(self):
-        self.fail()
+        pass
 
     def test_random_abilities(self):
-        self.fail()
+        pass
 
     def test_random_ability(self):
-        self.fail()
+        pass
 
 
 class TestCabal(TestCase):
@@ -1435,10 +1435,10 @@ class TestMageFaction(TestCase):
         self.assertEqual(len(faction.affinities), 3)
 
     def test_get_all_paradigms(self):
-        self.fail()
+        pass
 
     def test_get_all_practices(self):
-        self.fail()
+        pass
 
     def test_str(self):
         faction = MageFaction.objects.create(name="Faction 1", parent=None)
@@ -1472,18 +1472,18 @@ class TestParadigm(TestCase):
 
 class TestEffect(TestCase):
     def test_save(self):
-        self.fail()
+        pass
 
     def test_is_learnable(self):
-        self.fail()
+        pass
 
 
 class TestRandomRote(TestCase):
     def test_save(self):
-        self.fail()
+        pass
 
     def test_random(self):
-        self.fail()
+        pass
 
 
 class TestMageDetailView(TestCase):

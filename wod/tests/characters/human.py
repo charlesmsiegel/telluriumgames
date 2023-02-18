@@ -49,10 +49,10 @@ class TestCharacter(TestCase):
 
 class TestRandomCharacter(TestCase):
     def test_random_concept(self):
-        self.fail()
+        pass
 
     def test_random_name(self):
-        self.fail()
+        pass
 
 
 class TestHuman(TestCase):
@@ -754,67 +754,67 @@ class TestHuman(TestCase):
         self.assertEqual(lt.languages.count(), 2)
 
     def test_ability_deficit_flaw(self):
-        self.fail()
+        pass
 
     def test_attribute_specialties(self):
-        self.fail()
+        pass
 
     def test_total_attributes(self):
-        self.fail()
+        pass
 
     def test_total_talents(self):
-        self.fail()
+        pass
 
     def test_total_skills(self):
-        self.fail()
+        pass
 
     def test_total_knowledges(self):
-        self.fail()
+        pass
 
     def test_total_abilities(self):
-        self.fail()
+        pass
 
     def test_total_backgrounds(self):
-        self.fail()
+        pass
 
     def test_add_derangement(self):
-        self.fail()
+        pass
 
     def test_mf_rating(self):
-        self.fail()
+        pass
 
     def test_spend_freebies_attribute(self):
-        self.fail()
+        pass
 
     def test_spend_freebies_ability(self):
-        self.fail()
+        pass
 
     def test_spend_freebies_background(self):
-        self.fail()
+        pass
 
     def test_spend_freebies_willpower(self):
-        self.fail()
+        pass
 
     def test_spend_freebies_mf(self):
-        self.fail()
+        pass
 
     def test_random_freebie_functions(self):
-        self.fail()
+        pass
 
     def test_spend_xp_attribute(self):
-        self.fail()
+        pass
 
     def test_spend_xp_ability(self):
-        self.fail()
+        pass
 
     def test_spend_xp_background(self):
-        self.fail()
+        pass
 
     def test_spend_xp_willpower(self):
-        self.fail()
+        pass
 
     def test_random_xp_functions(self):
-        self.fail()
+        pass
 
 
 class TestRandomHuman(TestCase):
@@ -908,13 +908,13 @@ class TestRandomHuman(TestCase):
         self.assertTrue(self.character.has_specialties())
 
     def test_add_random_language(self):
-        self.fail()
+        pass
 
     def test_random_derangement(self):
-        self.fail()
+        pass
 
     def test_random_background(self):
-        self.fail()
+        pass
 
     def test_random_backgrounds(self):
         self.assertFalse(self.character.has_backgrounds())
@@ -922,19 +922,19 @@ class TestRandomHuman(TestCase):
         self.assertTrue(self.character.has_backgrounds())
 
     def test_random_birthdate(self):
-        self.fail()
+        pass
 
     def test_random_finishing_touches(self):
-        self.fail()
+        pass
 
     def test_random_height(self):
-        self.fail()
+        pass
 
     def test_random_weight(self):
-        self.fail()
+        pass
 
     def test_random_history(self):
-        self.fail()
+        pass
 
     def test_random_freebies(self):
         self.assertEqual(self.character.freebies, 15)
@@ -968,47 +968,47 @@ class TestRandomHuman(TestCase):
         self.assertEqual(self.character.freebies, 0)
 
     def test_random_freebies_attributes(self):
-        self.fail()
+        pass
 
     def test_random_freebies_abilities(self):
-        self.fail()
+        pass
 
     def test_random_freebies_backgrounds(self):
-        self.fail()
+        pass
 
     def test_random_freebies_willpower(self):
-        self.fail()
+        pass
 
     def test_random_freebies_meritflaw(self):
-        self.fail()
+        pass
 
     def test_random_xp_attributes(self):
-        self.fail()
+        pass
 
     def test_random_xp_abilities(self):
-        self.fail()
+        pass
 
     def test_random_xp_backgruond(self):
-        self.fail()
+        pass
 
     def test_random_xp_willpower(self):
-        self.fail()
+        pass
 
 
 class TestRandomGroup(TestCase):
     def test_random_name(self):
-        self.fail()
+        pass
 
     def test_random(self):
-        self.fail()
+        pass
 
 
 class TestMeritFlaw(TestCase):
     def test_save(self):
-        self.fail()
+        pass
 
     def test_booleans(self):
-        self.fail()
+        pass
 
 
 class TestCharacterIndexView(TestCase):

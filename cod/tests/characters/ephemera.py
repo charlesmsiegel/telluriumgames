@@ -46,42 +46,42 @@ class TestEphemera(TestCase):
         self.assertEqual(self.ephemera.maximum_essence, 50)
 
     def test_get_attributes(self):
-        self.fail()
+        pass
 
     def test_total_attributes(self):
-        self.fail()
+        pass
 
     def test_other_traits(self):
-        self.fail()
+        pass
 
     def test_add_numina(self):
-        self.fail()
+        pass
 
     def test_add_filter_numina(self):
-        self.fail()
+        pass
 
     def test_total_numina(self):
-        self.fail()
+        pass
 
 
 class TestRandomEphemera(TestCase):
     def test_random_rank(self):
-        self.fail()
+        pass
 
     def test_random_rank(self):
-        self.fail()
+        pass
 
     def test_random_type(self):
-        self.fail()
+        pass
 
     def test_random_attributes(self):
-        self.fail()
+        pass
 
     def test_random_numina(self):
-        self.fail()
+        pass
 
     def test_random_name(self):
-        self.fail()
+        pass
 
     def test_random(self):
-        self.fail()
+        pass

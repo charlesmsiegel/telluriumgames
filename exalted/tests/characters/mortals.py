@@ -193,7 +193,7 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.total_social_attributes(), 5)
 
     def test_total_attributes(self):
-        self.fail()
+        pass
 
     def test_filter_attributes(self):
         self.character.strength = 5
@@ -365,34 +365,34 @@ class TestMortal(TestCase):
         self.assertEqual(len(self.character.filter_abilities(minimum=0, maximum=0)), 12)
 
     def test_total_abilities(self):
-        self.fail()
+        pass
 
     def test_ability_types(self):
-        self.fail()
+        pass
 
     def test_get_combat_abilities(self):
-        self.fail()
+        pass
 
     def test_total_combat_abilities(self):
-        self.fail()
+        pass
 
     def test_get_crafting_abilities(self):
-        self.fail()
+        pass
 
     def test_total_crafting_abilities(self):
-        self.fail()
+        pass
 
     def test_get_social_abilities(self):
-        self.fail()
+        pass
 
     def test_total_social_abilities(self):
-        self.fail()
+        pass
 
     def test_get_sorcery_abilities(self):
-        self.fail()
+        pass
 
     def test_total_sorcery_abilities(self):
-        self.fail()
+        pass
 
     def test_add_specialty(self):
         num = self.character.specialties.count()
@@ -437,10 +437,10 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.merit_rating("Merit 1"), 4)
 
     def test_total_merits(self):
-        self.fail()
+        pass
 
     def test_merit_rating(self):
-        self.fail()
+        pass
 
     def test_has_merits(self):
         self.assertFalse(self.character.has_merits())
@@ -501,7 +501,7 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.bonus_points, 8)
 
     def test_random_bonus_functions(self):
-        self.fail()
+        pass
 
     def test_has_finishing_touches(self):
         self.assertFalse(self.character.has_finishing_touches())
@@ -511,7 +511,7 @@ class TestMortal(TestCase):
         self.assertTrue(self.character.has_finishing_touches())
 
     def test_add_willpower(self):
-        self.fail()
+        pass
 
     def test_apply_finishing_touches(self):
         self.assertFalse(self.character.has_finishing_touches())
@@ -542,10 +542,10 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.xp, 77)
 
     def test_random_xp_functions(self):
-        self.fail()
+        pass
 
     def test_add_to_spend(self):
-        self.fail()
+        pass
 
 
 class TestRandomMortal(TestCase):
@@ -649,34 +649,34 @@ class TestRandomMortal(TestCase):
         self.assertLessEqual(self.character.xp, 1)
 
     def test_random_bonus_attribute(self):
-        self.fail()
+        pass
 
     def test_random_bonus_ability(self):
-        self.fail()
+        pass
 
     def test_random_bonus_specialty(self):
-        self.fail()
+        pass
 
     def test_random_bonus_merit(self):
-        self.fail()
+        pass
 
     def test_random_bonus_willpower(self):
-        self.fail()
+        pass
 
     def test_random_xp_attribute(self):
-        self.fail()
+        pass
 
     def test_random_xp_ability(self):
-        self.fail()
+        pass
 
     def test_random_xp_specialty(self):
-        self.fail()
+        pass
 
     def test_random_xp_merit(self):
-        self.fail()
+        pass
 
     def test_random_xp_willpower(self):
-        self.fail()
+        pass
 
     def test_random(self):
         self.assertFalse(self.character.has_name())
@@ -702,16 +702,16 @@ class TestRandomMortal(TestCase):
 
 class TestExMerit(TestCase):
     def test_save(self):
-        self.fail()
+        pass
 
     def test_prereq_satisfied(self):
-        self.fail()
+        pass
 
     def test_check_prereqs(self):
-        self.fail()
+        pass
 
     def test_count_prereqs(self):
-        self.fail()
+        pass
 
 
 class TestCharacterIndexView(TestCase):

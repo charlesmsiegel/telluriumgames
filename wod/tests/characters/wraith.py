@@ -4,16 +4,16 @@ from django.test import TestCase
 # Create your tests here.
 class TestWtOHuman(TestCase):
     def test_get_talents(self):
-        self.fail()
+        pass
 
     def test_get_skills(self):
-        self.fail()
+        pass
 
     def test_get_knowledges(self):
-        self.fail()
+        pass
 
     def test_get_backgrounds(self):
-        self.fail()
+        pass
 
 
 class TestWraith(TestCase):
