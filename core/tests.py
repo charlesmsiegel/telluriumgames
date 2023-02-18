@@ -1,5 +1,7 @@
 import time
 from collections import Counter
+from unittest import mock
+from unittest.mock import Mock
 
 from django.contrib.auth.models import User
 from django.test import LiveServerTestCase, TestCase
@@ -10,6 +12,7 @@ from selenium.webdriver.support.ui import Select
 from cod.models.characters.mortal import Mortal
 from core.models import CharacterModel, filepath
 from core.templatetags.dots import dots
+from core.utils import wod_dice
 
 # from game.models import Scene, Story
 
@@ -289,3 +292,49 @@ class TestModel(TestCase):
         self.assertFalse(self.model.has_source())
         self.assertTrue(self.model.add_source("Test Book", 1))
         self.assertTrue(self.model.has_source())
+
+
+class TestWoDDice(TestCase):
+    """Manage tests for Diceroller"""
+
+    def test_botch(self):
+        mocker = Mock()
+        mocker.side_effect = [1, 1, 3, 4, 5]
+        with mock.patch("random.randint", mocker):
+            _, successes = wod_dice(5)
+            self.assertEqual(successes, -2)
+
+    def test_failure_with_1s(self):
+        mocker = Mock()
+        mocker.side_effect = [1, 1, 7, 4, 5]
+        with mock.patch("random.randint", mocker):
+            _, successes = wod_dice(5)
+            self.assertEqual(successes, 0)
+
+    def test_failure(self):
+        mocker = Mock()
+        mocker.side_effect = [4, 2, 3, 4, 5]
+        with mock.patch("random.randint", mocker):
+            _, successes = wod_dice(5)
+            self.assertEqual(successes, 0)
+
+    def test_success(self):
+        mocker = Mock()
+        mocker.side_effect = [6, 7, 3, 4, 5]
+        with mock.patch("random.randint", mocker):
+            _, successes = wod_dice(5)
+            self.assertEqual(successes, 2)
+
+    def test_specialty(self):
+        mocker = Mock()
+        mocker.side_effect = [10, 10, 3, 6, 5]
+        with mock.patch("random.randint", mocker):
+            _, successes = wod_dice(5, specialty=True)
+            self.assertEqual(successes, 5)
+
+    def test_difficulty(self):
+        mocker = Mock()
+        mocker.side_effect = [4, 2, 3, 4, 5]
+        with mock.patch("random.randint", mocker):
+            _, successes = wod_dice(5, difficulty=5)
+            self.assertEqual(successes, 1)

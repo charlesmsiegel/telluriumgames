@@ -43,6 +43,19 @@ def cod_dice(number_of_dice, again_minimum=10):
     return roll, sum(x >= 8 for x in roll)
 
 
+def wod_dice(dicepool, difficulty=6, specialty=False):
+    dice_list = [randint(1, 10) for _ in range(dicepool)]
+    ones = len([x for x in dice_list if x == 1])
+    tens = len([x for x in dice_list if x == 10])
+    successes = len([x for x in dice_list if x >= difficulty])
+    total = successes - ones
+    if successes == 0:
+        return dice_list, total
+    if specialty:
+        total += tens
+    return dice_list, max([total, 0])
+
+
 def add_dot(character, trait, maximum):
     if getattr(character, trait) < maximum:
         setattr(character, trait, getattr(character, trait) + 1)

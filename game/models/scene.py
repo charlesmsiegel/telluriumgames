@@ -56,6 +56,20 @@ class Scene(models.Model):
     def add_post(self, character, display, message):
         if display == "":
             display = character.name
-        return Post.objects.create(
+        post = Post.objects.create(
             character=character, message=message, display_name=display, scene=self
         )
+        if message.startswith("/roll"):
+            # TODO: Implement cod_dice parsing
+            "/roll <num_dice> difficulty <diff> <specialty>"
+            tmp = message.split("/roll")[1]
+            parts = [x.strip() for x in tmp.split("difficulty")]
+            num_dice = int(parts[0])
+            if " " in parts[1]:
+                difficulty = int(parts[1].split(" ")[0])
+                specialty = True
+            else:
+                difficulty = int(parts[1])
+                specialty = False
+            post.roll(num_dice, difficulty=difficulty, specialty=specialty)
+        return post

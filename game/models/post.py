@@ -1,5 +1,7 @@
 from django.db import models
 
+from core.utils import cod_dice, wod_dice
+
 
 # Create your models here.
 class Post(models.Model):
@@ -18,3 +20,18 @@ class Post(models.Model):
         if self.display_name:
             return self.display_name + ": " + self.message
         return self.character.name + ": " + self.message
+
+    def roll(self, number_of_dice, difficulty=6, specialty=False, again_minimum=10):
+        if self.scene.story.chronicle.system == "cod":
+            roll, success_count = cod_dice(number_of_dice, again_minimum=again_minimum)
+        elif self.scene.story.chronicle.system == "wod":
+            roll, success_count = wod_dice(
+                number_of_dice, difficulty=difficulty, specialty=specialty
+            )
+        else:
+            raise ValueError(
+                f"Not Implemented System {self.scene.story.chronicle.system}"
+            )
+        roll = ", ".join(map(str, roll))
+        self.message = f"{roll}: <b>{success_count}</b>"
+        self.save()
