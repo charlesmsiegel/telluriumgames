@@ -1,7 +1,8 @@
 from django import forms
 
 from core.fields import ListTextWidget
-from wod.models.characters.human import MeritFlaw
+from game.models.chronicle import Chronicle
+from wod.models.characters.human import Archetype, MeritFlaw
 from wod.models.characters.mage import Mage, MageFaction
 
 
@@ -50,3 +51,59 @@ class ResonanceForm(forms.Form):
         self.fields["char_field_with_list"].widget = ListTextWidget(
             data_list=_resonance_list, name="resonance-list"
         )
+
+
+class MageCreationForm(forms.Form):
+    name = forms.CharField(label="Name", max_length=100)
+    concept = forms.CharField(label="Concept", max_length=100)
+    chronicle = forms.ModelChoiceField(
+        required=False,
+        queryset=Chronicle.objects.all(),
+        # TODO: Restrict to Chronicles allowing mages
+        empty_label="----",
+    )
+    nature = forms.ModelChoiceField(queryset=Archetype.objects.all(), empty_label="----")
+    demeanor = forms.ModelChoiceField(queryset=Archetype.objects.all(), empty_label="----")
+    affiliation = forms.ModelChoiceField(queryset=MageFaction.objects.filter(parent=None), empty_label="----")
+    essence = forms.CharField(widget=forms.Select(choices=[("----", "----"), ("Dynamic", "Dynamic"),
+            ("Pattern", "Pattern"),
+            ("Primordial", "Primordial"),
+            ("Questing", "Questing"),]),)
+    faction = forms.ModelChoiceField(queryset=MageFaction.objects.none(), empty_label="----")
+    subfaction = forms.ModelChoiceField(queryset=MageFaction.objects.none(), empty_label="----")
+
+class MageAttributeForm(forms.Form):
+    pass
+
+class MageAbilitiesForm(forms.Form):
+    pass
+
+class MageAdvantagesForm(forms.Form):
+    pass
+
+class MageBackgroundsForm(forms.Form):
+    pass
+
+class MageSpheresForm(forms.Form):
+    pass
+
+class MageFocusForm(forms.Form):
+    pass
+
+class MageRotesForm(forms.Form):
+    pass
+
+class MageMeritsAndFlawsForm(forms.Form):
+    pass
+
+class MageResonanceForm(forms.Form):
+    pass
+
+class MageLanguagesForm(forms.Form):
+    pass
+
+class MageAppearanceForm(forms.Form):
+    pass
+
+class MageHistoryForm(forms.Form):
+    pass
