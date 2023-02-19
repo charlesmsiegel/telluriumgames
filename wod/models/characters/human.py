@@ -111,6 +111,7 @@ class Character(CharacterModel):
     type = "character"
 
     concept = models.CharField(max_length=100)
+    creation_status = models.IntegerField(default=1)
 
     class Meta:
         verbose_name = "Character"
