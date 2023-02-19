@@ -30,11 +30,13 @@ class ExMortalCreationForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         choices = [(x.name, x.name) for x in Chronicle.objects.all()]
+        # TODO: Restrict to Chronicles allowing ExMortals
         super().__init__(*args, **kwargs)
         self.fields["chronicle"].widget.choices += choices
 
 
 class SolarCreationForm(ExMortalCreationForm):
+    # TODO: Restrict to Chronicles allowing Solars
     CASTE_CHOICES = ["dawn", "zenith", "twilight", "eclipse", "night"]
     caste = forms.CharField(
         label="Caste",
