@@ -41,17 +41,19 @@ class MageCreateView(View):
     def post(self, request, *args, **kwargs):
         form = MageCreationForm(request.POST)
         chron = None
-        aff = None
-        fac = None
-        subfact = None
+        affiliation = None
+        faction = None
+        subfaction = None
+        print(form.data)
+        print(form.data['affiliation'])
         if "chronicle" in form.data.keys():
-            chron = Chronicle.objects.filter(name=form.data["chronicle"]).first()
+            chron = Chronicle.objects.filter(pk=form.data["chronicle"]).first()
         if "affiliation" in form.data.keys():
-            affiliation = MageFaction.objects.filter(name=form.data["affiliation"]).first()
+            affiliation = MageFaction.objects.filter(pk=form.data["affiliation"]).first()
         if "faction" in form.data.keys():
-            faction = MageFaction.objects.filter(name=form.data["faction"]).first()
+            faction = MageFaction.objects.filter(pk=form.data["faction"]).first()
         if "subfaction" in form.data.keys():
-            subfaction = MageFaction.objects.filter(name=form.data["subfaction"]).first()
+            subfaction = MageFaction.objects.filter(pk=form.data["subfaction"]).first()
         s = Mage.objects.create(
             name=form.data["name"],
             concept=form.data["concept"],
