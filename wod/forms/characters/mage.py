@@ -5,67 +5,6 @@ from wod.models.characters.human import MeritFlaw
 from wod.models.characters.mage import Mage, MageFaction
 
 
-class RandomCharacterForm(forms.Form):
-    gameline = forms.ChoiceField(
-        choices=[
-            ("choose", "Choose a Gameline"),
-            ("werewolf", "Werewolf"),
-            ("mage", "Mage"),
-            ("changeling", "Changeling"),
-        ],
-        initial=("gameline", "Choose a gameline"),
-    )
-    character_type = forms.ChoiceField(choices=[])
-    character_name = forms.CharField(max_length=100, label="Name", required=False)
-    freebies = forms.IntegerField(initial=15)
-    xp = forms.IntegerField(initial=0, label="XP")
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["character_type"].choices = []
-
-
-class RandomLocationForm(forms.Form):
-    gameline = forms.ChoiceField(
-        choices=[
-            ("choose", "Choose a Gameline"),
-            # ("werewolf", "Werewolf"),
-            ("mage", "Mage"),
-        ],
-        initial=("gameline", "Choose a gameline"),
-    )
-    location_type = forms.ChoiceField(
-        choices=[
-            # ("werewolf", "Werewolf"),
-            ("mage", "Mage")
-        ]
-    )
-    name = forms.CharField(max_length=100, label="Name", required=False)
-    rank = forms.IntegerField(initial=1, max_value=5)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["location_type"].choices = []
-
-
-class RandomItemForm(forms.Form):
-    gameline = forms.ChoiceField(
-        choices=[
-            ("choose", "Choose a Gameline"),
-            # ("werewolf", "Werewolf"),
-            ("mage", "Mage"),
-        ],
-        initial=("gameline", "Choose a gameline"),
-    )
-    item_type = forms.ChoiceField(choices=[("werewolf", "Werewolf"), ("mage", "Mage")])
-    name = forms.CharField(max_length=100, label="Name", required=False)
-    rank = forms.IntegerField(initial=1, max_value=5)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["item_type"].choices = []
-
-
 class MageForm(forms.ModelForm):
     class Meta:
         model = Mage

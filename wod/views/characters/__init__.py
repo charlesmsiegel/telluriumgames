@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.views.generic import View
 
-from wod.forms import RandomCharacterForm
+from wod.forms.characters import RandomCharacterForm
 from wod.models.characters.changeling import Changeling, Motley
 from wod.models.characters.human import Character, Group
 from wod.models.characters.mage.cabal import Cabal

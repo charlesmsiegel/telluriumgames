@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
-from wod.forms import MageForm, ResonanceForm
+from wod.forms.characters.mage import MageForm, ResonanceForm
 from wod.models.characters.human import MeritFlawRating
 from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.faction import MageFaction
