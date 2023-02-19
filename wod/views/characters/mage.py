@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
+from game.models.chronicle import Chronicle
 
-from wod.forms.characters.mage import MageForm, ResonanceForm
-from wod.models.characters.human import MeritFlawRating
+from wod.forms.characters.mage import MageAttributeForm, MageCreationForm, MageForm, ResonanceForm
+from wod.models.characters.human import Archetype, MeritFlawRating
 from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.faction import MageFaction
 from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
@@ -17,7 +18,7 @@ def load_factions(request):
     factions = MageFaction.objects.filter(parent=affiliation_id).order_by("name")
     return render(
         request,
-        "wod/characters/mage/load_faction_dropdown_list.html",
+        "wod/characters/mage/mage/load_faction_dropdown_list.html",
         {"factions": factions},
     )
 
@@ -27,16 +28,94 @@ def load_subfactions(request):
     subfactions = MageFaction.objects.filter(parent=faction_id).order_by("name")
     return render(
         request,
-        "wod/characters/mage/load_subfaction_dropdown_list.html",
+        "wod/characters/mage/mage/load_subfaction_dropdown_list.html",
         {"subfactions": subfactions},
     )
 
+class MageCreateView(View):
+    def get(self, request, *args, **kwargs):
+        context = {}
+        context["form"] = MageCreationForm()
+        return render(request, "wod/characters/mage/mage/create.html", context)
+
+    def post(self, request, *args, **kwargs):
+        form = MageCreationForm(request.POST)
+        chron = None
+        aff = None
+        fac = None
+        subfact = None
+        if "chronicle" in form.data.keys():
+            chron = Chronicle.objects.filter(name=form.data["chronicle"]).first()
+        if "affiliation" in form.data.keys():
+            affiliation = MageFaction.objects.filter(name=form.data["affiliation"]).first()
+        if "faction" in form.data.keys():
+            faction = MageFaction.objects.filter(name=form.data["faction"]).first()
+        if "subfaction" in form.data.keys():
+            subfaction = MageFaction.objects.filter(name=form.data["subfaction"]).first()
+        s = Mage.objects.create(
+            name=form.data["name"],
+            concept=form.data["concept"],
+            demeanor=Archetype.objects.get(pk=form.data["demeanor"]),
+            nature=Archetype.objects.get(pk=form.data["nature"]),
+            owner=request.user,
+            status="Un",
+            essence=1,
+            chronicle=chron,
+            affiliation=affiliation,
+            faction=faction,
+            subfaction=subfaction,
+        )
+        return redirect(s.get_absolute_url())
 
 class MageDetailView(View):
     def get(self, request, *args, **kwargs):
         mage = Mage.objects.get(pk=kwargs["pk"])
         context = self.get_context(mage)
-        return render(request, "wod/characters/mage/mage/detail.html", context)
+        if mage.status != "Un":
+            return render(request, "wod/characters/mage/mage/detail.html", context,)
+        if mage.creation_status == 1:
+            context["form"] = MageAttributeForm(initial=mage.get_attributes())
+            return render(
+                request,
+                "wod/characters/mage/mage/creation_attribute.html",
+                context,
+            )
+        # if mage.creation_status == 2:
+        #     d = mage.get_abilities()
+        #     context["form"] = ExaltedAbilitiesForm(initial=d, character=char)
+        #     return render(
+        #         request,
+        #         "wod/characters/mage/mage/creation_abilities.html",
+        #         context,
+        #     )
+        # if mage.creation_status == 3:
+        #     context["form"] = ExaltedMeritsForm()
+        #     return render(
+        #         request,
+        #         "wod/characters/mage/mage/creation_merits.html",
+        #         context,
+        #     )
+        # if mage.creation_status == 4:
+        #     context["form"] = ExaltedCharmForm(character=char)
+        #     return render(
+        #         request,
+        #         "wod/characters/mage/mage/creation_charms.html",
+        #         context,
+        #     )
+        # if mage.creation_status == 5:
+        #     context["form"] = ExaltedIntimacyForm()
+        #     return render(
+        #         request,
+        #         "wod/characters/mage/mage/creation_intimacies.html",
+        #         context,
+        #     )
+        # if mage.creation_status == 6:
+        #     return render(
+        #         request,
+        #         "wod/characters/mage/mage/creation_bonus_points.html",
+        #         context,
+        #     )
+        return render(request, "wod/characters/mage/mage/detail.html", context,)
 
     def get_context(self, mage):
         context = {"object": mage}
@@ -110,15 +189,15 @@ class MageDetailView(View):
         return context
 
 
-class MageCreateView(CreateView):
-    model = Mage
-    form_class = MageForm
-    template_name = "wod/characters/mage/mage/form.html"
+# class MageCreateView(CreateView):
+#     model = Mage
+#     form_class = MageForm
+#     template_name = "wod/characters/mage/mage/form.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["resform"] = ResonanceForm(data_list=Resonance.objects.all())
-        return context
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context["resform"] = ResonanceForm(data_list=Resonance.objects.all())
+#         return context
 
 
 class MageUpdateView(UpdateView):
