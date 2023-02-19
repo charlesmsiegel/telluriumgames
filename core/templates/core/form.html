@@ -3,7 +3,11 @@
     {{ object.name| safe }}
 {% endblock title %}
 {% block content %}
-    <form action="" method="post">
+    <form 
+    {% block formdetails %}
+    action="" method="post"
+    {% endblock formdetails %}
+    >
         {% csrf_token %}
         <div class="centertext container">
             {% block contents %}
