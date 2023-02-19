@@ -73,10 +73,55 @@ class MageCreationForm(forms.Form):
     subfaction = forms.ModelChoiceField(queryset=MageFaction.objects.none(), empty_label="----")
 
 class MageAttributeForm(forms.Form):
-    pass
+    strength = forms.IntegerField(max_value=5, min_value=1)
+    dexterity = forms.IntegerField(max_value=5, min_value=1)
+    stamina = forms.IntegerField(max_value=5, min_value=1)
+    charisma = forms.IntegerField(max_value=5, min_value=1)
+    manipulation = forms.IntegerField(max_value=5, min_value=1)
+    appearance = forms.IntegerField(max_value=5, min_value=1)
+    perception = forms.IntegerField(max_value=5, min_value=1)
+    intelligence = forms.IntegerField(max_value=5, min_value=1)
+    wits = forms.IntegerField(max_value=5, min_value=1)
+
+    def total_physical(self):
+        self.full_clean()
+        return (
+            self.cleaned_data["strength"]
+            + self.cleaned_data["dexterity"]
+            + self.cleaned_data["stamina"]
+        )
+
+    def total_social(self):
+        self.full_clean()
+        return (
+            self.cleaned_data["charisma"]
+            + self.cleaned_data["manipulation"]
+            + self.cleaned_data["appearance"]
+        )
+
+    def total_mental(self):
+        self.full_clean()
+        return (
+            self.cleaned_data["perception"]
+            + self.cleaned_data["intelligence"]
+            + self.cleaned_data["wits"]
+        )
+
+    def has_attributes(self):
+        triple = [10, 8, 6]
+        other_triple = [
+            self.total_physical(),
+            self.total_social(),
+            self.total_mental(),
+        ]
+        triple.sort()
+        other_triple.sort()
+        return triple == other_triple
 
 class MageAbilitiesForm(forms.Form):
-    pass
+    def __init__(self, *args, **kwargs):
+        char = kwargs.pop("character")
+        super().__init__(*args, **kwargs)
 
 class MageAdvantagesForm(forms.Form):
     pass
