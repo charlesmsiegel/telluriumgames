@@ -99,13 +99,13 @@ class MageDetailView(View):
                 "wod/characters/mage/mage/creation_advantages.html",
                 context,
             )
-        # if mage.creation_status == 4:
+        if mage.creation_status == 4:
         #     context["form"] = ExaltedCharmForm(character=char)
-        #     return render(
-        #         request,
-        #         "wod/characters/mage/mage/creation_charms.html",
-        #         context,
-        #     )
+            return render(
+                request,
+                "wod/characters/mage/mage/creation_powers.html",
+                context,
+            )
         # if mage.creation_status == 5:
         #     context["form"] = ExaltedIntimacyForm()
         #     return render(
@@ -161,6 +161,7 @@ class MageDetailView(View):
                 char.save()
                 d = char.get_backgrounds()
                 d['arete'] = 1
+                # TODO: Add affinity_sphere and focus
                 context["form"] = MageAdvantagesForm(initial=d, character=char)
                 return render(
                     request,
@@ -177,29 +178,25 @@ class MageDetailView(View):
         if char.creation_status == 3:
             form = MageAdvantagesForm(request.POST, character=char)
             if form.complete():
-                # form.full_clean()
-        #         merits = [form.cleaned_data[f"merit_{i}"] for i in range(1, 11)]
-        #         merit_ratings = [
-        #             form.cleaned_data[f"merit_{i}_rating"] for i in range(1, 11)
-        #         ]
-        #         pairs = list(zip(merits, merit_ratings))
-        #         pairs = [x for x in pairs if x[0] != "----"]
-        #         pairs = [(ExMerit.objects.get(name=x[0]), x[1]) for x in pairs]
-        #         pairs = [(x[0], x[1]) for x in pairs if x[1] in x[0].ratings]
-        #         for merit, rating in pairs:
-        #             MeritRating.objects.create(
-        #                 character=char, merit=merit, rating=rating
-        #             )
-        #         char.creation_status += 1
-        #         char.save()
+                form.full_clean()
+                for key in char.get_backgrounds().keys():
+                    setattr(char, key, form.cleaned_data[key])
+                char.arete = form.cleaned_data['arete']
+                char.affinity_sphere = form.cleaned_data['affinity_sphere']
+                char.paradigms.add(*list(form.cleaned_data['paradigms']))
+                char.practices.add(*list(form.cleaned_data['practices']))
+                char.instruments.add(*list(form.cleaned_data['instruments']))
+                char.creation_status += 1
+                char.save()
         #         context["form"] = ExaltedCharmForm(character=char)
                 return render(
                     request,
-                    "exalted/characters/solars/solar/creation_charms.html",
+                    "wod/characters/mage/mage/creation_powers.html",
                     context,
                 )
             d = char.get_backgrounds()
             d['arete'] = 1
+            # TODO: Add affinity_sphere and focus
             context["form"] = MageAdvantagesForm(initial=d, character=char)
             return render(
                 request,
