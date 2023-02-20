@@ -227,8 +227,34 @@ class MageAbilitiesForm(forms.Form):
     vice = forms.IntegerField(max_value=3, min_value=0)
     
     def __init__(self, *args, **kwargs):
-        char = kwargs.pop("character")
+        self.char = kwargs.pop("character")
         super().__init__(*args, **kwargs)
+        
+    def total_talents(self):
+        self.full_clean()
+        talent_list = self.char.get_talents().keys()
+        return sum(self.cleaned_data[x] for x in talent_list)
+
+    def total_skills(self):
+        self.full_clean()
+        skill_list = self.char.get_skills().keys()
+        return sum(self.cleaned_data[x] for x in skill_list)
+
+    def total_knowledges(self):
+        self.full_clean()
+        knowledge_list = self.char.get_knowledges().keys()
+        return sum(self.cleaned_data[x] for x in knowledge_list)
+
+    def has_abilities(self):
+        triple = [13, 9, 5]
+        other_triple = [
+            self.total_talents(),
+            self.total_skills(),
+            self.total_knowledges(),
+        ]
+        triple.sort()
+        other_triple.sort()
+        return triple == other_triple
 
 class MageAdvantagesForm(forms.Form):
     pass

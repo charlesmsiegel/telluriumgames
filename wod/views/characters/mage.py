@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 from game.models.chronicle import Chronicle
 
-from wod.forms.characters.mage import MageAbilitiesForm, MageAttributeForm, MageCreationForm, MageForm, ResonanceForm
+from wod.forms.characters.mage import MageAbilitiesForm, MageAdvantagesForm, MageAttributeForm, MageCreationForm, MageForm, ResonanceForm
 from wod.models.characters.human import Archetype, MeritFlawRating
 from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.faction import MageFaction
@@ -149,84 +149,27 @@ class MageDetailView(View):
                 "wod/characters/mage/mage/creation_attribute.html",
                 context,
             )
-        # if char.creation_status == 2:
-        #     form = ExaltedAbilitiesForm(request.POST, character=char)
-        #     if form.has_abilities(char):
-        #         checked_abilities = [x for x in ABILITIES if x + "_check" in form.data]
-        #         char.caste_abilities = [
-        #             x
-        #             for x in checked_abilities
-        #             if x in char.caste_ability_dict[char.caste]
-        #         ]
-        #         char.favored_abilities = [
-        #             x
-        #             for x in checked_abilities
-        #             if x not in char.caste_ability_dict[char.caste]
-        #         ]
-        #         form.full_clean()
-        #         char.archery = form.cleaned_data["archery"]
-        #         char.athletics = form.cleaned_data["athletics"]
-        #         char.awareness = form.cleaned_data["awareness"]
-        #         char.brawl = form.cleaned_data["brawl"]
-        #         char.bureaucracy = form.cleaned_data["bureaucracy"]
-        #         char.craft = form.cleaned_data["craft"]
-        #         char.dodge = form.cleaned_data["dodge"]
-        #         char.integrity = form.cleaned_data["integrity"]
-        #         char.investigation = form.cleaned_data["investigation"]
-        #         char.larceny = form.cleaned_data["larceny"]
-        #         char.linguistics = form.cleaned_data["linguistics"]
-        #         char.lore = form.cleaned_data["lore"]
-        #         char.martial_arts = form.cleaned_data["martial_arts"]
-        #         if form.cleaned_data["martial_arts"] > 0:
-        #             char.add_merit(ExMerit.objects.get(name="Martial Artist"))
-        #         char.medicine = form.cleaned_data["medicine"]
-        #         char.melee = form.cleaned_data["melee"]
-        #         char.occult = form.cleaned_data["occult"]
-        #         char.performance = form.cleaned_data["performance"]
-        #         char.presence = form.cleaned_data["presence"]
-        #         char.resistance = form.cleaned_data["resistance"]
-        #         char.ride = form.cleaned_data["ride"]
-        #         char.sail = form.cleaned_data["sail"]
-        #         char.socialize = form.cleaned_data["socialize"]
-        #         char.stealth = form.cleaned_data["stealth"]
-        #         char.survival = form.cleaned_data["survival"]
-        #         char.thrown = form.cleaned_data["thrown"]
-        #         char.war = form.cleaned_data["war"]
-        #         char.supernal_ability = form.data["supernal_ability"]
-
-        #         s1 = ExSpecialty.objects.get_or_create(
-        #             ability=form.data["spec_1_ability"], name=form.data["spec_1_value"]
-        #         )[0]
-        #         s2 = ExSpecialty.objects.get_or_create(
-        #             ability=form.data["spec_2_ability"], name=form.data["spec_2_value"]
-        #         )[0]
-        #         s3 = ExSpecialty.objects.get_or_create(
-        #             ability=form.data["spec_3_ability"], name=form.data["spec_3_value"]
-        #         )[0]
-        #         s4 = ExSpecialty.objects.get_or_create(
-        #             ability=form.data["spec_4_ability"], name=form.data["spec_4_value"]
-        #         )[0]
-
-        #         char.add_specialty(s1)
-        #         char.add_specialty(s2)
-        #         char.add_specialty(s3)
-        #         char.add_specialty(s4)
-
-        #         char.creation_status += 1
-        #         char.save()
-        #         context["form"] = ExaltedMeritsForm()
-        #         return render(
-        #             request,
-        #             "exalted/characters/solars/solar/creation_merits.html",
-        #             context,
-        #         )
-        #     d = char.get_abilities()
-        #     context["form"] = ExaltedAbilitiesForm(initial=d, character=char)
-        #     return render(
-        #         request,
-        #         "exalted/characters/solars/solar/creation_abilities.html",
-        #         context,
-        #     )
+        if char.creation_status == 2:
+            form = MageAbilitiesForm(request.POST, character=char)
+            if form.has_abilities():
+                form.full_clean()
+                for key in list(char.get_talents().keys()) + list(char.get_skills().keys()) + list(char.get_knowledges().keys()):
+                    setattr(char, key, form.cleaned_data[key])
+                char.creation_status += 1
+                char.save()
+                context["form"] = MageAdvantagesForm()
+                return render(
+                    request,
+                    "wod/characters/mage/mage/creation_advantages.html",
+                    context,
+                )
+            d = char.get_abilities()
+            context["form"] = MageAbilitiesForm(initial=d, character=char)
+            return render(
+                request,
+                "wod/characters/mage/mage/creation_abilities.html",
+                context,
+            )
         # if char.creation_status == 3:
         #     form = ExaltedMeritsForm(request.POST)
         #     if form.has_merits(char):
