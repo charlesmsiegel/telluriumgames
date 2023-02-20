@@ -4,6 +4,7 @@ from core.fields import ListTextWidget
 from game.models.chronicle import Chronicle
 from wod.models.characters.human import Archetype, MeritFlaw
 from wod.models.characters.mage import Mage, MageFaction
+from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
 
 
 class MageForm(forms.ModelForm):
@@ -295,7 +296,10 @@ class MageAdvantagesForm(forms.Form):
     
     affinity_sphere = forms.CharField(widget=forms.Select(choices=[("----", "----")]),)
     
-    # TODO: Focus as ModelMultipleChoiceFields?
+    paradigms = forms.ModelMultipleChoiceField(required=False, queryset=Paradigm.objects.all())
+    practices = forms.ModelMultipleChoiceField(required=False, queryset=Practice.objects.all())
+    instruments = forms.ModelMultipleChoiceField(required=False, queryset=Instrument.objects.all())
+    # TODO: Improve querysets for easier creation
     
     def __init__(self, *args, **kwargs):
         self.char = kwargs.pop("character")
@@ -313,16 +317,18 @@ class MageAdvantagesForm(forms.Form):
         return total_backgorunds == 7
     
     def has_affinity_sphere(self):
-        return True
-    
-    def has_arete(self):
-        return True
+        self.full_clean()
+        return self.cleaned_data['affinity_sphere'] != "----"
     
     def has_focus(self):
-        return True
+        print(self.cleaned_data)
+        paradigms = self.cleaned_data['paradigms'].count() >= 1
+        practices = self.cleaned_data['practices'].count() >= 1
+        instruments = self.cleaned_data['paradigms'].count() >= 7
+        return paradigms + practices + instruments
     
     def complete(self):
-        return self.has_backgrounds() and self.has_affinity_sphere() and self.has_arete and self.has_focus()
+        return self.has_backgrounds() and self.has_affinity_sphere() and self.has_focus()
 
 class MageSpheresForm(forms.Form):
     pass

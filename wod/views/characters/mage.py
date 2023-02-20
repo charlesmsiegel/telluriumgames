@@ -159,7 +159,9 @@ class MageDetailView(View):
                     setattr(char, key, form.cleaned_data[key])
                 char.creation_status += 1
                 char.save()
-                context["form"] = MageAdvantagesForm()
+                d = char.get_backgrounds()
+                d['arete'] = 1
+                context["form"] = MageAdvantagesForm(initial=d, character=char)
                 return render(
                     request,
                     "wod/characters/mage/mage/creation_advantages.html",
@@ -172,10 +174,10 @@ class MageDetailView(View):
                 "wod/characters/mage/mage/creation_abilities.html",
                 context,
             )
-        # if char.creation_status == 3:
-        #     form = ExaltedMeritsForm(request.POST)
-        #     if form.has_merits(char):
-        #         form.full_clean()
+        if char.creation_status == 3:
+            form = MageAdvantagesForm(request.POST, character=char)
+            if form.complete():
+                # form.full_clean()
         #         merits = [form.cleaned_data[f"merit_{i}"] for i in range(1, 11)]
         #         merit_ratings = [
         #             form.cleaned_data[f"merit_{i}_rating"] for i in range(1, 11)
@@ -191,18 +193,19 @@ class MageDetailView(View):
         #         char.creation_status += 1
         #         char.save()
         #         context["form"] = ExaltedCharmForm(character=char)
-        #         return render(
-        #             request,
-        #             "exalted/characters/solars/solar/creation_charms.html",
-        #             context,
-        #         )
-        #     d = char.get_abilities()
-        #     context["form"] = ExaltedMeritsForm()
-        #     return render(
-        #         request,
-        #         "exalted/characters/solars/solar/creation_merits.html",
-        #         context,
-        #     )
+                return render(
+                    request,
+                    "exalted/characters/solars/solar/creation_charms.html",
+                    context,
+                )
+            d = char.get_backgrounds()
+            d['arete'] = 1
+            context["form"] = MageAdvantagesForm(initial=d, character=char)
+            return render(
+                request,
+                "wod/characters/mage/mage/creation_advantages.html",
+                context,
+            )
         # if char.creation_status == 4:
         #     form = ExaltedCharmForm(request.POST, character=char)
         #     form.full_clean()
