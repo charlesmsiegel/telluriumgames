@@ -321,7 +321,6 @@ class MageAdvantagesForm(forms.Form):
         return self.cleaned_data['affinity_sphere'] != "----"
     
     def has_focus(self):
-        print(self.cleaned_data)
         paradigms = self.cleaned_data['paradigms'].count() >= 1
         practices = self.cleaned_data['practices'].count() >= 1
         instruments = self.cleaned_data['paradigms'].count() >= 7
