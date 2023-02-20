@@ -257,15 +257,74 @@ class MageAbilitiesForm(forms.Form):
         return triple == other_triple
 
 class MageAdvantagesForm(forms.Form):
-    pass
+    allies = forms.IntegerField(max_value=5, min_value=0)
+    alternate_identity = forms.IntegerField(max_value=5, min_value=0)
+    arcane = forms.IntegerField(max_value=5, min_value=0)
+    avatar = forms.IntegerField(max_value=5, min_value=0)
+    backup = forms.IntegerField(max_value=5, min_value=0)
+    blessing = forms.IntegerField(max_value=5, min_value=0)
+    certification = forms.IntegerField(max_value=5, min_value=0)
+    chantry = forms.IntegerField(max_value=5, min_value=0)
+    contacts = forms.IntegerField(max_value=5, min_value=0)
+    cult = forms.IntegerField(max_value=5, min_value=0)
+    demesne = forms.IntegerField(max_value=5, min_value=0)
+    destiny = forms.IntegerField(max_value=5, min_value=0)
+    dream = forms.IntegerField(max_value=5, min_value=0)
+    enhancement = forms.IntegerField(max_value=5, min_value=0)
+    fame = forms.IntegerField(max_value=5, min_value=0)
+    familiar = forms.IntegerField(max_value=5, min_value=0)
+    influence = forms.IntegerField(max_value=5, min_value=0)
+    legend = forms.IntegerField(max_value=5, min_value=0)
+    library = forms.IntegerField(max_value=5, min_value=0)
+    mentor = forms.IntegerField(max_value=5, min_value=0)
+    node = forms.IntegerField(max_value=5, min_value=0)
+    past_lives = forms.IntegerField(max_value=5, min_value=0)
+    patron = forms.IntegerField(max_value=5, min_value=0)
+    rank = forms.IntegerField(max_value=5, min_value=0)
+    requisitions = forms.IntegerField(max_value=5, min_value=0)
+    resources = forms.IntegerField(max_value=5, min_value=0)
+    retainers = forms.IntegerField(max_value=5, min_value=0)
+    sanctum = forms.IntegerField(max_value=5, min_value=0)
+    secret_weapons = forms.IntegerField(max_value=5, min_value=0)
+    spies = forms.IntegerField(max_value=5, min_value=0)
+    status_background = forms.IntegerField(max_value=5, min_value=0)
+    totem = forms.IntegerField(max_value=5, min_value=0)
+    wonder = forms.IntegerField(max_value=5, min_value=0)
 
-class MageBackgroundsForm(forms.Form):
-    pass
+    arete = forms.IntegerField(max_value=3, min_value=1)
+    
+    affinity_sphere = forms.CharField(widget=forms.Select(choices=[("----", "----")]),)
+    
+    # TODO: Focus as ModelMultipleChoiceFields?
+    
+    def __init__(self, *args, **kwargs):
+        self.char = kwargs.pop("character")
+        choices = [(x, x.title()) for x in self.char.faction.affinities + self.char.subfaction.affinities]
+        choices = list(set(choices))
+        # TODO: When replacing JSONs, this will become ModelChoiceField
+        choices.sort()
+        super().__init__(*args, **kwargs)
+        self.fields["affinity_sphere"].widget.choices += choices
+        
+    def has_backgrounds(self):
+        self.full_clean()
+        backgrounds = self.char.get_backgrounds().keys()
+        total_backgorunds = sum(self.cleaned_data[x] for x in backgrounds)
+        return total_backgorunds == 7
+    
+    def has_affinity_sphere(self):
+        return True
+    
+    def has_arete(self):
+        return True
+    
+    def has_focus(self):
+        return True
+    
+    def complete(self):
+        return self.has_backgrounds() and self.has_affinity_sphere() and self.has_arete and self.has_focus()
 
 class MageSpheresForm(forms.Form):
-    pass
-
-class MageFocusForm(forms.Form):
     pass
 
 class MageRotesForm(forms.Form):

@@ -90,13 +90,15 @@ class MageDetailView(View):
                 "wod/characters/mage/mage/creation_abilities.html",
                 context,
             )
-        # if mage.creation_status == 3:
-        #     context["form"] = ExaltedMeritsForm()
-        #     return render(
-        #         request,
-        #         "wod/characters/mage/mage/creation_merits.html",
-        #         context,
-        #     )
+        if mage.creation_status == 3:
+            d = mage.get_backgrounds()
+            d['arete'] = 1
+            context["form"] = MageAdvantagesForm(initial=d, character=mage)
+            return render(
+                request,
+                "wod/characters/mage/mage/creation_advantages.html",
+                context,
+            )
         # if mage.creation_status == 4:
         #     context["form"] = ExaltedCharmForm(character=char)
         #     return render(
