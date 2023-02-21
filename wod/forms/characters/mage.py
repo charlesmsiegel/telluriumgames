@@ -5,6 +5,7 @@ from game.models.chronicle import Chronicle
 from wod.models.characters.human import Archetype, MeritFlaw
 from wod.models.characters.mage import Mage, MageFaction
 from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
+from wod.models.characters.mage.resonance import Resonance
 
 
 class MageForm(forms.ModelForm):
@@ -63,15 +64,33 @@ class MageCreationForm(forms.Form):
         # TODO: Restrict to Chronicles allowing mages
         empty_label="----",
     )
-    nature = forms.ModelChoiceField(queryset=Archetype.objects.all(), empty_label="----")
-    demeanor = forms.ModelChoiceField(queryset=Archetype.objects.all(), empty_label="----")
-    affiliation = forms.ModelChoiceField(queryset=MageFaction.objects.filter(parent=None), empty_label="----")
-    essence = forms.CharField(widget=forms.Select(choices=[("----", "----"), ("Dynamic", "Dynamic"),
-            ("Pattern", "Pattern"),
-            ("Primordial", "Primordial"),
-            ("Questing", "Questing"),]),)
-    faction = forms.ModelChoiceField(queryset=MageFaction.objects.none(), empty_label="----")
-    subfaction = forms.ModelChoiceField(queryset=MageFaction.objects.none(), empty_label="----")
+    nature = forms.ModelChoiceField(
+        queryset=Archetype.objects.all(), empty_label="----"
+    )
+    demeanor = forms.ModelChoiceField(
+        queryset=Archetype.objects.all(), empty_label="----"
+    )
+    affiliation = forms.ModelChoiceField(
+        queryset=MageFaction.objects.filter(parent=None), empty_label="----"
+    )
+    essence = forms.CharField(
+        widget=forms.Select(
+            choices=[
+                ("----", "----"),
+                ("Dynamic", "Dynamic"),
+                ("Pattern", "Pattern"),
+                ("Primordial", "Primordial"),
+                ("Questing", "Questing"),
+            ]
+        ),
+    )
+    faction = forms.ModelChoiceField(
+        queryset=MageFaction.objects.none(), empty_label="----"
+    )
+    subfaction = forms.ModelChoiceField(
+        queryset=MageFaction.objects.none(), empty_label="----"
+    )
+
 
 class MageAttributeForm(forms.Form):
     strength = forms.IntegerField(max_value=5, min_value=1)
@@ -118,6 +137,7 @@ class MageAttributeForm(forms.Form):
         triple.sort()
         other_triple.sort()
         return triple == other_triple
+
 
 class MageAbilitiesForm(forms.Form):
     alertness = forms.IntegerField(max_value=3, min_value=0)
@@ -226,11 +246,11 @@ class MageAbilitiesForm(forms.Form):
     theology = forms.IntegerField(max_value=3, min_value=0)
     unconventional_warface = forms.IntegerField(max_value=3, min_value=0)
     vice = forms.IntegerField(max_value=3, min_value=0)
-    
+
     def __init__(self, *args, **kwargs):
         self.char = kwargs.pop("character")
         super().__init__(*args, **kwargs)
-        
+
     def total_talents(self):
         self.full_clean()
         talent_list = self.char.get_talents().keys()
@@ -256,6 +276,7 @@ class MageAbilitiesForm(forms.Form):
         triple.sort()
         other_triple.sort()
         return triple == other_triple
+
 
 class MageAdvantagesForm(forms.Form):
     allies = forms.IntegerField(max_value=5, min_value=0)
@@ -293,59 +314,115 @@ class MageAdvantagesForm(forms.Form):
     wonder = forms.IntegerField(max_value=5, min_value=0)
 
     arete = forms.IntegerField(max_value=3, min_value=1)
-    
+
     affinity_sphere = forms.CharField(widget=forms.Select(choices=[("----", "----")]),)
-    
-    paradigms = forms.ModelMultipleChoiceField(required=False, queryset=Paradigm.objects.all())
-    practices = forms.ModelMultipleChoiceField(required=False, queryset=Practice.objects.all())
-    instruments = forms.ModelMultipleChoiceField(required=False, queryset=Instrument.objects.all())
+
+    paradigms = forms.ModelMultipleChoiceField(
+        required=False, queryset=Paradigm.objects.all()
+    )
+    practices = forms.ModelMultipleChoiceField(
+        required=False, queryset=Practice.objects.all()
+    )
+    instruments = forms.ModelMultipleChoiceField(
+        required=False, queryset=Instrument.objects.all()
+    )
     # TODO: Improve querysets for easier creation
-    
+
     def __init__(self, *args, **kwargs):
         self.char = kwargs.pop("character")
-        choices = [(x, x.title()) for x in self.char.faction.affinities + self.char.subfaction.affinities]
+        choices = [
+            (x, x.title())
+            for x in self.char.faction.affinities + self.char.subfaction.affinities
+        ]
         choices = list(set(choices))
         # TODO: When replacing JSONs, this will become ModelChoiceField
         choices.sort()
         super().__init__(*args, **kwargs)
         self.fields["affinity_sphere"].widget.choices += choices
-        
+
     def has_backgrounds(self):
         self.full_clean()
         backgrounds = self.char.get_backgrounds().keys()
         total_backgorunds = sum(self.cleaned_data[x] for x in backgrounds)
         return total_backgorunds == 7
-    
+
     def has_affinity_sphere(self):
         self.full_clean()
-        return self.cleaned_data['affinity_sphere'] != "----"
-    
-    def has_focus(self):
-        paradigms = self.cleaned_data['paradigms'].count() >= 1
-        practices = self.cleaned_data['practices'].count() >= 1
-        instruments = self.cleaned_data['paradigms'].count() >= 7
-        return paradigms + practices + instruments
-    
-    def complete(self):
-        return self.has_backgrounds() and self.has_affinity_sphere() and self.has_focus()
+        return self.cleaned_data["affinity_sphere"] != "----"
 
-class MageSpheresForm(forms.Form):
-    pass
+    def has_focus(self):
+        paradigms = self.cleaned_data["paradigms"].count() >= 1
+        practices = self.cleaned_data["practices"].count() >= 1
+        instruments = self.cleaned_data["paradigms"].count() >= 7
+        return paradigms + practices + instruments
+
+    def complete(self):
+        return (
+            self.has_backgrounds() and self.has_affinity_sphere() and self.has_focus()
+        )
+
+
+class MagePowersForm(forms.Form):
+    correspondence = forms.IntegerField(max_value=5, min_value=0)
+    time = forms.IntegerField(max_value=5, min_value=0)
+    spirit = forms.IntegerField(max_value=5, min_value=0)
+    mind = forms.IntegerField(max_value=5, min_value=0)
+    entropy = forms.IntegerField(max_value=5, min_value=0)
+    prime = forms.IntegerField(max_value=5, min_value=0)
+    forces = forms.IntegerField(max_value=5, min_value=0)
+    matter = forms.IntegerField(max_value=5, min_value=0)
+    life = forms.IntegerField(max_value=5, min_value=0)
+
+    resonance = forms.ModelChoiceField(
+        queryset=Resonance.objects.all().order_by("name")
+    )
+    # TODO: Upgrade to input + pulldown box
+
+    def __init__(self, *args, **kwargs):
+        self.char = kwargs.pop("character")
+        super().__init__(*args, **kwargs)
+        for sphere in [
+            "correspondence",
+            "time",
+            "spirit",
+            "mind",
+            "entropy",
+            "prime",
+            "forces",
+            "matter",
+            "life",
+        ]:
+            self.fields[sphere] = forms.IntegerField(
+                max_value=self.char.arete, min_value=0
+            )
+        self.fields[self.char.affinity_sphere] = self.fields[
+            sphere
+        ] = forms.IntegerField(max_value=self.char.arete, min_value=1)
+        
+    def complete(self):
+        self.full_clean()
+        return sum(self.cleaned_data[x] for x in self.char.get_spheres().keys()) == 6
+    
 
 class MageRotesForm(forms.Form):
     pass
 
+
 class MageMeritsAndFlawsForm(forms.Form):
     pass
+
 
 class MageResonanceForm(forms.Form):
     pass
 
+
 class MageLanguagesForm(forms.Form):
     pass
 
+
 class MageAppearanceForm(forms.Form):
     pass
+
 
 class MageHistoryForm(forms.Form):
     pass

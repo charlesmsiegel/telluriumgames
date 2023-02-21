@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 from game.models.chronicle import Chronicle
 
-from wod.forms.characters.mage import MageAbilitiesForm, MageAdvantagesForm, MageAttributeForm, MageCreationForm, MageForm, ResonanceForm
+from wod.forms.characters.mage import MageAbilitiesForm, MageAdvantagesForm, MageAttributeForm, MageCreationForm, MageForm, MagePowersForm, ResonanceForm
 from wod.models.characters.human import Archetype, MeritFlawRating
 from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.faction import MageFaction
@@ -100,7 +100,8 @@ class MageDetailView(View):
                 context,
             )
         if mage.creation_status == 4:
-        #     context["form"] = ExaltedCharmForm(character=char)
+            d = mage.get_spheres()
+            context["form"] = MagePowersForm(initial=d, character=mage)
             return render(
                 request,
                 "wod/characters/mage/mage/creation_powers.html",
@@ -183,12 +184,14 @@ class MageDetailView(View):
                     setattr(char, key, form.cleaned_data[key])
                 char.arete = form.cleaned_data['arete']
                 char.affinity_sphere = form.cleaned_data['affinity_sphere']
+                setattr(char, char.affinity_sphere, 1)
                 char.paradigms.add(*list(form.cleaned_data['paradigms']))
                 char.practices.add(*list(form.cleaned_data['practices']))
                 char.instruments.add(*list(form.cleaned_data['instruments']))
                 char.creation_status += 1
                 char.save()
-        #         context["form"] = ExaltedCharmForm(character=char)
+                d = char.get_spheres()
+                context["form"] = MagePowersForm(initial=d, character=char)
                 return render(
                     request,
                     "wod/characters/mage/mage/creation_powers.html",
@@ -203,27 +206,30 @@ class MageDetailView(View):
                 "wod/characters/mage/mage/creation_advantages.html",
                 context,
             )
-        # if char.creation_status == 4:
-        #     form = ExaltedCharmForm(request.POST, character=char)
-        #     form.full_clean()
-        #     charm_name = form.cleaned_data["charm"]
-        #     c = Charm.objects.get(name=charm_name)
-        #     char.add_charm(c)
-        #     if char.has_charms():
-        #         char.creation_status += 1
-        #         char.save()
-        #         context["form"] = ExaltedIntimacyForm()
-        #         return render(
-        #             request,
-        #             "exalted/characters/solars/solar/creation_intimacies.html",
-        #             context,
-        #         )
-        #     context["form"] = ExaltedCharmForm(character=char)
-        #     return render(
-        #         request,
-        #         "exalted/characters/solars/solar/creation_charms.html",
-        #         context,
-        #     )
+        if char.creation_status == 4:
+            form = MagePowersForm(request.POST, character=char)
+            form.full_clean()
+            print(form.cleaned_data)
+            if form.complete():
+                for key in char.get_spheres().keys():
+                    setattr(char, key, form.cleaned_data[key])
+                res = form.cleaned_data['resonance']
+                char.add_resonance(res.name)
+                char.creation_status += 1
+                char.save()
+                context["form"] = MageForm()
+                return render(
+                    request,
+                    "wod/characters/mage/mage/creation_freebies.html",
+                    context,
+                )
+        d = char.get_spheres()
+        context["form"] = MagePowersForm(initial=d, character=char)
+        return render(
+                request,
+                "wod/characters/mage/mage/creation_powers.html",
+                context,
+            )
         # if char.creation_status == 5:
         #     form = ExaltedIntimacyForm(request.POST)
         #     if form.has_intimacies():
