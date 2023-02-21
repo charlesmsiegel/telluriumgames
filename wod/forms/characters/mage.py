@@ -571,10 +571,34 @@ class MageFreebieForm(forms.Form):
                 bg_total += self.cleaned_data[key] - value
         total += 1 * bg_total
         total += self.cleaned_data['willpower'] - 5
-        # merits and flaws
+        # TODO: merits and flaws
         total += self.cleaned_data['languages'].count()
         return total == self.char.freebies
 
 
 class MageDescriptionForm(forms.Form):
-    pass
+    age_of_awakening = forms.IntegerField()
+    age = forms.IntegerField()
+    apparent_age = forms.IntegerField()
+    date_of_birth = forms.DateField(widget=forms.SelectDateWidget())
+    hair = forms.CharField()
+    eyes = forms.CharField()
+    ethnicity = forms.CharField()
+    nationality = forms.CharField()
+    height = forms.CharField()
+    weight = forms.CharField()
+    sex = forms.CharField()
+    description = forms.CharField(widget=forms.Textarea)
+
+    childhood = forms.CharField(widget=forms.Textarea)
+    history = forms.CharField(widget=forms.Textarea)
+    goals = forms.CharField(widget=forms.Textarea)
+    notes = forms.CharField(widget=forms.Textarea)
+    
+    awakening = forms.CharField(widget=forms.Textarea)
+    seekings = forms.CharField(widget=forms.Textarea)
+    quiets = forms.CharField(widget=forms.Textarea)
+    avatar_description = forms.CharField(widget=forms.Textarea)
+    def __init__(self, *args, **kwargs):
+        self.char = kwargs.pop("character")
+        super().__init__(*args, **kwargs)

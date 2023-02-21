@@ -3,7 +3,7 @@ from django.views.generic import CreateView, DetailView, UpdateView, View
 from core.models import Language
 from game.models.chronicle import Chronicle
 
-from wod.forms.characters.mage import MageAbilitiesForm, MageAdvantagesForm, MageAttributeForm, MageCreationForm, MageFreebieForm, MagePowersForm
+from wod.forms.characters.mage import MageAbilitiesForm, MageAdvantagesForm, MageAttributeForm, MageCreationForm, MageDescriptionForm, MageFreebieForm, MagePowersForm
 from wod.models.characters.human import Archetype, MeritFlawRating
 from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.faction import MageFaction
@@ -122,6 +122,7 @@ class MageDetailView(View):
                 context,
             )
         if mage.creation_status == 6:
+            context['form'] = MageDescriptionForm(character=mage)
             return render(
                 request,
                 "wod/characters/mage/mage/creation_description.html",
@@ -259,6 +260,7 @@ class MageDetailView(View):
                 char.languages.add(*form.data["languages"])
                 char.creation_status += 1
                 char.save()
+                context['form'] = MageDescriptionForm(character=char)
                 return render(
                         request,
                         "wod/characters/mage/mage/creation_description.html",
