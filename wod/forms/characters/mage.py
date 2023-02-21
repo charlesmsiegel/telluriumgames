@@ -570,9 +570,9 @@ class MageFreebieForm(forms.Form):
             if key in ["totem", "enhancement", "sanctum"]:
                 bg_total += self.cleaned_data[key] - value
         total += 1 * bg_total
+        total += self.cleaned_data['willpower'] - 5
         # merits and flaws
         total += self.cleaned_data['languages'].count()
-        print(total, self.char.freebies)
         return total == self.char.freebies
 
 

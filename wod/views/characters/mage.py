@@ -121,12 +121,12 @@ class MageDetailView(View):
                 "wod/characters/mage/mage/creation_freebies.html",
                 context,
             )
-        # if mage.creation_status == 6:
-        #     return render(
-        #         request,
-        #         "wod/characters/mage/mage/creation_bonus_points.html",
-        #         context,
-        #     )
+        if mage.creation_status == 6:
+            return render(
+                request,
+                "wod/characters/mage/mage/creation_description.html",
+                context,
+            )
         return render(request, "wod/characters/mage/mage/detail.html", context,)
 
     def post(self, request, *args, **kwargs):
@@ -216,7 +216,6 @@ class MageDetailView(View):
         if char.creation_status == 4:
             form = MagePowersForm(request.POST, character=char)
             form.full_clean()
-            print(form.cleaned_data)
             if form.complete():
                 for key in char.get_spheres().keys():
                     setattr(char, key, form.cleaned_data[key])
@@ -246,7 +245,25 @@ class MageDetailView(View):
         if char.creation_status == 5:
             form = MageFreebieForm(request.POST, character=char)
             if form.complete():
-                return False
+                for key in list(char.get_attributes().keys()):
+                    setattr(char, key, form.cleaned_data[key])
+                for key in list(char.get_talents().keys()) + list(char.get_skills().keys()) + list(char.get_knowledges().keys()):
+                    setattr(char, key, form.cleaned_data[key])
+                for key in list(char.get_spheres().keys()):
+                    setattr(char, key, form.cleaned_data[key])
+                for key in list(char.get_backgrounds().keys()):
+                    setattr(char, key, form.cleaned_data[key])
+                char.willpower = form.data["willpower"]
+                # TODO: merits and flaws
+                char.languages.add(form.data["native_language"])
+                char.languages.add(*form.data["languages"])
+                char.creation_status += 1
+                char.save()
+                return render(
+                        request,
+                        "wod/characters/mage/mage/creation_description.html",
+                        context,
+                    )
             d = char.get_attributes()
             d.update(char.get_abilities())
             d.update(char.get_backgrounds())
@@ -259,55 +276,9 @@ class MageDetailView(View):
                         "wod/characters/mage/mage/creation_freebies.html",
                         context,
                     )
-        #     form = ExaltedIntimacyForm(request.POST)
-        #     if form.has_intimacies():
-        #         form.full_clean()
-        #         i1 = Intimacy.objects.create(
-        #             name=form.cleaned_data["intimacy_1"],
-        #             intimacy_type=form.cleaned_data["intimacy_type_1"],
-        #             strength=form.cleaned_data["intimacy_strength_1"],
-        #             is_negative=form.cleaned_data["is_negative_1"],
-        #         )
-        #         i2 = Intimacy.objects.create(
-        #             name=form.cleaned_data["intimacy_2"],
-        #             intimacy_type=form.cleaned_data["intimacy_type_2"],
-        #             strength=form.cleaned_data["intimacy_strength_2"],
-        #             is_negative=form.cleaned_data["is_negative_2"],
-        #         )
-        #         i3 = Intimacy.objects.create(
-        #             name=form.cleaned_data["intimacy_3"],
-        #             intimacy_type=form.cleaned_data["intimacy_type_3"],
-        #             strength=form.cleaned_data["intimacy_strength_3"],
-        #             is_negative=form.cleaned_data["is_negative_3"],
-        #         )
-        #         i4 = Intimacy.objects.create(
-        #             name=form.cleaned_data["intimacy_4"],
-        #             intimacy_type=form.cleaned_data["intimacy_type_4"],
-        #             strength=form.cleaned_data["intimacy_strength_4"],
-        #             is_negative=form.cleaned_data["is_negative_4"],
-        #         )
-        #         char.add_intimacy(i1)
-        #         char.add_intimacy(i2)
-        #         char.add_intimacy(i3)
-        #         char.add_intimacy(i4)
-        #         char.limit_trigger = form.cleaned_data["limit_trigger"]
-        #         char.creation_status += 1
-        #         char.save()
-        #         char.apply_finishing_touches()
-        #         # TODO: Form for Bonus Points
-        #         return render(
-        #             request,
-        #             "exalted/characters/solars/solar/creation_bonus_points.html",
-        #             context,
-        #         )
-        #     context["form"] = ExaltedIntimacyForm()
-        #     return render(
-        #         request,
-        #         "exalted/characters/solars/solar/creation_intimacies.html",
-        #         context,
-        #     )
-        # if char.creation_status == 6:
-        #     pass
+        if char.creation_status == 6:
+            # TODO description
+            pass
 
     def get_context(self, mage):
         context = {"object": mage}
