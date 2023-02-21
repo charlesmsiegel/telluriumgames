@@ -1,8 +1,9 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
+from core.models import Language
 from game.models.chronicle import Chronicle
 
-from wod.forms.characters.mage import MageAbilitiesForm, MageAdvantagesForm, MageAttributeForm, MageCreationForm, MageForm, MagePowersForm, ResonanceForm
+from wod.forms.characters.mage import MageAbilitiesForm, MageAdvantagesForm, MageAttributeForm, MageCreationForm, MageFreebieForm, MagePowersForm
 from wod.models.characters.human import Archetype, MeritFlawRating
 from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.faction import MageFaction
@@ -107,13 +108,19 @@ class MageDetailView(View):
                 "wod/characters/mage/mage/creation_powers.html",
                 context,
             )
-        # if mage.creation_status == 5:
-        #     context["form"] = ExaltedIntimacyForm()
-        #     return render(
-        #         request,
-        #         "wod/characters/mage/mage/creation_intimacies.html",
-        #         context,
-        #     )
+        if mage.creation_status == 5:
+            d = mage.get_attributes()
+            d.update(mage.get_abilities())
+            d.update(mage.get_backgrounds())
+            d.update(mage.get_spheres())
+            d['willpower'] = 5
+            d['native_language'] = Language.objects.get(name="English")
+            context["form"] = MageFreebieForm(initial=d, character=mage)
+            return render(
+                request,
+                "wod/characters/mage/mage/creation_freebies.html",
+                context,
+            )
         # if mage.creation_status == 6:
         #     return render(
         #         request,
@@ -217,20 +224,41 @@ class MageDetailView(View):
                 char.add_resonance(res.name)
                 char.creation_status += 1
                 char.save()
-                context["form"] = MageForm()
+                d = char.get_attributes()
+                d.update(char.get_abilities())
+                d.update(char.get_backgrounds())
+                d.update(char.get_spheres())
+                d['willpower'] = 5
+                d['native_language'] = Language.objects.get(name="English")
+                context["form"] = MageFreebieForm(initial=d, character=char)
                 return render(
                     request,
                     "wod/characters/mage/mage/creation_freebies.html",
                     context,
                 )
-        d = char.get_spheres()
-        context["form"] = MagePowersForm(initial=d, character=char)
-        return render(
-                request,
-                "wod/characters/mage/mage/creation_powers.html",
-                context,
-            )
-        # if char.creation_status == 5:
+            d = char.get_spheres()
+            context["form"] = MagePowersForm(initial=d, character=char)
+            return render(
+                    request,
+                    "wod/characters/mage/mage/creation_powers.html",
+                    context,
+                )
+        if char.creation_status == 5:
+            form = MageFreebieForm(request.POST, character=char)
+            if form.complete():
+                return False
+            d = char.get_attributes()
+            d.update(char.get_abilities())
+            d.update(char.get_backgrounds())
+            d.update(char.get_spheres())
+            d['willpower'] = 5
+            d['native_language'] = Language.objects.get(name="English")
+            context["form"] = MageFreebieForm(initial=d, character=char)
+            return render(
+                        request,
+                        "wod/characters/mage/mage/creation_freebies.html",
+                        context,
+                    )
         #     form = ExaltedIntimacyForm(request.POST)
         #     if form.has_intimacies():
         #         form.full_clean()
@@ -351,17 +379,6 @@ class MageDetailView(View):
             zip(secondary_talents, secondary_skills, secondary_knowledges)
         )
         return context
-
-
-# class MageCreateView(CreateView):
-#     model = Mage
-#     form_class = MageForm
-#     template_name = "wod/characters/mage/mage/form.html"
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context["resform"] = ResonanceForm(data_list=Resonance.objects.all())
-#         return context
 
 
 class MageUpdateView(UpdateView):

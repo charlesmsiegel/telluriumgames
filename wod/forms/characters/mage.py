@@ -1,58 +1,11 @@
 from django import forms
+from core.models import Language
 
-from core.fields import ListTextWidget
 from game.models.chronicle import Chronicle
-from wod.models.characters.human import Archetype, MeritFlaw
-from wod.models.characters.mage import Mage, MageFaction
+from wod.models.characters.human import Archetype
+from wod.models.characters.mage import MageFaction
 from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
 from wod.models.characters.mage.resonance import Resonance
-
-
-class MageForm(forms.ModelForm):
-    class Meta:
-        model = Mage
-        fields = "__all__"
-
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        self.fields["merits_and_flaws"].queryset = MeritFlaw.objects.filter(
-            pk__in=[x.id for x in MeritFlaw.objects.all() if x.mage]
-        )
-        self.fields["affiliation"].queryset = MageFaction.objects.filter(parent=None)
-        self.fields["faction"].queryset = MageFaction.objects.none()
-        self.fields["subfaction"].queryset = MageFaction.objects.none()
-
-        if "affiliation" in self.data:
-            try:
-                affiliation_id = int(self.data.get("affiliation"))
-                self.fields["faction"] = MageFaction.objects.filter(
-                    parent=affiliation_id
-                )
-            except (ValueError, TypeError):
-                print("failed")
-        if "faction" in self.data:
-            try:
-                faction_id = int(self.data.get("faction"))
-                self.fields["subfaction"] = MageFaction.objects.filter(
-                    parent=faction_id
-                )
-            except (ValueError, TypeError):
-                pass
-
-
-class ResonanceForm(forms.Form):
-    char_field_with_list = forms.CharField(required=True)
-    rating = forms.IntegerField(max_value=5, min_value=1, initial=1)
-
-    def __init__(self, *args, **kwargs):
-        _resonance_list = kwargs.pop("data_list", None)
-        super().__init__(*args, **kwargs)
-        # the "name" parameter will allow you to use the same widget more than once in the same
-        # form, not setting this parameter differently will cause all inputs display the
-        # same list.
-        self.fields["char_field_with_list"].widget = ListTextWidget(
-            data_list=_resonance_list, name="resonance-list"
-        )
 
 
 class MageCreationForm(forms.Form):
@@ -344,6 +297,9 @@ class MageAdvantagesForm(forms.Form):
         self.full_clean()
         backgrounds = self.char.get_backgrounds().keys()
         total_backgorunds = sum(self.cleaned_data[x] for x in backgrounds)
+        total_backgrounds += self.cleaned_data['totem']
+        total_backgrounds += self.cleaned_data['enhancement']
+        total_backgrounds += self.cleaned_data['sanctum']
         return total_backgorunds == 7
 
     def has_affinity_sphere(self):
@@ -404,25 +360,221 @@ class MagePowersForm(forms.Form):
         return sum(self.cleaned_data[x] for x in self.char.get_spheres().keys()) == 6
     
 
-class MageRotesForm(forms.Form):
-    pass
+class MageFreebieForm(forms.Form):
+    strength = forms.IntegerField(max_value=5, min_value=1)
+    dexterity = forms.IntegerField(max_value=5, min_value=1)
+    stamina = forms.IntegerField(max_value=5, min_value=1)
+    charisma = forms.IntegerField(max_value=5, min_value=1)
+    manipulation = forms.IntegerField(max_value=5, min_value=1)
+    appearance = forms.IntegerField(max_value=5, min_value=1)
+    perception = forms.IntegerField(max_value=5, min_value=1)
+    intelligence = forms.IntegerField(max_value=5, min_value=1)
+    wits = forms.IntegerField(max_value=5, min_value=1)
+    alertness = forms.IntegerField(max_value=3, min_value=0)
+    athletics = forms.IntegerField(max_value=3, min_value=0)
+    brawl = forms.IntegerField(max_value=3, min_value=0)
+    empathy = forms.IntegerField(max_value=3, min_value=0)
+    expression = forms.IntegerField(max_value=3, min_value=0)
+    intimidation = forms.IntegerField(max_value=3, min_value=0)
+    streetwise = forms.IntegerField(max_value=3, min_value=0)
+    subterfuge = forms.IntegerField(max_value=3, min_value=0)
+
+    crafts = forms.IntegerField(max_value=3, min_value=0)
+    drive = forms.IntegerField(max_value=3, min_value=0)
+    etiquette = forms.IntegerField(max_value=3, min_value=0)
+    firearms = forms.IntegerField(max_value=3, min_value=0)
+    melee = forms.IntegerField(max_value=3, min_value=0)
+    stealth = forms.IntegerField(max_value=3, min_value=0)
+
+    academics = forms.IntegerField(max_value=3, min_value=0)
+    computer = forms.IntegerField(max_value=3, min_value=0)
+    investigation = forms.IntegerField(max_value=3, min_value=0)
+    medicine = forms.IntegerField(max_value=3, min_value=0)
+    science = forms.IntegerField(max_value=3, min_value=0)
+    awareness = forms.IntegerField(max_value=3, min_value=0)
+    art = forms.IntegerField(max_value=3, min_value=0)
+    leadership = forms.IntegerField(max_value=3, min_value=0)
+    animal_kinship = forms.IntegerField(max_value=3, min_value=0)
+    blatancy = forms.IntegerField(max_value=3, min_value=0)
+    carousing = forms.IntegerField(max_value=3, min_value=0)
+    do = forms.IntegerField(max_value=3, min_value=0)
+    flying = forms.IntegerField(max_value=3, min_value=0)
+    high_ritual = forms.IntegerField(max_value=3, min_value=0)
+    lucid_dreaming = forms.IntegerField(max_value=3, min_value=0)
+    search = forms.IntegerField(max_value=3, min_value=0)
+    seduction = forms.IntegerField(max_value=3, min_value=0)
+    martial_arts = forms.IntegerField(max_value=3, min_value=0)
+    meditation = forms.IntegerField(max_value=3, min_value=0)
+    research = forms.IntegerField(max_value=3, min_value=0)
+    survival = forms.IntegerField(max_value=3, min_value=0)
+    technology = forms.IntegerField(max_value=3, min_value=0)
+    acrobatics = forms.IntegerField(max_value=3, min_value=0)
+    archery = forms.IntegerField(max_value=3, min_value=0)
+    biotech = forms.IntegerField(max_value=3, min_value=0)
+    energy_weapons = forms.IntegerField(max_value=3, min_value=0)
+    hypertech = forms.IntegerField(max_value=3, min_value=0)
+    jetpack = forms.IntegerField(max_value=3, min_value=0)
+    riding = forms.IntegerField(max_value=3, min_value=0)
+    torture = forms.IntegerField(max_value=3, min_value=0)
+    cosmology = forms.IntegerField(max_value=3, min_value=0)
+    enigmas = forms.IntegerField(max_value=3, min_value=0)
+    esoterica = forms.IntegerField(max_value=3, min_value=0)
+    law = forms.IntegerField(max_value=3, min_value=0)
+    occult = forms.IntegerField(max_value=3, min_value=0)
+    politics = forms.IntegerField(max_value=3, min_value=0)
+    area_knowledge = forms.IntegerField(max_value=3, min_value=0)
+    belief_systems = forms.IntegerField(max_value=3, min_value=0)
+    cryptography = forms.IntegerField(max_value=3, min_value=0)
+    demolitions = forms.IntegerField(max_value=3, min_value=0)
+    finance = forms.IntegerField(max_value=3, min_value=0)
+    lore = forms.IntegerField(max_value=3, min_value=0)
+    media = forms.IntegerField(max_value=3, min_value=0)
+    pharmacopeia = forms.IntegerField(max_value=3, min_value=0)
+
+    cooking = forms.IntegerField(max_value=3, min_value=0)
+    diplomacy = forms.IntegerField(max_value=3, min_value=0)
+    instruction = forms.IntegerField(max_value=3, min_value=0)
+    intrigue = forms.IntegerField(max_value=3, min_value=0)
+    intuition = forms.IntegerField(max_value=3, min_value=0)
+    mimicry = forms.IntegerField(max_value=3, min_value=0)
+    negotiation = forms.IntegerField(max_value=3, min_value=0)
+    newspeak = forms.IntegerField(max_value=3, min_value=0)
+    scan = forms.IntegerField(max_value=3, min_value=0)
+    scrounging = forms.IntegerField(max_value=3, min_value=0)
+    style = forms.IntegerField(max_value=3, min_value=0)
+    blind_fighting = forms.IntegerField(max_value=3, min_value=0)
+    climbing = forms.IntegerField(max_value=3, min_value=0)
+    disguise = forms.IntegerField(max_value=3, min_value=0)
+    elusion = forms.IntegerField(max_value=3, min_value=0)
+    escapology = forms.IntegerField(max_value=3, min_value=0)
+    fast_draw = forms.IntegerField(max_value=3, min_value=0)
+    fast_talk = forms.IntegerField(max_value=3, min_value=0)
+    fencing = forms.IntegerField(max_value=3, min_value=0)
+    fortune_telling = forms.IntegerField(max_value=3, min_value=0)
+    gambling = forms.IntegerField(max_value=3, min_value=0)
+    gunsmith = forms.IntegerField(max_value=3, min_value=0)
+    heavy_weapons = forms.IntegerField(max_value=3, min_value=0)
+    hunting = forms.IntegerField(max_value=3, min_value=0)
+    hypnotism = forms.IntegerField(max_value=3, min_value=0)
+    jury_rigging = forms.IntegerField(max_value=3, min_value=0)
+    microgravity_operations = forms.IntegerField(max_value=3, min_value=0)
+    misdirection = forms.IntegerField(max_value=3, min_value=0)
+    networking = forms.IntegerField(max_value=3, min_value=0)
+    pilot = forms.IntegerField(max_value=3, min_value=0)
+    psychology = forms.IntegerField(max_value=3, min_value=0)
+    security = forms.IntegerField(max_value=3, min_value=0)
+    speed_reading = forms.IntegerField(max_value=3, min_value=0)
+    swimming = forms.IntegerField(max_value=3, min_value=0)
+    conspiracy_theory = forms.IntegerField(max_value=3, min_value=0)
+    chantry_politics = forms.IntegerField(max_value=3, min_value=0)
+    covert_culture = forms.IntegerField(max_value=3, min_value=0)
+    cultural_savvy = forms.IntegerField(max_value=3, min_value=0)
+    helmsman = forms.IntegerField(max_value=3, min_value=0)
+    history_knowledge = forms.IntegerField(max_value=3, min_value=0)
+    power_brokering = forms.IntegerField(max_value=3, min_value=0)
+    propaganda = forms.IntegerField(max_value=3, min_value=0)
+    theology = forms.IntegerField(max_value=3, min_value=0)
+    unconventional_warface = forms.IntegerField(max_value=3, min_value=0)
+    vice = forms.IntegerField(max_value=3, min_value=0)
+    allies = forms.IntegerField(max_value=5, min_value=0)
+    alternate_identity = forms.IntegerField(max_value=5, min_value=0)
+    arcane = forms.IntegerField(max_value=5, min_value=0)
+    avatar = forms.IntegerField(max_value=5, min_value=0)
+    backup = forms.IntegerField(max_value=5, min_value=0)
+    blessing = forms.IntegerField(max_value=5, min_value=0)
+    certification = forms.IntegerField(max_value=5, min_value=0)
+    chantry = forms.IntegerField(max_value=5, min_value=0)
+    contacts = forms.IntegerField(max_value=5, min_value=0)
+    cult = forms.IntegerField(max_value=5, min_value=0)
+    demesne = forms.IntegerField(max_value=5, min_value=0)
+    destiny = forms.IntegerField(max_value=5, min_value=0)
+    dream = forms.IntegerField(max_value=5, min_value=0)
+    enhancement = forms.IntegerField(max_value=5, min_value=0)
+    fame = forms.IntegerField(max_value=5, min_value=0)
+    familiar = forms.IntegerField(max_value=5, min_value=0)
+    influence = forms.IntegerField(max_value=5, min_value=0)
+    legend = forms.IntegerField(max_value=5, min_value=0)
+    library = forms.IntegerField(max_value=5, min_value=0)
+    mentor = forms.IntegerField(max_value=5, min_value=0)
+    node = forms.IntegerField(max_value=5, min_value=0)
+    past_lives = forms.IntegerField(max_value=5, min_value=0)
+    patron = forms.IntegerField(max_value=5, min_value=0)
+    rank = forms.IntegerField(max_value=5, min_value=0)
+    requisitions = forms.IntegerField(max_value=5, min_value=0)
+    resources = forms.IntegerField(max_value=5, min_value=0)
+    retainers = forms.IntegerField(max_value=5, min_value=0)
+    sanctum = forms.IntegerField(max_value=5, min_value=0)
+    secret_weapons = forms.IntegerField(max_value=5, min_value=0)
+    spies = forms.IntegerField(max_value=5, min_value=0)
+    status_background = forms.IntegerField(max_value=5, min_value=0)
+    totem = forms.IntegerField(max_value=5, min_value=0)
+    wonder = forms.IntegerField(max_value=5, min_value=0)
+
+    arete = forms.IntegerField(max_value=3, min_value=1)
+    
+    correspondence = forms.IntegerField(max_value=5, min_value=0)
+    time = forms.IntegerField(max_value=5, min_value=0)
+    spirit = forms.IntegerField(max_value=5, min_value=0)
+    mind = forms.IntegerField(max_value=5, min_value=0)
+    entropy = forms.IntegerField(max_value=5, min_value=0)
+    prime = forms.IntegerField(max_value=5, min_value=0)
+    forces = forms.IntegerField(max_value=5, min_value=0)
+    matter = forms.IntegerField(max_value=5, min_value=0)
+    life = forms.IntegerField(max_value=5, min_value=0)
+    
+    willpower = forms.IntegerField(max_value=10, min_value=5)
+    
+    native_language = forms.ModelChoiceField(queryset=Language.objects.all())
+    languages = forms.ModelMultipleChoiceField(queryset=Language.objects.all(), required=False)
+    
+    def __init__(self, *args, **kwargs):
+        self.char = kwargs.pop("character")
+        super().__init__(*args, **kwargs)
+        for sphere in self.char.get_spheres().keys():
+            self.fields[sphere] = forms.IntegerField(
+                max_value=self.char.arete, min_value=getattr(self.char, sphere)
+            )
+        for attribute in self.char.get_attributes().keys():
+            self.fields[attribute] = forms.IntegerField(
+                max_value=5, min_value=getattr(self.char, attribute)
+            )
+        for ability in self.char.get_abilities().keys():
+            self.fields[ability] = forms.IntegerField(
+                max_value=5, min_value=getattr(self.char, ability)
+            )
+        for bg in self.char.get_backgrounds().keys():
+            self.fields[bg] = forms.IntegerField(
+                max_value=5, min_value=getattr(self.char, bg)
+            )
+        self.fields["arete"] = forms.IntegerField(max_value=3, min_value=self.char.arete)
+        
+    def complete(self):
+        self.full_clean()
+        total = 0
+        attr_total = 0
+        for key, value in self.char.get_attributes().items():
+            attr_total += self.cleaned_data[key] - value
+        total += 5 * attr_total
+        abb_total = 0
+        for key, value in self.char.get_abilities().items():
+            abb_total += self.cleaned_data[key] - value
+        total += 2 * abb_total
+        total += 4 * (self.char.arete - 1)
+        sphere_total = 0
+        for key, value in self.char.get_spheres().items():
+            sphere_total += self.cleaned_data[key] - value
+        total += 7 * sphere_total
+        bg_total = 0
+        for key, value in self.char.get_backgrounds().items():
+            bg_total += self.cleaned_data[key] - value
+            if key in ["totem", "enhancement", "sanctum"]:
+                bg_total += self.cleaned_data[key] - value
+        total += 1 * bg_total
+        # merits and flaws
+        total += self.cleaned_data['languages'].count()
+        print(total, self.char.freebies)
+        return total == self.char.freebies
 
 
-class MageMeritsAndFlawsForm(forms.Form):
-    pass
-
-
-class MageResonanceForm(forms.Form):
-    pass
-
-
-class MageLanguagesForm(forms.Form):
-    pass
-
-
-class MageAppearanceForm(forms.Form):
-    pass
-
-
-class MageHistoryForm(forms.Form):
+class MageDescriptionForm(forms.Form):
     pass
