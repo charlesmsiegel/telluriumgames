@@ -81,6 +81,12 @@ class MageCreateView(View):
 
 
 class MageDetailView(View):
+    # TODO: Specialties
+    # TODO: Rotes
+    # TODO: Node or Chantry if points put there
+    # TODO: Quintessence with freebies
+    # TODO: Random on each step
+    # TODO: Backtracking
     def get(self, request, *args, **kwargs):
         mage = Mage.objects.get(pk=kwargs["pk"])
         context = self.get_context(mage)
@@ -170,7 +176,10 @@ class MageDetailView(View):
                 char.save()
                 d = char.get_backgrounds()
                 d["arete"] = 1
-                # TODO: Add affinity_sphere and focus
+                d['affinity_sphere'] = char.affinity_sphere
+                d['paradigms'] = char.paradigms.all()
+                d['practices'] = char.practices.all()
+                d['instruments'] = char.instruments.all()
                 context["form"] = MageAdvantagesForm(initial=d, character=char)
                 return render(
                     request,
@@ -203,7 +212,10 @@ class MageDetailView(View):
                 )
             d = char.get_backgrounds()
             d["arete"] = 1
-            # TODO: Add affinity_sphere and focus
+            d['affinity_sphere'] = char.affinity_sphere
+            d['paradigms'] = char.paradigms.all()
+            d['practices'] = char.practices.all()
+            d['instruments'] = char.instruments.all()
             context["form"] = MageAdvantagesForm(initial=d, character=char)
             return render(
                 request, "wod/characters/mage/mage/creation_advantages.html", context,
