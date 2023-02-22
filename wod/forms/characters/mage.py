@@ -13,23 +13,21 @@ class MageCreationForm(forms.Form):
     concept = forms.CharField(label="Concept", max_length=100)
     chronicle = forms.ModelChoiceField(
         required=False,
-        queryset=Chronicle.objects.all(),
-        # TODO: Restrict to Chronicles allowing mages
-        empty_label="----",
+        queryset=Chronicle.objects.filter(allowed_objects__name="Mage", allowed_objects__system="wod"),
     )
     nature = forms.ModelChoiceField(
-        queryset=Archetype.objects.all(), empty_label="----"
+        queryset=Archetype.objects.all()
     )
     demeanor = forms.ModelChoiceField(
-        queryset=Archetype.objects.all(), empty_label="----"
+        queryset=Archetype.objects.all()
     )
     affiliation = forms.ModelChoiceField(
-        queryset=MageFaction.objects.filter(parent=None), empty_label="----"
+        queryset=MageFaction.objects.filter(parent=None)
     )
     essence = forms.CharField(
         widget=forms.Select(
             choices=[
-                ("----", "----"),
+                ("---------", "---------"),
                 ("Dynamic", "Dynamic"),
                 ("Pattern", "Pattern"),
                 ("Primordial", "Primordial"),
@@ -38,10 +36,10 @@ class MageCreationForm(forms.Form):
         ),
     )
     faction = forms.ModelChoiceField(
-        queryset=MageFaction.objects.none(), empty_label="----"
+        queryset=MageFaction.objects.none()
     )
     subfaction = forms.ModelChoiceField(
-        queryset=MageFaction.objects.none(), empty_label="----"
+        queryset=MageFaction.objects.none()
     )
 
 
