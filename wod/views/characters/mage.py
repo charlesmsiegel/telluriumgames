@@ -171,7 +171,10 @@ class MageDetailView(View):
                     + list(char.get_skills().keys())
                     + list(char.get_knowledges().keys())
                 ):
-                    setattr(char, key, form.cleaned_data[key])
+                    if key == "do" and char.faction.name != "Akashayana":
+                        pass
+                    else:
+                        setattr(char, key, form.cleaned_data[key])
                 char.creation_status += 1
                 char.save()
                 d = char.get_backgrounds()

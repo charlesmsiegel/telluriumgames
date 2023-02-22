@@ -205,6 +205,8 @@ class MageAbilitiesForm(forms.Form):
     def total_talents(self):
         self.full_clean()
         talent_list = self.char.get_talents().keys()
+        if self.char.faction.name != "Akashayana":
+            talent_list = [x for x in talent_list if x != "do"]
         return sum(self.cleaned_data[x] for x in talent_list)
 
     def total_skills(self):
@@ -294,11 +296,11 @@ class MageAdvantagesForm(forms.Form):
     def has_backgrounds(self):
         self.full_clean()
         backgrounds = self.char.get_backgrounds().keys()
-        total_backgorunds = sum(self.cleaned_data[x] for x in backgrounds)
+        total_backgrounds = sum(self.cleaned_data[x] for x in backgrounds)
         total_backgrounds += self.cleaned_data['totem']
         total_backgrounds += self.cleaned_data['enhancement']
         total_backgrounds += self.cleaned_data['sanctum']
-        return total_backgorunds == 7
+        return total_backgrounds == 7
 
     def has_affinity_sphere(self):
         self.full_clean()
