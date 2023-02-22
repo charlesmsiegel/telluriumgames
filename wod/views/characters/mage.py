@@ -54,8 +54,6 @@ class MageCreateView(View):
         affiliation = None
         faction = None
         subfaction = None
-        print(form.data)
-        print(form.data["affiliation"])
         if "chronicle" in form.data.keys():
             chron = Chronicle.objects.filter(pk=form.data["chronicle"]).first()
         if "affiliation" in form.data.keys():
