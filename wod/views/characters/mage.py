@@ -1,3 +1,4 @@
+from django.forms import formset_factory
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 from core.models import Language
@@ -10,6 +11,7 @@ from wod.forms.characters.mage import (
     MageCreationForm,
     MageDescriptionForm,
     MageFreebieForm,
+    MageMeritFlawForm,
     MagePowersForm,
 )
 from wod.models.characters.human import Archetype, MeritFlawRating
@@ -123,6 +125,8 @@ class MageDetailView(View):
             d.update(mage.get_spheres())
             d["willpower"] = 5
             d["native_language"] = Language.objects.get(name="English")
+            MFFormset = formset_factory(MageMeritFlawForm, extra=1)
+            context['formset'] = MFFormset()
             context["form"] = MageFreebieForm(initial=d, character=mage)
             return render(
                 request, "wod/characters/mage/mage/creation_freebies.html", context,
@@ -239,6 +243,8 @@ class MageDetailView(View):
                 d.update(char.get_spheres())
                 d["willpower"] = 5
                 d["native_language"] = Language.objects.get(name="English")
+                MFFormset = formset_factory(MageMeritFlawForm, extra=1)
+                context['formset'] = MFFormset()
                 context["form"] = MageFreebieForm(initial=d, character=char)
                 return render(
                     request, "wod/characters/mage/mage/creation_freebies.html", context,
@@ -281,6 +287,8 @@ class MageDetailView(View):
             d.update(char.get_spheres())
             d["willpower"] = 5
             d["native_language"] = Language.objects.get(name="English")
+            MFFormset = formset_factory(MageMeritFlawForm, extra=1)
+            context['formset'] = MFFormset()
             context["form"] = MageFreebieForm(initial=d, character=char)
             return render(
                 request, "wod/characters/mage/mage/creation_freebies.html", context,

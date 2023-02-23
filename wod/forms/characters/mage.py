@@ -2,7 +2,7 @@ from django import forms
 from core.models import Language
 
 from game.models.chronicle import Chronicle
-from wod.models.characters.human import Archetype
+from wod.models.characters.human import Archetype, MeritFlaw
 from wod.models.characters.mage import MageFaction
 from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
 from wod.models.characters.mage.resonance import Resonance
@@ -359,6 +359,11 @@ class MagePowersForm(forms.Form):
         self.full_clean()
         return sum(self.cleaned_data[x] for x in self.char.get_spheres().keys()) == 6
     
+
+class MageMeritFlawForm(forms.Form):
+    mf = forms.ModelChoiceField(queryset=MeritFlaw.objects.filter(mage=True))
+    rating = forms.ChoiceField(choices=[("---", "---")])
+
 
 class MageFreebieForm(forms.Form):
     strength = forms.IntegerField(max_value=5, min_value=1)
