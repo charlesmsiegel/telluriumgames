@@ -14,6 +14,11 @@ urls = [
         name="ajax_load_subfactions",
     ),
     path(
+        "ajax/load_mf_ratings/",
+        views.characters.mage.load_mf_ratings,
+        name="ajax_load_mf_ratings",
+    ),
+    path(
         "cabal/create/",
         views.characters.mage.CabalCreateView.as_view(),
         name="create_cabal",

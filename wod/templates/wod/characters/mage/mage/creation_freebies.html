@@ -1214,8 +1214,8 @@
             {% endfor %}
             <div class="row" id="add-form-top">
                 <div class="col-sm">
-                    <button type="button" id="add-form">
-                        Add Row
+                    <button class="btn btn-primary" type="button" id="add-form">
+                        Add Merit/Flaw
                     </button>
                 </div>
             </div>
@@ -1279,5 +1279,49 @@
         totalForms.setAttribute('value', `${formNum+1}`) //Increment the number of total forms in the management form
     }
     
+    function addScript() {
+        // Set the initial value of N and the maximum value of iterations
+        let N = formNum;
+      
+        // Iterate N until the maximum number of iterations is reached
+          // Replace the variable N in the script with the current value of N
+          const scriptText = `$("#id_form-${N}-mf").change(function () {
+              var url = "{% url 'wod:characters:mage:ajax_load_mf_ratings' %}"
+              var mfId = $(this).val();
+              $.ajax({
+                  url: url,
+                  data: {
+                  'mf': mfId
+                  },
+                  success: function (data) {
+                  $("#id_form-${N}-rating").html(data);
+                  }
+              });
+          });`;
+      
+          // Create a new script element and set its text to the script text
+          const script = document.createElement('script');
+          script.textContent = scriptText;
+      
+          // Append the script element to the body of the page
+          document.body.appendChild(script);
+      }
+      addButton.addEventListener('click', addScript);
+
     </script>
+<script>
+    $("#id_form-0-mf").change(function () {
+        var url = "{% url 'wod:characters:mage:ajax_load_mf_ratings' %}"
+        var mfId = $(this).val();
+        $.ajax({
+            url: url,
+            data: {
+            'mf': mfId
+            },
+            success: function (data) {
+            $("#id_form-0-rating").html(data);
+            }
+        });
+    });
+</script>
 {% endblock extrascripts %}

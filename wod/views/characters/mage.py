@@ -14,7 +14,7 @@ from wod.forms.characters.mage import (
     MageMeritFlawForm,
     MagePowersForm,
 )
-from wod.models.characters.human import Archetype, MeritFlawRating
+from wod.models.characters.human import Archetype, MeritFlaw, MeritFlawRating
 from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.faction import MageFaction
 from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
@@ -41,6 +41,22 @@ def load_subfactions(request):
         request,
         "wod/characters/mage/mage/load_subfaction_dropdown_list.html",
         {"subfactions": subfactions},
+    )
+    
+def load_mf_ratings(request):
+    mf_id = request.GET.get("mf")
+    print(mf_id)
+    ratings = MeritFlaw.objects.get(pk=mf_id).ratings
+    print(ratings)
+    print(render(
+        request,
+        "wod/characters/mage/mage/load_mf_rating_dropdown_list.html",
+        {"ratings": ratings},
+    ).content)
+    return render(
+        request,
+        "wod/characters/mage/mage/load_mf_rating_dropdown_list.html",
+        {"ratings": ratings},
     )
 
 
