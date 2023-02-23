@@ -1,6 +1,6 @@
 from django import forms
-from core.models import Language
 
+from core.models import Language
 from game.models.chronicle import Chronicle
 from wod.models.characters.human import Archetype, MeritFlaw
 from wod.models.characters.mage import MageFaction
@@ -13,14 +13,12 @@ class MageCreationForm(forms.Form):
     concept = forms.CharField(label="Concept", max_length=100)
     chronicle = forms.ModelChoiceField(
         required=False,
-        queryset=Chronicle.objects.filter(allowed_objects__name="Mage", allowed_objects__system="wod"),
+        queryset=Chronicle.objects.filter(
+            allowed_objects__name="Mage", allowed_objects__system="wod"
+        ),
     )
-    nature = forms.ModelChoiceField(
-        queryset=Archetype.objects.all()
-    )
-    demeanor = forms.ModelChoiceField(
-        queryset=Archetype.objects.all()
-    )
+    nature = forms.ModelChoiceField(queryset=Archetype.objects.all())
+    demeanor = forms.ModelChoiceField(queryset=Archetype.objects.all())
     affiliation = forms.ModelChoiceField(
         queryset=MageFaction.objects.filter(parent=None)
     )
@@ -35,12 +33,8 @@ class MageCreationForm(forms.Form):
             ]
         ),
     )
-    faction = forms.ModelChoiceField(
-        queryset=MageFaction.objects.none()
-    )
-    subfaction = forms.ModelChoiceField(
-        queryset=MageFaction.objects.none()
-    )
+    faction = forms.ModelChoiceField(queryset=MageFaction.objects.none())
+    subfaction = forms.ModelChoiceField(queryset=MageFaction.objects.none())
 
 
 class MageAttributeForm(forms.Form):
@@ -297,9 +291,9 @@ class MageAdvantagesForm(forms.Form):
         self.full_clean()
         backgrounds = self.char.get_backgrounds().keys()
         total_backgrounds = sum(self.cleaned_data[x] for x in backgrounds)
-        total_backgrounds += self.cleaned_data['totem']
-        total_backgrounds += self.cleaned_data['enhancement']
-        total_backgrounds += self.cleaned_data['sanctum']
+        total_backgrounds += self.cleaned_data["totem"]
+        total_backgrounds += self.cleaned_data["enhancement"]
+        total_backgrounds += self.cleaned_data["sanctum"]
         return total_backgrounds == 7
 
     def has_affinity_sphere(self):
@@ -354,11 +348,11 @@ class MagePowersForm(forms.Form):
         self.fields[self.char.affinity_sphere] = self.fields[
             sphere
         ] = forms.IntegerField(max_value=self.char.arete, min_value=1)
-        
+
     def complete(self):
         self.full_clean()
         return sum(self.cleaned_data[x] for x in self.char.get_spheres().keys()) == 6
-    
+
 
 class MageMeritFlawForm(forms.Form):
     mf = forms.ModelChoiceField(queryset=MeritFlaw.objects.filter(mage=True))
@@ -516,7 +510,7 @@ class MageFreebieForm(forms.Form):
     wonder = forms.IntegerField(max_value=5, min_value=0)
 
     arete = forms.IntegerField(max_value=3, min_value=1)
-    
+
     correspondence = forms.IntegerField(max_value=5, min_value=0)
     time = forms.IntegerField(max_value=5, min_value=0)
     spirit = forms.IntegerField(max_value=5, min_value=0)
@@ -526,12 +520,14 @@ class MageFreebieForm(forms.Form):
     forces = forms.IntegerField(max_value=5, min_value=0)
     matter = forms.IntegerField(max_value=5, min_value=0)
     life = forms.IntegerField(max_value=5, min_value=0)
-    
+
     willpower = forms.IntegerField(max_value=10, min_value=5)
-    
+
     native_language = forms.ModelChoiceField(queryset=Language.objects.all())
-    languages = forms.ModelMultipleChoiceField(queryset=Language.objects.all(), required=False)
-    
+    languages = forms.ModelMultipleChoiceField(
+        queryset=Language.objects.all(), required=False
+    )
+
     def __init__(self, *args, **kwargs):
         self.char = kwargs.pop("character")
         super().__init__(*args, **kwargs)
@@ -551,8 +547,10 @@ class MageFreebieForm(forms.Form):
             self.fields[bg] = forms.IntegerField(
                 max_value=5, min_value=getattr(self.char, bg)
             )
-        self.fields["arete"] = forms.IntegerField(max_value=3, min_value=self.char.arete)
-        
+        self.fields["arete"] = forms.IntegerField(
+            max_value=3, min_value=self.char.arete
+        )
+
     def complete(self):
         self.full_clean()
         total = 0
@@ -562,7 +560,8 @@ class MageFreebieForm(forms.Form):
         total += 5 * attr_total
         abb_total = 0
         for key, value in self.char.get_abilities().items():
-            abb_total += self.cleaned_data[key] - value
+            if self.char.faction.name == "Akashayana" or key != "do":
+                abb_total += self.cleaned_data[key] - value
         total += 2 * abb_total
         total += 4 * (self.char.arete - 1)
         sphere_total = 0
@@ -575,9 +574,22 @@ class MageFreebieForm(forms.Form):
             if key in ["totem", "enhancement", "sanctum"]:
                 bg_total += self.cleaned_data[key] - value
         total += 1 * bg_total
-        total += self.cleaned_data['willpower'] - 5
-        # TODO: merits and flaws
-        total += self.cleaned_data['languages'].count()
+        total += self.cleaned_data["willpower"] - 5
+        mf_keys = [
+            x
+            for x in self.data.keys()
+            if x.startswith("form-") and (x.endswith("-mf") or x.endswith("-rating"))
+        ]
+        mf_values = [int(self.data[x]) for x in mf_keys]
+        mfs = {k: v for k, v in zip(mf_keys, mf_values)}
+        values = [mfs[k] for k in mfs.keys() if "-rating" in k]
+        flaw_total = sum(x for x in values if x < 0)
+        merit_total = sum(x for x in values if x > 0)
+        if flaw_total < -7:
+            return False
+        total += merit_total
+        total += flaw_total
+        total += self.cleaned_data["languages"].count()
         return total == self.char.freebies
 
 
@@ -599,13 +611,12 @@ class MageDescriptionForm(forms.Form):
     history = forms.CharField(widget=forms.Textarea, required=True)
     goals = forms.CharField(widget=forms.Textarea, required=True)
     notes = forms.CharField(widget=forms.Textarea, required=True)
-    
+
     awakening = forms.CharField(widget=forms.Textarea, required=True)
     seekings = forms.CharField(widget=forms.Textarea, required=True)
     quiets = forms.CharField(widget=forms.Textarea, required=True)
     avatar_description = forms.CharField(widget=forms.Textarea, required=True)
-    
+
     def __init__(self, *args, **kwargs):
         self.char = kwargs.pop("character")
         super().__init__(*args, **kwargs)
-

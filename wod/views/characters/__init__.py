@@ -62,7 +62,7 @@ class GenericCharacterDetailView(View):
         if char.type in self.character_views:
             return self.character_views[char.type].as_view()(request, *args, **kwargs)
         return redirect("wod:characters:index")
-    
+
     def post(self, request, *args, **kwargs):
         char = Character.objects.get(pk=kwargs["pk"])
         if char.type in self.character_views:

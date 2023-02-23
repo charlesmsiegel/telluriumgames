@@ -1,9 +1,9 @@
 from django.forms import formset_factory
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
+
 from core.models import Language
 from game.models.chronicle import Chronicle
-
 from wod.forms.characters.mage import (
     MageAbilitiesForm,
     MageAdvantagesForm,
@@ -42,17 +42,11 @@ def load_subfactions(request):
         "wod/characters/mage/mage/load_subfaction_dropdown_list.html",
         {"subfactions": subfactions},
     )
-    
+
+
 def load_mf_ratings(request):
     mf_id = request.GET.get("mf")
-    print(mf_id)
     ratings = MeritFlaw.objects.get(pk=mf_id).ratings
-    print(ratings)
-    print(render(
-        request,
-        "wod/characters/mage/mage/load_mf_rating_dropdown_list.html",
-        {"ratings": ratings},
-    ).content)
     return render(
         request,
         "wod/characters/mage/mage/load_mf_rating_dropdown_list.html",
@@ -142,7 +136,7 @@ class MageDetailView(View):
             d["willpower"] = 5
             d["native_language"] = Language.objects.get(name="English")
             MFFormset = formset_factory(MageMeritFlawForm, extra=1)
-            context['formset'] = MFFormset()
+            context["formset"] = MFFormset()
             context["form"] = MageFreebieForm(initial=d, character=mage)
             return render(
                 request, "wod/characters/mage/mage/creation_freebies.html", context,
@@ -199,10 +193,10 @@ class MageDetailView(View):
                 char.save()
                 d = char.get_backgrounds()
                 d["arete"] = 1
-                d['affinity_sphere'] = char.affinity_sphere
-                d['paradigms'] = char.paradigms.all()
-                d['practices'] = char.practices.all()
-                d['instruments'] = char.instruments.all()
+                d["affinity_sphere"] = char.affinity_sphere
+                d["paradigms"] = char.paradigms.all()
+                d["practices"] = char.practices.all()
+                d["instruments"] = char.instruments.all()
                 context["form"] = MageAdvantagesForm(initial=d, character=char)
                 return render(
                     request,
@@ -235,10 +229,10 @@ class MageDetailView(View):
                 )
             d = char.get_backgrounds()
             d["arete"] = 1
-            d['affinity_sphere'] = char.affinity_sphere
-            d['paradigms'] = char.paradigms.all()
-            d['practices'] = char.practices.all()
-            d['instruments'] = char.instruments.all()
+            d["affinity_sphere"] = char.affinity_sphere
+            d["paradigms"] = char.paradigms.all()
+            d["practices"] = char.practices.all()
+            d["instruments"] = char.instruments.all()
             context["form"] = MageAdvantagesForm(initial=d, character=char)
             return render(
                 request, "wod/characters/mage/mage/creation_advantages.html", context,
@@ -260,7 +254,7 @@ class MageDetailView(View):
                 d["willpower"] = 5
                 d["native_language"] = Language.objects.get(name="English")
                 MFFormset = formset_factory(MageMeritFlawForm, extra=1)
-                context['formset'] = MFFormset()
+                context["formset"] = MFFormset()
                 context["form"] = MageFreebieForm(initial=d, character=char)
                 return render(
                     request, "wod/characters/mage/mage/creation_freebies.html", context,
@@ -272,6 +266,7 @@ class MageDetailView(View):
             )
         if char.creation_status == 5:
             form = MageFreebieForm(request.POST, character=char)
+            form.full_clean()
             if form.complete():
                 for key in list(char.get_attributes().keys()):
                     setattr(char, key, form.cleaned_data[key])
@@ -280,13 +275,27 @@ class MageDetailView(View):
                     + list(char.get_skills().keys())
                     + list(char.get_knowledges().keys())
                 ):
-                    setattr(char, key, form.cleaned_data[key])
+                    if char.faction.name == "Akashayana" or key != "do":
+                        setattr(char, key, form.cleaned_data[key])
                 for key in list(char.get_spheres().keys()):
                     setattr(char, key, form.cleaned_data[key])
                 for key in list(char.get_backgrounds().keys()):
                     setattr(char, key, form.cleaned_data[key])
                 char.willpower = form.data["willpower"]
-                # TODO: merits and flaws
+                mf_keys = [
+                    x
+                    for x in form.data.keys()
+                    if x.startswith("form-")
+                    and (x.endswith("-mf") or x.endswith("-rating"))
+                ]
+                mf_values = [int(form.data[x]) for x in mf_keys]
+                mfs = {k: v for k, v in zip(mf_keys, mf_values)}
+                num_mf = len(mfs) // 2
+                new_mfs = {}
+                for i in range(num_mf):
+                    new_mfs[mfs[f"form-{i}-mf"]] = mfs[f"form-{i}-rating"]
+                for key, value in new_mfs.items():
+                    char.add_mf(MeritFlaw.objects.get(pk=key), value)
                 char.languages.add(form.data["native_language"])
                 char.languages.add(*form.data["languages"])
                 char.creation_status += 1
@@ -304,7 +313,7 @@ class MageDetailView(View):
             d["willpower"] = 5
             d["native_language"] = Language.objects.get(name="English")
             MFFormset = formset_factory(MageMeritFlawForm, extra=1)
-            context['formset'] = MFFormset()
+            context["formset"] = MFFormset()
             context["form"] = MageFreebieForm(initial=d, character=char)
             return render(
                 request, "wod/characters/mage/mage/creation_freebies.html", context,
