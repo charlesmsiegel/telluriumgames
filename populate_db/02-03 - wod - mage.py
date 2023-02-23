@@ -3390,7 +3390,7 @@ we_are_not_men.practices.add(
     weird_science,
 )
 we_are_not_men.save()
-we_are_god = Paradigm.objects.get_or_create(name="We're All God(s)[0] in Disguise")[0]
+we_are_god = Paradigm.objects.get_or_create(name="We're All God(s) in Disguise")[0]
 we_are_god.practices.add(
     alchemy,
     crazy_wisdom,

@@ -15,7 +15,7 @@
     </div>
     <div class="row">
         <div class="col-sm">Player</div>
-        <div class="col-sm">{{ object.player }}</div>
+        <div class="col-sm">{{ object.owner }}</div>
         <div class="col-sm">Demeanor</div>
         <a class="col-sm" href="{{ object.demeanor.get_absolute_url }}">{{ object.demeanor }}</a>
         <div class="col-sm">Sect</div>
@@ -372,149 +372,325 @@
     </div>
 {% endblock backgrounds %}
 {% block powers %}
-    <div class="row">
-        <h2 class="col-sm {{ object.get_heading }}">
-            Spheres
-        </h2>
-    </div>
-    <div class="row">
-        <div class="col-sm">
-            {{ object.get_corr_name_display }}
-            {% if correspondence_spec %}({{ correspondence_spec }}){% endif %}
-        </div>
-        <div class="col-sm dots">
-            {{ object.correspondence|dots }}
-        </div>
-        <div class="col-sm">
-            Mind
-            {% if mind_spec %}({{ mind_spec }}){% endif %}
-        </div>
-        <div class="col-sm dots">
-            {{ object.mind|dots }}
-        </div>
-        <div class="col-sm">
-            {{ object.get_prime_name_display }}
-            {% if prime_spec %}({{ prime_spec }}){% endif %}
-        </div>
-        <div class="col-sm dots">
-            {{ object.prime|dots }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm">
-            Entropy
-            {% if entropy_spec %}({{ entropy_spec }}){% endif %}
-        </div>
-        <div class="col-sm dots">
-            {{ object.entropy|dots }}
-        </div>
-        <div class="col-sm">
-            Life
-            {% if life_spec %}({{ life_spec }}){% endif %}
-        </div>
-        <div class="col-sm dots">
-            {{ object.life|dots }}
-        </div>
-        <div class="col-sm">
-            {{ object.get_spirit_name_display }}
-            {% if spirit_spec %}({{ spirit_spec }}){% endif %}
-        </div>
-        <div class="col-sm dots">
-            {{ object.spirit|dots }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm">
-            Forces
-            {% if forces_spec %}({{ forces_spec }}){% endif %}
-        </div>
-        <div class="col-sm dots">
-            {{ object.forces|dots }}
-        </div>
-        <div class="col-sm">
-            Matter
-            {% if matter_spec %}({{ matter_spec }}){% endif %}
-        </div>
-        <div class="col-sm dots">
-            {{ object.matter|dots }}
-        </div>
-        <div class="col-sm">
-            Time
-            {% if time_spec %}({{ time_spec }}){% endif %}
-        </div>
-        <div class="col-sm dots">
-            {{ object.time|dots }}
-        </div>
-    </div>
-    <div class="row">
-        <h2 class="col-sm {{ object.get_heading }}">
-            Rotes
-        </h2>
-    </div>
-    {% for row in rotes %}
+    {% block spheres %}
         <div class="row">
-            {% for rote in row %}
-                <a class="col-sm" href={{ rote.get_absolute_url }}>{{ rote.name }}</a>
+            <h2 class="col-sm {{ object.get_heading }}">
+                Spheres
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                {{ object.get_corr_name_display }}
+                {% if correspondence_spec %}({{ correspondence_spec }}){% endif %}
+            </div>
+            <div class="col-sm dots">
+                {{ object.correspondence|dots }}
+            </div>
+            <div class="col-sm">
+                Mind
+                {% if mind_spec %}({{ mind_spec }}){% endif %}
+            </div>
+            <div class="col-sm dots">
+                {{ object.mind|dots }}
+            </div>
+            <div class="col-sm">
+                {{ object.get_prime_name_display }}
+                {% if prime_spec %}({{ prime_spec }}){% endif %}
+            </div>
+            <div class="col-sm dots">
+                {{ object.prime|dots }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                Entropy
+                {% if entropy_spec %}({{ entropy_spec }}){% endif %}
+            </div>
+            <div class="col-sm dots">
+                {{ object.entropy|dots }}
+            </div>
+            <div class="col-sm">
+                Life
+                {% if life_spec %}({{ life_spec }}){% endif %}
+            </div>
+            <div class="col-sm dots">
+                {{ object.life|dots }}
+            </div>
+            <div class="col-sm">
+                {{ object.get_spirit_name_display }}
+                {% if spirit_spec %}({{ spirit_spec }}){% endif %}
+            </div>
+            <div class="col-sm dots">
+                {{ object.spirit|dots }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                Forces
+                {% if forces_spec %}({{ forces_spec }}){% endif %}
+            </div>
+            <div class="col-sm dots">
+                {{ object.forces|dots }}
+            </div>
+            <div class="col-sm">
+                Matter
+                {% if matter_spec %}({{ matter_spec }}){% endif %}
+            </div>
+            <div class="col-sm dots">
+                {{ object.matter|dots }}
+            </div>
+            <div class="col-sm">
+                Time
+                {% if time_spec %}({{ time_spec }}){% endif %}
+            </div>
+            <div class="col-sm dots">
+                {{ object.time|dots }}
+            </div>
+        </div>
+    {% endblock spheres %}
+    {% block rotes %}
+        <div class="row">
+            <h2 class="col-sm {{ object.get_heading }}">
+                Rotes
+            </h2>
+        </div>
+        {% for row in rotes %}
+            <div class="row">
+                {% for rote in row %}
+                    <a class="col-sm" href={{ rote.get_absolute_url }}>{{ rote.name }}</a>
+                    <div class="col-sm dots">
+                        {{ rote.effect.spheres }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% endblock rotes %}
+    {% block resonance %}
+        <div class="row">
+            <h2 class="col-sm {{ object.get_heading }}">
+                Resonance
+            </h2>
+        </div>
+        <div class="row">
+            {% for res in resonance %}
+                <div class="col-sm">
+                    {{ res.resonance }}
+                </div>
                 <div class="col-sm dots">
-                    {{ rote.effect.spheres }}
+                    {{ res.rating }}
                 </div>
             {% endfor %}
         </div>
-    {% endfor %}
+    {% endblock resonance %}
+    {% block focus %}
+        <div class="row">
+            <h2 class="col-sm {{ object.get_heading }}">
+                Focus
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                Paradigm
+            </div>
+            <div class="col-sm">
+                {% for paradigm in object.paradigms.all %}
+                    <a href="{{ paradigm.get_absolute_url }}">{{ paradigm }}</a>
+                    <br />
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                Practices
+            </div>
+            <div class="col-sm">
+                {% for practice in object.practices.all %}
+                    <a href="{{ practice.get_absolute_url }}">{{ practice }}</a>
+                    <br />
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                Instruments
+            </div>
+            <div class="col-sm">
+                {% for instrument in object.instruments.all %}
+                    <a href="{{ instrument.get_absolute_url }}">{{ instrument }}</a>
+                    <br />
+                {% endfor %}
+            </div>
+        </div>
+    {% endblock focus %}
+{% endblock powers %}
+{% block mfs %}
     <div class="row">
         <h2 class="col-sm {{ object.get_heading }}">
-            Resonance
+            Merits and Flaws
         </h2>
     </div>
     <div class="row">
-        {% for res in resonance %}
-            <div class="col-sm">
-                {{ res.resonance }}
-            </div>
-            <div class="col-sm dots">
-                {{ res.rating }}
-            </div>
+        {% for mf in merits_and_flaws %}
+            <a class="col-sm" href="{{ mf.mf.get_absolute_url }}">
+                {{ mf.mf }}: {{ mf.rating }}
+            </a>
         {% endfor %}
     </div>
+{% endblock mfs %}
+{% block appearance %}
     <div class="row">
         <h2 class="col-sm {{ object.get_heading }}">
-            Focus
+            Appearance
         </h2>
     </div>
     <div class="row">
         <div class="col-sm">
-            Paradigm
+            Date of Birth
         </div>
         <div class="col-sm">
-            {% for paradigm in object.paradigms.all %}
-                <a href="{{ paradigm.get_absolute_url }}">{{ paradigm }}</a>
-                <br />
-            {% endfor %}
+            {{ object.date_of_birth }}
+        </div>
+        <div class="col-sm">
+            Apparent Age
+        </div>
+        <div class="col-sm">
+            {{ object.apparent_age }}
+        </div>
+        <div class="col-sm">
+            Age of Awakening
+        </div>
+        <div class="col-sm">
+            {{ object.age_of_awakening }}
         </div>
     </div>
     <div class="row">
         <div class="col-sm">
-            Practices
+            Hair
         </div>
         <div class="col-sm">
-            {% for practice in object.practices.all %}
-                <a href="{{ practice.get_absolute_url }}">{{ practice }}</a>
-                <br />
-            {% endfor %}
+            {{ object.hair }}
+        </div>
+        <div class="col-sm">
+            Eyes
+        </div>
+        <div class="col-sm">
+            {{ object.eyes }}
         </div>
     </div>
     <div class="row">
         <div class="col-sm">
-            Instruments
+            Ethnicity
         </div>
         <div class="col-sm">
-            {% for instrument in object.instruments.all %}
-                <a href="{{ instrument.get_absolute_url }}">{{ instrument }}</a>
-                <br />
-            {% endfor %}
+            {{ object.ethnicity }}
+        </div>
+        <div class="col-sm">
+            Nationality
+        </div>
+        <div class="col-sm">
+            {{ object.nationality }}
         </div>
     </div>
-{% endblock powers %}
+    <div class="row">
+        <div class="col-sm">
+            Height
+        </div>
+        <div class="col-sm">
+            {{ object.height }}
+        </div>
+        <div class="col-sm">
+            Weight
+        </div>
+        <div class="col-sm">
+            {{ object.weight }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            Age
+        </div>
+        <div class="col-sm">
+            {{ object.age }}
+        </div>
+        <div class="col-sm">
+            Sex
+        </div>
+        <div class="col-sm">
+            {{ object.sex }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            Description
+        </div>
+        <div class="col-sm">
+            {{ object.description }}
+        </div>
+    </div>
+{% endblock appearance %}
+{% block history %}
+    <div class="row">
+        <h2 class="col-sm {{ object.get_heading }}">
+            History
+        </h2>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            Childhood
+        </div>
+        <div class="col-sm">
+            {{ object.childhood }}
+        </div>
+        <div class="col-sm">
+            History
+        </div>
+        <div class="col-sm">
+            {{ object.history }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            Awakening
+        </div>
+        <div class="col-sm">
+            {{ object.awakening }}
+        </div>
+        <div class="col-sm">
+            Seekings
+        </div>
+        <div class="col-sm">
+            {{ object.seekings }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            Quiets
+        </div>
+        <div class="col-sm">
+            {{ object.quiets }}
+        </div>
+        <div class="col-sm">
+            Avatar Description
+        </div>
+        <div class="col-sm">
+            {{ object.avatar_description }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            Goals
+        </div>
+        <div class="col-sm">
+            {{ object.goals }}
+        </div>
+        <div class="col-sm">
+            Notes
+        </div>
+        <div class="col-sm">
+            {{ object.notes }}
+        </div>
+    </div>
+{% endblock history %}
 {% block advancement %}
     <div class="row">
         <h2 class="col-sm {{ object.get_heading }}">

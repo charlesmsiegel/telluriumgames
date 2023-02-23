@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.views.generic import View
 
-from wod.forms import RandomCharacterForm
+from wod.forms.characters import RandomCharacterForm
 from wod.models.characters.changeling import Changeling, Motley
 from wod.models.characters.human import Character, Group
 from wod.models.characters.mage.cabal import Cabal
@@ -58,6 +58,12 @@ class GenericCharacterDetailView(View):
     }
 
     def get(self, request, *args, **kwargs):
+        char = Character.objects.get(pk=kwargs["pk"])
+        if char.type in self.character_views:
+            return self.character_views[char.type].as_view()(request, *args, **kwargs)
+        return redirect("wod:characters:index")
+
+    def post(self, request, *args, **kwargs):
         char = Character.objects.get(pk=kwargs["pk"])
         if char.type in self.character_views:
             return self.character_views[char.type].as_view()(request, *args, **kwargs)

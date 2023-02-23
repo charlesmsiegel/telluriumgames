@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import View
 
 from core.utils import level_name, tree_sort
-from wod.forms import RandomLocationForm
+from wod.forms.locations import RandomLocationForm
 from wod.models.locations.human import Location
 from wod.models.locations.mage import Chantry, Node
 

@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic import View
 
-from wod.forms import RandomItemForm
+from wod.forms.items import RandomItemForm
 from wod.models.items.human import WoDItem
 from wod.models.items.mage import Artifact, Charm, Grimoire, Talisman
 

@@ -4,6 +4,9 @@
     {{ object.name|safe }}
 {% endblock title %}
 {% block content %}
+<form method="post">
+    {% csrf_token %}
+
     <div class="centertext container">
         {% block references %}
             {% for reference in object.sources.all %}
@@ -36,4 +39,5 @@
             {% endif %}
         {% endblock update %}
     </div>
+</form>
 {% endblock content %}
