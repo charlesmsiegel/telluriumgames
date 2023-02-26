@@ -283,7 +283,7 @@ class MageDetailView(View):
                     and (x.endswith("-mf") or x.endswith("-rating"))
                 ]
                 mf_values = [int(form.data[x]) for x in mf_keys]
-                mfs = {k: v for k, v in zip(mf_keys, mf_values)}
+                mfs = dict(zip(mf_keys, mf_values))
                 num_mf = len(mfs) // 2
                 new_mfs = {}
                 for i in range(num_mf):
@@ -320,6 +320,7 @@ class MageDetailView(View):
             char.creation_status += 1
             char.save()
             return render(request, "wod/characters/mage/mage/detail.html", context,)
+        return render(request, "wod/characters/mage/mage/detail.html", context,)
 
     def get_context(self, mage):
         context = {"object": mage}

@@ -20,7 +20,10 @@ class ExMortal(CharacterModel):
 
     concept = models.CharField(max_length=100)
 
-    tertiary = lambda x: []
+    def tertiary():
+        return []
+
+    # tertiary = lambda x: []
 
     strength = models.IntegerField(default=1)
     dexterity = models.IntegerField(default=1)

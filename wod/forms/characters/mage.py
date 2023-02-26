@@ -578,7 +578,7 @@ class MageFreebieForm(forms.Form):
             if x.startswith("form-") and (x.endswith("-mf") or x.endswith("-rating"))
         ]
         mf_values = [int(self.data[x]) for x in mf_keys]
-        mfs = {k: v for k, v in zip(mf_keys, mf_values)}
+        mfs = dict(zip(mf_keys, mf_values))
         values = [mfs[k] for k in mfs.keys() if "-rating" in k]
         flaw_total = sum(x for x in values if x < 0)
         merit_total = sum(x for x in values if x > 0)

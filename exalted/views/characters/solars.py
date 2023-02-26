@@ -286,8 +286,9 @@ class SolarDetailView(View):
                 "exalted/characters/solars/solar/creation_intimacies.html",
                 context,
             )
-        if char.creation_status == 6:
-            pass
+        render(
+            request, "exalted/characters/solars/solar/detail.html", context,
+        )
 
     def get_context(self, char):
         return {
