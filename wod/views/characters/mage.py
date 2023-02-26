@@ -93,12 +93,6 @@ class MageCreateView(View):
 
 
 class MageDetailView(View):
-    # TODO: Specialties
-    # TODO: Rotes
-    # TODO: Node or Chantry if points put there
-    # TODO: Quintessence with freebies
-    # TODO: Random on each step
-    # TODO: Backtracking
     def get(self, request, *args, **kwargs):
         mage = Mage.objects.get(pk=kwargs["pk"])
         context = self.get_context(mage)

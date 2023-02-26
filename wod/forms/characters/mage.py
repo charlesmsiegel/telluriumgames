@@ -273,7 +273,6 @@ class MageAdvantagesForm(forms.Form):
     instruments = forms.ModelMultipleChoiceField(
         required=False, queryset=Instrument.objects.all()
     )
-    # TODO: Improve querysets for easier creation
 
     def __init__(self, *args, **kwargs):
         self.char = kwargs.pop("character")
@@ -282,7 +281,6 @@ class MageAdvantagesForm(forms.Form):
             for x in self.char.faction.affinities + self.char.subfaction.affinities
         ]
         choices = list(set(choices))
-        # TODO: When replacing JSONs, this will become ModelChoiceField
         choices.sort()
         super().__init__(*args, **kwargs)
         self.fields["affinity_sphere"].widget.choices += choices
@@ -326,7 +324,6 @@ class MagePowersForm(forms.Form):
     resonance = forms.ModelChoiceField(
         queryset=Resonance.objects.all().order_by("name")
     )
-    # TODO: Upgrade to input + pulldown box
 
     def __init__(self, *args, **kwargs):
         self.char = kwargs.pop("character")

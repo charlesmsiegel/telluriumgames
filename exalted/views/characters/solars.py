@@ -275,7 +275,6 @@ class SolarDetailView(View):
                 char.creation_status += 1
                 char.save()
                 char.apply_finishing_touches()
-                # TODO: Form for Bonus Points
                 return render(
                     request,
                     "exalted/characters/solars/solar/creation_bonus_points.html",
