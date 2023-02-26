@@ -579,7 +579,7 @@ class MageFreebieForm(forms.Form):
         ]
         mf_values = [int(self.data[x]) for x in mf_keys]
         mfs = dict(zip(mf_keys, mf_values))
-        values = [mfs[k] for k in mfs.keys() if "-rating" in k]
+        values = [v for k, v in mfs.items() if "-rating" in k]
         flaw_total = sum(x for x in values if x < 0)
         merit_total = sum(x for x in values if x > 0)
         if flaw_total < -7:
