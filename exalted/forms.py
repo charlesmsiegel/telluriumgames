@@ -22,21 +22,15 @@ class ExMortalCreationForm(forms.Form):
     name = forms.CharField(label="Name", max_length=100)
     concept = forms.CharField(label="Name", max_length=100)
     # Native Language
-    chronicle = forms.CharField(
+    chronicle = forms.ModelChoiceField(
         required=False,
-        label="Chronicle",
-        widget=forms.Select(choices=[(None, "----")]),
+        queryset=Chronicle.objects.filter(
+            allowed_objects__name="Mortal", allowed_objects__system="ex"
+        ),
     )
-
-    def __init__(self, *args, **kwargs):
-        choices = [(x.name, x.name) for x in Chronicle.objects.all()]
-        # TODO: Restrict to Chronicles allowing ExMortals
-        super().__init__(*args, **kwargs)
-        self.fields["chronicle"].widget.choices += choices
 
 
 class SolarCreationForm(ExMortalCreationForm):
-    # TODO: Restrict to Chronicles allowing Solars
     CASTE_CHOICES = ["dawn", "zenith", "twilight", "eclipse", "night"]
     caste = forms.CharField(
         label="Caste",
@@ -45,6 +39,15 @@ class SolarCreationForm(ExMortalCreationForm):
         ),
     )
     anima = forms.CharField(max_length=100)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["chronicle"] = forms.ModelChoiceField(
+            required=False,
+            queryset=Chronicle.objects.filter(
+                allowed_objects__name="Solar", allowed_objects__system="ex"
+            ),
+        )
 
 
 class ExaltedAttributeForm(forms.Form):
