@@ -61,35 +61,53 @@ class MageCreateView(View):
         return render(request, "wod/characters/mage/mage/create.html", context)
 
     def post(self, request, *args, **kwargs):
-        form = MageCreationForm(request.POST)
-        chron = None
-        affiliation = None
-        faction = None
-        subfaction = None
-        if "chronicle" in form.data.keys():
-            chron = Chronicle.objects.filter(pk=form.data["chronicle"]).first()
-        if "affiliation" in form.data.keys():
-            affiliation = MageFaction.objects.filter(
-                pk=form.data["affiliation"]
-            ).first()
-        if "faction" in form.data.keys():
-            faction = MageFaction.objects.filter(pk=form.data["faction"]).first()
-        if "subfaction" in form.data.keys():
-            subfaction = MageFaction.objects.filter(pk=form.data["subfaction"]).first()
-        s = Mage.objects.create(
-            name=form.data["name"],
-            concept=form.data["concept"],
-            demeanor=Archetype.objects.get(pk=form.data["demeanor"]),
-            nature=Archetype.objects.get(pk=form.data["nature"]),
-            owner=request.user,
-            status="Un",
-            essence=1,
-            chronicle=chron,
-            affiliation=affiliation,
-            faction=faction,
-            subfaction=subfaction,
-        )
-        return redirect(s.get_absolute_url())
+        if "Full Random" in request.POST:
+            s = Mage.objects.create(owner=request.user, status="Un")
+            s.random()
+            return redirect(s.get_absolute_url())
+        elif "Random Basics" in request.POST:
+            s = Mage.objects.create(owner=request.user, status="Un")
+            s.random_name()
+            s.random_concept()
+            s.random_archetypes()
+            s.random_essence()
+            s.random_faction()
+            s.save()
+            return redirect(s.get_absolute_url())
+        elif "Save" in request.POST:
+            form = MageCreationForm(request.POST)
+            chron = None
+            affiliation = None
+            faction = None
+            subfaction = None
+            if "chronicle" in form.data.keys():
+                chron = Chronicle.objects.filter(pk=form.data["chronicle"]).first()
+            if "affiliation" in form.data.keys():
+                affiliation = MageFaction.objects.filter(
+                    pk=form.data["affiliation"]
+                ).first()
+            if "faction" in form.data.keys():
+                faction = MageFaction.objects.filter(pk=form.data["faction"]).first()
+            if "subfaction" in form.data.keys():
+                subfaction = MageFaction.objects.filter(
+                    pk=form.data["subfaction"]
+                ).first()
+            s = Mage.objects.create(
+                name=form.data["name"],
+                concept=form.data["concept"],
+                demeanor=Archetype.objects.get(pk=form.data["demeanor"]),
+                nature=Archetype.objects.get(pk=form.data["nature"]),
+                owner=request.user,
+                status="Un",
+                chronicle=chron,
+                affiliation=affiliation,
+                faction=faction,
+                subfaction=subfaction,
+            )
+            return redirect(s.get_absolute_url())
+        context = {}
+        context["form"] = MageCreationForm()
+        render(request, "wod/characters/mage/mage/create.html", context)
 
 
 class MageDetailView(View):
