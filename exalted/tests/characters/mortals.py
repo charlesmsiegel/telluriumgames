@@ -6,7 +6,7 @@ from exalted.models.characters.utils import ABILITIES
 
 
 # Create your tests here.
-def setup():
+def ex_setup():
     for ability in ABILITIES:
         for i in range(10):
             ExSpecialty.objects.create(
@@ -38,7 +38,7 @@ class TestMortal(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
         self.character = ExMortal.objects.create(name="", owner=self.player)
-        setup()
+        ex_setup()
 
     def test_absolute_url(self):
         self.assertEqual(
@@ -552,7 +552,7 @@ class TestRandomMortal(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
         self.character = ExMortal.objects.create(name="", owner=self.player)
-        setup()
+        ex_setup()
 
     def test_random_name(self):
         self.assertFalse(self.character.has_name())

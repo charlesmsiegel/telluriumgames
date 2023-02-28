@@ -1,4 +1,4 @@
-from random import choice, randint
+import random
 
 import requests
 
@@ -23,28 +23,28 @@ def weighted_choice(dictionary, floor=0, ceiling=5):
         for _ in range(value + 1):
             for __ in range(value + 1):
                 l.append(key)
-    return choice(l)
+    return random.choice(l)
 
 
 def cod_dice(number_of_dice, again_minimum=10):
     if number_of_dice < 0:
-        chance_die = randint(1, 10)
+        chance_die = random.randint(1, 10)
         if chance_die == 1:
             return chance_die, -1
         if chance_die == 10:
             return chance_die, 1
         return chance_die, 0
-    roll = [randint(1, 10) for _ in range(number_of_dice)]
+    roll = [random.randint(1, 10) for _ in range(number_of_dice)]
     num_agains = sum(x >= again_minimum for x in roll)
     while num_agains > 0:
-        new_dice = [randint(1, 10) for _ in range(num_agains)]
+        new_dice = [random.randint(1, 10) for _ in range(num_agains)]
         roll.extend(new_dice)
         num_agains = sum(x >= again_minimum for x in new_dice)
     return roll, sum(x >= 8 for x in roll)
 
 
 def wod_dice(dicepool, difficulty=6, specialty=False):
-    dice_list = [randint(1, 10) for _ in range(dicepool)]
+    dice_list = [random.randint(1, 10) for _ in range(dicepool)]
     ones = len([x for x in dice_list if x == 1])
     tens = len([x for x in dice_list if x == 10])
     successes = len([x for x in dice_list if x >= difficulty])
@@ -78,13 +78,13 @@ def random_name(gender, ethnicity="English"):
             )
         return n
     except KeyError:
-        return f"Random Name {randint(0, 100000000000)}"
+        return f"Random Name {random.randint(0, 100000000000)}"
     except requests.ReadTimeout:
-        return f"Random Name {randint(0, 100000000000)}"
+        return f"Random Name {random.randint(0, 100000000000)}"
 
 
 def random_ethnicity():
-    return choice(list(ethnicity_to_code.keys()))
+    return random.choice(list(ethnicity_to_code.keys()))
 
 
 ethnicity_to_code = {

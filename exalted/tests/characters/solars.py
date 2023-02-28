@@ -9,11 +9,11 @@ from exalted.models.characters.charms import (
 from exalted.models.characters.mortals import ExMerit
 from exalted.models.characters.solars import Solar
 from exalted.models.characters.utils import ABILITIES
-from exalted.tests.characters.mortals import setup
+from exalted.tests.characters.mortals import ex_setup
 
 
 def solar_setup():
-    setup()
+    ex_setup()
     MartialArtsStyle.objects.create(name="Snake")
     MartialArtsStyle.objects.create(name="Weasel")
     for i in range(10):
