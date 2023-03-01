@@ -13,7 +13,7 @@ from wod.models.characters.mage import (
     Resonance,
 )
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
-from wod.models.items.mage import Grimoire
+from wod.models.items.mage import Artifact, Charm, Grimoire
 
 
 # Create your tests here.
@@ -88,11 +88,20 @@ def grimoire_setup():
 
 
 class TestWonder(TestCase):
+    def setUp(self):
+        grimoire_setup()
+
     def test_set_rank(self):
-        self.fail()
+        g = Grimoire.objects.create(name="")
+        self.assertFalse(g.has_rank())
+        self.assertTrue(g.set_rank(3))
+        self.assertEqual(g.rank, 3)
 
     def test_has_rank(self):
-        self.fail()
+        g = Grimoire.objects.create(name="")
+        self.assertFalse(g.has_rank())
+        g.set_rank(3)
+        self.assertTrue(g.has_rank())
 
     def test_add_resonance(self):
         self.fail()
@@ -111,6 +120,9 @@ class TestWonder(TestCase):
 
 
 class TestRandomWonder(TestCase):
+    def setUp(self):
+        grimoire_setup()
+
     def test_random_points(self):
         self.fail()
 
@@ -125,35 +137,79 @@ class TestRandomWonder(TestCase):
 
 
 class TestCharm(TestCase):
+    def setUp(self):
+        self.charm = Charm.objects.create(name="Test Charm")
+        self.power = Effect.objects.create(name="Power")
+
     def test_set_power(self):
-        self.fail()
+        self.assertFalse(self.charm.has_power())
+        self.assertTrue(self.charm.set_power(self.power))
+        self.assertTrue(self.charm.has_power())
 
     def test_has_power(self):
-        self.fail()
+        self.assertFalse(self.charm.has_power())
+        self.charm.set_power(self.power)
+        self.assertTrue(self.charm.has_power())
 
 
 class TestRandomCharm(TestCase):
+    def setUp(self):
+        grimoire_setup()
+
     def test_random_power(self):
-        self.fail()
+        c = Charm.objects.create(name="", rank=3)
+        self.assertFalse(c.has_power())
+        self.assertTrue(c.random_power())
+        self.assertTrue(c.has_power())
 
     def test_random(self):
-        self.fail()
+        c = Charm.objects.create(name="")
+        c.random()
+        self.assertEqual(c.status, "Ran")
+        self.assertTrue(c.has_name())
+        self.assertTrue(c.has_rank())
+        self.assertTrue(c.has_resonance())
+        self.assertTrue(c.has_power())
+        self.assertEqual(c.arete, c.rank)
+        self.assertEqual(c.background_cost, c.rank)
 
 
 class TestArtifact(TestCase):
+    def setUp(self):
+        self.artifact = Artifact.objects.create(name="Test Artifact")
+        self.power = Effect.objects.create(name="Power")
+
     def test_set_power(self):
-        self.fail()
+        self.assertFalse(self.artifact.has_power())
+        self.assertTrue(self.artifact.set_power(self.power))
+        self.assertTrue(self.artifact.has_power())
 
     def test_has_power(self):
-        self.fail()
+        self.assertFalse(self.artifact.has_power())
+        self.artifact.set_power(self.power)
+        self.assertTrue(self.artifact.has_power())
 
 
 class TestRandomArtifact(TestCase):
+    def setUp(self):
+        grimoire_setup()
+
     def test_random_power(self):
-        self.fail()
+        a = Artifact.objects.create(name="", rank=3)
+        self.assertFalse(a.has_power())
+        self.assertTrue(a.random_power())
+        self.assertTrue(a.has_power())
 
     def test_random(self):
-        self.fail()
+        a = Artifact.objects.create(name="")
+        a.random()
+        self.assertEqual(a.status, "Ran")
+        self.assertTrue(a.has_name())
+        self.assertTrue(a.has_rank())
+        self.assertTrue(a.has_resonance())
+        self.assertTrue(a.has_power())
+        self.assertEqual(a.quintessence_max, a.rank * 5)
+        self.assertEqual(a.background_cost, a.rank * 2)
 
 
 class TestTalisman(TestCase):
@@ -165,6 +221,9 @@ class TestTalisman(TestCase):
 
 
 class TestRandomTalisman(TestCase):
+    def setUp(self):
+        grimoire_setup()
+
     def test_random_power(self):
         self.fail()
 
@@ -332,7 +391,12 @@ class TestRandomGrimoire(TestCase):
         grimoire_setup()
 
     def test_random_name(self):
-        self.fail()
+        g = Grimoire.objects.create(name="")
+        g.random_medium()
+        g.random_spheres()
+        self.assertFalse(g.has_name())
+        self.assertTrue(g.random_name())
+        self.assertTrue(g.has_name())
 
     def test_random_rank(self):
         mocker = Mock()
