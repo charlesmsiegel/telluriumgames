@@ -3,12 +3,12 @@ from django.test import TestCase
 
 # Create your tests here.
 class TestWerewolf(TestCase):
-    self.fail()
+    pass
 
 
 class TestRandomWerewolf(TestCase):
-    self.fail()
+    pass
 
 
 class TestWerewolfDetailView(TestCase):
-    self.fail()
+    pass

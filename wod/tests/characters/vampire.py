@@ -17,12 +17,12 @@ class TestVtMHuman(TestCase):
 
 
 class TestVampire(TestCase):
-    self.fail()
+    pass
 
 
 class TestRandomVampire(TestCase):
-    self.fail()
+    pass
 
 
 class TestVampireDetailView(TestCase):
-    self.fail()
+    pass

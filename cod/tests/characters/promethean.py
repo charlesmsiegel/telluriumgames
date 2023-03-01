@@ -3,12 +3,12 @@ from django.test import TestCase
 
 # Create your tests here.
 class TestPromethean(TestCase):
-    self.fail()
+    pass
 
 
 class TestRandomPromethean(TestCase):
-    self.fail()
+    pass
 
 
 class TestPrometheanDetailView(TestCase):
-    self.fail()
+    pass

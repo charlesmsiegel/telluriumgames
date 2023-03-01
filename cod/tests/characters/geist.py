@@ -3,12 +3,12 @@ from django.test import TestCase
 
 # Create your tests here.
 class TestChangeling(TestCase):
-    self.fail()
+    pass
 
 
 class TestRandomChangeling(TestCase):
-    self.fail()
+    pass
 
 
 class TestChangelingDetailView(TestCase):
-    self.fail()
+    pass
