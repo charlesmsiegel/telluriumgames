@@ -323,117 +323,117 @@ class TestWtAHuman(TestCase):
 
 class TestKinfolk(TestCase):
     def test_has_breed(self):
-        pass
+        self.fail()
 
     def test_set_breed(self):
-        pass
+        self.fail()
 
     def test_set_tribe(self):
-        pass
+        self.fail()
 
     def test_has_tribe(self):
-        pass
+        self.fail()
 
     def test_get_backgrounds(self):
-        pass
+        self.fail()
 
     def test_add_background(self):
-        pass
+        self.fail()
 
     def test_xp_cost(self):
-        pass
+        self.fail()
 
     def test_spend_xp(self):
-        pass
+        self.fail()
 
     def test_random_xp_functions(self):
-        pass
+        self.fail()
 
     def test_add_gift(self):
-        pass
+        self.fail()
 
     def test_set_relation(self):
-        pass
+        self.fail()
 
     def test_has_relation(self):
-        pass
+        self.fail()
 
     def test_mf_based_corrections(self):
-        pass
+        self.fail()
 
     def test_add_fetish(self):
-        pass
+        self.fail()
 
     def test_filter_fetishes(self):
-        pass
+        self.fail()
 
 
 class TestRandomKinfolk(TestCase):
     def test_random_breed(self):
-        pass
+        self.fail()
 
     def test_random_tribe(self):
-        pass
+        self.fail()
 
     def test_choose_random_gift(self):
-        pass
+        self.fail()
 
     def test_random_xp_gift(self):
-        pass
+        self.fail()
 
     def test_random_relation(self):
-        pass
+        self.fail()
 
     def test_random_fetish(self):
-        pass
+        self.fail()
 
     def test_random(self):
-        pass
+        self.fail()
 
 
 class TestFomor(TestCase):
     def test_get_backgrounds(self):
-        pass
+        self.fail()
 
     def add_power(self):
-        pass
+        self.fail()
 
     def filter_power(self):
-        pass
+        self.fail()
 
 
 class TestRandomFomor(TestCase):
     def random_power(self):
-        pass
+        self.fail()
 
     def random_powers(self):
-        pass
+        self.fail()
 
     def random(self):
-        pass
+        self.fail()
 
 
 class TestTribe(TestCase):
     def test_camp_list(self):
-        pass
+        self.fail()
 
     def test_gifts_level_1(self):
-        pass
+        self.fail()
 
     def test_gifts_level_2(self):
-        pass
+        self.fail()
 
     def test_gifts_level_3(self):
-        pass
+        self.fail()
 
     def test_gifts_level_4(self):
-        pass
+        self.fail()
 
     def test_gifts_level_5(self):
-        pass
+        self.fail()
 
     def test_gifts_level_6(self):
-        pass
+        self.fail()
 
 
 class TestWerewolf(TestCase):
@@ -475,7 +475,7 @@ class TestWerewolf(TestCase):
         self.assertTrue(self.character.has_gifts())
 
     def test_total_rites(self):
-        pass
+        self.fail()
 
     def test_add_rite(self):
         r = Rite.objects.get(name="Rite 1", level=1)
@@ -543,7 +543,7 @@ class TestWerewolf(TestCase):
         self.assertTrue(self.character.has_camp())
 
     def test_set_gnosis(self):
-        pass
+        self.fail()
 
     def test_add_gnosis(self):
         self.assertEqual(self.character.gnosis, 0)
@@ -553,7 +553,7 @@ class TestWerewolf(TestCase):
         self.assertFalse(self.character.add_gnosis())
 
     def test_set_rage(self):
-        pass
+        self.fail()
 
     def test_add_rage(self):
         self.assertEqual(self.character.rage, 0)
@@ -751,7 +751,7 @@ class TestWerewolf(TestCase):
         self.assertEqual(self.character.pure_breed, 3)
 
     def test_num_renown_incidents(self):
-        pass
+        self.fail()
 
     def test_add_renown_incident(self):
         r = RenownIncident.objects.create(
@@ -807,26 +807,26 @@ class TestWerewolf(TestCase):
         self.assertEqual(self.character.rites_known.count(), num + 1)
 
     def test_add_battle_scar(self):
-        pass
+        self.fail()
 
     def test_random_freebie_functions(self):
-        pass
+        self.fail()
 
     def test_random_xp_functions(self):
-        pass
+        self.fail()
 
     def test_add_fetish(self):
-        pass
+        self.fail()
 
     def test_filter_fetishes(self):
-        pass
+        self.fail()
 
     def test_total_fetish_rating(self):
-        pass
+        self.fail()
 
 
 class TestTotem(TestCase):
-    pass
+    self.fail()
 
 
 class TestRandomTotem(TestCase):
@@ -839,7 +839,7 @@ class TestRandomTotem(TestCase):
     # Cost 3 - Per extra pack member who can use the totem's powers in same turn
     # Cost 4 - Totem connected mystically to all pack maembers allowing communication
     # Cost 5 - Totem is feared by the Wyrm
-    pass
+    self.fail()
 
 
 class TestRandomWerewolf(TestCase):
@@ -859,10 +859,10 @@ class TestRandomWerewolf(TestCase):
         self.assertTrue(self.character.has_auspice())
 
     def test_choose_random_gift(self):
-        pass
+        self.fail()
 
     def test_random_gift(self):
-        pass
+        self.fail()
 
     def test_random_gifts(self):
         self.character.random_tribe()
@@ -873,13 +873,13 @@ class TestRandomWerewolf(TestCase):
         self.assertTrue(self.character.has_gifts())
 
     def test_random_breed(self):
-        pass
+        self.fail()
 
     def test_random_camp(self):
-        pass
+        self.fail()
 
     def test_random_rite(self):
-        pass
+        self.fail()
 
     def test_random_rites(self):
         self.character.rites = 3
@@ -902,13 +902,13 @@ class TestRandomWerewolf(TestCase):
         self.assertEqual(self.character.freebies, 0)
 
     def test_random_freebies_gift(self):
-        pass
+        self.fail()
 
     def test_random_freebies_Rage(self):
-        pass
+        self.fail()
 
     def test_random_freebies_gnosis(self):
-        pass
+        self.fail()
 
     def test_random_renown_incident(self):
         self.character.auspice = "ahroun"
@@ -917,28 +917,28 @@ class TestRandomWerewolf(TestCase):
         self.assertEqual(self.character.num_renown_incidents(), num + 1)
 
     def test_random_battle_scar(self):
-        pass
+        self.fail()
 
     def test_random_werewolf_history(self):
-        pass
+        self.fail()
 
     def test_random_xp_gift(self):
-        pass
+        self.fail()
 
     def test_random_xp_rage(self):
-        pass
+        self.fail()
 
     def test_random_xp_gnosis(self):
-        pass
+        self.fail()
 
     def test_random_xp(self):
-        pass
+        self.fail()
 
     def test_random_fetish(self):
-        pass
+        self.fail()
 
     def test_random_fetishes(self):
-        pass
+        self.fail()
 
     def test_random(self):
         self.assertFalse(self.character.has_name())

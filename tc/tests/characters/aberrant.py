@@ -86,7 +86,7 @@ class TestPower(TestCase):
         self.assertEqual(self.character.power_cost(self.power), 0)
 
     def test_minimum_quantum_for_next_dot(self):
-        pass
+        self.fail()
 
 
 class TestAberrant(TestCase):
@@ -654,46 +654,46 @@ class TestAberrant(TestCase):
         self.assertIn(ee, self.character.enhanced_edges.all())
 
     def test_total_mega_attribute(self):
-        pass
+        self.fail()
 
     def test_total_mega_edges(self):
-        pass
+        self.fail()
 
     def test_mega_edge_rating(self):
-        pass
+        self.fail()
 
     def test_total_powers(self):
-        pass
+        self.fail()
 
     def test_power_rating(self):
-        pass
+        self.fail()
 
     def test_get_tags(self):
-        pass
+        self.fail()
 
     def test_tag_rating(self):
-        pass
+        self.fail()
 
     def test_update_quantum_points(self):
-        pass
+        self.fail()
 
     def test_reset_flux(self):
-        pass
+        self.fail()
 
     def test_spend_xp_mega_attribute(self):
-        pass
+        self.fail()
 
     def test_spend_xp_mega_edge(self):
-        pass
+        self.fail()
 
     def test_spend_xp_power(self):
-        pass
+        self.fail()
 
     def test_spend_xp_tag(self):
-        pass
+        self.fail()
 
     def test_spend_xp_quantum(self):
-        pass
+        self.fail()
 
 
 class TestRandomAberrant(TestCase):
@@ -821,7 +821,7 @@ class TestRandomAberrant(TestCase):
         self.assertTrue(self.character.has_template())
 
     def test_random_transformation(self):
-        pass
+        self.fail()
 
     def test_random_spend_xp(self):
         self.character.xp = 15
@@ -870,17 +870,17 @@ class TestAberrantDetailView(TestCase):
 
 class TestMegaEdge(TestCase):
     def test_check_prereqs(self):
-        pass
+        self.fail()
 
 
 class TestTag(TestCase):
     def test_save(self):
-        pass
+        self.fail()
 
 
 class TestAberrantPrereqs(TestCase):
     def test_aberrant_prereq_satisfied(self):
-        pass
+        self.fail()
 
     def test_aberrant_check_prereqs(self):
-        pass
+        self.fail()

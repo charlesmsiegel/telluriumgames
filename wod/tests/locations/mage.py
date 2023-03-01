@@ -62,13 +62,13 @@ class TestNode(TestCase):
         self.assertEqual(self.node.total_resonance(), 5)
 
     def test_check_resonance(self):
-        pass
+        self.fail()
 
     def test_has_resonance(self):
-        pass
+        self.fail()
 
     def test_resonance_rating(self):
-        pass
+        self.fail()
 
     def test_set_rank(self):
         self.assertEqual(self.node.rank, 0)
@@ -129,7 +129,7 @@ class TestNode(TestCase):
         self.assertEqual(self.node.total_mf(), 1)
 
     def test_mf_rating(self):
-        pass
+        self.fail()
 
     def test_set_size(self):
         self.assertEqual(self.node.size, 0)
@@ -213,7 +213,7 @@ class TestRandomNode(TestCase):
     def test_random_mf(self):
         num = self.node.total_mf()
         while not self.node.random_mf(minimum=0):
-            pass
+            self.fail()
         self.assertGreater(self.node.total_mf(), num)
 
     def test_random_size(self):
@@ -280,10 +280,10 @@ class TestChantry(TestCase):
         self.assertEqual(self.chantry.trait_cost("reality_zone_rating"), 5)
 
     def test_has_node(self):
-        pass
+        self.fail()
 
     def test_total_node(self):
-        pass
+        self.fail()
 
     def test_create_nodes(self):
         self.chantry.random_faction()
@@ -300,7 +300,7 @@ class TestChantry(TestCase):
             self.assertEqual(node.parent, self.chantry)
 
     def test_has_library(self):
-        pass
+        self.fail()
 
     def test_create_library(self):
         self.chantry.library_rating = 0
@@ -336,7 +336,7 @@ class TestChantry(TestCase):
         self.assertEqual(self.chantry.points_spent(), 38)
 
     def test_set_rank(self):
-        pass
+        self.fail()
 
     def test_has_faction(self):
         faction = MageFaction.objects.get(name="Test Faction 0")
@@ -383,7 +383,7 @@ class TestChantry(TestCase):
         self.assertTrue(self.chantry.has_season())
 
     def test_get_traits(self):
-        pass
+        self.fail()
 
 
 class TestRandomChantry(TestCase):
@@ -458,10 +458,10 @@ class TestRandomChantry(TestCase):
         self.assertTrue(self.chantry.has_season())
 
     def test_random_populate(self):
-        pass
+        self.fail()
 
     def test_random_leadership_type(self):
-        pass
+        self.fail()
 
 
 class TestNodeDetailView(TestCase):
@@ -504,10 +504,10 @@ class TestLibrary(TestCase):
         self.assertEqual(self.library.num_books(), count + 1)
 
     def test_set_faction(self):
-        pass
+        self.fail()
 
     def test_has_faction(self):
-        pass
+        self.fail()
 
     def test_has_books(self):
         self.library.rank = 3
@@ -524,18 +524,18 @@ class TestLibrary(TestCase):
         self.assertEqual(self.library.num_books(), 2)
 
     def test_num_books(self):
-        pass
+        self.fail()
 
 
 class TestRandomLibrary(TestCase):
     def test_random_faction(self):
-        pass
+        self.fail()
 
     def test_random_book(self):
-        pass
+        self.fail()
 
     def test_random(self):
-        pass
+        self.fail()
 
 
 class TestLibraryDetailView(TestCase):

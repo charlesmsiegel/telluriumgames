@@ -41,70 +41,70 @@ class TestDragonBlooded(TestCase):
         dragonblooded_setup()
 
     def test_has_aspect(self):
-        pass
+        self.fail()
 
     def test_set_aspect(self):
-        pass
+        self.fail()
 
     def test_has_origin(self):
-        pass
+        self.fail()
 
     def test_set_origin(self):
-        pass
+        self.fail()
 
     def test_set_house(self):
-        pass
+        self.fail()
 
     def test_set_school(self):
-        pass
+        self.fail()
 
     def test_has_favored_abilities(self):
-        pass
+        self.fail()
 
     def test_add_favored_ability(self):
-        pass
+        self.fail()
 
     def test_finishing_touches(self):
-        pass
+        self.fail()
 
     def test_total_charms(self):
-        pass
+        self.fail()
 
     def test_total_excellencies(self):
-        pass
+        self.fail()
 
     def test_has_excellencies(self):
-        pass
+        self.fail()
 
     def test_has_charms(self):
-        pass
+        self.fail()
 
     def test_filter_excellencies(self):
-        pass
+        self.fail()
 
     def test_filter_charms(self):
-        pass
+        self.fail()
 
     def test_add_charm(self):
-        pass
+        self.fail()
 
     def test_has_specialties(self):
-        pass
+        self.fail()
 
     def test_bonus_cost(self):
-        pass
+        self.fail()
 
     def test_random_bonus_functions(self):
-        pass
+        self.fail()
 
     def test_spend_bonus_points(self):
-        pass
+        self.fail()
 
     def test_xp_cost(self):
-        pass
+        self.fail()
 
     def test_spend_xp(self):
-        pass
+        self.fail()
 
 
 class TestRandomDragonBlooded(TestCase):
@@ -113,37 +113,37 @@ class TestRandomDragonBlooded(TestCase):
         dragonblooded_setup()
 
     def test_random_aspect(self):
-        pass
+        self.fail()
 
     def test_random_origin(self):
-        pass
+        self.fail()
 
     def test_random_favored_ability(self):
-        pass
+        self.fail()
 
     def test_random_favored_abilities(self):
-        pass
+        self.fail()
 
     def test_random_name(self):
-        pass
+        self.fail()
 
     def test_random_excellency(self):
-        pass
+        self.fail()
 
     def test_random_charm(self):
-        pass
+        self.fail()
 
     def test_random_charms(self):
-        pass
+        self.fail()
 
     def test_random_additional_specialties(self):
-        pass
+        self.fail()
 
     def test_random_bonus_charm(self):
-        pass
+        self.fail()
 
     def test_random_xp_charm(self):
-        pass
+        self.fail()
 
     def test_random(self):
-        pass
+        self.fail()

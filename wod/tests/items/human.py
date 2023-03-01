@@ -6,7 +6,7 @@ from wod.models.items.human import WoDItem
 # Create your tests here.
 class TestRandomWoDItem(TestCase):
     def test_random_name(self):
-        pass
+        self.fail()
 
 
 class TestItemIndexView(TestCase):

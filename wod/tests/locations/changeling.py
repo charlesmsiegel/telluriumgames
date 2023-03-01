@@ -3,12 +3,12 @@ from django.test import TestCase
 
 # Create your tests here.
 class TestGlade(TestCase):
-    pass
+    self.fail()
 
 
 class TestFreehold(TestCase):
-    pass
+    self.fail()
 
 
 class TestNobleLand(TestCase):
-    pass
+    self.fail()

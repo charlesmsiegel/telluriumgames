@@ -4,25 +4,25 @@ from django.test import TestCase
 # Create your tests here.
 class TestVtMHuman(TestCase):
     def test_get_talents(self):
-        pass
+        self.fail()
 
     def test_get_skills(self):
-        pass
+        self.fail()
 
     def test_get_knowledges(self):
-        pass
+        self.fail()
 
     def test_get_backgrounds(self):
-        pass
+        self.fail()
 
 
 class TestVampire(TestCase):
-    pass
+    self.fail()
 
 
 class TestRandomVampire(TestCase):
-    pass
+    self.fail()
 
 
 class TestVampireDetailView(TestCase):
-    pass
+    self.fail()

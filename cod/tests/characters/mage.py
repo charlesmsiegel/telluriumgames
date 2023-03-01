@@ -271,22 +271,22 @@ class TestMage(TestCase):
         self.assertEqual(self.mage.total_arcana(), 6)
 
     def test_add_attainment(self):
-        pass
+        self.fail()
 
     def test_set_dedicated_tool(self):
-        pass
+        self.fail()
 
     def test_has_dedicated_tool(self):
-        pass
+        self.fail()
 
     def test_set_obsession(self):
-        pass
+        self.fail()
 
     def test_has_obsession(self):
-        pass
+        self.fail()
 
     def test_add_wisdom(self):
-        pass
+        self.fail()
 
     def test_xp_cost(self):
         self.assertEqual(self.mage.xp_cost("arcanum (to limit)"), 4)
@@ -447,31 +447,31 @@ class TestMage(TestCase):
         self.assertEqual(self.mage.arcane_xp, 0)
 
     def test_spend_xp(self):
-        pass
+        self.fail()
 
     def test_random_xp_functions(self):
-        pass
+        self.fail()
 
     def test_spend_xp_arcana(self):
-        pass
+        self.fail()
 
     def test_spend_xp_attainment(self):
-        pass
+        self.fail()
 
     def test_spend_xp_rote(self):
-        pass
+        self.fail()
 
     def test_spend_xp_gnosis(self):
-        pass
+        self.fail()
 
     def test_spend_xp_wisdom(self):
-        pass
+        self.fail()
 
     def test_set_familiar(self):
-        pass
+        self.fail()
 
     def test_assign_advantages(self):
-        pass
+        self.fail()
 
 
 class TestRandomMage(TestCase):
@@ -516,13 +516,13 @@ class TestRandomMage(TestCase):
         self.assertEqual(self.mage.rotes.count(), num + 1)
 
     def test_random_dedicated_tool(self):
-        pass
+        self.fail()
 
     def test_random_obsessions(self):
-        pass
+        self.fail()
 
     def test_random_gnosis(self):
-        pass
+        self.fail()
 
     def test_random_rotes(self):
         self.mage.death = 3
@@ -548,22 +548,22 @@ class TestRandomMage(TestCase):
         self.assertLess(self.mage.xp, 20)
 
     def test_random_xp_attainment(self):
-        pass
+        self.fail()
 
     def test_random_xp_wisdom(self):
-        pass
+        self.fail()
 
     def test_random_xp_arcanum(self):
-        pass
+        self.fail()
 
     def test_random_xp_gnosis(self):
-        pass
+        self.fail()
 
     def test_random_xp_rote(self):
-        pass
+        self.fail()
 
     def test_random_familiar(self):
-        pass
+        self.fail()
 
     def test_random(self):
         self.assertFalse(self.mage.has_path())
@@ -661,13 +661,13 @@ class TestProximiFamily(TestCase):
         self.assertTrue(self.proximi_family.has_possible_blessings())
 
     def test_total_possible_blessings(self):
-        pass
+        self.fail()
 
     def test_add_possible_blessing(self):
-        pass
+        self.fail()
 
     def test_set_curse(self):
-        pass
+        self.fail()
 
 
 class TestProximi(TestCase):
@@ -749,16 +749,16 @@ class TestProximi(TestCase):
         self.assertFalse(self.proximi.set_mana(10))
 
     def test_random_xp_functions(self):
-        pass
+        self.fail()
 
     def test_spend_xp_blessing(self):
-        pass
+        self.fail()
 
     def test_total_merits(self):
-        pass
+        self.fail()
 
     def test_total_blessings(self):
-        pass
+        self.fail()
 
 
 class TestRandomProximiFamily(TestCase):
@@ -769,7 +769,7 @@ class TestRandomProximiFamily(TestCase):
         self.proximi_family = ProximiFamily.objects.create(name="Test Family")
 
     def test_random_name(self):
-        pass
+        self.fail()
 
     def test_random_parent_path(self):
         self.assertFalse(self.proximi_family.has_parent_path())
@@ -783,7 +783,7 @@ class TestRandomProximiFamily(TestCase):
         self.assertTrue(self.proximi_family.has_blessing_arcana())
 
     def test_random_blessing(self):
-        pass
+        self.fail()
 
     def test_random_blessings(self):
         self.proximi_family.set_parent_path(Path.objects.first())
@@ -793,7 +793,7 @@ class TestRandomProximiFamily(TestCase):
         self.assertTrue(self.proximi_family.has_possible_blessings())
 
     def test_random_curse(self):
-        pass
+        self.fail()
 
     def test_random(self):
         self.assertFalse(self.proximi_family.has_parent_path())
@@ -848,7 +848,7 @@ class TestRandomProximi(TestCase):
         self.assertEqual(self.proximi.blessings.count(), 1)
 
     def test_random_xp_blessing(self):
-        pass
+        self.fail()
 
     def test_random(self):
         self.assertFalse(self.proximi.has_name())
@@ -917,21 +917,21 @@ class TestProximiDetailView(TestCase):
 
 class TestAttainment(TestCase):
     def test_prereq_satisfied(self):
-        pass
+        self.fail()
 
     def test_check_prereqs(self):
-        pass
+        self.fail()
 
     def test_count_prereqs(self):
-        pass
+        self.fail()
 
 
 class TestLegacy(TestCase):
     def test_prereq_satisfied(self):
-        pass
+        self.fail()
 
     def test_check_prereqs(self):
-        pass
+        self.fail()
 
     def test_count_prereqs(self):
-        pass
+        self.fail()

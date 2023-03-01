@@ -89,90 +89,90 @@ def grimoire_setup():
 
 class TestWonder(TestCase):
     def test_set_rank(self):
-        pass
+        self.fail()
 
     def test_has_rank(self):
-        pass
+        self.fail()
 
     def test_add_resonance(self):
-        pass
+        self.fail()
 
     def test_resonance_rating(self):
-        pass
+        self.fail()
 
     def test_filter_resonance(self):
-        pass
+        self.fail()
 
     def test_total_resonance(self):
-        pass
+        self.fail()
 
     def test_has_resonance(self):
-        pass
+        self.fail()
 
 
 class TestRandomWonder(TestCase):
     def test_random_points(self):
-        pass
+        self.fail()
 
     def test_random_rank(self):
-        pass
+        self.fail()
 
     def test_random_resonance(self):
-        pass
+        self.fail()
 
     def test_random(self):
-        pass
+        self.fail()
 
 
 class TestCharm(TestCase):
     def test_set_power(self):
-        pass
+        self.fail()
 
     def test_has_power(self):
-        pass
+        self.fail()
 
 
 class TestRandomCharm(TestCase):
     def test_random_power(self):
-        pass
+        self.fail()
 
     def test_random(self):
-        pass
+        self.fail()
 
 
 class TestArtifact(TestCase):
     def test_set_power(self):
-        pass
+        self.fail()
 
     def test_has_power(self):
-        pass
+        self.fail()
 
 
 class TestRandomArtifact(TestCase):
     def test_random_power(self):
-        pass
+        self.fail()
 
     def test_random(self):
-        pass
+        self.fail()
 
 
 class TestTalisman(TestCase):
     def test_add_power(self):
-        pass
+        self.fail()
 
     def test_has_powers(self):
-        pass
+        self.fail()
 
 
 class TestRandomTalisman(TestCase):
     def test_random_power(self):
-        pass
+        self.fail()
 
     def test_random_powers(self):
-        pass
+        self.fail()
 
     def test_random(self):
-        pass
+        self.fail()
 
 
 class TestGrimoire(TestCase):
@@ -332,7 +332,7 @@ class TestRandomGrimoire(TestCase):
         grimoire_setup()
 
     def test_random_name(self):
-        pass
+        self.fail()
 
     def test_random_rank(self):
         mocker = Mock()
@@ -358,13 +358,13 @@ class TestRandomGrimoire(TestCase):
         self.assertTrue(self.grimoire.has_faction())
 
     def test_paradigms(self):
-        pass
+        self.fail()
 
     def test_random_practices(self):
-        pass
+        self.fail()
 
     def test_random_instruments(self):
-        pass
+        self.fail()
 
     def test_random_focus(self):
         self.assertFalse(self.grimoire.has_focus())
