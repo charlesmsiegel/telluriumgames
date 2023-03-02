@@ -61,35 +61,53 @@ class MageCreateView(View):
         return render(request, "wod/characters/mage/mage/create.html", context)
 
     def post(self, request, *args, **kwargs):
-        form = MageCreationForm(request.POST)
-        chron = None
-        affiliation = None
-        faction = None
-        subfaction = None
-        if "chronicle" in form.data.keys():
-            chron = Chronicle.objects.filter(pk=form.data["chronicle"]).first()
-        if "affiliation" in form.data.keys():
-            affiliation = MageFaction.objects.filter(
-                pk=form.data["affiliation"]
-            ).first()
-        if "faction" in form.data.keys():
-            faction = MageFaction.objects.filter(pk=form.data["faction"]).first()
-        if "subfaction" in form.data.keys():
-            subfaction = MageFaction.objects.filter(pk=form.data["subfaction"]).first()
-        s = Mage.objects.create(
-            name=form.data["name"],
-            concept=form.data["concept"],
-            demeanor=Archetype.objects.get(pk=form.data["demeanor"]),
-            nature=Archetype.objects.get(pk=form.data["nature"]),
-            owner=request.user,
-            status="Un",
-            essence=1,
-            chronicle=chron,
-            affiliation=affiliation,
-            faction=faction,
-            subfaction=subfaction,
-        )
-        return redirect(s.get_absolute_url())
+        if "Full Random" in request.POST:
+            s = Mage.objects.create(owner=request.user, status="Un")
+            s.random()
+            return redirect(s.get_absolute_url())
+        elif "Random Basics" in request.POST:
+            s = Mage.objects.create(owner=request.user, status="Un")
+            s.random_name()
+            s.random_concept()
+            s.random_archetypes()
+            s.random_essence()
+            s.random_faction()
+            s.save()
+            return redirect(s.get_absolute_url())
+        elif "Save" in request.POST:
+            form = MageCreationForm(request.POST)
+            chron = None
+            affiliation = None
+            faction = None
+            subfaction = None
+            if "chronicle" in form.data.keys():
+                chron = Chronicle.objects.filter(pk=form.data["chronicle"]).first()
+            if "affiliation" in form.data.keys():
+                affiliation = MageFaction.objects.filter(
+                    pk=form.data["affiliation"]
+                ).first()
+            if "faction" in form.data.keys():
+                faction = MageFaction.objects.filter(pk=form.data["faction"]).first()
+            if "subfaction" in form.data.keys():
+                subfaction = MageFaction.objects.filter(
+                    pk=form.data["subfaction"]
+                ).first()
+            s = Mage.objects.create(
+                name=form.data["name"],
+                concept=form.data["concept"],
+                demeanor=Archetype.objects.get(pk=form.data["demeanor"]),
+                nature=Archetype.objects.get(pk=form.data["nature"]),
+                owner=request.user,
+                status="Un",
+                chronicle=chron,
+                affiliation=affiliation,
+                faction=faction,
+                subfaction=subfaction,
+            )
+            return redirect(s.get_absolute_url())
+        context = {}
+        context["form"] = MageCreationForm()
+        render(request, "wod/characters/mage/mage/create.html", context)
 
 
 class MageDetailView(View):
@@ -147,6 +165,17 @@ class MageDetailView(View):
         context = self.get_context(char)
         if char.creation_status == 1:
             form = MageAttributeForm(request.POST)
+            if "Random Attributes" in form.data:
+                char.random_attributes()
+                char.creation_status += 1
+                char.save()
+                d = char.get_abilities()
+                context["form"] = MageAbilitiesForm(initial=d, character=char)
+                return render(
+                    request,
+                    "wod/characters/mage/mage/creation_abilities.html",
+                    context,
+                )
             if form.has_attributes():
                 char.strength = form.data["strength"]
                 char.dexterity = form.data["dexterity"]
@@ -172,6 +201,22 @@ class MageDetailView(View):
             )
         if char.creation_status == 2:
             form = MageAbilitiesForm(request.POST, character=char)
+            if "Random Abilities" in form.data:
+                char.random_abilities()
+                char.creation_status += 1
+                char.save()
+                d = char.get_backgrounds()
+                d["arete"] = 1
+                d["affinity_sphere"] = char.affinity_sphere
+                d["paradigms"] = char.paradigms.all()
+                d["practices"] = char.practices.all()
+                d["instruments"] = char.instruments.all()
+                context["form"] = MageAdvantagesForm(initial=d, character=char)
+                return render(
+                    request,
+                    "wod/characters/mage/mage/creation_advantages.html",
+                    context,
+                )
             if form.has_abilities():
                 form.full_clean()
                 for key in (
@@ -204,6 +249,18 @@ class MageDetailView(View):
             )
         if char.creation_status == 3:
             form = MageAdvantagesForm(request.POST, character=char)
+            if "Random Advantages" in form.data:
+                char.random_focus()
+                char.random_backgrounds()
+                char.random_arete()
+                char.random_affinity_sphere()
+                char.creation_status += 1
+                char.save()
+                d = char.get_spheres()
+                context["form"] = MagePowersForm(initial=d, character=char)
+                return render(
+                    request, "wod/characters/mage/mage/creation_powers.html", context,
+                )
             if form.complete():
                 form.full_clean()
                 for key in char.get_backgrounds().keys():
@@ -233,6 +290,23 @@ class MageDetailView(View):
             )
         if char.creation_status == 4:
             form = MagePowersForm(request.POST, character=char)
+            if "Random Powers" in form.data:
+                char.random_spheres()
+                char.random_resonance()
+                char.creation_status += 1
+                char.save()
+                d = char.get_attributes()
+                d.update(char.get_abilities())
+                d.update(char.get_backgrounds())
+                d.update(char.get_spheres())
+                d["willpower"] = 5
+                d["native_language"] = Language.objects.get(name="English")
+                MFFormset = formset_factory(MageMeritFlawForm, extra=1)
+                context["formset"] = MFFormset()
+                context["form"] = MageFreebieForm(initial=d, character=char)
+                return render(
+                    request, "wod/characters/mage/mage/creation_freebies.html", context,
+                )
             form.full_clean()
             if form.complete():
                 for key in char.get_spheres().keys():
@@ -260,6 +334,16 @@ class MageDetailView(View):
             )
         if char.creation_status == 5:
             form = MageFreebieForm(request.POST, character=char)
+            if "Random Freebies" in form.data:
+                char.random_freebies()
+                char.creation_status += 1
+                char.save()
+                context["form"] = MageDescriptionForm(character=char)
+                return render(
+                    request,
+                    "wod/characters/mage/mage/creation_description.html",
+                    context,
+                )
             form.full_clean()
             if form.complete():
                 for key in list(char.get_attributes().keys()):
@@ -314,12 +398,25 @@ class MageDetailView(View):
             )
         if char.creation_status == 6:
             form = MageDescriptionForm(request.POST, character=char)
+            if "Random Description" in form.data:
+                char.update_status("Sub")
+                char.random_history()
+                char.random_mage_history()
+                char.mf_based_corrections()
+                char.creation_status += 1
+                char.save()
+                return render(request, "wod/characters/mage/mage/detail.html", context,)
             form.full_clean()
-            for key, value in form.cleaned_data.items():
-                setattr(char, key, value)
-            char.creation_status += 1
-            char.save()
-            return render(request, "wod/characters/mage/mage/detail.html", context,)
+            if form.complete():
+                for key, value in form.cleaned_data.items():
+                    setattr(char, key, value)
+                char.creation_status += 1
+                char.save()
+                return render(request, "wod/characters/mage/mage/detail.html", context,)
+            context["form"] = MageDescriptionForm(character=char)
+            return render(
+                request, "wod/characters/mage/mage/creation_description.html", context,
+            )
         return render(request, "wod/characters/mage/mage/detail.html", context,)
 
     def get_context(self, mage):
