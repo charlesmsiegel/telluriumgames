@@ -334,6 +334,16 @@ class MageDetailView(View):
             )
         if char.creation_status == 5:
             form = MageFreebieForm(request.POST, character=char)
+            if "Random Freebies" in form.data:
+                char.random_freebies()
+                char.creation_status += 1
+                char.save()
+                context["form"] = MageDescriptionForm(character=char)
+                return render(
+                    request,
+                    "wod/characters/mage/mage/creation_description.html",
+                    context,
+                )
             form.full_clean()
             if form.complete():
                 for key in list(char.get_attributes().keys()):
@@ -388,12 +398,25 @@ class MageDetailView(View):
             )
         if char.creation_status == 6:
             form = MageDescriptionForm(request.POST, character=char)
+            if "Random Description" in form.data:
+                char.update_status("Sub")
+                char.random_history()
+                char.random_mage_history()
+                char.mf_based_corrections()
+                char.creation_status += 1
+                char.save()
+                return render(request, "wod/characters/mage/mage/detail.html", context,)
             form.full_clean()
-            for key, value in form.cleaned_data.items():
-                setattr(char, key, value)
-            char.creation_status += 1
-            char.save()
-            return render(request, "wod/characters/mage/mage/detail.html", context,)
+            if form.complete():
+                for key, value in form.cleaned_data.items():
+                    setattr(char, key, value)
+                char.creation_status += 1
+                char.save()
+                return render(request, "wod/characters/mage/mage/detail.html", context,)
+            context["form"] = MageDescriptionForm(character=char)
+            return render(
+                request, "wod/characters/mage/mage/creation_description.html", context,
+            )
         return render(request, "wod/characters/mage/mage/detail.html", context,)
 
     def get_context(self, mage):

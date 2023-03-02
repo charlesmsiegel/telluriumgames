@@ -598,29 +598,73 @@ class MageFreebieForm(forms.Form):
 
 
 class MageDescriptionForm(forms.Form):
-    age_of_awakening = forms.IntegerField(required=True)
-    age = forms.IntegerField(required=True)
-    apparent_age = forms.IntegerField(required=True)
-    date_of_birth = forms.DateField(widget=forms.DateInput(), required=True)
-    hair = forms.CharField(required=True)
-    eyes = forms.CharField(required=True)
-    ethnicity = forms.CharField(required=True)
-    nationality = forms.CharField(required=True)
-    height = forms.CharField(required=True)
-    weight = forms.CharField(required=True)
-    sex = forms.CharField(required=True)
-    description = forms.CharField(widget=forms.Textarea, required=True)
+    age_of_awakening = forms.IntegerField(required=False)
+    age = forms.IntegerField(required=False)
+    apparent_age = forms.IntegerField(required=False)
+    date_of_birth = forms.DateField(widget=forms.DateInput(), required=False)
+    hair = forms.CharField(required=False)
+    eyes = forms.CharField(required=False)
+    ethnicity = forms.CharField(required=False)
+    nationality = forms.CharField(required=False)
+    height = forms.CharField(required=False)
+    weight = forms.CharField(required=False)
+    sex = forms.CharField(required=False)
+    description = forms.CharField(widget=forms.Textarea, required=False)
 
-    childhood = forms.CharField(widget=forms.Textarea, required=True)
-    history = forms.CharField(widget=forms.Textarea, required=True)
-    goals = forms.CharField(widget=forms.Textarea, required=True)
-    notes = forms.CharField(widget=forms.Textarea, required=True)
+    childhood = forms.CharField(widget=forms.Textarea, required=False)
+    history = forms.CharField(widget=forms.Textarea, required=False)
+    goals = forms.CharField(widget=forms.Textarea, required=False)
+    notes = forms.CharField(widget=forms.Textarea, required=False)
 
-    awakening = forms.CharField(widget=forms.Textarea, required=True)
-    seekings = forms.CharField(widget=forms.Textarea, required=True)
-    quiets = forms.CharField(widget=forms.Textarea, required=True)
-    avatar_description = forms.CharField(widget=forms.Textarea, required=True)
+    awakening = forms.CharField(widget=forms.Textarea, required=False)
+    seekings = forms.CharField(widget=forms.Textarea, required=False)
+    quiets = forms.CharField(widget=forms.Textarea, required=False)
+    avatar_description = forms.CharField(widget=forms.Textarea, required=False)
 
     def __init__(self, *args, **kwargs):
         self.char = kwargs.pop("character")
         super().__init__(*args, **kwargs)
+
+    def complete(self):
+        self.full_clean()
+        if self.cleaned_data["age_of_awakening"] is None:
+            return False
+        if self.cleaned_data["age"] is None:
+            return False
+        if self.cleaned_data["apparent_age"] is None:
+            return False
+        if self.cleaned_data["date_of_birth"] is None:
+            return False
+        if self.cleaned_data["hair"] is None:
+            return False
+        if self.cleaned_data["eyes"] is None:
+            return False
+        if self.cleaned_data["ethnicity"] is None:
+            return False
+        if self.cleaned_data["nationality"] is None:
+            return False
+        if self.cleaned_data["height"] is None:
+            return False
+        if self.cleaned_data["weight"] is None:
+            return False
+        if self.cleaned_data["sex"] is None:
+            return False
+        if self.cleaned_data["description"] is None:
+            return False
+        if self.cleaned_data["childhood"] is None:
+            return False
+        if self.cleaned_data["history"] is None:
+            return False
+        if self.cleaned_data["goals"] is None:
+            return False
+        if self.cleaned_data["notes"] is None:
+            return False
+        if self.cleaned_data["awakening"] is None:
+            return False
+        if self.cleaned_data["seekings"] is None:
+            return False
+        if self.cleaned_data["quiets"] is None:
+            return False
+        if self.cleaned_data["avatar_description"] is None:
+            return False
+        return True
