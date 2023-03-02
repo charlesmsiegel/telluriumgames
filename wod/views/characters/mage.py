@@ -165,6 +165,17 @@ class MageDetailView(View):
         context = self.get_context(char)
         if char.creation_status == 1:
             form = MageAttributeForm(request.POST)
+            if "Random Attributes" in form.data:
+                char.random_attributes()
+                char.creation_status += 1
+                char.save()
+                d = char.get_abilities()
+                context["form"] = MageAbilitiesForm(initial=d, character=char)
+                return render(
+                    request,
+                    "wod/characters/mage/mage/creation_abilities.html",
+                    context,
+                )
             if form.has_attributes():
                 char.strength = form.data["strength"]
                 char.dexterity = form.data["dexterity"]
