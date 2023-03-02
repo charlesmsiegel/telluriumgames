@@ -276,10 +276,14 @@ class MageAdvantagesForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.char = kwargs.pop("character")
-        choices = [
-            (x, x.title())
-            for x in self.char.faction.affinities + self.char.subfaction.affinities
-        ]
+        possible_affinities = []
+        for aff in [self.char.affiliation, self.char.faction, self.char.subfaction]:
+            if aff is not None:
+                if isinstance(aff.affinities, list):
+                    possible_affinities.extend(aff.affinities)
+        choices = [(x, x.title()) for x in possible_affinities]
+        if len(choices) == 0:
+            choices = [(x, x.title()) for x in self.char.get_spheres().keys()]
         choices = list(set(choices))
         choices.sort()
         super().__init__(*args, **kwargs)

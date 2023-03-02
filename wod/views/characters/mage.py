@@ -201,6 +201,22 @@ class MageDetailView(View):
             )
         if char.creation_status == 2:
             form = MageAbilitiesForm(request.POST, character=char)
+            if "Random Abilities" in form.data:
+                char.random_abilities()
+                char.creation_status += 1
+                char.save()
+                d = char.get_backgrounds()
+                d["arete"] = 1
+                d["affinity_sphere"] = char.affinity_sphere
+                d["paradigms"] = char.paradigms.all()
+                d["practices"] = char.practices.all()
+                d["instruments"] = char.instruments.all()
+                context["form"] = MageAdvantagesForm(initial=d, character=char)
+                return render(
+                    request,
+                    "wod/characters/mage/mage/creation_advantages.html",
+                    context,
+                )
             if form.has_abilities():
                 form.full_clean()
                 for key in (
