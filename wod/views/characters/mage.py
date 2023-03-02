@@ -249,6 +249,18 @@ class MageDetailView(View):
             )
         if char.creation_status == 3:
             form = MageAdvantagesForm(request.POST, character=char)
+            if "Random Advantages" in form.data:
+                char.random_focus()
+                char.random_backgrounds()
+                char.random_arete()
+                char.random_affinity_sphere()
+                char.creation_status += 1
+                char.save()
+                d = char.get_spheres()
+                context["form"] = MagePowersForm(initial=d, character=char)
+                return render(
+                    request, "wod/characters/mage/mage/creation_powers.html", context,
+                )
             if form.complete():
                 form.full_clean()
                 for key in char.get_backgrounds().keys():
@@ -278,6 +290,23 @@ class MageDetailView(View):
             )
         if char.creation_status == 4:
             form = MagePowersForm(request.POST, character=char)
+            if "Random Powers" in form.data:
+                char.random_spheres()
+                char.random_resonance()
+                char.creation_status += 1
+                char.save()
+                d = char.get_attributes()
+                d.update(char.get_abilities())
+                d.update(char.get_backgrounds())
+                d.update(char.get_spheres())
+                d["willpower"] = 5
+                d["native_language"] = Language.objects.get(name="English")
+                MFFormset = formset_factory(MageMeritFlawForm, extra=1)
+                context["formset"] = MFFormset()
+                context["form"] = MageFreebieForm(initial=d, character=char)
+                return render(
+                    request, "wod/characters/mage/mage/creation_freebies.html", context,
+                )
             form.full_clean()
             if form.complete():
                 for key in char.get_spheres().keys():

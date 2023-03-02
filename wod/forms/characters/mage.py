@@ -326,7 +326,7 @@ class MagePowersForm(forms.Form):
     life = forms.IntegerField(max_value=5, min_value=0)
 
     resonance = forms.ModelChoiceField(
-        queryset=Resonance.objects.all().order_by("name")
+        queryset=Resonance.objects.all().order_by("name"), required=False
     )
 
     def __init__(self, *args, **kwargs):
@@ -346,13 +346,16 @@ class MagePowersForm(forms.Form):
             self.fields[sphere] = forms.IntegerField(
                 max_value=self.char.arete, min_value=0
             )
-        self.fields[self.char.affinity_sphere] = self.fields[
-            sphere
-        ] = forms.IntegerField(max_value=self.char.arete, min_value=1)
+        self.fields[self.char.affinity_sphere] = forms.IntegerField(
+            max_value=self.char.arete, min_value=1
+        )
 
     def complete(self):
         self.full_clean()
-        return sum(self.cleaned_data[x] for x in self.char.get_spheres().keys()) == 6
+        return (
+            sum(self.cleaned_data[x] for x in self.char.get_spheres().keys()) == 6
+            and self.cleaned_data["resonance"] is not None
+        )
 
 
 class MageMeritFlawForm(forms.Form):
