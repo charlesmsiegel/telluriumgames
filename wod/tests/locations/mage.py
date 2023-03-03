@@ -62,7 +62,24 @@ class TestNode(TestCase):
         self.assertEqual(self.node.total_resonance(), 5)
 
     def test_check_resonance(self):
-        self.fail()
+        r = Resonance.objects.create(name="Test Res")
+        self.assertTrue(self.node.check_resonance(r))
+        self.node.add_resonance(r)
+        self.node.add_resonance(r)
+        self.node.add_resonance(r)
+        self.node.add_resonance(r)
+        self.node.add_resonance(r)
+        self.assertFalse(self.node.check_resonance(r))
+        r2 = Resonance.objects.create(name="Test Res 2", forces=True)
+        self.assertFalse(self.node.check_resonance(r2, sphere="life"))
+        self.assertTrue(self.node.check_resonance(r2, sphere="forces"))
+        self.assertTrue(self.node.check_resonance(r2))
+        self.node.add_resonance(r2)
+        self.node.add_resonance(r2)
+        self.node.add_resonance(r2)
+        self.node.add_resonance(r2)
+        self.node.add_resonance(r2)
+        self.assertFalse(self.node.check_resonance(r2, sphere="forces"))
 
     def test_has_resonance(self):
         self.fail()
@@ -504,10 +521,16 @@ class TestLibrary(TestCase):
         self.assertEqual(self.library.num_books(), count + 1)
 
     def test_set_faction(self):
-        self.fail()
+        faction = MageFaction.objects.create(name="Test Faction")
+        self.assertFalse(self.library.has_faction())
+        self.assertTrue(self.library.set_faction(faction))
+        self.assertTrue(self.library.has_faction())
 
     def test_has_faction(self):
-        self.fail()
+        faction = MageFaction.objects.create(name="Test Faction")
+        self.assertFalse(self.library.has_faction())
+        self.library.set_faction(faction)
+        self.assertTrue(self.library.has_faction())
 
     def test_has_books(self):
         self.library.rank = 3
@@ -524,7 +547,14 @@ class TestLibrary(TestCase):
         self.assertEqual(self.library.num_books(), 2)
 
     def test_num_books(self):
-        self.fail()
+        self.assertEqual(self.library.num_books(), 0)
+        self.library.rank = 3
+        self.library.books.add(Grimoire.objects.create(name="Test Grimoire 1", rank=1))
+        self.assertEqual(self.library.num_books(), 1)
+        self.library.books.add(Grimoire.objects.create(name="Test Grimoire 2", rank=2))
+        self.assertEqual(self.library.num_books(), 2)
+        self.library.books.add(Grimoire.objects.create(name="Test Grimoire 3", rank=3))
+        self.assertEqual(self.library.num_books(), 3)
 
 
 class TestRandomLibrary(TestCase):
@@ -543,7 +573,7 @@ class TestRandomLibrary(TestCase):
         self.library.faction = self.faction
         self.library.save()
         self.library.random_book()
-        self.assertEqual(num_books + 1, self.library.num_books())        
+        self.assertEqual(num_books + 1, self.library.num_books())
 
     def test_random(self):
         self.library.random()
