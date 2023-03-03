@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from core.models import Language, Material, Medium, Noun
+from wod.models.characters.human import Human
 from wod.models.characters.mage import (
     Effect,
     Instrument,
@@ -13,6 +14,7 @@ from wod.models.characters.mage import (
     Practice,
     Resonance,
 )
+from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
 from wod.models.items.mage import Grimoire
 from wod.models.locations.mage import Chantry, Library, Node, NodeMeritFlaw
@@ -276,6 +278,18 @@ class TestNodeMeritFlaw(TestCase):
 class TestChantry(TestCase):
     def setUp(self) -> None:
         self.chantry = Chantry.objects.create(name="")
+        self.library = Library.objects.create(rank=3)
+        self.grimoire1 = Grimoire.objects.create()
+        self.grimoire2 = Grimoire.objects.create()
+        self.grimoire3 = Grimoire.objects.create()
+        self.library.add_book(self.grimoire1)
+        self.library.add_book(self.grimoire2)
+        self.library.add_book(self.grimoire3)
+        self.node1 = Node.objects.create(name="node1", rank=1)
+        self.node2 = Node.objects.create(name="node2", rank=1)
+        self.human = Human.objects.create(name="human")
+        self.cabal = Cabal.objects.create(name="cabal")
+        self.faction = MageFaction.objects.create(name="faction")
         self.player = User.objects.create_user(username="Test")
         mage_setup(self.player)
         grimoire_setup()
@@ -297,10 +311,17 @@ class TestChantry(TestCase):
         self.assertEqual(self.chantry.trait_cost("reality_zone_rating"), 5)
 
     def test_has_node(self):
-        self.fail()
+        self.chantry.node_rating = 1
+        self.assertFalse(self.chantry.has_node())
+        self.chantry.nodes.add(self.node1)
+        self.assertTrue(self.chantry.has_node())
 
     def test_total_node(self):
-        self.fail()
+        self.assertEqual(self.chantry.total_node(), 0)
+        self.chantry.nodes.add(self.node1)
+        self.assertEqual(self.chantry.total_node(), 1)
+        self.chantry.nodes.add(self.node2)
+        self.assertEqual(self.chantry.total_node(), 2)
 
     def test_create_nodes(self):
         self.chantry.random_faction()
@@ -317,7 +338,11 @@ class TestChantry(TestCase):
             self.assertEqual(node.parent, self.chantry)
 
     def test_has_library(self):
-        self.fail()
+        self.chantry.library_rating = 3
+        self.assertFalse(self.chantry.has_library())
+        self.chantry.chantry_library = self.library
+        self.chantry.save()
+        self.assertTrue(self.chantry.has_library())
 
     def test_create_library(self):
         self.chantry.library_rating = 0
@@ -353,7 +378,8 @@ class TestChantry(TestCase):
         self.assertEqual(self.chantry.points_spent(), 38)
 
     def test_set_rank(self):
-        self.fail()
+        self.chantry.set_rank(5)
+        self.assertEqual(self.chantry.rank, 5)
 
     def test_has_faction(self):
         faction = MageFaction.objects.get(name="Test Faction 0")
@@ -400,7 +426,42 @@ class TestChantry(TestCase):
         self.assertTrue(self.chantry.has_season())
 
     def test_get_traits(self):
-        self.fail()
+        mock_human = Mock()
+        self.chantry.allies = 2
+        self.chantry.arcane = 3
+        self.chantry.backup = 4
+        self.chantry.cult = 5
+        self.chantry.elders = 6
+        self.chantry.integrated_effects = 7
+        self.chantry.retainers = 8
+        self.chantry.spies = 9
+        self.chantry.resources = 10
+        self.chantry.enhancement = 11
+        self.chantry.requisitions = 12
+        self.chantry.reality_zone_rating = 13
+        self.chantry.node_rating = 14
+        self.chantry.library_rating = 15
+        self.chantry.save()
+
+        result = self.chantry.get_traits()
+        expected = {
+            "allies": 2,
+            "arcane": 3,
+            "backup": 4,
+            "cult": 5,
+            "elders": 6,
+            "integrated_effects": 7,
+            "retainers": 8,
+            "spies": 9,
+            "resources": 10,
+            "enhancement": 11,
+            "requisitions": 12,
+            "reality_zone": 13,
+            "node_rating": 14,
+            "library_rating": 15,
+        }
+
+        self.assertEqual(result, expected)
 
 
 class TestRandomChantry(TestCase):
@@ -478,7 +539,12 @@ class TestRandomChantry(TestCase):
         self.fail()
 
     def test_random_leadership_type(self):
-        self.fail()
+        chantry = Chantry.objects.create()
+        chantry.random_leadership_type()
+
+        leadership_choices = [choice[0] for choice in Chantry.LEADERSHIP_CHOICES]
+
+        self.assertIn(chantry.leadership_type, leadership_choices)
 
 
 class TestNodeDetailView(TestCase):
