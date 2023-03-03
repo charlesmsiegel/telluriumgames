@@ -1,5 +1,5 @@
 from unittest import mock
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from django.contrib.auth.models import User
 from django.test import TestCase
@@ -528,14 +528,28 @@ class TestLibrary(TestCase):
 
 
 class TestRandomLibrary(TestCase):
+    def setUp(self):
+        self.library = Library.objects.create(rank=2)
+        self.faction = MageFaction.objects.create(name="Test Faction")
+        self.grimoire = Grimoire.objects.create(name="Test Grimoire")
+        grimoire_setup()
+
     def test_random_faction(self):
-        self.fail()
+        self.library.random_faction()
+        self.assertIsNotNone(self.library.faction)
 
     def test_random_book(self):
-        self.fail()
+        num_books = self.library.num_books()
+        self.library.faction = self.faction
+        self.library.save()
+        self.library.random_book()
+        self.assertEqual(num_books + 1, self.library.num_books())        
 
     def test_random(self):
-        self.fail()
+        self.library.random()
+        self.assertEqual(self.library.status, "Ran")
+        self.assertIsNotNone(self.library.faction)
+        self.assertEqual(self.library.num_books(), self.library.rank)
 
 
 class TestLibraryDetailView(TestCase):
