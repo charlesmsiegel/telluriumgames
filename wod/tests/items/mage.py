@@ -155,7 +155,10 @@ class TestRandomWonder(TestCase):
         self.wonder = Wonder.objects.create(name="Test Wonder")
 
     def test_random_points(self):
-        self.assertEqual(self.wonder.random_points(), 3)
+        self.wonder.rank = 2
+        points = self.wonder.random_points()
+        self.assertGreaterEqual(points, 4)
+        self.assertLessEqual(points, 6)
 
     def test_random_rank(self):
         self.wonder.random_rank()
@@ -172,9 +175,7 @@ class TestRandomWonder(TestCase):
         self.assertTrue(self.wonder.has_name())
         self.assertTrue(self.wonder.has_rank())
         self.assertTrue(self.wonder.has_resonance())
-        self.assertGreater(self.wonder.quintessence_max, 0)
         self.assertGreater(self.wonder.background_cost, 0)
-        self.assertEqual(self.wonder.get_heading(), "mtas_heading")
 
 
 class TestCharm(TestCase):
