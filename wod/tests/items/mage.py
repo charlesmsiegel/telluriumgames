@@ -1,6 +1,8 @@
+import random
 from unittest import mock
 from unittest.mock import Mock
 
+from django.db.models.query import QuerySet
 from django.test import TestCase
 
 from core.models import Language, Material, Medium, Noun
@@ -502,14 +504,51 @@ class TestRandomGrimoire(TestCase):
         self.grimoire.random_faction()
         self.assertTrue(self.grimoire.has_faction())
 
-    def test_paradigms(self):
-        self.fail()
+    def test_random_paradigms(self):
+        # Test that random_paradigms() returns a queryset
+        self.assertTrue(isinstance(self.grimoire.random_paradigms(None), QuerySet))
+
+        # Test that random_paradigms() returns the correct number of paradigms
+        random_num_paradigms = random.randint(1, 3)
+        paradigms = Paradigm.objects.order_by("?")[:random_num_paradigms]
+        self.grimoire.faction = None
+        self.assertEqual(
+            len(self.grimoire.random_paradigms(paradigms)), random_num_paradigms
+        )
+
+        # Test that random_paradigms() returns at least one paradigm
+        self.grimoire.faction = None
+        self.assertTrue(len(self.grimoire.random_paradigms(None)) >= 1)
 
     def test_random_practices(self):
-        self.fail()
+        # Test that random_practices() returns a queryset
+        self.assertTrue(isinstance(self.grimoire.random_practices(None), QuerySet))
+
+        # Test that random_practices() returns the correct number of practices
+        random_num_practices = random.randint(1, 3)
+        practices = Practice.objects.order_by("?")[:random_num_practices]
+        self.grimoire.faction = None
+        self.assertEqual(
+            len(self.grimoire.random_practices(practices)), random_num_practices
+        )
+
+        # Test that random_practices() returns at least one practice
+        self.grimoire.faction = None
+        self.assertTrue(len(self.grimoire.random_practices(None)) >= 1)
 
     def test_random_instruments(self):
-        self.fail()
+        # Test that random_instruments() returns a queryset
+        self.assertTrue(isinstance(self.grimoire.random_instruments(None), QuerySet))
+
+        # Test that random_instruments() returns the correct number of instruments
+        random_num_instruments = random.randint(1, 3)
+        instruments = Instrument.objects.order_by("?")[:random_num_instruments]
+        self.assertEqual(
+            len(self.grimoire.random_instruments(instruments)), random_num_instruments
+        )
+
+        # Test that random_instruments() returns at least one instrument
+        self.assertTrue(len(self.grimoire.random_instruments(None)) >= 1)
 
     def test_random_focus(self):
         self.assertFalse(self.grimoire.has_focus())
