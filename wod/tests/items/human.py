@@ -6,7 +6,17 @@ from wod.models.items.human import WoDItem
 # Create your tests here.
 class TestRandomWoDItem(TestCase):
     def test_random_name(self):
-        self.fail()
+        # create an item without a name
+        item = WoDItem.objects.create()
+
+        # call random_name method
+        item.random_name()
+
+        # assert that the item has a name now
+        self.assertTrue(item.has_name())
+
+        # assert that the name is in the correct format
+        self.assertRegex(item.name, "^Random Item \d+$")
 
 
 class TestItemIndexView(TestCase):

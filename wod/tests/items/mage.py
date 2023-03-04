@@ -13,7 +13,7 @@ from wod.models.characters.mage import (
     Resonance,
 )
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
-from wod.models.items.mage import Artifact, Charm, Grimoire
+from wod.models.items.mage import Artifact, Charm, Grimoire, Wonder
 
 
 # Create your tests here.
@@ -90,50 +90,91 @@ def grimoire_setup():
 class TestWonder(TestCase):
     def setUp(self):
         grimoire_setup()
+        self.wonder = Wonder.objects.create(name="Test Wonder")
 
     def test_set_rank(self):
-        g = Grimoire.objects.create(name="")
+        g = Wonder.objects.create(name="")
         self.assertFalse(g.has_rank())
         self.assertTrue(g.set_rank(3))
         self.assertEqual(g.rank, 3)
 
     def test_has_rank(self):
-        g = Grimoire.objects.create(name="")
+        g = Wonder.objects.create(name="")
         self.assertFalse(g.has_rank())
         g.set_rank(3)
         self.assertTrue(g.has_rank())
 
     def test_add_resonance(self):
-        self.fail()
+        res = Resonance.objects.create(name="Test Resonance")
+        self.wonder.add_resonance(res)
+        self.assertEqual(self.wonder.resonance_rating(res), 1)
 
     def test_resonance_rating(self):
-        self.fail()
+        res = Resonance.objects.create(name="Test Resonance")
+        self.wonder.add_resonance(res)
+        self.assertEqual(self.wonder.resonance_rating(res), 1)
 
     def test_filter_resonance(self):
-        self.fail()
+        res1 = Resonance.objects.create(name="Test Resonance 1")
+        res2 = Resonance.objects.create(name="Test Resonance 2")
+        res3 = Resonance.objects.create(name="Test Resonance 3")
+        self.wonder.add_resonance(res1)
+        self.wonder.add_resonance(res2)
+        self.wonder.add_resonance(res2)
+        self.wonder.add_resonance(res3)
+        self.wonder.add_resonance(res3)
+        self.wonder.add_resonance(res3)
+        res_filtered = self.wonder.filter_resonance(minimum=2, maximum=4)
+        self.assertIn(res2, res_filtered)
+        self.assertIn(res3, res_filtered)
+        self.assertEqual(res_filtered.count(), 2)
 
     def test_total_resonance(self):
-        self.fail()
+        res1 = Resonance.objects.create(name="Test Resonance 1")
+        res2 = Resonance.objects.create(name="Test Resonance 2")
+        res3 = Resonance.objects.create(name="Test Resonance 3")
+        self.wonder.add_resonance(res1)
+        self.wonder.add_resonance(res2)
+        self.wonder.add_resonance(res3)
+        self.assertEqual(self.wonder.total_resonance(), 3)
 
     def test_has_resonance(self):
-        self.fail()
+        self.wonder.rank = 2
+        self.assertFalse(self.wonder.has_resonance())
+        res1 = Resonance.objects.create(name="Test Resonance 1")
+        self.wonder.add_resonance(res1)
+        self.assertFalse(self.wonder.has_resonance())
+        res2 = Resonance.objects.create(name="Test Resonance 2")
+        self.wonder.add_resonance(res2)
+        self.assertTrue(self.wonder.has_resonance())
 
 
 class TestRandomWonder(TestCase):
     def setUp(self):
         grimoire_setup()
+        self.wonder = Wonder.objects.create(name="Test Wonder")
 
     def test_random_points(self):
-        self.fail()
+        self.assertEqual(self.wonder.random_points(), 3)
 
     def test_random_rank(self):
-        self.fail()
+        self.wonder.random_rank()
+        self.assertTrue(self.wonder.has_rank())
 
     def test_random_resonance(self):
-        self.fail()
+        res1 = Resonance.objects.create(name="Test Resonance 1")
+        self.wonder.add_resonance(res1)
+        self.wonder.random_resonance()
+        self.assertGreater(self.wonder.total_resonance(), 1)
 
     def test_random(self):
-        self.fail()
+        self.wonder.random()
+        self.assertTrue(self.wonder.has_name())
+        self.assertTrue(self.wonder.has_rank())
+        self.assertTrue(self.wonder.has_resonance())
+        self.assertGreater(self.wonder.quintessence_max, 0)
+        self.assertGreater(self.wonder.background_cost, 0)
+        self.assertEqual(self.wonder.get_heading(), "mtas_heading")
 
 
 class TestCharm(TestCase):
