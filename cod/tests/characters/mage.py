@@ -14,7 +14,7 @@ from cod.models.characters.mage import (
     Proximi,
     ProximiFamily,
 )
-from cod.models.characters.mortal import CoDMerit, CoDSpecialty
+from cod.models.characters.mortal import CoDMerit, CoDSpecialty, Condition
 from core.models import Material
 
 # Create your tests here.
@@ -610,6 +610,17 @@ class TestProximiFamily(TestCase):
         self.mage = Mage.objects.create(name="", owner=self.player)
         mage_setup(self.mage)
         self.proximi_family = ProximiFamily.objects.create(name="Test Family")
+        self.path = Path.objects.create(name="Test Path", ruling_arcana=["mind"])
+        self.blessing1 = CoDRote.objects.create(
+            name="Test Blessing 1", level=2, arcanum="mind"
+        )
+        self.blessing2 = CoDRote.objects.create(
+            name="Test Blessing 2", level=3, arcanum="mind"
+        )
+        self.blessing3 = CoDRote.objects.create(
+            name="Test Blessing 3", level=1, arcanum="mind"
+        )
+        self.curse = Condition.objects.create(name="Test Curse", persistent=True)
 
     def test_has_parent_path(self):
         self.assertFalse(self.proximi_family.has_parent_path())
@@ -662,13 +673,31 @@ class TestProximiFamily(TestCase):
         self.assertTrue(self.proximi_family.has_possible_blessings())
 
     def test_total_possible_blessings(self):
-        self.fail()
+        family = ProximiFamily.objects.create(
+            name="Test Family", path=self.path, blessing_arcana="mind"
+        )
+        family.add_possible_blessing(self.blessing1)
+        family.add_possible_blessing(self.blessing2)
+        family.add_possible_blessing(self.blessing3)
+        self.assertEqual(family.total_possible_blessings(), 6)
 
     def test_add_possible_blessing(self):
-        self.fail()
+        family = ProximiFamily.objects.create(
+            name="Test Family", path=self.path, blessing_arcana="mind"
+        )
+        family.add_possible_blessing(self.blessing1)
+        family.add_possible_blessing(self.blessing2)
+        self.assertEqual(family.total_possible_blessings(), 5)
+        self.assertTrue(self.blessing1 in family.possible_blessings.all())
+        self.assertTrue(self.blessing2 in family.possible_blessings.all())
+        self.assertFalse(self.blessing3 in family.possible_blessings.all())
 
     def test_set_curse(self):
-        self.fail()
+        family = ProximiFamily.objects.create(
+            name="Test Family", path=self.path, blessing_arcana="mind"
+        )
+        family.set_curse(self.curse)
+        self.assertEqual(family.curse, self.curse)
 
 
 class TestProximi(TestCase):
@@ -768,9 +797,14 @@ class TestRandomProximiFamily(TestCase):
         self.mage = Mage.objects.create(name="", owner=self.player)
         mage_setup(self.mage)
         self.proximi_family = ProximiFamily.objects.create(name="Test Family")
+        self.path = Path.objects.create(
+            name="Test Path", ruling_arcana=["mind", "prime"]
+        )
 
     def test_random_name(self):
-        self.fail()
+        pf = ProximiFamily.objects.create(path=self.path)
+        pf.random_name()
+        self.assertEqual(pf.name, f"Proximi Family {ProximiFamily.objects.count()}")
 
     def test_random_parent_path(self):
         self.assertFalse(self.proximi_family.has_parent_path())
@@ -784,7 +818,10 @@ class TestRandomProximiFamily(TestCase):
         self.assertTrue(self.proximi_family.has_blessing_arcana())
 
     def test_random_blessing(self):
-        self.fail()
+        pf = ProximiFamily.objects.create(path=self.path)
+        bless = CoDRote.objects.create(name="Test Blessing", level=1, arcanum="mind")
+        pf.random_blessing(max_rating=1)
+        self.assertGreaterEqual(pf.possible_blessings.all().count(), 1)
 
     def test_random_blessings(self):
         self.proximi_family.set_parent_path(Path.objects.first())
@@ -794,7 +831,9 @@ class TestRandomProximiFamily(TestCase):
         self.assertTrue(self.proximi_family.has_possible_blessings())
 
     def test_random_curse(self):
-        self.fail()
+        pf = ProximiFamily.objects.create(path=self.path)
+        pf.random_curse()
+        self.assertTrue(pf.curse is not None)
 
     def test_random(self):
         self.assertFalse(self.proximi_family.has_parent_path())
