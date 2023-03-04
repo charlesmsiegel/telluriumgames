@@ -5,6 +5,7 @@ from django.test import TestCase
 
 from cod.models.characters.ephemera import Numina
 from cod.models.characters.mage import (
+    Attainment,
     CoDRote,
     Legacy,
     Mage,
@@ -916,22 +917,126 @@ class TestProximiDetailView(TestCase):
 
 
 class TestAttainment(TestCase):
+    def setUp(self) -> None:
+        self.legacy = Legacy.objects.create()
+        self.attainment = Attainment.objects.create(
+            name="Test Attainment", legacy=self.legacy
+        )
+        self.character = Mage.objects.create()
+
     def test_prereq_satisfied(self):
-        self.fail()
+        # Test when prereq is a skill and is satisfied
+        prereq = ("occult", 3)
+        self.character.occult = 4
+        self.character.weaponry = 2
+        self.assertTrue(self.attainment.prereq_satisfied(prereq, self.character))
+
+        # Test when prereq is a skill and is not satisfied
+        self.character.occult = 2
+        self.assertFalse(self.attainment.prereq_satisfied(prereq, self.character))
+
+        # Test when prereq is an arcana and is satisfied
+        prereq = ("forces", 3)
+        self.character.forces = 4
+        self.character.life = 2
+        self.assertTrue(self.attainment.prereq_satisfied(prereq, self.character))
+
+        # Test when prereq is an arcana and is not satisfied
+        self.character.forces = 2
+        self.assertFalse(self.attainment.prereq_satisfied(prereq, self.character))
+
+        # Test when prereq is an attainment and is not satisfied
+        prereq = ("attainment", "Test Attainment")
+        test_attainment = Attainment.objects.create(name="Test Attainment")
+        self.assertFalse(self.attainment.prereq_satisfied(prereq, self.character))
+
+        # Test when prereq is an attainment and is satisfied
+        prereq = ("attainment", "Test Attainment")
+        self.character.attainments.add(test_attainment)
+        self.assertTrue(self.attainment.prereq_satisfied(prereq, self.character))
+
+        # Test when prereq is a legacy and is not satisfied
+        prereq = ("legacy", "Test Legacy")
+        test_legacy = Legacy.objects.create(name="Test Legacy")
+        self.assertFalse(self.attainment.prereq_satisfied(prereq, self.character))
+
+        # Test when prereq is a legacy and is satisfied
+        self.character.legacy = test_legacy
+        self.assertTrue(self.attainment.prereq_satisfied(prereq, self.character))
+
+        # Test when prereq is invalid
+        prereq = ("invalid", "invalid_value")
+        self.assertFalse(self.attainment.prereq_satisfied(prereq, self.character))
 
     def test_check_prereqs(self):
-        self.fail()
+        self.attainment.prereqs = [
+            [("occult", 3), ("weaponry", 2), ("forces", 3), ("life", 1)]
+        ]
+        # Test when all prereqs are satisfied
+        self.character.occult = 3
+        self.character.weaponry = 2
+        self.character.forces = 3
+        self.character.life = 1
+        self.assertTrue(self.attainment.check_prereqs(self.character))
+
+        # Test when some prereqs are not satisfied
+        self.character.forces = 1
+        self.assertFalse(self.attainment.check_prereqs(self.character))
 
     def test_count_prereqs(self):
-        self.fail()
+        self.attainment.prereqs = [[("occult", 3), ("weaponry", 2)]]
+
+        self.character.occult = 4
+        self.character.weaponry = 2
+        self.assertEqual(self.attainment.count_prereqs(self.character), 2)
+
+        self.character.occult = 2
+        self.character.weaponry = 2
+        self.assertEqual(self.attainment.count_prereqs(self.character), 1)
 
 
 class TestLegacy(TestCase):
+    def setUp(self) -> None:
+        self.path = Path.objects.create(name="Test Path")
+        self.order = Order.objects.create(name="Test Order")
+        self.attainment = Attainment.objects.create(name="Test Attainment")
+        self.legacy = Legacy.objects.create(
+            path=self.path,
+            order=self.order,
+            ruling_arcanum="prime",
+            is_left_handed=True,
+            prereqs=[[("occult", 3), ("weaponry", 2)]],
+        )
+        self.character = Mage.objects.create()
+
     def test_prereq_satisfied(self):
-        self.fail()
+        prereq = ("occult", 3)
+        # Test when prereq is not satisfied
+        self.character.occult = 2
+        self.character.melee = 2
+        self.assertFalse(self.legacy.prereq_satisfied(prereq, self.character))
+
+        # Test when prereq is satisfied
+        self.character.occult = 4
+        self.character.melee = 2
+        self.assertTrue(self.legacy.prereq_satisfied(prereq, self.character))
 
     def test_check_prereqs(self):
-        self.fail()
+        # Test when all prereqs are satisfied
+        self.character.occult = 4
+        self.character.weaponry = 3
+        self.assertTrue(self.legacy.check_prereqs(self.character))
+
+        # Test when some prereqs are not satisfied
+        self.character.occult = 2
+        self.character.weaponry = 2
+        self.assertFalse(self.legacy.check_prereqs(self.character))
 
     def test_count_prereqs(self):
-        self.fail()
+        self.character.occult = 4
+        self.character.weaponry = 2
+        self.assertEqual(self.legacy.count_prereqs(self.character), 2)
+
+        self.character.occult = 2
+        self.character.weaponry = 2
+        self.assertEqual(self.legacy.count_prereqs(self.character), 1)
