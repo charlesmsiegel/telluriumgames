@@ -18,6 +18,7 @@ from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
 from wod.models.items.mage import Grimoire
 from wod.models.locations.mage import Chantry, Library, Node, NodeMeritFlaw
+from wod.models.locations.mage.nodes import NodeMeritFlawRating, NodeResonanceRating
 from wod.tests.characters.mage import mage_setup
 from wod.tests.items.mage import grimoire_setup
 
@@ -84,10 +85,18 @@ class TestNode(TestCase):
         self.assertFalse(self.node.check_resonance(r2, sphere="forces"))
 
     def test_has_resonance(self):
-        self.fail()
+        self.node.rank = 1
+        resonance = Resonance.objects.create(name="Test Resonance")
+        self.node.add_resonance(resonance)
+        self.assertTrue(self.node.has_resonance())
 
     def test_resonance_rating(self):
-        self.fail()
+        resonance = Resonance.objects.create(name="Test Resonance")
+        rating = 3
+        NodeResonanceRating.objects.create(
+            node=self.node, resonance=resonance, rating=rating
+        )
+        self.assertEqual(self.node.resonance_rating(resonance), rating)
 
     def test_set_rank(self):
         self.assertEqual(self.node.rank, 0)
@@ -148,7 +157,10 @@ class TestNode(TestCase):
         self.assertEqual(self.node.total_mf(), 1)
 
     def test_mf_rating(self):
-        self.fail()
+        mf = NodeMeritFlaw.objects.create(name="Test MF", ratings=[1, 2, 3])
+        rating = 2
+        NodeMeritFlawRating.objects.create(node=self.node, mf=mf, rating=rating)
+        self.assertEqual(self.node.mf_rating(mf), rating)
 
     def test_set_size(self):
         self.assertEqual(self.node.size, 0)
@@ -536,7 +548,31 @@ class TestRandomChantry(TestCase):
         self.assertTrue(self.chantry.has_season())
 
     def test_random_populate(self):
-        self.fail()
+        chantry = Chantry.objects.create(
+            name="Test Chantry",
+            season="spring",
+            chantry_type="college",
+            leadership_type="anarchy",
+            rank=1,
+        )
+        chantry.random_points()
+        chantry.random_faction()
+        chantry.random_populate()
+
+        # Check that the number of members in the chantry is at least 3.
+        self.assertGreaterEqual(chantry.members.count(), 3)
+
+        # Check that the total number of points of the cabals' members
+        # is less than or equal to the chantry's points.
+        total_cabal_points = sum(
+            sum(x.chantry for x in cabal.members.all())
+            for cabal in self.chantry.cabals.all()
+        )
+        self.assertLessEqual(total_cabal_points, chantry.points)
+
+        # Check that each cabal has at least 3 members.
+        for cabal in chantry.cabals.all():
+            self.assertGreaterEqual(cabal.members.count(), 3)
 
     def test_random_leadership_type(self):
         chantry = Chantry.objects.create()
