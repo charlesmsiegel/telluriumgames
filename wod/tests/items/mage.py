@@ -13,7 +13,7 @@ from wod.models.characters.mage import (
     Resonance,
 )
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
-from wod.models.items.mage import Artifact, Charm, Grimoire, Wonder
+from wod.models.items.mage import Artifact, Charm, Grimoire, Talisman, Wonder
 
 
 # Create your tests here.
@@ -255,25 +255,64 @@ class TestRandomArtifact(TestCase):
 
 
 class TestTalisman(TestCase):
+    def setUp(self):
+        self.effect1 = Effect.objects.create(name="Effect 1", forces=3)
+        self.effect2 = Effect.objects.create(name="Effect 2", life=2)
+        self.effect3 = Effect.objects.create(name="Effect 3", time=3)
+
     def test_add_power(self):
-        self.fail()
+        talisman = Talisman.objects.create(rank=2)
+        self.assertEqual(talisman.powers.count(), 0)
+        talisman.add_power(self.effect1)
+        self.assertEqual(talisman.powers.count(), 1)
+        talisman.add_power(self.effect2)
+        self.assertEqual(talisman.powers.count(), 2)
 
     def test_has_powers(self):
-        self.fail()
+        talisman = Talisman.objects.create(rank=2)
+        self.assertFalse(talisman.has_powers())
+        talisman.add_power(self.effect1)
+        self.assertFalse(talisman.has_powers())
+        talisman.add_power(self.effect2)
+        self.assertTrue(talisman.has_powers())
 
 
 class TestRandomTalisman(TestCase):
     def setUp(self):
         grimoire_setup()
+        self.effect1 = Effect.objects.create(name="Effect 1", forces=1)
+        self.effect2 = Effect.objects.create(name="Effect 2", life=2)
+        self.effect3 = Effect.objects.create(name="Effect 3", time=3)
 
     def test_random_power(self):
-        self.fail()
+        talisman = Talisman.objects.create(rank=2)
+        talisman.random_power(1)
+        self.assertEqual(talisman.powers.count(), 1)
+        self.assertLessEqual(talisman.powers.first().max_sphere, 1)
+        talisman.random_power(2)
+        self.assertEqual(talisman.powers.count(), 2)
+        max_sphere = max(p.max_sphere for p in talisman.powers.all())
+        self.assertLessEqual(max_sphere, 2)
 
     def test_random_powers(self):
-        self.fail()
+        talisman = Talisman.objects.create(rank=2)
+        talisman.random_powers()
+        self.assertEqual(talisman.powers.count(), 2)
+        max_sphere = max(p.max_sphere for p in talisman.powers.all())
+        self.assertLessEqual(max_sphere, 2)
 
     def test_random(self):
-        self.fail()
+        talisman = Talisman.objects.create()
+        mocker = Mock()
+        mocker.side_effect = [0.8, 0.5, 0.5, 0.5, 0.5, 0.5]
+        with mock.patch("random.random", mocker):
+            talisman.random(rank=2)
+        self.assertTrue(talisman.has_powers())
+        max_sphere = max(p.max_sphere for p in talisman.powers.all())
+        self.assertLessEqual(max_sphere, 2)
+        self.assertEqual(talisman.quintessence_max, 10)
+        self.assertEqual(talisman.background_cost, 4)
+        self.assertEqual(talisman.arete, 2)
 
 
 class TestGrimoire(TestCase):
