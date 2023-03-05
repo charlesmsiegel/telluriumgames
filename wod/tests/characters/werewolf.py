@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
+from django.urls import reverse
 
 from wod.models.characters.human import Archetype, MeritFlaw, WoDSpecialty
 from wod.models.characters.werewolf import (
@@ -414,26 +415,83 @@ class TestRandomFomor(TestCase):
 
 
 class TestTribe(TestCase):
+    def setUp(self):
+        self.tribe = Tribe.objects.create(name="Test Tribe", willpower=4)
+        self.tribe_no = Tribe.objects.create(name="Other Tribe", willpower=4)
+        self.camp = Camp.objects.create(name="Test Camp", tribe=self.tribe)
+        self.camp_no = Camp.objects.create(name="Other Camp", tribe=self.tribe_no)
+        self.gift1 = Gift.objects.create(
+            name="Test Gift 1", rank=1, allowed={"garou": [self.tribe.name]}
+        )
+        self.gift2 = Gift.objects.create(
+            name="Test Gift 2", rank=2, allowed={"garou": [self.tribe.name]}
+        )
+        self.gift3 = Gift.objects.create(
+            name="Test Gift 3", rank=3, allowed={"garou": [self.tribe.name]}
+        )
+        self.gift4 = Gift.objects.create(
+            name="Test Gift 4", rank=4, allowed={"garou": [self.tribe.name]}
+        )
+        self.gift5 = Gift.objects.create(
+            name="Test Gift 5", rank=5, allowed={"garou": [self.tribe.name]}
+        )
+        self.gift6 = Gift.objects.create(
+            name="Test Gift 6", rank=6, allowed={"garou": [self.tribe.name]}
+        )
+        self.gift1_no = Gift.objects.create(
+            name="Test No Gift 1", rank=1, allowed={"garou": ["Tribe 2"]}
+        )
+        self.gift2_no = Gift.objects.create(
+            name="Test No Gift 2", rank=2, allowed={"garou": ["Tribe 2"]}
+        )
+        self.gift3_no = Gift.objects.create(
+            name="Test No Gift 3", rank=3, allowed={"garou": ["Tribe 2"]}
+        )
+        self.gift4_no = Gift.objects.create(
+            name="Test No Gift 4", rank=4, allowed={"garou": ["Tribe 2"]}
+        )
+        self.gift5_no = Gift.objects.create(
+            name="Test No Gift 5", rank=5, allowed={"garou": ["Tribe 2"]}
+        )
+        self.gift6_no = Gift.objects.create(
+            name="Test No Gift 6", rank=6, allowed={"garou": ["Tribe 2"]}
+        )
+
     def test_camp_list(self):
-        self.fail()
+        output = self.tribe.camp_list()
+        self.assertFalse(self.camp_no.name in output)
+        self.assertTrue(self.camp.name in output)
 
     def test_gifts_level_1(self):
-        self.fail()
+        output = ", ".join(self.tribe.gifts_level_1())
+        print(output)
+        self.assertFalse(self.gift1_no.name in output)
+        self.assertTrue(self.gift1.name in output)
 
     def test_gifts_level_2(self):
-        self.fail()
+        output = ", ".join(self.tribe.gifts_level_2())
+        self.assertFalse(self.gift2_no.name in output)
+        self.assertTrue(self.gift2.name in output)
 
     def test_gifts_level_3(self):
-        self.fail()
+        output = ", ".join(self.tribe.gifts_level_3())
+        self.assertFalse(self.gift3_no.name in output)
+        self.assertTrue(self.gift3.name in output)
 
     def test_gifts_level_4(self):
-        self.fail()
+        output = ", ".join(self.tribe.gifts_level_4())
+        self.assertFalse(self.gift4_no.name in output)
+        self.assertTrue(self.gift4.name in output)
 
     def test_gifts_level_5(self):
-        self.fail()
+        output = ", ".join(self.tribe.gifts_level_5())
+        self.assertFalse(self.gift5_no.name in output)
+        self.assertTrue(self.gift5.name in output)
 
     def test_gifts_level_6(self):
-        self.fail()
+        output = ", ".join(self.tribe.gifts_level_6())
+        self.assertFalse(self.gift6_no.name in output)
+        self.assertTrue(self.gift6.name in output)
 
 
 class TestWerewolf(TestCase):
