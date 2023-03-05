@@ -258,7 +258,7 @@ class MageDetailView(View):
                 char.creation_status += 1
                 char.save()
                 d = char.get_spheres()
-                context["resonance"] = Resonance.objects.all().order_by("name")
+                context["resonances"] = Resonance.objects.all().order_by("name")
                 context["form"] = MagePowersForm(initial=d, character=char)
                 return render(
                     request, "wod/characters/mage/mage/creation_powers.html", context,
@@ -276,7 +276,7 @@ class MageDetailView(View):
                 char.creation_status += 1
                 char.save()
                 d = char.get_spheres()
-                context["resonance"] = Resonance.objects.all().order_by("name")
+                context["resonances"] = Resonance.objects.all().order_by("name")
                 context["form"] = MagePowersForm(initial=d, character=char)
                 return render(
                     request, "wod/characters/mage/mage/creation_powers.html", context,
@@ -331,7 +331,7 @@ class MageDetailView(View):
                     request, "wod/characters/mage/mage/creation_freebies.html", context,
                 )
             d = char.get_spheres()
-            context["resonance"] = Resonance.objects.all().order_by("name")
+            context["resonances"] = Resonance.objects.all().order_by("name")
             context["form"] = MagePowersForm(initial=d, character=char)
             return render(
                 request, "wod/characters/mage/mage/creation_powers.html", context,
