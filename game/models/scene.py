@@ -60,15 +60,30 @@ class Scene(models.Model):
             character=character, message=message, display_name=display, scene=self
         )
         if message.startswith("/roll"):
-            # /roll <num_dice> difficulty <diff> <specialty>
-            tmp = message.split("/roll")[1]
-            parts = [x.strip() for x in tmp.split("difficulty")]
-            num_dice = int(parts[0])
-            if " " in parts[1]:
-                difficulty = int(parts[1].split(" ")[0])
-                specialty = True
-            else:
-                difficulty = int(parts[1])
-                specialty = False
-            post.roll(num_dice, difficulty=difficulty, specialty=specialty)
+            if self.story.chronicle.system == "wod":
+                # /roll <num_dice> difficulty <diff> <specialty>
+                tmp = message.split("/roll")[1]
+                parts = [x.strip() for x in tmp.split("difficulty")]
+                num_dice = int(parts[0])
+                if " " in parts[1]:
+                    difficulty = int(parts[1].split(" ")[0])
+                    specialty = True
+                else:
+                    difficulty = int(parts[1])
+                    specialty = False
+                post.wod_roll(num_dice, difficulty=difficulty, specialty=specialty)
+            elif "cod":
+                # /roll <num_dice> <again_threshold>-again
+                tmp = message.split("/roll")[1]
+                if tmp.endswith("-again"):
+                    num_dice = int(tmp.split(" ")[0])
+                    again = int(tmp.split(" ")[1].split("-")[0])
+                else:
+                    num_dice = int(tmp)
+                    again = 10
+                post.cod_roll(num_dice, again_minimum=again)
+            elif "tc":
+                pass
+            elif "ex":
+                pass
         return post
