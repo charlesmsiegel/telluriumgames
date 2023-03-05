@@ -40,7 +40,7 @@ class MageFaction(Model):
         paradigms = Paradigm.objects.none()
         for faction in factions:
             paradigms |= faction.paradigms.all()
-        return paradigms
+        return paradigms.distinct()
 
     def get_all_practices(self):
         factions = [self]
@@ -49,4 +49,4 @@ class MageFaction(Model):
         practices = Practice.objects.none()
         for faction in factions:
             practices |= faction.practices.all()
-        return practices
+        return practices.distinct()
