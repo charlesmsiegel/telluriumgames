@@ -136,6 +136,7 @@ class MageDetailView(View):
             )
         if mage.creation_status == 4:
             d = mage.get_spheres()
+            context["resonances"] = Resonance.objects.all().order_by("name")
             context["form"] = MagePowersForm(initial=d, character=mage)
             return render(
                 request, "wod/characters/mage/mage/creation_powers.html", context,
@@ -257,6 +258,7 @@ class MageDetailView(View):
                 char.creation_status += 1
                 char.save()
                 d = char.get_spheres()
+                context["resonance"] = Resonance.objects.all().order_by("name")
                 context["form"] = MagePowersForm(initial=d, character=char)
                 return render(
                     request, "wod/characters/mage/mage/creation_powers.html", context,
@@ -274,6 +276,7 @@ class MageDetailView(View):
                 char.creation_status += 1
                 char.save()
                 d = char.get_spheres()
+                context["resonance"] = Resonance.objects.all().order_by("name")
                 context["form"] = MagePowersForm(initial=d, character=char)
                 return render(
                     request, "wod/characters/mage/mage/creation_powers.html", context,
@@ -312,7 +315,7 @@ class MageDetailView(View):
                 for key in char.get_spheres().keys():
                     setattr(char, key, form.cleaned_data[key])
                 res = form.cleaned_data["resonance"]
-                char.add_resonance(res.name)
+                char.add_resonance(res)
                 char.creation_status += 1
                 char.save()
                 d = char.get_attributes()
@@ -328,6 +331,7 @@ class MageDetailView(View):
                     request, "wod/characters/mage/mage/creation_freebies.html", context,
                 )
             d = char.get_spheres()
+            context["resonance"] = Resonance.objects.all().order_by("name")
             context["form"] = MagePowersForm(initial=d, character=char)
             return render(
                 request, "wod/characters/mage/mage/creation_powers.html", context,

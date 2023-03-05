@@ -65,8 +65,14 @@
         </div>
         <div class="row">
             <div class="col-sm">
-                <input class="btn btn-primary" name="Random Powers" type="submit" value="Random Powers"/>
-                <input class="btn btn-primary" name="Assign Powers" type="submit" value="Assign Powers"/>
+                <input class="btn btn-primary"
+                       name="Random Powers"
+                       type="submit"
+                       value="Random Powers"/>
+                <input class="btn btn-primary"
+                       name="Assign Powers"
+                       type="submit"
+                       value="Assign Powers"/>
             </div>
         </div>
     </form>
@@ -87,3 +93,20 @@
 {% endblock advancement %}
 {% block update %}
 {% endblock update %}
+{% block extrascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+          rel="stylesheet"
+          type="text/css"/>
+    <script>
+    $(function () {
+        var availableResonance = [
+            {% for res in resonances %}        "{{res}}",{% endfor %}
+];
+    $("#id_resonance").autocomplete({
+        source: availableResonance
+    });
+} );
+    </script>
+{% endblock extrascripts %}

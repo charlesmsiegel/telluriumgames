@@ -325,9 +325,10 @@ class MagePowersForm(forms.Form):
     matter = forms.IntegerField(max_value=5, min_value=0)
     life = forms.IntegerField(max_value=5, min_value=0)
 
-    resonance = forms.ModelChoiceField(
-        queryset=Resonance.objects.all().order_by("name"), required=False
-    )
+    # resonance = forms.ModelChoiceField(
+    #     queryset=Resonance.objects.all().order_by("name"), required=False
+    # )
+    resonance = forms.CharField(max_length=255, required=False)
 
     def __init__(self, *args, **kwargs):
         self.char = kwargs.pop("character")
