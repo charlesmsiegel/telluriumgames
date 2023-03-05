@@ -106,6 +106,10 @@ class Node(Location):
             pk__in=had_mf_ratings.values_list("mf", flat=True)
         )
         q = new_mfs | had_mfs
+
+        q = q.filter(max_rating__lte=maximum)
+        q = q.filter(min_rating__gte=minimum)
+
         return q
 
     def mf_rating(self, mf):
@@ -295,6 +299,7 @@ class Node(Location):
 class NodeMeritFlaw(Model):
     ratings = models.JSONField(default=list)
     max_rating = models.IntegerField(default=0)
+    min_rating = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Node Merit or Flaw"
@@ -313,6 +318,7 @@ class NodeMeritFlaw(Model):
 
     def save(self, *args, **kwargs):
         self.max_rating = max(self.ratings)
+        self.min_rating = min(self.ratings)
         super().save(*args, **kwargs)
 
 

@@ -140,10 +140,12 @@ class TestNode(TestCase):
 
     def test_filter_mf(self):
         self.assertEqual(len(self.node.filter_mf()), 10)
+        self.assertEqual(len(self.node.filter_mf(minimum=0)), 5)
         for mf in NodeMeritFlaw.objects.all():
             if "Merit" in mf.name:
                 self.node.add_mf(mf, mf.ratings[0])
         self.assertEqual(len(self.node.filter_mf()), 5)
+        self.assertEqual(len(self.node.filter_mf(maximum=0)), 5)
         for mf in NodeMeritFlaw.objects.all():
             if "Flaw" in mf.name:
                 self.node.add_mf(mf, mf.ratings[0])
