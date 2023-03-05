@@ -48,11 +48,19 @@ class TestCharacter(TestCase):
 
 
 class TestRandomCharacter(TestCase):
+    def setUp(self):
+        self.character = Character.objects.create()
+
     def test_random_concept(self):
-        self.fail()
+        self.assertFalse(self.character.has_concept())
+        self.character.random_concept()
+        self.assertTrue(self.character.has_concept())
 
     def test_random_name(self):
-        self.fail()
+        name_count = Character.objects.count()
+        self.assertNotEqual(self.character.name, f"Random Character {name_count}")
+        self.character.random_name()
+        self.assertEqual(self.character.name, f"Random Character {name_count}")
 
 
 class TestHuman(TestCase):
@@ -996,19 +1004,47 @@ class TestRandomHuman(TestCase):
 
 
 class TestRandomGroup(TestCase):
+    def setUp(self):
+        self.group = Group.objects.create()
+        for key in list(Human().get_abilities().keys()) + list(
+            Human().get_attributes().keys()
+        ):
+            for i in range(5):
+                WoDSpecialty.objects.create(
+                    name=f"{key.title()} Specialty {i}", stat=key
+                )
+
     def test_random_name(self):
-        self.fail()
+        self.group.random_name()
+        self.assertTrue(self.group.name.startswith("Random Group"))
 
     def test_random(self):
-        self.fail()
+        self.group.random(
+            num_chars=5, new_characters=True, random_names=True, freebies=15, xp=0
+        )
+        self.assertEqual(self.group.members.count(), 5)
+        self.assertIsNotNone(self.group.leader)
+        self.assertIn(self.group.leader, self.group.members.all())
 
 
 class TestMeritFlaw(TestCase):
+    def setUp(self):
+        self.merit_flaw = MeritFlaw.objects.create(
+            ratings=[1, 2, 3],
+            human=True,
+            kinfolk=False,
+            garou=True,
+            mage=False,
+            changeling=True,
+        )
+
     def test_save(self):
-        self.fail()
+        self.merit_flaw.ratings = [1, 2, 3, 4]
+        self.merit_flaw.save()
+        self.assertEqual(self.merit_flaw.max_rating, 4)
 
     def test_booleans(self):
-        self.fail()
+        self.assertEqual(self.merit_flaw.booleans(), "Human, Garou")
 
 
 class TestCharacterIndexView(TestCase):
