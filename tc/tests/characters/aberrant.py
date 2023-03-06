@@ -94,7 +94,18 @@ class TestPower(TestCase):
         self.assertEqual(self.character.power_cost(self.power), 0)
 
     def test_minimum_quantum_for_next_dot(self):
-        self.fail()
+        self.aberrant = Aberrant.objects.create(name="Test Aberrant")
+        self.power = Power.objects.create(
+            name="Test Power", quantum_minimum=2, quantum_offset=1
+        )
+        self.power_rating = PowerRating.objects.create(
+            character=self.aberrant, power=self.power, rating=2
+        )
+
+        self.assertEqual(self.power_rating.minimum_quantum_for_next_dot(), 2)
+        self.power.quantum_minimum = -1
+        self.power.save()
+        self.assertEqual(self.power_rating.minimum_quantum_for_next_dot(), 3)
 
 
 class TestAberrant(TestCase):
@@ -983,13 +994,11 @@ class TestMegaEdge(TestCase):
 
 
 class TestTag(TestCase):
-    def test_save(self):
-        self.fail()
+    def setUp(self):
+        self.tag = Tag.objects.create(ratings=[1, 2, 3])
 
-
-class TestAberrantPrereqs(TestCase):
-    def test_aberrant_prereq_satisfied(self):
-        self.fail()
-
-    def test_aberrant_check_prereqs(self):
-        self.fail()
+    def test_save_method_updates_max_rating_field(self):
+        self.assertEqual(self.tag.max_rating, 3)
+        self.tag.ratings = [4, 5, 6]
+        self.tag.save()
+        self.assertEqual(self.tag.max_rating, 6)
