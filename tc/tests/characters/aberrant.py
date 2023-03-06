@@ -10,7 +10,15 @@ from tc.models.characters.aberrant import (
     Tag,
     Transformation,
 )
-from tc.models.characters.human import Edge, EnhancedEdge, Specialty, TCPath, Trick
+from tc.models.characters.human import (
+    Edge,
+    EnhancedEdge,
+    PathConnection,
+    PathRating,
+    Specialty,
+    TCPath,
+    Trick,
+)
 
 
 # Create your tests here.
@@ -869,8 +877,77 @@ class TestAberrantDetailView(TestCase):
 
 
 class TestMegaEdge(TestCase):
+    def setUp(self):
+        self.character = Aberrant.objects.create(name="Test Character", quantum=4)
+        self.edge = Edge.objects.create(name="Test Edge", ratings=[3])
+        self.mega_edge = MegaEdge.objects.create(name="Test Mega Edge", ratings=[5, 6])
+        self.mega_edge_rating = MegaEdgeRating.objects.create(
+            mega_edge=self.mega_edge, character=self.character, rating=3
+        )
+        self.path = TCPath.objects.create(name="Test Path")
+        self.path.edges.add(self.mega_edge)
+        self.path_connection = PathConnection.objects.create(path=self.path)
+        self.path_rating = PathRating.objects.create(
+            path=self.path, character=self.character, rating=4
+        )
+
     def test_check_prereqs(self):
-        self.fail()
+        # Test with attribute prereq that is not satisfied
+        prereq = ("might", 4)
+        self.assertFalse(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with attribute prereq that is satisfied
+        self.character.might = 5
+        self.character.save()
+        self.assertTrue(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with skill prereq that is not satisfied
+        prereq = ("aim", 3)
+        self.assertFalse(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with skill prereq that is satisfied
+        setattr(self.character, "aim", 4)
+        self.assertTrue(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with edge prereq that is not satisfied
+        prereq = ("Test Edge", 2)
+        self.assertFalse(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with edge prereq that is satisfied
+        self.character.add_edge(self.edge)
+        self.assertTrue(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with mega edge prereq that is not satisfied
+        prereq = ("Test Mega Edge", 4)
+        self.assertFalse(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with mega edge prereq that is satisfied
+        self.character.add_mega_edge(self.mega_edge)
+        self.assertTrue(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with path prereq that is not satisfied
+        prereq = ("path", 5)
+        self.assertFalse(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with path prereq that is satisfied
+        self.character.add_path(self.path)
+        self.assertTrue(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with quantum prereq that is not satisfied
+        prereq = ("quantum", 5)
+        self.assertFalse(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with quantum prereq that is satisfied
+        self.character.quantum = 5
+        self.assertTrue(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with mega attribute prereq that is not satisfied
+        prereq = ("mega_might", 3)
+        self.assertFalse(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with mega attribute prereq that is satisfied
+        setattr(self.character, "mega_might", 4)
+        self.assertTrue(self.mega_edge.prereq_satisfied(prereq, self.character))
 
 
 class TestTag(TestCase):
