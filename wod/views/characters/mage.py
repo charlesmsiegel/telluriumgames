@@ -202,6 +202,15 @@ class MageDetailView(View):
             )
         if char.creation_status == 2:
             form = MageAbilitiesForm(request.POST, character=char)
+            if "Back" in form.data:
+                char.creation_status -= 1
+                char.save()
+                context["form"] = MageAttributeForm(initial=char.get_attributes())
+                return render(
+                    request,
+                    "wod/characters/mage/mage/creation_attribute.html",
+                    context,
+                )
             if "Random Abilities" in form.data:
                 char.random_abilities()
                 char.creation_status += 1
@@ -250,6 +259,16 @@ class MageDetailView(View):
             )
         if char.creation_status == 3:
             form = MageAdvantagesForm(request.POST, character=char)
+            if "Back" in form.data:
+                char.creation_status -= 1
+                char.save()
+                d = char.get_abilities()
+                context["form"] = MageAbilitiesForm(initial=d, character=char)
+                return render(
+                    request,
+                    "wod/characters/mage/mage/creation_abilities.html",
+                    context,
+                )
             if "Random Advantages" in form.data:
                 char.random_focus()
                 char.random_backgrounds()
@@ -293,6 +312,17 @@ class MageDetailView(View):
             )
         if char.creation_status == 4:
             form = MagePowersForm(request.POST, character=char)
+            if "Back" in form.data:
+                char.creation_status -= 1
+                char.save()
+                d = char.get_backgrounds()
+                d["arete"] = char.arete
+                context["form"] = MageAdvantagesForm(initial=d, character=char)
+                return render(
+                    request,
+                    "wod/characters/mage/mage/creation_advantages.html",
+                    context,
+                )
             if "Random Powers" in form.data:
                 char.random_spheres()
                 char.random_resonance()
@@ -338,6 +368,17 @@ class MageDetailView(View):
             )
         if char.creation_status == 5:
             form = MageFreebieForm(request.POST, character=char)
+            if "Back" in form.data:
+                char.creation_status -= 1
+                char.save()
+                d = char.get_spheres()
+                d["resonance"] = char.filter_resonance(minimum=1).first()
+                char.subtract_resonance(d["resonance"])
+                context["resonances"] = Resonance.objects.all().order_by("name")
+                context["form"] = MagePowersForm(initial=d, character=char)
+                return render(
+                    request, "wod/characters/mage/mage/creation_powers.html", context,
+                )
             if "Random Freebies" in form.data:
                 char.random_freebies()
                 char.creation_status += 1
@@ -402,6 +443,21 @@ class MageDetailView(View):
             )
         if char.creation_status == 6:
             form = MageDescriptionForm(request.POST, character=char)
+            if "Back" in form.data:
+                char.creation_status -= 1
+                char.save()
+                d = char.get_attributes()
+                d.update(char.get_abilities())
+                d.update(char.get_backgrounds())
+                d.update(char.get_spheres())
+                d["willpower"] = 5
+                d["native_language"] = Language.objects.get(name="English")
+                MFFormset = formset_factory(MageMeritFlawForm, extra=1)
+                context["formset"] = MFFormset()
+                context["form"] = MageFreebieForm(initial=d, character=char)
+                return render(
+                    request, "wod/characters/mage/mage/creation_freebies.html", context,
+                )
             if "Random Description" in form.data:
                 char.update_status("Sub")
                 char.random_history()
