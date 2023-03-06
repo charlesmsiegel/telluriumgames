@@ -305,7 +305,14 @@ class Aberrant(Human):
         return False
 
     def random_transformation(self, level=None):
-        t = self.filter_transformations(level=level).order_by("?").first()
+        if level is not None:
+            if self.filter_transformations(level=level).count() == 0:
+                return False
+            t = self.filter_transformations(level=level).order_by("?").first()
+            return self.add_transformation(t)
+        if self.filter_transformations().count() == 0:
+            return False
+        t = self.filter_transformations().order_by("?").first()
         return self.add_transformation(t)
 
     def filter_transformations(self, level=None):

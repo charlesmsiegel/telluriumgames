@@ -829,7 +829,39 @@ class TestRandomAberrant(TestCase):
         self.assertTrue(self.character.has_template())
 
     def test_random_transformation(self):
-        self.fail()
+        self.aberrant = Aberrant.objects.create(name="Test Aberrant")
+        self.transform1 = Transformation.objects.create(
+            name="Test Transform 1", level=1
+        )
+        self.transform2 = Transformation.objects.create(
+            name="Test Transform 2", level=2
+        )
+        self.transform3 = Transformation.objects.create(
+            name="Test Transform 3", level=3
+        )
+        self.aberrant.transformations.add(self.transform1)
+        # Test adding a transformation
+        self.assertTrue(self.aberrant.random_transformation())
+        self.assertEqual(self.aberrant.transformations.count(), 2)
+
+        # Test adding a transformation with a specific level
+        self.assertTrue(self.aberrant.random_transformation(level=2))
+        self.assertEqual(self.aberrant.transformations.count(), 3)
+
+        # Test not adding a transformation when all at a certain level are already added
+        self.aberrant.transformations.add(
+            *self.aberrant.filter_transformations(level=3)
+        )
+        n = self.aberrant.transformations.count()
+        self.aberrant.random_transformation(level=3)
+        self.assertFalse(self.aberrant.random_transformation(level=3))
+        self.assertEqual(self.aberrant.transformations.count(), n)
+
+        # Test not adding a transformation when all are already added
+        self.aberrant.transformations.add(*self.aberrant.filter_transformations())
+        n = self.aberrant.transformations.count()
+        self.assertFalse(self.aberrant.random_transformation())
+        self.assertEqual(self.aberrant.transformations.count(), n)
 
     def test_random_spend_xp(self):
         self.character.xp = 15
