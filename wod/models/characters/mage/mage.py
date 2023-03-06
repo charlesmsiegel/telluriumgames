@@ -475,6 +475,16 @@ class Mage(MtAHuman):
         r.save()
         return True
 
+    def subtract_resonance(self, resonance):
+        if isinstance(resonance, str):
+            resonance, _ = Resonance.objects.get_or_create(name=resonance)
+        r, _ = ResRating.objects.get_or_create(resonance=resonance, mage=self)
+        if r.rating == 0:
+            return False
+        r.rating -= 1
+        r.save()
+        return True
+
     def total_resonance(self):
         return sum(x.rating for x in ResRating.objects.filter(mage=self))
 
