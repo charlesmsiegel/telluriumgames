@@ -242,7 +242,7 @@ class Mage(Mortal):
         CoDRote, blank=True, through="KnownPraxis", related_name="praxis"
     )
 
-    obsessions = models.JSONField(default=list)
+    obsessions = models.JSONField(default=lambda: [None, None, None, None])
     attainments = models.ManyToManyField(Attainment, blank=True)
 
     wisdom = models.IntegerField(default=7)
@@ -721,7 +721,10 @@ class Mage(Mortal):
                         self.arcane_xp = 0
                 else:
                     self.arcane_xp -= cost
-                self.add_to_spend(trait, getattr(self, trait), cost)
+                if not isinstance(trait, str):
+                    trait = trait.name
+                self.add_to_spend(trait, 1, cost)
+                return True
             return False
         return False
 

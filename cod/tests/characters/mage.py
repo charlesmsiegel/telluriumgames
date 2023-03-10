@@ -3,7 +3,7 @@ import random
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from cod.models.characters.ephemera import Numina
+from cod.models.characters.ephemera import Ephemera, Numina
 from cod.models.characters.mage import (
     Attainment,
     CoDRote,
@@ -272,22 +272,37 @@ class TestMage(TestCase):
         self.assertEqual(self.mage.total_arcana(), 6)
 
     def test_add_attainment(self):
-        self.fail()
+        att = Attainment.objects.create(name="test attainment")
+        self.assertTrue(self.mage.add_attainment(att))
+        self.assertTrue(att in self.mage.attainments.all())
 
     def test_set_dedicated_tool(self):
-        self.fail()
+        tool = "test tool"
+        self.assertTrue(self.mage.set_dedicated_tool(tool))
+        self.assertEqual(self.mage.dedicated_tool, tool)
 
     def test_has_dedicated_tool(self):
-        self.fail()
+        self.assertFalse(self.mage.has_dedicated_tool())
+        self.mage.dedicated_tool = "test tool"
+        self.assertTrue(self.mage.has_dedicated_tool())
 
     def test_set_obsession(self):
-        self.fail()
+        obs = "test obsession"
+        index = 0
+        self.assertTrue(self.mage.set_obsession(obs, index))
+        self.assertEqual(self.mage.obsessions[index], obs)
 
     def test_has_obsession(self):
-        self.fail()
+        self.assertFalse(self.mage.has_obsessions())
+        self.mage.gnosis = 3
+        self.assertFalse(self.mage.has_obsessions())
+        self.mage.obsessions = [None, "test obsession", None, "test 2"]
+        self.assertTrue(self.mage.has_obsessions())
 
     def test_add_wisdom(self):
-        self.fail()
+        self.assertEqual(self.mage.wisdom, 7)
+        self.assertTrue(self.mage.add_wisdom())
+        self.assertEqual(self.mage.wisdom, 8)
 
     def test_xp_cost(self):
         self.assertEqual(self.mage.xp_cost("arcanum (to limit)"), 4)
@@ -448,31 +463,126 @@ class TestMage(TestCase):
         self.assertEqual(self.mage.arcane_xp, 0)
 
     def test_spend_xp(self):
-        self.fail()
+        self.mage.xp = 10
+        self.mage.arcane_xp = 10
+        self.assertTrue(self.mage.spend_xp("gnosis"))
+        self.assertTrue(self.mage.spend_xp("prime"))
+        self.assertFalse(self.mage.spend_xp("invalid_trait"))
 
     def test_random_xp_functions(self):
-        self.fail()
+        random_xp_functions = self.mage.random_xp_functions()
+        self.assertIn("attribute", random_xp_functions)
+        self.assertIn("merit", random_xp_functions)
+        self.assertIn("specialty", random_xp_functions)
+        self.assertIn("skill", random_xp_functions)
+        self.assertIn("wisdom", random_xp_functions)
+        self.assertIn("arcanum", random_xp_functions)
+        self.assertIn("gnosis", random_xp_functions)
+        self.assertIn("rote", random_xp_functions)
+        self.assertIn("attainment", random_xp_functions)
 
     def test_spend_xp_arcana(self):
-        self.fail()
+        self.mage.gnosis = 1
+        self.assertFalse(self.mage.spend_xp_arcana("death"))
+
+        self.mage.death = 3
+        self.mage.arcane_xp = 4
+        self.assertFalse(self.mage.spend_xp_arcana("death"))
+        self.mage.arcane_xp = 5
+        self.assertTrue(self.mage.spend_xp_arcana("death"))
+
+        self.mage.gnosis = 5
+        self.mage.arcane_xp = 5
+        self.assertTrue(self.mage.spend_xp_arcana("death"))
+        self.assertEqual(self.mage.death, 5)
 
     def test_spend_xp_attainment(self):
-        self.fail()
+        attainment = Attainment.objects.create()
+        legacy = Legacy.objects.create()
+        legacy.attainments.add(attainment)
+        self.mage.legacy = legacy
+        self.mage.xp = 5
+
+        self.assertFalse(self.mage.spend_xp_attainment(attainment, tutored=False))
+        self.assertTrue(self.mage.spend_xp_attainment(attainment))
 
     def test_spend_xp_rote(self):
-        self.fail()
+        rote = CoDRote.objects.get(name="Compelling Forces Rote 0")
+        praxis = CoDRote.objects.get(name="Compelling Forces Rote 1")
+        self.mage.gnosis = 1
+        self.mage.forces = 1
+
+        # Test failing to spend XP
+        self.mage.arcane_xp = 1
+        self.assertFalse(self.mage.spend_xp_rote(rote.name))
+        self.assertEqual(self.mage.arcane_xp, 1)
+        self.assertEqual(self.mage.rotes.count(), 0)
+        self.assertEqual(self.mage.praxes.count(), 0)
+
+        # Test spending normal XP
+        self.mage.xp = 1
+        self.assertTrue(self.mage.spend_xp_rote(rote.name))
+        self.assertEqual(self.mage.xp, 0)
+        self.assertEqual(self.mage.rotes.count(), 1)
+        self.assertEqual(self.mage.praxes.count(), 0)
+
+        # Test spending arcane XP for praxis
+        self.assertTrue(self.mage.spend_xp_rote(praxis.name, praxis=True))
+        self.assertEqual(self.mage.arcane_xp, 0)
+        self.assertEqual(self.mage.rotes.count(), 1)
+        self.assertEqual(self.mage.praxes.count(), 1)
 
     def test_spend_xp_gnosis(self):
-        self.fail()
+        self.mage.gnosis = 1
+        self.mage.xp = 6
+        self.mage.arcane_xp = 0
+
+        # Test spending normal XP
+        self.assertTrue(self.mage.spend_xp_gnosis())
+        self.assertEqual(self.mage.xp, 1)
+        self.assertEqual(self.mage.gnosis, 2)
+
+        # Test spending mixed XP
+        self.mage.xp = 4
+        self.mage.arcane_xp = 1
+        self.assertTrue(self.mage.spend_xp_gnosis())
+        self.assertEqual(self.mage.arcane_xp, 0)
+        self.assertEqual(self.mage.xp, 0)
+        self.assertEqual(self.mage.gnosis, 3)
+
+        # Test failing to spend XP
+        self.mage.xp = 0
+        self.mage.arcane_xp = 0
+        self.assertFalse(self.mage.spend_xp_gnosis())
+        self.assertEqual(self.mage.gnosis, 3)
 
     def test_spend_xp_wisdom(self):
-        self.fail()
+        self.mage.arcane_xp = 10
+
+        # Test spending arcane XP
+        self.assertTrue(self.mage.spend_xp_wisdom())
+        self.assertEqual(self.mage.arcane_xp, 8)
+        self.assertEqual(self.mage.wisdom, 8)
+
+        # Test failing to spend XP
+        self.mage.arcane_xp = 0
+        self.mage.xp = 4
+        self.assertFalse(self.mage.spend_xp_wisdom())
+        self.assertEqual(self.mage.wisdom, 8)
 
     def test_set_familiar(self):
-        self.fail()
+        familiar = Ephemera.objects.create(name="Test Familiar")
+        self.mage.set_familiar(familiar)
+        self.assertEqual(self.mage.familiar, familiar)
 
     def test_assign_advantages(self):
-        self.fail()
+        order = Order.objects.create(name="Test Order")
+        merit = CoDMerit.objects.create(name="Test Order Status", ratings=[1, 2, 3])
+        high_speech = CoDMerit.objects.create(name="High Speech", ratings=[1])
+        self.mage.order = order
+        self.mage.assign_advantages()
+        self.assertIn(merit, self.mage.merits.all())
+        self.assertIn(high_speech, self.mage.merits.all())
 
 
 class TestRandomMage(TestCase):
@@ -517,13 +627,32 @@ class TestRandomMage(TestCase):
         self.assertEqual(self.mage.rotes.count(), num + 1)
 
     def test_random_dedicated_tool(self):
-        self.fail()
+        self.mage.random_path()
+        self.mage.random_dedicated_tool()
+        self.assertNotEqual(self.mage.dedicated_tool, "")
 
     def test_random_obsessions(self):
-        self.fail()
+        self.mage.random_obsessions()
+        self.assertTrue(self.mage.has_obsessions())
 
     def test_random_gnosis(self):
-        self.fail()
+        # Mock random value below 0.7
+        random.random = lambda: 0.6
+        mage = Mage()
+        mage.random_gnosis()
+        self.assertEqual(mage.gnosis, 1)
+
+        # Mock random value between 0.7 and 0.9
+        random.random = lambda: 0.8
+        mage = Mage()
+        mage.random_gnosis()
+        self.assertEqual(mage.gnosis, 2)
+
+        # Mock random value above 0.9
+        random.random = lambda: 0.95
+        mage = Mage()
+        mage.random_gnosis()
+        self.assertEqual(mage.gnosis, 3)
 
     def test_random_rotes(self):
         self.mage.death = 3
@@ -549,22 +678,61 @@ class TestRandomMage(TestCase):
         self.assertLess(self.mage.xp, 20)
 
     def test_random_xp_attainment(self):
-        self.fail()
+        attainment = Attainment.objects.create()
+        legacy = Legacy.objects.create()
+        legacy.attainments.add(attainment)
+        self.mage.legacy = legacy
+        self.mage.xp = 5
+        self.mage.arcane_xp = 5
+        self.mage.random_xp_attainment()
+        self.assertTrue(self.mage.attainments.count() > 0)
 
     def test_random_xp_wisdom(self):
-        self.fail()
+        self.mage.arcane_xp = 2
+        self.mage.random_xp_wisdom()
+        self.assertGreater(self.mage.wisdom, 7)
 
     def test_random_xp_arcanum(self):
-        self.fail()
+        self.mage.gnosis = 1
+        num = self.mage.total_arcana()
+        self.mage.xp = 5
+        self.mage.random_xp_arcanum()
+        self.assertGreater(self.mage.total_arcana(), num)
 
     def test_random_xp_gnosis(self):
-        self.fail()
+        self.mage.gnosis = 1
+        self.mage.xp = 5
+        self.mage.random_xp_gnosis()
+        self.assertGreater(self.mage.gnosis, 1)
 
     def test_random_xp_rote(self):
-        self.fail()
+        self.mage.gnosis = 3
+        self.mage.forces = 3
+        self.mage.matter = 3
+        self.mage.prime = 2
+        self.mage.xp = 1
+        self.mage.random_xp_rote()
+        self.assertTrue(self.mage.rotes.count() > 0)
 
     def test_random_familiar(self):
-        self.fail()
+        # Without the "Familiar" merit, random_familiar should return False
+        self.assertFalse(self.mage.random_familiar())
+
+        # Add the "Familiar" merit to the mage
+        familiar_merit = CoDMerit.objects.create(
+            name="Familiar", ratings=[2, 4, 6, 8, 10]
+        )
+        self.mage.add_merit(familiar_merit)
+        # Try again with the merit - this time random_familiar should succeed
+        self.assertTrue(self.mage.random_familiar())
+        self.assertIsNotNone(self.mage.familiar)
+
+        # Check that the familiar has the expected rank
+        expected_rank = self.mage.merit_rating("Familiar") // 2
+        self.assertEqual(self.mage.familiar.rank, expected_rank)
+
+        # Check that the familiar has a name
+        self.assertIsNotNone(self.mage.familiar.name)
 
     def test_random(self):
         self.assertFalse(self.mage.has_path())
