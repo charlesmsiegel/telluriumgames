@@ -711,6 +711,7 @@ class TestRandomMage(TestCase):
         self.mage.matter = 3
         self.mage.prime = 2
         self.mage.xp = 1
+        self.mage.arcane_xp = 1
         self.mage.random_xp_rote()
         self.assertTrue(self.mage.rotes.count() > 0)
 
@@ -947,16 +948,33 @@ class TestProximi(TestCase):
         self.assertFalse(self.proximi.set_mana(10))
 
     def test_random_xp_functions(self):
-        self.fail()
+        xp_functions = self.proximi.random_xp_functions()
+        self.assertTrue(callable(xp_functions["blessing"]))
 
     def test_spend_xp_blessing(self):
-        self.fail()
+        family = ProximiFamily.objects.create()
+        family.random()
+        blessing = family.possible_blessings.first()
+        self.proximi.family = family
+        self.proximi.set_mana(5)
+        self.proximi.xp = 10
+        self.assertTrue(self.proximi.spend_xp_blessing(blessing))
+        self.assertEqual(self.proximi.xp, 10 - blessing.level)
 
     def test_total_merits(self):
-        self.fail()
+        self.assertEqual(self.proximi.total_merits(), 0)
+        merit = CoDMerit.objects.create(name="Test Merit", ratings=[2])
+        self.proximi.add_merit(merit)
+        self.assertEqual(self.proximi.total_merits(), 2)
 
     def test_total_blessings(self):
-        self.fail()
+        family = ProximiFamily.objects.create()
+        family.random()
+        self.proximi.family = family
+        blessing = family.possible_blessings.first()
+        self.assertEqual(self.proximi.total_blessings(), 0)
+        self.proximi.add_blessing(blessing)
+        self.assertEqual(self.proximi.total_blessings(), blessing.level)
 
 
 class TestRandomProximiFamily(TestCase):
@@ -1049,14 +1067,25 @@ class TestRandomProximi(TestCase):
         self.assertTrue(self.proximi.has_family())
 
     def test_random_blessing(self):
-        self.proximi.set_family(ProximiFamily.objects.get(name="Path 0 Death Family"))
+        family = ProximiFamily.objects.create()
+        family.random()
+        self.proximi.family = family
+        self.proximi.xp = 10
         self.assertFalse(self.proximi.has_blessings())
         self.assertTrue(self.proximi.random_blessing())
         self.assertTrue(self.proximi.has_blessings())
         self.assertEqual(self.proximi.blessings.count(), 1)
 
     def test_random_xp_blessing(self):
-        self.fail()
+        family = ProximiFamily.objects.create()
+        family.random()
+        self.proximi.family = family
+        self.proximi.set_mana(5)
+        self.proximi.xp = 10
+        self.proximi.random_xp_blessing()
+        blessing = self.proximi.blessings.first()
+        self.assertEqual(self.proximi.total_blessings(), blessing.level)
+        self.assertEqual(self.proximi.xp, 10 - blessing.level)
 
     def test_random(self):
         self.assertFalse(self.proximi.has_name())
