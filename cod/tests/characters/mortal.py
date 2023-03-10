@@ -951,19 +951,67 @@ class TestRandomMortal(TestCase):
 class TestMerit(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
+        self.merit = CoDMerit.objects.create(
+            name="Test Merit",
+            ratings=[1, 2, 3],
+            possible_details=["Option 1", "Option 2"],
+            merit_type="Physical",
+        )
         self.character = Mortal.objects.create(name="Test", owner=self.player)
 
     def test_save(self):
-        self.fail()
+        self.assertEqual(self.merit.min_rating, 1)
+        self.assertEqual(self.merit.max_rating, 3)
 
     def test_prereq_satisfied(self):
-        self.fail()
+        # Test a simple attribute prerequisite
+        self.character.strength = 3
+        prereq = ("strength", 2)
+        self.assertTrue(self.merit.prereq_satisfied(prereq, self.character))
+        prereq = ("strength", 4)
+        self.assertFalse(self.merit.prereq_satisfied(prereq, self.character))
 
-    def test_check_prereqs(self):
-        self.fail()
+        # Test a simple skill prerequisite
+        self.character.occult = 3
+        prereq = ("occult", 2)
+        self.assertTrue(self.merit.prereq_satisfied(prereq, self.character))
+        prereq = ("occult", 4)
+        self.assertFalse(self.merit.prereq_satisfied(prereq, self.character))
 
-    def test_count_prereqs(self):
-        self.fail()
+        # Test a specialty prerequisite
+        specialty = CoDSpecialty.objects.create(skill="occult", name="Test Specialty")
+        self.character.specialties.add(specialty)
+        prereq = ("occult", "specialty")
+        self.assertTrue(self.merit.prereq_satisfied(prereq, self.character))
+        prereq = ("science", "specialty")
+        self.assertFalse(self.merit.prereq_satisfied(prereq, self.character))
+
+        # Test a skill group prerequisite
+        prereq = ("skill", 3)
+        self.assertTrue(self.merit.prereq_satisfied(prereq, self.character))
+        prereq = ("skill", 4)
+        self.assertFalse(self.merit.prereq_satisfied(prereq, self.character))
+
+        # Test a specialty group prerequisite
+        prereq = ("specialty", 2)
+        self.assertTrue(self.merit.prereq_satisfied(prereq, self.character))
+        prereq = ("specialty", 4)
+        self.assertFalse(self.merit.prereq_satisfied(prereq, self.character))
+
+        # Test a merit prerequisite
+        merit = CoDMerit.objects.create(name="Test Merit 2", ratings=[2, 3])
+        self.character.add_merit(merit)
+        prereq = (merit.name, 3)
+        self.assertFalse(self.merit.prereq_satisfied(prereq, self.character))
+        self.character.add_merit(merit)
+        self.assertTrue(self.merit.prereq_satisfied(prereq, self.character))
+
+        # Test a morality prerequisite
+        self.character.morality = 5
+        prereq = ("morality", 6)
+        self.assertFalse(self.merit.prereq_satisfied(prereq, self.character))
+        prereq = ("morality", 4)
+        self.assertTrue(self.merit.prereq_satisfied(prereq, self.character))
 
     def test_prereq_skill_specialty(self):
         occult_specialty = CoDMerit.objects.create(
