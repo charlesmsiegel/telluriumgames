@@ -242,7 +242,7 @@ class Mage(Mortal):
         CoDRote, blank=True, through="KnownPraxis", related_name="praxis"
     )
 
-    obsessions = models.JSONField(default=lambda: [None, None, None, None])
+    obsessions = models.JSONField(default=list)
     attainments = models.ManyToManyField(Attainment, blank=True)
 
     wisdom = models.IntegerField(default=7)
@@ -268,6 +268,11 @@ class Mage(Mortal):
 
     def get_update_url(self):
         return reverse("cod:characters:mage:update_mage", kwargs={"pk": self.pk})
+
+    def save(self, *args, **kwargs):
+        if self.obsessions == []:
+            self.obsessions = [None, None, None, None]
+        super().save(*args, **kwargs)
 
     @staticmethod
     def allowed_merit_types():
