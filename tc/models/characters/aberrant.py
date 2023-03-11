@@ -305,7 +305,14 @@ class Aberrant(Human):
         return False
 
     def random_transformation(self, level=None):
-        t = self.filter_transformations(level=level).order_by("?").first()
+        if level is not None:
+            if self.filter_transformations(level=level).count() == 0:
+                return False
+            t = self.filter_transformations(level=level).order_by("?").first()
+            return self.add_transformation(t)
+        if self.filter_transformations().count() == 0:
+            return False
+        t = self.filter_transformations().order_by("?").first()
         return self.add_transformation(t)
 
     def filter_transformations(self, level=None):
@@ -657,19 +664,18 @@ class MegaEdge(Edge):
             if edge_prereq.type == "mega_edge":
                 return character.mega_edge_rating(edge_prereq) >= prereq[1]
         if prereq[0] == "path":
-            if self in Edge.objects.all():
-                any(
-                    x.rating > prereq[1]
-                    for x in PathRating.objects.filter(character=character)
-                    if self in x.path.edges.all()
-                )
+            return any(
+                x.rating >= prereq[1]
+                for x in PathRating.objects.filter(character=character)
+                if self in x.path.edges.all()
+            )
         if prereq[0] == "quantum":
             if prereq[1] == "dots":
                 if self in MegaEdge.objects.all():
                     r = character.mega_edge_rating(self)
                     req = min(x for x in self.ratings if x > r)
                     return character.quantum >= req
-                return character.quantum >= prereq[1]
+            return character.quantum >= prereq[1]
         if prereq[0] in character.get_mega_attributes().keys():
             return getattr(character, prereq[0]) >= prereq[1]
         return False

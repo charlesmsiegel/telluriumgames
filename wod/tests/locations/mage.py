@@ -1,10 +1,11 @@
 from unittest import mock
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from django.contrib.auth.models import User
 from django.test import TestCase
 
 from core.models import Language, Material, Medium, Noun
+from wod.models.characters.human import Human
 from wod.models.characters.mage import (
     Effect,
     Instrument,
@@ -13,9 +14,11 @@ from wod.models.characters.mage import (
     Practice,
     Resonance,
 )
+from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.utils import ABILITY_LIST, SPHERE_LIST
 from wod.models.items.mage import Grimoire
 from wod.models.locations.mage import Chantry, Library, Node, NodeMeritFlaw
+from wod.models.locations.mage.nodes import NodeMeritFlawRating, NodeResonanceRating
 from wod.tests.characters.mage import mage_setup
 from wod.tests.items.mage import grimoire_setup
 
@@ -62,13 +65,38 @@ class TestNode(TestCase):
         self.assertEqual(self.node.total_resonance(), 5)
 
     def test_check_resonance(self):
-        pass
+        r = Resonance.objects.create(name="Test Res")
+        self.assertTrue(self.node.check_resonance(r))
+        self.node.add_resonance(r)
+        self.node.add_resonance(r)
+        self.node.add_resonance(r)
+        self.node.add_resonance(r)
+        self.node.add_resonance(r)
+        self.assertFalse(self.node.check_resonance(r))
+        r2 = Resonance.objects.create(name="Test Res 2", forces=True)
+        self.assertFalse(self.node.check_resonance(r2, sphere="life"))
+        self.assertTrue(self.node.check_resonance(r2, sphere="forces"))
+        self.assertTrue(self.node.check_resonance(r2))
+        self.node.add_resonance(r2)
+        self.node.add_resonance(r2)
+        self.node.add_resonance(r2)
+        self.node.add_resonance(r2)
+        self.node.add_resonance(r2)
+        self.assertFalse(self.node.check_resonance(r2, sphere="forces"))
 
     def test_has_resonance(self):
-        pass
+        self.node.rank = 1
+        resonance = Resonance.objects.create(name="Test Resonance")
+        self.node.add_resonance(resonance)
+        self.assertTrue(self.node.has_resonance())
 
     def test_resonance_rating(self):
-        pass
+        resonance = Resonance.objects.create(name="Test Resonance")
+        rating = 3
+        NodeResonanceRating.objects.create(
+            node=self.node, resonance=resonance, rating=rating
+        )
+        self.assertEqual(self.node.resonance_rating(resonance), rating)
 
     def test_set_rank(self):
         self.assertEqual(self.node.rank, 0)
@@ -112,10 +140,12 @@ class TestNode(TestCase):
 
     def test_filter_mf(self):
         self.assertEqual(len(self.node.filter_mf()), 10)
+        self.assertEqual(len(self.node.filter_mf(minimum=0)), 5)
         for mf in NodeMeritFlaw.objects.all():
             if "Merit" in mf.name:
                 self.node.add_mf(mf, mf.ratings[0])
         self.assertEqual(len(self.node.filter_mf()), 5)
+        self.assertEqual(len(self.node.filter_mf(maximum=0)), 5)
         for mf in NodeMeritFlaw.objects.all():
             if "Flaw" in mf.name:
                 self.node.add_mf(mf, mf.ratings[0])
@@ -129,7 +159,10 @@ class TestNode(TestCase):
         self.assertEqual(self.node.total_mf(), 1)
 
     def test_mf_rating(self):
-        pass
+        mf = NodeMeritFlaw.objects.create(name="Test MF", ratings=[1, 2, 3])
+        rating = 2
+        NodeMeritFlawRating.objects.create(node=self.node, mf=mf, rating=rating)
+        self.assertEqual(self.node.mf_rating(mf), rating)
 
     def test_set_size(self):
         self.assertEqual(self.node.size, 0)
@@ -213,7 +246,7 @@ class TestRandomNode(TestCase):
     def test_random_mf(self):
         num = self.node.total_mf()
         while not self.node.random_mf(minimum=0):
-            pass
+            self.fail()
         self.assertGreater(self.node.total_mf(), num)
 
     def test_random_size(self):
@@ -259,6 +292,18 @@ class TestNodeMeritFlaw(TestCase):
 class TestChantry(TestCase):
     def setUp(self) -> None:
         self.chantry = Chantry.objects.create(name="")
+        self.library = Library.objects.create(rank=3)
+        self.grimoire1 = Grimoire.objects.create()
+        self.grimoire2 = Grimoire.objects.create()
+        self.grimoire3 = Grimoire.objects.create()
+        self.library.add_book(self.grimoire1)
+        self.library.add_book(self.grimoire2)
+        self.library.add_book(self.grimoire3)
+        self.node1 = Node.objects.create(name="node1", rank=1)
+        self.node2 = Node.objects.create(name="node2", rank=1)
+        self.human = Human.objects.create(name="human")
+        self.cabal = Cabal.objects.create(name="cabal")
+        self.faction = MageFaction.objects.create(name="faction")
         self.player = User.objects.create_user(username="Test")
         mage_setup(self.player)
         grimoire_setup()
@@ -280,10 +325,17 @@ class TestChantry(TestCase):
         self.assertEqual(self.chantry.trait_cost("reality_zone_rating"), 5)
 
     def test_has_node(self):
-        pass
+        self.chantry.node_rating = 1
+        self.assertFalse(self.chantry.has_node())
+        self.chantry.nodes.add(self.node1)
+        self.assertTrue(self.chantry.has_node())
 
     def test_total_node(self):
-        pass
+        self.assertEqual(self.chantry.total_node(), 0)
+        self.chantry.nodes.add(self.node1)
+        self.assertEqual(self.chantry.total_node(), 1)
+        self.chantry.nodes.add(self.node2)
+        self.assertEqual(self.chantry.total_node(), 2)
 
     def test_create_nodes(self):
         self.chantry.random_faction()
@@ -300,7 +352,11 @@ class TestChantry(TestCase):
             self.assertEqual(node.parent, self.chantry)
 
     def test_has_library(self):
-        pass
+        self.chantry.library_rating = 3
+        self.assertFalse(self.chantry.has_library())
+        self.chantry.chantry_library = self.library
+        self.chantry.save()
+        self.assertTrue(self.chantry.has_library())
 
     def test_create_library(self):
         self.chantry.library_rating = 0
@@ -336,7 +392,8 @@ class TestChantry(TestCase):
         self.assertEqual(self.chantry.points_spent(), 38)
 
     def test_set_rank(self):
-        pass
+        self.chantry.set_rank(5)
+        self.assertEqual(self.chantry.rank, 5)
 
     def test_has_faction(self):
         faction = MageFaction.objects.get(name="Test Faction 0")
@@ -383,7 +440,42 @@ class TestChantry(TestCase):
         self.assertTrue(self.chantry.has_season())
 
     def test_get_traits(self):
-        pass
+        mock_human = Mock()
+        self.chantry.allies = 2
+        self.chantry.arcane = 3
+        self.chantry.backup = 4
+        self.chantry.cult = 5
+        self.chantry.elders = 6
+        self.chantry.integrated_effects = 7
+        self.chantry.retainers = 8
+        self.chantry.spies = 9
+        self.chantry.resources = 10
+        self.chantry.enhancement = 11
+        self.chantry.requisitions = 12
+        self.chantry.reality_zone_rating = 13
+        self.chantry.node_rating = 14
+        self.chantry.library_rating = 15
+        self.chantry.save()
+
+        result = self.chantry.get_traits()
+        expected = {
+            "allies": 2,
+            "arcane": 3,
+            "backup": 4,
+            "cult": 5,
+            "elders": 6,
+            "integrated_effects": 7,
+            "retainers": 8,
+            "spies": 9,
+            "resources": 10,
+            "enhancement": 11,
+            "requisitions": 12,
+            "reality_zone": 13,
+            "node_rating": 14,
+            "library_rating": 15,
+        }
+
+        self.assertEqual(result, expected)
 
 
 class TestRandomChantry(TestCase):
@@ -458,10 +550,39 @@ class TestRandomChantry(TestCase):
         self.assertTrue(self.chantry.has_season())
 
     def test_random_populate(self):
-        pass
+        chantry = Chantry.objects.create(
+            name="Test Chantry",
+            season="spring",
+            chantry_type="college",
+            leadership_type="anarchy",
+            rank=1,
+        )
+        chantry.random_points()
+        chantry.random_faction()
+        chantry.random_populate()
+
+        # Check that the number of members in the chantry is at least 3.
+        self.assertGreaterEqual(chantry.members.count(), 3)
+
+        # Check that the total number of points of the cabals' members
+        # is less than or equal to the chantry's points.
+        total_cabal_points = sum(
+            sum(x.chantry for x in cabal.members.all())
+            for cabal in self.chantry.cabals.all()
+        )
+        self.assertLessEqual(total_cabal_points, chantry.points)
+
+        # Check that each cabal has at least 3 members.
+        for cabal in chantry.cabals.all():
+            self.assertGreaterEqual(cabal.members.count(), 3)
 
     def test_random_leadership_type(self):
-        pass
+        chantry = Chantry.objects.create()
+        chantry.random_leadership_type()
+
+        leadership_choices = [choice[0] for choice in Chantry.LEADERSHIP_CHOICES]
+
+        self.assertIn(chantry.leadership_type, leadership_choices)
 
 
 class TestNodeDetailView(TestCase):
@@ -504,10 +625,16 @@ class TestLibrary(TestCase):
         self.assertEqual(self.library.num_books(), count + 1)
 
     def test_set_faction(self):
-        pass
+        faction = MageFaction.objects.create(name="Test Faction")
+        self.assertFalse(self.library.has_faction())
+        self.assertTrue(self.library.set_faction(faction))
+        self.assertTrue(self.library.has_faction())
 
     def test_has_faction(self):
-        pass
+        faction = MageFaction.objects.create(name="Test Faction")
+        self.assertFalse(self.library.has_faction())
+        self.library.set_faction(faction)
+        self.assertTrue(self.library.has_faction())
 
     def test_has_books(self):
         self.library.rank = 3
@@ -524,18 +651,39 @@ class TestLibrary(TestCase):
         self.assertEqual(self.library.num_books(), 2)
 
     def test_num_books(self):
-        pass
+        self.assertEqual(self.library.num_books(), 0)
+        self.library.rank = 3
+        self.library.books.add(Grimoire.objects.create(name="Test Grimoire 1", rank=1))
+        self.assertEqual(self.library.num_books(), 1)
+        self.library.books.add(Grimoire.objects.create(name="Test Grimoire 2", rank=2))
+        self.assertEqual(self.library.num_books(), 2)
+        self.library.books.add(Grimoire.objects.create(name="Test Grimoire 3", rank=3))
+        self.assertEqual(self.library.num_books(), 3)
 
 
 class TestRandomLibrary(TestCase):
+    def setUp(self):
+        self.library = Library.objects.create(rank=2)
+        self.faction = MageFaction.objects.create(name="Test Faction")
+        self.grimoire = Grimoire.objects.create(name="Test Grimoire")
+        grimoire_setup()
+
     def test_random_faction(self):
-        pass
+        self.library.random_faction()
+        self.assertIsNotNone(self.library.faction)
 
     def test_random_book(self):
-        pass
+        num_books = self.library.num_books()
+        self.library.faction = self.faction
+        self.library.save()
+        self.library.random_book()
+        self.assertEqual(num_books + 1, self.library.num_books())
 
     def test_random(self):
-        pass
+        self.library.random()
+        self.assertEqual(self.library.status, "Ran")
+        self.assertIsNotNone(self.library.faction)
+        self.assertEqual(self.library.num_books(), self.library.rank)
 
 
 class TestLibraryDetailView(TestCase):

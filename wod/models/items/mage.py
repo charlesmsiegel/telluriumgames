@@ -30,6 +30,9 @@ class WonderResonanceRating(models.Model):
     resonance = models.ForeignKey(Resonance, on_delete=models.SET_NULL, null=True)
     rating = models.IntegerField(default=0)
 
+    def __str__(self):
+        return f"{self.resonance}: {self.rating}"
+
 
 class Wonder(WoDItem):
     type = "wonder"
@@ -88,13 +91,13 @@ class Wonder(WoDItem):
         all_res = Resonance.objects.all()
 
         maxed_resonance = [
-            x.id
+            x.resonance.id
             for x in WonderResonanceRating.objects.filter(
                 wonder=self, rating__gt=maximum
             )
         ]
         mined_resonance = [
-            x.id
+            x.resonance.id
             for x in WonderResonanceRating.objects.filter(
                 wonder=self, rating__lt=minimum
             )

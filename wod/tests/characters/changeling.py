@@ -659,16 +659,16 @@ class TestChangeling(TestCase):
         self.assertTrue(self.character.has_changeling_appearance())
 
     def test_set_changeling_appearance(self):
-        pass
+        self.fail()
 
     def test_set_changeling_history(self):
-        pass
+        self.fail()
 
     def test_random_freebie_functions(self):
-        pass
+        self.fail()
 
     def test_random_xp_functions(self):
-        pass
+        self.fail()
 
 
 class TestRandomChangeling(TestCase):
@@ -705,13 +705,13 @@ class TestRandomChangeling(TestCase):
         self.assertTrue(self.character.has_unseelie_legacy())
 
     def test_random_background(self):
-        pass
+        self.fail()
 
     def test_random_changeling_history(self):
-        pass
+        self.fail()
 
     def test_random_changeling_appearance(self):
-        pass
+        self.fail()
 
     def test_random_kith(self):
         self.assertFalse(self.character.has_kith())
@@ -807,22 +807,22 @@ class TestRandomChangeling(TestCase):
         self.assertTrue(self.character.has_changeling_appearance())
 
     def test_random_freebies_art(self):
-        pass
+        self.fail()
 
     def test_random_freebies_realm(self):
-        pass
+        self.fail()
 
     def test_random_freebies_glamour(self):
-        pass
+        self.fail()
 
     def test_random_xp_art(self):
-        pass
+        self.fail()
 
     def test_random_xp_realm(self):
-        pass
+        self.fail()
 
     def test_random_xp_glamour(self):
-        pass
+        self.fail()
 
 
 class TestMotley(TestCase):

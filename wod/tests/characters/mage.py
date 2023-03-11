@@ -17,6 +17,7 @@ from wod.models.characters.mage import (
     Practice,
     Resonance,
 )
+from wod.models.characters.mage.mage import Rote
 from wod.models.characters.mage.mtahuman import MtAHuman
 from wod.models.characters.mage.resonance import ResRating
 from wod.models.characters.mage.utils import ABILITY_LIST
@@ -592,7 +593,7 @@ class TestMtAHuman(TestCase):
         )
 
     def test_get_backgrounds(self):
-        pass
+        self.fail()
 
 
 class TestMage(TestCase):
@@ -780,7 +781,7 @@ class TestMage(TestCase):
         self.assertEqual(self.character.background_points, 7)
 
     def test_add_background(self):
-        pass
+        self.fail()
 
     def test_get_backgrounds(self):
         self.assertEqual(
@@ -1180,25 +1181,25 @@ class TestMage(TestCase):
         self.assertNotEqual(self.character.quiet_type, "none")
 
     def test_count_limbs(self):
-        pass
+        self.fail()
 
     def test_resonance_rating(self):
-        pass
+        self.fail()
 
     def test_has_specialties(self):
-        pass
+        self.fail()
 
     def test_has_library(self):
-        pass
+        self.fail()
 
     def test_has_node(self):
-        pass
+        self.fail()
 
     def test_random_freebie_functions(self):
-        pass
+        self.fail()
 
     def test_random_xp_functions(self):
-        pass
+        self.fail()
 
 
 class TestRandomMage(TestCase):
@@ -1353,40 +1354,40 @@ class TestRandomMage(TestCase):
             self.assertFalse(self.character.has_library())
 
     def test_choose_random_resonance(self):
-        pass
+        self.fail()
 
     def test_random_mage_history(self):
-        pass
+        self.fail()
 
     def test_random_xp_sphere(self):
-        pass
+        self.fail()
 
     def test_random_xp_arete(self):
-        pass
+        self.fail()
 
     def test_random_xp_rote_points(self):
-        pass
+        self.fail()
 
     def test_random_freebies_sphere(self):
-        pass
+        self.fail()
 
     def test_random_freebies_quintessence(self):
-        pass
+        self.fail()
 
     def test_random_freebies_rote_points(self):
-        pass
+        self.fail()
 
     def test_random_freebies_resonance(self):
-        pass
+        self.fail()
 
     def test_random_freebies_arete(self):
-        pass
+        self.fail()
 
     def test_random_abilities(self):
-        pass
+        self.fail()
 
     def test_random_ability(self):
-        pass
+        self.fail()
 
 
 class TestCabal(TestCase):
@@ -1423,6 +1424,27 @@ class TestCabal(TestCase):
 
 
 class TestMageFaction(TestCase):
+    def setUp(self):
+        self.faction1 = MageFaction.objects.create()
+        self.faction2 = MageFaction.objects.create(parent=self.faction1)
+        self.faction3 = MageFaction.objects.create(parent=self.faction2)
+
+        self.paradigm1 = Paradigm.objects.create(name="Paradigm 1")
+        self.paradigm2 = Paradigm.objects.create(name="Paradigm 2")
+        self.paradigm3 = Paradigm.objects.create(name="Paradigm 3")
+
+        self.practice1 = Practice.objects.create(name="Practice 1")
+        self.practice2 = Practice.objects.create(name="Practice 2")
+        self.practice3 = Practice.objects.create(name="Practice 3")
+
+        self.faction1.paradigms.add(self.paradigm1, self.paradigm2)
+        self.faction2.paradigms.add(self.paradigm2, self.paradigm3)
+        self.faction3.paradigms.add(self.paradigm1, self.paradigm3)
+
+        self.faction1.practices.add(self.practice1, self.practice2)
+        self.faction2.practices.add(self.practice2, self.practice3)
+        self.faction3.practices.add(self.practice1, self.practice3)
+
     def test_affinities(self):
         faction = MageFaction.objects.create(name="Faction 1", parent=None)
         faction.affinities = ["forces", "correspondence"]
@@ -1435,10 +1457,16 @@ class TestMageFaction(TestCase):
         self.assertEqual(len(faction.affinities), 3)
 
     def test_get_all_paradigms(self):
-        pass
+        expected_paradigms = Paradigm.objects.filter(id__in=[1, 2, 3])
+        self.assertQuerysetEqual(
+            self.faction3.get_all_paradigms(), expected_paradigms, ordered=False
+        )
 
     def test_get_all_practices(self):
-        pass
+        expected_practices = Practice.objects.filter(id__in=[1, 2, 3])
+        self.assertQuerysetEqual(
+            self.faction3.get_all_practices(), expected_practices, ordered=False
+        )
 
     def test_str(self):
         faction = MageFaction.objects.create(name="Faction 1", parent=None)
@@ -1471,19 +1499,62 @@ class TestParadigm(TestCase):
 
 
 class TestEffect(TestCase):
+    def setUp(self):
+        self.mage = Mage.objects.create(
+            name="Test Mage",
+            correspondence=2,
+            time=2,
+            spirit=2,
+            matter=2,
+            forces=2,
+            life=2,
+            entropy=2,
+            mind=2,
+            prime=2,
+        )
+        self.effect = Effect.objects.create(
+            name="Test Effect",
+            correspondence=1,
+            time=1,
+            spirit=1,
+            matter=1,
+            forces=1,
+            life=1,
+            entropy=1,
+            mind=1,
+            prime=1,
+        )
+
     def test_save(self):
-        pass
+        self.effect.save()
+        self.assertEqual(self.effect.rote_cost, 9)
+        self.assertEqual(self.effect.max_sphere, 1)
 
     def test_is_learnable(self):
-        pass
+        self.assertTrue(self.effect.is_learnable(self.mage))
+        self.mage.correspondence = 0
+        self.assertFalse(self.effect.is_learnable(self.mage))
 
 
 class TestRandomRote(TestCase):
+    def setUp(self):
+        self.mage = Mage.objects.create(name="Test Mage", occult=3)
+        self.effect = Effect.objects.create(name="Test Effect")
+        self.practice = Practice.objects.create(
+            name="Test Practice", abilities=["occult"]
+        )
+        self.mage.practices.add(self.practice)
+        self.rote = Rote.objects.create(mage=self.mage, effect=self.effect)
+
     def test_save(self):
-        pass
+        self.rote.save()
+        self.assertIsNotNone(self.rote.practice)
 
     def test_random(self):
-        pass
+        self.rote.random()
+        self.assertIsNotNone(self.rote.practice)
+        self.assertIsNotNone(self.rote.attribute)
+        self.assertIsNotNone(self.rote.ability)
 
 
 class TestMageDetailView(TestCase):

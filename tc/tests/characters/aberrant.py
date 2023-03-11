@@ -10,7 +10,15 @@ from tc.models.characters.aberrant import (
     Tag,
     Transformation,
 )
-from tc.models.characters.human import Edge, EnhancedEdge, Specialty, TCPath, Trick
+from tc.models.characters.human import (
+    Edge,
+    EnhancedEdge,
+    PathConnection,
+    PathRating,
+    Specialty,
+    TCPath,
+    Trick,
+)
 
 
 # Create your tests here.
@@ -86,7 +94,18 @@ class TestPower(TestCase):
         self.assertEqual(self.character.power_cost(self.power), 0)
 
     def test_minimum_quantum_for_next_dot(self):
-        pass
+        self.aberrant = Aberrant.objects.create(name="Test Aberrant")
+        self.power = Power.objects.create(
+            name="Test Power", quantum_minimum=2, quantum_offset=1
+        )
+        self.power_rating = PowerRating.objects.create(
+            character=self.aberrant, power=self.power, rating=2
+        )
+
+        self.assertEqual(self.power_rating.minimum_quantum_for_next_dot(), 2)
+        self.power.quantum_minimum = -1
+        self.power.save()
+        self.assertEqual(self.power_rating.minimum_quantum_for_next_dot(), 3)
 
 
 class TestAberrant(TestCase):
@@ -654,46 +673,46 @@ class TestAberrant(TestCase):
         self.assertIn(ee, self.character.enhanced_edges.all())
 
     def test_total_mega_attribute(self):
-        pass
+        self.fail()
 
     def test_total_mega_edges(self):
-        pass
+        self.fail()
 
     def test_mega_edge_rating(self):
-        pass
+        self.fail()
 
     def test_total_powers(self):
-        pass
+        self.fail()
 
     def test_power_rating(self):
-        pass
+        self.fail()
 
     def test_get_tags(self):
-        pass
+        self.fail()
 
     def test_tag_rating(self):
-        pass
+        self.fail()
 
     def test_update_quantum_points(self):
-        pass
+        self.fail()
 
     def test_reset_flux(self):
-        pass
+        self.fail()
 
     def test_spend_xp_mega_attribute(self):
-        pass
+        self.fail()
 
     def test_spend_xp_mega_edge(self):
-        pass
+        self.fail()
 
     def test_spend_xp_power(self):
-        pass
+        self.fail()
 
     def test_spend_xp_tag(self):
-        pass
+        self.fail()
 
     def test_spend_xp_quantum(self):
-        pass
+        self.fail()
 
 
 class TestRandomAberrant(TestCase):
@@ -821,7 +840,39 @@ class TestRandomAberrant(TestCase):
         self.assertTrue(self.character.has_template())
 
     def test_random_transformation(self):
-        pass
+        self.aberrant = Aberrant.objects.create(name="Test Aberrant")
+        self.transform1 = Transformation.objects.create(
+            name="Test Transform 1", level=1
+        )
+        self.transform2 = Transformation.objects.create(
+            name="Test Transform 2", level=2
+        )
+        self.transform3 = Transformation.objects.create(
+            name="Test Transform 3", level=3
+        )
+        self.aberrant.transformations.add(self.transform1)
+        # Test adding a transformation
+        self.assertTrue(self.aberrant.random_transformation())
+        self.assertEqual(self.aberrant.transformations.count(), 2)
+
+        # Test adding a transformation with a specific level
+        self.assertTrue(self.aberrant.random_transformation(level=2))
+        self.assertEqual(self.aberrant.transformations.count(), 3)
+
+        # Test not adding a transformation when all at a certain level are already added
+        self.aberrant.transformations.add(
+            *self.aberrant.filter_transformations(level=3)
+        )
+        n = self.aberrant.transformations.count()
+        self.aberrant.random_transformation(level=3)
+        self.assertFalse(self.aberrant.random_transformation(level=3))
+        self.assertEqual(self.aberrant.transformations.count(), n)
+
+        # Test not adding a transformation when all are already added
+        self.aberrant.transformations.add(*self.aberrant.filter_transformations())
+        n = self.aberrant.transformations.count()
+        self.assertFalse(self.aberrant.random_transformation())
+        self.assertEqual(self.aberrant.transformations.count(), n)
 
     def test_random_spend_xp(self):
         self.character.xp = 15
@@ -869,18 +920,85 @@ class TestAberrantDetailView(TestCase):
 
 
 class TestMegaEdge(TestCase):
+    def setUp(self):
+        self.character = Aberrant.objects.create(name="Test Character", quantum=4)
+        self.edge = Edge.objects.create(name="Test Edge", ratings=[3])
+        self.mega_edge = MegaEdge.objects.create(name="Test Mega Edge", ratings=[5, 6])
+        self.mega_edge_rating = MegaEdgeRating.objects.create(
+            mega_edge=self.mega_edge, character=self.character, rating=3
+        )
+        self.path = TCPath.objects.create(name="Test Path")
+        self.path.edges.add(self.mega_edge)
+        self.path_connection = PathConnection.objects.create(path=self.path)
+        self.path_rating = PathRating.objects.create(
+            path=self.path, character=self.character, rating=4
+        )
+
     def test_check_prereqs(self):
-        pass
+        # Test with attribute prereq that is not satisfied
+        prereq = ("might", 4)
+        self.assertFalse(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with attribute prereq that is satisfied
+        self.character.might = 5
+        self.character.save()
+        self.assertTrue(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with skill prereq that is not satisfied
+        prereq = ("aim", 3)
+        self.assertFalse(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with skill prereq that is satisfied
+        setattr(self.character, "aim", 4)
+        self.assertTrue(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with edge prereq that is not satisfied
+        prereq = ("Test Edge", 2)
+        self.assertFalse(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with edge prereq that is satisfied
+        self.character.add_edge(self.edge)
+        self.assertTrue(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with mega edge prereq that is not satisfied
+        prereq = ("Test Mega Edge", 4)
+        self.assertFalse(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with mega edge prereq that is satisfied
+        self.character.add_mega_edge(self.mega_edge)
+        self.assertTrue(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with path prereq that is not satisfied
+        prereq = ("path", 5)
+        self.assertFalse(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with path prereq that is satisfied
+        self.character.add_path(self.path)
+        self.assertTrue(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with quantum prereq that is not satisfied
+        prereq = ("quantum", 5)
+        self.assertFalse(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with quantum prereq that is satisfied
+        self.character.quantum = 5
+        self.assertTrue(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with mega attribute prereq that is not satisfied
+        prereq = ("mega_might", 3)
+        self.assertFalse(self.mega_edge.prereq_satisfied(prereq, self.character))
+
+        # Test with mega attribute prereq that is satisfied
+        setattr(self.character, "mega_might", 4)
+        self.assertTrue(self.mega_edge.prereq_satisfied(prereq, self.character))
 
 
 class TestTag(TestCase):
-    def test_save(self):
-        pass
+    def setUp(self):
+        self.tag = Tag.objects.create(ratings=[1, 2, 3])
 
-
-class TestAberrantPrereqs(TestCase):
-    def test_aberrant_prereq_satisfied(self):
-        pass
-
-    def test_aberrant_check_prereqs(self):
-        pass
+    def test_save_method_updates_max_rating_field(self):
+        self.assertEqual(self.tag.max_rating, 3)
+        self.tag.ratings = [4, 5, 6]
+        self.tag.save()
+        self.assertEqual(self.tag.max_rating, 6)

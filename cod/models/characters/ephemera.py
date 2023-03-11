@@ -89,7 +89,7 @@ class Ephemera(Model):
 
     def random_type(self, ephemera_type=None):
         if ephemera_type is None:
-            ephemera_type = random.choice(self.TYPE_CHOICES)[-1]
+            ephemera_type = random.choice(self.TYPE_CHOICES)[0]
         return self.set_type(ephemera_type)
 
     def compute_maximum_essence(self):
@@ -129,12 +129,12 @@ class Ephemera(Model):
 
     def other_traits(self):
         self.compute_maximum_essence()
+        self.size = 5
         self.corpus = self.resistance + self.size
         self.willpower = self.resistance + self.finesse
         self.initiative = self.finesse + self.resistance
         self.defense = min(self.power, self.finesse)
         self.speed = self.power + self.finesse
-        self.size = 5
 
     def add_numina(self, numina):
         self.numina.add(numina)

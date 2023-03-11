@@ -333,7 +333,7 @@ class Chantry(Location):
         self.save()
 
     def random_leadership_type(self, leadership_type=None):
-        if leadership_type is None:
+        if leadership_type is not None:
             self.leadership_type = leadership_type
         else:
             self.leadership_type = random.choice(self.LEADERSHIP_CHOICES)[0]
