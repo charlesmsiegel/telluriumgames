@@ -90,13 +90,26 @@ class TestMortal(TestCase):
         self.assertTrue(self.character.has_vice())
 
     def test_has_aspirations(self):
-        self.fail()
+        self.assertFalse(self.character.has_aspirations())
+        self.character.add_short_term_aspiration_1("Earn a promotion at work")
+        self.character.add_short_term_aspiration_2("Learn to play guitar")
+        self.character.add_long_term_aspiration("Find true love")
+        self.assertTrue(self.character.has_aspirations())
 
     def test_add_short_term_aspirations(self):
-        self.fail()
+        self.assertEqual(self.character.short_term_aspiration_1, "")
+        self.assertEqual(self.character.short_term_aspiration_2, "")
+        self.character.add_short_term_aspiration_1("Earn a promotion at work")
+        self.character.add_short_term_aspiration_2("Learn to play guitar")
+        self.assertEqual(
+            self.character.short_term_aspiration_1, "Earn a promotion at work"
+        )
+        self.assertEqual(self.character.short_term_aspiration_2, "Learn to play guitar")
 
     def test_add_long_term_aspiration(self):
-        self.fail()
+        self.assertEqual(self.character.long_term_aspiration, "")
+        self.character.add_long_term_aspiration("Find true love")
+        self.assertEqual(self.character.long_term_aspiration, "Find true love")
 
     def test_add_attribute(self):
         self.character.strength = 1
@@ -109,28 +122,67 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.strength, 6)
 
     def test_get_mental_attributes(self):
-        self.fail()
+        attributes = self.character.get_mental_attributes()
+        self.assertEqual(attributes["intelligence"], 1)
+        self.assertEqual(attributes["wits"], 1)
+        self.assertEqual(attributes["resolve"], 1)
+        self.character.intelligence = 3
+        self.character.wits = 3
+        self.character.resolve = 2
+        attributes = self.character.get_mental_attributes()
+        self.assertEqual(attributes["intelligence"], 3)
+        self.assertEqual(attributes["wits"], 3)
+        self.assertEqual(attributes["resolve"], 2)
 
     def test_get_physical_attributes(self):
-        self.fail()
+        attributes = self.character.get_physical_attributes()
+        self.assertEqual(attributes["strength"], 1)
+        self.assertEqual(attributes["dexterity"], 1)
+        self.assertEqual(attributes["stamina"], 1)
+        self.character.strength = 3
+        self.character.dexterity = 3
+        self.character.stamina = 2
+        attributes = self.character.get_physical_attributes()
+        self.assertEqual(attributes["strength"], 3)
+        self.assertEqual(attributes["dexterity"], 3)
+        self.assertEqual(attributes["stamina"], 2)
 
     def test_get_social_attributes(self):
-        self.fail()
+        attributes = self.character.get_social_attributes()
+        self.assertEqual(attributes["presence"], 1)
+        self.assertEqual(attributes["manipulation"], 1)
+        self.assertEqual(attributes["composure"], 1)
+        self.character.presence = 3
+        self.character.manipulation = 3
+        self.character.composure = 2
+        attributes = self.character.get_social_attributes()
+        self.assertEqual(attributes["presence"], 3)
+        self.assertEqual(attributes["manipulation"], 3)
+        self.assertEqual(attributes["composure"], 2)
 
     def test_get_attributes(self):
-        self.fail()
+        attributes = self.character.get_attributes()
+        self.assertEqual(attributes["intelligence"], 1)
+        self.assertEqual(attributes["wits"], 1)
+        self.assertEqual(attributes["resolve"], 1)
+        self.assertEqual(attributes["strength"], 1)
+        self.assertEqual(attributes["dexterity"], 1)
+        self.assertEqual(attributes["stamina"], 1)
+        self.assertEqual(attributes["presence"], 1)
+        self.assertEqual(attributes["manipulation"], 1)
+        self.assertEqual(attributes["composure"], 1)
 
     def test_total_physical_attributes(self):
-        self.fail()
+        self.assertEqual(self.character.total_physical_attributes(), 3)
 
     def test_total_mental_attributes(self):
-        self.fail()
+        self.assertEqual(self.character.total_mental_attributes(), 3)
 
     def test_total_social_attributes(self):
-        self.fail()
+        self.assertEqual(self.character.total_social_attributes(), 3)
 
     def test_total_attributes(self):
-        self.fail()
+        self.assertEqual(self.character.total_attributes(), 9)
 
     def test_filter_attributes(self):
         self.character.strength = 5
@@ -303,28 +355,92 @@ class TestMortal(TestCase):
         self.assertNotEqual(triple, [4, 7, 11])
 
     def test_get_mental_skills(self):
-        self.fail()
+        self.assertEqual(
+            self.character.get_mental_skills(),
+            {
+                "academics": 0,
+                "computer": 0,
+                "crafts": 0,
+                "investigation": 0,
+                "medicine": 0,
+                "occult": 0,
+                "politics": 0,
+                "science": 0,
+            },
+        )
 
     def test_get_physical_skills(self):
-        self.fail()
+        self.assertEqual(
+            self.character.get_physical_skills(),
+            {
+                "athletics": 0,
+                "brawl": 0,
+                "drive": 0,
+                "firearms": 0,
+                "larceny": 0,
+                "stealth": 0,
+                "survival": 0,
+                "weaponry": 0,
+            },
+        )
 
     def test_get_social_skills(self):
-        self.fail()
+        self.assertEqual(
+            self.character.get_social_skills(),
+            {
+                "animal_ken": 0,
+                "empathy": 0,
+                "expression": 0,
+                "intimidation": 0,
+                "persuasion": 0,
+                "socialize": 0,
+                "streetwise": 0,
+                "subterfuge": 0,
+            },
+        )
 
     def test_get_skills(self):
-        self.fail()
+        self.assertEqual(
+            self.character.get_skills(),
+            {
+                "academics": 0,
+                "computer": 0,
+                "crafts": 0,
+                "investigation": 0,
+                "medicine": 0,
+                "occult": 0,
+                "politics": 0,
+                "science": 0,
+                "athletics": 0,
+                "brawl": 0,
+                "drive": 0,
+                "firearms": 0,
+                "larceny": 0,
+                "stealth": 0,
+                "survival": 0,
+                "weaponry": 0,
+                "animal_ken": 0,
+                "empathy": 0,
+                "expression": 0,
+                "intimidation": 0,
+                "persuasion": 0,
+                "socialize": 0,
+                "streetwise": 0,
+                "subterfuge": 0,
+            },
+        )
 
     def test_total_physical_skills(self):
-        self.fail()
+        self.assertEqual(self.character.total_physical_skills(), 0)
 
     def test_total_mental_skills(self):
-        self.fail()
+        self.assertEqual(self.character.total_mental_skills(), 0)
 
     def test_total_social_skills(self):
-        self.fail()
+        self.assertEqual(self.character.total_social_skills(), 0)
 
     def test_total_skills(self):
-        self.fail()
+        self.assertEqual(self.character.total_skills(), 0)
 
     def test_add_specialty(self):
         specialty = CoDSpecialty.objects.create(name="Biology", skill="science")
@@ -423,10 +539,19 @@ class TestMortal(TestCase):
         )
 
     def test_remove_merit(self):
-        self.fail()
+        merit = CoDMerit.objects.create(name="Test Merit", ratings=[1])
+        self.character.add_merit(merit)
+        # Test removing a merit that exists
+        self.assertTrue(self.character.remove_merit(merit))
+        self.assertFalse(self.character.merits.filter(name="Test Merit").exists())
 
     def test_merit_rating(self):
-        self.fail()
+        merit = CoDMerit.objects.create(name="Test Merit", ratings=[2])
+        self.character.add_merit(merit)
+        # Test merit with no rating
+        self.assertEqual(self.character.merit_rating("Nonexistent Merit"), 0)
+        # Test merit with rating
+        self.assertEqual(self.character.merit_rating("Test Merit"), 2)
 
     def test_filter_merits(self):
         m1 = CoDMerit.objects.create(
@@ -484,7 +609,14 @@ class TestMortal(TestCase):
         self.assertTrue(self.character.has_merits())
 
     def test_total_merits(self):
-        self.fail()
+        # Test total merits with no merits
+        self.assertEqual(self.character.total_merits(), 0)
+        # Test total merits with merits
+        merit = CoDMerit.objects.create(name="Test Merit", ratings=[2])
+        merit2 = CoDMerit.objects.create(name="Test Merit 2", ratings=[3])
+        self.character.add_merit(merit)
+        self.character.add_merit(merit2)
+        self.assertEqual(self.character.total_merits(), 5)
 
     def test_assign_advantages(self):
         self.character.resolve = 2
@@ -666,7 +798,13 @@ class TestMortal(TestCase):
         )
 
     def test_random_xp_functions(self):
-        self.fail()
+        xp_functions = self.character.random_xp_functions()
+        self.assertIn("attribute", xp_functions)
+        self.assertIn("merit", xp_functions)
+        self.assertIn("specialty", xp_functions)
+        self.assertIn("skill", xp_functions)
+        self.assertIn("morality", xp_functions)
+        self.assertIn("willpower", xp_functions)
 
     def test_add_to_spend(self):
         self.character.xp = 100
@@ -688,25 +826,51 @@ class TestMortal(TestCase):
         )
 
     def test_spend_xp_attribute(self):
-        self.fail()
+        self.character.xp = 10
+        self.character.spend_xp_attribute("strength")
+        self.character.spend_xp_attribute("strength")
+        self.assertEqual(self.character.strength, 3)
+        self.assertEqual(self.character.xp, 2)
 
     def test_spend_xp_skill(self):
-        self.fail()
+        self.character.xp = 9
+        self.character.spend_xp_skill("academics")
+        self.character.spend_xp_skill("academics")
+        self.character.spend_xp_skill("academics")
+        self.assertEqual(self.character.academics, 3)
+        self.assertEqual(self.character.xp, 3)
 
     def test_spend_xp_merit(self):
-        self.fail()
+        # Test spending XP on a merit that exists
+        self.character.xp = 2
+        merit = CoDMerit.objects.create(name="Test Merit", ratings=[2])
+        self.assertTrue(self.character.spend_xp_merit(merit))
+        self.assertEqual(self.character.merit_rating("Test Merit"), 2)
+        self.assertEqual(self.character.xp, 0)
+        # Test spending XP on a merit that does not exist
+        self.assertFalse(
+            self.character.spend_xp_merit(
+                CoDMerit.objects.create(name="Nonexistent Merit", ratings=[3])
+            )
+        )
 
     def test_spend_xp_specialty(self):
-        self.fail()
+        self.character.xp = 5
+        self.character.add_skill("academics")
+        spec = CoDSpecialty.objects.create(name="Lit", skill="academics")
+        self.assertTrue(self.character.spend_xp_specialty(spec))
 
     def test_add_morality(self):
-        self.fail()
+        self.character.add_morality()
+        self.assertEqual(self.character.morality, 8)
 
     def test_add_willpower(self):
-        self.fail()
+        self.character.add_willpower()
+        self.assertEqual(self.character.willpower, 2)
 
     def test_spend_xp_morality(self):
-        self.fail()
+        self.character.xp = 5
+        self.assertTrue(self.character.spend_xp_morality())
 
     def test_spend_xp_willpower(self):
         self.character.resolve = 2
@@ -724,7 +888,9 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.xp, 1)
 
     def test_spend_xp(self):
-        self.fail()
+        self.character.xp = 5
+        self.character.add_skill("academics")
+        self.assertTrue(self.character.spend_xp("academics"))
 
     def test_contacts_merit(self):
         contacts = CoDMerit.objects.create(
@@ -790,7 +956,11 @@ class TestRandomMortal(TestCase):
             Condition.objects.create(name=f"Condition {i}")
 
     def test_random_name(self):
-        self.fail()
+        mortal = Mortal()
+        mortal.random_name()
+        self.assertIsNotNone(mortal.name)
+        self.assertIsNotNone(mortal.ethnicity)
+        self.assertIsNotNone(mortal.sex)
 
     def test_random_basis(self):
         self.character.random_basis()
@@ -903,22 +1073,43 @@ class TestRandomMortal(TestCase):
         self.assertLess(self.character.xp, 15)
 
     def test_random_xp_willpower(self):
-        self.fail()
+        mortal = Mortal()
+        mortal.xp = 2
+        mortal.random_xp_willpower()
+        self.assertEqual(mortal.willpower, 2)
+        self.assertEqual(mortal.xp, 1)
 
     def test_random_xp_attribute(self):
-        self.fail()
+        self.character.xp = 5
+        self.character.random_xp_attributes()
+        self.assertEqual(self.character.total_attributes(), 10)
+        self.assertGreaterEqual(self.character.xp, 1)
 
     def test_random_xp_skill(self):
-        self.fail()
+        self.character.xp = 2
+        self.character.random_xp_skill()
+        self.assertGreaterEqual(self.character.total_skills(), 0)
 
     def test_random_xp_merit(self):
-        self.fail()
+        self.character.xp = 10
+        total = self.character.total_merits()
+        self.character.random_xp_merit()
+        self.assertGreater(self.character.total_merits(), total)
 
     def test_random_xp_specialty(self):
-        self.fail()
+        mortal = Mortal.objects.create()
+        mortal.xp = 2
+        mortal.academics = 1
+        mortal.random_xp_specialty()
+        self.assertEqual(mortal.xp, 1)
+        self.assertEqual(mortal.specialties.count(), 1)
 
     def test_random_xp_morality(self):
-        self.fail()
+        mortal = Mortal()
+        mortal.xp = 3
+        mortal.random_xp_morality()
+        self.assertEqual(mortal.morality, 8)
+        self.assertEqual(mortal.xp, 1)
 
     def test_random(self):
         character = Mortal.objects.create(owner=self.player)
