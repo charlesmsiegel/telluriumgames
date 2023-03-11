@@ -234,7 +234,16 @@ class TestDragonBlooded(TestCase):
         self.fail()
 
     def test_xp_cost(self):
-        self.fail()
+        self.assertEqual(self.db.xp_cost("charm"), 10)
+        self.assertEqual(self.db.xp_cost("aspect charm"), 8)
+        self.assertEqual(self.db.xp_cost("favored charm"), 8)
+        self.assertEqual(self.db.xp_cost("martial arts charm"), 10)
+        self.db.add_favored_ability("brawl")
+        self.assertEqual(self.db.xp_cost("martial arts charm"), 8)
+        self.assertEqual(self.db.xp_cost("spell"), 12)
+        self.db.add_favored_ability("occult")
+        self.assertEqual(self.db.xp_cost("spell"), 10)
+        self.assertEqual(self.db.xp_cost("evocation"), 12)
 
     def test_spend_xp(self):
         self.fail()
