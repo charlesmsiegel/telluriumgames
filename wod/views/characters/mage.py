@@ -4,10 +4,10 @@ from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from core.models import Language
 from game.models.chronicle import Chronicle
+from wod.forms.characters.human import AttributeForm
 from wod.forms.characters.mage import (
     MageAbilitiesForm,
     MageAdvantagesForm,
-    MageAttributeForm,
     MageCreationForm,
     MageDescriptionForm,
     MageFreebieForm,
@@ -111,7 +111,7 @@ class MageDetailView(View):
         if mage.status != "Un":
             return render(request, "wod/characters/mage/mage/detail.html", context,)
         if mage.creation_status == 1:
-            context["form"] = MageAttributeForm(character=mage)
+            context["form"] = AttributeForm(character=mage)
             return render(
                 request, "wod/characters/mage/mage/1_attribute.html", context,
             )
@@ -145,7 +145,7 @@ class MageDetailView(View):
         char = Mage.objects.get(pk=kwargs["pk"])
         context = self.get_context(char)
         if char.creation_status == 1:
-            form = MageAttributeForm(request.POST, character=char)
+            form = AttributeForm(request.POST, character=char)
             if "Random Attributes" in form.data:
                 char.random_attributes()
                 char.next_stage()
@@ -160,7 +160,7 @@ class MageDetailView(View):
                 return render(
                     request, "wod/characters/mage/mage/2_abilities.html", context,
                 )
-            context["form"] = MageAttributeForm(character=char)
+            context["form"] = AttributeForm(character=char)
             return render(
                 request, "wod/characters/mage/mage/1_attribute.html", context,
             )
@@ -168,7 +168,7 @@ class MageDetailView(View):
             form = MageAbilitiesForm(request.POST, character=char)
             if "Back" in form.data:
                 char.prev_stage()
-                context["form"] = MageAttributeForm(character=char)
+                context["form"] = AttributeForm(character=char)
                 return render(
                     request, "wod/characters/mage/mage/1_attribute.html", context,
                 )
