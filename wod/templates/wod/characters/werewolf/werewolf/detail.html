@@ -337,9 +337,7 @@
             Battle Scars
         </div>
         <div class="col-sm">
-            {% for scar in object.battle_scars.all %}
-                <a href="{{ scar.get_absolute_url }}">{{ scar.name }}, </a>
-            {% endfor %}
+            {% for scar in object.battle_scars.all %}<a href="{{ scar.get_absolute_url }}">{{ scar.name }}, </a>{% endfor %}
         </div>
     </div>
     <div class="row">
