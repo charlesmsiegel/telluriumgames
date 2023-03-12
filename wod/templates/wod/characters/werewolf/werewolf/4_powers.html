@@ -1,0 +1,43 @@
+{% extends "wod/characters/werewolf/werewolf/detail.html" %}
+{% load %}
+{% block gifts %}
+    <div class="row">
+        <h2 class="col-sm {{ object.get_heading }}">Gifts</h2>
+    </div>
+    <div class="row">
+        <div class="col-sm">{{ form.breed_gift }}</div>
+        <div class="col-sm">{{ form.auspice_gift }}</div>
+        <div class="col-sm">{{ form.tribe_gift }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <input class="btn btn-primary" name="Back" type="submit" value="Back"/>
+            <input class="btn btn-primary"
+                   name="Random Powers"
+                   type="submit"
+                   value="Random Powers"/>
+            <input class="btn btn-primary"
+                   name="Assign Powers"
+                   type="submit"
+                   value="Assign Powers"/>
+        </div>
+    </div>
+{% endblock gifts %}
+{% block rites %}
+{% endblock rites %}
+{% block fetishes %}
+{% endblock fetishes %}
+{% block mfs %}
+{% endblock mfs %}
+{% block languages %}
+{% endblock languages %}
+{% block appearance %}
+{% endblock appearance %}
+{% block history %}
+{% endblock history %}
+{% block advancement %}
+{% endblock advancement %}
+{% block update %}
+{% endblock update %}
+{% block extrascripts %}
+{% endblock extrascripts %}

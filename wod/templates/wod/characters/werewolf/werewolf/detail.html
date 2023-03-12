@@ -180,6 +180,7 @@
     </div>
 {% endblock backgrounds %}
 {% block powers %}
+    {% block gifts %}
     <div class="row">
         <h2 class="col-sm {{ object.get_heading }}">
             Gifts
@@ -194,6 +195,8 @@
             {% endfor %}
         </div>
     {% endfor %}
+    {% endblock gifts %}
+    {% block rites %}
     <div class="row">
         <h2 class="col-sm {{ object.get_heading }}">
             Rites
@@ -204,6 +207,8 @@
             {% for rite in row %}<a class="col-sm" href="{{ rite.get_absolute_url }}">{{ rite.name }}</a>{% endfor %}
         </div>
     {% endfor %}
+    {% endblock rites %}
+    {% block fetishes %}
     <div class="row">
         <h2 class="col-sm {{ object.get_heading }}">
             Fetishes
@@ -214,6 +219,7 @@
             <a class="col-sm" href="{{ fetish.get_absolute_url }}">{{ fetish.name }}</a>
         </div>
     {% endfor %}
+    {% endblock fetishes %}
 {% endblock powers %}
 {% block appearance %}
     <div class="row">
