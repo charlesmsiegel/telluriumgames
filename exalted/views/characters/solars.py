@@ -286,9 +286,7 @@ class SolarDetailView(View):
                 "exalted/characters/solars/solar/creation_intimacies.html",
                 context,
             )
-        render(
-            request, "exalted/characters/solars/solar/detail.html", context,
-        )
+        return render(request, "exalted/characters/solars/solar/detail.html", context,)
 
     def get_context(self, char):
         return {

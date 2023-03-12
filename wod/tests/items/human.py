@@ -16,7 +16,7 @@ class TestRandomWoDItem(TestCase):
         self.assertTrue(item.has_name())
 
         # assert that the name is in the correct format
-        self.assertRegex(item.name, "^Random Item \d+$")
+        self.assertTrue(item.name.startswith("Random Item "))
 
 
 class TestItemIndexView(TestCase):

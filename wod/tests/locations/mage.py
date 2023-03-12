@@ -440,7 +440,6 @@ class TestChantry(TestCase):
         self.assertTrue(self.chantry.has_season())
 
     def test_get_traits(self):
-        mock_human = Mock()
         self.chantry.allies = 2
         self.chantry.arcane = 3
         self.chantry.backup = 4

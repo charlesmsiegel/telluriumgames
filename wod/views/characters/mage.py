@@ -65,7 +65,7 @@ class MageCreateView(View):
             s = Mage.objects.create(owner=request.user, status="Un")
             s.random()
             return redirect(s.get_absolute_url())
-        elif "Random Basics" in request.POST:
+        if "Random Basics" in request.POST:
             s = Mage.objects.create(owner=request.user, status="Un")
             s.random_name()
             s.random_concept()
@@ -74,7 +74,7 @@ class MageCreateView(View):
             s.random_faction()
             s.save()
             return redirect(s.get_absolute_url())
-        elif "Save" in request.POST:
+        if "Save" in request.POST:
             form = MageCreationForm(request.POST)
             chron = None
             affiliation = None
@@ -107,7 +107,7 @@ class MageCreateView(View):
             return redirect(s.get_absolute_url())
         context = {}
         context["form"] = MageCreationForm()
-        render(request, "wod/characters/mage/mage/create.html", context)
+        return render(request, "wod/characters/mage/mage/create.html", context)
 
 
 class MageDetailView(View):
@@ -235,7 +235,6 @@ class MageDetailView(View):
             form = MagePowersForm(request.POST, character=char)
             if "Back" in form.data:
                 char.prev_stage()
-                d = char.get_backgrounds()
                 context["form"] = MageAdvantagesForm(character=char)
                 return render(
                     request, "wod/characters/mage/mage/3_advantages.html", context,

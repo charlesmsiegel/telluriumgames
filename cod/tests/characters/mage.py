@@ -1005,7 +1005,7 @@ class TestRandomProximiFamily(TestCase):
 
     def test_random_blessing(self):
         pf = ProximiFamily.objects.create(path=self.path)
-        bless = CoDRote.objects.create(name="Test Blessing", level=1, arcanum="mind")
+        CoDRote.objects.create(name="Test Blessing", level=1, arcanum="mind")
         pf.random_blessing(max_rating=1)
         self.assertGreaterEqual(pf.possible_blessings.all().count(), 1)
 

@@ -72,7 +72,7 @@ class Scene(models.Model):
                     difficulty = int(parts[1])
                     specialty = False
                 post.wod_roll(num_dice, difficulty=difficulty, specialty=specialty)
-            elif "cod":
+            elif self.story.chronicle.system == "cod":
                 # /roll <num_dice> <again_threshold>-again
                 tmp = message.split("/roll")[1]
                 if tmp.endswith("-again"):
@@ -82,8 +82,8 @@ class Scene(models.Model):
                     num_dice = int(tmp)
                     again = 10
                 post.cod_roll(num_dice, again_minimum=again)
-            elif "tc":
+            elif self.story.chronicle.system == "tc":
                 pass
-            elif "ex":
+            elif self.story.chronicle.system == "ex":
                 pass
         return post

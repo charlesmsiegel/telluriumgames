@@ -78,7 +78,7 @@ class TestEphemera(TestCase):
 
     def test_filter_numina(self):
         numina1 = Numina.objects.create()
-        numina2 = Numina.objects.create()
+        Numina.objects.create()
         num = self.ephemera.filter_numina().count()
         self.ephemera.add_numina(numina1)
         self.assertEqual(self.ephemera.filter_numina().count(), num - 1)
@@ -122,7 +122,7 @@ class TestRandomEphemera(TestCase):
         self.assertLessEqual(total_dots, rank_to_dots[rank][-1])
 
     def test_random_numina(self):
-        numina = Numina.objects.create(name="Test Numina")
+        Numina.objects.create(name="Test Numina")
         self.ephemera.random_numina()
         self.assertGreaterEqual(self.ephemera.total_numina(), 0)
 

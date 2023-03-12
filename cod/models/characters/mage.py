@@ -270,7 +270,7 @@ class Mage(Mortal):
         return reverse("cod:characters:mage:update_mage", kwargs={"pk": self.pk})
 
     def save(self, *args, **kwargs):
-        if self.obsessions == []:
+        if not self.obsessions:
             self.obsessions = [None, None, None, None]
         super().save(*args, **kwargs)
 

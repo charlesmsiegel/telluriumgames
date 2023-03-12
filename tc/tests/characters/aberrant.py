@@ -94,18 +94,18 @@ class TestPower(TestCase):
         self.assertEqual(self.character.power_cost(self.power), 0)
 
     def test_minimum_quantum_for_next_dot(self):
-        self.aberrant = Aberrant.objects.create(name="Test Aberrant")
-        self.power = Power.objects.create(
+        aberrant = Aberrant.objects.create(name="Test Aberrant")
+        power = Power.objects.create(
             name="Test Power", quantum_minimum=2, quantum_offset=1
         )
-        self.power_rating = PowerRating.objects.create(
-            character=self.aberrant, power=self.power, rating=2
+        power_rating = PowerRating.objects.create(
+            character=aberrant, power=power, rating=2
         )
 
-        self.assertEqual(self.power_rating.minimum_quantum_for_next_dot(), 2)
-        self.power.quantum_minimum = -1
-        self.power.save()
-        self.assertEqual(self.power_rating.minimum_quantum_for_next_dot(), 3)
+        self.assertEqual(power_rating.minimum_quantum_for_next_dot(), 2)
+        power.quantum_minimum = -1
+        power.save()
+        self.assertEqual(power_rating.minimum_quantum_for_next_dot(), 3)
 
 
 class TestAberrant(TestCase):
@@ -840,39 +840,31 @@ class TestRandomAberrant(TestCase):
         self.assertTrue(self.character.has_template())
 
     def test_random_transformation(self):
-        self.aberrant = Aberrant.objects.create(name="Test Aberrant")
-        self.transform1 = Transformation.objects.create(
-            name="Test Transform 1", level=1
-        )
-        self.transform2 = Transformation.objects.create(
-            name="Test Transform 2", level=2
-        )
-        self.transform3 = Transformation.objects.create(
-            name="Test Transform 3", level=3
-        )
-        self.aberrant.transformations.add(self.transform1)
+        aberrant = Aberrant.objects.create(name="Test Aberrant")
+        transform1 = Transformation.objects.create(name="Test Transform 1", level=1)
+        Transformation.objects.create(name="Test Transform 2", level=2)
+        Transformation.objects.create(name="Test Transform 3", level=3)
+        aberrant.transformations.add(transform1)
         # Test adding a transformation
-        self.assertTrue(self.aberrant.random_transformation())
-        self.assertEqual(self.aberrant.transformations.count(), 2)
+        self.assertTrue(aberrant.random_transformation())
+        self.assertEqual(aberrant.transformations.count(), 2)
 
         # Test adding a transformation with a specific level
-        self.assertTrue(self.aberrant.random_transformation(level=2))
-        self.assertEqual(self.aberrant.transformations.count(), 3)
+        self.assertTrue(aberrant.random_transformation(level=2))
+        self.assertEqual(aberrant.transformations.count(), 3)
 
         # Test not adding a transformation when all at a certain level are already added
-        self.aberrant.transformations.add(
-            *self.aberrant.filter_transformations(level=3)
-        )
-        n = self.aberrant.transformations.count()
-        self.aberrant.random_transformation(level=3)
-        self.assertFalse(self.aberrant.random_transformation(level=3))
-        self.assertEqual(self.aberrant.transformations.count(), n)
+        aberrant.transformations.add(*self.aberrant.filter_transformations(level=3))
+        n = aberrant.transformations.count()
+        aberrant.random_transformation(level=3)
+        self.assertFalse(aberrant.random_transformation(level=3))
+        self.assertEqual(aberrant.transformations.count(), n)
 
         # Test not adding a transformation when all are already added
-        self.aberrant.transformations.add(*self.aberrant.filter_transformations())
-        n = self.aberrant.transformations.count()
-        self.assertFalse(self.aberrant.random_transformation())
-        self.assertEqual(self.aberrant.transformations.count(), n)
+        aberrant.transformations.add(*aberrant.filter_transformations())
+        n = aberrant.transformations.count()
+        self.assertFalse(aberrant.random_transformation())
+        self.assertEqual(aberrant.transformations.count(), n)
 
     def test_random_spend_xp(self):
         self.character.xp = 15
