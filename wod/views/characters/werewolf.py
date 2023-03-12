@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
-from wod.models.characters.human import MeritFlawRating
+from game.models.chronicle import Chronicle
+from wod.forms.characters.werewolf import WerewolfCreationForm
+from wod.models.characters.human import Archetype, MeritFlawRating
 from wod.models.characters.werewolf.fomori import Fomor, FomoriPower
 from wod.models.characters.werewolf.garou import (
     BattleScar,
@@ -15,6 +17,49 @@ from wod.models.characters.werewolf.garou import (
 )
 from wod.models.characters.werewolf.kinfolk import Kinfolk
 from wod.models.characters.werewolf.spirits import SpiritCharacter, SpiritCharm, Totem
+
+
+class WerewolfCreateView(View):
+    def get(self, request, *args, **kwargs):
+        context = {}
+        context["form"] = WerewolfCreationForm()
+        return render(request, "wod/characters/werewolf/werewolf/create.html", context)
+
+    def post(self, request, *args, **kwargs):
+        if "Full Random" in request.POST:
+            s = Werewolf.objects.create(owner=request.user, status="Un")
+            s.random()
+            return redirect(s.get_absolute_url())
+        if "Random Basics" in request.POST:
+            s = Werewolf.objects.create(owner=request.user, status="Un", rank=1)
+            s.random_name()
+            s.random_concept()
+            s.random_archetypes()
+            s.random_tribe()
+            s.random_auspice()
+            s.random_breed()
+            s.save()
+            return redirect(s.get_absolute_url())
+        if "Save" in request.POST:
+            form = WerewolfCreationForm(request.POST)
+            form.full_clean()
+            s = Werewolf.objects.create(
+                name=form.data["name"],
+                concept=form.data["concept"],
+                demeanor=form.cleaned_data["demeanor"],
+                nature=form.cleaned_data["nature"],
+                owner=request.user,
+                status="Un",
+                chronicle=form.cleaned_data["chronicle"],
+                rank=1,
+                tribe=form.cleaned_data["tribe"],
+                auspice=form.data["auspice"],
+                breed=form.data["breed"],
+            )
+            return redirect(s.get_absolute_url())
+        context = {}
+        context["form"] = WerewolfCreationForm()
+        return render(request, "wod/characters/werewolf/werewolf/create.html", context)
 
 
 class WerewolfDetailView(View):
@@ -55,12 +100,6 @@ class WerewolfDetailView(View):
         context["rites"] = all_rites
         context["rank_name"] = werewolf.rank_names[werewolf.rank]
         return context
-
-
-class WerewolfCreateView(CreateView):
-    model = Werewolf
-    fields = "__all__"
-    template_name = "wod/characters/werewolf/werewolf/form.html"
 
 
 class WerewolfUpdateView(UpdateView):

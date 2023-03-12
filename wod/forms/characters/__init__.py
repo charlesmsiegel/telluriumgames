@@ -1,6 +1,6 @@
 from django import forms
 
-from . import mage
+from . import mage, werewolf
 
 
 class RandomCharacterForm(forms.Form):
