@@ -76,30 +76,24 @@ class MageCreateView(View):
             return redirect(s.get_absolute_url())
         if "Save" in request.POST:
             form = MageCreationForm(request.POST)
-            chron = None
+            form.full_clean()
             affiliation = None
             faction = None
             subfaction = None
-            if "chronicle" in form.data.keys():
-                chron = Chronicle.objects.filter(pk=form.data["chronicle"]).first()
             if "affiliation" in form.data.keys():
-                affiliation = MageFaction.objects.filter(
-                    pk=form.data["affiliation"]
-                ).first()
+                affiliation = form.cleaned_data["affiliation"]
             if "faction" in form.data.keys():
-                faction = MageFaction.objects.filter(pk=form.data["faction"]).first()
+                faction = form.cleaned_data["faction"]
             if "subfaction" in form.data.keys():
-                subfaction = MageFaction.objects.filter(
-                    pk=form.data["subfaction"]
-                ).first()
+                subfaction = form.cleaned_data["subfaction"]
             s = Mage.objects.create(
                 name=form.data["name"],
                 concept=form.data["concept"],
-                demeanor=Archetype.objects.get(pk=form.data["demeanor"]),
-                nature=Archetype.objects.get(pk=form.data["nature"]),
+                demeanor=form.cleaned_data["demeanor"],
+                nature=form.cleaned_data["nature"],
                 owner=request.user,
                 status="Un",
-                chronicle=chron,
+                chronicle=form.cleaned_data["chronicle"],
                 affiliation=affiliation,
                 faction=faction,
                 subfaction=subfaction,
