@@ -483,6 +483,9 @@ class Mage(MtAHuman):
             return False
         r.rating -= 1
         r.save()
+        for rr in ResRating.objects.filter(mage=self):
+            if rr.rating == 0:
+                rr.delete()
         return True
 
     def total_resonance(self):

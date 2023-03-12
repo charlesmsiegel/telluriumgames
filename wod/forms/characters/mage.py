@@ -48,40 +48,22 @@ class MageAttributeForm(forms.Form):
     intelligence = forms.IntegerField(max_value=5, min_value=1)
     wits = forms.IntegerField(max_value=5, min_value=1)
 
-    def total_physical(self):
-        self.full_clean()
-        return (
-            self.cleaned_data["strength"]
-            + self.cleaned_data["dexterity"]
-            + self.cleaned_data["stamina"]
-        )
+    def __init__(self, *args, **kwargs):
+        self.char = kwargs.pop("character")
+        kwargs["initial"] = self.char.get_attributes()
+        super().__init__(*args, **kwargs)
 
-    def total_social(self):
+    def assign(self):
         self.full_clean()
-        return (
-            self.cleaned_data["charisma"]
-            + self.cleaned_data["manipulation"]
-            + self.cleaned_data["appearance"]
-        )
-
-    def total_mental(self):
-        self.full_clean()
-        return (
-            self.cleaned_data["perception"]
-            + self.cleaned_data["intelligence"]
-            + self.cleaned_data["wits"]
-        )
-
-    def has_attributes(self):
-        triple = [10, 8, 6]
-        other_triple = [
-            self.total_physical(),
-            self.total_social(),
-            self.total_mental(),
-        ]
-        triple.sort()
-        other_triple.sort()
-        return triple == other_triple
+        self.char.strength = self.cleaned_data["strength"]
+        self.char.dexterity = self.cleaned_data["dexterity"]
+        self.char.stamina = self.cleaned_data["stamina"]
+        self.char.charisma = self.cleaned_data["charisma"]
+        self.char.manipulation = self.cleaned_data["manipulation"]
+        self.char.appearance = self.cleaned_data["appearance"]
+        self.char.perception = self.cleaned_data["perception"]
+        self.char.intelligence = self.cleaned_data["intelligence"]
+        self.char.wits = self.cleaned_data["wits"]
 
 
 class MageAbilitiesForm(forms.Form):
@@ -194,35 +176,20 @@ class MageAbilitiesForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.char = kwargs.pop("character")
+        kwargs["initial"] = self.char.get_abilities()
         super().__init__(*args, **kwargs)
 
-    def total_talents(self):
+    def assign(self):
         self.full_clean()
-        talent_list = self.char.get_talents().keys()
-        if self.char.faction.name != "Akashayana":
-            talent_list = [x for x in talent_list if x != "do"]
-        return sum(self.cleaned_data[x] for x in talent_list)
-
-    def total_skills(self):
-        self.full_clean()
-        skill_list = self.char.get_skills().keys()
-        return sum(self.cleaned_data[x] for x in skill_list)
-
-    def total_knowledges(self):
-        self.full_clean()
-        knowledge_list = self.char.get_knowledges().keys()
-        return sum(self.cleaned_data[x] for x in knowledge_list)
-
-    def has_abilities(self):
-        triple = [13, 9, 5]
-        other_triple = [
-            self.total_talents(),
-            self.total_skills(),
-            self.total_knowledges(),
-        ]
-        triple.sort()
-        other_triple.sort()
-        return triple == other_triple
+        for key in (
+            list(self.char.get_talents().keys())
+            + list(self.char.get_skills().keys())
+            + list(self.char.get_knowledges().keys())
+        ):
+            if key == "do" and self.char.faction.name != "Akashayana":
+                pass
+            else:
+                setattr(self.char, key, self.cleaned_data[key])
 
 
 class MageAdvantagesForm(forms.Form):
@@ -286,32 +253,25 @@ class MageAdvantagesForm(forms.Form):
             choices = [(x, x.title()) for x in self.char.get_spheres().keys()]
         choices = list(set(choices))
         choices.sort()
+        kwargs["initial"] = self.char.get_backgrounds()
+        kwargs["initial"]["arete"] = max(self.char.arete, 1)
+        kwargs["initial"]["affinity_sphere"] = self.char.affinity_sphere
+        kwargs["initial"]["paradigms"] = self.char.paradigms.all()
+        kwargs["initial"]["practices"] = self.char.practices.all()
+        kwargs["initial"]["instruments"] = self.char.instruments.all()
         super().__init__(*args, **kwargs)
         self.fields["affinity_sphere"].widget.choices += choices
 
-    def has_backgrounds(self):
+    def assign(self):
         self.full_clean()
-        backgrounds = self.char.get_backgrounds().keys()
-        total_backgrounds = sum(self.cleaned_data[x] for x in backgrounds)
-        total_backgrounds += self.cleaned_data["totem"]
-        total_backgrounds += self.cleaned_data["enhancement"]
-        total_backgrounds += self.cleaned_data["sanctum"]
-        return total_backgrounds == 7
-
-    def has_affinity_sphere(self):
-        self.full_clean()
-        return self.cleaned_data["affinity_sphere"] != "----"
-
-    def has_focus(self):
-        paradigms = self.cleaned_data["paradigms"].count() >= 1
-        practices = self.cleaned_data["practices"].count() >= 1
-        instruments = self.cleaned_data["paradigms"].count() >= 7
-        return paradigms + practices + instruments
-
-    def complete(self):
-        return (
-            self.has_backgrounds() and self.has_affinity_sphere() and self.has_focus()
-        )
+        for key in self.char.get_backgrounds().keys():
+            setattr(self.char, key, self.cleaned_data[key])
+        self.char.arete = self.cleaned_data["arete"]
+        self.char.affinity_sphere = self.cleaned_data["affinity_sphere"]
+        setattr(self.char, self.char.affinity_sphere, 1)
+        self.char.paradigms.add(*list(self.cleaned_data["paradigms"]))
+        self.char.practices.add(*list(self.cleaned_data["practices"]))
+        self.char.instruments.add(*list(self.cleaned_data["instruments"]))
 
 
 class MagePowersForm(forms.Form):
@@ -332,6 +292,11 @@ class MagePowersForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.char = kwargs.pop("character")
+
+        kwargs["initial"] = self.char.get_spheres()
+        kwargs["initial"]["resonance"] = self.char.filter_resonance(minimum=1).first()
+        self.char.subtract_resonance(kwargs["initial"]["resonance"])
+
         super().__init__(*args, **kwargs)
         for sphere in [
             "correspondence",
@@ -351,12 +316,12 @@ class MagePowersForm(forms.Form):
             max_value=self.char.arete, min_value=1
         )
 
-    def complete(self):
+    def assign(self):
         self.full_clean()
-        return (
-            sum(self.cleaned_data[x] for x in self.char.get_spheres().keys()) == 6
-            and self.cleaned_data["resonance"] is not None
-        )
+        for key in self.char.get_spheres().keys():
+            setattr(self.char, key, self.cleaned_data[key])
+        res = self.cleaned_data["resonance"]
+        self.char.add_resonance(res)
 
 
 class MageMeritFlawForm(forms.Form):
@@ -535,6 +500,14 @@ class MageFreebieForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.char = kwargs.pop("character")
+
+        kwargs["initial"] = self.char.get_attributes()
+        kwargs["initial"].update(self.char.get_abilities())
+        kwargs["initial"].update(self.char.get_backgrounds())
+        kwargs["initial"].update(self.char.get_spheres())
+        kwargs["initial"]["willpower"] = 5
+        kwargs["initial"]["native_language"] = Language.objects.get(name="English")
+
         super().__init__(*args, **kwargs)
         for sphere in self.char.get_spheres().keys():
             self.fields[sphere] = forms.IntegerField(
@@ -556,7 +529,7 @@ class MageFreebieForm(forms.Form):
             max_value=3, min_value=self.char.arete
         )
 
-    def complete(self):
+    def total_cost_freebies(self):
         self.full_clean()
         total = 0
         attr_total = 0
@@ -584,6 +557,7 @@ class MageFreebieForm(forms.Form):
             x
             for x in self.data.keys()
             if x.startswith("form-") and (x.endswith("-mf") or x.endswith("-rating"))
+            if self.data[x] not in ["", "---"]
         ]
         mf_values = [int(self.data[x]) for x in mf_keys]
         mfs = dict(zip(mf_keys, mf_values))
@@ -594,8 +568,43 @@ class MageFreebieForm(forms.Form):
             return False
         total += merit_total
         total += flaw_total
-        total += self.cleaned_data["languages"].count()
-        return total == self.char.freebies
+        if "languages" in self.cleaned_data:
+            total += self.cleaned_data["languages"].count()
+        return total
+
+    def assign(self):
+        self.full_clean()
+        for key in list(self.char.get_attributes().keys()):
+            setattr(self.char, key, self.cleaned_data[key])
+        for key in (
+            list(self.char.get_talents().keys())
+            + list(self.char.get_skills().keys())
+            + list(self.char.get_knowledges().keys())
+        ):
+            if self.char.faction.name == "Akashayana" or key != "do":
+                setattr(self.char, key, self.cleaned_data[key])
+        for key in list(self.char.get_spheres().keys()):
+            setattr(self.char, key, self.cleaned_data[key])
+        for key in list(self.char.get_backgrounds().keys()):
+            setattr(self.char, key, self.cleaned_data[key])
+        self.char.willpower = self.data["willpower"]
+        mf_keys = [
+            x
+            for x in self.data.keys()
+            if x.startswith("form-") and (x.endswith("-mf") or x.endswith("-rating"))
+            if self.data[x] not in ["", "---"]
+        ]
+        mf_values = [int(self.data[x]) for x in mf_keys]
+        mfs = dict(zip(mf_keys, mf_values))
+        num_mf = len(mfs) // 2
+        new_mfs = {}
+        for i in range(num_mf):
+            new_mfs[mfs[f"form-{i}-mf"]] = mfs[f"form-{i}-rating"]
+        for key, value in new_mfs.items():
+            self.char.add_mf(MeritFlaw.objects.get(pk=key), value)
+        self.char.languages.add(self.data["native_language"])
+        if "languages" in self.data:
+            self.char.languages.add(*self.data["languages"])
 
 
 class MageDescriptionForm(forms.Form):

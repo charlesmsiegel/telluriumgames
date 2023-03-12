@@ -123,6 +123,14 @@ class Character(CharacterModel):
     def get_heading(self):
         return "wod_heading"
 
+    def next_stage(self):
+        self.creation_status += 1
+        self.save()
+
+    def prev_stage(self):
+        self.creation_status -= 1
+        self.save()
+
     def has_concept(self):
         return self.concept != ""
 
