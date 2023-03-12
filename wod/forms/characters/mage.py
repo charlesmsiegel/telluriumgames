@@ -295,11 +295,6 @@ class MagePowersForm(forms.Form):
         self.char.add_resonance(res)
 
 
-class MageMeritFlawForm(forms.Form):
-    mf = forms.ModelChoiceField(queryset=MeritFlaw.objects.filter(mage=True))
-    rating = forms.ChoiceField(choices=[("---", "---")])
-
-
 class MageFreebieForm(forms.Form):
     strength = forms.IntegerField(max_value=5, min_value=1)
     dexterity = forms.IntegerField(max_value=5, min_value=1)

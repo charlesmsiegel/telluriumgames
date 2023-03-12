@@ -4,14 +4,13 @@ from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from core.models import Language
 from game.models.chronicle import Chronicle
-from wod.forms.characters.human import AttributeForm
+from wod.forms.characters.human import AttributeForm, MeritFlawForm
 from wod.forms.characters.mage import (
     MageAbilitiesForm,
     MageAdvantagesForm,
     MageCreationForm,
     MageDescriptionForm,
     MageFreebieForm,
-    MageMeritFlawForm,
     MagePowersForm,
 )
 from wod.models.characters.human import Archetype, MeritFlaw, MeritFlawRating
@@ -130,8 +129,8 @@ class MageDetailView(View):
             context["form"] = MagePowersForm(character=mage)
             return render(request, "wod/characters/mage/mage/4_powers.html", context,)
         if mage.creation_status == 5:
-            MFFormset = formset_factory(MageMeritFlawForm, extra=1)
-            context["formset"] = MFFormset()
+            MFFormset = formset_factory(MeritFlawForm, extra=1)
+            context["formset"] = MFFormset(form_kwargs={"chartype": "mage"})
             context["form"] = MageFreebieForm(character=mage)
             return render(request, "wod/characters/mage/mage/5_freebies.html", context,)
         if mage.creation_status == 6:
@@ -237,8 +236,8 @@ class MageDetailView(View):
                 char.random_spheres()
                 char.random_resonance()
                 char.next_stage()
-                MFFormset = formset_factory(MageMeritFlawForm, extra=1)
-                context["formset"] = MFFormset()
+                MFFormset = formset_factory(MeritFlawForm, extra=1)
+                context["formset"] = MFFormset(form_kwargs={"chartype": "mage"})
                 context["form"] = MageFreebieForm(character=char)
                 return render(
                     request, "wod/characters/mage/mage/5_freebies.html", context,
@@ -246,8 +245,8 @@ class MageDetailView(View):
             form.assign()
             if char.has_spheres() and char.total_resonance() > 0:
                 char.next_stage()
-                MFFormset = formset_factory(MageMeritFlawForm, extra=1)
-                context["formset"] = MFFormset()
+                MFFormset = formset_factory(MeritFlawForm, extra=1)
+                context["formset"] = MFFormset(form_kwargs={"chartype": "mage"})
                 context["form"] = MageFreebieForm(character=char)
                 return render(
                     request, "wod/characters/mage/mage/5_freebies.html", context,
@@ -279,16 +278,16 @@ class MageDetailView(View):
                 return render(
                     request, "wod/characters/mage/mage/6_description.html", context,
                 )
-            MFFormset = formset_factory(MageMeritFlawForm, extra=1)
-            context["formset"] = MFFormset()
+            MFFormset = formset_factory(MeritFlawForm, extra=1)
+            context["formset"] = MFFormset(form_kwargs={"chartype": "mage"})
             context["form"] = MageFreebieForm(character=char)
             return render(request, "wod/characters/mage/mage/5_freebies.html", context,)
         if char.creation_status == 6:
             form = MageDescriptionForm(request.POST, character=char)
             if "Back" in form.data:
                 char.prev_stage()
-                MFFormset = formset_factory(MageMeritFlawForm, extra=1)
-                context["formset"] = MFFormset()
+                MFFormset = formset_factory(MeritFlawForm, extra=1)
+                context["formset"] = MFFormset(form_kwargs={"chartype": "mage"})
                 context["form"] = MageFreebieForm(character=char)
                 return render(
                     request, "wod/characters/mage/mage/5_freebies.html", context,
