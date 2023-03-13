@@ -1,7 +1,18 @@
-from django.shortcuts import render
+from django.forms import formset_factory
+from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
-from wod.models.characters.human import MeritFlawRating
+from game.models.chronicle import Chronicle
+from wod.forms.characters.human import AttributeForm, MeritFlawForm
+from wod.forms.characters.werewolf import (
+    WerewolfAbilitiesForm,
+    WerewolfAdvantagesForm,
+    WerewolfCreationForm,
+    WerewolfDescriptionForm,
+    WerewolfFreebieForm,
+    WerewolfPowersForm,
+)
+from wod.models.characters.human import Archetype, MeritFlawRating
 from wod.models.characters.werewolf.fomori import Fomor, FomoriPower
 from wod.models.characters.werewolf.garou import (
     BattleScar,
@@ -17,11 +28,282 @@ from wod.models.characters.werewolf.kinfolk import Kinfolk
 from wod.models.characters.werewolf.spirits import SpiritCharacter, SpiritCharm, Totem
 
 
+class WerewolfCreateView(View):
+    def get(self, request, *args, **kwargs):
+        context = {}
+        context["form"] = WerewolfCreationForm()
+        return render(request, "wod/characters/werewolf/werewolf/create.html", context)
+
+    def post(self, request, *args, **kwargs):
+        if "Full Random" in request.POST:
+            s = Werewolf.objects.create(owner=request.user, status="Un")
+            s.random()
+            return redirect(s.get_absolute_url())
+        if "Random Basics" in request.POST:
+            s = Werewolf.objects.create(owner=request.user, status="Un", rank=1)
+            s.random_name()
+            s.random_concept()
+            s.random_archetypes()
+            s.random_tribe()
+            s.random_auspice()
+            s.random_breed()
+            s.save()
+            return redirect(s.get_absolute_url())
+        if "Save" in request.POST:
+            form = WerewolfCreationForm(request.POST)
+            form.full_clean()
+            s = Werewolf.objects.create(
+                name=form.data["name"],
+                concept=form.data["concept"],
+                demeanor=form.cleaned_data["demeanor"],
+                nature=form.cleaned_data["nature"],
+                owner=request.user,
+                status="Un",
+                chronicle=form.cleaned_data["chronicle"],
+                rank=1,
+            )
+            s.set_breed(form.data["breed"])
+            s.set_auspice(form.data["auspice"])
+            s.set_tribe(form.cleaned_data["tribe"])
+            return redirect(s.get_absolute_url())
+        context = {}
+        context["form"] = WerewolfCreationForm()
+        return render(request, "wod/characters/werewolf/werewolf/create.html", context)
+
+
 class WerewolfDetailView(View):
     def get(self, request, *args, **kwargs):
         werewolf = Werewolf.objects.get(pk=kwargs["pk"])
         context = self.get_context(werewolf)
+        if werewolf.status != "Un":
+            return render(
+                request, "wod/characters/werewolf/werewolf/detail.html", context
+            )
+        if werewolf.creation_status == 1:
+            context["form"] = AttributeForm(character=werewolf)
+            return render(
+                request, "wod/characters/werewolf/werewolf/1_attribute.html", context,
+            )
+        if werewolf.creation_status == 2:
+            context["form"] = WerewolfAbilitiesForm(character=werewolf)
+            return render(
+                request, "wod/characters/werewolf/werewolf/2_abilities.html", context,
+            )
+        if werewolf.creation_status == 3:
+            context["form"] = WerewolfAdvantagesForm(character=werewolf)
+            return render(
+                request, "wod/characters/werewolf/werewolf/3_advantages.html", context,
+            )
+        if werewolf.creation_status == 4:
+            context["form"] = WerewolfPowersForm(character=werewolf)
+            return render(
+                request, "wod/characters/werewolf/werewolf/4_powers.html", context,
+            )
+        if werewolf.creation_status == 5:
+            MFFormset = formset_factory(MeritFlawForm, extra=1)
+            context["formset"] = MFFormset(form_kwargs={"chartype": "garou"})
+            context["form"] = WerewolfFreebieForm(character=werewolf)
+            return render(
+                request, "wod/characters/werewolf/werewolf/5_freebies.html", context,
+            )
+        if werewolf.creation_status == 6:
+            context["form"] = WerewolfDescriptionForm(character=werewolf)
+            return render(
+                request, "wod/characters/werewolf/werewolf/6_description.html", context,
+            )
         return render(request, "wod/characters/werewolf/werewolf/detail.html", context)
+
+    def post(self, request, *args, **kwargs):
+        char = Werewolf.objects.get(pk=kwargs["pk"])
+        context = self.get_context(char)
+        if char.creation_status == 1:
+            form = AttributeForm(request.POST, character=char)
+            if "Random Attributes" in form.data:
+                char.random_attributes()
+                char.next_stage()
+                context["form"] = WerewolfAbilitiesForm(character=char)
+                return render(
+                    request,
+                    "wod/characters/werewolf/werewolf/2_abilities.html",
+                    context,
+                )
+            form.assign()
+            if char.has_attributes():
+                char.next_stage()
+                context["form"] = WerewolfAbilitiesForm(character=char)
+                return render(
+                    request,
+                    "wod/characters/werewolf/werewolf/2_abilities.html",
+                    context,
+                )
+            context["form"] = AttributeForm(character=char)
+            return render(
+                request, "wod/characters/werewolf/werewolf/1_attribute.html", context,
+            )
+        if char.creation_status == 2:
+            form = WerewolfAbilitiesForm(request.POST, character=char)
+            if "Back" in form.data:
+                char.prev_stage()
+                context["form"] = AttributeForm(character=char)
+                return render(
+                    request,
+                    "wod/characters/werewolf/werewolf/1_attribute.html",
+                    context,
+                )
+            if "Random Abilities" in form.data:
+                char.random_abilities()
+                char.next_stage()
+                context["form"] = WerewolfAdvantagesForm(character=char)
+                return render(
+                    request,
+                    "wod/characters/werewolf/werewolf/3_advantages.html",
+                    context,
+                )
+            form.assign()
+            if char.has_abilities():
+                char.next_stage()
+                context["form"] = WerewolfAdvantagesForm(character=char)
+                return render(
+                    request,
+                    "wod/characters/werewolf/werewolf/3_advantages.html",
+                    context,
+                )
+            context["form"] = WerewolfAbilitiesForm(character=char)
+            return render(
+                request, "wod/characters/werewolf/werewolf/2_abilities.html", context,
+            )
+        if char.creation_status == 3:
+            form = WerewolfAdvantagesForm(request.POST, character=char)
+            if "Back" in form.data:
+                char.prev_stage()
+                context["form"] = WerewolfAbilitiesForm(character=char)
+                return render(
+                    request,
+                    "wod/characters/werewolf/werewolf/2_abilities.html",
+                    context,
+                )
+            if "Random Advantages" in form.data:
+                char.random_backgrounds()
+                char.next_stage()
+                context["form"] = WerewolfPowersForm(character=char)
+                return render(
+                    request, "wod/characters/werewolf/werewolf/4_powers.html", context,
+                )
+            form.assign()
+            if char.has_backgrounds():
+                char.next_stage()
+                context["form"] = WerewolfPowersForm(character=char)
+                return render(
+                    request, "wod/characters/werewolf/werewolf/4_powers.html", context,
+                )
+            context["form"] = WerewolfAdvantagesForm(character=char)
+            return render(
+                request, "wod/characters/werewolf/werewolf/3_advantages.html", context,
+            )
+        if char.creation_status == 4:
+            form = WerewolfPowersForm(request.POST, character=char)
+            if "Back" in form.data:
+                char.prev_stage()
+                context["form"] = WerewolfAdvantagesForm(character=char)
+                return render(
+                    request,
+                    "wod/characters/werewolf/werewolf/3_advantages.html",
+                    context,
+                )
+            if "Random Powers" in form.data:
+                char.random_gifts()
+                char.next_stage()
+                MFFormset = formset_factory(MeritFlawForm, extra=1)
+                context["formset"] = MFFormset(form_kwargs={"chartype": "garou"})
+                context["form"] = WerewolfFreebieForm(character=char)
+                return render(
+                    request,
+                    "wod/characters/werewolf/werewolf/5_freebies.html",
+                    context,
+                )
+            form.assign()
+            if char.has_gifts():
+                char.next_stage()
+                MFFormset = formset_factory(MeritFlawForm, extra=1)
+                context["formset"] = MFFormset(form_kwargs={"chartype": "garou"})
+                context["form"] = WerewolfFreebieForm(character=char)
+                return render(
+                    request,
+                    "wod/characters/werewolf/werewolf/5_freebies.html",
+                    context,
+                )
+            context["form"] = WerewolfPowersForm(character=char)
+            return render(
+                request, "wod/characters/werewolf/werewolf/4_powers.html", context,
+            )
+        if char.creation_status == 5:
+            form = WerewolfFreebieForm(request.POST, character=char)
+            if "Back" in form.data:
+                char.prev_stage()
+                context["form"] = WerewolfPowersForm(character=char)
+                return render(
+                    request, "wod/characters/werewolf/werewolf/4_powers.html", context,
+                )
+            if "Random Freebies" in form.data:
+                char.random_freebies()
+                char.next_stage()
+                context["form"] = WerewolfDescriptionForm(character=char)
+                return render(
+                    request,
+                    "wod/characters/werewolf/werewolf/6_description.html",
+                    context,
+                )
+            form.full_clean()
+            if form.total_cost_freebies() == char.freebies:
+                form.assign()
+                char.next_stage()
+                context["form"] = WerewolfDescriptionForm(character=char)
+                return render(
+                    request,
+                    "wod/characters/werewolf/werewolf/6_description.html",
+                    context,
+                )
+            MFFormset = formset_factory(MeritFlawForm, extra=1)
+            context["formset"] = MFFormset(form_kwargs={"chartype": "garou"})
+            context["form"] = WerewolfFreebieForm(character=char)
+            return render(
+                request, "wod/characters/werewolf/werewolf/5_freebies.html", context,
+            )
+        if char.creation_status == 6:
+            form = WerewolfDescriptionForm(request.POST, character=char)
+            if "Back" in form.data:
+                char.prev_stage()
+                MFFormset = formset_factory(MeritFlawForm, extra=1)
+                context["formset"] = MFFormset(form_kwargs={"chartype": "garou"})
+                context["form"] = WerewolfFreebieForm(character=char)
+                return render(
+                    request,
+                    "wod/characters/werewolf/werewolf/5_freebies.html",
+                    context,
+                )
+            if "Random Description" in form.data:
+                char.update_status("Sub")
+                char.random_history()
+                char.random_werewolf_history()
+                char.random_finishing_touches()
+                char.mf_based_corrections()
+                char.next_stage()
+                return render(
+                    request, "wod/characters/werewolf/werewolf/detail.html", context,
+                )
+            form.full_clean()
+            if form.complete():
+                for key, value in form.cleaned_data.items():
+                    setattr(char, key, value)
+                char.next_stage()
+                return render(
+                    request, "wod/characters/werewolf/werewolf/detail.html", context,
+                )
+            context["form"] = WerewolfDescriptionForm(character=char)
+            return render(
+                request, "wod/characters/werewolf/werewolf/6_description.html", context,
+            )
+        return render(request, "wod/characters/werewolf/werewolf/detail.html", context,)
 
     def get_context(self, werewolf):
         context = {"object": werewolf}
@@ -55,12 +337,6 @@ class WerewolfDetailView(View):
         context["rites"] = all_rites
         context["rank_name"] = werewolf.rank_names[werewolf.rank]
         return context
-
-
-class WerewolfCreateView(CreateView):
-    model = Werewolf
-    fields = "__all__"
-    template_name = "wod/characters/werewolf/werewolf/form.html"
 
 
 class WerewolfUpdateView(UpdateView):

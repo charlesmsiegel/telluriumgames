@@ -1,0 +1,72 @@
+{% extends "wod/characters/werewolf/werewolf/detail.html" %}
+{% block backgrounds %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="centertext container">
+            <div class="row">
+                <h2 class="col-sm {{ object.get_heading }}">Backgrounds</h2>
+            </div>
+            <div class="row">
+                <div class="col-sm">Allies</div>
+                <div class="col-sm">{{ form.allies }}</div>
+                <div class="col-sm">Ancestors</div>
+                <div class="col-sm">{{ form.ancestors }}</div>
+                <div class="col-sm">Contacts</div>
+                <div class="col-sm">{{ form.contacts }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Fate</div>
+                <div class="col-sm">{{ form.fate }}</div>
+                <div class="col-sm">Fetish</div>
+                <div class="col-sm">{{ form.fetish }}</div>
+                <div class="col-sm">Kinfolk</div>
+                <div class="col-sm">{{ form.kinfolk_rating }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Mentor</div>
+                <div class="col-sm">{{ form.mentor }}</div>
+                <div class="col-sm">Pure Breed</div>
+                <div class="col-sm">{{ form.pure_breed }}</div>
+                <div class="col-sm">Resources</div>
+                <div class="col-sm">{{ form.resources }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Rites</div>
+                <div class="col-sm">{{ form.rites }}</div>
+                <div class="col-sm">Spirit Heritage</div>
+                <div class="col-sm">{{ form.spirit_heritage }}</div>
+                <div class="col-sm">Totem</div>
+                <div class="col-sm">{{ form.totem }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <input class="btn btn-primary" name="Back" type="submit" value="Back"/>
+                    <input class="btn btn-primary"
+                           name="Random Advantages"
+                           type="submit"
+                           value="Random Advantages"/>
+                    <input class="btn btn-primary"
+                           name="Assign Advantages"
+                           type="submit"
+                           value="Assign Advantages"/>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock backgrounds %}
+{% block advantages %}
+{% endblock advantages %}
+{% block powers %}
+{% endblock powers %}
+{% block mfs %}
+{% endblock mfs %}
+{% block languages %}
+{% endblock languages %}
+{% block appearance %}
+{% endblock appearance %}
+{% block history %}
+{% endblock history %}
+{% block advancement %}
+{% endblock advancement %}
+{% block update %}
+{% endblock update %}

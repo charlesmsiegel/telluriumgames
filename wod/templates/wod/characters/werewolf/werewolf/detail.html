@@ -17,7 +17,7 @@
     </div>
     <div class="row">
         <div class="col-sm">Player</div>
-        <div class="col-sm">{{ object.player }}</div>
+        <div class="col-sm">{{ object.owner }}</div>
         <div class="col-sm">Demeanor</div>
         <a class="col-sm" href="{{ object.demeanor.get_absolute_url }}">{{ object.demeanor }}</a>
         <div class="col-sm">Auspice</div>
@@ -180,6 +180,7 @@
     </div>
 {% endblock backgrounds %}
 {% block powers %}
+    {% block gifts %}
     <div class="row">
         <h2 class="col-sm {{ object.get_heading }}">
             Gifts
@@ -194,6 +195,8 @@
             {% endfor %}
         </div>
     {% endfor %}
+    {% endblock gifts %}
+    {% block rites %}
     <div class="row">
         <h2 class="col-sm {{ object.get_heading }}">
             Rites
@@ -204,6 +207,8 @@
             {% for rite in row %}<a class="col-sm" href="{{ rite.get_absolute_url }}">{{ rite.name }}</a>{% endfor %}
         </div>
     {% endfor %}
+    {% endblock rites %}
+    {% block fetishes %}
     <div class="row">
         <h2 class="col-sm {{ object.get_heading }}">
             Fetishes
@@ -214,6 +219,7 @@
             <a class="col-sm" href="{{ fetish.get_absolute_url }}">{{ fetish.name }}</a>
         </div>
     {% endfor %}
+    {% endblock fetishes %}
 {% endblock powers %}
 {% block appearance %}
     <div class="row">
@@ -337,9 +343,7 @@
             Battle Scars
         </div>
         <div class="col-sm">
-            {% for scar in object.battle_scars.all %}
-                <a href="{{ scar.get_absolute_url }}">{{ scar.name }}, </a>
-            {% endfor %}
+            {% for scar in object.battle_scars.all %}<a href="{{ scar.get_absolute_url }}">{{ scar.name }}, </a>{% endfor %}
         </div>
     </div>
     <div class="row">
