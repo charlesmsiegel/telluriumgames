@@ -49,4 +49,4 @@ class MageFaction(Model):
         practices = Practice.objects.none()
         for faction in factions:
             practices |= faction.practices.all()
-        return practices.distinct()
+        return Practice.objects.filter(pk__in=practices.distinct())
