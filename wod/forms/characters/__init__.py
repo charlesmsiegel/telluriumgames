@@ -21,3 +21,20 @@ class RandomCharacterForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["character_type"].choices = []
+
+
+class CreateCharacterForm(forms.Form):
+    gameline = forms.ChoiceField(
+        choices=[
+            ("choose", "Choose a Gameline"),
+            ("werewolf", "Werewolf"),
+            ("mage", "Mage"),
+            ("changeling", "Changeling"),
+        ],
+        initial=("gameline", "Choose a gameline"),
+    )
+    character_type = forms.ChoiceField(choices=[])
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["character_type"].choices = []

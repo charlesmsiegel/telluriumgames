@@ -212,47 +212,6 @@ class ExaltedAbilitiesForm(forms.Form):
             and self.cleaned_data[self.cleaned_data["spec_3_ability"]] > 0
             and self.cleaned_data[self.cleaned_data["spec_4_ability"]] > 0
         )
-        if not all_dots:
-            print("num_dots:", sum(self.cleaned_data[x] for x in ABILITIES))
-        if not favored:
-            print("favored:", len(checked_abilities))
-        if not caste:
-            print("caste:", len(caste_abilities))
-        if not specialties:
-            print(
-                "specialty:",
-                self.cleaned_data["spec_1_value"],
-                self.cleaned_data["spec_2_value"],
-                self.cleaned_data["spec_3_value"],
-                self.cleaned_data["spec_4_value"],
-                getattr(character, self.cleaned_data["spec_1_ability"]) > 0,
-                getattr(character, self.cleaned_data["spec_2_ability"]) > 0,
-                getattr(character, self.cleaned_data["spec_3_ability"]) > 0,
-                getattr(character, self.cleaned_data["spec_4_ability"]) > 0,
-            )
-        if not supernal:
-            print("supernal:", self.cleaned_data["supernal_ability"], checked_abilities)
-        if not min_values:
-            print(
-                "min_values:",
-                [
-                    x
-                    for x in zip(
-                        checked_abilities,
-                        [self.cleaned_data[x] for x in checked_abilities],
-                    )
-                    if x[1] == 0
-                ],
-            )
-        if not max_values:
-            print(
-                "min_values:",
-                [
-                    x
-                    for x in zip(ABILITIES, [self.cleaned_data[x] for x in ABILITIES])
-                    if x[1] >= 4
-                ],
-            )
         return (
             all_dots
             and favored

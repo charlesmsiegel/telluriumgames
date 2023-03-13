@@ -464,7 +464,6 @@ class TestTribe(TestCase):
 
     def test_gifts_level_1(self):
         output = ", ".join(self.tribe.gifts_level_1())
-        print(output)
         self.assertFalse(self.gift1_no.name in output)
         self.assertTrue(self.gift1.name in output)
 

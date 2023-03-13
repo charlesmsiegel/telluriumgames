@@ -20,7 +20,7 @@
     </div>
     <form id="personForm"
           data-character-type-url="{% url 'wod:characters:ajax_load_character_types' %}"
-          action="{% url 'wod:characters:random' %}"
+          action=""
           method="post"
           novalidate>
         {% csrf_token %}
@@ -28,24 +28,11 @@
             <div class="col-sm"></div>
             <div class="col-sm">{{ form.gameline }}</div>
             <div class="col-sm">{{ form.character_type }}</div>
-            <div class="col-sm">Name</div>
-            <div class="col-sm">{{ form.character_name }}</div>
-            <div class="col-sm">Freebies</div>
-            <div class="col-sm">{{ form.freebies }}</div>
-            <div class="col-sm">XP</div>
-            <div class="col-sm">{{ form.xp }}</div>
             <div class="col-sm">
                 <button type="submit">Create</button>
             </div>
         </div>
     </form>
-    <div class="row centertext">
-        <div class="col-sm">
-            <form action="{% url 'wod:characters:mage:create_mage' %}">
-                <input type="submit" value="Create Mage" />
-            </form>
-        </div>
-    </div>
     <div class="centertext container">
         <div class="row border">
             <h2 class="col-sm border">Groups</h2>
