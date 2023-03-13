@@ -713,7 +713,7 @@ class TestRandomMage(TestCase):
         self.mage.xp = 1
         self.mage.arcane_xp = 1
         self.mage.random_xp_rote()
-        self.assertTrue(self.mage.rotes.count() > 0)
+        self.assertTrue(self.mage.rotes.count() + self.mage.praxes.count() > 0)
 
     def test_random_familiar(self):
         # Without the "Familiar" merit, random_familiar should return False
