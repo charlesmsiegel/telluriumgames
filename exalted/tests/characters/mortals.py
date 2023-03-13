@@ -701,17 +701,40 @@ class TestRandomMortal(TestCase):
 
 
 class TestExMerit(TestCase):
+    def setUp(self):
+        self.merit = ExMerit.objects.create(
+            name="Test Merit",
+            description="Test Merit Description",
+            merit_type="innate",
+            ratings=[1, 2, 3],
+            merit_class="standard",
+        )
+
     def test_save(self):
-        self.fail()
+        self.assertEqual(self.merit.max_rating, 3)
 
     def test_prereq_satisfied(self):
-        self.fail()
+        character = ExMortal.objects.create(name="Test Character",)
+        character.strength = 3
+        character.athletics = 2
 
-    def test_check_prereqs(self):
-        self.fail()
+        prereq1 = ("strength", 4)
+        prereq2 = ("athletics", 3)
+        prereq3 = ("Test Merit", 2)
 
-    def test_count_prereqs(self):
-        self.fail()
+        self.assertFalse(self.merit.prereq_satisfied(prereq1, character))
+        self.assertFalse(self.merit.prereq_satisfied(prereq2, character))
+        self.assertFalse(self.merit.prereq_satisfied(prereq3, character))
+
+        character.strength = 5
+        character.athletics = 3
+        character.add_merit(self.merit)
+        character.add_merit(self.merit)
+        character.add_merit(self.merit)
+
+        self.assertTrue(self.merit.prereq_satisfied(prereq1, character))
+        self.assertTrue(self.merit.prereq_satisfied(prereq2, character))
+        self.assertTrue(self.merit.prereq_satisfied(prereq3, character))
 
 
 class TestCharacterIndexView(TestCase):
