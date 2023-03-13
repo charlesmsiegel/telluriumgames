@@ -593,7 +593,86 @@ class TestMtAHuman(TestCase):
         )
 
     def test_get_backgrounds(self):
-        self.fail()
+        self.assertEqual(
+            self.character.get_backgrounds(),
+            {
+                "contacts": 0,
+                "mentor": 0,
+                "allies": 0,
+                "alternate_identity": 0,
+                "arcane": 0,
+                "avatar": 0,
+                "backup": 0,
+                "blessing": 0,
+                "certification": 0,
+                "chantry": 0,
+                "cult": 0,
+                "demesne": 0,
+                "destiny": 0,
+                "dream": 0,
+                "enhancement": 0,
+                "fame": 0,
+                "familiar": 0,
+                "influence": 0,
+                "legend": 0,
+                "library": 0,
+                "node": 0,
+                "past_lives": 0,
+                "patron": 0,
+                "rank": 0,
+                "requisitions": 0,
+                "resources": 0,
+                "retainers": 0,
+                "sanctum": 0,
+                "secret_weapons": 0,
+                "spies": 0,
+                "status_background": 0,
+                "totem": 0,
+                "wonder": 0,
+            },
+        )
+        self.character.mentor = 3
+        self.character.chantry = 2
+        self.character.fame = 1
+        self.character.dream = 3
+        self.assertEqual(
+            self.character.get_backgrounds(),
+            {
+                "contacts": 0,
+                "mentor": 3,
+                "allies": 0,
+                "alternate_identity": 0,
+                "arcane": 0,
+                "avatar": 0,
+                "backup": 0,
+                "blessing": 0,
+                "certification": 0,
+                "chantry": 2,
+                "cult": 0,
+                "demesne": 0,
+                "destiny": 0,
+                "dream": 3,
+                "enhancement": 0,
+                "fame": 1,
+                "familiar": 0,
+                "influence": 0,
+                "legend": 0,
+                "library": 0,
+                "node": 0,
+                "past_lives": 0,
+                "patron": 0,
+                "rank": 0,
+                "requisitions": 0,
+                "resources": 0,
+                "retainers": 0,
+                "sanctum": 0,
+                "secret_weapons": 0,
+                "spies": 0,
+                "status_background": 0,
+                "totem": 0,
+                "wonder": 0,
+            },
+        )
 
 
 class TestMage(TestCase):
