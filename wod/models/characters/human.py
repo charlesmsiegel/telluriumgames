@@ -716,6 +716,7 @@ class Human(Character):
         self.random_weight()
         self.description = "Description"
         self.apparent_age = self.age
+        self.save()
 
     def random_height(self):
         if self.sex == "Male":
@@ -730,6 +731,7 @@ class Human(Character):
         feet = height_in_in // 12
         inch = height_in_in % 12
         self.height = f"{feet}'{inch}\""
+        self.save()
 
     def random_weight(self):
         if self.sex == "Male":
@@ -744,6 +746,7 @@ class Human(Character):
         weight_in_kg = np.random.normal(loc=mu, scale=sigma)
         weight_in_lb = int(weight_in_kg * 2.205)
         self.weight = f"{weight_in_lb} lbs"
+        self.save()
 
     def has_history(self):
         return self.childhood != "" and self.history != "" and self.goals != ""
@@ -752,6 +755,7 @@ class Human(Character):
         self.childhood = "Childhood"
         self.history = "History"
         self.goals = "Goals"
+        self.save()
 
     def freebie_cost(self, trait):
         costs = defaultdict(

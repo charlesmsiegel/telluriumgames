@@ -30,13 +30,14 @@ class AttributeForm(forms.Form):
         self.char.perception = self.cleaned_data["perception"]
         self.char.intelligence = self.cleaned_data["intelligence"]
         self.char.wits = self.cleaned_data["wits"]
-        
+
+
 class MeritFlawForm(forms.Form):
     mf = forms.ModelChoiceField(queryset=MeritFlaw.objects.none())
     rating = forms.ChoiceField(choices=[("---", "---")])
-    
+
     def __init__(self, *args, **kwargs):
-        chartype = kwargs.pop('chartype')
+        chartype = kwargs.pop("chartype")
         tmp = {chartype: True}
         super().__init__(*args, **kwargs)
-        self.fields['mf'].queryset = MeritFlaw.objects.filter(**tmp)
+        self.fields["mf"].queryset = MeritFlaw.objects.filter(**tmp)

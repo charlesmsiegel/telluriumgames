@@ -296,6 +296,7 @@ class MageDetailView(View):
                 char.update_status("Sub")
                 char.random_history()
                 char.random_mage_history()
+                char.random_finishing_touches()
                 char.mf_based_corrections()
                 char.next_stage()
                 return render(request, "wod/characters/mage/mage/detail.html", context,)

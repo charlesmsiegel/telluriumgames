@@ -643,6 +643,7 @@ class Werewolf(WtAHuman):
     def random_werewolf_history(self):
         self.first_change = "Young"
         self.age_of_first_change = 13
+        self.save()
 
     def spend_freebies(self, trait):
         output = super().spend_freebies(trait)

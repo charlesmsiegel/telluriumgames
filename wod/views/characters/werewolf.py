@@ -1,12 +1,15 @@
+from django.forms import formset_factory
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from game.models.chronicle import Chronicle
-from wod.forms.characters.human import AttributeForm
+from wod.forms.characters.human import AttributeForm, MeritFlawForm
 from wod.forms.characters.werewolf import (
     WerewolfAbilitiesForm,
     WerewolfAdvantagesForm,
     WerewolfCreationForm,
+    WerewolfDescriptionForm,
+    WerewolfFreebieForm,
     WerewolfPowersForm,
 )
 from wod.models.characters.human import Archetype, MeritFlawRating
@@ -58,10 +61,10 @@ class WerewolfCreateView(View):
                 status="Un",
                 chronicle=form.cleaned_data["chronicle"],
                 rank=1,
-                tribe=form.cleaned_data["tribe"],
-                auspice=form.data["auspice"],
-                breed=form.data["breed"],
             )
+            s.set_breed(form.data["breed"])
+            s.set_auspice(form.data["auspice"])
+            s.set_tribe(form.cleaned_data["tribe"])
             return redirect(s.get_absolute_url())
         context = {}
         context["form"] = WerewolfCreationForm()
@@ -97,14 +100,14 @@ class WerewolfDetailView(View):
                 request, "wod/characters/werewolf/werewolf/4_powers.html", context,
             )
         if werewolf.creation_status == 5:
-            # MFFormset = formset_factory(MageMeritFlawForm, extra=1)
-            # context["formset"] = MFFormset()
-            # context["form"] = MageFreebieForm(character=werewolf)
+            MFFormset = formset_factory(MeritFlawForm, extra=1)
+            context["formset"] = MFFormset(form_kwargs={"chartype": "garou"})
+            context["form"] = WerewolfFreebieForm(character=werewolf)
             return render(
                 request, "wod/characters/werewolf/werewolf/5_freebies.html", context,
             )
         if werewolf.creation_status == 6:
-            # context["form"] = MageDescriptionForm(character=werewolf)
+            context["form"] = WerewolfDescriptionForm(character=werewolf)
             return render(
                 request, "wod/characters/werewolf/werewolf/6_description.html", context,
             )
@@ -210,9 +213,9 @@ class WerewolfDetailView(View):
             if "Random Powers" in form.data:
                 char.random_gifts()
                 char.next_stage()
-                # MFFormset = formset_factory(MageMeritFlawForm, extra=1)
-                # context["formset"] = MFFormset()
-                # context["form"] = MageFreebieForm(character=char)
+                MFFormset = formset_factory(MeritFlawForm, extra=1)
+                context["formset"] = MFFormset(form_kwargs={"chartype": "garou"})
+                context["form"] = WerewolfFreebieForm(character=char)
                 return render(
                     request,
                     "wod/characters/werewolf/werewolf/5_freebies.html",
@@ -221,9 +224,9 @@ class WerewolfDetailView(View):
             form.assign()
             if char.has_gifts():
                 char.next_stage()
-                # MFFormset = formset_factory(MageMeritFlawForm, extra=1)
-                # context["formset"] = MFFormset()
-                # context["form"] = MageFreebieForm(character=char)
+                MFFormset = formset_factory(MeritFlawForm, extra=1)
+                context["formset"] = MFFormset(form_kwargs={"chartype": "garou"})
+                context["form"] = WerewolfFreebieForm(character=char)
                 return render(
                     request,
                     "wod/characters/werewolf/werewolf/5_freebies.html",
@@ -234,10 +237,9 @@ class WerewolfDetailView(View):
                 request, "wod/characters/werewolf/werewolf/4_powers.html", context,
             )
         if char.creation_status == 5:
-            # form = MageFreebieForm(request.POST, character=char)
+            form = WerewolfFreebieForm(request.POST, character=char)
             if "Back" in form.data:
                 char.prev_stage()
-                # TODO: Remove Gifts
                 context["form"] = WerewolfPowersForm(character=char)
                 return render(
                     request, "wod/characters/werewolf/werewolf/4_powers.html", context,
@@ -245,7 +247,7 @@ class WerewolfDetailView(View):
             if "Random Freebies" in form.data:
                 char.random_freebies()
                 char.next_stage()
-                # context["form"] = MageDescriptionForm(character=char)
+                context["form"] = WerewolfDescriptionForm(character=char)
                 return render(
                     request,
                     "wod/characters/werewolf/werewolf/6_description.html",
@@ -255,25 +257,25 @@ class WerewolfDetailView(View):
             if form.total_cost_freebies() == char.freebies:
                 form.assign()
                 char.next_stage()
-                # context["form"] = MageDescriptionForm(character=char)
+                context["form"] = WerewolfDescriptionForm(character=char)
                 return render(
                     request,
                     "wod/characters/werewolf/werewolf/6_description.html",
                     context,
                 )
-            # MFFormset = formset_factory(MageMeritFlawForm, extra=1)
-            # context["formset"] = MFFormset()
-            # context["form"] = MageFreebieForm(character=char)
+            MFFormset = formset_factory(MeritFlawForm, extra=1)
+            context["formset"] = MFFormset(form_kwargs={"chartype": "garou"})
+            context["form"] = WerewolfFreebieForm(character=char)
             return render(
                 request, "wod/characters/werewolf/werewolf/5_freebies.html", context,
             )
         if char.creation_status == 6:
-            # form = MageDescriptionForm(request.POST, character=char)
+            form = WerewolfDescriptionForm(request.POST, character=char)
             if "Back" in form.data:
                 char.prev_stage()
-                # MFFormset = formset_factory(MageMeritFlawForm, extra=1)
-                # context["formset"] = MFFormset()
-                # context["form"] = MageFreebieForm(character=char)
+                MFFormset = formset_factory(MeritFlawForm, extra=1)
+                context["formset"] = MFFormset(form_kwargs={"chartype": "garou"})
+                context["form"] = WerewolfFreebieForm(character=char)
                 return render(
                     request,
                     "wod/characters/werewolf/werewolf/5_freebies.html",
@@ -283,6 +285,7 @@ class WerewolfDetailView(View):
                 char.update_status("Sub")
                 char.random_history()
                 char.random_werewolf_history()
+                char.random_finishing_touches()
                 char.mf_based_corrections()
                 char.next_stage()
                 return render(
@@ -296,7 +299,7 @@ class WerewolfDetailView(View):
                 return render(
                     request, "wod/characters/werewolf/werewolf/detail.html", context,
                 )
-            # context["form"] = MageDescriptionForm(character=char)
+            context["form"] = WerewolfDescriptionForm(character=char)
             return render(
                 request, "wod/characters/werewolf/werewolf/6_description.html", context,
             )
