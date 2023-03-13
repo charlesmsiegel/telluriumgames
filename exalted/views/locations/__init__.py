@@ -22,7 +22,9 @@ class LocationIndexView(View):
         context["locations"] = locations
         L1 = []
         L2 = []
-        for x in ExLocation.objects.filter(parent=None).order_by("name"):
+        for x in ExLocation.objects.filter(parent=None, chronicle=None).order_by(
+            "name"
+        ):
             L1.extend([level_name(y) for y in tree_sort(x)])
             L2.extend(tree_sort(x))
 
