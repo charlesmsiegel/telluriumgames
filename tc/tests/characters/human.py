@@ -861,29 +861,24 @@ class TestEdge(TestCase):
         self.character = Human.objects.create(
             name="Test Character", owner=User.objects.get(username="Test User"),
         )
-
-    def test_save(self):
-        self.fail()
-
-    def test_check_prereqs(self):
-        self.fail()
-
-    def test_count_prereqs(self):
-        self.fail()
-
-    def test_prereq_or(self):
-        edge = Edge.objects.create(
+        self.edge = Edge.objects.create(
             name="Prereq Testing",
             ratings=[1, 2, 3],
             prereqs=[[("technology", 2)], [("science", 2)]],
         )
-        self.assertFalse(edge.check_prereqs(self.character))
+
+    def test_save(self):
+        self.assertEqual(self.edge.min_rating, 1)
+        self.assertEqual(self.edge.max_rating, 3)
+
+    def test_prereq_or(self):
+        self.assertFalse(self.edge.check_prereqs(self.character))
         self.character.technology = 2
-        self.assertTrue(edge.check_prereqs(self.character))
+        self.assertTrue(self.edge.check_prereqs(self.character))
         self.character.technology = 1
-        self.assertFalse(edge.check_prereqs(self.character))
+        self.assertFalse(self.edge.check_prereqs(self.character))
         self.character.science = 2
-        self.assertTrue(edge.check_prereqs(self.character))
+        self.assertTrue(self.edge.check_prereqs(self.character))
 
 
 class TestEnhancedEdge(TestCase):
