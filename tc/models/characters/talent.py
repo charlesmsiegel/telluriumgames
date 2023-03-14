@@ -284,12 +284,6 @@ class TCGift(ModelWithPrereqs):
             edge_prereq = Edge.objects.get(name=prereq[0])
             if edge_prereq.type == "edge":
                 return character.edge_rating(edge_prereq) >= prereq[1]
-        if prereq[0] == "path":
-            any(
-                x.rating > prereq[1]
-                for x in PathRating.objects.filter(character=character)
-                if self in x.path.edges.all()
-            )
         return False
 
     def check_prereqs(self, character):
