@@ -882,11 +882,23 @@ class TestEdge(TestCase):
 
 
 class TestEnhancedEdge(TestCase):
-    def test_check_prereqs(self):
-        self.fail()
+    def setUp(self) -> None:
+        User.objects.create_user("Test User", "test@user.com", "testpass")
+        self.character = Human.objects.create(
+            name="Test Character", owner=User.objects.get(username="Test User"),
+        )
 
-    def test_count_prereqs(self):
-        self.fail()
+    def test_prereqs(self):
+        edge = EnhancedEdge.objects.create(
+            name="Prereq Testing", prereqs=[[("technology", 2)], [("science", 2)]],
+        )
+        self.assertFalse(edge.check_prereqs(self.character))
+        self.character.technology = 2
+        self.assertTrue(edge.check_prereqs(self.character))
+        self.character.technology = 1
+        self.assertFalse(edge.check_prereqs(self.character))
+        self.character.science = 2
+        self.assertTrue(edge.check_prereqs(self.character))
 
 
 class TestHumanDetailView(TestCase):
