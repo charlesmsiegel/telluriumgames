@@ -95,6 +95,8 @@ class TestEphemera(TestCase):
 class TestRandomEphemera(TestCase):
     def setUp(self):
         self.ephemera = Ephemera.objects.create()
+        for i in range(10):
+            Numina.objects.create(name=f"Test Numina {i}")
 
     def test_random_rank(self):
         ranks = [1, 2, 3, 4, 5]
