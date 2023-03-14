@@ -13,6 +13,7 @@ from wod.models.characters.werewolf import (
     Tribe,
     Werewolf,
 )
+from wod.models.characters.werewolf.fomori import Fomor, FomoriPower
 from wod.models.characters.werewolf.wtahuman import WtAHuman
 from wod.models.items.werewolf import Fetish
 
@@ -393,14 +394,35 @@ class TestRandomKinfolk(TestCase):
 
 
 class TestFomor(TestCase):
+    def setUp(self):
+        self.power1 = FomoriPower.objects.create(name="Power 1")
+        self.power2 = FomoriPower.objects.create(name="Power 2")
+        self.power3 = FomoriPower.objects.create(name="Power 3")
+        self.fomor = Fomor.objects.create(name="Test Fomor", allies=2, contacts=1)
+
     def test_get_backgrounds(self):
-        self.fail()
+        expected = {
+            "allies": 2,
+            "contacts": 1,
+            "resources": 0,
+        }
+        self.assertEqual(self.fomor.get_backgrounds(), expected)
 
-    def add_power(self):
-        self.fail()
+    def test_add_power(self):
+        self.fomor.add_power(self.power1)
+        self.assertEqual(self.fomor.powers.count(), 1)
+        self.assertEqual(list(self.fomor.powers.all()), [self.power1])
 
-    def filter_power(self):
-        self.fail()
+    def test_filter_powers(self):
+        self.fomor.add_power(self.power1)
+        self.fomor.add_power(self.power2)
+        self.fomor.add_power(self.power3)
+        filtered_powers = self.fomor.filter_powers()
+        self.assertEqual(filtered_powers.count(), 0)
+        self.fomor.powers.remove(self.power3)
+        filtered_powers = self.fomor.filter_powers()
+        self.assertEqual(filtered_powers.count(), 1)
+        self.assertEqual(list(filtered_powers.all()), [self.power3])
 
 
 class TestRandomFomor(TestCase):
