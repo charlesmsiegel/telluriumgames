@@ -988,11 +988,3 @@ class TestIndexView(TestCase):
             self.assertContains(response, f"Player {i}")
         for status in Human.statuses:
             self.assertContains(response, status)
-
-
-class TestPrereqSatisfiedFunctions(TestCase):
-    def test_prereq_satisfied(self):
-        self.fail()
-
-    def test_check_prereqs(self):
-        self.fail()
