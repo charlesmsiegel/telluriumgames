@@ -426,14 +426,37 @@ class TestFomor(TestCase):
 
 
 class TestRandomFomor(TestCase):
-    def random_power(self):
-        self.fail()
+    def setUp(self):
+        self.power1 = FomoriPower.objects.create(name="Power 1")
+        self.power2 = FomoriPower.objects.create(name="Power 2")
+        self.power3 = FomoriPower.objects.create(name="Power 3")
+        FomoriPower.objects.create(name="Immunity to the Delirium")
+        self.fomor = Fomor.objects.create(name="Test Fomor")
+        for attribute in self.fomor.get_attributes():
+            WoDSpecialty.objects.create(name=f"{attribute} Spec", stat=attribute)
+        for ability in self.fomor.get_abilities():
+            WoDSpecialty.objects.create(name=f"{ability} Spec", stat=ability)
+        for i in range(10):
+            Archetype.objects.create(name=f"Archetype {i}")
 
-    def random_powers(self):
-        self.fail()
+    def test_random_power(self):
+        self.assertEqual(self.fomor.powers.count(), 0)
+        self.fomor.random_power()
+        self.assertEqual(self.fomor.powers.count(), 1)
 
-    def random(self):
-        self.fail()
+    def test_random_powers(self):
+        self.fomor.random_powers(num_powers=2)
+        self.assertGreaterEqual(self.fomor.powers.count(), 2)
+
+    def test_random(self):
+        self.fomor.random(freebies=0, xp=0)
+        self.assertTrue(self.fomor.has_name())
+        self.assertTrue(self.fomor.has_concept())
+        self.assertTrue(self.fomor.has_archetypes())
+        self.assertTrue(self.fomor.has_attributes(primary=6, secondary=4, tertiary=3))
+        self.assertTrue(self.fomor.has_abilities(primary=11, secondary=7, tertiary=3))
+        self.assertTrue(self.fomor.has_backgrounds())
+        self.assertGreater(self.fomor.powers.count(), 0)
 
 
 class TestTribe(TestCase):
