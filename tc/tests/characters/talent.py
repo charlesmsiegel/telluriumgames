@@ -1,7 +1,14 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from tc.models.characters.human import Edge, EnhancedEdge, Specialty, TCPath, Trick
+from tc.models.characters.human import (
+    Edge,
+    EnhancedEdge,
+    PathConnection,
+    Specialty,
+    TCPath,
+    Trick,
+)
 from tc.models.characters.talent import MomentOfInspiration, Talent, TCGift
 
 
@@ -328,5 +335,38 @@ class TestTalentDetailView(TestCase):
 
 
 class TestGift(TestCase):
+    def setUp(self):
+        self.gift = TCGift.objects.create()
+        self.character = Talent.objects.create()
+
     def test_check_prereqs(self):
-        self.fail()
+        self.gift.prereqs = [[("might", 2), ("aim", 1)]]
+        self.assertFalse(self.gift.check_prereqs(self.character))
+        self.character.add_attribute("might")
+        self.assertFalse(self.gift.check_prereqs(self.character))
+        self.character.add_skill("aim")
+        self.assertTrue(self.gift.check_prereqs(self.character))
+
+    def test_prereq_satisfied(self):
+        # attribute
+        prereq = ("might", 3)
+        self.assertFalse(self.gift.prereq_satisfied(prereq, self.character))
+        self.character.add_attribute("might")
+        self.assertFalse(self.gift.prereq_satisfied(prereq, self.character))
+        self.character.add_attribute("might")
+        self.assertTrue(self.gift.prereq_satisfied(prereq, self.character))
+        # skill
+        prereq = ("aim", 2)
+        self.assertFalse(self.gift.prereq_satisfied(prereq, self.character))
+        self.character.add_skill("aim")
+        self.assertFalse(self.gift.prereq_satisfied(prereq, self.character))
+        self.character.add_skill("aim")
+        self.assertTrue(self.gift.prereq_satisfied(prereq, self.character))
+        # edge
+        edge = Edge.objects.create(name="Test Edge", ratings=[1, 2, 3])
+        prereq = ("Test Edge", 2)
+        self.assertFalse(self.gift.prereq_satisfied(prereq, self.character))
+        self.character.add_edge(edge)
+        self.assertFalse(self.gift.prereq_satisfied(prereq, self.character))
+        self.character.add_edge(edge)
+        self.assertTrue(self.gift.prereq_satisfied(prereq, self.character))
