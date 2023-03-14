@@ -189,6 +189,7 @@ class Artifact(Wonder):
 
     def set_power(self, power):
         self.power = power
+        self.save()
         return True
 
     def has_power(self):
