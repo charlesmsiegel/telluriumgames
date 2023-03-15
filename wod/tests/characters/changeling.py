@@ -659,16 +659,45 @@ class TestChangeling(TestCase):
         self.assertTrue(self.character.has_changeling_appearance())
 
     def test_set_changeling_appearance(self):
-        self.fail()
+        fae_mien = "Beautiful butterfly wings"
+        self.character.set_changeling_appearance(fae_mien)
+        self.assertEqual(self.character.fae_mien, fae_mien)
+        self.assertTrue(self.character.has_changeling_appearance())
 
     def test_set_changeling_history(self):
-        self.fail()
+        true_name = "John Doe"
+        date_ennobled = "01/01/2000"
+        crysalis = "A cocoon"
+        date_of_crysalis = "01/02/2000"
+        self.character.set_changeling_history(
+            true_name, date_ennobled, crysalis, date_of_crysalis
+        )
+        self.assertEqual(self.character.true_name, true_name)
+        self.assertEqual(self.character.date_ennobled, date_ennobled)
+        self.assertEqual(self.character.crysalis, crysalis)
+        self.assertEqual(self.character.date_of_crysalis, date_of_crysalis)
+        self.assertTrue(self.character.has_changeling_history())
 
     def test_random_freebie_functions(self):
-        self.fail()
+        random_freebie_functions = self.character.random_freebie_functions()
+        self.assertIn("attribute", random_freebie_functions)
+        self.assertIn("ability", random_freebie_functions)
+        self.assertIn("background", random_freebie_functions)
+        self.assertIn("willpower", random_freebie_functions)
+        self.assertIn("meritflaw", random_freebie_functions)
+        self.assertIn("art", random_freebie_functions)
+        self.assertIn("realm", random_freebie_functions)
+        self.assertIn("glamour", random_freebie_functions)
 
     def test_random_xp_functions(self):
-        self.fail()
+        random_xp_functions = self.character.random_xp_functions()
+        self.assertIn("attribute", random_xp_functions)
+        self.assertIn("ability", random_xp_functions)
+        self.assertIn("background", random_xp_functions)
+        self.assertIn("willpower", random_xp_functions)
+        self.assertIn("art", random_xp_functions)
+        self.assertIn("realm", random_xp_functions)
+        self.assertIn("glamour", random_xp_functions)
 
 
 class TestRandomChangeling(TestCase):
