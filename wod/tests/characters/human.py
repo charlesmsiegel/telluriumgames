@@ -6,9 +6,11 @@ from core.models import Language
 from wod.models.characters.human import (
     Archetype,
     Character,
+    Derangement,
     Group,
     Human,
     MeritFlaw,
+    MeritFlawRating,
     WoDSpecialty,
 )
 from wod.models.characters.mage import Cabal, Mage
@@ -762,67 +764,141 @@ class TestHuman(TestCase):
         self.assertEqual(lt.languages.count(), 2)
 
     def test_ability_deficit_flaw(self):
-        self.fail()
+        mf = MeritFlaw.objects.create(name="Ability Deficit", ratings=[-2])
+        self.character.add_mf(mf, -2)
+        self.character.alertness = 3
+        self.character.athletics = 2
+        self.character.drive = 3
+        self.character.etiquette = 2
+        self.character.academics = 3
+        self.character.computer = 2
+        self.character.mf_based_corrections()
+        self.assertEqual(self.character.total_abilities(), 10)
+        l = [
+            self.character.total_talents(),
+            self.character.total_skills(),
+            self.character.total_knowledges(),
+        ]
+        l.sort()
+        self.assertEqual([0, 5, 5], l)
 
     def test_attribute_specialties(self):
-        self.fail()
+        self.character.specialties.create(name="strength focus", stat="strength")
+        self.character.specialties.create(name="charisma focus", stat="charisma")
+        self.assertEqual(self.character.strength_specialty().name, "strength focus")
+        self.assertEqual(self.character.charisma_specialty().name, "charisma focus")
 
     def test_total_attributes(self):
-        self.fail()
+        self.character.strength = 3
+        self.character.dexterity = 2
+        self.character.stamina = 4
+        self.assertEqual(self.character.total_attributes(), 15)
 
     def test_total_talents(self):
-        self.fail()
+        self.character.alertness = 2
+        self.character.athletics = 1
+        self.character.brawl = 1
+        self.assertEqual(self.character.total_talents(), 4)
 
     def test_total_skills(self):
-        self.fail()
+        self.character.etiquette = 2
+        self.character.firearms = 1
+        self.character.stealth = 3
+        self.assertEqual(self.character.total_skills(), 6)
 
     def test_total_knowledges(self):
-        self.fail()
+        self.character.academics = 1
+        self.character.investigation = 2
+        self.assertEqual(self.character.total_knowledges(), 3)
 
     def test_total_abilities(self):
-        self.fail()
+        self.character.add_ability("brawl")
+        self.character.add_ability("firearms")
+        self.assertEqual(self.character.total_abilities(), 2)
 
     def test_total_backgrounds(self):
-        self.fail()
+        self.character.add_background("contacts")
+        self.character.add_background("mentor")
+        self.assertEqual(self.character.total_backgrounds(), 2)
 
     def test_add_derangement(self):
-        self.fail()
+        d = Derangement.objects.create(name="Test Derangement")
+        self.assertTrue(self.character.add_derangement(d))
+        self.assertFalse(self.character.add_derangement(d))
 
     def test_mf_rating(self):
-        self.fail()
+        mf = MeritFlaw.objects.create(name="Test Merit Flaw", ratings=[-2, -1])
+        MeritFlawRating.objects.create(character=self.character, mf=mf, rating=-2)
+        self.assertEqual(self.character.mf_rating(mf), -2)
 
     def test_spend_freebies_attribute(self):
-        self.fail()
+        self.character.freebies = 10
+        self.assertTrue(self.character.spend_freebies_attribute("strength"))
+        self.assertEqual(self.character.freebies, 5)
+        self.assertEqual(self.character.strength, 2)
 
     def test_spend_freebies_ability(self):
-        self.fail()
+        self.character.freebies = 10
+        self.assertTrue(self.character.spend_freebies_ability("brawl"))
+        self.assertEqual(self.character.freebies, 8)
+        self.assertEqual(self.character.brawl, 1)
 
     def test_spend_freebies_background(self):
-        self.fail()
+        self.character.freebies = 10
+        self.assertTrue(self.character.spend_freebies_background("mentor"))
+        self.assertEqual(self.character.freebies, 9)
+        self.assertEqual(self.character.mentor, 1)
 
     def test_spend_freebies_willpower(self):
-        self.fail()
+        self.character.freebies = 10
+        self.assertTrue(self.character.spend_freebies_willpower())
+        self.assertEqual(self.character.freebies, 9)
+        self.assertEqual(self.character.willpower, 4)
 
     def test_spend_freebies_mf(self):
-        self.fail()
+        self.character.freebies = 10
+        mf = MeritFlaw.objects.create(name="Phobia (heights)", ratings=[-2])
+        self.assertTrue(self.character.spend_freebies_mf(mf.name))
+        self.assertEqual(self.character.freebies, 12)
+        self.assertEqual(self.character.mf_rating(mf), -2)
 
     def test_random_freebie_functions(self):
-        self.fail()
+        functions = self.character.random_freebie_functions()
+        self.assertEqual(
+            set(functions.keys()),
+            {"attribute", "ability", "background", "willpower", "meritflaw"},
+        )
 
-    def test_spend_xp_attribute(self):
-        self.fail()
+    def test_random_xp_attribute(self):
+        self.character.xp = 10
+        self.assertTrue(self.character.random_xp_attributes())
+        self.assertEqual(self.character.xp, 6)
+        self.assertEqual(self.character.total_attributes(), 10)
 
-    def test_spend_xp_ability(self):
-        self.fail()
+    def test_random_xp_ability(self):
+        self.character.xp = 10
+        self.assertTrue(self.character.random_xp_abilities())
+        self.assertEqual(self.character.xp, 7)
+        self.assertEqual(self.character.total_abilities(), 1)
 
-    def test_spend_xp_background(self):
-        self.fail()
+    def test_random_xp_background(self):
+        self.character.xp = 10
+        self.assertTrue(self.character.random_xp_background())
+        self.assertEqual(self.character.xp, 5)
+        self.assertEqual(self.character.total_backgrounds(), 1)
 
-    def test_spend_xp_willpower(self):
-        self.fail()
+    def test_random_xp_willpower(self):
+        self.character.xp = 10
+        self.character.willpower = 4
+        self.assertTrue(self.character.random_xp_willpower())
+        self.assertEqual(self.character.xp, 6)
+        self.assertEqual(self.character.willpower, 5)
 
     def test_random_xp_functions(self):
-        self.fail()
+        functions = self.character.random_xp_functions()
+        self.assertEqual(
+            set(functions.keys()), {"attribute", "ability", "background", "willpower"}
+        )
 
 
 class TestRandomHuman(TestCase):
