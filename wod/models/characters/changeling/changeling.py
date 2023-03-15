@@ -542,14 +542,14 @@ class Changeling(CtDHuman):
 
     def random_freebies_art(self):
         trait = weighted_choice(self.get_arts())
-        self.spend_freebies(trait)
+        return self.spend_freebies(trait)
 
     def random_freebies_realm(self):
         trait = weighted_choice(self.get_realms())
-        self.spend_freebies(trait)
+        return self.spend_freebies(trait)
 
     def random_freebies_glamour(self):
-        self.spend_freebies("glamour")
+        return self.spend_freebies("glamour")
 
     def freebie_cost(self, trait):
         cost = super().freebie_cost(trait)
