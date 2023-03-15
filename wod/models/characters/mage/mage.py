@@ -813,7 +813,7 @@ class Mage(MtAHuman):
                 return True
             return False
         if Resonance.objects.filter(name=trait).exists():
-            cost = self.freebie_cost("resonance") * (self.total_resonance() - 1)
+            cost = self.freebie_cost("resonance") * (self.total_resonance())
             if cost <= self.freebies:
                 if self.add_resonance(trait):
                     self.freebies -= cost
@@ -824,20 +824,20 @@ class Mage(MtAHuman):
 
     def random_freebies_sphere(self):
         trait = weighted_choice(self.get_spheres())
-        self.spend_freebies(trait)
+        return self.spend_freebies(trait)
 
     def random_freebies_arete(self):
-        self.spend_freebies("arete")
+        return self.spend_freebies("arete")
 
     def random_freebies_quintessence(self):
-        self.spend_freebies("quintessence")
+        return self.spend_freebies("quintessence")
 
     def random_freebies_rote_points(self):
-        self.spend_freebies("rote points")
+        return self.spend_freebies("rote points")
 
     def random_freebies_resonance(self):
         trait = self.choose_random_resonance()
-        self.spend_freebies(trait)
+        return self.spend_freebies(trait)
 
     def has_library(self):
         if self.library_owned is not None:
