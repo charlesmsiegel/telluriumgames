@@ -1,5 +1,6 @@
 import random
 
+import numpy as np
 import requests
 
 from telluriumgames.secrets import API_KEY
@@ -349,3 +350,33 @@ def tree_sort(x, l=None):
     for y in x.children.order_by("name"):
         tree_sort(y, l=l)
     return l
+
+
+def random_height(sex):
+    if sex == "Male":
+        mu = 171
+    elif sex == "Female":
+        mu = 159
+    else:
+        mu = 165
+    sigma = 6
+    height_in_cm = np.random.normal(loc=mu, scale=sigma)
+    height_in_in = int(height_in_cm / 2.54)
+    feet = height_in_in // 12
+    inch = height_in_in % 12
+    return f"{feet}'{inch}\""
+
+
+def random_weight(sex):
+    if sex == "Male":
+        mu = 73.1
+        sigma = 10.46
+    elif sex == "Female":
+        mu = 57
+        sigma = 8.84
+    else:
+        mu = 65
+        sigma = 9.65
+    weight_in_kg = np.random.normal(loc=mu, scale=sigma)
+    weight_in_lb = int(weight_in_kg * 2.205)
+    return f"{weight_in_lb} lbs"
