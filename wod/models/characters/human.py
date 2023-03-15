@@ -816,7 +816,8 @@ class Human(Character):
             rating = min(abs_ratings)
             if rating not in mf.ratings:
                 rating *= -1
-            if cost * (rating - self.mf_rating(mf)) <= self.freebies:
+            cost *= rating - self.mf_rating(mf)
+            if cost <= self.freebies:
                 if self.add_mf(mf, rating):
                     self.freebies -= cost
                     return True
@@ -1001,7 +1002,7 @@ class Human(Character):
                     total_removed -= 1
             while total_removed < 5:
                 new_stat = weighted_choice(stats_to_lose)
-                stats_to_lose[new_stat] += 1
+                stats_to_lose[new_stat] -= 1
                 setattr(self, new_stat, stats_to_lose[new_stat])
                 total_removed += 1
 
