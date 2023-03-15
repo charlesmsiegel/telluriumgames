@@ -77,8 +77,8 @@ def grimoire_setup():
     for sphere_1 in spheres:
         for sphere_2 in spheres:
             if sphere_1 != sphere_2:
-                for i in range(1, 6):
-                    for j in range(1, 6):
+                for i in range(6):
+                    for j in range(6):
                         d = {sphere_1: i, sphere_2: j}
                         Effect.objects.create(
                             name=f"{sphere_1}/{sphere_2} Test Effect {5*i+j}", **d
