@@ -57,10 +57,11 @@ def wod_dice(dicepool, difficulty=6, specialty=False):
 
 
 def add_dot(character, trait, maximum):
-    if getattr(character, trait) < maximum:
-        setattr(character, trait, getattr(character, trait) + 1)
-        character.save()
-        return True
+    if hasattr(character, trait):
+        if getattr(character, trait) < maximum:
+            setattr(character, trait, getattr(character, trait) + 1)
+            character.save()
+            return True
     return False
 
 

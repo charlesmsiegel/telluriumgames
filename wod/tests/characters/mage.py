@@ -22,6 +22,8 @@ from wod.models.characters.mage.mtahuman import MtAHuman
 from wod.models.characters.mage.resonance import ResRating
 from wod.models.characters.mage.utils import ABILITY_LIST
 from wod.models.locations.mage import NodeMeritFlaw
+from wod.models.locations.mage.library import Library
+from wod.models.locations.mage.nodes import Node
 
 
 # Create your tests here.
@@ -860,7 +862,11 @@ class TestMage(TestCase):
         self.assertEqual(self.character.background_points, 7)
 
     def test_add_background(self):
-        self.fail()
+        num = self.character.total_backgrounds()
+        self.assertFalse(self.character.add_background("test"))
+        self.assertEqual(num, self.character.total_backgrounds())
+        self.assertTrue(self.character.add_background("avatar"))
+        self.assertEqual(num + 1, self.character.total_backgrounds())
 
     def test_get_backgrounds(self):
         self.assertEqual(
@@ -1260,25 +1266,81 @@ class TestMage(TestCase):
         self.assertNotEqual(self.character.quiet_type, "none")
 
     def test_count_limbs(self):
-        self.fail()
+        self.character.alertness = 1
+        self.character.athletics = 2
+        self.character.do = 3
+        self.assertEqual(self.character.count_limbs(), 2)
+        self.character.awareness = 1
+        self.character.enigmas = 2
+        self.character.meditation = 3
+        self.assertEqual(self.character.count_limbs(), 3)
+        self.character.esoterica = 1
+        self.character.medicine = 2
+        self.character.survival = 3
+        self.assertEqual(self.character.count_limbs(), 5)
+        self.character.art = 1
+        self.character.crafts = 2
+        self.character.etiquette = 3
+        self.assertEqual(self.character.count_limbs(), 7)
+        self.character.academics = 1
+        self.character.belief_systems = 2
+        self.character.cosmology = 3
+        self.assertEqual(self.character.count_limbs(), 8)
+        self.character.melee = 1
+        self.character.stealth = 2
+        self.character.subterfuge = 3
+        self.assertEqual(self.character.count_limbs(), 8)
 
     def test_resonance_rating(self):
-        self.fail()
+        resonance = Resonance.objects.create(name="test_resonance")
+        res_rating = ResRating.objects.create(
+            mage=self.character, resonance=resonance, rating=3
+        )
+        self.assertEqual(self.character.resonance_rating(resonance), res_rating.rating)
 
     def test_has_specialties(self):
-        self.fail()
+        self.assertTrue(self.character.has_specialties())
+        self.character.forces = 4
+        self.assertFalse(self.character.has_specialties())
+        self.character.add_specialty(WoDSpecialty.objects.create(stat="forces"))
+        self.assertTrue(self.character.has_specialties())
 
     def test_has_library(self):
-        self.fail()
+        self.assertFalse(self.character.has_library())
+        library = Library.objects.create(name="test_library", rank=3)
+        self.character.library_owned = library
+        self.character.library = 3
+        self.assertTrue(self.character.has_library())
 
     def test_has_node(self):
-        self.fail()
+        self.assertFalse(self.character.has_node())
+        node = Node.objects.create(name="test_node", rank=2)
+        self.character.node_owned = node
+        self.character.node = 2
+        self.assertTrue(self.character.has_node())
 
     def test_random_freebie_functions(self):
-        self.fail()
+        random_freebie_functions = self.character.random_freebie_functions()
+        self.assertIn("attribute", random_freebie_functions)
+        self.assertIn("ability", random_freebie_functions)
+        self.assertIn("background", random_freebie_functions)
+        self.assertIn("willpower", random_freebie_functions)
+        self.assertIn("meritflaw", random_freebie_functions)
+        self.assertIn("sphere", random_freebie_functions)
+        self.assertIn("arete", random_freebie_functions)
+        self.assertIn("quintessence", random_freebie_functions)
+        self.assertIn("rote points", random_freebie_functions)
+        self.assertIn("resonance", random_freebie_functions)
 
     def test_random_xp_functions(self):
-        self.fail()
+        random_xp_functions = self.character.random_xp_functions()
+        self.assertIn("attribute", random_xp_functions)
+        self.assertIn("ability", random_xp_functions)
+        self.assertIn("background", random_xp_functions)
+        self.assertIn("willpower", random_xp_functions)
+        self.assertIn("sphere", random_xp_functions)
+        self.assertIn("arete", random_xp_functions)
+        self.assertIn("rote points", random_xp_functions)
 
 
 class TestRandomMage(TestCase):
