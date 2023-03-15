@@ -733,14 +733,13 @@ class TestRandomChangeling(TestCase):
         self.character.random_unseelie_legacy()
         self.assertTrue(self.character.has_unseelie_legacy())
 
-    def test_random_background(self):
-        self.fail()
-
     def test_random_changeling_history(self):
-        self.fail()
+        self.assertTrue(self.character.random_changeling_history())
+        self.assertTrue(self.character.has_changeling_history())
 
     def test_random_changeling_appearance(self):
-        self.fail()
+        self.assertTrue(self.character.random_changeling_appearance())
+        self.assertTrue(self.character.has_changeling_appearance())
 
     def test_random_kith(self):
         self.assertFalse(self.character.has_kith())
@@ -836,22 +835,42 @@ class TestRandomChangeling(TestCase):
         self.assertTrue(self.character.has_changeling_appearance())
 
     def test_random_freebies_art(self):
-        self.fail()
+        self.character.freebies = 20
+        self.assertTrue(self.character.random_freebies_art())
+        self.assertEqual(self.character.freebies, 15)
+        self.assertEqual(self.character.total_arts(), 1)
 
     def test_random_freebies_realm(self):
-        self.fail()
+        self.character.freebies = 20
+        self.assertTrue(self.character.random_freebies_realm())
+        self.assertEqual(self.character.freebies, 18)
+        self.assertEqual(self.character.total_realms(), 1)
 
     def test_random_freebies_glamour(self):
-        self.fail()
+        self.character.freebies = 20
+        self.character.glamour = 1
+        self.assertTrue(self.character.random_freebies_glamour())
+        self.assertEqual(self.character.freebies, 17)
+        self.assertEqual(self.character.glamour, 2)
 
     def test_random_xp_art(self):
-        self.fail()
+        self.character.xp = 20
+        self.assertTrue(self.character.random_xp_art())
+        self.assertEqual(self.character.xp, 13)
+        self.assertEqual(self.character.total_arts(), 1)
 
     def test_random_xp_realm(self):
-        self.fail()
+        self.character.xp = 20
+        self.assertTrue(self.character.random_xp_realm())
+        self.assertEqual(self.character.xp, 15)
+        self.assertEqual(self.character.total_realms(), 1)
 
     def test_random_xp_glamour(self):
-        self.fail()
+        self.character.xp = 20
+        self.character.glamour = 1
+        self.assertTrue(self.character.random_xp_glamour())
+        self.assertEqual(self.character.xp, 17)
+        self.assertEqual(self.character.glamour, 2)
 
 
 class TestMotley(TestCase):
