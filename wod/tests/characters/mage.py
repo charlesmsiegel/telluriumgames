@@ -1433,40 +1433,87 @@ class TestRandomMage(TestCase):
             self.assertFalse(self.character.has_library())
 
     def test_choose_random_resonance(self):
-        self.fail()
+        res = self.character.choose_random_resonance()
+        self.assertIsNotNone(res)
+        self.assertIsInstance(res, Resonance)
 
     def test_random_mage_history(self):
-        self.fail()
+        self.character.random_mage_history()
+        self.assertIsNotNone(self.character.awakening)
+        self.assertIsNotNone(self.character.seekings)
+        self.assertIsNotNone(self.character.quiets)
+        self.assertIsNotNone(self.character.age_of_awakening)
+        self.assertIsNotNone(self.character.avatar_description)
 
     def test_random_xp_sphere(self):
-        self.fail()
+        self.character.xp = 20
+        self.character.arete = 1
+        self.assertTrue(self.character.random_xp_sphere())
+        self.assertEqual(self.character.xp, 10)
+        self.assertEqual(self.character.total_spheres(), 1)
 
     def test_random_xp_arete(self):
-        self.fail()
+        self.character.xp = 20
+        self.character.arete = 2
+        self.assertTrue(self.character.random_xp_arete())
+        self.assertEqual(self.character.xp, 4)
+        self.assertEqual(self.character.arete, 3)
 
     def test_random_xp_rote_points(self):
-        self.fail()
+        self.character.xp = 20
+        self.character.rote_points = 0
+        self.assertTrue(self.character.random_xp_rote_points())
+        self.assertEqual(self.character.xp, 19)
+        self.assertEqual(self.character.rote_points, 3)
 
     def test_random_freebies_sphere(self):
-        self.fail()
+        self.character.freebies = 20
+        self.character.arete = 2
+        self.assertTrue(self.character.random_freebies_sphere())
+        self.assertEqual(self.character.freebies, 13)
+        self.assertEqual(self.character.total_spheres(), 1)
 
     def test_random_freebies_quintessence(self):
-        self.fail()
+        self.character.freebies = 20
+        self.character.quintessence = 0
+        self.assertTrue(self.character.random_freebies_quintessence())
+        self.assertEqual(self.character.freebies, 19)
+        self.assertEqual(self.character.quintessence, 4)
 
     def test_random_freebies_rote_points(self):
-        self.fail()
+        self.character.freebies = 20
+        self.character.rote_points = 0
+        self.assertTrue(self.character.random_freebies_rote_points())
+        self.assertEqual(self.character.freebies, 19)
+        self.assertEqual(self.character.rote_points, 4)
 
     def test_random_freebies_resonance(self):
-        self.fail()
+        self.character.freebies = 20
+        self.character.random_resonance()
+        self.assertTrue(self.character.random_freebies_resonance())
+        self.assertEqual(self.character.freebies, 17)
+        self.assertEqual(self.character.total_resonance(), 2)
 
     def test_random_freebies_arete(self):
-        self.fail()
+        self.character.freebies = 20
+        self.character.arete = 2
+        self.assertTrue(self.character.random_freebies_arete())
+        self.assertEqual(self.character.freebies, 16)
+        self.assertEqual(self.character.arete, 3)
 
     def test_random_abilities(self):
-        self.fail()
+        self.character.random_abilities()
+        triple = [
+            self.character.total_talents(),
+            self.character.total_skills(),
+            self.character.total_knowledges(),
+        ]
+        triple.sort()
+        self.assertEqual(triple, [5, 9, 13])
 
     def test_random_ability(self):
-        self.fail()
+        self.character.random_ability()
+        self.assertGreater(self.character.total_abilities(), 0)
 
 
 class TestCabal(TestCase):
