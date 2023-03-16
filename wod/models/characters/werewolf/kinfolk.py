@@ -183,6 +183,8 @@ class Kinfolk(WtAHuman):
         return self.spend_xp(trait)
 
     def add_gift(self, gift):
+        if gift in self.gifts.all():
+            return False
         self.gifts.add(gift)
         self.save()
         return True

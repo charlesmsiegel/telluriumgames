@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
-from wod.models.characters.human import Archetype, MeritFlaw, WoDSpecialty
+from wod.models.characters.human import Archetype, Derangement, MeritFlaw, WoDSpecialty
 from wod.models.characters.werewolf import (
     Camp,
     Gift,
@@ -14,6 +14,7 @@ from wod.models.characters.werewolf import (
     Werewolf,
 )
 from wod.models.characters.werewolf.fomori import Fomor, FomoriPower
+from wod.models.characters.werewolf.kinfolk import Kinfolk
 from wod.models.characters.werewolf.wtahuman import WtAHuman
 from wod.models.items.werewolf import Fetish
 
@@ -324,50 +325,139 @@ class TestWtAHuman(TestCase):
 
 
 class TestKinfolk(TestCase):
+    def setUp(self):
+        self.tribe = Tribe.objects.create(name="Test Tribe")
+        self.gift = Gift.objects.create(name="Test Gift", rank=1)
+        self.fetish = Fetish.objects.create(name="Test Fetish", rank=1)
+        self.kinfolk = Kinfolk.objects.create(name="Test Kinfolk")
+
     def test_has_breed(self):
-        self.fail()
+        self.assertFalse(self.kinfolk.has_breed())
+        self.kinfolk.set_breed("homid")
+        self.assertTrue(self.kinfolk.has_breed())
 
     def test_set_breed(self):
-        self.fail()
+        self.assertEqual(self.kinfolk.breed, "")
+        self.assertTrue(self.kinfolk.set_breed("lupus"))
+        self.assertEqual(self.kinfolk.breed, "lupus")
 
     def test_set_tribe(self):
-        self.fail()
+        self.assertIsNone(self.kinfolk.tribe)
+        self.assertTrue(self.kinfolk.set_tribe(self.tribe))
+        self.assertEqual(self.kinfolk.tribe, self.tribe)
+        self.kinfolk.set_breed("homid")
+        rt = Tribe.objects.create(name="Red Talons")
+        sf = Tribe.objects.create(name="Silver Fangs")
+        bsd = Tribe.objects.create(name="Black Spiral Dancers")
+        self.assertFalse(self.kinfolk.set_tribe(rt))
+        self.kinfolk.set_breed("lupus")
+        self.assertTrue(self.kinfolk.set_tribe(rt))
+        self.assertTrue(self.kinfolk.set_tribe(sf))
+        self.assertGreater(self.kinfolk.pure_breed, 0)
+        Derangement.objects.create(name="Test Derangement")
+        self.assertTrue(self.kinfolk.set_tribe(bsd))
+        self.assertGreater(self.kinfolk.derangements.count(), 0)
 
     def test_has_tribe(self):
-        self.fail()
+        self.assertFalse(self.kinfolk.has_tribe())
+        self.kinfolk.set_tribe(self.tribe)
+        self.assertTrue(self.kinfolk.has_tribe())
 
     def test_get_backgrounds(self):
-        self.fail()
+        backgrounds = self.kinfolk.get_backgrounds()
+        self.assertEqual(backgrounds["allies"], 0)
+        self.assertEqual(backgrounds["contacts"], 0)
+        self.assertEqual(backgrounds["mentor"], 0)
+        self.assertEqual(backgrounds["pure_breed"], 0)
+        self.assertEqual(backgrounds["resources"], 0)
 
     def test_add_background(self):
-        self.fail()
+        bg = Tribe.objects.create(name="Bone Gnawers")
+        self.kinfolk.set_tribe(bg)
+        self.assertFalse(self.kinfolk.add_background("pure_breed"))
+        self.assertTrue(self.kinfolk.add_background("resources"))
+        self.assertTrue(self.kinfolk.add_background("resources"))
+        self.assertTrue(self.kinfolk.add_background("resources"))
+        self.assertFalse(self.kinfolk.add_background("resources"))
+        gw = Tribe.objects.create(name="Glass Walkers")
+        self.kinfolk.set_tribe(gw)
+        self.kinfolk.resources = 0
+        self.assertFalse(self.kinfolk.add_background("pure_breed"))
+        self.assertFalse(self.kinfolk.add_background("mentor"))
+        rt = Tribe.objects.create(name="Red Talons")
+        self.kinfolk.set_tribe(rt)
+        self.assertFalse(self.kinfolk.add_background("resources"))
+        sl = Tribe.objects.create(name="Shadow Lords")
+        self.kinfolk.set_tribe(sl)
+        self.assertFalse(self.kinfolk.add_background("mentor"))
+        self.kinfolk.resources = 3
+        ss = Tribe.objects.create(name="Silent Striders")
+        self.kinfolk.set_tribe(ss)
+        self.assertFalse(self.kinfolk.add_background("resources"))
+        sg = Tribe.objects.create(name="Stargazers")
+        self.kinfolk.set_tribe(sg)
+        self.assertFalse(self.kinfolk.add_background("resources"))
+        w = Tribe.objects.create(name="Wendigo")
+        self.kinfolk.set_tribe(w)
+        self.assertFalse(self.kinfolk.add_background("resources"))
 
     def test_xp_cost(self):
-        self.fail()
+        self.assertEqual(self.kinfolk.xp_cost("attribute"), 4)
+        self.assertEqual(self.kinfolk.xp_cost("ability"), 2)
+        self.assertEqual(self.kinfolk.xp_cost("gift"), 15)
+        self.assertEqual(self.kinfolk.xp_cost("outside gift"), 20)
 
     def test_spend_xp(self):
-        self.fail()
+        self.kinfolk.xp = 100
+        self.kinfolk.set_tribe(Tribe.objects.create(name="Test Tribe"))
+        g1 = Gift.objects.create(name="G1", rank=1, allowed={"garou": ["Test Tribe"]})
+        g2 = Gift.objects.create(name="G2", rank=1, allowed={"garou": []})
+        self.kinfolk.spend_xp(g1.name)
+        self.assertEqual(self.kinfolk.xp, 85)
+        self.kinfolk.spend_xp(g2.name)
+        self.assertEqual(self.kinfolk.xp, 65)
 
     def test_random_xp_functions(self):
-        self.fail()
+        functions = self.kinfolk.random_xp_functions()
+        self.assertTrue(callable(functions["attribute"]))
+        self.assertTrue(callable(functions["ability"]))
+        self.assertTrue(callable(functions["background"]))
+        self.assertTrue(callable(functions["willpower"]))
+        self.assertTrue(callable(functions["gift"]))
 
     def test_add_gift(self):
-        self.fail()
+        self.assertTrue(self.kinfolk.add_gift(self.gift))
+        self.assertFalse(self.kinfolk.add_gift(self.gift))
 
     def test_set_relation(self):
-        self.fail()
+        self.assertTrue(self.kinfolk.set_relation("Test Relation"))
 
     def test_has_relation(self):
-        self.fail()
+        self.assertFalse(self.kinfolk.has_relation())
+        self.kinfolk.relation = "Test Relation"
+        self.assertTrue(self.kinfolk.has_relation())
 
     def test_mf_based_corrections(self):
-        self.fail()
+        gnosis = MeritFlaw.objects.create(name="Gnosis", ratings=[5, 6, 7])
+        fetish = MeritFlaw.objects.create(name="Fetish", ratings=[5, 6, 7])
+        Fetish.objects.create(name="Test Fetish", rank=1)
+        self.kinfolk.add_mf(gnosis, 5)
+        self.kinfolk.add_mf(fetish, 5)
+        self.kinfolk.mf_based_corrections()
+        self.assertNotEqual(self.kinfolk.gnosis, 0)
+        self.assertTrue(self.kinfolk.fetishes_owned.exists())
 
     def test_add_fetish(self):
-        self.fail()
+        # Test that a Kinfolk can add a fetish successfully
+        self.assertTrue(self.kinfolk.add_fetish(self.fetish))
+
+        # Test that a Kinfolk cannot add a fetish they already own
+        self.assertFalse(self.kinfolk.add_fetish(self.fetish))
 
     def test_filter_fetishes(self):
-        self.fail()
+        # Test that the method returns the correct set of fetishes
+        filtered_fetishes = self.kinfolk.filter_fetishes(min_rating=3, max_rating=5)
+        self.assertNotIn(self.fetish, filtered_fetishes)
 
 
 class TestRandomKinfolk(TestCase):
