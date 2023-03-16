@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.utils.timezone import now
@@ -992,13 +994,18 @@ class TestRandomHuman(TestCase):
         self.assertTrue(self.character.has_specialties())
 
     def test_add_random_language(self):
-        self.fail()
+        Language.objects.create(name="Test Language", frequency=1)
+        self.character.add_random_language()
+        self.assertGreater(self.character.languages.count(), 0)
 
     def test_random_derangement(self):
-        self.fail()
+        Derangement.objects.create(name="Test Derangement")
+        self.character.random_derangement()
+        self.assertGreater(self.character.derangements.count(), 0)
 
     def test_random_background(self):
-        self.fail()
+        self.character.random_background()
+        self.assertGreater(self.character.total_backgrounds(), 0)
 
     def test_random_backgrounds(self):
         self.assertFalse(self.character.has_backgrounds())
@@ -1006,19 +1013,23 @@ class TestRandomHuman(TestCase):
         self.assertTrue(self.character.has_backgrounds())
 
     def test_random_birthdate(self):
-        self.fail()
+        age = 25
+        birthdate = self.character.random_birthdate(age)
+        self.assertIsInstance(birthdate, date)
 
     def test_random_finishing_touches(self):
-        self.fail()
-
-    def test_random_height(self):
-        self.fail()
-
-    def test_random_weight(self):
-        self.fail()
+        self.character.random_finishing_touches()
+        self.assertIsInstance(self.character.age, int)
+        self.assertIsInstance(self.character.date_of_birth, date)
+        self.assertIsInstance(self.character.height, str)
+        self.assertIsInstance(self.character.weight, str)
+        self.assertIsInstance(self.character.apparent_age, int)
 
     def test_random_history(self):
-        self.fail()
+        self.character.random_history()
+        self.assertIsInstance(self.character.childhood, str)
+        self.assertIsInstance(self.character.history, str)
+        self.assertIsInstance(self.character.goals, str)
 
     def test_random_freebies(self):
         self.assertEqual(self.character.freebies, 15)
@@ -1052,31 +1063,61 @@ class TestRandomHuman(TestCase):
         self.assertEqual(self.character.freebies, 0)
 
     def test_random_freebies_attributes(self):
-        self.fail()
+        self.character.freebies = 10
+        self.character.random_freebies_attributes()
+        self.assertEqual(self.character.freebies, 5)
+        self.assertEqual(self.character.total_attributes(), 10)
 
     def test_random_freebies_abilities(self):
-        self.fail()
+        self.character.freebies = 10
+        self.character.random_freebies_abilities()
+        self.assertEqual(self.character.freebies, 8)
+        self.assertEqual(self.character.total_abilities(), 1)
 
     def test_random_freebies_backgrounds(self):
-        self.fail()
+        self.character.freebies = 10
+        self.character.random_freebies_background()
+        self.assertEqual(self.character.freebies, 9)
+        self.assertEqual(self.character.total_backgrounds(), 1)
 
     def test_random_freebies_willpower(self):
-        self.fail()
+        self.character.freebies = 10
+        num = self.character.willpower
+        self.character.random_freebies_willpower()
+        self.assertEqual(self.character.freebies, 9)
+        self.assertEqual(self.character.willpower, num + 1)
 
     def test_random_freebies_meritflaw(self):
-        self.fail()
+        self.character.freebies = 10
+        MeritFlaw.objects.create(name="Test Merit/Flaw", ratings=[1, 2, 3])
+        self.character.random_freebies_meritflaw()
+        self.assertLess(self.character.freebies, 10)
+        self.assertGreater(self.character.merits_and_flaws.count(), 0)
 
     def test_random_xp_attributes(self):
-        self.fail()
+        self.character.xp = 10
+        self.character.random_xp_attributes()
+        self.assertEqual(self.character.xp, 6)
+        self.assertEqual(self.character.total_attributes(), 10)
 
     def test_random_xp_abilities(self):
-        self.fail()
+        self.character.xp = 10
+        self.character.random_xp_abilities()
+        self.assertEqual(self.character.xp, 7)
+        self.assertEqual(self.character.total_abilities(), 1)
 
     def test_random_xp_backgruond(self):
-        self.fail()
+        self.character.xp = 10
+        self.character.random_xp_background()
+        self.assertEqual(self.character.xp, 5)
+        self.assertEqual(self.character.total_backgrounds(), 1)
 
     def test_random_xp_willpower(self):
-        self.fail()
+        self.character.xp = 10
+        num = self.character.willpower
+        self.character.random_xp_willpower()
+        self.assertEqual(self.character.xp, 10 - num)
+        self.assertEqual(self.character.willpower, num + 1)
 
 
 class TestRandomGroup(TestCase):
