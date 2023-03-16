@@ -567,7 +567,7 @@ class TestChangeling(TestCase):
         self.assertEqual(self.character.freebies, 7)
         self.assertTrue(self.character.spend_freebies("willpower"))
         self.assertEqual(self.character.freebies, 6)
-        self.assertTrue(self.character.spend_freebies("Merit 1"))
+        self.assertTrue(self.character.spend_freebies("Merit 0"))
         self.assertEqual(self.character.freebies, 5)
         self.character.freebies = 15
         self.assertEqual(self.character.freebies, 15)
