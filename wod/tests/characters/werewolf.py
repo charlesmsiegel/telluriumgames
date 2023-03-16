@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
@@ -461,26 +463,85 @@ class TestKinfolk(TestCase):
 
 
 class TestRandomKinfolk(TestCase):
+    def setUp(self):
+        self.kinfolk = Kinfolk.objects.create(name="Test Kinfolk")
+
     def test_random_breed(self):
-        self.fail()
+        with patch("random.choice", return_value="homid"):
+            self.kinfolk.random_breed()
+            self.assertEqual(self.kinfolk.breed, "homid")
+        with patch("random.choice", return_value="lupus"):
+            self.kinfolk.random_breed()
+            self.assertEqual(self.kinfolk.breed, "lupus")
 
     def test_random_tribe(self):
-        self.fail()
+        Tribe.objects.create(name="Test Tribe 1")
+        Tribe.objects.create(name="Test Tribe 2")
+        self.kinfolk.random_tribe()
+        self.assertIsInstance(self.kinfolk.tribe, Tribe)
 
     def test_choose_random_gift(self):
-        self.fail()
+        Gift.objects.create(
+            name="Test Gift 1", rank=1, allowed={"garou": ["homid", "Test Tribe"]}
+        )
+        Gift.objects.create(
+            name="Test Gift 2", rank=1, allowed={"garou": ["lupus", "Test Tribe"]}
+        )
+        Gift.objects.create(name="Test Gift 3", rank=2)
+        Gift.objects.create(name="Test Gift 4", rank=2)
+        self.kinfolk.set_breed("homid")
+        self.kinfolk.set_tribe(Tribe.objects.create(name="Test Tribe"))
+        choice = self.kinfolk.choose_random_gift()
+        self.assertIsInstance(choice, Gift)
+        choice = self.kinfolk.choose_random_gift(breed=True)
+        self.assertIsInstance(choice, Gift)
+        choice = self.kinfolk.choose_random_gift(tribe=True)
+        self.assertIsInstance(choice, Gift)
+        choice = self.kinfolk.choose_random_gift(breed=True, tribe=True)
+        self.assertIsInstance(choice, Gift)
 
     def test_random_xp_gift(self):
-        self.fail()
+        self.kinfolk.xp = 20
+        self.kinfolk.set_breed("homid")
+        self.kinfolk.set_tribe(Tribe.objects.create(name="Test Tribe"))
+        Gift.objects.create(name="Test Gift 1", rank=1)
+        self.assertTrue(self.kinfolk.random_xp_gift())
+        self.assertEqual(self.kinfolk.xp, 0)
 
     def test_random_relation(self):
-        self.fail()
+        with patch("random.choice", return_value="Test Relation"):
+            self.kinfolk.random_relation()
+            self.assertEqual(self.kinfolk.relation, "Test Relation")
 
     def test_random_fetish(self):
-        self.fail()
+        Fetish.objects.create(name="Test", rank=2)
+        fetish_count_before = self.kinfolk.fetishes_owned.count()
+        self.kinfolk.random_fetish()
+        fetish_count_after = self.kinfolk.fetishes_owned.count()
+        self.assertNotEqual(fetish_count_before, fetish_count_after)
 
     def test_random(self):
-        self.fail()
+        player = User.objects.create_user(username="Player")
+        werewolf_setup(player)
+        self.kinfolk.random(freebies=0)
+        self.assertEqual(self.kinfolk.status, "Ran")
+        self.assertTrue(self.kinfolk.has_name())
+        self.assertTrue(self.kinfolk.has_breed())
+        self.assertTrue(self.kinfolk.has_tribe())
+        self.assertTrue(self.kinfolk.has_relation())
+        self.assertTrue(self.kinfolk.has_attributes(primary=6, secondary=4, tertiary=3))
+        self.assertTrue(self.kinfolk.has_abilities(primary=11, secondary=7, tertiary=4))
+        self.assertTrue(self.kinfolk.has_backgrounds())
+        self.assertTrue(self.kinfolk.has_history())
+        self.assertTrue(self.kinfolk.has_finishing_touches())
+
+
+class TestGift(TestCase):
+    def setUp(self):
+        self.gift = Gift.objects.create()
+
+    def test_save(self):
+        self.assertIn("garou", self.gift.allowed)
 
 
 class TestFomor(TestCase):

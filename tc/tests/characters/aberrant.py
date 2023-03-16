@@ -854,7 +854,7 @@ class TestRandomAberrant(TestCase):
         self.assertEqual(aberrant.transformations.count(), 3)
 
         # Test not adding a transformation when all at a certain level are already added
-        aberrant.transformations.add(*self.aberrant.filter_transformations(level=3))
+        aberrant.transformations.add(*aberrant.filter_transformations(level=3))
         n = aberrant.transformations.count()
         aberrant.random_transformation(level=3)
         self.assertFalse(aberrant.random_transformation(level=3))

@@ -1091,7 +1091,8 @@ class TestRandomHuman(TestCase):
         self.character.freebies = 10
         MeritFlaw.objects.create(name="Test Merit/Flaw", ratings=[1, 2, 3])
         self.character.random_freebies_meritflaw()
-        self.assertLess(self.character.freebies, 10)
+        mf = MeritFlawRating.objects.filter(character=self.character).first().rating
+        self.assertEqual(self.character.freebies, 10 - mf)
         self.assertGreater(self.character.merits_and_flaws.count(), 0)
 
     def test_random_xp_attributes(self):
