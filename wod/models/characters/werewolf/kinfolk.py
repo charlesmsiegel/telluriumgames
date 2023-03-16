@@ -162,15 +162,12 @@ class Kinfolk(WtAHuman):
             if Gift.objects.filter(pk=index).exists():
                 choice = Gift.objects.get(pk=index)
                 correct = True
-                if breed and self.breed not in choice.allowed["garou"]:
-                    correct = False
+                if breed:
+                    if self.breed not in choice.allowed["garou"]:
+                        correct = False
                 if tribe:
-                    if self.camp is not None:
-                        if (
-                            self.tribe.name not in choice.allowed["garou"]
-                            and self.camp.name not in choice.allowed["garou"]
-                        ):
-                            correct = False
+                    if self.tribe.name not in choice.allowed["garou"]:
+                        correct = False
                     elif self.tribe.name not in choice.allowed["garou"]:
                         correct = False
                 if choice.rank != 1:

@@ -117,6 +117,11 @@ class Gift(Model):
         verbose_name = "Gift"
         verbose_name_plural = "Gifts"
 
+    def save(self, *args, **kwargs):
+        if "garou" not in self.allowed:
+            self.allowed["garou"] = []
+        return super().save(*args, **kwargs)
+
     def get_absolute_url(self):
         return reverse("wod:characters:werewolf:gift", kwargs={"pk": self.pk})
 
