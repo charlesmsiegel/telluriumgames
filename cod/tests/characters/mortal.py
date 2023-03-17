@@ -1384,7 +1384,7 @@ class TestIndexView(TestCase):
 
 class TestMortalDetailView(TestCase):
     def setUp(self) -> None:
-        User.objects.create_user("Test User", "test@user.com", "testself.fail()")
+        User.objects.create_user("Test User", "test@user.com", "test")
         self.character = Mortal.objects.create(
             name="Test Character", owner=User.objects.get(username="Test User"),
         )
@@ -1400,7 +1400,7 @@ class TestMortalDetailView(TestCase):
 
 class CharacterDetailView(TestCase):
     def setUp(self) -> None:
-        User.objects.create_user("Test User", "test@user.com", "testself.fail()")
+        User.objects.create_user("Test User", "test@user.com", "test")
         self.character = Mortal.objects.create(
             name="Test Character", owner=User.objects.get(username="Test User"),
         )
