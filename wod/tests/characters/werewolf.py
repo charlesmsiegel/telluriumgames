@@ -16,6 +16,7 @@ from wod.models.characters.werewolf import (
     Werewolf,
 )
 from wod.models.characters.werewolf.fomori import Fomor, FomoriPower
+from wod.models.characters.werewolf.garou import BattleScar
 from wod.models.characters.werewolf.kinfolk import Kinfolk
 from wod.models.characters.werewolf.wtahuman import WtAHuman
 from wod.models.items.werewolf import Fetish
@@ -728,7 +729,10 @@ class TestWerewolf(TestCase):
         self.assertTrue(self.character.has_gifts())
 
     def test_total_rites(self):
-        self.fail()
+        rite = Rite.objects.create(name="Test", level=1)
+        self.character.add_rite(rite)
+        self.character.add_rite(rite)
+        self.assertEqual(self.character.total_rites(), 1)
 
     def test_add_rite(self):
         r = Rite.objects.get(name="Rite 1", level=1)
@@ -796,7 +800,8 @@ class TestWerewolf(TestCase):
         self.assertTrue(self.character.has_camp())
 
     def test_set_gnosis(self):
-        self.fail()
+        self.character.set_gnosis(4)
+        self.assertEqual(self.character.gnosis, 4)
 
     def test_add_gnosis(self):
         self.assertEqual(self.character.gnosis, 0)
@@ -806,7 +811,8 @@ class TestWerewolf(TestCase):
         self.assertFalse(self.character.add_gnosis())
 
     def test_set_rage(self):
-        self.fail()
+        self.character.set_rage(5)
+        self.assertEqual(self.character.rage, 5)
 
     def test_add_rage(self):
         self.assertEqual(self.character.rage, 0)
@@ -1004,7 +1010,10 @@ class TestWerewolf(TestCase):
         self.assertEqual(self.character.pure_breed, 3)
 
     def test_num_renown_incidents(self):
-        self.fail()
+        self.character.add_renown_incident(RenownIncident.objects.create(name="Test 1"))
+        self.assertEqual(self.character.num_renown_incidents(), 1)
+        self.character.add_renown_incident(RenownIncident.objects.create(name="Test 2"))
+        self.assertEqual(self.character.num_renown_incidents(), 2)
 
     def test_add_renown_incident(self):
         r = RenownIncident.objects.create(
@@ -1060,22 +1069,44 @@ class TestWerewolf(TestCase):
         self.assertEqual(self.character.rites_known.count(), num + 1)
 
     def test_add_battle_scar(self):
-        self.fail()
+        scar = BattleScar.objects.create(name="Test Scar")
+        self.assertTrue(self.character.add_battle_scar(scar))
+        self.assertFalse(self.character.add_battle_scar(scar))
 
     def test_random_freebie_functions(self):
-        self.fail()
+        functions = self.character.random_freebie_functions()
+        self.assertIn("attribute", functions)
+        self.assertIn("ability", functions)
+        self.assertIn("background", functions)
+        self.assertIn("willpower", functions)
+        self.assertIn("meritflaw", functions)
+        self.assertIn("gift", functions)
+        self.assertIn("rage", functions)
+        self.assertIn("gnosis", functions)
 
     def test_random_xp_functions(self):
-        self.fail()
+        functions = self.character.random_xp_functions()
+        self.assertIn("attribute", functions)
+        self.assertIn("ability", functions)
+        self.assertIn("background", functions)
+        self.assertIn("willpower", functions)
+        self.assertIn("gift", functions)
+        self.assertIn("rage", functions)
+        self.assertIn("gnosis", functions)
 
     def test_add_fetish(self):
-        self.fail()
+        fetish = Fetish.objects.create(name="Test")
+        self.assertTrue(self.character.add_fetish(fetish))
+        self.assertFalse(self.character.add_fetish(fetish))
 
     def test_filter_fetishes(self):
-        self.fail()
+        filtered = self.character.filter_fetishes(min_rating=1, max_rating=3)
+        self.assertEqual(filtered.count(), 15)
 
     def test_total_fetish_rating(self):
-        self.fail()
+        fetish = Fetish.objects.create(name="Test", rank=2)
+        self.character.add_fetish(fetish)
+        self.assertEqual(self.character.total_fetish_rating(), 2)
 
 
 class TestTotem(TestCase):
