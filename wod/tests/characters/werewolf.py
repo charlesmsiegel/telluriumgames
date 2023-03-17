@@ -77,6 +77,8 @@ def werewolf_setup(player):
         Fetish.objects.create(name=f"Fetish {i+12}", rank=i, gnosis=i)
         Fetish.objects.create(name=f"Fetish {i+18}", rank=i, gnosis=i)
         Fetish.objects.create(name=f"Fetish {i+24}", rank=i, gnosis=i)
+    for i in range(10):
+        BattleScar.objects.create(name=f"Scar {i}")
 
 
 class TestWtAHuman(TestCase):
@@ -1143,10 +1145,12 @@ class TestRandomWerewolf(TestCase):
         self.assertTrue(self.character.has_auspice())
 
     def test_choose_random_gift(self):
-        self.fail()
+        chosen_gift = self.character.choose_random_gift()
+        self.assertIsInstance(chosen_gift, Gift)
 
     def test_random_gift(self):
-        self.fail()
+        self.character.random_gift()
+        self.assertEqual(self.character.gifts.count(), 1)
 
     def test_random_gifts(self):
         self.character.random_tribe()
@@ -1157,13 +1161,17 @@ class TestRandomWerewolf(TestCase):
         self.assertTrue(self.character.has_gifts())
 
     def test_random_breed(self):
-        self.fail()
+        self.character.random_breed()
+        self.assertIn(self.character.breed, ["homid", "metis", "lupus"])
 
     def test_random_camp(self):
-        self.fail()
+        self.character.set_tribe(Tribe.objects.get(name="Test Tribe"))
+        self.character.random_camp()
+        self.assertEqual(self.character.camps.count(), 1)
 
     def test_random_rite(self):
-        self.fail()
+        self.character.random_rite()
+        self.assertEqual(self.character.rites_known.count(), 1)
 
     def test_random_rites(self):
         self.character.rites = 3
@@ -1181,18 +1189,33 @@ class TestRandomWerewolf(TestCase):
 
     def test_random_freebies(self):
         self.character.random_tribe()
+        self.character.random_breed()
+        self.character.random_auspice()
         self.assertEqual(self.character.freebies, 15)
         self.character.random_freebies()
         self.assertEqual(self.character.freebies, 0)
 
     def test_random_freebies_gift(self):
-        self.fail()
+        self.character.freebies = 10
+        self.character.rank = 1
+        Gift.objects.create(name="Test", rank=1, allowed={"garou": ["Test"]})
+        self.character.set_tribe(Tribe.objects.create(name="Test"))
+        self.assertTrue(self.character.random_freebies_gift())
+        self.assertEqual(self.character.freebies, 3)
 
-    def test_random_freebies_Rage(self):
-        self.fail()
+    def test_random_freebies_rage(self):
+        self.character.freebies = 10
+        starting_rage = self.character.rage
+        self.character.random_freebies_rage()
+        self.assertTrue(self.character.rage > starting_rage)
+        self.assertEqual(self.character.freebies, 9)
 
     def test_random_freebies_gnosis(self):
-        self.fail()
+        self.character.freebies = 10
+        starting_gnosis = self.character.gnosis
+        self.character.random_freebies_gnosis()
+        self.assertTrue(self.character.gnosis > starting_gnosis)
+        self.assertEqual(self.character.freebies, 8)
 
     def test_random_renown_incident(self):
         self.character.auspice = "ahroun"
@@ -1201,28 +1224,59 @@ class TestRandomWerewolf(TestCase):
         self.assertEqual(self.character.num_renown_incidents(), num + 1)
 
     def test_random_battle_scar(self):
-        self.fail()
+        self.character.random_battle_scar()
+        self.assertGreaterEqual(self.character.battle_scars.count(), 1)
 
     def test_random_werewolf_history(self):
-        self.fail()
+        self.character.random_werewolf_history()
+        self.assertNotEqual(self.character.first_change, "")
 
     def test_random_xp_gift(self):
-        self.fail()
+        self.character.xp = 20
+        self.character.random_tribe()
+        self.character.random_auspice()
+        self.character.set_breed("homid")
+        num = self.character.gifts.count()
+        gift = Gift.objects.create(name="Test Gift")
+        gift.allowed = {"garou": ["homid"]}
+        gift.save()
+        self.character.random_xp_gift()
+        self.assertGreater(self.character.gifts.count(), num)
+        self.assertLess(self.character.xp, 20)
 
     def test_random_xp_rage(self):
-        self.fail()
+        self.character.xp = 10
+        self.character.rage = 1
+        starting_rage = self.character.rage
+        self.character.random_xp_rage()
+        self.assertTrue(self.character.rage > starting_rage)
+        self.assertEqual(self.character.xp, 9)
 
     def test_random_xp_gnosis(self):
-        self.fail()
+        self.character.xp = 10
+        self.character.gnosis = 1
+        starting_gnosis = self.character.gnosis
+        self.character.random_xp_gnosis()
+        self.assertTrue(self.character.gnosis > starting_gnosis)
+        self.assertEqual(self.character.xp, 8)
 
     def test_random_xp(self):
-        self.fail()
+        self.character.random_breed()
+        self.character.random_tribe()
+        self.character.random_auspice()
+        self.character.xp = 20
+        starting_xp = self.character.xp
+        self.character.random_xp()
+        self.assertTrue(self.character.xp < starting_xp)
 
     def test_random_fetish(self):
-        self.fail()
+        Fetish.objects.create(name="Test Fetish", rank=1)
+        self.character.random_fetish(min_rating=1, max_rating=1)
+        self.assertGreater(self.character.fetishes_owned.count(), 0)
 
     def test_random_fetishes(self):
-        self.fail()
+        self.character.random_fetishes(total_rating=10)
+        self.assertTrue(self.character.total_fetish_rating() >= 10)
 
     def test_random(self):
         self.assertFalse(self.character.has_name())

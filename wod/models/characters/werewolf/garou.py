@@ -372,6 +372,8 @@ class Werewolf(WtAHuman):
         )
 
     def add_gift(self, gift):
+        if gift in self.gifts.all():
+            return False
         self.gifts.add(gift)
         self.save()
         return True
@@ -712,14 +714,21 @@ class Werewolf(WtAHuman):
         }
 
     def random_freebies_gift(self):
-        trait = random.choice(self.filter_gifts())
-        self.spend_freebies(trait)
+        all_possible = list(self.filter_gifts())
+        breed = [x for x in all_possible if self.breed in x.allowed["garou"]]
+        auspice = [x for x in all_possible if self.auspice in x.allowed["garou"]]
+        tribe = [x for x in all_possible if self.tribe.name in x.allowed["garou"]]
+        possible = breed + auspice + tribe
+        if len(possible) != 0:
+            trait = random.choice(possible).name
+            return self.spend_freebies(trait)
+        return False
 
     def random_freebies_rage(self):
-        self.spend_freebies("rage")
+        return self.spend_freebies("rage")
 
     def random_freebies_gnosis(self):
-        self.spend_freebies("gnosis")
+        return self.spend_freebies("gnosis")
 
     def spend_xp(self, trait):
         output = super().spend_xp(trait)
