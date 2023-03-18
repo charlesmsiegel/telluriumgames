@@ -343,7 +343,8 @@ class TestRandomTalent(TestCase):
         self.assertTrue(self.character.has_moment_of_inspiration())
 
     def test_random_path(self):
-        self.fail()
+        self.character.random_path()
+        self.assertEqual(self.character.paths.count(), 1)
 
     def test_random(self):
         character = Talent.objects.create(owner=self.player)
