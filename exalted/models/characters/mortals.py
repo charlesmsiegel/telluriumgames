@@ -601,7 +601,7 @@ class ExMortal(CharacterModel):
         return self.spend_xp(trait.name)
 
     def random_xp_willpower(self):
-        return self.spend_bonus_points("willpower")
+        return self.spend_xp("willpower")
 
     def xp_cost(self, trait_type):
         if trait_type == "attribute":
