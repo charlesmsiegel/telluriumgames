@@ -51,13 +51,23 @@ class TestSolar(TestCase):
         self.assertTrue(self.solar.has_caste())
 
     def test_set_caste_abilities(self):
-        self.fail()
+        abilities = ["brawl", "awareness", "melee", "dodge", "resistance"]
+        self.assertTrue(self.solar.set_caste_abilities(abilities))
+        self.assertEqual(self.solar.caste_abilities, abilities)
 
     def test_add_caste_ability(self):
-        self.fail()
+        abilities = ["brawl", "awareness", "melee", "dodge"]
+        self.solar.set_caste_abilities(abilities)
+        self.assertTrue(self.solar.add_caste_abilites("resistance"))
+        self.assertEqual(self.solar.caste_abilities, abilities + ["resistance"])
+        self.assertFalse(self.solar.add_caste_abilites("resistance"))
 
     def test_has_caste_abilities(self):
-        self.fail()
+        self.assertFalse(self.solar.has_caste_abilities())
+        self.solar.set_caste_abilities(
+            ["brawl", "awareness", "melee", "dodge", "resistance"]
+        )
+        self.assertTrue(self.solar.has_caste_abilities())
 
     # def test_caste_abilities(self):
     #     self.solar.set_caste("dawn")
@@ -201,7 +211,9 @@ class TestSolar(TestCase):
         )
 
     def test_total_charms(self):
-        self.fail()
+        self.assertEqual(self.solar.total_charms(), 0)
+        self.solar.charms.create(name="Test Charm")
+        self.assertEqual(self.solar.total_charms(), 1)
 
     def test_has_charms(self):
         self.assertFalse(self.solar.has_charms())
@@ -268,10 +280,22 @@ class TestSolar(TestCase):
         self.assertEqual(self.solar.bonus_cost("evocation"), 4)
 
     def test_random_bonus_functions(self):
-        self.fail()
+        functions = self.solar.random_bonus_functions()
+        self.assertIn("charm", functions)
 
     def test_spend_bonus_points(self):
-        self.fail()
+        self.solar.bonus_points = 10
+        self.solar.set_caste_abilities(["brawl", "awareness"])
+        self.solar.favored_abilities = ["athletics"]
+        self.solar.add_ability("brawl")
+        self.solar.add_ability("athletics")
+        self.assertEqual(self.solar.bonus_points, 10)
+        self.assertTrue(self.solar.spend_bonus_points("brawl"))
+        self.assertEqual(self.solar.bonus_points, 9)
+        self.assertEqual(self.solar.brawl, 2)
+        self.assertTrue(self.solar.spend_bonus_points("brawl"))
+        self.assertEqual(self.solar.bonus_points, 8)
+        self.assertEqual(self.solar.brawl, 3)
 
     def test_xp_cost(self):
         self.assertEqual(self.solar.xp_cost("attribute"), 4)
@@ -296,13 +320,19 @@ class TestSolar(TestCase):
         self.assertEqual(self.solar.xp_cost("charm"), 10)
 
     def test_random_xp_functions(self):
-        self.fail()
+        functions = self.solar.random_xp_functions()
+        self.assertIn("charm", functions)
 
     def test_spend_xp(self):
-        self.fail()
+        self.solar.xp = 100
+        self.solar.spend_xp("archery")
+        self.assertEqual(self.solar.archery, 1)
+        self.assertEqual(self.solar.xp, 97)
 
     def test_charm_dict(self):
-        self.fail()
+        self.assertEqual(len(self.solar.charm_dict()), 25)
+        self.solar.add_charm(self.solar.filter_charms()[0])
+        self.assertEqual(len(self.solar.charm_dict()), 25)
 
 
 class TestRandomSolar(TestCase):
