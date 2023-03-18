@@ -374,18 +374,19 @@ class Solar(ExMortal):
                     return True
                 return False
             return False
+        if MartialArtsCharm.objects.filter(name=trait).exists():
+            charm = MartialArtsCharm.objects.get(name=trait)
+            cost = self.xp_cost("martial arts charm")
+            if cost <= self.xp:
+                if self.add_charm(charm):
+                    self.xp -= cost
+                    self.add_to_spend(trait, 1, cost)
+                    return True
+                return False
+            return False
         if SolarCharm.objects.filter(name=trait).exists():
             charm = SolarCharm.objects.get(name=trait)
-            if charm.is_martial_arts:
-                cost = self.xp_cost("martial arts charm")
-                if cost <= self.xp:
-                    if self.add_charm(charm):
-                        self.xp -= cost
-                        self.add_to_spend(trait, 1, cost)
-                        return True
-                    return False
-                return False
-            if charm.ability in self.favored_abilities:
+            if charm.statistic in self.favored_abilities:
                 cost = self.xp_cost("favored charm")
                 if cost <= self.xp:
                     if self.add_charm(charm):
@@ -394,7 +395,7 @@ class Solar(ExMortal):
                         return True
                     return False
                 return False
-            if charm.ability in self.caste_abilities:
+            if charm.statistic in self.caste_abilities:
                 cost = self.xp_cost("caste charm")
                 if cost <= self.xp:
                     if self.add_charm(charm):

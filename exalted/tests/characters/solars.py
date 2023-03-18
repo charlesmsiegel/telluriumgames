@@ -341,7 +341,9 @@ class TestRandomSolar(TestCase):
         solar_setup()
 
     def test_random_name(self):
-        self.fail()
+        solar = Solar.objects.create()
+        solar.random_name()
+        self.assertNotEqual(solar.name, "")
 
     def test_random_caste(self):
         self.assertFalse(self.solar.has_caste())
@@ -349,7 +351,10 @@ class TestRandomSolar(TestCase):
         self.assertTrue(self.solar.has_caste())
 
     def test_random_favored_ability(self):
-        self.fail()
+        self.solar.random_caste()
+        self.solar.random_caste_abilities()
+        self.solar.random_favored_ability()
+        self.assertNotIn(self.solar.favored_abilities[0], self.solar.caste_abilities)
 
     def test_random_favored_abilities(self):
         self.assertFalse(self.solar.has_favored_abilities())
@@ -379,10 +384,24 @@ class TestRandomSolar(TestCase):
         self.assertTrue(self.solar.has_limit_trigger())
 
     def test_random_bonus_charm(self):
-        self.fail()
+        self.solar.random_caste()
+        self.solar.random_caste_abilities()
+        self.solar.random_supernal_ability()
+        self.solar.random_favored_abilities()
+        self.solar.random_charms()
+        self.solar.bonus_points = 10
+        self.solar.random_bonus_charm()
+        self.assertGreater(self.solar.total_charms(), 15)
 
     def test_random_xp_charm(self):
-        self.fail()
+        self.solar.random_caste()
+        self.solar.random_caste_abilities()
+        self.solar.random_supernal_ability()
+        self.solar.random_favored_abilities()
+        self.solar.random_charms()
+        self.solar.xp = 10
+        self.solar.random_xp_charm()
+        self.assertGreater(self.solar.total_charms(), 15)
 
     def test_random(self):
         self.solar.name = ""

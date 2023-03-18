@@ -531,16 +531,7 @@ class DragonBlooded(ExMortal):
             return False
         if DragonBloodedCharm.objects.filter(name=trait).exists():
             charm = DragonBloodedCharm.objects.get(name=trait)
-            if charm.is_martial_arts:
-                cost = self.xp_cost("martial arts charm")
-                if cost <= self.xp:
-                    if self.add_charm(charm):
-                        self.xp -= cost
-                        self.add_to_spend(trait, 1, cost)
-                        return True
-                    return False
-                return False
-            if charm.ability in self.favored_abilities:
+            if charm.statistic in self.favored_abilities:
                 cost = self.xp_cost("favored charm")
                 if cost <= self.xp:
                     if self.add_charm(charm):
@@ -549,7 +540,7 @@ class DragonBlooded(ExMortal):
                         return True
                     return False
                 return False
-            if charm.ability in self.aspect_abilities:
+            if charm.statistic in self.aspect_abilities:
                 cost = self.xp_cost("aspect charm")
                 if cost <= self.xp:
                     if self.add_charm(charm):
