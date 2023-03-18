@@ -587,7 +587,9 @@ class TestMortal(TestCase):
 class TestRandomMortal(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
-        self.character = ExMortal.objects.create(name="", owner=self.player)
+        self.character = ExMortal.objects.create(
+            name="", owner=self.player, xp=50, willpower=1
+        )
         ex_setup()
 
     def test_random_name(self):
@@ -685,34 +687,64 @@ class TestRandomMortal(TestCase):
         self.assertLessEqual(self.character.xp, 1)
 
     def test_random_bonus_attribute(self):
-        self.fail()
+        initial_bonus_points = self.character.bonus_points
+        self.character.random_bonus_attribute()
+        self.assertTrue(self.character.bonus_points < initial_bonus_points)
 
     def test_random_bonus_ability(self):
-        self.fail()
+        initial_bonus_points = self.character.bonus_points
+        self.character.random_bonus_ability()
+        self.assertTrue(self.character.bonus_points < initial_bonus_points)
 
     def test_random_bonus_specialty(self):
-        self.fail()
+        self.character.occult = 1
+        specialty = ExSpecialty.objects.create(name="Test Specialty", ability="occult")
+        initial_bonus_points = self.character.bonus_points
+        self.character.random_bonus_specialty()
+        self.assertTrue(self.character.bonus_points < initial_bonus_points)
 
     def test_random_bonus_merit(self):
-        self.fail()
+        merit = ExMerit.objects.create(name="Test Merit", ratings=[1, 2, 3])
+        initial_bonus_points = self.character.bonus_points
+        self.character.random_bonus_merit()
+        self.assertTrue(self.character.bonus_points < initial_bonus_points)
 
     def test_random_bonus_willpower(self):
-        self.fail()
+        initial_bonus_points = self.character.bonus_points
+        initial_willpower = self.character.willpower
+        self.character.random_bonus_willpower()
+        self.assertTrue(self.character.bonus_points < initial_bonus_points)
+        self.assertTrue(self.character.willpower > initial_willpower)
 
     def test_random_xp_attribute(self):
-        self.fail()
+        initial_xp = self.character.xp
+        self.character.random_xp_attribute()
+        self.assertTrue(self.character.xp < initial_xp)
 
     def test_random_xp_ability(self):
-        self.fail()
+        initial_xp = self.character.xp
+        self.character.random_xp_ability()
+        self.assertTrue(self.character.xp < initial_xp)
 
     def test_random_xp_specialty(self):
-        self.fail()
+        self.character.occult = 1
+        specialty = ExSpecialty.objects.create(name="Test Specialty", ability="occult")
+        initial_xp = self.character.xp
+        self.character.random_xp_specialty()
+        self.assertTrue(self.character.xp < initial_xp)
 
     def test_random_xp_merit(self):
-        self.fail()
+        merit = ExMerit.objects.create(name="Test Merit", ratings=[1, 2, 3])
+        initial_xp = self.character.xp
+        self.character.random_xp_merit()
+        self.assertTrue(self.character.xp < initial_xp)
 
     def test_random_xp_willpower(self):
-        self.fail()
+        initial_xp = self.character.xp
+        initial_willpower = self.character.willpower
+        self.assertTrue(self.character.random_xp_willpower())
+        self.assertTrue(self.character.xp < initial_xp)
+        self.assertTrue(self.character.willpower > initial_willpower)
 
     def test_random(self):
         self.assertFalse(self.character.has_name())
