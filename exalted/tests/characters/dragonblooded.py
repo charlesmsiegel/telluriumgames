@@ -97,7 +97,10 @@ class TestDragonBlooded(TestCase):
         )
 
     def test_finishing_touches(self):
-        self.fail()
+        self.db.apply_finishing_touches()
+        self.assertEqual(self.db.willpower, 5)
+        self.assertEqual(self.db.health_levels, 7)
+        self.assertEqual(self.db.essence, 2)
 
     def test_total_charms(self):
         self.assertEqual(self.db.total_charms(), 0)
@@ -185,10 +188,57 @@ class TestDragonBlooded(TestCase):
         self.assertTrue(self.db.has_charms())
 
     def test_filter_excellencies(self):
-        self.fail()
+        self.db.essence = 1
+        self.db.melee = 2
+        DragonBloodedCharm.objects.create(
+            name="Test Excellency",
+            keywords=["excellency"],
+            min_essence=1,
+            min_statistic=0,
+            statistic="melee",
+        )
+        DragonBloodedCharm.objects.create(name="Test Charm")
+        filtered_charms = self.db.filter_excellencies()
+        self.assertEqual(len(filtered_charms), 1)
+        self.assertEqual(filtered_charms[0].name, "Test Excellency")
 
     def test_filter_charms(self):
-        self.fail()
+        self.db.essence = 2
+        ma = ExMerit.objects.create(name="Martial Artist", ratings=[1])
+        self.db.add_merit(ma)
+
+        self.db.archery = 3
+        DragonBloodedCharm.objects.create(
+            name="Test Charm 1", statistic="archery", min_statistic=3, min_essence=1,
+        )
+        self.db.athletics = 2
+        DragonBloodedCharm.objects.create(
+            name="Test Charm 2", statistic="athletics", min_statistic=2, min_essence=1,
+        )
+        self.db.martial_arts = 1
+        MartialArtsCharm.objects.create(
+            name="Test Charm 3",
+            statistic="martial_arts",
+            min_statistic=1,
+            min_essence=2,
+        )
+        self.db.bureaucracy = 3
+        DragonBloodedCharm.objects.create(
+            name="Test Charm 4",
+            statistic="bureaucracy",
+            min_statistic=3,
+            min_essence=3,
+        )
+        self.db.presence = 4
+        DragonBloodedCharm.objects.create(
+            name="Test Charm 5", statistic="presence", min_statistic=4, min_essence=4,
+        )
+        filtered_charms = self.db.filter_charms()
+        self.assertEqual(len(filtered_charms), 81)
+        charm_names = [charm.name for charm in filtered_charms]
+        self.assertIn("Test Charm 1", charm_names)
+        self.assertIn("Test Charm 2", charm_names)
+        self.assertIn("Test Charm 3", charm_names)
 
     def test_add_charm(self):
         charm = DragonBloodedCharm.objects.create(
@@ -231,7 +281,37 @@ class TestDragonBlooded(TestCase):
         self.assertIn("charm", random_functions)
 
     def test_spend_bonus_points(self):
-        self.fail()
+        self.db.bonus_points = 10
+        self.db.aspect_abilities = ["archery"]
+        self.db.favored_abilities = ["melee"]
+        self.db.save()
+        self.assertTrue(self.db.spend_bonus_points("archery"))
+        self.assertEqual(self.db.aspect_abilities, ["archery"])
+        self.assertEqual(self.db.bonus_points, 9)
+
+        self.db.bonus_points = 10
+        self.db.aspect_abilities = ["archery"]
+        self.db.favored_abilities = ["melee"]
+        self.db.save()
+        self.assertTrue(self.db.spend_bonus_points("melee"))
+        self.assertEqual(self.db.favored_abilities, ["melee"])
+        self.assertEqual(self.db.bonus_points, 9)
+
+        charm = DragonBloodedCharm.objects.create(
+            name="Heavenly Guardian Defense",
+            statistic="melee",
+            min_statistic=3,
+            min_essence=2,
+        )
+        self.db.bonus_points = 10
+        self.db.aspect_abilities = ["archery"]
+        self.db.favored_abilities = ["melee"]
+        self.db.melee = 4
+        self.db.essence = 3
+        self.db.save()
+        self.assertTrue(self.db.spend_bonus_points("Heavenly Guardian Defense"))
+        self.assertEqual(set(self.db.charms.all()), {charm})
+        self.assertEqual(self.db.bonus_points, 6)
 
     def test_xp_cost(self):
         self.assertEqual(self.db.xp_cost("charm"), 10)
@@ -246,7 +326,39 @@ class TestDragonBlooded(TestCase):
         self.assertEqual(self.db.xp_cost("evocation"), 12)
 
     def test_spend_xp(self):
-        self.fail()
+        self.db.xp = 20
+        self.db.aspect_abilities = ["archery"]
+        self.db.favored_abilities = ["melee"]
+        self.db.archery = 1
+        self.db.melee = 1
+        self.db.save()
+        self.assertTrue(self.db.spend_xp("archery"))
+        self.assertEqual(self.db.aspect_abilities, ["archery"])
+        self.assertEqual(self.db.xp, 19)
+
+        self.db.xp = 20
+        self.db.aspect_abilities = ["archery"]
+        self.db.favored_abilities = ["melee"]
+        self.db.save()
+        self.assertTrue(self.db.spend_xp("melee"))
+        self.assertEqual(self.db.favored_abilities, ["melee"])
+        self.assertEqual(self.db.xp, 19)
+
+        charm = DragonBloodedCharm.objects.create(
+            name="Heavenly Guardian Defense",
+            statistic="melee",
+            min_statistic=3,
+            min_essence=2,
+        )
+        self.db.xp = 20
+        self.db.aspect_abilities = ["archery"]
+        self.db.melee = 3
+        self.db.essence = 2
+        self.db.favored_abilities = ["melee"]
+        self.db.save()
+        self.assertTrue(self.db.spend_xp("Heavenly Guardian Defense"))
+        self.assertEqual(set(self.db.charms.all()), {charm})
+        self.assertEqual(self.db.xp, 12)
 
 
 class TestRandomDragonBlooded(TestCase):
