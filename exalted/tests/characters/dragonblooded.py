@@ -16,8 +16,15 @@ def dragonblooded_setup():
     ex_setup()
     MartialArtsStyle.objects.create(name="Snake")
     MartialArtsStyle.objects.create(name="Weasel")
-    for i in range(10):
-        for ability in ABILITIES:
+    for ability in ABILITIES:
+        DragonBloodedCharm.objects.create(
+            name=f"{ability.title()} Excellency",
+            keywords=["excellency"],
+            statistic=ability,
+            min_statistic=1,
+            min_essence=1,
+        )
+        for i in range(10):
             DragonBloodedCharm.objects.create(
                 name=f"{ability.title()} Charm {i}",
                 statistic=ability,
@@ -32,6 +39,17 @@ def dragonblooded_setup():
                 min_essence=i % 5,
                 style=style,
             )
+    for merit_name in [
+        "Backing",
+        "Command",
+        "Contacts",
+        "Followers",
+        "Influence",
+        "Language",
+        "Resources",
+        "Retainers",
+    ]:
+        ExMerit.objects.create(name=merit_name, ratings=[1, 2, 3, 4, 5])
 
 
 # Create your tests here.
@@ -190,17 +208,9 @@ class TestDragonBlooded(TestCase):
     def test_filter_excellencies(self):
         self.db.essence = 1
         self.db.melee = 2
-        DragonBloodedCharm.objects.create(
-            name="Test Excellency",
-            keywords=["excellency"],
-            min_essence=1,
-            min_statistic=0,
-            statistic="melee",
-        )
-        DragonBloodedCharm.objects.create(name="Test Charm")
         filtered_charms = self.db.filter_excellencies()
         self.assertEqual(len(filtered_charms), 1)
-        self.assertEqual(filtered_charms[0].name, "Test Excellency")
+        self.assertEqual(filtered_charms[0].name, "Melee Excellency")
 
     def test_filter_charms(self):
         self.db.essence = 2
@@ -234,7 +244,7 @@ class TestDragonBlooded(TestCase):
             name="Test Charm 5", statistic="presence", min_statistic=4, min_essence=4,
         )
         filtered_charms = self.db.filter_charms()
-        self.assertEqual(len(filtered_charms), 81)
+        self.assertEqual(len(filtered_charms), 78)
         charm_names = [charm.name for charm in filtered_charms]
         self.assertIn("Test Charm 1", charm_names)
         self.assertIn("Test Charm 2", charm_names)
@@ -363,41 +373,164 @@ class TestDragonBlooded(TestCase):
 
 class TestRandomDragonBlooded(TestCase):
     def setUp(self):
-        self.dragon_blooded = DragonBlooded.objects.create(name="Test DragonBlooded")
+        self.db = DragonBlooded.objects.create(name="Test DragonBlooded")
         dragonblooded_setup()
 
     def test_random_aspect(self):
-        self.fail()
+        self.db.random_aspect()
+        self.assertIn(self.db.aspect, [aspect[0] for aspect in self.db.ASPECT_CHOICES])
 
     def test_random_origin(self):
-        self.fail()
+        self.db.random_origin()
+        self.assertIn(self.db.origin, [origin[0] for origin in self.db.ORIGIN_CHOICES])
+        if self.db.origin == "dynast":
+            self.assertIn(
+                self.db.house,
+                [
+                    "cathak",
+                    "cynis",
+                    "iselsi",
+                    "ledaal",
+                    "mnemon",
+                    "nellens",
+                    "peleps",
+                    "ragara",
+                    "sesus",
+                    "tepet",
+                    "vneef",
+                ],
+            )
+        elif self.db.origin == "dynast_outcaste":
+            self.assertIn(
+                self.db.house,
+                [
+                    "cathak",
+                    "cynis",
+                    "iselsi",
+                    "ledaal",
+                    "mnemon",
+                    "nellens",
+                    "peleps",
+                    "ragara",
+                    "sesus",
+                    "tepet",
+                    "vneef",
+                ],
+            )
+        elif self.db.origin == "cadet":
+            self.assertIn(self.db.house, ["ferem", "desai", "yueh"])
+        elif self.db.origin == "prasadi":
+            self.assertIn(self.db.house, ["burano", "ophris"])
+        elif self.db.origin == "lookshyan":
+            self.assertIn(
+                self.db.house,
+                [
+                    "amilar",
+                    "karal",
+                    "maheka",
+                    "teresu",
+                    "yushoto",
+                    "kiriga",
+                    "nefvarin",
+                    "nerigus",
+                    "sirel",
+                    "taroketu",
+                    "toriki",
+                    "yan_tu",
+                ],
+            )
+        elif self.db.origin == "foriegn_outcaste":
+            self.assertIn(
+                self.db.house,
+                [
+                    "violet_fangs",
+                    "grass_spiders",
+                    "heavens_dragons",
+                    "khamaseen_battalion",
+                    "rogue_legion",
+                    "yatanis_children",
+                    "forest_witches",
+                ],
+            )
 
     def test_random_favored_ability(self):
-        self.fail()
+        self.db.random_favored_ability()
+        self.assertIn(self.db.favored_abilities[-1], ABILITIES)
 
     def test_random_favored_abilities(self):
-        self.fail()
+        self.db.random_favored_abilities()
+        self.assertGreaterEqual(len(self.db.favored_abilities), 5)
 
     def test_random_name(self):
-        self.fail()
+        self.db.random_name()
+        self.assertTrue(isinstance(self.db.name, str))
 
     def test_random_excellency(self):
-        self.fail()
+        self.db.melee = 1
+        self.db.essence = 1
+        self.assertGreaterEqual(self.db.charms.count(), 0)
+        self.db.random_excellency()
+        self.assertGreaterEqual(self.db.charms.count(), 1)
+        self.assertIn("excellency", self.db.charms.first().keywords)
 
     def test_random_charm(self):
-        self.fail()
+        self.db.random_charm()
+        self.assertGreaterEqual(self.db.charms.count(), 1)
 
     def test_random_charms(self):
-        self.fail()
+        self.db.random_aspect()
+        self.db.random_favored_abilities()
+        self.db.random_abilities()
+        self.db.essence = 1
+        self.db.random_charms()
+        self.assertGreaterEqual(self.db.charms.count(), 20)
+        self.assertTrue(self.db.has_excellencies())
 
     def test_random_additional_specialties(self):
-        self.fail()
+        self.db.random_origin()
+        self.db.random_aspect()
+        self.db.random_favored_abilities()
+        self.db.random_abilities()
+        self.db.random_additional_specialties()
+        specialties = [
+            getattr(self.db, ability)
+            for ability in ABILITIES
+            if getattr(self.db, ability) > 0
+        ]
+        self.assertGreaterEqual(len(specialties), 2)
 
     def test_random_bonus_charm(self):
-        self.fail()
+        self.db.bonus_points = 20
+        self.db.random_bonus_charm()
+        self.assertGreaterEqual(self.db.bonus_points, 0)
 
     def test_random_xp_charm(self):
-        self.fail()
+        # Create a DragonBlooded object
+        dragon_blooded = DragonBlooded.objects.create(
+            aspect="fire", origin="dynast", house="cathak", school="heptagram"
+        )
+
+        dragon_blooded.melee = 2
+        dragon_blooded.essence = 1
+
+        # Test that the random_xp_charm() method returns the expected result
+        dragon_blooded.xp = 20
+        self.assertTrue(dragon_blooded.random_xp_charm())
+        self.assertGreater(dragon_blooded.charms.count(), 0)
+        self.assertEqual(dragon_blooded.xp, 10)
 
     def test_random(self):
-        self.fail()
+        dragon_blooded = DragonBlooded.objects.create()
+        dragon_blooded.random(xp=0, bonus_points=0)
+
+        # Check that the object has the expected attributes
+        self.assertTrue(dragon_blooded.has_concept())
+        self.assertTrue(dragon_blooded.has_aspect())
+        self.assertTrue(dragon_blooded.has_origin())
+        self.assertTrue(dragon_blooded.has_name())
+        self.assertEqual(dragon_blooded.essence, 2)
+        self.assertTrue(dragon_blooded.has_favored_abilities())
+        self.assertTrue(dragon_blooded.has_abilities())
+        self.assertTrue(dragon_blooded.has_merits(target_num=18))
+        self.assertGreaterEqual(dragon_blooded.specialties.count(), 4)
+        self.assertTrue(dragon_blooded.has_intimacies())
