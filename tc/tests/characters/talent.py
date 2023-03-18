@@ -17,6 +17,7 @@ class TestTalent(TestCase):
     def setUp(self):
         self.player = User.objects.create(username="Test User")
         self.character = Talent.objects.create(name="", owner=self.player)
+        self.moment = MomentOfInspiration.objects.create(name="", attributes=["might"])
 
     def test_add_moment_of_inspiration(self):
         m = MomentOfInspiration.objects.create(
@@ -35,7 +36,46 @@ class TestTalent(TestCase):
         self.assertTrue(self.character.has_moment_of_inspiration())
 
     def test_has_template(self):
-        self.fail()
+        self.assertFalse(self.character.has_template())
+
+        # Create the necessary paths, gifts, and moment of inspiration
+        path_origin = TCPath.objects.create(
+            name="Origin Path", type="origin", gift_keywords=["o"]
+        )
+        path_role = TCPath.objects.create(
+            name="Role Path", type="role", gift_keywords=["r"]
+        )
+        path_society = TCPath.objects.create(
+            name="Society Path", type="society", gift_keywords=["s"]
+        )
+
+        self.character.might = 5
+        self.character.intellect = 5
+        self.character.cunning = 5
+        self.character.presence = 5
+
+        gift1 = TCGift.objects.create(name="Gift1", keywords=["o"])
+        gift2 = TCGift.objects.create(name="Gift2", keywords=["r"])
+        gift3 = TCGift.objects.create(name="Gift3", keywords=["s"])
+        gift4 = TCGift.objects.create(name="Gift4")
+
+        moment_of_inspiration = MomentOfInspiration.objects.create(name="Inspiration 1")
+
+        # Assign created objects to the character
+        self.character.paths.add(path_origin, path_role, path_society)
+        self.character.add_gift(gift1)
+        self.character.add_gift(gift2)
+        self.character.add_gift(gift3)
+        self.character.add_gift(gift4)
+
+        self.character.add_moment_of_inspiration(moment_of_inspiration)
+
+        self.character.add_facet("intuitive")
+        self.character.add_facet("reflective")
+        self.character.add_facet("destructive")
+
+        # Check if the character has a template
+        self.assertTrue(self.character.has_template())
 
     def test_add_facet(self):
         self.assertEqual(self.character.inspiration, 1)
@@ -158,10 +198,25 @@ class TestTalent(TestCase):
         self.assertEqual(len(self.character.filter_gifts(keyword="luck", path=None)), 1)
 
     def test_total_gifts(self):
-        self.fail()
+        gift1 = TCGift.objects.create(name="Gift1")
+        gift2 = TCGift.objects.create(name="Gift2")
+
+        self.character.add_gift(gift1)
+        self.character.add_gift(gift2)
+
+        self.assertEqual(self.character.total_gifts(), 2)
 
     def test_total_facets(self):
-        self.fail()
+        self.assertEqual(self.character.total_facets(), 0)
+
+        self.character.add_facet("intuitive")
+        self.assertEqual(self.character.total_facets(), 1)
+
+        self.character.add_facet("reflective")
+        self.assertEqual(self.character.total_facets(), 2)
+
+        self.character.add_facet("destructive")
+        self.assertEqual(self.character.total_facets(), 3)
 
     def test_xp_cost(self):
         self.assertEqual(self.character.xp_cost("attribute"), 10)
