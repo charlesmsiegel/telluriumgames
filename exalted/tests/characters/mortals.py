@@ -1,7 +1,13 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from exalted.models.characters.mortals import ExMerit, ExMortal, ExSpecialty, Intimacy
+from exalted.models.characters.mortals import (
+    ExMerit,
+    ExMortal,
+    ExSpecialty,
+    Intimacy,
+    MeritRating,
+)
 from exalted.models.characters.utils import ABILITIES
 
 
@@ -193,7 +199,8 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.total_social_attributes(), 5)
 
     def test_total_attributes(self):
-        self.fail()
+        total = self.character.total_attributes()
+        self.assertEqual(total, 9)
 
     def test_filter_attributes(self):
         self.character.strength = 5
@@ -365,34 +372,46 @@ class TestMortal(TestCase):
         self.assertEqual(len(self.character.filter_abilities(minimum=0, maximum=0)), 12)
 
     def test_total_abilities(self):
-        self.fail()
+        total = self.character.total_abilities()
+        self.assertEqual(total, 0)
+        self.character.random_ability()
+        self.assertEqual(self.character.total_abilities(), 1)
 
     def test_ability_types(self):
-        self.fail()
+        types = self.character.ability_types()
+        self.assertEqual(len(types), 4)
 
     def test_get_combat_abilities(self):
-        self.fail()
+        abilities = self.character.get_combat_abilities()
+        self.assertEqual(len(abilities), 12)
 
     def test_total_combat_abilities(self):
-        self.fail()
+        total = self.character.total_combat_abilities()
+        self.assertEqual(total, 0)
 
     def test_get_crafting_abilities(self):
-        self.fail()
+        abilities = self.character.get_crafting_abilities()
+        self.assertEqual(len(abilities), 3)
 
     def test_total_crafting_abilities(self):
-        self.fail()
+        total = self.character.total_crafting_abilities()
+        self.assertEqual(total, 0)
 
     def test_get_social_abilities(self):
-        self.fail()
+        abilities = self.character.get_social_abilities()
+        self.assertEqual(len(abilities), 5)
 
     def test_total_social_abilities(self):
-        self.fail()
+        total = self.character.total_social_abilities()
+        self.assertEqual(total, 0)
 
     def test_get_sorcery_abilities(self):
-        self.fail()
+        abilities = self.character.get_sorcery_abilities()
+        self.assertEqual(len(abilities), 1)
 
     def test_total_sorcery_abilities(self):
-        self.fail()
+        total = self.character.total_sorcery_abilities()
+        self.assertEqual(total, 0)
 
     def test_add_specialty(self):
         num = self.character.specialties.count()
@@ -437,10 +456,15 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.merit_rating("Merit 1"), 4)
 
     def test_total_merits(self):
-        self.fail()
+        total = self.character.total_merits()
+        self.assertEqual(total, 0)
+        self.character.add_merit(ExMerit.objects.create(name="", ratings=[1, 2]))
 
     def test_merit_rating(self):
-        self.fail()
+        merit = ExMerit.objects.create(name="Test Merit", ratings=[1, 2, 3])
+        MeritRating.objects.create(character=self.character, merit=merit, rating=3)
+        rating = self.character.merit_rating("Test Merit")
+        self.assertEqual(rating, 3)
 
     def test_has_merits(self):
         self.assertFalse(self.character.has_merits())
@@ -501,7 +525,11 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.bonus_points, 8)
 
     def test_random_bonus_functions(self):
-        self.fail()
+        functions = self.character.random_bonus_functions()
+        self.assertEqual(
+            set(functions.keys()),
+            {"attribute", "ability", "specialty", "merit", "willpower"},
+        )
 
     def test_has_finishing_touches(self):
         self.assertFalse(self.character.has_finishing_touches())
@@ -511,7 +539,10 @@ class TestMortal(TestCase):
         self.assertTrue(self.character.has_finishing_touches())
 
     def test_add_willpower(self):
-        self.fail()
+        initial_willpower = self.character.willpower
+        self.character.add_willpower()
+        new_willpower = self.character.willpower
+        self.assertEqual(new_willpower, initial_willpower + 1)
 
     def test_apply_finishing_touches(self):
         self.assertFalse(self.character.has_finishing_touches())
@@ -542,10 +573,15 @@ class TestMortal(TestCase):
         self.assertEqual(self.character.xp, 77)
 
     def test_random_xp_functions(self):
-        self.fail()
+        functions = self.character.random_xp_functions()
+        self.assertEqual(
+            set(functions.keys()),
+            {"attribute", "ability", "specialty", "merit", "willpower"},
+        )
 
     def test_add_to_spend(self):
-        self.fail()
+        self.character.add_to_spend("test_trait", 1, 5)
+        self.assertIn("Test Trait 1 (5 XP)", self.character.spent_xp)
 
 
 class TestRandomMortal(TestCase):
