@@ -4,6 +4,7 @@ from django.test import TestCase
 from tc.models.characters.aberrant import Aberrant
 from tc.models.characters.human import (
     Edge,
+    EdgeRating,
     EnhancedEdge,
     Human,
     PathConnection,
@@ -732,7 +733,8 @@ class TestRandomHuman(TestCase):
             )
 
     def test_random_name(self):
-        self.fail()
+        self.character.random_name()
+        self.assertTrue(self.character.has_name())
 
     def test_random_aspirations(self):
         self.assertFalse(self.character.has_aspirations())
@@ -817,7 +819,18 @@ class TestRandomHuman(TestCase):
         self.assertEqual(self.character.total_edges(), num + 1)
 
     def test_random_edges(self):
-        self.fail()
+        origin_path = TCPath.objects.create(name="Origin Path", type="origin")
+        role_path = TCPath.objects.create(name="Role Path", type="role")
+        society_path = TCPath.objects.create(name="Society Path", type="society")
+        edge1 = Edge.objects.create(name="Edge1", ratings=[1, 2, 3, 4, 5])
+        edge2 = Edge.objects.create(name="Edge2", ratings=[1, 2, 3, 4, 5])
+        edge3 = Edge.objects.create(name="Edge3", ratings=[1, 2, 3, 4, 5])
+        origin_path.edges.add(edge1)
+        role_path.edges.add(edge2)
+        society_path.edges.add(edge3)
+        self.character.paths.add(origin_path, role_path, society_path)
+        self.character.random_edges()
+        self.assertEqual(self.character.total_edges(), 6)
 
     def test_apply_random_template(self):
         attributes = self.character.total_attributes()
