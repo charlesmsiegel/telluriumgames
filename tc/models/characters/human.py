@@ -580,7 +580,7 @@ class Human(CharacterModel):
             output = output and self.total_edges() == 10
         return output
 
-    def random_edge(self, dots=100, sublist=None):
+    def random_edge(self, dots=100, sublist=None, tries=100):
         if sublist is not None:
             sublist = [
                 x
@@ -596,19 +596,19 @@ class Human(CharacterModel):
                 ]
                 return self.add_edge(choice)
             return False
-        index = random.randint(1, Edge.objects.last().id)
-        if Edge.objects.filter(pk=index).exists():
-            choice = Edge.objects.get(pk=index)
-            num_dots = [
-                x for x in choice.ratings if self.edge_rating(choice) < x <= dots
-            ]
-            if choice.type == "edge" and len(num_dots) != 0:
-                if random.randint(
-                    0, choice.count_prereqs(self) + 1
-                ) <= choice.count_prereqs(self):
-                    return self.add_edge(choice)
-                return False
-            return False
+        count = 0
+        while count < tries:
+            index = random.randint(1, Edge.objects.last().id)
+            if Edge.objects.filter(pk=index).exists():
+                choice = Edge.objects.get(pk=index)
+                num_dots = [
+                    x for x in choice.ratings if self.edge_rating(choice) < x <= dots
+                ]
+                if choice.type == "edge" and len(num_dots) != 0:
+                    if random.randint(
+                        0, choice.count_prereqs(self) + 1
+                    ) <= choice.count_prereqs(self):
+                        return self.add_edge(choice)
         return False
 
     def random_edges(self):

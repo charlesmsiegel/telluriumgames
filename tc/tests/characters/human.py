@@ -920,9 +920,9 @@ class TestRandomHuman(TestCase):
         self.assertTrue(self.character.has_attributes())
 
     def test_random_edge(self):
+        Edge.objects.create(name="Random Edge Test", ratings=[1])
         num = self.character.total_edges()
-        while not self.character.random_edge(dots=1):
-            self.fail()
+        self.character.random_edge(dots=1)
         self.assertEqual(self.character.total_edges(), num + 1)
 
     def test_random_edges(self):
