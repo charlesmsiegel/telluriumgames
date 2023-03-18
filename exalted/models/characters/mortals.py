@@ -272,12 +272,18 @@ class ExMortal(CharacterModel):
             "war": self.war,
         }
 
+    def total_combat_abilities(self):
+        return sum(v for k, v in self.get_combat_abilities().items())
+
     def get_crafting_abilities(self):
         return {
             "craft": self.craft,
             "lore": self.lore,
             "occult": self.occult,
         }
+
+    def total_crafting_abilities(self):
+        return sum(v for k, v in self.get_crafting_abilities().items())
 
     def get_social_abilities(self):
         return {
@@ -288,8 +294,14 @@ class ExMortal(CharacterModel):
             "socialize": self.socialize,
         }
 
+    def total_social_abilities(self):
+        return sum(v for k, v in self.get_social_abilities().items())
+
     def get_sorcery_abilities(self):
         return {"occult": self.occult}
+
+    def total_sorcery_abilities(self):
+        return sum(v for k, v in self.get_sorcery_abilities().items())
 
     def has_specialties(self):
         return self.specialties.count() == 4
