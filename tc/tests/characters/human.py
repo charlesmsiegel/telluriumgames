@@ -67,7 +67,20 @@ class TestHuman(TestCase):
         self.assertTrue(self.character.has_aspirations())
 
     def test_add_aspiration(self):
-        self.fail()
+        self.character.add_aspiration(
+            "Short term aspiration 1", aspiration_type="short", number=1
+        )
+        self.assertEqual(
+            self.character.short_term_aspiration_1, "Short term aspiration 1"
+        )
+        self.character.add_aspiration(
+            "Short term aspiration 2", aspiration_type="short", number=2
+        )
+        self.assertEqual(
+            self.character.short_term_aspiration_2, "Short term aspiration 2"
+        )
+        self.character.add_aspiration("Long term aspiration", aspiration_type="long")
+        self.assertEqual(self.character.long_term_aspiration, "Long term aspiration")
 
     def test_has_basics(self):
         self.assertFalse(self.character.has_basics())
@@ -103,13 +116,39 @@ class TestHuman(TestCase):
         self.assertFalse(self.character.add_edge(e))
 
     def test_edge_rating(self):
-        self.fail()
+        edge = Edge.objects.create(name="Edge1", ratings=[1, 2, 3, 4, 5])
+        self.character.edges.add(edge, through_defaults={"rating": 3})
+        self.assertEqual(self.character.edge_rating(edge), 3)
 
     def test_total_path_edges(self):
-        self.fail()
+        edge1 = Edge.objects.create(name="Edge 1", ratings=[1, 2])
+        edge2 = Edge.objects.create(name="Edge 2", ratings=[1, 2])
+        path1 = TCPath.objects.create(name="Path 1")
+        path2 = TCPath.objects.create(name="Path 2")
+        EdgeRating.objects.create(character=self.character, edge=edge1, rating=1)
+        er = EdgeRating.objects.create(character=self.character, edge=edge2, rating=2)
+        path1.edges.add(edge1)
+        path2.edges.add(edge2)
+        self.character.paths.add(path1, path2)
+        self.assertEqual(self.character.total_path_edges(), 3)
+        # Test total_path_edges for a specific path
+        er.rating = 1
+        er.save()
+        self.assertEqual(self.character.total_path_edges(path2), 1)
 
     def test_get_path_edges(self):
-        self.fail()
+        edge1 = Edge.objects.create(name="Edge 1", ratings=[1, 2])
+        edge2 = Edge.objects.create(name="Edge 2", ratings=[1, 2])
+        path1 = TCPath.objects.create(name="Path 1")
+        path2 = TCPath.objects.create(name="Path 2")
+
+        EdgeRating.objects.create(character=self.character, edge=edge1, rating=1)
+        EdgeRating.objects.create(character=self.character, edge=edge2, rating=2)
+        path1.edges.add(edge1)
+        path2.edges.add(edge2)
+        self.character.paths.add(path1, path2)
+        self.assertEqual(self.character.get_path_edges(dots=1), ["Edge 1"])
+        self.assertEqual(self.character.get_path_edges(dots=2), ["Edge 1", "Edge 2"])
 
     def test_total_edges(self):
         e1 = Edge.objects.create(name="Edge 1", ratings=[1, 2])
@@ -182,7 +221,17 @@ class TestHuman(TestCase):
         self.assertTrue(self.character.has_edges(start=True))
 
     def test_filter_enhanced_edges(self):
-        self.fail()
+        enhanced_edge1 = EnhancedEdge.objects.create(
+            name="Enhanced Edge 1", prereqs=[[("intellect", 2)]]
+        )
+        enhanced_edge2 = EnhancedEdge.objects.create(
+            name="Enhanced Edge 2", prereqs=[[("composure", 3)]]
+        )
+        self.character.intellect = 2
+        self.character.composure = 3
+        self.character.enhanced_edges.add(enhanced_edge2)
+        self.assertEqual(len(self.character.filter_enhanced_edges()), 1)
+        self.assertEqual(self.character.filter_enhanced_edges()[0], enhanced_edge1)
 
     def test_add_skill(self):
         self.character.science = 0
@@ -677,34 +726,92 @@ class TestHuman(TestCase):
         )
 
     def test_path_rating(self):
-        self.fail()
+        path1 = TCPath.objects.create(name="Path 1")
+
+        PathRating.objects.create(character=self.character, path=path1, rating=3)
+        self.assertEqual(self.character.path_rating(path1), 3)
 
     def test_total_path_rating(self):
-        self.fail()
+        path1 = TCPath.objects.create(name="Path 1")
+        path2 = TCPath.objects.create(name="Path 2")
+
+        PathRating.objects.create(character=self.character, path=path1, rating=2)
+        PathRating.objects.create(character=self.character, path=path2, rating=3)
+        self.assertEqual(self.character.total_path_rating(), 5)
 
     def test_spend_xp_attribute(self):
-        self.fail()
+        self.character.xp = 10
+        self.assertTrue(self.character.spend_xp_attribute("intellect"))
+        self.assertEqual(self.character.intellect, 2)
+        self.assertEqual(self.character.xp, 0)
+        self.assertIn("Intellect 2 (10 XP)", self.character.spent_xp)
 
     def test_spend_xp_edge(self):
-        self.fail()
+        edge = Edge.objects.create(name="Test Edge", ratings=[1, 2, 3, 4])
+        self.character.add_edge(edge)
+
+        self.character.xp = 10
+        self.assertTrue(self.character.spend_xp_edge("Test Edge", "edge"))
+        self.assertEqual(self.character.edge_rating(edge), 2)
+        self.assertEqual(self.character.xp, 7)
+        self.assertIn("Test Edge", self.character.spent_xp)
 
     def test_spend_xp_enhanced_edge(self):
-        self.fail()
+        enhanced_edge = EnhancedEdge.objects.create(name="Test Enhanced Edge")
+        self.character.enhanced_edges.add(enhanced_edge)
+
+        self.character.xp = 10
+        self.assertFalse(self.character.spend_xp_enhanced_edge("Test Enhanced Edge"))
+        self.assertEqual(self.character.xp, 10)
+        self.assertNotIn("Test Enhanced Edge", self.character.spent_xp)
+
+        self.character.enhanced_edges.clear()
+        self.character.xp = 10
+        self.assertTrue(self.character.spend_xp_enhanced_edge("Test Enhanced Edge"))
+        self.assertEqual(self.character.xp, 4)
+        self.assertIn("Test Enhanced Edge", self.character.spent_xp)
 
     def test_spend_xp_skill(self):
-        self.fail()
+        self.character.xp = 10
+        self.assertTrue(self.character.spend_xp_skill("athletics"))
+        self.assertEqual(self.character.athletics, 1)
+        self.assertEqual(self.character.xp, 5)
+        self.assertIn("Athletics", self.character.spent_xp)
 
     def test_spend_xp_trick(self):
-        self.fail()
+        trick = Trick.objects.create(name="Test Trick")
+
+        self.character.xp = 10
+        self.assertTrue(self.character.spend_xp_trick("Test Trick"))
+        self.assertTrue(trick in self.character.tricks.all())
+        self.assertEqual(self.character.xp, 7)
+        self.assertIn("Test Trick", self.character.spent_xp)
 
     def test_spend_xp_specialty(self):
-        self.fail()
+        specialty = Specialty.objects.create(name="Test Specialty", skill="aim")
+        self.character.aim = 1
+
+        self.character.xp = 10
+        self.assertTrue(self.character.spend_xp_specialty("Test Specialty"))
+        self.assertTrue(specialty in self.character.specialties.all())
+        self.assertEqual(self.character.xp, 7)
+        self.assertIn("Test Specialty", self.character.spent_xp)
 
     def test_spend_xp_path(self):
-        self.fail()
+        path = TCPath.objects.create(name="Test Path")
+        self.character.add_path(path)
+        self.character.xp = 20
+        self.assertTrue(self.character.spend_xp_path("Test Path"))
+        self.assertTrue(self.character.path_rating(path) > 1)
+        self.assertEqual(self.character.xp, 2)
+        self.assertIn("Test Path", self.character.spent_xp)
 
     def test_spend_xp_approach(self):
-        self.fail()
+        self.character.xp = 15
+        self.character.approach = "RES"
+        self.assertTrue(self.character.spend_xp_approach("Favored Approach FOR"))
+        self.assertEqual(self.character.approach, "FOR")
+        self.assertEqual(self.character.xp, 0)
 
 
 class TestRandomHuman(TestCase):
