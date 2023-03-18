@@ -585,7 +585,8 @@ class Human(CharacterModel):
             sublist = [
                 x
                 for x in sublist
-                if len([y for y in x.ratings if self.edge_rating(x) < y <= dots]) != 0
+                if len([y for y in x.ratings if 0 < y - self.edge_rating(x) <= dots])
+                != 0
             ]
             if len(sublist) != 0:
                 sublist = {k: k.count_prereqs(self) for k in sublist}
