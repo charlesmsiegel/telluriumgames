@@ -8,6 +8,7 @@ from tc.models.characters.aberrant import (
     Power,
     PowerRating,
     Tag,
+    TagRating,
     Transformation,
 )
 from tc.models.characters.human import (
@@ -673,46 +674,115 @@ class TestAberrant(TestCase):
         self.assertIn(ee, self.character.enhanced_edges.all())
 
     def test_total_mega_attribute(self):
-        self.fail()
+        self.character.mega_intellect = 1
+        self.character.mega_cunning = 2
+        self.character.mega_resolve = 3
+        self.character.save()
+
+        self.assertEqual(self.character.total_mega_attributes(), 6)
 
     def test_total_mega_edges(self):
-        self.fail()
+        mega_edge1 = MegaEdge.objects.create(name="Mega Edge 1", ratings=[2])
+        mega_edge2 = MegaEdge.objects.create(name="Mega Edge 2", ratings=[3])
+
+        MegaEdgeRating.objects.create(
+            character=self.character, mega_edge=mega_edge1, rating=2
+        )
+        MegaEdgeRating.objects.create(
+            character=self.character, mega_edge=mega_edge2, rating=3
+        )
+
+        self.assertEqual(self.character.total_mega_edges(), 5)
 
     def test_mega_edge_rating(self):
-        self.fail()
+        mega_edge = MegaEdge.objects.create(name="Mega Edge 1", ratings=[2])
+        MegaEdgeRating.objects.create(
+            character=self.character, mega_edge=mega_edge, rating=2
+        )
+
+        self.assertEqual(self.character.mega_edge_rating(mega_edge), 2)
 
     def test_total_powers(self):
-        self.fail()
+        power1 = Power.objects.create(name="Power 1", cost=1)
+        power2 = Power.objects.create(name="Power 2", cost=2)
+
+        PowerRating.objects.create(character=self.character, power=power1, rating=2)
+        PowerRating.objects.create(character=self.character, power=power2, rating=3)
+
+        self.assertEqual(self.character.total_powers(), 5)
 
     def test_power_rating(self):
-        self.fail()
+        power = Power.objects.create(name="Power 1", cost=1)
+        PowerRating.objects.create(character=self.character, power=power, rating=2)
+
+        self.assertEqual(self.character.power_rating(power), 2)
 
     def test_get_tags(self):
-        self.fail()
+        power = Power.objects.create(name="Power 1", cost=1)
+        tag1 = Tag.objects.create(name="Tag 1", ratings=[1, 2, 3])
+        tag2 = Tag.objects.create(name="Tag 2", ratings=[1, 2, 3])
+
+        power_rating = PowerRating.objects.create(
+            character=self.character, power=power, rating=2
+        )
+        TagRating.objects.create(tag=tag1, power_rating=power_rating, rating=1)
+        TagRating.objects.create(tag=tag2, power_rating=power_rating, rating=1)
+
+        self.assertCountEqual(self.character.get_tags(power), [tag1, tag2])
 
     def test_tag_rating(self):
-        self.fail()
+        power = Power.objects.create(name="Power 1", cost=1)
+        tag = Tag.objects.create(name="Tag 1", ratings=[3])
+
+        power_rating = PowerRating.objects.create(
+            character=self.character, power=power, rating=2
+        )
+        TagRating.objects.create(power_rating=power_rating, tag=tag, rating=3)
+        self.assertEqual(self.character.tag_rating(power, tag), 3)
+
+    def test_power_cost(self):
+        power = Power.objects.create(cost=3)
+        self.assertEqual(self.character.power_cost(power), power.cost)
 
     def test_update_quantum_points(self):
-        self.fail()
+        self.character.update_quantum_points()
+        self.assertEqual(self.character.quantum_points, 10 + 5 * self.character.quantum)
 
     def test_reset_flux(self):
-        self.fail()
+        self.character.flux = 5
+        self.assertTrue(self.character.reset_flux())
+        self.assertEqual(self.character.flux, 0)
 
     def test_spend_xp_mega_attribute(self):
-        self.fail()
+        self.character.xp = 20
+        result = self.character.spend_xp_mega_attribute("mega_presence", False, None)
+        self.assertTrue(result)
 
     def test_spend_xp_mega_edge(self):
-        self.fail()
+        self.character.xp = 20
+        mega_edge = MegaEdge.objects.create(name="Mega Edge 1000", ratings=[1])
+        result = self.character.spend_xp_mega_edge(mega_edge.name, False, None)
+        self.assertTrue(result)
 
     def test_spend_xp_power(self):
-        self.fail()
+        self.character.xp = 20
+        power = Power.objects.create()
+        result = self.character.spend_xp_power(power.name, False, None)
+        self.assertTrue(result)
 
     def test_spend_xp_tag(self):
-        self.fail()
+        self.character.xp = 20
+        power = Power.objects.create()
+        self.character.add_power(power)
+        tag = Tag.objects.create(name="Ad Hoc Tag", ratings=[1, 2])
+        tag.permitted_powers.add(*list(Power.objects.all()))
+        result = self.character.spend_xp_tag(tag.name, power, False, None)
+        self.assertTrue(result)
 
     def test_spend_xp_quantum(self):
-        self.fail()
+        self.character.xp = 20
+        result = self.character.spend_xp_quantum("quantum", False, None, False)
+        self.assertTrue(result)
 
 
 class TestRandomAberrant(TestCase):
