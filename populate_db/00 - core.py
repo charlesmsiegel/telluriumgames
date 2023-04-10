@@ -7179,3 +7179,8 @@ NewsItem.objects.get_or_create(
     content="I've implemented staged character creation for Exalted Solars! Still doesn't have any sorcery included, and bonus point expenditure doesn't work yet, but, and there's helper pages that I'm planning to make, but the bare bones of it works.",
     date=date(2022, 9, 17),
 )[0]
+NewsItem.objects.get_or_create(
+    title="Lots of Updates, Character Creation",
+    content="So there's a lot of updates, it's been more than six months and I haven't stood still. To see all the changes, you can check out the github repo. The biggest change is that I've started working seriously on guided, nonrandom character creation. Though not quite complete, Mages, Garou, and Exalted have it. The World of Darkness ones are going to be how other character pages get updated as I do this. I'm planning on finishing their implementation up soon (for a generous value of soon) and extending to other character creation types. We should be approaching the last full database reset before things stabilize, as well, though I don't think we're quite there yet. Enjoy!",
+    date=date(2023, 04, 10),
+)[0]
