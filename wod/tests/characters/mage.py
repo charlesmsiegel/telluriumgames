@@ -1646,13 +1646,13 @@ class TestMageFaction(TestCase):
 
     def test_get_all_paradigms(self):
         expected_paradigms = Paradigm.objects.filter(id__in=[1, 2, 3])
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             self.faction3.get_all_paradigms(), expected_paradigms, ordered=False
         )
 
     def test_get_all_practices(self):
         expected_practices = Practice.objects.filter(id__in=[1, 2, 3])
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             self.faction3.get_all_practices(), expected_practices, ordered=False
         )
 
