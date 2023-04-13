@@ -1,7 +1,6 @@
 from django.db import models
-
 from core.utils import cod_dice, wod_dice
-
+from django.utils.timezone import now
 
 # Create your models here.
 class Post(models.Model):
@@ -11,6 +10,7 @@ class Post(models.Model):
     display_name = models.CharField(max_length=100)
     scene = models.ForeignKey("game.Scene", on_delete=models.SET_NULL, null=True)
     message = models.TextField(default="")
+    datetime_created = models.DateTimeField(default=now)
 
     class Meta:
         verbose_name = "Post"
