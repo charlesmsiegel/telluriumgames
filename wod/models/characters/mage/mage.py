@@ -254,6 +254,7 @@ class Mage(MtAHuman):
         self.affiliation = affiliation
         self.faction = faction
         self.subfaction = subfaction
+        self.save()
         if affiliation is not None:
             if affiliation.name == "Marauders":
                 self.random_quiet()
