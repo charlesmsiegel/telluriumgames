@@ -258,16 +258,7 @@ class MagePowersForm(forms.Form):
     life = forms.IntegerField(max_value=5, min_value=0)
 
     resonance = forms.CharField(
-        required=False,
-        widget=AutocompleteTextInput(
-            suggestions=[x.name.title() for x in Resonance.objects.order_by("name")]
-        ),
-    )
-    resonance2 = forms.CharField(
-        required=False,
-        widget=AutocompleteTextInput(
-            suggestions=[x.name.title() for x in Resonance.objects.order_by("name")]
-        ),
+        required=False, widget=AutocompleteTextInput(suggestions=[]),
     )
 
     def __init__(self, *args, **kwargs):
@@ -295,6 +286,9 @@ class MagePowersForm(forms.Form):
         self.fields[self.char.affinity_sphere] = forms.IntegerField(
             max_value=self.char.arete, min_value=1
         )
+        self.fields["resonance"].widget.suggestions = [
+            x.name.title() for x in Resonance.objects.order_by("name")
+        ]
 
     def assign(self):
         self.full_clean()

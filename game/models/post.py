@@ -1,6 +1,8 @@
 from django.db import models
-from core.utils import cod_dice, wod_dice
 from django.utils.timezone import now
+
+from core.utils import cod_dice, wod_dice
+
 
 # Create your models here.
 class Post(models.Model):
