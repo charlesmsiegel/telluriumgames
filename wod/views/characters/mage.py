@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from core.models import Language
-from game.models.chronicle import Chronicle
+from game.models import Chronicle, Scene
 from wod.forms.characters.human import AttributeForm, MeritFlawForm
 from wod.forms.characters.mage import (
     MageAbilitiesForm,
@@ -381,6 +381,7 @@ class MageDetailView(View):
         context["secondaries"] = list(
             zip(secondary_talents, secondary_skills, secondary_knowledges)
         )
+        context['scenes'] = Scene.objects.filter(characters=mage).order_by('date_of_scene')
         return context
 
 
