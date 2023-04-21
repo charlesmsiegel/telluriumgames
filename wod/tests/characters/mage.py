@@ -832,14 +832,16 @@ class TestMage(TestCase):
         self.assertEqual(self.character.get_corr_name_display(), "Correspondence")
         self.assertEqual(self.character.get_spirit_name_display(), "Spirit")
         self.assertEqual(self.character.get_prime_name_display(), "Prime")
-        self.character.corr_name = "data"
-        self.character.prime_name = "primal_utility"
-        self.character.spirit_name = "dimensional_science"
+        self.character.set_corr_name("data")
+        self.character.set_prime_name("primal_utility")
+        self.character.set_spirit_name("dimensional_science")
         self.assertEqual(self.character.get_corr_name_display(), "Data")
         self.assertEqual(
             self.character.get_spirit_name_display(), "Dimensional Science"
         )
         self.assertEqual(self.character.get_prime_name_display(), "Primal Utility")
+        with self.assertRaises(ValueError):
+            self.character.set_corr_name("blah")
 
     def test_add_arete(self):
         self.assertEqual(self.character.arete, 0)
