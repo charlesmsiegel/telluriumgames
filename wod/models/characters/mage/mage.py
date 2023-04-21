@@ -135,20 +135,19 @@ class Mage(MtAHuman):
         ],
     )
 
+    CORR_NAMES = [("correspondence", "Correspondence"), ("data", "Data")]
+    PRIME_NAMES = [("prime", "Prime"), ("primal_utility", "Primal Utility")]
+    SPIRIT_NAMES = [
+        ("spirit", "Spirit"),
+        ("dimensional_science", "Dimensional Science"),
+    ]
+
     corr_name = models.CharField(
-        default="correspondence",
-        choices=[("correspondence", "Correspondence"), ("data", "Data")],
-        max_length=100,
+        default="correspondence", choices=CORR_NAMES, max_length=100,
     )
-    prime_name = models.CharField(
-        default="prime",
-        choices=[("prime", "Prime"), ("primal_utility", "Primal Utility")],
-        max_length=100,
-    )
+    prime_name = models.CharField(default="prime", choices=PRIME_NAMES, max_length=100,)
     spirit_name = models.CharField(
-        default="spirit",
-        choices=[("spirit", "Spirit"), ("dimensional_science", "Dimensional Science")],
-        max_length=100,
+        default="spirit", choices=SPIRIT_NAMES, max_length=100,
     )
 
     awakening = models.TextField(default="")
@@ -440,6 +439,27 @@ class Mage(MtAHuman):
             self.random_affinity_sphere()
         while self.total_spheres() < 6:
             self.random_sphere()
+
+    def set_corr_name(self, name):
+        if name not in [x[0] for x in self.CORR_NAMES]:
+            raise ValueError("Unknown Sphere Name")
+        self.corr_name = name
+        self.save()
+        return True
+
+    def set_prime_name(self, name):
+        if name not in [x[0] for x in self.PRIME_NAMES]:
+            raise ValueError("Unknown Sphere Name")
+        self.prime_name = name
+        self.save()
+        return True
+
+    def set_spirit_name(self, name):
+        if name not in [x[0] for x in self.SPIRIT_NAMES]:
+            raise ValueError("Unknown Sphere Name")
+        self.spirit_name = name
+        self.save()
+        return True
 
     def add_arete(self, freebies=False):
         if freebies:
