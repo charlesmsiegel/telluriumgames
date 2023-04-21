@@ -2,6 +2,7 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
+from core.views import BaseCharacterView
 from exalted.forms import (
     ExaltedAbilitiesForm,
     ExaltedAttributeForm,
@@ -27,7 +28,7 @@ from exalted.models.characters.utils import ABILITIES
 from game.models import Chronicle
 
 
-class SolarDetailView(View):
+class SolarDetailView(BaseCharacterView):
     def get(self, request, *args, **kwargs):
         char = Solar.objects.get(pk=kwargs["pk"])
         context = self.get_context(char)
@@ -288,14 +289,13 @@ class SolarDetailView(View):
             )
         return render(request, "exalted/characters/solars/solar/detail.html", context,)
 
-    def get_context(self, char):
-        return {
-            "object": char,
-            "merits": MeritRating.objects.filter(character=char).order_by(
-                "merit__name"
-            ),
-            "specialties": char.specialties.all().order_by("name"),
-        }
+    def get_context(self, character):
+        context = super().get_context(character)
+        context["merits"] = MeritRating.objects.filter(character=character).order_by(
+            "merit__name"
+        )
+        context["specialties"] = character.specialties.all().order_by("name")
+        return context
 
 
 def load_merit_1_ratings(request):

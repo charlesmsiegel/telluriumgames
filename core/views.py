@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from core.models import Language, Material, Medium, NewsItem
+from game.models import Scene
 
 
 # Create your views here.
@@ -63,3 +64,14 @@ class MaterialUpdateView(UpdateView):
     model = Material
     fields = "__all__"
     template_name = "core/material/form.html"
+
+
+class BaseCharacterView(View):
+    def get_context(self, character):
+        context = {
+            "object": character,
+            "scenes": Scene.objects.filter(characters=character).order_by(
+                "date_of_scene"
+            ),
+        }
+        return context

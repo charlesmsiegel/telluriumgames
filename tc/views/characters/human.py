@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
+from core.views import BaseCharacterView
 from tc.models.characters.human import (
     Edge,
     EdgeRating,
@@ -14,14 +15,14 @@ from tc.models.characters.human import (
 )
 
 
-class HumanDetailView(View):
+class HumanDetailView(BaseCharacterView):
     def get(self, request, pk):
         context = self.get_context(pk)
         return render(request, "tc/characters/human/human/detail.html", context)
 
     def get_context(self, pk):
         char = Human.objects.get(id=pk)
-        context = {"object": char}
+        context = super().get_context(char)
         context["origin_path"] = PathRating.objects.filter(
             character=char, path__type="origin"
         ).first()

@@ -14,22 +14,24 @@ from cod.models.characters.mage import (
     ProximiFamily,
 )
 from cod.models.characters.mortal import MeritRating
+from core.views import BaseCharacterView
 
 EmptyRote = namedtuple("EmptyRote", ["name", "arcana", "level"])
 empty_rote = EmptyRote("", "", "")
 
 
-class ProximiDetailView(View):
+class ProximiDetailView(BaseCharacterView):
     def get(self, request, *args, **kwargs):
         char = Proximi.objects.get(pk=kwargs["pk"])
-        context = {
-            "object": char,
-            "merits": MeritRating.objects.filter(character=char).order_by(
-                "merit__name"
-            ),
-            "specialties": char.specialties.all().order_by("name"),
-        }
+        context = self.get_context(char)
+        return render(request, "cod/characters/mage/proximi/detail.html", context,)
 
+    def get_context(self, character):
+        context = super().get_context(character)
+        context["merits"] = MeritRating.objects.filter(character=character).order_by(
+            "merit__name"
+        )
+        context["specialties"] = character.specialties.all().order_by("name")
         all_blessings = list(context["object"].blessings.all())
         row_length = 2
         all_blessings = [
@@ -40,7 +42,7 @@ class ProximiDetailView(View):
             while len(all_blessings[-1]) < row_length:
                 all_blessings[-1].append(empty_rote)
         context["blessings"] = all_blessings
-        return render(request, "cod/characters/mage/proximi/detail.html", context,)
+        return context
 
 
 class ProximiCreateView(CreateView):
@@ -55,16 +57,21 @@ class ProximiUpdateView(UpdateView):
     template_name = "cod/characters/mage/proximi/form.html"
 
 
-class MageDetailView(View):
+class MageDetailView(BaseCharacterView):
     def get(self, request, *args, **kwargs):
         char = Mage.objects.get(pk=kwargs["pk"])
-        context = {
-            "object": char,
-            "merits": MeritRating.objects.filter(character=char).order_by(
-                "merit__name"
-            ),
-            "specialties": char.specialties.all().order_by("name"),
-        }
+        context = self.get_context(char)
+
+        return render(request, "cod/characters/mage/mage/detail.html", context,)
+
+    def get_context(self, character):
+        context = super().get_context(character)
+
+        context["merits"] = MeritRating.objects.filter(character=character).order_by(
+            "merit__name"
+        )
+
+        context["specialties"] = (character.specialties.all().order_by("name"),)
 
         all_rotes = list(context["object"].rotes.all())
         row_length = 2
@@ -87,7 +94,7 @@ class MageDetailView(View):
                 all_praxes[-1].append(empty_rote)
         context["praxes"] = all_praxes
 
-        return render(request, "cod/characters/mage/mage/detail.html", context,)
+        return context
 
 
 class MageCreateView(CreateView):

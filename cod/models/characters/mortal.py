@@ -114,6 +114,9 @@ class Mortal(CharacterModel):
     def get_update_url(self):
         return reverse("cod:characters:mortal:update_mortal", kwargs={"pk": self.pk})
 
+    def get_heading(self):
+        return "cod_heading"
+
     def random_name(self, ethnicity=None):
         if ethnicity is not None:
             self.ethnicity = ethnicity

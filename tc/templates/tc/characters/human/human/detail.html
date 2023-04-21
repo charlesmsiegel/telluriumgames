@@ -1,5 +1,5 @@
-{% extends "core/object.html" %}
-{% block contents %}
+{% extends "core/character.html" %}
+{% block statistics %}
     {% load dots %}
     {% block name %}
         <div class="row">
@@ -356,7 +356,7 @@
                 </h3>
                 {% for trick in object.tricks.all %}
                     <br />
-                    <a href="{{ trick.get_absolute_url }}">{{ trick.name }}<a>
+                    <a href="{{ trick.get_absolute_url }}">{{ trick.name }}</a>
                 {% endfor %}
             </div>
             <div class="col-sm">
@@ -422,4 +422,4 @@
             </div>
         </div>
     {% endblock ending %}
-{% endblock contents %}
+{% endblock statistics %}

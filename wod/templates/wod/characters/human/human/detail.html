@@ -1,5 +1,5 @@
-{% extends "core/object.html" %}
-{% block contents %}
+{% extends "core/character.html" %}
+{% block statistics %}
     {% load dots %}
     {% block name %}
         <div class="row">
@@ -89,14 +89,18 @@
                 Wits
                 {% if object.wits_specialty %}({{ object.wits_specialty.name }}){% endif %}
             </div>
-            <div class="col-sm dots">{{ object.wits|dots }}</div>
+            <div class="col-sm dots">
+                {{ object.wits|dots }}
+            </div>
         </div>
     {% endblock attributes %}
     {% block abilities %}
     {% endblock abilities %}
     {% block advantages %}
         <div class="row">
-            <h2 class="col-sm {{ object.get_heading }}">Advantages</h2>
+            <h2 class="col-sm {{ object.get_heading }}">
+                Advantages
+            </h2>
         </div>
         <div class="row">
             <div class="col-sm">
@@ -139,6 +143,8 @@
             {% endfor %}
         </div>
     {% endblock languages %}
+{% endblock statistics %}
+{% block flavor %}
     {% block appearance %}
         <div class="row">
             <h2 class="col-sm {{ object.get_heading }}">
@@ -284,4 +290,4 @@
             </div>
         </div>
     {% endblock advancement %}
-{% endblock contents %}
+{% endblock flavor %}

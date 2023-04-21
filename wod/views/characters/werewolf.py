@@ -2,6 +2,7 @@ from django.forms import formset_factory
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
+from core.views import BaseCharacterView
 from game.models.chronicle import Chronicle
 from wod.forms.characters.human import AttributeForm, MeritFlawForm
 from wod.forms.characters.werewolf import (
@@ -71,7 +72,7 @@ class WerewolfCreateView(View):
         return render(request, "wod/characters/werewolf/werewolf/create.html", context)
 
 
-class WerewolfDetailView(View):
+class WerewolfDetailView(BaseCharacterView):
     def get(self, request, *args, **kwargs):
         werewolf = Werewolf.objects.get(pk=kwargs["pk"])
         context = self.get_context(werewolf)
@@ -306,7 +307,7 @@ class WerewolfDetailView(View):
         return render(request, "wod/characters/werewolf/werewolf/detail.html", context,)
 
     def get_context(self, werewolf):
-        context = {"object": werewolf}
+        context = super().get_context(werewolf)
         specialties = {}
         for attribute in werewolf.get_attributes():
             specialties[attribute] = ", ".join(
@@ -345,14 +346,14 @@ class WerewolfUpdateView(UpdateView):
     template_name = "wod/characters/werewolf/werewolf/form.html"
 
 
-class KinfolkDetailView(View):
+class KinfolkDetailView(BaseCharacterView):
     def get(self, request, *args, **kwargs):
         kinfolk = Kinfolk.objects.get(pk=kwargs["pk"])
         context = self.get_context(kinfolk)
         return render(request, "wod/characters/werewolf/kinfolk/detail.html", context)
 
     def get_context(self, kinfolk):
-        context = {"object": kinfolk}
+        context = super().get_context(kinfolk)
         specialties = {}
         for attribute in kinfolk.get_attributes():
             specialties[attribute] = ", ".join(
