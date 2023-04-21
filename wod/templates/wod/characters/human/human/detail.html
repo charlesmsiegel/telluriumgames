@@ -1,5 +1,5 @@
-{% extends "core/object.html" %}
-{% block contents %}
+{% extends "core/character.html" %}
+{% block statistics %}
     {% load dots %}
     {% block name %}
         <div class="row">
@@ -143,6 +143,8 @@
             {% endfor %}
         </div>
     {% endblock languages %}
+{% endblock statistics %}
+{% block flavor %}
     {% block appearance %}
         <div class="row">
             <h2 class="col-sm {{ object.get_heading }}">
@@ -288,39 +290,4 @@
             </div>
         </div>
     {% endblock advancement %}
-    {% block scenes %}
-        <div class="row">
-            <h3 class="col-sm {{ object.get_heading }}">
-                Scenes
-            </h3>
-        </div>
-        <div class="row border">
-            <div class="col-sm border">
-                <b>Story</b>
-            </div>
-            <div class="col-sm border">
-                <b>Title</b>
-            </div>
-            <div class="col-sm border">
-                <b>Date Played</b>
-            </div>
-            <div class="col-sm border">
-                <b>Date of Scene</b>
-            </div>
-        </div>
-        {% for scene in scenes %}
-            <div class="row border">
-                <a class="col-sm" href="{{ scene.story.get_absolute_url }}">{{ scene.story.name }}</a>
-                <a class="col-sm border" href="{{ scene.get_absolute_url }}">{{ scene.name }}
-                    {% if not scene.finished %}- <b>Ongoing</b>{% endif %}
-                </a>
-                <div class="col-sm">
-                    {{ scene.date_played }}
-                </div>
-                <div class="col-sm">
-                    {{ scene.date_of_scene }}
-                </div>
-            </div>
-        {% endfor %}
-    {% endblock scenes %}
-{% endblock contents %}
+{% endblock flavor %}

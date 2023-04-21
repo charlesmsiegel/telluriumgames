@@ -381,7 +381,9 @@ class MageDetailView(View):
         context["secondaries"] = list(
             zip(secondary_talents, secondary_skills, secondary_knowledges)
         )
-        context['scenes'] = Scene.objects.filter(characters=mage).order_by('date_of_scene')
+        context["scenes"] = Scene.objects.filter(characters=mage).order_by(
+            "date_of_scene"
+        )
         return context
 
 
