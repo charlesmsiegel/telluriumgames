@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
 from core.models import Language
+from core.views import BaseCharacterView
 from game.models import Chronicle, Scene
 from wod.forms.characters.human import AttributeForm, MeritFlawForm
 from wod.forms.characters.mage import (
@@ -103,7 +104,7 @@ class MageCreateView(View):
         return render(request, "wod/characters/mage/mage/create.html", context)
 
 
-class MageDetailView(View):
+class MageDetailView(BaseCharacterView):
     def get(self, request, *args, **kwargs):
         mage = Mage.objects.get(pk=kwargs["pk"])
         context = self.get_context(mage)
@@ -313,7 +314,7 @@ class MageDetailView(View):
         return render(request, "wod/characters/mage/mage/detail.html", context,)
 
     def get_context(self, mage):
-        context = {"object": mage}
+        context = super().get_context(mage)
         specialties = {}
         for attribute in mage.get_attributes():
             specialties[attribute] = ", ".join(
@@ -380,9 +381,6 @@ class MageDetailView(View):
             secondary_knowledges.append(("", 0, []))
         context["secondaries"] = list(
             zip(secondary_talents, secondary_skills, secondary_knowledges)
-        )
-        context["scenes"] = Scene.objects.filter(characters=mage).order_by(
-            "date_of_scene"
         )
         return context
 

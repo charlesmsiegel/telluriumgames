@@ -2,6 +2,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
+from core.views import BaseCharacterView
 from exalted.models.characters.charms import DragonBloodedCharm
 from exalted.models.characters.dragonblooded import DragonBlooded
 
@@ -26,7 +27,7 @@ from exalted.models.characters.mortals import (  # ExMerit,; ExSpecialty,; Intim
 # from game.models import Chronicle
 
 
-class DragonBloodedDetailView(View):
+class DragonBloodedDetailView(BaseCharacterView):
     def get(self, request, *args, **kwargs):
         char = DragonBlooded.objects.get(pk=kwargs["pk"])
         context = self.get_context(char)
@@ -36,14 +37,13 @@ class DragonBloodedDetailView(View):
             context,
         )
 
-    def get_context(self, char):
-        return {
-            "object": char,
-            "merits": MeritRating.objects.filter(character=char).order_by(
-                "merit__name"
-            ),
-            "specialties": char.specialties.all().order_by("name"),
-        }
+    def get_context(self, character):
+        context = super().get_context(character)
+        context["merits"] = MeritRating.objects.filter(character=character).order_by(
+            "merit__name"
+        )
+        context["specialties"] = character.specialties.all().order_by("name")
+        return context
 
 
 class DragonBloodedCreateView(CreateView):

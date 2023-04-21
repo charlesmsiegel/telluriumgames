@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
+from core.views import BaseCharacterView
 from exalted.models.characters.mortals import (
     ExMerit,
     ExMortal,
@@ -10,17 +11,19 @@ from exalted.models.characters.mortals import (
 )
 
 
-class MortalDetailView(View):
+class MortalDetailView(BaseCharacterView):
     def get(self, request, *args, **kwargs):
         char = ExMortal.objects.get(pk=kwargs["pk"])
-        context = {
-            "object": char,
-            "merits": MeritRating.objects.filter(character=char).order_by(
-                "merit__name"
-            ),
-            "specialties": char.specialties.all().order_by("name"),
-        }
+        context = self.get_context(char)
         return render(request, "exalted/characters/mortal/mortal/detail.html", context,)
+
+    def get_context(self, character):
+        context = super().get_context(character)
+        context["merits"] = MeritRating.objects.filter(character=character).order_by(
+            "merit__name"
+        )
+        context["specialties"] = character.specialties.all().order_by("name")
+        return context
 
 
 class MortalCreateView(CreateView):

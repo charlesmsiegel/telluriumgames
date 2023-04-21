@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
+from core.views import BaseCharacterView
 from wod.models.characters.changeling import (
     Changeling,
     CtDHuman,
@@ -12,7 +13,7 @@ from wod.models.characters.changeling import (
 from wod.models.characters.human import MeritFlawRating
 
 
-class ChangelingDetailView(View):
+class ChangelingDetailView(BaseCharacterView):
     def get(self, request, *args, **kwargs):
         changeling = Changeling.objects.get(pk=kwargs["pk"])
         context = self.get_context(changeling)
@@ -21,7 +22,7 @@ class ChangelingDetailView(View):
         )
 
     def get_context(self, changeling):
-        context = {"object": changeling}
+        context = super().get_context(changeling)
         specialties = {}
         for attribute in changeling.get_attributes():
             specialties[attribute] = ", ".join(
