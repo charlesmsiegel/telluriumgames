@@ -254,32 +254,11 @@ class Human(Character):
     def get_heading(self):
         return "wod_heading"
 
-    def strength_specialty(self):
-        return self.specialties.filter(stat="strength").first()
-
-    def dexterity_specialty(self):
-        return self.specialties.filter(stat="dexterity").first()
-
-    def stamina_specialty(self):
-        return self.specialties.filter(stat="stamina").first()
-
-    def charisma_specialty(self):
-        return self.specialties.filter(stat="charisma").first()
-
-    def manipulation_specialty(self):
-        return self.specialties.filter(stat="manipulation").first()
-
-    def appearance_specialty(self):
-        return self.specialties.filter(stat="appearance").first()
-
-    def perception_specialty(self):
-        return self.specialties.filter(stat="perception").first()
-
-    def intelligence_specialty(self):
-        return self.specialties.filter(stat="intelligence").first()
-
-    def wits_specialty(self):
-        return self.specialties.filter(stat="wits").first()
+    def get_specialty(self, stat):
+        spec = self.specialties.filter(stat=stat).first()
+        if spec is None:
+            return None
+        return spec.name
 
     def random_name(self, ethnicity=None):
         if ethnicity is not None:
