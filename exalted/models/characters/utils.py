@@ -731,51 +731,57 @@ class ExaltedName(RandomName):
         return ""
 
     def color(self):
-        """Amber
-        Argent
-        Ashen
-        Azure
-        Beige {50%}
-        Black
-        Blue
-        [Brilliant|Bright]
-        Brown
-        Cerulean
-        Crimson
-        Cyan
-        Dark
-        Earthen
-        Ebon
-        Emerald
-        Flaxen
-        Golden
-        Green
-        Grey
-        Indigo
-        [Iridescent|Iridescent|Pearlescent|Chatoyant|Prismatic]
-        Magenta
-        Maroon
-        Orange {60%}
-        Painted
-        [Pale|Pallid]
-        Purple
-        Rainbow
-        Red
-        Saffron
-        Scarlet
-        Shadowy
-        [Shining|Shimmering|Glittering]
-        Silver
-        Sooty
-        Tawny
-        Teal
-        Turquoise
-        Vermillion
-        Vert
-        Violet
-        White
-        Yellow"""
-        return ""
+        options = [
+        "Amber",
+        "Argent",
+        "Ashen",
+        "Azure",
+        "Black",
+        "Blue",
+        random.choice(["Brilliant", "Bright"]),
+        "Brown",
+        "Cerulean",
+        "Crimson",
+        "Cyan",
+        "Dark",
+        "Earthen",
+        "Ebon",
+        "Emerald",
+        "Flaxen",
+        "Golden",
+        "Green",
+        "Grey",
+        "Indigo",
+        random.choice(
+            ["Iridescent", "Iridescent", "Pearlescent", "Chatoyant", "Prismatic"]
+        ),
+        "Magenta",
+        "Maroon",
+        "Painted",
+        random.choice(["Pale", "Pallid"]),
+        "Purple",
+        "Rainbow",
+        "Red",
+        "Saffron",
+        "Scarlet",
+        "Shadowy",
+        random.choice(["Shining", "Shimmering", "Glittering"]),
+        "Silver",
+        "Sooty",
+        "Tawny",
+        "Teal",
+        "Turquoise",
+        "Vermillion",
+        "Vert",
+        "Violet",
+        "White",
+        "Yellow",
+    ]
+        if random.random() < 0.5:
+            options.append("Beige")
+        if random.random() < 0.6:
+            options.append("Orange")
+        return random.choice(options)
 
     def condition(self):
         """Auspicious
@@ -1182,70 +1188,75 @@ class ExaltedName(RandomName):
         return ""
 
     def mineral(self):
-        """Agate
-        Amethyst
-        Basalt
-        Bloodstone
-        Brass
-        Bronze
-        Calcite
-        Chalcedony
-        Clay
-        Coral
-        Copper
-        Crystal
-        Flint
-        Glass {70%}
-        Granite
-        Hematite
-        Iron
-        Jasper
-        Metal
-        Obsidian
-        Onyx
-        Ore
-        Pumice
-        Pyrite
-        Quartz
-        Rust
-        Sandstone
-        Salt
-        Steel {60%}
-        Stone
-        Tigereye
-        Tin
-        Turquoise
-        Verdigris"""
-
-        return ""
+        options = [
+            "Agate",
+            "Amethyst",
+            "Basalt",
+            "Bloodstone",
+            "Brass",
+            "Bronze",
+            "Calcite",
+            "Chalcedony",
+            "Clay",
+            "Coral",
+            "Copper",
+            "Crystal",
+            "Flint",
+            "Granite",
+            "Hematite",
+            "Iron",
+            "Jasper",
+            "Metal",
+            "Obsidian",
+            "Onyx",
+            "Ore",
+            "Pumice",
+            "Pyrite",
+            "Quartz",
+            "Rust",
+            "Sandstone",
+            "Salt",
+            "Stone",
+            "Tigereye",
+            "Tin",
+            "Turquoise",
+            "Verdigris",
+        ]
+        if random.random() < 0.7:
+            options.append("Glass")
+        if random.random() < 0.6:
+            options.append("Steel")
+        return random.choice(options)
 
     def movement(self):
-        """Ascending
-        Darting
-        Descending
-        Falling
-        Faring
-        Flickering
-        Flowing
-        Fluttering
-        Leaping
-        Plummeting
-        Questing
-        Racing
-        Rapid
-        Rising
-        Roaming
-        Running
-        Soaring
-        Standing
-        Still
-        Striding
-        Swift
-        Swimming
-        Unfettered
-        Wandering"""
-
-        return ""
+        return random.choice(
+            [
+                "Ascending",
+                "Darting",
+                "Descending",
+                "Falling",
+                "Faring",
+                "Flickering",
+                "Flowing",
+                "Fluttering",
+                "Leaping",
+                "Plummeting",
+                "Questing",
+                "Racing",
+                "Rapid",
+                "Rising",
+                "Roaming",
+                "Running",
+                "Soaring",
+                "Standing",
+                "Still",
+                "Striding",
+                "Swift",
+                "Swimming",
+                "Unfettered",
+                "Wandering",
+            ]
+        )
 
     def natural(self):
         """[nature]
@@ -1343,23 +1354,28 @@ class ExaltedName(RandomName):
         return ""
 
     def number(self):
-        """Two
-        Three
-        Four
-        Five
-        Six
-        Seven
-        Eight
-        Nine
-        Ten
-        [Twelve|One Dozen]
-        Fifteen
-        [Twenty|One Score]
-        One Hundred {90%}
-        One Thousand {60%}
-        Ten Thousand {25%}
-        Many"""
-        return ""
+        options = [
+        "Two",
+        "Three",
+        "Four",
+        "Five",
+        "Six",
+        "Seven",
+        "Eight",
+        "Nine",
+        "Ten",
+        random.choice(["Twelve","One Dozen"])
+        "Fifteen",
+        random.choice(["Twenty","One Score"])
+        "Many",
+    ]
+        if random.random() < 0.9:
+            options.append("One Hundred")
+        if random.random() < 0.6:
+            options.append("One Thousand")
+        if random.random() < 0.25:
+            options.append("Ten Thousand")
+        return random.choice(options)
 
     def ordinal(self):
         """First
@@ -1504,35 +1520,38 @@ class ExaltedName(RandomName):
         return ""
 
     def relation(self):
-        """Acolyte
-        Ally
-        Brother
-        Child
-        Chumyo
-        Client
-        Daimyo
-        Daughter
-        Disciple
-        Exarch
-        Father
-        Lady
-        Liege
-        Lord
-        Master
-        Mother
-        Odalisque {50%}
-        Patron
-        [Scion|Heir]
-        Serf
-        Servant
-        Sifu
-        Sister
-        [Slave|Thrall]
-        Son
-        Squire
-        Student
-        Vassal"""
-        return ""
+        options = [
+            "Acolyte",
+            "Ally",
+            "Brother",
+            "Child",
+            "Chumyo",
+            "Client",
+            "Daimyo",
+            "Daughter",
+            "Disciple",
+            "Exarch",
+            "Father",
+            "Lady",
+            "Liege",
+            "Lord",
+            "Master",
+            "Mother",
+            "Patron",
+            random.choice(["Scion", "Heir"]),
+            "Serf",
+            "Servant",
+            "Sifu",
+            "Sister",
+            random.choice(["Slave", "Thrall"]),
+            "Son",
+            "Squire",
+            "Student",
+            "Vassal",
+        ]
+        if random.random() < 0.5:
+            options.append("Odalisque")
+        return random.choice(options)
 
     def title(self):
         """Admiral
@@ -1562,116 +1581,123 @@ class ExaltedName(RandomName):
         return ""
 
     def tree(self, plural=False):
-        """Acacia {plural:Acacias}
-        Ailanthus {plural:Ailanthus-trees}
-        Alder {plural:Alders}
-        Almond {plural:Almond-trees}
-        Apple {plural:Apple-trees}
-        Ashoka {plural:Ashoka-trees}
-        [Aspen|Poplar] {plural:Poplars}
-        Balsa {plural:Balsas}
-        Bamboo {plural:Bamboo}
-        Banyan {plural:Banyans}
-        Baobob {plural:Baobobs}
-        Beech {plural:Beeches}
-        Birch {plural:Birches}
-        Buckeye {plural:Buckeyes}
-        [Cactus|Cactus|Saguaro] {plural:Cacti}
-        Cashew {plural:Cashew-trees}
-        Cassia {plural:Cassias}
-        Catalpa {plural:Catalpas}
-        Cedar {plural:Cedars}
-        Ceiba {plural:Ceibas}
-        Cherry {plural:Cherry-trees}
-        Chestnut {plural:Chestnut-trees}
-        Citron {plural:Citron-trees}
-        Coffee-tree {plural:Coffee-trees}
-        Cycad {plural:Cycads}
-        Cypress {plural:Cypresses}
-        Ebony {plural:Ebonies}
-        Elm {plural:Elms}
-        Fig {plural:Fig-trees}
-        Fir {plural:Firs}
-        Flame-tree {plural:Flame-trees} {75%}
-        Ginkgo {plural:Ginkgos}
-        Guava {plural:Guava-trees}
-        Gum-tree {plural:Gum-trees}
-        Henna {plural:Henna-trees}
-        Hickory {plural:Hickories}
-        Holly {plural:Hollies}
-        Hornbeam {plural:Hornbeams}
-        Iroko {plural:Iroko-trees}
-        Ironwood {plural:Ironwoods}
-        Jacaranda {plural:Jacarandas}
-        Jasmine {plural:Jasmines}
-        Jujube {plural:Jujube-trees}
-        Kapok {plural:Kapoks}
-        Kauri {plural:Kauri-pines}
-        Kigelia {plural:Kigelia-trees}
-        Laburnum {plural:Laburnums}
-        Lancewood {plural:Lancewoods}
-        Laurel {plural:Laurels}
-        Lilac {plural:Lilacs}
-        Linden {plural:Lindens}
-        Locust {plural:Locust-trees}
-        Lychee {plural:Lychee-trees}
-        Magnolia {plural:Magnolias}
-        Mahogany {plural:Mahoganies}
-        Mango {plural:Mango-trees}
-        Mangosteen {plural:Mangosteens}
-        Mangrove {plural:Mangroves}
-        Manilkara {plural:Manilkara-trees}
-        Maple {plural:Maples}
-        Marula {plural:Marula-trees}
-        Medlar {plural:Medlar-trees}
-        Mesquite {plural:Mesquites}
-        Milkwood {plural:Milkwoods}
-        Mimosa {plural:Mimosas}
-        Moringa {plural:Moringas}
-        Myrtle {plural:Myrtles}
-        Neem {plural:Neem-trees}
-        Oak {plural:Oaks}
-        Oleaster {plural:Oleasters}
-        Olive {plural:Olive-trees}
-        Palm {plural:Palms}
-        Palmetto {plural:Palmettos}
-        Palmyra {plural:Palmyra-trees}
-        Pandan {plural:Pandan-trees}
-        Papaya {plural:Papaya-trees}
-        Paperbark {plural:Paperbarks}
-        Peach {plural:Peach-trees}
-        Persea {plural:Persea-trees}
-        Pine {plural:Pines}
-        Plum {plural:Plum-trees}
-        Plumyew {plural:Plumyews}
-        Podocarp {plural:Podocarp-pines}
-        Quandong {plural:Quandong-trees}
-        Rambutan {plural:Rambutan-trees}
-        Redwood {plural:Redwoods}
-        Rose {plural:Roses}
-        Rosewood {plural:Rosewoods}
-        [Rowan|Whitebeam] {plural:Rowans}
-        Sakaki {plural:Sakaki-trees}
-        Sandalwood {plural:Sandalwoods}
-        Shea {plural:Shea-trees}
-        Siris {plural:Siris-trees}
-        Soursop {plural:Soursop-trees}
-        Spruce {plural:Spruces}
-        Sumac {plural:Sumacs}
-        Sycamore {plural:Sycamores}
-        [Tamarack|Larch] {plural:Larches}
-        Tamarind {plural:Tamarind-trees}
-        Tamarisk {plural:Tamarisks}
-        Tea-tree {plural:Tea-trees}
-        Teak {plural:Teaks}
-        Thorn {plural:Thorn-trees}
-        Totara {plural:Totaras}
-        Tupelo {plural:Tupelos}
-        Wattle {plural:Wattle-trees}
-        Willow {plural:Willows}
-        Yellowwood {plural:Yellowwoods}
-        Yew {plural:Yews}"""
-        return ""
+        options = [
+        ("Acacia", "Acacias"),
+        ("Ailanthus", "Ailanthus-trees"),
+        ("Alder", "Alders"),
+        ("Almond", "Almond-trees"),
+        ("Apple", "Apple-trees"),
+        ("Ashoka", "Ashoka-trees"),
+        (random.choice(["Poplar", "Aspen"]), "Poplars"),
+        ("Balsa", "Balsas"),
+        ("Bamboo", "Bamboo"),
+        ("Banyan", "Banyans"),
+        ("Baobob", "Baobobs"),
+        ("Beech", "Beeches"),
+        ("Birch", "Birches"),
+        ("Buckeye", "Buckeyes"),
+        (random.choice(["Cactus", "Saguaro"]), "Cacti"),
+        ("Cashew", "Cashew-trees"),
+        ("Cassia", "Cassias"),
+        ("Catalpa", "Catalpas"),
+        ("Cedar", "Cedars"),
+        ("Ceiba", "Ceibas"),
+        ("Cherry", "Cherry-trees"),
+        ("Chestnut", "Chestnut-trees"),
+        ("Citron", "Citron-trees"),
+        ("Coffee-tree", "Coffee-trees"),
+        ("Cycad", "Cycads"),
+        ("Cypress", "Cypresses"),
+        ("Ebony", "Ebonies"),
+        ("Elm", "Elms"),
+        ("Fig", "Fig-trees"),
+        ("Fir", "Firs"),
+        ("Ginkgo", "Ginkgos"),
+        ("Guava", "Guava-trees"),
+        ("Gum-tree", "Gum-trees"),
+        ("Henna", "Henna-trees"),
+        ("Hickory", "Hickories"),
+        ("Holly", "Hollies"),
+        ("Hornbeam", "Hornbeams"),
+        ("Iroko", "Iroko-trees"),
+        ("Ironwood", "Ironwoods"),
+        ("Jacaranda", "Jacarandas"),
+        ("Jasmine", "Jasmines"),
+        ("Jujube", "Jujube-trees"),
+        ("Kapok", "Kapoks"),
+        ("Kauri", "Kauri-pines"),
+        ("Kigelia", "Kigelia-trees"),
+        ("Laburnum", "Laburnums"),
+        ("Lancewood", "Lancewoods"),
+        ("Laurel", "Laurels"),
+        ("Lilac", "Lilacs"),
+        ("Linden", "Lindens"),
+        ("Locust", "Locust-trees"),
+        ("Lychee", "Lychee-trees"),
+        ("Magnolia", "Magnolias"),
+        ("Mahogany", "Mahoganies"),
+        ("Mango", "Mango-trees"),
+        ("Mangosteen", "Mangosteens"),
+        ("Mangrove", "Mangroves"),
+        ("Manilkara", "Manilkara-trees"),
+        ("Maple", "Maples"),
+        ("Marula", "Marula-trees"),
+        ("Medlar", "Medlar-trees"),
+        ("Mesquite", "Mesquites"),
+        ("Milkwood", "Milkwoods"),
+        ("Mimosa", "Mimosas"),
+        ("Moringa", "Moringas"),
+        ("Myrtle", "Myrtles"),
+        ("Neem", "Neem-trees"),
+        ("Oak", "Oaks"),
+        ("Oleaster", "Oleasters"),
+        ("Olive", "Olive-trees"),
+        ("Palm", "Palms"),
+        ("Palmetto", "Palmettos"),
+        ("Palmyra", "Palmyra-trees"),
+        ("Pandan", "Pandan-trees"),
+        ("Papaya", "Papaya-trees"),
+        ("Paperbark", "Paperbarks"),
+        ("Peach", "Peach-trees"),
+        ("Persea", "Persea-trees"),
+        ("Pine", "Pines"),
+        ("Plum", "Plum-trees"),
+        ("Plumyew", "Plumyews"),
+        ("Podocarp", "Podocarp-pines"),
+        ("Quandong", "Quandong-trees"),
+        ("Rambutan", "Rambutan-trees"),
+        ("Redwood", "Redwoods"),
+        ("Rose", "Roses"),
+        ("Rosewood", "Rosewoods"),
+        (random.choice(["Rowan", "Whitebeam"]), "Rowans"),
+        ("Sakaki", "Sakaki-trees"),
+        ("Sandalwood", "Sandalwoods"),
+        ("Shea", "Shea-trees"),
+        ("Siris", "Siris-trees"),
+        ("Soursop", "Soursop-trees"),
+        ("Spruce", "Spruces"),
+        ("Sumac", "Sumacs"),
+        ("Sycamore", "Sycamores"),
+        (, "Larches"),
+        (random.choice(["Tamarack", "Larch"]), "Larches"),
+        ("Tamarind", "Tamarind-trees"),
+        ("Tamarisk", "Tamarisks"),
+        ("Tea-tree", "Tea-trees"),
+        ("Teak", "Teaks"),
+        ("Thorn", "Thorn-trees"),
+        ("Totara", "Totaras"),
+        ("Tupelo", "Tupelos"),
+        ("Wattle", "Wattle-trees"),
+        ("Willow", "Willows"),
+        ("Yellowwood", "Yellowwoods"),
+        ("Yew", "Yews"),
+    ]
+        if random.random() < 0.75:
+            options.append(("Flame-tree", "Flame-trees"))
+        choice = random.choice(options)
+        if plural:
+            return choice[1]
+        return choice[0]
 
     def adjective(self):
         return random.choice(
@@ -1689,18 +1715,20 @@ class ExaltedName(RandomName):
         )
 
     def noun(self):
-        """[[absnegative]|[abspositive]]
-        [anatomy]
-        [animal]
-        [building]
-        [celestial]
-        [item]
-        [mineral]
-        [natural]
-        [precious]
-        [relation] {75%}"""
-
-        return ""
+        options = [
+            random.choice([self.absnegative() | self.abspositive()]),
+            self.anatomy(),
+            self.animal(),
+            self.building(),
+            self.celestial(),
+            self.item(),
+            self.mineral(),
+            self.natural(),
+            self.precious(),
+        ]
+        if random.random() < 0.75:
+            options.append(self.relation())
+        return random.choice(options)
 
     def nounbasic(self):
         options = [
@@ -1735,23 +1763,23 @@ class ExaltedName(RandomName):
         return random.choice(options)
 
     def conjunctive(self):
-        """[animal] and [celestial] [[person]|[relation]]
-        [[absnegative]|[abspositive]] and [mineral] [person]
-        [anatomy] of the [[animal]|[animal]|[animal]|[animal,as plural]] and the [[location]|[location]|[location]|[location,as plural]]
-        [precious] and [mineral] [[person]|[relation]]
-        [relation] of [[mineral] and [precious]|[precious] and [mineral]]
-        [condition] [[absnegative]|[abspositive]] and [natural] [anatomy] [person]
-        [[absnegative]|[abspositive]] of the [[location]|[location]|[location]|[location,as plural]]
-        [[animal]|[item]] of the [[celestial]|[[location]|[location]|[location]|[location,as plural]]]"""
+        """self.animal() and self.celestial() [self.person()|self.relation()]
+        [self.absnegative()|self.abspositive()] and self.mineral() self.person()
+        self.anatomy() of the [self.animal()|self.animal()|self.animal()|[animal,as plural]] and the [[location]|[location]|[location]|[location,as plural]]
+        self.precious() and self.mineral() [self.person()|self.relation()]
+        self.relation() of [self.mineral() and self.precious()|self.precious() and self.mineral()]
+        [condition] [self.absnegative()|self.abspositive()] and self.natural() self.anatomy() self.person()
+        [self.absnegative()|self.abspositive()] of the [[location]|[location]|[location]|[location,as plural]]
+        [self.animal()|self.item()] of the [self.celestial()|[[location]|[location]|[location]|[location,as plural]]]"""
         return ""
 
     def misc(self):
-        """[[emopositive]|[emopositive]|[emopositive]|[condition]] [item]-[transitive] [[person]|[relation]]
-        [heroic] [precious] [animal] [relation] of the [condition] [[location]|[location]|[location]|[location,as plural]] {90%}
-        [item]-[transitive] [precious] [[person]|[relation]]
-        [adjective] [[relation]|[relation]|[person]|[title]] of [[absnegative]|[abspositive]]
-        [title] [[[animal]|[animal]|[natural]|[natural]|[mineral]|[precious]|[celestial]|[item]]|[adjective] [nounbasic]|[adjective] [nounbasic]]
-        [[animal]|[celestial]|[natural]|[mineral]] the [adjective]"""
+        """[[emopositive]|[emopositive]|[emopositive]|[condition]] self.item()-[transitive] [self.person()|self.relation()]
+        [heroic] self.precious() self.animal() self.relation() of the [condition] [[location]|[location]|[location]|[location,as plural]] {90%}
+        self.item()-[transitive] self.precious() [self.person()|self.relation()]
+        [adjective] [self.relation()|self.relation()|self.person()|[title]] of [self.absnegative()|self.abspositive()]
+        [title] [[self.animal()|self.animal()|self.natural()|self.natural()|self.mineral()|self.precious()|self.celestial()|self.item()]|[adjective] [nounbasic]|[adjective] [nounbasic]]
+        [self.animal()|self.celestial()|self.natural()|self.mineral()] the [adjective]"""
         return ""
 
     def numbered(self):
@@ -1770,26 +1798,43 @@ class ExaltedName(RandomName):
 
     def prompt(self):
         options = [
-            random.choice([self.animal(), self.animal(), self.natural(), self.natural(), self.mineral(), self.precious(), self.celestial(), self.item()]),
+            random.choice(
+                [
+                    self.animal(),
+                    self.animal(),
+                    self.natural(),
+                    self.natural(),
+                    self.mineral(),
+                    self.precious(),
+                    self.celestial(),
+                    self.item(),
+                ]
+            ),
             f"{self.adjective()} {self.nounbasic()}",
             f"{self.adjective()} {self.nounbasic()}",
             f"{self.adjective()} {self.nounbasic()}",
-            f"{random.choice[self.natural(), self.celestial(), self.mineral(), self.item(), random.choice([self.absnegative(), self.abspositive()])])}-{self.transitive()} {self.person()}",
+            f"{random.choice([self.natural(), self.celestial(), self.mineral(), self.item(), random.choice([self.absnegative(), self.abspositive()])])}-{self.transitive()} {self.person()}",
             f"{self.adjective()} {self.noun()} {random.choice([self.relation(), self.relation(), self.person(), self.person(), self.person(), self.animal()])}",
             self.numbered(),
         ]
         if random.random() < 0.9:
             options.append(self.conjunctive())
         if random.random() < 0.6:
-            options.append(f"{self.nounbasic()} {random.choice([self.celestial(), self.item(), self.natural(), self.anatomy()])} {self.person()}")
+            options.append(
+                f"{self.nounbasic()} {random.choice([self.celestial(), self.item(), self.natural(), self.anatomy()])} {self.person()}"
+            )
+        if random.random() < 0.6:
+            options.append(
+                f"{random.choice([self.emopositive(), self.emonegative(), self.heroic(), self.heroic(), self.color(), self.condition()])} [[self.precious()|self.mineral()] [self.item()|self.item()|self.natural()|self.anatomy()|self.animal()]|self.animal() self.anatomy()] [self.person()|self.person()|self.person()|self.relation()]"
+            )
         # if random.random() < 0.6:
-        #     options.append(f"[[emopositive]|[emonegative]|[heroic]|[heroic]|[color]|[condition]] [[[precious]|[mineral]] [[item]|[item]|[natural]|[anatomy]|[animal]]|[animal] [anatomy]] [[person]|[person]|[person]|[relation]]")
+        #     options.append(f"[self.color()|self.precious()] [self.anatomy()|self.person()] of the [self.celestial()|self.natural()|self.animal()|[celestial,as plural]|[naturalplural]|[animal,as plural]]")
         # if random.random() < 0.6:
-        #     options.append(f"[[color]|[precious]] [[anatomy]|[person]] of the [[celestial]|[natural]|[animal]|[celestial,as plural]|[naturalplural]|[animal,as plural]]")
-        # if random.random() < 0.6:
-        #     options.append(f"[[animal]|[person]|[relation]|[relation]] of the [[[celestial]|[heroic]|[color]|[condition]] [[building]|[anatomy]|[location]]|[[emopositive]|[emonegative]|[color]|[condition]] [[celestial]|[celestial]|[anatomy]]]")
+        #     options.append(f"[self.animal()|self.person()|self.relation()|self.relation()] of the [[self.celestial()|[heroic]|self.color()|[condition]] [self.building()|self.anatomy()|[location]]|[[emopositive]|[emonegative]|self.color()|[condition]] [self.celestial()|self.celestial()|self.anatomy()]]")
         if random.random() < 0.25:
-            options.append(f"{random.choice([self.heroic(), self.movement()])} {random.choice([self.animal(), self.item()])} of the {random.choice([self.emonegative(), self.emopositive(), self.condition()])} {random.choice([random.choice([self.building(), self.building(), self.building(), self.building(plural=True)]), random.choice([self.location(), self.location(), self.location(), self.location(plural=True)]), self.natural()])}")
+            options.append(
+                f"{random.choice([self.heroic(), self.movement()])} {random.choice([self.animal(), self.item()])} of the {random.choice([self.emonegative(), self.emopositive(), self.condition()])} {random.choice([random.choice([self.building(), self.building(), self.building(), self.building(plural=True)]), random.choice([self.location(), self.location(), self.location(), self.location(plural=True)]), self.natural()])}"
+            )
         if random.random() < 0.25:
             options.append(self.misc())
         return random.choice(options)
@@ -3252,54 +3297,6 @@ def exalted_name():
         ("Sunrise", "Sunrises"),
         ("Sunset", "Sunsets"),
     ]
-    color_options = [
-        "Amber",
-        "Argent",
-        "Ashen",
-        "Azure",
-        "Beige",
-        "Black",
-        "Blue",
-        random.choice(["Brilliant", "Bright"]),
-        "Brown",
-        "Cerulean",
-        "Crimson",
-        "Cyan",
-        "Dark",
-        "Earthen",
-        "Ebon",
-        "Emerald",
-        "Flaxen",
-        "Golden",
-        "Green",
-        "Grey",
-        "Indigo",
-        random.choice(
-            ["Iridescent", "Iridescent", "Pearlescent", "Chatoyant", "Prismatic"]
-        ),
-        "Magenta",
-        "Maroon",
-        "Orange",
-        "Painted",
-        random.choice(["Pale", "Pallid"]),
-        "Purple",
-        "Rainbow",
-        "Red",
-        "Saffron",
-        "Scarlet",
-        "Shadowy",
-        random.choice(["Shining", "Shimmering", "Glittering"]),
-        "Silver",
-        "Sooty",
-        "Tawny",
-        "Teal",
-        "Turquoise",
-        "Vermillion",
-        "Vert",
-        "Violet",
-        "White",
-        "Yellow",
-    ]
     condition_options = [
         "Auspicious",
         "Baleful",
@@ -3700,183 +3697,6 @@ def exalted_name():
         ("Wold", "Wolds"),
         (random.choice(["Woodland", "Woods"]), "Woods"),
     ]
-    mineral_options = [
-        "Agate",
-        "Amethyst",
-        "Basalt",
-        "Bloodstone",
-        "Brass",
-        "Bronze",
-        "Calcite",
-        "Chalcedony",
-        "Clay",
-        "Coral",
-        "Copper",
-        "Crystal",
-        "Flint",
-        "Glass",
-        "Granite",
-        "Hematite",
-        "Iron",
-        "Jasper",
-        "Metal",
-        "Obsidian",
-        "Onyx",
-        "Ore",
-        "Pumice",
-        "Pyrite",
-        "Quartz",
-        "Rust",
-        "Sandstone",
-        "Salt",
-        "Steel",
-        "Stone",
-        "Tigereye",
-        "Tin",
-        "Turquoise",
-        "Verdigris",
-    ]
-    movement_options = [
-        "Ascending",
-        "Darting",
-        "Descending",
-        "Falling",
-        "Faring",
-        "Flickering",
-        "Flowing",
-        "Fluttering",
-        "Leaping",
-        "Plummeting",
-        "Questing",
-        "Racing",
-        "Rapid",
-        "Rising",
-        "Roaming",
-        "Running",
-        "Soaring",
-        "Standing",
-        "Still",
-        "Striding",
-        "Swift",
-        "Swimming",
-        "Unfettered",
-        "Wandering",
-    ]
-    tree_options = [
-        ("Acacia", "Acacias"),
-        ("Ailanthus", "Ailanthus-trees"),
-        ("Alder", "Alders"),
-        ("Almond", "Almond-trees"),
-        ("Apple", "Apple-trees"),
-        ("Ashoka", "Ashoka-trees"),
-        ("Poplar", "Poplars"),
-        ("Aspen", "Poplars"),
-        ("Balsa", "Balsas"),
-        ("Bamboo", "Bamboo"),
-        ("Banyan", "Banyans"),
-        ("Baobob", "Baobobs"),
-        ("Beech", "Beeches"),
-        ("Birch", "Birches"),
-        ("Buckeye", "Buckeyes"),
-        ("Cactus", "Cacti"),
-        ("Saguaro", "Cacti"),
-        ("Cashew", "Cashew-trees"),
-        ("Cassia", "Cassias"),
-        ("Catalpa", "Catalpas"),
-        ("Cedar", "Cedars"),
-        ("Ceiba", "Ceibas"),
-        ("Cherry", "Cherry-trees"),
-        ("Chestnut", "Chestnut-trees"),
-        ("Citron", "Citron-trees"),
-        ("Coffee-tree", "Coffee-trees"),
-        ("Cycad", "Cycads"),
-        ("Cypress", "Cypresses"),
-        ("Ebony", "Ebonies"),
-        ("Elm", "Elms"),
-        ("Fig", "Fig-trees"),
-        ("Fir", "Firs"),
-        ("Flame-tree", "Flame-trees"),
-        ("Ginkgo", "Ginkgos"),
-        ("Guava", "Guava-trees"),
-        ("Gum-tree", "Gum-trees"),
-        ("Henna", "Henna-trees"),
-        ("Hickory", "Hickories"),
-        ("Holly", "Hollies"),
-        ("Hornbeam", "Hornbeams"),
-        ("Iroko", "Iroko-trees"),
-        ("Ironwood", "Ironwoods"),
-        ("Jacaranda", "Jacarandas"),
-        ("Jasmine", "Jasmines"),
-        ("Jujube", "Jujube-trees"),
-        ("Kapok", "Kapoks"),
-        ("Kauri", "Kauri-pines"),
-        ("Kigelia", "Kigelia-trees"),
-        ("Laburnum", "Laburnums"),
-        ("Lancewood", "Lancewoods"),
-        ("Laurel", "Laurels"),
-        ("Lilac", "Lilacs"),
-        ("Linden", "Lindens"),
-        ("Locust", "Locust-trees"),
-        ("Lychee", "Lychee-trees"),
-        ("Magnolia", "Magnolias"),
-        ("Mahogany", "Mahoganies"),
-        ("Mango", "Mango-trees"),
-        ("Mangosteen", "Mangosteens"),
-        ("Mangrove", "Mangroves"),
-        ("Manilkara", "Manilkara-trees"),
-        ("Maple", "Maples"),
-        ("Marula", "Marula-trees"),
-        ("Medlar", "Medlar-trees"),
-        ("Mesquite", "Mesquites"),
-        ("Milkwood", "Milkwoods"),
-        ("Mimosa", "Mimosas"),
-        ("Moringa", "Moringas"),
-        ("Myrtle", "Myrtles"),
-        ("Neem", "Neem-trees"),
-        ("Oak", "Oaks"),
-        ("Oleaster", "Oleasters"),
-        ("Olive", "Olive-trees"),
-        ("Palm", "Palms"),
-        ("Palmetto", "Palmettos"),
-        ("Palmyra", "Palmyra-trees"),
-        ("Pandan", "Pandan-trees"),
-        ("Papaya", "Papaya-trees"),
-        ("Paperbark", "Paperbarks"),
-        ("Peach", "Peach-trees"),
-        ("Persea", "Persea-trees"),
-        ("Pine", "Pines"),
-        ("Plum", "Plum-trees"),
-        ("Plumyew", "Plumyews"),
-        ("Podocarp", "Podocarp-pines"),
-        ("Quandong", "Quandong-trees"),
-        ("Rambutan", "Rambutan-trees"),
-        ("Redwood", "Redwoods"),
-        ("Rose", "Roses"),
-        ("Rosewood", "Rosewoods"),
-        ("Whitebeam", "Rowans"),
-        ("Rowan", "Rowans"),
-        ("Sakaki", "Sakaki-trees"),
-        ("Sandalwood", "Sandalwoods"),
-        ("Shea", "Shea-trees"),
-        ("Siris", "Siris-trees"),
-        ("Soursop", "Soursop-trees"),
-        ("Spruce", "Spruces"),
-        ("Sumac", "Sumacs"),
-        ("Sycamore", "Sycamores"),
-        ("Larch", "Larches"),
-        ("Tamarack", "Larches"),
-        ("Tamarind", "Tamarind-trees"),
-        ("Tamarisk", "Tamarisks"),
-        ("Tea-tree", "Tea-trees"),
-        ("Teak", "Teaks"),
-        ("Thorn", "Thorn-trees"),
-        ("Totara", "Totaras"),
-        ("Tupelo", "Tupelos"),
-        ("Wattle", "Wattle-trees"),
-        ("Willow", "Willows"),
-        ("Yellowwood", "Yellowwoods"),
-        ("Yew", "Yews"),
-    ]
     nature_options = [
         ("Arroyo", "Arroyos"),
         ("Blossom", "Blossoms"),
@@ -3974,26 +3794,6 @@ def exalted_name():
         random.choice(nature_options)[-1],
         random.choice(nature_options)[-1],
         random.choice(tree_options)[-1],
-    ]
-    number_options = [
-        "Two",
-        "Three",
-        "Four",
-        "Five",
-        "Six",
-        "Seven",
-        "Eight",
-        "Nine",
-        "Ten",
-        "Twelve",
-        "One Dozen",
-        "Fifteen",
-        "Twenty",
-        "One Score",
-        "One Hundred ",
-        "One Thousand",
-        "Ten Thousand",
-        "Many",
     ]
     ordinal_options = [
         "First",
@@ -4136,36 +3936,6 @@ def exalted_name():
         "Tumbaga",
         "Zircon",
     ]
-    relation_options = [
-        "Acolyte",
-        "Ally",
-        "Brother",
-        "Child",
-        "Chumyo",
-        "Client",
-        "Daimyo",
-        "Daughter",
-        "Disciple",
-        "Exarch",
-        "Father",
-        "Lady",
-        "Liege",
-        "Lord",
-        "Master",
-        "Mother",
-        "Odalisque",
-        "Patron",
-        random.choice(["Scion", "Heir"]),
-        "Serf",
-        "Servant",
-        "Sifu",
-        "Sister",
-        random.choice(["Slave", "Thrall"]),
-        "Son",
-        "Squire",
-        "Student",
-        "Vassal",
-    ]
     title_options = [
         "Admiral",
         random.choice(["Baron", "Baroness"]),
@@ -4203,23 +3973,6 @@ def exalted_name():
         "Sifu",
         "Sultan",
         random.choice(["Warlord", "Warlady"]),
-    ]
-    noun_options = [
-        random.choice(
-            [
-                random.choice(absnegative_options)[0],
-                random.choice(abspositive_options)[0],
-            ]
-        ),
-        random.choice(anatomy_options)[0],
-        random.choice(animal_options)[0],
-        random.choice(building_options)[0],
-        random.choice(celestial_options)[0],
-        random.choice(item_options)[0],
-        random.choice(mineral_options),
-        random.choice(natural_options),
-        random.choice(precious_options),
-        random.choice(relation_options),
     ]
     conjunctive_options = [
         " ".join(
