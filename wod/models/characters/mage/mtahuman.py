@@ -1,6 +1,7 @@
 from django.db import models
 
 from wod.models.characters.human import Human
+from wod.models.characters.mage.utils import PRIMARY_ABILITIES
 
 PRIMARY_ABILITY_WEIGHTING = 5
 PRACTICE_ABILITY_WEIGHTING = 3
@@ -136,6 +137,41 @@ class MtAHuman(Human):
 
     def get_heading(self):
         return "mtas_heading"
+    
+    def get_secondaries_for_display(self):
+        secondary_talents = {k: v for k, v in self.get_talents().items() if k not in PRIMARY_ABILITIES and v != 0}
+        secondary_skills = {k: v for k, v in self.get_skills().items() if k not in PRIMARY_ABILITIES and v != 0}
+        secondary_knowledges = {k.title(): v for k, v in self.get_knowledges().items() if k not in PRIMARY_ABILITIES and v != 0}
+        
+        if "History Knowledge" in secondary_knowledges:
+            secondary_knowledges['History'] = secondary_knowledges.pop("History Knowledge")
+        
+        secondary_talents = list(secondary_talents.items())
+        secondary_skills = list(secondary_skills.items())
+        secondary_knowledges = list(secondary_knowledges.items())
+        
+        secondary_talents = [(k.replace("_", " ").title(), v, k) for k, v in secondary_talents]
+        secondary_skills = [(k.replace("_", " ").title(), v, k) for k, v in secondary_skills]
+        secondary_knowledges = [(k.replace("_", " ").title(), v, k) for k, v in secondary_knowledges]
+        
+        secondary_talents.sort(key=lambda x:x[0])
+        secondary_skills.sort(key=lambda x:x[0])
+        secondary_knowledges.sort(key=lambda x:x[0])
+        
+        num_sec_tal = len(secondary_talents)
+        num_sec_ski = len(secondary_skills)
+        num_sec_kno = len(secondary_knowledges)
+        m = max(num_sec_tal, num_sec_ski, num_sec_kno)
+        for _ in range(m - num_sec_tal):
+            secondary_talents.append(("", 0))
+        for _ in range(m - num_sec_ski):
+            secondary_skills.append(("", 0))
+        for _ in range(m - num_sec_kno):
+            secondary_knowledges.append(("", 0))
+        return list(
+            zip(secondary_talents, secondary_skills, secondary_knowledges)
+        )
+
 
     def get_talents(self):
         tmp = super().get_talents()
