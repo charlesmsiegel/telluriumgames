@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, View
 
+from core.views import BaseCharacterView
+from wod.forms.characters.human import AttributeForm
 from wod.models.characters.human import (
     Archetype,
     Character,
@@ -10,6 +12,30 @@ from wod.models.characters.human import (
     MeritFlaw,
     WoDSpecialty,
 )
+
+
+class AttributeDetailView(BaseCharacterView):
+    def get(self, request, *args, **kwargs):
+        character = Human.objects.get(pk=kwargs["pk"])
+        context = self.get_context(character)
+        context["form"] = AttributeForm(character=character)
+        return render(request, "wod/characters/mage/mage/1_attribute.html", context)
+
+    def post(self, request, *args, **kwargs):
+        character = Human.objects.get(pk=kwargs["pk"])
+        context = self.get_context(character)
+        context["form"] = AttributeForm(character=character)
+        form = AttributeForm(request.POST, character=character)
+        if "Random Attributes" in form.data:
+            character.random_attributes()
+            character.next_stage()
+            return redirect(character.get_absolute_url())
+        form.assign()
+        if character.has_attributes():
+            character.next_stage()
+            return redirect(character.get_absolute_url())
+        context["form"] = AttributeForm(character=character)
+        return redirect(character.get_absolute_url())
 
 
 class CharacterDetailView(DetailView):

@@ -1,5 +1,6 @@
 {% extends "wod/characters/mage/mtahuman/detail.html" %}
 {% load dots %}
+{% load get_specialty %}
 {% load resonance %}
 {% block basics %}
     <div class="row">
@@ -381,21 +382,21 @@
         <div class="row">
             <div class="col-sm">
                 {{ object.get_corr_name_display }}
-                {% if correspondence_spec %}({{ correspondence_spec }}){% endif %}
+                {% if object|get_specialty:'correspondence' %}({{ object|get_specialty:'correspondence' }}){% endif %}
             </div>
             <div class="col-sm dots">
                 {{ object.correspondence|dots }}
             </div>
             <div class="col-sm">
                 Mind
-                {% if mind_spec %}({{ mind_spec }}){% endif %}
+                {% if object|get_specialty:'mind' %}({{ object|get_specialty:'mind' }}){% endif %}
             </div>
             <div class="col-sm dots">
                 {{ object.mind|dots }}
             </div>
             <div class="col-sm">
                 {{ object.get_prime_name_display }}
-                {% if prime_spec %}({{ prime_spec }}){% endif %}
+                {% if object|get_specialty:'prime' %}({{ object|get_specialty:'prime' }}){% endif %}
             </div>
             <div class="col-sm dots">
                 {{ object.prime|dots }}
@@ -404,21 +405,21 @@
         <div class="row">
             <div class="col-sm">
                 Entropy
-                {% if entropy_spec %}({{ entropy_spec }}){% endif %}
+                {% if object|get_specialty:'entropy' %}({{ object|get_specialty:'entropy' }}){% endif %}
             </div>
             <div class="col-sm dots">
                 {{ object.entropy|dots }}
             </div>
             <div class="col-sm">
                 Life
-                {% if life_spec %}({{ life_spec }}){% endif %}
+                {% if object|get_specialty:'life' %}({{ object|get_specialty:'life' }}){% endif %}
             </div>
             <div class="col-sm dots">
                 {{ object.life|dots }}
             </div>
             <div class="col-sm">
                 {{ object.get_spirit_name_display }}
-                {% if spirit_spec %}({{ spirit_spec }}){% endif %}
+                {% if object|get_specialty:'spirit' %}({{ object|get_specialty:'spirit' }}){% endif %}
             </div>
             <div class="col-sm dots">
                 {{ object.spirit|dots }}
@@ -427,21 +428,21 @@
         <div class="row">
             <div class="col-sm">
                 Forces
-                {% if forces_spec %}({{ forces_spec }}){% endif %}
+                {% if object|get_specialty:'forces' %}({{ object|get_specialty:'forces' }}){% endif %}
             </div>
             <div class="col-sm dots">
                 {{ object.forces|dots }}
             </div>
             <div class="col-sm">
                 Matter
-                {% if matter_spec %}({{ matter_spec }}){% endif %}
+                {% if object|get_specialty:'matter' %}({{ object|get_specialty:'matter' }}){% endif %}
             </div>
             <div class="col-sm dots">
                 {{ object.matter|dots }}
             </div>
             <div class="col-sm">
                 Time
-                {% if time_spec %}({{ time_spec }}){% endif %}
+                {% if object|get_specialty:'time' %}({{ object|get_specialty:'time' }}){% endif %}
             </div>
             <div class="col-sm dots">
                 {{ object.time|dots }}

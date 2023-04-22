@@ -1,5 +1,6 @@
 {% extends "wod/characters/human/human/detail.html" %}
 {% load dots %}
+{% load get_specialty %}
 {% block abilities %}
     <div class="row">
         <h2 class="col-sm {{ object.get_heading }}">Abilities</h2>
@@ -223,11 +224,13 @@
             Secondary Abilities
         </h2>
     </div>
-    {% for tal, ski, kno in secondaries %}
+    {% for tal, ski, kno in object.get_secondaries_for_display %}
         <div class="row">
             <div class="col-sm">
                 {{ tal|first }}
-                {% if tal|last %}({{ tal|last }}){% endif %}
+                {% with talname=tal|last %}
+                {% if object|get_specialty:talname %}({{ object|get_specialty:talname }}){% endif %}
+                {% endwith %}
             </div>
             {% if tal|slice:"1:"|first != 0 %}
                 <div class="col-sm dots">
@@ -239,7 +242,9 @@
             {% endif %}
             <div class="col-sm">
                 {{ ski|first }}
-                {% if ski|last %}({{ ski|last }}){% endif %}
+                {% with skiname=ski|last %}
+                {% if object|get_specialty:skiname %}({{ object|get_specialty:skiname }}){% endif %}
+                {% endwith %}
             </div>
             {% if ski|slice:"1:"|first != 0 %}
                 <div class="col-sm dots">
@@ -251,7 +256,9 @@
             {% endif %}
             <div class="col-sm">
                 {{ kno|first }}
-                {% if kno|last %}({{ kno|last }}){% endif %}
+                {% with knoname=kno|last %}
+                {% if object|get_specialty:knoname %}({{ object|get_specialty:knoname }}){% endif %}
+                {% endwith %}
             </div>
             {% if kno|slice:"1:"|first != 0 %}
                 <div class="col-sm dots">
