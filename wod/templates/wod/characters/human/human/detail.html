@@ -123,9 +123,9 @@
             </h2>
         </div>
         <div class="row">
-            {% for mf in object.merits_and_flaws.all %}
+            {% for mf, rating in object.get_mf_and_rating_list %}
                 <a class="col-sm" href="{{ mf.get_absolute_url }}">
-                    {{ mf }}
+                    {{ mf }}: {{ rating }}
                 </a>
             {% endfor %}
         </div>

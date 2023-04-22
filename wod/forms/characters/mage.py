@@ -35,7 +35,9 @@ class MageCreationForm(forms.Form):
         ),
     )
     faction = forms.ModelChoiceField(queryset=MageFaction.objects.all(), required=False)
-    subfaction = forms.ModelChoiceField(queryset=MageFaction.objects.all(), required=False)
+    subfaction = forms.ModelChoiceField(
+        queryset=MageFaction.objects.all(), required=False
+    )
 
 
 class MageAbilitiesForm(forms.Form):

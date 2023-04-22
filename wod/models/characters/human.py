@@ -254,6 +254,9 @@ class Human(Character):
     def get_heading(self):
         return "wod_heading"
 
+    def get_mf_and_rating_list(self):
+        return [(x.name, self.mf_rating(x)) for x in self.merits_and_flaws.all()]
+
     def get_specialty(self, stat):
         spec = self.specialties.filter(stat=stat).first()
         if spec is None:
