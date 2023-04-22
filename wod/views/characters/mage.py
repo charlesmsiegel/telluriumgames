@@ -302,9 +302,6 @@ class MageDetailView(BaseCharacterView):
         context["resonance"] = ResRating.objects.filter(
             mage=character, rating__gte=1
         ).order_by("resonance__name")
-        context["merits_and_flaws"] = MeritFlawRating.objects.order_by(
-            "mf__name"
-        ).filter(character=character)
         all_effects = list(Rote.objects.filter(mage=context["object"]))
         row_length = 2
         all_effects = [
