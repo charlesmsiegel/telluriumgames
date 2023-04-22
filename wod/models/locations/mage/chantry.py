@@ -1,6 +1,7 @@
 import random
 
 from django.db import models
+from django.db.models import Max
 from django.urls import reverse
 
 from core.utils import add_dot, weighted_choice
@@ -29,6 +30,7 @@ class Chantry(Location):
         ("triumvirate", "Triumvirate"),
         ("democracy", "Democracy"),
         ("anarchy", "Anarchy"),
+        ("single_deacon", "Single Deacon"),
     ]
 
     leadership_type = models.CharField(
@@ -330,6 +332,13 @@ class Chantry(Location):
             all_characters = list(all_characters)
             all_characters.sort(key=lambda x: -x.arete)
             self.leaders.set(all_characters[:3])
+        elif self.leadership_type == "single_deacon":
+            all_characters = list(all_characters)
+            all_characters.sort(key=lambda x: -x.arete)
+            max_arete_chars = [
+                x for x in all_characters if x.arete == all_characters[0].arete
+            ]
+            self.leaders.add(random.choice(max_arete_chars))
         self.save()
 
     def random_leadership_type(self, leadership_type=None):
