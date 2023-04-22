@@ -78,26 +78,9 @@ class MageCreateView(View):
         if "Save" in request.POST:
             form = MageCreationForm(request.POST)
             form.full_clean()
-            print(form.data)
-            print(form.cleaned_data)
             affiliation = form.cleaned_data.get("affiliation")
             faction = form.cleaned_data.get("faction")
             subfaction = form.cleaned_data.get("subfaction")
-            # faction = form.data.get("faction")[0]
-            # if faction == "":
-            #     faction = None
-            # print(form.data.get("subfaction"))
-            # subfaction = form.data.get("subfaction")[0]
-            # if subfaction == "":
-            #     subfaction = None
-            # faction = MageFaction.objects.get(pk=faction)
-            # subfaction = MageFaction.objects.get(pk=subfaction)
-            # if "affiliation" in form.cleaned_data.keys():
-            #     affiliation = form.cleaned_data["affiliation"]
-            # if "faction" in form.cleaned_data.keys():
-            #     faction = form.cleaned_data["faction"]
-            # if "subfaction" in form.cleaned_data.keys():
-            #     subfaction = form.cleaned_data["subfaction"]
             s = Mage.objects.create(
                 name=form.data["name"],
                 concept=form.data["concept"],
@@ -319,9 +302,6 @@ class MageDetailView(BaseCharacterView):
         context["resonance"] = ResRating.objects.filter(
             mage=character, rating__gte=1
         ).order_by("resonance__name")
-        context["merits_and_flaws"] = MeritFlawRating.objects.order_by(
-            "mf__name"
-        ).filter(character=character)
         all_effects = list(Rote.objects.filter(mage=context["object"]))
         row_length = 2
         all_effects = [
