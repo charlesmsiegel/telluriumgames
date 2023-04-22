@@ -22,6 +22,7 @@ from wod.models.characters.mage.mage import Mage, Rote
 from wod.models.characters.mage.resonance import Resonance, ResRating
 from wod.models.characters.mage.rote import Effect
 from wod.models.characters.mage.utils import PRIMARY_ABILITIES
+from wod.views.characters.human import AttributeDetailView
 
 
 def load_factions(request):
@@ -77,15 +78,26 @@ class MageCreateView(View):
         if "Save" in request.POST:
             form = MageCreationForm(request.POST)
             form.full_clean()
-            affiliation = None
-            faction = None
-            subfaction = None
-            if "affiliation" in form.data.keys():
-                affiliation = form.cleaned_data["affiliation"]
-            if "faction" in form.data.keys():
-                faction = form.cleaned_data["faction"]
-            if "subfaction" in form.data.keys():
-                subfaction = form.cleaned_data["subfaction"]
+            print(form.data)
+            print(form.cleaned_data)
+            affiliation = form.cleaned_data.get("affiliation")
+            faction = form.cleaned_data.get("faction")
+            subfaction = form.cleaned_data.get("subfaction")
+            # faction = form.data.get("faction")[0]
+            # if faction == "":
+            #     faction = None
+            # print(form.data.get("subfaction"))
+            # subfaction = form.data.get("subfaction")[0]
+            # if subfaction == "":
+            #     subfaction = None
+            # faction = MageFaction.objects.get(pk=faction)
+            # subfaction = MageFaction.objects.get(pk=subfaction)
+            # if "affiliation" in form.cleaned_data.keys():
+            #     affiliation = form.cleaned_data["affiliation"]
+            # if "faction" in form.cleaned_data.keys():
+            #     faction = form.cleaned_data["faction"]
+            # if "subfaction" in form.cleaned_data.keys():
+            #     subfaction = form.cleaned_data["subfaction"]
             s = Mage.objects.create(
                 name=form.data["name"],
                 concept=form.data["concept"],
@@ -94,294 +106,229 @@ class MageCreateView(View):
                 owner=request.user,
                 status="Un",
                 chronicle=form.cleaned_data["chronicle"],
-                affiliation=affiliation,
-                faction=faction,
-                subfaction=subfaction,
             )
+            s.set_faction(affiliation, faction, subfaction=subfaction)
             return redirect(s.get_absolute_url())
         context = {}
         context["form"] = MageCreationForm()
         return render(request, "wod/characters/mage/mage/create.html", context)
 
 
-class MageDetailView(BaseCharacterView):
+class MageAbilitiesDetailView(BaseCharacterView):
     def get(self, request, *args, **kwargs):
-        mage = Mage.objects.get(pk=kwargs["pk"])
-        context = self.get_context(mage)
-        if mage.status != "Un":
-            return render(request, "wod/characters/mage/mage/detail.html", context,)
-        if mage.creation_status == 1:
-            context["form"] = AttributeForm(character=mage)
-            return render(
-                request, "wod/characters/mage/mage/1_attribute.html", context,
-            )
-        if mage.creation_status == 2:
-            context["form"] = MageAbilitiesForm(character=mage)
-            return render(
-                request, "wod/characters/mage/mage/2_abilities.html", context,
-            )
-        if mage.creation_status == 3:
-            context["form"] = MageAdvantagesForm(character=mage)
-            return render(
-                request, "wod/characters/mage/mage/3_advantages.html", context,
-            )
-        if mage.creation_status == 4:
+        character = Mage.objects.get(pk=kwargs["pk"])
+        context = self.get_context(character)
+        context["form"] = MageAbilitiesForm(character=character)
+        return render(request, "wod/characters/mage/mage/2_abilities.html", context)
+
+    def post(self, request, *args, **kwargs):
+        character = Mage.objects.get(pk=kwargs["pk"])
+        context = self.get_context(character)
+        form = MageAbilitiesForm(request.POST, character=character)
+        if "Back" in form.data:
+            character.prev_stage()
+            return redirect(character.get_absolute_url())
+        if "Random Abilities" in form.data:
+            character.random_abilities()
+            character.next_stage()
+            return redirect(character.get_absolute_url())
+        form.assign()
+        if character.has_abilities():
+            character.next_stage()
+            return redirect(character.get_absolute_url())
+        context["form"] = MageAbilitiesForm(character=character)
+        return redirect(character.get_absolute_url())
+
+
+class MageAdvantagesView(BaseCharacterView):
+    def get(self, request, *args, **kwargs):
+        character = Mage.objects.get(pk=kwargs["pk"])
+        context = self.get_context(character)
+        context["form"] = MageAdvantagesForm(character=character)
+        return render(request, "wod/characters/mage/mage/3_advantages.html", context)
+
+    def post(self, request, *args, **kwargs):
+        character = Mage.objects.get(pk=kwargs["pk"])
+        context = self.get_context(character)
+        form = MageAdvantagesForm(request.POST, character=character)
+        if "Back" in form.data:
+            character.prev_stage()
+            context["form"] = MageAbilitiesForm(character=character)
+            return redirect(character.get_absolute_url())
+        if "Random Advantages" in form.data:
+            character.random_focus()
+            character.random_backgrounds()
+            character.random_arete()
+            character.random_affinity_sphere()
+            character.next_stage()
             context["resonances"] = Resonance.objects.all().order_by("name")
-            context["form"] = MagePowersForm(character=mage)
-            return render(request, "wod/characters/mage/mage/4_powers.html", context,)
-        if mage.creation_status == 5:
+            context["form"] = MagePowersForm(character=character)
+            return redirect(character.get_absolute_url())
+        form.assign()
+        if (
+            character.has_backgrounds()
+            and character.has_affinity_sphere()
+            and character.has_focus()
+        ):
+            character.next_stage()
+            context["resonances"] = Resonance.objects.all().order_by("name")
+            context["form"] = MagePowersForm(character=character)
+            return redirect(character.get_absolute_url())
+        context["form"] = MageAdvantagesForm(character=character)
+        return redirect(character.get_absolute_url())
+
+
+class MagePowersView(BaseCharacterView):
+    def get(self, request, *args, **kwargs):
+        character = Mage.objects.get(pk=kwargs["pk"])
+        context = self.get_context(character)
+        context["resonances"] = Resonance.objects.all().order_by("name")
+        context["form"] = MagePowersForm(character=character)
+        return render(request, "wod/characters/mage/mage/4_powers.html", context,)
+
+    def post(self, request, *args, **kwargs):
+        character = Mage.objects.get(pk=kwargs["pk"])
+        context = self.get_context(character)
+        form = MagePowersForm(request.POST, character=character)
+        if "Back" in form.data:
+            character.prev_stage()
+            context["form"] = MageAdvantagesForm(character=character)
+            return redirect(character.get_absolute_url())
+        if "Random Powers" in form.data:
+            character.random_spheres()
+            character.random_resonance()
+            character.next_stage()
             MFFormset = formset_factory(MeritFlawForm, extra=1)
             context["formset"] = MFFormset(form_kwargs={"chartype": "mage"})
-            context["form"] = MageFreebieForm(character=mage)
-            return render(request, "wod/characters/mage/mage/5_freebies.html", context,)
-        if mage.creation_status == 6:
-            context["form"] = MageDescriptionForm(character=mage)
-            return render(
-                request, "wod/characters/mage/mage/6_description.html", context,
+            context["form"] = MageFreebieForm(character=character)
+            return redirect(character.get_absolute_url())
+        form.assign()
+        if character.has_spheres() and character.total_resonance() > 0:
+            character.next_stage()
+            MFFormset = formset_factory(MeritFlawForm, extra=1)
+            context["formset"] = MFFormset(form_kwargs={"chartype": "mage"})
+            context["form"] = MageFreebieForm(character=character)
+            return redirect(character.get_absolute_url())
+        context["resonances"] = Resonance.objects.all().order_by("name")
+        context["form"] = MagePowersForm(character=character)
+        return redirect(character.get_absolute_url())
+
+
+class MageFreebiesView(BaseCharacterView):
+    def get(self, request, *args, **kwargs):
+        character = Mage.objects.get(pk=kwargs["pk"])
+        context = self.get_context(character)
+        MFFormset = formset_factory(MeritFlawForm, extra=1)
+        context["formset"] = MFFormset(form_kwargs={"chartype": "mage"})
+        context["form"] = MageFreebieForm(character=character)
+        return render(request, "wod/characters/mage/mage/5_freebies.html", context)
+
+    def post(self, request, *args, **kwargs):
+        character = Mage.objects.get(pk=kwargs["pk"])
+        context = self.get_context(character)
+        form = MageFreebieForm(request.POST, character=character)
+        if "Back" in form.data:
+            character.prev_stage()
+            context["resonances"] = Resonance.objects.all().order_by("name")
+            context["form"] = MagePowersForm(character=character)
+            return redirect(character.get_absolute_url())
+        if "Random Freebies" in form.data:
+            character.random_freebies()
+            character.next_stage()
+            context["form"] = MageDescriptionForm(character=character)
+            return redirect(character.get_absolute_url())
+        form.full_clean()
+        if form.total_cost_freebies() == character.freebies:
+            form.assign()
+            character.next_stage()
+            context["form"] = MageDescriptionForm(character=character)
+            return redirect(character.get_absolute_url())
+        MFFormset = formset_factory(MeritFlawForm, extra=1)
+        context["formset"] = MFFormset(form_kwargs={"chartype": "mage"})
+        context["form"] = MageFreebieForm(character=character)
+        return redirect(character.get_absolute_url())
+
+
+class MageDescriptionView(BaseCharacterView):
+    def get(self, request, *args, **kwargs):
+        character = Mage.objects.get(pk=kwargs["pk"])
+        context = self.get_context(character)
+        context["form"] = MageDescriptionForm(character=character)
+        return render(request, "wod/characters/mage/mage/6_description.html", context)
+
+    def post(self, request, *args, **kwargs):
+        character = Mage.objects.get(pk=kwargs["pk"])
+        context = self.get_context(character)
+        form = MageDescriptionForm(request.POST, character=character)
+        if "Back" in form.data:
+            character.prev_stage()
+            MFFormset = formset_factory(MeritFlawForm, extra=1)
+            context["formset"] = MFFormset(form_kwargs={"chartype": "mage"})
+            context["form"] = MageFreebieForm(character=character)
+            return redirect(character.get_absolute_url())
+        if "Random Description" in form.data:
+            character.update_status("Sub")
+            character.random_history()
+            character.random_mage_history()
+            character.random_finishing_touches()
+            character.mf_based_corrections()
+            character.next_stage()
+            return redirect(character.get_absolute_url())
+        form.full_clean()
+        if form.complete():
+            for key, value in form.cleaned_data.items():
+                setattr(character, key, value)
+            character.next_stage()
+            return redirect(character.get_absolute_url())
+        context["form"] = MageDescriptionForm(character=character)
+        return redirect(character.get_absolute_url())
+
+
+class MageDetailView(BaseCharacterView):
+    stage_views = {
+        1: AttributeDetailView,
+        2: MageAbilitiesDetailView,
+        3: MageAdvantagesView,
+        4: MagePowersView,
+        5: MageFreebiesView,
+        6: MageDescriptionView,
+    }
+
+    def get(self, request, *args, **kwargs):
+        char = Mage.objects.get(pk=kwargs["pk"])
+        context = self.get_context(char)
+        if char.status != "Un":
+            return render(request, "wod/characters/mage/mage/detail.html", context,)
+        if char.creation_status in self.stage_views.keys():
+            return self.stage_views[char.creation_status].as_view()(
+                request, *args, **kwargs
             )
         return render(request, "wod/characters/mage/mage/detail.html", context,)
 
     def post(self, request, *args, **kwargs):
         char = Mage.objects.get(pk=kwargs["pk"])
         context = self.get_context(char)
-        if char.creation_status == 1:
-            form = AttributeForm(request.POST, character=char)
-            if "Random Attributes" in form.data:
-                char.random_attributes()
-                char.next_stage()
-                context["form"] = MageAbilitiesForm(character=char)
-                return render(
-                    request, "wod/characters/mage/mage/2_abilities.html", context,
-                )
-            form.assign()
-            if char.has_attributes():
-                char.next_stage()
-                context["form"] = MageAbilitiesForm(character=char)
-                return render(
-                    request, "wod/characters/mage/mage/2_abilities.html", context,
-                )
-            context["form"] = AttributeForm(character=char)
-            return render(
-                request, "wod/characters/mage/mage/1_attribute.html", context,
-            )
-        if char.creation_status == 2:
-            form = MageAbilitiesForm(request.POST, character=char)
-            if "Back" in form.data:
-                char.prev_stage()
-                context["form"] = AttributeForm(character=char)
-                return render(
-                    request, "wod/characters/mage/mage/1_attribute.html", context,
-                )
-            if "Random Abilities" in form.data:
-                char.random_abilities()
-                char.next_stage()
-                context["form"] = MageAdvantagesForm(character=char)
-                return render(
-                    request, "wod/characters/mage/mage/3_advantages.html", context,
-                )
-            form.assign()
-            if char.has_abilities():
-                char.next_stage()
-                context["form"] = MageAdvantagesForm(character=char)
-                return render(
-                    request, "wod/characters/mage/mage/3_advantages.html", context,
-                )
-            context["form"] = MageAbilitiesForm(character=char)
-            return render(
-                request, "wod/characters/mage/mage/2_abilities.html", context,
-            )
-        if char.creation_status == 3:
-            form = MageAdvantagesForm(request.POST, character=char)
-            if "Back" in form.data:
-                char.prev_stage()
-                context["form"] = MageAbilitiesForm(character=char)
-                return render(
-                    request, "wod/characters/mage/mage/2_abilities.html", context,
-                )
-            if "Random Advantages" in form.data:
-                char.random_focus()
-                char.random_backgrounds()
-                char.random_arete()
-                char.random_affinity_sphere()
-                char.next_stage()
-                context["resonances"] = Resonance.objects.all().order_by("name")
-                context["form"] = MagePowersForm(character=char)
-                return render(
-                    request, "wod/characters/mage/mage/4_powers.html", context,
-                )
-            form.assign()
-            if (
-                char.has_backgrounds()
-                and char.has_affinity_sphere()
-                and char.has_focus()
-            ):
-                char.next_stage()
-                context["resonances"] = Resonance.objects.all().order_by("name")
-                context["form"] = MagePowersForm(character=char)
-                return render(
-                    request, "wod/characters/mage/mage/4_powers.html", context,
-                )
-            context["form"] = MageAdvantagesForm(character=char)
-            return render(
-                request, "wod/characters/mage/mage/3_advantages.html", context,
-            )
-        if char.creation_status == 4:
-            form = MagePowersForm(request.POST, character=char)
-            if "Back" in form.data:
-                char.prev_stage()
-                context["form"] = MageAdvantagesForm(character=char)
-                return render(
-                    request, "wod/characters/mage/mage/3_advantages.html", context,
-                )
-            if "Random Powers" in form.data:
-                char.random_spheres()
-                char.random_resonance()
-                char.next_stage()
-                MFFormset = formset_factory(MeritFlawForm, extra=1)
-                context["formset"] = MFFormset(form_kwargs={"chartype": "mage"})
-                context["form"] = MageFreebieForm(character=char)
-                return render(
-                    request, "wod/characters/mage/mage/5_freebies.html", context,
-                )
-            form.assign()
-            if char.has_spheres() and char.total_resonance() > 0:
-                char.next_stage()
-                MFFormset = formset_factory(MeritFlawForm, extra=1)
-                context["formset"] = MFFormset(form_kwargs={"chartype": "mage"})
-                context["form"] = MageFreebieForm(character=char)
-                return render(
-                    request, "wod/characters/mage/mage/5_freebies.html", context,
-                )
-            context["resonances"] = Resonance.objects.all().order_by("name")
-            context["form"] = MagePowersForm(character=char)
-            return render(request, "wod/characters/mage/mage/4_powers.html", context,)
-        if char.creation_status == 5:
-            form = MageFreebieForm(request.POST, character=char)
-            if "Back" in form.data:
-                char.prev_stage()
-                context["resonances"] = Resonance.objects.all().order_by("name")
-                context["form"] = MagePowersForm(character=char)
-                return render(
-                    request, "wod/characters/mage/mage/4_powers.html", context,
-                )
-            if "Random Freebies" in form.data:
-                char.random_freebies()
-                char.next_stage()
-                context["form"] = MageDescriptionForm(character=char)
-                return render(
-                    request, "wod/characters/mage/mage/6_description.html", context,
-                )
-            form.full_clean()
-            if form.total_cost_freebies() == char.freebies:
-                form.assign()
-                char.next_stage()
-                context["form"] = MageDescriptionForm(character=char)
-                return render(
-                    request, "wod/characters/mage/mage/6_description.html", context,
-                )
-            MFFormset = formset_factory(MeritFlawForm, extra=1)
-            context["formset"] = MFFormset(form_kwargs={"chartype": "mage"})
-            context["form"] = MageFreebieForm(character=char)
-            return render(request, "wod/characters/mage/mage/5_freebies.html", context,)
-        if char.creation_status == 6:
-            form = MageDescriptionForm(request.POST, character=char)
-            if "Back" in form.data:
-                char.prev_stage()
-                MFFormset = formset_factory(MeritFlawForm, extra=1)
-                context["formset"] = MFFormset(form_kwargs={"chartype": "mage"})
-                context["form"] = MageFreebieForm(character=char)
-                return render(
-                    request, "wod/characters/mage/mage/5_freebies.html", context,
-                )
-            if "Random Description" in form.data:
-                char.update_status("Sub")
-                char.random_history()
-                char.random_mage_history()
-                char.random_finishing_touches()
-                char.mf_based_corrections()
-                char.next_stage()
-                return render(request, "wod/characters/mage/mage/detail.html", context,)
-            form.full_clean()
-            if form.complete():
-                for key, value in form.cleaned_data.items():
-                    setattr(char, key, value)
-                char.next_stage()
-                return render(request, "wod/characters/mage/mage/detail.html", context,)
-            context["form"] = MageDescriptionForm(character=char)
-            return render(
-                request, "wod/characters/mage/mage/6_description.html", context,
+        if char.creation_status in self.stage_views.keys():
+            return self.stage_views[char.creation_status].as_view()(
+                request, *args, **kwargs
             )
         return render(request, "wod/characters/mage/mage/detail.html", context,)
 
-    def get_context(self, mage):
-        context = super().get_context(mage)
-        specialties = {}
-        for attribute in mage.get_attributes():
-            specialties[attribute] = ", ".join(
-                [x.name for x in mage.specialties.filter(stat=attribute)]
-            )
-        for ability in mage.get_abilities():
-            specialties[ability] = ", ".join(
-                [x.name for x in mage.specialties.filter(stat=ability)]
-            )
-        for sphere in mage.get_spheres():
-            specialties[sphere] = ", ".join(
-                [x.name for x in mage.specialties.filter(stat=sphere)]
-            )
-        for key, value in specialties.items():
-            context[f"{key}_spec"] = value
-
+    def get_context(self, character):
+        context = super().get_context(character)
         context["resonance"] = ResRating.objects.filter(
-            mage=mage, rating__gte=1
+            mage=character, rating__gte=1
         ).order_by("resonance__name")
         context["merits_and_flaws"] = MeritFlawRating.objects.order_by(
             "mf__name"
-        ).filter(character=mage)
+        ).filter(character=character)
         all_effects = list(Rote.objects.filter(mage=context["object"]))
-        # all_effects = list(context["object"].effects.all())
         row_length = 2
         all_effects = [
             all_effects[i : i + row_length]
             for i in range(0, len(all_effects), row_length)
         ]
         context["rotes"] = all_effects
-
-        secondary_talents = [
-            [f"{k.replace('_', ' ').title()}", v, context[f"{k}_spec"]]
-            for k, v in mage.get_talents().items()
-            if k not in PRIMARY_ABILITIES and v != 0
-        ]
-        secondary_skills = [
-            [f"{k.replace('_', ' ').title()}", v, context[f"{k}_spec"]]
-            for k, v in mage.get_skills().items()
-            if k not in PRIMARY_ABILITIES and v != 0
-        ]
-        secondary_knowledges = [
-            [f"{k.replace('_', ' ').title()}", v, context[f"{k}_spec"]]
-            for k, v in mage.get_knowledges().items()
-            if k not in PRIMARY_ABILITIES and v != 0
-        ]
-
-        for triple in secondary_knowledges:
-            if triple[0] == "History Knowledge":
-                triple[0] = "History"
-
-        secondary_talents.sort(key=lambda x: x[0])
-        secondary_skills.sort(key=lambda x: x[0])
-        secondary_knowledges.sort(key=lambda x: x[0])
-        num_sec_tal = len(secondary_talents)
-        num_sec_ski = len(secondary_skills)
-        num_sec_kno = len(secondary_knowledges)
-        m = max(num_sec_tal, num_sec_ski, num_sec_kno)
-        for _ in range(m - num_sec_tal):
-            secondary_talents.append(("", 0, []))
-        for _ in range(m - num_sec_ski):
-            secondary_skills.append(("", 0, []))
-        for _ in range(m - num_sec_kno):
-            secondary_knowledges.append(("", 0, []))
-        context["secondaries"] = list(
-            zip(secondary_talents, secondary_skills, secondary_knowledges)
-        )
         return context
 
 
