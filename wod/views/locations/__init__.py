@@ -4,7 +4,7 @@ from django.views.generic import View
 from core.utils import level_name, tree_sort
 from wod.forms.locations import RandomLocationForm
 from wod.models.locations.human import Location
-from wod.models.locations.mage import Chantry, Node
+from wod.models.locations.mage import Chantry, Library, Node
 
 from . import human, mage, werewolf
 
@@ -69,6 +69,7 @@ class RandomLocationView(View):
     locs = {
         "node": Node,
         "chantry": Chantry,
+        "library": Library,
     }
 
     def post(self, request):
