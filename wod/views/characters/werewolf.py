@@ -79,7 +79,7 @@ class WerewolfAbilitiesDetailView(BaseCharacterView):
         context = self.get_context(werewolf)
         context["form"] = WerewolfAbilitiesForm(character=werewolf)
         return render(
-            request, "wod/characters/werewolf/werewolf/2_abilities.html", context,
+            request, "wod/characters/werewolf/werewolf/2_abilities.html", context
         )
 
     def post(self, request, *args, **kwargs):
