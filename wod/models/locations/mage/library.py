@@ -22,6 +22,11 @@ class Library(Location):
         verbose_name = "Library"
         verbose_name_plural = "Libraries"
 
+    def random_name(self, name=""):
+        if name == "":
+            name = f"Library {Library.objects.last().pk + 1}"
+        return self.set_name(name)
+
     def get_update_url(self):
         return reverse("wod:locations:mage:update_library", args=[str(self.id)])
 
@@ -69,8 +74,19 @@ class Library(Location):
     def num_books(self):
         return self.books.count()
 
-    def random(self, faction=None):
+    def set_rank(self, rank):
+        self.rank = rank
+        self.save()
+        return True
+
+    def random_rank(self, rank=None):
+        if rank is None:
+            rank = random.randint(1, 5)
+        return self.set_rank(rank)
+
+    def random(self, name="", faction=None, rank=None):
         self.update_status("Ran")
+        self.random_name(name)
         self.random_faction(faction=faction)
         while self.num_books() < self.rank:
             self.random_book()

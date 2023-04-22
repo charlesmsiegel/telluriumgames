@@ -616,6 +616,11 @@ class TestLibrary(TestCase):
         grimoire_setup()
         self.library = Library.objects.create(name="Test Library")
 
+    def test_set_rank(self):
+        self.assertEqual(self.library.rank, 1)
+        self.assertTrue(self.library.set_rank(3))
+        self.assertEqual(self.library.rank, 3)
+
     def test_add_book(self):
         g = Grimoire.objects.create(name="Book To Add")
         g.random()
@@ -665,7 +670,18 @@ class TestRandomLibrary(TestCase):
         self.library = Library.objects.create(rank=2)
         self.faction = MageFaction.objects.create(name="Test Faction")
         self.grimoire = Grimoire.objects.create(name="Test Grimoire")
-        grimoire_setup()
+
+    def test_random_name(self):
+        self.assertFalse(self.library.has_name())
+        self.assertTrue(self.library.random_name())
+        self.assertTrue(self.library.has_name())
+
+    def test_random_rank(self):
+        self.assertEqual(self.library.rank, 2)
+        self.library.random_rank(rank=0)
+        self.assertEqual(self.library.rank, 0)
+        self.library.random_rank()
+        self.assertNotEqual(self.library.rank, 0)
 
     def test_random_faction(self):
         self.library.random_faction()
