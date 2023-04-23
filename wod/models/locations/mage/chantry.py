@@ -31,6 +31,8 @@ class Chantry(Location):
         ("democracy", "Democracy"),
         ("anarchy", "Anarchy"),
         ("single_deacon", "Single Deacon"),
+        ("council_of_elders", "Council of Elders"),
+        ("meritocracy", "Meritocracy"),
     ]
 
     leadership_type = models.CharField(
@@ -56,6 +58,11 @@ class Chantry(Location):
         ("college", "College"),
         ("squatter", "Squatter"),
         ("war", "War"),
+        ("library", "Library"),
+        ("healing", "Healing"),
+        ("research", "Research"),
+        ("fortress", "Fortress"),
+        ("diplomatic", "Diplomatic"),
     ]
 
     chantry_type = models.CharField(max_length=100, null=True, choices=CHANTRY_TYPES,)
@@ -176,6 +183,8 @@ class Chantry(Location):
 
     def set_chantry_type(self, chantry_type):
         self.chantry_type = chantry_type
+        if chantry_type == "library":
+            self.library_rating = 3
         self.save()
         return True
 
