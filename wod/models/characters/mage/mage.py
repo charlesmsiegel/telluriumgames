@@ -759,7 +759,7 @@ class Mage(MtAHuman):
             "ability": 8,
             "background": 10,
             "willpower": 1,
-            "meritflaw": 50,
+            "meritflaw": 20,
             "sphere": 25,
             "arete": 5,
             "quintessence": 1,

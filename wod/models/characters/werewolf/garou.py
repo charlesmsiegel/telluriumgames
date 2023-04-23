@@ -695,7 +695,7 @@ class Werewolf(WtAHuman):
             "ability": 8,
             "background": 10,
             "willpower": 2,
-            "meritflaw": 50,
+            "meritflaw": 20,
             "gift": 25,
             "rage": 2,
             "gnosis": 2,
