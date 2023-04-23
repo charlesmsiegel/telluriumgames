@@ -522,7 +522,7 @@ class Changeling(CtDHuman):
             "ability": 8,
             "background": 10,
             "willpower": 1,
-            "meritflaw": 50,
+            "meritflaw": 20,
             "art": 20,
             "realm": 20,
             "glamour": 10,
