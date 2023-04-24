@@ -150,7 +150,7 @@ class MtAHuman(Human):
             if k not in PRIMARY_ABILITIES and v != 0
         }
         secondary_knowledges = {
-            k.title(): v
+            k: v
             for k, v in self.get_knowledges().items()
             if k not in PRIMARY_ABILITIES and v != 0
         }
@@ -183,11 +183,11 @@ class MtAHuman(Human):
         num_sec_kno = len(secondary_knowledges)
         m = max(num_sec_tal, num_sec_ski, num_sec_kno)
         for _ in range(m - num_sec_tal):
-            secondary_talents.append(("", 0))
+            secondary_talents.append(("", 0, ""))
         for _ in range(m - num_sec_ski):
-            secondary_skills.append(("", 0))
+            secondary_skills.append(("", 0, ""))
         for _ in range(m - num_sec_kno):
-            secondary_knowledges.append(("", 0))
+            secondary_knowledges.append(("", 0, ""))
         return list(zip(secondary_talents, secondary_skills, secondary_knowledges))
 
     def get_talents(self):

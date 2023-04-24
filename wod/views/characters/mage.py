@@ -13,8 +13,14 @@ from wod.forms.characters.mage import (
     MageDescriptionForm,
     MageFreebieForm,
     MagePowersForm,
+    MageSpecialtiesForm,
 )
-from wod.models.characters.human import Archetype, MeritFlaw, MeritFlawRating
+from wod.models.characters.human import (
+    Archetype,
+    MeritFlaw,
+    MeritFlawRating,
+    WoDSpecialty,
+)
 from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.faction import MageFaction
 from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
@@ -250,7 +256,6 @@ class MageDescriptionView(BaseCharacterView):
             context["form"] = MageFreebieForm(character=character)
             return redirect(character.get_absolute_url())
         if "Random Description" in form.data:
-            character.update_status("Sub")
             character.random_history()
             character.random_mage_history()
             character.random_finishing_touches()
@@ -267,6 +272,38 @@ class MageDescriptionView(BaseCharacterView):
         return redirect(character.get_absolute_url())
 
 
+class MageSpecialtiesView(BaseCharacterView):
+    def get(self, request, *args, **kwargs):
+        character = Mage.objects.get(pk=kwargs["pk"])
+        context = self.get_context(character)
+        context["form"] = MageSpecialtiesForm(character=character)
+        return render(request, "wod/characters/mage/mage/7_specialties.html", context)
+
+    def post(self, request, *args, **kwargs):
+        character = Mage.objects.get(pk=kwargs["pk"])
+        context = self.get_context(character)
+        form = MageSpecialtiesForm(request.POST, character=character)
+        if "Back" in form.data:
+            character.prev_stage()
+            context["form"] = MageDescriptionForm(character=character)
+            return redirect(character.get_absolute_url())
+        if "Random Specialties" in form.data:
+            character.random_specialties()
+            character.update_status("Sub")
+            character.next_stage()
+            return redirect(character.get_absolute_url())
+        form.full_clean()
+        if form.complete():
+            for stat, spec_name in form.cleaned_data.items():
+                spec, _ = WoDSpecialty.objects.get_or_create(stat=stat, name=spec_name)
+                character.add_specialty(spec)
+            character.next_stage()
+            character.update_status("Sub")
+            return redirect(character.get_absolute_url())
+        context["form"] = MageSpecialtiesForm(character=character)
+        return redirect(character.get_absolute_url())
+
+
 class MageDetailView(BaseCharacterView):
     stage_views = {
         1: AttributeDetailView,
@@ -275,6 +312,7 @@ class MageDetailView(BaseCharacterView):
         4: MagePowersView,
         5: MageFreebiesView,
         6: MageDescriptionView,
+        7: MageSpecialtiesView,
     }
 
     def get(self, request, *args, **kwargs):

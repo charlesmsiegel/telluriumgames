@@ -3,7 +3,7 @@ from django import forms
 from core.models import Language
 from core.widgets import AutocompleteTextInput
 from game.models.chronicle import Chronicle
-from wod.models.characters.human import Archetype, MeritFlaw
+from wod.models.characters.human import Archetype, MeritFlaw, WoDSpecialty
 from wod.models.characters.mage import MageFaction
 from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
 from wod.models.characters.mage.resonance import Resonance
@@ -649,3 +649,73 @@ class MageDescriptionForm(forms.Form):
         if self.cleaned_data["avatar_description"] is None:
             return False
         return True
+
+
+class MageSpecialtiesForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        self.char = kwargs.pop("character")
+        super().__init__(*args, **kwargs)
+        for key in {k: v for k, v in self.char.get_attributes().items() if v >= 4}:
+            self.fields[key] = forms.CharField(
+                required=False,
+                widget=AutocompleteTextInput(
+                    suggestions=[
+                        x.name
+                        for x in WoDSpecialty.objects.filter(stat=key).order_by("name")
+                    ]
+                ),
+            )
+        d = self.char.get_abilities()
+        for key in [
+            "art",
+            "athletics",
+            "crafts",
+            "firearms",
+            "martial_arts",
+            "melee",
+            "academics",
+            "esoterica",
+            "lore",
+            "politics",
+            "science",
+        ]:
+            if d[key] > 0:
+                self.fields[key] = forms.CharField(
+                    required=False,
+                    widget=AutocompleteTextInput(
+                        suggestions=[
+                            x.name
+                            for x in WoDSpecialty.objects.filter(stat=key).order_by(
+                                "name"
+                            )
+                        ]
+                    ),
+                )
+        for key in {k: v for k, v in d.items() if v >= 4}:
+            self.fields[key] = forms.CharField(
+                required=False,
+                widget=AutocompleteTextInput(
+                    suggestions=[
+                        x.name
+                        for x in WoDSpecialty.objects.filter(stat=key).order_by("name")
+                    ]
+                ),
+            )
+        for key in {k: v for k, v in self.char.get_spheres().items() if v >= 4}:
+            self.fields[key] = forms.CharField(
+                required=False,
+                widget=AutocompleteTextInput(
+                    suggestions=[
+                        x.name
+                        for x in WoDSpecialty.objects.filter(stat=key).order_by("name")
+                    ]
+                ),
+            )
+
+    def complete(self):
+        complete = True
+        self.full_clean()
+        for field in self.fields:
+            if field not in self.cleaned_data:
+                complete = False
+        return complete
