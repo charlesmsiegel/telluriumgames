@@ -31,13 +31,6 @@ ABILITIES = [
     "war",
 ]
 
-"""
-Dragon King Name Generator: https://orteil.dashnet.org/randomgen/?gen=LwePLTEY
-Infernal Name Harmony Test: https://orteil.dashnet.org/randomgen/?gen=EcFUJXMw
-Old Realm Name Generator: https://orteil.dashnet.org/randomgen/?gen=FaifGb1M
-Scarley Dynasty Name Generator: https://orteil.dashnet.org/randomgen/?gen=AYsfB34A
-"""
-
 
 class RandomName:
     def __call__(self):
@@ -45,6 +38,10 @@ class RandomName:
 
     def prompt(self):
         return ""
+
+    def random_add(self, option_list, option, probability):
+        if random.random() < probability:
+            option_list.append(option)
 
 
 class ExaltedName(RandomName):
@@ -2073,6 +2070,140 @@ class ExaltedName(RandomName):
         if random.random() < 0.25:
             options.append(self.misc())
         return random.choice(options)
+
+
+class DragonKingName(RandomName):
+    """
+    Based on Dragon King Name Generator: https://orteil.dashnet.org/randomgen/?gen=LwePLTEY
+    """
+
+    def first(self):
+        return random.choice(
+            [
+                "A",
+                "A",
+                "E",
+                "O",
+                "Ch" + self.vv(),
+                "H" + self.vv(),
+                "Hl" + self.vv(),
+                "Hr" + self.vv(),
+                "K" + self.vv(),
+                "Khr" + self.vv(),
+                "Kl" + self.vv(),
+                "R" + self.vv(),
+                "R" + self.vv(),
+                "R" + self.vv(),
+                "R" + self.vv(),
+                "Sc" + self.vv(),
+                "Sh" + self.vv(),
+                "Ss" + self.vv(),
+                "Th" + self.vv(),
+                "V" + self.vv(),
+            ]
+        )
+
+    def second(self):
+        options = [
+            "j",
+            "l",
+            "l",
+            "m",
+            "nth",
+            "r",
+            "th",
+            "th",
+        ]
+        self.random_add(options, "d", 0.5)
+        self.random_add(options, "k", 0.5)
+        self.random_add(options, "km", 0.5)
+        self.random_add(options, "lch", 0.5)
+        self.random_add(options, "n", 0.5)
+        self.random_add(options, "nz", 0.5)
+        self.random_add(options, "r", 0.5)
+        self.random_add(options, "s", 0.5)
+        self.random_add(options, "ssh", 0.5)
+        self.random_add(options, "t", 0.5)
+        self.random_add(options, "x", 0.5)
+        self.random_add(options, "y", 0.5)
+        self.random_add(options, "zth", 0.5)
+        return random.choice(options)
+
+    def vv(self):
+        options = [
+            "a",
+            "a",
+            "a",
+            "e",
+            "e",
+            "i",
+            "o",
+        ]
+        self.random_add(options, "aa", 0.6)
+        self.random_add(options, "ai", 0.2)
+        self.random_add(options, "e", 0.2)
+        self.random_add(options, "i", 0.6)
+        self.random_add(options, "o", 0.2)
+        self.random_add(options, "u", 0.2)
+        self.random_add(options, "ya", 0.3)
+        return random.choice(options)
+
+    def endcons(self):
+        options = [
+            "k",
+            "k",
+            "k",
+            "k",
+            "n",
+            "r",
+            "s",
+            "ss",
+            "th",
+        ]
+        self.random_add(options, "d", 0.5)
+        self.random_add(options, "k", 0.5)
+        self.random_add(options, "l", 0.5)
+        self.random_add(options, "s", 0.5)
+        return random.choice(options)
+
+    def endvow(self):
+        return random.choice(["a", "a", "a", "é", "i", "u",])
+
+    def name(self):
+        options = [
+            f"{self.first()}{self.second()}{self.vv()}{self.endcons()}",
+            f"{self.first()}{self.second()}{self.vv()}{self.second()}{self.vv()}{self.endcons()}",
+        ]
+        self.random_add(options, f"{self.first()}{self.endcons()}", 0.46)
+        self.random_add(options, f"{self.first()}{self.second()}{self.endcons()}", 0.27)
+        self.random_add(
+            options,
+            f"{self.first()}{self.second()}{self.vv()}{self.second()}{self.endcons()}",
+            0.27,
+        )
+
+    def prompt(self):
+        options = [self.name()]
+        self.random_add(options, f"{self.name()}'{self.name()}", 0.04)
+        return random.choice(options)
+
+
+class InfernalName(RandomName):
+    """
+    Based on Infernal Name Harmony Test: https://orteil.dashnet.org/randomgen/?gen=EcFUJXMw
+    """
+
+
+class OldRealmName(RandomName):
+    """
+    Based on Old Realm Name Generator: https://orteil.dashnet.org/randomgen/?gen=FaifGb1M    
+    """
+
+
+class ScarletDynastyName(RandomName):
+    """
+    Based on Scarley Dynasty Name Generator: https://orteil.dashnet.org/randomgen/?gen=AYsfB34A
+    """
 
 
 def dynast_name():
@@ -4894,126 +5025,3 @@ def infernal_name():
         random.choice(name5),
     ]
     return random.choice(prompt)
-
-
-def dragon_king_name():
-    vv = [
-        "a",
-        "a",
-        "a",
-        "aa",
-        "ai",
-        "e",
-        "e",
-        "e",
-        "i",
-        "i",
-        "o",
-        "o",
-        "u",
-        "ya",
-    ]
-    first = [
-        "A",
-        "A",
-        "E",
-        "O",
-        "Ch" + random.choice(vv),
-        "H" + random.choice(vv),
-        "Hl" + random.choice(vv),
-        "Hr" + random.choice(vv),
-        "K" + random.choice(vv),
-        "Khr" + random.choice(vv),
-        "Kl" + random.choice(vv),
-        "R" + random.choice(vv),
-        "R" + random.choice(vv),
-        "R" + random.choice(vv),
-        "R" + random.choice(vv),
-        "Sc" + random.choice(vv),
-        "Sh" + random.choice(vv),
-        "Ss" + random.choice(vv),
-        "Th" + random.choice(vv),
-        "V" + random.choice(vv),
-    ]
-    second = [
-        "d",
-        "j",
-        "k",
-        "km",
-        "l",
-        "l",
-        "lch",
-        "m",
-        "n",
-        "nth",
-        "nz",
-        "r",
-        "r",
-        "s",
-        "ssh",
-        "t",
-        "th",
-        "th",
-        "x",
-        "y",
-        "zth",
-    ]
-    endcons = [
-        "d",
-        "k",
-        "k",
-        "k",
-        "k",
-        "k",
-        "l",
-        "n",
-        "r",
-        "s",
-        "ss",
-        "th",
-        "z",
-    ]
-    endvow = [
-        "a",
-        "a",
-        "a",
-        "é",
-        "i",
-        "u",
-    ]
-
-    name = [
-        "".join([random.choice(first), random.choice(endcons)]),
-        "".join([random.choice(first), random.choice(second), random.choice(endvow)]),
-        "".join(
-            [
-                random.choice(first),
-                random.choice(second),
-                random.choice(vv),
-                random.choice(endcons),
-            ]
-        ),
-        "".join(
-            [
-                random.choice(first),
-                random.choice(second),
-                random.choice(vv),
-                random.choice(second),
-                random.choice(endvow),
-            ]
-        ),
-        "".join(
-            [
-                random.choice(first),
-                random.choice(second),
-                random.choice(vv),
-                random.choice(second),
-                random.choice(vv),
-                random.choice(endcons),
-            ]
-        ),
-    ]
-
-    return random.choice(
-        [random.choice(name), random.choice(name) + "'" + random.choice(name)]
-    )
