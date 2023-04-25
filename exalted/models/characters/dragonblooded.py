@@ -6,7 +6,7 @@ from django.db.models import F, Q
 from core.utils import add_dot, weighted_choice
 from exalted.models.characters.charms import DragonBloodedCharm, MartialArtsCharm
 from exalted.models.characters.mortals import ExMortal
-from exalted.models.characters.utils import ABILITIES, dynast_name
+from exalted.models.characters.utils import ABILITIES, ScarletDynastyName
 
 
 # Create your models here.
@@ -266,7 +266,8 @@ class DragonBlooded(ExMortal):
 
     def random_name(self):
         if self.origin in ["dynast", "dynast_outcaste", "prasadi", "cadet"]:
-            name = self.get_house_display() + " " + dynast_name()
+            namer = ScarletDynastyName()
+            name = self.get_house_display() + " " + namer()
             return self.set_name(name.split("House")[-1])
         return self.set_name(f"Dragon-Blooded {DragonBlooded.objects.count()}")
 
