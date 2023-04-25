@@ -2193,11 +2193,1286 @@ class InfernalName(RandomName):
     Based on Infernal Name Harmony Test: https://orteil.dashnet.org/randomgen/?gen=EcFUJXMw
     """
 
+    def first(self):
+        options = [
+            self.firstcons(),
+            self.firstcons(),
+            self.firstcons(),
+            self.firstcons(),
+            self.firstcons(),
+            self.firstcons(),
+            self.firstcons(),
+            self.firstvow(),
+            self.firstvow(),
+            self.firstvow(),
+        ]
+        self.random_add(options, self.firstcons(), 0.7)
+        self.random_add(options, self.firstvow(), 0.7)
+        return random.choice(options)
+
+    def firstvow(self, v=False):
+        options = [
+            ("A", "a"),
+            ("A", "a"),
+            ("A", "a"),
+            ("A", "a"),
+            ("E", "e"),
+            ("E", "e"),
+            ("I", "i"),
+            ("I", "i"),
+            ("O", "o"),
+            ("U", "u"),
+        ]
+        self.random_add(options, ("E", "e"), 0.50)
+        self.random_add(options, ("I", "i"), 0.50)
+        self.random_add(options, ("Ā", "a"), 0.50)
+        self.random_add(options, ("Ē", "e"), 0.10)
+        self.random_add(options, ("Ī", "i"), 0.10)
+        self.random_add(options, ("Ō", "o"), 0.10)
+        self.random_add(options, ("Ū", "u"), 0.05)
+        self.random_add(options, ("Ae", "e"), 0.50)
+        self.random_add(options, ("Ai", "i"), 0.15)
+        self.random_add(options, ("Āi", "i"), 0.15)
+        self.random_add(options, ("Ao", "o"), 0.10)
+        self.random_add(options, ("Au", "u"), 0.50)
+        self.random_add(options, ("Ea", "a"), 0.10)
+        self.random_add(options, ("Eo", "o"), 0.10)
+        self.random_add(options, ("Ia", "a"), 0.10)
+        self.random_add(options, ("Ie", "e"), 0.50)
+        self.random_add(options, ("Oa", "a"), 0.10)
+        choice = random.choice(options)
+        if v:
+            return choice[1]
+        return choice[0]
+
+    def firstcons(self):
+        options = [
+            f"B{self.vv()}",
+            f"B{self.vv()}",
+            f"B{self.vv()}",
+            random.choice(["Ch" + self.fv(), "J" + self.bv()]),
+            f"D{self.vv()}",
+            f"D{self.vv()}",
+            f"D{self.vv()}",
+            f"F{self.vv()}",
+            f"G{self.vv()}",
+            f"G{self.vv()}",
+            f"H{self.vv()}",
+            f"K{self.vv()}",
+            f"K{self.vv()}",
+            f"K{self.vv()}",
+            f"K{self.vv()}",
+            f"K{self.vv()}",
+            f"K{self.vv()}",
+            f"L{self.vv()}",
+            f"M{self.vv()}",
+            f"M{self.vv()}",
+            f"M{self.vv()}",
+            f"M{self.vv()}",
+            f"N{self.vv()}",
+            f"N{self.vv()}",
+            f"N{self.vv()}",
+            f"P{self.vv()}",
+            f"P{self.vv()}",
+            f"R{self.vv()}",
+            f"S{self.vv()}",
+            f"S{self.vv()}",
+            f"S{self.vv()}",
+            f"S{self.vv()}",
+            f"S{self.vv()}",
+            f"S{self.vv()}",
+            f"T{self.vv()}",
+            f"V{self.hmv()}",
+            f"Y{self.vv()}",
+            f"Y{self.vv()}",
+        ]
+        self.random_add(
+            options, random.choice(["Ch" + self.fv(), "J" + self.bv()]), 0.50
+        )
+        self.random_add(options, f"Br{self.vv()}", 0.50)
+        self.random_add(options, f"F{self.vv()}", 0.50)
+        self.random_add(options, f"Gl{self.vv()}", 0.50)
+        self.random_add(options, f"Gr{self.vv()}", 0.15)
+        self.random_add(options, f"H{self.vv()}", 0.50)
+        self.random_add(options, f"Hr{self.vv()}", 0.50)
+        self.random_add(options, f"Kr{self.vv()}", 0.50)
+        self.random_add(options, f"X{self.vv()}", 0.15)
+        self.random_add(options, f"L{self.vv()}", 0.50)
+        self.random_add(options, f"Sk{self.vv()}", 0.10)
+        self.random_add(options, f"Sh{self.vv()}", 0.50)
+        self.random_add(options, f"St{self.vv()}", 0.10)
+        self.random_add(options, f"T{self.vv()}", 0.50)
+        self.random_add(options, f"Th{self.vv()}", 0.15)
+        self.random_add(options, f"Tl{self.vv()}", 0.15)
+        self.random_add(options, f"Tz{self.vv()}", 0.15)
+        self.random_add(
+            options, random.choice(["V" + self.hmv(), "W" + self.av()]), 0.50
+        )
+        self.random_add(options, f"Z{self.vv()}", 0.50)
+        return random.choice(options)
+
+    """
+$2nd
+d[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+d[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+g[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+g[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+k[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+k[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+l[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+l[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+l[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+l[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+l[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+ll[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+m[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+m[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+m[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+m[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+n[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+n[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+n[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+n[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+nd[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+nt[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+s[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+t[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+t[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+v[hmv]
+z[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
+b[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+bk[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
+br[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+bt[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+ch[fv] {30%}
+j[bv] {30%}
+dk[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
+dp[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
+dr[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+f[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {80%}
+fr[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
+g[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
+gl[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {15%}
+gp[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
+gr[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+gt[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
+h[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+hr[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {15%}
+kk[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
+kr[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+kt[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+qu[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+x[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+lf[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+lg[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
+lk[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
+lm[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
+lr[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+lsh[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
+lt[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+lv[hmv] {60%}
+lw[av] {10%}
+ly[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+m[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
+mb[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
+md[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+mf[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+mg[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
+mm[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+my[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+nb[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
+n'g[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
+nh[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+nj[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+nn[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+nsh[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+nth[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+nv[hmv] {30%}
+nw[av] {10%}
+ny[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {15%}
+nz[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
+ng[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+ngb[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
+ngd[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
+nk[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+p[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
+pp[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+rd[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+rg[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {15%}
+rj[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+rk[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+rl[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+rm[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+rn[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
+rr[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {15%}
+rs[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {80%}
+rv[hmv] {30%}
+rw[av] {10%}
+rz[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+s[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
+sk[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
+ss[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+sh[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
+ssh[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
+sht[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
+tr[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+tt[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+th[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {15%}
+tl[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {15%}
+tz[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
+w[av] {30%}
+y[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {80%}
+z[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {20%}
+
+$vv
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+i {v:i}
+i {v:i}
+i {v:i}
+i {v:i}
+i {v:i}
+i {v:i}
+i {v:i}
+ia {v:a}
+o {v:o}
+o {v:o}
+o {v:o}
+o {v:o}
+u {v:u}
+u {v:u}
+u {v:u}
+ā {v:a}{15%}
+ae {v:e}{15%}
+ai {v:i}{50%}
+āi {v:i}{50%}
+ao {v:o}{15%}
+aō {v:o}{5%}
+au {v:u}{30%}
+ē {v:e}{15%}
+ea {v:a}{44%}
+eo {v:o}{44%}
+ī {v:i}{15%}
+ie {v:e}{60%}
+io {v:o}{60%}
+iē {v:e}{5%}
+iu {v:u}{15%}
+ō {v:o}{15%}
+oa {v:a}{5%}
+oi {v:i}{15%}
+ū {v:u}{5%}
+
+$fv
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+i {v:i}
+i {v:i}
+i {v:i}
+i {v:i}
+i {v:i}
+i {v:i}
+i {v:i}
+ia {v:a}
+ē {v:e}{15%}
+ea {v:a}{44%}
+eo {v:o}{44%}
+ī {v:i}{15%}
+ie {v:e}{60%}
+io {v:o}{60%}
+iē {v:e}{5%}
+iu {v:u}{15%}
+
+$bv
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+o {v:o}
+o {v:o}
+o {v:o}
+o {v:o}
+u {v:u}
+u {v:u}
+u {v:u}
+ā {v:a}{15%}
+ae {v:e}{15%}
+ai {v:i}{50%}
+āi {v:i}{50%}
+ao {v:o}{15%}
+aō {v:o}{5%}
+au {v:u}{30%}
+ō {v:o}{15%}
+oa {v:a}{5%}
+oi {v:i}{15%}
+ū {v:u}{5%}
+
+$hmv
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+e {v:e}
+i {v:i}
+i {v:i}
+i {v:i}
+i {v:i}
+i {v:i}
+i {v:i}
+i {v:i}
+ia {v:a}
+o {v:o}
+o {v:o}
+o {v:o}
+o {v:o}
+u {v:u}
+u {v:u}
+u {v:u}
+ē {v:e}{15%}
+ea {v:a}{44%}
+eo {v:o}{44%}
+ī {v:i}{15%}
+ie {v:e}{60%}
+io {v:o}{60%}
+iē {v:e}{5%}
+iu {v:u}{15%}
+ō {v:o}{15%}
+oa {v:a}{5%}
+oi {v:i}{15%}
+ū {v:u}{5%}
+
+$av
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+a {v:a}
+ā {v:a}{15%}
+ae {v:e}{15%}
+ai {v:i}{50%}
+āi {v:i}{50%}
+ao {v:o}{15%}
+aō {v:o}{5%}
+au {v:u}{30%}
+
+$end
+l
+l
+n
+n
+n
+n
+n
+r
+r
+s
+s
+s
+s
+d {40%}
+k {60%}
+m {60%}
+ng {15%}
+p {15%}
+sh {30%}
+t {60%}
+th {40%}
+z {15%}
+
+$name1
+[1st]
+[1st][end]
+
+$name2
+[1st][2nd]
+[1st][2nd][end]
+[1st][|[end]]'[1st][|[end]] {12%}
+
+$name3
+[1st][2nd][2nd]
+[1st][2nd][2nd][end]
+[[1st][2nd][|[end]]-[1st][|[end]]|[1st][|[end]]-[1st][2nd][|[end]]] {5%}
+
+$name4
+[1st][2nd][2nd][2nd]
+[1st][2nd][2nd][2nd][end]
+[1st][2nd][|[end]]-[1st][2nd][|[end]] {20%}
+
+$name5
+[1st][2nd][2nd][2nd][2nd][|[end]]
+[1st][2nd][|[end]]-[1st][2nd][2nd][|[end]]
+[1st][2nd][2nd][|[end]]-[1st][2nd][|[end]] {5%}
+    """
+
+    def prompt(self):
+        options = [
+            self.name2(),
+            self.name2(),
+            self.name3(),
+            self.name3(),
+            self.name3(),
+            self.name3(),
+            self.name3(),
+            self.name4(),
+        ]
+        self.random_add(options, self.name1(), 0.15)
+        self.random_add(options, self.name2(), 0.54)
+        self.random_add(options, self.name3(), 0.52)
+        self.random_add(options, self.name4(), 0.64)
+        self.random_add(options, self.name5(), 0.15)
+        return random.choice(options)
+
 
 class OldRealmName(RandomName):
     """
     Based on Old Realm Name Generator: https://orteil.dashnet.org/randomgen/?gen=FaifGb1M    
     """
+
+    def first(self):
+        options = [
+            self.firstcons(),
+            self.firstcons(),
+            self.firstcons(),
+            self.firstcons(),
+            self.firstvow(),
+        ]
+        self.random_add(options, self.firstcons(), 0.77)
+        return random.choice(options)
+
+    def firstvow(self, v=False):
+        options = [
+            ("A", "a"),
+            ("A", "a"),
+            ("A", "a"),
+            ("I", "i"),
+            ("O", "o"),
+            ("U", "u"),
+        ]
+        self.random_add(options, ("A", "a"), 0.50)
+        self.random_add(options, ("Ā", "a"), 0.10)
+        self.random_add(options, ("Ae", "e"), 0.10)
+        self.random_add(options, ("Ai", "i"), 0.20)
+        self.random_add(options, ("Āi", "i"), 0.20)
+        self.random_add(options, ("Ao", "o"), 0.10)
+        self.random_add(options, ("Au", "u"), 0.20)
+        self.random_add(options, ("E", "e"), 0.90)
+        self.random_add(options, ("Ē", "e"), 0.02)
+        self.random_add(options, ("Ea", "a"), 0.10)
+        self.random_add(options, ("Ei", "i"), 0.10)
+        self.random_add(options, ("Eu", "u"), 0.01)
+        self.random_add(options, ("I", "i"), 0.30)
+        self.random_add(options, ("Ī", "i"), 0.06)
+        self.random_add(options, ("Ia", "a"), 0.10)
+        self.random_add(options, ("Ie", "e"), 0.02)
+        self.random_add(options, ("O", "o"), 0.60)
+        self.random_add(options, ("Ō", "o"), 0.08)
+        self.random_add(options, ("Oa", "a"), 0.20)
+        self.random_add(options, ("U", "u"), 0.40)
+        self.random_add(options, ("Ū", "u"), 0.06)
+        self.random_add(options, ("Ua", "a"), 0.03)
+        choice = random.choice(options)
+        if v:
+            return choice[1]
+        return choice[0]
+
+    def firstcons(self):
+        options = [
+"B" + self.vv(),
+"Ch" + self.fv(),
+"J" + self.bv(),
+"D" + self.vv(),
+"D" + self.vv(),
+"F" + self.vv(),
+"G" + self.vv(),
+"G" + self.vv(),
+"H" + self.vv(),
+"H" + self.vv(),
+"K" + self.vv(),
+"K" + self.vv(),
+"K" + self.vv(),
+"L" + self.vv(),
+"L" + self.vv(),
+"M" + self.vv(),
+"M" + self.vv(),
+"M" + self.vv(),
+"N" + self.vv(),
+"N" + self.vv(),
+"R" + self.vv(),
+"S" + self.vv(),
+"S" + self.vv(),
+"S" + self.vv(),
+"S" + self.vv(),
+"S" + self.vv(),
+"Sh" + self.vv(),
+"T" + self.vv(),
+"T" + self.vv(),
+"V" + self.fbv(),
+"Y" + self.vv(),
+"Y" + self.vv(),
+"Z" + self.vv(),
+        ]
+        self.random_add(options, "B" + self.vv(), 0.80)
+        self.random_add(options, "Br" + self.vv(), 0.10)
+        self.random_add(options, "Ch" + self.fv(), 0.10)
+        self.random_add(options, "J" + self.bv(), 0.80)
+        self.random_add(options, "D" + self.vv(), 0.20)
+        self.random_add(options, "F" + self.vv(), 0.20)
+        self.random_add(options, "Fr" + self.vv(), 0.20)
+        self.random_add(options, "G" + self.vv(), 0.20)
+        self.random_add(options, "Gr" + self.vv(), 0.40)
+        self.random_add(options, "H" + self.vv(), 0.90)
+        self.random_add(options, "Hr" + self.vv(), 0.10)
+        self.random_add(options, "K" + self.vv(), 0.90)
+        self.random_add(options, "Kl" + self.vv(), 0.20)
+        self.random_add(options, "Kr" + self.vv(), 0.40)
+        self.random_add(options, "X" + self.vv(), 0.90)
+        self.random_add(options, "L" + self.vv(), 0.20)
+        self.random_add(options, "M" + self.vv(), 0.60)
+        self.random_add(options, "N" + self.vv(), 0.80)
+        self.random_add(options, "P" + self.vv(), 0.90)
+        self.random_add(options, "Pl" + self.vv(), 0.10)
+        self.random_add(options, "Pr" + self.vv(), 0.40)
+        self.random_add(options, "R" + self.vv(), 0.80)
+        self.random_add(options, "S" + self.vv(), 0.30)
+        self.random_add(options, "Sk" + self.vv(), 0.20)
+        self.random_add(options, "Sp" + self.vv(), 0.10)
+        self.random_add(options, "St" + self.vv(), 0.20)
+        self.random_add(options, "Sh" + self.vv(), 0.90)
+        self.random_add(options, "Shr" + self.vv(), 0.10)
+        self.random_add(options, "T" + self.vv(), 0.90)
+        self.random_add(options, "Tr" + self.vv(), 0.30)
+        self.random_add(options, "Th" + self.vv(), 0.60)
+        self.random_add(options, "Tl" + self.vv(), 0.20)
+        self.random_add(options, "Tz" + self.vv(), 0.40)
+        self.random_add(options, "V" + self.fbv(), 0.10)
+        self.random_add(options, "W" + self.brv(), 0.60)
+        self.random_add(options, "Y" + self.vv(), 0.30)
+        self.random_add(options, "Z" + self.vv(), 0.10)
+        return random.choice(options)
+
+    """
+$2nd
+b[[vv]|[vv]|[vv]|[vv,as v]]
+j[bv]
+d[[vv]|[vv]|[vv]|[vv,as v]]
+d[[vv]|[vv]|[vv]|[vv,as v]]
+g[[vv]|[vv]|[vv]|[vv,as v]]
+g[[vv]|[vv]|[vv]|[vv,as v]]
+h[[vv]|[vv]|[vv]|[vv,as v]]
+k[[vv]|[vv]|[vv]|[vv,as v]]
+k[[vv]|[vv]|[vv]|[vv,as v]]
+k[[vv]|[vv]|[vv]|[vv,as v]]
+k[[vv]|[vv]|[vv]|[vv,as v]]
+x[[vv]|[vv]|[vv]|[vv,as v]]
+l[[vv]|[vv]|[vv]|[vv,as v]]
+l[[vv]|[vv]|[vv]|[vv,as v]]
+l[[vv]|[vv]|[vv]|[vv,as v]]
+l[[vv]|[vv]|[vv]|[vv,as v]]
+l[[vv]|[vv]|[vv]|[vv,as v]]
+ll[[vv]|[vv]|[vv]|[vv,as v]]
+m[[vv]|[vv]|[vv]|[vv,as v]]
+m[[vv]|[vv]|[vv]|[vv,as v]]
+m[[vv]|[vv]|[vv]|[vv,as v]]
+m[[vv]|[vv]|[vv]|[vv,as v]]
+m[[vv]|[vv]|[vv]|[vv,as v]]
+n[[vv]|[vv]|[vv]|[vv,as v]]
+n[[vv]|[vv]|[vv]|[vv,as v]]
+n[[vv]|[vv]|[vv]|[vv,as v]]
+n[[vv]|[vv]|[vv]|[vv,as v]]
+n[[vv]|[vv]|[vv]|[vv,as v]]
+n[[vv]|[vv]|[vv]|[vv,as v]]
+nd[[vv]|[vv]|[vv]|[vv,as v]]
+p[[vv]|[vv]|[vv]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]]
+r[[vv]|[vv]|[vv]|[vv,as v]]
+s[[vv]|[vv]|[vv]|[vv,as v]]
+s[[vv]|[vv]|[vv]|[vv,as v]]
+s[[vv]|[vv]|[vv]|[vv,as v]]
+sh[[vv]|[vv]|[vv]|[vv,as v]]
+t[[vv]|[vv]|[vv]|[vv,as v]]
+t[[vv]|[vv]|[vv]|[vv,as v]]
+t[[vv]|[vv]|[vv]|[vv,as v]]
+v[fbv]
+y[[vv]|[vv]|[vv]|[vv,as v]]
+z[[vv]|[vv]|[vv]|[vv,as v]]
+b[[vv]|[vv]|[vv]|[vv,as v]] {50%}
+br[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+ch[fv] {70%}
+j[bv] {20%}
+d[[vv]|[vv]|[vv]|[vv,as v]] {50%}
+dr[[vv]|[vv]|[vv]|[vv,as v]] {30%}
+dv[fbv] {30%}
+dw[brv] {2%}
+f[[vv]|[vv]|[vv]|[vv,as v]] {80%}
+fr[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+g[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+gr[[vv]|[vv]|[vv]|[vv,as v]] {50%}
+h[[vv]|[vv]|[vv]|[vv,as v]] {10%}
+hr[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+k[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+kl[[vv]|[vv]|[vv]|[vv,as v]] {30%}
+kr[[vv]|[vv]|[vv]|[vv,as v]] {30%}
+x[[vv]|[vv]|[vv]|[vv,as v]] {40%}
+l[[vv]|[vv]|[vv]|[vv,as v]] {80%}
+lk[[vv]|[vv]|[vv]|[vv,as v]] {50%}
+lm[[vv]|[vv]|[vv]|[vv,as v]] {40%}
+lp[[vv]|[vv]|[vv]|[vv,as v]] {30%}
+lr[[vv]|[vv]|[vv]|[vv,as v]] {30%}
+lt[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+lv[fbv] {30%}
+lw[brv] {10%}
+lz[[vv]|[vv]|[vv]|[vv,as v]] {30%}
+m[[vv]|[vv]|[vv]|[vv,as v]] {10%}
+mb[[vv]|[vv]|[vv]|[vv,as v]] {40%}
+mf[[vv]|[vv]|[vv]|[vv,as v]] {40%}
+mm[[vv]|[vv]|[vv]|[vv,as v]] {10%}
+my[[vv]|[vv]|[vv]|[vv,as v]] {10%}
+n[[vv]|[vv]|[vv]|[vv,as v]] {30%}
+nd[[vv]|[vv]|[vv]|[vv,as v]] {10%}
+nj[[vv]|[vv]|[vv]|[vv,as v]] {40%}
+nm[[vv]|[vv]|[vv]|[vv,as v]] {30%}
+nn[[vv]|[vv]|[vv]|[vv,as v]] {40%}
+nt[[vv]|[vv]|[vv]|[vv,as v]] {50%}
+nth[[vv]|[vv]|[vv]|[vv,as v]] {10%}
+nv[fbv] {20%}
+nw[brv] {10%}
+ny[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+nz[[vv]|[vv]|[vv]|[vv,as v]] {40%}
+ng[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+nk[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+pl[[vv]|[vv]|[vv]|[vv,as v]] {5%}
+pr[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+r[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+rd[[vv]|[vv]|[vv]|[vv,as v]] {30%}
+rg[[vv]|[vv]|[vv]|[vv,as v]] {40%}
+rj[[vv]|[vv]|[vv]|[vv,as v]] {10%}
+rk[[vv]|[vv]|[vv]|[vv,as v]] {60%}
+rl[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+rm[[vv]|[vv]|[vv]|[vv,as v]] {60%}
+rn[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+rr[[vv]|[vv]|[vv]|[vv,as v]] {50%}
+rs[[vv]|[vv]|[vv]|[vv,as v]] {30%}
+rt[[vv]|[vv]|[vv]|[vv,as v]] {10%}
+rth[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+rv[fbv] {60%}
+rw[brv] {4%}
+rz[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+sk[[vv]|[vv]|[vv]|[vv,as v]] {10%}
+sn[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+sp[[vv]|[vv]|[vv]|[vv,as v]] {5%}
+ss[[vv]|[vv]|[vv]|[vv,as v]] {30%}
+st[[vv]|[vv]|[vv]|[vv,as v]] {60%}
+sh[[vv]|[vv]|[vv]|[vv,as v]] {70%}
+shr[[vv]|[vv]|[vv]|[vv,as v]] {40%}
+ssh[[vv]|[vv]|[vv]|[vv,as v]] {10%}
+sht[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+t[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+tr[[vv]|[vv]|[vv]|[vv,as v]] {30%}
+th[[vv]|[vv]|[vv]|[vv,as v]] {80%}
+thr[[vv]|[vv]|[vv]|[vv,as v]] {20%}
+tl[[vv]|[vv]|[vv]|[vv,as v]] {30%}
+tz[[vv]|[vv]|[vv]|[vv,as v]] {30%}
+v[fbv] {50%}
+w[brv] {5%}
+y[[vv]|[vv]|[vv]|[vv,as v]] {60%}
+z[[vv]|[vv]|[vv]|[vv,as v]] {40%}
+
+"""
+    def vv(self, v=False):
+        """
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        e {v:e}
+        e {v:e}
+        e {v:e}
+        e {v:e}
+        e {v:e}
+        e {v:e}
+        e {v:e}
+        i {v:i}
+        i {v:i}
+        i {v:i}
+        i {v:i}
+        i {v:i}
+        i {v:i}
+        i {v:i}
+        o {v:o}
+        o {v:o}
+        o {v:o}
+        o {v:o}
+        o {v:o}
+        u {v:u}
+        u {v:u}
+        u {v:u}
+        u {v:u}
+        a {v:a}{89%}
+        ā {v:a}{41%}
+        ae {v:e}{11%}
+        ai {v:i}{44%}
+        āi {v:i}{48%}
+        ao {v:o}{19%}
+        aō {v:o}{4%}
+        au {v:u}{11%}
+        e {v:e}{74%}
+        ē {v:e}{11%}
+        ea {v:a}{11%}
+        ei {v:i}{7%}
+        ēi {v:i}{4%}
+        eu {v:u}{7%}
+        i {v:i}{22%}
+        ī {v:i}{26%}
+        ia {v:a}{59%}
+        iā {v:a}{4%}
+        ie {v:e}{19%}
+        iē {v:e}{4%}
+        io {v:o}{30%}
+        iō {v:o}{4%}
+        iu {v:u}{7%}
+        ō {v:o}{22%}
+        u {v:u}{59%}
+        ū {v:u}{15%}
+        ua {v:a}{22%}
+        ui {v:i}{7%}
+        uo {v:o}{20%}
+        """
+        options = [
+            
+        ]
+        choice = random.choice(options)
+        if v:
+            return choice[1]
+        return choice[0]
+
+    def fv(self, v=False):
+        """
+        $fv
+        e {v:e}
+        e {v:e}
+        e {v:e}
+        e {v:e}
+        e {v:e}
+        e {v:e}
+        e {v:e}
+        i {v:i}
+        i {v:i}
+        i {v:i}
+        i {v:i}
+        i {v:i}
+        i {v:i}
+        i {v:i}
+        e {v:e}{74%}
+        ē {v:e}{11%}
+        ea {v:a}{11%}
+        ei {v:i}{7%}
+        ēi {v:i}{4%}
+        eu {v:u}{7%}
+        i {v:i}{22%}
+        ī {v:i}{26%}
+        ia {v:a}{59%}
+        iā {v:a}{4%}
+        ie {v:e}{19%}
+        iē {v:e}{4%}
+        io {v:o}{30%}
+        iō {v:o}{4%}
+        iu {v:u}{7%}
+        """
+        options = [
+            
+        ]
+        choice = random.choice(options)
+        if v:
+            return choice[1]
+        return choice[0]
+    def bv(self, v=False):
+        """
+        $bv
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        o {v:o}
+        o {v:o}
+        o {v:o}
+        o {v:o}
+        o {v:o}
+        u {v:u}
+        u {v:u}
+        u {v:u}
+        u {v:u}
+        a {v:a}{89%}
+        ā {v:a}{41%}
+        ae {v:e}{11%}
+        ai {v:i}{44%}
+        āi {v:i}{48%}
+        ao {v:o}{19%}
+        aō {v:o}{4%}
+        au {v:u}{11%}
+        ō {v:o}{22%}
+        u {v:u}{59%}
+        ū {v:u}{15%}
+        ua {v:a}{22%}
+        ui {v:i}{7%}
+        uo {v:o}{20%}
+        """
+        options = [
+            
+        ]
+        choice = random.choice(options)
+        if v:
+            return choice[1]
+        return choice[0]
+
+    def fbv(self, v=False):
+        """
+        $fbv
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        a {v:a}
+        e {v:e}
+        e {v:e}
+        e {v:e}
+        e {v:e}
+        e {v:e}
+        e {v:e}
+        e {v:e}
+        i {v:i}
+        i {v:i}
+        i {v:i}
+        i {v:i}
+        i {v:i}
+        i {v:i}
+        i {v:i}
+        a {v:a}{89%}
+        ā {v:a}{41%}
+        ae {v:e}{11%}
+        ai {v:i}{44%}
+        āi {v:i}{48%}
+        ao {v:o}{19%}
+        aō {v:o}{4%}
+        au {v:u}{11%}
+        e {v:e}{74%}
+        ē {v:e}{11%}
+        ea {v:a}{11%}
+        ei {v:i}{7%}
+        ēi {v:i}{4%}
+        eu {v:u}{7%}
+        i {v:i}{22%}
+        ī {v:i}{26%}
+        ia {v:a}{59%}
+        iā {v:a}{4%}
+        ie {v:e}{19%}
+        iē {v:e}{4%}
+        io {v:o}{30%}
+        iō {v:o}{4%}
+        iu {v:u}{7%}
+        """
+        options = [
+            
+        ]
+        choice = random.choice(options)
+        if v:
+            return choice[1]
+        return choice[0]
+
+    def brv(self, v=False):
+        """
+        o {v:o}
+        o {v:o}
+        o {v:o}
+        o {v:o}
+        o {v:o}
+        u {v:u}
+        u {v:u}
+        u {v:u}
+        u {v:u}
+        ō {v:o}{22%}
+        u {v:u}{59%}
+        ū {v:u}{15%}
+        ua {v:a}{22%}
+        ui {v:i}{7%}
+        uo {v:o}{20%}
+        """
+        options = [
+            
+        ]
+        choice = random.choice(options)
+        if v:
+            return choice[1]
+        return choice[0]
+    
+    def end(self):
+        options = [
+"k",
+"l",
+"n",
+"n",
+"n",
+"n",
+"n",
+"r",
+"s",
+"s",
+            
+        ]
+        self.random_add(options, "", 0.44)
+        self.random_add(options, "d", 0.24)
+        self.random_add(options, "l", 0.14)
+        self.random_add(options, "m", 0.62)
+        self.random_add(options, "n", 0.19)
+        self.random_add(options, "ng", 0.57)
+        self.random_add(options, "p", 0.10)
+        self.random_add(options, "r", 0.19)
+        self.random_add(options, "sh", 0.29)
+        self.random_add(options, "t", 0.33)
+        self.random_add(options, "th", 0.81)
+        self.random_add(options, "z", 0.24)
+        return random.choice(options)
+
+    def name1(self):
+        return self.first() + random.choice("", self.end(), self.end())
+
+    def name2(self):
+        options = [
+            f"{self.first()}{self.second()}",
+            f"{self.first()}{self.second()}{self.end()}",
+        ]
+        self.random_add(
+            options,
+            random.choice(
+                [
+                    f"{self.name1()}-{self.name1()}",
+                    f"{self.name1()}-{self.name1()}",
+                    f"{self.name1()} {self.name1()}",
+                ]
+            ),
+            0.36,
+        )
+        return random.choice(options)
+
+    def name3(self):
+        options = [
+            f"{self.first()}{self.second()}{self.second()}",
+            f"{self.first()}{self.second()}{self.second()}{self.end()}",
+        ]
+        self.random_add(
+            options,
+            random.choice(
+                [
+                    f"{self.name1()}-{self.name1()}-{self.name1()}",
+                    f"{self.name1()}-{self.name1()}-{self.name1()}",
+                    f"{self.name1()} {self.name1()} {self.name1()}",
+                ]
+            ),
+            0.06,
+        )
+        self.random_add(
+            options,
+            random.choice(
+                [
+                    f"{self.name1()}-{self.first()}{self.second()}"
+                    + random.choice(["", self.end()]),
+                    f"{self.name1()}-{self.first()}{self.second()}"
+                    + random.choice(["", self.end()]),
+                    f"{self.name1()} {self.first()}{self.second()}"
+                    + random.choice(self.end()),
+                ]
+            ),
+            0.09,
+        )
+        self.random_add(
+            options,
+            random.choice(
+                [
+                    f"{self.first()}{self.second()}"
+                    + random.choice(["", self.end()])
+                    + f"-{self.name1()}",
+                    f"{self.name1()}-{self.first()}{self.second()}"
+                    + random.choice(["", self.end()])
+                    + f"-{self.name1()}",
+                    f"{self.name1()} {self.first()}{self.second()}"
+                    + random.choice(self.end())
+                    + f" {self.name1()}",
+                ]
+            ),
+            0.17,
+        )
+        return random.choice(options)
+
+    def name4(self):
+        options = [
+            f"{self.first()}{self.second()}{self.second()}{self.second()}",
+            f"{self.first()}{self.second()}{self.second()}{self.second()}{self.end()}",
+        ]
+        self.random_add(
+            options,
+            random.choice(
+                [
+                    self.first()
+                    + self.second()
+                    + random.choice(["", self.end()])
+                    + "-"
+                    + self.first()
+                    + self.second()
+                    + random.choice(["", self.end()]),
+                    self.first()
+                    + self.second()
+                    + random.choice(["", self.end()])
+                    + " "
+                    + self.first()
+                    + self.second()
+                    + random.choice(["", self.end()]),
+                    self.first()
+                    + self.second()
+                    + random.choice(["", self.end()])
+                    + " "
+                    + self.first()
+                    + self.second()
+                    + random.choice(["", self.end()]),
+                ]
+            ),
+            0.86,
+        )
+        self.random_add(
+            options,
+            random.choice(
+                [
+                    self.name1()
+                    + "-"
+                    + self.first()
+                    + self.second()
+                    + self.second()
+                    + random.choice(["", self.end()]),
+                    self.name1()
+                    + "-"
+                    + self.first()
+                    + self.second()
+                    + self.second()
+                    + random.choice(["", self.end()]),
+                    self.name1()
+                    + " "
+                    + self.first()
+                    + self.second()
+                    + self.second()
+                    + random.choice(["", self.end()]),
+                ]
+            ),
+            0.14,
+        )
+        self.random_add(
+            options,
+            random.choice(
+                [
+                    self.first()
+                    + self.second()
+                    + self.second()
+                    + random.choice(["", self.end()])
+                    + "-"
+                    + self.name1(),
+                    self.first()
+                    + self.second()
+                    + self.second()
+                    + random.choice(["", self.end()])
+                    + " "
+                    + self.name1(),
+                    self.first()
+                    + self.second()
+                    + self.second()
+                    + random.choice(["", self.end()])
+                    + " "
+                    + self.name1(),
+                ]
+            ),
+            0.09,
+        )
+        return random.choice(options)
+
+    def name5(self):
+        options = [
+            self.first()
+            + self.second()
+            + random.choice(["", self.end()])
+            + "-"
+            + self.first()
+            + self.second()
+            + self.second()
+            + random.choice(["", self.end()]),
+            self.first()
+            + self.second()
+            + random.choice(["", self.end()])
+            + "-"
+            + self.first()
+            + self.second()
+            + self.second()
+            + random.choice(["", self.end()]),
+            self.first()
+            + self.second()
+            + random.choice(["", self.end()])
+            + " "
+            + self.first()
+            + self.second()
+            + self.second()
+            + random.choice(["", self.end()]),
+        ]
+
+        self.random_add(
+            options,
+            f"{self.first()}{self.second()}{self.second()}{self.second()}{self.second()}{random.choice(['', self.end()])}",
+            0.67,
+        )
+        self.random_add(
+            options,
+            random.choice(
+                [
+                    self.first()
+                    + self.second()
+                    + self.second()
+                    + random.choice(["", self.end()])
+                    + "-"
+                    + self.first()
+                    + self.second()
+                    + random.choice(["", self.end()]),
+                    self.first()
+                    + self.second()
+                    + self.second()
+                    + random.choice(["", self.end()])
+                    + "-"
+                    + self.first()
+                    + self.second()
+                    + random.choice(["", self.end()]),
+                    self.first()
+                    + self.second()
+                    + self.second()
+                    + random.choice(["", self.end()])
+                    + " "
+                    + self.first()
+                    + self.second()
+                    + random.choice(["", self.end()]),
+                ]
+            ),
+            0.50,
+        )
+        return random.choice(options)
+
+    def prompt(self):
+        options = [
+            self.name2(),
+            self.name2(),
+            self.name2(),
+            self.name3(),
+            self.name3(),
+            self.name3(),
+            self.name3(),
+            self.name4(),
+        ]
+        self.random_add(options, self.name1(), 0.33)
+        self.random_add(options, self.name2(), 0.82)
+        self.random_add(options, self.name3(), 0.22)
+        self.random_add(options, self.name4(), 0.33)
+        self.random_add(options, self.name5(), 0.27)
+        self.random_add(
+            options,
+            f"{self.first()}{self.second()}{self.second}{random.choice(['', self.end()])} {self.first()}{self.second()}{self.second}{random.choice(['', self.end()])}",
+            0.02,
+        )
+        return random.choice(options)
 
 
 class ScarletDynastyName(RandomName):
@@ -2205,2823 +3480,864 @@ class ScarletDynastyName(RandomName):
     Based on Scarley Dynasty Name Generator: https://orteil.dashnet.org/randomgen/?gen=AYsfB34A
     """
 
-
-def dynast_name():
-    first_syllable_options = [
-        "A",
-        "A",
-        "A",
-        "A",
-        "A",
-        "A",
-        "A",
-        "A",
-        "An'",
-        "Ba",
-        "Ba",
-        "Ba",
-        "Bae",
-        "Be",
-        "Be",
-        "Be",
-        "Bha",
-        "Bhu",
-        "Bi",
-        "Bo",
-        "Bu",
-        "Ca",
-        "Ca",
-        "Ca",
-        "Ca",
-        "Ca",
-        "Cai",
-        "Ce",
-        "Cha",
-        "Che",
-        "Che",
-        "Chi",
-        "Chi",
-        "Cho",
-        "Chu",
-        "Co",
-        "Cu",
-        "Cy",
-        "Da",
-        "Da",
-        "Da",
-        "De",
-        "De",
-        "De",
-        "De",
-        "Di",
-        "Do",
-        "Dro",
-        "Du",
-        "E",
-        "E",
-        "E",
-        "E",
-        "E",
-        "Fa",
-        "Fe",
-        "Fe",
-        "Fe",
-        "Fi",
-        "Fo",
-        "Fu",
-        "Ga",
-        "Ga",
-        "Ge",
-        "Gi",
-        "Go",
-        "Gu",
-        "Ha",
-        "Ha",
-        "He",
-        "Hi",
-        "Ho",
-        "How",
-        "Hu",
-        "I",
-        "I",
-        "I",
-        "I",
-        "Ja",
-        "Ja",
-        "Je",
-        "Jo",
-        "Ka",
-        "Ka",
-        "Kai",
-        "Ke",
-        "Ke",
-        "Ke",
-        "Ki",
-        "Ko",
-        "Ku",
-        "La",
-        "La",
-        "Le",
-        "Le",
-        "Li",
-        "Lo",
-        "Lo",
-        "Lu",
-        "Ma",
-        "Ma",
-        "Ma",
-        "Ma",
-        "Ma",
-        "Ma",
-        "Ma",
-        "Ma",
-        "Me",
-        "Me",
-        "Mi",
-        "Mi",
-        "Mne",
-        "Mo",
-        "Moi",
-        "Mu",
-        "My",
-        "Na",
-        "Na",
-        "Na",
-        "Ne",
-        "Ne",
-        "Ne",
-        "Ni",
-        "No",
-        "No",
-        "Nu",
-        "O",
-        "O",
-        "O",
-        "Pa",
-        "Pe",
-        "Pi",
-        "Po",
-        "Po",
-        "Pu",
-        "R'",
-        "Ra",
-        "Ra",
-        "Ra",
-        "Re",
-        "Ri",
-        "Ro",
-        "Ro",
-        "Ru",
-        "Sa",
-        "Sa",
-        "Sa",
-        "Se",
-        "Se",
-        "Shu",
-        "Si",
-        "Si",
-        "So",
-        "So",
-        "Su",
-        "Sza",
-        "Ta",
-        "Ta",
-        "Ta",
-        "Ta",
-        "Tai",
-        "Te",
-        "Ti",
-        "Ti",
-        "To",
-        "Tu",
-        "Ty",
-        "U",
-        "U",
-        "U",
-        "V'",
-        "Va",
-        "Ve",
-        "Ve",
-        "Vo",
-        "Wa",
-        "We",
-        "Wi",
-        "Wo",
-        "Wu",
-        "Ya",
-        "Ye",
-        "Yi",
-        "Yo",
-        "Yu",
-    ]
-
-    mid_syllable_options = [
-        "ba",
-        "ba",
-        "ba",
-        "be",
-        "bi",
-        "bo",
-        "bu",
-        "cha",
-        "che",
-        "che",
-        "chi",
-        "cho",
-        "chu",
-        "da",
-        "da",
-        "de",
-        "di",
-        "di",
-        "do",
-        "du",
-        "fa",
-        "fa",
-        "fe",
-        "fi",
-        "fo",
-        "fu",
-        "ga",
-        "ga",
-        "ga",
-        "ga",
-        "ge",
-        "ge",
-        "gi",
-        "gne",
-        "go",
-        "gu",
-        "gu",
-        "gwe",
-        "ha",
-        "ha",
-        "he",
-        "hi",
-        "ho",
-        "hu",
-        "ja",
-        "ja",
-        "ka",
-        "ka",
-        "ke",
-        "kga",
-        "ki",
-        "ko",
-        "ko",
-        "ko",
-        "ku",
-        "ku",
-        "la",
-        "la",
-        "la",
-        "la",
-        "la",
-        "la",
-        "le",
-        "li",
-        "li",
-        "li",
-        "llo",
-        "lo",
-        "lo",
-        "lu",
-        "ma",
-        "ma",
-        "ma",
-        "ma",
-        "ma",
-        "ma",
-        "mbu",
-        "me",
-        "me",
-        "me",
-        "mi",
-        "mi",
-        "mi",
-        "mo",
-        "mo",
-        "mu",
-        "mu",
-        "na",
-        "na",
-        "na",
-        "na",
-        "na",
-        "nchi",
-        "nda",
-        "nda",
-        "ne",
-        "no",
-        "no",
-        "no",
-        "nte",
-        "nte",
-        "nu",
-        "pa",
-        "pe",
-        "pi",
-        "po",
-        "pu",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "rde",
-        "re",
-        "ri",
-        "ri",
-        "ri",
-        "ri",
-        "ri",
-        "ro",
-        "ro",
-        "ru",
-        "ru",
-        "ru",
-        "sa",
-        "sa",
-        "se",
-        "se",
-        "si",
-        "so",
-        "su",
-        "su",
-        "ta",
-        "ta",
-        "ta",
-        "ta",
-        "ta",
-        "te",
-        "ti",
-        "ti",
-        "to",
-        "to",
-        "tu",
-        "u",
-        "va",
-        "vi",
-        "vi",
-        "wa",
-        "we",
-        "wi",
-        "wo",
-        "wu",
-        "xa",
-        "xe",
-        "xi",
-        "xo",
-        "xu",
-        "ya",
-        "ye",
-        "yi",
-        "yo",
-        "yu",
-        "ze",
-        "zo",
-    ]
-
-    last_syllable_options = [
-        "a",
-        "al",
-        "as",
-        "ba",
-        "ba",
-        "ban",
-        "be",
-        "bi",
-        "bnor",
-        "bo",
-        "bok",
-        "bor",
-        "bos",
-        "bu",
-        "cek",
-        "cel",
-        "cha",
-        "che",
-        "chet",
-        "chi",
-        "cho",
-        "chu",
-        "cot",
-        "cus",
-        "da",
-        "da",
-        "da",
-        "da",
-        "da",
-        "daal",
-        "darn",
-        "de",
-        "den",
-        "di",
-        "do",
-        "do",
-        "du",
-        "dus",
-        "er",
-        "fa",
-        "fe",
-        "fi",
-        "fo",
-        "fu",
-        "ga",
-        "gan",
-        "gath",
-        "ge",
-        "gel",
-        "ger",
-        "gi",
-        "gnin",
-        "go",
-        "gu",
-        "gus",
-        "ha",
-        "ham",
-        "hav",
-        "he",
-        "he",
-        "hi",
-        "ho",
-        "hor",
-        "hu",
-        "i",
-        "ja",
-        "jah",
-        "jai",
-        "jak",
-        "jip",
-        "juf",
-        "ka",
-        "ka",
-        "kai",
-        "kan",
-        "kar",
-        "ke",
-        "ki",
-        "kim",
-        "ko",
-        "ko",
-        "ko",
-        "ku",
-        "ku",
-        "ku",
-        "la",
-        "la",
-        "la",
-        "la",
-        "lac",
-        "lan",
-        "lan",
-        "lar",
-        "lco",
-        "le",
-        "led",
-        "lel",
-        "len",
-        "li",
-        "lin",
-        "lin",
-        "lin",
-        "lin",
-        "lin",
-        "lin",
-        "lin",
-        "lis",
-        "lis",
-        "lis",
-        "lit",
-        "lki",
-        "llens",
-        "lles",
-        "llon",
-        "lo",
-        "lon",
-        "lor",
-        "lsi",
-        "lu",
-        "lut",
-        "lva",
-        "ma",
-        "ma",
-        "ma",
-        "ma",
-        "mam",
-        "me",
-        "me",
-        "mi",
-        "mi",
-        "mo",
-        "mo",
-        "mo",
-        "mol",
-        "mon",
-        "mu",
-        "mu",
-        "na",
-        "na",
-        "na",
-        "na",
-        "na",
-        "nan",
-        "nault",
-        "ne",
-        "neef",
-        "nga",
-        "ni",
-        "ni",
-        "nic",
-        "nis",
-        "nism",
-        "no",
-        "no",
-        "now",
-        "nryu",
-        "ntis",
-        "nua",
-        "pa",
-        "pal",
-        "pe",
-        "pel",
-        "pel",
-        "per",
-        "pet",
-        "phin",
-        "pi",
-        "po",
-        "pu",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "ra",
-        "rah",
-        "rahd",
-        "ral",
-        "ral",
-        "ran",
-        "rar",
-        "ras",
-        "ras",
-        "ras",
-        "rdus",
-        "re",
-        "rek",
-        "rel",
-        "rel",
-        "ren",
-        "req",
-        "resh",
-        "ret",
-        "rgus",
-        "ri",
-        "ri",
-        "ri",
-        "rid",
-        "rik",
-        "rin",
-        "rin",
-        "ris",
-        "ris",
-        "ris",
-        "ris",
-        "rnis",
-        "ro",
-        "ro",
-        "ro",
-        "roc",
-        "ron",
-        "ros",
-        "row",
-        "rren",
-        "rro",
-        "rrun",
-        "rsa",
-        "ru",
-        "ru",
-        "ruk",
-        "sa",
-        "sa",
-        "sa",
-        "sai",
-        "sal",
-        "se",
-        "sel",
-        "set",
-        "sha",
-        "si",
-        "sil",
-        "ska",
-        "so",
-        "sque",
-        "su",
-        "sus",
-        "ta",
-        "ta",
-        "ta",
-        "ta",
-        "ta",
-        "tal",
-        "tar",
-        "te",
-        "ten",
-        "ten",
-        "thak",
-        "threm",
-        "ti",
-        "tis",
-        "to",
-        "tod",
-        "tro",
-        "tu",
-        "tus",
-        "va",
-        "va",
-        "vah",
-        "val",
-        "var",
-        "ve",
-        "ves",
-        "wa",
-        "we",
-        "wi",
-        "wit",
-        "wo",
-        "wu",
-        "xa",
-        "xe",
-        "xi",
-        "xin",
-        "xo",
-        "xu",
-        "ya",
-        "ya",
-        "ye",
-        "yi",
-        "yo",
-        "yu",
-        "za",
-        "zath",
-        "zir",
-        "zon",
-        "zzer",
-    ]
-
-    first_options = [
-        "B",
-        "B",
-        "B",
-        "B",
-        "Bh",
-        "C",
-        "C",
-        "C",
-        "C",
-        "Ch",
-        "Ch",
-        "Ch",
-        "D",
-        "D",
-        "D",
-        "D",
-        "D",
-        "Dr",
-        "F",
-        "F",
-        "F",
-        "G",
-        "G",
-        "G",
-        "H",
-        "H",
-        "H",
-        "J",
-        "J",
-        "K",
-        "K",
-        "K",
-        "K",
-        "L",
-        "L",
-        "L",
-        "L",
-        "M",
-        "M",
-        "M",
-        "M",
-        "M",
-        "M",
-        "M",
-        "Mn",
-        "N",
-        "N",
-        "N",
-        "N",
-        "P",
-        "P",
-        "R",
-        "R",
-        "R",
-        "R",
-        "S",
-        "S",
-        "S",
-        "S",
-        "S",
-        "Sz",
-        "T",
-        "T",
-        "T",
-        "T",
-        "T",
-        "V",
-        "V",
-        "W",
-        "W",
-        "Y",
-        "Y",
-    ]
-
-    vv_options = [
-        "a",
-        "a",
-        "e",
-        "e",
-        "i",
-        "i",
-        "o",
-        "o",
-        "u",
-        "u",
-        "ey",
-        "iou",
-        "oi",
-        "y",
-    ]
-
-    end_options = [
-        "c",
-        "d",
-        "f",
-        "k",
-        "k",
-        "l",
-        "l",
-        "l",
-        "l",
-        "lt",
-        "m",
-        "n",
-        "n",
-        "n",
-        "n",
-        "n",
-        "n",
-        "nd",
-        "ns",
-        "p",
-        "q",
-        "r",
-        "r",
-        "r",
-        "r",
-        "rn",
-        "s",
-        "s",
-        "s",
-        "s",
-        "s",
-        "sh",
-        "sm",
-        "t",
-        "t",
-        "th",
-        "v",
-        "a",
-        "e",
-        "i",
-    ]
-
-    schema_options = ["1ve", "fl", "fl", "fml", "fml", "fmml"]
-
-    schema = random.choice(schema_options)
-
-    if schema == "1ve":
-        first = random.choice(first_options)
-        vv = random.choice(vv_options)
-        end = random.choice(end_options)
-        name = first + vv + end
-    else:
-        num_ms = schema.count("m")
-        f = random.choice(first_syllable_options)
-        l = random.choice(last_syllable_options)
-        m = [random.choice(mid_syllable_options) for _ in range(num_ms)]
-        m = "".join(m)
-        name = f + m + l
-    return name
-
-
-def old_realm_name():
-    fv = [
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "ē",
-        "ea",
-        "ei",
-        "ēi",
-        "eu",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "ī",
-        "ia",
-        "iā",
-        "ie",
-        "iē",
-        "io",
-        "iō",
-        "iu",
-    ]
-    bv = [
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "ā",
-        "ae",
-        "ai",
-        "āi",
-        "ao",
-        "aō",
-        "au",
-        "o",
-        "o",
-        "o",
-        "o",
-        "o",
-        "ō",
-        "u",
-        "u",
-        "u",
-        "u",
-        "u",
-        "ū",
-        "ua",
-        "ui",
-        "uo",
-    ]
-    fbv = [
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "ā",
-        "ae",
-        "ai",
-        "āi",
-        "ao",
-        "aō",
-        "au",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "ē",
-        "ea",
-        "ei",
-        "ēi",
-        "eu",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "ī",
-        "ia",
-        "iā",
-        "ie",
-        "iē",
-        "io",
-        "iō",
-        "iu",
-    ]
-    brv = [
-        "o",
-        "o",
-        "o",
-        "o",
-        "o",
-        "ō",
-        "u",
-        "u",
-        "u",
-        "u",
-        "u",
-        "ū",
-        "ua",
-        "ui",
-        "uo",
-    ]
-    vv = [
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "ā",
-        "ae",
-        "ai",
-        "āi",
-        "ao",
-        "aō",
-        "au",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "ē",
-        "ea",
-        "ei",
-        "ēi",
-        "eu",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "ī",
-        "ia",
-        "iā",
-        "ie",
-        "iē",
-        "io",
-        "iō",
-        "iu",
-        "o",
-        "o",
-        "o",
-        "o",
-        "o",
-        "ō",
-        "u",
-        "u",
-        "u",
-        "u",
-        "u",
-        "ū",
-        "ua",
-        "ui",
-        "uo",
-    ]
-    firstcons = [
-        "B" + random.choice(vv),
-        "B" + random.choice(vv),
-        "Br" + random.choice(vv),
-        "Ch" + random.choice(fv),
-        "Ch" + random.choice(fv),
-        "J" + random.choice(bv),
-        "J" + random.choice(bv),
-        "D" + random.choice(vv),
-        "D" + random.choice(vv),
-        "D" + random.choice(vv),
-        "F" + random.choice(vv),
-        "F" + random.choice(vv),
-        "Fr" + random.choice(vv),
-        "G" + random.choice(vv),
-        "G" + random.choice(vv),
-        "G" + random.choice(vv),
-        "Gr" + random.choice(vv),
-        "H" + random.choice(vv),
-        "H" + random.choice(vv),
-        "H" + random.choice(vv),
-        "Hr" + random.choice(vv),
-        "K" + random.choice(vv),
-        "K" + random.choice(vv),
-        "K" + random.choice(vv),
-        "K" + random.choice(vv),
-        "Kl" + random.choice(vv),
-        "Kr" + random.choice(vv),
-        "X" + random.choice(vv),
-        "L" + random.choice(vv),
-        "L" + random.choice(vv),
-        "L" + random.choice(vv),
-        "M" + random.choice(vv),
-        "M" + random.choice(vv),
-        "M" + random.choice(vv),
-        "M" + random.choice(vv),
-        "N" + random.choice(vv),
-        "N" + random.choice(vv),
-        "N" + random.choice(vv),
-        "P" + random.choice(vv),
-        "Pl" + random.choice(vv),
-        "Pr" + random.choice(vv),
-        "R" + random.choice(vv),
-        "R" + random.choice(vv),
-        "S" + random.choice(vv),
-        "S" + random.choice(vv),
-        "S" + random.choice(vv),
-        "S" + random.choice(vv),
-        "S" + random.choice(vv),
-        "S" + random.choice(vv),
-        "Sk" + random.choice(vv),
-        "Sp" + random.choice(vv),
-        "St" + random.choice(vv),
-        "Sh" + random.choice(vv),
-        "Sh" + random.choice(vv),
-        "Shr" + random.choice(vv),
-        "T" + random.choice(vv),
-        "T" + random.choice(vv),
-        "T" + random.choice(vv),
-        "Tr" + random.choice(vv),
-        "Th" + random.choice(vv),
-        "Tl" + random.choice(vv),
-        "Tz" + random.choice(vv),
-        "V" + random.choice(fbv),
-        "V" + random.choice(fbv),
-        "W" + random.choice(brv),
-        "Y" + random.choice(vv),
-        "Y" + random.choice(vv),
-        "Y" + random.choice(vv),
-        "Z" + random.choice(vv),
-        "Z" + random.choice(vv),
-    ]
-    firstvow = [
-        "A",
-        "A",
-        "A ",
-        "A",
-        "Ā",
-        "Ae",
-        "Ai",
-        "Āi",
-        "Ao",
-        "Au",
-        "E",
-        "Ē",
-        "Ea",
-        "Ei",
-        "Eu",
-        "I",
-        "I",
-        "Ī",
-        "Ia",
-        "Ie",
-        "O",
-        "O",
-        "Ō",
-        "Oa",
-        "U",
-        "U",
-        "Ū",
-        "Ua",
-    ]
-    first = [
-        random.choice(firstcons),
-        random.choice(firstcons),
-        random.choice(firstcons),
-        random.choice(firstcons),
-        random.choice(firstcons),
-        random.choice(firstvow),
-    ]
-    second = [
-        "b"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "b"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "br"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "ch" + random.choice(fv),
-        "j" + random.choice(bv),
-        "j" + random.choice(bv),
-        "d"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "d"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "d"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "dr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "dv" + random.choice(fbv),
-        "dw" + random.choice(brv),
-        "f"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "fr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "g"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "g"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "g"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "gr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "h"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "h"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "hr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "k"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "k"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "k"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "k"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "k"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "kl"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "kr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "x"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "x"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "l"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "l"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "l"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "l"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "l"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "l"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "lk"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "ll"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "lm"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "lp"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "lr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "lt"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "lv" + random.choice(fbv),
-        "lw" + random.choice(brv),
-        "lz"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "m"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "m"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "m"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "m"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "m"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "m"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "mb"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "mf"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "mm"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "my"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "n"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "n"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "n"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "n"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "n"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "n"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "n"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nd"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nd"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nj"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nm"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nn"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nt"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nth"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nv" + random.choice(fbv),
-        "nw" + random.choice(brv),
-        "ny"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nz"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "ng"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nk"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "p"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "pl"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "pr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rd"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rg"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rj"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rk"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rl"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rm"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rn"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rs"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rt"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rth"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rv" + random.choice(fbv),
-        "rw" + random.choice(brv),
-        "rz"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "s"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "s"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "s"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "sk"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "sn"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "sp"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "ss"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "st"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "sh"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "sh"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "shr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "ssh"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "sht"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "t"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "t"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "t"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "t"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "tr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "th"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "thr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "tl"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "tz"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "v" + random.choice(fbv),
-        "v" + random.choice(fbv),
-        "w" + random.choice(brv),
-        "y"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "y"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "z"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "z"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-    ]
-    end = [
-        "d",
-        "k",
-        "l",
-        "l",
-        "m",
-        "n",
-        "n",
-        "n",
-        "n",
-        "n",
-        "n",
-        "ng",
-        "p",
-        "r",
-        "r",
-        "s",
-        "s",
-        "sh",
-        "t",
-        "th",
-        "z",
-    ]
-
-    name1 = [
-        "".join(
+    def house(self):
+        return random.choice(
             [
-                random.choice(first),
-                random.choice(["", random.choice(end), random.choice(end)]),
+                "Cathak",
+                "Cathak Cacek",
+                "Cathak Garel",
+                "Cynis",
+                f"Cynis {random.choice(['', 'Belar', 'Belar', 'Denovah'])}",
+                f"Cynis {random.choice(['Falen', 'Wisel'])}",
+                "Iselsi",
+                f"Iselsi {random.choice(['Enuma', 'Saraban'])}",
+                "Ledaal",
+                "Ledaal Catala",
+                "Ledaal Kebok",
+                "Mnemon",
+                "Mnemon Caras",
+                "Mnemon Darow",
+                "Nellens",
+                "Nellens",
+                "Peleps",
+                f"Peleps {random.choice(['', 'Danic', 'Nalin'])}",
+                f"Peleps {random.choice(['Kaizoku', 'Najalin'])}",
+                "Ragara",
+                "Ragara Calel",
+                "Ragara Soras",
+                "Sesus",
+                f"Sesus {random.choice(['Alon', 'Chenow', 'Denerid', 'Kajak', 'Magel'])}",
+                f"Sesus {random.choice(['Alon', 'Chenow', 'Denerid', 'Kajak', 'Magel'])}",
+                "Tepet",
+                f"Tepet {random.choice(['Berel', 'Marek', 'Nerigus', 'Tilis', 'Vergus'])}",
+                f"Tepet {random.choice(['Berel', 'Deramol', 'Marek', 'Nerigus', 'Tilis', 'Vergus'])}",
             ]
         )
-    ]
-    name2 = [
-        "".join([random.choice(first), random.choice(second)]),
-        "".join([random.choice(first), random.choice(second), random.choice(end)]),
-        " ".join(
-            [
-                "-".join(
-                    [
-                        random.choice(name1),
-                        "".join([random.choice(name1), random.choice(name1)]),
-                        "".join([random.choice(name1), random.choice(name1)]),
-                    ]
-                ),
-                random.choice(name1),
-            ]
-        ),
-    ]
-    name3 = [
-        "".join([random.choice(first), random.choice(second), random.choice(second)]),
-        "".join(
-            [
-                random.choice(first),
-                random.choice(second),
-                random.choice(second),
-                random.choice(end),
-            ]
-        ),
-        random.choice(["-", "-", " "]).join(
-            [random.choice(name1), random.choice(name1), random.choice(name1),]
-        ),
-        random.choice(["-", "-", " "]).join(
-            [
-                random.choice(name1),
-                "".join(
-                    [
-                        random.choice(first),
-                        random.choice(second),
-                        random.choice(["", random.choice(end)]),
-                    ]
-                ),
-            ]
-        ),
-        random.choice(["-", "-", " "]).join(
-            [
-                "".join(
-                    [
-                        random.choice(first),
-                        random.choice(second),
-                        random.choice(["", random.choice(end)]),
-                    ]
-                ),
-                random.choice(name1),
-            ]
-        ),
-    ]
-    name4 = [
-        "".join(
-            [
-                random.choice(first),
-                random.choice(second),
-                random.choice(second),
-                random.choice(second),
-            ]
-        ),
-        "".join(
-            [
-                random.choice(first),
-                random.choice(second),
-                random.choice(second),
-                random.choice(second),
-                random.choice(end),
-            ]
-        ),
-        random.choice(
-            [
-                random.choice(["-", " "]).join(
-                    [
-                        "".join(
-                            [
-                                random.choice(first),
-                                random.choice(second),
-                                random.choice(["", random.choice(end)]),
-                            ]
-                        ),
-                        "".join(
-                            [
-                                random.choice(first),
-                                random.choice(second),
-                                random.choice(["", random.choice(end)]),
-                            ]
-                        ),
-                    ]
-                ),
-                " ".join(
-                    [
-                        random.choice(name2),
-                        "".join(
-                            [
-                                random.choice(first),
-                                random.choice(second),
-                                random.choice(["", random.choice(end)]),
-                            ]
-                        ),
-                    ]
-                ),
-            ]
-        ),
-        random.choice(["-", "-", " "]).join(
-            [
-                random.choice(name1),
-                "".join(
-                    [
-                        random.choice(first),
-                        random.choice(second),
-                        random.choice(second),
-                        random.choice(["", random.choice(end)]),
-                    ]
-                ),
-            ]
-        ),
-        random.choice(["-", " ", " "]).join(
-            [
-                "".join(
-                    [
-                        random.choice(first),
-                        random.choice(second),
-                        random.choice(second),
-                        random.choice(["", random.choice(end)]),
-                    ]
-                ),
-                random.choice(name1),
-            ]
-        ),
-    ]
-    name5 = [
-        "".join(
-            [
-                random.choice(first),
-                random.choice(second),
-                random.choice(second),
-                random.choice(second),
-                random.choice(second),
-                random.choice(["", random.choice(end)]),
-            ]
-        ),
-        " ".join(
-            [
-                random.choice(
-                    [
-                        "".join(
-                            [
-                                random.choice(first),
-                                random.choice(second),
-                                random.choice(["", random.choice(end)]),
-                                "-",
-                                random.choice(first),
-                                random.choice(second),
-                                random.choice(second),
-                                random.choice(["", random.choice(end)]),
-                            ]
-                        ),
-                        "".join(
-                            [
-                                random.choice(first),
-                                random.choice(second),
-                                random.choice(["", random.choice(end)]),
-                                "-",
-                                random.choice(first),
-                                random.choice(second),
-                                random.choice(second),
-                                random.choice(["", random.choice(end)]),
-                            ]
-                        ),
-                        "".join(
-                            [
-                                random.choice(first),
-                                random.choice(second),
-                                random.choice(["", random.choice(end)]),
-                            ]
-                        ),
-                    ]
-                ),
-                "".join(
-                    [
-                        random.choice(first),
-                        random.choice(second),
-                        random.choice(second),
-                        random.choice(["", random.choice(end)]),
-                    ]
-                ),
-            ]
-        ),
-        " ".join(
-            [
-                "-".join(
-                    [
-                        "".join(
-                            [
-                                random.choice(first),
-                                random.choice(second),
-                                random.choice(second),
-                                random.choice(["", random.choice(end)]),
-                            ]
-                        ),
-                        random.choice(
-                            [
-                                "".join(
-                                    [
-                                        random.choice(first),
-                                        random.choice(second),
-                                        random.choice(["", random.choice(end)]),
-                                    ]
-                                ),
-                                "".join(
-                                    [
-                                        random.choice(first),
-                                        random.choice(second),
-                                        random.choice(second),
-                                        random.choice(["", random.choice(end)]),
-                                    ]
-                                ),
-                            ]
-                        ),
-                        random.choice(
-                            [
-                                "".join(
-                                    [
-                                        random.choice(first),
-                                        random.choice(second),
-                                        random.choice(["", random.choice(end)]),
-                                    ]
-                                ),
-                                "".join(
-                                    [
-                                        random.choice(first),
-                                        random.choice(second),
-                                        random.choice(second),
-                                        random.choice(["", random.choice(end)]),
-                                    ]
-                                ),
-                            ]
-                        ),
-                    ]
-                ),
-                "".join(
-                    [
-                        random.choice(first),
-                        random.choice(second),
-                        random.choice(["", random.choice(end)]),
-                    ]
-                ),
-            ]
-        ),
-    ]
 
-    prompt = [
-        random.choice(name1),
-        random.choice(name2),
-        random.choice(name2),
-        random.choice(name2),
-        random.choice(name2),
-        random.choice(name3),
-        random.choice(name3),
-        random.choice(name3),
-        random.choice(name3),
-        random.choice(name3),
-        random.choice(name4),
-        random.choice(name4),
-        random.choice(name5),
-        "".join(
-            [
-                random.choice(first),
-                random.choice(second),
-                random.choice(second),
-                random.choice(end),
-                " ",
-                random.choice(first),
-                random.choice(second),
-                random.choice(second),
-                random.choice(end),
-            ]
-        ),
-    ]
-    return random.choice(prompt)
+    def firstsyl(self):
+        options = [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A",
+            "A",
+            "A",
+            "A",
+            "Ba",
+            "Ba",
+            "Be",
+            "Be",
+            "Ca",
+            "Ca",
+            "Ca",
+            "Ca",
+            "Che",
+            "Chi",
+            "Cho",
+            "Co",
+            "Cy",
+            "Da",
+            "Da",
+            "Da",
+            "De",
+            "De",
+            "De",
+            "De",
+            "Di",
+            "Du",
+            "E",
+            "E",
+            "E",
+            "E",
+            "Fa",
+            "Fe",
+            "Fe",
+            "Ga",
+            "Ge",
+            "Gu",
+            "Ha",
+            "Ha",
+            "He",
+            "Ho",
+            "I",
+            "I",
+            "I",
+            "I",
+            "Ja",
+            "Ja",
+            "Je",
+            "Ka",
+            "Ka",
+            "Ke",
+            "Ke",
+            "Ke",
+            "Ki",
+            "La",
+            "La",
+            "Le",
+            "Le",
+            "Li",
+            "Lo",
+            "Lu",
+            "Ma",
+            "Ma",
+            "Ma",
+            "Ma",
+            "Ma",
+            "Ma",
+            "Ma",
+            "Me",
+            "Mi",
+            "Mi",
+            "Mo",
+            "My",
+            "Na",
+            "Na",
+            "Ne",
+            "Ne",
+            "No",
+            "No",
+            "O",
+            "O",
+            "O",
+            "Pa",
+            "Pe",
+            "Pi",
+            "Po",
+            "Ra",
+            "Ra",
+            "Ra",
+            "Ri",
+            "Ro",
+            "Sa",
+            "Sa",
+            "Se",
+            "Se",
+            "Shu",
+            "Si",
+            "So",
+            "Su",
+            "Ta",
+            "Ta",
+            "Ta",
+            "Ta",
+            "Te",
+            "Ti",
+            "Ti",
+            "To",
+            "Tu",
+            "U",
+            "U",
+            "U",
+            "Va",
+            "Ve",
+            "Vo",
+            "Wi",
+            "Ya",
+            "Yo",
+        ]
+        self.random_app(options, "An'", 0.5)
+        self.random_app(options, "Ba", 0.5)
+        self.random_app(options, "Bae", 0.5)
+        self.random_app(options, "Be", 0.5)
+        self.random_app(options, "Bha", 0.5)
+        self.random_app(options, "Bhu", 0.5)
+        self.random_app(options, "Bi", 0.5)
+        self.random_app(options, "Bo", 0.5)
+        self.random_app(options, "Bu", 0.5)
+        self.random_app(options, "Ca", 0.5)
+        self.random_app(options, "Cai", 0.5)
+        self.random_app(options, "Ce", 0.5)
+        self.random_app(options, "Cha", 0.5)
+        self.random_app(options, "Che", 0.5)
+        self.random_app(options, "Chu", 0.5)
+        self.random_app(options, "Cu", 0.5)
+        self.random_app(options, "Do", 0.5)
+        self.random_app(options, "Dro", 0.5)
+        self.random_app(options, "E", 0.5)
+        self.random_app(options, "Fe", 0.5)
+        self.random_app(options, "Fi", 0.5)
+        self.random_app(options, "Fo", 0.5)
+        self.random_app(options, "Fu", 0.5)
+        self.random_app(options, "Ga", 0.5)
+        self.random_app(options, "Gi", 0.5)
+        self.random_app(options, "Go", 0.5)
+        self.random_app(options, "Hi", 0.5)
+        self.random_app(options, "How", 0.1)
+        self.random_app(options, "Hu", 0.5)
+        self.random_app(options, "Jo", 0.5)
+        self.random_app(options, "Kai", 0.5)
+        self.random_app(options, "Ko", 0.5)
+        self.random_app(options, "Ku", 0.5)
+        self.random_app(options, "Lo", 0.5)
+        self.random_app(options, "Ma", 0.5)
+        self.random_app(options, "Me", 0.5)
+        self.random_app(options, "Mne", 0.5)
+        self.random_app(options, "Moi", 0.5)
+        self.random_app(options, "Mu", 0.5)
+        self.random_app(options, "Na", 0.5)
+        self.random_app(options, "Ne", 0.5)
+        self.random_app(options, "Ni", 0.5)
+        self.random_app(options, "Nu", 0.5)
+        self.random_app(options, "Po", 0.5)
+        self.random_app(options, "Pu", 0.5)
+        self.random_app(options, "R'", 0.5)
+        self.random_app(options, "Re", 0.5)
+        self.random_app(options, "Ro", 0.5)
+        self.random_app(options, "Ru", 0.5)
+        self.random_app(options, "Sa", 0.5)
+        self.random_app(options, "Si", 0.5)
+        self.random_app(options, "So", 0.5)
+        self.random_app(options, "Sza", 0.5)
+        self.random_app(options, "Tai", 0.5)
+        self.random_app(options, "Ty", 0.5)
+        self.random_app(options, "V'", 0.5)
+        self.random_app(options, "Ve", 0.5)
+        self.random_app(options, "Wa", 0.5)
+        self.random_app(options, "We", 0.5)
+        self.random_app(options, "Wo", 0.5)
+        self.random_app(options, "Wu", 0.5)
+        self.random_app(options, "Ye", 0.5)
+        self.random_app(options, "Yi", 0.5)
+        self.random_app(options, "Yu", 0.5)
+        return random.choice(options)
 
+    def midsyl(self):
+        return random.choice(
+            [
+                "ba",
+                "ba",
+                "ba",
+                "be",
+                "bi",
+                "bo",
+                "bu",
+                "cha",
+                "che",
+                "che",
+                "chi",
+                "cho",
+                "chu",
+                "da",
+                "da",
+                "de",
+                "di",
+                "di",
+                "do",
+                "du",
+                "fa",
+                "fa",
+                "fe",
+                "fi",
+                "fo",
+                "fu",
+                "ga",
+                "ga",
+                "ga",
+                "ga",
+                "ge",
+                "ge",
+                "gi",
+                "gne",
+                "go",
+                "gu",
+                "gu",
+                "gwe",
+                "ha",
+                "ha",
+                "he",
+                "hi",
+                "ho",
+                "hu",
+                "ja",
+                "ja",
+                "ka",
+                "ka",
+                "ke",
+                "kga",
+                "ki",
+                "ko",
+                "ko",
+                "ko",
+                "ku",
+                "ku",
+                "la",
+                "la",
+                "la",
+                "la",
+                "la",
+                "la",
+                "le",
+                "li",
+                "li",
+                "li",
+                "llo",
+                "lo",
+                "lo",
+                "lu",
+                "ma",
+                "ma",
+                "ma",
+                "ma",
+                "ma",
+                "ma",
+                "mbu",
+                "me",
+                "me",
+                "me",
+                "mi",
+                "mi",
+                "mi",
+                "mo",
+                "mo",
+                "mu",
+                "mu",
+                "na",
+                "na",
+                "na",
+                "na",
+                "na",
+                "nchi",
+                "nda",
+                "nda",
+                "ne",
+                "no",
+                "no",
+                "no",
+                "nte",
+                "nte",
+                "nu",
+                "pa",
+                "pe",
+                "pi",
+                "po",
+                "pu",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "rde",
+                "re",
+                "ri",
+                "ri",
+                "ri",
+                "ri",
+                "ri",
+                "ro",
+                "ro",
+                "ru",
+                "ru",
+                "ru",
+                "sa",
+                "sa",
+                "se",
+                "se",
+                "si",
+                "so",
+                "su",
+                "su",
+                "ta",
+                "ta",
+                "ta",
+                "ta",
+                "ta",
+                "te",
+                "ti",
+                "ti",
+                "to",
+                "to",
+                "tu",
+                "u",
+                "va",
+                "vi",
+                "vi",
+                "wa",
+                "we",
+                "wi",
+                "wo",
+                "wu",
+                "xa",
+                "xe",
+                "xi",
+                "xo",
+                "xu",
+                "ya",
+                "ye",
+                "yi",
+                "yo",
+                "yu",
+                "ze",
+                "zo",
+            ]
+        )
 
-def infernal_name():
-    vv = [
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "ā",
-        "ae",
-        "ai",
-        "āi",
-        "ao",
-        "aō",
-        "au",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "ē",
-        "ea",
-        "eo",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "ī",
-        "ia",
-        "ie",
-        "io",
-        "iē",
-        "iu",
-        "o",
-        "o",
-        "o",
-        "o",
-        "ō",
-        "oa",
-        "oi",
-        "u",
-        "u",
-        "u",
-        "ū",
-    ]
-    fv = [
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "ē",
-        "ea",
-        "eo",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "ī",
-        "ia",
-        "ie",
-        "io",
-        "iē",
-        "iu    ",
-    ]
-    bv = [
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "ā",
-        "ae",
-        "ai",
-        "āi",
-        "ao",
-        "aō",
-        "au",
-        "o",
-        "o",
-        "o",
-        "o",
-        "ō",
-        "oa",
-        "oi",
-        "u",
-        "u",
-        "u",
-        "ū",
-    ]
-    hmv = [
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "e",
-        "ē",
-        "ea",
-        "eo",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "i",
-        "ī",
-        "ia",
-        "ie",
-        "io",
-        "iē",
-        "iu",
-        "o",
-        "o",
-        "o",
-        "o",
-        "ō",
-        "oa",
-        "oi",
-        "u",
-        "u",
-        "u",
-        "ū",
-    ]
-    av = [
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "ā",
-        "ae",
-        "ai",
-        "āi",
-        "ao",
-        "aō",
-        "au",
-    ]
-    firstvow = [
-        "A",
-        "A",
-        "A",
-        "A",
-        "E",
-        "E",
-        "E",
-        "I",
-        "I",
-        "I",
-        "O",
-        "U",
-        "Ā",
-        "Ē",
-        "Ī",
-        "Ō",
-        "Ū",
-        "Ae",
-        "Ai",
-        "Āi",
-        "Ao",
-        "Au",
-        "Ea",
-        "Eo",
-        "Ia",
-        "Ie",
-        "Oa",
-    ]
-    firstcons = [
-        "B" + random.choice(vv),
-        "B" + random.choice(vv),
-        "B" + random.choice(vv),
-        "Br" + random.choice(vv),
-        random.choice(["Ch" + random.choice(fv), "J" + random.choice(bv)]),
-        random.choice(["Ch" + random.choice(fv), "J" + random.choice(bv)]),
-        "D" + random.choice(vv),
-        "D" + random.choice(vv),
-        "D" + random.choice(vv),
-        "F" + random.choice(vv),
-        "F" + random.choice(vv),
-        "G" + random.choice(vv),
-        "G" + random.choice(vv),
-        "Gl" + random.choice(vv),
-        "Gr" + random.choice(vv),
-        "H" + random.choice(vv),
-        "H" + random.choice(vv),
-        "Hr" + random.choice(vv),
-        "K" + random.choice(vv),
-        "K" + random.choice(vv),
-        "K" + random.choice(vv),
-        "K" + random.choice(vv),
-        "K" + random.choice(vv),
-        "K" + random.choice(vv),
-        "Kr" + random.choice(vv),
-        "X" + random.choice(vv),
-        "L" + random.choice(vv),
-        "L" + random.choice(vv),
-        "M" + random.choice(vv),
-        "M" + random.choice(vv),
-        "M" + random.choice(vv),
-        "M" + random.choice(vv),
-        "N" + random.choice(vv),
-        "N" + random.choice(vv),
-        "N" + random.choice(vv),
-        "P" + random.choice(vv),
-        "P" + random.choice(vv),
-        "R" + random.choice(vv),
-        "S" + random.choice(vv),
-        "S" + random.choice(vv),
-        "S" + random.choice(vv),
-        "S" + random.choice(vv),
-        "S" + random.choice(vv),
-        "S" + random.choice(vv),
-        "Sk" + random.choice(vv),
-        "Sh" + random.choice(vv),
-        "St" + random.choice(vv),
-        "T" + random.choice(vv),
-        "T" + random.choice(vv),
-        "Th" + random.choice(vv),
-        "Tl" + random.choice(vv),
-        "Tz" + random.choice(vv),
-        "V" + random.choice(hmv),
-        random.choice(["V" + random.choice(hmv), "W" + random.choice(av)]),
-        "Y" + random.choice(vv),
-        "Y" + random.choice(vv),
-        "Z" + random.choice(vv),
-    ]
-    first = [
-        random.choice(firstcons),
-        random.choice(firstcons),
-        random.choice(firstcons),
-        random.choice(firstcons),
-        random.choice(firstcons),
-        random.choice(firstcons),
-        random.choice(firstcons),
-        random.choice(firstcons),
-        random.choice(firstvow),
-        random.choice(firstvow),
-        random.choice(firstvow),
-    ]
-    second = [
-        "b"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "bk"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "br"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "bt"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "ch" + random.choice(fv),
-        "j" + random.choice(bv),
-        "d"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "d"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "dk"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "dp"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "dr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "f"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "fr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "g"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "g"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "g"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "gl"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "gp"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "gr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "gt"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "h"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "hr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "k"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "k"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "kk"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "kr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "kt"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "qu"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "x"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "l"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "l"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "l"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "l"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "l"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "lf"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "lg"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "lk"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "ll"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "lm"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "lr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "lsh"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "lt"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "lv" + random.choice(hmv),
-        "lw" + random.choice(av),
-        "ly"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "m"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "m"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "m"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "m"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "m"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "mb"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "md"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "mf"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "mg"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "mm"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "my"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "n"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "n"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "n"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "n"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nb"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nd"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "n'g"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nh"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nj"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nn"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nsh"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nt"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nth"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nv" + random.choice(hmv),
-        "nw" + random.choice(av),
-        "ny"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nz"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "ng"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "ngb"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "ngd"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "nk"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "p"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "pp"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "r"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rd"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rg"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rj"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rk"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rl"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rm"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rn"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rs"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "rv" + random.choice(hmv),
-        "rw" + random.choice(av),
-        "rz"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "s"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "s"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "sk"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "ss"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "sh"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "ssh"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "sht"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "t"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "t"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "tr"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "tt"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "th"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "tl"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "tz"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "v" + random.choice(hmv),
-        "w" + random.choice(av),
-        "y"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "z"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-        "z"
-        + random.choice(
-            [random.choice(vv), random.choice(vv), random.choice(vv), random.choice(vv)]
-        ),
-    ]
-    end = [
-        "d",
-        "k",
-        "l",
-        "l",
-        "m",
-        "n",
-        "n",
-        "n",
-        "n",
-        "n",
-        "ng",
-        "p",
-        "r",
-        "r",
-        "s",
-        "s",
-        "s",
-        "s",
-        "sh",
-        "t",
-        "th",
-        "z",
-    ]
-    name1 = [
-        random.choice(first),
-        "".join([random.choice(first), random.choice(end)]),
-    ]
-    name2 = [
-        "".join([random.choice(first), random.choice(second)]),
-        "".join([random.choice(first), random.choice(second), random.choice(end)]),
-        "".join(
+    def lastsyl(self):
+        return random.choice(
             [
-                random.choice(first),
-                random.choice(["", random.choice(end)]),
-                "'",
-                random.choice(first),
-                random.choice(["", random.choice(end)]),
+                "a",
+                "al",
+                "as",
+                "ba",
+                "ba",
+                "ban",
+                "be",
+                "bi",
+                "bnor",
+                "bo",
+                "bok",
+                "bor",
+                "bos",
+                "bu",
+                "cek",
+                "cel",
+                "cha",
+                "che",
+                "chet",
+                "chi",
+                "cho",
+                "chu",
+                "cot",
+                "cus",
+                "da",
+                "da",
+                "da",
+                "da",
+                "da",
+                "daal",
+                "darn",
+                "de",
+                "den",
+                "di",
+                "do",
+                "do",
+                "du",
+                "dus",
+                "er",
+                "fa",
+                "fe",
+                "fi",
+                "fo",
+                "fu",
+                "ga",
+                "gan",
+                "gath",
+                "ge",
+                "gel",
+                "ger",
+                "gi",
+                "gnin",
+                "go",
+                "gu",
+                "gus",
+                "ha",
+                "ham",
+                "hav",
+                "he",
+                "he",
+                "hi",
+                "ho",
+                "hor",
+                "hu",
+                "i",
+                "ja",
+                "jah",
+                "jai",
+                "jak",
+                "jip",
+                "juf",
+                "ka",
+                "ka",
+                "kai",
+                "kan",
+                "kar",
+                "ke",
+                "ki",
+                "kim",
+                "ko",
+                "ko",
+                "ko",
+                "ku",
+                "ku",
+                "ku",
+                "la",
+                "la",
+                "la",
+                "la",
+                "lac",
+                "lan",
+                "lan",
+                "lar",
+                "lco",
+                "le",
+                "led",
+                "lel",
+                "len",
+                "li",
+                "lin",
+                "lin",
+                "lin",
+                "lin",
+                "lin",
+                "lin",
+                "lin",
+                "lis",
+                "lis",
+                "lis",
+                "lit",
+                "lki",
+                "llens",
+                "lles",
+                "llon",
+                "lo",
+                "lon",
+                "lor",
+                "lsi",
+                "lu",
+                "lut",
+                "lva",
+                "ma",
+                "ma",
+                "ma",
+                "ma",
+                "mam",
+                "me",
+                "me",
+                "mi",
+                "mi",
+                "mo",
+                "mo",
+                "mo",
+                "mol",
+                "mon",
+                "mu",
+                "mu",
+                "na",
+                "na",
+                "na",
+                "na",
+                "na",
+                "nan",
+                "nault",
+                "ne",
+                "neef",
+                "nga",
+                "ni",
+                "ni",
+                "nic",
+                "nis",
+                "nism",
+                "no",
+                "no",
+                "now",
+                "nryu",
+                "ntis",
+                "nua",
+                "pa",
+                "pal",
+                "pe",
+                "pel",
+                "pel",
+                "per",
+                "pet",
+                "phin",
+                "pi",
+                "po",
+                "pu",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "ra",
+                "rah",
+                "rahd",
+                "ral",
+                "ral",
+                "ran",
+                "rar",
+                "ras",
+                "ras",
+                "ras",
+                "rdus",
+                "re",
+                "rek",
+                "rel",
+                "rel",
+                "ren",
+                "req",
+                "resh",
+                "ret",
+                "rgus",
+                "ri",
+                "ri",
+                "ri",
+                "rid",
+                "rik",
+                "rin",
+                "rin",
+                "ris",
+                "ris",
+                "ris",
+                "ris",
+                "rnis",
+                "ro",
+                "ro",
+                "ro",
+                "roc",
+                "ron",
+                "ros",
+                "row",
+                "rren",
+                "rro",
+                "rrun",
+                "rsa",
+                "ru",
+                "ru",
+                "ruk",
+                "sa",
+                "sa",
+                "sa",
+                "sai",
+                "sal",
+                "se",
+                "sel",
+                "set",
+                "sha",
+                "si",
+                "sil",
+                "ska",
+                "so",
+                "sque",
+                "su",
+                "sus",
+                "ta",
+                "ta",
+                "ta",
+                "ta",
+                "ta",
+                "tal",
+                "tar",
+                "te",
+                "ten",
+                "ten",
+                "thak",
+                "threm",
+                "ti",
+                "tis",
+                "to",
+                "tod",
+                "tro",
+                "tu",
+                "tus",
+                "va",
+                "va",
+                "vah",
+                "val",
+                "var",
+                "ve",
+                "ves",
+                "wa",
+                "we",
+                "wi",
+                "wit",
+                "wo",
+                "wu",
+                "xa",
+                "xe",
+                "xi",
+                "xin",
+                "xo",
+                "xu",
+                "ya",
+                "ya",
+                "ye",
+                "yi",
+                "yo",
+                "yu",
+                "za",
+                "zath",
+                "zir",
+                "zon",
+                "zzer",
             ]
-        ),
-    ]
-    name3 = [
-        "".join([random.choice(first), random.choice(second), random.choice(second)]),
-        "".join(
-            [
-                random.choice(first),
-                random.choice(second),
-                random.choice(second),
-                random.choice(end),
-            ]
-        ),
-        random.choice(
-            [
-                "".join(
-                    [
-                        random.choice(first),
-                        random.choice(second),
-                        random.choice(["", random.choice(end)]),
-                        "-",
-                        random.choice(first),
-                        random.choice(["", random.choice(end)]),
-                    ]
-                ),
-                "".join(
-                    [
-                        random.choice(first),
-                        random.choice(["", random.choice(end)]),
-                        "-",
-                        random.choice(first),
-                        random.choice(second),
-                        random.choice(["", random.choice(end)]),
-                    ]
-                ),
-            ]
-        ),
-    ]
-    name4 = [
-        "".join(
-            [
-                random.choice(first),
-                random.choice(second),
-                random.choice(second),
-                random.choice(second),
-            ]
-        ),
-        "".join(
-            [
-                random.choice(first),
-                random.choice(second),
-                random.choice(second),
-                random.choice(second),
-                random.choice(end),
-            ]
-        ),
-        "".join(
-            [
-                random.choice(first),
-                random.choice(second),
-                random.choice(["", random.choice(end)]),
-                "-",
-                random.choice(first),
-                random.choice(second),
-                random.choice(["", random.choice(end)]),
-            ]
-        ),
-    ]
-    name5 = [
-        "".join(
-            [
-                random.choice(first),
-                random.choice(second),
-                random.choice(second),
-                random.choice(second),
-                random.choice(second),
-                random.choice(["", random.choice(end)]),
-            ]
-        ),
-        "".join(
-            [
-                random.choice(first),
-                random.choice(second),
-                random.choice(["", random.choice(end)]),
-                "-",
-                random.choice(first),
-                random.choice(second),
-                random.choice(second),
-                random.choice(["", random.choice(end)]),
-            ]
-        ),
-        "".join(
-            [
-                random.choice(first),
-                random.choice(second),
-                random.choice(second),
-                random.choice(["", random.choice(end)]),
-                "-",
-                random.choice(first),
-                random.choice(second),
-                random.choice(["", random.choice(end)]),
-            ]
-        ),
-    ]
+        )
 
-    prompt = [
-        random.choice(name1),
-        random.choice(name2),
-        random.choice(name2),
-        random.choice(name2),
-        random.choice(name3),
-        random.choice(name3),
-        random.choice(name3),
-        random.choice(name3),
-        random.choice(name3),
-        random.choice(name3),
-        random.choice(name4),
-        random.choice(name4),
-        random.choice(name5),
-    ]
-    return random.choice(prompt)
+    def first(self):
+        options = [
+            "B"
+            "B"
+            "B"
+            "C"
+            "C"
+            "C"
+            "C"
+            "Ch"
+            "Ch"
+            "D"
+            "D"
+            "D"
+            "D"
+            "F"
+            "F"
+            "G"
+            "G"
+            "H"
+            "H"
+            "J"
+            "K"
+            "K"
+            "K"
+            "L"
+            "L"
+            "L"
+            "L"
+            "M"
+            "M"
+            "M"
+            "M"
+            "M"
+            "M"
+            "N"
+            "N"
+            "N"
+            "N"
+            "P"
+            "P"
+            "R"
+            "R"
+            "R"
+            "S"
+            "S"
+            "S"
+            "S"
+            "T"
+            "T"
+            "T"
+            "T"
+            "T"
+            "V"
+            "W"
+            "Y"
+        ]
+        self.random_add(options, "B", 0.50)
+        self.random_add(options, "Bh", 0.50)
+        self.random_add(options, "Ch", 0.25)
+        self.random_add(options, "D", 0.50)
+        self.random_add(options, "Dr", 0.25)
+        self.random_add(options, "F", 0.50)
+        self.random_add(options, "G", 0.25)
+        self.random_add(options, "H", 0.25)
+        self.random_add(options, "J", 0.75)
+        self.random_add(options, "K", 0.50)
+        self.random_add(options, "M", 0.25)
+        self.random_add(options, "Mn", 0.25)
+        self.random_add(options, "R", 0.25)
+        self.random_add(options, "S", 0.25)
+        self.random_add(options, "Sz", 0.25)
+        self.random_add(options, "V", 0.75)
+        self.random_add(options, "W", 0.25)
+        self.random_add(options, "Y", 0.75)
+        return random.choice(options)
+
+    def vv(self):
+        options = [
+            "a",
+            "a",
+            "e",
+            "e",
+            "i",
+            "i",
+            "o",
+            "o",
+            "u",
+            "u",
+        ]
+        self.random_add(options, "ey", 0.03)
+        self.random_add(options, "iou", 0.03)
+        self.random_add(options, "oi", 0.03)
+        self.random_add(options, "y", 0.03)
+        return random.choice(options)
+
+    def end(self):
+        options = [
+            "k",
+            "l",
+            "l",
+            "l",
+            "m",
+            "n",
+            "n",
+            "n",
+            "n",
+            "n",
+            "r",
+            "r",
+            "r",
+            "s",
+            "s",
+            "s",
+            "s",
+            "s",
+            "t",
+            "t",
+        ]
+        self.random_add(options, "c", 0.75)
+        self.random_add(options, "d", 0.75)
+        self.random_add(options, "f", 0.50)
+        self.random_add(options, "k", 0.75)
+        self.random_add(options, "l", 0.75)
+        self.random_add(options, "lt", 0.25)
+        self.random_add(options, "n", 0.75)
+        self.random_add(options, "nd", 0.25)
+        self.random_add(options, "ns", 0.25)
+        self.random_add(options, "p", 0.25)
+        self.random_add(options, "q", 0.25)
+        self.random_add(options, "r", 0.75)
+        self.random_add(options, "rn", 0.25)
+        self.random_add(options, "sh", 0.25)
+        self.random_add(options, "sm", 0.25)
+        self.random_add(options, "th", 0.25)
+        self.random_add(options, "v", 0.25)
+        self.random_add(options, "a", 0.15)
+        self.random_add(options, "e", 0.15)
+        self.random_add(options, "i", 0.25)
+        return random.choice(options)
+
+    def single(self):
+        return f"{self.first()}{self.vv()}{self.end()}"
+
+    def prompt(self):
+        options = [
+            f"{self.house()} {self.firstsyl()}{self.lastsyl()}",
+            f"{self.house()} {self.firstsyl()}{self.lastsyl()}",
+            f"{self.house()} {self.firstsyl()}{self.midsyl()}{self.lastsyl()}",
+        ]
+        self.random_add(options, f"{self.house()} {self.single()}", 0.09)
+        self.random_add(
+            options,
+            f"{self.house()} {self.firstsyl()}{self.midsyl()}{self.lastsyl()}",
+            0.25,
+        )
+        self.random_add(
+            options,
+            f"{self.house()} {self.firstsyl()}{self.midsyl()}{self.midsyl()}{self.lastsyl()}",
+            0.08,
+        )
+        return random.choice(options)
