@@ -61,21 +61,11 @@ vellum, _ = Material.objects.get_or_create(name="Vellum")
 wood, _ = Material.objects.get_or_create(name="Wood")
 
 book, _ = Medium.objects.get_or_create(name="Book")
-ebook, _ = Medium.objects.get_or_create(
-    name="eBook", length_modifier_type="/", length_modifier=1
-)
-flash_drive, _ = Medium.objects.get_or_create(
-    name="Flash Drive", length_modifier_type="/", length_modifier=1
-)
-scrolls, _ = Medium.objects.get_or_create(
-    name="Scrolls", length_modifier_type="/", length_modifier=1
-)
-software, _ = Medium.objects.get_or_create(
-    name="Software", length_modifier_type="/", length_modifier=1
-)
-tablets, _ = Medium.objects.get_or_create(
-    name="Tablets", length_modifier_type="/", length_modifier=1
-)
+ebook, _ = Medium.objects.get_or_create(name="eBook")
+flash_drive, _ = Medium.objects.get_or_create(name="Flash Drive")
+scrolls, _ = Medium.objects.get_or_create(name="Scrolls")
+software, _ = Medium.objects.get_or_create(name="Software")
+tablets, _ = Medium.objects.get_or_create(name="Tablets")
 
 # M20
 Archetype.objects.get_or_create(name="Activist")[0].add_source(
