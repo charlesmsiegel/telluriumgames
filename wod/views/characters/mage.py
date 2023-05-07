@@ -25,6 +25,7 @@ from wod.models.characters.mage.cabal import Cabal
 from wod.models.characters.mage.faction import MageFaction
 from wod.models.characters.mage.focus import Instrument, Paradigm, Practice
 from wod.models.characters.mage.mage import Mage, Rote
+from wod.models.characters.mage.mtahuman import MtAHuman
 from wod.models.characters.mage.resonance import Resonance, ResRating
 from wod.models.characters.mage.rote import Effect
 from wod.models.characters.mage.utils import PRIMARY_ABILITIES
@@ -354,6 +355,13 @@ class MageUpdateView(UpdateView):
     model = Mage
     fields = "__all__"
     template_name = "wod/characters/mage/mage/form.html"
+
+
+class MtAHumanView(BaseCharacterView):
+    def get(self, request, *args, **kwargs):
+        mtahuman = MtAHuman.objects.get(pk=kwargs["pk"])
+        context = self.get_context(mtahuman)
+        return render(request, "wod/characters/mage/mtahuman/detail.html", context)
 
 
 class CabalDetailView(DetailView):

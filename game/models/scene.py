@@ -54,6 +54,8 @@ class Scene(models.Model):
         return Post.objects.filter(scene=self).count()
 
     def add_post(self, character, display, message):
+        if character not in self.characters.all():
+            self.add_character(character)
         if display == "":
             display = character.name
         post = Post.objects.create(

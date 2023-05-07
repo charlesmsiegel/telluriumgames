@@ -1,5 +1,5 @@
-{% extends "core/object.html" %}
-{% block contents %}
+{% extends "core/character.html" %}
+{% block statistics %}
     <div class="row">
         <div class="col-sm {{ object.get_heading }}">
             <h1>{{ object.name }}</h1>
@@ -44,8 +44,10 @@
             <a class="col-sm" href="{{ charm.get_absolute_url }}">{{ charm.name }}</a>
         </div>
     {% endfor %}
+{% endblock statistics %}
+{% block flavor %}
     <div class="row">
         <div class="col-sm">Description</div>
         <div class="col-sm">{{ object.description }}</div>
     </div>
-{% endblock contents %}
+{% endblock flavor %}

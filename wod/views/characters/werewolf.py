@@ -343,9 +343,11 @@ class KinfolkUpdateView(UpdateView):
     template_name = "wod/characters/werewolf/kinfolk/form.html"
 
 
-class SpiritDetailView(DetailView):
-    model = SpiritCharacter
-    template_name = "wod/characters/werewolf/spirit/detail.html"
+class SpiritDetailView(BaseCharacterView):
+    def get(self, request, *args, **kwargs):
+        spirit = SpiritCharacter.objects.get(pk=kwargs["pk"])
+        context = self.get_context(spirit)
+        return render(request, "wod/characters/werewolf/spirit/detail.html", context)
 
 
 class SpiritCreateView(CreateView):
