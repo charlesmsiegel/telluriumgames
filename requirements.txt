@@ -9,3 +9,4 @@ selenium=3.141.0
 django-polymorphic
 django-tinymce4-lite
 pillow
+django-smart-selects
