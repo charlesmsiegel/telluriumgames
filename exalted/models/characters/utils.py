@@ -2167,7 +2167,16 @@ class DragonKingName(RandomName):
         return random.choice(options)
 
     def endvow(self):
-        return random.choice(["a", "a", "a", "é", "i", "u",])
+        return random.choice(
+            [
+                "a",
+                "a",
+                "a",
+                "é",
+                "i",
+                "u",
+            ]
+        )
 
     def name(self):
         options = [
@@ -2311,348 +2320,464 @@ class InfernalName(RandomName):
         self.random_add(options, f"Z{self.vv()}", 0.50)
         return random.choice(options)
 
-    """
-$2nd
-d[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-d[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-g[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-g[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-k[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-k[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-l[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-l[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-l[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-l[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-l[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-ll[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-m[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-m[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-m[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-m[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-n[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-n[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-n[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-n[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-nd[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-nt[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-s[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-t[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-t[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-v[hmv]
-z[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]]
-b[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-bk[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
-br[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-bt[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-ch[fv] {30%}
-j[bv] {30%}
-dk[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
-dp[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
-dr[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-f[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {80%}
-fr[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
-g[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
-gl[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {15%}
-gp[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
-gr[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-gt[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
-h[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-hr[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {15%}
-kk[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
-kr[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-kt[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-qu[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-x[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-lf[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-lg[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
-lk[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
-lm[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
-lr[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-lsh[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
-lt[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-lv[hmv] {60%}
-lw[av] {10%}
-ly[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-m[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
-mb[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
-md[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-mf[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-mg[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
-mm[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-my[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-nb[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
-n'g[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
-nh[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-nj[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-nn[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-nsh[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-nth[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-nv[hmv] {30%}
-nw[av] {10%}
-ny[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {15%}
-nz[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
-ng[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-ngb[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
-ngd[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
-nk[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-p[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
-pp[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-rd[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-rg[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {15%}
-rj[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-rk[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-rl[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-rm[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-rn[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
-rr[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {15%}
-rs[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {80%}
-rv[hmv] {30%}
-rw[av] {10%}
-rz[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-s[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
-sk[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
-ss[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-sh[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
-ssh[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {10%}
-sht[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {60%}
-tr[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-tt[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-th[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {15%}
-tl[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {15%}
-tz[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {30%}
-w[av] {30%}
-y[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {80%}
-z[[vv]|[vv]|[vv]|[vv,as v]|[vv,as v]] {20%}
+    def second(self):
 
-$vv
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-ia {v:a}
-o {v:o}
-o {v:o}
-o {v:o}
-o {v:o}
-u {v:u}
-u {v:u}
-u {v:u}
-ā {v:a}{15%}
-ae {v:e}{15%}
-ai {v:i}{50%}
-āi {v:i}{50%}
-ao {v:o}{15%}
-aō {v:o}{5%}
-au {v:u}{30%}
-ē {v:e}{15%}
-ea {v:a}{44%}
-eo {v:o}{44%}
-ī {v:i}{15%}
-ie {v:e}{60%}
-io {v:o}{60%}
-iē {v:e}{5%}
-iu {v:u}{15%}
-ō {v:o}{15%}
-oa {v:a}{5%}
-oi {v:i}{15%}
-ū {v:u}{5%}
+        options = [
+            "d",
+            "d",
+            "g",
+            "g",
+            "k",
+            "k",
+            "l",
+            "l",
+            "l",
+            "l",
+            "l",
+            "ll",
+            "m",
+            "m",
+            "m",
+            "m",
+            "n",
+            "n",
+            "n",
+            "n",
+            "nd",
+            "nt",
+            "r",
+            "r",
+            "r",
+            "r",
+            "r",
+            "r",
+            "s",
+            "t",
+            "t",
+            "z",
+        ]
+        self.random_add(options, "b", 0.30)
+        self.random_add(options, "bk", 0.10)
+        self.random_add(options, "br", 0.30)
+        self.random_add(options, "bt", 0.30)
+        self.random_add(options, "dk", 0.10)
+        self.random_add(options, "dp", 0.10)
+        self.random_add(options, "dr", 0.30)
+        self.random_add(options, "f", 0.80)
+        self.random_add(options, "fr", 0.10)
+        self.random_add(options, "g", 0.60)
+        self.random_add(options, "gl", 0.15)
+        self.random_add(options, "gp", 0.10)
+        self.random_add(options, "gr", 0.30)
+        self.random_add(options, "gt", 0.10)
+        self.random_add(options, "h", 0.30)
+        self.random_add(options, "hr", 0.15)
+        self.random_add(options, "kk", 0.10)
+        self.random_add(options, "kr", 0.30)
+        self.random_add(options, "kt", 0.30)
+        self.random_add(options, "qu", 0.30)
+        self.random_add(options, "x", 0.30)
+        self.random_add(options, "lf", 0.30)
+        self.random_add(options, "lg", 0.10)
+        self.random_add(options, "lk", 0.60)
+        self.random_add(options, "lm", 0.60)
+        self.random_add(options, "lr", 0.30)
+        self.random_add(options, "lsh", 0.10)
+        self.random_add(options, "lt", 0.30)
+        self.random_add(options, "ly", 0.30)
+        self.random_add(options, "m", 0.60)
+        self.random_add(options, "mb", 0.60)
+        self.random_add(options, "md", 0.30)
+        self.random_add(options, "mf", 0.30)
+        self.random_add(options, "mg", 0.10)
+        self.random_add(options, "mm", 0.30)
+        self.random_add(options, "my", 0.30)
+        self.random_add(options, "nb", 0.10)
+        self.random_add(options, "n'g", 0.10)
+        self.random_add(options, "nh", 0.30)
+        self.random_add(options, "nj", 0.30)
+        self.random_add(options, "nn", 0.30)
+        self.random_add(options, "nsh", 0.30)
+        self.random_add(options, "nth", 0.30)
+        self.random_add(options, "ny", 0.15)
+        self.random_add(options, "nz", 0.60)
+        self.random_add(options, "ng", 0.30)
+        self.random_add(options, "ngb", 0.10)
+        self.random_add(options, "ngd", 0.10)
+        self.random_add(options, "nk", 0.30)
+        self.random_add(options, "p", 0.60)
+        self.random_add(options, "pp", 0.30)
+        self.random_add(options, "rd", 0.30)
+        self.random_add(options, "rg", 0.15)
+        self.random_add(options, "rj", 0.30)
+        self.random_add(options, "rk", 0.30)
+        self.random_add(options, "rl", 0.30)
+        self.random_add(options, "rm", 0.30)
+        self.random_add(options, "rn", 0.10)
+        self.random_add(options, "rr", 0.15)
+        self.random_add(options, "rs", 0.80)
+        self.random_add(options, "rz", 0.30)
+        self.random_add(options, "s", 0.60)
+        self.random_add(options, "sk", 0.60)
+        self.random_add(options, "ss", 0.30)
+        self.random_add(options, "sh", 0.60)
+        self.random_add(options, "ssh", 0.10)
+        self.random_add(options, "sht", 0.60)
+        self.random_add(options, "tr", 0.30)
+        self.random_add(options, "tt", 0.30)
+        self.random_add(options, "th", 0.15)
+        self.random_add(options, "tl", 0.15)
+        self.random_add(options, "tz", 0.30)
+        self.random_add(options, "y", 0.80)
+        self.random_add(options, "z", 0.20)
+        options = [
+            x
+            + random.choice(
+                self.vv(), self.vv(), self.vv(), self.vv(v=True), self.vv(v=True)
+            )
+            for x in options
+        ]
+        options.extend(["v" + self.hmv()])
+        self.random_add(options, "ch" + self.fv(), 0.30)
+        self.random_add(options, "j" + self.bv(), 0.30)
+        self.random_add(options, "lv" + self.hmv(), 0.60)
+        self.random_add(options, "lw" + self.av(), 0.10)
+        self.random_add(options, "nv" + self.hmv(), 0.30)
+        self.random_add(options, "nw" + self.av(), 0.10)
+        self.random_add(options, "rv" + self.hmv(), 0.30)
+        self.random_add(options, "rw" + self.av(), 0.10)
+        self.random_add(options, "w" + self.av(), 0.30)
+        return random.choice(options)
 
-$fv
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-ia {v:a}
-ē {v:e}{15%}
-ea {v:a}{44%}
-eo {v:o}{44%}
-ī {v:i}{15%}
-ie {v:e}{60%}
-io {v:o}{60%}
-iē {v:e}{5%}
-iu {v:u}{15%}
+    def vv(self, v=False):
+        options = [
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("ia", "a"),
+            ("o", "o"),
+            ("o", "o"),
+            ("o", "o"),
+            ("o", "o"),
+            ("u", "u"),
+            ("u", "u"),
+            ("u", "u"),
+        ]
+        self.random_add(options, ("ā", "a"), 0.15)
+        self.random_add(options, ("ae", "e"), 0.15)
+        self.random_add(options, ("ai", "i"), 0.50)
+        self.random_add(options, ("āi", "i"), 0.50)
+        self.random_add(options, ("ao", "o"), 0.15)
+        self.random_add(options, ("aō", "o"), 0.05)
+        self.random_add(options, ("au", "u"), 0.30)
+        self.random_add(options, ("ē", "e"), 0.15)
+        self.random_add(options, ("ea", "a"), 0.44)
+        self.random_add(options, ("eo", "o"), 0.44)
+        self.random_add(options, ("ī", "i"), 0.15)
+        self.random_add(options, ("ie", "e"), 0.60)
+        self.random_add(options, ("io", "o"), 0.60)
+        self.random_add(options, ("iē", "e"), 0.05)
+        self.random_add(options, ("iu", "u"), 0.15)
+        self.random_add(options, ("ō", "o"), 0.15)
+        self.random_add(options, ("oa", "a"), 0.05)
+        self.random_add(options, ("oi", "i"), 0.15)
+        self.random_add(options, ("ū", "u"), 0.05)
+        choice = random.choice(options)
+        if v:
+            return choice[1]
+        return choice[0]
 
-$bv
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-o {v:o}
-o {v:o}
-o {v:o}
-o {v:o}
-u {v:u}
-u {v:u}
-u {v:u}
-ā {v:a}{15%}
-ae {v:e}{15%}
-ai {v:i}{50%}
-āi {v:i}{50%}
-ao {v:o}{15%}
-aō {v:o}{5%}
-au {v:u}{30%}
-ō {v:o}{15%}
-oa {v:a}{5%}
-oi {v:i}{15%}
-ū {v:u}{5%}
+    def fv(self, v=False):
+        options = [
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("ia", "a"),
+        ]
+        self.random_add(options, ("ē", "e"), 0.15)
+        self.random_add(options, ("ea", "a"), 0.44)
+        self.random_add(options, ("eo", "o"), 0.44)
+        self.random_add(options, ("ī", "i"), 0.15)
+        self.random_add(options, ("ie", "e"), 0.60)
+        self.random_add(options, ("io", "o"), 0.60)
+        self.random_add(options, ("iē", "e"), 0.05)
+        self.random_add(options, ("iu", "u"), 0.15)
+        choice = random.choice(options)
+        if v:
+            return choice[1]
+        return choice[0]
 
-$hmv
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-e {v:e}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-i {v:i}
-ia {v:a}
-o {v:o}
-o {v:o}
-o {v:o}
-o {v:o}
-u {v:u}
-u {v:u}
-u {v:u}
-ē {v:e}{15%}
-ea {v:a}{44%}
-eo {v:o}{44%}
-ī {v:i}{15%}
-ie {v:e}{60%}
-io {v:o}{60%}
-iē {v:e}{5%}
-iu {v:u}{15%}
-ō {v:o}{15%}
-oa {v:a}{5%}
-oi {v:i}{15%}
-ū {v:u}{5%}
+    def bv(self, v=False):
+        options = [
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("o", "o"),
+            ("o", "o"),
+            ("o", "o"),
+            ("o", "o"),
+            ("u", "u"),
+            ("u", "u"),
+            ("u", "u"),
+        ]
+        self.random_add(options, ("ā", "a"), 0.15)
+        self.random_add(options, ("ae", "e"), 0.15)
+        self.random_add(options, ("ai", "i"), 0.50)
+        self.random_add(options, ("āi", "i"), 0.50)
+        self.random_add(options, ("ao", "o"), 0.15)
+        self.random_add(options, ("aō", "o"), 0.05)
+        self.random_add(options, ("au", "u"), 0.30)
+        self.random_add(options, ("ō", "o"), 0.15)
+        self.random_add(options, ("oa", "a"), 0.05)
+        self.random_add(options, ("oi", "i"), 0.15)
+        self.random_add(options, ("ū", "u"), 0.05)
+        choice = random.choice(options)
+        if v:
+            return choice[1]
+        return choice[0]
 
-$av
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-a {v:a}
-ā {v:a}{15%}
-ae {v:e}{15%}
-ai {v:i}{50%}
-āi {v:i}{50%}
-ao {v:o}{15%}
-aō {v:o}{5%}
-au {v:u}{30%}
+    def hmv(self, v=False):
+        options = [
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("ia", "a"),
+            ("o", "o"),
+            ("o", "o"),
+            ("o", "o"),
+            ("o", "o"),
+            ("u", "u"),
+            ("u", "u"),
+            ("u", "u"),
+        ]
+        self.random_add(options, ("ē", "e"), 0.15)
+        self.random_add(options, ("ea", "a"), 0.44)
+        self.random_add(options, ("eo", "o"), 0.44)
+        self.random_add(options, ("ī", "i"), 0.15)
+        self.random_add(options, ("ie", "e"), 0.60)
+        self.random_add(options, ("io", "o"), 0.60)
+        self.random_add(options, ("iē", "e"), 0.05)
+        self.random_add(options, ("iu", "u"), 0.15)
+        self.random_add(options, ("ō", "o"), 0.15)
+        self.random_add(options, ("oa", "a"), 0.05)
+        self.random_add(options, ("oi", "i"), 0.15)
+        self.random_add(options, ("ū", "u"), 0.05)
+        choice = random.choice(options)
+        if v:
+            return choice[1]
+        return choice[0]
 
-$end
-l
-l
-n
-n
-n
-n
-n
-r
-r
-s
-s
-s
-s
-d {40%}
-k {60%}
-m {60%}
-ng {15%}
-p {15%}
-sh {30%}
-t {60%}
-th {40%}
-z {15%}
+    def av(self, v=False):
+        options = [
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+        ]
+        self.random_add(options, ("ā", "a"), 0.15)
+        self.random_add(options, ("ae", "e"), 0.15)
+        self.random_add(options, ("ai", "i"), 0.50)
+        self.random_add(options, ("āi", "i"), 0.50)
+        self.random_add(options, ("ao", "o"), 0.15)
+        self.random_add(options, ("aō", "o"), 0.05)
+        self.random_add(options, ("au", "u"), 0.30)
+        choice = random.choice(options)
+        if v:
+            return choice[1]
+        return choice[0]
 
-$name1
-[1st]
-[1st][end]
+    def end(self):
+        options = [
+            "l",
+            "l",
+            "n",
+            "n",
+            "n",
+            "n",
+            "n",
+            "r",
+            "r",
+            "s",
+            "s",
+            "s",
+            "s",
+        ]
+        self.random_add(options, "d", 0.40)
+        self.random_add(options, "k", 0.60)
+        self.random_add(options, "m", 0.60)
+        self.random_add(options, "ng", 0.15)
+        self.random_add(options, "p", 0.15)
+        self.random_add(options, "sh", 0.30)
+        self.random_add(options, "t", 0.60)
+        self.random_add(options, "th", 0.40)
+        self.random_add(options, "z", 0.15)
+        return random.choice(options)
 
-$name2
-[1st][2nd]
-[1st][2nd][end]
-[1st][|[end]]'[1st][|[end]] {12%}
+    def name1(self):
+        return random.choice([self.first(), self.first() + self.end()])
 
-$name3
-[1st][2nd][2nd]
-[1st][2nd][2nd][end]
-[[1st][2nd][|[end]]-[1st][|[end]]|[1st][|[end]]-[1st][2nd][|[end]]] {5%}
+    def name2(self):
+        options = [
+            self.first() + self.secod(),
+            self.first() + self.second() + self.end(),
+        ]
+        self.random_add(
+            options,
+            self.first()
+            + random.choice(["", self.end()])
+            + "'"
+            + self.first()
+            + random.choice(["", self.end()]),
+            0.12,
+        )
+        return random.choice(options)
 
-$name4
-[1st][2nd][2nd][2nd]
-[1st][2nd][2nd][2nd][end]
-[1st][2nd][|[end]]-[1st][2nd][|[end]] {20%}
+    def maybe_end(self):
+        return random.choice(["", self.end()])
 
-$name5
-[1st][2nd][2nd][2nd][2nd][|[end]]
-[1st][2nd][|[end]]-[1st][2nd][2nd][|[end]]
-[1st][2nd][2nd][|[end]]-[1st][2nd][|[end]] {5%}
-    """
+    def name3(self):
+        options = [
+            self.first() + self.second() + self.second(),
+            self.first() + self.second() + self.second() + self.end(),
+        ]
+        self.random_add(
+            options,
+            random.choice(
+                [
+                    self.first()
+                    + self.second()
+                    + self.maybe_end()
+                    + "-"
+                    + self.first()
+                    + self.maybe_end(),
+                    self.first()
+                    + self.maybe_end()
+                    + "-"
+                    + self.first()
+                    + self.second()
+                    + self.maybe_end(),
+                ]
+            ),
+            0.05,
+        )
+        return random.choice(options)
+
+    def name4(self):
+        options = [
+            self.first() + self.second() + self.second() + self.second(),
+            self.first() + self.second() + self.second() + self.second() + self.end(),
+        ]
+        self.random_add(
+            options,
+            self.first()
+            + self.second()
+            + self.maybe_end()
+            + "-"
+            + self.first()
+            + self.second()
+            + self.maybe_end(),
+            0.20,
+        )
+        return random.choice(options)
+
+    def name5(self):
+        options = [
+            self.first()
+            + self.second()
+            + self.second()
+            + self.second()
+            + self.second()
+            + self.maybe_end(),
+            self.first()
+            + self.second()
+            + self.maybe_end()
+            + "-"
+            + self.first()
+            + self.second()
+            + self.second()
+            + self.maybe_end(),
+        ]
+        self.random_add(
+            options,
+            self.first()
+            + self.second()
+            + self.second()
+            + self.maybe_end()
+            + "-"
+            + self.first()
+            + self.second()
+            + self.maybe_end(),
+            0.05,
+        )
+        return random.choice(options)
 
     def prompt(self):
         options = [
@@ -2675,7 +2800,7 @@ $name5
 
 class OldRealmName(RandomName):
     """
-    Based on Old Realm Name Generator: https://orteil.dashnet.org/randomgen/?gen=FaifGb1M    
+    Based on Old Realm Name Generator: https://orteil.dashnet.org/randomgen/?gen=FaifGb1M
     """
 
     def first(self):
@@ -2727,39 +2852,39 @@ class OldRealmName(RandomName):
 
     def firstcons(self):
         options = [
-"B" + self.vv(),
-"Ch" + self.fv(),
-"J" + self.bv(),
-"D" + self.vv(),
-"D" + self.vv(),
-"F" + self.vv(),
-"G" + self.vv(),
-"G" + self.vv(),
-"H" + self.vv(),
-"H" + self.vv(),
-"K" + self.vv(),
-"K" + self.vv(),
-"K" + self.vv(),
-"L" + self.vv(),
-"L" + self.vv(),
-"M" + self.vv(),
-"M" + self.vv(),
-"M" + self.vv(),
-"N" + self.vv(),
-"N" + self.vv(),
-"R" + self.vv(),
-"S" + self.vv(),
-"S" + self.vv(),
-"S" + self.vv(),
-"S" + self.vv(),
-"S" + self.vv(),
-"Sh" + self.vv(),
-"T" + self.vv(),
-"T" + self.vv(),
-"V" + self.fbv(),
-"Y" + self.vv(),
-"Y" + self.vv(),
-"Z" + self.vv(),
+            "B" + self.vv(),
+            "Ch" + self.fv(),
+            "J" + self.bv(),
+            "D" + self.vv(),
+            "D" + self.vv(),
+            "F" + self.vv(),
+            "G" + self.vv(),
+            "G" + self.vv(),
+            "H" + self.vv(),
+            "H" + self.vv(),
+            "K" + self.vv(),
+            "K" + self.vv(),
+            "K" + self.vv(),
+            "L" + self.vv(),
+            "L" + self.vv(),
+            "M" + self.vv(),
+            "M" + self.vv(),
+            "M" + self.vv(),
+            "N" + self.vv(),
+            "N" + self.vv(),
+            "R" + self.vv(),
+            "S" + self.vv(),
+            "S" + self.vv(),
+            "S" + self.vv(),
+            "S" + self.vv(),
+            "S" + self.vv(),
+            "Sh" + self.vv(),
+            "T" + self.vv(),
+            "T" + self.vv(),
+            "V" + self.fbv(),
+            "Y" + self.vv(),
+            "Y" + self.vv(),
+            "Z" + self.vv(),
         ]
         self.random_add(options, "B" + self.vv(), 0.80)
         self.random_add(options, "Br" + self.vv(), 0.10)
@@ -2800,417 +2925,406 @@ class OldRealmName(RandomName):
         self.random_add(options, "Z" + self.vv(), 0.10)
         return random.choice(options)
 
-    """
-$2nd
-b[[vv]|[vv]|[vv]|[vv,as v]]
-j[bv]
-d[[vv]|[vv]|[vv]|[vv,as v]]
-d[[vv]|[vv]|[vv]|[vv,as v]]
-g[[vv]|[vv]|[vv]|[vv,as v]]
-g[[vv]|[vv]|[vv]|[vv,as v]]
-h[[vv]|[vv]|[vv]|[vv,as v]]
-k[[vv]|[vv]|[vv]|[vv,as v]]
-k[[vv]|[vv]|[vv]|[vv,as v]]
-k[[vv]|[vv]|[vv]|[vv,as v]]
-k[[vv]|[vv]|[vv]|[vv,as v]]
-x[[vv]|[vv]|[vv]|[vv,as v]]
-l[[vv]|[vv]|[vv]|[vv,as v]]
-l[[vv]|[vv]|[vv]|[vv,as v]]
-l[[vv]|[vv]|[vv]|[vv,as v]]
-l[[vv]|[vv]|[vv]|[vv,as v]]
-l[[vv]|[vv]|[vv]|[vv,as v]]
-ll[[vv]|[vv]|[vv]|[vv,as v]]
-m[[vv]|[vv]|[vv]|[vv,as v]]
-m[[vv]|[vv]|[vv]|[vv,as v]]
-m[[vv]|[vv]|[vv]|[vv,as v]]
-m[[vv]|[vv]|[vv]|[vv,as v]]
-m[[vv]|[vv]|[vv]|[vv,as v]]
-n[[vv]|[vv]|[vv]|[vv,as v]]
-n[[vv]|[vv]|[vv]|[vv,as v]]
-n[[vv]|[vv]|[vv]|[vv,as v]]
-n[[vv]|[vv]|[vv]|[vv,as v]]
-n[[vv]|[vv]|[vv]|[vv,as v]]
-n[[vv]|[vv]|[vv]|[vv,as v]]
-nd[[vv]|[vv]|[vv]|[vv,as v]]
-p[[vv]|[vv]|[vv]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]]
-r[[vv]|[vv]|[vv]|[vv,as v]]
-s[[vv]|[vv]|[vv]|[vv,as v]]
-s[[vv]|[vv]|[vv]|[vv,as v]]
-s[[vv]|[vv]|[vv]|[vv,as v]]
-sh[[vv]|[vv]|[vv]|[vv,as v]]
-t[[vv]|[vv]|[vv]|[vv,as v]]
-t[[vv]|[vv]|[vv]|[vv,as v]]
-t[[vv]|[vv]|[vv]|[vv,as v]]
-v[fbv]
-y[[vv]|[vv]|[vv]|[vv,as v]]
-z[[vv]|[vv]|[vv]|[vv,as v]]
-b[[vv]|[vv]|[vv]|[vv,as v]] {50%}
-br[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-ch[fv] {70%}
-j[bv] {20%}
-d[[vv]|[vv]|[vv]|[vv,as v]] {50%}
-dr[[vv]|[vv]|[vv]|[vv,as v]] {30%}
-dv[fbv] {30%}
-dw[brv] {2%}
-f[[vv]|[vv]|[vv]|[vv,as v]] {80%}
-fr[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-g[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-gr[[vv]|[vv]|[vv]|[vv,as v]] {50%}
-h[[vv]|[vv]|[vv]|[vv,as v]] {10%}
-hr[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-k[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-kl[[vv]|[vv]|[vv]|[vv,as v]] {30%}
-kr[[vv]|[vv]|[vv]|[vv,as v]] {30%}
-x[[vv]|[vv]|[vv]|[vv,as v]] {40%}
-l[[vv]|[vv]|[vv]|[vv,as v]] {80%}
-lk[[vv]|[vv]|[vv]|[vv,as v]] {50%}
-lm[[vv]|[vv]|[vv]|[vv,as v]] {40%}
-lp[[vv]|[vv]|[vv]|[vv,as v]] {30%}
-lr[[vv]|[vv]|[vv]|[vv,as v]] {30%}
-lt[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-lv[fbv] {30%}
-lw[brv] {10%}
-lz[[vv]|[vv]|[vv]|[vv,as v]] {30%}
-m[[vv]|[vv]|[vv]|[vv,as v]] {10%}
-mb[[vv]|[vv]|[vv]|[vv,as v]] {40%}
-mf[[vv]|[vv]|[vv]|[vv,as v]] {40%}
-mm[[vv]|[vv]|[vv]|[vv,as v]] {10%}
-my[[vv]|[vv]|[vv]|[vv,as v]] {10%}
-n[[vv]|[vv]|[vv]|[vv,as v]] {30%}
-nd[[vv]|[vv]|[vv]|[vv,as v]] {10%}
-nj[[vv]|[vv]|[vv]|[vv,as v]] {40%}
-nm[[vv]|[vv]|[vv]|[vv,as v]] {30%}
-nn[[vv]|[vv]|[vv]|[vv,as v]] {40%}
-nt[[vv]|[vv]|[vv]|[vv,as v]] {50%}
-nth[[vv]|[vv]|[vv]|[vv,as v]] {10%}
-nv[fbv] {20%}
-nw[brv] {10%}
-ny[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-nz[[vv]|[vv]|[vv]|[vv,as v]] {40%}
-ng[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-nk[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-pl[[vv]|[vv]|[vv]|[vv,as v]] {5%}
-pr[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-r[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-rd[[vv]|[vv]|[vv]|[vv,as v]] {30%}
-rg[[vv]|[vv]|[vv]|[vv,as v]] {40%}
-rj[[vv]|[vv]|[vv]|[vv,as v]] {10%}
-rk[[vv]|[vv]|[vv]|[vv,as v]] {60%}
-rl[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-rm[[vv]|[vv]|[vv]|[vv,as v]] {60%}
-rn[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-rr[[vv]|[vv]|[vv]|[vv,as v]] {50%}
-rs[[vv]|[vv]|[vv]|[vv,as v]] {30%}
-rt[[vv]|[vv]|[vv]|[vv,as v]] {10%}
-rth[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-rv[fbv] {60%}
-rw[brv] {4%}
-rz[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-sk[[vv]|[vv]|[vv]|[vv,as v]] {10%}
-sn[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-sp[[vv]|[vv]|[vv]|[vv,as v]] {5%}
-ss[[vv]|[vv]|[vv]|[vv,as v]] {30%}
-st[[vv]|[vv]|[vv]|[vv,as v]] {60%}
-sh[[vv]|[vv]|[vv]|[vv,as v]] {70%}
-shr[[vv]|[vv]|[vv]|[vv,as v]] {40%}
-ssh[[vv]|[vv]|[vv]|[vv,as v]] {10%}
-sht[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-t[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-tr[[vv]|[vv]|[vv]|[vv,as v]] {30%}
-th[[vv]|[vv]|[vv]|[vv,as v]] {80%}
-thr[[vv]|[vv]|[vv]|[vv,as v]] {20%}
-tl[[vv]|[vv]|[vv]|[vv,as v]] {30%}
-tz[[vv]|[vv]|[vv]|[vv,as v]] {30%}
-v[fbv] {50%}
-w[brv] {5%}
-y[[vv]|[vv]|[vv]|[vv,as v]] {60%}
-z[[vv]|[vv]|[vv]|[vv,as v]] {40%}
+    def helper_vv_vv_vv_vvv(self):
+        return random.choice([self.vv(), self.vv(), self.vv(), self.vv(v=True)])
 
-"""
-    def vv(self, v=False):
-        """
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        e {v:e}
-        e {v:e}
-        e {v:e}
-        e {v:e}
-        e {v:e}
-        e {v:e}
-        e {v:e}
-        i {v:i}
-        i {v:i}
-        i {v:i}
-        i {v:i}
-        i {v:i}
-        i {v:i}
-        i {v:i}
-        o {v:o}
-        o {v:o}
-        o {v:o}
-        o {v:o}
-        o {v:o}
-        u {v:u}
-        u {v:u}
-        u {v:u}
-        u {v:u}
-        a {v:a}{89%}
-        ā {v:a}{41%}
-        ae {v:e}{11%}
-        ai {v:i}{44%}
-        āi {v:i}{48%}
-        ao {v:o}{19%}
-        aō {v:o}{4%}
-        au {v:u}{11%}
-        e {v:e}{74%}
-        ē {v:e}{11%}
-        ea {v:a}{11%}
-        ei {v:i}{7%}
-        ēi {v:i}{4%}
-        eu {v:u}{7%}
-        i {v:i}{22%}
-        ī {v:i}{26%}
-        ia {v:a}{59%}
-        iā {v:a}{4%}
-        ie {v:e}{19%}
-        iē {v:e}{4%}
-        io {v:o}{30%}
-        iō {v:o}{4%}
-        iu {v:u}{7%}
-        ō {v:o}{22%}
-        u {v:u}{59%}
-        ū {v:u}{15%}
-        ua {v:a}{22%}
-        ui {v:i}{7%}
-        uo {v:o}{20%}
-        """
+    def second(self):
         options = [
-            
+            "b",
+            "d",
+            "d",
+            "g",
+            "g",
+            "h",
+            "k",
+            "k",
+            "k",
+            "k",
+            "x",
+            "l",
+            "l",
+            "l",
+            "l",
+            "l",
+            "ll",
+            "m",
+            "m",
+            "m",
+            "m",
+            "m",
+            "n",
+            "n",
+            "n",
+            "n",
+            "n",
+            "n",
+            "nd",
+            "p",
+            "r",
+            "r",
+            "r",
+            "r",
+            "r",
+            "r",
+            "r",
+            "r",
+            "r",
+            "r",
+            "r",
+            "s",
+            "s",
+            "s",
+            "sh",
+            "t",
+            "t",
+            "t",
+            "y",
+            "z",
         ]
+        self.random_add(options, "b", 0.50)
+        self.random_add(options, "br", 0.20)
+        self.random_add(options, "d", 0.50)
+        self.random_add(options, "dr", 0.30)
+        self.random_add(options, "f", 0.80)
+        self.random_add(options, "fr", 0.20)
+        self.random_add(options, "g", 0.20)
+        self.random_add(options, "gr", 0.50)
+        self.random_add(options, "h", 0.10)
+        self.random_add(options, "hr", 0.20)
+        self.random_add(options, "k", 0.20)
+        self.random_add(options, "kl", 0.30)
+        self.random_add(options, "kr", 0.30)
+        self.random_add(options, "x", 0.40)
+        self.random_add(options, "l", 0.80)
+        self.random_add(options, "lk", 0.50)
+        self.random_add(options, "lm", 0.40)
+        self.random_add(options, "lp", 0.30)
+        self.random_add(options, "lr", 0.30)
+        self.random_add(options, "lt", 0.20)
+        self.random_add(options, "lz", 0.30)
+        self.random_add(options, "m", 0.10)
+        self.random_add(options, "mb", 0.40)
+        self.random_add(options, "mf", 0.40)
+        self.random_add(options, "mm", 0.10)
+        self.random_add(options, "my", 0.10)
+        self.random_add(options, "n", 0.30)
+        self.random_add(options, "nd", 0.10)
+        self.random_add(options, "nj", 0.40)
+        self.random_add(options, "nm", 0.30)
+        self.random_add(options, "nn", 0.40)
+        self.random_add(options, "nt", 0.50)
+        self.random_add(options, "nth", 0.10)
+        self.random_add(options, "ny", 0.20)
+        self.random_add(options, "nz", 0.40)
+        self.random_add(options, "ng", 0.20)
+        self.random_add(options, "nk", 0.20)
+        self.random_add(options, "pl", 0.05)
+        self.random_add(options, "pr", 0.20)
+        self.random_add(options, "r", 0.20)
+        self.random_add(options, "rd", 0.30)
+        self.random_add(options, "rg", 0.40)
+        self.random_add(options, "rj", 0.10)
+        self.random_add(options, "rk", 0.60)
+        self.random_add(options, "rl", 0.20)
+        self.random_add(options, "rm", 0.60)
+        self.random_add(options, "rn", 0.20)
+        self.random_add(options, "rr", 0.50)
+        self.random_add(options, "rs", 0.30)
+        self.random_add(options, "rt", 0.10)
+        self.random_add(options, "rth", 0.20)
+        self.random_add(options, "rz", 0.20)
+        self.random_add(options, "sk", 0.10)
+        self.random_add(options, "sn", 0.20)
+        self.random_add(options, "sp", 0.05)
+        self.random_add(options, "ss", 0.30)
+        self.random_add(options, "st", 0.60)
+        self.random_add(options, "sh", 0.70)
+        self.random_add(options, "shr", 0.40)
+        self.random_add(options, "ssh", 0.10)
+        self.random_add(options, "sht", 0.20)
+        self.random_add(options, "t", 0.20)
+        self.random_add(options, "tr", 0.30)
+        self.random_add(options, "th", 0.80)
+        self.random_add(options, "thr", 0.20)
+        self.random_add(options, "tl", 0.30)
+        self.random_add(options, "tz", 0.30)
+        options = [x + self.helper_vv_vv_vv_vvv() for x in options]
+        options.extend(
+            [
+                "j" + self.bv(),
+                "v" + self.fbv(),
+            ]
+        )
+        self.random_add(options, "ch" + self.fv(), 0.70)
+        self.random_add(options, "j" + self.bv(), 0.20)
+        self.random_add(options, "dv" + self.fbv(), 0.30)
+        self.random_add(options, "dw" + self.brv(), 0.02)
+        self.random_add(options, "lv" + self.fbv(), 0.30)
+        self.random_add(options, "lw" + self.brv(), 0.10)
+        self.random_add(options, "nv" + self.fbv(), 0.20)
+        self.random_add(options, "nw" + self.brv(), 0.10)
+        self.random_add(options, "rv" + self.fbv(), 0.60)
+        self.random_add(options, "rw" + self.brv(), 0.04)
+        self.random_add(options, "v" + self.fbv(), 0.50)
+        self.random_add(options, "w" + self.brv(), 0.05)
+        return random.choice(options)
+
+    def vv(self, v=False):
+        options = [
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("o", "o"),
+            ("o", "o"),
+            ("o", "o"),
+            ("o", "o"),
+            ("o", "o"),
+            ("u", "u"),
+            ("u", "u"),
+            ("u", "u"),
+            ("u", "u"),
+        ]
+        self.random_add(options, ("a", "a"), 0.89)
+        self.random_add(options, ("ā", "a"), 0.41)
+        self.random_add(options, ("ae", "e"), 0.11)
+        self.random_add(options, ("ai", "i"), 0.44)
+        self.random_add(options, ("āi", "i"), 0.48)
+        self.random_add(options, ("ao", "o"), 0.19)
+        self.random_add(options, ("aō", "o"), 0.04)
+        self.random_add(options, ("au", "u"), 0.11)
+        self.random_add(options, ("e", "e"), 0.74)
+        self.random_add(options, ("ē", "e"), 0.11)
+        self.random_add(options, ("ea", "a"), 0.11)
+        self.random_add(options, ("ei", "i"), 0.07)
+        self.random_add(options, ("ēi", "i"), 0.04)
+        self.random_add(options, ("eu", "u"), 0.07)
+        self.random_add(options, ("i", "i"), 0.22)
+        self.random_add(options, ("ī", "i"), 0.26)
+        self.random_add(options, ("ia", "a"), 0.59)
+        self.random_add(options, ("iā", "a"), 0.04)
+        self.random_add(options, ("ie", "e"), 0.19)
+        self.random_add(options, ("iē", "e"), 0.04)
+        self.random_add(options, ("io", "o"), 0.30)
+        self.random_add(options, ("iō", "o"), 0.04)
+        self.random_add(options, ("iu", "u"), 0.07)
+        self.random_add(options, ("ō", "o"), 0.22)
+        self.random_add(options, ("u", "u"), 0.59)
+        self.random_add(options, ("ū", "u"), 0.15)
+        self.random_add(options, ("ua", "a"), 0.22)
+        self.random_add(options, ("ui", "i"), 0.07)
+        self.random_add(options, ("uo", "o"), 0.20)
         choice = random.choice(options)
         if v:
             return choice[1]
         return choice[0]
 
     def fv(self, v=False):
-        """
-        $fv
-        e {v:e}
-        e {v:e}
-        e {v:e}
-        e {v:e}
-        e {v:e}
-        e {v:e}
-        e {v:e}
-        i {v:i}
-        i {v:i}
-        i {v:i}
-        i {v:i}
-        i {v:i}
-        i {v:i}
-        i {v:i}
-        e {v:e}{74%}
-        ē {v:e}{11%}
-        ea {v:a}{11%}
-        ei {v:i}{7%}
-        ēi {v:i}{4%}
-        eu {v:u}{7%}
-        i {v:i}{22%}
-        ī {v:i}{26%}
-        ia {v:a}{59%}
-        iā {v:a}{4%}
-        ie {v:e}{19%}
-        iē {v:e}{4%}
-        io {v:o}{30%}
-        iō {v:o}{4%}
-        iu {v:u}{7%}
-        """
         options = [
-            
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
         ]
+        self.random_add(options, ("e", "e"), 0.74)
+        self.random_add(options, ("ē", "e"), 0.11)
+        self.random_add(options, ("ea", "a"), 0.11)
+        self.random_add(options, ("ei", "i"), 0.07)
+        self.random_add(options, ("ēi", "i"), 0.04)
+        self.random_add(options, ("eu", "u"), 0.07)
+        self.random_add(options, ("i", "i"), 0.22)
+        self.random_add(options, ("ī", "i"), 0.26)
+        self.random_add(options, ("ia", "a"), 0.59)
+        self.random_add(options, ("iā", "a"), 0.04)
+        self.random_add(options, ("ie", "e"), 0.19)
+        self.random_add(options, ("iē", "e"), 0.04)
+        self.random_add(options, ("io", "o"), 0.30)
+        self.random_add(options, ("iō", "o"), 0.04)
+        self.random_add(options, ("iu", "u"), 0.07)
         choice = random.choice(options)
         if v:
             return choice[1]
         return choice[0]
+
     def bv(self, v=False):
-        """
-        $bv
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        o {v:o}
-        o {v:o}
-        o {v:o}
-        o {v:o}
-        o {v:o}
-        u {v:u}
-        u {v:u}
-        u {v:u}
-        u {v:u}
-        a {v:a}{89%}
-        ā {v:a}{41%}
-        ae {v:e}{11%}
-        ai {v:i}{44%}
-        āi {v:i}{48%}
-        ao {v:o}{19%}
-        aō {v:o}{4%}
-        au {v:u}{11%}
-        ō {v:o}{22%}
-        u {v:u}{59%}
-        ū {v:u}{15%}
-        ua {v:a}{22%}
-        ui {v:i}{7%}
-        uo {v:o}{20%}
-        """
         options = [
-            
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("o", "o"),
+            ("o", "o"),
+            ("o", "o"),
+            ("o", "o"),
+            ("o", "o"),
+            ("u", "u"),
+            ("u", "u"),
+            ("u", "u"),
+            ("u", "u"),
         ]
+        self.random_add(options, ("a", "a"), 0.89)
+        self.random_add(options, ("ā", "a"), 0.41)
+        self.random_add(options, ("ae", "e"), 0.11)
+        self.random_add(options, ("ai", "i"), 0.44)
+        self.random_add(options, ("āi", "i"), 0.48)
+        self.random_add(options, ("ao", "o"), 0.19)
+        self.random_add(options, ("aō", "o"), 0.04)
+        self.random_add(options, ("au", "u"), 0.11)
+        self.random_add(options, ("ō", "o"), 0.22)
+        self.random_add(options, ("u", "u"), 0.59)
+        self.random_add(options, ("ū", "u"), 0.15)
+        self.random_add(options, ("ua", "a"), 0.22)
+        self.random_add(options, ("ui", "i"), 0.07)
+        self.random_add(options, ("uo", "o"), 0.20)
         choice = random.choice(options)
         if v:
             return choice[1]
         return choice[0]
 
     def fbv(self, v=False):
-        """
-        $fbv
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        a {v:a}
-        e {v:e}
-        e {v:e}
-        e {v:e}
-        e {v:e}
-        e {v:e}
-        e {v:e}
-        e {v:e}
-        i {v:i}
-        i {v:i}
-        i {v:i}
-        i {v:i}
-        i {v:i}
-        i {v:i}
-        i {v:i}
-        a {v:a}{89%}
-        ā {v:a}{41%}
-        ae {v:e}{11%}
-        ai {v:i}{44%}
-        āi {v:i}{48%}
-        ao {v:o}{19%}
-        aō {v:o}{4%}
-        au {v:u}{11%}
-        e {v:e}{74%}
-        ē {v:e}{11%}
-        ea {v:a}{11%}
-        ei {v:i}{7%}
-        ēi {v:i}{4%}
-        eu {v:u}{7%}
-        i {v:i}{22%}
-        ī {v:i}{26%}
-        ia {v:a}{59%}
-        iā {v:a}{4%}
-        ie {v:e}{19%}
-        iē {v:e}{4%}
-        io {v:o}{30%}
-        iō {v:o}{4%}
-        iu {v:u}{7%}
-        """
         options = [
-            
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("a", "a"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("e", "e"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
+            ("i", "i"),
         ]
+        self.random_add(options, ("a", "a"), 0.89)
+        self.random_add(options, ("ā", "a"), 0.41)
+        self.random_add(options, ("ae", "e"), 0.11)
+        self.random_add(options, ("ai", "i"), 0.44)
+        self.random_add(options, ("āi", "i"), 0.48)
+        self.random_add(options, ("ao", "o"), 0.19)
+        self.random_add(options, ("aō", "o"), 0.04)
+        self.random_add(options, ("au", "u"), 0.11)
+        self.random_add(options, ("e", "e"), 0.74)
+        self.random_add(options, ("ē", "e"), 0.11)
+        self.random_add(options, ("ea", "a"), 0.11)
+        self.random_add(options, ("ei", "i"), 0.07)
+        self.random_add(options, ("ēi", "i"), 0.04)
+        self.random_add(options, ("eu", "u"), 0.07)
+        self.random_add(options, ("i", "i"), 0.22)
+        self.random_add(options, ("ī", "i"), 0.26)
+        self.random_add(options, ("ia", "a"), 0.59)
+        self.random_add(options, ("iā", "a"), 0.04)
+        self.random_add(options, ("ie", "e"), 0.19)
+        self.random_add(options, ("iē", "e"), 0.04)
+        self.random_add(options, ("io", "o"), 0.30)
+        self.random_add(options, ("iō", "o"), 0.04)
+        self.random_add(options, ("iu", "u"), 0.07)
         choice = random.choice(options)
         if v:
             return choice[1]
         return choice[0]
 
     def brv(self, v=False):
-        """
-        o {v:o}
-        o {v:o}
-        o {v:o}
-        o {v:o}
-        o {v:o}
-        u {v:u}
-        u {v:u}
-        u {v:u}
-        u {v:u}
-        ō {v:o}{22%}
-        u {v:u}{59%}
-        ū {v:u}{15%}
-        ua {v:a}{22%}
-        ui {v:i}{7%}
-        uo {v:o}{20%}
-        """
         options = [
-            
+            ("o", "o"),
+            ("o", "o"),
+            ("o", "o"),
+            ("o", "o"),
+            ("o", "o"),
+            ("u", "u"),
+            ("u", "u"),
+            ("u", "u"),
+            ("u", "u"),
         ]
+        self.random_add(options, ("ō", "o"), 0.22)
+        self.random_add(options, ("u", "u"), 0.59)
+        self.random_add(options, ("ū", "u"), 0.15)
+        self.random_add(options, ("ua", "a"), 0.22)
+        self.random_add(options, ("ui", "i"), 0.07)
+        self.random_add(options, ("uo", "o"), 0.20)
         choice = random.choice(options)
         if v:
             return choice[1]
         return choice[0]
-    
+
     def end(self):
         options = [
-"k",
-"l",
-"n",
-"n",
-"n",
-"n",
-"n",
-"r",
-"s",
-"s",
-            
+            "k",
+            "l",
+            "n",
+            "n",
+            "n",
+            "n",
+            "n",
+            "r",
+            "s",
+            "s",
         ]
         self.random_add(options, "", 0.44)
         self.random_add(options, "d", 0.24)
