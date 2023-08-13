@@ -34,10 +34,24 @@ class MageCreationForm(forms.Form):
             ]
         ),
     )
-    faction = forms.ModelChoiceField(queryset=MageFaction.objects.all(), required=False)
-    subfaction = forms.ModelChoiceField(
-        queryset=MageFaction.objects.all(), required=False
+    faction = forms.ModelChoiceField(
+        queryset=MageFaction.objects.none(), required=False
     )
+    subfaction = forms.ModelChoiceField(
+        queryset=MageFaction.objects.none(), required=False
+    )
+
+    def clean_faction(self):
+        faction = self.cleaned_data.get("faction")
+        if faction and not MageFaction.objects.filter(id=faction.id).exists():
+            raise forms.ValidationError("Invalid faction selected")
+        return faction
+
+    def clean_subfaction(self):
+        subfaction = self.cleaned_data.get("subfaction")
+        if subfaction and not MageFaction.objects.filter(id=subfaction.id).exists():
+            raise forms.ValidationError("Invalid subfaction selected")
+        return subfaction
 
 
 class MageAbilitiesForm(forms.Form):
@@ -203,7 +217,9 @@ class MageAdvantagesForm(forms.Form):
 
     arete = forms.IntegerField(max_value=3, min_value=1)
 
-    affinity_sphere = forms.CharField(widget=forms.Select(choices=[("----", "----")]),)
+    affinity_sphere = forms.CharField(
+        widget=forms.Select(choices=[("----", "----")]),
+    )
 
     paradigms = forms.ModelMultipleChoiceField(
         required=False, queryset=Paradigm.objects.all()
@@ -260,7 +276,8 @@ class MagePowersForm(forms.Form):
     life = forms.IntegerField(max_value=5, min_value=0)
 
     resonance = forms.CharField(
-        required=False, widget=AutocompleteTextInput(suggestions=[]),
+        required=False,
+        widget=AutocompleteTextInput(suggestions=[]),
     )
 
     def __init__(self, *args, **kwargs):
